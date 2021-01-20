@@ -1,37 +1,85 @@
-## Welcome to GitHub Pages
+# Dumbdown - The dumb alternative to markdown
 
-You can use the [editor on GitHub](https://github.com/treenotation/dumbdown/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+(Note: this Readme.md file is written in markdown,
+but if someone wants to work on Dumbdown syntax
+highlighting for GitHub that would be great!
+Issue is here: https://github.com/treenotation/dumbdown/issues/1)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## First, an example
 
-### Markdown
+```dumbdown
+title This is Dumbdown. The keyword for title is title.
+subtitle Dumbdown compiles to html.
+paragraph Dumbdown is an alternative to Markdown.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+paragraph Blank lines get turned into <br>
 
-```markdown
-Syntax highlighted code block
+link https://treenotation.org/ It is built on Tree Notation
 
-# Header 1
-## Header 2
-### Header 3
+code
+ alert(`The keyword for code blocks is "code"`)
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+list
+ - Dumbdown supports lists
+ - Dumbdown is a demonstration Tree Language from the Tree Notation Lab
+ - This is a very early version
+ - Dumbdown is released to the public domain
+ - If you want to make it better, please do!
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Try it Now
 
-### Jekyll Themes
+The original prototype:
+https://jtree.treenotation.org/designer/#standard%20dumbdown
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/treenotation/dumbdown/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+An actual v1 spec is now in the discussion phase.
 
-### Support or Contact
+## Why Dumbdown?
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Do you want a markup language that doesn't
+require memorizing esoteric symbols but uses words
+instead?
+
+Do you want a markup langauge where you not only
+don't have to remember which order brackets go in—
+is it ()[] or []()—but that doesn't use brackets
+at all?!
+
+Do you want a markup language that is extensible,
+so you can store your own custom config data right
+alongside your content?
+
+Do you want a markup language where it is super
+easy to embed any kind of data or code without
+doing adding escape characters?
+
+Do you want a markup language that you could
+write your own parser for without having to
+learn complex parsing techniques?
+
+If you answered YES to the questions above, then
+Dumbdown is for you?!
+
+## Features
+
+1. Keywords instead of key characters. ie "title" instead of "#".
+2. No brackets. Links are just "link", or type the full url for inline links.
+3. Stick your own custom config data in. Every file parses to a map. i.e. "published true".
+4. No need to escape characters for snippets. Just indent blocks.
+5. Very easy to write your own parsers for. It's just Tree Notation.
+
+## Release Notes
+
+Version 0.2 01/20/2021
+ Let's make this a real thing. Readme and GitHub project started.
+Version 0.1 09/01/2019
+ Prototype and idea first launched.
+
+## Important
+
+It should go without saying, but this is public domain.
+
+Dumbdown is dedicated to my friend, and one of my best
+mentors and heroes Aaron Swartz.
+
+http://www.aaronsw.com/weblog/001189
