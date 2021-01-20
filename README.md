@@ -1,11 +1,5 @@
 # Dumbdown - The dumb alternative to markdown
 
-(Note: this Readme.md file is written in markdown,
-but if someone wants to work on Dumbdown syntax
-highlighting for GitHub, once we have a spec,
-that would be great!
-Issue is here: https://github.com/treenotation/dumbdown/issues/1)
-
 ## First, an example
 
 ```dumbdown
@@ -68,6 +62,16 @@ Dumbdown is for you?!
 3. Stick your own custom config data in. Every file parses to a map. i.e. "published true".
 4. No need to escape characters for snippets. Just indent blocks.
 5. Very easy to write your own parsers for. It's just Tree Notation.
+
+## Project Status
+
+Discussing spec for v1.
+
+Note: this Readme.md file is written in markdown,
+but if someone wants to work on Dumbdown syntax
+highlighting for GitHub, once we have a spec,
+that would be great!
+Issue is here: https://github.com/treenotation/dumbdown/issues/1
 
 ## Release Notes
 
