@@ -31,24 +31,24 @@ An actual v1 spec is now in the discussion phase.
 
 ## Why Dumbdown?
 
-Do you want a markup language that doesn't
+- Do you want a markup language that doesn't
 require memorizing esoteric symbols but uses words
 instead?
 
-Do you want a markup langauge where you not only
+- Do you want a markup langauge where you not only
 don't have to remember which order brackets go in—
 is it ()[] or []()—but that doesn't use brackets
 at all?!
 
-Do you want a markup language that is extensible,
+- Do you want a markup language that is extensible,
 so you can store your own custom config data right
 alongside your content?
 
-Do you want a markup language where it is super
+- Do you want a markup language where it is super
 easy to embed any kind of data or code without
 doing adding escape characters?
 
-Do you want a markup language that you could
+- Do you want a markup language that you could
 write your own parser for without having to
 learn complex parsing techniques?
 
@@ -65,26 +65,27 @@ Dumbdown is for you?!
 
 ## Project Status
 
-Discussing spec for v1.
+**Discussing spec for v1.**
 
 Note: this Readme.md file is written in markdown,
 but if someone wants to work on Dumbdown syntax
 highlighting for GitHub, once we have a spec,
 that would be great!
+
 Issue is here: https://github.com/treenotation/dumbdown/issues/1
 
 ## Release Notes
 
-Version 0.2 01/20/2021
- Let's make this a real thing. Readme and GitHub project started.
-Version 0.1 09/01/2019
- Prototype and idea first launched.
+- Version 0.2 01/20/2021
+-- Let's make this a real thing. Readme and GitHub project started.
+- Version 0.1 09/01/2019
+-- Prototype and idea first launched.
 
 ## Important
 
 It should go without saying, but this is public domain.
 
-Dumbdown is dedicated to my friend, and one of my best
-mentors and heroes Aaron Swartz.
+Dumbdown is made with love in memory and honor
+of Aaron Swartz.
 
 http://www.aaronsw.com/weblog/001189
