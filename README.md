@@ -81,6 +81,15 @@ Issue is here: https://github.com/treenotation/dumbdown/issues/1
 - Version 0.1 09/01/2019
 -- Prototype and idea first launched.
 
+## Leadership
+
+breck7 is currently the BDFL: Benevolent Dumbass
+For Life. But if you feel like you can be a better
+Dumbass, please either fork this project and prove
+it, or just get involved and stage a peaceful
+coup. Breck would happily relinguish the BDFL
+title if a better Dumbass comes along.
+
 ## Important
 
 It should go without saying, but this is public domain.
