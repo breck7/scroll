@@ -21,11 +21,11 @@ code
  alert(`The keyword for code blocks is "code"`)
 
 list
- - Dumbdown supports lists
- - Dumbdown is a demonstration Tree Language from the Tree Notation Lab
- - This is a very early version
- - Dumbdown is released to the public domain
- - If you want to make it better, please do!
+ item Dumbdown supports lists
+ item For now the keyword for an item is "item"
+ item This is a very early version
+ item Dumbdown is released to the public domain
+ item If you want to make it better, please do!
 ```
 
 ## Try it Now
