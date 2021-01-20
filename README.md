@@ -65,7 +65,9 @@ Dumbdown is for you?!
 
 ## Project Status
 
-**Discussing spec for v1.**
+**Currently: Discussing spec for v1.**
+
+**Goal by January, 2022: Ship a final v1 spec**
 
 Note: this Readme.md file is written in markdown,
 but if someone wants to work on Dumbdown syntax
