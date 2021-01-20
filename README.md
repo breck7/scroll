@@ -2,7 +2,8 @@
 
 (Note: this Readme.md file is written in markdown,
 but if someone wants to work on Dumbdown syntax
-highlighting for GitHub that would be great!
+highlighting for GitHub, once we have a spec,
+that would be great!
 Issue is here: https://github.com/treenotation/dumbdown/issues/1)
 
 ## First, an example
