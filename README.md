@@ -83,12 +83,12 @@ Issue is here: https://github.com/treenotation/dumbdown/issues/1
 
 ## Leadership
 
-breck7 is currently the BDFL: Benevolent Dumbass
+breck7 is currently the BDFL: Benevolent Dummy
 For Life. But if you feel like you can be a better
-Dumbass, please either fork this project and prove
+Dummy, please either fork this project and prove
 it, or just get involved and stage a peaceful
 coup. Breck would happily relinguish the BDFL
-title if a better Dumbass comes along.
+title if a better Dummy comes along.
 
 ## Important
 
