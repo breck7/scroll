@@ -116,6 +116,21 @@ never before tried:
      sentence in <b></b> simply
      by ending it with❗
 
+**Why not use a shorter syntax?**
+
+Although you can use Dumbdown with any text
+editor, since it is so simple, Dumbdown is not
+designed with today's editors in mind.
+
+It's designed for a new upcoming wave of
+so called "2-Dimensional" editors. Think
+of Spreedsheets, with grids, instead of IDEs.
+
+Dumbdown is designed to be best used in
+editors that support advanced autocomplete,
+type checking, syntax highlighting,
+additional secondary notations, and real
+time projections.
 
 ## Release Notes
 
