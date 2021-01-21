@@ -1,5 +1,5 @@
 {
-  "name": "dumbdown",
+  "name": "dumbdown-js",
   "version": "1.0.0",
   "description": "The dumb alternative to markdown. The keyword for title is title.",
   "main": "index.js",
