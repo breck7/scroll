@@ -76,6 +76,47 @@ that would be great!
 
 Issue is here: https://github.com/treenotation/dumbdown/issues/1
 
+## FAQ
+
+**How do I do inline formatting like bold, italics,
+and links?**
+
+Tree Languages are very different than
+traditional languages.
+
+They combine exceptionally well.
+
+You can literally just copy and paste
+2 grammars together, and then change
+just 1 or 2 lines of code and get a
+new "3rd" language that incorporates
+both.
+
+This enables many approaches to supporting
+any style of node that would support
+inline formats.
+
+For example, I could create a node type
+called `markdownParagraph` and then a
+user could use normal markdown inside
+a Dumbdown document:
+
+
+    markdownParagraph
+     Put **bold** or _italic_ text
+     here, or [links](/link).
+
+But that's just the beginning! Imagine
+extending Dumbdown with brand new ideas,
+never before tried:
+
+    emojiParagraph
+     In this hypothetical emoji
+     paragraph you can wrap a
+     sentence in <b></b> simply
+     by ending it with❗
+
+
 ## Release Notes
 
 - Version 0.2 01/20/2021
