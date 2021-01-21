@@ -1,0 +1,19 @@
+{
+  "name": "dumbdown",
+  "version": "1.0.0",
+  "description": "The dumb alternative to markdown. The keyword for title is title.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/treenotation/dumbdown.git"
+  },
+  "author": "Breck Yunits",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/treenotation/dumbdown/issues"
+  },
+  "homepage": "https://github.com/treenotation/dumbdown#readme"
+}
