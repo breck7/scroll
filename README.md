@@ -132,6 +132,14 @@ type checking, syntax highlighting,
 additional secondary notations, and real
 time projections.
 
+**Can I compile my dumbdown docs into markdown instead of HTML?**
+
+Yes. The first prototype compiled to markdown.
+That was just dropped for simplicity in the second
+prototype which just compiles to HTML. But
+actual real implementations will likely compile
+to both.
+
 ## Release Notes
 
 - Version 0.2 01/20/2021
