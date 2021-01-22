@@ -29,6 +29,20 @@ https://jtree.treenotation.org/designer/#standard%20dumbdown
 
 An actual v1 spec is now in the discussion phase.
 
+## Install the NPM package
+
+Dumbdown is on NPM:
+https://www.npmjs.com/package/dumbdown-js
+
+
+```
+npm install dumbdown-js
+```
+
+(Note: the npm package currently does
+absolutely nothing)
+
+
 ## Why Dumbdown?
 
 - Do you want a markup language that doesn't
