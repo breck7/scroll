@@ -29,42 +29,46 @@ https://jtree.treenotation.org/designer/#standard%20dumbdown
 
 An actual v1 spec is now in the discussion phase.
 
-## Install the NPM package
+### Install the Dumbdown Static Blog tool
 
-Dumbdown is on NPM:
-https://www.npmjs.com/package/dumbdown-js
+In addition to containing the Dumbdown spec,
+this repo contain a simple static blog software
+as a demo app using Dumbdown.
 
+Link: https://www.npmjs.com/package/dumbdown-js
 
 ```
-npm install dumbdown-js
+npm install -g dumbdown-js
 ```
 
-(Note: the npm package currently does
-absolutely nothing)
+### CLI Usage
 
+```
+dumbdown
+```
 
 ## Why Dumbdown?
 
-- Do you want a markup language that doesn't
-require memorizing esoteric symbols but uses words
-instead?
+-   Do you want a markup language that doesn't
+    require memorizing esoteric symbols but uses words
+    instead?
 
-- Do you want a markup langauge where you not only
-don't have to remember which order brackets go in—
-is it ()[] or []()—but that doesn't use brackets
-at all?!
+-   Do you want a markup langauge where you not only
+    don't have to remember which order brackets go in—
+    is it ()[] or []()—but that doesn't use brackets
+    at all?!
 
-- Do you want a markup language that is extensible,
-so you can store your own custom config data right
-alongside your content?
+-   Do you want a markup language that is extensible,
+    so you can store your own custom config data right
+    alongside your content?
 
-- Do you want a markup language where it is super
-easy to embed any kind of data or code without
-doing adding escape characters?
+-   Do you want a markup language where it is super
+    easy to embed any kind of data or code without
+    doing adding escape characters?
 
-- Do you want a markup language that you could
-write your own parser for without having to
-learn complex parsing techniques?
+-   Do you want a markup language that you could
+    write your own parser for without having to
+    learn complex parsing techniques?
 
 If you answered YES to the questions above, then
 Dumbdown is for you?!
@@ -115,7 +119,6 @@ called `markdownParagraph` and then a
 user could use normal markdown inside
 a Dumbdown document:
 
-
     markdownParagraph
      Put **bold** or _italic_ text
      here, or [links](/link).
@@ -156,10 +159,10 @@ to both.
 
 ## Release Notes
 
-- Version 0.2 01/20/2021
--- Let's make this a real thing. Readme and GitHub project started.
-- Version 0.1 09/01/2019
--- Prototype and idea first launched.
+-   Version 0.2 01/20/2021
+    -- Let's make this a real thing. Readme and GitHub project started.
+-   Version 0.1 09/01/2019
+    -- Prototype and idea first launched.
 
 ## Leadership
 
