@@ -29,23 +29,15 @@ https://jtree.treenotation.org/designer/#standard%20dumbdown
 
 An actual v1 spec is now in the discussion phase.
 
-### Install the Dumbdown Static Blog tool
+### Dub: Demonstration app
 
 In addition to containing the Dumbdown spec,
-this repo contain a simple static blog software
-as a demo app using Dumbdown.
+this repo contains a demo application which is
+a simple static blog software called "Dub".
 
-Link: https://www.npmjs.com/package/dumbdown-js
+Dub has its own readme:
 
-```
-npm install -g dumbdown-js
-```
-
-### CLI Usage
-
-```
-dumbdown
-```
+https://github.com/treenotation/dumbdown/blob/master/dub/readme.md
 
 ## Why Dumbdown?
 
