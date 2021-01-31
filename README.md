@@ -29,15 +29,15 @@ https://jtree.treenotation.org/designer/#standard%20dumbdown
 
 An actual v1 spec is now in the discussion phase.
 
-### Dub: Demonstration app
+### Dud: Demonstration app
 
 In addition to containing the Dumbdown spec,
 this repo contains a demo application which is
-a simple static blog software called "Dub".
+a simple static blog software called "Dud".
 
-Dub has its own readme:
+Dud has its own readme:
 
-https://github.com/treenotation/dumbdown/blob/master/dub/readme.md
+https://github.com/treenotation/dumbdown/blob/master/dud/readme.md
 
 ## Why Dumbdown?
 

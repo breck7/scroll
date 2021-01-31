@@ -1,13 +1,13 @@
 {
   "name": "dumbdown-js",
   "version": "1.0.0",
-  "description": "The dumb alternative to markdown. The keyword for title is title. Includes Dub static blog software.",
+  "description": "The dumb alternative to markdown. The keyword for title is title. Includes Dud static blog software.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "dumbdown": "./dub/dubCli.js"
+    "dud": "./dud/dudCli.js"
   },
   "repository": {
     "type": "git",
