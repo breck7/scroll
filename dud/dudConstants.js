@@ -1,20 +1,22 @@
-// Layout:
 
-// [post][commands][preview]
+class DudClientRequest {}
 
-// Commands include:
-// Save File
-// Open file
-// export folder to dba file
-// open folder or dba file
-// export site to html
-// connect to server
-// delete file
-// rename permalink
-// change theme
-// change component/template
+class DudServerResponse {
+	success = false
+    error = undefined
+}
 
 
-// OR
+class SaveStampRequest extends DudClientRequest {}
+class SaveStampResponse extends DudServerResponse {}
 
-// [view all. global commands.][post, post commands.][preview]
+class CreateStampRequest extends DudClientRequest {}
+class CreateStampResponse extends DudServerResponse {}
+
+
+class ReadStampRequest extends DudClientRequest {}
+class ReadStampResponse extends DudServerResponse {}
+
+
+class UnpackStampRequest extends DudClientRequest {}
+class UnpackStampResponse extends DudServerResponse {}
