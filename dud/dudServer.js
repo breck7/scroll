@@ -1,6 +1,3 @@
+class DudServer {}
 
-
-class DudServer {
-
-}
-
+module.exports = { DudServer }
