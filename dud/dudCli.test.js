@@ -7,6 +7,12 @@ testTree.basics = (areEqual) => {
 	areEqual(!!server, true)
 }
 
+testTree.toStamp = (areEqual) => {
+	const server = new DudServer()
+	const stamp = server.toStamp()
+	areEqual(!!stamp.includes("awesome"), true)
+}
+
 testTree.fullIntegrationTest = (areEqual) => {
 	const server = new DudServer()
 	areEqual(!!server, true)

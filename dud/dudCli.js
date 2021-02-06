@@ -2,6 +2,8 @@
 
 const minimist = require("minimist")
 const express = require("express")
+const path = require("path")
+const stamp = require("jtree/products/stamp.nodejs.js")
 const { DudBlog } = require("./dudBlog.js")
 const fse = require("fs-extra")
 
@@ -22,17 +24,34 @@ class DudServer {
 		app.use(express.static(this.filesFolder))
 
 		app.listen(port, () => {
-			console.log(`Running Dud. cmd+dblclick: http://localhost:${port}/`)
+			console.log(
+				`\n🌌 ​Running Dud. cmd+dblclick: http://localhost:${port}/`
+			)
 		})
+	}
+
+	toStamp() {
+		const providedPathWithoutEndingSlash = this.folder.replace(/\/$/, "")
+		const absPath = path.resolve(providedPathWithoutEndingSlash)
+		return stamp.dirToStampWithContents(absPath)
 	}
 }
 
+const CommandFnDecoratorSuffix = "Command"
+
 class DudCli {
 	execute(argv) {
-		console.log("Welcome to Dud.")
+		console.log("🚀🚀🚀 WELCOME TO DUD 🚀🚀🚀")
 		const command = argv[0]
-		if (this[command]) this[command](argv[1])
+		const commandName = `${command}${CommandFnDecoratorSuffix}`
+		if (this[commandName]) this[commandName](argv[1])
 		else this.showCommandsCommand()
+	}
+
+	_getAllCommands() {
+		return Object.getOwnPropertyNames(Object.getPrototypeOf(this))
+			.filter((word) => word.endsWith(CommandFnDecoratorSuffix))
+			.sort()
 	}
 
 	startExpressServerCommand(portNumber = 1145) {
@@ -41,7 +60,17 @@ class DudCli {
 	}
 
 	showCommandsCommand() {
-		console.log("startExpressServerCommand")
+		console.log(
+			`\nAvailable commands are:\n\n${this._getAllCommands()
+				.map(
+					(comm) => `🏀 ` + comm.replace(CommandFnDecoratorSuffix, "")
+				)
+				.join("\n")}\n​​`
+		)
+	}
+
+	blogToStampCommand(dir) {
+		console.log(new DudServer(dir).toStamp())
 	}
 }
 
