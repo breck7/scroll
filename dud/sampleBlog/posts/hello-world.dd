@@ -1,0 +1,10 @@
+title Hello world
+
+published true
+
+paragraph
+ Hello, world. This is a blog post written
+ in dumbdown.
+
+ It is part of the sample app in the static
+ blogging software called Dug.
