@@ -1,4 +1,4 @@
-# Dud: Don't Use Dumbdown
+# Dud: Dud Uses Dumbdown
 
 Dud is simple blogging software whose purpose is to
 demonstrate the pros and cons of Dumbdown for static
@@ -24,17 +24,12 @@ dud
 
 ### Architecture
 
-Dud consists of a single page web app called DudEditor that
-is plain HTML and CSS. You can use this HTML file standalone
-and just read and write to your browsers local storage.
+You use Dud through the command line. A Dud blog is a
+folder with a specific project layout. Dud compiles that
+Dud folder into a static HTML folder.
 
-Dud also contains a single page Node.js Express app if
-you'd like to read and write a site to disk.
-
-Dud imports and exports entire blogs as Stamp files.
-
-Dud publishes an entire blog as simply a folder with HTML
-files.
+Dud also contains a simple Node.js Express app for live
+preview.
 
 ### File Formats
 
@@ -52,6 +47,17 @@ ergonomic pain is expected but we'll see.
 
 https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html
 
+TypeScript may be used in the future, but for now a
+design goal of Dud is to keep things minimial and
+close to the metal, and if it means slightly worse
+type checking and docs.
+
+### Roadmap
+
+In the future there may also be a single page web app
+called DudEditor that is plain HTML and CSS. You can use
+this HTML file standalone and just read and write to your
+browsers local storage.
 
 ## Alternatives Considered
 
