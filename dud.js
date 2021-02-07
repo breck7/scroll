@@ -64,7 +64,7 @@ class DudCli {
 	}
 
 	createBlogCommand(destinationFolderName = `new-blog-${Date.now()}`) {
-		const template = new DudServer().toStamp()
+		const template = new DudServer().toStamp().replace(/sampleBlog/g, destinationFolderName)
 		new stamp(template).execute()
 	}
 
