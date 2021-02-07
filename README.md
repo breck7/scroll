@@ -37,30 +37,30 @@ a simple static blog software called "Dud".
 
 Dud has its own readme:
 
-https://github.com/treenotation/dumbdown/blob/master/dud/readme.md
+https://github.com/treenotation/dumbdown/blob/master/dud.md
 
 ## Why Dumbdown?
 
--   Do you want a markup language that doesn't
-    require memorizing esoteric symbols but uses words
-    instead?
+- Do you want a markup language that doesn't
+  require memorizing esoteric symbols but uses words
+  instead?
 
--   Do you want a markup langauge where you not only
-    don't have to remember which order brackets go in—
-    is it ()[] or []()—but that doesn't use brackets
-    at all?!
+- Do you want a markup langauge where you not only
+  don't have to remember which order brackets go in—
+  is it ()[] or []()—but that doesn't use brackets
+  at all?!
 
--   Do you want a markup language that is extensible,
-    so you can store your own custom config data right
-    alongside your content?
+- Do you want a markup language that is extensible,
+  so you can store your own custom config data right
+  alongside your content?
 
--   Do you want a markup language where it is super
-    easy to embed any kind of data or code without
-    doing adding escape characters?
+- Do you want a markup language where it is super
+  easy to embed any kind of data or code without
+  doing adding escape characters?
 
--   Do you want a markup language that you could
-    write your own parser for without having to
-    learn complex parsing techniques?
+- Do you want a markup language that you could
+  write your own parser for without having to
+  learn complex parsing techniques?
 
 If you answered YES to the questions above, then
 Dumbdown is for you?!
@@ -151,10 +151,10 @@ to both.
 
 ## Release Notes
 
--   Version 0.2 01/20/2021
-    -- Let's make this a real thing. Readme and GitHub project started.
--   Version 0.1 09/01/2019
-    -- Prototype and idea first launched.
+- Version 0.2 01/20/2021
+  -- Let's make this a real thing. Readme and GitHub project started.
+- Version 0.1 09/01/2019
+  -- Prototype and idea first launched.
 
 ## Leadership
 

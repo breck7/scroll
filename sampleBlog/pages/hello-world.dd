@@ -2,6 +2,8 @@ title Hello world
 
 published true
 
+layout post
+
 paragraph
  Hello, world. This is a blog post written
  in dumbdown.

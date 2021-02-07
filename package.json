@@ -7,7 +7,7 @@
     "test": "tap"
   },
   "bin": {
-    "dud": "./dud/dudCli.js"
+    "dud": "./dud.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,12 @@
   "license": "Unlicense",
   "bugs": {
     "url": "https://github.com/treenotation/dumbdown/issues"
+  },
+  "prettier": {
+    "useTabs": false,
+    "tabWidth": 2,
+    "semi": false,
+    "printWidth": 240
   },
   "homepage": "https://github.com/treenotation/dumbdown#readme",
   "dependencies": {

@@ -4,8 +4,19 @@ const minimist = require("minimist")
 const express = require("express")
 const path = require("path")
 const stamp = require("jtree/products/stamp.nodejs.js")
-const { DudBlog } = require("./dudBlog.js")
 const fse = require("fs-extra")
+
+class DudPage {
+	isDraft() {}
+}
+
+class DudBlog {
+	constructor() {}
+	fromHtmlStamp() {}
+	toHtmlStamp() {}
+
+	get publishedPages() {}
+}
 
 class DudServer {
 	constructor(blogFolder = __dirname + "/sampleBlog") {
@@ -24,9 +35,7 @@ class DudServer {
 		app.use(express.static(this.filesFolder))
 
 		app.listen(port, () => {
-			console.log(
-				`\n🌌 ​Running Dud. cmd+dblclick: http://localhost:${port}/`
-			)
+			console.log(`\n🌌 ​Running Dud. cmd+dblclick: http://localhost:${port}/`)
 		})
 	}
 
@@ -50,7 +59,7 @@ class DudCli {
 
 	_getAllCommands() {
 		return Object.getOwnPropertyNames(Object.getPrototypeOf(this))
-			.filter((word) => word.endsWith(CommandFnDecoratorSuffix))
+			.filter(word => word.endsWith(CommandFnDecoratorSuffix))
 			.sort()
 	}
 
@@ -62,9 +71,7 @@ class DudCli {
 	showCommandsCommand() {
 		console.log(
 			`\nAvailable commands are:\n\n${this._getAllCommands()
-				.map(
-					(comm) => `🏀 ` + comm.replace(CommandFnDecoratorSuffix, "")
-				)
+				.map(comm => `🏀 ` + comm.replace(CommandFnDecoratorSuffix, ""))
 				.join("\n")}\n​​`
 		)
 	}
@@ -76,4 +83,4 @@ class DudCli {
 
 if (module && !module.parent) new DudCli().execute(process.argv.slice(2))
 
-module.exports = { DudServer, DudCli }
+module.exports = { DudServer, DudCli, DudBlog }
