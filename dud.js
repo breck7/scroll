@@ -54,7 +54,7 @@ class DudCli {
 		const command = argv[0]
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		if (this[commandName]) this[commandName](argv[1])
-		else this.showCommandsCommand()
+		else this.helpCommand()
 	}
 
 	_getAllCommands() {
@@ -63,20 +63,25 @@ class DudCli {
 			.sort()
 	}
 
-	startExpressServerCommand(portNumber = 1145) {
+	createBlogCommand(destinationFolderName = `new-blog-${Date.now()}`) {
+		const template = new DudServer().toStamp()
+		new stamp(template).execute()
+	}
+
+	startPreviewServerCommand(portNumber = 1145) {
 		const server = new DudServer()
 		server.startListening(portNumber)
 	}
 
-	showCommandsCommand() {
+	helpCommand() {
 		console.log(
-			`\nAvailable commands are:\n\n${this._getAllCommands()
+			`\nThis is the Dud help page.\n\nAvailable commands are:\n\n${this._getAllCommands()
 				.map(comm => `🏀 ` + comm.replace(CommandFnDecoratorSuffix, ""))
 				.join("\n")}\n​​`
 		)
 	}
 
-	blogToStampCommand(dir) {
+	exportBlogCommand(dir) {
 		console.log(new DudServer(dir).toStamp())
 	}
 }
