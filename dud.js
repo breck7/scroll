@@ -49,9 +49,13 @@ class DudServer {
 
 const CommandFnDecoratorSuffix = "Command"
 
+const serveBlogHelp = (folder = "example.com") => `\n\ndud serveBlog ${folder} 8080\n\n`
+
+const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(__dirname + "/" + folder))
+
 class DudCli {
 	execute(argv) {
-		console.log("🚀🚀🚀 WELCOME TO DUD 🚀🚀🚀")
+		console.log("\n🚀🚀🚀 WELCOME TO DUD 🚀🚀🚀")
 		const command = argv[0]
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		const param1 = argv[1]
@@ -68,13 +72,14 @@ class DudCli {
 			.sort()
 	}
 
-	createBlogCommand(destinationFolderName = `new-blog-${Date.now()}`) {
+	async createBlogCommand(destinationFolderName = `new-blog-${Date.now()}`) {
 		const template = new DudServer().toStamp().replace(/sampleBlog/g, destinationFolderName)
-		new stamp(template).execute()
+		await new stamp(template).execute()
+		console.log(`\n🎆 Blog created! Now you can run:${serveBlogHelp(destinationFolderName)}`)
 	}
 
 	_exit(message) {
-		console.log(`❌ ${message}`)
+		console.log(`\n❌ ${message}\n`)
 		process.exit()
 	}
 
@@ -82,9 +87,13 @@ class DudCli {
 		if (!fs.existsSync(folder)) this._exit(`No blog exists in folder ${folder}`)
 	}
 
+	deleteBlogCommand() {
+		console.log(`\n💡 To delete a blog just use the "rm" tool\n`)
+	}
+
 	serveBlogCommand(folder, portNumber) {
-		if (!folder || !portNumber) this._exit(`Folder name and port must be provided. Usage: "dud serveBlog example.com 8080"`)
-		const fullPath = folder.startsWith("/") ? folder : path.resolve(__dirname + "/" + folder)
+		if (!folder || !portNumber) this._exit(`Folder name and port must be provided. Usage:${serveBlogHelp()}`)
+		const fullPath = resolvePath(folder)
 		this._ensureBlogExists(fullPath)
 		const server = new DudServer(fullPath)
 		server.startListening(portNumber)
@@ -98,8 +107,11 @@ class DudCli {
 		)
 	}
 
-	exportBlogCommand(dir) {
-		console.log(new DudServer(dir).toStamp())
+	exportBlogCommand(folder) {
+		if (!folder) this._exit(`Folder name must be provided`)
+		const fullPath = resolvePath(folder)
+		this._ensureBlogExists(fullPath)
+		console.log(new DudServer(fullPath).toStamp())
 	}
 }
 
