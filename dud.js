@@ -5,6 +5,7 @@ const express = require("express")
 const path = require("path")
 const stamp = require("jtree/products/stamp.nodejs.js")
 const fse = require("fs-extra")
+const fs = require("fs")
 
 class DudPage {
 	isDraft() {}
@@ -53,7 +54,11 @@ class DudCli {
 		console.log("🚀🚀🚀 WELCOME TO DUD 🚀🚀🚀")
 		const command = argv[0]
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
-		if (this[commandName]) this[commandName](argv[1])
+		const param1 = argv[1]
+		const param2 = argv[2]
+		// Note: if we need a param3, we are doing it wrong. At
+		// that point, we'd be better off taking an options map.
+		if (this[commandName]) this[commandName](param1, param2)
 		else this.helpCommand()
 	}
 
@@ -68,8 +73,20 @@ class DudCli {
 		new stamp(template).execute()
 	}
 
-	startPreviewServerCommand(portNumber = 1145) {
-		const server = new DudServer()
+	_exit(message) {
+		console.log(`❌ ${message}`)
+		process.exit()
+	}
+
+	_ensureBlogExists(folder) {
+		if (!fs.existsSync(folder)) this._exit(`No blog exists in folder ${folder}`)
+	}
+
+	serveBlogCommand(folder, portNumber) {
+		if (!folder || !portNumber) this._exit(`Folder name and port must be provided. Usage: "dud serveBlog example.com 8080"`)
+		const fullPath = folder.startsWith("/") ? folder : path.resolve(__dirname + "/" + folder)
+		this._ensureBlogExists(fullPath)
+		const server = new DudServer(fullPath)
 		server.startListening(portNumber)
 	}
 
