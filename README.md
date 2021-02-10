@@ -33,7 +33,7 @@ An actual v1 spec is now in the discussion phase.
 
 In addition to containing the Dumbdown spec,
 this repo contains a demo application which is
-a simple static blog software called "Dud".
+a simple static publishing software called "Dud".
 
 Dud has its own readme:
 

@@ -1,8 +1,8 @@
 # Dud: Dud Uses Dumbdown
 
-Dud is simple blogging software whose purpose is to
+Dud is simple publishing software whose purpose is to
 demonstrate the pros and cons of Dumbdown for static
-blogging.
+publishing.
 
 ## Installing
 
@@ -24,7 +24,7 @@ dud
 
 ### Architecture
 
-You use Dud through the command line. A Dud blog is a
+You use Dud through the command line. A Dud is a
 folder with a specific project layout. Dud compiles that
 Dud folder into a static HTML folder.
 
@@ -36,7 +36,7 @@ preview.
 In Dud individual posts are saved as dumbdown files with the
 file extension "dd".
 
-Entire blogs are saved as [stamp](https://jtree.treenotation.org/designer/#standard%20stamp) files with the extension
+Entire duds are saved as [stamp](https://jtree.treenotation.org/designer/#standard%20stamp) files with the extension
 "stamp".
 
 ### Language
@@ -61,5 +61,5 @@ browsers local storage.
 
 ## Alternatives Considered
 
-There is no blog software that reads and writes dumbdown yet
+There is no publishing software that reads and writes dumbdown yet
 so building Dud was necessary.

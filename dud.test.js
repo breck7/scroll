@@ -1,5 +1,5 @@
 const tap = require("tap")
-const { DudServer, DudCli, DudBlog } = require("./dud")
+const { DudServer, DudCli, Dud } = require("./dud")
 
 const runTree = testTree =>
 	Object.keys(testTree).forEach(key => {
@@ -19,9 +19,9 @@ testTree.toStamp = areEqual => {
 	areEqual(!!stamp.includes("awesome"), true)
 }
 
-testTree.blog = areEqual => {
-	const blog = new DudBlog()
-	areEqual(!!blog, true)
+testTree.dud = areEqual => {
+	const dud = new Dud()
+	areEqual(!!dud, true)
 }
 
 testTree.fullIntegrationTest = areEqual => {

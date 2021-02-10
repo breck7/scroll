@@ -7,21 +7,14 @@ const stamp = require("jtree/products/stamp.nodejs.js")
 const fse = require("fs-extra")
 const fs = require("fs")
 
-class DudPage {
-	isDraft() {}
-}
-
-class DudBlog {
-	constructor() {}
-	fromHtmlStamp() {}
-	toHtmlStamp() {}
-
-	get publishedPages() {}
+class Dud {
+	constructor(stamp = "") {}
+	toSingleHtmlFile() {}
 }
 
 class DudServer {
-	constructor(blogFolder = __dirname + "/sampleBlog") {
-		this.folder = blogFolder
+	constructor(dudFolder = __dirname + "/sampleDud") {
+		this.folder = dudFolder
 	}
 
 	folder = ""
@@ -29,6 +22,8 @@ class DudServer {
 	get filesFolder() {
 		return this.folder + "/files"
 	}
+
+	startWatchingDudFolder() {}
 
 	startListening(port) {
 		const app = new express()
@@ -49,7 +44,7 @@ class DudServer {
 
 const CommandFnDecoratorSuffix = "Command"
 
-const serveBlogHelp = (folder = "example.com") => `\n\ndud serveBlog ${folder} 8080\n\n`
+const serveDudHelp = (folder = "example.com") => `\n\ndud serveDud ${folder} 8080\n\n`
 
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(__dirname + "/" + folder))
 
@@ -72,10 +67,10 @@ class DudCli {
 			.sort()
 	}
 
-	async createBlogCommand(destinationFolderName = `new-blog-${Date.now()}`) {
-		const template = new DudServer().toStamp().replace(/sampleBlog/g, destinationFolderName)
+	async createDudCommand(destinationFolderName = `dud-${Date.now()}`) {
+		const template = new DudServer().toStamp().replace(/sampleDud/g, destinationFolderName)
 		await new stamp(template).execute()
-		console.log(`\n🎆 Blog created! Now you can run:${serveBlogHelp(destinationFolderName)}`)
+		console.log(`\n🎆 Dud created! Now you can run:${serveDudHelp(destinationFolderName)}`)
 	}
 
 	_exit(message) {
@@ -83,18 +78,18 @@ class DudCli {
 		process.exit()
 	}
 
-	_ensureBlogExists(folder) {
-		if (!fs.existsSync(folder)) this._exit(`No blog exists in folder ${folder}`)
+	_ensureDudFolderExists(folder) {
+		if (!fs.existsSync(folder)) this._exit(`No dud exists in folder ${folder}`)
 	}
 
-	deleteBlogCommand() {
-		console.log(`\n💡 To delete a blog just use the "rm" tool\n`)
+	deleteDudCommand() {
+		console.log(`\n💡 To delete a dud just use the "rm" tool\n`)
 	}
 
-	serveBlogCommand(folder, portNumber) {
-		if (!folder || !portNumber) this._exit(`Folder name and port must be provided. Usage:${serveBlogHelp()}`)
+	serveDudCommand(folder, portNumber) {
+		if (!folder || !portNumber) this._exit(`Folder name and port must be provided. Usage:${serveDudHelp()}`)
 		const fullPath = resolvePath(folder)
-		this._ensureBlogExists(fullPath)
+		this._ensureDudExists(fullPath)
 		const server = new DudServer(fullPath)
 		server.startListening(portNumber)
 	}
@@ -107,14 +102,14 @@ class DudCli {
 		)
 	}
 
-	exportBlogCommand(folder) {
+	exportDudCommand(folder) {
 		if (!folder) this._exit(`Folder name must be provided`)
 		const fullPath = resolvePath(folder)
-		this._ensureBlogExists(fullPath)
+		this._ensureDudExists(fullPath)
 		console.log(new DudServer(fullPath).toStamp())
 	}
 }
 
 if (module && !module.parent) new DudCli().execute(process.argv.slice(2))
 
-module.exports = { DudServer, DudCli, DudBlog }
+module.exports = { DudServer, DudCli, Dud }

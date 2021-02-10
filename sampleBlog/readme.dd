@@ -1,9 +1,0 @@
-title Dud sample blog readme
-
-paragraph This folder contains a sample blog for the
- dud static blogging software.
-
- It is used by the tests.
-
- The "built/" folder is what the results of building a dud blog
- should look like.
