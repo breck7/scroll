@@ -167,7 +167,12 @@ title if a better Dummy comes along.
 
 ## Important
 
-It should go without saying, but this is public domain.
+    There is a domain
+    the public domain
+    the only domain there should be.
+    Where ideas can mingle
+    improve and change
+    So that the people can be free.
 
 Dumbdown is made with love in memory and honor
 of Aaron Swartz.
