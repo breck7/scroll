@@ -4,12 +4,39 @@ const minimist = require("minimist")
 const express = require("express")
 const path = require("path")
 const stamp = require("jtree/products/stamp.nodejs.js")
+const hakon = require("jtree/products/hakon.nodejs.js")
+const stump = require("jtree/products/stump.nodejs.js")
+const { jtree } = require("jtree")
+const { TreeNode } = jtree
 const fse = require("fs-extra")
 const fs = require("fs")
 
+const read = filename => fs.readFileSync(filename, "utf8")
+
 class Dud {
-	constructor(stamp = "") {}
-	toSingleHtmlFile() {}
+	constructor(stamp = "") {
+		this.stamp = new TreeNode(stamp)
+	}
+	stamp = new TreeNode()
+	toSingleHtmlFile() {
+		const hakonProgram = read(__dirname + "/dud.hakon")
+		const icons = new TreeNode(read(__dirname + "/dudIcons.map")).toObject()
+		const varMap = { ...icons, ...this.settings }
+		const stumpProgram = new TreeNode(read(__dirname + "/dud.stump")).templateToString(varMap)
+
+		const stumpNode = new stump(stumpProgram)
+		stumpNode.getNode("html head styleTag").appendLineAndChildren("bern", new hakon(hakonProgram).compile())
+		return stumpNode.compile()
+	}
+
+	get settings() {
+		const settingsCode = this.stamp
+			.find(node => node.getLine().endsWith(".map"))
+			?.getNode("data")
+			?.childrenToString()
+
+		return new TreeNode(settingsCode).toObject()
+	}
 }
 
 class DudServer {
@@ -19,16 +46,14 @@ class DudServer {
 
 	folder = ""
 
-	get filesFolder() {
-		return this.folder + "/files"
-	}
-
 	startWatchingDudFolder() {}
 
 	startListening(port) {
 		const app = new express()
 
-		app.use(express.static(this.filesFolder))
+		app.use(express.static(this.folder))
+
+		app.get("/", (req, res) => res.send(new Dud(this.toStamp()).toSingleHtmlFile()))
 
 		app.listen(port, () => {
 			console.log(`\n🌌 ​Running Dud. cmd+dblclick: http://localhost:${port}/`)
@@ -87,9 +112,10 @@ class DudCli {
 	}
 
 	serveDudCommand(folder, portNumber) {
-		if (!folder || !portNumber) this._exit(`Folder name and port must be provided. Usage:${serveDudHelp()}`)
+		if (!folder) this._exit(`Folder name must be provided. Usage:${serveDudHelp()}`)
+		if (!portNumber) this._exit(`Port must be provided. Usage:${serveDudHelp()}`)
 		const fullPath = resolvePath(folder)
-		this._ensureDudExists(fullPath)
+		this._ensureDudFolderExists(fullPath)
 		const server = new DudServer(fullPath)
 		server.startListening(portNumber)
 	}
@@ -105,7 +131,7 @@ class DudCli {
 	exportDudCommand(folder) {
 		if (!folder) this._exit(`Folder name must be provided`)
 		const fullPath = resolvePath(folder)
-		this._ensureDudExists(fullPath)
+		this._ensureDudFolderExists(fullPath)
 		console.log(new DudServer(fullPath).toStamp())
 	}
 }

@@ -1,0 +1,32 @@
+html
+ head
+  titleTag {title}
+  styleTag
+   bern
+ body
+  div
+   class chrome icons topBar
+   a {emailSvg}
+    href mailto:{email}
+   a {twitterSvg}
+    href http://twitter.com/{twitter}
+   a {githubSvg}
+    href https://github.com/{github}
+  h1 {title}
+   class chrome title
+  div {description}
+   class chrome description
+  div
+   class meat
+   div
+    class page
+    div Article title
+    div article snippet
+  div
+   class chrome icons
+   a {emailSvg}
+    href mailto:{email}
+   a {twitterSvg}
+    href http://twitter.com/{twitter}
+   a {githubSvg}
+    href https://github.com/{github}

@@ -16,8 +16,10 @@ npm install -g dumbdown-js
 
 ### CLI Usage
 
+To see the CLI options type:
+
 ```
-dud
+dud help
 ```
 
 ## Design Notes
@@ -52,12 +54,26 @@ design goal of Dud is to keep things minimial and
 close to the metal, and if it means slightly worse
 type checking and docs.
 
-### Roadmap
+### Git
 
-In the future there may also be a single page web app
-called DudEditor that is plain HTML and CSS. You can use
-this HTML file standalone and just read and write to your
-browsers local storage.
+Dud is designed with git in mind. Articles are stored as
+files tracked by git.
+
+### Writing Experience
+
+When you are writing you want to stay constrained to the
+article's purpose. Each article has it's own purpose and
+it's own history. Hence, each article is stored as a
+separate file in git.
+
+### Reading Experience
+
+Being able to scan the page like a newspaper is a
+very fast reading experience. This is central to dud.
+
+Additionally, making it easy to take the content with
+you, and transform it to better suit the reader, is
+also key to dud.
 
 ## Alternatives Considered
 

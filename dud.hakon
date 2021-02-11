@@ -1,0 +1,34 @@
+html
+ background rgb(244,244,244)
+ font-family Exchange,Georgia,serif
+ color #000
+comment CSS reset
+html,body,div,span,h1,h2,h3,h4,h5,h6
+ margin 0
+ padding 0
+ border 0
+ vertical-align baseline
+.chrome
+ text-align center
+ font-family Retina,Arial,Helvetica,sans-serif
+ color #333
+.description
+ padding 3px
+.meat
+ border-top 1px solid rgb(204,204,204)
+ border-bottom 1px solid rgb(204,204,204)
+ margin-top 8px
+ margin-bottom 8px
+.title
+ font-family Exchange,Georgia,serif
+ color #000
+.icons
+ svg
+  width 16px
+  fill rgb(204,204,204)
+  &:hover
+   fill #333
+.topBar
+ text-align right
+ padding-right 5px
+ padding-top 3px
