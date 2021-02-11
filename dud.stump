@@ -20,8 +20,22 @@ html
    class meat
    div
     class page
-    div Article title
-    div article snippet
+    div
+     class articleCell
+     h3 Article title
+     div Here is some content. I dont know what to think about it. But it sounds coool.
+    div
+     class articleCell
+     h3 Article title
+     div some content
+    div
+     class articleCell
+     h3 Article title
+     div some content
+    div
+     class articleCell
+     h3 Article title
+     div some content
   div
    class chrome icons
    a {emailSvg}

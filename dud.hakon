@@ -32,3 +32,12 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  text-align right
  padding-right 5px
  padding-top 3px
+.page
+ position relative
+ display grid
+ grid-template-columns 60ch 60ch 60ch
+ grid-auto-flow dense
+ grid-gap 1px
+.articleCell
+ width 60ch
+ padding 8px

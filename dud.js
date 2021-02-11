@@ -13,6 +13,17 @@ const fs = require("fs")
 
 const read = filename => fs.readFileSync(filename, "utf8")
 
+const compiledMessage = `<!--
+
+ This page was compiled by Dud, the Dumbdown
+ static site publishing software.
+ 
+ https://github.com/treenotation/dumbdown
+ 
+ Generally you don't want to edit it by hand.
+
+-->`
+
 class Dud {
 	constructor(stamp = "") {
 		this.stamp = new TreeNode(stamp)
@@ -26,7 +37,7 @@ class Dud {
 
 		const stumpNode = new stump(stumpProgram)
 		stumpNode.getNode("html head styleTag").appendLineAndChildren("bern", new hakon(hakonProgram).compile())
-		return stumpNode.compile()
+		return compiledMessage + "\n" + stumpNode.compile()
 	}
 
 	get settings() {
@@ -40,7 +51,7 @@ class Dud {
 }
 
 class DudServer {
-	constructor(dudFolder = __dirname + "/sampleDud") {
+	constructor(dudFolder = `${__dirname}/example.com`) {
 		this.folder = dudFolder
 	}
 
@@ -51,9 +62,9 @@ class DudServer {
 	startListening(port) {
 		const app = new express()
 
-		app.use(express.static(this.folder))
-
 		app.get("/", (req, res) => res.send(new Dud(this.toStamp()).toSingleHtmlFile()))
+
+		app.use(express.static(this.folder))
 
 		app.listen(port, () => {
 			console.log(`\n🌌 ​Running Dud. cmd+dblclick: http://localhost:${port}/`)
@@ -69,7 +80,7 @@ class DudServer {
 
 const CommandFnDecoratorSuffix = "Command"
 
-const serveDudHelp = (folder = "example.com") => `\n\ndud serveDud ${folder} 8080\n\n`
+const serveDudHelp = (folder = "example.com") => `\n\ndud serve ${folder} 8080\n\n`
 
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(__dirname + "/" + folder))
 
@@ -92,8 +103,8 @@ class DudCli {
 			.sort()
 	}
 
-	async createDudCommand(destinationFolderName = `dud-${Date.now()}`) {
-		const template = new DudServer().toStamp().replace(/sampleDud/g, destinationFolderName)
+	async createCommand(destinationFolderName = `dud-${Date.now()}`) {
+		const template = new DudServer().toStamp().replace(/example.com/g, destinationFolderName)
 		await new stamp(template).execute()
 		console.log(`\n🎆 Dud created! Now you can run:${serveDudHelp(destinationFolderName)}`)
 	}
@@ -107,11 +118,11 @@ class DudCli {
 		if (!fs.existsSync(folder)) this._exit(`No dud exists in folder ${folder}`)
 	}
 
-	deleteDudCommand() {
+	deleteCommand() {
 		console.log(`\n💡 To delete a dud just use the "rm" tool\n`)
 	}
 
-	serveDudCommand(folder, portNumber) {
+	serveCommand(folder, portNumber) {
 		if (!folder) this._exit(`Folder name must be provided. Usage:${serveDudHelp()}`)
 		if (!portNumber) this._exit(`Port must be provided. Usage:${serveDudHelp()}`)
 		const fullPath = resolvePath(folder)
@@ -128,7 +139,7 @@ class DudCli {
 		)
 	}
 
-	exportDudCommand(folder) {
+	exportCommand(folder) {
 		if (!folder) this._exit(`Folder name must be provided`)
 		const fullPath = resolvePath(folder)
 		this._ensureDudFolderExists(fullPath)
