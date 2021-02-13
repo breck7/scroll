@@ -11,7 +11,7 @@ html
    a {twitterSvg}
     href http://twitter.com/{twitter}
    a {githubSvg}
-    href https://github.com/{github}
+    href {github}
   h1 {title}
    class chrome title
   div {description}
@@ -43,4 +43,4 @@ html
    a {twitterSvg}
     href http://twitter.com/{twitter}
    a {githubSvg}
-    href https://github.com/{github}
+    href {github}

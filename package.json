@@ -26,7 +26,7 @@
   "homepage": "https://github.com/treenotation/dumbdown#readme",
   "dependencies": {
     "fs-extra": "^9.1.0",
-    "jtree": "^50.2.0",
+    "jtree": "^51.1.0",
     "minimist": "^1.2.5"
   },
   "devDependencies": {
