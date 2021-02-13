@@ -6,6 +6,7 @@ const path = require("path")
 const stamp = require("jtree/products/stamp.nodejs.js")
 const hakon = require("jtree/products/hakon.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
+const dumbdown = require("jtree/products/dumbdown.nodejs.js")
 const { jtree } = require("jtree")
 const { TreeNode } = jtree
 const fse = require("fs-extra")
@@ -24,6 +25,25 @@ const compiledMessage = `<!--
 
 -->`
 
+class Article {
+	constructor(dumbdownCode = "") {
+		this.dumbdown = dumbdownCode
+	}
+	dumbdown = ""
+	toStumpNode() {
+		const node = new TreeNode(`div
+ class articleCell`)
+
+		node.getNode("div").appendLineAndChildren("bern", new dumbdown(this.dumbdown).compile())
+
+		return new stump(node)
+	}
+
+	get isPublished() {
+		return new TreeNode(this.dumbdown).get("published") === "true"
+	}
+}
+
 class Dud {
 	constructor(stamp = "") {
 		this.stamp = new TreeNode(stamp)
@@ -33,11 +53,28 @@ class Dud {
 		const hakonProgram = read(__dirname + "/dud.hakon")
 		const icons = new TreeNode(read(__dirname + "/dudIcons.map")).toObject()
 		const varMap = { ...icons, ...this.settings }
-		const stumpProgram = new TreeNode(read(__dirname + "/dud.stump")).templateToString(varMap)
-		const expanded = new TreeNode(stumpProgram).expandLastFromTopMatter().toString()
+		const rawStump = new TreeNode(read(__dirname + "/dud.stump"))
+		// Add articles
+		const articles = this.publishedArticles.map(article => article.toStumpNode().toString()).join("\n")
+		const pageNode = rawStump.nodeAtLine(27) // fix
+		pageNode.setChildren(`class page\n` + articles)
+
+		const withVars = rawStump.templateToString(varMap)
+
+		const expanded = new TreeNode(withVars).expandLastFromTopMatter().toString()
 		const stumpNode = new stump(expanded)
+
 		stumpNode.getNode("html head styleTag").appendLineAndChildren("bern", new hakon(hakonProgram).compile())
+
 		return compiledMessage + "\n" + stumpNode.compile()
+	}
+
+	get publishedArticles() {
+		return this.stamp
+			.filter(node => node.getLine().endsWith(".dd"))
+			.map(node => node.getNode("data")?.childrenToString())
+			.map(str => new Article(str))
+			.filter(article => article.isPublished)
 	}
 
 	get settings() {
