@@ -2,6 +2,7 @@ html
  background rgb(244,244,244)
  font-family Exchange,Georgia,serif
  color #000
+ font-size 10pt
 comment CSS reset
 html,body,div,span,h1,h2,h3,h4,h5,h6
  margin 0
@@ -23,21 +24,22 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  font-family Exchange,Georgia,serif
  color #000
 .icons
+ padding-top 3px
  svg
   width 16px
   fill rgb(204,204,204)
   &:hover
    fill #333
-.topBar
+.topRightBar
  text-align right
- padding-right 5px
- padding-top 3px
+ position absolute
+ right 3px
+ top 3px
 .page
  position relative
  display grid
- grid-template-columns 60ch 60ch 60ch
+ grid-template-columns repeat(auto-fit,minmax(50ch,1fr))
  grid-auto-flow dense
- grid-gap 1px
 .articleCell
- width 60ch
- padding 8px
+ width 50ch
+ padding 3pt

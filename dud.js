@@ -34,8 +34,8 @@ class Dud {
 		const icons = new TreeNode(read(__dirname + "/dudIcons.map")).toObject()
 		const varMap = { ...icons, ...this.settings }
 		const stumpProgram = new TreeNode(read(__dirname + "/dud.stump")).templateToString(varMap)
-
-		const stumpNode = new stump(stumpProgram)
+		const expanded = new TreeNode(stumpProgram).expandLastFromTopMatter().toString()
+		const stumpNode = new stump(expanded)
 		stumpNode.getNode("html head styleTag").appendLineAndChildren("bern", new hakon(hakonProgram).compile())
 		return compiledMessage + "\n" + stumpNode.compile()
 	}

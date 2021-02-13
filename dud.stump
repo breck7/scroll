@@ -1,3 +1,15 @@
+linksComponent
+ class chrome icons
+ a {emailSvg}
+  href mailto:{email}
+ a {twitterSvg}
+  href http://twitter.com/{twitter}
+ a {githubSvg}
+  href {github}
+articleComponent
+ class articleCell
+ h3 Article title
+ div Here is some content. I dont know what to think about it. But it sounds coool.
 html
  head
   titleTag {title}
@@ -5,13 +17,8 @@ html
    bern
  body
   div
-   class chrome icons topBar
-   a {emailSvg}
-    href mailto:{email}
-   a {twitterSvg}
-    href http://twitter.com/{twitter}
-   a {githubSvg}
-    href {github}
+   class topRightBar
+   linksComponent
   h1 {title}
    class chrome title
   div {description}
@@ -20,27 +27,11 @@ html
    class meat
    div
     class page
-    div
-     class articleCell
-     h3 Article title
-     div Here is some content. I dont know what to think about it. But it sounds coool.
-    div
-     class articleCell
-     h3 Article title
-     div some content
-    div
-     class articleCell
-     h3 Article title
-     div some content
-    div
-     class articleCell
-     h3 Article title
-     div some content
-  div
-   class chrome icons
-   a {emailSvg}
-    href mailto:{email}
-   a {twitterSvg}
-    href http://twitter.com/{twitter}
-   a {githubSvg}
-    href {github}
+    articleComponent
+    articleComponent
+    articleComponent
+    articleComponent
+    articleComponent
+    articleComponent
+    articleComponent
+  linksComponent
