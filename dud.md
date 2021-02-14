@@ -33,13 +33,41 @@ Dud folder into a static HTML folder.
 Dud also contains a simple Node.js Express app for live
 preview.
 
+### Folder Layout
+
+A Dud project looks like this:
+
+```
+yourDomainName.tld/
+ settings.map
+ someDraft.dd
+ readme.dd
+ published/
+  publishedArticle.dd
+  anImageInTheArticle.png
+  index.html
+```
+
+When you "build" a dud site, you are simply generating
+the index.html file in the site's "published" folder.
+
+This folder layouts let's you easily put any static
+files you have directly into the "published/" folder.
+
+Your sites static files, generated html, and published
+article source dumbdown files, are all in the "published/"
+folder and checked into version control.
+
+The root level folder is where you can keep drafts
+and any private files.
+
 ### File Formats
 
 In Dud individual posts are saved as dumbdown files with the
 file extension "dd".
 
-Entire duds are saved as [stamp](https://jtree.treenotation.org/designer/#standard%20stamp) files with the extension
-"stamp".
+Entire duds are saved as [stamp](https://jtree.treenotation.org/designer/#standard%20stamp)
+files with the extension "stamp".
 
 ### Language
 
@@ -78,4 +106,7 @@ also key to dud.
 ## Alternatives Considered
 
 There is no publishing software that reads and writes dumbdown yet
-so building Dud was necessary.
+so building Dud was necessary. Jekyll and Brecksblog are 2 biggest
+inspirations.
+
+- https://jekyllrb.com/

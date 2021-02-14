@@ -38,10 +38,6 @@ class Article {
 
 		return new stump(node)
 	}
-
-	get isPublished() {
-		return new TreeNode(this.dumbdown).get("published") === "true"
-	}
 }
 
 class Dud {
@@ -71,10 +67,10 @@ class Dud {
 
 	get publishedArticles() {
 		return this.stamp
+			.filter(node => node.getLine().includes("published")) // search the published folder
 			.filter(node => node.getLine().endsWith(".dd"))
 			.map(node => node.getNode("data")?.childrenToString())
 			.map(str => new Article(str))
-			.filter(article => article.isPublished)
 	}
 
 	get settings() {
@@ -94,6 +90,10 @@ class DudServer {
 
 	folder = ""
 
+	get publishedFolder() {
+		return this.folder + "/published/"
+	}
+
 	startWatchingDudFolder() {}
 
 	startListening(port) {
@@ -101,7 +101,7 @@ class DudServer {
 
 		app.get("/", (req, res) => res.send(new Dud(this.toStamp()).toSingleHtmlFile()))
 
-		app.use(express.static(this.folder))
+		app.use(express.static(this.publishedFolder))
 
 		app.listen(port, () => {
 			console.log(`\n🌌 ​Running Dud. cmd+dblclick: http://localhost:${port}/`)
