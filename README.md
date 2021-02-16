@@ -37,7 +37,7 @@ a simple static publishing software called "Dud".
 
 Dud has its own readme:
 
-https://github.com/treenotation/dumbdown/blob/master/dud.md
+https://github.com/treenotation/dumbdown/blob/master/dud/readme.md
 
 ## Why Dumbdown?
 

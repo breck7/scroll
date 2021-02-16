@@ -7,7 +7,7 @@
     "test": "tap"
   },
   "bin": {
-    "dud": "./dud.js"
+    "dud": "./dud/dud.js"
   },
   "repository": {
     "type": "git",

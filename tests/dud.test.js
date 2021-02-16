@@ -1,5 +1,5 @@
 const tap = require("tap")
-const { DudServer, DudCli, Dud } = require("./dud")
+const { DudServer, DudCli, Dud } = require("../dud/dud.js")
 
 const runTree = testTree =>
 	Object.keys(testTree).forEach(key => {
@@ -28,6 +28,12 @@ testTree.fullIntegrationTest = areEqual => {
 	const server = new DudServer()
 	areEqual(!!server, true)
 }
+
+// FS tests:
+// dud missing published folder
+// dud missing settings file
+// settings file missing required settings
+// bad dumbdown files
 
 if (module && !module.parent) runTree(testTree)
 

@@ -3,14 +3,15 @@
 const minimist = require("minimist")
 const express = require("express")
 const path = require("path")
+const fse = require("fs-extra")
+const fs = require("fs")
+
+const { jtree } = require("jtree")
+const { TreeNode } = jtree
 const stamp = require("jtree/products/stamp.nodejs.js")
 const hakon = require("jtree/products/hakon.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
 const dumbdown = require("jtree/products/dumbdown.nodejs.js")
-const { jtree } = require("jtree")
-const { TreeNode } = jtree
-const fse = require("fs-extra")
-const fs = require("fs")
 
 const read = filename => fs.readFileSync(filename, "utf8")
 
@@ -25,10 +26,15 @@ const compiledMessage = `<!--
 
 -->`
 
+const dudSrcFolder = __dirname + "/"
+const exampleFolder = dudSrcFolder + "../example.com/"
+
 class Article {
-	constructor(dumbdownCode = "") {
-		this.dumbdown = dumbdownCode
+	constructor(stampNode) {
+		this.dumbdown = stampNode.getNode("data")?.childrenToString()
+		this.filename = stampNode.getWord(1)
 	}
+	filename = ""
 	dumbdown = ""
 	toStumpNode() {
 		const node = new TreeNode(`div
@@ -46,45 +52,57 @@ class Dud {
 	}
 	stamp = new TreeNode()
 	toSingleHtmlFile() {
-		const hakonProgram = read(__dirname + "/dud.hakon")
-		const icons = new TreeNode(read(__dirname + "/dudIcons.map")).toObject()
-		const varMap = { ...icons, ...this.settings }
-		const rawStump = new TreeNode(read(__dirname + "/dud.stump"))
-		// Add articles
-		const articles = this.publishedArticles.map(article => article.toStumpNode().toString()).join("\n")
-		const pageNode = rawStump.nodeAtLine(27) // fix
-		pageNode.setChildren(`class page\n` + articles)
+		const dudDotHakon = read(dudSrcFolder + "dud.hakon")
+		const dudDotStump = new TreeNode(read(dudSrcFolder + "dud.stump"))
+		const dudIcons = new TreeNode(read(dudSrcFolder + "dudIcons.map")).toObject()
 
-		const withVars = rawStump.templateToString(varMap)
+		const userSettingsMap = { ...dudIcons, ...this.settings }
+		const stumpWithSettings = new TreeNode(dudDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
 
-		const expanded = new TreeNode(withVars).expandLastFromTopMatter().toString()
-		const stumpNode = new stump(expanded)
+		stumpWithSettings
+			.getTopDownArray()
+			.filter(node => node.getLine() === "class page")[0]
+			.getParent() // todo: fix
+			.setChildren(`class page\n` + this.publishedArticles.map(article => article.toStumpNode().toString()).join("\n"))
 
-		stumpNode.getNode("html head styleTag").appendLineAndChildren("bern", new hakon(hakonProgram).compile())
-
+		const stumpNode = new stump(stumpWithSettings)
+		const styleTag = stumpNode.getNode("head styleTag")
+		styleTag.appendLineAndChildren("bern", new hakon(dudDotHakon).compile())
 		return compiledMessage + "\n" + stumpNode.compile()
 	}
 
+	isValidDud() {
+		return !!this._settings
+	}
+
+	// stamp sample file: https://jtree.treenotation.org/designer/#standard%20stamp
 	get publishedArticles() {
 		return this.stamp
 			.filter(node => node.getLine().includes("published")) // search the published folder
 			.filter(node => node.getLine().endsWith(".dd"))
-			.map(node => node.getNode("data")?.childrenToString())
-			.map(str => new Article(str))
+			.map(node => new Article(node))
 	}
 
-	get settings() {
-		const settingsCode = this.stamp
+	get _settings() {
+		return this.stamp
 			.find(node => node.getLine().endsWith(".map"))
 			?.getNode("data")
 			?.childrenToString()
+	}
 
-		return new TreeNode(settingsCode).toObject()
+	get settings() {
+		const defaults = {
+			twitter: "",
+			github: "",
+			email: ""
+		}
+
+		return { ...defaults, ...new TreeNode(this._settings).toObject() }
 	}
 }
 
 class DudServer {
-	constructor(dudFolder = `${__dirname}/example.com`) {
+	constructor(dudFolder = `${exampleFolder}`) {
 		this.folder = dudFolder
 	}
 
@@ -92,6 +110,10 @@ class DudServer {
 
 	get publishedFolder() {
 		return this.folder + "/published/"
+	}
+
+	get settingsPath() {
+		return this.folder + "/settings.map"
 	}
 
 	startWatchingDudFolder() {}
@@ -104,7 +126,11 @@ class DudServer {
 		app.use(express.static(this.publishedFolder))
 
 		app.listen(port, () => {
-			console.log(`\n🌌 ​Running Dud. cmd+dblclick: http://localhost:${port}/`)
+			console.log(`\n🌌 Serving '${this.publishedFolder}'.
+
+Settings path is '${this.settingsPath}
+
+cmd+dblclick: http://localhost:${port}/`)
 		})
 	}
 
@@ -117,9 +143,11 @@ class DudServer {
 
 const CommandFnDecoratorSuffix = "Command"
 
-const serveDudHelp = (folder = "example.com") => `\n\ndud serve ${folder} 8080\n\n`
+const serveDudHelp = (folder = "example.com") => `\n\ndud serve 1145 ${folder}\n\n`
 
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(__dirname + "/" + folder))
+
+const isDudFolder = absPath => new Dud(stamp.dirToStampWithContents(absPath)).isValidDud()
 
 class DudCli {
 	execute(argv) {
@@ -131,6 +159,7 @@ class DudCli {
 		// Note: if we need a param3, we are doing it wrong. At
 		// that point, we'd be better off taking an options map.
 		if (this[commandName]) this[commandName](param1, param2)
+		else if (isDudFolder(process.cwd())) this.serveCommand(1145, process.cwd())
 		else this.helpCommand()
 	}
 
@@ -159,9 +188,9 @@ class DudCli {
 		console.log(`\n💡 To delete a dud just use the "rm" tool\n`)
 	}
 
-	serveCommand(folder, portNumber) {
-		if (!folder) this._exit(`Folder name must be provided. Usage:${serveDudHelp()}`)
+	serveCommand(portNumber, folder) {
 		if (!portNumber) this._exit(`Port must be provided. Usage:${serveDudHelp()}`)
+		if (!folder) this._exit(`Folder name must be provided. Usage:${serveDudHelp()}`)
 		const fullPath = resolvePath(folder)
 		this._ensureDudFolderExists(fullPath)
 		const server = new DudServer(fullPath)
