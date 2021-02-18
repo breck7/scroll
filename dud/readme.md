@@ -103,6 +103,23 @@ Additionally, making it easy to take the content with
 you, and transform it to better suit the reader, is
 also key to dud.
 
+## Questions and Answers
+
+**When there are multiple columns, why do old articles
+appear above the folder?**
+
+Older content is generally as good as newer content so
+more visibility isn't a bad thing.
+
+**Why isn't more thought going into SEO?**
+
+Dud is all about OFH: optimized for humans.
+
+**Will you provide support to people that don't publish in
+the public domain?**
+
+No.
+
 ## Alternatives Considered
 
 There is no publishing software that reads and writes dumbdown yet

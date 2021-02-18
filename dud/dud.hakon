@@ -35,11 +35,16 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  position absolute
  right 3px
  top 3px
+img
+ max-width 50ch
 .page
  column-count auto
  column-width 50ch
  column-gap 10px
+ padding-left 20px
+ padding-right 20px
 .articleCell
  width 50ch
  padding 3pt
  break-inside avoid
+ overflow hidden
