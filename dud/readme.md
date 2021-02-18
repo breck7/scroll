@@ -105,18 +105,17 @@ also key to dud.
 
 ## Questions and Answers
 
-**When there are multiple columns, why do old articles
-appear above the folder?**
+**Will you support publishing single pages for better SEO?**
 
-Older content is generally as good as newer content so
-more visibility isn't a bad thing.
-
-**Why isn't more thought going into SEO?**
-
-Dud is all about OFH: optimized for humans.
+No.
 
 **Will you provide support to people that don't publish in
 the public domain?**
+
+No.
+
+**Will you support newest articles flowing right to left
+instead of having potentially older articles up top?**
 
 No.
 

@@ -24,6 +24,10 @@ html
   div {description}
    class chrome description
   div
+   class chrome links
+   a about
+    href #about
+  div
    class meat
    div
     class page

@@ -36,8 +36,16 @@ class Article {
 	}
 	filename = ""
 	dumbdown = ""
+	get _anchorName() {
+		return this.filename
+			.split("/")
+			.pop()
+			.replace(".dd", "")
+	}
+
 	toStumpNode() {
 		const node = new TreeNode(`div
+ id ${this._anchorName}
  class articleCell`)
 
 		node.getNode("div").appendLineAndChildren("bern", new dumbdown(this.dumbdown).compile())

@@ -15,6 +15,16 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  color #333
 .description
  padding 3px
+.links
+ text-align left
+ position absolute
+ left 25px
+ top 3px
+ a
+  text-decoration none
+  color rgba(0,0,0,0.8)
+  &:hover
+   color rgba(0,0,0,1)
 .meat
  border-top 1px solid rgb(204,204,204)
  border-bottom 1px solid rgb(204,204,204)
@@ -33,7 +43,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
 .topRightBar
  text-align right
  position absolute
- right 3px
+ right 25px
  top 3px
 img
  max-width 50ch
