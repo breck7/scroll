@@ -121,7 +121,7 @@ class ScrollServer {
 	}
 
 	get settingsPath() {
-		return this.folder + "/settings.map"
+		return this.publishedFolder + "settings.map"
 	}
 
 	startWatchingScrollFolder() {}

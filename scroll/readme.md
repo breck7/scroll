@@ -39,13 +39,13 @@ A Scroll project looks like this:
 
 ```
 yourDomainName.tld/
- settings.map
  someDraft.dd
  readme.dd
  published/
   publishedArticle.dd
   anImageInTheArticle.png
   index.html
+  settings.map
 ```
 
 When you "build" a Scroll site, you are simply generating
