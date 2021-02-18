@@ -1,13 +1,13 @@
 {
   "name": "dumbdown-js",
   "version": "2.0.0",
-  "description": "The dumb alternative to markdown. The keyword for title is title. Includes Dud static publishing software.",
+  "description": "The dumb alternative to markdown. The keyword for title is title. Includes Scroll static publishing software.",
   "main": "index.js",
   "scripts": {
     "test": "tap"
   },
   "bin": {
-    "dud": "./dud/dud.js"
+    "scroll": "./scroll/scroll.node.js"
   },
   "repository": {
     "type": "git",

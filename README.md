@@ -29,15 +29,15 @@ https://jtree.treenotation.org/designer/#standard%20dumbdown
 
 An actual v1 spec is now in the discussion phase.
 
-### Dud: Demonstration app
+### Scroll: Demonstration app
 
 In addition to containing the Dumbdown spec,
 this repo contains a demo application which is
-a simple static publishing software called "Dud".
+a simple static publishing software called "Scroll".
 
-Dud has its own readme:
+Scroll has its own readme:
 
-https://github.com/treenotation/dumbdown/blob/master/dud/readme.md
+https://github.com/treenotation/dumbdown/blob/master/scroll/readme.md
 
 ## Why Dumbdown?
 

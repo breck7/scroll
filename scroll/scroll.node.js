@@ -17,7 +17,7 @@ const read = filename => fs.readFileSync(filename, "utf8")
 
 const compiledMessage = `<!--
 
- This page was compiled by Dud, the Dumbdown
+ This page was compiled by 📜 Scroll, the Dumbdown
  static site publishing software.
  
  https://github.com/treenotation/dumbdown
@@ -26,8 +26,8 @@ const compiledMessage = `<!--
 
 -->`
 
-const dudSrcFolder = __dirname + "/"
-const exampleFolder = dudSrcFolder + "../example.com/"
+const scrollSrcFolder = __dirname + "/"
+const exampleFolder = scrollSrcFolder + "../example.com/"
 
 class Article {
 	constructor(stampNode) {
@@ -54,18 +54,18 @@ class Article {
 	}
 }
 
-class Dud {
+class Scroll {
 	constructor(stamp = "") {
 		this.stamp = new TreeNode(stamp)
 	}
 	stamp = new TreeNode()
 	toSingleHtmlFile() {
-		const dudDotHakon = read(dudSrcFolder + "dud.hakon")
-		const dudDotStump = new TreeNode(read(dudSrcFolder + "dud.stump"))
-		const dudIcons = new TreeNode(read(dudSrcFolder + "dudIcons.map")).toObject()
+		const scrollDotHakon = read(scrollSrcFolder + "scroll.hakon")
+		const scrollDotStump = new TreeNode(read(scrollSrcFolder + "scroll.stump"))
+		const scrollIcons = new TreeNode(read(scrollSrcFolder + "scrollIcons.map")).toObject()
 
-		const userSettingsMap = { ...dudIcons, ...this.settings }
-		const stumpWithSettings = new TreeNode(dudDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
+		const userSettingsMap = { ...scrollIcons, ...this.settings }
+		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
 
 		stumpWithSettings
 			.getTopDownArray()
@@ -75,11 +75,11 @@ class Dud {
 
 		const stumpNode = new stump(stumpWithSettings)
 		const styleTag = stumpNode.getNode("head styleTag")
-		styleTag.appendLineAndChildren("bern", new hakon(dudDotHakon).compile())
+		styleTag.appendLineAndChildren("bern", new hakon(scrollDotHakon).compile())
 		return compiledMessage + "\n" + stumpNode.compile()
 	}
 
-	isValidDud() {
+	isValidScroll() {
 		return !!this._settings
 	}
 
@@ -109,9 +109,9 @@ class Dud {
 	}
 }
 
-class DudServer {
-	constructor(dudFolder = `${exampleFolder}`) {
-		this.folder = dudFolder
+class ScrollServer {
+	constructor(scrollFolder = `${exampleFolder}`) {
+		this.folder = scrollFolder
 	}
 
 	folder = ""
@@ -124,21 +124,20 @@ class DudServer {
 		return this.folder + "/settings.map"
 	}
 
-	startWatchingDudFolder() {}
+	startWatchingScrollFolder() {}
 
 	startListening(port) {
 		const app = new express()
 
-		app.get("/", (req, res) => res.send(new Dud(this.toStamp()).toSingleHtmlFile()))
+		app.get("/", (req, res) => res.send(new Scroll(this.toStamp()).toSingleHtmlFile()))
 
 		app.use(express.static(this.publishedFolder))
 
 		app.listen(port, () => {
-			console.log(`\n🌌 Serving '${this.publishedFolder}'.
-
+			console.log(`\nServing '${this.publishedFolder}'.
 Settings path is '${this.settingsPath}
 
-cmd+dblclick: http://localhost:${port}/`)
+🤙 cmd+dblclick: http://localhost:${port}/`)
 		})
 	}
 
@@ -151,15 +150,15 @@ cmd+dblclick: http://localhost:${port}/`)
 
 const CommandFnDecoratorSuffix = "Command"
 
-const serveDudHelp = (folder = "example.com") => `\n\ndud serve 1145 ${folder}\n\n`
+const serveScrollHelp = (folder = "example.com") => `\n\nscroll serve 1145 ${folder}\n\n`
 
-const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(__dirname + "/" + folder))
+const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
 
-const isDudFolder = absPath => new Dud(stamp.dirToStampWithContents(absPath)).isValidDud()
+const isScrollFolder = absPath => new Scroll(stamp.dirToStampWithContents(absPath)).isValidScroll()
 
-class DudCli {
+class ScrollCli {
 	execute(argv) {
-		console.log("\n🚀🚀🚀 WELCOME TO DUD 🚀🚀🚀")
+		console.log("\n📜📜📜 WELCOME TO SCROLL 📜📜📜")
 		const command = argv[0]
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		const param1 = argv[1]
@@ -167,7 +166,7 @@ class DudCli {
 		// Note: if we need a param3, we are doing it wrong. At
 		// that point, we'd be better off taking an options map.
 		if (this[commandName]) this[commandName](param1, param2)
-		else if (isDudFolder(process.cwd())) this.serveCommand(1145, process.cwd())
+		else if (isScrollFolder(process.cwd())) this.serveCommand(1145, process.cwd())
 		else this.helpCommand()
 	}
 
@@ -177,10 +176,11 @@ class DudCli {
 			.sort()
 	}
 
-	async createCommand(destinationFolderName = `dud-${Date.now()}`) {
-		const template = new DudServer().toStamp().replace(/example.com/g, destinationFolderName)
+	async createCommand(destinationFolderName = `scroll-${Date.now()}`) {
+		const template = new ScrollServer().toStamp().replace(/example.com/g, destinationFolderName)
+		console.log(`Creating scroll in "${destinationFolderName}"`)
 		await new stamp(template).execute()
-		console.log(`\n🎆 Dud created! Now you can run:${serveDudHelp(destinationFolderName)}`)
+		console.log(`\n👍 Scroll created! Now you can run:${serveScrollHelp(destinationFolderName)}`)
 	}
 
 	_exit(message) {
@@ -188,27 +188,27 @@ class DudCli {
 		process.exit()
 	}
 
-	_ensureDudFolderExists(folder) {
-		if (!fs.existsSync(folder)) this._exit(`No dud exists in folder ${folder}`)
+	_ensureScrollFolderExists(folder) {
+		if (!fs.existsSync(folder)) this._exit(`No Scroll exists in folder ${folder}`)
 	}
 
 	deleteCommand() {
-		console.log(`\n💡 To delete a dud just use the "rm" tool\n`)
+		console.log(`\n💡 To delete a Scroll just delete the folder\n`)
 	}
 
 	serveCommand(portNumber, folder) {
-		if (!portNumber) this._exit(`Port must be provided. Usage:${serveDudHelp()}`)
-		if (!folder) this._exit(`Folder name must be provided. Usage:${serveDudHelp()}`)
+		if (!portNumber) this._exit(`Port must be provided. Usage:${serveScrollHelp()}`)
+		if (!folder) this._exit(`Folder name must be provided. Usage:${serveScrollHelp()}`)
 		const fullPath = resolvePath(folder)
-		this._ensureDudFolderExists(fullPath)
-		const server = new DudServer(fullPath)
+		this._ensureScrollFolderExists(fullPath)
+		const server = new ScrollServer(fullPath)
 		server.startListening(portNumber)
 	}
 
 	helpCommand() {
 		console.log(
-			`\nThis is the Dud help page.\n\nAvailable commands are:\n\n${this._getAllCommands()
-				.map(comm => `🏀 ` + comm.replace(CommandFnDecoratorSuffix, ""))
+			`\nThis is the Scroll help page.\nAvailable commands are:\n\n${this._getAllCommands()
+				.map(comm => `🖌️ ` + comm.replace(CommandFnDecoratorSuffix, ""))
 				.join("\n")}\n​​`
 		)
 	}
@@ -216,11 +216,11 @@ class DudCli {
 	exportCommand(folder) {
 		if (!folder) this._exit(`Folder name must be provided`)
 		const fullPath = resolvePath(folder)
-		this._ensureDudFolderExists(fullPath)
-		console.log(new DudServer(fullPath).toStamp())
+		this._ensureScrollFolderExists(fullPath)
+		console.log(new ScrollServer(fullPath).toStamp())
 	}
 }
 
-if (module && !module.parent) new DudCli().execute(process.argv.slice(2))
+if (module && !module.parent) new ScrollCli().execute(process.argv.slice(2))
 
-module.exports = { DudServer, DudCli, Dud }
+module.exports = { ScrollServer, ScrollCli, Scroll }

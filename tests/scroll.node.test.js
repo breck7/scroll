@@ -1,5 +1,5 @@
 const tap = require("tap")
-const { DudServer, DudCli, Dud } = require("../dud/dud.js")
+const { ScrollServer, ScrollCli, Scroll } = require("../scroll/scroll.node.js")
 
 const runTree = testTree =>
 	Object.keys(testTree).forEach(key => {
@@ -9,29 +9,29 @@ const runTree = testTree =>
 const testTree = {}
 
 testTree.basics = areEqual => {
-	const server = new DudServer()
+	const server = new ScrollServer()
 	areEqual(!!server, true)
 }
 
 testTree.toStamp = areEqual => {
-	const server = new DudServer()
+	const server = new ScrollServer()
 	const stamp = server.toStamp()
 	areEqual(!!stamp.includes("awesome"), true)
 }
 
-testTree.dud = areEqual => {
-	const dud = new Dud()
-	areEqual(!!dud, true)
+testTree.scroll = areEqual => {
+	const scroll = new Scroll()
+	areEqual(!!scroll, true)
 }
 
 testTree.fullIntegrationTest = areEqual => {
-	const server = new DudServer()
+	const server = new ScrollServer()
 	areEqual(!!server, true)
 }
 
 // FS tests:
-// dud missing published folder
-// dud missing settings file
+// scroll missing published folder
+// scroll missing settings file
 // settings file missing required settings
 // bad dumbdown files
 

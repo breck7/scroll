@@ -1,12 +1,12 @@
-# Dud: Dud Uses Dumbdown
+# 📜 Scroll: An old way to publish
 
-Dud is simple publishing software whose purpose is to
-demonstrate the pros and cons of Dumbdown for static
+Scroll is simple static publishing software whose purpose is
+to demonstrate the pros and cons of Dumbdown for static
 publishing.
 
 ## Installing
 
-Dud is part of the dumbdown-js package on npm
+Scroll is part of the dumbdown-js package on npm
 
 https://www.npmjs.com/package/dumbdown-js
 
@@ -19,23 +19,23 @@ npm install -g dumbdown-js
 To see the CLI options type:
 
 ```
-dud help
+scroll help
 ```
 
 ## Design Notes
 
 ### Architecture
 
-You use Dud through the command line. A Dud is a
-folder with a specific project layout. Dud compiles that
-Dud folder into a static HTML folder.
+You use Scroll through the command line. A Scroll is a
+folder with a specific project layout. Scroll compiles that
+Scroll folder into a static HTML folder.
 
-Dud also contains a simple Node.js Express app for live
+Scroll also contains a simple Node.js Express app for live
 preview.
 
 ### Folder Layout
 
-A Dud project looks like this:
+A Scroll project looks like this:
 
 ```
 yourDomainName.tld/
@@ -48,7 +48,7 @@ yourDomainName.tld/
   index.html
 ```
 
-When you "build" a dud site, you are simply generating
+When you "build" a Scroll site, you are simply generating
 the index.html file in the site's "published" folder.
 
 This folder layouts let's you easily put any static
@@ -63,28 +63,28 @@ and any private files.
 
 ### File Formats
 
-In Dud individual posts are saved as dumbdown files with the
+In Scroll individual posts are saved as dumbdown files with the
 file extension "dd".
 
-Entire duds are saved as [stamp](https://jtree.treenotation.org/designer/#standard%20stamp)
+Entire Scrolls are saved as [stamp](https://jtree.treenotation.org/designer/#standard%20stamp)
 files with the extension "stamp".
 
 ### Language
 
-Dud is written in plain Javascript. Instead of using
+Scroll is written in plain Javascript. Instead of using
 TypeScript, JSDoc TypeScript will be attempted. Much
 ergonomic pain is expected but we'll see.
 
 https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html
 
 TypeScript may be used in the future, but for now a
-design goal of Dud is to keep things minimial and
+design goal of Scroll is to keep things minimial and
 close to the metal, and if it means slightly worse
 type checking and docs.
 
 ### Git
 
-Dud is designed with git in mind. Articles are stored as
+Scroll is designed with git in mind. Articles are stored as
 files tracked by git.
 
 ### Writing Experience
@@ -97,11 +97,11 @@ separate file in git.
 ### Reading Experience
 
 Being able to scan the page like a newspaper is a
-very fast reading experience. This is central to dud.
+very fast reading experience. This is central to Scroll.
 
 Additionally, making it easy to take the content with
 you, and transform it to better suit the reader, is
-also key to dud.
+also key to Scroll.
 
 ## Questions and Answers
 
@@ -122,7 +122,7 @@ No.
 ## Alternatives Considered
 
 There is no publishing software that reads and writes dumbdown yet
-so building Dud was necessary. Jekyll and Brecksblog are 2 biggest
+so building Scroll was necessary. Jekyll and Brecksblog are 2 biggest
 inspirations.
 
 - https://jekyllrb.com/
