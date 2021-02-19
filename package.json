@@ -4,7 +4,8 @@
   "description": "The dumb alternative to markdown. The keyword for title is title. Includes Scroll static publishing software.",
   "main": "index.js",
   "scripts": {
-    "test": "tap"
+    "test": "tap",
+    "coverage": "tap --coverage-report=lcov"
   },
   "bin": {
     "scroll": "./scroll/scroll.node.js"

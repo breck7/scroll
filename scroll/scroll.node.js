@@ -1,11 +1,13 @@
 #! /usr/bin/env node
 
+// NPM ecosystem includes
 const minimist = require("minimist")
 const express = require("express")
 const path = require("path")
 const fse = require("fs-extra")
 const fs = require("fs")
 
+// Tree Notation Includes
 const { jtree } = require("jtree")
 const { TreeNode } = jtree
 const stamp = require("jtree/products/stamp.nodejs.js")
@@ -13,8 +15,11 @@ const hakon = require("jtree/products/hakon.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
 const dumbdown = require("jtree/products/dumbdown.nodejs.js")
 
-const read = filename => fs.readFileSync(filename, "utf8")
-
+// Constants
+const scrollSrcFolder = __dirname + "/"
+const exampleFolder = scrollSrcFolder + "example.com/"
+const scrollSettingsFilename = "scrollSettings.map"
+const CommandFnDecoratorSuffix = "Command"
 const compiledMessage = `<!--
 
  This page was compiled by 📜 Scroll, the Dumbdown
@@ -26,17 +31,21 @@ const compiledMessage = `<!--
 
 -->`
 
-const scrollSrcFolder = __dirname + "/"
-const exampleFolder = scrollSrcFolder + "example.com/"
-const scrollSettingsFilename = "scrollSettings.map"
+// Helper utils
+const read = filename => fs.readFileSync(filename, "utf8")
+const serveScrollHelp = (folder = "example.com") => `\n\nscroll serve ${folder} 1145\n\n`
+const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
+const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + scrollSettingsFilename))
 
 class Article {
-	constructor(stampNode) {
-		this.dumbdown = stampNode.getNode("data")?.childrenToString()
-		this.filename = stampNode.getWord(1)
+	constructor(filename = "", content = "") {
+		this.filename = filename
+		this.dumbdown = content
 	}
+
 	filename = ""
 	dumbdown = ""
+
 	get _anchorName() {
 		return this.filename
 			.split("/")
@@ -59,7 +68,31 @@ class Scroll {
 	constructor(stamp = "") {
 		this.stamp = new TreeNode(stamp)
 	}
+
 	stamp = new TreeNode()
+
+	// stamp sample file: https://jtree.treenotation.org/designer/#standard%20stamp
+	get publishedArticles() {
+		return this.stamp.filter(node => node.getLine().endsWith(".dd")).map(node => new Article(node.getWord(1), node.getNode("data")?.childrenToString()))
+	}
+
+	get _settings() {
+		return this.stamp
+			.find(node => node.getLine().endsWith(scrollSettingsFilename))
+			?.getNode("data")
+			?.childrenToString()
+	}
+
+	get settings() {
+		const defaults = {
+			twitter: "",
+			github: "",
+			email: ""
+		}
+
+		return { ...defaults, ...new TreeNode(this._settings).toObject() }
+	}
+
 	toSingleHtmlFile() {
 		const scrollDotHakon = read(scrollSrcFolder + "scroll.hakon")
 		const scrollDotStump = new TreeNode(read(scrollSrcFolder + "scroll.stump"))
@@ -79,28 +112,6 @@ class Scroll {
 		styleTag.appendLineAndChildren("bern", new hakon(scrollDotHakon).compile())
 		return compiledMessage + "\n" + stumpNode.compile()
 	}
-
-	// stamp sample file: https://jtree.treenotation.org/designer/#standard%20stamp
-	get publishedArticles() {
-		return this.stamp.filter(node => node.getLine().endsWith(".dd")).map(node => new Article(node))
-	}
-
-	get _settings() {
-		return this.stamp
-			.find(node => node.getLine().endsWith(scrollSettingsFilename))
-			?.getNode("data")
-			?.childrenToString()
-	}
-
-	get settings() {
-		const defaults = {
-			twitter: "",
-			github: "",
-			email: ""
-		}
-
-		return { ...defaults, ...new TreeNode(this._settings).toObject() }
-	}
 }
 
 class ScrollServer {
@@ -108,21 +119,31 @@ class ScrollServer {
 		this.publicFolder = path.normalize(scrollFolder + "/")
 	}
 
+	verbose = true
 	publicFolder = ""
 
 	get settingsPath() {
 		return this.publicFolder + scrollSettingsFilename
 	}
 
+	get scroll() {
+		return new Scroll(this.toStamp())
+	}
+
+	log(message) {
+		if (this.verbose) console.log(message)
+		return message
+	}
+
 	startListening(port) {
 		const app = new express()
 
-		app.get("/", (req, res) => res.send(new Scroll(this.toStamp()).toSingleHtmlFile()))
+		app.get("/", (req, res) => res.send(this.scroll.toSingleHtmlFile()))
 
 		app.use(express.static(this.publicFolder))
 
-		app.listen(port, () => {
-			console.log(`\nServing Scroll '${this.settingsPath}'
+		return app.listen(port, () => {
+			this.log(`\nServing Scroll '${this.settingsPath}'
 
 🤙 cmd+dblclick: http://localhost:${port}/`)
 		})
@@ -135,39 +156,31 @@ class ScrollServer {
 	}
 }
 
-const CommandFnDecoratorSuffix = "Command"
-
-const serveScrollHelp = (folder = "example.com") => `\n\nscroll serve ${folder} 1145\n\n`
-
-const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
-
-const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + scrollSettingsFilename))
-
 class ScrollCli {
-	execute(argv) {
-		console.log("\n📜📜📜 WELCOME TO SCROLL 📜📜📜")
+	execute(argv = []) {
+		this.log("\n📜📜📜 WELCOME TO SCROLL 📜📜📜")
 		const command = argv[0]
-		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		const param1 = argv[1]
 		const param2 = argv[2]
+		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		// Note: if we need a param3, we are doing it wrong. At
 		// that point, we'd be better off taking an options map.
-		if (this[commandName]) this[commandName](param1, param2)
-		else if (isScrollFolder(process.cwd())) this.serveCommand(1145, process.cwd())
-		else this.helpCommand()
+		if (this[commandName]) return this[commandName](param1, param2)
+		else if (isScrollFolder(process.cwd())) return this.serveCommand(1145, process.cwd())
+
+		return this.helpCommand()
 	}
 
-	_getAllCommands() {
+	verbose = true
+	log(message) {
+		if (this.verbose) console.log(message)
+		return message
+	}
+
+	get _allCommands() {
 		return Object.getOwnPropertyNames(Object.getPrototypeOf(this))
 			.filter(word => word.endsWith(CommandFnDecoratorSuffix))
 			.sort()
-	}
-
-	async createCommand(destinationFolderName = `scroll-${Date.now()}`) {
-		const template = new ScrollServer().toStamp().replace(/example.com/g, destinationFolderName)
-		console.log(`Creating scroll in "${destinationFolderName}"`)
-		await new stamp(template).execute()
-		console.log(`\n👍 Scroll created! Now you can run:${serveScrollHelp(destinationFolderName)}`)
 	}
 
 	_exit(message) {
@@ -179,8 +192,15 @@ class ScrollCli {
 		if (!fs.existsSync(folder)) this._exit(`No Scroll exists in folder ${folder}`)
 	}
 
+	async createCommand(destinationFolderName = `scroll-${Date.now()}`) {
+		const template = new ScrollServer().toStamp().replace(/example.com/g, destinationFolderName)
+		console.log(`Creating scroll in "${destinationFolderName}"`)
+		await new stamp(template).execute()
+		console.log(`\n👍 Scroll created! Now you can run:${serveScrollHelp(destinationFolderName)}`)
+	}
+
 	deleteCommand() {
-		console.log(`\n💡 To delete a Scroll just delete the folder\n`)
+		return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
 	}
 
 	serveCommand(param1, param2) {
@@ -204,26 +224,22 @@ class ScrollCli {
 
 		if (!isScrollFolder(fullPath)) this._exit(`Folder missing a '${scrollSettingsFilename}' file.`)
 
-		const server = new ScrollServer(fullPath)
-		server.startListening(portNumber)
+		const scrollServer = new ScrollServer(fullPath)
+		return scrollServer.startListening(portNumber)
 	}
 
 	helpCommand() {
-		console.log(
-			`\nThis is the Scroll help page.\nAvailable commands are:\n\n${this._getAllCommands()
-				.map(comm => `🖌️ ` + comm.replace(CommandFnDecoratorSuffix, ""))
-				.join("\n")}\n​​`
-		)
+		return this.log(`\nThis is the Scroll help page.\nAvailable commands are:\n\n${this._allCommands.map(comm => `🖌️ ` + comm.replace(CommandFnDecoratorSuffix, "")).join("\n")}\n​​`)
 	}
 
 	exportCommand(folder) {
 		if (!folder) this._exit(`Folder name must be provided`)
 		const fullPath = resolvePath(folder)
 		this._ensureScrollFolderExists(fullPath)
-		console.log(new ScrollServer(fullPath).toStamp())
+		return this.log(new ScrollServer(fullPath).toStamp())
 	}
 }
 
 if (module && !module.parent) new ScrollCli().execute(process.argv.slice(2))
 
-module.exports = { ScrollServer, ScrollCli, Scroll }
+module.exports = { ScrollServer, ScrollCli, Scroll, Article }

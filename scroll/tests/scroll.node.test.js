@@ -1,5 +1,5 @@
 const tap = require("tap")
-const { ScrollServer, ScrollCli, Scroll } = require("../scroll.node.js")
+const { ScrollServer, ScrollCli, Scroll, Article } = require("../scroll.node.js")
 
 const runTree = testTree =>
 	Object.keys(testTree).forEach(key => {
@@ -8,25 +8,64 @@ const runTree = testTree =>
 
 const testTree = {}
 
-testTree.basics = areEqual => {
-	const server = new ScrollServer()
-	areEqual(!!server, true)
-}
+const pathToExample = __dirname + "/../example.com/"
+const testPort = 5435
 
-testTree.toStamp = areEqual => {
-	const server = new ScrollServer()
-	const stamp = server.toStamp()
-	areEqual(!!stamp.includes("awesome"), true)
+testTree.server = areEqual => {
+	const scrollServer = new ScrollServer(pathToExample)
+	scrollServer.verbose = false
+	const httpServer = scrollServer.startListening(testPort)
+
+	areEqual(!!httpServer, true)
+
+	httpServer.close()
 }
 
 testTree.scroll = areEqual => {
-	const scroll = new Scroll()
-	areEqual(!!scroll, true)
+	const scroll = new ScrollServer(pathToExample).scroll
+	areEqual(scroll.toSingleHtmlFile().includes("nature"), true)
 }
 
 testTree.fullIntegrationTest = areEqual => {
 	const server = new ScrollServer()
 	areEqual(!!server, true)
+}
+
+testTree.article = areEqual => {
+	const article = new Article(
+		"about.dd",
+		`title About me
+hello world`
+	)
+
+	areEqual(
+		article
+			.toStumpNode()
+			.toString()
+			.includes("articleCell"),
+		true
+	)
+}
+
+testTree.cli = areEqual => {
+	const cli = new ScrollCli()
+	cli.verbose = false
+	// Act/Assert
+	areEqual(cli.helpCommand().includes("help page"), true)
+
+	// Act/Assert
+	areEqual(cli.exportCommand(pathToExample).includes("about"), true)
+
+	// Act/Assert
+	areEqual(cli.deleteCommand().includes("delete"), true)
+
+	// Act/Assert
+	areEqual(cli.execute().includes("help page"), true)
+
+	// Act/Assert
+	const httpServer = cli.serveCommand(pathToExample, testPort)
+	areEqual(!!httpServer, true)
+	httpServer.close()
 }
 
 // FS tests:
