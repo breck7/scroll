@@ -135,10 +135,22 @@ class ScrollServer {
 		return message
 	}
 
+	previousVersion = ""
+
+	buildSaveAndServeSingleHtmlFile() {
+		const file = this.scroll.toSingleHtmlFile()
+		if (this.previousVersion !== file) {
+			fs.writeFileSync(this.publicFolder + "/index.html", file, "utf8")
+			this.previousVersion = file
+			this.log(`Wrote new index.html to disk`)
+		}
+		return file
+	}
+
 	startListening(port) {
 		const app = new express()
 
-		app.get("/", (req, res) => res.send(this.scroll.toSingleHtmlFile()))
+		app.get("/", (req, res) => res.send(this.buildSaveAndServeSingleHtmlFile()))
 
 		app.use(express.static(this.publicFolder))
 
