@@ -27,7 +27,8 @@ const compiledMessage = `<!--
 -->`
 
 const scrollSrcFolder = __dirname + "/"
-const exampleFolder = scrollSrcFolder + "../example.com/"
+const exampleFolder = scrollSrcFolder + "example.com/"
+const scrollSettingsFilename = "scrollSettings.map"
 
 class Article {
 	constructor(stampNode) {
@@ -79,21 +80,14 @@ class Scroll {
 		return compiledMessage + "\n" + stumpNode.compile()
 	}
 
-	isValidScroll() {
-		return !!this._settings
-	}
-
 	// stamp sample file: https://jtree.treenotation.org/designer/#standard%20stamp
 	get publishedArticles() {
-		return this.stamp
-			.filter(node => node.getLine().includes("published")) // search the published folder
-			.filter(node => node.getLine().endsWith(".dd"))
-			.map(node => new Article(node))
+		return this.stamp.filter(node => node.getLine().endsWith(".dd")).map(node => new Article(node))
 	}
 
 	get _settings() {
 		return this.stamp
-			.find(node => node.getLine().endsWith(".map"))
+			.find(node => node.getLine().endsWith(scrollSettingsFilename))
 			?.getNode("data")
 			?.childrenToString()
 	}
@@ -111,38 +105,31 @@ class Scroll {
 
 class ScrollServer {
 	constructor(scrollFolder = `${exampleFolder}`) {
-		this.folder = scrollFolder
+		this.publicFolder = path.normalize(scrollFolder + "/")
 	}
 
-	folder = ""
-
-	get publishedFolder() {
-		return this.folder + "/published/"
-	}
+	publicFolder = ""
 
 	get settingsPath() {
-		return this.publishedFolder + "settings.map"
+		return this.publicFolder + scrollSettingsFilename
 	}
-
-	startWatchingScrollFolder() {}
 
 	startListening(port) {
 		const app = new express()
 
 		app.get("/", (req, res) => res.send(new Scroll(this.toStamp()).toSingleHtmlFile()))
 
-		app.use(express.static(this.publishedFolder))
+		app.use(express.static(this.publicFolder))
 
 		app.listen(port, () => {
-			console.log(`\nServing '${this.publishedFolder}'.
-Settings path is '${this.settingsPath}
+			console.log(`\nServing Scroll '${this.settingsPath}'
 
 🤙 cmd+dblclick: http://localhost:${port}/`)
 		})
 	}
 
 	toStamp() {
-		const providedPathWithoutEndingSlash = this.folder.replace(/\/$/, "")
+		const providedPathWithoutEndingSlash = this.publicFolder.replace(/\/$/, "")
 		const absPath = path.resolve(providedPathWithoutEndingSlash)
 		return stamp.dirToStampWithContents(absPath)
 	}
@@ -150,11 +137,11 @@ Settings path is '${this.settingsPath}
 
 const CommandFnDecoratorSuffix = "Command"
 
-const serveScrollHelp = (folder = "example.com") => `\n\nscroll serve 1145 ${folder}\n\n`
+const serveScrollHelp = (folder = "example.com") => `\n\nscroll serve ${folder} 1145\n\n`
 
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
 
-const isScrollFolder = absPath => new Scroll(stamp.dirToStampWithContents(absPath)).isValidScroll()
+const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + scrollSettingsFilename))
 
 class ScrollCli {
 	execute(argv) {
@@ -196,11 +183,27 @@ class ScrollCli {
 		console.log(`\n💡 To delete a Scroll just delete the folder\n`)
 	}
 
-	serveCommand(portNumber, folder) {
+	serveCommand(param1, param2) {
+		let folder = process.cwd()
+		let portNumber = 1145
+
+		// Overloads:
+		// "serve" => serve cwd on default port
+		// "serve 123" => serve cwd on custom port
+		// "serve folderName" => serve on default port
+		// "serve folderName 232" => serve on custom port
+		if (param1 && param1.match(/[^\d]/)) folder = param1
+		else if (param1) portNumber = param1
+
+		if (param2) portNumber = param2
+
 		if (!portNumber) this._exit(`Port must be provided. Usage:${serveScrollHelp()}`)
 		if (!folder) this._exit(`Folder name must be provided. Usage:${serveScrollHelp()}`)
 		const fullPath = resolvePath(folder)
 		this._ensureScrollFolderExists(fullPath)
+
+		if (!isScrollFolder(fullPath)) this._exit(`Folder missing a '${scrollSettingsFilename}' file.`)
+
 		const server = new ScrollServer(fullPath)
 		server.startListening(portNumber)
 	}

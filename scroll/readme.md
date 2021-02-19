@@ -27,39 +27,40 @@ scroll help
 ### Architecture
 
 You use Scroll through the command line. A Scroll is a
-folder with a specific project layout. Scroll compiles that
-Scroll folder into a static HTML folder.
+single folder containing Dumbdown files. Scroll compiles
+those Dumbdown files into a static index.html page.
 
 Scroll also contains a simple Node.js Express app for live
 preview.
 
 ### Folder Layout
 
-A Scroll project looks like this:
+A typical Scroll project folder looks like this:
 
 ```
-yourDomainName.tld/
+yourScrollProject/
  someDraft.dd
  readme.dd
- published/
+ yourDomainName.org/
   publishedArticle.dd
   anImageInTheArticle.png
   index.html
-  settings.map
+  scrollSettings.map
 ```
 
+The "scrollSettings.map" file let's Scroll know that
+a folder contains a Scroll.
+
 When you "build" a Scroll site, you are simply generating
-the index.html file in the site's "published" folder.
+the index.html file in the site's folder.
 
-This folder layouts let's you easily put any static
-files you have directly into the "published/" folder.
+The suggested project layout above let's you easily
+separate drafts from published content and put all
+under version control.
 
-Your sites static files, generated html, and published
-article source dumbdown files, are all in the "published/"
-folder and checked into version control.
-
-The root level folder is where you can keep drafts
-and any private files.
+With Scroll your site's public static files, generated html,
+and published article source dumbdown files, are all in the
+public folder and checked into version control.
 
 ### File Formats
 

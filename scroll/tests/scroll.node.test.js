@@ -1,5 +1,5 @@
 const tap = require("tap")
-const { ScrollServer, ScrollCli, Scroll } = require("../scroll/scroll.node.js")
+const { ScrollServer, ScrollCli, Scroll } = require("../scroll.node.js")
 
 const runTree = testTree =>
 	Object.keys(testTree).forEach(key => {
