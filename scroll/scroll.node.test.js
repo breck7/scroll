@@ -1,5 +1,8 @@
 const tap = require("tap")
-const { ScrollServer, ScrollCli, Scroll, Article, MarkdownFile } = require("../scroll.node.js")
+const { ScrollServer, ScrollCli, Scroll, Article, MarkdownFile } = require("./scroll.node.js")
+
+const pathToExample = __dirname + "/example.com/"
+const testPort = 5435
 
 const runTree = testTree =>
 	Object.keys(testTree).forEach(key => {
@@ -7,9 +10,6 @@ const runTree = testTree =>
 	})
 
 const testTree = {}
-
-const pathToExample = __dirname + "/../example.com/"
-const testPort = 5435
 
 testTree.server = areEqual => {
 	const scrollServer = new ScrollServer(pathToExample)

@@ -3,7 +3,7 @@ linksComponent
  a {emailSvg}
   href mailto:{email}
  a {twitterSvg}
-  href http://twitter.com/{twitter}
+  href {twitter}
  a {githubSvg}
   href {github}
 articleComponent
