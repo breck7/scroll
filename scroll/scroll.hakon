@@ -54,9 +54,6 @@ img
  column-rule 1px solid rgb(204,204,204)
  padding-left 20px
  padding-right 20px
- text-align justify
- h1
-  text-align center
 .date
  text-align center
  font-style italic
@@ -64,6 +61,10 @@ img
 .articleCell
  border-bottom 1px solid rgb(204,204,204)
  width 35ch
- padding 3pt
+ padding 1ch
  break-inside avoid
  overflow hidden
+ text-align justify
+ margin auto
+ h1
+  text-align center
