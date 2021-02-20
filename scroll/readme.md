@@ -42,17 +42,18 @@ yourScrollProject/
  someDraft.dd
  readme.dd
  yourDomainName.org/
+  about.dd
   publishedArticle.dd
   anImageInTheArticle.png
   index.html
   scrollSettings.map
 ```
 
-The "scrollSettings.map" file let's Scroll know that
+The `scrollSettings.map` file let's Scroll know that
 a folder contains a Scroll.
 
 When you "build" a Scroll site, you are simply generating
-the index.html file in the site's folder.
+the `index.html` file in the site's folder.
 
 The suggested project layout above let's you easily
 separate drafts from published content and put all
@@ -65,23 +66,17 @@ public folder and checked into version control.
 ### File Formats
 
 In Scroll individual posts are saved as dumbdown files with the
-file extension "dd".
+file extension `dd`.
 
 Entire Scrolls are saved as [stamp](https://jtree.treenotation.org/designer/#standard%20stamp)
-files with the extension "stamp".
+files with the extension `stamp`.
 
 ### Language
 
-Scroll is written in plain Javascript. Instead of using
-TypeScript, JSDoc TypeScript will be attempted. Much
-ergonomic pain is expected but we'll see.
+Scroll is currently written in plain Javascript.
 
-https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html
-
-TypeScript may be used in the future, but for now a
-design goal of Scroll is to keep things minimial and
-close to the metal, and if it means slightly worse
-type checking and docs.
+TypeScript may be used in the future but Scroll may
+never get over 1KLOC so that might not be necessary.
 
 ### Git
 
@@ -127,3 +122,4 @@ so building Scroll was necessary. Jekyll and Brecksblog are 2 biggest
 inspirations.
 
 - https://jekyllrb.com/
+- https://github.com/breck7/brecksblog
