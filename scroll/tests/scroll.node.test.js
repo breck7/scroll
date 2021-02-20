@@ -23,7 +23,7 @@ testTree.server = areEqual => {
 
 testTree.scroll = areEqual => {
 	const scroll = new ScrollServer(pathToExample).scroll
-	areEqual(scroll.toSingleHtmlFile().includes("nature"), true)
+	areEqual(scroll.toSingleHtmlFile().includes("music"), true)
 }
 
 testTree.fullIntegrationTest = areEqual => {
