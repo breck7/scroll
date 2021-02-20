@@ -46,15 +46,20 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  right 25px
  top 3px
 img
- max-width 50ch
+ max-width 35ch
 .page
  column-count auto
- column-width 50ch
- column-gap 10px
+ column-width 35ch
+ column-gap 20px
+ column-rule 1px solid rgb(204,204,204)
  padding-left 20px
  padding-right 20px
+ text-align justify
+ h1
+  text-align center
 .articleCell
- width 50ch
+ border-bottom 1px solid rgb(204,204,204)
+ width 35ch
  padding 3pt
  break-inside avoid
  overflow hidden
