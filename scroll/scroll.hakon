@@ -57,6 +57,10 @@ img
  text-align justify
  h1
   text-align center
+.date
+ text-align center
+ font-style italic
+ font-size 80%
 .articleCell
  border-bottom 1px solid rgb(204,204,204)
  width 35ch

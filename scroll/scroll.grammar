@@ -1,0 +1,108 @@
+anyCell
+blankCell
+dashCell
+ highlightScope constant.language
+codeCell
+ highlightScope comment
+keywordCell
+ highlightScope keyword
+textCell
+ highlightScope string
+urlCell
+ highlightScope constant.language
+errorNode
+ baseNodeType errorNode
+dumbdownNode
+ extensions dd dumbdown
+ description A prefix Tree Language that compiles to HTML. An alternative to Markdown.
+ root
+ inScope abstractTopLevelNode blankLineNode
+ catchAllNodeType errorNode
+ compilesTo html
+ example
+  title Hello world
+  subtitle This is dumbdown
+  
+  paragraph It compiles to HTML. Blank lines get turned into brs.
+  link https://treenotation.org dumbdown is a Tree Language.
+  list
+   - It has lists
+   - Too!
+  code
+   // You can add code as well.
+   print("Hello world")
+abstractTopLevelNode
+ abstract
+ cells keywordCell
+titleNode
+ catchAllCellType textCell
+ extends abstractTopLevelNode
+ compiler
+  stringTemplate <h1>{textCell}</h1>
+ crux title
+linkNode
+ cells keywordCell urlCell
+ catchAllCellType textCell
+ extends abstractTopLevelNode
+ compiler
+  stringTemplate <a href="{urlCell}">{textCell}</a>
+ crux link
+paragraphNode
+ inScope linkNode
+ catchAllCellType textCell
+ extends abstractTopLevelNode
+ compiler
+  stringTemplate <p>{textCell}</p>
+ crux paragraph
+subtitleNode
+ catchAllCellType textCell
+ extends abstractTopLevelNode
+ compiler
+  stringTemplate <h2>{textCell}</h2>
+ crux subtitle
+codeNode
+ description A code block.
+ catchAllNodeType lineOfCodeNode
+ extends abstractTopLevelNode
+ todo Fix spacing
+ compiler
+  openChildren <code>
+  closeChildren </code>
+  stringTemplate 
+ crux code
+listNode
+ inScope dashNode
+ extends abstractTopLevelNode
+ compiler
+  stringTemplate 
+  openChildren <ul>
+  closeChildren </ul>
+ crux list
+blankLineNode
+ description Blank lines compile to a br in the HTML.
+ cells blankCell
+ compiler
+  stringTemplate 
+ pattern ^$
+ tags doNotSynthesize
+lineOfCodeNode
+ catchAllCellType codeCell
+ cells codeCell
+dashNode
+ crux -
+ catchAllCellType textCell
+ compiler
+  stringTemplate <li>{textCell}</li>
+ cells dashCell
+dateCell
+ highlightScope string
+dateNode
+ catchAllCellType dateCell
+ extends abstractTopLevelNode
+ crux date
+ javascript
+  compile(spaces) {
+   const dayjs = require("dayjs")
+   const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
+   return `<span class="date">${dateCell} —</span>`
+  }

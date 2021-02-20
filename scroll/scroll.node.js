@@ -1,11 +1,14 @@
 #! /usr/bin/env node
 
 // NPM ecosystem includes
-const minimist = require("minimist")
+const parseArgs = require("minimist")
+const glob = require("glob")
 const express = require("express")
 const path = require("path")
 const fse = require("fs-extra")
 const fs = require("fs")
+const lodash = require("lodash")
+const dayjs = require("dayjs")
 
 // Tree Notation Includes
 const { jtree } = require("jtree")
@@ -13,7 +16,7 @@ const { TreeNode } = jtree
 const stamp = require("jtree/products/stamp.nodejs.js")
 const hakon = require("jtree/products/hakon.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
-const dumbdown = require("jtree/products/dumbdown.nodejs.js")
+const grammarNode = require("jtree/products/grammar.nodejs.js")
 
 // Constants
 const scrollSrcFolder = __dirname + "/"
@@ -33,6 +36,7 @@ const compiledMessage = `<!--
 
 // Helper utils
 const read = filename => fs.readFileSync(filename, "utf8")
+const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
 const serveScrollHelp = (folder = "example.com") => `\n\nscroll serve ${folder} 1145\n\n`
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
 const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + scrollSettingsFilename))
@@ -53,12 +57,29 @@ class Article {
 			.replace(".dd", "")
 	}
 
+	get dumbdownCompiler() {
+		const grammarCode = [read(__dirname + "/scroll.grammar")].join("\n")
+
+		const errs = new grammarNode(grammarCode).getAllErrors().map(err => err.toObject())
+		if (errs.length) console.error(new jtree.TreeNode(errs).toFormattedTable(200))
+
+		return new jtree.HandGrammarProgram(grammarCode).compileAndReturnRootConstructor()
+	}
+
+	get toDumbdownProgram() {
+		return new this.dumbdownCompiler(this.dumbdown)
+	}
+
+	get timestamp() {
+		return dayjs(new TreeNode(this.dumbdown).get("date") ?? 0).unix()
+	}
+
 	toStumpNode() {
 		const node = new TreeNode(`div
  id ${this._anchorName}
  class articleCell`)
 
-		node.getNode("div").appendLineAndChildren("bern", new dumbdown(this.dumbdown).compile())
+		node.getNode("div").appendLineAndChildren("bern", this.toDumbdownProgram.compile())
 
 		return new stump(node)
 	}
@@ -73,7 +94,8 @@ class Scroll {
 
 	// stamp sample file: https://jtree.treenotation.org/designer/#standard%20stamp
 	get publishedArticles() {
-		return this.stamp.filter(node => node.getLine().endsWith(".dd")).map(node => new Article(node.getWord(1), node.getNode("data")?.childrenToString()))
+		const all = this.stamp.filter(node => node.getLine().endsWith(".dd")).map(node => new Article(node.getWord(1), node.getNode("data")?.childrenToString()))
+		return lodash.sortBy(all, article => article.timestamp).reverse()
 	}
 
 	get _settings() {
@@ -140,7 +162,7 @@ class ScrollServer {
 	buildSaveAndServeSingleHtmlFile() {
 		const file = this.scroll.toSingleHtmlFile()
 		if (this.previousVersion !== file) {
-			fs.writeFileSync(this.publicFolder + "/index.html", file, "utf8")
+			write(this.publicFolder + "/index.html", file)
 			this.previousVersion = file
 			this.log(`Wrote new index.html to disk`)
 		}
@@ -169,15 +191,13 @@ class ScrollServer {
 }
 
 class ScrollCli {
-	execute(argv = []) {
+	execute(args = []) {
 		this.log("\n📜📜📜 WELCOME TO SCROLL 📜📜📜")
-		const command = argv[0]
-		const param1 = argv[1]
-		const param2 = argv[2]
+		const command = args[0]
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		// Note: if we need a param3, we are doing it wrong. At
 		// that point, we'd be better off taking an options map.
-		if (this[commandName]) return this[commandName](param1, param2)
+		if (this[commandName]) return this[commandName](args.slice(1))
 		else if (isScrollFolder(process.cwd())) return this.serveCommand(1145, process.cwd())
 
 		return this.helpCommand()
@@ -215,9 +235,22 @@ class ScrollCli {
 		return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
 	}
 
-	serveCommand(param1, param2) {
+	checkCommand() {
+		return this.log(`\n💡 Checks a Scroll for errors.\n`)
+	}
+
+	convertCommand(globPatterns) {
+		if (!globPatterns.length) return this.log(`\n💡 To convert markdown files to dumbdown pass a glob pattern like this "scroll convert *.md"\n`)
+
+		const files = globPatterns.map(pattern => glob.sync(pattern)).flat()
+		this.log(`${files.length} files to convert`)
+		files.map(resolvePath).forEach(fullPath => write(fullPath, new MarkdownFile(read(fullPath)).toDumbdown()))
+	}
+
+	serveCommand(args) {
 		let folder = process.cwd()
 		let portNumber = 1145
+		const [param1, param2] = args
 
 		// Overloads:
 		// "serve" => serve cwd on default port
@@ -252,6 +285,18 @@ class ScrollCli {
 	}
 }
 
-if (module && !module.parent) new ScrollCli().execute(process.argv.slice(2))
+class MarkdownFile {
+	constructor(markdown) {
+		this.markdown = markdown
+	}
 
-module.exports = { ScrollServer, ScrollCli, Scroll, Article }
+	markdown = ""
+
+	toDumbdown() {
+		return this.markdown
+	}
+}
+
+if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
+
+module.exports = { ScrollServer, ScrollCli, Scroll, Article, MarkdownFile }

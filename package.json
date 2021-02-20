@@ -26,8 +26,11 @@
   },
   "homepage": "https://github.com/treenotation/dumbdown#readme",
   "dependencies": {
+    "dayjs": "^1.10.4",
     "fs-extra": "^9.1.0",
+    "glob": "^7.1.6",
     "jtree": "^51.3.0",
+    "lodash": "^4.17.21",
     "minimist": "^1.2.5"
   },
   "devDependencies": {

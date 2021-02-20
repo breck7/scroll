@@ -1,5 +1,5 @@
 const tap = require("tap")
-const { ScrollServer, ScrollCli, Scroll, Article } = require("../scroll.node.js")
+const { ScrollServer, ScrollCli, Scroll, Article, MarkdownFile } = require("../scroll.node.js")
 
 const runTree = testTree =>
 	Object.keys(testTree).forEach(key => {
@@ -29,6 +29,16 @@ testTree.scroll = areEqual => {
 testTree.fullIntegrationTest = areEqual => {
 	const server = new ScrollServer()
 	areEqual(!!server, true)
+}
+
+testTree.markdown = areEqual => {
+	// Arrange
+	const mdFile = `# hello world`
+	// Act
+	const ddFile = new MarkdownFile(mdFile).toDumbdown()
+
+	// Assert
+	areEqual(mdFile, ddFile)
 }
 
 testTree.article = areEqual => {
