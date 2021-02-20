@@ -12,6 +12,8 @@ articleComponent
  div Here is some content. I dont know what to think about it. But it sounds coool.
 html
  head
+  meta
+   charset utf-8
   titleTag {title}
   styleTag
    bern
