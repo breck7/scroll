@@ -219,7 +219,7 @@ class ScrollCli {
 	}
 
 	_exit(message) {
-		console.log(`\n❌ ${message}\n`)
+		this.log(`\n❌ ${message}\n`)
 		process.exit()
 	}
 
@@ -229,11 +229,11 @@ class ScrollCli {
 
 	async createCommand(args) {
 		if (!args.length) this._exit(`Usage "scroll create foo.com bar.com"`)
-		args.forEach(async destinationFolderName => {
+		return args.map(async destinationFolderName => {
 			const template = new ScrollServer().toStamp().replace(/example.com/g, destinationFolderName)
 			this.log(`Creating scroll in "${destinationFolderName}"`)
 			await new stamp(template).execute()
-			this.log(`\n👍 Scroll created! Now you can run:${serveScrollHelp(destinationFolderName)}`)
+			return this.log(`\n👍 Scroll created! Now you can run:${serveScrollHelp(destinationFolderName)}`)
 		})
 	}
 
@@ -288,11 +288,12 @@ class ScrollCli {
 	}
 
 	exportCommand(args) {
-		const folder = args[0]
-		if (!folder) this._exit(`Folder name must be provided`)
-		const fullPath = resolvePath(folder)
-		this._ensureScrollFolderExists(fullPath)
-		return this.log(new ScrollServer(fullPath).toStamp())
+		if (!args.length) this._exit(`Usage "scroll export foo.com bar.com"`)
+		return args.map(destinationFolderName => {
+			const fullPath = resolvePath(folder)
+			this._ensureScrollFolderExists(fullPath)
+			return this.log(new ScrollServer(fullPath).toStamp())
+		})
 	}
 }
 
