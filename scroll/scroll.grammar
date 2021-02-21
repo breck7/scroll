@@ -48,12 +48,6 @@ paragraphNode
  compiler
   stringTemplate <p>{textCell}</p>
  crux paragraph
-subtitleNode
- catchAllCellType textCell
- extends abstractTopLevelNode
- compiler
-  stringTemplate <h2>{textCell}</h2>
- crux subtitle
 codeNode
  description A code block.
  catchAllNodeType lineOfCodeNode
@@ -104,6 +98,32 @@ titleNode
    const permalink = jtree.Utils.stringToPermalink(this.getContent())
    return `<h1 id="${permalink}"><a href="#${permalink}">${title}</a></h1>`
   }
+title2Node
+ catchAllCellType textCell
+ extends abstractTopLevelNode
+ compiler
+  stringTemplate <h2>{textCell}</h2>
+ crux title2
+title3Node
+ extends title2Node
+ compiler
+  stringTemplate <h3>{textCell}</h3>
+ crux title3
+title4Node
+ extends title2Node
+ compiler
+  stringTemplate <h4>{textCell}</h4>
+ crux title4
+title5Node
+ extends title2Node
+ compiler
+  stringTemplate <h5>{textCell}</h5>
+ crux title5
+title6Node
+ extends title2Node
+ compiler
+  stringTemplate <h6>{textCell}</h6>
+ crux title6
 dateNode
  catchAllCellType dateCell
  extends abstractTopLevelNode
