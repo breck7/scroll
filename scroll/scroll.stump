@@ -1,5 +1,5 @@
 linksComponent
- class chrome icons
+ class scrollChrome scrollIcons
  a {emailSvg}
   href mailto:{email}
  a {twitterSvg}
@@ -7,7 +7,7 @@ linksComponent
  a {githubSvg}
   href {github}
 articleComponent
- class articleCell
+ class scrollArticleCell
  h3 Article title
  div Here is some content. I dont know what to think about it. But it sounds coool.
 html
@@ -19,20 +19,20 @@ html
    bern
  body
   div
-   class topRightBar
+   class scrollTopRightBar
    linksComponent
   h1 {title}
-   class chrome title
+   class scrollChrome scrollTitle
   div {description}
-   class chrome description
+   class scrollChrome scrollDescription
   div
-   class chrome links
+   class scrollChrome scrollLinks
    a about
     href #about
   div
-   class meat
+   class scrollPageContainer
    div
-    class page
+    class scrollPage
     articleComponent
     articleComponent
     articleComponent

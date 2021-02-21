@@ -9,13 +9,13 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  padding 0
  border 0
  vertical-align baseline
-.chrome
+.scrollChrome
  text-align center
  font-family Retina,Arial,Helvetica,sans-serif
  color #333
-.description
+.scrollDescription
  padding 3px
-.links
+.scrollLinks
  text-align left
  position absolute
  left 25px
@@ -25,40 +25,38 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
   color rgba(0,0,0,0.8)
   &:hover
    color rgba(0,0,0,1)
-.meat
+.scrollPageContainer
  border-top 1px solid rgb(204,204,204)
  border-bottom 1px solid rgb(204,204,204)
  margin-top 8px
  margin-bottom 8px
-.title
+.scrollTitle
  font-family Exchange,Georgia,serif
  color #000
-.icons
+.scrollIcons
  padding-top 3px
  svg
   width 16px
   fill rgb(204,204,204)
   &:hover
    fill #333
-.topRightBar
+.scrollTopRightBar
  text-align right
  position absolute
  right 25px
  top 3px
-img
- max-width 35ch
-.page
+.scrollPage
  column-count auto
  column-width 35ch
  column-gap 20px
  column-rule 1px solid rgb(204,204,204)
  padding-left 20px
  padding-right 20px
-.date
+.scrollArticleDate
  text-align center
  font-style italic
  font-size 80%
-.articleCell
+.scrollArticleCell
  border-bottom 1px solid rgb(204,204,204)
  width 35ch
  padding 1ch
@@ -66,5 +64,11 @@ img
  overflow hidden
  text-align justify
  margin auto
+ img
+  max-width 35ch
+ h1
+  a
+   text-decoration none
+   color #000
  h1
   text-align center

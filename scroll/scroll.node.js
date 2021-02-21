@@ -34,6 +34,11 @@ const compiledMessage = `<!--
 
 -->`
 
+const cssClasses = {
+	scrollPage: "scrollPage",
+	scrollArticleCell: "scrollArticleCell"
+}
+
 // Helper utils
 const read = filename => fs.readFileSync(filename, "utf8")
 const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
@@ -42,20 +47,11 @@ const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.res
 const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + scrollSettingsFilename))
 
 class Article {
-	constructor(filename = "", content = "") {
-		this.filename = filename
+	constructor(content = "") {
 		this.dumbdown = content
 	}
 
-	filename = ""
 	dumbdown = ""
-
-	get _anchorName() {
-		return this.filename
-			.split("/")
-			.pop()
-			.replace(".dd", "")
-	}
 
 	get dumbdownCompiler() {
 		const grammarCode = [read(__dirname + "/scroll.grammar")].join("\n")
@@ -76,8 +72,7 @@ class Article {
 
 	toStumpNode() {
 		const node = new TreeNode(`div
- id ${this._anchorName}
- class articleCell`)
+ class ${cssClasses.scrollArticleCell}`)
 
 		node.getNode("div").appendLineAndChildren("bern", this.toDumbdownProgram.compile())
 
@@ -94,7 +89,7 @@ class Scroll {
 
 	// stamp sample file: https://jtree.treenotation.org/designer/#standard%20stamp
 	get publishedArticles() {
-		const all = this.stamp.filter(node => node.getLine().endsWith(".dd")).map(node => new Article(node.getWord(1), node.getNode("data")?.childrenToString()))
+		const all = this.stamp.filter(node => node.getLine().endsWith(".dd")).map(node => new Article(node.getNode("data")?.childrenToString()))
 		return lodash.sortBy(all, article => article.timestamp).reverse()
 	}
 
@@ -125,9 +120,9 @@ class Scroll {
 
 		stumpWithSettings
 			.getTopDownArray()
-			.filter(node => node.getLine() === "class page")[0]
+			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
 			.getParent() // todo: fix
-			.setChildren(`class page\n` + this.publishedArticles.map(article => article.toStumpNode().toString()).join("\n"))
+			.setChildren(`class ${cssClasses.scrollPage}\n` + this.publishedArticles.map(article => article.toStumpNode().toString()).join("\n"))
 
 		const stumpNode = new stump(stumpWithSettings)
 		const styleTag = stumpNode.getNode("head styleTag")

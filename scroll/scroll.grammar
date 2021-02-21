@@ -34,12 +34,6 @@ dumbdownNode
 abstractTopLevelNode
  abstract
  cells keywordCell
-titleNode
- catchAllCellType textCell
- extends abstractTopLevelNode
- compiler
-  stringTemplate <h1>{textCell}</h1>
- crux title
 linkNode
  cells keywordCell urlCell
  catchAllCellType textCell
@@ -96,6 +90,18 @@ dashNode
  cells dashCell
 dateCell
  highlightScope string
+titleNode
+ catchAllCellType textCell
+ extends abstractTopLevelNode
+ compiler
+  stringTemplate 
+ crux title
+ javascript
+  compile(spaces) {
+   const title = this.getContent()
+   const permalink = jtree.Utils.stringToPermalink(this.getContent())
+   return `<h1 id="${permalink}"><a href="#${permalink}">${title}</a></h1>`
+  }
 dateNode
  catchAllCellType dateCell
  extends abstractTopLevelNode
@@ -104,5 +110,5 @@ dateNode
   compile(spaces) {
    const dayjs = require("dayjs")
    const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
-   return `<span class="date">${dateCell} —</span>`
+   return `<span class="scrollArticleDate">${dateCell} —</span>`
   }

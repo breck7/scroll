@@ -43,7 +43,6 @@ testTree.markdown = areEqual => {
 
 testTree.article = areEqual => {
 	const article = new Article(
-		"about.dd",
 		`title About me
 hello world`
 	)
