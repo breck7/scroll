@@ -289,8 +289,8 @@ class ScrollCli {
 
 	exportCommand(args) {
 		if (!args.length) this._exit(`Usage "scroll export foo.com bar.com"`)
-		return args.map(destinationFolderName => {
-			const fullPath = resolvePath(folder)
+		return args.map(scrollFolderName => {
+			const fullPath = resolvePath(scrollFolderName)
 			this._ensureScrollFolderExists(fullPath)
 			return this.log(new ScrollServer(fullPath).toStamp())
 		})
