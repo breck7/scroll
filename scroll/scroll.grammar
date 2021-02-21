@@ -76,8 +76,10 @@ blankLineNode
 lineOfCodeNode
  catchAllCellType codeCell
  catchAllNodeType lineOfCodeNode
- compiler
-  stringTemplate <code>{codeCell}</code>
+ javascript
+  compile() {
+    return `<code>${this.getIndentation()}${this.getLine()}</code>${this.map(child => child.compile()).join("\n")}`
+  }
 dashNode
  crux -
  catchAllCellType textCell

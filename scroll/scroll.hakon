@@ -1,10 +1,10 @@
 html
- background rgb(244,244,244)
+ background-color rgb(244,244,244)
  font-family Exchange,Georgia,serif
  color #000
  font-size 10pt
 comment CSS reset
-html,body,div,span,h1,h2,h3,h4,h5,h6
+html,body,div,span,h1,h2,h3,h4,h5,h6,p
  margin 0
  padding 0
  border 0
@@ -72,19 +72,25 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  overflow hidden
  text-align justify
  margin auto
+ p
+  text-indent 1em
  p:first-of-type
-  margin-top 0
   display inline
  img
   max-width 35ch
  .scrollArticleCode
-  margin-bottom 20px
- code
-  margin 0
-  display block
+  margin-top 15px
+  margin-bottom 15px
+  background-color rgb(234,234,234)
+  padding 1em
+  overflow hidden
+  code
+   margin 0
+   display block
+   white-space pre
  h1
   a
    text-decoration none
    color #000
- h1
+ h1,h2,h3,h4,h5,h6
   text-align center
