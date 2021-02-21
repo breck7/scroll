@@ -77,6 +77,11 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
   display inline
  img
   max-width 35ch
+ .scrollArticleCode
+  margin-bottom 20px
+ code
+  margin 0
+  display block
  h1
   a
    text-decoration none

@@ -54,8 +54,8 @@ codeNode
  extends abstractTopLevelNode
  todo Fix spacing
  compiler
-  openChildren <pre>
-  closeChildren </pre>
+  openChildren <div class="scrollArticleCode">
+  closeChildren </div>
   stringTemplate 
  crux code
 listNode

@@ -258,6 +258,10 @@ class ScrollCli {
 		return this.log(new ScrollServer(fullPath).errors)
 	}
 
+	// todo:
+	// \[([^\]]+)\]\(([^\)]+)\) <a href="$2">$1</a>
+	// \*\*([^\*]+)\*\* <strong>$1</strong>
+	// \*([^\*]+)\* <em>$1</em>
 	convertCommand(globPatterns) {
 		if (!globPatterns.length) return this.log(`\n💡 To convert markdown files to dumbdown pass a glob pattern like this "scroll convert *.md"\n`)
 
