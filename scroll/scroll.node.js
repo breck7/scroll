@@ -47,11 +47,13 @@ const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.res
 const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + scrollSettingsFilename))
 
 class Article {
-	constructor(content = "") {
+	constructor(content = "", sourceLink = "") {
 		this.dumbdown = content
+		this.sourceLink = sourceLink
 	}
 
 	dumbdown = ""
+	sourceLink = ""
 
 	get dumbdownCompiler() {
 		const grammarCode = [read(__dirname + "/scroll.grammar")].join("\n")
@@ -74,7 +76,9 @@ class Article {
 		const node = new TreeNode(`div
  class ${cssClasses.scrollArticleCell}`)
 
-		node.getNode("div").appendLineAndChildren("bern", this.toDumbdownProgram.compile())
+		const sourceLink = this.sourceLink ? `<p class="scrollArticleSourceLink"><a href="${this.sourceLink}">Article source</a></p>` : ""
+
+		node.getNode("div").appendLineAndChildren("bern", this.toDumbdownProgram.compile() + sourceLink)
 
 		return new stump(node)
 	}
@@ -89,8 +93,12 @@ class Scroll {
 
 	// stamp sample file: https://jtree.treenotation.org/designer/#standard%20stamp
 	get publishedArticles() {
-		const all = this.stamp.filter(node => node.getLine().endsWith(".dd")).map(node => new Article(node.getNode("data")?.childrenToString()))
+		const all = this.stamp.filter(node => node.getLine().endsWith(".dd")).map(node => new Article(node.getNode("data")?.childrenToString(), this.gitLink ? this.gitLink + path.basename(node.getWord(1)) : ""))
 		return lodash.sortBy(all, article => article.timestamp).reverse()
+	}
+
+	get gitLink() {
+		return this.settings.github + "/"
 	}
 
 	get errors() {
