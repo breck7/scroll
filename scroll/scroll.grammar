@@ -17,7 +17,7 @@ dumbdownNode
  description A prefix Tree Language that compiles to HTML. An alternative to Markdown.
  root
  inScope abstractTopLevelNode blankLineNode
- catchAllNodeType errorNode
+ catchAllNodeType quickParagraphNode
  compilesTo html
  example
   title Hello world
@@ -60,8 +60,8 @@ codeNode
  extends abstractTopLevelNode
  todo Fix spacing
  compiler
-  openChildren <code>
-  closeChildren </code>
+  openChildren <pre>
+  closeChildren </pre>
   stringTemplate 
  crux code
 listNode
@@ -81,7 +81,9 @@ blankLineNode
  tags doNotSynthesize
 lineOfCodeNode
  catchAllCellType codeCell
- cells codeCell
+ catchAllNodeType lineOfCodeNode
+ compiler
+  stringTemplate <code>{codeCell}</code>
 dashNode
  crux -
  catchAllCellType textCell
@@ -110,5 +112,9 @@ dateNode
   compile(spaces) {
    const dayjs = require("dayjs")
    const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
-   return `<span class="scrollArticleDate">${dateCell} —</span>`
+   return `<div class="scrollArticleDate">${dateCell}</div>`
   }
+quickParagraphNode
+ catchAllCellType textCell
+ compiler
+  stringTemplate <p>{textCell}</p>
