@@ -93,6 +93,10 @@ class Scroll {
 		return lodash.sortBy(all, article => article.timestamp).reverse()
 	}
 
+	get errors() {
+		return this.publishedArticles.map(article => article.toDumbdownProgram.getAllErrors())
+	}
+
 	get _settings() {
 		return this.stamp
 			.find(node => node.getLine().endsWith(scrollSettingsFilename))
@@ -164,6 +168,10 @@ class ScrollServer {
 		return file
 	}
 
+	get errrors() {
+		return this.scroll.errors
+	}
+
 	startListening(port) {
 		const app = new express()
 
@@ -219,19 +227,26 @@ class ScrollCli {
 		if (!fs.existsSync(folder)) this._exit(`No Scroll exists in folder ${folder}`)
 	}
 
-	async createCommand(destinationFolderName = `scroll-${Date.now()}`) {
-		const template = new ScrollServer().toStamp().replace(/example.com/g, destinationFolderName)
-		console.log(`Creating scroll in "${destinationFolderName}"`)
-		await new stamp(template).execute()
-		console.log(`\n👍 Scroll created! Now you can run:${serveScrollHelp(destinationFolderName)}`)
+	async createCommand(args) {
+		if (!args.length) this._exit(`Usage "scroll create foo.com bar.com"`)
+		args.forEach(async destinationFolderName => {
+			const template = new ScrollServer().toStamp().replace(/example.com/g, destinationFolderName)
+			this.log(`Creating scroll in "${destinationFolderName}"`)
+			await new stamp(template).execute()
+			this.log(`\n👍 Scroll created! Now you can run:${serveScrollHelp(destinationFolderName)}`)
+		})
 	}
 
 	deleteCommand() {
 		return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
 	}
 
-	checkCommand() {
-		return this.log(`\n💡 Checks a Scroll for errors.\n`)
+	checkCommand(args) {
+		const folder = args[0]
+		if (!folder) this._exit(`Folder name must be provided`)
+		const fullPath = resolvePath(folder)
+		this._ensureScrollFolderExists(fullPath)
+		return this.log(new ScrollServer(fullPath).errors)
 	}
 
 	convertCommand(globPatterns) {
@@ -272,7 +287,8 @@ class ScrollCli {
 		return this.log(`\nThis is the Scroll help page.\nAvailable commands are:\n\n${this._allCommands.map(comm => `🖌️ ` + comm.replace(CommandFnDecoratorSuffix, "")).join("\n")}\n​​`)
 	}
 
-	exportCommand(folder) {
+	exportCommand(args) {
+		const folder = args[0]
 		if (!folder) this._exit(`Folder name must be provided`)
 		const fullPath = resolvePath(folder)
 		this._ensureScrollFolderExists(fullPath)

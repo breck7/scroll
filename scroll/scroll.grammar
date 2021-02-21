@@ -73,7 +73,7 @@ listNode
   closeChildren </ul>
  crux list
 blankLineNode
- description Blank lines compile to a br in the HTML.
+ description Blank lines compile to nothing in the HTML.
  cells blankCell
  compiler
   stringTemplate 
