@@ -51,7 +51,7 @@ hello world`
 		article
 			.toStumpNode()
 			.toString()
-			.includes("articleCell"),
+			.includes("scrollArticleCell"),
 		true
 	)
 }
@@ -63,7 +63,7 @@ testTree.cli = areEqual => {
 	areEqual(cli.helpCommand().includes("help page"), true)
 
 	// Act/Assert
-	areEqual(cli.exportCommand(pathToExample)[0].includes("about"), true)
+	areEqual(cli.exportCommand([pathToExample])[0].includes("about"), true)
 
 	// Act/Assert
 	areEqual(cli.deleteCommand().includes("delete"), true)
