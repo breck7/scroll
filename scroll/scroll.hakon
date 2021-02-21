@@ -83,7 +83,8 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
   margin-bottom 15px
   background-color rgb(234,234,234)
   padding 1em
-  overflow hidden
+  overflow auto
+  font-size 80%
   code
    margin 0
    display block
