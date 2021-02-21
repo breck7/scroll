@@ -112,7 +112,7 @@ dateNode
   compile(spaces) {
    const dayjs = require("dayjs")
    const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
-   return `<div class="scrollArticleDate">${dateCell}</div>`
+   return `<div class="scrollArticleDate">${dateCell} — </div>`
   }
 quickParagraphNode
  catchAllCellType textCell

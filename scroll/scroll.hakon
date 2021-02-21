@@ -56,6 +56,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  text-align center
  font-style italic
  font-size 80%
+ display inline
 .scrollArticleSourceLink
  text-align center
  font-size 80%
@@ -73,6 +74,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  margin auto
  p:first-of-type
   margin-top 0
+  display inline
  img
   max-width 35ch
  h1
