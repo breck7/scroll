@@ -56,6 +56,13 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  text-align center
  font-style italic
  font-size 80%
+.scrollArticleSourceLink
+ text-align center
+ font-size 80%
+ margin 0
+ a
+  color #000
+  text-decoration none
 .scrollArticleCell
  border-bottom 1px solid rgb(204,204,204)
  width 35ch
@@ -64,6 +71,8 @@ html,body,div,span,h1,h2,h3,h4,h5,h6
  overflow hidden
  text-align justify
  margin auto
+ p:first-of-type
+  margin-top 0
  img
   max-width 35ch
  h1

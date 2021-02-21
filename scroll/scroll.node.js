@@ -36,7 +36,8 @@ const compiledMessage = `<!--
 
 const cssClasses = {
 	scrollPage: "scrollPage",
-	scrollArticleCell: "scrollArticleCell"
+	scrollArticleCell: "scrollArticleCell",
+	scrollArticleSourceLink: "scrollArticleSourceLink"
 }
 
 // Helper utils
@@ -76,7 +77,7 @@ class Article {
 		const node = new TreeNode(`div
  class ${cssClasses.scrollArticleCell}`)
 
-		const sourceLink = this.sourceLink ? `<p class="scrollArticleSourceLink"><a href="${this.sourceLink}">Article source</a></p>` : ""
+		const sourceLink = this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLink}"><a href="${this.sourceLink}">Article source</a></p>` : ""
 
 		node.getNode("div").appendLineAndChildren("bern", this.toDumbdownProgram.compile() + sourceLink)
 
