@@ -149,5 +149,7 @@ inspirations.
 
 ### What has changed in recent versions?
 
+Version 4.2.0 released on 02-22-2021
+ fixed paragraph parsing and rendering
 Version 4.1.0 released on 02-22-2021
  added a "git" scrollSetting for article source links.
