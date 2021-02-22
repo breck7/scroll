@@ -1,8 +1,21 @@
 # 📜 Scroll: An old way to publish
 
-Scroll is simple static publishing software whose purpose is
-to demonstrate the pros and cons of Dumbdown for static
-publishing.
+Scroll is simple static publishing software. Example site:
+
+<a href="https://breckyunits.com/"><img src="screenshot.png"
+/></a>
+
+Scroll is different for 3 reasons.
+
+1. Instead of a page per post, like a blog, a Scroll is a
+   single page, like an old newspaper.
+2. Instead of Markdown, Scrolls use <a
+   href="https://github.com/treenotation/dumbdown">Dumbdown</a>,
+   which makes it easy to combine languages to generate more
+   creative content.
+3. Instead of supporting licenses, Scroll is 100% focused on
+   supporting public domain sites, so everything can be
+   designed with that assumption.
 
 ## Installing
 
