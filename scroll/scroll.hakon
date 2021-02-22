@@ -72,13 +72,16 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
  overflow hidden
  text-align justify
  margin auto
+ ul,ol
+  padding 1em
+  margin 0
  p
   text-indent 1em
  p:first-of-type
   display inline
  img
   max-width 35ch
- .scrollArticleCode
+ .scrollArticleCode,table
   margin-top 15px
   margin-bottom 15px
   background-color rgb(234,234,234)
