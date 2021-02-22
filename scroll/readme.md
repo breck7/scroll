@@ -1,4 +1,4 @@
-# 📜 Scroll: An old way to publish
+# 📜 Scroll: A new way to publish
 
 Scroll is simple static publishing software. Example site:
 
