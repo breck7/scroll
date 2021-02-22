@@ -126,17 +126,31 @@ we can optimize for the single page reading experience
 but people can have the full Scroll contents and render
 it however best suits them.
 
-### Will you support publishing single pages for better SEO?
-
-No.
-
 ### Will you make design decisions for non-public domain sites?
 
 No.
 
+### Can I use Scroll for internal private sites not intended for publishing?
+
+Yes!
+
+### Will you support publishing single pages for better SEO?
+
+No. However, the API for Scroll is incredibly simple—a Scroll
+is just a folder with some Dumbdown files and a settings file.
+Everything is in Tree Notation and public domain. So it would
+be very easy for someone to write some software to generate
+single pages if that's something people want.
+
+### Will you support publishing snippets?
+
+No. But will support making it easier for someone to do that in a fork
+or via plugins.
+
 ### Will you support newest articles flowing right to left instead of having potentially older articles up top?
 
-No.
+No. But will support making it easier for someone to do that in a fork
+or via plugins.
 
 ### What were some alternatives considered?
 
