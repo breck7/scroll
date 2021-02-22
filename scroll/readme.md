@@ -39,21 +39,22 @@ scroll help
 
 Post an issue in this GitHub, join the <a href="https://www.reddit.com/r/treenotation/">Tree Notation subreddit</a> or email breck7@gmail.com.
 
-### What has changed in recent versions?
+### What are some example sites using Scroll?
 
-Version 4.1.0 released on 02-22-2021
- added a "git" scrollSetting for article source links.
+On beta launch day we have:
+
+- https://breckyunits.com/
+
+Note: looking for beta users to share their sites!
 
 ### How does Scroll work?
 
-You use Scroll through the command line.
-
-A Scroll is a single folder containing Dumbdown files.
+<em>A Scroll</em> is a single folder containing Dumbdown files.
 Scroll compiles those Dumbdown files into a static
 index.html page.
 
-Scroll also contains a simple Node.js Express app for live
-preview.
+Scroll is the name of the command line app that includes a
+simple Node.js Express app for live preview.
 
 ### What does a typical project folder look like?
 
@@ -62,7 +63,7 @@ A typical Scroll project folder looks like this:
 ```
 yourScrollProject/
  someDraft.dd
- readme.dd
+ readme.md
  yourDomainName.org/
   about.dd
   publishedArticle.dd
@@ -87,28 +88,29 @@ public folder and checked into version control.
 
 ### How do I save drafts?
 
-See the sample project folder above.
+Save them outside your public folder like in the sample project
+folder above.
 
 ### What File Formats does Scroll use?
 
-In Scroll individual posts are saved as dumbdown files with the
-file extension `dd`.
+Scroll articles are written as Dumbdown files with the file
+extension `dd`.
 
-Entire Scrolls are saved as [stamp](https://jtree.treenotation.org/designer/#standard%20stamp)
-files with the extension `stamp`.
+Entire Scrolls are saved as <a href="https://github.com/treenotation/jtree/blob/master/langs/stamp/readme.md">
+stamp</a> files with the extension `stamp`.
 
 ### What language is Scroll written in?
 
-Scroll is currently written in plain Javascript that
+The Scroll app is written in plain Javascript and
 runs in Node.js.
 
 TypeScript may be used in the future but Scroll may
-never get over 1KLOC so that might not be necessary.
+never get over 1kloc so that might not be necessary.
 
 ### How does versioning of articles work?
 
-Scroll is designed with git in mind. Articles are stored as
-files tracked by git.
+Scroll is designed for git. A single article is stored as
+a single file tracked by git.
 
 ### Why is Scroll a single page?
 
@@ -132,8 +134,7 @@ No.
 
 No.
 
-### Will you support newest articles flowing right to left
-instead of having potentially older articles up top?
+### Will you support newest articles flowing right to left instead of having potentially older articles up top?
 
 No.
 
@@ -145,3 +146,8 @@ inspirations.
 
 - https://jekyllrb.com/
 - https://github.com/breck7/brecksblog
+
+### What has changed in recent versions?
+
+Version 4.1.0 released on 02-22-2021
+ added a "git" scrollSetting for article source links.
