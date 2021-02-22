@@ -5,53 +5,57 @@ Scroll is simple static publishing software. Example site:
 <a href="https://breckyunits.com/"><img src="screenshot.png"
 /></a>
 
-Scroll is different for 3 reasons.
+# What makes Scroll different?
 
 1. Instead of a page per post, like a blog, a Scroll is a
-   single page, like an old newspaper.
+   **single page**, like an old newspaper.
 2. Instead of Markdown, Scrolls use <a
-   href="https://github.com/treenotation/dumbdown">Dumbdown</a>,
+   href="https://github.com/treenotation/dumbdown">**Dumbdown**</a>,
    which makes it easy to combine languages to generate more
    creative content.
 3. Instead of supporting licenses, Scroll is 100% focused on
-   supporting public domain sites, so everything can be
+   **public domain sites** and everything is
    designed with that assumption.
 
-## Installing
+## How do I get Scroll?
 
-Scroll is part of the dumbdown-js package on npm
+Scroll is part of the <a href="https://www.npmjs.com/package/dumbdown-js"> dumbdown-js package on npm</a>.
 
-https://www.npmjs.com/package/dumbdown-js
+You can get it by typing:
 
 ```
 npm install -g dumbdown-js
 ```
 
-### CLI Usage
+## How do I use Scroll?
 
-To see the CLI options type:
+Scroll is used through the CLI. To see the options type:
 
 ```
 scroll help
 ```
 
-## Release Notes
+## Where do I get help?
 
-Version 4.1.0 02-22-2021
- New: Added a "git" scrollSetting for article source links
+Post an issue in this GitHub, join the <a href="https://www.reddit.com/r/treenotation/">Tree Notation subreddit</a> or email breck7@gmail.com.
 
-## Design Notes
+### What has changed in recent versions?
 
-### Architecture
+Version 4.1.0 released on 02-22-2021
+ added a "git" scrollSetting for article source links.
 
-You use Scroll through the command line. A Scroll is a
-single folder containing Dumbdown files. Scroll compiles
-those Dumbdown files into a static index.html page.
+### How does Scroll work?
+
+You use Scroll through the command line.
+
+A Scroll is a single folder containing Dumbdown files.
+Scroll compiles those Dumbdown files into a static
+index.html page.
 
 Scroll also contains a simple Node.js Express app for live
 preview.
 
-### Folder Layout
+### What does a typical project folder look like?
 
 A typical Scroll project folder looks like this:
 
@@ -81,7 +85,11 @@ With Scroll your site's public static files, generated html,
 and published article source dumbdown files, are all in the
 public folder and checked into version control.
 
-### File Formats
+### How do I save drafts?
+
+See the sample project folder above.
+
+### What File Formats does Scroll use?
 
 In Scroll individual posts are saved as dumbdown files with the
 file extension `dd`.
@@ -89,26 +97,20 @@ file extension `dd`.
 Entire Scrolls are saved as [stamp](https://jtree.treenotation.org/designer/#standard%20stamp)
 files with the extension `stamp`.
 
-### Language
+### What language is Scroll written in?
 
-Scroll is currently written in plain Javascript.
+Scroll is currently written in plain Javascript that
+runs in Node.js.
 
 TypeScript may be used in the future but Scroll may
 never get over 1KLOC so that might not be necessary.
 
-### Git
+### How does versioning of articles work?
 
 Scroll is designed with git in mind. Articles are stored as
 files tracked by git.
 
-### Writing Experience
-
-When you are writing you want to stay constrained to the
-article's purpose. Each article has it's own purpose and
-it's own history. Hence, each article is stored as a
-separate file in git.
-
-### Reading Experience
+### Why is Scroll a single page?
 
 Being able to scan the page like a newspaper is a
 very fast reading experience. This is central to Scroll.
@@ -117,25 +119,27 @@ Additionally, making it easy to take the content with
 you, and transform it to better suit the reader, is
 also key to Scroll.
 
-## Questions and Answers
+Because Scroll is designed for public domain sites,
+we can optimize for the single page reading experience
+but people can have the full Scroll contents and render
+it however best suits them.
 
-**Will you support publishing single pages for better SEO?**
-
-No.
-
-**Will you provide support to people that don't publish in
-the public domain?**
+### Will you support publishing single pages for better SEO?
 
 No.
 
-**Will you support newest articles flowing right to left
-instead of having potentially older articles up top?**
+### Will you make design decisions for non-public domain sites?
 
 No.
 
-## Alternatives Considered
+### Will you support newest articles flowing right to left
+instead of having potentially older articles up top?
 
-There is no publishing software that reads and writes dumbdown yet
+No.
+
+### What were some alternatives considered?
+
+There was no publishing software that reads and writes Dumbdown yet
 so building Scroll was necessary. Jekyll and Brecksblog are 2 biggest
 inspirations.
 
