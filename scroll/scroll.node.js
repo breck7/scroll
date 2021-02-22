@@ -99,7 +99,7 @@ class Scroll {
 	}
 
 	get gitLink() {
-		return this.settings.github + "/"
+		return this.settings.git + "/"
 	}
 
 	get errors() {

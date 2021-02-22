@@ -35,6 +35,11 @@ To see the CLI options type:
 scroll help
 ```
 
+## Release Notes
+
+Version 4.1.0 02-22-2021
+ New: Added a "git" scrollSetting for article source links
+
 ## Design Notes
 
 ### Architecture
