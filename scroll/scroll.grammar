@@ -42,12 +42,18 @@ linkNode
   stringTemplate <a href="{urlCell}">{textCell}</a>
  crux link
 paragraphNode
- inScope linkNode
- catchAllCellType textCell
+ catchAllNodeType paragraphContentNode
  extends abstractTopLevelNode
- compiler
-  stringTemplate <p>{textCell}</p>
  crux paragraph
+ compiler
+  openChildren <p>
+  closeChildren </p>
+  stringTemplate 
+paragraphContentNode
+ inScope paragraphContentNode
+ catchAllCellType textCell
+ compiler
+  stringTemplate {textCell}
 codeNode
  description A code block.
  catchAllNodeType lineOfCodeNode
