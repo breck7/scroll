@@ -12,19 +12,20 @@ urlCell
  highlightScope constant.language
 errorNode
  baseNodeType errorNode
-dumbdownNode
- extensions dd dumbdown
- description A prefix Tree Language that compiles to HTML. An alternative to Markdown.
+scrollNode
+ extensions dd dumbdown scroll
+ description A prefix Tree Language that compiles to HTML. An alternative to Markdown. Scroll is a dialect of the Dumbdown concept.
  root
  inScope abstractTopLevelNode blankLineNode
  catchAllNodeType quickParagraphNode
  compilesTo html
  example
   title Hello world
-  subtitle This is dumbdown
+  title2 This is scroll
   
-  paragraph It compiles to HTML. Blank lines get turned into brs.
-  link https://treenotation.org dumbdown is a Tree Language.
+  paragraph
+   It compiles to HTML. Blank lines get turned into brs.
+  link https://treenotation.org Scroll is a Tree Language.
   list
    - It has lists
    - Too!
