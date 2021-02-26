@@ -29,7 +29,7 @@ https://jtree.treenotation.org/designer/#standard%20dumbdown
 
 An actual v1 spec is now in the discussion phase.
 
-### Scroll: Demonstration app
+### 📜 Scroll: Demonstration app
 
 In addition to containing the Dumbdown spec,
 this repo contains a demo application which is
