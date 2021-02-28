@@ -1,180 +1,183 @@
-# Dumbdown - The dumb alternative to markdown
+# 📜 Scroll: A new way to publish
 
-## First, an example
+Scroll is simple static publishing software. Example site:
 
-```dumbdown
-title This is Dumbdown. The keyword for title is title.
-subtitle Dumbdown compiles to html.
-paragraph Dumbdown is an alternative to Markdown.
+<a href="https://breckyunits.com/"><img src="screenshot.png"
+/></a>
 
-paragraph Blank lines get turned into <br>
+# What makes Scroll different?
 
-link https://treenotation.org/ It is built on Tree Notation
+1. Instead of a page per post, like a blog, a Scroll is a
+   **single page**, like an old newspaper.
+2. Instead of Markdown, Scrolls uses <a
+   href="https://treenotation.org/">**Tree Notation**</a>,
+   which makes it easy to combine languages to generate more
+   creative content.
+3. Instead of supporting licenses, Scroll is 100% focused on
+   **public domain sites** and everything is
+   designed with that assumption.
 
-code
- alert(`The keyword for code blocks is "code"`)
+## How do I get Scroll?
 
-list
- item Dumbdown supports lists
- item For now the keyword for an item is "item"
- item This is a very early version
- item Dumbdown is released to the public domain
- item If you want to make it better, please do!
+Scroll is <a href="https://www.npmjs.com/package/scroll-cli">scroll-cli on npm</a>.
+
+You can get it by typing:
+
+```
+npm install -g scroll-cli
 ```
 
-## Try it Now
+## How do I use Scroll?
 
-The original prototype:
-https://jtree.treenotation.org/designer/#standard%20dumbdown
+Scroll is used through the CLI. To see the options type:
 
-An actual v1 spec is now in the discussion phase.
+```
+scroll help
+```
 
-### 📜 Scroll: Demonstration app
+## Where do I get help?
 
-In addition to containing the Dumbdown spec,
-this repo contains a demo application which is
-a simple static publishing software called "Scroll".
+Post an issue in this GitHub, join the <a href="https://www.reddit.com/r/treenotation/">Tree Notation subreddit</a> or email breck7@gmail.com.
 
-Scroll has its own readme:
+### What are some example sites using Scroll?
 
-https://github.com/treenotation/dumbdown/blob/master/scroll/readme.md
+On beta launch day we have:
 
-## Why Dumbdown?
+- https://breckyunits.com/
 
-- Do you want a markup language that doesn't
-  require memorizing esoteric symbols but uses words
-  instead?
+Note: looking for beta users to share their sites!
 
-- Do you want a markup langauge where you not only
-  don't have to remember which order brackets go in—
-  is it ()[] or []()—but that doesn't use brackets
-  at all?!
+### How does Scroll work?
 
-- Do you want a markup language that is extensible,
-  so you can store your own custom config data right
-  alongside your content?
+<em>A Scroll</em> is a single folder containing Scroll files.
+Scroll compiles those Scroll files into a static
+index.html page.
 
-- Do you want a markup language where it is super
-  easy to embed any kind of data or code without
-  doing adding escape characters?
+Scroll is also the name of the command line app that includes a
+simple Node.js Express app for live preview.
 
-- Do you want a markup language that you could
-  write your own parser for without having to
-  learn complex parsing techniques?
+Scroll is also the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scroll.grammar">grammar</a>.
 
-If you answered YES to the questions above, then
-Dumbdown is for you?!
+### What does a typical project folder look like?
 
-## Features
+A typical Scroll project folder looks like this:
 
-1. Keywords instead of key characters. ie "title" instead of "#".
-2. No brackets. Links are just "link", or type the full url for inline links.
-3. Stick your own custom config data in. Every file parses to a map. i.e. "published true".
-4. No need to escape characters for snippets. Just indent blocks.
-5. Very easy to write your own parsers for. It's just Tree Notation.
+```
+yourScrollProject/
+ someDraft.scroll
+ readme.md
+ yourDomainName.org/
+  about.scroll
+  publishedArticle.scroll
+  anImageInTheArticle.png
+  index.html
+  scrollSettings.map
+```
 
-## Project Status
+The `scrollSettings.map` file let's Scroll know that
+a folder contains a Scroll.
 
-**Currently: Discussing spec for v1.**
+When you "build" a Scroll site, you are simply generating
+the `index.html` file in the site's folder.
 
-**Goal by January, 2022: Ship a final v1 spec**
+The suggested project layout above let's you easily
+separate drafts from published content and put all
+under version control.
 
-Note: this Readme.md file is written in markdown,
-but if someone wants to work on Dumbdown syntax
-highlighting for GitHub, once we have a spec,
-that would be great!
+With Scroll your site's public static files, generated html,
+and published article source Scroll files, are all in the
+public folder and checked into version control.
 
-Issue is here: https://github.com/treenotation/dumbdown/issues/1
+### How do I save drafts?
 
-## FAQ
+Save them outside your public folder like in the sample project
+folder above.
 
-**How do I do inline formatting like bold, italics,
-and links?**
+### What File Formats does Scroll use?
 
-Tree Languages are very different than
-traditional languages.
+Scroll articles are written as Scroll files with the file
+extension `scroll`. The grammar for Scroll is fully defined
+<a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scroll.grammar">here</a>
 
-They combine exceptionally well.
+Entire Scrolls are saved as <a href="https://github.com/treenotation/jtree/blob/master/langs/stamp/readme.md">
+stamp</a> files with the extension `stamp`.
 
-You can literally just copy and paste
-2 grammars together, and then change
-just 1 or 2 lines of code and get a
-new "3rd" language that incorporates
-both.
+### What languages is Scroll written in?
 
-This enables many approaches to supporting
-any style of node that would support
-inline formats.
+The Scroll app is written in plain Javascript and
+runs in Node.js.
 
-For example, I could create a node type
-called `markdownParagraph` and then a
-user could use normal markdown inside
-a Dumbdown document:
+Scroll makes heavy use of Tree Languages. The CSS is
+written in <a href="https://jtree.treenotation.org/designer/#standard%20hakon">Hakon</a>.
+The HTML is written in <a href="https://jtree.treenotation.org/designer/#standard%20stump"> stump</a>.
 
-    markdownParagraph
-     Put **bold** or _italic_ text
-     here, or [links](/link).
+TypeScript may be used in the future but Scroll may
+never get over 1kloc so that might not be necessary.
 
-But that's just the beginning! Imagine
-extending Dumbdown with brand new ideas,
-never before tried:
+### How does versioning of articles work?
 
-    emojiParagraph
-     In this hypothetical emoji
-     paragraph you can wrap a
-     sentence in <b></b> simply
-     by ending it with❗
+Scroll is designed for git. A single article is stored as
+a single file tracked by git.
 
-**Why not use a shorter syntax?**
+### Why is Scroll a single page?
 
-Although you can use Dumbdown with any text
-editor, since it is so simple, Dumbdown is not
-designed with today's editors in mind.
+Being able to scan the page like a newspaper is a
+very fast reading experience. This is central to Scroll.
 
-It's designed for a new upcoming wave of
-so called "2-Dimensional" editors. Think
-of Spreedsheets, with grids, instead of IDEs.
+Additionally, making it easy to take the content with
+you, and transform it to better suit the reader, is
+also key to Scroll.
 
-Dumbdown is designed to be best used in
-editors that support advanced autocomplete,
-type checking, syntax highlighting,
-additional secondary notations, and real
-time projections.
+Because Scroll is designed for public domain sites,
+we can optimize for the single page reading experience
+but people can have the full Scroll contents and render
+it however best suits them.
 
-**Can I compile my dumbdown docs into markdown instead of HTML?**
+### Will you make design decisions for non-public domain sites?
 
-Yes. The first prototype compiled to markdown.
-That was just dropped for simplicity in the second
-prototype which just compiles to HTML. But
-actual real implementations will likely compile
-to both.
+No.
 
-## Release Notes
+### Can I use Scroll for internal private sites not intended for publishing?
 
-- Version 0.2 01/20/2021
-  -- Let's make this a real thing. Readme and GitHub project started.
-- Version 0.1 09/01/2019
-  -- Prototype and idea first launched.
+Yes!
 
-## Leadership
+### Will you support publishing single pages for better SEO?
 
-breck7 is currently the BDFL: Benevolent Dummy
-For Life. But if you feel like you can be a better
-Dummy, please either fork this project and prove
-it, or just get involved and stage a peaceful
-coup. Breck would happily relinguish the BDFL
-title if a better Dummy comes along.
+Perhaps. However, the API for Scroll is incredibly simple—a Scroll
+is just a folder with some Scroll articles and a settings file.
+Everything is in Tree Notation and public domain. So it would
+be very easy for someone to write some software to generate
+single pages if that's something people want.
 
-## Important
+### Will you support publishing snippets?
 
-    There is a domain
-    the public domain
-    the only domain there should be.
-    Where ideas can mingle
-    improve and change
-    So that the people can be free.
+No. But will support making it easier for someone to do that in a fork
+or via plugins.
 
-Dumbdown is made with love in memory and honor
-of Aaron Swartz.
+### Will you support newest articles flowing right to left instead of having potentially older articles up top?
 
-http://www.aaronsw.com/weblog/001189
+No. But will support making it easier for someone to do that in a fork
+or via plugins.
+
+### What were some alternatives considered?
+
+There was no publishing software that reads and writes Scroll yet
+so building Scroll was necessary. Jekyll and Brecksblog are 2 biggest
+inspirations.
+
+- https://jekyllrb.com/
+- https://github.com/breck7/brecksblog
+
+### What has changed in recent versions?
+
+Version 5.0.0 released on 02-28-2021
+ changed name of everything from dumbdown to Scroll per user feedback
+Version 4.2.0 released on 02-22-2021
+ fixed paragraph parsing and rendering
+Version 4.1.0 released on 02-22-2021
+ added a "git" scrollSetting for article source links.
+
+### Is there a place I can play with the Scroll grammar and see how it compiles to HTML?
+
+Yes. <a href="https://jtree.treenotation.org/designer/#grammar%0A%20anyCell%0A%20blankCell%0A%20dashCell%0A%20%20highlightScope%20constant.language%0A%20codeCell%0A%20%20highlightScope%20comment%0A%20keywordCell%0A%20%20highlightScope%20keyword%0A%20textCell%0A%20%20highlightScope%20string%0A%20urlCell%0A%20%20highlightScope%20constant.language%0A%20errorNode%0A%20%20baseNodeType%20errorNode%0A%20dumbdownNode%0A%20%20extensions%20dd%20dumbdown%0A%20%20description%20A%20prefix%20Tree%20Language%20that%20compiles%20to%20HTML.%20An%20alternative%20to%20Markdown.%0A%20%20root%0A%20%20inScope%20abstractTopLevelNode%20blankLineNode%0A%20%20catchAllNodeType%20quickParagraphNode%0A%20%20compilesTo%20html%0A%20%20example%0A%20%20%20title%20Hello%20world%0A%20%20%20subtitle%20This%20is%20dumbdown%0A%20%20%20%0A%20%20%20paragraph%20It%20compiles%20to%20HTML.%20Blank%20lines%20get%20turned%20into%20brs.%0A%20%20%20link%20https%3A%2F%2Ftreenotation.org%20dumbdown%20is%20a%20Tree%20Language.%0A%20%20%20list%0A%20%20%20%20-%20It%20has%20lists%0A%20%20%20%20-%20Too!%0A%20%20%20code%0A%20%20%20%20%2F%2F%20You%20can%20add%20code%20as%20well.%0A%20%20%20%20print(%22Hello%20world%22)%0A%20abstractTopLevelNode%0A%20%20abstract%0A%20%20cells%20keywordCell%0A%20linkNode%0A%20%20cells%20keywordCell%20urlCell%0A%20%20catchAllCellType%20textCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ca%20href%3D%22%7BurlCell%7D%22%3E%7BtextCell%7D%3C%2Fa%3E%0A%20%20crux%20link%0A%20paragraphNode%0A%20%20catchAllNodeType%20paragraphContentNode%0A%20%20extends%20abstractTopLevelNode%0A%20%20crux%20paragraph%0A%20%20compiler%0A%20%20%20openChildren%20%3Cp%3E%0A%20%20%20closeChildren%20%3C%2Fp%3E%0A%20%20%20stringTemplate%20%0A%20paragraphContentNode%0A%20%20inScope%20paragraphContentNode%0A%20%20catchAllCellType%20textCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%7BtextCell%7D%0A%20codeNode%0A%20%20description%20A%20code%20block.%0A%20%20catchAllNodeType%20lineOfCodeNode%0A%20%20extends%20abstractTopLevelNode%0A%20%20todo%20Fix%20spacing%0A%20%20compiler%0A%20%20%20openChildren%20%3Cdiv%20class%3D%22scrollArticleCode%22%3E%0A%20%20%20closeChildren%20%3C%2Fdiv%3E%0A%20%20%20stringTemplate%20%0A%20%20crux%20code%0A%20listNode%0A%20%20inScope%20dashNode%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20%20openChildren%20%3Cul%3E%0A%20%20%20closeChildren%20%3C%2Ful%3E%0A%20%20crux%20list%0A%20blankLineNode%0A%20%20description%20Blank%20lines%20compile%20to%20nothing%20in%20the%20HTML.%0A%20%20cells%20blankCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20pattern%20%5E%24%0A%20%20tags%20doNotSynthesize%0A%20lineOfCodeNode%0A%20%20catchAllCellType%20codeCell%0A%20%20catchAllNodeType%20lineOfCodeNode%0A%20%20javascript%0A%20%20%20compile()%20%7B%0A%20%20%20%20%20return%20%60%3Ccode%3E%24%7Bthis.getIndentation()%7D%24%7Bthis.getLine()%7D%3C%2Fcode%3E%24%7Bthis.map(child%20%3D%3E%20child.compile()).join(%22%5Cn%22)%7D%60%0A%20%20%20%7D%0A%20dashNode%0A%20%20crux%20-%0A%20%20catchAllCellType%20textCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Cli%3E%7BtextCell%7D%3C%2Fli%3E%0A%20%20cells%20dashCell%0A%20dateCell%0A%20%20highlightScope%20string%0A%20titleNode%0A%20%20catchAllCellType%20textCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20crux%20title%0A%20%20javascript%0A%20%20%20compile(spaces)%20%7B%0A%20%20%20%20const%20title%20%3D%20this.getContent()%0A%20%20%20%20const%20permalink%20%3D%20jtree.Utils.stringToPermalink(this.getContent())%0A%20%20%20%20return%20%60%3Ch1%20id%3D%22%24%7Bpermalink%7D%22%3E%3Ca%20href%3D%22%23%24%7Bpermalink%7D%22%3E%24%7Btitle%7D%3C%2Fa%3E%3C%2Fh1%3E%60%0A%20%20%20%7D%0A%20title2Node%0A%20%20catchAllCellType%20textCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch2%3E%7BtextCell%7D%3C%2Fh2%3E%0A%20%20crux%20title2%0A%20title3Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch3%3E%7BtextCell%7D%3C%2Fh3%3E%0A%20%20crux%20title3%0A%20title4Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch4%3E%7BtextCell%7D%3C%2Fh4%3E%0A%20%20crux%20title4%0A%20title5Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch5%3E%7BtextCell%7D%3C%2Fh5%3E%0A%20%20crux%20title5%0A%20title6Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch6%3E%7BtextCell%7D%3C%2Fh6%3E%0A%20%20crux%20title6%0A%20dateNode%0A%20%20catchAllCellType%20dateCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20crux%20date%0A%20%20javascript%0A%20%20%20compile(spaces)%20%7B%0A%20%20%20%20const%20dayjs%20%3D%20require(%22dayjs%22)%0A%20%20%20%20const%20dateCell%20%3D%20dayjs(this.getContent()).format(%60MMMM%20D%2C%20YYYY%60)%0A%20%20%20%20return%20%60%3Cdiv%20class%3D%22scrollArticleDate%22%3E%24%7BdateCell%7D%20%E2%80%94%20%3C%2Fdiv%3E%60%0A%20%20%20%7D%0A%20quickParagraphNode%0A%20%20catchAllCellType%20textCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Cp%3E%7BtextCell%7D%3C%2Fp%3E%0Asample%0A%20title%20hello%20world%0A%20title2%20an%20example%20scroll%20article%0A%20paragraph%0A%20%20this%20is%20some%20text.">In the Tree Language Designer.</a>
+

@@ -1,22 +1,22 @@
 {
-  "name": "dumbdown-js",
-  "version": "4.2.0",
-  "description": "The dumb alternative to markdown. The keyword for title is title. Includes Scroll static publishing software.",
+  "name": "scroll-cli",
+  "version": "5.0.0",
+  "description": "Scroll is public domain static publishing software with a newspaper feel built on Tree Notation.",
   "main": "index.js",
   "scripts": {
-    "test": "node scroll/scroll.node.test.js",
+    "test": "node scroll.node.test.js",
     "coverage": "tap --coverage-report=lcov"
   },
   "bin": {
-    "scroll": "./scroll/scroll.node.js"
+    "scroll": "./scroll.node.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/treenotation/dumbdown.git"
+    "url": "git+https://github.com/publicdomaincompany/scroll.git"
   },
   "author": "Breck Yunits",
   "bugs": {
-    "url": "https://github.com/treenotation/dumbdown/issues"
+    "url": "https://github.com/publicdomaincompany/scroll/issues"
   },
   "prettier": {
     "useTabs": false,
@@ -24,7 +24,7 @@
     "semi": false,
     "printWidth": 240
   },
-  "homepage": "https://github.com/treenotation/dumbdown#readme",
+  "homepage": "https://github.com/publicdomaincompany/scroll#readme",
   "dependencies": {
     "dayjs": "^1.10.4",
     "fs-extra": "^9.1.0",
