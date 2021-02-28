@@ -9,6 +9,8 @@ const fse = require("fs-extra")
 const fs = require("fs")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
+const packageJson = require("./package.json")
+const SCROLL_VERSION = packageJson.version
 
 // Tree Notation Includes
 const { jtree } = require("jtree")
@@ -204,7 +206,7 @@ class ScrollServer {
 
 class ScrollCli {
 	execute(args = []) {
-		this.log("\n📜📜📜 WELCOME TO SCROLL 📜📜📜")
+		this.log(`\n📜📜📜 WELCOME TO SCROLL (v${SCROLL_VERSION}) 📜📜📜`)
 		const command = args[0]
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		// Note: if we need a param3, we are doing it wrong. At
