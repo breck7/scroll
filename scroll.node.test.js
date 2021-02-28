@@ -35,10 +35,10 @@ testTree.markdown = areEqual => {
 	// Arrange
 	const mdFile = `# hello world`
 	// Act
-	const ddFile = new MarkdownFile(mdFile).toDumbdown()
+	const scrollFile = new MarkdownFile(mdFile).toScroll()
 
 	// Assert
-	areEqual(mdFile, ddFile)
+	areEqual(mdFile, scrollFile)
 }
 
 testTree.article = areEqual => {
@@ -81,7 +81,7 @@ testTree.cli = areEqual => {
 // scroll missing published folder
 // scroll missing settings file
 // settings file missing required settings
-// bad dumbdown files
+// bad Scroll files
 
 if (module && !module.parent) runTree(testTree)
 

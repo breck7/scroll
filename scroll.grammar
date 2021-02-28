@@ -13,8 +13,8 @@ urlCell
 errorNode
  baseNodeType errorNode
 scrollNode
- extensions dd dumbdown scroll
- description A prefix Tree Language that compiles to HTML. An alternative to Markdown. Scroll is a dialect of the Dumbdown concept.
+ extensions scroll
+ description A prefix Tree Language that compiles to HTML. An alternative to Markdown.
  root
  inScope abstractTopLevelNode blankLineNode
  catchAllNodeType quickParagraphNode

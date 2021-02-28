@@ -9,8 +9,6 @@ const fse = require("fs-extra")
 const fs = require("fs")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
-const packageJson = require("./package.json")
-const SCROLL_VERSION = packageJson.version
 
 // Tree Notation Includes
 const { jtree } = require("jtree")
@@ -21,16 +19,19 @@ const stump = require("jtree/products/stump.nodejs.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 
 // Constants
+const packageJson = require("./package.json")
+const SCROLL_VERSION = packageJson.version
+const SCROLL_FILE_EXTENSION = ".scroll"
 const scrollSrcFolder = __dirname + "/"
 const exampleFolder = scrollSrcFolder + "example.com/"
 const scrollSettingsFilename = "scrollSettings.map"
 const CommandFnDecoratorSuffix = "Command"
 const compiledMessage = `<!--
 
- This page was compiled by 📜 Scroll, the Dumbdown
+ This page was compiled by 📜 Scroll, the public domain
  static site publishing software.
  
- https://github.com/treenotation/dumbdown
+ http://scroll.publicdomaincompany.com/
  
  Generally you don't want to edit it by hand.
 
@@ -51,14 +52,14 @@ const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + s
 
 class Article {
 	constructor(content = "", sourceLink = "") {
-		this.dumbdown = content
+		this.content = content
 		this.sourceLink = sourceLink
 	}
 
-	dumbdown = ""
+	content = ""
 	sourceLink = ""
 
-	get dumbdownCompiler() {
+	get scrollCompiler() {
 		const grammarCode = [read(__dirname + "/scroll.grammar")].join("\n")
 
 		const errs = new grammarNode(grammarCode).getAllErrors().map(err => err.toObject())
@@ -67,12 +68,12 @@ class Article {
 		return new jtree.HandGrammarProgram(grammarCode).compileAndReturnRootConstructor()
 	}
 
-	get toDumbdownProgram() {
-		return new this.dumbdownCompiler(this.dumbdown)
+	get toScrollProgram() {
+		return new this.scrollCompiler(this.content)
 	}
 
 	get timestamp() {
-		return dayjs(new TreeNode(this.dumbdown).get("date") ?? 0).unix()
+		return dayjs(new TreeNode(this.content).get("date") ?? 0).unix()
 	}
 
 	toStumpNode() {
@@ -81,7 +82,7 @@ class Article {
 
 		const sourceLink = this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLink}"><a href="${this.sourceLink}">Article source</a></p>` : ""
 
-		node.getNode("div").appendLineAndChildren("bern", this.toDumbdownProgram.compile() + sourceLink)
+		node.getNode("div").appendLineAndChildren("bern", this.toScrollProgram.compile() + sourceLink)
 
 		return new stump(node)
 	}
@@ -96,7 +97,7 @@ class Scroll {
 
 	// stamp sample file: https://jtree.treenotation.org/designer/#standard%20stamp
 	get publishedArticles() {
-		const all = this.stamp.filter(node => node.getLine().endsWith(".dd")).map(node => new Article(node.getNode("data")?.childrenToString(), this.gitLink ? this.gitLink + path.basename(node.getWord(1)) : ""))
+		const all = this.stamp.filter(node => node.getLine().endsWith(SCROLL_FILE_EXTENSION)).map(node => new Article(node.getNode("data")?.childrenToString(), this.gitLink ? this.gitLink + path.basename(node.getWord(1)) : ""))
 		return lodash.sortBy(all, article => article.timestamp).reverse()
 	}
 
@@ -105,7 +106,7 @@ class Scroll {
 	}
 
 	get errors() {
-		return this.publishedArticles.map(article => article.toDumbdownProgram.getAllErrors())
+		return this.publishedArticles.map(article => article.toScrollProgram.getAllErrors())
 	}
 
 	get _settings() {
@@ -266,11 +267,11 @@ class ScrollCli {
 	// \*([^\*]+)\* <em>$1</em>
 	// `([^`]+)` <code>$1</code>
 	// convertCommand(globPatterns) {
-	// 	if (!globPatterns.length) return this.log(`\n💡 To convert markdown files to dumbdown pass a glob pattern like this "scroll convert *.md"\n`)
+	// 	if (!globPatterns.length) return this.log(`\n💡 To convert markdown files to Scroll pass a glob pattern like this "scroll convert *.md"\n`)
 
 	// 	const files = globPatterns.map(pattern => glob.sync(pattern)).flat()
 	// 	this.log(`${files.length} files to convert`)
-	// 	files.map(resolvePath).forEach(fullPath => write(fullPath, new MarkdownFile(read(fullPath)).toDumbdown()))
+	// 	files.map(resolvePath).forEach(fullPath => write(fullPath, new MarkdownFile(read(fullPath)).toScroll()))
 	// }
 
 	serveCommand(args) {
@@ -320,7 +321,7 @@ class MarkdownFile {
 
 	markdown = ""
 
-	toDumbdown() {
+	toScroll() {
 		return this.markdown
 	}
 }

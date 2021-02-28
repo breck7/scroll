@@ -172,6 +172,7 @@ inspirations.
 
 Version 5.0.0 released on 02-28-2021
  changed name of everything from dumbdown to Scroll per user feedback
+ BREAKING file extension of articles needs to be "scroll" and not "dd" now.
 Version 4.2.0 released on 02-22-2021
  fixed paragraph parsing and rendering
 Version 4.1.0 released on 02-22-2021
