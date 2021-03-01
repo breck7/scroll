@@ -4,6 +4,8 @@ dashCell
  highlightScope constant.language
 codeCell
  highlightScope comment
+commentCell
+ highlightScope comment
 keywordCell
  highlightScope keyword
 textCell
@@ -95,6 +97,17 @@ dashNode
  cells dashCell
 dateCell
  highlightScope string
+commentNode
+ catchAllCellType commentCell
+ extends abstractTopLevelNode
+ crux comment
+ compiler
+  stringTemplate 
+ catchAllNodeType commentLineNode
+commentLineNode
+ catchAllCellType commentCell
+ compiler
+  stringTemplate 
 titleNode
  catchAllCellType textCell
  extends abstractTopLevelNode
