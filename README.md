@@ -1,5 +1,7 @@
 # 📜 Scroll: A new way to publish
 
+<a href="https://github.com/publicdomaincompany/scroll">View on GitHub</a>
+
 Scroll is simple static publishing software. Example site:
 
 <a href="https://breckyunits.com/"><img src="screenshot.png"
