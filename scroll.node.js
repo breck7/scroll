@@ -216,6 +216,8 @@ class ScrollCli {
 		if (this[commandName]) return this[commandName](cwd, args[1] ?? 1145)
 		else if (isScrollFolder(cwd)) return this.serveCommand(cwd, 1145)
 
+		if (!command) this.log(`No command provided and no '${scrollSettingsFilename}' found. Running help command.`)
+
 		return this.helpCommand()
 	}
 
@@ -283,7 +285,7 @@ class ScrollCli {
 	}
 
 	helpCommand() {
-		return this.log(`\nThis is the Scroll help page.\nAvailable commands are:\n\n${this._allCommands.map(comm => `🖌️ ` + comm.replace(CommandFnDecoratorSuffix, "")).join("\n")}\n​​`)
+		return this.log(`\nThis is the Scroll help page.\n\nCommands you can run from your Scroll's folder:\n\n${this._allCommands.map(comm => `🖌️ ` + comm.replace(CommandFnDecoratorSuffix, "")).join("\n")}\n​​`)
 	}
 
 	exportCommand(scrollFolderName) {
