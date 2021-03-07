@@ -46,7 +46,7 @@ const cssClasses = {
 // Helper utils
 const read = filename => fs.readFileSync(filename, "utf8")
 const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
-const serveScrollHelp = (folder = "example.com") => `\n\nscroll serve ${folder} 1145\n\n`
+const serveScrollHelp = (folder = "example.com") => `\n\nscroll\n\n`
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
 const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + scrollSettingsFilename))
 
@@ -210,10 +210,11 @@ class ScrollCli {
 		this.log(`\n📜📜📜 WELCOME TO SCROLL (v${SCROLL_VERSION}) 📜📜📜`)
 		const command = args[0]
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
-		// Note: if we need a param3, we are doing it wrong. At
+		const cwd = process.cwd()
+		// Note: if we need 2 params, we are doing it wrong. At
 		// that point, we'd be better off taking an options map.
-		if (this[commandName]) return this[commandName](args.slice(1))
-		else if (isScrollFolder(process.cwd())) return this.serveCommand(1145, process.cwd())
+		if (this[commandName]) return this[commandName](cwd, args[1] ?? 1145)
+		else if (isScrollFolder(cwd)) return this.serveCommand(cwd, 1145)
 
 		return this.helpCommand()
 	}
@@ -239,14 +240,11 @@ class ScrollCli {
 		if (!fs.existsSync(folder)) this._exit(`No Scroll exists in folder ${folder}`)
 	}
 
-	async createCommand(args) {
-		if (!args.length) this._exit(`Usage "scroll create foo.com bar.com"`)
-		return args.map(async destinationFolderName => {
-			const template = new ScrollServer().toStamp().replace(/example.com/g, destinationFolderName)
-			this.log(`Creating scroll in "${destinationFolderName}"`)
-			await new stamp(template).execute()
-			return this.log(`\n👍 Scroll created! Now you can run:${serveScrollHelp(destinationFolderName)}`)
-		})
+	async createCommand(destinationFolderName) {
+		const template = new ScrollServer().toStamp().replace(/example.com\//g, "")
+		this.log(`Creating scroll in "${destinationFolderName}"`)
+		await new stamp(template).execute()
+		return this.log(`\n👍 Scroll created! Now you can run:${serveScrollHelp(destinationFolderName)}`)
 	}
 
 	deleteCommand() {
@@ -274,27 +272,11 @@ class ScrollCli {
 	// 	files.map(resolvePath).forEach(fullPath => write(fullPath, new MarkdownFile(read(fullPath)).toScroll()))
 	// }
 
-	serveCommand(args) {
-		let folder = process.cwd()
-		let portNumber = 1145
-		const [param1, param2] = args
-
-		// Overloads:
-		// "serve" => serve cwd on default port
-		// "serve 123" => serve cwd on custom port
-		// "serve folderName" => serve on default port
-		// "serve folderName 232" => serve on custom port
-		if (param1 && param1.match(/[^\d]/)) folder = param1
-		else if (param1) portNumber = param1
-
-		if (param2) portNumber = param2
-
-		if (!portNumber) this._exit(`Port must be provided. Usage:${serveScrollHelp()}`)
-		if (!folder) this._exit(`Folder name must be provided. Usage:${serveScrollHelp()}`)
+	serveCommand(folder, portNumber) {
 		const fullPath = resolvePath(folder)
 		this._ensureScrollFolderExists(fullPath)
 
-		if (!isScrollFolder(fullPath)) this._exit(`Folder missing a '${scrollSettingsFilename}' file.`)
+		if (!isScrollFolder(fullPath)) this._exit(`Folder '${folder}' has no '${scrollSettingsFilename}' file.`)
 
 		const scrollServer = new ScrollServer(fullPath)
 		return scrollServer.startListening(portNumber)
@@ -304,13 +286,10 @@ class ScrollCli {
 		return this.log(`\nThis is the Scroll help page.\nAvailable commands are:\n\n${this._allCommands.map(comm => `🖌️ ` + comm.replace(CommandFnDecoratorSuffix, "")).join("\n")}\n​​`)
 	}
 
-	exportCommand(args) {
-		if (!args.length) this._exit(`Usage "scroll export foo.com bar.com"`)
-		return args.map(scrollFolderName => {
-			const fullPath = resolvePath(scrollFolderName)
-			this._ensureScrollFolderExists(fullPath)
-			return this.log(new ScrollServer(fullPath).toStamp())
-		})
+	exportCommand(scrollFolderName) {
+		const fullPath = resolvePath(scrollFolderName)
+		this._ensureScrollFolderExists(fullPath)
+		return this.log(new ScrollServer(fullPath).toStamp())
 	}
 }
 
