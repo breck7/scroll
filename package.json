@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "Scroll is public domain static publishing software with a newspaper feel built on Tree Notation.",
   "main": "index.js",
   "scripts": {
