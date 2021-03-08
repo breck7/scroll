@@ -1,6 +1,8 @@
 title Kitchen Sink
 date 2/28/2021
 
+permalink kitchenSink
+
 paragraph
  This article contains every node type that ships with
  Scroll.

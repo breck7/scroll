@@ -28,10 +28,6 @@ html
   div {description}
    class scrollChrome scrollDescription
   div
-   class scrollChrome scrollLinks
-   a about
-    href #about
-  div
    class scrollPageContainer
    div
     class scrollPage

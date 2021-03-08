@@ -1,0 +1,10 @@
+title Scroll example readme
+
+paragraph
+ This folder contains an example Scroll for the
+ Scroll static publishing software.
+ 
+ It is used by the tests.
+ 
+ The "index.html" file is what the results of building a Scroll
+ should look like.

@@ -15,16 +15,6 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
  color #333
 .scrollDescription
  padding 3px
-.scrollLinks
- text-align left
- position absolute
- left 25px
- top 3px
- a
-  text-decoration none
-  color rgba(0,0,0,0.8)
-  &:hover
-   color rgba(0,0,0,1)
 .scrollPageContainer
  border-top 1px solid rgb(204,204,204)
  border-bottom 1px solid rgb(204,204,204)

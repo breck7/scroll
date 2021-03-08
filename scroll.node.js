@@ -16,6 +16,7 @@ const { TreeNode } = jtree
 const stamp = require("jtree/products/stamp.nodejs.js")
 const hakon = require("jtree/products/hakon.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
+const { Disk } = require("jtree/products/Disk.node.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 
 // Constants
@@ -34,6 +35,8 @@ const compiledMessage = `<!--
  http://scroll.publicdomaincompany.com/
  
  Generally you don't want to edit it by hand.
+
+ Scroll v${SCROLL_VERSION}
 
 -->`
 
@@ -228,10 +231,21 @@ class ScrollServer {
 		})
 	}
 
+	// todo: current stamp sucks compared to what it could be. Perhaps use Pappy's
 	toStamp() {
 		const providedPathWithoutEndingSlash = this.publicFolder.replace(/\/$/, "")
 		const absPath = path.resolve(providedPathWithoutEndingSlash)
-		return stamp.dirToStampWithContents(absPath)
+
+		return Disk.getFiles(absPath)
+			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION) || file.endsWith(scrollSettingsFilename))
+			.map(
+				path => `file ${path}
+ data
+  ${read(path)
+		.replace(/\r/g, "")
+		.replace(/\n/g, "\n  ")}`
+			)
+			.join("\n")
 	}
 }
 
