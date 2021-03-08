@@ -198,6 +198,11 @@ link https://github.com/breck7/brecksblog Brecksblog
 title2 What has changed in recent versions?
 
 code
+ Version 6.0.0 released on 03-08-2021
+  By popular request, Scroll now also publishes each article to its own page.
+  Removed the about links. Do less. KISS.
+  Fixed horrible perf bug.
+  "permalink" is now a scroll keyword.
  Version 5.0.0 released on 02-28-2021
   changed name of everything from dumbdown to Scroll per user feedback
   BREAKING file extension of articles needs to be "scroll" and not "dd" now.
