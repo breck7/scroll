@@ -31,8 +31,10 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
  margin-top 8px
  margin-bottom 8px
 .scrollTitle
- font-family Exchange,Georgia,serif
- color #000
+ a
+  font-family Exchange,Georgia,serif
+  text-decoration none
+  color #000
 .scrollIcons
  padding-top 3px
  svg
@@ -64,11 +66,14 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
  a
   color #000
   text-decoration none
+.scrollHasMultipleArticles
+ .scrollArticleCell
+  break-inside avoid
 .scrollArticleCell
  border-bottom 1px solid rgb(204,204,204)
  width 35ch
  padding 1ch
- break-inside avoid
+ break-inside avoid-page
  overflow hidden
  text-align justify
  margin auto

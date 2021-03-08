@@ -40,7 +40,13 @@ const compiledMessage = `<!--
 const cssClasses = {
 	scrollPage: "scrollPage",
 	scrollArticleCell: "scrollArticleCell",
-	scrollArticleSourceLink: "scrollArticleSourceLink"
+	scrollArticleSourceLink: "scrollArticleSourceLink",
+	scrollHasMultipleArticles: "scrollHasMultipleArticles"
+}
+
+const scrollKeywords = {
+	permalink: "permalink",
+	date: "date"
 }
 
 // Helper utils
@@ -68,12 +74,20 @@ class Article {
 		return new jtree.HandGrammarProgram(grammarCode).compileAndReturnRootConstructor()
 	}
 
+	get permalink() {
+		return this.asTree.get(scrollKeywords.permalink) || path.basename(this.sourceLink).replace(/\.scroll$/, "")
+	}
+
 	get toScrollProgram() {
 		return new this.scrollCompiler(this.content)
 	}
 
+	get asTree() {
+		return new TreeNode(this.content)
+	}
+
 	get timestamp() {
-		return dayjs(new TreeNode(this.content).get("date") ?? 0).unix()
+		return dayjs(this.asTree.get(scrollKeywords.date) ?? 0).unix()
 	}
 
 	toStumpNode() {
@@ -126,7 +140,7 @@ class Scroll {
 		return { ...defaults, ...new TreeNode(this._settings).toObject() }
 	}
 
-	toSingleHtmlFile() {
+	toSingleHtmlFile(articles = this.publishedArticles) {
 		const scrollDotHakon = read(scrollSrcFolder + "scroll.hakon")
 		const scrollDotStump = new TreeNode(read(scrollSrcFolder + "scroll.stump"))
 		const scrollIcons = new TreeNode(read(scrollSrcFolder + "scrollIcons.map")).toObject()
@@ -134,11 +148,12 @@ class Scroll {
 		const userSettingsMap = { ...scrollIcons, ...this.settings }
 		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
 
+		const scrollHasMultipleArticles = articles.length > 1 ? ` ${cssClasses.scrollHasMultipleArticles}` : ""
 		stumpWithSettings
 			.getTopDownArray()
 			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
 			.getParent() // todo: fix
-			.setChildren(`class ${cssClasses.scrollPage}\n` + this.publishedArticles.map(article => article.toStumpNode().toString()).join("\n"))
+			.setChildren(`class ${cssClasses.scrollPage}${scrollHasMultipleArticles}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
 
 		const stumpNode = new stump(stumpWithSettings)
 		const styleTag = stumpNode.getNode("head styleTag")
@@ -170,6 +185,18 @@ class ScrollServer {
 
 	previousVersion = ""
 
+	singlePages = new Map()
+	buildSinglePages() {
+		this.scroll.publishedArticles.forEach(article => {
+			const permalink = `${article.permalink}.html`
+			const content = this.scroll.toSingleHtmlFile([article])
+			if (this.singlePages.get(permalink) === content) return
+			write(`${this.publicFolder}/${permalink}`, content)
+			this.singlePages.set(permalink, content)
+			this.log(`Wrote ${permalink} to disk`)
+		})
+	}
+
 	buildSaveAndServeSingleHtmlFile() {
 		const file = this.scroll.toSingleHtmlFile()
 		if (this.previousVersion !== file) {
@@ -187,7 +214,10 @@ class ScrollServer {
 	startListening(port) {
 		const app = new express()
 
-		app.get("/", (req, res) => res.send(this.buildSaveAndServeSingleHtmlFile()))
+		app.get("/", (req, res) => {
+			this.buildSinglePages()
+			res.send(this.buildSaveAndServeSingleHtmlFile())
+		})
 
 		app.use(express.static(this.publicFolder))
 

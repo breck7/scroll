@@ -10,6 +10,8 @@ keywordCell
  highlightScope keyword
 textCell
  highlightScope string
+permalinkCell
+ highlightScope string
 urlCell
  highlightScope constant.language
 errorNode
@@ -108,6 +110,12 @@ commentLineNode
  catchAllCellType commentCell
  compiler
   stringTemplate 
+permalinkNode
+ crux permalink
+ extends abstractTopLevelNode
+ cells keywordCell permalinkCell
+ compiler
+  stringTemplate 
 titleNode
  catchAllCellType textCell
  extends abstractTopLevelNode
@@ -117,8 +125,8 @@ titleNode
  javascript
   compile(spaces) {
    const title = this.getContent()
-   const permalink = jtree.Utils.stringToPermalink(this.getContent())
-   return `<h1 id="${permalink}"><a href="#${permalink}">${title}</a></h1>`
+   const permalink = this.getRootNode().get("permalink") || jtree.Utils.stringToPermalink(this.getContent())
+   return `<h1><a href="${permalink}.html">${title}</a></h1>`
   }
 title2Node
  catchAllCellType textCell

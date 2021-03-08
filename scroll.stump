@@ -21,8 +21,10 @@ html
   div
    class scrollTopRightBar
    linksComponent
-  h1 {title}
+  h1
    class scrollChrome scrollTitle
+   a {title}
+    href ./
   div {description}
    class scrollChrome scrollDescription
   div

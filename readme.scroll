@@ -1,108 +1,122 @@
-# 📜 Scroll: A new way to publish
+title 📜 Scroll: A new way to publish
 
-<a href="https://github.com/publicdomaincompany/scroll">View on GitHub</a>
+link https://github.com/publicdomaincompany/scroll View on GitHub
 
-Scroll is simple static publishing software. Example site:
+paragraph
+ Scroll is simple static publishing software. Example site:
+ <a href="https://breckyunits.com/"><img
+  src="screenshot.png" /></a>
 
-<a href="https://breckyunits.com/"><img src="screenshot.png"
-/></a>
+title2 What makes Scroll different?
 
-# What makes Scroll different?
-
-1. Instead of a page per post, like a blog, a Scroll is a
-   **single page**, like an old newspaper.
-2. Instead of Markdown, Scrolls uses <a
-   href="https://treenotation.org/">**Tree Notation**</a>,
-   which makes it easy to combine languages to generate more
-   creative content.
-3. Instead of supporting licenses, Scroll is 100% focused on
+list
+ 1. Instead of a page per post, like a blog, a Scroll is a
+    **single page**, like an old newspaper.
+ 2. Instead of Markdown, Scrolls uses <a
+    href="https://treenotation.org/">**Tree Notation**</a>,
+    which makes it easy to combine languages to generate more
+    creative content.
+ 3. Instead of supporting licenses, Scroll is 100% focused on
    **public domain sites** and everything is
    designed with that assumption.
 
-## How do I get Scroll?
+title2 How do I get Scroll?
 
-Scroll is <a href="https://www.npmjs.com/package/scroll-cli">scroll-cli on npm</a>.
+paragraph
+ Scroll is <a
+ href="https://www.npmjs.com/package/scroll-cli">scroll-cli on npm</a>.
 
-You can get it by typing:
+paragraph
+ You can get it by typing:
 
-```
-npm install -g scroll-cli
-```
+code
+ npm install -g scroll-cli
 
-## How do I use Scroll?
 
-Scroll is used through the CLI. To see the options type:
+title2 How do I use Scroll?
 
-```
-scroll help
-```
+paragraph
+ Scroll is used through the CLI. To see the options type:
 
-## Where do I get help?
+code
+ scroll help
 
-Post an issue in this GitHub, join the <a href="https://www.reddit.com/r/treenotation/">Tree Notation subreddit</a> or email breck7@gmail.com.
+title2 Where do I get help?
 
-### What are some example sites using Scroll?
+paragraph
+ Post an issue in this GitHub, join the <a
+ href="https://www.reddit.com/r/treenotation/">Tree Notation
+ subreddit</a> or email breck7@gmail.com.
 
-On beta launch day we have:
+title2 What are some example sites using Scroll?
 
-- https://breckyunits.com/
+paragraph
+ On beta launch day we have:
 
-Note: looking for beta users to share their sites!
+list
+ - https://breckyunits.com/
 
-### How does Scroll work?
+paragraph
+ Note: looking for beta users to share their sites!
 
-<em>A Scroll</em> is a single folder containing Scroll files.
-Scroll compiles those Scroll files into a static
-index.html page.
+title2 How does Scroll work?
 
-Scroll is also the name of the command line app that includes a
-simple Node.js Express app for live preview.
+paragraph
+ <em>A Scroll</em> is a single folder containing Scroll files.
+ Scroll compiles those Scroll files into a static
+ index.html page.
+ 
+ Scroll is also the name of the command line app that includes a
+ simple Node.js Express app for live preview.
 
-Scroll is also the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scroll.grammar">grammar</a>.
+ Scroll is also the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scroll.grammar">grammar</a>.
 
-### What does a typical project folder look like?
+title2 What does a typical project folder look like?
 
-A typical Scroll project folder looks like this:
+paragraph
+ A typical Scroll project folder looks like this:
 
-```
-yourScrollProject/
- someDraft.scroll
- readme.md
- yourDomainName.org/
-  about.scroll
-  publishedArticle.scroll
-  anImageInTheArticle.png
-  index.html
-  scrollSettings.map
-```
+code
+ yourScrollProject/
+  someDraft.scroll
+  readme.md
+  yourDomainName.org/
+   about.scroll
+   publishedArticle.scroll
+   anImageInTheArticle.png
+   index.html
+   scrollSettings.map
 
-The `scrollSettings.map` file let's Scroll know that
-a folder contains a Scroll.
+paragraph
+ The `scrollSettings.map` file let's Scroll know that
+ a folder contains a Scroll.
+ 
+ When you "build" a Scroll site, you are simply generating
+ the `index.html` file in the site's folder.
+ 
+ The suggested project layout above let's you easily
+ separate drafts from published content and put all
+ under version control.
+ 
+ With Scroll your site's public static files, generated html,
+ and published article source Scroll files, are all in the
+ public folder and checked into version control.
+ 
+title2 How do I save drafts?
 
-When you "build" a Scroll site, you are simply generating
-the `index.html` file in the site's folder.
+paragraph
+ Save them outside your public folder like in the sample project
+ folder above.
 
-The suggested project layout above let's you easily
-separate drafts from published content and put all
-under version control.
+title2 What File Formats does Scroll use?
 
-With Scroll your site's public static files, generated html,
-and published article source Scroll files, are all in the
-public folder and checked into version control.
-
-### How do I save drafts?
-
-Save them outside your public folder like in the sample project
-folder above.
-
-### What File Formats does Scroll use?
-
-Scroll articles are written as Scroll files with the file
-extension `scroll`. The grammar for Scroll is fully defined
-<a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scroll.grammar">here</a>
-
-Entire Scrolls are saved as <a href="https://github.com/treenotation/jtree/blob/master/langs/stamp/readme.md">
-stamp</a> files with the extension `stamp`.
+paragraph
+ Scroll articles are written as Scroll files with the file
+ extension `scroll`. The grammar for Scroll is fully defined
+ <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scroll.grammar">here</a>
+ 
+ Entire Scrolls are saved as <a href="https://github.com/treenotation/jtree/blob/master/langs/stamp/readme.md">
+ stamp</a> files with the extension `stamp`.
 
 ### What languages is Scroll written in?
 
