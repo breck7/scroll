@@ -82,10 +82,12 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
   padding 1em
   overflow auto
   font-size 80%
+  break-inside avoid
   code
    margin 0
    display block
    white-space pre
+   break-inside avoid
  h1
   a
    text-decoration none
