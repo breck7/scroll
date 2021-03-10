@@ -28,12 +28,10 @@ html
   div {description}
    class scrollChrome scrollDescription
   div
-   class scrollPageContainer
-   div
-    class scrollPage
-    articleComponent
-    articleComponent
-    articleComponent
-    articleComponent
-    articleComponent
+   class scrollPage
+   articleComponent
+   articleComponent
+   articleComponent
+   articleComponent
+   articleComponent
   linksComponent

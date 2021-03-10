@@ -46,7 +46,7 @@ const cssClasses = {
 	scrollPage: "scrollPage",
 	scrollArticleCell: "scrollArticleCell",
 	scrollArticleSourceLink: "scrollArticleSourceLink",
-	scrollHasMultipleArticles: "scrollHasMultipleArticles"
+	scrollSingleArticle: "scrollSingleArticle"
 }
 
 const scrollKeywords = {
@@ -152,12 +152,11 @@ class Scroll {
 		const userSettingsMap = { ...scrollIcons, ...this.settings }
 		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
 
-		const scrollHasMultipleArticles = articles.length > 1 ? ` ${cssClasses.scrollHasMultipleArticles}` : ""
 		stumpWithSettings
 			.getTopDownArray()
 			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
 			.getParent() // todo: fix
-			.setChildren(`class ${cssClasses.scrollPage}${scrollHasMultipleArticles}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
+			.setChildren(`class ${cssClasses.scrollPage}${articles.length === 1 ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
 
 		const stumpNode = new stump(stumpWithSettings)
 		const styleTag = stumpNode.getNode("head styleTag")
