@@ -3,12 +3,12 @@ title 📜 Scroll: A new way to publish
 paragraph
  Scroll is simple static publishing software.
 
-title2 Example site:
+title3 Example site:
 
 paragraph
  <a href="https://breckyunits.com/"><img src="screenshot.png" /></a>
 
-title2 What makes Scroll different?
+title3 What makes Scroll different?
 
 paragraph
  Instead of a page per post, like a blog, a Scroll is a
@@ -25,7 +25,7 @@ paragraph
  <strong>public domain sites</strong> and everything is
  designed with that assumption.
 
-title2 How do I get Scroll?
+title3 How do I get Scroll?
 
 paragraph
  Scroll is <a
@@ -38,7 +38,7 @@ code
  npm install -g scroll-cli
 
 
-title2 How do I use Scroll?
+title3 How do I use Scroll?
 
 paragraph
  Scroll is used through the CLI. To see the options type:
@@ -46,21 +46,21 @@ paragraph
 code
  scroll help
 
-title2 Where do I get help?
+title3 Where do I get help?
 
 paragraph
  Post an issue in this GitHub, join the <a
  href="https://www.reddit.com/r/treenotation/">Tree Notation
  subreddit</a> or email <a href="mailto:scroll@publicdomaincompany.com">Breck</a>.
 
-title2 What are some example sites using Scroll?
+title3 What are some example sites using Scroll?
 
 paragraph
  On beta launch day we have:
 
 link https://breckyunits.com BreckYunits.com
 
-title2 How does Scroll work?
+title3 How does Scroll work?
 
 paragraph
  <em>A Scroll</em> is a single folder containing Scroll files.
@@ -74,7 +74,7 @@ paragraph
 paragraph
  Scroll is also the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scroll.grammar">grammar</a>.
 
-title2 What does a typical project folder look like?
+title3 What does a typical project folder look like?
 
 paragraph
  A typical Scroll project folder looks like this:
@@ -108,13 +108,13 @@ paragraph
  and published article source Scroll files, are all in the
  public folder and checked into version control.
  
-title2 How do I save drafts?
+title3 How do I save drafts?
 
 paragraph
  Save them outside your public folder like in the sample project
  folder above.
 
-title2 What File Formats does Scroll use?
+title3 What File Formats does Scroll use?
 
 paragraph
  Scroll articles are written as Scroll files with the file
@@ -125,7 +125,7 @@ paragraph
  Entire Scrolls are saved as <a href="https://github.com/treenotation/jtree/blob/master/langs/stamp/readme.md">
  stamp</a> files with the extension `stamp`.
 
-title2 What languages is Scroll written in?
+title3 What languages is Scroll written in?
 
 paragraph
  The Scroll app is written in plain Javascript and
@@ -140,13 +140,13 @@ paragraph
  TypeScript may be used in the future but Scroll may
  never get over 1kloc so that might not be necessary.
 
-title2 How does versioning of articles work?
+title3 How does versioning of articles work?
 
 paragraph
  Scroll is designed for git. A single article is stored as
  a single file tracked by git.
 
-title2 Why is Scroll a single page?
+title3 Why is Scroll a single page?
 
 paragraph
  Being able to scan the page like a newspaper is a
@@ -163,29 +163,29 @@ paragraph
  but people can have the full Scroll contents and render
  it however best suits them.
 
-title2 Will you make design decisions for non-public domain sites?
+title3 Will you make design decisions for non-public domain sites?
 
 paragraph
  No.
 
-title2 Can I use Scroll for internal private sites not intended for publishing?
+title3 Can I use Scroll for internal private sites not intended for publishing?
 
 paragraph
  Yes!
 
-title2 Will you support publishing snippets?
+title3 Will you support publishing snippets?
 
 paragraph
  No. But will support making it easier for someone to do that in a fork
  or via plugins.
 
-title2 Will you support newest articles flowing right to left instead of having potentially older articles up top?
+title3 Will you support newest articles flowing right to left instead of having potentially older articles up top?
 
 paragraph
  No. But will support making it easier for someone to do that in a fork
  or via plugins.
 
-title2 What were some alternatives considered?
+title3 What were some alternatives considered?
 
 paragraph
  There was no publishing software that reads and writes Scroll yet
@@ -195,7 +195,7 @@ paragraph
 link https://jekyllrb.com/ Jekyll
 link https://github.com/breck7/brecksblog Brecksblog
 
-title2 What has changed in recent versions?
+title3 What has changed in recent versions?
 
 code
  Version 6.0.0 released on 03-08-2021
@@ -211,6 +211,6 @@ code
  Version 4.1.0 released on 02-22-2021
   added a "git" scrollSetting for article source links.
 
-title2 Is there a place I can play with the Scroll grammar and see how it compiles to HTML?
+title3 Is there a place I can play with the Scroll grammar and see how it compiles to HTML?
 
-link https://jtree.treenotation.org/designer/#grammar%0A%20anyCell%0A%20blankCell%0A%20dashCell%0A%20%20highlightScope%20constant.language%0A%20codeCell%0A%20%20highlightScope%20comment%0A%20commentCell%0A%20%20highlightScope%20comment%0A%20keywordCell%0A%20%20highlightScope%20keyword%0A%20textCell%0A%20%20highlightScope%20string%0A%20permalinkCell%0A%20%20highlightScope%20string%0A%20urlCell%0A%20%20highlightScope%20constant.language%0A%20errorNode%0A%20%20baseNodeType%20errorNode%0A%20scrollNode%0A%20%20extensions%20scroll%0A%20%20description%20A%20prefix%20Tree%20Language%20that%20compiles%20to%20HTML.%20An%20alternative%20to%20Markdown.%0A%20%20root%0A%20%20inScope%20abstractTopLevelNode%20blankLineNode%0A%20%20catchAllNodeType%20quickParagraphNode%0A%20%20compilesTo%20html%0A%20%20example%0A%20%20%20title%20Hello%20world%0A%20%20%20title2%20This%20is%20scroll%0A%20%20%20%0A%20%20%20paragraph%0A%20%20%20%20It%20compiles%20to%20HTML.%20Blank%20lines%20get%20turned%20into%20brs.%0A%20%20%20link%20https%3A%2F%2Ftreenotation.org%20Scroll%20is%20a%20Tree%20Language.%0A%20%20%20list%0A%20%20%20%20-%20It%20has%20lists%0A%20%20%20%20-%20Too!%0A%20%20%20code%0A%20%20%20%20%2F%2F%20You%20can%20add%20code%20as%20well.%0A%20%20%20%20print(%22Hello%20world%22)%0A%20abstractTopLevelNode%0A%20%20abstract%0A%20%20cells%20keywordCell%0A%20linkNode%0A%20%20cells%20keywordCell%20urlCell%0A%20%20catchAllCellType%20textCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ca%20href%3D%22%7BurlCell%7D%22%3E%7BtextCell%7D%3C%2Fa%3E%0A%20%20crux%20link%0A%20paragraphNode%0A%20%20catchAllNodeType%20paragraphContentNode%0A%20%20extends%20abstractTopLevelNode%0A%20%20crux%20paragraph%0A%20%20compiler%0A%20%20%20openChildren%20%3Cp%3E%0A%20%20%20closeChildren%20%3C%2Fp%3E%0A%20%20%20stringTemplate%20%0A%20paragraphContentNode%0A%20%20inScope%20paragraphContentNode%0A%20%20catchAllCellType%20textCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%7BtextCell%7D%0A%20codeNode%0A%20%20description%20A%20code%20block.%0A%20%20catchAllNodeType%20lineOfCodeNode%0A%20%20extends%20abstractTopLevelNode%0A%20%20todo%20Fix%20spacing%0A%20%20compiler%0A%20%20%20openChildren%20%3Cdiv%20class%3D%22scrollArticleCode%22%3E%0A%20%20%20closeChildren%20%3C%2Fdiv%3E%0A%20%20%20stringTemplate%20%0A%20%20crux%20code%0A%20listNode%0A%20%20inScope%20dashNode%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20%20openChildren%20%3Cul%3E%0A%20%20%20closeChildren%20%3C%2Ful%3E%0A%20%20crux%20list%0A%20blankLineNode%0A%20%20description%20Blank%20lines%20compile%20to%20nothing%20in%20the%20HTML.%0A%20%20cells%20blankCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20pattern%20%5E%24%0A%20%20tags%20doNotSynthesize%0A%20lineOfCodeNode%0A%20%20catchAllCellType%20codeCell%0A%20%20catchAllNodeType%20lineOfCodeNode%0A%20%20javascript%0A%20%20%20compile()%20%7B%0A%20%20%20%20%20return%20%60%3Ccode%3E%24%7Bthis.getIndentation()%7D%24%7Bthis.getLine()%7D%3C%2Fcode%3E%24%7Bthis.map(child%20%3D%3E%20child.compile()).join(%22%5Cn%22)%7D%60%0A%20%20%20%7D%0A%20dashNode%0A%20%20crux%20-%0A%20%20catchAllCellType%20textCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Cli%3E%7BtextCell%7D%3C%2Fli%3E%0A%20%20cells%20dashCell%0A%20dateCell%0A%20%20highlightScope%20string%0A%20commentNode%0A%20%20catchAllCellType%20commentCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20crux%20comment%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20catchAllNodeType%20commentLineNode%0A%20commentLineNode%0A%20%20catchAllCellType%20commentCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20permalinkNode%0A%20%20crux%20permalink%0A%20%20extends%20abstractTopLevelNode%0A%20%20cells%20keywordCell%20permalinkCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20titleNode%0A%20%20catchAllCellType%20textCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20crux%20title%0A%20%20javascript%0A%20%20%20compile(spaces)%20%7B%0A%20%20%20%20const%20title%20%3D%20this.getContent()%0A%20%20%20%20const%20permalink%20%3D%20this.getRootNode().get(%22permalink%22)%20%7C%7C%20jtree.Utils.stringToPermalink(this.getContent())%0A%20%20%20%20return%20%60%3Ch1%3E%3Ca%20href%3D%22%24%7Bpermalink%7D.html%22%3E%24%7Btitle%7D%3C%2Fa%3E%3C%2Fh1%3E%60%0A%20%20%20%7D%0A%20title2Node%0A%20%20catchAllCellType%20textCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch2%3E%7BtextCell%7D%3C%2Fh2%3E%0A%20%20crux%20title2%0A%20title3Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch3%3E%7BtextCell%7D%3C%2Fh3%3E%0A%20%20crux%20title3%0A%20title4Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch4%3E%7BtextCell%7D%3C%2Fh4%3E%0A%20%20crux%20title4%0A%20title5Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch5%3E%7BtextCell%7D%3C%2Fh5%3E%0A%20%20crux%20title5%0A%20title6Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch6%3E%7BtextCell%7D%3C%2Fh6%3E%0A%20%20crux%20title6%0A%20dateNode%0A%20%20catchAllCellType%20dateCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20crux%20date%0A%20%20javascript%0A%20%20%20compile(spaces)%20%7B%0A%20%20%20%20const%20dayjs%20%3D%20require(%22dayjs%22)%0A%20%20%20%20const%20dateCell%20%3D%20dayjs(this.getContent()).format(%60MMMM%20D%2C%20YYYY%60)%0A%20%20%20%20return%20%60%3Cdiv%20class%3D%22scrollArticleDate%22%3E%24%7BdateCell%7D%20%E2%80%94%20%3C%2Fdiv%3E%60%0A%20%20%20%7D%0A%20quickParagraphNode%0A%20%20catchAllCellType%20textCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Cp%3E%7BtextCell%7D%3C%2Fp%3E%0Asample%0A%20title%20Kitchen%20Sink%0A%20date%202%2F28%2F2021%0A%20%0A%20permalink%20kitchenSink%0A%20%0A%20paragraph%0A%20%20This%20article%20contains%20every%20node%20type%20that%20ships%20with%0A%20%20Scroll.%0A%20%0A%20title2%20This%20is%20a%20subtitle%0A%20title6%20This%20is%20the%20sixth%20level%20of%20subtitle%0A%20%0A%20This%20is%20a%20quick%20paragraph.%20It%20may%20be%20deprecated%20in%20the%20future.%0A%20%0A%20code%0A%20%20Here%20is%20a%20code%20block%0A%20%0A%20list%0A%20%20-%20This%20is%20a%20list.%0A%20%20-%20It%20probably%20will%20be%20removed%0A%20%0A%20comment%20This%20comment%20cell%20will%20not%20appear%20in%20the%20HTML%0A%20%0A%20comment%0A%20%20this%20is%20a%0A%20%20multiline%20comment%20that%20also%20won't%20appear In the Tree Language Designer
+link https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscroll.grammar Yes. In the Tree Language Designer.
