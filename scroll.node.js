@@ -9,6 +9,7 @@ const fse = require("fs-extra")
 const fs = require("fs")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
+const getPort = require("get-port")
 
 // Tree Notation Includes
 const { jtree } = require("jtree")
@@ -23,6 +24,7 @@ const grammarNode = require("jtree/products/grammar.nodejs.js")
 const packageJson = require("./package.json")
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
+const DEFAULT_PORT = 1145
 const scrollSrcFolder = __dirname + "/"
 const exampleFolder = scrollSrcFolder + "example.com/"
 const scrollSettingsFilename = "scrollSettings.map"
@@ -55,7 +57,6 @@ const scrollKeywords = {
 // Helper utils
 const read = filename => fs.readFileSync(filename, "utf8")
 const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
-const serveScrollHelp = (folder = "example.com") => `\n\nscroll\n\n`
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
 const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + scrollSettingsFilename))
 
@@ -257,8 +258,8 @@ class ScrollCli {
 		const cwd = process.cwd()
 		// Note: if we need 2 params, we are doing it wrong. At
 		// that point, we'd be better off taking an options map.
-		if (this[commandName]) return this[commandName](cwd, args[1] ?? 1145)
-		else if (isScrollFolder(cwd)) return this.serveCommand(cwd, 1145)
+		if (this[commandName]) return this[commandName](cwd)
+		else if (isScrollFolder(cwd)) return this.serveCommand(cwd)
 
 		if (!command) this.log(`No command provided and no '${scrollSettingsFilename}' found. Running help command.`)
 
@@ -290,7 +291,7 @@ class ScrollCli {
 		const template = new ScrollServer().toStamp().replace(/example.com\//g, "")
 		this.log(`Creating scroll in "${destinationFolderName}"`)
 		await new stamp(template).execute()
-		return this.log(`\n👍 Scroll created! Now you can run:${serveScrollHelp(destinationFolderName)}`)
+		return this.log(`\n👍 Scroll created! To start serving run: scroll`)
 	}
 
 	deleteCommand() {
@@ -318,7 +319,8 @@ class ScrollCli {
 	// 	files.map(resolvePath).forEach(fullPath => write(fullPath, new MarkdownFile(read(fullPath)).toScroll()))
 	// }
 
-	serveCommand(folder, portNumber) {
+	async serveCommand(folder) {
+		const portNumber = await getPort({ port: getPort.makeRange(DEFAULT_PORT, DEFAULT_PORT + 100) })
 		const fullPath = resolvePath(folder)
 		this._ensureScrollFolderExists(fullPath)
 
