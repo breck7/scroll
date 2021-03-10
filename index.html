@@ -33,12 +33,6 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 .scrollDescription {
   padding: 3px;
 }
-.scrollPageContainer {
-  border-top: 1px solid rgb(204,204,204);
-  border-bottom: 1px solid rgb(204,204,204);
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
 .scrollTitle a {
   font-family: Exchange,Georgia,serif;
   text-decoration: none;
@@ -48,8 +42,9 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
   padding-top: 3px;
 }
 .scrollIcons svg {
-  width: 16px;
-  fill: rgb(204,204,204);
+  width: 30px;
+  fill: rgba(204,204,204, .5);
+  margin-left: 15px;
 }
 .scrollIcons svg:hover {
   fill: #333;
@@ -67,6 +62,10 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
   column-rule: 1px solid rgb(204,204,204);
   padding-left: 20px;
   padding-right: 20px;
+  border-top: 1px solid rgb(204,204,204);
+  border-bottom: 1px solid rgb(204,204,204);
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 .scrollArticleDate {
   text-align: center;
@@ -83,14 +82,20 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
   color: #000;
   text-decoration: none;
 }
-.scrollHasMultipleArticles .scrollArticleCell {
-  break-inside: avoid;
+.scrollSingleArticle {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  column-rule: none;
+}
+.scrollSingleArticle .scrollArticleCell {
+  break-inside: avoid-page;
+  border-bottom: none;
 }
 .scrollArticleCell {
   border-bottom: 1px solid rgb(204,204,204);
   width: 35ch;
   padding: 1ch;
-  break-inside: avoid-page;
+  break-inside: avoid;
   overflow: hidden;
   text-align: justify;
   margin: auto;
@@ -115,11 +120,13 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
   padding: 1em;
   overflow: auto;
   font-size: 80%;
+  break-inside: avoid;
 }
 .scrollArticleCell .scrollArticleCode,.scrollArticleCell table code {
   margin: 0;
   display: block;
   white-space: pre;
+  break-inside: avoid;
 }
 .scrollArticleCell h1 a {
   text-decoration: none;
@@ -145,9 +152,8 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
   <a href="./">📜 Scroll</a>
 </h1>
  <div class="scrollChrome scrollDescription">Static publishing software with a newspaper feel built on Tree Notation. Scroll is public domain software.</div>
- <div class="scrollPageContainer">
-  <div class="scrollPage">
-   <div class="scrollArticleCell"><h1><a href="-scroll-a-new-way-to-publish.html">📜 Scroll: A new way to publish</a></h1>
+ <div class="scrollPage scrollSingleArticle">
+  <div class="scrollArticleCell"><h1><a href="-scroll-a-new-way-to-publish.html">📜 Scroll: A new way to publish</a></h1>
 
 <p>
  Scroll is simple static publishing software.
@@ -155,7 +161,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>Example site:</h2>
+<h3>Example site:</h3>
 
 <p>
  <a href="https://breckyunits.com/"><img src="screenshot.png" /></a>
@@ -163,7 +169,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>What makes Scroll different?</h2>
+<h3>What makes Scroll different?</h3>
 
 <p>
  Instead of a page per post, like a blog, a Scroll is a
@@ -201,7 +207,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>How do I get Scroll?</h2>
+<h3>How do I get Scroll?</h3>
 
 <p>
  Scroll is <a
@@ -220,10 +226,11 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 
 <div class="scrollArticleCode">
 <code> npm install -g scroll-cli</code>
+
 </div>
 
 
-<h2>How do I use Scroll?</h2>
+<h3>How do I use Scroll?</h3>
 
 <p>
  Scroll is used through the CLI. To see the options type:
@@ -233,9 +240,10 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 
 <div class="scrollArticleCode">
 <code> scroll help</code>
+
 </div>
 
-<h2>Where do I get help?</h2>
+<h3>Where do I get help?</h3>
 
 <p>
  Post an issue in this GitHub, join the <a
@@ -249,7 +257,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>What are some example sites using Scroll?</h2>
+<h3>What are some example sites using Scroll?</h3>
 
 <p>
  On beta launch day we have:
@@ -259,7 +267,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 
 <a href="https://breckyunits.com">BreckYunits.com</a>
 
-<h2>How does Scroll work?</h2>
+<h3>How does Scroll work?</h3>
 
 <p>
  <em>A Scroll</em> is a single folder containing Scroll files.
@@ -288,7 +296,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>What does a typical project folder look like?</h2>
+<h3>What does a typical project folder look like?</h3>
 
 <p>
  A typical Scroll project folder looks like this:
@@ -297,13 +305,16 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 </p>
 
 <div class="scrollArticleCode">
-<code> yourProject/</code><code>  someDraft.scroll</code>
+<code> yourProject/</code>
+<code>  someDraft.scroll</code>
 <code>  readme.scroll</code>
-<code>  yourDomainName.org/</code><code>   about.scroll</code>
+<code>  yourDomainName.org/</code>
+<code>   about.scroll</code>
 <code>   publishedArticle.scroll</code>
 <code>   anImageInTheArticle.png</code>
 <code>   index.html</code>
 <code>   scrollSettings.map</code>
+
 </div>
 
 <p>
@@ -350,7 +361,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 
  
 </p>
-<h2>How do I save drafts?</h2>
+<h3>How do I save drafts?</h3>
 
 <p>
  Save them outside your public folder like in the sample project
@@ -361,7 +372,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>What File Formats does Scroll use?</h2>
+<h3>What File Formats does Scroll use?</h3>
 
 <p>
  Scroll articles are written as Scroll files with the file
@@ -386,7 +397,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>What languages is Scroll written in?</h2>
+<h3>What languages is Scroll written in?</h3>
 
 <p>
  The Scroll app is written in plain Javascript and
@@ -418,7 +429,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>How does versioning of articles work?</h2>
+<h3>How does versioning of articles work?</h3>
 
 <p>
  Scroll is designed for git. A single article is stored as
@@ -429,7 +440,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>Why is Scroll a single page?</h2>
+<h3>Why is Scroll a single page?</h3>
 
 <p>
  Being able to scan the page like a newspaper is a
@@ -467,7 +478,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>Will you make design decisions for non-public domain sites?</h2>
+<h3>Will you make design decisions for non-public domain sites?</h3>
 
 <p>
  No.
@@ -475,7 +486,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>Can I use Scroll for internal private sites not intended for publishing?</h2>
+<h3>Can I use Scroll for internal private sites not intended for publishing?</h3>
 
 <p>
  Yes!
@@ -483,7 +494,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>Will you support publishing snippets?</h2>
+<h3>Will you support publishing snippets?</h3>
 
 <p>
  No. But will support making it easier for someone to do that in a fork
@@ -494,7 +505,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>Will you support newest articles flowing right to left instead of having potentially older articles up top?</h2>
+<h3>Will you support newest articles flowing right to left instead of having potentially older articles up top?</h3>
 
 <p>
  No. But will support making it easier for someone to do that in a fork
@@ -505,7 +516,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h2>What were some alternatives considered?</h2>
+<h3>What were some alternatives considered?</h3>
 
 <p>
  There was no publishing software that reads and writes Scroll yet
@@ -522,19 +533,31 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 <a href="https://jekyllrb.com/">Jekyll</a>
 <a href="https://github.com/breck7/brecksblog">Brecksblog</a>
 
-<h2>What has changed in recent versions?</h2>
+<h3>What has changed in recent versions?</h3>
 
 <div class="scrollArticleCode">
-<code> Version 5.0.0 released on 02-28-2021</code><code>  changed name of everything from dumbdown to Scroll per user feedback</code>
+<code> Version 6.0.0 released on 03-08-2021</code>
+<code>  By popular request, Scroll now also publishes each article to its own page.</code>
+<code>  Removed the about links. Do less. KISS.</code>
+<code>  Fixed horrible perf bug.</code>
+<code>  "permalink" is now a scroll keyword.</code>
+
+<code> Version 5.0.0 released on 02-28-2021</code>
+<code>  changed name of everything from dumbdown to Scroll per user feedback</code>
 <code>  BREAKING file extension of articles needs to be "scroll" and not "dd" now.</code>
-<code> Version 4.2.0 released on 02-22-2021</code><code>  fixed paragraph parsing and rendering</code>
-<code> Version 4.1.0 released on 02-22-2021</code><code>  added a "git" scrollSetting for article source links.</code>
+
+<code> Version 4.2.0 released on 02-22-2021</code>
+<code>  fixed paragraph parsing and rendering</code>
+
+<code> Version 4.1.0 released on 02-22-2021</code>
+<code>  added a "git" scrollSetting for article source links.</code>
+
 </div>
 
-<h2>Is there a place I can play with the Scroll grammar and see how it compiles to HTML?</h2>
+<h3>Is there a place I can play with the Scroll grammar and see how it compiles to HTML?</h3>
 
-<a href="https://jtree.treenotation.org/designer/#grammar%0A%20anyCell%0A%20blankCell%0A%20dashCell%0A%20%20highlightScope%20constant.language%0A%20codeCell%0A%20%20highlightScope%20comment%0A%20commentCell%0A%20%20highlightScope%20comment%0A%20keywordCell%0A%20%20highlightScope%20keyword%0A%20textCell%0A%20%20highlightScope%20string%0A%20permalinkCell%0A%20%20highlightScope%20string%0A%20urlCell%0A%20%20highlightScope%20constant.language%0A%20errorNode%0A%20%20baseNodeType%20errorNode%0A%20scrollNode%0A%20%20extensions%20scroll%0A%20%20description%20A%20prefix%20Tree%20Language%20that%20compiles%20to%20HTML.%20An%20alternative%20to%20Markdown.%0A%20%20root%0A%20%20inScope%20abstractTopLevelNode%20blankLineNode%0A%20%20catchAllNodeType%20quickParagraphNode%0A%20%20compilesTo%20html%0A%20%20example%0A%20%20%20title%20Hello%20world%0A%20%20%20title2%20This%20is%20scroll%0A%20%20%20%0A%20%20%20paragraph%0A%20%20%20%20It%20compiles%20to%20HTML.%20Blank%20lines%20get%20turned%20into%20brs.%0A%20%20%20link%20https%3A%2F%2Ftreenotation.org%20Scroll%20is%20a%20Tree%20Language.%0A%20%20%20list%0A%20%20%20%20-%20It%20has%20lists%0A%20%20%20%20-%20Too!%0A%20%20%20code%0A%20%20%20%20%2F%2F%20You%20can%20add%20code%20as%20well.%0A%20%20%20%20print(%22Hello%20world%22)%0A%20abstractTopLevelNode%0A%20%20abstract%0A%20%20cells%20keywordCell%0A%20linkNode%0A%20%20cells%20keywordCell%20urlCell%0A%20%20catchAllCellType%20textCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ca%20href%3D%22%7BurlCell%7D%22%3E%7BtextCell%7D%3C%2Fa%3E%0A%20%20crux%20link%0A%20paragraphNode%0A%20%20catchAllNodeType%20paragraphContentNode%0A%20%20extends%20abstractTopLevelNode%0A%20%20crux%20paragraph%0A%20%20compiler%0A%20%20%20openChildren%20%3Cp%3E%0A%20%20%20closeChildren%20%3C%2Fp%3E%0A%20%20%20stringTemplate%20%0A%20paragraphContentNode%0A%20%20inScope%20paragraphContentNode%0A%20%20catchAllCellType%20textCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%7BtextCell%7D%0A%20codeNode%0A%20%20description%20A%20code%20block.%0A%20%20catchAllNodeType%20lineOfCodeNode%0A%20%20extends%20abstractTopLevelNode%0A%20%20todo%20Fix%20spacing%0A%20%20compiler%0A%20%20%20openChildren%20%3Cdiv%20class%3D%22scrollArticleCode%22%3E%0A%20%20%20closeChildren%20%3C%2Fdiv%3E%0A%20%20%20stringTemplate%20%0A%20%20crux%20code%0A%20listNode%0A%20%20inScope%20dashNode%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20%20openChildren%20%3Cul%3E%0A%20%20%20closeChildren%20%3C%2Ful%3E%0A%20%20crux%20list%0A%20blankLineNode%0A%20%20description%20Blank%20lines%20compile%20to%20nothing%20in%20the%20HTML.%0A%20%20cells%20blankCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20pattern%20%5E%24%0A%20%20tags%20doNotSynthesize%0A%20lineOfCodeNode%0A%20%20catchAllCellType%20codeCell%0A%20%20catchAllNodeType%20lineOfCodeNode%0A%20%20javascript%0A%20%20%20compile()%20%7B%0A%20%20%20%20%20return%20%60%3Ccode%3E%24%7Bthis.getIndentation()%7D%24%7Bthis.getLine()%7D%3C%2Fcode%3E%24%7Bthis.map(child%20%3D%3E%20child.compile()).join(%22%5Cn%22)%7D%60%0A%20%20%20%7D%0A%20dashNode%0A%20%20crux%20-%0A%20%20catchAllCellType%20textCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Cli%3E%7BtextCell%7D%3C%2Fli%3E%0A%20%20cells%20dashCell%0A%20dateCell%0A%20%20highlightScope%20string%0A%20commentNode%0A%20%20catchAllCellType%20commentCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20crux%20comment%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20catchAllNodeType%20commentLineNode%0A%20commentLineNode%0A%20%20catchAllCellType%20commentCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20permalinkNode%0A%20%20crux%20permalink%0A%20%20extends%20abstractTopLevelNode%0A%20%20cells%20keywordCell%20permalinkCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20titleNode%0A%20%20catchAllCellType%20textCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%0A%20%20crux%20title%0A%20%20javascript%0A%20%20%20compile(spaces)%20%7B%0A%20%20%20%20const%20title%20%3D%20this.getContent()%0A%20%20%20%20const%20permalink%20%3D%20this.getRootNode().get(%22permalink%22)%20%7C%7C%20jtree.Utils.stringToPermalink(this.getContent())%0A%20%20%20%20return%20%60%3Ch1%3E%3Ca%20href%3D%22%24%7Bpermalink%7D.html%22%3E%24%7Btitle%7D%3C%2Fa%3E%3C%2Fh1%3E%60%0A%20%20%20%7D%0A%20title2Node%0A%20%20catchAllCellType%20textCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch2%3E%7BtextCell%7D%3C%2Fh2%3E%0A%20%20crux%20title2%0A%20title3Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch3%3E%7BtextCell%7D%3C%2Fh3%3E%0A%20%20crux%20title3%0A%20title4Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch4%3E%7BtextCell%7D%3C%2Fh4%3E%0A%20%20crux%20title4%0A%20title5Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch5%3E%7BtextCell%7D%3C%2Fh5%3E%0A%20%20crux%20title5%0A%20title6Node%0A%20%20extends%20title2Node%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Ch6%3E%7BtextCell%7D%3C%2Fh6%3E%0A%20%20crux%20title6%0A%20dateNode%0A%20%20catchAllCellType%20dateCell%0A%20%20extends%20abstractTopLevelNode%0A%20%20crux%20date%0A%20%20javascript%0A%20%20%20compile(spaces)%20%7B%0A%20%20%20%20const%20dayjs%20%3D%20require(%22dayjs%22)%0A%20%20%20%20const%20dateCell%20%3D%20dayjs(this.getContent()).format(%60MMMM%20D%2C%20YYYY%60)%0A%20%20%20%20return%20%60%3Cdiv%20class%3D%22scrollArticleDate%22%3E%24%7BdateCell%7D%20%E2%80%94%20%3C%2Fdiv%3E%60%0A%20%20%20%7D%0A%20quickParagraphNode%0A%20%20catchAllCellType%20textCell%0A%20%20compiler%0A%20%20%20stringTemplate%20%3Cp%3E%7BtextCell%7D%3C%2Fp%3E%0Asample%0A%20title%20Kitchen%20Sink%0A%20date%202%2F28%2F2021%0A%20%0A%20permalink%20kitchenSink%0A%20%0A%20paragraph%0A%20%20This%20article%20contains%20every%20node%20type%20that%20ships%20with%0A%20%20Scroll.%0A%20%0A%20title2%20This%20is%20a%20subtitle%0A%20title6%20This%20is%20the%20sixth%20level%20of%20subtitle%0A%20%0A%20This%20is%20a%20quick%20paragraph.%20It%20may%20be%20deprecated%20in%20the%20future.%0A%20%0A%20code%0A%20%20Here%20is%20a%20code%20block%0A%20%0A%20list%0A%20%20-%20This%20is%20a%20list.%0A%20%20-%20It%20probably%20will%20be%20removed%0A%20%0A%20comment%20This%20comment%20cell%20will%20not%20appear%20in%20the%20HTML%0A%20%0A%20comment%0A%20%20this%20is%20a%0A%20%20multiline%20comment%20that%20also%20won't%20appear">In the Tree Language Designer</a><p class="scrollArticleSourceLink"><a href="https://github.com/publicdomaincompany/scroll/readme.scroll">Article source</a></p></div>
-</div>
+<a href="https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscroll.grammar">Yes. In the Tree Language Designer.</a>
+<p class="scrollArticleSourceLink"><a href="https://github.com/publicdomaincompany/scroll/readme.scroll">Article source</a></p></div>
 </div>
  <div class="scrollChrome scrollIcons">
   <a href="mailto:scroll@publicdomaincompany.com"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Gmail icon</title><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></a>
