@@ -23,8 +23,9 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
 .scrollIcons
  padding-top 3px
  svg
-  width 16px
-  fill rgb(204,204,204)
+  width 30px
+  fill rgba(204,204,204, .5)
+  margin-left 15px
   &:hover
    fill #333
 .scrollTopRightBar
