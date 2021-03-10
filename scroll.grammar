@@ -89,7 +89,7 @@ lineOfCodeNode
  catchAllNodeType lineOfCodeNode
  javascript
   compile() {
-    return `<code>${this.getIndentation()}${this.getLine()}</code>${this.map(child => child.compile()).join("\n")}`
+    return `<code>${this.getIndentation()}${this.getLine()}</code>\n${this.map(child => child.compile()).join("")}`
   }
 dashNode
  crux -
