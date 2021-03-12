@@ -71,11 +71,14 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
  overflow hidden
  text-align justify
  margin auto
+ margin-bottom .5em
  ul,ol
   padding 1em
   margin 0
  p
   text-indent 1em
+  margin-top 0.4em
+  line-height 1.4em
  p:first-of-type
   display inline
  img
@@ -97,6 +100,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
   a
    text-decoration none
    color #000
+  margin-bottom .25em
  h1,h2,h3,h4,h5,h6
   text-align center
  h2,h3,h4,h5,h6
