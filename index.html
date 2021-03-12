@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v6.1.0
+ Scroll v6.2.0
 
 -->
 <head>
@@ -99,6 +99,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
   overflow: hidden;
   text-align: justify;
   margin: auto;
+  margin-bottom: .5em;
 }
 .scrollArticleCell ul,.scrollArticleCell ol {
   padding: 1em;
@@ -106,6 +107,8 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 }
 .scrollArticleCell p {
   text-indent: 1em;
+  margin-top: 0.4em;
+  line-height: 1.4em;
 }
 .scrollArticleCell p:first-of-type {
   display: inline;
@@ -128,6 +131,9 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
   white-space: pre;
   break-inside: avoid;
 }
+.scrollArticleCell h1 {
+  margin-bottom: .25em;
+}
 .scrollArticleCell h1 a {
   text-decoration: none;
   color: #000;
@@ -137,6 +143,9 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 }
 .scrollArticleCell h2,.scrollArticleCell h3,.scrollArticleCell h4,.scrollArticleCell h5,.scrollArticleCell h6 {
   margin: .2em;
+}
+blockquote {
+  margin: 2ch;
 }
 </style>
 </head>
@@ -161,7 +170,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>Example site:</h3>
+<h2>Example site</h2>
 
 <p>
  <a href="https://breckyunits.com/"><img src="screenshot.png" /></a>
@@ -169,7 +178,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>What makes Scroll different?</h3>
+<h4>What makes Scroll different?</h4>
 
 <p>
  Instead of a page per post, like a blog, a Scroll is a
@@ -207,7 +216,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>How do I get Scroll?</h3>
+<h4>How do I get Scroll?</h4>
 
 <p>
  Scroll is <a
@@ -230,7 +239,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 </div>
 
 
-<h3>How do I use Scroll?</h3>
+<h4>How do I use Scroll?</h4>
 
 <p>
  Scroll is used through the CLI. To see the options type:
@@ -243,7 +252,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 
 </div>
 
-<h3>Where do I get help?</h3>
+<h4>Where do I get help?</h4>
 
 <p>
  Post an issue in this GitHub, join the <a
@@ -257,7 +266,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>What are some example sites using Scroll?</h3>
+<h4>What are some example sites using Scroll?</h4>
 
 <p>
  On beta launch day we have:
@@ -267,7 +276,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 
 <a href="https://breckyunits.com">BreckYunits.com</a>
 
-<h3>How does Scroll work?</h3>
+<h4>How does Scroll work?</h4>
 
 <p>
  <em>A Scroll</em> is a single folder containing Scroll files.
@@ -296,7 +305,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>What does a typical project folder look like?</h3>
+<h4>What does a typical project folder look like?</h4>
 
 <p>
  A typical Scroll project folder looks like this:
@@ -361,7 +370,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 
  
 </p>
-<h3>How do I save drafts?</h3>
+<h4>How do I save drafts?</h4>
 
 <p>
  Save them outside your public folder like in the sample project
@@ -372,7 +381,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>What File Formats does Scroll use?</h3>
+<h4>What File Formats does Scroll use?</h4>
 
 <p>
  Scroll articles are written as Scroll files with the file
@@ -397,7 +406,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>What languages is Scroll written in?</h3>
+<h4>What languages is Scroll written in?</h4>
 
 <p>
  The Scroll app is written in plain Javascript and
@@ -429,7 +438,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>How does versioning of articles work?</h3>
+<h4>How does versioning of articles work?</h4>
 
 <p>
  Scroll is designed for git. A single article is stored as
@@ -440,7 +449,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>Why is Scroll a single page?</h3>
+<h4>Why is Scroll a single page?</h4>
 
 <p>
  Being able to scan the page like a newspaper is a
@@ -478,7 +487,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>Will you make design decisions for non-public domain sites?</h3>
+<h4>Will you make design decisions for non-public domain sites?</h4>
 
 <p>
  No.
@@ -486,7 +495,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>Can I use Scroll for internal private sites not intended for publishing?</h3>
+<h4>Can I use Scroll for internal private sites not intended for publishing?</h4>
 
 <p>
  Yes!
@@ -494,7 +503,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>Will you support publishing snippets?</h3>
+<h4>Will you support publishing snippets?</h4>
 
 <p>
  No. But will support making it easier for someone to do that in a fork
@@ -505,7 +514,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>Will you support newest articles flowing right to left instead of having potentially older articles up top?</h3>
+<h4>Will you support newest articles flowing right to left instead of having potentially older articles up top?</h4>
 
 <p>
  No. But will support making it easier for someone to do that in a fork
@@ -516,7 +525,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
  
 </p>
 
-<h3>What were some alternatives considered?</h3>
+<h4>What were some alternatives considered?</h4>
 
 <p>
  There was no publishing software that reads and writes Scroll yet
@@ -533,7 +542,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 <a href="https://jekyllrb.com/">Jekyll</a>
 <a href="https://github.com/breck7/brecksblog">Brecksblog</a>
 
-<h3>What has changed in recent versions?</h3>
+<h4>What has changed in recent versions?</h4>
 
 <div class="scrollArticleCode">
 <code> Version 6.0.0 released on 03-08-2021</code>
@@ -554,7 +563,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p {
 
 </div>
 
-<h3>Is there a place I can play with the Scroll grammar and see how it compiles to HTML?</h3>
+<h4>Is there a place I can play with the Scroll grammar and see how it compiles to HTML?</h4>
 
 <a href="https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscroll.grammar">Yes. In the Tree Language Designer.</a>
 <p class="scrollArticleSourceLink"><a href="https://github.com/publicdomaincompany/scroll/readme.scroll">Article source</a></p></div>

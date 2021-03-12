@@ -3,12 +3,12 @@ title 📜 Scroll: A new way to publish
 paragraph
  Scroll is simple static publishing software.
 
-title3 Example site:
+title2 Example site
 
 paragraph
  <a href="https://breckyunits.com/"><img src="screenshot.png" /></a>
 
-title3 What makes Scroll different?
+title4 What makes Scroll different?
 
 paragraph
  Instead of a page per post, like a blog, a Scroll is a
@@ -25,7 +25,7 @@ paragraph
  <strong>public domain sites</strong> and everything is
  designed with that assumption.
 
-title3 How do I get Scroll?
+title4 How do I get Scroll?
 
 paragraph
  Scroll is <a
@@ -38,7 +38,7 @@ code
  npm install -g scroll-cli
 
 
-title3 How do I use Scroll?
+title4 How do I use Scroll?
 
 paragraph
  Scroll is used through the CLI. To see the options type:
@@ -46,21 +46,21 @@ paragraph
 code
  scroll help
 
-title3 Where do I get help?
+title4 Where do I get help?
 
 paragraph
  Post an issue in this GitHub, join the <a
  href="https://www.reddit.com/r/treenotation/">Tree Notation
  subreddit</a> or email <a href="mailto:scroll@publicdomaincompany.com">Breck</a>.
 
-title3 What are some example sites using Scroll?
+title4 What are some example sites using Scroll?
 
 paragraph
  On beta launch day we have:
 
 link https://breckyunits.com BreckYunits.com
 
-title3 How does Scroll work?
+title4 How does Scroll work?
 
 paragraph
  <em>A Scroll</em> is a single folder containing Scroll files.
@@ -74,7 +74,7 @@ paragraph
 paragraph
  Scroll is also the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scroll.grammar">grammar</a>.
 
-title3 What does a typical project folder look like?
+title4 What does a typical project folder look like?
 
 paragraph
  A typical Scroll project folder looks like this:
@@ -108,13 +108,13 @@ paragraph
  and published article source Scroll files, are all in the
  public folder and checked into version control.
  
-title3 How do I save drafts?
+title4 How do I save drafts?
 
 paragraph
  Save them outside your public folder like in the sample project
  folder above.
 
-title3 What File Formats does Scroll use?
+title4 What File Formats does Scroll use?
 
 paragraph
  Scroll articles are written as Scroll files with the file
@@ -125,7 +125,7 @@ paragraph
  Entire Scrolls are saved as <a href="https://github.com/treenotation/jtree/blob/master/langs/stamp/readme.md">
  stamp</a> files with the extension `stamp`.
 
-title3 What languages is Scroll written in?
+title4 What languages is Scroll written in?
 
 paragraph
  The Scroll app is written in plain Javascript and
@@ -140,13 +140,13 @@ paragraph
  TypeScript may be used in the future but Scroll may
  never get over 1kloc so that might not be necessary.
 
-title3 How does versioning of articles work?
+title4 How does versioning of articles work?
 
 paragraph
  Scroll is designed for git. A single article is stored as
  a single file tracked by git.
 
-title3 Why is Scroll a single page?
+title4 Why is Scroll a single page?
 
 paragraph
  Being able to scan the page like a newspaper is a
@@ -163,29 +163,29 @@ paragraph
  but people can have the full Scroll contents and render
  it however best suits them.
 
-title3 Will you make design decisions for non-public domain sites?
+title4 Will you make design decisions for non-public domain sites?
 
 paragraph
  No.
 
-title3 Can I use Scroll for internal private sites not intended for publishing?
+title4 Can I use Scroll for internal private sites not intended for publishing?
 
 paragraph
  Yes!
 
-title3 Will you support publishing snippets?
+title4 Will you support publishing snippets?
 
 paragraph
  No. But will support making it easier for someone to do that in a fork
  or via plugins.
 
-title3 Will you support newest articles flowing right to left instead of having potentially older articles up top?
+title4 Will you support newest articles flowing right to left instead of having potentially older articles up top?
 
 paragraph
  No. But will support making it easier for someone to do that in a fork
  or via plugins.
 
-title3 What were some alternatives considered?
+title4 What were some alternatives considered?
 
 paragraph
  There was no publishing software that reads and writes Scroll yet
@@ -195,7 +195,7 @@ paragraph
 link https://jekyllrb.com/ Jekyll
 link https://github.com/breck7/brecksblog Brecksblog
 
-title3 What has changed in recent versions?
+title4 What has changed in recent versions?
 
 code
  Version 6.0.0 released on 03-08-2021
@@ -211,6 +211,6 @@ code
  Version 4.1.0 released on 02-22-2021
   added a "git" scrollSetting for article source links.
 
-title3 Is there a place I can play with the Scroll grammar and see how it compiles to HTML?
+title4 Is there a place I can play with the Scroll grammar and see how it compiles to HTML?
 
 link https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscroll.grammar Yes. In the Tree Language Designer.
