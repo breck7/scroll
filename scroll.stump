@@ -11,6 +11,7 @@ articleComponent
  h3 Article title
  div Here is some content. I dont know what to think about it. But it sounds coool.
 html
+ lang en-US
  head
   meta
    charset utf-8

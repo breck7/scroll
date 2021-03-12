@@ -29,7 +29,7 @@ const scrollSrcFolder = __dirname + "/"
 const exampleFolder = scrollSrcFolder + "example.com/"
 const scrollSettingsFilename = "scrollSettings.map"
 const CommandFnDecoratorSuffix = "Command"
-const compiledMessage = `<!--
+const scrollBoilerplateCompiledMessage = `<!--
 
  This page was compiled by 📜 Scroll, the public domain
  static site publishing software.
@@ -144,6 +144,7 @@ class Scroll {
 		return { ...defaults, ...new TreeNode(this._settings).toObject() }
 	}
 
+	// todo: refactor this. stump sucks. improve it.
 	toSingleHtmlFile(articles = this.publishedArticles) {
 		const scrollDotHakon = read(scrollSrcFolder + "scroll.hakon")
 		const scrollDotStump = new TreeNode(read(scrollSrcFolder + "scroll.stump"))
@@ -158,10 +159,10 @@ class Scroll {
 			.getParent() // todo: fix
 			.setChildren(`class ${cssClasses.scrollPage}${articles.length === 1 ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
 
-		const stumpNode = new stump(stumpWithSettings)
-		const styleTag = stumpNode.getNode("head styleTag")
+		const stumpNode = new stump(stumpWithSettings.toString())
+		const styleTag = stumpNode.getNode("html head styleTag")
 		styleTag.appendLineAndChildren("bern", new hakon(scrollDotHakon).compile())
-		return compiledMessage + "\n" + stumpNode.compile()
+		return scrollBoilerplateCompiledMessage + "\n" + stumpNode.compile()
 	}
 }
 
