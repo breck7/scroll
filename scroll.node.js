@@ -25,9 +25,10 @@ const packageJson = require("./package.json")
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const DEFAULT_PORT = 1145
+const SCROLL_SETTINGS_FILENAME = "scrollSettings.map"
+
 const scrollSrcFolder = __dirname + "/"
 const exampleFolder = scrollSrcFolder + "example.com/"
-const scrollSettingsFilename = "scrollSettings.map"
 const CommandFnDecoratorSuffix = "Command"
 const scrollBoilerplateCompiledMessage = `<!--
 
@@ -58,7 +59,8 @@ const scrollKeywords = {
 const read = filename => fs.readFileSync(filename, "utf8")
 const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
-const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + scrollSettingsFilename))
+const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + SCROLL_SETTINGS_FILENAME))
+const replaceAll = (str, search, replace) => str.split(search).join(replace)
 
 class Article {
 	constructor(content = "", sourceLink = "") {
@@ -129,7 +131,7 @@ class Scroll {
 
 	get _settings() {
 		return this.stamp
-			.find(node => node.getLine().endsWith(scrollSettingsFilename))
+			.find(node => node.getLine().endsWith(SCROLL_SETTINGS_FILENAME))
 			?.getNode("data")
 			?.childrenToString()
 	}
@@ -175,7 +177,7 @@ class ScrollServer {
 	publicFolder = ""
 
 	get settingsPath() {
-		return this.publicFolder + scrollSettingsFilename
+		return this.publicFolder + SCROLL_SETTINGS_FILENAME
 	}
 
 	get scroll() {
@@ -191,13 +193,13 @@ class ScrollServer {
 
 	singlePages = new Map()
 	buildSinglePages() {
-		this.scroll.publishedArticles.forEach(article => {
+		return this.scroll.publishedArticles.map(article => {
 			const permalink = `${article.permalink}.html`
 			const content = this.scroll.toSingleHtmlFile([article])
-			if (this.singlePages.get(permalink) === content) return
+			if (this.singlePages.get(permalink) === content) return "Unmodified"
 			write(`${this.publicFolder}/${permalink}`, content)
 			this.singlePages.set(permalink, content)
-			this.log(`Wrote ${permalink} to disk`)
+			return this.log(`Wrote ${permalink} to disk`)
 		})
 	}
 
@@ -211,7 +213,7 @@ class ScrollServer {
 		return file
 	}
 
-	get errrors() {
+	get errors() {
 		return this.scroll.errors
 	}
 
@@ -238,7 +240,7 @@ class ScrollServer {
 		const absPath = path.resolve(providedPathWithoutEndingSlash)
 
 		return Disk.getFiles(absPath)
-			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION) || file.endsWith(scrollSettingsFilename))
+			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION) || file.endsWith(SCROLL_SETTINGS_FILENAME))
 			.map(
 				path => `file ${path}
  data
@@ -261,7 +263,7 @@ class ScrollCli {
 		if (this[commandName]) return this[commandName](cwd)
 		else if (isScrollFolder(cwd)) return this.serveCommand(cwd)
 
-		if (!command) this.log(`No command provided and no '${scrollSettingsFilename}' found. Running help command.`)
+		if (!command) this.log(`No command provided and no '${SCROLL_SETTINGS_FILENAME}' found. Running help command.`)
 
 		return this.helpCommand()
 	}
@@ -278,19 +280,11 @@ class ScrollCli {
 			.sort()
 	}
 
-	_exit(message) {
-		this.log(`\n❌ ${message}\n`)
-		process.exit()
-	}
-
-	_ensureScrollFolderExists(folder) {
-		if (!fs.existsSync(folder)) this._exit(`No Scroll exists in folder ${folder}`)
-	}
-
-	async createCommand(destinationFolderName) {
-		const template = new ScrollServer().toStamp().replace(/example.com\//g, "")
-		this.log(`Creating scroll in "${destinationFolderName}"`)
-		await new stamp(template).execute()
+	async createCommand(cwd) {
+		const server = new ScrollServer()
+		const template = replaceAll(server.toStamp(), server.publicFolder, "")
+		this.log(`Creating scroll in "${cwd}"`)
+		await new stamp(template).execute(cwd)
 		return this.log(`\n👍 Scroll created! To start serving run: scroll`)
 	}
 
@@ -319,12 +313,11 @@ class ScrollCli {
 	// 	files.map(resolvePath).forEach(fullPath => write(fullPath, new MarkdownFile(read(fullPath)).toScroll()))
 	// }
 
-	async serveCommand(folder) {
+	async serveCommand(cwd) {
 		const portNumber = await getPort({ port: getPort.makeRange(DEFAULT_PORT, DEFAULT_PORT + 100) })
-		const fullPath = resolvePath(folder)
-		this._ensureScrollFolderExists(fullPath)
+		const fullPath = resolvePath(cwd)
 
-		if (!isScrollFolder(fullPath)) this._exit(`Folder '${folder}' has no '${scrollSettingsFilename}' file.`)
+		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
 
 		const scrollServer = new ScrollServer(fullPath)
 		return scrollServer.startListening(portNumber)
@@ -334,9 +327,9 @@ class ScrollCli {
 		return this.log(`\nThis is the Scroll help page.\n\nCommands you can run from your Scroll's folder:\n\n${this._allCommands.map(comm => `🖌️ ` + comm.replace(CommandFnDecoratorSuffix, "")).join("\n")}\n​​`)
 	}
 
-	exportCommand(scrollFolderName) {
-		const fullPath = resolvePath(scrollFolderName)
-		this._ensureScrollFolderExists(fullPath)
+	exportCommand(cwd) {
+		const fullPath = resolvePath(cwd)
+		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
 		return this.log(new ScrollServer(fullPath).toStamp())
 	}
 }
@@ -355,4 +348,4 @@ class MarkdownFile {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollServer, ScrollCli, Scroll, Article, MarkdownFile }
+module.exports = { ScrollServer, ScrollCli, Scroll, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME }

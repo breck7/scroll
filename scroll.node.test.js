@@ -1,5 +1,6 @@
 const tap = require("tap")
-const { ScrollServer, ScrollCli, Scroll, Article, MarkdownFile } = require("./scroll.node.js")
+const { ScrollServer, ScrollCli, Scroll, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME } = require("./scroll.node.js")
+const fs = require("fs")
 
 const pathToExample = __dirname + "/example.com/"
 const testPort = 5435
@@ -72,6 +73,42 @@ testTree.cli = async areEqual => {
 	const httpServer = await cli.serveCommand(pathToExample)
 	areEqual(!!httpServer, true)
 	httpServer.close()
+
+	// Act/Assert
+	areEqual(cli.execute(["help"]).includes("help"), true)
+}
+
+testTree.errorStates = async areEqual => {
+	const tempFolder = __dirname + "/tempFolderForTesting/"
+
+	try {
+		fs.mkdirSync(tempFolder)
+		const cli = new ScrollCli()
+		cli.verbose = false
+		// Act/Assert
+		areEqual(cli.exportCommand(tempFolder).includes("❌"), true)
+
+		// Act/Assert
+		const msg = await cli.serveCommand(tempFolder)
+		areEqual(typeof msg, "string")
+
+		// Act
+		const result = await cli.createCommand(tempFolder)
+		areEqual(fs.existsSync(tempFolder + SCROLL_SETTINGS_FILENAME), true)
+
+		const server = new ScrollServer(tempFolder)
+		const singleFile = server.buildSaveAndServeSingleHtmlFile()
+		areEqual(singleFile.includes("contains every node"), true)
+
+		const singlePages = server.buildSinglePages()
+
+		areEqual(singlePages.length, 4)
+
+		areEqual(server.errors.flatten().length, 0)
+	} catch (err) {
+		console.log(err)
+	}
+	fs.rmdirSync(tempFolder, { recursive: true })
 }
 
 // FS tests:

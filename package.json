@@ -6,7 +6,7 @@
   "scripts": {
     "buildCoverageReport": "tap scroll.node.test.js",
     "buildCoverageHtmlReport": "tap scroll.node.test.js --coverage-report=lcov",
-    "testAll": "node scroll.node.test.js"
+    "test": "node scroll.node.test.js"
   },
   "bin": {
     "scroll": "./scroll.node.js"
