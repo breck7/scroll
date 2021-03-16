@@ -1,7 +1,7 @@
 title 📜 Scroll: A new way to publish
 
 paragraph
- <a href="https://github.com/publicdomaincompany/scroll/actions/workflows/test.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/test.yml/badge.svg"/></a>
+ <a href="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml/badge.svg"/></a>
 
 paragraph
  Scroll is simple static publishing software.
