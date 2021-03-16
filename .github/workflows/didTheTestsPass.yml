@@ -22,4 +22,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run testAll
-      - run: npm run buildCoverage
+      - run: npm run buildCoverageReport

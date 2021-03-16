@@ -4,7 +4,8 @@
   "description": "Scroll is public domain static publishing software with a newspaper feel built on Tree Notation.",
   "main": "index.js",
   "scripts": {
-    "buildCoverage": "tap scroll.node.test.js --coverage-report=lcov",
+    "buildCoverageReport": "tap scroll.node.test.js",
+    "buildCoverageHtmlReport": "tap scroll.node.test.js --coverage-report=lcov",
     "testAll": "node scroll.node.test.js"
   },
   "bin": {
