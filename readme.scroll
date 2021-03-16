@@ -1,6 +1,9 @@
 title 📜 Scroll: A new way to publish
 
 paragraph
+ <a href="https://github.com/publicdomaincompany/scroll/actions/workflows/test.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/test.yml/badge.svg"/></a>
+
+paragraph
  Scroll is simple static publishing software.
 
 title2 Example site
