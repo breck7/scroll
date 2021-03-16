@@ -56,7 +56,7 @@ hello world`
 	)
 }
 
-testTree.cli = areEqual => {
+testTree.cli = async areEqual => {
 	const cli = new ScrollCli()
 	cli.verbose = false
 	// Act/Assert
@@ -69,11 +69,7 @@ testTree.cli = areEqual => {
 	areEqual(cli.deleteCommand().includes("delete"), true)
 
 	// Act/Assert
-	// todo: test no params execute
-	// areEqual(cli.execute().includes("help page"), true)
-
-	// Act/Assert
-	const httpServer = cli.serveCommand(pathToExample, testPort)
+	const httpServer = await cli.serveCommand(pathToExample)
 	areEqual(!!httpServer, true)
 	httpServer.close()
 }
