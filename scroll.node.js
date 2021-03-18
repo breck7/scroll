@@ -252,6 +252,25 @@ class ScrollServer {
 	}
 }
 
+class MarkdownFile {
+	constructor(content = "") {
+		this.content = content
+	}
+	content = ""
+	toDumbdown() {
+		return this.content
+			.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, `<a href="$2">$1</a>`)
+			.replace(/\*\*([^\*]+)\*\*/g, `<strong>$1</strong>`)
+			.replace(/\*([^\*]+)\*/g, `<em>$1</em>`)
+			.replace(/\`([^`]+)\`/g, `<code>$1</code>`)
+			.replace(/^###### /g, `title6 `)
+			.replace(/^##### /g, `title5 `)
+			.replace(/^#### /g, `title4 `)
+			.replace(/^### /g, `title3 `)
+			.replace(/^## /g, `title2 `)
+	}
+}
+
 class ScrollCli {
 	execute(args = []) {
 		this.log(`\n📜📜📜 WELCOME TO SCROLL (v${SCROLL_VERSION}) 📜📜📜`)
@@ -312,6 +331,13 @@ class ScrollCli {
 	// 	this.log(`${files.length} files to convert`)
 	// 	files.map(resolvePath).forEach(fullPath => write(fullPath, new MarkdownFile(read(fullPath)).toScroll()))
 	// }
+	convertCommand(globPatterns) {
+		if (!globPatterns.length) return this.log(`\n💡 To convert markdown files to dumbdown pass a glob pattern like this "scroll convert *.md"\n`)
+
+		const files = globPatterns.map(pattern => glob.sync(pattern)).flat()
+		this.log(`${files.length} files to convert`)
+		files.map(resolvePath).forEach(fullPath => write(fullPath, new MarkdownFile(read(fullPath)).toDumbdown()))
+	}
 
 	async serveCommand(cwd) {
 		const portNumber = await getPort({ port: getPort.makeRange(DEFAULT_PORT, DEFAULT_PORT + 100) })
@@ -331,18 +357,6 @@ class ScrollCli {
 		const fullPath = resolvePath(cwd)
 		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
 		return this.log(new ScrollServer(fullPath).toStamp())
-	}
-}
-
-class MarkdownFile {
-	constructor(markdown) {
-		this.markdown = markdown
-	}
-
-	markdown = ""
-
-	toScroll() {
-		return this.markdown
 	}
 }
 

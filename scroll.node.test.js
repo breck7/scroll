@@ -34,7 +34,8 @@ testTree.fullIntegrationTest = areEqual => {
 
 testTree.markdown = areEqual => {
 	// Arrange
-	const mdFile = `# hello world`
+	const mdFile = `## hello world
+This **is a test** [a](/href)`
 	// Act
 	const scrollFile = new MarkdownFile(mdFile).toScroll()
 
