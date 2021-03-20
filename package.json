@@ -1,7 +1,7 @@
 {
   "name": "scroll-cli",
   "version": "6.4.0",
-  "description": "Scroll is public domain static publishing software with a newspaper feel built on Tree Notation.",
+  "description": "Build your own public domain newspaper.",
   "main": "index.js",
   "scripts": {
     "buildCoverageReport": "tap scroll.node.test.js",
