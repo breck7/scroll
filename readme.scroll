@@ -1,9 +1,6 @@
 title 📜 Scroll: Build your own public domain newspaper.
 
-paragraph
- <a href="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml/badge.svg"/></a>
-
-title2 Example site
+title4 Example site:
 
 paragraph
  <a href="https://breckyunits.com/"><img src="screenshot.png" /></a>
@@ -214,3 +211,8 @@ code
 title4 Is there a place I can play with the Scroll grammar and see how it compiles to HTML?
 
 link https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscroll.grammar Yes. In the Tree Language Designer.
+
+title4 Are the tests passing?
+
+paragraph
+ <a href="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml/badge.svg"/></a>
