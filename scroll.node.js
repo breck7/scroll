@@ -52,7 +52,8 @@ const cssClasses = {
 
 const scrollKeywords = {
 	permalink: "permalink",
-	date: "date"
+	date: "date",
+	importFrom: "importFrom"
 }
 
 // Helper utils
@@ -217,6 +218,15 @@ class ScrollServer {
 		return this.scroll.errors
 	}
 
+	async importSite() {
+		const { importFrom } = this
+		if (!importFrom) return `❌ You need to add a line to '${this.settingsPath}' like '${scrollKeywords.importFrom}'`
+	}
+
+	get importFrom() {
+		return ""
+	}
+
 	startListening(port) {
 		const app = new express()
 
@@ -290,6 +300,12 @@ class ScrollCli {
 
 	deleteCommand() {
 		return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
+	}
+
+	async importCommand(cwd) {
+		const server = new ScrollServer()
+		const result = await server.importSite()
+		return this.log(result)
 	}
 
 	// checkCommand(args) {

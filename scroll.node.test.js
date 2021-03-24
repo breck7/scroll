@@ -32,6 +32,13 @@ testTree.fullIntegrationTest = areEqual => {
 	areEqual(!!server, true)
 }
 
+testTree.import = async areEqual => {
+	const cli = new ScrollCli()
+	cli.verbose = false
+	const result = await cli.importCommand()
+	areEqual(result.includes("You need to add a"), true)
+}
+
 testTree.markdown = areEqual => {
 	// Arrange
 	const mdFile = `# hello world`
@@ -104,7 +111,7 @@ testTree.errorStates = async areEqual => {
 
 		areEqual(singlePages.length, 4)
 
-		areEqual(server.errors.flatten().length, 0)
+		areEqual(server.errors.flat().length, 0)
 	} catch (err) {
 		console.log(err)
 	}
