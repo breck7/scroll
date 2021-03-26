@@ -13,7 +13,7 @@ const getPort = require("get-port")
 
 // Tree Notation Includes
 const { jtree } = require("jtree")
-const { TreeNode } = jtree
+const { TreeNode, Utils } = jtree
 const stamp = require("jtree/products/stamp.nodejs.js")
 const hakon = require("jtree/products/hakon.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
@@ -62,6 +62,7 @@ const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
 const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + SCROLL_SETTINGS_FILENAME))
 const replaceAll = (str, search, replace) => str.split(search).join(replace)
+const cleanAndRightShift = (str, numSpaces = 0) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
 
 class Article {
 	constructor(content = "", sourceLink = "") {
@@ -169,16 +170,53 @@ class Scroll {
 	}
 }
 
+class RssImporter {
+	constructor(path) {
+		this.path = path
+	}
+	path = ""
+
+	async downloadFilesTo(destinationFolder) {
+		const Parser = require("rss-parser")
+		const got = require("got")
+		const cheerio = require("cheerio")
+
+		const parser = new Parser()
+
+		console.log(`⏳ downloading '${this.path}'`)
+		const feed = await parser.parseURL(this.path)
+
+		await Promise.all(
+			feed.items.map(async item => {
+				try {
+					console.log(`⏳ downloading '${item.link}'`)
+					const response = await got(item.link)
+					const html = response.body
+					const dom = cheerio.load(html)
+					const scrollFile = `title ${item.title}
+
+paragraph
+ ${cleanAndRightShift(dom.text(), 1)}
+`
+					write(destinationFolder + "/" + Utils.stringToPermalink(item.title) + ".scroll", scrollFile)
+				} catch (err) {
+					console.log(`❌ downloading '${item.link}'`)
+				}
+			})
+		)
+	}
+}
+
 class ScrollServer {
 	constructor(scrollFolder = `${exampleFolder}`) {
-		this.publicFolder = path.normalize(scrollFolder + "/")
+		this.scrollFolder = path.normalize(scrollFolder + "/")
 	}
 
 	verbose = true
-	publicFolder = ""
+	scrollFolder = ""
 
 	get settingsPath() {
-		return this.publicFolder + SCROLL_SETTINGS_FILENAME
+		return this.scrollFolder + SCROLL_SETTINGS_FILENAME
 	}
 
 	get scroll() {
@@ -198,7 +236,7 @@ class ScrollServer {
 			const permalink = `${article.permalink}.html`
 			const content = this.scroll.toSingleHtmlFile([article])
 			if (this.singlePages.get(permalink) === content) return "Unmodified"
-			write(`${this.publicFolder}/${permalink}`, content)
+			write(`${this.scrollFolder}/${permalink}`, content)
 			this.singlePages.set(permalink, content)
 			return this.log(`Wrote ${permalink} to disk`)
 		})
@@ -207,7 +245,7 @@ class ScrollServer {
 	buildSaveAndServeSingleHtmlFile() {
 		const file = this.scroll.toSingleHtmlFile()
 		if (this.previousVersion !== file) {
-			write(this.publicFolder + "/index.html", file)
+			write(this.scrollFolder + "/index.html", file)
 			this.previousVersion = file
 			this.log(`Wrote new index.html to disk`)
 		}
@@ -218,13 +256,19 @@ class ScrollServer {
 		return this.scroll.errors
 	}
 
+	// rss, twitter, hn, reddit, pinterest, instagram, tiktok, youtube?
 	async importSite() {
 		const { importFrom } = this
+
 		if (!importFrom) return `❌ You need to add a line to '${this.settingsPath}' like '${scrollKeywords.importFrom}'`
+
+		if (importFrom.endsWith("rss")) return new RssImporter(importFrom).downloadFilesTo(this.scrollFolder)
+
+		return `❌ Scroll wasn't sure how to import '${importFrom}'.\n💡 You can open an issue here: https://github.com/publicdomaincompany/scroll/issues`
 	}
 
 	get importFrom() {
-		return ""
+		return this.scroll.settings.importFrom
 	}
 
 	startListening(port) {
@@ -235,7 +279,7 @@ class ScrollServer {
 			res.send(this.buildSaveAndServeSingleHtmlFile())
 		})
 
-		app.use(express.static(this.publicFolder))
+		app.use(express.static(this.scrollFolder))
 
 		return app.listen(port, () => {
 			this.log(`\nServing Scroll '${this.settingsPath}'
@@ -246,7 +290,7 @@ class ScrollServer {
 
 	// todo: current stamp sucks compared to what it could be. Perhaps use Pappy's
 	toStamp() {
-		const providedPathWithoutEndingSlash = this.publicFolder.replace(/\/$/, "")
+		const providedPathWithoutEndingSlash = this.scrollFolder.replace(/\/$/, "")
 		const absPath = path.resolve(providedPathWithoutEndingSlash)
 
 		return Disk.getFiles(absPath)
@@ -254,9 +298,7 @@ class ScrollServer {
 			.map(
 				path => `file ${path}
  data
-  ${read(path)
-		.replace(/\r/g, "")
-		.replace(/\n/g, "\n  ")}`
+  ${cleanAndRightShift(read(path), 2)}`
 			)
 			.join("\n")
 	}
@@ -292,7 +334,7 @@ class ScrollCli {
 
 	async createCommand(cwd) {
 		const server = new ScrollServer()
-		const template = replaceAll(server.toStamp(), server.publicFolder, "")
+		const template = replaceAll(server.toStamp(), server.scrollFolder, "")
 		this.log(`Creating scroll in "${cwd}"`)
 		await new stamp(template).execute(cwd)
 		return this.log(`\n👍 Scroll created! To start serving run: scroll`)
@@ -303,7 +345,7 @@ class ScrollCli {
 	}
 
 	async importCommand(cwd) {
-		const server = new ScrollServer()
+		const server = new ScrollServer(cwd)
 		const result = await server.importSite()
 		return this.log(result)
 	}

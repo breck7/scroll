@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "6.4.0",
+  "version": "6.5.0",
   "description": "Build your own public domain newspaper.",
   "main": "index.js",
   "scripts": {
@@ -27,13 +27,16 @@
   },
   "homepage": "https://github.com/publicdomaincompany/scroll#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.5",
     "dayjs": "^1.10.4",
     "fs-extra": "^9.1.0",
     "get-port": "^5.1.1",
     "glob": "^7.1.6",
+    "got": "^11.8.2",
     "jtree": "^51.4.0",
     "lodash": "^4.17.21",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.5",
+    "rss-parser": "^3.12.0"
   },
   "devDependencies": {
     "tap": "^14.11.0"
