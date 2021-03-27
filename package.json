@@ -1,8 +1,11 @@
 {
   "name": "scroll-cli",
-  "version": "6.5.1",
+  "version": "6.5.2",
   "description": "Build your own public domain newspaper.",
   "main": "index.js",
+  "engines": {
+    "node": ">=14.0"
+  },
   "scripts": {
     "buildCoverageReport": "tap scroll.node.test.js",
     "buildCoverageHtmlReport": "tap scroll.node.test.js --coverage-report=lcov",
