@@ -71,7 +71,7 @@ testTree.cli = async areEqual => {
 	areEqual(cli.helpCommand().includes("help page"), true)
 
 	// Act/Assert
-	areEqual(cli.exportCommand(pathToExample).includes("about"), true)
+	areEqual(cli.exportCommand(pathToExample).includes("hello-world"), true)
 
 	// Act/Assert
 	areEqual(cli.deleteCommand().includes("delete"), true)
@@ -105,11 +105,11 @@ testTree.errorStates = async areEqual => {
 
 		const server = new ScrollServer(tempFolder).silence()
 		const singleFile = server.buildSaveAndServeSingleHtmlFile()
-		areEqual(singleFile.includes("contains every node"), true)
+		areEqual(singleFile.includes("all the main node types"), true)
 
 		const singlePages = server.buildSinglePages()
 
-		areEqual(singlePages.length, 4)
+		areEqual(singlePages.length, 2)
 
 		areEqual(server.errors.flat().length, 0)
 	} catch (err) {
