@@ -212,6 +212,11 @@ class ScrollServer {
 		this.scrollFolder = path.normalize(scrollFolder + "/")
 	}
 
+	silence() {
+		this.verbose = false
+		return this
+	}
+
 	verbose = true
 	scrollFolder = ""
 
@@ -336,7 +341,7 @@ class ScrollCli {
 		const server = new ScrollServer()
 		const template = replaceAll(server.toStamp(), server.scrollFolder, "")
 		this.log(`Creating scroll in "${cwd}"`)
-		await new stamp(template).execute(cwd)
+		await new stamp(template).silence().execute(cwd)
 		return this.log(`\n👍 Scroll created! To start serving run: scroll`)
 	}
 

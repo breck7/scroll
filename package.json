@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "6.5.0",
+  "version": "6.5.1",
   "description": "Build your own public domain newspaper.",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,7 @@
     "get-port": "^5.1.1",
     "glob": "^7.1.6",
     "got": "^11.8.2",
-    "jtree": "^51.4.0",
+    "jtree": "^51.5.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "rss-parser": "^3.12.0"

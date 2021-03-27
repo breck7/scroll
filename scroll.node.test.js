@@ -103,7 +103,7 @@ testTree.errorStates = async areEqual => {
 		const result = await cli.createCommand(tempFolder)
 		areEqual(fs.existsSync(tempFolder + SCROLL_SETTINGS_FILENAME), true)
 
-		const server = new ScrollServer(tempFolder)
+		const server = new ScrollServer(tempFolder).silence()
 		const singleFile = server.buildSaveAndServeSingleHtmlFile()
 		areEqual(singleFile.includes("contains every node"), true)
 
