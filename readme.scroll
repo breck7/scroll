@@ -25,11 +25,21 @@ paragraph
 title4 How do I get Scroll?
 
 paragraph
- Scroll is <a
+ Scroll currently requires basic familiarity with the command line
+ and <a href="https://nodejs.org/en/">NodeJs</a> >=14. If you do not have NodeJs on your machine, one
+ way is to install <a href="https://github.com/tj/n">n</a> which
+ makes it easy to get NodeJs.
+
+paragraph
+ If you would like to use Scroll but aren't familiar with the command
+ line, please open an issue and we may be able to help.
+
+paragraph
+ Once you have NodeJs installed, Scroll is <a
  href="https://www.npmjs.com/package/scroll-cli">scroll-cli on npm</a>.
 
 paragraph
- You can get it by typing:
+ You can install the Scroll command line app by typing:
 
 code
  npm install -g scroll-cli
@@ -48,7 +58,7 @@ title4 Where do I get help?
 paragraph
  Post an issue in this GitHub, join the <a
  href="https://www.reddit.com/r/treenotation/">Tree Notation
- subreddit</a> or email <a href="mailto:scroll@publicdomaincompany.com">Breck</a>.
+ subreddit</a> or email <a href="mailto:scroll@publicdomaincompany.com">us</a>.
 
 title4 What are some example sites using Scroll?
 
