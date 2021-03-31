@@ -86,6 +86,10 @@ class Article {
 		return this.asTree.get(scrollKeywords.permalink) || path.basename(this.sourceLink).replace(/\.scroll$/, "")
 	}
 
+	get title() {
+		return this.asTree.toObject().title ?? ""
+	}
+
 	get toScrollProgram() {
 		return new this.scrollCompiler(this.content)
 	}
@@ -149,12 +153,14 @@ class Scroll {
 	}
 
 	// todo: refactor this. stump sucks. improve it.
-	toSingleHtmlFile(articles = this.publishedArticles) {
+	toSingleHtmlFile(articles = this.publishedArticles, htmlTitlePrefix = "") {
 		const scrollDotHakon = read(scrollSrcFolder + "scroll.hakon")
 		const scrollDotStump = new TreeNode(read(scrollSrcFolder + "scroll.stump"))
 		const scrollIcons = new TreeNode(read(scrollSrcFolder + "scrollIcons.map")).toObject()
 
-		const userSettingsMap = { ...scrollIcons, ...this.settings }
+		const scrollTitle = this.settings.title
+		const htmlTitle = (htmlTitlePrefix ? `${htmlTitlePrefix} - ` : "") + scrollTitle
+		const userSettingsMap = { ...scrollIcons, ...this.settings, scrollTitle, htmlTitle }
 		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
 
 		stumpWithSettings
@@ -236,14 +242,16 @@ class ScrollServer {
 	previousVersion = ""
 
 	singlePages = new Map()
-	buildSinglePages() {
-		return this.scroll.publishedArticles.map(article => {
+	writeSinglePages() {
+		const { scroll } = this
+		return scroll.publishedArticles.map(article => {
 			const permalink = `${article.permalink}.html`
-			const content = this.scroll.toSingleHtmlFile([article])
+			const content = this.scroll.toSingleHtmlFile([article], article.title)
 			if (this.singlePages.get(permalink) === content) return "Unmodified"
 			write(`${this.scrollFolder}/${permalink}`, content)
 			this.singlePages.set(permalink, content)
-			return this.log(`Wrote ${permalink} to disk`)
+			this.log(`Wrote ${permalink} to disk`)
+			return { permalink, content }
 		})
 	}
 
@@ -280,7 +288,7 @@ class ScrollServer {
 		const app = new express()
 
 		app.get("/", (req, res) => {
-			this.buildSinglePages()
+			this.writeSinglePages()
 			res.send(this.buildSaveAndServeSingleHtmlFile())
 		})
 

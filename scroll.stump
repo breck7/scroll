@@ -15,7 +15,7 @@ html
  head
   meta
    charset utf-8
-  titleTag {title}
+  titleTag {htmlTitle}
   styleTag
    bern
  body
@@ -24,7 +24,7 @@ html
    linksComponent
   h1
    class scrollChrome scrollTitle
-   a {title}
+   a {scrollTitle}
     href ./
   div {description}
    class scrollChrome scrollDescription

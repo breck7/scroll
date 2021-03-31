@@ -107,9 +107,15 @@ testTree.errorStates = async areEqual => {
 		const singleFile = server.buildSaveAndServeSingleHtmlFile()
 		areEqual(singleFile.includes("all the main node types"), true)
 
-		const singlePages = server.buildSinglePages()
+		// Act
+		const singlePages = server.writeSinglePages()
 
+		// Assert
 		areEqual(singlePages.length, 2)
+
+		// Assert
+		const singlePageTitleSnippet = `<title>Hello`
+		areEqual(singlePages[0].content.includes(singlePageTitleSnippet), true)
 
 		areEqual(server.errors.flat().length, 0)
 	} catch (err) {
