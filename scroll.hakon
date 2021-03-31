@@ -1,39 +1,39 @@
-html
- background-color rgb(244,244,244)
- font-family Exchange,Georgia,serif
- color #000
- font-size 10pt
- hyphens auto
 comment CSS reset
 html,body,div,span,h1,h2,h3,h4,h5,h6,p
  margin 0
  padding 0
  border 0
  vertical-align baseline
-.scrollChrome
+
+html
+ background-color rgb(244,244,244)
+ font-family Exchange,Georgia,serif
+ color #000
+ font-size 10pt
+ hyphens auto
+
+.scrollHeader,.scrollFooter
  text-align center
- font-family Retina,Arial,Helvetica,sans-serif
- color #333
-.scrollDescription
- padding 3px
+
 .scrollTitle
  a
-  font-family Exchange,Georgia,serif
   text-decoration none
   color #000
-.scrollIcons
- padding-top 3px
+
+.scrollSocialMediaIcons
  svg
   width 30px
   fill rgba(204,204,204, .5)
   margin-left 15px
   &:hover
    fill #333
+
 .scrollTopRightBar
  text-align right
  position absolute
  right 25px
  top 3px
+
 .scrollPage
  column-count auto
  column-width 35ch
@@ -45,11 +45,12 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
  border-bottom 1px solid rgb(204,204,204)
  margin-top 8px
  margin-bottom 8px
+
 .scrollArticleDate
- text-align center
  font-style italic
  font-size 80%
  display inline
+
 .scrollArticleSourceLink
  text-align center
  font-size 80%
@@ -57,6 +58,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
  a
   color #000
   text-decoration none
+
 .scrollSingleArticle
  padding-top 10px
  padding-bottom 10px
@@ -64,6 +66,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
  .scrollArticleCell
   break-inside avoid-page
   border-bottom none
+
 .scrollArticleCell
  border-bottom 1px solid rgb(204,204,204)
  width 35ch
@@ -106,5 +109,5 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p
   text-align center
  h2,h3,h4,h5,h6
   margin .2em
-blockquote
- margin 2ch
+ blockquote
+  margin 2ch
