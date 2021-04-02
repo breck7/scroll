@@ -246,7 +246,7 @@ class ScrollServer {
 		const { scroll } = this
 		return scroll.publishedArticles.map(article => {
 			const permalink = `${article.permalink}.html`
-			const content = this.scroll.toSingleHtmlFile([article], article.title)
+			const content = scroll.toSingleHtmlFile([article], article.title)
 			if (this.singlePages.get(permalink) === content) return "Unmodified"
 			write(`${this.scrollFolder}/${permalink}`, content)
 			this.singlePages.set(permalink, content)
