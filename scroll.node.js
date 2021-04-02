@@ -288,8 +288,10 @@ class ScrollServer {
 		const app = new express()
 
 		app.get("/", (req, res) => {
-			this.writeSinglePages()
+			const start = Date.now()
+			const pages = this.writeSinglePages()
 			res.send(this.buildSaveAndServeSingleHtmlFile())
+			this.log(`⌛️ built ${pages.length + 1} html files in ${(Date.now() - start) / 1000} seconds`)
 		})
 
 		app.use(express.static(this.scrollFolder))
