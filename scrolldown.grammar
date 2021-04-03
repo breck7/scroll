@@ -16,7 +16,7 @@ urlCell
  highlightScope constant.language
 errorNode
  baseNodeType errorNode
-scrollNode
+scrolldownNode
  extensions scroll
  description A prefix Tree Language that compiles to HTML. An alternative to Markdown.
  root
@@ -25,11 +25,11 @@ scrollNode
  compilesTo html
  example
   title Hello world
-  title2 This is scroll
+  title2 This is Scrolldown
   
   paragraph
    It compiles to HTML. Blank lines get turned into brs.
-  link https://treenotation.org Scroll is a Tree Language.
+  link https://treenotation.org Scrolldown is a Tree Language.
   list
    - It has lists
    - Too!

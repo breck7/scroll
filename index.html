@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v6.10.0
+ Scroll v7.0.0
 
 -->
 <html lang="en-US">
@@ -267,13 +267,7 @@ html {
 <h4>Where do I get help?</h4>
 
 <p>
- Post an issue in this GitHub, join the <a
-
- 
- href="https://www.reddit.com/r/treenotation/">Tree Notation
-
- 
- subreddit</a> or email <a href="mailto:scroll@publicdomaincompany.com">us</a>.
+ Post an issue in this GitHub or email <a href="mailto:scroll@publicdomaincompany.com">us</a>.
 
  
 </p>
@@ -312,7 +306,7 @@ html {
 </p>
 
 <p>
- Scroll is also the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scroll.grammar">grammar</a>.
+ Scrolldown is the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scrolldown.grammar">grammar</a>.
 
  
 </p>
@@ -320,21 +314,20 @@ html {
 <h4>What does a typical project folder look like?</h4>
 
 <p>
- A typical Scroll project folder looks like this:
+ A typical Scroll project folder, excluding the html files
+
+ 
+ built by Scroll, looks like this:
 
  
 </p>
 
 <div class="scrollArticleCode">
-<code> yourProject/</code>
-<code>  someDraft.scroll</code>
-<code>  readme.scroll</code>
-<code>  yourDomainName.org/</code>
-<code>   about.scroll</code>
-<code>   publishedArticle.scroll</code>
-<code>   anImageInTheArticle.png</code>
-<code>   index.html</code>
-<code>   scrollSettings.map</code>
+<code> yourDomainName.org/</code>
+<code>  about.scroll</code>
+<code>  publishedArticle.scroll</code>
+<code>  anImageInTheArticle.png</code>
+<code>  scrollSettings.map</code>
 
 </div>
 
@@ -357,18 +350,6 @@ html {
 </p>
 
 <p>
- The suggested project layout above let's you easily
-
- 
- separate drafts from published content and put all
-
- 
- under version control.
-
- 
-</p>
-
-<p>
  With Scroll your site's public static files, generated html,
 
  
@@ -385,10 +366,7 @@ html {
 <h4>How do I save drafts?</h4>
 
 <p>
- Save them outside your public folder like in the sample project
-
- 
- folder above.
+ Put them in a separate folder outside your published folder.
 
  
 </p>
@@ -396,24 +374,13 @@ html {
 <h4>What File Formats does Scroll use?</h4>
 
 <p>
- Scroll articles are written as Scroll files with the file
+ Scroll articles are written as Scrolldown files with the file
 
  
- extension `scroll`. The grammar for Scroll is fully defined
+ extension `scroll`. The grammar for Scrolldown is fully defined
 
  
- <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll.grammar">here</a>
-
- 
- 
-
- 
-</p>
-<p>
- Entire Scrolls are saved as <a href="https://github.com/treenotation/jtree/blob/master/langs/stamp/readme.md">
-
- 
- stamp</a> files with the extension `stamp`.
+ <a href="https://github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar">here</a>
 
  
 </p>
@@ -464,10 +431,19 @@ html {
 <h4>Why is Scroll a single page?</h4>
 
 <p>
- Being able to scan the page like a newspaper is a
+ Scroll is designed to make it easier for <strong>syntopic
 
  
- very fast reading experience. This is central to Scroll.
+ reading</strong>. Being able to scan the page like a
+
+ 
+ newspaper allows you to read at a higher level. It allows
+
+ 
+ you to read at a higher level—to get "in the author's head"—
+
+ 
+ moreso than reading one article at a time from beginning to end.
 
  
 </p>
@@ -526,13 +502,13 @@ html {
  
 </p>
 
-<h4>Will you support newest articles flowing right to left instead of having potentially older articles up top?</h4>
+<h4>Why don't you have only the newest articles above the fold?</h4>
 
 <p>
- No. But will support making it easier for someone to do that in a fork
+ This was originally a bug. But then it turns out to be a feature, as it
 
  
- or via plugins.
+ gives older articles, which are often more important, more visibility.
 
  
 </p>
@@ -540,27 +516,32 @@ html {
 <h4>What were some alternatives considered?</h4>
 
 <p>
- There was no publishing software that reads and writes Scroll yet
+ There was no publishing software that reads and writes Scrolldown yet
 
  
- so building Scroll was necessary. Jekyll and Brecksblog are 2 biggest
+ so building Scroll was necessary. <a href="https://jekyllrb.com/">Jekyll</a>
 
  
- inspirations.
+ and <a href="https://github.com/breck7/brecksblog">Brecksblog</a> were the two
+
+ 
+ biggest inspirations.
 
  
 </p>
 
-<a href="https://jekyllrb.com/">Jekyll</a>
-<a href="https://github.com/breck7/brecksblog">Brecksblog</a>
-
-<h4>What has changed in recent versions?</h4>
+<h4>What has changed in recent major versions?</h4>
 
 <div class="scrollArticleCode">
+<code> Version 7.0.0 released on 04-03-2021</code>
+<code>  Scroll the langauge is now called Scrolldown (thanks FB!).</code>
+<code>  Bug fixes.</code>
+<code>  Better perf.</code>
+
 <code> Version 6.0.0 released on 03-08-2021</code>
 <code>  By popular request, Scroll now also publishes each article to its own page.</code>
-<code>  Removed the about links. Do less. KISS.</code>
-<code>  Fixed horrible perf bug.</code>
+<code>  Fewer links. Do less. KISS.</code>
+<code>  Better perf.</code>
 <code>  "permalink" is now a scroll keyword.</code>
 
 <code> Version 5.0.0 released on 02-28-2021</code>
@@ -575,9 +556,41 @@ html {
 
 </div>
 
-<h4>Is there a place I can play with the Scroll grammar and see how it compiles to HTML?</h4>
+<h4>Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?</h4>
 
-<a href="https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscroll.grammar">Yes. In the Tree Language Designer.</a>
+<a href="https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar">Yes. In the Tree Language Designer.</a>
+
+<h3>Contributing to Scroll Development</h3>
+
+<h4>How do I contribute?</h4>
+
+<p>
+ File issues. Share your Scroll sites.
+
+ 
+</p>
+
+<p>
+ You can submit Pull Requests too. Keep in mind we do not like code,
+
+ 
+ so keep it short.
+
+ 
+</p>
+
+<h4>How do I test performance?</h4>
+
+<div class="scrollArticleCode">
+<code> # cd some_slow_scroll</code>
+
+<code> # update the path below so it points to your scroll code</code>
+
+<code> node --inspect ~/scroll/scroll.node.js</code>
+
+<code> # open chrome://inspect</code>
+
+</div>
 
 <h4>Are the tests passing?</h4>
 

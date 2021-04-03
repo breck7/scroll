@@ -27,8 +27,8 @@ const SCROLL_FILE_EXTENSION = ".scroll"
 const DEFAULT_PORT = 1145
 const SCROLL_SETTINGS_FILENAME = "scrollSettings.map"
 
-const scrollSrcFolder = __dirname + "/"
-const exampleFolder = scrollSrcFolder + "example.com/"
+const SCROLL_SRC_FOLDER = __dirname + "/"
+const exampleFolder = SCROLL_SRC_FOLDER + "example.com/"
 const CommandFnDecoratorSuffix = "Command"
 const scrollBoilerplateCompiledMessage = `<!--
 
@@ -64,6 +64,8 @@ const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + S
 const replaceAll = (str, search, replace) => str.split(search).join(replace)
 const cleanAndRightShift = (str, numSpaces = 0) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
 
+const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scrollIcons.map")).toObject()
+
 class Article {
 	constructor(content = "", sourceLink = "") {
 		this.content = content
@@ -73,8 +75,8 @@ class Article {
 	content = ""
 	sourceLink = ""
 
-	get scrollCompiler() {
-		const grammarCode = [read(__dirname + "/scroll.grammar")].join("\n")
+	get scrolldownCompiler() {
+		const grammarCode = [read(__dirname + "/scrolldown.grammar")].join("\n")
 
 		const errs = new grammarNode(grammarCode).getAllErrors().map(err => err.toObject())
 		if (errs.length) console.error(new jtree.TreeNode(errs).toFormattedTable(200))
@@ -90,8 +92,8 @@ class Article {
 		return this.asTree.toObject().title ?? ""
 	}
 
-	get toScrollProgram() {
-		return new this.scrollCompiler(this.content)
+	get toScrolldownProgram() {
+		return new this.scrolldownCompiler(this.content)
 	}
 
 	get asTree() {
@@ -108,7 +110,7 @@ class Article {
 
 		const sourceLink = this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLink}"><a href="${this.sourceLink}">Article source</a></p>` : ""
 
-		node.getNode("div").appendLineAndChildren("bern", this.toScrollProgram.compile() + sourceLink)
+		node.getNode("div").appendLineAndChildren("bern", this.toScrolldownProgram.compile() + sourceLink)
 
 		return new stump(node)
 	}
@@ -151,30 +153,6 @@ paragraph
 	}
 }
 
-class ScrollHtmlPage {
-	// todo: refactor this. stump sucks. improve it.
-	toHtml(articles, scrollTitle, settings, htmlTitlePrefix = "") {
-		const scrollDotHakon = read(scrollSrcFolder + "scroll.hakon")
-		const scrollDotStump = new TreeNode(read(scrollSrcFolder + "scroll.stump"))
-		const scrollIcons = new TreeNode(read(scrollSrcFolder + "scrollIcons.map")).toObject()
-
-		const htmlTitle = (htmlTitlePrefix ? `${htmlTitlePrefix} - ` : "") + scrollTitle
-		const userSettingsMap = { ...scrollIcons, ...settings, scrollTitle, htmlTitle }
-		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
-
-		stumpWithSettings
-			.getTopDownArray()
-			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
-			.getParent() // todo: fix
-			.setChildren(`class ${cssClasses.scrollPage}${articles.length === 1 ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
-
-		const stumpNode = new stump(stumpWithSettings.toString())
-		const styleTag = stumpNode.getNode("html head styleTag")
-		styleTag.appendLineAndChildren("bern", new hakon(scrollDotHakon).compile())
-		return scrollBoilerplateCompiledMessage + "\n" + stumpNode.compile()
-	}
-}
-
 class ScrollServer {
 	constructor(scrollFolder = `${exampleFolder}`) {
 		this.scrollFolder = path.normalize(scrollFolder + "/")
@@ -193,7 +171,7 @@ class ScrollServer {
 	}
 
 	get errors() {
-		return this.publishedArticles.map(article => article.toScrollProgram.getAllErrors())
+		return this.publishedArticles.map(article => article.toScrolldownProgram.getAllErrors())
 	}
 
 	get settings() {
@@ -219,8 +197,40 @@ class ScrollServer {
 	}
 
 	get indexPage() {
+		return this.articlesToHtml(this.publishedArticles)
+	}
+
+	get hakon() {
+		return read(SCROLL_SRC_FOLDER + "scroll.hakon")
+	}
+
+	get stump() {
+		return new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.stump"))
+	}
+
+	// todo: refactor this. stump sucks. improve it.
+	articlesToHtml(articles, htmlTitlePrefix = "") {
+		const scrollDotHakon = this.hakon
+		const scrollDotStump = this.stump
+		const scrollIcons = SCROLL_ICONS
+
 		const settings = this.settings
-		return new ScrollHtmlPage().toHtml(this.publishedArticles, settings.title, settings)
+		const scrollTitle = settings.title
+
+		const htmlTitle = (htmlTitlePrefix ? `${htmlTitlePrefix} - ` : "") + scrollTitle
+		const userSettingsMap = { ...scrollIcons, ...settings, scrollTitle, htmlTitle }
+		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
+
+		stumpWithSettings
+			.getTopDownArray()
+			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
+			.getParent() // todo: fix
+			.setChildren(`class ${cssClasses.scrollPage}${articles.length === 1 ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
+
+		const stumpNode = new stump(stumpWithSettings.toString())
+		const styleTag = stumpNode.getNode("html head styleTag")
+		styleTag.appendLineAndChildren("bern", new hakon(scrollDotHakon).compile())
+		return scrollBoilerplateCompiledMessage + "\n" + stumpNode.compile()
 	}
 
 	log(message) {
@@ -235,7 +245,7 @@ class ScrollServer {
 		const settings = this.settings
 		return this.publishedArticles.map(article => {
 			const permalink = `${article.permalink}.html`
-			const html = new ScrollHtmlPage().toHtml([article], settings.title, settings, article.title)
+			const html = this.articlesToHtml([article], article.title)
 			if (this.singlePages.get(permalink) === html) return "Unmodified"
 			write(`${this.scrollFolder}/${permalink}`, html)
 			this.singlePages.set(permalink, html)
