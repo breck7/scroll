@@ -114,68 +114,6 @@ class Article {
 	}
 }
 
-class Scroll {
-	constructor(stamp = "") {
-		this.stamp = new TreeNode(stamp)
-	}
-
-	stamp = new TreeNode()
-
-	// stamp sample file: https://jtree.treenotation.org/designer/#standard%20stamp
-	get publishedArticles() {
-		const all = this.stamp.filter(node => node.getLine().endsWith(SCROLL_FILE_EXTENSION)).map(node => new Article(node.getNode("data")?.childrenToString(), this.gitLink ? this.gitLink + path.basename(node.getWord(1)) : ""))
-		return lodash.sortBy(all, article => article.timestamp).reverse()
-	}
-
-	get gitLink() {
-		return this.settings.git + "/"
-	}
-
-	get errors() {
-		return this.publishedArticles.map(article => article.toScrollProgram.getAllErrors())
-	}
-
-	get _settings() {
-		return this.stamp
-			.find(node => node.getLine().endsWith(SCROLL_SETTINGS_FILENAME))
-			?.getNode("data")
-			?.childrenToString()
-	}
-
-	get settings() {
-		const defaults = {
-			twitter: "",
-			github: "",
-			email: ""
-		}
-
-		return { ...defaults, ...new TreeNode(this._settings).toObject() }
-	}
-
-	// todo: refactor this. stump sucks. improve it.
-	toSingleHtmlFile(articles = this.publishedArticles, htmlTitlePrefix = "") {
-		const scrollDotHakon = read(scrollSrcFolder + "scroll.hakon")
-		const scrollDotStump = new TreeNode(read(scrollSrcFolder + "scroll.stump"))
-		const scrollIcons = new TreeNode(read(scrollSrcFolder + "scrollIcons.map")).toObject()
-
-		const scrollTitle = this.settings.title
-		const htmlTitle = (htmlTitlePrefix ? `${htmlTitlePrefix} - ` : "") + scrollTitle
-		const userSettingsMap = { ...scrollIcons, ...this.settings, scrollTitle, htmlTitle }
-		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
-
-		stumpWithSettings
-			.getTopDownArray()
-			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
-			.getParent() // todo: fix
-			.setChildren(`class ${cssClasses.scrollPage}${articles.length === 1 ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
-
-		const stumpNode = new stump(stumpWithSettings.toString())
-		const styleTag = stumpNode.getNode("html head styleTag")
-		styleTag.appendLineAndChildren("bern", new hakon(scrollDotHakon).compile())
-		return scrollBoilerplateCompiledMessage + "\n" + stumpNode.compile()
-	}
-}
-
 class RssImporter {
 	constructor(path) {
 		this.path = path
@@ -213,9 +151,59 @@ paragraph
 	}
 }
 
+class ScrollHtmlPage {
+	// todo: refactor this. stump sucks. improve it.
+	toHtml(articles, scrollTitle, settings, htmlTitlePrefix = "") {
+		const scrollDotHakon = read(scrollSrcFolder + "scroll.hakon")
+		const scrollDotStump = new TreeNode(read(scrollSrcFolder + "scroll.stump"))
+		const scrollIcons = new TreeNode(read(scrollSrcFolder + "scrollIcons.map")).toObject()
+
+		const htmlTitle = (htmlTitlePrefix ? `${htmlTitlePrefix} - ` : "") + scrollTitle
+		const userSettingsMap = { ...scrollIcons, ...settings, scrollTitle, htmlTitle }
+		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
+
+		stumpWithSettings
+			.getTopDownArray()
+			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
+			.getParent() // todo: fix
+			.setChildren(`class ${cssClasses.scrollPage}${articles.length === 1 ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
+
+		const stumpNode = new stump(stumpWithSettings.toString())
+		const styleTag = stumpNode.getNode("html head styleTag")
+		styleTag.appendLineAndChildren("bern", new hakon(scrollDotHakon).compile())
+		return scrollBoilerplateCompiledMessage + "\n" + stumpNode.compile()
+	}
+}
+
 class ScrollServer {
 	constructor(scrollFolder = `${exampleFolder}`) {
 		this.scrollFolder = path.normalize(scrollFolder + "/")
+	}
+
+	get publishedArticles() {
+		const gitLink = this.gitLink
+		const all = Disk.getFiles(this.scrollFolder)
+			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
+			.map(filename => new Article(read(filename), gitLink ? gitLink + path.basename(filename) : ""))
+		return lodash.sortBy(all, article => article.timestamp).reverse()
+	}
+
+	get gitLink() {
+		return this.settings.git + "/"
+	}
+
+	get errors() {
+		return this.publishedArticles.map(article => article.toScrollProgram.getAllErrors())
+	}
+
+	get settings() {
+		const defaults = {
+			twitter: "",
+			github: "",
+			email: ""
+		}
+
+		return { ...defaults, ...new TreeNode(read(this.scrollFolder + "/" + SCROLL_SETTINGS_FILENAME)).toObject() }
 	}
 
 	silence() {
@@ -230,8 +218,9 @@ class ScrollServer {
 		return this.scrollFolder + SCROLL_SETTINGS_FILENAME
 	}
 
-	get scroll() {
-		return new Scroll(this.toStamp())
+	get indexPage() {
+		const settings = this.settings
+		return new ScrollHtmlPage().toHtml(this.publishedArticles, settings.title, settings)
 	}
 
 	log(message) {
@@ -243,30 +232,26 @@ class ScrollServer {
 
 	singlePages = new Map()
 	writeSinglePages() {
-		const { scroll } = this
-		return scroll.publishedArticles.map(article => {
+		const settings = this.settings
+		return this.publishedArticles.map(article => {
 			const permalink = `${article.permalink}.html`
-			const content = scroll.toSingleHtmlFile([article], article.title)
-			if (this.singlePages.get(permalink) === content) return "Unmodified"
-			write(`${this.scrollFolder}/${permalink}`, content)
-			this.singlePages.set(permalink, content)
+			const html = new ScrollHtmlPage().toHtml([article], settings.title, settings, article.title)
+			if (this.singlePages.get(permalink) === html) return "Unmodified"
+			write(`${this.scrollFolder}/${permalink}`, html)
+			this.singlePages.set(permalink, html)
 			this.log(`Wrote ${permalink} to disk`)
-			return { permalink, content }
+			return { permalink, html }
 		})
 	}
 
-	buildSaveAndServeSingleHtmlFile() {
-		const file = this.scroll.toSingleHtmlFile()
+	buildSaveAndServeIndexPage() {
+		const file = this.indexPage
 		if (this.previousVersion !== file) {
 			write(this.scrollFolder + "/index.html", file)
 			this.previousVersion = file
 			this.log(`Wrote new index.html to disk`)
 		}
 		return file
-	}
-
-	get errors() {
-		return this.scroll.errors
 	}
 
 	// rss, twitter, hn, reddit, pinterest, instagram, tiktok, youtube?
@@ -281,7 +266,7 @@ class ScrollServer {
 	}
 
 	get importFrom() {
-		return this.scroll.settings.importFrom
+		return this.settings.importFrom
 	}
 
 	startListening(port) {
@@ -290,7 +275,7 @@ class ScrollServer {
 		app.get("/", (req, res) => {
 			const start = Date.now()
 			const pages = this.writeSinglePages()
-			res.send(this.buildSaveAndServeSingleHtmlFile())
+			res.send(this.buildSaveAndServeIndexPage())
 			this.log(`⌛️ built ${pages.length + 1} html files in ${(Date.now() - start) / 1000} seconds`)
 		})
 
@@ -421,4 +406,4 @@ class MarkdownFile {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollServer, ScrollCli, Scroll, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME }
+module.exports = { ScrollServer, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME }

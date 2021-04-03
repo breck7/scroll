@@ -1,5 +1,5 @@
 const tap = require("tap")
-const { ScrollServer, ScrollCli, Scroll, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME } = require("./scroll.node.js")
+const { ScrollServer, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME } = require("./scroll.node.js")
 const fs = require("fs")
 
 const pathToExample = __dirname + "/example.com/"
@@ -23,8 +23,7 @@ testTree.server = areEqual => {
 }
 
 testTree.scroll = areEqual => {
-	const scroll = new ScrollServer(pathToExample).scroll
-	areEqual(scroll.toSingleHtmlFile().includes("music"), true)
+	areEqual(new ScrollServer(pathToExample).indexPage.includes("music"), true)
 }
 
 testTree.fullIntegrationTest = areEqual => {
@@ -104,7 +103,7 @@ testTree.errorStates = async areEqual => {
 		areEqual(fs.existsSync(tempFolder + SCROLL_SETTINGS_FILENAME), true)
 
 		const server = new ScrollServer(tempFolder).silence()
-		const singleFile = server.buildSaveAndServeSingleHtmlFile()
+		const singleFile = server.buildSaveAndServeIndexPage()
 		areEqual(singleFile.includes("all the main node types"), true)
 
 		// Act
@@ -115,7 +114,7 @@ testTree.errorStates = async areEqual => {
 
 		// Assert
 		const singlePageTitleSnippet = `<title>Hello`
-		areEqual(singlePages[0].content.includes(singlePageTitleSnippet), true)
+		areEqual(singlePages[0].html.includes(singlePageTitleSnippet), true)
 
 		areEqual(server.errors.flat().length, 0)
 	} catch (err) {
