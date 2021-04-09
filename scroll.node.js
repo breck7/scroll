@@ -317,16 +317,12 @@ class ScrollServer {
 class ScrollCli {
 	execute(args = []) {
 		this.log(`\n📜📜📜 WELCOME TO SCROLL (v${SCROLL_VERSION}) 📜📜📜`)
-		const command = args[0]
+		const command = args[0] // Note: we take only 1 parameter on purpose. Simpler UX.
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		const cwd = process.cwd()
-		// Note: if we need 2 params, we are doing it wrong. At
-		// that point, we'd be better off taking an options map.
 		if (this[commandName]) return this[commandName](cwd)
-		else if (isScrollFolder(cwd)) return this.serveCommand(cwd)
 
-		if (!command) this.log(`No command provided and no '${SCROLL_SETTINGS_FILENAME}' found. Running help command.`)
-
+		this.log(`No command provided. Running help command.`)
 		return this.helpCommand()
 	}
 
@@ -347,7 +343,7 @@ class ScrollCli {
 		const template = replaceAll(server.toStamp(), server.scrollFolder, "")
 		this.log(`Creating scroll in "${cwd}"`)
 		await new stamp(template).silence().execute(cwd)
-		return this.log(`\n👍 Scroll created! To start serving run: scroll`)
+		return this.log(`\n👍 Scroll created! To start serving run: scroll serve`)
 	}
 
 	deleteCommand() {
