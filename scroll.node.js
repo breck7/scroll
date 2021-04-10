@@ -378,6 +378,9 @@ class ScrollCli {
 	}
 
 	async importCommand(cwd) {
+		const fullPath = resolvePath(cwd)
+		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
+
 		const builder = new ScrollBuilder(cwd)
 		const result = await builder.importSite()
 		return this.log(result)
@@ -406,15 +409,20 @@ class ScrollCli {
 
 	async buildCommand(cwd) {
 		const fullPath = resolvePath(cwd)
-
 		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
 
 		const builder = new ScrollBuilder(fullPath)
 		builder.verbose = this.verbose
 		builder.writeSinglePages()
 		builder.buildIndexPage()
+		return builder
+	}
+
+	async watchCommand(cwd) {
+		const builder = await this.buildCommand(cwd)
+		if (!builder.startWatching) return
 		builder.startWatching()
-		if (this.verbose) builder.openBrowser()
+		builder.openBrowser()
 		return builder
 	}
 

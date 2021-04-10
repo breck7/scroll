@@ -78,7 +78,6 @@ testTree.cli = async areEqual => {
 	// Act/Assert
 	const builder = await cli.buildCommand(pathToExample)
 	areEqual(!!builder, true)
-	builder.stopWatchingForFileChanges()
 
 	// Act/Assert
 	areEqual(cli.execute(["help"]).includes("help"), true)
