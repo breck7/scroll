@@ -3,3 +3,4 @@ node_modules/
 coverage/
 .DS_Store
 readme.html
+package-lock.json
