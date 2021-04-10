@@ -74,7 +74,7 @@ paragraph
 
 paragraph
  Scroll is also the name of the command line app that includes a
- simple Node.js Express app for live preview.
+ simple fs watch app for live preview.
 
 paragraph
  Scrolldown is the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scrolldown.grammar">grammar</a>.

@@ -3,13 +3,12 @@
 // NPM ecosystem includes
 const parseArgs = require("minimist")
 const glob = require("glob")
-const express = require("express")
 const path = require("path")
 const fse = require("fs-extra")
 const fs = require("fs")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
-const getPort = require("get-port")
+const open = require("open")
 
 // Tree Notation Includes
 const { jtree } = require("jtree")
@@ -25,7 +24,11 @@ const packageJson = require("./package.json")
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const DEFAULT_PORT = 1145
+const SCROLLDOWN_GRAMMAR_FILENAME = "scrolldown.grammar"
+const SCROLL_HAKON_FILENAME = "scroll.hakon"
+const SCROLL_STUMP_FILENAME = "scroll.stump"
 const SCROLL_SETTINGS_FILENAME = "scrollSettings.map"
+const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, SCROLL_HAKON_FILENAME, SCROLL_STUMP_FILENAME].join("|")}$`)
 
 const SCROLL_SRC_FOLDER = __dirname + "/"
 const exampleFolder = SCROLL_SRC_FOLDER + "example.com/"
@@ -76,7 +79,7 @@ class Article {
 	sourceLink = ""
 
 	get scrolldownCompiler() {
-		const grammarCode = [read(__dirname + "/scrolldown.grammar")].join("\n")
+		const grammarCode = [read(`${__dirname}/${SCROLLDOWN_GRAMMAR_FILENAME}`)].join("\n")
 
 		const errs = new grammarNode(grammarCode).getAllErrors().map(err => err.toObject())
 		if (errs.length) console.error(new jtree.TreeNode(errs).toFormattedTable(200))
@@ -153,7 +156,8 @@ paragraph
 	}
 }
 
-class ScrollServer {
+// todo: probably merge this into ScrollCLI
+class ScrollBuilder {
 	constructor(scrollFolder = `${exampleFolder}`) {
 		this.scrollFolder = path.normalize(scrollFolder + "/")
 	}
@@ -201,11 +205,11 @@ class ScrollServer {
 	}
 
 	get hakon() {
-		return read(SCROLL_SRC_FOLDER + "scroll.hakon")
+		return read(SCROLL_SRC_FOLDER + SCROLL_HAKON_FILENAME)
 	}
 
 	get stump() {
-		return new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.stump"))
+		return new TreeNode(read(SCROLL_SRC_FOLDER + SCROLL_STUMP_FILENAME))
 	}
 
 	// todo: refactor this. stump sucks. improve it.
@@ -254,12 +258,13 @@ class ScrollServer {
 		})
 	}
 
-	buildSaveAndServeIndexPage() {
+	buildIndexPage() {
 		const file = this.indexPage
 		if (this.previousVersion !== file) {
+			const start = Date.now()
 			write(this.scrollFolder + "/index.html", file)
 			this.previousVersion = file
-			this.log(`Wrote new index.html to disk`)
+			this.log(`Built and wrote new index.html to disk in ${(Date.now() - start) / 1000} seconds`)
 		}
 		return file
 	}
@@ -279,23 +284,45 @@ class ScrollServer {
 		return this.settings.importFrom
 	}
 
-	startListening(port) {
-		const app = new express()
+	buildPages() {
+		const start = Date.now()
+		const pages = this.writeSinglePages()
+		this.log(`⌛️ built ${pages.length} html files in ${(Date.now() - start) / 1000} seconds`)
+	}
 
-		app.get("/", (req, res) => {
-			const start = Date.now()
-			const pages = this.writeSinglePages()
-			res.send(this.buildSaveAndServeIndexPage())
-			this.log(`⌛️ built ${pages.length + 1} html files in ${(Date.now() - start) / 1000} seconds`)
+	get localIndexAsUrl() {
+		return `file://${this.scrollFolder}/index.html`
+	}
+
+	async openBrowser() {
+		await open(this.localIndexAsUrl)
+	}
+
+	watcher = undefined
+	startWatching() {
+		const { scrollFolder } = this
+
+		this.log(`\n🔭 Watching for changes in 📁 ${scrollFolder}`)
+
+		this.watcher = fs.watch(scrollFolder, (event, filename) => {
+			const fullPath = scrollFolder + filename
+			if (!EXTENSIONS_REQUIRING_REBUILD.test(fullPath)) return
+
+			if (!Disk.exists(fullPath)) {
+				// file deleted
+			} else if (false) {
+				// new file
+			} else {
+				// file updates
+			}
+			this.buildIndexPage()
+			this.buildPages()
 		})
+	}
 
-		app.use(express.static(this.scrollFolder))
-
-		return app.listen(port, () => {
-			this.log(`\nServing Scroll '${this.settingsPath}'
-
-🤙 cmd+dblclick: http://localhost:${port}/`)
-		})
+	stopWatchingForFileChanges() {
+		this.watcher.close()
+		delete this.watcher
 	}
 
 	// todo: current stamp sucks compared to what it could be. Perhaps use Pappy's
@@ -339,11 +366,11 @@ class ScrollCli {
 	}
 
 	async createCommand(cwd) {
-		const server = new ScrollServer()
-		const template = replaceAll(server.toStamp(), server.scrollFolder, "")
+		const builder = new ScrollBuilder()
+		const template = replaceAll(builder.toStamp(), builder.scrollFolder, "")
 		this.log(`Creating scroll in "${cwd}"`)
 		await new stamp(template).silence().execute(cwd)
-		return this.log(`\n👍 Scroll created! To start serving run: scroll serve`)
+		return this.log(`\n👍 Scroll created! Build your new site with: scroll build`)
 	}
 
 	deleteCommand() {
@@ -351,8 +378,8 @@ class ScrollCli {
 	}
 
 	async importCommand(cwd) {
-		const server = new ScrollServer(cwd)
-		const result = await server.importSite()
+		const builder = new ScrollBuilder(cwd)
+		const result = await builder.importSite()
 		return this.log(result)
 	}
 
@@ -377,14 +404,18 @@ class ScrollCli {
 	// 	files.map(resolvePath).forEach(fullPath => write(fullPath, new MarkdownFile(read(fullPath)).toScroll()))
 	// }
 
-	async serveCommand(cwd) {
-		const portNumber = await getPort({ port: getPort.makeRange(DEFAULT_PORT, DEFAULT_PORT + 100) })
+	async buildCommand(cwd) {
 		const fullPath = resolvePath(cwd)
 
 		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
 
-		const scrollServer = new ScrollServer(fullPath)
-		return scrollServer.startListening(portNumber)
+		const builder = new ScrollBuilder(fullPath)
+		builder.verbose = this.verbose
+		builder.writeSinglePages()
+		builder.buildIndexPage()
+		builder.startWatching()
+		if (this.verbose) builder.openBrowser()
+		return builder
 	}
 
 	helpCommand() {
@@ -394,7 +425,7 @@ class ScrollCli {
 	exportCommand(cwd) {
 		const fullPath = resolvePath(cwd)
 		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
-		return this.log(new ScrollServer(fullPath).toStamp())
+		return this.log(new ScrollBuilder(fullPath).toStamp())
 	}
 }
 
@@ -412,4 +443,4 @@ class MarkdownFile {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollServer, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME }
+module.exports = { ScrollBuilder, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME }
