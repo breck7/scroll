@@ -277,6 +277,9 @@ class ScrollBuilder {
 
 		if (importFrom.endsWith("rss")) return new RssImporter(importFrom).downloadFilesTo(this.scrollFolder)
 
+		// If we havent found a match but the url has something like "format=rss"
+		if (importFrom.includes("rss")) return new RssImporter(importFrom).downloadFilesTo(this.scrollFolder)
+
 		return `❌ Scroll wasn't sure how to import '${importFrom}'.\n💡 You can open an issue here: https://github.com/publicdomaincompany/scroll/issues`
 	}
 
