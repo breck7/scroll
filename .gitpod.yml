@@ -1,0 +1,9 @@
+ports:
+  - port: 3000
+    onOpen: open-browser
+
+tasks:
+  - command: ls
+  - init: npm install -g .
+    command: scroll watch
+  - command: python3 -m http.server 3000
