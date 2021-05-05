@@ -25,7 +25,10 @@ paragraph
 title4 How do I get Scroll?
 
 paragraph
- Scroll currently requires basic familiarity with the command line
+ The instant way is to <a href="https://gitpod.io/#https://github.com/publicdomaincompany/scroll">try Scroll in GitPod</a>.
+
+paragraph
+ Scroll is a command line app you install on your local machine. Scroll requires basic familiarity with the command line
  and <a href="https://nodejs.org/en/">NodeJs</a> >=14. If you do not have NodeJs on your machine, one
  way is to install <a href="https://github.com/tj/n">n</a> which
  makes it easy to get NodeJs.
