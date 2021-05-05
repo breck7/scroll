@@ -2,9 +2,7 @@ tasks:
   - openMode: split-right
     command: gp open readme.scroll
   - openMode: split-right
-    command: >
-      npm install -g .
-      scroll watch
+    command: npm install -g . && scroll watch
   - openMode: split-right
     command: python3 -m http.server 3000
 
