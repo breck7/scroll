@@ -1,11 +1,12 @@
 tasks:
   - openMode: split-right
-    init: npm install -g .
-    command: scroll watch
+    command: gp open readme.scroll
+  - openMode: split-right
+    command: >
+      npm install -g .
+      scroll watch
   - openMode: split-right
     command: python3 -m http.server 3000
-  - openMode: split-right
-    command: open readme.scroll
 
 ports:
   - port: 3000
