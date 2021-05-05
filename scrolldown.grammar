@@ -59,6 +59,18 @@ paragraphContentNode
  catchAllCellType textCell
  compiler
   stringTemplate {textCell}
+quoteNode
+ description A Quotation.
+ catchAllNodeType quoteLineNode
+ extends abstractTopLevelNode
+ compiler
+  openChildren <blockquote>
+  closeChildren </blockquote>
+  stringTemplate 
+ crux quote
+quoteLineNode
+ catchAllCellType anyCell
+ catchAllNodeType quoteLineNode
 codeNode
  description A code block.
  catchAllNodeType lineOfCodeNode

@@ -87,7 +87,7 @@ html
   display inline
  img
   max-width 35ch
- .scrollArticleCode,table
+ code,table
   margin-top 15px
   margin-bottom 15px
   background-color rgb(234,234,234)
@@ -95,11 +95,10 @@ html
   overflow auto
   font-size 80%
   break-inside avoid
-  code
-   margin 0
-   display block
-   white-space pre
-   break-inside avoid
+ code
+  margin 0
+  display block
+  white-space pre
  h1
   a
    text-decoration none
@@ -111,3 +110,4 @@ html
   margin .2em
  blockquote
   margin 2ch
+  whitespace pre-wrap
