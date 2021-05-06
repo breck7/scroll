@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v8.2.0
+ Scroll v9.0.0
 
 -->
 <html lang="en-US">
@@ -108,20 +108,24 @@ html {
 .scrollArticleCell img {
   max-width: 35ch;
 }
-.scrollArticleCell .scrollArticleCode,.scrollArticleCell table {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  background-color: rgb(234,234,234);
-  padding: 1em;
-  overflow: auto;
-  font-size: 80%;
+.scrollArticleCell .scrollCodeBlock,.scrollArticleCell table,.scrollArticleCell blockquote {
+  margin: .5em 0;
+  padding: .5em;
+  background: rgba(204,204,204, .5);
   break-inside: avoid;
 }
-.scrollArticleCell .scrollArticleCode,.scrollArticleCell table code {
-  margin: 0;
+.scrollArticleCell .scrollCodeBlock,.scrollArticleCell table {
+  overflow: auto;
+  font-size: 80%;
+}
+.scrollArticleCell .scrollCodeBlock {
   display: block;
   white-space: pre;
-  break-inside: avoid;
+  border-left: .5em solid rgba(204,204,204, .8);
+}
+.scrollArticleCell blockquote {
+  white-space: pre-line;
+  border-left: .5em solid rgba(204,204,204, .8);
 }
 .scrollArticleCell h1 {
   margin-bottom: .25em;
@@ -135,9 +139,6 @@ html {
 }
 .scrollArticleCell h2,.scrollArticleCell h3,.scrollArticleCell h4,.scrollArticleCell h5,.scrollArticleCell h6 {
   margin: .2em;
-}
-.scrollArticleCell blockquote {
-  margin: 2ch;
 }
 </style>
 </head>
@@ -251,10 +252,7 @@ html {
  
 </p>
 
-<div class="scrollArticleCode">
-<code> npm install -g scroll-cli</code>
-
-</div>
+<code class="scrollCodeBlock">npm install -g scroll-cli</code>
 
 
 <h4>How do I use Scroll?</h4>
@@ -265,10 +263,7 @@ html {
  
 </p>
 
-<div class="scrollArticleCode">
-<code> scroll help</code>
-
-</div>
+<code class="scrollCodeBlock">scroll help</code>
 
 <h4>Where do I get help?</h4>
 
@@ -328,14 +323,11 @@ html {
  
 </p>
 
-<div class="scrollArticleCode">
-<code> yourDomainName.org/</code>
-<code>  about.scroll</code>
-<code>  publishedArticle.scroll</code>
-<code>  anImageInTheArticle.png</code>
-<code>  scrollSettings.map</code>
-
-</div>
+<code class="scrollCodeBlock">yourDomainName.org/
+ about.scroll
+ publishedArticle.scroll
+ anImageInTheArticle.png
+ scrollSettings.map</code>
 
 <p>
  The `scrollSettings.map` file let's Scroll know that
@@ -538,29 +530,28 @@ html {
 
 <h4>What has changed in recent major versions?</h4>
 
-<div class="scrollArticleCode">
-<code> Version 7.0.0 released on 04-03-2021</code>
-<code>  Scroll the langauge is now called Scrolldown (thanks FB!).</code>
-<code>  Bug fixes.</code>
-<code>  Better perf.</code>
-
-<code> Version 6.0.0 released on 03-08-2021</code>
-<code>  By popular request, Scroll now also publishes each article to its own page.</code>
-<code>  Fewer links. Do less. KISS.</code>
-<code>  Better perf.</code>
-<code>  "permalink" is now a scroll keyword.</code>
-
-<code> Version 5.0.0 released on 02-28-2021</code>
-<code>  changed name of everything from dumbdown to Scroll per user feedback</code>
-<code>  BREAKING file extension of articles needs to be "scroll" and not "dd" now.</code>
-
-<code> Version 4.2.0 released on 02-22-2021</code>
-<code>  fixed paragraph parsing and rendering</code>
-
-<code> Version 4.1.0 released on 02-22-2021</code>
-<code>  added a "git" scrollSetting for article source links.</code>
-
-</div>
+<code class="scrollCodeBlock">Version 9.0.0 released on 05-05-2021
+ Scrolldown now has a quote nodeType.
+ Code block format bug fixes.
+ Styling improvements
+Version 8.0.0 released on 04-10-2021
+ Scroll now just builds files. No web server needed.
+Version 7.0.0 released on 04-03-2021
+ Scroll the language is now called Scrolldown (thanks FB!).
+ Bug fixes.
+ Better perf.
+Version 6.0.0 released on 03-08-2021
+ By popular request, Scroll now also publishes each article to its own page.
+ Fewer links. Do less. KISS.
+ Better perf.
+ "permalink" is now a scroll keyword.
+Version 5.0.0 released on 02-28-2021
+ changed name of everything from dumbdown to Scroll per user feedback
+ BREAKING file extension of articles needs to be "scroll" and not "dd" now.
+Version 4.2.0 released on 02-22-2021
+ fixed paragraph parsing and rendering
+Version 4.1.0 released on 02-22-2021
+ added a "git" scrollSetting for article source links.</code>
 
 <h4>Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?</h4>
 
@@ -587,16 +578,10 @@ html {
 
 <h4>How do I test performance?</h4>
 
-<div class="scrollArticleCode">
-<code> # cd some_slow_scroll</code>
-
-<code> # update the path below so it points to your scroll code</code>
-
-<code> node --inspect ~/scroll/scroll.node.js</code>
-
-<code> # open chrome://inspect</code>
-
-</div>
+<code class="scrollCodeBlock"># cd some_slow_scroll
+# update the path below so it points to your scroll code
+node --inspect ~/scroll/scroll.node.js
+# open chrome://inspect</code>
 
 <h4>Are the tests passing?</h4>
 
