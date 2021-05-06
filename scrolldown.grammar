@@ -63,12 +63,26 @@ codeNode
  description A code block.
  catchAllNodeType lineOfCodeNode
  extends abstractTopLevelNode
- todo Fix spacing
- compiler
-  openChildren <div class="scrollArticleCode">
-  closeChildren </div>
-  stringTemplate 
+ javascript
+  compile() {
+   return `<code class="scrollCodeBlock">${this.getIndentation() + this.childrenToString()}</code>`
+  }
  crux code
+lineOfCodeNode
+ catchAllCellType codeCell
+ catchAllNodeType lineOfCodeNode
+quoteNode
+ description A blockquote.
+ catchAllNodeType quoteLineNode
+ extends abstractTopLevelNode
+ javascript
+  compile() {
+   return `<blockquote>${this.getIndentation() + this.childrenToString()}</blockquote>`
+  }
+ crux quote
+quoteLineNode
+ catchAllCellType anyCell
+ catchAllNodeType quoteLineNode
 listNode
  inScope dashNode
  extends abstractTopLevelNode
@@ -84,13 +98,6 @@ blankLineNode
   stringTemplate 
  pattern ^$
  tags doNotSynthesize
-lineOfCodeNode
- catchAllCellType codeCell
- catchAllNodeType lineOfCodeNode
- javascript
-  compile() {
-    return `<code>${this.getIndentation()}${this.getLine()}</code>\n${this.map(child => child.compile()).join("")}`
-  }
 dashNode
  crux -
  catchAllCellType textCell

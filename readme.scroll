@@ -194,8 +194,14 @@ paragraph
 title4 What has changed in recent major versions?
 
 code
+ Version 9.0.0 released on 05-05-2021
+  Scrolldown now has a quote nodeType.
+  Code block format bug fixes.
+  Styling improvements
+ Version 8.0.0 released on 04-10-2021
+  Scroll now just builds files. No web server needed.
  Version 7.0.0 released on 04-03-2021
-  Scroll the langauge is now called Scrolldown (thanks FB!).
+  Scroll the language is now called Scrolldown (thanks FB!).
   Bug fixes.
   Better perf.
  Version 6.0.0 released on 03-08-2021

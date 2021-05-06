@@ -87,19 +87,21 @@ html
   display inline
  img
   max-width 35ch
- .scrollArticleCode,table
-  margin-top 15px
-  margin-bottom 15px
-  background-color rgb(234,234,234)
-  padding 1em
+ .scrollCodeBlock,table,blockquote
+  margin .5em 0
+  padding .5em
+  background rgba(204,204,204, .5)
+  break-inside avoid
+ .scrollCodeBlock,table
   overflow auto
   font-size 80%
-  break-inside avoid
-  code
-   margin 0
-   display block
-   white-space pre
-   break-inside avoid
+ .scrollCodeBlock
+  display block
+  white-space pre
+  border-left .5em solid rgba(204,204,204, .8)
+ blockquote
+  white-space pre-line
+  border-left .5em solid rgba(204,204,204, .8)
  h1
   a
    text-decoration none
@@ -109,5 +111,3 @@ html
   text-align center
  h2,h3,h4,h5,h6
   margin .2em
- blockquote
-  margin 2ch
