@@ -39,6 +39,10 @@ scrolldownNode
 abstractTopLevelNode
  abstract
  cells keywordCell
+abstractTopLevelSingleMetaNode
+ abstract
+ description Use these keywords once per file.
+ extends abstractTopLevelNode
 linkNode
  cells keywordCell urlCell
  catchAllCellType textCell
@@ -47,18 +51,16 @@ linkNode
   stringTemplate <a href="{urlCell}">{textCell}</a>
  crux link
 paragraphNode
+ description Prose content.
  catchAllNodeType paragraphContentNode
  extends abstractTopLevelNode
  crux paragraph
- compiler
-  openChildren <p>
-  closeChildren </p>
-  stringTemplate 
+ javascript
+  compile() {
+   return `<p>${this.childrenToString()}</p>`
+  }
 paragraphContentNode
- inScope paragraphContentNode
- catchAllCellType textCell
- compiler
-  stringTemplate {textCell}
+  catchAllCellType textCell
 codeNode
  description A code block.
  catchAllNodeType lineOfCodeNode
@@ -107,25 +109,28 @@ dashNode
 dateCell
  highlightScope string
 commentNode
+ description Will not appear in the compiled HTML.
  catchAllCellType commentCell
  extends abstractTopLevelNode
  crux comment
- compiler
-  stringTemplate 
+ javascript
+  compile() {
+   return ``
+  }
  catchAllNodeType commentLineNode
 commentLineNode
  catchAllCellType commentCell
- compiler
-  stringTemplate 
 permalinkNode
+ description When compiling, Scroll will save this article to {permalink}.html
  crux permalink
- extends abstractTopLevelNode
+ extends abstractTopLevelSingleMetaNode
  cells keywordCell permalinkCell
  compiler
   stringTemplate 
 titleNode
  catchAllCellType textCell
- extends abstractTopLevelNode
+ description Title of the article.
+ extends abstractTopLevelSingleMetaNode
  compiler
   stringTemplate 
  crux title
@@ -135,35 +140,38 @@ titleNode
    const permalink = this.getRootNode().get("permalink") || jtree.Utils.stringToPermalink(this.getContent())
    return `<h1><a href="${permalink}.html">${title}</a></h1>`
   }
-title2Node
+abstractTitleNode
+ description A subheader.
  catchAllCellType textCell
  extends abstractTopLevelNode
- compiler
-  stringTemplate <h2>{textCell}</h2>
+ catchAllNodeType multilineTitleNode
+ javascript
+  compile() {
+   const tag = this.getFirstWord().replace("title", "h")
+   const children = this.childrenToString() ? " " + this.childrenToString() : ""
+   return `<${tag}>${this.getContent() + children}</${tag}>`
+  }
+multilineTitleNode
+ catchAllCellType textCell
+title2Node
+ extends abstractTitleNode
  crux title2
 title3Node
- extends title2Node
- compiler
-  stringTemplate <h3>{textCell}</h3>
+ extends abstractTitleNode
  crux title3
 title4Node
- extends title2Node
- compiler
-  stringTemplate <h4>{textCell}</h4>
+ extends abstractTitleNode
  crux title4
 title5Node
- extends title2Node
- compiler
-  stringTemplate <h5>{textCell}</h5>
+ extends abstractTitleNode
  crux title5
 title6Node
- extends title2Node
- compiler
-  stringTemplate <h6>{textCell}</h6>
+ extends abstractTitleNode
  crux title6
 dateNode
  catchAllCellType dateCell
- extends abstractTopLevelNode
+ description Date the article was first published.
+ extends abstractTopLevelSingleMetaNode
  crux date
  javascript
   compile(spaces) {
@@ -172,6 +180,7 @@ dateNode
    return `<div class="scrollArticleDate">${dateCell} — </div>`
   }
 quickParagraphNode
+ description A catch all block. This may be removed in future versions.
  catchAllCellType textCell
  compiler
   stringTemplate <p>{textCell}</p>
