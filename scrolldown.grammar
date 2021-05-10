@@ -60,7 +60,7 @@ paragraphNode
    return `<p>${this.childrenToString()}</p>`
   }
 paragraphContentNode
-  catchAllCellType textCell
+ catchAllCellType textCell
 codeNode
  description A code block.
  catchAllNodeType lineOfCodeNode
