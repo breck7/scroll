@@ -55,7 +55,7 @@ codeNode
  extends abstractTopLevelNode
  javascript
   compile() {
-   return `<code class="scrollCodeBlock">${this.getIndentation() + this.childrenToString()}</code>`
+   return `<code class="scrollCodeBlock">${this.getIndentation() +  this.childrenToString().replace(/\</g, "&lt;")}</code>`
   }
  crux code
 lineOfCodeNode
@@ -105,6 +105,19 @@ tableNode
      const tableHeader = this.tableHeader
      return `<table><thead><tr>${tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
    }
+linkNode
+ cells urlCell
+ catchAllCellType textCell
+ compiler
+  stringTemplate <li><a href="{urlCell}">{textCell}</a></li>
+linksNode
+ catchAllNodeType linkNode
+ crux links
+ extends abstractTopLevelNode
+ compiler
+  stringTemplate 
+  openChildren <ul>
+  closeChildren </ul>
 blankLineNode
  description Blank lines compile to nothing in the HTML.
  cells blankCell

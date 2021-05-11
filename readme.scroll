@@ -69,8 +69,7 @@ title4 What are some example sites using Scroll?
 paragraph
  On beta launch day we have:
 
-table
- Url Site
+links
  https://breckyunits.com BreckYunits.com
 
 title4 How does Scroll work?
@@ -108,7 +107,7 @@ paragraph
  When you "build" a Scroll site, you are simply generating
  the `index.html` and `article*.html` files in the site's folder.
 
-paragraph 
+paragraph
  With Scroll your site's public static files, generated html,
  and published article source Scroll files, are all in the
  public folder and checked into version control.
