@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "10.1.1",
+  "version": "11.0.0",
   "description": "Build your own public domain newspaper.",
   "main": "index.js",
   "engines": {

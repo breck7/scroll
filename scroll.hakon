@@ -77,7 +77,7 @@ html
  margin auto
  margin-bottom .5em
  ul,ol
-  padding 1em
+  padding .5em
   margin 0
  p
   text-indent 1em
@@ -110,5 +110,5 @@ html
   margin-bottom .25em
  h1,h2,h3,h4,h5,h6
   text-align center
- h2,h3,h4,h5,h6
+ h2,h3,h4
   margin .2em

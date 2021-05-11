@@ -1,5 +1,7 @@
 anyCell
 blankCell
+bulletPointCell
+ highlightScope keyword
 codeCell
  highlightScope comment
 commentCell
@@ -122,6 +124,27 @@ linksNode
   stringTemplate 
   openChildren <ul>
   closeChildren </ul>
+listItemNode
+ cells bulletPointCell
+ catchAllCellType textCell
+ compiler
+  stringTemplate <li>{textCell}</li>
+listNode
+ catchAllNodeType listItemNode
+ crux list
+ extends abstractTopLevelNode
+ compiler
+  stringTemplate 
+  openChildren <ul>
+  closeChildren </ul>
+orderedListNode
+ description An ordered list.
+ extends listNode
+ crux orderedList
+ compiler
+  stringTemplate 
+  openChildren <ol>
+  closeChildren </ol>
 blankLineNode
  description Blank lines compile to nothing in the HTML.
  cells blankCell
