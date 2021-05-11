@@ -18,9 +18,8 @@ This is a quick paragraph. It may be deprecated in the future.
 code
  Here is a code block
 
-list
- - This is a list.
- - It probably will be removed
+quote
+ Here is a quote
 
 comment This comment cell will not appear in the HTML
 

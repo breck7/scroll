@@ -1,7 +1,5 @@
 anyCell
 blankCell
-dashCell
- highlightScope constant.language
 codeCell
  highlightScope comment
 commentCell
@@ -29,10 +27,7 @@ scrolldownNode
   
   paragraph
    It compiles to HTML. Blank lines get turned into brs.
-  link https://treenotation.org Scrolldown is a Tree Language.
-  list
-   - It has lists
-   - Too!
+  
   code
    // You can add code as well.
    print("Hello world")
@@ -43,13 +38,6 @@ abstractTopLevelSingleMetaNode
  abstract
  description Use these keywords once per file.
  extends abstractTopLevelNode
-linkNode
- cells keywordCell urlCell
- catchAllCellType textCell
- extends abstractTopLevelNode
- compiler
-  stringTemplate <a href="{urlCell}">{textCell}</a>
- crux link
 paragraphNode
  description Prose content.
  catchAllNodeType paragraphContentNode
@@ -85,14 +73,37 @@ quoteNode
 quoteLineNode
  catchAllCellType anyCell
  catchAllNodeType quoteLineNode
-listNode
- inScope dashNode
+rowNode
+ catchAllCellType textCell
+ javascript
+  toRow(columnCount) {
+    const words = this.getWords()
+    let str = ""
+    let column = 0
+    while (column < columnCount) {
+      column++
+      const content = columnCount === column ? words.slice(columnCount - 1).join(" ") : words[column - 1]
+      const linkified = jtree.Utils.linkify(content)
+      str += `<td>${linkified}</td>`
+    }
+    return str
+  }
+tableNode
+ crux table
+ catchAllNodeType rowNode
  extends abstractTopLevelNode
- compiler
-  stringTemplate 
-  openChildren <ul>
-  closeChildren </ul>
- crux list
+ javascript
+  get tableHeader() {
+    const header = this.nodeAt(0)
+    return header ? header.getWords().map(word => `<th>${word}</th>`) : []
+  }
+  getTableBody(columnCount) {
+    return this._children.slice(1).map(node => `<tr>${node.toRow(columnCount)}</tr>`).join("")
+  }
+  compile() {
+     const tableHeader = this.tableHeader
+     return `<table><thead><tr>${tableHeader.join("")}</tr></thead><tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
+   }
 blankLineNode
  description Blank lines compile to nothing in the HTML.
  cells blankCell
@@ -100,12 +111,6 @@ blankLineNode
   stringTemplate 
  pattern ^$
  tags doNotSynthesize
-dashNode
- crux -
- catchAllCellType textCell
- compiler
-  stringTemplate <li>{textCell}</li>
- cells dashCell
 dateCell
  highlightScope string
 commentNode

@@ -1,5 +1,8 @@
 title 📜 Scroll: Build your own public domain newspaper.
 
+paragraph
+ <a href="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml/badge.svg" style="width: 49%;"/></a> <a href="https://gitpod.io/#https://github.com/publicdomaincompany/scroll"><img style="width: 49%;" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod"/></a>
+
 title4 Example site:
 
 paragraph
@@ -66,7 +69,9 @@ title4 What are some example sites using Scroll?
 paragraph
  On beta launch day we have:
 
-link https://breckyunits.com BreckYunits.com
+table
+ Url Site
+ https://breckyunits.com BreckYunits.com
 
 title4 How does Scroll work?
 
@@ -219,7 +224,7 @@ code
 
 title4 Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
 
-link https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar Yes. In the Tree Language Designer.
+Yes. In the <a href="https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar">Tree Language Designer</a>.
 
 title3 Contributing to Scroll Development
 
@@ -239,8 +244,3 @@ code
  # update the path below so it points to your scroll code
  node --inspect ~/scroll/scroll.node.js
  # open chrome://inspect
-
-title4 Are the tests passing?
-
-paragraph
- <a href="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml/badge.svg"/></a>
