@@ -84,7 +84,7 @@ paragraph
  simple fs watch app for live preview.
 
 paragraph
- Scrolldown is the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scroll/scrolldown.grammar">grammar</a>.
+ Scrolldown is the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar">grammar</a>.
 
 title4 What does a typical project folder look like?
 
@@ -197,15 +197,13 @@ paragraph
 
 title4 What changed in recent major versions?
 
-title5 11.0.0 05-11-2021
-
+title6 11.0.0 05-11-2021
 list
  - NEW list, orderedList, and links node types
  - NEW codeWithLanguageNode
  - FIX HTML escaped in code blocks
 
-title5 10.0.0 05-10-2021
-
+title6 10.0.0 05-10-2021
 list
  - NEW table nodeType for SSVs with linkify
  - NEW Better docs in Scrolldown grammar
@@ -214,28 +212,23 @@ list
  - FIX Windows return character fix
  - FIX multiline support in subheader nodeTypes
  
- title6 9.0.0 05-05-2021
-
- list
+title6 9.0.0 05-05-2021
+list
  - NEW Scrolldown now has a quote nodeType.
  - FIX Code block format bug fixes.
  - FIX Styling improvements
 
-
 title6 8.0.0 04-10-2021
-
 list
  - INFRA Scroll now just builds files. No web server needed.
 
 title6 7.0.0 04-03-2021
-
 list
  - INFRA Scroll the language is now called Scrolldown (thanks FB!).
  - FIX Bug fixes.
  - NEW Better perf.
 
 title6 6.0.0 03-08-2021
-
 list
  - NEW By popular request, Scroll now also publishes each article to its own page.
  - NEW Fewer links. Do less. KISS.
@@ -243,25 +236,22 @@ list
  - NEW "permalink" nodeType
 
 title6 5.0.0 02-28-2021
-
 list
  - NEW Changed name of everything from dumbdown to Scroll per user feedback
  - BREAKING File extension of articles needs to be "scroll" and not "dd" now.
 
-
- title6 4.2.0 02-22-2021
-
+title6 4.2.0 02-22-2021
 list
  - FIX Fixed paragraph parsing and rendering
 
 title6 4.1.0 02-22-2021
-
 list
  - NEW "git" scrollSetting for article source links.
 
 title4 Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
 
-Yes. In the <a href="https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar">Tree Language Designer</a>.
+paragraph
+ Yes. In the <a href="https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar">Tree Language Designer</a>.
 
 title3 Contributing to Scroll Development
 
