@@ -11,16 +11,20 @@ paragraph
 title4 What makes Scroll different?
 
 paragraph
- Instead of a page per post, like a blog, a Scroll is a
+ Scroll is different than other static publishing tools in
+ 3 ways.
+
+paragraph
+ 1. Instead of a page per post, like a blog, a Scroll is a
  <strong>single page</strong>, like an old newspaper.
 
 paragraph
- Instead of Markdown, Scrolls uses <strong>Scrolldown</strong>,
+ 2. Instead of Markdown, Scroll uses the easily extendible <strong>Scrolldown</strong>,
  which makes it easy to combine languages to generate more
  creative content.
 
 paragraph
- Instead of supporting licenses, Scroll is 100% focused on
+ 3. Instead of supporting licenses, Scroll is 100% focused on
  <strong>public domain sites</strong> and everything is
  designed with that assumption. We want to democratize the
  media industry.
@@ -128,10 +132,7 @@ title4 What languages is Scroll written in?
 
 paragraph
  The Scroll app is written in plain Javascript and
- runs in Node.js.
-
-paragraph
- Scroll makes heavy use of Tree Languages. The CSS is
+ runs in Node.js. Scroll makes heavy use of Tree Languages. The CSS is
  written in <a href="https://jtree.treenotation.org/designer/#standard%20hakon">Hakon</a>.
  The HTML is written in <a href="https://jtree.treenotation.org/designer/#standard%20stump"> stump</a>.
 
@@ -150,17 +151,13 @@ title4 Why is Scroll a single page?
 paragraph
  Scroll is designed to make it easier for <strong>syntopic
  reading</strong>. Being able to scan the page like a
- newspaper allows you to read at a higher level. It allows
- you to read at a higher level—to get "in the author's head"—
+ newspaper. This allows you to read at a higher level—to get "in the author's head"—
  moreso than reading one article at a time from beginning to end.
 
 paragraph
  Additionally, making it easy to take the content with
  you, and transform it to better suit the reader, is
- also key to Scroll.
-
-paragraph
- Because Scroll is designed for public domain sites,
+ also key to Scroll. Because Scroll is designed for public domain sites,
  we can optimize for the single page reading experience
  but people can have the full Scroll contents and render
  it however best suits them.
@@ -261,8 +258,7 @@ paragraph
  File issues. Share your Scroll sites.
 
 paragraph
- You can submit Pull Requests too. Keep in mind we do not like code,
- so keep it short.
+ You can submit Pull Requests too. The shorter the better.
 
 title4 How do I test performance?
 
