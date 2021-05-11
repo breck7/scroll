@@ -95,6 +95,7 @@ html
  .scrollCodeBlock,table
   overflow auto
   font-size 80%
+  hyphens none
  .scrollCodeBlock
   display block
   white-space pre

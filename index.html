@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v9.0.0
+ Scroll v10.0.0
 
 -->
 <html lang="en-US">
@@ -117,6 +117,7 @@ html {
 .scrollArticleCell .scrollCodeBlock,.scrollArticleCell table {
   overflow: auto;
   font-size: 80%;
+  hyphens: none;
 }
 .scrollArticleCell .scrollCodeBlock {
   display: block;
@@ -213,9 +214,13 @@ href="https://www.npmjs.com/package/scroll-cli">scroll-cli on npm</a>.</p>
 
 <p>On beta launch day we have:</p>
 
-<ul>
- <li><a href="https://breckyunits.com">BreckYunits.com</a></li>
-</ul>
+<table><thead><tr><th>Url</th>
+
+<th>Site</th>
+</tr></thead>
+<tbody><tr><td><a href="https://breckyunits.com" target="_blank">https://breckyunits.com</a></td>
+<td>BreckYunits.com</td>
+</tr></tbody></table>
 
 <h4>How does Scroll work?</h4>
 
@@ -318,30 +323,99 @@ so building Scroll was necessary. <a href="https://jekyllrb.com/">Jekyll</a>
 and <a href="https://github.com/breck7/brecksblog">Brecksblog</a> were the two
 biggest inspirations.</p>
 
-<h4>What has changed in recent major versions?</h4>
+<h4>What changed in recent major versions?</h4>
 
-<code class="scrollCodeBlock">Version 9.0.0 released on 05-05-2021
- Scrolldown now has a quote nodeType.
- Code block format bug fixes.
- Styling improvements
-Version 8.0.0 released on 04-10-2021
- Scroll now just builds files. No web server needed.
-Version 7.0.0 released on 04-03-2021
- Scroll the language is now called Scrolldown (thanks FB!).
- Bug fixes.
- Better perf.
-Version 6.0.0 released on 03-08-2021
- By popular request, Scroll now also publishes each article to its own page.
- Fewer links. Do less. KISS.
- Better perf.
- "permalink" is now a scroll keyword.
-Version 5.0.0 released on 02-28-2021
- changed name of everything from dumbdown to Scroll per user feedback
- BREAKING file extension of articles needs to be "scroll" and not "dd" now.
-Version 4.2.0 released on 02-22-2021
- fixed paragraph parsing and rendering
-Version 4.1.0 released on 02-22-2021
- added a "git" scrollSetting for article source links.</code>
+<table><thead><tr><th>Version</th>
+
+<th>Description</th>
+</tr></thead>
+<tbody><tr><td>10.0.0</td>
+<td>05-10-2021</td>
+</tr>
+<tr><td>-</td>
+<td>NEW Added table nodeType for SSVs with linkify</td>
+</tr>
+<tr><td>-</td>
+<td>NEW Better docs in Scrolldown grammar</td>
+</tr>
+<tr><td>-</td>
+<td>BREAKING Removed list nodeType</td>
+</tr>
+<tr><td>-</td>
+<td>BREAKING Removed link nodeType</td>
+</tr>
+<tr><td>-</td>
+<td>FIX Windows return character fix</td>
+</tr>
+<tr><td>-</td>
+<td>FIX multiline support in subheader nodeTypes</td>
+</tr>
+<tr><td>9.0.0</td>
+<td>05-05-2021</td>
+</tr>
+<tr><td>-</td>
+<td>NEW Scrolldown now has a quote nodeType.</td>
+</tr>
+<tr><td>-</td>
+<td>FIX Code block format bug fixes.</td>
+</tr>
+<tr><td>-</td>
+<td>FIX Styling improvements</td>
+</tr>
+<tr><td>8.0.0</td>
+<td>04-10-2021</td>
+</tr>
+<tr><td>-</td>
+<td>INFRA Scroll now just builds files. No web server needed.</td>
+</tr>
+<tr><td>7.0.0</td>
+<td>04-03-2021</td>
+</tr>
+<tr><td>-</td>
+<td>INFRA Scroll the language is now called Scrolldown (thanks FB!).</td>
+</tr>
+<tr><td>-</td>
+<td>FIX Bug fixes.</td>
+</tr>
+<tr><td>-</td>
+<td>NEW Better perf.</td>
+</tr>
+<tr><td>6.0.0</td>
+<td>03-08-2021</td>
+</tr>
+<tr><td>-</td>
+<td>NEW By popular request, Scroll now also publishes each article to its own page.</td>
+</tr>
+<tr><td>-</td>
+<td>NEW Fewer links. Do less. KISS.</td>
+</tr>
+<tr><td>-</td>
+<td>NEW Better perf.</td>
+</tr>
+<tr><td>-</td>
+<td>NEW Added "permalink" nodeType</td>
+</tr>
+<tr><td>5.0.0</td>
+<td>02-28-2021</td>
+</tr>
+<tr><td>-</td>
+<td>NEW Changed name of everything from dumbdown to Scroll per user feedback</td>
+</tr>
+<tr><td>-</td>
+<td>BREAKING File extension of articles needs to be "scroll" and not "dd" now.</td>
+</tr>
+<tr><td>4.2.0</td>
+<td>02-22-2021</td>
+</tr>
+<tr><td>-</td>
+<td>FIX Fixed paragraph parsing and rendering</td>
+</tr>
+<tr><td>4.1.0</td>
+<td>02-22-2021</td>
+</tr>
+<tr><td>-</td>
+<td>NEW added a "git" scrollSetting for article source links.</td>
+</tr></tbody></table>
 
 <h4>Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?</h4>
 

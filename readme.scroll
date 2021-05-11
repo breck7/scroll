@@ -196,31 +196,39 @@ paragraph
  and <a href="https://github.com/breck7/brecksblog">Brecksblog</a> were the two
  biggest inspirations.
 
-title4 What has changed in recent major versions?
+title4 What changed in recent major versions?
 
-code
- Version 9.0.0 released on 05-05-2021
-  Scrolldown now has a quote nodeType.
-  Code block format bug fixes.
-  Styling improvements
- Version 8.0.0 released on 04-10-2021
-  Scroll now just builds files. No web server needed.
- Version 7.0.0 released on 04-03-2021
-  Scroll the language is now called Scrolldown (thanks FB!).
-  Bug fixes.
-  Better perf.
- Version 6.0.0 released on 03-08-2021
-  By popular request, Scroll now also publishes each article to its own page.
-  Fewer links. Do less. KISS.
-  Better perf.
-  "permalink" is now a scroll keyword.
- Version 5.0.0 released on 02-28-2021
-  changed name of everything from dumbdown to Scroll per user feedback
-  BREAKING file extension of articles needs to be "scroll" and not "dd" now.
- Version 4.2.0 released on 02-22-2021
-  fixed paragraph parsing and rendering
- Version 4.1.0 released on 02-22-2021
-  added a "git" scrollSetting for article source links.
+table
+ Version Description
+ 10.0.0 05-10-2021
+ - NEW Added table nodeType for SSVs with linkify
+ - NEW Better docs in Scrolldown grammar
+ - BREAKING Removed list nodeType
+ - BREAKING Removed link nodeType
+ - FIX Windows return character fix
+ - FIX multiline support in subheader nodeTypes
+ 9.0.0 05-05-2021
+ - NEW Scrolldown now has a quote nodeType.
+ - FIX Code block format bug fixes.
+ - FIX Styling improvements
+ 8.0.0 04-10-2021
+ - INFRA Scroll now just builds files. No web server needed.
+ 7.0.0 04-03-2021
+ - INFRA Scroll the language is now called Scrolldown (thanks FB!).
+ - FIX Bug fixes.
+ - NEW Better perf.
+ 6.0.0 03-08-2021
+ - NEW By popular request, Scroll now also publishes each article to its own page.
+ - NEW Fewer links. Do less. KISS.
+ - NEW Better perf.
+ - NEW Added "permalink" nodeType
+ 5.0.0 02-28-2021
+ - NEW Changed name of everything from dumbdown to Scroll per user feedback
+ - BREAKING File extension of articles needs to be "scroll" and not "dd" now.
+ 4.2.0 02-22-2021
+ - FIX Fixed paragraph parsing and rendering
+ 4.1.0 02-22-2021
+ - NEW added a "git" scrollSetting for article source links.
 
 title4 Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
 

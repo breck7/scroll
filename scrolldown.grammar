@@ -84,25 +84,26 @@ rowNode
       column++
       const content = columnCount === column ? words.slice(columnCount - 1).join(" ") : words[column - 1]
       const linkified = jtree.Utils.linkify(content)
-      str += `<td>${linkified}</td>`
+      str += `<td>${linkified}</td>\n`
     }
     return str
   }
 tableNode
  crux table
+ description Space Separated Values table with linkify. Last column is a catch all.
  catchAllNodeType rowNode
  extends abstractTopLevelNode
  javascript
   get tableHeader() {
     const header = this.nodeAt(0)
-    return header ? header.getWords().map(word => `<th>${word}</th>`) : []
+    return header ? header.getWords().map(word => `<th>${word}</th>\n`) : []
   }
   getTableBody(columnCount) {
-    return this._children.slice(1).map(node => `<tr>${node.toRow(columnCount)}</tr>`).join("")
+    return this.getTopDownArray().slice(1).map(node => `<tr>${node.toRow(columnCount)}</tr>`).join("\n")
   }
   compile() {
      const tableHeader = this.tableHeader
-     return `<table><thead><tr>${tableHeader.join("")}</tr></thead><tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
+     return `<table><thead><tr>${tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
    }
 blankLineNode
  description Blank lines compile to nothing in the HTML.
