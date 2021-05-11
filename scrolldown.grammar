@@ -58,6 +58,10 @@ codeNode
    return `<code class="scrollCodeBlock">${this.getIndentation() +  this.childrenToString().replace(/\</g, "&lt;")}</code>`
   }
  crux code
+codeWithLanguageNode
+ description Use this to specify the language of the code block, such as csvCode or rustCode.
+ extends codeNode
+ pattern ^[a-zA-Z0-9_]+Code$
 lineOfCodeNode
  catchAllCellType codeCell
  catchAllNodeType lineOfCodeNode
