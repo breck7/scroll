@@ -88,6 +88,7 @@ html
  img
   max-width 35ch
  .scrollCodeBlock,table,blockquote
+  display block
   margin .5em 0
   padding .5em
   background rgba(204,204,204, .5)
@@ -97,7 +98,6 @@ html
   font-size 80%
   hyphens none
  .scrollCodeBlock
-  display block
   white-space pre
   border-left .5em solid rgba(204,204,204, .8)
  blockquote
