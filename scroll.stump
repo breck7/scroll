@@ -42,3 +42,6 @@ html
   div
    class scrollFooter
    socialMediaLinksComponent
+   a Built with Scroll
+    href https://scroll.publicdomaincompany.com/
+    class scrollCommunityLink

@@ -28,6 +28,14 @@ html
   &:hover
    fill #333
 
+.scrollCommunityLink
+ display block
+ font-family Verdana
+ font-weight 100
+ margin .5em
+ text-decoration none
+ color rgba(204,204,204, .5)
+
 .scrollTopRightBar
  text-align right
  position absolute
