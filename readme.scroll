@@ -184,6 +184,20 @@ paragraph
  This was originally a bug. But then it turns out to be a feature, as it
  gives older articles, which are often more important, more visibility.
 
+title4 Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
+
+paragraph
+ Yes. In the <a href="https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar">Tree Language Designer</a>.
+
+title4 How do I check for broken links?
+
+paragraph
+ Scroll does not check for broken links. For that, try <a href="https://github.com/JustinBeckwith/linkinator">linkinator</a>
+
+code
+ npm install -g linkinator
+ linkinator example.com
+
 title4 What were some alternatives considered?
 
 paragraph
@@ -244,11 +258,6 @@ list
 title6 4.1.0 02-22-2021
 list
  - NEW "git" scrollSetting for article source links.
-
-title4 Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
-
-paragraph
- Yes. In the <a href="https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar">Tree Language Designer</a>.
 
 title3 Contributing to Scroll Development
 
