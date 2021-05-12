@@ -196,7 +196,7 @@ paragraph
 
 code
  npm install -g linkinator
- linkinator example.com
+ linkinator example.com > report.txt
 
 title4 What were some alternatives considered?
 
