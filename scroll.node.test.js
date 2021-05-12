@@ -98,7 +98,7 @@ testTree.errorStates = async areEqual => {
 		areEqual(typeof msg, "string")
 
 		// Act
-		const result = await cli.createCommand(tempFolder)
+		const result = await cli.initCommand(tempFolder)
 		areEqual(fs.existsSync(tempFolder + SCROLL_SETTINGS_FILENAME), true)
 
 		const builder = new ScrollBuilder(tempFolder).silence()

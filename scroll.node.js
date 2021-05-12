@@ -368,12 +368,13 @@ class ScrollCli {
 			.sort()
 	}
 
-	async createCommand(cwd) {
+	async initCommand(cwd) {
 		const builder = new ScrollBuilder()
 		const template = replaceAll(builder.toStamp(), builder.scrollFolder, "")
-		this.log(`Creating scroll in "${cwd}"`)
+		if (isScrollFolder(cwd)) return this.log(`❌ Initialization aborted. Folder '${cwd}' already contains a '${SCROLL_SETTINGS_FILENAME}'.`)
+		this.log(`Initializing scroll in "${cwd}"`)
 		await new stamp(template).silence().execute(cwd)
-		return this.log(`\n👍 Scroll created! Build your new site with: scroll build`)
+		return this.log(`\n👍 Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
 	}
 
 	deleteCommand() {
