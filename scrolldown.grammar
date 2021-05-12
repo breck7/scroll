@@ -117,6 +117,7 @@ linkNode
  compiler
   stringTemplate <li><a href="{urlCell}">{textCell}</a></li>
 linksNode
+ description Links listed as: {url} {link text}
  catchAllNodeType linkNode
  crux links
  extends abstractTopLevelNode
@@ -130,6 +131,7 @@ listItemNode
  compiler
   stringTemplate <li>{textCell}</li>
 listNode
+ description An unordered list.
  catchAllNodeType listItemNode
  crux list
  extends abstractTopLevelNode
