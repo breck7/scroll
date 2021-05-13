@@ -136,7 +136,7 @@ paragraph
  written in <a href="https://jtree.treenotation.org/designer/#standard%20hakon">Hakon</a>.
  The HTML is written in <a href="https://jtree.treenotation.org/designer/#standard%20stump"> stump</a>.
 
-paragraph 
+paragraph
  TypeScript may be used in the future but Scroll may
  never get over 1kloc so that might not be necessary.
 
@@ -196,7 +196,7 @@ paragraph
 
 code
  npm install -g linkinator
- linkinator example.com > report.txt
+ linkinator https://scroll.publicdomaincompany.com > report.txt
 
 title4 What were some alternatives considered?
 
@@ -207,6 +207,12 @@ paragraph
  biggest inspirations.
 
 title4 What changed in recent major versions?
+
+title6 12.0.0 05-12-2021
+list
+ - NOTICE scroll create is now scroll init
+ - NOTICE Removed export command
+ - INFRA removed example.com folder. Less code and now flat.
 
 title6 11.0.0 05-11-2021
 list

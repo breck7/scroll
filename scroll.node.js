@@ -31,7 +31,6 @@ const SCROLL_SETTINGS_FILENAME = "scrollSettings.map"
 const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, SCROLL_HAKON_FILENAME, SCROLL_STUMP_FILENAME].join("|")}$`)
 
 const SCROLL_SRC_FOLDER = __dirname + "/"
-const exampleFolder = SCROLL_SRC_FOLDER + "example.com/"
 const CommandFnDecoratorSuffix = "Command"
 const scrollBoilerplateCompiledMessage = `<!--
 
@@ -158,7 +157,7 @@ paragraph
 
 // todo: probably merge this into ScrollCLI
 class ScrollBuilder {
-	constructor(scrollFolder = `${exampleFolder}`) {
+	constructor(scrollFolder = __dirname) {
 		this.scrollFolder = path.normalize(scrollFolder + "/")
 	}
 
@@ -370,6 +369,7 @@ class ScrollCli {
 
 	async initCommand(cwd) {
 		const builder = new ScrollBuilder()
+		// todo: ditch stamp here? we may soon be simply creating one readme.scroll file, which contains the settings.
 		const template = replaceAll(builder.toStamp(), builder.scrollFolder, "")
 		if (isScrollFolder(cwd)) return this.log(`❌ Initialization aborted. Folder '${cwd}' already contains a '${SCROLL_SETTINGS_FILENAME}'.`)
 		this.log(`Initializing scroll in "${cwd}"`)
@@ -432,12 +432,6 @@ class ScrollCli {
 
 	helpCommand() {
 		return this.log(`\nThis is the Scroll help page.\n\nCommands you can run from your Scroll's folder:\n\n${this._allCommands.map(comm => `🖌️ ` + comm.replace(CommandFnDecoratorSuffix, "")).join("\n")}\n​​`)
-	}
-
-	exportCommand(cwd) {
-		const fullPath = resolvePath(cwd)
-		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
-		return this.log(new ScrollBuilder(fullPath).toStamp())
 	}
 }
 

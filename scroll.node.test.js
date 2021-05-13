@@ -2,7 +2,7 @@ const tap = require("tap")
 const { ScrollBuilder, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME } = require("./scroll.node.js")
 const fs = require("fs")
 
-const pathToExample = __dirname + "/example.com/"
+const testString = "Build your own public domain newspaper"
 const testPort = 5435
 
 const runTree = testTree =>
@@ -13,7 +13,7 @@ const runTree = testTree =>
 const testTree = {}
 
 testTree.builder = areEqual => {
-	const builder = new ScrollBuilder(pathToExample)
+	const builder = new ScrollBuilder()
 	builder.verbose = false
 	builder.startWatching(testPort)
 
@@ -23,7 +23,7 @@ testTree.builder = areEqual => {
 }
 
 testTree.scroll = areEqual => {
-	areEqual(new ScrollBuilder(pathToExample).indexPage.includes("music"), true)
+	areEqual(new ScrollBuilder().indexPage.includes(testString), true)
 }
 
 testTree.fullIntegrationTest = areEqual => {
@@ -70,13 +70,10 @@ testTree.cli = async areEqual => {
 	areEqual(cli.helpCommand().includes("help page"), true)
 
 	// Act/Assert
-	areEqual(cli.exportCommand(pathToExample).includes("hello-world"), true)
-
-	// Act/Assert
 	areEqual(cli.deleteCommand().includes("delete"), true)
 
 	// Act/Assert
-	const builder = await cli.buildCommand(pathToExample)
+	const builder = await cli.buildCommand()
 	areEqual(!!builder, true)
 
 	// Act/Assert
@@ -90,8 +87,6 @@ testTree.errorStates = async areEqual => {
 		fs.mkdirSync(tempFolder)
 		const cli = new ScrollCli()
 		cli.verbose = false
-		// Act/Assert
-		areEqual(cli.exportCommand(tempFolder).includes("❌"), true)
 
 		// Act/Assert
 		const msg = await cli.buildCommand(tempFolder)
@@ -103,16 +98,16 @@ testTree.errorStates = async areEqual => {
 
 		const builder = new ScrollBuilder(tempFolder).silence()
 		const singleFile = builder.buildIndexPage()
-		areEqual(singleFile.includes("all the main node types"), true)
+		areEqual(singleFile.includes(testString), true)
 
 		// Act
 		const singlePages = builder.writeSinglePages()
 
 		// Assert
-		areEqual(singlePages.length, 2)
+		areEqual(singlePages.length, 1)
 
 		// Assert
-		const singlePageTitleSnippet = `<title>Hello`
+		const singlePageTitleSnippet = `Scroll</title>`
 		areEqual(singlePages[0].html.includes(singlePageTitleSnippet), true)
 
 		areEqual(builder.errors.flat().length, 0)
