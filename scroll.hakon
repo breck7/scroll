@@ -15,6 +15,23 @@ html
 .scrollHeader,.scrollFooter
  text-align center
 
+.scrollChat
+ span
+  font-family Verdana
+  margin-top 5px
+  padding 5px 20px
+  border-radius 15px
+  display inline-block
+.scrollChat0
+ text-align left
+ span
+  background rgba(204,204,204, .5)
+.scrollChat1
+ text-align right
+ span
+  color white
+  background rgb(0,132,255)
+
 .scrollTitle
  a
   text-decoration none

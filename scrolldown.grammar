@@ -57,7 +57,7 @@ codeNode
  extends abstractTopLevelNode
  javascript
   compile() {
-   return `<code class="scrollCodeBlock">${this.getIndentation() +  this.childrenToString().replace(/\</g, "&lt;")}</code>`
+   return `<code class="scrollCodeBlock">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
   }
  crux code
 codeWithLanguageNode
@@ -67,13 +67,25 @@ codeWithLanguageNode
 lineOfCodeNode
  catchAllCellType codeCell
  catchAllNodeType lineOfCodeNode
+chatLineNode
+ catchAllCellType anyCell
+ catchAllNodeType chatLineNode
+chatNode
+ description A dialogue between two people.
+ catchAllNodeType chatLineNode
+ crux chat
+ extends abstractTopLevelNode
+ javascript
+  compile() {
+   return this.map((line, index) => `<div class="scrollChat scrollChat${index % 2}"><span>${line.toString()}</span></div>`).join("")
+  }
 quoteNode
  description A blockquote.
  catchAllNodeType quoteLineNode
  extends abstractTopLevelNode
  javascript
   compile() {
-   return `<blockquote>${this.getIndentation() + this.childrenToString()}</blockquote>`
+   return `<blockquote>${this.childrenToString()}</blockquote>`
   }
  crux quote
 quoteLineNode

@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v12.0.0
+ Scroll v12.1.0
 
 -->
 <html lang="en-US">
@@ -29,6 +29,26 @@ html {
 }
 .scrollHeader,.scrollFooter {
   text-align: center;
+}
+.scrollChat span {
+  font-family: Verdana;
+  margin-top: 5px;
+  padding: 5px 20px;
+  border-radius: 15px;
+  display: inline-block;
+}
+.scrollChat0 {
+  text-align: left;
+}
+.scrollChat0 span {
+  background: rgba(204,204,204, .5);
+}
+.scrollChat1 {
+  text-align: right;
+}
+.scrollChat1 span {
+  color: white;
+  background: rgb(0,132,255);
 }
 .scrollTitle a {
   text-decoration: none;
@@ -337,6 +357,13 @@ and <a href="https://github.com/breck7/brecksblog">Brecksblog</a> were the two
 biggest inspirations.</p>
 
 <h4>What changed in recent major versions?</h4>
+
+<h6>12.0.0 05-12-2021</h6>
+<ul>
+ <li>NOTICE scroll create is now scroll init</li>
+ <li>NOTICE Removed export command</li>
+ <li>INFRA removed example.com folder. Less code and now flat.</li>
+</ul>
 
 <h6>11.0.0 05-11-2021</h6>
 <ul>
