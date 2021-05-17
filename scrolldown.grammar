@@ -47,7 +47,22 @@ paragraphNode
  crux paragraph
  javascript
   compile() {
-   return `<p>${this.childrenToString()}</p>`
+   // TODO: this is manually copy and pasted from scroll.node.js
+   const linkReplacer = (match, p1, p2, p3, p4, offset, str) => {
+     if (p3.endsWith(",")) p4 = "," + p4
+     if (p3.endsWith(".")) p4 = "." + p4
+     p3 = p3.replace(/(,|\.)$/, "")
+     let prefix = "https://"
+     const isRelativeLink = p3.startsWith("./")
+     if (isRelativeLink) {
+       prefix = ""
+       p3 = p3.substr(2)
+     }
+     if (p3.startsWith("https://")) prefix = ""
+     return `${p1}<a href="${prefix}${p3}">${p2}</a>${p4}`
+   }
+   const compileATags = text => text.replace(/(^|\s)(\S+)🔗(\S+)(\s|$)/g, linkReplacer)
+   return `<p>${compileATags(this.childrenToString())}</p>`
   }
 paragraphContentNode
  catchAllCellType textCell
@@ -185,6 +200,13 @@ permalinkNode
  crux permalink
  extends abstractTopLevelSingleMetaNode
  cells keywordCell permalinkCell
+ compiler
+  stringTemplate 
+skipIndexPageNode
+ description Add this tag if you want to build a page but not include it in the index page.
+ crux skipIndexPage
+ extends abstractTopLevelSingleMetaNode
+ cells keywordCell
  compiler
   stringTemplate 
 titleNode

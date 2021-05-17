@@ -2,5 +2,4 @@ node_modules/
 .nyc_output/
 coverage/
 .DS_Store
-readme.html
 package-lock.json

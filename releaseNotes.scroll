@@ -1,0 +1,99 @@
+title Release Notes
+skipIndexPage
+
+paragraph
+ Here's a list of the notable changes in Scroll and Scrolldown.
+
+title4 13.0.0 05-17-2021
+list
+ - NEW 🔗links in paragraph nodes.
+ - NEW skipIndexPage nodeType
+
+title5 Single word links
+
+paragraph
+ For single word links in paragraph nodes only (for now) you can now do:
+
+code
+ paragraph
+  This is a link🔗example.com
+
+paragraph
+ Below is a regex for migrating existing <code>*.scroll</code> files.
+
+code
+ <a href="https://([^"]+)">([^ ]+)</a>
+ $2🔗$1
+
+title5 Not including a page in the index
+
+paragraph
+ Sometimes you just want to publish an independent page without including it
+ in the index. To do that, just add <code>skipIndexPage</code>.
+
+title4 12.1.0 05-14-2021
+list
+ - NEW chat nodeType
+
+chat
+ You can now do dialogues
+ Cool!
+
+title4 12.0.0 05-12-2021
+list
+ - NOTICE scroll create is now scroll init
+ - NOTICE Removed export command
+ - INFRA removed example.com folder. Less code and now flat.
+
+title4 11.0.0 05-11-2021
+list
+ - NEW list, orderedList, and links node types
+ - NEW codeWithLanguageNode
+ - FIX HTML escaped in code blocks
+
+title4 10.0.0 05-10-2021
+list
+ - NEW table nodeType for SSVs with linkify
+ - NEW Better docs in Scrolldown grammar
+ - BREAKING Removed list nodeType
+ - BREAKING Removed link nodeType
+ - FIX Windows return character fix
+ - FIX multiline support in subheader nodeTypes
+ 
+title4 9.0.0 05-05-2021
+list
+ - NEW Scrolldown now has a quote nodeType.
+ - FIX Code block format bug fixes.
+ - FIX Styling improvements
+
+title4 8.0.0 04-10-2021
+list
+ - INFRA Scroll now just builds files. No web server needed.
+
+title4 7.0.0 04-03-2021
+list
+ - INFRA Scroll the language is now called Scrolldown (thanks FB!).
+ - FIX Bug fixes.
+ - NEW Better perf.
+
+title4 6.0.0 03-08-2021
+list
+ - NEW By popular request, Scroll now also publishes each article to its own page.
+ - NEW Fewer links. Do less. KISS.
+ - NEW Better perf.
+ - NEW "permalink" nodeType
+
+title4 5.0.0 02-28-2021
+list
+ - NEW Changed name of everything from dumbdown to Scroll per user feedback
+ - BREAKING File extension of articles needs to be "scroll" and not "dd" now.
+
+title4 4.2.0 02-22-2021
+list
+ - FIX Fixed paragraph parsing and rendering
+
+title4 4.1.0 02-22-2021
+list
+ - NEW "git" scrollSetting for article source links.
+
+

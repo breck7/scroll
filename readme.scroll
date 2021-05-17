@@ -1,4 +1,5 @@
 title 📜 Scroll: Build your own public domain newspaper.
+permalink index
 
 paragraph
  <a href="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml/badge.svg" style="width: 49%;"/></a> <a href="https://gitpod.io/#https://github.com/publicdomaincompany/scroll"><img style="width: 49%;" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod"/></a>
@@ -32,21 +33,19 @@ paragraph
 title4 How do I get Scroll?
 
 paragraph
- The instant way is to <a href="https://gitpod.io/#https://github.com/publicdomaincompany/scroll">try Scroll in GitPod</a>.
+ The instant way is to try Scroll in GitPod🔗gitpod.io/#https://github.com/publicdomaincompany/scroll.
 
 paragraph
  Scroll is a command line app you install on your local machine. Scroll requires basic familiarity with the command line
- and <a href="https://nodejs.org/en/">NodeJs</a> >=14. If you do not have NodeJs on your machine, one
- way is to install <a href="https://github.com/tj/n">n</a> which
- makes it easy to get NodeJs.
+ and NodeJs🔗nodejs.org >=14. If you do not have NodeJs on your machine, one
+ way is to install n🔗github.com/tj/n which makes it easy to get NodeJs.
 
 paragraph
  If you would like to use Scroll but aren't familiar with the command
  line, please open an issue and we may be able to help.
 
 paragraph
- Once you have NodeJs installed, Scroll is <a
- href="https://www.npmjs.com/package/scroll-cli">scroll-cli on npm</a>.
+ Once you have NodeJs installed, Scroll is scroll-cli🔗www.npmjs.com/package/scroll-cli on npm.
 
 paragraph
  You can install the Scroll command line app by typing:
@@ -88,7 +87,7 @@ paragraph
  simple fs watch app for live preview.
 
 paragraph
- Scrolldown is the name of a Tree Language defined in this <a href="https://github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar">grammar</a>.
+ Scrolldown is the name of a Tree Language defined in this grammar🔗github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar.
 
 title4 What does a typical project folder look like?
 
@@ -125,16 +124,15 @@ title4 What File Formats does Scroll use?
 
 paragraph
  Scroll articles are written as Scrolldown files with the file
- extension `scroll`. The grammar for Scrolldown is fully defined
- <a href="https://github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar">here</a>
+ extension `scroll`. The grammar for Scrolldown is defined here🔗github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar.
 
 title4 What languages is Scroll written in?
 
 paragraph
  The Scroll app is written in plain Javascript and
  runs in Node.js. Scroll makes heavy use of Tree Languages. The CSS is
- written in <a href="https://jtree.treenotation.org/designer/#standard%20hakon">Hakon</a>.
- The HTML is written in <a href="https://jtree.treenotation.org/designer/#standard%20stump"> stump</a>.
+ written in Hakon🔗jtree.treenotation.org/designer/#standard%20hakon.
+ The HTML is written in stump🔗jtree.treenotation.org/designer/#standard%20stump.
 
 paragraph
  TypeScript may be used in the future but Scroll may
@@ -187,83 +185,29 @@ paragraph
 title4 Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
 
 paragraph
- Yes. In the <a href="https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar">Tree Language Designer</a>.
+ Yes. In the Tree Language Designer🔗jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar.
 
 title4 How do I check for broken links?
 
 paragraph
- Scroll does not check for broken links. For that, try <a href="https://github.com/JustinBeckwith/linkinator">linkinator</a>
+ Scroll does not check for broken links. For that, try linkinator🔗github.com/JustinBeckwith/linkinator.
 
 code
  npm install -g linkinator
- linkinator https://scroll.publicdomaincompany.com > report.txt
+ linkinator https://scroll.publicdomaincompany.com > brokenLinks.txt
 
 title4 What were some alternatives considered?
 
 paragraph
  There was no publishing software that reads and writes Scrolldown yet
- so building Scroll was necessary. <a href="https://jekyllrb.com/">Jekyll</a>
- and <a href="https://github.com/breck7/brecksblog">Brecksblog</a> were the two
+ so building Scroll was necessary. Jekyll🔗jekyllrb.com
+ and Brecksblog🔗github.com/breck7/brecksblog were the two
  biggest inspirations.
 
-title4 What changed in recent major versions?
+title4 What has changed in recent versions?
 
-title6 12.0.0 05-12-2021
-list
- - NOTICE scroll create is now scroll init
- - NOTICE Removed export command
- - INFRA removed example.com folder. Less code and now flat.
-
-title6 11.0.0 05-11-2021
-list
- - NEW list, orderedList, and links node types
- - NEW codeWithLanguageNode
- - FIX HTML escaped in code blocks
-
-title6 10.0.0 05-10-2021
-list
- - NEW table nodeType for SSVs with linkify
- - NEW Better docs in Scrolldown grammar
- - BREAKING Removed list nodeType
- - BREAKING Removed link nodeType
- - FIX Windows return character fix
- - FIX multiline support in subheader nodeTypes
- 
-title6 9.0.0 05-05-2021
-list
- - NEW Scrolldown now has a quote nodeType.
- - FIX Code block format bug fixes.
- - FIX Styling improvements
-
-title6 8.0.0 04-10-2021
-list
- - INFRA Scroll now just builds files. No web server needed.
-
-title6 7.0.0 04-03-2021
-list
- - INFRA Scroll the language is now called Scrolldown (thanks FB!).
- - FIX Bug fixes.
- - NEW Better perf.
-
-title6 6.0.0 03-08-2021
-list
- - NEW By popular request, Scroll now also publishes each article to its own page.
- - NEW Fewer links. Do less. KISS.
- - NEW Better perf.
- - NEW "permalink" nodeType
-
-title6 5.0.0 02-28-2021
-list
- - NEW Changed name of everything from dumbdown to Scroll per user feedback
- - BREAKING File extension of articles needs to be "scroll" and not "dd" now.
-
-title6 4.2.0 02-22-2021
-list
- - FIX Fixed paragraph parsing and rendering
-
-title6 4.1.0 02-22-2021
-list
- - NEW "git" scrollSetting for article source links.
+paragraph
+ View the releaseNotes🔗./releaseNotes.html.
 
 title3 Contributing to Scroll Development
 

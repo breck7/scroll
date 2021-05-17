@@ -45,6 +45,12 @@ const scrollBoilerplateCompiledMessage = `<!--
 
 -->`
 
+const initReadmePage = `title Hello world
+date ${dayjs().format(`MM-DD-YYYY`)}
+
+paragraph
+ This is my new Scroll.`
+
 const cssClasses = {
 	scrollPage: "scrollPage",
 	scrollArticleCell: "scrollArticleCell",
@@ -55,8 +61,29 @@ const cssClasses = {
 const scrollKeywords = {
 	permalink: "permalink",
 	date: "date",
-	importFrom: "importFrom"
+	importFrom: "importFrom",
+	skipIndexPage: "skipIndexPage"
 }
+
+// LinkSuffixLang. [anyWord🔗absoluteUrl] or [anyWord🔗./relativeUrl]
+// anyWord text cannot contain 🔗
+// url should not contain the protocol. It will compile always to https. Use <a> if you need something else.
+// If url ends in a period, that will be dropped.
+// Url cannot contain a comma.
+const linkReplacer = (match, p1, p2, p3, p4, offset, str) => {
+	if (p3.endsWith(",")) p4 = "," + p4
+	if (p3.endsWith(".")) p4 = "." + p4
+	p3 = p3.replace(/(,|\.)$/, "")
+	let prefix = "https://"
+	const isRelativeLink = p3.startsWith("./")
+	if (isRelativeLink) {
+		prefix = ""
+		p3 = p3.substr(2)
+	}
+	if (p3.startsWith("https://")) prefix = ""
+	return `${p1}<a href="${prefix}${p3}">${p2}</a>${p4}`
+}
+const compileATags = text => text.replace(/(^|\s)(\S+)🔗(\S+)(\s|$)/g, linkReplacer)
 
 // Helper utils
 const read = filename => fs.readFileSync(filename, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.
@@ -88,6 +115,10 @@ class Article {
 
 	get permalink() {
 		return this.asTree.get(scrollKeywords.permalink) || path.basename(this.sourceLink).replace(/\.scroll$/, "")
+	}
+
+	get includeInIndex() {
+		return !this.asTree.has(scrollKeywords.skipIndexPage)
 	}
 
 	get title() {
@@ -200,7 +231,7 @@ class ScrollBuilder {
 	}
 
 	get indexPage() {
-		return this.articlesToHtml(this.publishedArticles)
+		return this.articlesToHtml(this.publishedArticles.filter(article => article.includeInIndex))
 	}
 
 	get hakon() {
@@ -373,7 +404,8 @@ class ScrollCli {
 		const template = replaceAll(builder.toStamp(), builder.scrollFolder, "")
 		if (isScrollFolder(cwd)) return this.log(`❌ Initialization aborted. Folder '${cwd}' already contains a '${SCROLL_SETTINGS_FILENAME}'.`)
 		this.log(`Initializing scroll in "${cwd}"`)
-		await new stamp(template).silence().execute(cwd)
+		write(cwd + "/" + SCROLL_SETTINGS_FILENAME, read(__dirname + "/" + SCROLL_SETTINGS_FILENAME))
+		write(cwd + "/readme.scroll", initReadmePage)
 		return this.log(`\n👍 Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
 	}
 
@@ -449,4 +481,4 @@ class MarkdownFile {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollBuilder, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME }
+module.exports = { ScrollBuilder, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME, compileATags }

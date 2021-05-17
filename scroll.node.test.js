@@ -1,5 +1,5 @@
 const tap = require("tap")
-const { ScrollBuilder, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME } = require("./scroll.node.js")
+const { ScrollBuilder, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME, compileATags } = require("./scroll.node.js")
 const fs = require("fs")
 
 const testString = "Build your own public domain newspaper"
@@ -20,6 +20,21 @@ testTree.builder = areEqual => {
 	areEqual(!!builder.watcher, true)
 
 	builder.stopWatchingForFileChanges()
+}
+
+testTree.compileATags = areEqual => {
+	const tests = [
+		{ input: `this🔗example.com`, expected: `<a href="https://example.com">this</a>` },
+		{ input: `this🔗https://example.com`, expected: `<a href="https://example.com">this</a>` },
+		{ input: `this🔗example.com/`, expected: `<a href="https://example.com/">this</a>` },
+		{ input: `this🔗example.com/index.`, expected: `<a href="https://example.com/index">this</a>.` },
+		{ input: `this🔗./foo.html, bar`, expected: `<a href="foo.html">this</a>, bar` },
+		{ input: `View the releaseNotes🔗./releaseNotes.html.`, expected: `View the <a href="releaseNotes.html">releaseNotes</a>.` }
+	]
+
+	tests.forEach(example => {
+		areEqual(compileATags(example.input), example.expected)
+	})
 }
 
 testTree.scroll = areEqual => {
