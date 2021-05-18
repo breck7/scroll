@@ -23,6 +23,24 @@ scrolldownNode
  inScope abstractTopLevelNode blankLineNode
  catchAllNodeType quickParagraphNode
  compilesTo html
+ javascript
+  compileATags(text) {
+  // TODO: this is manually copy and pasted from scroll.node.js
+   const linkReplacer = (match, p1, p2, p3, p4, offset, str) => {
+     if (p3.endsWith(",")) p4 = "," + p4
+     if (p3.endsWith(".")) p4 = "." + p4
+     p3 = p3.replace(/(,|\.)$/, "")
+     let prefix = "https://"
+     const isRelativeLink = p3.startsWith("./")
+     if (isRelativeLink) {
+       prefix = ""
+       p3 = p3.substr(2)
+     }
+     if (p3.startsWith("https://")) prefix = ""
+     return `${p1}<a href="${prefix}${p3}">${p2}</a>${p4}`
+   }
+   return text.replace(/(^|\s)(\S+)🔗(\S+)(\s|$)/g, linkReplacer)
+  }
  example
   title Hello world
   title2 This is Scrolldown
@@ -47,22 +65,7 @@ paragraphNode
  crux paragraph
  javascript
   compile() {
-   // TODO: this is manually copy and pasted from scroll.node.js
-   const linkReplacer = (match, p1, p2, p3, p4, offset, str) => {
-     if (p3.endsWith(",")) p4 = "," + p4
-     if (p3.endsWith(".")) p4 = "." + p4
-     p3 = p3.replace(/(,|\.)$/, "")
-     let prefix = "https://"
-     const isRelativeLink = p3.startsWith("./")
-     if (isRelativeLink) {
-       prefix = ""
-       p3 = p3.substr(2)
-     }
-     if (p3.startsWith("https://")) prefix = ""
-     return `${p1}<a href="${prefix}${p3}">${p2}</a>${p4}`
-   }
-   const compileATags = text => text.replace(/(^|\s)(\S+)🔗(\S+)(\s|$)/g, linkReplacer)
-   return `<p>${compileATags(this.childrenToString())}</p>`
+   return `<p>${this.getRootNode().compileATags(this.childrenToString())}</p>`
   }
 paragraphContentNode
  catchAllCellType textCell
@@ -144,7 +147,7 @@ linkNode
  compiler
   stringTemplate <li><a href="{urlCell}">{textCell}</a></li>
 linksNode
- description Links listed as: {url} {link text}
+ description Links listed as: {url} {link text}. Notice: This will be removed.
  catchAllNodeType linkNode
  crux links
  extends abstractTopLevelNode
@@ -155,8 +158,10 @@ linksNode
 listItemNode
  cells bulletPointCell
  catchAllCellType textCell
- compiler
-  stringTemplate <li>{textCell}</li>
+ javascript
+  compile() {
+    return `<li>${this.getRootNode().compileATags(this.getContent() || "")}</li>`
+  }
 listNode
  description An unordered list.
  catchAllNodeType listItemNode
