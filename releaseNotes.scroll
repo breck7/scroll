@@ -4,6 +4,23 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 13.3.0 05-18-2021
+list
+ - NEW html and image node types
+
+paragraph
+ To use an image node:
+
+code
+ image foo.jpg
+
+paragraph
+ QuickParagraphs are now an error. When you want to drop in some HTML, do so with HTML node:
+
+code
+ html
+  <b>anything goes here</b>
+
 title4 13.2.0 05-18-2021
 list
  - NEW Added <code>scroll check</code> command
