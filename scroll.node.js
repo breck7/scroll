@@ -13,7 +13,6 @@ const open = require("open")
 // Tree Notation Includes
 const { jtree } = require("jtree")
 const { TreeNode, Utils } = jtree
-const stamp = require("jtree/products/stamp.nodejs.js")
 const hakon = require("jtree/products/hakon.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
 const { Disk } = require("jtree/products/Disk.node.js")
@@ -357,21 +356,6 @@ class ScrollBuilder {
 		this.watcher.close()
 		delete this.watcher
 	}
-
-	// todo: current stamp sucks compared to what it could be. Perhaps use Pappy's
-	toStamp() {
-		const providedPathWithoutEndingSlash = this.scrollFolder.replace(/\/$/, "")
-		const absPath = path.resolve(providedPathWithoutEndingSlash)
-
-		return Disk.getFiles(absPath)
-			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION) || file.endsWith(SCROLL_SETTINGS_FILENAME))
-			.map(
-				path => `file ${path}
- data
-  ${cleanAndRightShift(read(path), 2)}`
-			)
-			.join("\n")
-	}
 }
 
 class ScrollCli {
@@ -400,8 +384,6 @@ class ScrollCli {
 
 	async initCommand(cwd) {
 		const builder = new ScrollBuilder()
-		// todo: ditch stamp here? we may soon be simply creating one readme.scroll file, which contains the settings.
-		const template = replaceAll(builder.toStamp(), builder.scrollFolder, "")
 		if (isScrollFolder(cwd)) return this.log(`❌ Initialization aborted. Folder '${cwd}' already contains a '${SCROLL_SETTINGS_FILENAME}'.`)
 		this.log(`Initializing scroll in "${cwd}"`)
 		write(cwd + "/" + SCROLL_SETTINGS_FILENAME, read(__dirname + "/" + SCROLL_SETTINGS_FILENAME))
@@ -430,19 +412,6 @@ class ScrollCli {
 	// 	return this.log(new ScrollServer(fullPath).errors)
 	// }
 
-	// todo:
-	// \[([^\]]+)\]\(([^\)]+)\) <a href="$2">$1</a>
-	// \*\*([^\*]+)\*\* <strong>$1</strong>
-	// \*([^\*]+)\* <em>$1</em>
-	// `([^`]+)` <code>$1</code>
-	// convertCommand(globPatterns) {
-	// 	if (!globPatterns.length) return this.log(`\n💡 To convert markdown files to Scroll pass a glob pattern like this "scroll convert *.md"\n`)
-
-	// 	const files = globPatterns.map(pattern => glob.sync(pattern)).flat()
-	// 	this.log(`${files.length} files to convert`)
-	// 	files.map(resolvePath).forEach(fullPath => write(fullPath, new MarkdownFile(read(fullPath)).toScroll()))
-	// }
-
 	async buildCommand(cwd) {
 		const fullPath = resolvePath(cwd)
 		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
@@ -467,18 +436,6 @@ class ScrollCli {
 	}
 }
 
-class MarkdownFile {
-	constructor(markdown) {
-		this.markdown = markdown
-	}
-
-	markdown = ""
-
-	toScroll() {
-		return this.markdown
-	}
-}
-
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollBuilder, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME, compileATags }
+module.exports = { ScrollBuilder, ScrollCli, Article, SCROLL_SETTINGS_FILENAME, compileATags }

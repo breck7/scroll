@@ -1,5 +1,5 @@
 const tap = require("tap")
-const { ScrollBuilder, ScrollCli, Article, MarkdownFile, SCROLL_SETTINGS_FILENAME, compileATags } = require("./scroll.node.js")
+const { ScrollBuilder, ScrollCli, Article, SCROLL_SETTINGS_FILENAME, compileATags } = require("./scroll.node.js")
 const fs = require("fs")
 
 const testString = "Build your own public domain newspaper"
@@ -51,16 +51,6 @@ testTree.import = async areEqual => {
 	cli.verbose = false
 	const result = await cli.importCommand()
 	areEqual(result.includes("You need to add a"), true)
-}
-
-testTree.markdown = areEqual => {
-	// Arrange
-	const mdFile = `# hello world`
-	// Act
-	const scrollFile = new MarkdownFile(mdFile).toScroll()
-
-	// Assert
-	areEqual(mdFile, scrollFile)
 }
 
 testTree.article = areEqual => {
