@@ -95,13 +95,15 @@ const cleanAndRightShift = (str, numSpaces = 0) => str.replace(/\r/g, "").replac
 const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scrollIcons.map")).toObject()
 
 class Article {
-	constructor(content = "", sourceLink = "") {
+	constructor(content = "", filename = "", sourceLink = "") {
 		this.content = content
 		this.sourceLink = sourceLink
+		this.filename = filename
 	}
 
 	content = ""
 	sourceLink = ""
+	filename = ""
 
 	get scrolldownCompiler() {
 		const grammarCode = [read(`${__dirname}/${SCROLLDOWN_GRAMMAR_FILENAME}`)].join("\n")
@@ -195,7 +197,7 @@ class ScrollBuilder {
 		const gitLink = this.gitLink
 		const all = Disk.getFiles(this.scrollFolder)
 			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-			.map(filename => new Article(read(filename), gitLink ? gitLink + path.basename(filename) : ""))
+			.map(filename => new Article(read(filename), path.basename(filename), gitLink ? gitLink + path.basename(filename) : ""))
 		return lodash.sortBy(all, article => article.timestamp).reverse()
 	}
 
@@ -204,7 +206,13 @@ class ScrollBuilder {
 	}
 
 	get errors() {
-		return this.publishedArticles.map(article => article.toScrolldownProgram.getAllErrors())
+		return this.publishedArticles
+			.map(article =>
+				article.toScrolldownProgram.getAllErrors().map(err => {
+					return { filename: article.filename, ...err.toObject() }
+				})
+			)
+			.flat()
 	}
 
 	get settings() {
@@ -404,13 +412,12 @@ class ScrollCli {
 		return this.log(result)
 	}
 
-	// checkCommand(args) {
-	// 	const folder = args[0]
-	// 	if (!folder) this._exit(`Folder name must be provided`)
-	// 	const fullPath = resolvePath(folder)
-	// 	this._ensureScrollFolderExists(fullPath)
-	// 	return this.log(new ScrollServer(fullPath).errors)
-	// }
+	checkCommand(cwd) {
+		const fullPath = resolvePath(cwd)
+		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
+		const errs = new ScrollBuilder(fullPath).errors
+		return this.log(errs.length ? new jtree.TreeNode(errs).toFormattedTable(200) : "0 errors")
+	}
 
 	async buildCommand(cwd) {
 		const fullPath = resolvePath(cwd)

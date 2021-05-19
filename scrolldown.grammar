@@ -269,5 +269,6 @@ dateNode
 quickParagraphNode
  description A catch all block. This may be removed in future versions.
  catchAllCellType textCell
+ baseNodeType errorNode
  compiler
   stringTemplate <p>{textCell}</p>

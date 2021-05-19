@@ -4,6 +4,14 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 13.2.0 05-18-2021
+list
+ - NEW Added <code>scroll check</code> command
+
+title4 13.1.0 05-18-2021
+list
+ - NEW 🔗links in lists as well as paragraphs
+
 title4 13.0.0 05-17-2021
 list
  - NEW 🔗links in paragraph nodes.

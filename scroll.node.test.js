@@ -53,6 +53,13 @@ testTree.import = async areEqual => {
 	areEqual(result.includes("You need to add a"), true)
 }
 
+testTree.check = async areEqual => {
+	const cli = new ScrollCli()
+	cli.verbose = false
+	const result = await cli.checkCommand()
+	areEqual(result.includes("0 errors"), true)
+}
+
 testTree.article = areEqual => {
 	const article = new Article(
 		`title About me
