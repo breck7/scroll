@@ -416,7 +416,7 @@ class ScrollCli {
 		const fullPath = resolvePath(cwd)
 		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
 		const errs = new ScrollBuilder(fullPath).errors
-		return this.log(errs.length ? new jtree.TreeNode(errs).toFormattedTable(200) : "0 errors")
+		return this.log(errs.length ? new jtree.TreeNode(errs).toFormattedTable(60) : "0 errors")
 	}
 
 	async buildCommand(cwd) {
