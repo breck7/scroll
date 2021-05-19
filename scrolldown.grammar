@@ -14,6 +14,8 @@ permalinkCell
  highlightScope string
 urlCell
  highlightScope constant.language
+dateCell
+ highlightScope string
 errorNode
  baseNodeType errorNode
 scrolldownNode
@@ -25,19 +27,19 @@ scrolldownNode
  compilesTo html
  javascript
   compileATags(text) {
-  // TODO: this is manually copy and pasted from scroll.node.js
+   // TODO: this is manually copy and pasted from scroll.node.js
    const linkReplacer = (match, p1, p2, p3, p4, offset, str) => {
-     if (p3.endsWith(",")) p4 = "," + p4
-     if (p3.endsWith(".")) p4 = "." + p4
-     p3 = p3.replace(/(,|\.)$/, "")
-     let prefix = "https://"
-     const isRelativeLink = p3.startsWith("./")
-     if (isRelativeLink) {
-       prefix = ""
-       p3 = p3.substr(2)
-     }
-     if (p3.startsWith("https://")) prefix = ""
-     return `${p1}<a href="${prefix}${p3}">${p2}</a>${p4}`
+    if (p3.endsWith(",")) p4 = "," + p4
+    if (p3.endsWith(".")) p4 = "." + p4
+    p3 = p3.replace(/(,|\.)$/, "")
+    let prefix = "https://"
+    const isRelativeLink = p3.startsWith("./")
+    if (isRelativeLink) {
+     prefix = ""
+     p3 = p3.substr(2)
+    }
+    if (p3.startsWith("https://")) prefix = ""
+    return `${p1}<a href="${prefix}${p3}">${p2}</a>${p4}`
    }
    return text.replace(/(^|\s)(\S+)🔗(\S+)(\s|$)/g, linkReplacer)
   }
@@ -58,6 +60,44 @@ abstractTopLevelSingleMetaNode
  abstract
  description Use these keywords once per file.
  extends abstractTopLevelNode
+permalinkNode
+ description When compiling, Scroll will save this article to {permalink}.html
+ crux permalink
+ extends abstractTopLevelSingleMetaNode
+ cells keywordCell permalinkCell
+ compiler
+  stringTemplate 
+skipIndexPageNode
+ description Add this tag if you want to build a page but not include it in the index page.
+ crux skipIndexPage
+ extends abstractTopLevelSingleMetaNode
+ cells keywordCell
+ compiler
+  stringTemplate 
+titleNode
+ catchAllCellType textCell
+ description Title of the article.
+ extends abstractTopLevelSingleMetaNode
+ compiler
+  stringTemplate 
+ crux title
+ javascript
+  compile(spaces) {
+   const title = this.getContent()
+   const permalink = this.getRootNode().get("permalink") || jtree.Utils.stringToPermalink(this.getContent())
+   return `<h1><a href="${permalink}.html">${title}</a></h1>`
+  }
+dateNode
+ catchAllCellType dateCell
+ description Date the article was first published.
+ extends abstractTopLevelSingleMetaNode
+ crux date
+ javascript
+  compile(spaces) {
+   const dayjs = require("dayjs")
+   const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
+   return `<div class="scrollArticleDate">${dateCell} — </div>`
+  }
 paragraphNode
  description Prose content.
  catchAllNodeType paragraphContentNode
@@ -67,8 +107,6 @@ paragraphNode
   compile() {
    return `<p>${this.getRootNode().compileATags(this.childrenToString())}</p>`
   }
-paragraphContentNode
- catchAllCellType textCell
 codeNode
  description A code block.
  catchAllNodeType lineOfCodeNode
@@ -82,12 +120,6 @@ codeWithLanguageNode
  description Use this to specify the language of the code block, such as csvCode or rustCode.
  extends codeNode
  pattern ^[a-zA-Z0-9_]+Code$
-lineOfCodeNode
- catchAllCellType codeCell
- catchAllNodeType lineOfCodeNode
-chatLineNode
- catchAllCellType anyCell
- catchAllNodeType chatLineNode
 chatNode
  description A dialogue between two people.
  catchAllNodeType chatLineNode
@@ -106,24 +138,6 @@ quoteNode
    return `<blockquote>${this.childrenToString()}</blockquote>`
   }
  crux quote
-quoteLineNode
- catchAllCellType anyCell
- catchAllNodeType quoteLineNode
-rowNode
- catchAllCellType textCell
- javascript
-  toRow(columnCount) {
-    const words = this.getWords()
-    let str = ""
-    let column = 0
-    while (column < columnCount) {
-      column++
-      const content = columnCount === column ? words.slice(columnCount - 1).join(" ") : words[column - 1]
-      const linkified = jtree.Utils.linkify(content)
-      str += `<td>${linkified}</td>\n`
-    }
-    return str
-  }
 tableNode
  crux table
  description Space Separated Values table with linkify. Last column is a catch all.
@@ -131,21 +145,19 @@ tableNode
  extends abstractTopLevelNode
  javascript
   get tableHeader() {
-    const header = this.nodeAt(0)
-    return header ? header.getWords().map(word => `<th>${word}</th>\n`) : []
+   const header = this.nodeAt(0)
+   return header ? header.getWords().map(word => `<th>${word}</th>\n`) : []
   }
   getTableBody(columnCount) {
-    return this.getTopDownArray().slice(1).map(node => `<tr>${node.toRow(columnCount)}</tr>`).join("\n")
+   return this.getTopDownArray()
+    .slice(1)
+    .map(node => `<tr>${node.toRow(columnCount)}</tr>`)
+    .join("\n")
   }
   compile() {
-     const tableHeader = this.tableHeader
-     return `<table><thead><tr>${tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
-   }
-linkNode
- cells urlCell
- catchAllCellType textCell
- compiler
-  stringTemplate <li><a href="{urlCell}">{textCell}</a></li>
+   const tableHeader = this.tableHeader
+   return `<table><thead><tr>${tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
+  }
 linksNode
  description Links listed as: {url} {link text}. Notice: This will be removed.
  catchAllNodeType linkNode
@@ -155,13 +167,6 @@ linksNode
   stringTemplate 
   openChildren <ul>
   closeChildren </ul>
-listItemNode
- cells bulletPointCell
- catchAllCellType textCell
- javascript
-  compile() {
-    return `<li>${this.getRootNode().compileATags(this.getContent() || "")}</li>`
-  }
 listNode
  description An unordered list.
  catchAllNodeType listItemNode
@@ -179,15 +184,6 @@ orderedListNode
   stringTemplate 
   openChildren <ol>
   closeChildren </ol>
-blankLineNode
- description Blank lines compile to nothing in the HTML.
- cells blankCell
- compiler
-  stringTemplate 
- pattern ^$
- tags doNotSynthesize
-dateCell
- highlightScope string
 commentNode
  description Will not appear in the compiled HTML.
  catchAllCellType commentCell
@@ -198,22 +194,6 @@ commentNode
    return ``
   }
  catchAllNodeType commentLineNode
-commentLineNode
- catchAllCellType commentCell
-permalinkNode
- description When compiling, Scroll will save this article to {permalink}.html
- crux permalink
- extends abstractTopLevelSingleMetaNode
- cells keywordCell permalinkCell
- compiler
-  stringTemplate 
-skipIndexPageNode
- description Add this tag if you want to build a page but not include it in the index page.
- crux skipIndexPage
- extends abstractTopLevelSingleMetaNode
- cells keywordCell
- compiler
-  stringTemplate 
 imageNode
  description An img tag.
  cells keywordCell urlCell
@@ -221,9 +201,6 @@ imageNode
  crux image
  compiler
   stringTemplate <img src="{urlCell}"/>
-htmlLineNode
- catchAllCellType anyCell
- catchAllNodeType htmlLineNode
 htmlNode
  description A catch all block to drop in any loose html.
  crux html
@@ -232,19 +209,6 @@ htmlNode
  javascript
   compile() {
    return `${this.childrenToString()}`
-  }
-titleNode
- catchAllCellType textCell
- description Title of the article.
- extends abstractTopLevelSingleMetaNode
- compiler
-  stringTemplate 
- crux title
- javascript
-  compile(spaces) {
-   const title = this.getContent()
-   const permalink = this.getRootNode().get("permalink") || jtree.Utils.stringToPermalink(this.getContent())
-   return `<h1><a href="${permalink}.html">${title}</a></h1>`
   }
 abstractTitleNode
  description A subheader.
@@ -257,8 +221,6 @@ abstractTitleNode
    const children = this.childrenToString() ? " " + this.childrenToString() : ""
    return `<${tag}>${this.getContent() + children}</${tag}>`
   }
-multilineTitleNode
- catchAllCellType textCell
 title2Node
  extends abstractTitleNode
  crux title2
@@ -274,17 +236,58 @@ title5Node
 title6Node
  extends abstractTitleNode
  crux title6
-dateNode
- catchAllCellType dateCell
- description Date the article was first published.
- extends abstractTopLevelSingleMetaNode
- crux date
+paragraphContentNode
+ catchAllCellType textCell
+lineOfCodeNode
+ catchAllCellType codeCell
+ catchAllNodeType lineOfCodeNode
+chatLineNode
+ catchAllCellType anyCell
+ catchAllNodeType chatLineNode
+quoteLineNode
+ catchAllCellType anyCell
+ catchAllNodeType quoteLineNode
+rowNode
+ catchAllCellType textCell
  javascript
-  compile(spaces) {
-   const dayjs = require("dayjs")
-   const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
-   return `<div class="scrollArticleDate">${dateCell} — </div>`
+  toRow(columnCount) {
+   const words = this.getWords()
+   let str = ""
+   let column = 0
+   while (column < columnCount) {
+    column++
+    const content = columnCount === column ? words.slice(columnCount - 1).join(" ") : words[column - 1]
+    const linkified = jtree.Utils.linkify(content)
+    str += `<td>${linkified}</td>\n`
+   }
+   return str
   }
+linkNode
+ cells urlCell
+ catchAllCellType textCell
+ compiler
+  stringTemplate <li><a href="{urlCell}">{textCell}</a></li>
+listItemNode
+ cells bulletPointCell
+ catchAllCellType textCell
+ javascript
+  compile() {
+   return `<li>${this.getRootNode().compileATags(this.getContent() || "")}</li>`
+  }
+blankLineNode
+ description Blank lines compile to nothing in the HTML.
+ cells blankCell
+ compiler
+  stringTemplate 
+ pattern ^$
+ tags doNotSynthesize
+commentLineNode
+ catchAllCellType commentCell
+htmlLineNode
+ catchAllCellType anyCell
+ catchAllNodeType htmlLineNode
+multilineTitleNode
+ catchAllCellType textCell
 quickParagraphNode
  description A catch all block. This may be removed in future versions.
  catchAllCellType textCell

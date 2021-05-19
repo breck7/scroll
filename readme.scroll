@@ -223,3 +223,10 @@ code
  # update the path below so it points to your scroll code
  node --inspect ~/scroll/scroll.node.js
  # open chrome://inspect
+
+title4 How do I format the Scrolldown Grammar file?
+
+code
+ # Assuming you've already done `jtree register YOUR_PATH/jtree/langs/grammar/grammar.grammar`
+ jtree format scrolldown.grammar
+
