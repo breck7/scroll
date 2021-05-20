@@ -50,6 +50,7 @@ html
  font-family Verdana
  font-weight 100
  margin .5em
+ padding-bottom 1em
  text-decoration none
  color rgba(204,204,204, .5)
 
