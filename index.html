@@ -191,9 +191,9 @@ html {
 
 <p><a href="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml/badge.svg" style="width: 49%;"/></a> <a href="https://gitpod.io/#https://github.com/publicdomaincompany/scroll"><img style="width: 49%;" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod"/></a></p>
 
-<h4>Example site:</h4>
+<h4>Screenshot:</h4>
 
-<p><a href="https://breckyunits.com/"><img src="screenshot.png" /></a></p>
+<img src="screenshot.png"/>
 
 <h4>What makes Scroll different?</h4>
 
@@ -223,12 +223,17 @@ way is to install <a href="https://github.com/tj/n">n</a> which makes it easy to
 <p>If you would like to use Scroll but aren't familiar with the command
 line, please open an issue and we may be able to help.</p>
 
-<p>Once you have NodeJs installed, Scroll is <a href="https://www.npmjs.com/package/scroll-cli">scroll-cli</a> on npm.</p>
+<p>Once you have NodeJs installed you can install from GitHub or npm. Scroll is <a href="https://www.npmjs.com/package/scroll-cli">scroll-cli</a> on npm.</p>
 
-<p>You can install the Scroll command line app by typing:</p>
+<p>You can install from GitHub:</p>
+
+<code class="scrollCodeBlock">git clone https://github.com/publicdomaincompany/scroll
+cd scroll
+npm install -g .</code>
+
+<p>Or you can install Scroll with npm by typing:</p>
 
 <code class="scrollCodeBlock">npm install -g scroll-cli</code>
-
 
 <h4>How do I use Scroll?</h4>
 
@@ -340,14 +345,14 @@ gives older articles, which are often more important, more visibility.</p>
 
 <p>Scroll does not check for broken links. For that, try <a href="https://github.com/JustinBeckwith/linkinator">linkinator</a>.</p>
 
-<code class="scrollCodeBlock">npm install -g linkinator
+<code class="scrollCodeBlock"># npm install -g linkinator
 linkinator https://scroll.publicdomaincompany.com > brokenLinks.txt</code>
 
-<h4>How do I check my site's performance?</h4>
+<h4>How do I check browser performance?</h4>
 
-<p>Scroll does not do that. For that, try <a href="https://github.com/GoogleChrome/lighthouse">lighthouse</a>.</p>
+<p>Scroll does not browser perf tools built in. For that, try <a href="https://github.com/GoogleChrome/lighthouse">lighthouse</a>.</p>
 
-<code class="scrollCodeBlock">npm install -g lighthouse
+<code class="scrollCodeBlock"># npm install -g lighthouse
 lighthouse https://scroll.publicdomaincompany.com --output-path perf.html</code>
 
 <h3>How can I build a Scroll from a Twitter account?</h3>
@@ -373,7 +378,7 @@ biggest inspirations.</p>
 
 <p>You can submit Pull Requests too. The shorter the better.</p>
 
-<h4>How do I test performance?</h4>
+<h4>How do I test node.js performance?</h4>
 
 <code class="scrollCodeBlock"># cd some_slow_scroll
 # update the path below so it points to your scroll code
