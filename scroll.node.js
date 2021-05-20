@@ -42,7 +42,8 @@ const scrollBoilerplateCompiledMessage = `<!--
 
  Scroll v${SCROLL_VERSION}
 
--->`
+-->
+<!doctype html>`
 
 const initReadmePage = `title Hello world
 date ${dayjs().format(`MM-DD-YYYY`)}

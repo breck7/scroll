@@ -18,6 +18,9 @@ html
   meta
    charset utf-8
   titleTag {htmlTitle}
+  meta
+   name description
+   content {description}
   styleTag
    bern
  body

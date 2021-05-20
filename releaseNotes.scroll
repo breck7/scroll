@@ -4,6 +4,12 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+
+title4 14.1.0 05-20-2021
+list
+ - FIX added doctype tag
+ - FIX added html meta description tag
+
 title4 14.0.0 05-19-2021
 list
  - BREAKING removed links nodeType
