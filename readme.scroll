@@ -193,6 +193,15 @@ code
  npm install -g linkinator
  linkinator https://scroll.publicdomaincompany.com > brokenLinks.txt
 
+title4 How do I check my site's performance?
+
+paragraph
+ Scroll does not do that. For that, try lighthouse🔗github.com/GoogleChrome/lighthouse.
+
+code
+ npm install -g lighthouse
+ lighthouse https://scroll.publicdomaincompany.com --output-path perf.html
+
 title3 How can I build a Scroll from a Twitter account?
 
 paragraph
