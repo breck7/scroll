@@ -365,7 +365,14 @@ lighthouse https://scroll.publicdomaincompany.com --output-path perf.html</code>
 
 <code class="scrollCodeBlock"># deploy.sh
 # swap "/var/www/html" with the path to your website's location on your web server
-rsync -vr /[path/to/your/site]/* [username]@[yourdomain.com]:/var/www/html</code>
+rsync -vr /[path/to/your/site]/* [yourdomain.com]:/var/www/html</code>
+
+<p>Add a <a href="https://unix.stackexchange.com/questions/494483/specifying-an-identityfile-with-ssh">section</a> like the one below to your ~.ssh/config to save your username and correct key pair.</p>
+
+<code class="scrollCodeBlock">Host example.com
+  User yourUserName
+  IdentityFile ~/.ssh/example_id_rsa
+  IdentitiesOnly yes</code>
 
 <h4>How can I build a Scroll from a Twitter account?</h4>
 

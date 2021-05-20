@@ -216,7 +216,16 @@ paragraph
 code
  # deploy.sh
  # swap "/var/www/html" with the path to your website's location on your web server
- rsync -vr /[path/to/your/site]/* [username]@[yourdomain.com]:/var/www/html
+ rsync -vr /[path/to/your/site]/* [yourdomain.com]:/var/www/html
+
+paragraph
+ Add a section🔗unix.stackexchange.com/questions/494483/specifying-an-identityfile-with-ssh like the one below to your ~.ssh/config to save your username and correct key pair.
+
+code
+ Host example.com
+   User yourUserName
+   IdentityFile ~/.ssh/example_id_rsa
+   IdentitiesOnly yes
 
 title4 How can I build a Scroll from a Twitter account?
 
