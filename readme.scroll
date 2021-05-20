@@ -208,7 +208,17 @@ code
  # npm install -g lighthouse
  lighthouse https://scroll.publicdomaincompany.com --output-path perf.html
 
-title3 How can I build a Scroll from a Twitter account?
+title4 How can I deploy my site?
+
+paragraph
+ If you have your own web server rsync is a fast and simple way to do it with a one liner.
+
+code
+ # deploy.sh
+ # swap "/var/www/html" with the path to your website's location on your web server
+ rsync -vr /[path/to/your/site]/* [username]@[yourdomain.com]:/var/www/html
+
+title4 How can I build a Scroll from a Twitter account?
 
 paragraph
  Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets json into scroll files. Or to experiment faster use this tool🔗www.vicinitas.io/free-tools/download-user-tweets to grab some tweets as a TSV.
