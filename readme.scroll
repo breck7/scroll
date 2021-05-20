@@ -211,7 +211,7 @@ code
 title3 How can I build a Scroll from a Twitter account?
 
 paragraph
- Twitter makes it hard to download your Tweets. For now, this tool🔗www.vicinitas.io/free-tools/download-user-tweets is helpful.
+ Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets json into scroll files. Or to experiment faster use this tool🔗www.vicinitas.io/free-tools/download-user-tweets to grab some tweets as a TSV.
 
 title4 What were some alternatives considered?
 
