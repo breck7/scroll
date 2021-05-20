@@ -115,7 +115,7 @@ class Article {
 	}
 
 	get permalink() {
-		return this.asTree.get(scrollKeywords.permalink) || path.basename(this.sourceLink).replace(/\.scroll$/, "")
+		return this.asTree.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
 	}
 
 	get includeInIndex() {
@@ -144,7 +144,9 @@ class Article {
 
 		const sourceLink = this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLink}"><a href="${this.sourceLink}">Article source</a></p>` : ""
 
-		node.getNode("div").appendLineAndChildren("bern", this.toScrolldownProgram.compile() + sourceLink)
+		const program = this.toScrolldownProgram
+		program.setPermalink(this.permalink)
+		node.getNode("div").appendLineAndChildren("bern", program.compile() + sourceLink)
 
 		return new stump(node)
 	}

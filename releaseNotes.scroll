@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 14.0.0 05-19-2021
+list
+ - BREAKING removed links nodeType
+ - BREAKING fixed bug where sometimes permalinks were still using title and not filename
+
 title4 13.3.0 05-18-2021
 list
  - NEW html and image node types

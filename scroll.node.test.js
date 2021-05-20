@@ -63,16 +63,16 @@ testTree.check = async areEqual => {
 testTree.article = areEqual => {
 	const article = new Article(
 		`title About me
-hello world`
+hello world`,
+		"foobar.scroll"
 	)
 
-	areEqual(
-		article
-			.toStumpNode()
-			.toString()
-			.includes("scrollArticleCell"),
-		true
-	)
+	const content = article.toStumpNode().toString()
+
+	areEqual(content.includes("scrollArticleCell"), true)
+
+	areEqual(article.permalink, "foobar")
+	areEqual(content.includes("foobar"), true)
 }
 
 testTree.cli = async areEqual => {

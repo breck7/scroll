@@ -26,6 +26,13 @@ scrolldownNode
  catchAllNodeType quickParagraphNode
  compilesTo html
  javascript
+  get permalink() {
+    return this.get("permalink") || this._permalink || ""
+  }
+  setPermalink(permalink) {
+    this._permalink = permalink
+    return this
+  }
   compileATags(text) {
    // TODO: this is manually copy and pasted from scroll.node.js
    const linkReplacer = (match, p1, p2, p3, p4, offset, str) => {
@@ -82,10 +89,8 @@ titleNode
   stringTemplate 
  crux title
  javascript
-  compile(spaces) {
-   const title = this.getContent()
-   const permalink = this.getRootNode().get("permalink") || jtree.Utils.stringToPermalink(this.getContent())
-   return `<h1><a href="${permalink}.html">${title}</a></h1>`
+  compile() {
+   return `<h1><a href="${this.getRootNode().permalink}.html">${this.getContent()}</a></h1>`
   }
 dateNode
  catchAllCellType dateCell
@@ -158,15 +163,6 @@ tableNode
    const tableHeader = this.tableHeader
    return `<table><thead><tr>${tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
   }
-linksNode
- description Links listed as: {url} {link text}. Notice: This will be removed.
- catchAllNodeType linkNode
- crux links
- extends abstractTopLevelNode
- compiler
-  stringTemplate 
-  openChildren <ul>
-  closeChildren </ul>
 listNode
  description An unordered list.
  catchAllNodeType listItemNode
@@ -262,11 +258,6 @@ rowNode
    }
    return str
   }
-linkNode
- cells urlCell
- catchAllCellType textCell
- compiler
-  stringTemplate <li><a href="{urlCell}">{textCell}</a></li>
 listItemNode
  cells bulletPointCell
  catchAllCellType textCell
