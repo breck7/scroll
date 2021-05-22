@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+
+title4 16.0.0 05-22-2021
+list
+ - BREAKING rename scrollSettings.map to scroll.settings
+
 title4 15.0.0 05-21-2021
 list
  - NEW Scroll will detect and emit image sizes during build to reduce layout shifts.
