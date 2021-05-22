@@ -4,6 +4,14 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 15.0.0 05-21-2021
+list
+ - NEW Scroll will detect and emit image sizes during build to reduce layout shifts.
+
+title4 14.3.0 05-21-2021
+list
+ - FIX Scroll is now somewhat usable as an NPM module.
+
 title4 14.2.0 05-20-2021
 list
  - FIX added html head meta viewport tag for better mobile experience.

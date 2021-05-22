@@ -113,6 +113,7 @@ html
   display inline
  img
   max-width 35ch
+  height auto
  .scrollCodeBlock,table,blockquote
   display block
   margin .5em 0

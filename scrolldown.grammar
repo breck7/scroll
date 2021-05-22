@@ -27,11 +27,11 @@ scrolldownNode
  compilesTo html
  javascript
   get permalink() {
-    return this.get("permalink") || this._permalink || ""
+   return this.get("permalink") || this._permalink || ""
   }
   setPermalink(permalink) {
-    this._permalink = permalink
-    return this
+   this._permalink = permalink
+   return this
   }
   compileATags(text) {
    // TODO: this is manually copy and pasted from scroll.js
@@ -99,6 +99,7 @@ dateNode
  crux date
  javascript
   compile(spaces) {
+   if (typeof require === "undefined") return "<!-- date only emitted in nodejs -->"
    const dayjs = require("dayjs")
    const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
    return `<div class="scrollArticleDate">${dateCell} — </div>`
@@ -195,8 +196,16 @@ imageNode
  cells keywordCell urlCell
  extends abstractTopLevelNode
  crux image
- compiler
-  stringTemplate <img src="{urlCell}"/>
+ javascript
+  compile() {
+   const src = this.getWord(1)
+   if (typeof require === "undefined") return `<img src="${src}">`
+   const sizeOf = require("image-size")
+   const dimensions = sizeOf(src)
+   const width = dimensions.width
+   const height = dimensions.height
+   return `<img src="${src}" width="${width}" height="${height}" loading="lazy"/>`
+  }
 htmlNode
  description A catch all block to drop in any loose html.
  crux html
