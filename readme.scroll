@@ -103,10 +103,10 @@ code
   about.scroll
   publishedArticle.scroll
   anImageInTheArticle.png
-  scrollSettings.map
+  scroll.settings
 
 paragraph
- The `scrollSettings.map` file let's Scroll know that
+ The `scroll.settings` file let's Scroll know that
  a folder contains a Scroll.
 
 paragraph

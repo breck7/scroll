@@ -26,7 +26,7 @@ const DEFAULT_PORT = 1145
 const SCROLLDOWN_GRAMMAR_FILENAME = "scrolldown.grammar"
 const SCROLL_HAKON_FILENAME = "scroll.hakon"
 const SCROLL_STUMP_FILENAME = "scroll.stump"
-const SCROLL_SETTINGS_FILENAME = "scrollSettings.map"
+const SCROLL_SETTINGS_FILENAME = "scroll.settings"
 const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, SCROLL_HAKON_FILENAME, SCROLL_STUMP_FILENAME].join("|")}$`)
 
 const SCROLL_SRC_FOLDER = __dirname + "/"
@@ -93,7 +93,7 @@ const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + S
 const replaceAll = (str, search, replace) => str.split(search).join(replace)
 const cleanAndRightShift = (str, numSpaces = 0) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
 
-const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scrollIcons.map")).toObject()
+const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.icons")).toObject()
 
 class Article {
 	constructor(content = "", filename = "", sourceLink = "") {
