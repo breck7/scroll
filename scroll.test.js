@@ -1,5 +1,5 @@
 const tap = require("tap")
-const { ScrollBuilder, ScrollCli, Article, SCROLL_SETTINGS_FILENAME, compileATags } = require("./scroll.node.js")
+const { ScrollBuilder, ScrollCli, Article, SCROLL_SETTINGS_FILENAME, compileATags } = require("./scroll.js")
 const fs = require("fs")
 
 const testString = "Build your own public domain newspaper"

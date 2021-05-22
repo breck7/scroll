@@ -260,7 +260,7 @@ title4 How do I test node.js performance?
 code
  # cd some_slow_scroll
  # update the path below so it points to your scroll code
- node --inspect ~/scroll/scroll.node.js
+ node --inspect ~/scroll/scroll.js
  # open chrome://inspect
 
 title4 How do I format the Scrolldown Grammar file?

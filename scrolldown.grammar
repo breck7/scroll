@@ -34,7 +34,7 @@ scrolldownNode
     return this
   }
   compileATags(text) {
-   // TODO: this is manually copy and pasted from scroll.node.js
+   // TODO: this is manually copy and pasted from scroll.js
    const linkReplacer = (match, p1, p2, p3, p4, offset, str) => {
     if (p3.endsWith(",")) p4 = "," + p4
     if (p3.endsWith(".")) p4 = "." + p4
