@@ -95,6 +95,11 @@ const cleanAndRightShift = (str, numSpaces = 0) => str.replace(/\r/g, "").replac
 
 const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.icons")).toObject()
 
+const scrolldownGrammarCode = [read(`${__dirname}/${SCROLLDOWN_GRAMMAR_FILENAME}`)].join("\n")
+const scrolldownGrammarCodeErrors = new grammarNode(scrolldownGrammarCode).getAllErrors().map(err => err.toObject())
+if (scrolldownGrammarCodeErrors.length) console.error(new jtree.TreeNode(scrolldownGrammarCodeErrors).toFormattedTable(200))
+const scrolldownCompiler = new jtree.HandGrammarProgram(scrolldownGrammarCode).compileAndReturnRootConstructor()
+
 class Article {
 	constructor(content = "", filename = "", sourceLink = "") {
 		this.content = content
@@ -105,15 +110,6 @@ class Article {
 	content = ""
 	sourceLink = ""
 	filename = ""
-
-	get scrolldownCompiler() {
-		const grammarCode = [read(`${__dirname}/${SCROLLDOWN_GRAMMAR_FILENAME}`)].join("\n")
-
-		const errs = new grammarNode(grammarCode).getAllErrors().map(err => err.toObject())
-		if (errs.length) console.error(new jtree.TreeNode(errs).toFormattedTable(200))
-
-		return new jtree.HandGrammarProgram(grammarCode).compileAndReturnRootConstructor()
-	}
 
 	get permalink() {
 		return this.asTree.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
@@ -128,7 +124,7 @@ class Article {
 	}
 
 	get toScrolldownProgram() {
-		return new this.scrolldownCompiler(this.content)
+		return new scrolldownCompiler(this.content)
 	}
 
 	get asTree() {

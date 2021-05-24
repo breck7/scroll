@@ -5,6 +5,10 @@ paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
 
+title4 16.1.0 05-24-2021
+list
+ - FIX building a site is now ~2.4x faster 🏎
+
 title4 16.0.0 05-22-2021
 list
  - BREAKING rename scrollSettings.map to scroll.settings
