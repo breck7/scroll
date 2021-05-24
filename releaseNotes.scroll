@@ -4,6 +4,9 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 16.2.0 05-24-2021
+list
+ - FIX do not crash if an image is not found
 
 title4 16.1.0 05-24-2021
 list

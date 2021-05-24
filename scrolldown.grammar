@@ -99,10 +99,14 @@ dateNode
  crux date
  javascript
   compile(spaces) {
-   if (typeof require === "undefined") return "<!-- date only emitted in nodejs -->"
-   const dayjs = require("dayjs")
-   const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
-   return `<div class="scrollArticleDate">${dateCell} — </div>`
+   try {
+    const dayjs = require("dayjs")
+    const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
+    return `<div class="scrollArticleDate">${dateCell} — </div>`
+   } catch (err) {
+    console.error(err)
+    return ""
+   }
   }
 paragraphNode
  description Prose content.
@@ -199,12 +203,16 @@ imageNode
  javascript
   compile() {
    const src = this.getWord(1)
-   if (typeof require === "undefined") return `<img src="${src}">`
-   const sizeOf = require("image-size")
-   const dimensions = sizeOf(src)
-   const width = dimensions.width
-   const height = dimensions.height
-   return `<img src="${src}" width="${width}" height="${height}" loading="lazy"/>`
+   try {
+    const sizeOf = require("image-size")
+    const dimensions = sizeOf(src)
+    const width = dimensions.width
+    const height = dimensions.height
+    return `<img src="${src}" width="${width}" height="${height}" loading="lazy"/>`
+   } catch (err) {
+    console.error(err)
+    return `<img src="${src}">`
+   }
   }
 htmlNode
  description A catch all block to drop in any loose html.
