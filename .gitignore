@@ -1,5 +1,13 @@
+.DS_Store
 node_modules/
+
+# I hate checking this file in. May need to at some point.
+package-lock.json
+
+# Prevent accidental checking in of code coverage reports
 .nyc_output/
 coverage/
-.DS_Store
-package-lock.json
+
+# Prevent accidental checking in of perf reports
+scrollBrowserPerf.html
+scrollNodePerf.cpuprofile

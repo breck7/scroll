@@ -206,7 +206,7 @@ paragraph
 
 code
  # npm install -g lighthouse
- lighthouse https://scroll.publicdomaincompany.com --output-path perf.html
+ lighthouse https://scroll.publicdomaincompany.com --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
 
 title4 How can I deploy my site?
 
@@ -255,13 +255,13 @@ paragraph
 paragraph
  You can submit Pull Requests too. The shorter the better.
 
-title4 How do I test node.js performance?
+title4 How do I debug node.js performance?
 
 code
- # cd some_slow_scroll
- # update the path below so it points to your scroll code
- node --inspect ~/scroll/scroll.js
- # open chrome://inspect
+ # cd your_slow_scroll
+ # you may need to update the path below so it points to your scroll code
+ node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile ~/scroll/scroll.js build
+ # Now ➡️ open a new Chrome tab ➡️ open devtools ➡️ click Performance ➡️ click "Load Profile..." ➡️ select your scrollNodePerf.cpuprofile
 
 title4 How do I format the Scrolldown Grammar file?
 
