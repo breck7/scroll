@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v17.1.0
+ Scroll v17.2.0
 
 -->
 <!doctype html>
@@ -141,12 +141,14 @@ html {
   max-width: 35ch;
   height: auto;
 }
+.scrollArticleCell .scrollCodeBlock,.scrollArticleCell blockquote {
+  break-inside: avoid;
+}
 .scrollArticleCell .scrollCodeBlock,.scrollArticleCell table,.scrollArticleCell blockquote {
   display: block;
   margin: .5em 0;
   padding: .5em;
   background: rgba(204,204,204, .5);
-  break-inside: avoid;
 }
 .scrollArticleCell .scrollCodeBlock,.scrollArticleCell table {
   overflow: auto;
@@ -195,6 +197,11 @@ html {
 
 
 <p>Here's a list of the notable changes in Scroll and Scrolldown.</p>
+
+<h4>17.2.0 05-25-2021</h4>
+<ul>
+<li>🏥 tables can now break on single pages for higher information density</li>
+</ul>
 
 <h4>17.1.0 05-25-2021</h4>
 <ul>

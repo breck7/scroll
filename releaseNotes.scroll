@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 17.2.0 05-25-2021
+list
+ - 🏥 tables can now break on single pages for higher information density
+
 title4 17.1.0 05-25-2021
 list
  - 🎉 pipeTable

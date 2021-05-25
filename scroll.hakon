@@ -114,12 +114,13 @@ html
  img
   max-width 35ch
   height auto
+ .scrollCodeBlock,blockquote
+  break-inside avoid
  .scrollCodeBlock,table,blockquote
   display block
   margin .5em 0
   padding .5em
   background rgba(204,204,204, .5)
-  break-inside avoid
  .scrollCodeBlock,table
   overflow auto
   font-size 80%
