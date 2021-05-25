@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 17.2.1 05-25-2021
+list
+ - 🏥 fixed bug where sequential links were not getting parsed
+
 title4 17.2.0 05-25-2021
 list
  - 🏥 tables can now break on single pages for higher information density

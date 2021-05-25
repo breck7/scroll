@@ -70,9 +70,10 @@ const scrollKeywords = {
 // url should not contain the protocol. It will compile always to https. Use <a> if you need something else.
 // If url ends in a period, that will be dropped.
 // Url cannot contain a comma.
-const linkReplacer = (match, p1, p2, p3, p4, offset, str) => {
-	if (p3.endsWith(",")) p4 = "," + p4
-	if (p3.endsWith(".")) p4 = "." + p4
+const linkReplacer = (match, p1, p2, p3, offset, str) => {
+	let suffix = ""
+	if (p3.endsWith(",")) suffix = "," + suffix
+	if (p3.endsWith(".")) suffix = "." + suffix
 	p3 = p3.replace(/(,|\.)$/, "")
 	let prefix = "https://"
 	const isRelativeLink = p3.startsWith("./")
@@ -81,9 +82,9 @@ const linkReplacer = (match, p1, p2, p3, p4, offset, str) => {
 		p3 = p3.substr(2)
 	}
 	if (p3.startsWith("https://")) prefix = ""
-	return `${p1}<a href="${prefix}${p3}">${p2}</a>${p4}`
+	return `${p1}<a href="${prefix}${p3}">${p2}</a>${suffix}`
 }
-const compileATags = text => text.replace(/(^|\s)(\S+)🔗(\S+)(\s|$)/g, linkReplacer)
+const compileATags = text => text.replace(/(^|\s)(\S+)🔗(\S+)(?=(\s|$))/g, linkReplacer)
 
 // Helper utils
 const read = filename => fs.readFileSync(filename, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.

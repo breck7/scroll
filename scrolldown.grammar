@@ -35,9 +35,10 @@ scrolldownNode
   }
   compileATags(text) {
    // TODO: this is manually copy and pasted from scroll.js
-   const linkReplacer = (match, p1, p2, p3, p4, offset, str) => {
-    if (p3.endsWith(",")) p4 = "," + p4
-    if (p3.endsWith(".")) p4 = "." + p4
+   const linkReplacer = (match, p1, p2, p3, offset, str) => {
+    let suffix = ""
+    if (p3.endsWith(",")) suffix = "," + suffix
+    if (p3.endsWith(".")) suffix = "." + suffix
     p3 = p3.replace(/(,|\.)$/, "")
     let prefix = "https://"
     const isRelativeLink = p3.startsWith("./")
@@ -46,9 +47,9 @@ scrolldownNode
      p3 = p3.substr(2)
     }
     if (p3.startsWith("https://")) prefix = ""
-    return `${p1}<a href="${prefix}${p3}">${p2}</a>${p4}`
+    return `${p1}<a href="${prefix}${p3}">${p2}</a>${suffix}`
    }
-   return text.replace(/(^|\s)(\S+)🔗(\S+)(\s|$)/g, linkReplacer)
+   return text.replace(/(^|\s)(\S+)🔗(\S+)(?=(\s|$))/g, linkReplacer)
   }
  example
   title Hello world
