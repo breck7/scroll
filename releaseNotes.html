@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v16.2.0
+ Scroll v17.0.0
 
 -->
 <!doctype html>
@@ -196,51 +196,58 @@ html {
 
 <p>Here's a list of the notable changes in Scroll and Scrolldown.</p>
 
+<h4>17.0.0 05-25-2021</h4>
+<ul>
+<li>🎉 tabTable and commaTable</li>
+<li>⚠️ table is now spaceTable</li>
+<li>🏥 do not crash if an empty row in a table</li>
+</ul>
+
 <h4>16.2.0 05-24-2021</h4>
 <ul>
-<li>FIX do not crash if an image is not found</li>
+<li>🏥 do not crash if an image is not found</li>
 </ul>
 
 <h4>16.1.0 05-24-2021</h4>
 <ul>
-<li>FIX building a site is now ~2.4x faster 🏎</li>
+<li>🎉 building a site is now ~2.4x faster 🏎</li>
 </ul>
 
 <h4>16.0.0 05-22-2021</h4>
 <ul>
-<li>BREAKING rename scrollSettings.map to scroll.settings</li>
+<li>⚠️ rename scrollSettings.map to scroll.settings</li>
 </ul>
 
 <h4>15.0.0 05-21-2021</h4>
 <ul>
-<li>NEW Scroll will detect and emit image sizes during build to reduce layout shifts.</li>
+<li>🎉 Scroll will detect and emit image sizes during build to reduce layout shifts.</li>
 </ul>
 
 <h4>14.3.0 05-21-2021</h4>
 <ul>
-<li>FIX Scroll is now somewhat usable as an NPM module.</li>
+<li>🏥 Scroll is now somewhat usable as an NPM module.</li>
 </ul>
 
 <h4>14.2.0 05-20-2021</h4>
 <ul>
-<li>FIX added html head meta viewport tag for better mobile experience.</li>
+<li>🏥 added html head meta viewport tag for better mobile experience.</li>
 </ul>
 
 <h4>14.1.0 05-20-2021</h4>
 <ul>
-<li>FIX added doctype tag</li>
-<li>FIX added html head meta description tag</li>
+<li>🏥 added doctype tag</li>
+<li>🏥 added html head meta description tag</li>
 </ul>
 
 <h4>14.0.0 05-19-2021</h4>
 <ul>
-<li>BREAKING removed links nodeType</li>
-<li>BREAKING fixed bug where sometimes permalinks were still using title and not filename</li>
+<li>⚠️ removed links nodeType</li>
+<li>⚠️ fixed bug where sometimes permalinks were still using title and not filename</li>
 </ul>
 
 <h4>13.3.0 05-18-2021</h4>
 <ul>
-<li>NEW html and image node types</li>
+<li>🎉 html and image node types</li>
 </ul>
 
 <p>To use an image node:</p>
@@ -254,18 +261,18 @@ html {
 
 <h4>13.2.0 05-18-2021</h4>
 <ul>
-<li>NEW Added <code>scroll check</code> command</li>
+<li>🎉 Added <code>scroll check</code> command</li>
 </ul>
 
 <h4>13.1.0 05-18-2021</h4>
 <ul>
-<li>NEW 🔗links in lists as well as paragraphs</li>
+<li>🎉 🔗links in lists as well as paragraphs</li>
 </ul>
 
 <h4>13.0.0 05-17-2021</h4>
 <ul>
-<li>NEW 🔗links in paragraph nodes.</li>
-<li>NEW skipIndexPage nodeType</li>
+<li>🎉 🔗links in paragraph nodes.</li>
+<li>🎉 skipIndexPage nodeType</li>
 </ul>
 
 <h5>Single word links</h5>
@@ -299,79 +306,77 @@ in the index. To do that, just add <code>skipIndexPage</code>.</p>
 
 <h4>12.1.0 05-14-2021</h4>
 <ul>
-<li>NEW chat nodeType</li>
+<li>🎉 chat nodeType</li>
 </ul>
 
 <div class="scrollChat scrollChat0"><span>You can now do dialogues</span></div><div class="scrollChat scrollChat1"><span>Cool!</span></div>
 
 <h4>12.0.0 05-12-2021</h4>
 <ul>
-<li>NOTICE scroll create is now scroll init</li>
-<li>NOTICE Removed export command</li>
-<li>INFRA removed example.com folder. Less code and now flat.</li>
+<li>⚠️ scroll create is now scroll init</li>
+<li>⚠️ Removed export command</li>
+<li>🏥 removed example.com folder. Less code and now flat.</li>
 </ul>
 
 <h4>11.0.0 05-11-2021</h4>
 <ul>
-<li>NEW list, orderedList, and links node types</li>
-<li>NEW codeWithLanguageNode</li>
-<li>FIX HTML escaped in code blocks</li>
+<li>🎉 list, orderedList, and links node types</li>
+<li>🎉 codeWithLanguageNode</li>
+<li>🏥 HTML escaped in code blocks</li>
 </ul>
 
 <h4>10.0.0 05-10-2021</h4>
 <ul>
-<li>NEW table nodeType for SSVs with linkify</li>
-<li>NEW Better docs in Scrolldown grammar</li>
-<li>BREAKING Removed list nodeType</li>
-<li>BREAKING Removed link nodeType</li>
-<li>FIX Windows return character fix</li>
-<li>FIX multiline support in subheader nodeTypes</li>
+<li>🎉 table nodeType for SSVs with linkify</li>
+<li>🎉 Better docs in Scrolldown grammar</li>
+<li>⚠️ Removed list nodeType</li>
+<li>⚠️ Removed link nodeType</li>
+<li>🏥 Windows return character fix</li>
+<li>🏥 multiline support in subheader nodeTypes</li>
 <li></li>
 </ul>
 <h4>9.0.0 05-05-2021</h4>
 <ul>
-<li>NEW Scrolldown now has a quote nodeType.</li>
-<li>FIX Code block format bug fixes.</li>
-<li>FIX Styling improvements</li>
+<li>🎉 Scrolldown now has a quote nodeType.</li>
+<li>🏥 Code block format bug fixes.</li>
+<li>🏥 Styling improvements</li>
 </ul>
 
 <h4>8.0.0 04-10-2021</h4>
 <ul>
-<li>INFRA Scroll now just builds files. No web server needed.</li>
+<li>🎉 Scroll now just builds files. No web server needed.</li>
 </ul>
 
 <h4>7.0.0 04-03-2021</h4>
 <ul>
-<li>INFRA Scroll the language is now called Scrolldown (thanks FB!).</li>
-<li>FIX Bug fixes.</li>
-<li>NEW Better perf.</li>
+<li>⚠️ Scroll the language is now called Scrolldown (thanks FB!).</li>
+<li>🏥 Bug fixes.</li>
+<li>🎉 Better perf.</li>
 </ul>
 
 <h4>6.0.0 03-08-2021</h4>
 <ul>
-<li>NEW By popular request, Scroll now also publishes each article to its own page.</li>
-<li>NEW Fewer links. Do less. KISS.</li>
-<li>NEW Better perf.</li>
-<li>NEW "permalink" nodeType</li>
+<li>🎉 By popular request, Scroll now also publishes each article to its own page.</li>
+<li>🎉 Fewer links. Do less. KISS.</li>
+<li>🎉 Better perf.</li>
+<li>🎉 "permalink" nodeType</li>
 </ul>
 
 <h4>5.0.0 02-28-2021</h4>
 <ul>
-<li>NEW Changed name of everything from dumbdown to Scroll per user feedback</li>
-<li>BREAKING File extension of articles needs to be "scroll" and not "dd" now.</li>
+<li>🎉 Changed name of everything from dumbdown to Scroll per user feedback</li>
+<li>⚠️ File extension of articles needs to be "scroll" and not "dd" now.</li>
 </ul>
 
 <h4>4.2.0 02-22-2021</h4>
 <ul>
-<li>FIX Fixed paragraph parsing and rendering</li>
+<li>🏥 Fixed paragraph parsing and rendering</li>
 </ul>
 
 <h4>4.1.0 02-22-2021</h4>
 <ul>
-<li>NEW "git" scrollSetting for article source links.</li>
+<li>🎉 "git" scrollSetting for article source links.</li>
 </ul>
-
-
 <p class="scrollArticleSourceLink"><a href="https://github.com/publicdomaincompany/scroll/blob/master/releaseNotes.scroll">Article source</a></p></div>
 </div>
   <div class="scrollFooter">

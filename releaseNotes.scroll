@@ -4,43 +4,49 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 17.0.0 05-25-2021
+list
+ - 🎉 tabTable and commaTable
+ - ⚠️ table is now spaceTable
+ - 🏥 do not crash if an empty row in a table
+
 title4 16.2.0 05-24-2021
 list
- - FIX do not crash if an image is not found
+ - 🏥 do not crash if an image is not found
 
 title4 16.1.0 05-24-2021
 list
- - FIX building a site is now ~2.4x faster 🏎
+ - 🎉 building a site is now ~2.4x faster 🏎
 
 title4 16.0.0 05-22-2021
 list
- - BREAKING rename scrollSettings.map to scroll.settings
+ - ⚠️ rename scrollSettings.map to scroll.settings
 
 title4 15.0.0 05-21-2021
 list
- - NEW Scroll will detect and emit image sizes during build to reduce layout shifts.
+ - 🎉 Scroll will detect and emit image sizes during build to reduce layout shifts.
 
 title4 14.3.0 05-21-2021
 list
- - FIX Scroll is now somewhat usable as an NPM module.
+ - 🏥 Scroll is now somewhat usable as an NPM module.
 
 title4 14.2.0 05-20-2021
 list
- - FIX added html head meta viewport tag for better mobile experience.
+ - 🏥 added html head meta viewport tag for better mobile experience.
 
 title4 14.1.0 05-20-2021
 list
- - FIX added doctype tag
- - FIX added html head meta description tag
+ - 🏥 added doctype tag
+ - 🏥 added html head meta description tag
 
 title4 14.0.0 05-19-2021
 list
- - BREAKING removed links nodeType
- - BREAKING fixed bug where sometimes permalinks were still using title and not filename
+ - ⚠️ removed links nodeType
+ - ⚠️ fixed bug where sometimes permalinks were still using title and not filename
 
 title4 13.3.0 05-18-2021
 list
- - NEW html and image node types
+ - 🎉 html and image node types
 
 paragraph
  To use an image node:
@@ -57,16 +63,16 @@ code
 
 title4 13.2.0 05-18-2021
 list
- - NEW Added <code>scroll check</code> command
+ - 🎉 Added <code>scroll check</code> command
 
 title4 13.1.0 05-18-2021
 list
- - NEW 🔗links in lists as well as paragraphs
+ - 🎉 🔗links in lists as well as paragraphs
 
 title4 13.0.0 05-17-2021
 list
- - NEW 🔗links in paragraph nodes.
- - NEW skipIndexPage nodeType
+ - 🎉 🔗links in paragraph nodes.
+ - 🎉 skipIndexPage nodeType
 
 title5 Single word links
 
@@ -104,7 +110,7 @@ paragraph
 
 title4 12.1.0 05-14-2021
 list
- - NEW chat nodeType
+ - 🎉 chat nodeType
 
 chat
  You can now do dialogues
@@ -112,59 +118,57 @@ chat
 
 title4 12.0.0 05-12-2021
 list
- - NOTICE scroll create is now scroll init
- - NOTICE Removed export command
- - INFRA removed example.com folder. Less code and now flat.
+ - ⚠️ scroll create is now scroll init
+ - ⚠️ Removed export command
+ - 🏥 removed example.com folder. Less code and now flat.
 
 title4 11.0.0 05-11-2021
 list
- - NEW list, orderedList, and links node types
- - NEW codeWithLanguageNode
- - FIX HTML escaped in code blocks
+ - 🎉 list, orderedList, and links node types
+ - 🎉 codeWithLanguageNode
+ - 🏥 HTML escaped in code blocks
 
 title4 10.0.0 05-10-2021
 list
- - NEW table nodeType for SSVs with linkify
- - NEW Better docs in Scrolldown grammar
- - BREAKING Removed list nodeType
- - BREAKING Removed link nodeType
- - FIX Windows return character fix
- - FIX multiline support in subheader nodeTypes
+ - 🎉 table nodeType for SSVs with linkify
+ - 🎉 Better docs in Scrolldown grammar
+ - ⚠️ Removed list nodeType
+ - ⚠️ Removed link nodeType
+ - 🏥 Windows return character fix
+ - 🏥 multiline support in subheader nodeTypes
  
 title4 9.0.0 05-05-2021
 list
- - NEW Scrolldown now has a quote nodeType.
- - FIX Code block format bug fixes.
- - FIX Styling improvements
+ - 🎉 Scrolldown now has a quote nodeType.
+ - 🏥 Code block format bug fixes.
+ - 🏥 Styling improvements
 
 title4 8.0.0 04-10-2021
 list
- - INFRA Scroll now just builds files. No web server needed.
+ - 🎉 Scroll now just builds files. No web server needed.
 
 title4 7.0.0 04-03-2021
 list
- - INFRA Scroll the language is now called Scrolldown (thanks FB!).
- - FIX Bug fixes.
- - NEW Better perf.
+ - ⚠️ Scroll the language is now called Scrolldown (thanks FB!).
+ - 🏥 Bug fixes.
+ - 🎉 Better perf.
 
 title4 6.0.0 03-08-2021
 list
- - NEW By popular request, Scroll now also publishes each article to its own page.
- - NEW Fewer links. Do less. KISS.
- - NEW Better perf.
- - NEW "permalink" nodeType
+ - 🎉 By popular request, Scroll now also publishes each article to its own page.
+ - 🎉 Fewer links. Do less. KISS.
+ - 🎉 Better perf.
+ - 🎉 "permalink" nodeType
 
 title4 5.0.0 02-28-2021
 list
- - NEW Changed name of everything from dumbdown to Scroll per user feedback
- - BREAKING File extension of articles needs to be "scroll" and not "dd" now.
+ - 🎉 Changed name of everything from dumbdown to Scroll per user feedback
+ - ⚠️ File extension of articles needs to be "scroll" and not "dd" now.
 
 title4 4.2.0 02-22-2021
 list
- - FIX Fixed paragraph parsing and rendering
+ - 🏥 Fixed paragraph parsing and rendering
 
 title4 4.1.0 02-22-2021
 list
- - NEW "git" scrollSetting for article source links.
-
-
+ - 🎉 "git" scrollSetting for article source links.
