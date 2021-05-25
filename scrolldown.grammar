@@ -149,7 +149,6 @@ quoteNode
   }
  crux quote
 abstractTableNode
- crux table
  catchAllNodeType rowNode
  extends abstractTopLevelNode
  javascript
