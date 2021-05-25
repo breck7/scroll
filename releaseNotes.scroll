@@ -4,6 +4,14 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 17.1.0 05-25-2021
+list
+ - 🎉 pipeTable
+
+pipeTable
+ what|why
+ PipeTable|Because it's awesome!
+
 title4 17.0.0 05-25-2021
 list
  - 🎉 tabTable and commaTable
