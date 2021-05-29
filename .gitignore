@@ -11,3 +11,4 @@ coverage/
 # Prevent accidental checking in of perf reports
 scrollBrowserPerf.html
 scrollNodePerf.cpuprofile
+browserstackCreds.json
