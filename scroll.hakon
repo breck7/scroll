@@ -98,7 +98,6 @@ html
  width 35ch
  padding 1ch
  break-inside avoid
- overflow hidden
  text-align justify
  margin auto
  margin-bottom .5em

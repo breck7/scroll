@@ -1,5 +1,6 @@
 // npm install --no-save selenium-webdriver
 // touch browserstackCreds.json
+// open https://automate.browserstack.com/dashboard/v2/
 
 const webdriver = require("selenium-webdriver")
 const { userName, accessKey } = require("./browserstackCreds.json")
