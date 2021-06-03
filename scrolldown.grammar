@@ -226,15 +226,16 @@ imageNode
  javascript
   compile() {
    const src = this.getWord(1)
+   const openA = `<a href="${src}" target="_blank">`
    try {
     const sizeOf = require("image-size")
     const dimensions = sizeOf(src)
     const width = dimensions.width
     const height = dimensions.height
-    return `<img src="${src}" width="${width}" height="${height}" loading="lazy"/>`
+    return `${openA}<img src="${src}" width="${width}" height="${height}" loading="lazy"/></a>`
    } catch (err) {
     console.error(err)
-    return `<img src="${src}">`
+    return `${openA}<img src="${src}"></a>`
    }
   }
 htmlNode
