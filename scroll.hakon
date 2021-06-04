@@ -1,5 +1,5 @@
 comment CSS reset
-html,body,div,span,h1,h2,h3,h4,h5,h6,p
+html,body,div,span,h1,h2,h3,h4,h5,h6,p,ol,ul
  margin 0
  padding 0
  border 0
@@ -9,7 +9,7 @@ html
  background-color rgb(244,244,244)
  font-family Exchange,Georgia,serif
  color #000
- font-size 10pt
+ font-size 14px
  hyphens auto
 
 .scrollHeader,.scrollFooter
@@ -102,8 +102,9 @@ html
  margin auto
  margin-bottom .5em
  ul,ol
-  padding .5em
-  margin 0
+  text-align left
+  line-height 1.4em
+  padding-left 1em
  p
   text-indent 1em
   margin-top 0.4em
@@ -131,6 +132,7 @@ html
   white-space pre-line
   border-left .5em solid rgba(204,204,204, .8)
  h1
+  font-size 24px
   a
    text-decoration none
    color #000

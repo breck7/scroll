@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 17.4.0 06-04-2021
+list
+ - 🎉 typography adjustments
+ - 🏥 fixed overlapping social icons up top on mobile. just keep git link
+
 title4 17.3.0 06-03-2021
 list
  - 🎉 images now link to the full size image
