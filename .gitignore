@@ -12,3 +12,6 @@ coverage/
 scrollBrowserPerf.html
 scrollNodePerf.cpuprofile
 browserstackCreds.json
+
+# Dump import examples here
+importExamples/

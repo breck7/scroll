@@ -1,0 +1,38 @@
+#! /usr/bin/env node
+const { SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollBuilder } = require("./scroll.js")
+const fs = require("fs")
+
+const cases = `https://juliagalef.com/feed/
+http://www.aaronsw.com/2002/feeds/pgessays.rss
+https://fs.blog/feed/
+https://sive.rs/podcast.rss
+https://lrb.co.uk/feeds/rss
+https://believermag.com/feed/
+https://waitbutwhy.com/feed
+https://xkcd.com/rss.xml
+https://torrentfreak.com/feed/
+https://blogmaverick.com/feed/
+https://vitalik.ca/feed.xml
+https://worksinprogress.co/feed/
+https://meyerweb.com/eric/thoughts/feed/`.split("\n")
+
+const rootFolder = __dirname + "/importExamples/"
+try {
+	fs.mkdirSync(rootFolder)
+} catch (err) {
+	console.error(err)
+}
+cases.forEach(async url => {
+	const { hostname } = new URL(url)
+	const folder = rootFolder + hostname
+	try {
+		fs.mkdirSync(folder)
+		fs.writeFileSync(folder + "/" + SCROLL_SETTINGS_FILENAME, scrollKeywords.importFrom + " " + url, "utf8")
+		const scroll = new ScrollBuilder(folder)
+		await scroll.importSite()
+		scroll.writeSinglePages()
+		scroll.buildIndexPage()
+	} catch (err) {
+		console.error(err)
+	}
+})

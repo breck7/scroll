@@ -65,6 +65,14 @@ const scrollKeywords = {
 	skipIndexPage: "skipIndexPage"
 }
 
+const defaultSettings = {
+	twitter: "",
+	github: "",
+	email: "",
+	description: "",
+	title: ""
+}
+
 // LinkSuffixLang. [anyWord🔗absoluteUrl] or [anyWord🔗./relativeUrl]
 // anyWord text cannot contain 🔗
 // url should not contain the protocol. It will compile always to https. Use <a> if you need something else.
@@ -156,6 +164,17 @@ class RssImporter {
 	}
 	path = ""
 
+	savePost(item, content, destinationFolder) {
+		const { title, pubDate, isoDate } = item
+		const date = pubDate || isoDate ? `date ${pubDate || isoDate}` : ""
+		const scrollFile = `title ${title}
+${date}
+paragraph
+ ${cleanAndRightShift(content, 1)}
+`
+		write(destinationFolder + "/" + Utils.stringToPermalink(title) + ".scroll", scrollFile)
+	}
+
 	async downloadFilesTo(destinationFolder) {
 		const Parser = require("rss-parser")
 		const got = require("got")
@@ -168,17 +187,14 @@ class RssImporter {
 
 		await Promise.all(
 			feed.items.map(async item => {
+				if (item.content) return this.savePost(item, item.content, destinationFolder)
+
 				try {
 					console.log(`⏳ downloading '${item.link}'`)
 					const response = await got(item.link)
 					const html = response.body
 					const dom = cheerio.load(html)
-					const scrollFile = `title ${item.title}
-
-paragraph
- ${cleanAndRightShift(dom.text(), 1)}
-`
-					write(destinationFolder + "/" + Utils.stringToPermalink(item.title) + ".scroll", scrollFile)
+					this.savePost(item, dom.text(), destinationFolder)
 				} catch (err) {
 					console.log(`❌ downloading '${item.link}'`)
 				}
@@ -216,13 +232,7 @@ class ScrollBuilder {
 	}
 
 	get settings() {
-		const defaults = {
-			twitter: "",
-			github: "",
-			email: ""
-		}
-
-		return { ...defaults, ...new TreeNode(read(this.scrollFolder + "/" + SCROLL_SETTINGS_FILENAME)).toObject() }
+		return { ...defaultSettings, ...new TreeNode(read(this.scrollFolder + "/" + SCROLL_SETTINGS_FILENAME)).toObject() }
 	}
 
 	silence() {
@@ -312,10 +322,11 @@ class ScrollBuilder {
 
 		if (!importFrom) return `❌ You need to add a line to '${this.settingsPath}' like '${scrollKeywords.importFrom}'`
 
-		if (importFrom.endsWith("rss")) return new RssImporter(importFrom).downloadFilesTo(this.scrollFolder)
-
-		// If we havent found a match but the url has something like "format=rss"
-		if (importFrom.includes("rss")) return new RssImporter(importFrom).downloadFilesTo(this.scrollFolder)
+		// A loose check for now to catch things like "format=rss"
+		if (importFrom.includes("rss") || importFrom.includes("feed")) {
+			const importer = new RssImporter(importFrom)
+			return await importer.downloadFilesTo(this.scrollFolder)
+		}
 
 		return `❌ Scroll wasn't sure how to import '${importFrom}'.\n💡 You can open an issue here: https://github.com/publicdomaincompany/scroll/issues`
 	}
@@ -445,4 +456,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollBuilder, ScrollCli, Article, SCROLL_SETTINGS_FILENAME, compileATags }
+module.exports = { ScrollBuilder, ScrollCli, Article, SCROLL_SETTINGS_FILENAME, compileATags, scrollKeywords }

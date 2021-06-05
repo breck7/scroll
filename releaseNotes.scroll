@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 17.5.0 06-05-2021
+list
+ - 🏥 fixed numerous bugs in importing RSS feeds and added examples
+
 title4 17.4.0 06-04-2021
 list
  - 🎉 typography adjustments
