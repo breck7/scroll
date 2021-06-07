@@ -135,7 +135,7 @@ paragraph
  The Scroll app is written in plain Javascript and
  runs in Node.js. Scroll makes heavy use of Tree Languages. The CSS is
  written in Hakon🔗jtree.treenotation.org/designer/#standard%20hakon.
- The HTML is written in stump🔗jtree.treenotation.org/designer/#standard%20stump.
+ The HTML is written in Components🔗jtree.treenotation.org/designer/#standard%20components.
 
 paragraph
  TypeScript may be used in the future but Scroll may

@@ -14,7 +14,7 @@ const open = require("open")
 const { jtree } = require("jtree")
 const { TreeNode, Utils } = jtree
 const hakon = require("jtree/products/hakon.nodejs.js")
-const stump = require("jtree/products/stump.nodejs.js")
+const components = require("jtree/products/components.nodejs.js")
 const { Disk } = require("jtree/products/Disk.node.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 
@@ -25,9 +25,9 @@ const SCROLL_FILE_EXTENSION = ".scroll"
 const DEFAULT_PORT = 1145
 const SCROLLDOWN_GRAMMAR_FILENAME = "scrolldown.grammar"
 const SCROLL_HAKON_FILENAME = "scroll.hakon"
-const SCROLL_STUMP_FILENAME = "scroll.stump"
+const SCROLL_COMPONENTS_FILENAME = "scroll.components"
 const SCROLL_SETTINGS_FILENAME = "scroll.settings"
-const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, SCROLL_HAKON_FILENAME, SCROLL_STUMP_FILENAME].join("|")}$`)
+const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, SCROLL_HAKON_FILENAME, SCROLL_COMPONENTS_FILENAME].join("|")}$`)
 
 const SCROLL_SRC_FOLDER = __dirname + "/"
 const CommandFnDecoratorSuffix = "Command"
@@ -144,7 +144,7 @@ class Article {
 		return dayjs(this.asTree.get(scrollKeywords.date) ?? 0).unix()
 	}
 
-	toStumpNode() {
+	toComponentsNode() {
 		const node = new TreeNode(`div
  class ${cssClasses.scrollArticleCell}`)
 
@@ -154,7 +154,7 @@ class Article {
 		program.setPermalink(this.permalink)
 		node.getNode("div").appendLineAndChildren("bern", program.compile() + sourceLink)
 
-		return new stump(node)
+		return new components(node)
 	}
 }
 
@@ -255,14 +255,13 @@ class ScrollBuilder {
 		return read(SCROLL_SRC_FOLDER + SCROLL_HAKON_FILENAME)
 	}
 
-	get stump() {
-		return new TreeNode(read(SCROLL_SRC_FOLDER + SCROLL_STUMP_FILENAME))
+	get components() {
+		return new TreeNode(read(SCROLL_SRC_FOLDER + SCROLL_COMPONENTS_FILENAME))
 	}
 
-	// todo: refactor this. stump sucks. improve it.
 	articlesToHtml(articles, htmlTitlePrefix = "") {
 		const scrollDotHakon = this.hakon
-		const scrollDotStump = this.stump
+		const scrollDotComponents = this.components
 		const scrollIcons = SCROLL_ICONS
 
 		const settings = this.settings
@@ -270,18 +269,18 @@ class ScrollBuilder {
 
 		const htmlTitle = (htmlTitlePrefix ? `${htmlTitlePrefix} - ` : "") + scrollTitle
 		const userSettingsMap = { ...scrollIcons, ...settings, scrollTitle, htmlTitle }
-		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
+		const componentsWithSettings = new TreeNode(scrollDotComponents.templateToString(userSettingsMap)).expandLastFromTopMatter()
 
-		stumpWithSettings
+		componentsWithSettings
 			.getTopDownArray()
 			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
 			.getParent() // todo: fix
-			.setChildren(`class ${cssClasses.scrollPage}${articles.length === 1 ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
+			.setChildren(`class ${cssClasses.scrollPage}${articles.length === 1 ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toComponentsNode().toString()).join("\n"))
 
-		const stumpNode = new stump(stumpWithSettings.toString())
-		const styleTag = stumpNode.getNode("html head styleTag")
+		const componentsNode = new components(componentsWithSettings.toString())
+		const styleTag = componentsNode.getNode("html head styleTag")
 		styleTag.appendLineAndChildren("bern", new hakon(scrollDotHakon).compile())
-		return scrollBoilerplateCompiledMessage + "\n" + stumpNode.compile()
+		return scrollBoilerplateCompiledMessage + "\n" + componentsNode.compile()
 	}
 
 	log(message) {

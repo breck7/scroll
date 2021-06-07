@@ -68,7 +68,7 @@ hello world`,
 		"foobar.scroll"
 	)
 
-	const content = article.toStumpNode().toString()
+	const content = article.toComponentsNode().toString()
 
 	areEqual(content.includes("scrollArticleCell"), true)
 
