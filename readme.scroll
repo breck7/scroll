@@ -11,23 +11,12 @@ image screenshot.png
 title4 What makes Scroll different?
 
 paragraph
- Scroll is different than other static publishing tools in
- 3 ways.
+ Scroll is different than other🔗staticsitegenerators.net static site generators in 3 ways.
 
-paragraph
- 1. Instead of a page per post, like a blog, a Scroll is a
- <strong>single page</strong>, like an old newspaper.
-
-paragraph
- 2. Instead of Markdown, Scroll uses the easily extendible <strong>Scrolldown</strong>,
- which makes it easy to combine languages to generate more
- creative content.
-
-paragraph
- 3. Instead of supporting licenses, Scroll is 100% focused on
- <strong>public domain sites</strong> and everything is
- designed with that assumption. We want to democratize the
- media industry.
+orderedList
+ 1. Instead of Markdown, Scroll uses the easily extendible <strong>Scrolldown</strong>, so you can invent new languages to better fit your content.
+ 2. Instead of supporting licenses, Scroll is 100% focused on <strong>public domain sites</strong> and everything is designed with that assumption.
+ 3. The default Scroll theme publishes all articles to a <strong>single page</strong>, so readers can read faster at a higher level, like reading a newspaper.
 
 title4 How do I get Scroll?
 
@@ -63,7 +52,7 @@ code
 title4 How do I use Scroll?
 
 paragraph
- Scroll is used through the CLI. To see the options type:
+ Scroll is a command line app. To see the commands type:
 
 code
  scroll help
@@ -78,11 +67,11 @@ title4 What are some example sites using Scroll?
 paragraph
  On beta launch day we have BreckYunits.com🔗breckyunits.com.
 
-title4 How does Scroll work?
+title4 What does the name Scroll refer to?
 
 paragraph
- <em>A Scroll</em> is a single folder containing Scroll files.
- Scroll compiles those Scroll files into a static
+ <em>A scroll</em> is a single folder containing Scrolldown files and a `scroll.settings` file.
+ Scroll compiles those Scrolldown files into a static
  index.html page.
 
 paragraph
@@ -99,7 +88,7 @@ paragraph
  built by Scroll, looks like this:
 
 code
- yourDomainName.org/
+ 📁yourDomainName.org
   about.scroll
   publishedArticle.scroll
   anImageInTheArticle.png
@@ -111,28 +100,36 @@ paragraph
 
 paragraph
  When you "build" a Scroll site, you are simply generating
- the `index.html` and `article*.html` files in the site's folder.
+ the `index.html` and `[article].html` files in the site's folder.
 
 paragraph
- With Scroll your site's public static files, generated html,
- and published article source Scroll files, are all in the
- public folder and checked into version control.
+ With Scroll your site's Scroll files and static files and generated html
+ are all in one public folder and checked into version control. Though often
+ you may want to add `*.html` to your `.gitignore`.
  
 title4 How do I save drafts?
 
 paragraph
- Put them in a separate folder outside your published folder.
+ Have a draft scroll next to your published scroll. For example:
 
-title4 What File Formats does Scroll use?
+code
+ 📁drafts
+  someDraft.scroll
+  scroll.settings
+ 📁yourDomainName.org
+  publishedArticle.scroll
+  scroll.settings
+
+title4 What file formats does Scroll use?
 
 paragraph
  Scroll articles are written as Scrolldown files with the file
  extension `scroll`. The grammar for Scrolldown is defined here🔗github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar.
 
-title4 What languages is Scroll written in?
+title4 What language is Scroll written in?
 
 paragraph
- The Scroll app is written in plain Javascript and
+ The Scroll CLI app is written in plain Javascript and
  runs in Node.js. Scroll makes heavy use of Tree Languages. The CSS is
  written in Hakon🔗jtree.treenotation.org/designer/#standard%20hakon.
  The HTML is written in stump🔗jtree.treenotation.org/designer/#standard%20stump.
@@ -147,21 +144,17 @@ paragraph
  Scroll is designed for git. A single article is stored as
  a single file tracked by git.
 
-title4 Why is Scroll a single page?
+title4 Why the single page layout?
 
 paragraph
  Scroll is designed to make it easier for <strong>syntopic
  reading</strong>. Being able to scan the page like a
- newspaper. This allows you to read at a higher level—to get "in the author's head"—
- moreso than reading one article at a time from beginning to end.
+ newspaper. This allows you to read at a higher level—to "get in the author's head"—
+ compared to reading one article at a time from beginning to end.
 
 paragraph
- Additionally, making it easy to take the content with
- you, and transform it to better suit the reader, is
- also key to Scroll. Because Scroll is designed for public domain sites,
- we can optimize for the single page reading experience
- but people can have the full Scroll contents and render
- it however best suits them.
+ And if anyone prefers to read a scroll in a different way—they can! Scroll is for
+ public domain sites. People are free to arrange the symbols any way they wish.
 
 title4 Will you make design decisions for non-public domain sites?
 
@@ -173,13 +166,7 @@ title4 Can I use Scroll for internal private sites not intended for publishing?
 paragraph
  Yes!
 
-title4 Will you support publishing snippets?
-
-paragraph
- No. But will support making it easier for someone to do that in a fork
- or via plugins.
-
-title4 Why don't you have only the newest articles above the fold?
+title4 In the single page layout why don't you have only the newest articles above the fold?
 
 paragraph
  This was originally a bug. But then it turns out to be a feature, as it
@@ -202,16 +189,26 @@ code
 title4 How do I check browser performance?
 
 paragraph
- Scroll does not browser perf tools built in. For that, try lighthouse🔗github.com/GoogleChrome/lighthouse.
+ Scroll does not have browser perf tools built in. For that, try lighthouse🔗github.com/GoogleChrome/lighthouse.
 
 code
  # npm install -g lighthouse
  lighthouse https://scroll.publicdomaincompany.com --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
 
+title4 Where should I host my site?
+
+paragraph
+ Any web server works. You can even host your scroll for free using GitHub Pages🔗pages.github.com, just like this site.
+
+title4 How do I use Scroll with a custom domain?
+
+paragraph
+ Just buy a domain and point it to your web server or web host (such as GitHub Pages). Google Domains🔗domains.google is where this domain is registered and is a great service.
+
 title4 How can I deploy my site?
 
 paragraph
- If you have your own web server rsync is a fast and simple way to do it with a one liner.
+ If you have your own web server try rsync. Here's a bash one liner:
 
 code
  # deploy.sh
@@ -227,10 +224,10 @@ code
    IdentityFile ~/.ssh/example_id_rsa
    IdentitiesOnly yes
 
-title4 How can I build a Scroll from a Twitter account?
+title4 How can I build a scroll from a Twitter account?
 
 paragraph
- Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets json into scroll files. Or to experiment faster use this tool🔗www.vicinitas.io/free-tools/download-user-tweets to grab some tweets as a TSV.
+ Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets JSON into scroll files. Or to experiment faster use this tool🔗www.vicinitas.io/free-tools/download-user-tweets to grab some tweets as a TSV.
 
 title4 What were some alternatives considered?
 
@@ -245,7 +242,7 @@ title4 What has changed in recent versions?
 paragraph
  View the releaseNotes🔗./releaseNotes.html.
 
-title3 Contributing to Scroll Development
+title3 Contributing to Scroll development
 
 title4 How do I contribute?
 
@@ -253,7 +250,7 @@ paragraph
  File issues. Share your Scroll sites.
 
 paragraph
- You can submit Pull Requests too. The shorter the better.
+ You can submit pull requests too. The shorter the better.
 
 title4 How do I debug node.js performance?
 
@@ -268,4 +265,11 @@ title4 How do I format the Scrolldown Grammar file?
 code
  # Assuming you've already done `jtree register YOUR_PATH/jtree/langs/grammar/grammar.grammar`
  jtree format scrolldown.grammar
+
+title4 How do I run cross browser tests?
+
+paragraph
+ For that we use BrowserStack🔗browserstack.com.
+
+
 

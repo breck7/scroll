@@ -128,6 +128,7 @@ html {
   text-align: left;
   line-height: 1.4em;
   padding-left: 1em;
+  margin-top: 0.4em;
 }
 .scrollArticleCell p {
   text-indent: 1em;
@@ -203,20 +204,13 @@ html {
 
 <h4>What makes Scroll different?</h4>
 
-<p>Scroll is different than other static publishing tools in
-3 ways.</p>
+<p>Scroll is different than <a href="https://staticsitegenerators.net">other</a> static site generators in 3 ways.</p>
 
-<p>1. Instead of a page per post, like a blog, a Scroll is a
-<strong>single page</strong>, like an old newspaper.</p>
-
-<p>2. Instead of Markdown, Scroll uses the easily extendible <strong>Scrolldown</strong>,
-which makes it easy to combine languages to generate more
-creative content.</p>
-
-<p>3. Instead of supporting licenses, Scroll is 100% focused on
-<strong>public domain sites</strong> and everything is
-designed with that assumption. We want to democratize the
-media industry.</p>
+<ol>
+<li>Instead of Markdown, Scroll uses the easily extendible <strong>Scrolldown</strong>, so you can invent new languages to better fit your content.</li>
+<li>Instead of supporting licenses, Scroll is 100% focused on <strong>public domain sites</strong> and everything is designed with that assumption.</li>
+<li>The default Scroll theme publishes all articles to a <strong>single page</strong>, so readers can read faster at a higher level, like reading a newspaper.</li>
+</ol>
 
 <h4>How do I get Scroll?</h4>
 
@@ -243,7 +237,7 @@ npm install -g .</code>
 
 <h4>How do I use Scroll?</h4>
 
-<p>Scroll is used through the CLI. To see the options type:</p>
+<p>Scroll is a command line app. To see the commands type:</p>
 
 <code class="scrollCodeBlock">scroll help</code>
 
@@ -255,10 +249,10 @@ npm install -g .</code>
 
 <p>On beta launch day we have <a href="https://breckyunits.com">BreckYunits.com</a>.</p>
 
-<h4>How does Scroll work?</h4>
+<h4>What does the name Scroll refer to?</h4>
 
-<p><em>A Scroll</em> is a single folder containing Scroll files.
-Scroll compiles those Scroll files into a static
+<p><em>A scroll</em> is a single folder containing Scrolldown files and a `scroll.settings` file.
+Scroll compiles those Scrolldown files into a static
 index.html page.</p>
 
 <p>Scroll is also the name of the command line app that includes a
@@ -271,7 +265,7 @@ simple fs watch app for live preview.</p>
 <p>A typical Scroll project folder, excluding the html files
 built by Scroll, looks like this:</p>
 
-<code class="scrollCodeBlock">yourDomainName.org/
+<code class="scrollCodeBlock">📁yourDomainName.org
  about.scroll
  publishedArticle.scroll
  anImageInTheArticle.png
@@ -281,24 +275,31 @@ built by Scroll, looks like this:</p>
 a folder contains a Scroll.</p>
 
 <p>When you "build" a Scroll site, you are simply generating
-the `index.html` and `article*.html` files in the site's folder.</p>
+the `index.html` and `[article].html` files in the site's folder.</p>
 
-<p>With Scroll your site's public static files, generated html,
-and published article source Scroll files, are all in the
-public folder and checked into version control.
+<p>With Scroll your site's Scroll files and static files and generated html
+are all in one public folder and checked into version control. Though often
+you may want to add `*.html` to your `.gitignore`.
 </p>
 <h4>How do I save drafts?</h4>
 
-<p>Put them in a separate folder outside your published folder.</p>
+<p>Have a draft scroll next to your published scroll. For example:</p>
 
-<h4>What File Formats does Scroll use?</h4>
+<code class="scrollCodeBlock">📁drafts
+ someDraft.scroll
+ scroll.settings
+📁yourDomainName.org
+ publishedArticle.scroll
+ scroll.settings</code>
+
+<h4>What file formats does Scroll use?</h4>
 
 <p>Scroll articles are written as Scrolldown files with the file
 extension `scroll`. The grammar for Scrolldown is defined <a href="https://github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar">here</a>.</p>
 
-<h4>What languages is Scroll written in?</h4>
+<h4>What language is Scroll written in?</h4>
 
-<p>The Scroll app is written in plain Javascript and
+<p>The Scroll CLI app is written in plain Javascript and
 runs in Node.js. Scroll makes heavy use of Tree Languages. The CSS is
 written in <a href="https://jtree.treenotation.org/designer/#standard%20hakon">Hakon</a>.
 The HTML is written in <a href="https://jtree.treenotation.org/designer/#standard%20stump">stump</a>.</p>
@@ -311,19 +312,15 @@ never get over 1kloc so that might not be necessary.</p>
 <p>Scroll is designed for git. A single article is stored as
 a single file tracked by git.</p>
 
-<h4>Why is Scroll a single page?</h4>
+<h4>Why the single page layout?</h4>
 
 <p>Scroll is designed to make it easier for <strong>syntopic
 reading</strong>. Being able to scan the page like a
-newspaper. This allows you to read at a higher level—to get "in the author's head"—
-moreso than reading one article at a time from beginning to end.</p>
+newspaper. This allows you to read at a higher level—to "get in the author's head"—
+compared to reading one article at a time from beginning to end.</p>
 
-<p>Additionally, making it easy to take the content with
-you, and transform it to better suit the reader, is
-also key to Scroll. Because Scroll is designed for public domain sites,
-we can optimize for the single page reading experience
-but people can have the full Scroll contents and render
-it however best suits them.</p>
+<p>And if anyone prefers to read a scroll in a different way—they can! Scroll is for
+public domain sites. People are free to arrange the symbols any way they wish.</p>
 
 <h4>Will you make design decisions for non-public domain sites?</h4>
 
@@ -333,12 +330,7 @@ it however best suits them.</p>
 
 <p>Yes!</p>
 
-<h4>Will you support publishing snippets?</h4>
-
-<p>No. But will support making it easier for someone to do that in a fork
-or via plugins.</p>
-
-<h4>Why don't you have only the newest articles above the fold?</h4>
+<h4>In the single page layout why don't you have only the newest articles above the fold?</h4>
 
 <p>This was originally a bug. But then it turns out to be a feature, as it
 gives older articles, which are often more important, more visibility.</p>
@@ -356,14 +348,22 @@ linkinator https://scroll.publicdomaincompany.com > brokenLinks.txt</code>
 
 <h4>How do I check browser performance?</h4>
 
-<p>Scroll does not browser perf tools built in. For that, try <a href="https://github.com/GoogleChrome/lighthouse">lighthouse</a>.</p>
+<p>Scroll does not have browser perf tools built in. For that, try <a href="https://github.com/GoogleChrome/lighthouse">lighthouse</a>.</p>
 
 <code class="scrollCodeBlock"># npm install -g lighthouse
 lighthouse https://scroll.publicdomaincompany.com --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html</code>
 
+<h4>Where should I host my site?</h4>
+
+<p>Any web server works. You can even host your scroll for free using GitHub <a href="https://pages.github.com">Pages</a>, just like this site.</p>
+
+<h4>How do I use Scroll with a custom domain?</h4>
+
+<p>Just buy a domain and point it to your web server or web host (such as GitHub Pages). Google <a href="https://domains.google">Domains</a> is where this domain is registered and is a great service.</p>
+
 <h4>How can I deploy my site?</h4>
 
-<p>If you have your own web server rsync is a fast and simple way to do it with a one liner.</p>
+<p>If you have your own web server try rsync. Here's a bash one liner:</p>
 
 <code class="scrollCodeBlock"># deploy.sh
 # swap "/var/www/html" with the path to your website's location on your web server
@@ -376,9 +376,9 @@ rsync -vr /[path/to/your/site]/* [yourdomain.com]:/var/www/html</code>
   IdentityFile ~/.ssh/example_id_rsa
   IdentitiesOnly yes</code>
 
-<h4>How can I build a Scroll from a Twitter account?</h4>
+<h4>How can I build a scroll from a Twitter account?</h4>
 
-<p>Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets json into scroll files. Or to experiment faster use this <a href="https://www.vicinitas.io/free-tools/download-user-tweets">tool</a> to grab some tweets as a TSV.</p>
+<p>Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets JSON into scroll files. Or to experiment faster use this <a href="https://www.vicinitas.io/free-tools/download-user-tweets">tool</a> to grab some tweets as a TSV.</p>
 
 <h4>What were some alternatives considered?</h4>
 
@@ -391,13 +391,13 @@ biggest inspirations.</p>
 
 <p>View the <a href="releaseNotes.html">releaseNotes</a>.</p>
 
-<h3>Contributing to Scroll Development</h3>
+<h3>Contributing to Scroll development</h3>
 
 <h4>How do I contribute?</h4>
 
 <p>File issues. Share your Scroll sites.</p>
 
-<p>You can submit Pull Requests too. The shorter the better.</p>
+<p>You can submit pull requests too. The shorter the better.</p>
 
 <h4>How do I debug node.js performance?</h4>
 
@@ -410,6 +410,12 @@ node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile ~/scroll/scroll.js bui
 
 <code class="scrollCodeBlock"># Assuming you've already done `jtree register YOUR_PATH/jtree/langs/grammar/grammar.grammar`
 jtree format scrolldown.grammar</code>
+
+<h4>How do I run cross browser tests?</h4>
+
+<p>For that we use <a href="https://browserstack.com">BrowserStack</a>.</p>
+
+
 
 <p class="scrollArticleSourceLink"><a href="https://github.com/publicdomaincompany/scroll/blob/master/readme.scroll">Article source</a></p></div>
 </div>
