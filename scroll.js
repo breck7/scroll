@@ -59,6 +59,7 @@ const cssClasses = {
 }
 
 const scrollKeywords = {
+	title: "title",
 	permalink: "permalink",
 	date: "date",
 	importFrom: "importFrom",
@@ -111,37 +112,28 @@ const scrolldownCompiler = new jtree.HandGrammarProgram(scrolldownGrammarCode).c
 
 class Article {
 	constructor(content = "", filename = "", sourceLink = "") {
-		this.content = content
+		this.scrolldownProgram = new scrolldownCompiler(content)
 		this.sourceLink = sourceLink
 		this.filename = filename
 	}
 
-	content = ""
 	sourceLink = ""
 	filename = ""
 
 	get permalink() {
-		return this.asTree.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
+		return this.scrolldownProgram.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
 	}
 
 	get includeInIndex() {
-		return !this.asTree.has(scrollKeywords.skipIndexPage)
+		return !this.scrolldownProgram.has(scrollKeywords.skipIndexPage)
 	}
 
 	get title() {
-		return this.asTree.toObject().title ?? ""
-	}
-
-	get toScrolldownProgram() {
-		return new scrolldownCompiler(this.content)
-	}
-
-	get asTree() {
-		return new TreeNode(this.content)
+		return this.scrolldownProgram.get(scrollKeywords.title) ?? ""
 	}
 
 	get timestamp() {
-		return dayjs(this.asTree.get(scrollKeywords.date) ?? 0).unix()
+		return dayjs(this.scrolldownProgram.get(scrollKeywords.date) ?? 0).unix()
 	}
 
 	toStumpNode() {
@@ -150,7 +142,7 @@ class Article {
 
 		const sourceLink = this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLink}"><a href="${this.sourceLink}">Article source</a></p>` : ""
 
-		const program = this.toScrolldownProgram
+		const program = this.scrolldownProgram
 		program.setPermalink(this.permalink)
 		node.getNode("div").appendLineAndChildren("bern", program.compile() + sourceLink)
 
@@ -224,7 +216,7 @@ class ScrollBuilder {
 	get errors() {
 		return this.publishedArticles
 			.map(article =>
-				article.toScrolldownProgram.getAllErrors().map(err => {
+				article.scrolldownProgram.getAllErrors().map(err => {
 					return { filename: article.filename, ...err.toObject() }
 				})
 			)
@@ -270,13 +262,15 @@ class ScrollBuilder {
 
 		const htmlTitle = (htmlTitlePrefix ? `${htmlTitlePrefix} - ` : "") + scrollTitle
 		const userSettingsMap = { ...scrollIcons, ...settings, scrollTitle, htmlTitle }
+		const isSingleArticle = articles.length === 1
 		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
 
-		stumpWithSettings
+		const articleContainer = stumpWithSettings
 			.getTopDownArray()
 			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
 			.getParent() // todo: fix
-			.setChildren(`class ${cssClasses.scrollPage}${articles.length === 1 ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
+
+		articleContainer.setChildren(`class ${cssClasses.scrollPage}${isSingleArticle ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
 
 		const stumpNode = new stump(stumpWithSettings.toString())
 		const styleTag = stumpNode.getNode("html head styleTag")

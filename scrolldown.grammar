@@ -68,26 +68,22 @@ abstractTopLevelSingleMetaNode
  abstract
  description Use these keywords once per file.
  extends abstractTopLevelNode
+ cells keywordCell
+ compiler
+  stringTemplate 
 permalinkNode
  description When compiling, Scroll will save this article to {permalink}.html
  crux permalink
  extends abstractTopLevelSingleMetaNode
  cells keywordCell permalinkCell
- compiler
-  stringTemplate 
 skipIndexPageNode
  description Add this tag if you want to build a page but not include it in the index page.
  crux skipIndexPage
  extends abstractTopLevelSingleMetaNode
- cells keywordCell
- compiler
-  stringTemplate 
 titleNode
  catchAllCellType textCell
  description Title of the article.
  extends abstractTopLevelSingleMetaNode
- compiler
-  stringTemplate 
  crux title
  javascript
   compile() {
