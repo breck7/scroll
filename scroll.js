@@ -59,6 +59,7 @@ const cssClasses = {
 }
 
 const scrollKeywords = {
+	title: "title",
 	permalink: "permalink",
 	date: "date",
 	importFrom: "importFrom",
@@ -112,36 +113,38 @@ const scrolldownCompiler = new jtree.HandGrammarProgram(scrolldownGrammarCode).c
 class Article {
 	constructor(content = "", filename = "", sourceLink = "") {
 		this.content = content
+		this.tree = new TreeNode(this.content)
 		this.sourceLink = sourceLink
 		this.filename = filename
 	}
 
+	tree = undefined
 	content = ""
 	sourceLink = ""
 	filename = ""
 
 	get permalink() {
-		return this.asTree.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
+		return this.tree.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
+	}
+
+	get maxColumns() {
+		return this.tree.length < 20 ? 2 : 100
 	}
 
 	get includeInIndex() {
-		return !this.asTree.has(scrollKeywords.skipIndexPage)
+		return !this.tree.has(scrollKeywords.skipIndexPage)
 	}
 
 	get title() {
-		return this.asTree.toObject().title ?? ""
+		return this.tree.get(scrollKeywords.title) ?? ""
 	}
 
 	get toScrolldownProgram() {
 		return new scrolldownCompiler(this.content)
 	}
 
-	get asTree() {
-		return new TreeNode(this.content)
-	}
-
 	get timestamp() {
-		return dayjs(this.asTree.get(scrollKeywords.date) ?? 0).unix()
+		return dayjs(this.tree.get(scrollKeywords.date) ?? 0).unix()
 	}
 
 	toStumpNode() {
@@ -270,13 +273,20 @@ class ScrollBuilder {
 
 		const htmlTitle = (htmlTitlePrefix ? `${htmlTitlePrefix} - ` : "") + scrollTitle
 		const userSettingsMap = { ...scrollIcons, ...settings, scrollTitle, htmlTitle }
+		const isSingleArticle = articles.length === 1
 		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
 
-		stumpWithSettings
+		const articleContainer = stumpWithSettings
 			.getTopDownArray()
 			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
 			.getParent() // todo: fix
-			.setChildren(`class ${cssClasses.scrollPage}${articles.length === 1 ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
+
+		articleContainer.setChildren(`class ${cssClasses.scrollPage}${isSingleArticle ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
+
+		if (isSingleArticle) {
+			const { maxColumns } = articles[0]
+			if (maxColumns < 4) articleContainer.set("style", `columns: ${maxColumns};`)
+		}
 
 		const stumpNode = new stump(stumpWithSettings.toString())
 		const styleTag = stumpNode.getNode("html head styleTag")
