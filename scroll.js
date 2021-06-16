@@ -250,7 +250,7 @@ class AbstractScrollPage {
    h1
     class scrollTitle
     a ${this.scrollSettings.title}
-     href ./
+     href index.html
    div ${this.description}
     class scrollDescription
   ${cleanAndRightShift(this.pageCode, 2)}
