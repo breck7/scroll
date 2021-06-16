@@ -39,7 +39,7 @@ testTree.compileATags = areEqual => {
 }
 
 testTree.scroll = areEqual => {
-	areEqual(new ScrollBuilder().indexPage.includes(testString), true)
+	areEqual(new ScrollBuilder().indexPage.toHtml().includes(testString), true)
 }
 
 testTree.fullIntegrationTest = areEqual => {
@@ -68,7 +68,7 @@ hello world`,
 		"foobar.scroll"
 	)
 
-	const content = article.toStumpNode().toString()
+	const content = article.stumpCode
 
 	areEqual(content.includes("scrollArticleCell"), true)
 

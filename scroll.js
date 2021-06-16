@@ -13,23 +13,35 @@ const open = require("open")
 // Tree Notation Includes
 const { jtree } = require("jtree")
 const { TreeNode, Utils } = jtree
-const hakon = require("jtree/products/hakon.nodejs.js")
-const stump = require("jtree/products/stump.nodejs.js")
 const { Disk } = require("jtree/products/Disk.node.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 
+// Helper utils
+const read = filename => fs.readFileSync(filename, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.
+const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
+const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
+const replaceAll = (str, search, replace) => str.split(search).join(replace)
+const cleanAndRightShift = (str, numSpaces = 0) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
+
 // Constants
 const packageJson = require("./package.json")
+const SCROLL_SRC_FOLDER = __dirname + "/"
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const DEFAULT_PORT = 1145
+const SCROLL_GRAMMAR_EXTENSION = ".grammar"
 const SCROLLDOWN_GRAMMAR_FILENAME = "scrolldown.grammar"
-const SCROLL_HAKON_FILENAME = "scroll.hakon"
-const SCROLL_STUMP_FILENAME = "scroll.stump"
 const SCROLL_SETTINGS_FILENAME = "scroll.settings"
-const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, SCROLL_HAKON_FILENAME, SCROLL_STUMP_FILENAME].join("|")}$`)
+const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROLL_SETTINGS_FILENAME, SCROLL_GRAMMAR_EXTENSION].join("|")}$`)
 
-const SCROLL_SRC_FOLDER = __dirname + "/"
+// This is all the CSS
+const hakon = require("jtree/products/hakon.nodejs.js")
+const SCROLL_HAKON_FILENAME = "scroll.hakon"
+const SCROLL_CSS = new hakon(read(SCROLL_SRC_FOLDER + SCROLL_HAKON_FILENAME)).compile()
+
+// Here is the HTML
+const stump = require("jtree/products/stump.nodejs.js")
+
 const CommandFnDecoratorSuffix = "Command"
 const scrollBoilerplateCompiledMessage = `<!--
 
@@ -94,14 +106,7 @@ const linkReplacer = (match, p1, p2, p3, offset, str) => {
 	return `${p1}<a href="${prefix}${p3}">${p2}</a>${suffix}`
 }
 const compileATags = text => text.replace(/(^|\s)(\S+)🔗(\S+)(?=(\s|$))/g, linkReplacer)
-
-// Helper utils
-const read = filename => fs.readFileSync(filename, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.
-const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
-const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
 const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + SCROLL_SETTINGS_FILENAME))
-const replaceAll = (str, search, replace) => str.split(search).join(replace)
-const cleanAndRightShift = (str, numSpaces = 0) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
 
 const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.icons")).toObject()
 
@@ -136,7 +141,7 @@ class Article {
 		return dayjs(this.scrolldownProgram.get(scrollKeywords.date) ?? 0).unix()
 	}
 
-	toStumpNode() {
+	get stumpCode() {
 		const node = new TreeNode(`div
  class ${cssClasses.scrollArticleCell}`)
 
@@ -146,7 +151,7 @@ class Article {
 		program.setPermalink(this.permalink)
 		node.getNode("div").appendLineAndChildren("bern", program.compile() + sourceLink)
 
-		return new stump(node)
+		return node.toString()
 	}
 }
 
@@ -195,6 +200,109 @@ paragraph
 	}
 }
 
+class AbstractScrollPage {
+	constructor(articles, scrollSettings) {
+		this.articles = articles
+		this.scrollSettings = scrollSettings
+	}
+
+	articles = []
+	scrollSettings = {}
+
+	get htmlTitle() {
+		return this.scrollSettings.title
+	}
+
+	get cssClasses() {
+		return cssClasses.scrollPage
+	}
+
+	get description() {
+		return this.scrollSettings.description
+	}
+
+	get github() {
+		return this.scrollSettings.github
+	}
+
+	get email() {
+		return this.scrollSettings.email
+	}
+
+	get twitter() {
+		return this.scrollSettings.twitter
+	}
+
+	get stumpCode() {
+		return `html
+ lang en-US
+ head
+  meta
+   charset utf-8
+  titleTag ${this.htmlTitle}
+  meta
+   name viewport
+   content width=device-width,initial-scale=1
+  meta
+   name description
+   content ${this.description}
+  styleTag
+   bern
+    ${cleanAndRightShift(SCROLL_CSS, 4)}
+ body
+  div
+   class scrollHeader
+   div
+    class scrollTopRightBar
+    div
+     class scrollSocialMediaIcons
+     a ${SCROLL_ICONS.githubSvg}
+      href ${this.github}
+   h1
+    class scrollTitle
+    a ${this.scrollSettings.title}
+     href ./
+   div ${this.description}
+    class scrollDescription
+  div
+   class ${this.cssClasses}
+   ${cleanAndRightShift(this.articles.map(article => article.stumpCode).join("\n"), 3)}
+  div
+   class scrollFooter
+   div
+    class scrollSocialMediaIcons
+    a ${SCROLL_ICONS.emailSvg}
+     href mailto:${this.email}
+    a ${SCROLL_ICONS.twitterSvg}
+     href ${this.twitter}
+    a ${SCROLL_ICONS.githubSvg}
+     href ${this.github}
+   a Built with Scroll
+    href https://scroll.publicdomaincompany.com/
+    class scrollCommunityLink`
+	}
+
+	toHtml() {
+		return scrollBoilerplateCompiledMessage + "\n" + new stump(this.stumpCode).compile()
+	}
+}
+
+class ScrollArticlePage extends AbstractScrollPage {
+	get article() {
+		return this.articles[0]
+	}
+
+	get cssClasses() {
+		return `${cssClasses.scrollPage} ${cssClasses.scrollSingleArticle}`
+	}
+
+	get htmlTitle() {
+		return `${this.article.title} - ${this.scrollSettings.title}`
+	}
+}
+
+class ScrollIndexPage extends AbstractScrollPage {}
+
 // todo: probably merge this into ScrollCLI
 class ScrollBuilder {
 	constructor(scrollFolder = __dirname) {
@@ -240,42 +348,10 @@ class ScrollBuilder {
 	}
 
 	get indexPage() {
-		return this.articlesToHtml(this.publishedArticles.filter(article => article.includeInIndex))
-	}
-
-	get hakon() {
-		return read(SCROLL_SRC_FOLDER + SCROLL_HAKON_FILENAME)
-	}
-
-	get stump() {
-		return new TreeNode(read(SCROLL_SRC_FOLDER + SCROLL_STUMP_FILENAME))
-	}
-
-	// todo: refactor this. stump sucks. improve it.
-	articlesToHtml(articles, htmlTitlePrefix = "") {
-		const scrollDotHakon = this.hakon
-		const scrollDotStump = this.stump
-		const scrollIcons = SCROLL_ICONS
-
-		const settings = this.settings
-		const scrollTitle = settings.title
-
-		const htmlTitle = (htmlTitlePrefix ? `${htmlTitlePrefix} - ` : "") + scrollTitle
-		const userSettingsMap = { ...scrollIcons, ...settings, scrollTitle, htmlTitle }
-		const isSingleArticle = articles.length === 1
-		const stumpWithSettings = new TreeNode(scrollDotStump.templateToString(userSettingsMap)).expandLastFromTopMatter()
-
-		const articleContainer = stumpWithSettings
-			.getTopDownArray()
-			.filter(node => node.getLine() === `class ${cssClasses.scrollPage}`)[0]
-			.getParent() // todo: fix
-
-		articleContainer.setChildren(`class ${cssClasses.scrollPage}${isSingleArticle ? ` ${cssClasses.scrollSingleArticle}` : ""}\n` + articles.map(article => article.toStumpNode().toString()).join("\n"))
-
-		const stumpNode = new stump(stumpWithSettings.toString())
-		const styleTag = stumpNode.getNode("html head styleTag")
-		styleTag.appendLineAndChildren("bern", new hakon(scrollDotHakon).compile())
-		return scrollBoilerplateCompiledMessage + "\n" + stumpNode.compile()
+		return new ScrollIndexPage(
+			this.publishedArticles.filter(article => article.includeInIndex),
+			this.settings
+		)
 	}
 
 	log(message) {
@@ -290,7 +366,7 @@ class ScrollBuilder {
 		const settings = this.settings
 		return this.publishedArticles.map(article => {
 			const permalink = `${article.permalink}.html`
-			const html = this.articlesToHtml([article], article.title)
+			const html = new ScrollArticlePage([article], this.settings).toHtml()
 			if (this.singlePages.get(permalink) === html) return "Unmodified"
 			write(`${this.scrollFolder}/${permalink}`, html)
 			this.singlePages.set(permalink, html)
@@ -300,14 +376,14 @@ class ScrollBuilder {
 	}
 
 	buildIndexPage() {
-		const file = this.indexPage
-		if (this.previousVersion !== file) {
+		const html = this.indexPage.toHtml()
+		if (this.previousVersion !== html) {
 			const start = Date.now()
-			write(this.scrollFolder + "/index.html", file)
-			this.previousVersion = file
+			write(this.scrollFolder + "/index.html", html)
+			this.previousVersion = html
 			this.log(`Built and wrote new index.html to disk in ${(Date.now() - start) / 1000} seconds`)
 		}
-		return file
+		return html
 	}
 
 	// rss, twitter, hn, reddit, pinterest, instagram, tiktok, youtube?
@@ -430,8 +506,8 @@ class ScrollCli {
 
 		const builder = new ScrollBuilder(fullPath)
 		builder.verbose = this.verbose
-		builder.writeSinglePages()
 		builder.buildIndexPage()
+		builder.writeSinglePages()
 		return builder
 	}
 
