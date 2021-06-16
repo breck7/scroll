@@ -68,9 +68,7 @@ hello world`,
 		"foobar.scroll"
 	)
 
-	const content = article.stumpCode
-
-	areEqual(content.includes("scrollArticleCell"), true)
+	const content = article.htmlCode
 
 	areEqual(article.permalink, "foobar")
 	areEqual(content.includes("foobar"), true)

@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v18.0.0
+ Scroll v18.1.0
 
 -->
 <!doctype html>
@@ -29,9 +29,6 @@ html {
   color: #000;
   font-size: 14px;
   hyphens: auto;
-}
-.scrollHeader,.scrollFooter {
-  text-align: center;
 }
 .scrollChat span {
   font-family: Verdana;
@@ -80,17 +77,87 @@ html {
   right: 25px;
   top: 3px;
 }
+.scrollFooter {
+  border-top: 1px solid rgb(204,204,204);
+  margin-top: 8px;
+  padding-top: 8px;
+  text-align: center;
+}
+.scrollHeader {
+  border-bottom: 1px solid rgb(204,204,204);
+  text-align: center;
+  padding-bottom: 8px;
+}
+.scrollArticleCell {
+  border-bottom: 1px solid rgb(204,204,204);
+  padding: 1ch;
+  break-inside: avoid;
+  text-align: justify;
+  margin-bottom: .5em;
+}
 .scrollPage {
   column-count: auto;
+  column-fill: balance;
   column-width: 35ch;
   column-gap: 20px;
   column-rule: 1px solid rgb(204,204,204);
   padding-left: 20px;
   padding-right: 20px;
-  border-top: 1px solid rgb(204,204,204);
-  border-bottom: 1px solid rgb(204,204,204);
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin: auto;
+}
+.scrollPage ul,.scrollPage ol {
+  text-align: left;
+  line-height: 1.4em;
+  padding-left: 1em;
+  margin-top: 0.4em;
+}
+.scrollPage p {
+  text-indent: 1em;
+  margin-top: 0.4em;
+  line-height: 1.4em;
+}
+.scrollPage p:first-of-type {
+  display: inline;
+}
+.scrollPage img {
+  max-width: 35ch;
+  height: auto;
+}
+.scrollPage .scrollCodeBlock,.scrollPage blockquote {
+  break-inside: avoid;
+}
+.scrollPage .scrollCodeBlock,.scrollPage table,.scrollPage blockquote {
+  display: block;
+  margin: .5em 0;
+  padding: .5em;
+  background: rgba(204,204,204, .5);
+}
+.scrollPage .scrollCodeBlock,.scrollPage table {
+  overflow: auto;
+  font-size: 80%;
+  hyphens: none;
+}
+.scrollPage .scrollCodeBlock {
+  white-space: pre;
+  border-left: .5em solid rgba(204,204,204, .8);
+}
+.scrollPage blockquote {
+  white-space: pre-line;
+  border-left: .5em solid rgba(204,204,204, .8);
+}
+.scrollPage h1 {
+  font-size: 24px;
+  margin-bottom: .25em;
+}
+.scrollPage h1 a {
+  text-decoration: none;
+  color: #000;
+}
+.scrollPage h1,.scrollPage h2,.scrollPage h3,.scrollPage h4,.scrollPage h5,.scrollPage h6 {
+  text-align: center;
+}
+.scrollPage h2,.scrollPage h3,.scrollPage h4 {
+  margin: .2em;
 }
 .scrollArticleDate {
   font-style: italic;
@@ -107,76 +174,8 @@ html {
   text-decoration: none;
 }
 .scrollSingleArticle {
-  padding-top: 10px;
-  padding-bottom: 10px;
   column-rule: none;
-}
-.scrollSingleArticle .scrollArticleCell {
-  break-inside: avoid-page;
-  border-bottom: none;
-}
-.scrollArticleCell {
-  border-bottom: 1px solid rgb(204,204,204);
-  width: 35ch;
-  padding: 1ch;
-  break-inside: avoid;
-  text-align: justify;
-  margin: auto;
-  margin-bottom: .5em;
-}
-.scrollArticleCell ul,.scrollArticleCell ol {
-  text-align: left;
-  line-height: 1.4em;
-  padding-left: 1em;
-  margin-top: 0.4em;
-}
-.scrollArticleCell p {
-  text-indent: 1em;
-  margin-top: 0.4em;
-  line-height: 1.4em;
-}
-.scrollArticleCell p:first-of-type {
-  display: inline;
-}
-.scrollArticleCell img {
-  max-width: 35ch;
-  height: auto;
-}
-.scrollArticleCell .scrollCodeBlock,.scrollArticleCell blockquote {
-  break-inside: avoid;
-}
-.scrollArticleCell .scrollCodeBlock,.scrollArticleCell table,.scrollArticleCell blockquote {
-  display: block;
-  margin: .5em 0;
-  padding: .5em;
-  background: rgba(204,204,204, .5);
-}
-.scrollArticleCell .scrollCodeBlock,.scrollArticleCell table {
-  overflow: auto;
-  font-size: 80%;
-  hyphens: none;
-}
-.scrollArticleCell .scrollCodeBlock {
-  white-space: pre;
-  border-left: .5em solid rgba(204,204,204, .8);
-}
-.scrollArticleCell blockquote {
-  white-space: pre-line;
-  border-left: .5em solid rgba(204,204,204, .8);
-}
-.scrollArticleCell h1 {
-  font-size: 24px;
-  margin-bottom: .25em;
-}
-.scrollArticleCell h1 a {
-  text-decoration: none;
-  color: #000;
-}
-.scrollArticleCell h1,.scrollArticleCell h2,.scrollArticleCell h3,.scrollArticleCell h4,.scrollArticleCell h5,.scrollArticleCell h6 {
-  text-align: center;
-}
-.scrollArticleCell h2,.scrollArticleCell h3,.scrollArticleCell h4 {
-  margin: .2em;
+  padding-top: 8px;
 }
 </style>
 </head>
@@ -192,11 +191,15 @@ html {
 </h1>
    <div class="scrollDescription">Build your own public domain newspaper</div>
 </div>
-  <div class="scrollPage scrollSingleArticle">
-   <div class="scrollArticleCell"><h1><a href="releaseNotes.html">Release Notes</a></h1>
+  <div class="scrollPage scrollSingleArticle" style=""><h1><a href="releaseNotes.html">Release Notes</a></h1>
 
 
 <p>Here's a list of the notable changes in Scroll and Scrolldown.</p>
+
+<h4>18.1.0 06-16-2021</h4>
+<ul>
+<li>🎉 short articles now are put into 1 or 2 columns </li>
+</ul>
 
 <h4>18.0.0 06-15-2021</h4>
 <ul>
@@ -430,7 +433,6 @@ in the index. To do that, just add <code>skipIndexPage</code>.</p>
 <li>🎉 "git" scrollSetting for article source links.</li>
 </ul>
 <p class="scrollArticleSourceLink"><a href="https://github.com/publicdomaincompany/scroll/blob/master/releaseNotes.scroll">Article source</a></p></div>
-</div>
   <div class="scrollFooter">
    <div class="scrollSocialMediaIcons">
     <a href="mailto:scroll@publicdomaincompany.com"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Gmail icon</title><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></a>

@@ -139,17 +139,12 @@ class Article {
 		return dayjs(this.scrolldownProgram.get(scrollKeywords.date) ?? 0).unix()
 	}
 
-	get stumpCode() {
-		const node = new TreeNode(`div
- class ${cssClasses.scrollArticleCell}`)
-
+	get htmlCode() {
 		const sourceLink = this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLink}"><a href="${this.sourceLink}">Article source</a></p>` : ""
 
 		const program = this.scrolldownProgram
 		program.setPermalink(this.permalink)
-		node.getNode("div").appendLineAndChildren("bern", program.compile() + sourceLink)
-
-		return node.toString()
+		return program.compile() + sourceLink
 	}
 }
 
@@ -211,10 +206,6 @@ class AbstractScrollPage {
 		return this.scrollSettings.title
 	}
 
-	get cssClasses() {
-		return cssClasses.scrollPage
-	}
-
 	get description() {
 		return this.scrollSettings.description
 	}
@@ -262,9 +253,7 @@ class AbstractScrollPage {
      href ./
    div ${this.description}
     class scrollDescription
-  div
-   class ${this.cssClasses}
-   ${cleanAndRightShift(this.articles.map(article => article.stumpCode).join("\n"), 3)}
+  ${cleanAndRightShift(this.pageCode, 2)}
   div
    class scrollFooter
    div
@@ -280,6 +269,21 @@ class AbstractScrollPage {
     class scrollCommunityLink`
 	}
 
+	get pageCode() {
+		const articles = this.articles
+			.map(article => {
+				const node = new TreeNode(`div
+ class ${cssClasses.scrollArticleCell}`)
+				node.getNode("div").appendLineAndChildren("bern", article.htmlCode)
+				return node.toString()
+			})
+			.join("\n")
+
+		return `div
+ class ${cssClasses.scrollPage}
+ ${cleanAndRightShift(articles, 1)}`
+	}
+
 	toHtml() {
 		return scrollBoilerplateCompiledMessage + "\n" + new stump(this.stumpCode).compile()
 	}
@@ -290,12 +294,25 @@ class ScrollArticlePage extends AbstractScrollPage {
 		return this.articles[0]
 	}
 
-	get cssClasses() {
-		return `${cssClasses.scrollPage} ${cssClasses.scrollSingleArticle}`
-	}
-
 	get htmlTitle() {
 		return `${this.article.title} - ${this.scrollSettings.title}`
+	}
+
+	get pageCode() {
+		return `div
+ class ${cssClasses.scrollPage} ${cssClasses.scrollSingleArticle}
+ style ${this.cssColumnWorkaround}
+ bern
+  ${cleanAndRightShift(this.article.htmlCode, 2)}`
+	}
+
+	get cssColumnWorkaround() {
+		const estimatedLines = lodash.sum(this.article.scrolldownProgram.map(node => (node.getNodeTypeId() === "blankLineNode" ? 0 : node.getTopDownArray().length)))
+		if (estimatedLines > 20) return ""
+		const maxColumns = estimatedLines > 10 ? 2 : 1
+		const width = maxColumns * 40
+
+		return `column-count:${maxColumns};width:${width}ch;`
 	}
 }
 

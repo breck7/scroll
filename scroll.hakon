@@ -12,9 +12,6 @@ html
  font-size 14px
  hyphens auto
 
-.scrollHeader,.scrollFooter
- text-align center
-
 .scrollChat
  span
   font-family Verdana
@@ -60,47 +57,33 @@ html
  right 25px
  top 3px
 
+.scrollFooter
+ border-top 1px solid rgb(204,204,204)
+ margin-top 8px
+ padding-top 8px
+ text-align center
+
+.scrollHeader
+ border-bottom 1px solid rgb(204,204,204)
+ text-align center
+ padding-bottom 8px
+
+.scrollArticleCell
+ border-bottom 1px solid rgb(204,204,204)
+ padding 1ch
+ break-inside avoid
+ text-align justify
+ margin-bottom .5em
+
 .scrollPage
  column-count auto
+ column-fill balance
  column-width 35ch
  column-gap 20px
  column-rule 1px solid rgb(204,204,204)
  padding-left 20px
  padding-right 20px
- border-top 1px solid rgb(204,204,204)
- border-bottom 1px solid rgb(204,204,204)
- margin-top 8px
- margin-bottom 8px
-
-.scrollArticleDate
- font-style italic
- font-size 80%
- display inline
-
-.scrollArticleSourceLink
- text-align center
- font-size 80%
- margin 0
- a
-  color #000
-  text-decoration none
-
-.scrollSingleArticle
- padding-top 10px
- padding-bottom 10px
- column-rule none
- .scrollArticleCell
-  break-inside avoid-page
-  border-bottom none
-
-.scrollArticleCell
- border-bottom 1px solid rgb(204,204,204)
- width 35ch
- padding 1ch
- break-inside avoid
- text-align justify
  margin auto
- margin-bottom .5em
  ul,ol
   text-align left
   line-height 1.4em
@@ -142,3 +125,20 @@ html
   text-align center
  h2,h3,h4
   margin .2em
+
+.scrollArticleDate
+ font-style italic
+ font-size 80%
+ display inline
+
+.scrollArticleSourceLink
+ text-align center
+ font-size 80%
+ margin 0
+ a
+  color #000
+  text-decoration none
+
+.scrollSingleArticle
+ column-rule none
+ padding-top 8px
