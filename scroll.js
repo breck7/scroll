@@ -312,7 +312,7 @@ class ScrollArticlePage extends AbstractScrollPage {
 		const maxColumns = estimatedLines > 10 ? 2 : 1
 		const width = maxColumns * 40
 
-		return `column-count:${maxColumns};width:${width}ch;`
+		return `column-count:${maxColumns};max-width:${width}ch;`
 	}
 }
 

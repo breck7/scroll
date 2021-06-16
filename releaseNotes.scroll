@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 18.1.1 06-16-2021
+list
+ - 🏥 fix regression where 2 columns on mobile were not downsizing to 1
+
 title4 18.1.0 06-16-2021
 list
  - 🎉 short articles now are put into 1 or 2 columns 
