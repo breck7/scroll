@@ -221,13 +221,17 @@ paragraph
 }
 
 class AbstractScrollPage {
-	constructor(articles, scrollSettings) {
-		this.articles = articles
-		this.scrollSettings = scrollSettings
+	constructor(scroll) {
+		this.scroll = scroll
 	}
 
-	articles = []
-	scrollSettings = {}
+	get scrollSettings() {
+		return this.scroll.settings
+	}
+
+	get articles() {
+		return this.scroll.publishedArticles.filter(article => article.includeInIndex)
+	}
 
 	get htmlTitle() {
 		return this.scrollSettings.title
@@ -253,6 +257,43 @@ class AbstractScrollPage {
 		return this.scrollSettings.baseUrl ?? ""
 	}
 
+	get header() {
+		const customHeader = this.scroll.settingsTree.getNode("header")
+		if (customHeader) return customHeader.childrenToString()
+		return `div
+ class scrollHeader
+ div
+  class scrollTopRightBar
+  div
+   class scrollSocialMediaIcons
+   a ${SCROLL_ICONS.githubSvg}
+    href ${this.github}
+ h1
+  class scrollTitle
+  a ${this.scrollSettings.title}
+   href index.html
+ div ${this.description}
+  class scrollDescription`
+	}
+
+	get footer() {
+		const customFooter = this.scroll.settingsTree.getNode("footer")
+		if (customFooter) return customFooter.childrenToString()
+		return `div
+ class scrollFooter
+ div
+  class scrollSocialMediaIcons
+  a ${SCROLL_ICONS.emailSvg}
+   href mailto:${this.email}
+  a ${SCROLL_ICONS.twitterSvg}
+   href ${this.twitter}
+  a ${SCROLL_ICONS.githubSvg}
+   href ${this.github}
+ a Built with Scroll
+  href https://scroll.publicdomaincompany.com/
+  class scrollCommunityLink`
+	}
+
 	get stumpCode() {
 		return `html
  lang en-US
@@ -266,6 +307,9 @@ class AbstractScrollPage {
   meta
    name description
    content ${this.description}
+  meta
+   name generator
+   content Scroll v${SCROLL_VERSION}
   meta
    property og:title
    content ${this.ogTitle}
@@ -282,34 +326,9 @@ class AbstractScrollPage {
    bern
     ${cleanAndRightShift(SCROLL_CSS, 4)}
  body
-  div
-   class scrollHeader
-   div
-    class scrollTopRightBar
-    div
-     class scrollSocialMediaIcons
-     a ${SCROLL_ICONS.githubSvg}
-      href ${this.github}
-   h1
-    class scrollTitle
-    a ${this.scrollSettings.title}
-     href index.html
-   div ${this.description}
-    class scrollDescription
+  ${cleanAndRightShift(this.header, 2)}
   ${cleanAndRightShift(this.pageCode, 2)}
-  div
-   class scrollFooter
-   div
-    class scrollSocialMediaIcons
-    a ${SCROLL_ICONS.emailSvg}
-     href mailto:${this.email}
-    a ${SCROLL_ICONS.twitterSvg}
-     href ${this.twitter}
-    a ${SCROLL_ICONS.githubSvg}
-     href ${this.github}
-   a Built with Scroll
-    href https://scroll.publicdomaincompany.com/
-    class scrollCommunityLink`
+  ${cleanAndRightShift(this.footer, 2)}`
 	}
 
 	get pageCode() {
@@ -345,8 +364,9 @@ class AbstractScrollPage {
 }
 
 class ScrollArticlePage extends AbstractScrollPage {
-	get article() {
-		return this.articles[0]
+	constructor(scroll, article) {
+		super(scroll)
+		this.article = article
 	}
 
 	get ogDescription() {
@@ -414,7 +434,11 @@ class ScrollBuilder {
 	}
 
 	get settings() {
-		return { ...defaultSettings, ...new TreeNode(read(this.scrollFolder + "/" + SCROLL_SETTINGS_FILENAME)).toObject() }
+		return { ...defaultSettings, ...this.settingsTree.toObject() }
+	}
+
+	get settingsTree() {
+		return new TreeNode(read(this.scrollFolder + "/" + SCROLL_SETTINGS_FILENAME))
 	}
 
 	silence() {
@@ -430,10 +454,7 @@ class ScrollBuilder {
 	}
 
 	get indexPage() {
-		return new ScrollIndexPage(
-			this.publishedArticles.filter(article => article.includeInIndex),
-			this.settings
-		)
+		return new ScrollIndexPage(this)
 	}
 
 	log(message) {
@@ -448,7 +469,7 @@ class ScrollBuilder {
 		const settings = this.settings
 		return this.publishedArticles.map(article => {
 			const permalink = `${article.permalink}.html`
-			const html = new ScrollArticlePage([article], this.settings).toHtml()
+			const html = new ScrollArticlePage(this, article).toHtml()
 			if (this.singlePages.get(permalink) === html) return "Unmodified"
 			write(`${this.scrollFolder}/${permalink}`, html)
 			this.singlePages.set(permalink, html)

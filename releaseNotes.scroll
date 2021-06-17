@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 19.0.0 06-17-2021
+list
+ - 🎉 ability to override header and footer
+
 title4 18.4.0 06-17-2021
 list
  - 🏥 improved alignment of images
