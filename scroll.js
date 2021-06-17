@@ -268,7 +268,7 @@ class AbstractScrollPage {
    class scrollSocialMediaIcons
    a ${SCROLL_ICONS.githubSvg}
     href ${this.github}
- h1
+ h2
   class scrollTitle
   a ${this.scrollSettings.title}
    href index.html

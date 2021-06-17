@@ -70,7 +70,7 @@ html
 
 .scrollArticleCell
  border-bottom 1px solid rgb(204,204,204)
- padding 1ch
+ padding 1ch 0
  break-inside avoid
  text-align justify
  margin-bottom .5em

@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 19.1.0 06-17-2021
+list
+ - 🏥 fix bug with http links
+ - 🏥 simpler article padding and changed scroll title to h2 from h1
+
 title4 19.0.0 06-17-2021
 list
  - 🎉 ability to override header and footer
