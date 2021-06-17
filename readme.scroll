@@ -224,6 +224,11 @@ code
    IdentityFile ~/.ssh/example_id_rsa
    IdentitiesOnly yes
 
+title4 Does Scroll support Open Graph tags for better social media sharing?
+
+paragraph
+ Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl` in your `scroll.settings` file. For more help check out the debuggers from Facebook🔗developers.facebook.com/tools/debug and Twitter🔗cards-dev.twitter.com/validator.
+
 title4 How can I build a scroll from a Twitter account?
 
 paragraph

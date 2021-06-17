@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "18.2.0",
+  "version": "18.3.0",
   "description": "Build your own public domain newspaper.",
   "main": "scroll.js",
   "engines": {
@@ -36,7 +36,7 @@
     "glob": "^7.1.6",
     "got": "^11.8.2",
     "image-size": "^1.0.0",
-    "jtree": "^51.6.0",
+    "jtree": "^51.6.1",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "open": "^8.0.5",

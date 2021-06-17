@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+title4 18.3.0 06-16-2021
+list
+ - 🎉 og meta tags for social media sharing
+
 title4 18.2.0 06-16-2021
 list
  - 🏥 title now links to "index.html". less magic and works much better locally

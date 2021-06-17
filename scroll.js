@@ -23,6 +23,7 @@ const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
 const replaceAll = (str, search, replace) => str.split(search).join(replace)
 const cleanAndRightShift = (str, numSpaces = 0) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
+const unsafeStripHtml = html => html.replace(/<[^>]*>?/gm, "")
 
 // Constants
 const packageJson = require("./package.json")
@@ -71,6 +72,8 @@ const cssClasses = {
 const scrollKeywords = {
 	title: "title",
 	permalink: "permalink",
+	paragraph: "paragraph",
+	image: "image",
 	date: "date",
 	importFrom: "importFrom",
 	skipIndexPage: "skipIndexPage"
@@ -81,7 +84,8 @@ const defaultSettings = {
 	github: "",
 	email: "",
 	description: "",
-	title: ""
+	title: "",
+	baseUrl: ""
 }
 
 // LinkSuffixLang. [anyWord🔗absoluteUrl] or [anyWord🔗./relativeUrl]
@@ -125,6 +129,29 @@ class Article {
 
 	get permalink() {
 		return this.scrolldownProgram.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
+	}
+
+	get ogImage() {
+		// my goodness the jtree API is bad. how do I get the first value of "image"?
+		return (
+			this.scrolldownProgram
+				.clone()
+				.reverse()
+				.get(scrollKeywords.image) ?? ""
+		)
+	}
+
+	// Use the first paragraph for the description
+	get ogDescription() {
+		const node = this.scrolldownProgram
+			.clone()
+			.reverse()
+			.getNode(scrollKeywords.paragraph)
+		return node
+			? unsafeStripHtml(node.compile())
+					.replace(/\n/g, " ")
+					.substr(0, 300)
+			: ""
 	}
 
 	get includeInIndex() {
@@ -222,6 +249,10 @@ class AbstractScrollPage {
 		return this.scrollSettings.twitter
 	}
 
+	get baseUrl() {
+		return this.scrollSettings.baseUrl ?? ""
+	}
+
 	get stumpCode() {
 		return `html
  lang en-US
@@ -235,6 +266,18 @@ class AbstractScrollPage {
   meta
    name description
    content ${this.description}
+  meta
+   property og:title
+   content ${this.ogTitle}
+  meta
+   property og:description
+   content ${this.ogDescription}
+  meta
+   property og:image
+   content ${this.ogImage ? this.baseUrl + this.ogImage : ""}
+  meta
+   name twitter:card
+   content summary_large_image
   styleTag
    bern
     ${cleanAndRightShift(SCROLL_CSS, 4)}
@@ -284,6 +327,18 @@ class AbstractScrollPage {
  ${cleanAndRightShift(articles, 1)}`
 	}
 
+	get ogTitle() {
+		return this.scrollSettings.title
+	}
+
+	get ogDescription() {
+		return this.description
+	}
+
+	get ogImage() {
+		return ""
+	}
+
 	toHtml() {
 		return scrollBoilerplateCompiledMessage + "\n" + new stump(this.stumpCode).compile()
 	}
@@ -292,6 +347,18 @@ class AbstractScrollPage {
 class ScrollArticlePage extends AbstractScrollPage {
 	get article() {
 		return this.articles[0]
+	}
+
+	get ogDescription() {
+		return this.article.ogDescription
+	}
+
+	get ogImage() {
+		return this.article.ogImage
+	}
+
+	get ogTitle() {
+		return this.article.title
 	}
 
 	get htmlTitle() {
