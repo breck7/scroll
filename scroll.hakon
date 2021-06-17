@@ -1,9 +1,10 @@
 comment CSS reset
-html,body,div,span,h1,h2,h3,h4,h5,h6,p,ol,ul
+html,body,div,span,h1,h2,h3,h4,h5,h6,p,ol,ul,table
  margin 0
  padding 0
  border 0
  vertical-align baseline
+ border-spacing 0
 
 html
  background-color rgb(244,244,244)
@@ -91,6 +92,22 @@ html
  padding-left 20px
  padding-right 20px
  margin auto
+ table
+  table-layout fixed
+  margin .5em 0
+  overflow hidden
+  font-size 80%
+  width 100%
+  hyphens none
+  border 1px solid rgba(224,224,224,.8)
+  td,th
+   padding 3px
+   overflow hidden
+  th
+   border-bottom 2px solid rgba(0,0,0,.6)
+   text-align left
+  tr:nth-child(even)
+   background rgba(224,224,224,.6)
  ul,ol
   text-align left
   line-height 1.4em
@@ -104,12 +121,12 @@ html
   display inline
  .scrollCodeBlock,blockquote
   break-inside avoid
- .scrollCodeBlock,table,blockquote
+ .scrollCodeBlock,blockquote
   display block
   margin .5em 0
   padding .5em
-  background rgba(204,204,204, .5)
- .scrollCodeBlock,table
+  background rgba(204,204,204,.5)
+ .scrollCodeBlock
   overflow auto
   font-size 80%
   hyphens none

@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v19.1.0
+ Scroll v19.2.0
 
 -->
 <!doctype html>
@@ -17,16 +17,17 @@
   <title>📜 Scroll: Build your own public domain newspaper. - 📜 Scroll</title>
   <meta name="viewport" content="width=device-width,initial-scale=1"></meta>
   <meta name="description" content="Build your own public domain newspaper"></meta>
-  <meta name="generator" content="Scroll v19.1.0"></meta>
+  <meta name="generator" content="Scroll v19.2.0"></meta>
   <meta property="og:title" content="📜 Scroll: Build your own public domain newspaper."></meta>
   <meta property="og:description" content=" "></meta>
   <meta property="og:image" content="https://scroll.publicdomaincompany.com/screenshot.png"></meta>
   <meta name="twitter:card" content="summary_large_image"></meta>
-  <style>html,body,div,span,h1,h2,h3,h4,h5,h6,p,ol,ul {
+  <style>html,body,div,span,h1,h2,h3,h4,h5,h6,p,ol,ul,table {
   margin: 0;
   padding: 0;
   border: 0;
   vertical-align: baseline;
+  border-spacing: 0;
 }
 html {
   background-color: rgb(244,244,244);
@@ -118,6 +119,26 @@ html {
   padding-right: 20px;
   margin: auto;
 }
+.scrollPage table {
+  table-layout: fixed;
+  margin: .5em 0;
+  overflow: hidden;
+  font-size: 80%;
+  width: 100%;
+  hyphens: none;
+  border: 1px solid rgba(224,224,224,.8);
+}
+.scrollPage table td,.scrollPage table th {
+  padding: 3px;
+  overflow: hidden;
+}
+.scrollPage table th {
+  border-bottom: 2px solid rgba(0,0,0,.6);
+  text-align: left;
+}
+.scrollPage table tr:nth-child(even) {
+  background: rgba(224,224,224,.6);
+}
 .scrollPage ul,.scrollPage ol {
   text-align: left;
   line-height: 1.4em;
@@ -135,13 +156,13 @@ html {
 .scrollPage .scrollCodeBlock,.scrollPage blockquote {
   break-inside: avoid;
 }
-.scrollPage .scrollCodeBlock,.scrollPage table,.scrollPage blockquote {
+.scrollPage .scrollCodeBlock,.scrollPage blockquote {
   display: block;
   margin: .5em 0;
   padding: .5em;
-  background: rgba(204,204,204, .5);
+  background: rgba(204,204,204,.5);
 }
-.scrollPage .scrollCodeBlock,.scrollPage table {
+.scrollPage .scrollCodeBlock {
   overflow: auto;
   font-size: 80%;
   hyphens: none;
