@@ -104,7 +104,7 @@ const linkReplacer = (match, p1, p2, p3, offset, str) => {
 		prefix = ""
 		p3 = p3.substr(2)
 	}
-	if (p3.startsWith("https://")) prefix = ""
+	if (p3.startsWith("https://") || p3.startsWith("http://")) prefix = ""
 	return `${p1}<a href="${prefix}${p3}">${p2}</a>${suffix}`
 }
 const compileATags = text => text.replace(/(^|\s)(\S+)🔗(\S+)(?=(\s|$))/g, linkReplacer)

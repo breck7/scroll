@@ -27,6 +27,7 @@ testTree.compileATags = areEqual => {
 		{ input: `this🔗example.com`, expected: `<a href="https://example.com">this</a>` },
 		{ input: `this🔗example.com this🔗example.com`, expected: `<a href="https://example.com">this</a> <a href="https://example.com">this</a>` },
 		{ input: `this🔗https://example.com`, expected: `<a href="https://example.com">this</a>` },
+		{ input: `this🔗http://example.com`, expected: `<a href="http://example.com">this</a>` },
 		{ input: `this🔗example.com/`, expected: `<a href="https://example.com/">this</a>` },
 		{ input: `this🔗example.com/index.`, expected: `<a href="https://example.com/index">this</a>.` },
 		{ input: `this🔗./foo.html, bar`, expected: `<a href="foo.html">this</a>, bar` },
