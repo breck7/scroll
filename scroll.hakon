@@ -75,6 +75,13 @@ html
  text-align justify
  margin-bottom .5em
 
+.scrollImage
+ display block
+ text-align center
+ img
+  max-width 35ch
+  height auto
+
 .scrollPage
  column-count auto
  column-fill balance
@@ -95,9 +102,6 @@ html
   line-height 1.4em
  p:first-of-type
   display inline
- img
-  max-width 35ch
-  height auto
  .scrollCodeBlock,blockquote
   break-inside avoid
  .scrollCodeBlock,table,blockquote

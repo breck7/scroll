@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v18.3.0
+ Scroll v18.4.0
 
 -->
 <!doctype html>
@@ -99,6 +99,14 @@ html {
   text-align: justify;
   margin-bottom: .5em;
 }
+.scrollImage {
+  display: block;
+  text-align: center;
+}
+.scrollImage img {
+  max-width: 35ch;
+  height: auto;
+}
 .scrollPage {
   column-count: auto;
   column-fill: balance;
@@ -122,10 +130,6 @@ html {
 }
 .scrollPage p:first-of-type {
   display: inline;
-}
-.scrollPage img {
-  max-width: 35ch;
-  height: auto;
 }
 .scrollPage .scrollCodeBlock,.scrollPage blockquote {
   break-inside: avoid;
@@ -199,6 +203,11 @@ html {
 
 
 <p>Here's a list of the notable changes in Scroll and Scrolldown.</p>
+
+<h4>18.4.0 06-17-2021</h4>
+<ul>
+<li>🏥 improved alignment of images</li>
+</ul>
 
 <h4>18.3.0 06-16-2021</h4>
 <ul>

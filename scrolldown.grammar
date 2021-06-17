@@ -222,7 +222,7 @@ imageNode
  javascript
   compile() {
    const src = this.getWord(1)
-   const openA = `<a href="${src}" target="_blank">`
+   const openA = `<a href="${src}" class="scrollImage" target="_blank">`
    try {
     const sizeOf = require("image-size")
     const dimensions = sizeOf(src)
