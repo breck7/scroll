@@ -404,6 +404,13 @@ rsync -vr /[path/to/your/site]/* [yourdomain.com]:/var/www/html</code>
   IdentityFile ~/.ssh/example_id_rsa
   IdentitiesOnly yes</code>
 
+<h4>How can I track web traffic?</h4>
+
+<p>Scroll emits HTML with zero Javascript and does not have any tracking or cookies. If you are using a web server like Nginx you might have some access logs on your server. The one liner below uses <a href="https://goaccess.io">GoAccess</a> to summarize recent Nginx access logs.</p>
+
+<code class="scrollCodeBlock"># apt-get install goaccess
+goaccess /var/log/nginx/access.log -o /var/www/html/report.html --log-format=COMBINED --real-time-html --ws-url=wss://YOURDOMAIN.com</code>
+
 <h4>Does Scroll support Open Graph tags for better social media sharing?</h4>
 
 <p>Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl` in your `scroll.settings` file. For more help check out the debuggers from <a href="https://developers.facebook.com/tools/debug">Facebook</a> and <a href="https://cards-dev.twitter.com/validator">Twitter</a>.</p>

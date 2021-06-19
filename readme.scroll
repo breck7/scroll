@@ -224,6 +224,15 @@ code
    IdentityFile ~/.ssh/example_id_rsa
    IdentitiesOnly yes
 
+title4 How can I track web traffic?
+
+paragraph
+ Scroll emits HTML with zero Javascript and does not have any tracking or cookies. If you are using a web server like Nginx you might have some access logs on your server. The one liner below uses GoAccess🔗goaccess.io to summarize recent Nginx access logs.
+
+code
+ # apt-get install goaccess
+ goaccess /var/log/nginx/access.log -o /var/www/html/YOUR_SECRET_REPORT_URL.html --log-format=COMBINED --real-time-html --ws-url=wss://YOURDOMAIN.com
+
 title4 Does Scroll support Open Graph tags for better social media sharing?
 
 paragraph
