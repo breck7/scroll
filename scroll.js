@@ -289,7 +289,7 @@ class AbstractScrollPage {
    href ${this.twitter}
   a ${SCROLL_ICONS.githubSvg}
    href ${this.github}
- a Built with Scroll
+ a Built with Scroll v${SCROLL_VERSION}
   href https://scroll.publicdomaincompany.com/
   class scrollCommunityLink`
 	}
@@ -382,7 +382,8 @@ class ScrollArticlePage extends AbstractScrollPage {
 	}
 
 	get htmlTitle() {
-		return `${this.article.title} - ${this.scrollSettings.title}`
+		const { title } = this.article
+		return (title ? `${title} - ` : "") + this.scrollSettings.title
 	}
 
 	get pageCode() {
