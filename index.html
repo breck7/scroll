@@ -7,7 +7,7 @@
  
  Generally you don't want to edit it by hand.
 
- Scroll v19.2.0
+ Scroll v19.3.0
 
 -->
 <!doctype html>
@@ -17,7 +17,7 @@
   <title>📜 Scroll: Build your own public domain newspaper. - 📜 Scroll</title>
   <meta name="viewport" content="width=device-width,initial-scale=1"></meta>
   <meta name="description" content="Build your own public domain newspaper"></meta>
-  <meta name="generator" content="Scroll v19.2.0"></meta>
+  <meta name="generator" content="Scroll v19.3.0"></meta>
   <meta property="og:title" content="📜 Scroll: Build your own public domain newspaper."></meta>
   <meta property="og:description" content=" "></meta>
   <meta property="og:image" content="https://scroll.publicdomaincompany.com/screenshot.png"></meta>
@@ -409,7 +409,7 @@ rsync -vr /[path/to/your/site]/* [yourdomain.com]:/var/www/html</code>
 <p>Scroll emits HTML with zero Javascript and does not have any tracking or cookies. If you are using a web server like Nginx you might have some access logs on your server. The one liner below uses <a href="https://goaccess.io">GoAccess</a> to summarize recent Nginx access logs.</p>
 
 <code class="scrollCodeBlock"># apt-get install goaccess
-goaccess /var/log/nginx/access.log -o /var/www/html/report.html --log-format=COMBINED --real-time-html --ws-url=wss://YOURDOMAIN.com</code>
+goaccess /var/log/nginx/access.log -o /var/www/html/YOUR_SECRET_REPORT_URL.html --log-format=COMBINED --real-time-html --ws-url=wss://YOURDOMAIN.com</code>
 
 <h4>Does Scroll support Open Graph tags for better social media sharing?</h4>
 

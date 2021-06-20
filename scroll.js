@@ -579,7 +579,8 @@ class ScrollCli {
 		if (isScrollFolder(cwd)) return this.log(`❌ Initialization aborted. Folder '${cwd}' already contains a '${SCROLL_SETTINGS_FILENAME}'.`)
 		this.log(`Initializing scroll in "${cwd}"`)
 		write(cwd + "/" + SCROLL_SETTINGS_FILENAME, read(__dirname + "/" + SCROLL_SETTINGS_FILENAME))
-		write(cwd + "/readme.scroll", initReadmePage)
+		const readmePath = cwd + "/readme.scroll"
+		if (!fs.existsSync(readmePath)) write(readmePath, initReadmePage)
 		return this.log(`\n👍 Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
 	}
 
