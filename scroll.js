@@ -112,14 +112,9 @@ const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + S
 
 const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.icons")).toObject()
 
-const scrolldownGrammarCode = [read(`${__dirname}/${SCROLLDOWN_GRAMMAR_FILENAME}`)].join("\n")
-const scrolldownGrammarCodeErrors = new grammarNode(scrolldownGrammarCode).getAllErrors().map(err => err.toObject())
-if (scrolldownGrammarCodeErrors.length) console.error(new jtree.TreeNode(scrolldownGrammarCodeErrors).toFormattedTable(200))
-const scrolldownCompiler = new jtree.HandGrammarProgram(scrolldownGrammarCode).compileAndReturnRootConstructor()
-
 class Article {
-	constructor(content = "", filename = "", sourceLink = "") {
-		this.scrolldownProgram = new scrolldownCompiler(content)
+	constructor(scrolldownProgram, filename = "", sourceLink = "") {
+		this.scrolldownProgram = scrolldownProgram
 		this.sourceLink = sourceLink
 		this.filename = filename
 	}
@@ -406,17 +401,39 @@ class ScrollArticlePage extends AbstractScrollPage {
 
 class ScrollIndexPage extends AbstractScrollPage {}
 
-// todo: probably merge this into ScrollCLI
-class ScrollBuilder {
+const compilerCache = new Map()
+const getCompiler = filePaths => {
+	const key = filePaths.join("\n")
+	const hit = compilerCache.get(key)
+	if (hit) return hit
+	const compiler = new jtree.HandGrammarProgram(filePaths.map(file => read(file)).join("\n")).compileAndReturnRootConstructor()
+	compilerCache.set(key, compiler)
+	return compiler
+}
+
+class ScrollFolder {
 	constructor(scrollFolder = __dirname) {
 		this.scrollFolder = path.normalize(scrollFolder + "/")
+		const grammarFiles = Disk.getFiles(this.scrollFolder).filter(filename => filename.endsWith(SCROLL_GRAMMAR_EXTENSION) && !filename.endsWith(SCROLLDOWN_GRAMMAR_FILENAME))
+		grammarFiles.unshift(`${__dirname}/${SCROLLDOWN_GRAMMAR_FILENAME}`)
+		this.grammarFiles = grammarFiles
+	}
+
+	grammarFiles = []
+
+	get scrolldownCompiler() {
+		return getCompiler(this.grammarFiles)
+	}
+
+	get grammarErrors() {
+		return new grammarNode(this.grammarFiles.map(file => read(file)).join("\n")).getAllErrors().map(err => err.toObject())
 	}
 
 	get publishedArticles() {
-		const gitLink = this.gitLink
-		const all = Disk.getFiles(this.scrollFolder)
+		const { gitLink, scrolldownCompiler, scrollFolder } = this
+		const all = Disk.getFiles(scrollFolder)
 			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-			.map(filename => new Article(read(filename), path.basename(filename), gitLink ? gitLink + path.basename(filename) : ""))
+			.map(filename => new Article(new scrolldownCompiler(read(filename)), path.basename(filename), gitLink ? gitLink + path.basename(filename) : ""))
 		return lodash.sortBy(all, article => article.timestamp).reverse()
 	}
 
@@ -554,7 +571,7 @@ class ScrollBuilder {
 class ScrollCli {
 	execute(args = []) {
 		this.log(`\n📜📜📜 WELCOME TO SCROLL (v${SCROLL_VERSION}) 📜📜📜`)
-		const command = args[0] // Note: we take only 1 parameter on purpose. Simpler UX.
+		const command = args[0] // Note: we don't take any parameters on purpose. Simpler UX.
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		const cwd = process.cwd()
 		if (this[commandName]) return this[commandName](cwd)
@@ -576,7 +593,7 @@ class ScrollCli {
 	}
 
 	async initCommand(cwd) {
-		const builder = new ScrollBuilder()
+		const folder = new ScrollFolder()
 		if (isScrollFolder(cwd)) return this.log(`❌ Initialization aborted. Folder '${cwd}' already contains a '${SCROLL_SETTINGS_FILENAME}'.`)
 		this.log(`Initializing scroll in "${cwd}"`)
 		write(cwd + "/" + SCROLL_SETTINGS_FILENAME, read(__dirname + "/" + SCROLL_SETTINGS_FILENAME))
@@ -593,35 +610,40 @@ class ScrollCli {
 		const fullPath = resolvePath(cwd)
 		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
 
-		const builder = new ScrollBuilder(cwd)
-		const result = await builder.importSite()
+		const folder = new ScrollFolder(cwd)
+		const result = await folder.importSite()
 		return this.log(result)
 	}
 
 	checkCommand(cwd) {
 		const fullPath = resolvePath(cwd)
 		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
-		const errs = new ScrollBuilder(fullPath).errors
-		return this.log(errs.length ? new jtree.TreeNode(errs).toFormattedTable(60) : "0 errors")
+		const folder = new ScrollFolder(fullPath)
+		const { grammarErrors } = folder
+		const grammarMessage = grammarErrors.length ? new jtree.TreeNode(grammarErrors).toFormattedTable(200) + "\n" : ""
+		if (grammarMessage) this.log(grammarMessage)
+		const scrollErrors = folder.errors
+		const message = scrollErrors.length ? new jtree.TreeNode(scrollErrors).toFormattedTable(60) : "0 errors"
+		return this.log(message)
 	}
 
 	async buildCommand(cwd) {
 		const fullPath = resolvePath(cwd)
 		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
 
-		const builder = new ScrollBuilder(fullPath)
-		builder.verbose = this.verbose
-		builder.buildIndexPage()
-		builder.writeSinglePages()
-		return builder
+		const folder = new ScrollFolder(fullPath)
+		folder.verbose = this.verbose
+		folder.buildIndexPage()
+		folder.writeSinglePages()
+		return folder
 	}
 
 	async watchCommand(cwd) {
-		const builder = await this.buildCommand(cwd)
-		if (!builder.startWatching) return
-		builder.startWatching()
-		builder.openBrowser()
-		return builder
+		const folder = await this.buildCommand(cwd)
+		if (!folder.startWatching) return
+		folder.startWatching()
+		folder.openBrowser()
+		return folder
 	}
 
 	helpCommand() {
@@ -631,4 +653,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollBuilder, ScrollCli, Article, SCROLL_SETTINGS_FILENAME, compileATags, scrollKeywords }
+module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, compileATags, scrollKeywords }

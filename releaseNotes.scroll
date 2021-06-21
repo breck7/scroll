@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 21.0.0 06-21-2021
+list
+ - 🎉 built in support for custom grammars!
+ - ⚠️ internal nodejs API changes: Article is no longer exported and ScrollBuilder is now ScrollFolder
+
 section 20.0.0 06-21-2021
 list
  - 🎉 new question nodetype. Simply compiles to an h4 for now but more semantic this way.

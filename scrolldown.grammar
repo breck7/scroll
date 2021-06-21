@@ -22,7 +22,7 @@ scrolldownNode
  extensions scroll
  description A Tree Language that compiles to HTML. An extensible alternative to Markdown.
  root
- inScope abstractTopLevelNode blankLineNode
+ inScope abstractScrollNode blankLineNode
  catchAllNodeType quickParagraphNode
  compilesTo html
  javascript
@@ -61,13 +61,13 @@ scrolldownNode
   code
    // You can add code as well.
    print("Hello world")
-abstractTopLevelNode
+abstractScrollNode
  abstract
  cells keywordCell
 abstractTopLevelSingleMetaNode
  abstract
  description Use these keywords once per file.
- extends abstractTopLevelNode
+ extends abstractScrollNode
  cells keywordCell
  compiler
   stringTemplate 
@@ -108,7 +108,7 @@ dateNode
 paragraphNode
  description Prose content.
  catchAllNodeType paragraphContentNode
- extends abstractTopLevelNode
+ extends abstractScrollNode
  crux paragraph
  javascript
   compile() {
@@ -117,7 +117,7 @@ paragraphNode
 codeNode
  description A code block.
  catchAllNodeType lineOfCodeNode
- extends abstractTopLevelNode
+ extends abstractScrollNode
  javascript
   compile() {
    return `<code class="scrollCodeBlock">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
@@ -131,7 +131,7 @@ chatNode
  description A dialogue between two people.
  catchAllNodeType chatLineNode
  crux chat
- extends abstractTopLevelNode
+ extends abstractScrollNode
  javascript
   compile() {
    return this.map((line, index) => `<div class="scrollChat scrollChat${index % 2}"><span>${line.toString()}</span></div>`).join("")
@@ -139,7 +139,7 @@ chatNode
 quoteNode
  description A blockquote.
  catchAllNodeType quoteLineNode
- extends abstractTopLevelNode
+ extends abstractScrollNode
  javascript
   compile() {
    return `<blockquote>${this.childrenToString()}</blockquote>`
@@ -147,7 +147,7 @@ quoteNode
  crux quote
 abstractTableNode
  catchAllNodeType rowNode
- extends abstractTopLevelNode
+ extends abstractScrollNode
  javascript
   _delimiter = " "
   get tableHeader() {
@@ -191,7 +191,7 @@ listNode
  description An unordered list.
  catchAllNodeType listItemNode
  crux list
- extends abstractTopLevelNode
+ extends abstractScrollNode
  compiler
   stringTemplate 
   openChildren <ul>
@@ -207,7 +207,7 @@ orderedListNode
 commentNode
  description Will not appear in the compiled HTML.
  catchAllCellType commentCell
- extends abstractTopLevelNode
+ extends abstractScrollNode
  crux comment
  javascript
   compile() {
@@ -217,7 +217,7 @@ commentNode
 imageNode
  description An img tag.
  cells keywordCell urlCell
- extends abstractTopLevelNode
+ extends abstractScrollNode
  crux image
  javascript
   compile() {
@@ -237,7 +237,7 @@ imageNode
 htmlNode
  description A catch all block to drop in any loose html.
  crux html
- extends abstractTopLevelNode
+ extends abstractScrollNode
  catchAllNodeType htmlLineNode
  javascript
   compile() {
@@ -245,7 +245,7 @@ htmlNode
   }
 abstractHeaderNode
  catchAllCellType textCell
- extends abstractTopLevelNode
+ extends abstractScrollNode
  catchAllNodeType multilineTitleNode
  javascript
   compile() {

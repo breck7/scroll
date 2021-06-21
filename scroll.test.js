@@ -1,6 +1,6 @@
 const tap = require("tap")
-const { ScrollBuilder, ScrollCli, Article, SCROLL_SETTINGS_FILENAME, compileATags } = require("./scroll.js")
 const fs = require("fs")
+const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, compileATags } = require("./scroll.js")
 
 const testString = "Build your own public domain newspaper"
 const testPort = 5435
@@ -12,14 +12,14 @@ const runTree = testTree =>
 
 const testTree = {}
 
-testTree.builder = areEqual => {
-	const builder = new ScrollBuilder()
-	builder.verbose = false
-	builder.startWatching(testPort)
+testTree.folder = areEqual => {
+	const folder = new ScrollFolder()
+	folder.verbose = false
+	folder.startWatching(testPort)
 
-	areEqual(!!builder.watcher, true)
+	areEqual(!!folder.watcher, true)
 
-	builder.stopWatchingForFileChanges()
+	folder.stopWatchingForFileChanges()
 }
 
 testTree.compileATags = areEqual => {
@@ -40,12 +40,12 @@ testTree.compileATags = areEqual => {
 }
 
 testTree.scroll = areEqual => {
-	areEqual(new ScrollBuilder().indexPage.toHtml().includes(testString), true)
+	areEqual(new ScrollFolder().indexPage.toHtml().includes(testString), true)
 }
 
 testTree.fullIntegrationTest = areEqual => {
-	const builder = new ScrollBuilder()
-	areEqual(!!builder, true)
+	const folder = new ScrollFolder()
+	areEqual(!!folder, true)
 }
 
 testTree.import = async areEqual => {
@@ -63,16 +63,11 @@ testTree.check = async areEqual => {
 }
 
 testTree.article = areEqual => {
-	const article = new Article(
-		`title About me
-hello world`,
-		"foobar.scroll"
-	)
-
+	const article = new ScrollFolder().publishedArticles[0]
 	const content = article.htmlCode
 
-	areEqual(article.permalink, "foobar")
-	areEqual(content.includes("foobar"), true)
+	areEqual(article.permalink, "releaseNotes")
+	areEqual(content.includes("Scroll the language is now called Scrolldown"), true)
 }
 
 testTree.cli = async areEqual => {
@@ -85,8 +80,8 @@ testTree.cli = async areEqual => {
 	areEqual(cli.deleteCommand().includes("delete"), true)
 
 	// Act/Assert
-	const builder = await cli.buildCommand()
-	areEqual(!!builder, true)
+	const folder = await cli.buildCommand()
+	areEqual(!!folder, true)
 
 	// Act/Assert
 	areEqual(cli.execute(["help"]).includes("help"), true)
@@ -108,12 +103,12 @@ testTree.errorStates = async areEqual => {
 		const result = await cli.initCommand(tempFolder)
 		areEqual(fs.existsSync(tempFolder + SCROLL_SETTINGS_FILENAME), true)
 
-		const builder = new ScrollBuilder(tempFolder).silence()
-		const singleFile = builder.buildIndexPage()
+		const folder = new ScrollFolder(tempFolder).silence()
+		const singleFile = folder.buildIndexPage()
 		areEqual(singleFile.includes(testString), true)
 
 		// Act
-		const singlePages = builder.writeSinglePages()
+		const singlePages = folder.writeSinglePages()
 
 		// Assert
 		areEqual(singlePages.length, 1)
@@ -122,7 +117,7 @@ testTree.errorStates = async areEqual => {
 		const singlePageTitleSnippet = `Scroll</title>`
 		areEqual(singlePages[0].html.includes(singlePageTitleSnippet), true)
 
-		areEqual(builder.errors.flat().length, 0)
+		areEqual(folder.errors.flat().length, 0)
 	} catch (err) {
 		console.log(err)
 	}
