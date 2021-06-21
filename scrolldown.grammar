@@ -53,7 +53,7 @@ scrolldownNode
   }
  example
   title Hello world
-  title2 This is Scrolldown
+  section This is Scrolldown
   
   paragraph
    It compiles to HTML. Blank lines get turned into brs.
@@ -243,32 +243,33 @@ htmlNode
   compile() {
    return `${this.childrenToString()}`
   }
-abstractTitleNode
- description A subheader.
+abstractHeaderNode
  catchAllCellType textCell
  extends abstractTopLevelNode
  catchAllNodeType multilineTitleNode
  javascript
   compile() {
-   const tag = this.getFirstWord().replace("title", "h")
    const children = this.childrenToString() ? " " + this.childrenToString() : ""
-   return `<${tag}>${this.getContent() + children}</${tag}>`
+   return `<${this.tag}>${this.getContent() + children}</${this.tag}>`
   }
-title2Node
- extends abstractTitleNode
- crux title2
-title3Node
- extends abstractTitleNode
- crux title3
-title4Node
- extends abstractTitleNode
- crux title4
-title5Node
- extends abstractTitleNode
- crux title5
-title6Node
- extends abstractTitleNode
- crux title6
+questionNode
+ description Use for pages like FAQs.
+ extends abstractHeaderNode
+ crux question
+ javascript
+  tag = "h4"
+sectionNode
+ description Compiles to an h3 tag.
+ extends abstractHeaderNode
+ crux section
+ javascript
+  tag = "h3"
+subsectionNode
+ description Compiles to an h4 tag.
+ extends abstractHeaderNode
+ crux subsection
+ javascript
+  tag = "h4"
 paragraphContentNode
  catchAllCellType textCell
 lineOfCodeNode

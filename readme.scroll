@@ -4,11 +4,11 @@ permalink index
 paragraph
  <a href="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml/badge.svg" style="width: 49%;"/></a> <a href="https://gitpod.io/#https://github.com/publicdomaincompany/scroll"><img style="width: 49%;" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod"/></a>
 
-title4 Screenshot:
+question Can you show me a screenshot?
 
 image screenshot.png
 
-title4 What makes Scroll different?
+question What makes Scroll different?
 
 paragraph
  Scroll is different than other🔗staticsitegenerators.net static site generators in 3 ways.
@@ -18,7 +18,7 @@ orderedList
  2. Instead of supporting licenses, Scroll is 100% focused on <strong>public domain sites</strong> and everything is designed with that assumption.
  3. The default Scroll theme publishes all articles to a <strong>single page</strong>, so readers can read faster at a higher level, like reading a newspaper.
 
-title4 How do I get Scroll?
+question How do I get Scroll?
 
 paragraph
  The instant way is to try Scroll in GitPod🔗gitpod.io/#https://github.com/publicdomaincompany/scroll.
@@ -49,7 +49,7 @@ paragraph
 code
  npm install -g scroll-cli
 
-title4 How do I use Scroll?
+question How do I use Scroll?
 
 paragraph
  Scroll is a command line app. To see the commands type:
@@ -57,17 +57,17 @@ paragraph
 code
  scroll help
 
-title4 Where do I get help?
+question Where do I get help?
 
 paragraph
  Post an issue in this GitHub or email <a href="mailto:scroll@publicdomaincompany.com">us</a>.
 
-title4 What are some example sites using Scroll?
+question What are some example sites using Scroll?
 
 paragraph
  On beta launch day we have BreckYunits.com🔗breckyunits.com.
 
-title4 What does the name Scroll refer to?
+question What does the name Scroll refer to?
 
 paragraph
  <em>A scroll</em> is a single folder containing Scrolldown files and a `scroll.settings` file.
@@ -81,7 +81,7 @@ paragraph
 paragraph
  Scrolldown is the name of a Tree Language defined in this grammar🔗github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar.
 
-title4 What does a typical project folder look like?
+question What does a typical project folder look like?
 
 paragraph
  A typical Scroll project folder, excluding the html files
@@ -107,7 +107,7 @@ paragraph
  are all in one public folder and checked into version control. Though often
  you may want to add `*.html` to your `.gitignore`.
  
-title4 How do I save drafts?
+question How do I save drafts?
 
 paragraph
  Have a draft scroll next to your published scroll. For example:
@@ -120,13 +120,13 @@ code
   publishedArticle.scroll
   scroll.settings
 
-title4 What file formats does Scroll use?
+question What file formats does Scroll use?
 
 paragraph
  Scroll articles are written as Scrolldown files with the file
  extension `scroll`. The grammar for Scrolldown is defined here🔗github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar.
 
-title4 What language is Scroll written in?
+question What language is Scroll written in?
 
 paragraph
  The Scroll CLI app is written in plain Javascript and
@@ -138,13 +138,13 @@ paragraph
  TypeScript may be used in the future but Scroll may
  never get over 1kloc so that might not be necessary.
 
-title4 How does versioning of articles work?
+question How does versioning of articles work?
 
 paragraph
  Scroll is designed for git. A single article is stored as
  a single file tracked by git.
 
-title4 Why the single page layout?
+question Why the single page layout?
 
 paragraph
  Scroll is designed to make it easier for <strong>syntopic
@@ -156,28 +156,28 @@ paragraph
  And if anyone prefers to read a scroll in a different way—they can! Scroll is for
  public domain sites. People are free to arrange the symbols any way they wish.
 
-title4 Will you make design decisions for non-public domain sites?
+question Will you make design decisions for non-public domain sites?
 
 paragraph
  No.
 
-title4 Can I use Scroll for internal private sites not intended for publishing?
+question Can I use Scroll for internal private sites not intended for publishing?
 
 paragraph
  Yes!
 
-title4 In the single page layout why don't you have only the newest articles above the fold?
+question In the single page layout why don't you have only the newest articles above the fold?
 
 paragraph
  This was originally a bug. But then it turns out to be a feature, as it
  gives older articles, which are often more important, more visibility.
 
-title4 Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
+question Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
 
 paragraph
  Yes. In the Tree Language Designer🔗jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar.
 
-title4 How do I check for broken links?
+question How do I check for broken links?
 
 paragraph
  Scroll does not check for broken links. For that, try linkinator🔗github.com/JustinBeckwith/linkinator.
@@ -186,7 +186,7 @@ code
  # npm install -g linkinator
  linkinator https://scroll.publicdomaincompany.com > brokenLinks.txt
 
-title4 How do I check browser performance?
+question How do I check browser performance?
 
 paragraph
  Scroll does not have browser perf tools built in. For that, try lighthouse🔗github.com/GoogleChrome/lighthouse.
@@ -195,17 +195,17 @@ code
  # npm install -g lighthouse
  lighthouse https://scroll.publicdomaincompany.com --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
 
-title4 Where should I host my site?
+question Where should I host my site?
 
 paragraph
  Any web server works. You can even host your scroll for free using GitHub Pages🔗pages.github.com, just like this site.
 
-title4 How do I use Scroll with a custom domain?
+question How do I use Scroll with a custom domain?
 
 paragraph
  Just buy a domain and point it to your web server or web host (such as GitHub Pages). Google Domains🔗domains.google is where this domain is registered and is a great service.
 
-title4 How can I deploy my site?
+question How can I deploy my site?
 
 paragraph
  If you have your own web server try rsync. Here's a bash one liner:
@@ -224,7 +224,7 @@ code
    IdentityFile ~/.ssh/example_id_rsa
    IdentitiesOnly yes
 
-title4 How can I track web traffic?
+question How can I track web traffic?
 
 paragraph
  Scroll emits HTML with zero Javascript and does not have any tracking or cookies. If you are using a web server like Nginx you might have some access logs on your server. The one liner below uses GoAccess🔗goaccess.io to summarize recent Nginx access logs.
@@ -233,17 +233,17 @@ code
  # apt-get install goaccess
  goaccess /var/log/nginx/access.log -o /var/www/html/YOUR_SECRET_REPORT_URL.html --log-format=COMBINED --real-time-html --ws-url=wss://YOURDOMAIN.com
 
-title4 Does Scroll support Open Graph tags for better social media sharing?
+question Does Scroll support Open Graph tags for better social media sharing?
 
 paragraph
  Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl` in your `scroll.settings` file. For more help check out the debuggers from Facebook🔗developers.facebook.com/tools/debug and Twitter🔗cards-dev.twitter.com/validator.
 
-title4 How can I build a scroll from a Twitter account?
+question How can I build a scroll from a Twitter account?
 
 paragraph
  Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets JSON into scroll files. Or to experiment faster use this tool🔗www.vicinitas.io/free-tools/download-user-tweets to grab some tweets as a TSV.
 
-title4 What were some alternatives considered?
+question What were some alternatives considered?
 
 paragraph
  There was no publishing software that reads and writes Scrolldown yet
@@ -251,14 +251,14 @@ paragraph
  and Brecksblog🔗github.com/breck7/brecksblog were the two
  biggest inspirations.
 
-title4 What has changed in recent versions?
+question What has changed in recent versions?
 
 paragraph
  View the releaseNotes🔗./releaseNotes.html.
 
-title3 Contributing to Scroll development
+section Contributing to Scroll development
 
-title4 How do I contribute?
+question How do I contribute?
 
 paragraph
  File issues. Share your Scroll sites.
@@ -266,7 +266,7 @@ paragraph
 paragraph
  You can submit pull requests too. The shorter the better.
 
-title4 How do I debug node.js performance?
+question How do I debug node.js performance?
 
 code
  # cd your_slow_scroll
@@ -274,16 +274,14 @@ code
  node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile ~/scroll/scroll.js build
  # Now ➡️ open a new Chrome tab ➡️ open devtools ➡️ click Performance ➡️ click "Load Profile..." ➡️ select your scrollNodePerf.cpuprofile
 
-title4 How do I format the Scrolldown Grammar file?
+question How do I format the Scrolldown Grammar file?
 
 code
  # Assuming you've already done `jtree register YOUR_PATH/jtree/langs/grammar/grammar.grammar`
  jtree format scrolldown.grammar
 
-title4 How do I run cross browser tests?
+question How do I run cross browser tests?
 
 paragraph
  For that we use BrowserStack🔗browserstack.com.
-
-
 

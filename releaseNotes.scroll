@@ -4,79 +4,102 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
-title4 19.3.1 06-20-2021
+section 20.0.0 06-21-2021
+list
+ - 🎉 new question nodetype. Simply compiles to an h4 for now but more semantic this way.
+ - 🎉 new section nodetype. Simply compiles to an h3 for now but more semantic this way.
+ - 🎉 new subsection nodetype. Simply compiles to an h4 for now but more semantic this way.
+ - ⚠️ title2-title6 have been removed. use question, section and subsection instead.
+
+question Why the new `question` nodes?
+
+paragraph
+ Question and answer structures are literally older than the Socratic Method. Such a common semantic pattern deserves it's own keywords.
+
+question How do I migrate from title# nodes?
+
+paragraph
+ The below regex may help.
+
+code
+ Find ^title\d (.+\?)
+  ReplaceWith question $1
+ Find ^title\d (.+)
+  ReplaceWith section $1
+
+section 19.3.1 06-20-2021
 list
  - 🎉 show the version in footer
  - 🏥 fix title in single pages without a title
 
-title4 19.3.0 06-20-2021
+section 19.3.0 06-20-2021
 list
  - 🏥 fix bug where readme.scroll could be overwritten by init
 
-title4 19.2.0 06-17-2021
+section 19.2.0 06-17-2021
 list
  - 🎉 improved styling for tables
 
-title4 19.1.0 06-17-2021
+section 19.1.0 06-17-2021
 list
  - 🏥 fix bug with http links
  - 🏥 simpler article padding and changed scroll title to h2 from h1
 
-title4 19.0.0 06-17-2021
+section 19.0.0 06-17-2021
 list
  - 🎉 ability to override header and footer
 
-title4 18.4.0 06-17-2021
+section 18.4.0 06-17-2021
 list
  - 🏥 improved alignment of images
 
-title4 18.3.0 06-16-2021
+section 18.3.0 06-16-2021
 list
  - 🎉 og meta tags for social media sharing
 
-title4 18.2.0 06-16-2021
+section 18.2.0 06-16-2021
 list
  - 🏥 title now links to "index.html". less magic and works much better locally
 
-title4 18.1.1 06-16-2021
+section 18.1.1 06-16-2021
 list
  - 🏥 fix regression where 2 columns on mobile were not downsizing to 1
 
-title4 18.1.0 06-16-2021
+section 18.1.0 06-16-2021
 list
  - 🎉 short articles now are put into 1 or 2 columns 
 
-title4 18.0.0 06-15-2021
+section 18.0.0 06-15-2021
 list
  - 🎉 build is now ~46% faster
  - 🏥 refactored html generation in preparation for easier extending and theming
 
-title4 17.5.0 06-05-2021
+section 17.5.0 06-05-2021
 list
  - 🏥 fixed numerous bugs in importing RSS feeds and added examples
 
-title4 17.4.0 06-04-2021
+section 17.4.0 06-04-2021
 list
  - 🎉 typography adjustments
  - 🏥 fixed overlapping social icons up top on mobile. just keep git link
 
-title4 17.3.0 06-03-2021
+section 17.3.0 06-03-2021
 list
  - 🎉 images now link to the full size image
 
-title4 17.2.2 06-02-2021
+section 17.2.2 06-02-2021
 list
  - 🏥 fixed safari-only bug not painting overflowing code blocks on single pages
 
-title4 17.2.1 05-25-2021
+section 17.2.1 05-25-2021
 list
  - 🏥 fixed bug where sequential links were not getting parsed
 
-title4 17.2.0 05-25-2021
+section 17.2.0 05-25-2021
 list
  - 🏥 tables can now break on single pages for higher information density
 
-title4 17.1.0 05-25-2021
+section 17.1.0 05-25-2021
 list
  - 🎉 pipeTable
 
@@ -84,47 +107,47 @@ pipeTable
  what|why
  PipeTable|Because it's awesome!
 
-title4 17.0.0 05-25-2021
+section 17.0.0 05-25-2021
 list
  - 🎉 tabTable and commaTable
  - ⚠️ table is now spaceTable
  - 🏥 do not crash if an empty row in a table
 
-title4 16.2.0 05-24-2021
+section 16.2.0 05-24-2021
 list
  - 🏥 do not crash if an image is not found
 
-title4 16.1.0 05-24-2021
+section 16.1.0 05-24-2021
 list
  - 🎉 building a site is now ~2.4x faster 🏎
 
-title4 16.0.0 05-22-2021
+section 16.0.0 05-22-2021
 list
  - ⚠️ rename scrollSettings.map to scroll.settings
 
-title4 15.0.0 05-21-2021
+section 15.0.0 05-21-2021
 list
  - 🎉 Scroll will detect and emit image sizes during build to reduce layout shifts.
 
-title4 14.3.0 05-21-2021
+section 14.3.0 05-21-2021
 list
  - 🏥 Scroll is now somewhat usable as an NPM module.
 
-title4 14.2.0 05-20-2021
+section 14.2.0 05-20-2021
 list
  - 🏥 added html head meta viewport tag for better mobile experience.
 
-title4 14.1.0 05-20-2021
+section 14.1.0 05-20-2021
 list
  - 🏥 added doctype tag
  - 🏥 added html head meta description tag
 
-title4 14.0.0 05-19-2021
+section 14.0.0 05-19-2021
 list
  - ⚠️ removed links nodeType
  - ⚠️ fixed bug where sometimes permalinks were still using title and not filename
 
-title4 13.3.0 05-18-2021
+section 13.3.0 05-18-2021
 list
  - 🎉 html and image node types
 
@@ -141,20 +164,20 @@ code
  html
   <b>anything goes here</b>
 
-title4 13.2.0 05-18-2021
+section 13.2.0 05-18-2021
 list
  - 🎉 Added <code>scroll check</code> command
 
-title4 13.1.0 05-18-2021
+section 13.1.0 05-18-2021
 list
  - 🎉 🔗links in lists as well as paragraphs
 
-title4 13.0.0 05-17-2021
+section 13.0.0 05-17-2021
 list
  - 🎉 🔗links in paragraph nodes.
  - 🎉 skipIndexPage nodeType
 
-title5 Single word links
+question How do I use the new single word links?
 
 paragraph
  For single word links in paragraph nodes only (for now) you can now do:
@@ -170,7 +193,7 @@ code
  <a href="https://([^"]+)">([^ ]+)</a>
  $2🔗$1
 
-title6 How do I use the 🔗link tag with multiword links?
+question How do I use the 🔗link tag with multiword links?
 
 paragraph
  The 🔗link tag only supports single word links. Like everything with Scrolldown, you have
@@ -182,13 +205,13 @@ list
  3. Use &lt;a> tags.
  4. Extend the Scrolldown grammar for your site.
 
-title5 Not including a page in the index
+question Can I not include a page in the index page?
 
 paragraph
- Sometimes you just want to publish an independent page without including it
+ Now you can! Sometimes you just want to publish an independent page without including it
  in the index. To do that, just add <code>skipIndexPage</code>.
 
-title4 12.1.0 05-14-2021
+section 12.1.0 05-14-2021
 list
  - 🎉 chat nodeType
 
@@ -196,19 +219,19 @@ chat
  You can now do dialogues
  Cool!
 
-title4 12.0.0 05-12-2021
+section 12.0.0 05-12-2021
 list
  - ⚠️ scroll create is now scroll init
  - ⚠️ Removed export command
  - 🏥 removed example.com folder. Less code and now flat.
 
-title4 11.0.0 05-11-2021
+section 11.0.0 05-11-2021
 list
  - 🎉 list, orderedList, and links node types
  - 🎉 codeWithLanguageNode
  - 🏥 HTML escaped in code blocks
 
-title4 10.0.0 05-10-2021
+section 10.0.0 05-10-2021
 list
  - 🎉 table nodeType for SSVs with linkify
  - 🎉 Better docs in Scrolldown grammar
@@ -217,38 +240,38 @@ list
  - 🏥 Windows return character fix
  - 🏥 multiline support in subheader nodeTypes
  
-title4 9.0.0 05-05-2021
+section 9.0.0 05-05-2021
 list
  - 🎉 Scrolldown now has a quote nodeType.
  - 🏥 Code block format bug fixes.
  - 🏥 Styling improvements
 
-title4 8.0.0 04-10-2021
+section 8.0.0 04-10-2021
 list
  - 🎉 Scroll now just builds files. No web server needed.
 
-title4 7.0.0 04-03-2021
+section 7.0.0 04-03-2021
 list
  - ⚠️ Scroll the language is now called Scrolldown (thanks FB!).
  - 🏥 Bug fixes.
  - 🎉 Better perf.
 
-title4 6.0.0 03-08-2021
+section 6.0.0 03-08-2021
 list
  - 🎉 By popular request, Scroll now also publishes each article to its own page.
  - 🎉 Fewer links. Do less. KISS.
  - 🎉 Better perf.
  - 🎉 "permalink" nodeType
 
-title4 5.0.0 02-28-2021
+section 5.0.0 02-28-2021
 list
  - 🎉 Changed name of everything from dumbdown to Scroll per user feedback
  - ⚠️ File extension of articles needs to be "scroll" and not "dd" now.
 
-title4 4.2.0 02-22-2021
+section 4.2.0 02-22-2021
 list
  - 🏥 Fixed paragraph parsing and rendering
 
-title4 4.1.0 02-22-2021
+section 4.1.0 02-22-2021
 list
  - 🎉 "git" scrollSetting for article source links.
