@@ -8,7 +8,7 @@ const { version } = require("./package.json")
 
 const browserstackURL = "https://" + userName + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub"
 
-const kitchenSinkUrl = "https://scroll.publicdomaincompany.com"
+const kitchenSinkUrl = "http://scroll.pub"
 
 async function runTestWithCaps(capabilities) {
   try {

@@ -47,7 +47,7 @@ const scrollBoilerplateCompiledMessage = `<!--
  This page was compiled by 📜 Scroll, the public domain
  static site publishing software.
  
- http://scroll.publicdomaincompany.com/
+ http://scroll.pub
  
  Generally you don't want to edit it by hand.
 
@@ -285,7 +285,7 @@ class AbstractScrollPage {
   a ${SCROLL_ICONS.githubSvg}
    href ${this.github}
  a Built with Scroll v${SCROLL_VERSION}
-  href https://scroll.publicdomaincompany.com/
+  href http://scroll.pub
   class scrollCommunityLink`
 	}
 
