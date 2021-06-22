@@ -79,7 +79,7 @@ paragraph
  simple fs watch app for live preview.
 
 paragraph
- Scrolldown is the name of a Tree Language defined in this grammar🔗github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar.
+ Scrolldown is the name of a Tree Language defined in this grammar🔗github.com/publicdomaincompany/scroll/blob/main/scrolldown.grammar.
 
 question What does a typical project folder look like?
 
@@ -124,7 +124,7 @@ question What file formats does Scroll use?
 
 paragraph
  Scroll articles are written as Scrolldown files with the file
- extension `scroll`. The grammar for Scrolldown is defined here🔗github.com/publicdomaincompany/scroll/blob/master/scrolldown.grammar.
+ extension `scroll`. The grammar for Scrolldown is defined here🔗github.com/publicdomaincompany/scroll/blob/main/scrolldown.grammar.
 
 question What language is Scroll written in?
 
