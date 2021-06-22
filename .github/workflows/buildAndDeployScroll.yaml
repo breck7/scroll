@@ -14,7 +14,7 @@ jobs:
         run: |
           npm install .
           ./scroll.js build
-          git add -f *.html
+          rm .gitignore
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
