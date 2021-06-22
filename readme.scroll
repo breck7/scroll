@@ -177,6 +177,45 @@ question Is there a place I can play with the Scrolldown grammar and see how it 
 paragraph
  Yes. In the Tree Language Designer🔗jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.publicdomaincompany.com%2Fscrolldown.grammar.
 
+question What's an easy way to have GitHub run Scroll and build my HTML files automatically?
+
+paragraph
+ Go to your project folder and create the file below:
+
+code
+ touch .github/workflows/buildAndDeployScroll.yaml
+
+paragraph
+ Then open that file and paste in this code:
+
+code
+ # Adapted from https://github.com/JamesIves/github-pages-deploy-action
+ name: Build and Deploy Scroll
+ on:
+   push:
+     branches:
+       - main
+ jobs:
+   build-and-deploy:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout 🛎️
+         uses: actions/checkout@v2.3.1
+       - name: Install and Build
+         run: |
+           npm install scroll-cli
+           ./node_modules/scroll-cli/scroll.js build
+           # Uncomment the line below if you are ignoring *.html files in your gitignore file
+           # rm .gitignore
+       - name: Deploy 🚀
+         uses: JamesIves/github-pages-deploy-action@4.1.4
+         with:
+           branch: scroll-output # The branch the action should deploy to.
+           folder: .
+
+paragraph
+ Commit and push. Now go to your GitHub Repo and then `Settings`, then `Pages`, and select the `scroll-output` branch as the Source for the pages. Click save. Your built site should be live.
+
 question How do I check for broken links?
 
 paragraph
