@@ -15,3 +15,6 @@ browserstackCreds.json
 
 # Dump import examples here
 importExamples/
+
+# Do not check in HTML files
+*.html
