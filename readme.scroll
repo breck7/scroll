@@ -175,7 +175,7 @@ paragraph
 question Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
 
 paragraph
- Yes. In the Tree Language Designer🔗jtree.treenotation.org/designer#url%20http%3A%2F%2Fscroll.pub%2Fscrolldown.grammar.
+ Yes. In the Tree Language Designer🔗jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.pub%2Fscrolldown.grammar.
 
 question What's an easy way to have GitHub run Scroll and build my HTML files automatically?
 
@@ -223,7 +223,7 @@ paragraph
 
 code
  # npm install -g linkinator
- linkinator http://scroll.pub > brokenLinks.txt
+ linkinator https://scroll.pub > brokenLinks.txt
 
 question How do I check browser performance?
 
@@ -232,7 +232,7 @@ paragraph
 
 code
  # npm install -g lighthouse
- lighthouse http://scroll.pub --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
+ lighthouse https://scroll.pub --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
 
 question Where should I host my site?
 
