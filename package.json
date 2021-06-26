@@ -40,9 +40,7 @@
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "open": "^8.0.5",
-    "rss-parser": "^3.12.0"
-  },
-  "devDependencies": {
-    "tap": "^14.11.0"
+    "rss-parser": "^3.12.0",
+    "tap": "^15.0.9"
   }
 }
