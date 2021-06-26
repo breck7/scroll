@@ -5,22 +5,14 @@ const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, compileATags } = requ
 const testString = "Build your own public domain newspaper"
 const testPort = 5435
 
+// todo: 1) rss import tests 2) header/footer tests 3) grammar errors test 4) scroll errors tests
+
 const runTree = testTree =>
 	Object.keys(testTree).forEach(key => {
 		testTree[key](tap.equal)
 	})
 
 const testTree = {}
-
-testTree.folder = areEqual => {
-	const folder = new ScrollFolder()
-	folder.verbose = false
-	folder.startWatching(testPort)
-
-	areEqual(!!folder.watcher, true)
-
-	folder.stopWatchingForFileChanges()
-}
 
 testTree.compileATags = areEqual => {
 	const tests = [
@@ -70,6 +62,20 @@ testTree.article = areEqual => {
 	areEqual(content.includes("Scroll the language is now called Scrolldown"), true)
 }
 
+testTree.watchCommand = async areEqual => {
+	// Arrange
+	const cli = new ScrollCli()
+	cli.verbose = false
+
+	// Act
+	const folder = await cli.watchCommand()
+
+	// Assert
+	areEqual(!!cli._watcher, true)
+
+	cli.stopWatchingForFileChanges()
+}
+
 testTree.cli = async areEqual => {
 	const cli = new ScrollCli()
 	cli.verbose = false
@@ -108,7 +114,7 @@ testTree.errorStates = async areEqual => {
 		areEqual(singleFile.includes(testString), true)
 
 		// Act
-		const singlePages = folder.writeSinglePages()
+		const singlePages = folder.buildSinglePages()
 
 		// Assert
 		areEqual(singlePages.length, 1)

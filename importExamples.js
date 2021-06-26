@@ -30,7 +30,7 @@ cases.forEach(async url => {
 		fs.writeFileSync(folder + "/" + SCROLL_SETTINGS_FILENAME, scrollKeywords.importFrom + " " + url, "utf8")
 		const scroll = new ScrollFolder(folder)
 		await scroll.importSite()
-		scroll.writeSinglePages()
+		scroll.buildSinglePages()
 		scroll.buildIndexPage()
 	} catch (err) {
 		console.error(err)

@@ -21,8 +21,7 @@ const stump = require("jtree/products/stump.nodejs.js")
 const read = filename => fs.readFileSync(filename, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.
 const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
-const replaceAll = (str, search, replace) => str.split(search).join(replace)
-const cleanAndRightShift = (str, numSpaces = 0) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
+const cleanAndRightShift = (str, numSpaces) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
 const unsafeStripHtml = html => html.replace(/<[^>]*>?/gm, "")
 
 // Constants
@@ -113,7 +112,7 @@ const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + S
 const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.icons")).toObject()
 
 class Article {
-	constructor(scrolldownProgram, filename = "", sourceLink = "") {
+	constructor(scrolldownProgram, filename, sourceLink) {
 		this.scrolldownProgram = scrolldownProgram
 		this.sourceLink = sourceLink
 		this.filename = filename
@@ -482,18 +481,22 @@ class ScrollFolder {
 
 	previousVersion = ""
 
-	singlePages = new Map()
-	writeSinglePages() {
+	_singlePages = new Map()
+	buildSinglePages() {
+		const start = Date.now()
 		const settings = this.settings
-		return this.publishedArticles.map(article => {
+		const pages = this.publishedArticles.map(article => {
 			const permalink = `${article.permalink}.html`
 			const html = new ScrollArticlePage(this, article).toHtml()
-			if (this.singlePages.get(permalink) === html) return "Unmodified"
+			if (this._singlePages.get(permalink) === html) return "Unmodified"
 			write(`${this.scrollFolder}/${permalink}`, html)
-			this.singlePages.set(permalink, html)
+			this._singlePages.set(permalink, html)
 			this.log(`Wrote ${permalink} to disk`)
 			return { permalink, html }
 		})
+		const seconds = (Date.now() - start) / 1000
+		this.log(`⌛️ built ${pages.length} html files in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second`)
+		return pages
 	}
 
 	buildIndexPage() {
@@ -526,45 +529,8 @@ class ScrollFolder {
 		return this.settings.importFrom
 	}
 
-	buildPages() {
-		const start = Date.now()
-		const pages = this.writeSinglePages()
-		this.log(`⌛️ built ${pages.length} html files in ${(Date.now() - start) / 1000} seconds`)
-	}
-
 	get localIndexAsUrl() {
 		return `file://${this.scrollFolder}/index.html`
-	}
-
-	async openBrowser() {
-		await open(this.localIndexAsUrl)
-	}
-
-	watcher = undefined
-	startWatching() {
-		const { scrollFolder } = this
-
-		this.log(`\n🔭 Watching for changes in 📁 ${scrollFolder}`)
-
-		this.watcher = fs.watch(scrollFolder, (event, filename) => {
-			const fullPath = scrollFolder + filename
-			if (!EXTENSIONS_REQUIRING_REBUILD.test(fullPath)) return
-
-			if (!Disk.exists(fullPath)) {
-				// file deleted
-			} else if (false) {
-				// new file
-			} else {
-				// file updates
-			}
-			this.buildIndexPage()
-			this.buildPages()
-		})
-	}
-
-	stopWatchingForFileChanges() {
-		this.watcher.close()
-		delete this.watcher
 	}
 }
 
@@ -634,16 +600,42 @@ class ScrollCli {
 		const folder = new ScrollFolder(fullPath)
 		folder.verbose = this.verbose
 		folder.buildIndexPage()
-		folder.writeSinglePages()
+		folder.buildSinglePages()
 		return folder
 	}
 
 	async watchCommand(cwd) {
-		const folder = await this.buildCommand(cwd)
-		if (!folder.startWatching) return
-		folder.startWatching()
-		folder.openBrowser()
-		return folder
+		const folderOrErrorMessage = await this.buildCommand(cwd)
+		if (typeof folderOrErrorMessage === "string") return folderOrErrorMessage
+		const folder = folderOrErrorMessage
+		const { scrollFolder } = folder
+
+		this.log(`\n🔭 Watching for changes in 📁 ${scrollFolder}`)
+
+		this._watcher = fs.watch(scrollFolder, (event, filename) => {
+			const fullPath = scrollFolder + filename
+			if (!EXTENSIONS_REQUIRING_REBUILD.test(fullPath)) return
+
+			if (!Disk.exists(fullPath)) {
+				// file deleted
+			} else if (false) {
+				// new file
+			} else {
+				// file updates
+			}
+			folder.buildIndexPage()
+			folder.buildSinglePages()
+		})
+
+		if (this.verbose) await open(folder.localIndexAsUrl)
+		return this
+	}
+
+	_watcher = undefined
+
+	stopWatchingForFileChanges() {
+		this._watcher.close()
+		this._watcher = undefined
 	}
 
 	helpCommand() {
