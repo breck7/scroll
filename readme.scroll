@@ -18,6 +18,11 @@ orderedList
  2. Instead of supporting licenses, Scroll is 100% focused on <strong>public domain sites</strong> and everything is designed with that assumption.
  3. The default Scroll theme publishes all articles to a <strong>single page</strong>, so readers can read faster at a higher level, like reading a newspaper.
 
+question Can I use Scroll for building sites other than newspapers?
+
+paragraph
+ Yes! Scroll work great for blogs, collaborative databases, intranets and other types of static sites as well.
+
 question How do I get Scroll?
 
 paragraph
@@ -285,6 +290,11 @@ question Does Scroll support Open Graph tags for better social media sharing?
 
 paragraph
  Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl` in your `scroll.settings` file. For more help check out the debuggers from Facebook🔗developers.facebook.com/tools/debug and Twitter🔗cards-dev.twitter.com/validator.
+
+question Does Scroll support themes?
+
+paragraph
+ Yes! Scroll includes a simple API for changing the style of your site. This is an active area of development so please reach out if you'd like to customize the look of your Scroll.
 
 question How can I build a scroll from a Twitter account?
 
