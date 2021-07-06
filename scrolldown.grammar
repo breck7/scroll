@@ -99,7 +99,7 @@ dateNode
    try {
     const dayjs = require("dayjs")
     const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
-    return `<div class="scrollArticleDate">${dateCell} — </div>`
+    return `<div class="scrollArticleDateComponent">${dateCell} — </div>`
    } catch (err) {
     console.error(err)
     return ""
@@ -134,7 +134,7 @@ chatNode
  extends abstractScrollNode
  javascript
   compile() {
-   return this.map((line, index) => `<div class="scrollChat scrollChat${index % 2}"><span>${line.toString()}</span></div>`).join("")
+   return this.map((line, index) => `<div class="scrollDialogueComponent ${index % 2 ? "scrollDialogueComponentRight" : "scrollDialogueComponentLeft"}"><span>${line.toString()}</span></div>`).join("")
   }
 quoteNode
  description A blockquote.
@@ -222,7 +222,7 @@ imageNode
  javascript
   compile() {
    const src = this.getWord(1)
-   const openA = `<a href="${src}" class="scrollImage" target="_blank">`
+   const openA = `<a href="${src}" class="scrollImageComponent" target="_blank">`
    try {
     const sizeOf = require("image-size")
     const dimensions = sizeOf(src)

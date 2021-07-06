@@ -6,6 +6,7 @@ html,body,div,span,h1,h2,h3,h4,h5,h6,p,ol,ul,table
  vertical-align baseline
  border-spacing 0
 
+comment General page style
 html
  background-color rgb(244,244,244)
  font-family Exchange,Georgia,serif
@@ -13,29 +14,17 @@ html
  font-size 14px
  hyphens auto
 
-.scrollChat
- span
-  font-family Verdana
-  margin-top 5px
-  padding 5px 20px
-  border-radius 15px
-  display inline-block
-.scrollChat0
- text-align left
- span
-  background rgba(204,204,204, .5)
-.scrollChat1
+comment Default header theme
+.scrollHeaderComponent
+ border-bottom 1px solid rgb(204,204,204)
+ text-align center
+ padding-bottom 8px
+.scrollTopRightBarComponent
  text-align right
- span
-  color white
-  background rgb(0,132,255)
-
-.scrollTitle
- a
-  text-decoration none
-  color #000
-
-.scrollSocialMediaIcons
+ position absolute
+ right 25px
+ top 3px
+.scrollSocialMediaIconsComponent
  svg
   width 30px
   fill rgba(204,204,204, .5)
@@ -43,47 +32,22 @@ html
   &:hover
    fill #333
 
-.scrollCommunityLink
+comment Default footer theme
+.scrollFooterComponent
+ border-top 1px solid rgb(204,204,204)
+ margin-top 8px
+ padding-top 8px
+ text-align center
+.scrollCommunityLinkComponent
  display block
  font-family Verdana
  font-weight 100
  margin .5em
  padding-bottom 1em
  text-decoration none
- color rgba(204,204,204, .5)
+ color rgba(204,204,204,.5)
 
-.scrollTopRightBar
- text-align right
- position absolute
- right 25px
- top 3px
-
-.scrollFooter
- border-top 1px solid rgb(204,204,204)
- margin-top 8px
- padding-top 8px
- text-align center
-
-.scrollHeader
- border-bottom 1px solid rgb(204,204,204)
- text-align center
- padding-bottom 8px
-
-.scrollArticleCell
- border-bottom 1px solid rgb(204,204,204)
- padding 1ch 0
- break-inside avoid
- text-align justify
- margin-bottom .5em
-
-.scrollImage
- display block
- text-align center
- img
-  max-width 35ch
-  height auto
-
-.scrollPage
+.scrollPageComponent
  column-count auto
  column-fill balance
  column-width 35ch
@@ -147,12 +111,33 @@ html
  h2,h3,h4
   margin .2em
 
-.scrollArticleDate
+comment Column rules not needed on single articles
+.scrollArticlePageComponent
+ column-rule none
+ padding-top 8px
+
+comment On the index page add some spacing around articles
+.scrollIndexPageArticleContainerComponent
+ border-bottom 1px solid rgb(204,204,204)
+ padding 1ch 0
+ break-inside avoid
+ text-align justify
+ margin-bottom .5em
+
+comment Article titles, make them links but not with link style
+.scrollTitleComponent
+ a
+  text-decoration none
+  color #000
+
+comment Date
+.scrollArticleDateComponent
  font-style italic
  font-size 80%
  display inline
 
-.scrollArticleSourceLink
+comment Subtle "Article Source" link
+.scrollArticleSourceLinkComponent
  text-align center
  font-size 80%
  margin 0
@@ -160,6 +145,28 @@ html
   color #000
   text-decoration none
 
-.scrollSingleArticle
- column-rule none
- padding-top 8px
+comment Dialogues that look like SMS conversations
+.scrollDialogueComponent
+ span
+  font-family Verdana
+  margin-top 5px
+  padding 5px 20px
+  border-radius 15px
+  display inline-block
+.scrollDialogueComponentLeft
+ text-align left
+ span
+  background rgba(204,204,204, .5)
+.scrollDialogueComponentRight
+ text-align right
+ span
+  color white
+  background rgb(0,132,255)
+
+comment Make images full column width
+.scrollImageComponent
+ display block
+ text-align center
+ img
+  max-width 35ch
+  height auto

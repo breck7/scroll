@@ -41,7 +41,8 @@ const SCROLL_HAKON_FILENAME = "scroll.hakon"
 const SCROLL_CSS = new hakon(read(SCROLL_SRC_FOLDER + SCROLL_HAKON_FILENAME)).compile()
 
 const CommandFnDecoratorSuffix = "Command"
-const scrollBoilerplateCompiledMessage = `<!--
+const scrollBoilerplateCompiledMessage = `<!doctype html>
+<!--
 
  This page was compiled by 📜 Scroll, the public domain
  static site publishing software.
@@ -52,8 +53,7 @@ const scrollBoilerplateCompiledMessage = `<!--
 
  Scroll v${SCROLL_VERSION}
 
--->
-<!doctype html>`
+-->`
 
 const initReadmePage = `title Hello world
 date ${dayjs().format(`MM-DD-YYYY`)}
@@ -62,10 +62,10 @@ paragraph
  This is my new Scroll.`
 
 const cssClasses = {
-	scrollPage: "scrollPage",
-	scrollArticleCell: "scrollArticleCell",
-	scrollArticleSourceLink: "scrollArticleSourceLink",
-	scrollSingleArticle: "scrollSingleArticle"
+	scrollPageComponent: "scrollPageComponent",
+	scrollIndexPageArticleContainerComponent: "scrollIndexPageArticleContainerComponent",
+	scrollArticleSourceLinkComponent: "scrollArticleSourceLinkComponent",
+	scrollArticlePageComponent: "scrollArticlePageComponent"
 }
 
 const scrollKeywords = {
@@ -161,7 +161,7 @@ class Article {
 	}
 
 	get htmlCode() {
-		const sourceLink = this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLink}"><a href="${this.sourceLink}">Article source</a></p>` : ""
+		const sourceLink = this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : ""
 
 		const program = this.scrolldownProgram
 		program.setPermalink(this.permalink)
@@ -255,28 +255,27 @@ class AbstractScrollPage {
 		const customHeader = this.scroll.settingsTree.getNode("header")
 		if (customHeader) return customHeader.childrenToString()
 		return `div
- class scrollHeader
+ class scrollHeaderComponent
  div
-  class scrollTopRightBar
+  class scrollTopRightBarComponent
   div
-   class scrollSocialMediaIcons
+   class scrollSocialMediaIconsComponent
    a ${SCROLL_ICONS.githubSvg}
     href ${this.github}
  h2
-  class scrollTitle
+  class scrollTitleComponent
   a ${this.scrollSettings.title}
    href index.html
- div ${this.description}
-  class scrollDescription`
+ div ${this.description}`
 	}
 
 	get footer() {
 		const customFooter = this.scroll.settingsTree.getNode("footer")
 		if (customFooter) return customFooter.childrenToString()
 		return `div
- class scrollFooter
+ class scrollFooterComponent
  div
-  class scrollSocialMediaIcons
+  class scrollSocialMediaIconsComponent
   a ${SCROLL_ICONS.emailSvg}
    href mailto:${this.email}
   a ${SCROLL_ICONS.twitterSvg}
@@ -285,7 +284,7 @@ class AbstractScrollPage {
    href ${this.github}
  a Built with Scroll v${SCROLL_VERSION}
   href https://scroll.pub
-  class scrollCommunityLink`
+  class scrollCommunityLinkComponent`
 	}
 
 	get stumpCode() {
@@ -329,14 +328,14 @@ class AbstractScrollPage {
 		const articles = this.articles
 			.map(article => {
 				const node = new TreeNode(`div
- class ${cssClasses.scrollArticleCell}`)
+ class ${cssClasses.scrollIndexPageArticleContainerComponent}`)
 				node.getNode("div").appendLineAndChildren("bern", article.htmlCode)
 				return node.toString()
 			})
 			.join("\n")
 
 		return `div
- class ${cssClasses.scrollPage}
+ class ${cssClasses.scrollPageComponent}
  ${cleanAndRightShift(articles, 1)}`
 	}
 
@@ -382,7 +381,7 @@ class ScrollArticlePage extends AbstractScrollPage {
 
 	get pageCode() {
 		return `div
- class ${cssClasses.scrollPage} ${cssClasses.scrollSingleArticle}
+ class ${cssClasses.scrollPageComponent} ${cssClasses.scrollArticlePageComponent}
  style ${this.cssColumnWorkaround}
  bern
   ${cleanAndRightShift(this.article.htmlCode, 2)}`
