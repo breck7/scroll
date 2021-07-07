@@ -1,5 +1,5 @@
 comment CSS reset
-html,body,div,span,h1,h2,h3,h4,h5,h6,p,ol,ul,table
+html,body,div,span,h1,h2,h3,h4,p,ol,ul,table
  margin 0
  padding 0
  border 0
@@ -19,6 +19,10 @@ comment Default header theme
  border-bottom 1px solid rgb(204,204,204)
  text-align center
  padding-bottom 8px
+.scrollNameComponent
+ a
+  text-decoration none
+  color #000
 .scrollTopRightBarComponent
  text-align right
  position absolute
@@ -47,7 +51,8 @@ comment Default footer theme
  text-decoration none
  color rgba(204,204,204,.5)
 
-.scrollPageComponent
+comment Main body of both pages is similar
+.scrollIndexPageComponent,.scrollArticlePageComponent
  column-count auto
  column-fill balance
  column-width 35ch
@@ -56,60 +61,6 @@ comment Default footer theme
  padding-left 20px
  padding-right 20px
  margin auto
- table
-  table-layout fixed
-  margin .5em 0
-  overflow hidden
-  font-size 80%
-  width 100%
-  hyphens none
-  border 1px solid rgba(224,224,224,.8)
-  td,th
-   padding 3px
-   overflow hidden
-  th
-   border-bottom 2px solid rgba(0,0,0,.6)
-   text-align left
-  tr:nth-child(even)
-   background rgba(224,224,224,.6)
- ul,ol
-  text-align left
-  line-height 1.4em
-  padding-left 1em
-  margin-top 0.4em
- p
-  text-indent 1em
-  margin-top 0.4em
-  line-height 1.4em
- p:first-of-type
-  display inline
- .scrollCodeBlock,blockquote
-  break-inside avoid
- .scrollCodeBlock,blockquote
-  display block
-  margin .5em 0
-  padding .5em
-  background rgba(204,204,204,.5)
- .scrollCodeBlock
-  overflow auto
-  font-size 80%
-  hyphens none
- .scrollCodeBlock
-  white-space pre
-  border-left .5em solid rgba(204,204,204, .8)
- blockquote
-  white-space pre-line
-  border-left .5em solid rgba(204,204,204, .8)
- h1
-  font-size 24px
-  a
-   text-decoration none
-   color #000
-  margin-bottom .25em
- h1,h2,h3,h4,h5,h6
-  text-align center
- h2,h3,h4
-  margin .2em
 
 comment Column rules not needed on single articles
 .scrollArticlePageComponent
@@ -124,23 +75,78 @@ comment On the index page add some spacing around articles
  text-align justify
  margin-bottom .5em
 
-comment Article titles, make them links but not with link style
 .scrollTitleComponent
+ text-align center
+ font-size 24px
+ margin-bottom .25em
  a
   text-decoration none
   color #000
 
-comment Date
 .scrollArticleDateComponent
  font-style italic
  font-size 80%
- display inline
+
+.scrollParagraphComponent
+ text-indent 1em
+ margin-top 0.4em
+ line-height 1.4em
+
+.scrollQuoteComponent
+ break-inside avoid
+ display block
+ margin .5em 0
+ padding .5em
+ background rgba(204,204,204,.5)
+ white-space pre-line
+ border-left .5em solid rgba(204,204,204,.8)
+
+.scrollQuestionComponent,.scrollSectionComponent,.scrollSubsectionComponent
+ text-align center
+ margin .2em
+
+.scrollCodeBlockComponent
+ overflow auto
+ font-size 80%
+ hyphens none
+ white-space pre
+ border-left .5em solid rgba(204,204,204,.8)
+ break-inside avoid
+ display block
+ margin .5em 0
+ padding .5em
+ background rgba(204,204,204,.5)
+
+.scrollTableComponent
+ table-layout fixed
+ margin .5em 0
+ overflow hidden
+ font-size 80%
+ width 100%
+ hyphens none
+ border 1px solid rgba(224,224,224,.8)
+ td,th
+  padding 3px
+  overflow hidden
+ th
+  border-bottom 2px solid rgba(0,0,0,.6)
+  text-align left
+ tr:nth-child(even)
+  background rgba(224,224,224,.6)
+
+.scrollUnorderedListComponent,.scrollOrderedListComponent
+ text-align left
+ line-height 1.4em
+ padding-left 1em
+ margin-top 0.4em
 
 comment Subtle "Article Source" link
 .scrollArticleSourceLinkComponent
  text-align center
  font-size 80%
  margin 0
+ margin-top 0.4em
+ line-height 1.4em
  a
   color #000
   text-decoration none
@@ -163,7 +169,6 @@ comment Dialogues that look like SMS conversations
   color white
   background rgb(0,132,255)
 
-comment Make images full column width
 .scrollImageComponent
  display block
  text-align center

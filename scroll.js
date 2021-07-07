@@ -62,7 +62,7 @@ paragraph
  This is my new Scroll.`
 
 const cssClasses = {
-	scrollPageComponent: "scrollPageComponent",
+	scrollIndexPageComponent: "scrollIndexPageComponent",
 	scrollIndexPageArticleContainerComponent: "scrollIndexPageArticleContainerComponent",
 	scrollArticleSourceLinkComponent: "scrollArticleSourceLinkComponent",
 	scrollArticlePageComponent: "scrollArticlePageComponent"
@@ -263,7 +263,7 @@ class AbstractScrollPage {
    a ${SCROLL_ICONS.githubSvg}
     href ${this.github}
  h2
-  class scrollTitleComponent
+  class scrollNameComponent
   a ${this.scrollSettings.title}
    href index.html
  div ${this.description}`
@@ -335,7 +335,7 @@ class AbstractScrollPage {
 			.join("\n")
 
 		return `div
- class ${cssClasses.scrollPageComponent}
+ class ${cssClasses.scrollIndexPageComponent}
  ${cleanAndRightShift(articles, 1)}`
 	}
 
@@ -381,7 +381,7 @@ class ScrollArticlePage extends AbstractScrollPage {
 
 	get pageCode() {
 		return `div
- class ${cssClasses.scrollPageComponent} ${cssClasses.scrollArticlePageComponent}
+ class ${cssClasses.scrollArticlePageComponent}
  style ${this.cssColumnWorkaround}
  bern
   ${cleanAndRightShift(this.article.htmlCode, 2)}`

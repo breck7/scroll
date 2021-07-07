@@ -33,6 +33,15 @@ scrolldownNode
    this._permalink = permalink
    return this
   }
+  get articleDate () {
+   try {
+    const dayjs = require("dayjs")
+    return dayjs(this.get("date")).format(`MMMM D, YYYY`)
+   } catch (err) {
+    console.error(err)
+    return ""
+   }
+  }
   compileATags(text) {
    // TODO: this is manually copy and pasted from scroll.js
    const linkReplacer = (match, p1, p2, p3, offset, str) => {
@@ -87,32 +96,29 @@ titleNode
  crux title
  javascript
   compile() {
-   return `<h1><a href="${this.getRootNode().permalink}.html">${this.getContent()}</a></h1>`
+   return `<h1 class="scrollTitleComponent"><a href="${this.getRootNode().permalink}.html">${this.getContent()}</a></h1>`
   }
 dateNode
  catchAllCellType dateCell
  description Date the article was first published.
  extends abstractTopLevelSingleMetaNode
  crux date
- javascript
-  compile(spaces) {
-   try {
-    const dayjs = require("dayjs")
-    const dateCell = dayjs(this.getContent()).format(`MMMM D, YYYY`)
-    return `<div class="scrollArticleDateComponent">${dateCell} — </div>`
-   } catch (err) {
-    console.error(err)
-    return ""
-   }
-  }
 paragraphNode
  description Prose content.
  catchAllNodeType paragraphContentNode
  extends abstractScrollNode
  crux paragraph
  javascript
+  get dateHtml() {
+    const rootNode = this.getRootNode()
+    if (rootNode.dateWasCompiled) return ""
+    // hacky
+    rootNode.dateWasCompiled = true
+    const {articleDate} = rootNode
+    return articleDate ? `<span class="scrollArticleDateComponent">${articleDate} — </span>` : ""
+  }
   compile() {
-   return `<p>${this.getRootNode().compileATags(this.childrenToString())}</p>`
+   return `<p class="scrollParagraphComponent">${this.dateHtml}${this.getRootNode().compileATags(this.childrenToString())}</p>`
   }
 codeNode
  description A code block.
@@ -120,7 +126,7 @@ codeNode
  extends abstractScrollNode
  javascript
   compile() {
-   return `<code class="scrollCodeBlock">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
+   return `<code class="scrollCodeBlockComponent">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
   }
  crux code
 codeWithLanguageNode
@@ -142,7 +148,7 @@ quoteNode
  extends abstractScrollNode
  javascript
   compile() {
-   return `<blockquote>${this.childrenToString()}</blockquote>`
+   return `<blockquote class="scrollQuoteComponent">${this.childrenToString()}</blockquote>`
   }
  crux quote
 abstractTableNode
@@ -163,7 +169,7 @@ abstractTableNode
   }
   compile() {
    const tableHeader = this.tableHeader
-   return `<table><thead><tr>${tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
+   return `<table class="scrollTableComponent"><thead><tr>${tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
   }
 commaTableNode
  crux commaTable
@@ -194,7 +200,7 @@ listNode
  extends abstractScrollNode
  compiler
   stringTemplate 
-  openChildren <ul>
+  openChildren <ul class="scrollUnorderedListComponent">
   closeChildren </ul>
 orderedListNode
  description An ordered list.
@@ -202,7 +208,7 @@ orderedListNode
  crux orderedList
  compiler
   stringTemplate 
-  openChildren <ol>
+  openChildren <ol class="scrollOrderedListComponent">
   closeChildren </ol>
 commentNode
  description Will not appear in the compiled HTML.
@@ -250,7 +256,7 @@ abstractHeaderNode
  javascript
   compile() {
    const children = this.childrenToString() ? " " + this.childrenToString() : ""
-   return `<${this.tag}>${this.getContent() + children}</${this.tag}>`
+   return `<${this.tag} class="${this.className}">${this.getContent() + children}</${this.tag}>`
   }
 questionNode
  description Use for pages like FAQs.
@@ -258,18 +264,21 @@ questionNode
  crux question
  javascript
   tag = "h4"
+  className = "scrollQuestionComponent"
 sectionNode
  description Compiles to an h3 tag.
  extends abstractHeaderNode
  crux section
  javascript
   tag = "h3"
+  className = "scrollSectionComponent"
 subsectionNode
  description Compiles to an h4 tag.
  extends abstractHeaderNode
  crux subsection
  javascript
   tag = "h4"
+  className = "scrollSubsectionComponent"
 paragraphContentNode
  catchAllCellType textCell
 lineOfCodeNode
@@ -321,4 +330,4 @@ quickParagraphNode
  catchAllCellType textCell
  baseNodeType errorNode
  compiler
-  stringTemplate <p>{textCell}</p>
+  stringTemplate <p class="scrollParagraphComponent">{textCell}</p>
