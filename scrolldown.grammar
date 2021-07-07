@@ -33,15 +33,6 @@ scrolldownNode
    this._permalink = permalink
    return this
   }
-  get articleDate () {
-   try {
-    const dayjs = require("dayjs")
-    return dayjs(this.get("date")).format(`MMMM D, YYYY`)
-   } catch (err) {
-    console.error(err)
-    return ""
-   }
-  }
   compileATags(text) {
    // TODO: this is manually copy and pasted from scroll.js
    const linkReplacer = (match, p1, p2, p3, offset, str) => {
@@ -110,12 +101,18 @@ paragraphNode
  crux paragraph
  javascript
   get dateHtml() {
-    const rootNode = this.getRootNode()
-    if (rootNode.dateWasCompiled) return ""
-    // hacky
-    rootNode.dateWasCompiled = true
-    const {articleDate} = rootNode
-    return articleDate ? `<span class="scrollArticleDateComponent">${articleDate} — </span>` : ""
+   const rootNode = this.getParent()
+   const isFirst = rootNode.indexOf("paragraph") === this.getIndex()
+   if (!isFirst) return ""
+   const day = rootNode.get("date")
+   if (!day) return ""
+   try {
+    const dayjs = require("dayjs")
+    return `<span class="scrollArticleDateComponent">${dayjs(day).format(`MMMM D, YYYY`)} — </span>`
+   } catch (err) {
+    console.error(err)
+    return ""
+   }
   }
   compile() {
    return `<p class="scrollParagraphComponent">${this.dateHtml}${this.getRootNode().compileATags(this.childrenToString())}</p>`
@@ -158,7 +155,12 @@ abstractTableNode
   _delimiter = " "
   get tableHeader() {
    const header = this.nodeAt(0)
-   return header ? header.getLine().split(this._delimiter).map(word => `<th>${word}</th>\n`) : []
+   return header
+    ? header
+      .getLine()
+      .split(this._delimiter)
+      .map(word => `<th>${word}</th>\n`)
+    : []
   }
   getTableBody(columnCount) {
    const delimiter = this._delimiter
