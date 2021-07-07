@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 21.2.0 07-07-2021
+list
+ - 🎉 if all articles have 'skipIndexPage', 'index.html' will not be built
+
 section 21.2.0 07-06-2021
 list
  - ⚠️ internal CSS changes

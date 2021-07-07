@@ -55,7 +55,7 @@ testTree.check = async areEqual => {
 }
 
 testTree.article = areEqual => {
-	const article = new ScrollFolder().publishedArticles[0]
+	const article = new ScrollFolder().allArticles[0]
 	const content = article.htmlCode
 
 	areEqual(article.permalink, "releaseNotes")

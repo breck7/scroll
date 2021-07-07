@@ -223,10 +223,6 @@ class AbstractScrollPage {
 		return this.scroll.settings
 	}
 
-	get articles() {
-		return this.scroll.publishedArticles.filter(article => article.includeInIndex)
-	}
-
 	get htmlTitle() {
 		return this.scrollSettings.title
 	}
@@ -325,7 +321,7 @@ class AbstractScrollPage {
 	}
 
 	get pageCode() {
-		const articles = this.articles
+		const articles = this.scroll.articlesToIncludeInIndex
 			.map(article => {
 				const node = new TreeNode(`div
  class ${cssClasses.scrollIndexPageArticleContainerComponent}`)
@@ -427,7 +423,7 @@ class ScrollFolder {
 		return new grammarNode(this.grammarFiles.map(file => read(file)).join("\n")).getAllErrors().map(err => err.toObject())
 	}
 
-	get publishedArticles() {
+	get allArticles() {
 		const { gitLink, scrolldownCompiler, scrollFolder } = this
 		const all = Disk.getFiles(scrollFolder)
 			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
@@ -435,12 +431,16 @@ class ScrollFolder {
 		return lodash.sortBy(all, article => article.timestamp).reverse()
 	}
 
+	get articlesToIncludeInIndex() {
+		return this.allArticles.filter(article => article.includeInIndex)
+	}
+
 	get gitLink() {
 		return this.settings.git + "/"
 	}
 
 	get errors() {
-		return this.publishedArticles
+		return this.allArticles
 			.map(article =>
 				article.scrolldownProgram.getAllErrors().map(err => {
 					return { filename: article.filename, ...err.toObject() }
@@ -484,7 +484,7 @@ class ScrollFolder {
 	buildSinglePages() {
 		const start = Date.now()
 		const settings = this.settings
-		const pages = this.publishedArticles.map(article => {
+		const pages = this.allArticles.map(article => {
 			const permalink = `${article.permalink}.html`
 			const html = new ScrollArticlePage(this, article).toHtml()
 			if (this._singlePages.get(permalink) === html) return "Unmodified"
@@ -499,6 +499,7 @@ class ScrollFolder {
 	}
 
 	buildIndexPage() {
+		if (this.articlesToIncludeInIndex.length === 0) return this.log(`Skipping build of 'index.html' because no articles to include.`)
 		const html = this.indexPage.toHtml()
 		if (this.previousVersion !== html) {
 			const start = Date.now()
