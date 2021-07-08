@@ -16,6 +16,8 @@ urlCell
  highlightScope constant.language
 dateCell
  highlightScope string
+integerCell
+ highlightScope constant.numeric
 errorNode
  baseNodeType errorNode
 scrolldownNode
@@ -94,6 +96,11 @@ dateNode
  description Date the article was first published.
  extends abstractTopLevelSingleMetaNode
  crux date
+maxColumnsNode
+ catchAllCellType integerCell
+ description Set your own max column count for the generated HTML.
+ extends abstractTopLevelSingleMetaNode
+ crux maxColumns
 paragraphNode
  description Prose content.
  catchAllNodeType paragraphContentNode

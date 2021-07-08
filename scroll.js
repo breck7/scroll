@@ -75,7 +75,8 @@ const scrollKeywords = {
 	image: "image",
 	date: "date",
 	importFrom: "importFrom",
-	skipIndexPage: "skipIndexPage"
+	skipIndexPage: "skipIndexPage",
+	maxColumns: "maxColumns"
 }
 
 const defaultSettings = {
@@ -158,6 +159,10 @@ class Article {
 
 	get timestamp() {
 		return dayjs(this.scrolldownProgram.get(scrollKeywords.date) ?? 0).unix()
+	}
+
+	get maxColumns() {
+		return this.scrolldownProgram.get(scrollKeywords.maxColumns)
 	}
 
 	get htmlCode() {
@@ -383,13 +388,19 @@ class ScrollArticlePage extends AbstractScrollPage {
   ${cleanAndRightShift(this.article.htmlCode, 2)}`
 	}
 
-	get cssColumnWorkaround() {
-		const estimatedLines = lodash.sum(this.article.scrolldownProgram.map(node => (node.getNodeTypeId() === "blankLineNode" ? 0 : node.getTopDownArray().length)))
-		if (estimatedLines > 20) return ""
-		const maxColumns = estimatedLines > 10 ? 2 : 1
-		const width = maxColumns * 40
+	get estimatedLines() {
+		return lodash.sum(this.article.scrolldownProgram.map(node => (node.getNodeTypeId() === "blankLineNode" ? 0 : node.getTopDownArray().length)))
+	}
 
-		return `column-count:${maxColumns};max-width:${width}ch;`
+	get cssColumnWorkaround() {
+		const COLUMN_WIDTH = 40
+		let { maxColumns } = this.article
+		if (!maxColumns) {
+			const { estimatedLines } = this
+			if (estimatedLines > 20) return ""
+			maxColumns = estimatedLines > 10 ? 2 : 1
+		}
+		return `column-count:${maxColumns};max-width:${maxColumns * COLUMN_WIDTH}ch;`
 	}
 }
 
