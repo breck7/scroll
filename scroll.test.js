@@ -1,6 +1,6 @@
 const tap = require("tap")
 const fs = require("fs")
-const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, compileATags } = require("./scroll.js")
+const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, compileATags, scrollKeywords } = require("./scroll.js")
 
 const testString = "Build your own public domain newspaper"
 const testPort = 5435
@@ -124,6 +124,35 @@ testTree.errorStates = async areEqual => {
 		areEqual(singlePages[0].html.includes(singlePageTitleSnippet), true)
 
 		areEqual(folder.errors.flat().length, 0)
+	} catch (err) {
+		console.log(err)
+	}
+	fs.rmdirSync(tempFolder, { recursive: true })
+}
+
+testTree.kitchenSink = async areEqual => {
+	const tempFolder = __dirname + "/tempFolderForKitchenSinkTesting/"
+
+	try {
+		// Arrange
+		fs.mkdirSync(tempFolder)
+		fs.writeFileSync(
+			tempFolder + SCROLL_SETTINGS_FILENAME,
+			`${scrollKeywords.header}
+ div CustomHeader
+${scrollKeywords.footer}
+ div CustomFooter`,
+			"utf8"
+		)
+		fs.writeFileSync(tempFolder + "hello.scroll", `${scrollKeywords.title} hello world`, "utf8")
+
+		// Act
+		const folder = new ScrollFolder(tempFolder).silence()
+		const singleFile = folder.buildIndexPage()
+
+		// Assert
+		areEqual(singleFile.includes("CustomHeader"), true)
+		areEqual(singleFile.includes("CustomFooter"), true)
 	} catch (err) {
 		console.log(err)
 	}

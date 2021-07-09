@@ -76,7 +76,9 @@ const scrollKeywords = {
 	date: "date",
 	importFrom: "importFrom",
 	skipIndexPage: "skipIndexPage",
-	maxColumns: "maxColumns"
+	maxColumns: "maxColumns",
+	header: "header",
+	footer: "footer"
 }
 
 const defaultSettings = {
@@ -253,7 +255,7 @@ class AbstractScrollPage {
 	}
 
 	get header() {
-		const customHeader = this.scroll.settingsTree.getNode("header")
+		const customHeader = this.scroll.settingsTree.getNode(scrollKeywords.header)
 		if (customHeader) return customHeader.childrenToString()
 		return `div
  class scrollHeaderComponent
@@ -271,7 +273,7 @@ class AbstractScrollPage {
 	}
 
 	get footer() {
-		const customFooter = this.scroll.settingsTree.getNode("footer")
+		const customFooter = this.scroll.settingsTree.getNode(scrollKeywords.footer)
 		if (customFooter) return customFooter.childrenToString()
 		return `div
  class scrollFooterComponent
