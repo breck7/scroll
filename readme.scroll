@@ -188,6 +188,7 @@ paragraph
  Go to your project folder and create the file below:
 
 code
+ mkdir -p .github/workflows
  touch .github/workflows/buildAndDeployScroll.yaml
 
 paragraph
