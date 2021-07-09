@@ -5,7 +5,7 @@ const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, compileATags, scrollK
 const testString = "Build your own public domain newspaper"
 const testPort = 5435
 
-// todo: 1) rss import tests 2) header/footer tests 3) grammar errors test 4) scroll errors tests
+// todo: 1) rss import tests 2) grammar errors test 4) scroll errors tests
 
 const runTree = testTree =>
 	Object.keys(testTree).forEach(key => {
@@ -101,10 +101,6 @@ testTree.errorStates = async areEqual => {
 		const cli = new ScrollCli()
 		cli.verbose = false
 
-		// Act/Assert
-		const msg = await cli.buildCommand(tempFolder)
-		areEqual(typeof msg, "string")
-
 		// Act
 		const result = await cli.initCommand(tempFolder)
 		areEqual(fs.existsSync(tempFolder + SCROLL_SETTINGS_FILENAME), true)
@@ -160,7 +156,6 @@ ${scrollKeywords.footer}
 }
 
 // FS tests:
-// scroll missing published folder
 // scroll missing settings file
 // settings file missing required settings
 // bad Scroll files

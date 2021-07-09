@@ -254,8 +254,16 @@ class AbstractScrollPage {
 		return this.scrollSettings.baseUrl ?? ""
 	}
 
+	get customHeader() {
+		return this.scroll.settingsTree.getNode(scrollKeywords.header)
+	}
+
+	get customFooter() {
+		return this.scroll.settingsTree.getNode(scrollKeywords.footer)
+	}
+
 	get header() {
-		const customHeader = this.scroll.settingsTree.getNode(scrollKeywords.header)
+		const { customHeader } = this
 		if (customHeader) return customHeader.childrenToString()
 		return `div
  class scrollHeaderComponent
@@ -273,7 +281,7 @@ class AbstractScrollPage {
 	}
 
 	get footer() {
-		const customFooter = this.scroll.settingsTree.getNode(scrollKeywords.footer)
+		const { customFooter } = this
 		if (customFooter) return customFooter.childrenToString()
 		return `div
  class scrollFooterComponent
@@ -363,6 +371,14 @@ class ScrollArticlePage extends AbstractScrollPage {
 	constructor(scroll, article) {
 		super(scroll)
 		this.article = article
+	}
+
+	get customHeader() {
+		return this.article.scrolldownProgram.getNode(scrollKeywords.header) || super.customHeader
+	}
+
+	get customFooter() {
+		return this.article.scrolldownProgram.getNode(scrollKeywords.footer) || super.customFooter
 	}
 
 	get ogDescription() {
@@ -467,7 +483,8 @@ class ScrollFolder {
 	}
 
 	get settingsTree() {
-		return new TreeNode(read(this.scrollFolder + "/" + SCROLL_SETTINGS_FILENAME))
+		const settingsFilepath = this.scrollFolder + "/" + SCROLL_SETTINGS_FILENAME
+		return new TreeNode(fs.existsSync(settingsFilepath) ? read(settingsFilepath) : "")
 	}
 
 	silence() {
@@ -588,16 +605,13 @@ class ScrollCli {
 	async importCommand(cwd) {
 		const fullPath = resolvePath(cwd)
 		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
-
 		const folder = new ScrollFolder(cwd)
 		const result = await folder.importSite()
 		return this.log(result)
 	}
 
 	checkCommand(cwd) {
-		const fullPath = resolvePath(cwd)
-		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
-		const folder = new ScrollFolder(fullPath)
+		const folder = new ScrollFolder(resolvePath(cwd))
 		const { grammarErrors } = folder
 		const grammarMessage = grammarErrors.length ? new jtree.TreeNode(grammarErrors).toFormattedTable(200) + "\n" : ""
 		if (grammarMessage) this.log(grammarMessage)
@@ -607,10 +621,7 @@ class ScrollCli {
 	}
 
 	async buildCommand(cwd) {
-		const fullPath = resolvePath(cwd)
-		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
-
-		const folder = new ScrollFolder(fullPath)
+		const folder = new ScrollFolder(resolvePath(cwd))
 		folder.verbose = this.verbose
 		folder.buildIndexPage()
 		folder.buildSinglePages()
