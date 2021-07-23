@@ -81,6 +81,12 @@ const scrollKeywords = {
 	footer: "footer"
 }
 
+// todo: move all keywords here
+const settingsKeywords = {
+	ignoreGrammarFiles: "ignoreGrammarFiles",
+	git: "git"
+}
+
 const defaultSettings = {
 	twitter: "",
 	github: "",
@@ -437,7 +443,7 @@ const getCompiler = filePaths => {
 class ScrollFolder {
 	constructor(scrollFolder = __dirname) {
 		this.scrollFolder = path.normalize(scrollFolder + "/")
-		const grammarFiles = Disk.getFiles(this.scrollFolder).filter(filename => filename.endsWith(SCROLL_GRAMMAR_EXTENSION) && !filename.endsWith(SCROLLDOWN_GRAMMAR_FILENAME))
+		const grammarFiles = this.ignoreGrammarFiles ? [] : Disk.getFiles(this.scrollFolder).filter(filename => filename.endsWith(SCROLL_GRAMMAR_EXTENSION) && !filename.endsWith(SCROLLDOWN_GRAMMAR_FILENAME))
 		grammarFiles.unshift(`${__dirname}/${SCROLLDOWN_GRAMMAR_FILENAME}`)
 		this.grammarFiles = grammarFiles
 	}
@@ -446,6 +452,10 @@ class ScrollFolder {
 
 	get scrolldownCompiler() {
 		return getCompiler(this.grammarFiles)
+	}
+
+	get ignoreGrammarFiles() {
+		return this.settingsTree.has(settingsKeywords.ignoreGrammarFiles)
 	}
 
 	get grammarErrors() {
@@ -465,7 +475,7 @@ class ScrollFolder {
 	}
 
 	get gitLink() {
-		return this.settings.git + "/"
+		return this.settings[settingsKeywords.git] + "/"
 	}
 
 	get errors() {

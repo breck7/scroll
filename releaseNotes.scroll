@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 22.1.0 07-23-2021
+list
+ - 🏥 you can now ignore custom grammar files in a dir with ignoreGrammarFiles
+
 section 22.0.0 07-09-2021
 list
  - 🎉 scroll.settings file is now optional and you can use scroll to build a single page.
