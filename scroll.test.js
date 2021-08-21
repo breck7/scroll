@@ -2,7 +2,7 @@ const tap = require("tap")
 const fs = require("fs")
 const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, compileATags, scrollKeywords } = require("./scroll.js")
 
-const testString = "Build your own public domain newspaper"
+const testString = "The extensible alternative to Markdown"
 const testPort = 5435
 
 // todo: 1) rss import tests 2) grammar errors test 4) scroll errors tests

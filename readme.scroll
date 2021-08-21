@@ -1,4 +1,4 @@
-title 📜 Scroll: Build your own public domain newspaper.
+title 📜 Scroll: the extensible alternative to Markdown.
 permalink index
 
 html
@@ -11,17 +11,44 @@ image screenshot.png
 question What makes Scroll different?
 
 paragraph
- Scroll is different than other🔗staticsitegenerators.net static site generators in 3 ways.
-
-orderedList
- 1. Instead of Markdown, Scroll uses the easily extendible <strong>Scrolldown</strong>, so you can invent new languages to better fit your content.
- 2. Instead of supporting licenses, Scroll is 100% focused on <strong>public domain sites</strong> and everything is designed with that assumption.
- 3. The default Scroll theme publishes all articles to a <strong>single page</strong>, so readers can read faster at a higher level, like reading a newspaper.
-
-question Can I use Scroll for building sites other than newspapers?
+ Scroll is different than other🔗staticsitegenerators.net static site generators because it uses the easily extendible <strong>Scrolldown</strong>, so you can invent new languages to better fit your content.
 
 paragraph
- Yes! Scroll work great for blogs, collaborative databases, intranets and other types of static sites as well.
+ The basics of Scrolldown are even simpler than Markdown. For example, <b>the keyword for title is title</b>.
+
+paragraph
+ You can stick to the basics or easily define new keywords to better fit your content and workflows. A simple indent is all you need to include sublanguages. No complex encoding needed.
+
+question How do I extend Scroll?
+
+paragraph
+ Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a <i>recipe</i> keyword and write a post like this:
+
+code
+ title My Snowball Cookies
+ 
+ paragraph
+  Bet you can't eat just one!
+ 
+ recipe
+  ingredients
+   6 large eggs
+   1/2 cup sugar
+  step Beat eggs until foamy
+  step Add sugar
+  step Heat oven to 350 degrees
+  step Bake for 10 minutes
+
+paragraph
+ Your grammar extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scrolldown let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.
+
+paragraph
+ (Warning: the cookie recipe above has not been tested)
+
+question What kind of sites can I use Scroll to build?
+
+paragraph
+ Scroll work great for blogs, collaborative databases, newspapers, intranets and other types of static sites as well.
 
 question How do I get Scroll?
 
@@ -149,10 +176,15 @@ paragraph
  Scroll is designed for git. A single article is stored as
  a single file tracked by git.
 
-question Why the single page layout?
+question Is Scroll public domain?
 
 paragraph
- Scroll is designed to make it easier for <strong>syntopic
+ Yes! Scroll is also 100% focused on helping people build internal or <strong>public domain sites</strong> and everything is designed with that assumption.
+
+question Why does the default theme have a single page layout?
+
+paragraph
+ The default Scroll theme is designed to make it easier for <strong>syntopic
  reading</strong>. Being able to scan the page like a
  newspaper. This allows you to read at a higher level—to "get in the author's head"—
  compared to reading one article at a time from beginning to end.
@@ -332,6 +364,11 @@ code
  # you may need to update the path below so it points to your scroll code
  node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile ~/scroll/scroll.js build
  # Now ➡️ open a new Chrome tab ➡️ open devtools ➡️ click Performance ➡️ click "Load Profile..." ➡️ select your scrollNodePerf.cpuprofile
+
+question How is a keyword different than a web components?
+
+paragraph
+ Scrolldown and Web Components are similar in that both empower users to define their own reusable components. But Scrolldown is higher level than web components. For example, in addition to easily targetting HTML and web components, Scrolldown also plays really nicely with version control and 2D editors. Scrolldown encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
 
 question How do I format the Scrolldown Grammar file?
 
