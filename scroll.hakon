@@ -88,7 +88,6 @@ comment On the index page add some spacing around articles
  font-size 80%
 
 .scrollParagraphComponent
- text-indent 1em
  margin-top 0.4em
  line-height 1.4em
 
@@ -101,9 +100,13 @@ comment On the index page add some spacing around articles
  white-space pre-line
  border-left .5em solid rgba(204,204,204,.8)
 
-.scrollQuestionComponent,.scrollSectionComponent,.scrollSubsectionComponent
+.scrollSectionComponent,.scrollSubsectionComponent
  text-align center
- margin .2em
+ margin-top 1em
+
+.scrollQuestionComponent
+ text-align left
+ margin-top 2em
 
 .scrollCodeBlockComponent
  overflow auto
