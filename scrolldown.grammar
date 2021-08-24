@@ -101,6 +101,11 @@ maxColumnsNode
  description Set your own max column count for the generated HTML.
  extends abstractTopLevelSingleMetaNode
  crux maxColumns
+columnWidthNode
+ catchAllCellType integerCell
+ description Set your own column width, in ch units, for the generated HTML.
+ extends abstractTopLevelSingleMetaNode
+ crux columnWidth
 paragraphNode
  description Prose content.
  catchAllNodeType paragraphContentNode

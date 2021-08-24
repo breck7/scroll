@@ -55,7 +55,7 @@ comment Main body of both pages is similar
 .scrollIndexPageComponent,.scrollArticlePageComponent
  column-count auto
  column-fill balance
- column-width 35ch
+ column-width COLUMN_WIDTH
  column-gap 20px
  column-rule 1px solid rgb(204,204,204)
  padding-left 20px
@@ -176,5 +176,5 @@ comment Dialogues that look like SMS conversations
  display block
  text-align center
  img
-  max-width 35ch
+  max-width COLUMN_WIDTH
   height auto

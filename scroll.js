@@ -39,6 +39,8 @@ const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROL
 const hakon = require("jtree/products/hakon.nodejs.js")
 const SCROLL_HAKON_FILENAME = "scroll.hakon"
 const SCROLL_CSS = new hakon(read(SCROLL_SRC_FOLDER + SCROLL_HAKON_FILENAME)).compile()
+const DEFAULT_COLUMN_WIDTH = 35
+const COLUMN_GAP = 20
 
 const CommandFnDecoratorSuffix = "Command"
 const scrollBoilerplateCompiledMessage = `<!doctype html>
@@ -78,7 +80,8 @@ const scrollKeywords = {
 	skipIndexPage: "skipIndexPage",
 	maxColumns: "maxColumns",
 	header: "header",
-	footer: "footer"
+	footer: "footer",
+	columnWidth: "columnWidth"
 }
 
 // todo: move all keywords here
@@ -171,6 +174,10 @@ class Article {
 
 	get maxColumns() {
 		return this.scrolldownProgram.get(scrollKeywords.maxColumns)
+	}
+
+	get columnWidth() {
+		return this.scrolldownProgram.get(scrollKeywords.columnWidth)
 	}
 
 	get htmlCode() {
@@ -304,6 +311,19 @@ class AbstractScrollPage {
   class scrollCommunityLinkComponent`
 	}
 
+	get css() {
+		return SCROLL_CSS.replace(/COLUMN_WIDTH/g, `${this.columnWidth}ch`)
+	}
+
+	get columnWidth() {
+		return this.scrollSettings.columnWidth ?? DEFAULT_COLUMN_WIDTH
+	}
+
+	get maxColumns() {
+		// If undefined will be autocomputed
+		return this.scrollSettings.maxColumns
+	}
+
 	get stumpCode() {
 		return `html
  lang en-US
@@ -334,7 +354,7 @@ class AbstractScrollPage {
    content summary_large_image
   styleTag
    bern
-    ${cleanAndRightShift(SCROLL_CSS, 4)}
+    ${cleanAndRightShift(this.css, 4)}
  body
   ${cleanAndRightShift(this.header, 2)}
   ${cleanAndRightShift(this.pageCode, 2)}
@@ -379,6 +399,14 @@ class ScrollArticlePage extends AbstractScrollPage {
 		this.article = article
 	}
 
+	get columnWidth() {
+		return this.article.columnWidth || super.columnWidth
+	}
+
+	get maxColumns() {
+		return this.article.maxColumns || super.maxColumns
+	}
+
 	get customHeader() {
 		return this.article.scrolldownProgram.getNode(scrollKeywords.header) || super.customHeader
 	}
@@ -417,14 +445,14 @@ class ScrollArticlePage extends AbstractScrollPage {
 	}
 
 	get cssColumnWorkaround() {
-		const COLUMN_WIDTH = 40
-		let { maxColumns } = this.article
+		let { maxColumns, columnWidth } = this
 		if (!maxColumns) {
 			const { estimatedLines } = this
 			if (estimatedLines > 20) return ""
 			maxColumns = estimatedLines > 10 ? 2 : 1
 		}
-		return `column-count:${maxColumns};max-width:${maxColumns * COLUMN_WIDTH}ch;`
+		const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
+		return `column-count:${maxColumns};max-width:${maxTotalWidth}ch;`
 	}
 }
 

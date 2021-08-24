@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 22.3.0 08-23-2021
+list
+ - 🎉 columnWidth to set a custom column width per article or folder
+ - 🎉 maxColumns can be set globally in settings
+
 section 22.2.0 08-23-2021
 list
  - 🎉 integrated design feedback into default theme for better readability
