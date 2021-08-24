@@ -45,6 +45,9 @@ paragraph
 paragraph
  (Warning: the cookie recipe above has not been tested)
 
+paragraph
+ For a working example of extending Scroll check out this one🔗github.com/breck7/breckyunits.com/tree/main/markups which adds node types for Markdown, Textile, and BBCode.
+
 question What kind of sites can I use Scroll to build?
 
 paragraph
