@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 22.4.0 11-25-2021
+list
+ - 🎉 add basic caption support to images
+
 section 22.3.0 08-23-2021
 list
  - 🎉 columnWidth to set a custom column width per article or folder
