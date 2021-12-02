@@ -2,9 +2,7 @@
 
 // NPM ecosystem includes
 const parseArgs = require("minimist")
-const glob = require("glob")
 const path = require("path")
-const fse = require("fs-extra")
 const fs = require("fs")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
@@ -29,7 +27,6 @@ const packageJson = require("./package.json")
 const SCROLL_SRC_FOLDER = __dirname + "/"
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
-const DEFAULT_PORT = 1145
 const SCROLL_GRAMMAR_EXTENSION = ".grammar"
 const SCROLLDOWN_GRAMMAR_FILENAME = "scrolldown.grammar"
 const SCROLL_SETTINGS_FILENAME = "scroll.settings"
