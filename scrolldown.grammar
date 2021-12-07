@@ -254,15 +254,10 @@ imageNode
     console.error(err)
     imgTag = `<img src="${src}">`
    }
-    const caption = this.get("caption")
-    const captionFig = caption  ? `<figcaption>${caption}</figcaption>` : ""
-    return `<figure class="scrollImageComponent"><a href="${src}" target="_blank">${imgTag}</a>${captionFig}</figure>`
+   const caption = this.get("caption")
+   const captionFig = caption ? `<figcaption>${caption}</figcaption>` : ""
+   return `<figure class="scrollImageComponent"><a href="${src}" target="_blank">${imgTag}</a>${captionFig}</figure>`
   }
-imageCaptionNode
- description An optional caption to accompany the image.
- crux caption
- cells keywordCell
- catchAllCellType textCell
 htmlNode
  description A catch all block to drop in any loose html.
  crux html
@@ -302,6 +297,29 @@ subsectionNode
  javascript
   tag = "h4"
   className = "scrollSubsectionComponent"
+customHeaderNode
+ extends abstractScrollNode
+ description Define a header for a certain page. Setting to blank will also remove the header on a page.
+ crux header
+ catchAllNodeType stumpNode
+ javascript
+  compile() {
+   return ""
+  }
+customFooterNode
+ extends abstractScrollNode
+ description Define a footer for a certain page. Setting to blank will also remove the footer on a page.
+ crux footer
+ catchAllNodeType stumpNode
+ javascript
+  compile() {
+   return ""
+  }
+imageCaptionNode
+ description An optional caption to accompany the image.
+ crux caption
+ cells keywordCell
+ catchAllCellType textCell
 paragraphContentNode
  catchAllCellType textCell
 lineOfCodeNode
@@ -348,20 +366,6 @@ htmlLineNode
  catchAllNodeType htmlLineNode
 multilineTitleNode
  catchAllCellType textCell
-customHeaderNode
- extends abstractScrollNode
- description Define a header for a certain page. Setting to blank will also remove the header on a page.
- crux header
- catchAllNodeType stumpNode
- javascript
-  compile() { return ""}
-customFooterNode
- extends abstractScrollNode
- description Define a footer for a certain page. Setting to blank will also remove the footer on a page.
- crux footer
- catchAllNodeType stumpNode
- javascript
-  compile() { return ""}
 stumpNode
  description Stump is a Tree Language that compiles to HTML.
  catchAllCellType anyCell
