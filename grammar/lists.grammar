@@ -1,0 +1,26 @@
+bulletPointCell
+ highlightScope keyword
+listNode
+ description An unordered list.
+ catchAllNodeType listItemNode
+ crux list
+ extends abstractScrollNode
+ compiler
+  stringTemplate 
+  openChildren <ul class="scrollUnorderedListComponent">
+  closeChildren </ul>
+orderedListNode
+ description An ordered list.
+ extends listNode
+ crux orderedList
+ compiler
+  stringTemplate 
+  openChildren <ol class="scrollOrderedListComponent">
+  closeChildren </ol>
+listItemNode
+ cells bulletPointCell
+ catchAllCellType textCell
+ javascript
+  compile() {
+   return `<li>${this.getRootNode().compileATags(this.getContent() || "")}</li>`
+  }

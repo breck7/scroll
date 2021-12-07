@@ -1,0 +1,12 @@
+quoteLineNode
+ catchAllCellType anyCell
+ catchAllNodeType quoteLineNode
+quoteNode
+ description A blockquote.
+ catchAllNodeType quoteLineNode
+ extends abstractScrollNode
+ javascript
+  compile() {
+   return `<blockquote class="scrollQuoteComponent">${this.childrenToString()}</blockquote>`
+  }
+ crux quote

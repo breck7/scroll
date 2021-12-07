@@ -1,0 +1,7 @@
+questionNode
+ description Use for pages like FAQs.
+ extends abstractHeaderNode
+ crux question
+ javascript
+  tag = "h4"
+  className = "scrollQuestionComponent"

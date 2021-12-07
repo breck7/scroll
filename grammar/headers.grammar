@@ -1,0 +1,25 @@
+abstractHeaderNode
+ catchAllCellType textCell
+ extends abstractScrollNode
+ catchAllNodeType multilineTitleNode
+ javascript
+  compile() {
+   const children = this.childrenToString() ? " " + this.childrenToString() : ""
+   return `<${this.tag} class="${this.className}">${this.getContent() + children}</${this.tag}>`
+  }
+sectionNode
+ description Compiles to an h3 tag.
+ extends abstractHeaderNode
+ crux section
+ javascript
+  tag = "h3"
+  className = "scrollSectionComponent"
+subsectionNode
+ description Compiles to an h4 tag.
+ extends abstractHeaderNode
+ crux subsection
+ javascript
+  tag = "h4"
+  className = "scrollSubsectionComponent"
+multilineTitleNode
+ catchAllCellType textCell

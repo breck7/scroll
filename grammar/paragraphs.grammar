@@ -1,0 +1,25 @@
+paragraphNode
+ description Prose content.
+ catchAllNodeType paragraphContentNode
+ extends abstractScrollNode
+ crux paragraph
+ javascript
+  get dateHtml() {
+   const rootNode = this.getParent()
+   const isFirst = rootNode.indexOf("paragraph") === this.getIndex()
+   if (!isFirst) return ""
+   const day = rootNode.get("date")
+   if (!day) return ""
+   try {
+    const dayjs = require("dayjs")
+    return `<span class="scrollArticleDateComponent">${dayjs(day).format(`MMMM D, YYYY`)} — </span>`
+   } catch (err) {
+    console.error(err)
+    return ""
+   }
+  }
+  compile() {
+   return `<p class="scrollParagraphComponent">${this.dateHtml}${this.getRootNode().compileATags(this.childrenToString())}</p>`
+  }
+paragraphContentNode
+ catchAllCellType textCell

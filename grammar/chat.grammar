@@ -1,0 +1,12 @@
+chatLineNode
+ catchAllCellType anyCell
+ catchAllNodeType chatLineNode
+chatNode
+ description A dialogue between two people.
+ catchAllNodeType chatLineNode
+ crux chat
+ extends abstractScrollNode
+ javascript
+  compile() {
+   return this.map((line, index) => `<div class="scrollDialogueComponent ${index % 2 ? "scrollDialogueComponentRight" : "scrollDialogueComponentLeft"}"><span>${line.toString()}</span></div>`).join("")
+  }

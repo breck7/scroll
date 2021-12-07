@@ -1,0 +1,12 @@
+htmlNode
+ description A catch all block to drop in any loose html.
+ crux html
+ extends abstractScrollNode
+ catchAllNodeType htmlLineNode
+ javascript
+  compile() {
+   return `${this.childrenToString()}`
+  }
+htmlLineNode
+ catchAllCellType anyCell
+ catchAllNodeType htmlLineNode

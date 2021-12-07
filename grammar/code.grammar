@@ -1,0 +1,18 @@
+codeCell
+ highlightScope comment
+lineOfCodeNode
+ catchAllCellType codeCell
+ catchAllNodeType lineOfCodeNode
+codeNode
+ description A code block.
+ catchAllNodeType lineOfCodeNode
+ extends abstractScrollNode
+ javascript
+  compile() {
+   return `<code class="scrollCodeBlockComponent">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
+  }
+ crux code
+codeWithLanguageNode
+ description Use this to specify the language of the code block, such as csvCode or rustCode.
+ extends codeNode
+ pattern ^[a-zA-Z0-9_]+Code$

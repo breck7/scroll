@@ -1,0 +1,46 @@
+dateCell
+ highlightScope string
+integerCell
+ highlightScope constant.numeric
+abstractTopLevelSingleMetaNode
+ abstract
+ description Use these keywords once per file.
+ extends abstractScrollNode
+ cells keywordCell
+ compiler
+  stringTemplate 
+permalinkCell
+ highlightScope string
+permalinkNode
+ description When compiling, Scroll will save this article to {permalink}.html
+ crux permalink
+ extends abstractTopLevelSingleMetaNode
+ cells keywordCell permalinkCell
+skipIndexPageNode
+ description Add this tag if you want to build a page but not include it in the index page.
+ crux skipIndexPage
+ extends abstractTopLevelSingleMetaNode
+titleNode
+ catchAllCellType textCell
+ description Title of the article.
+ extends abstractTopLevelSingleMetaNode
+ crux title
+ javascript
+  compile() {
+   return `<h1 class="scrollTitleComponent"><a href="${this.getRootNode().permalink}.html">${this.getContent()}</a></h1>`
+  }
+dateNode
+ catchAllCellType dateCell
+ description Date the article was first published.
+ extends abstractTopLevelSingleMetaNode
+ crux date
+maxColumnsNode
+ catchAllCellType integerCell
+ description Set your own max column count for the generated HTML.
+ extends abstractTopLevelSingleMetaNode
+ crux maxColumns
+columnWidthNode
+ catchAllCellType integerCell
+ description Set your own column width, in ch units, for the generated HTML.
+ extends abstractTopLevelSingleMetaNode
+ crux columnWidth

@@ -1,0 +1,31 @@
+urlCell
+ highlightScope constant.language
+imageNode
+ description An img tag.
+ cells keywordCell urlCell
+ extends abstractScrollNode
+ crux image
+ inScope imageCaptionNode
+ javascript
+  compile() {
+   const src = this.getWord(1)
+   let imgTag = ""
+   try {
+    const sizeOf = require("image-size")
+    const dimensions = sizeOf(src)
+    const width = dimensions.width
+    const height = dimensions.height
+    imgTag = `<img src="${src}" width="${width}" height="${height}" loading="lazy"/>`
+   } catch (err) {
+    console.error(err)
+    imgTag = `<img src="${src}">`
+   }
+    const caption = this.get("caption")
+    const captionFig = caption  ? `<figcaption>${caption}</figcaption>` : ""
+    return `<figure class="scrollImageComponent"><a href="${src}" target="_blank">${imgTag}</a>${captionFig}</figure>`
+  }
+imageCaptionNode
+ description An optional caption to accompany the image.
+ crux caption
+ cells keywordCell
+ catchAllCellType textCell

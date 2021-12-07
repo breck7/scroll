@@ -1,0 +1,18 @@
+customHeaderNode
+ extends abstractScrollNode
+ description Define a header for a certain page. Setting to blank will also remove the header on a page.
+ crux header
+ catchAllNodeType stumpNode
+ javascript
+  compile() { return ""}
+customFooterNode
+ extends abstractScrollNode
+ description Define a footer for a certain page. Setting to blank will also remove the footer on a page.
+ crux footer
+ catchAllNodeType stumpNode
+ javascript
+  compile() { return ""}
+stumpNode
+ description Stump is a Tree Language that compiles to HTML.
+ catchAllCellType anyCell
+ catchAllNodeType stumpNode

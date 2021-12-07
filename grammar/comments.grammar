@@ -1,0 +1,14 @@
+commentCell
+ highlightScope comment
+commentLineNode
+ catchAllCellType commentCell
+commentNode
+ description Will not appear in the compiled HTML.
+ catchAllCellType commentCell
+ extends abstractScrollNode
+ crux comment
+ javascript
+  compile() {
+   return ``
+  }
+ catchAllNodeType commentLineNode
