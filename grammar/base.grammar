@@ -1,4 +1,6 @@
 anyCell
+urlCell
+ highlightScope constant.language
 keywordCell
  highlightScope keyword
 textCell

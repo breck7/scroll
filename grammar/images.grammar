@@ -1,5 +1,3 @@
-urlCell
- highlightScope constant.language
 imageNode
  description An img tag.
  cells keywordCell urlCell

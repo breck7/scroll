@@ -18,8 +18,11 @@ paragraphNode
     return ""
    }
   }
+  get paragraphContent() {
+    return this.childrenToString()
+  }
   compile() {
-   return `<p class="scrollParagraphComponent">${this.dateHtml}${this.getRootNode().compileATags(this.childrenToString())}</p>`
+   return `<p class="scrollParagraphComponent">${this.dateHtml}${this.getRootNode().compileATags(this.paragraphContent)}</p>`
   }
 paragraphContentNode
  catchAllCellType textCell
