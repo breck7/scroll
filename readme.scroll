@@ -283,7 +283,8 @@ paragraph
 question How do I use Scroll with a custom domain?
 
 paragraph
- Just buy a domain and point it to your web server or web host (such as GitHub Pages). Google Domains🔗domains.google is where this domain is registered and is a great service.
+ Just buy a domain and point it to your web server or web host (such as GitHub Pages). Google Domains is where this domain is registered and is a great service.
+ link https://domains.google/ Google Domains
 
 question How can I deploy my site?
 

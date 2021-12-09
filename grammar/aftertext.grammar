@@ -1,0 +1,76 @@
+aftertextNode
+ description Text followed by markup commands.
+ extends paragraphNode
+ inScope abstractMarkupNode
+ crux aftertext
+ example
+  aftertext
+   Hello brave new world
+   link home.com new
+   bold brave new
+   underline new world
+   strikethrough wor
+ javascript
+  get markupNodes() {
+    return this.filter(node => node.isMarkupNode)
+  }
+  get textLines() {
+    return this.filter(node => node.getNodeTypeId() === "paragraphContentNode")
+  }
+  get paragraphContent() {
+    let text = this.textLines.map(node => node.toString()).join("\n")
+   const {markupNodes} = this
+   if (markupNodes.length)
+    markupNodes.forEach(node => text = node.transform(text))
+  }
+abstractMarkupNode
+ cells keywordCell
+ catchAllCellType textCell
+ javascript
+  isMarkupNode = true
+  get pattern() {
+    return this.getWordsFrom(1).join(" ")
+  }
+  transform(text) {
+    const {pattern }= this
+    return text.replace(pattern, `<${this.openTag}>${pattern}</${this.closeTag}>`)
+  }
+  get openTag() {
+    return this.tag
+  }
+  get closeTag() {
+    return this.tag
+  }
+boldNode
+ crux bold
+ extends abstractMarkupNode
+ javascript
+  tag = "b"
+italicsNode
+ crux italics
+ extends abstractMarkupNode
+ javascript
+  tag = "i"
+underlineNode
+ crux underline
+ extends abstractMarkupNode
+ javascript
+  tag = "u"
+linkNode
+ extends abstractMarkupNode
+ cells keywordCell urlCell
+ crux link
+ javascript
+  tag = "a"
+  get openTag() {
+    const link = this.getWord(1)
+    return `a href="${link}"`
+  }
+  get pattern() {
+    return this.getWordsFrom(2).join(" ")
+  }
+strikethroughNode
+ crux strikethrough
+ extends abstractMarkupNode
+ javascript
+  tag = "s"

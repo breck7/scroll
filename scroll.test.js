@@ -31,6 +31,23 @@ testTree.compileATags = areEqual => {
 	})
 }
 
+testTree.aftertext = areEqual => {
+	const tests = [
+		{
+			text: `Hello brave new world`,
+			markups: `link home.com new
+bold brave new
+underline new world
+strikethrough wor`,
+			expected: `Hello <b>brave <a href="home.com"><u>new</a></b> <s>wor</s>ld</u>`
+		}
+	]
+
+	tests.forEach(example => {
+		areEqual(compileMarkups(example.text, example.markups), example.expected)
+	})
+}
+
 testTree.scroll = areEqual => {
 	areEqual(new ScrollFolder().indexPage.toHtml().includes(testString), true)
 }

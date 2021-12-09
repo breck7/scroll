@@ -6,6 +6,8 @@ integerCell
 permalinkCell
  highlightScope string
 anyCell
+urlCell
+ highlightScope constant.language
 keywordCell
  highlightScope keyword
 textCell
@@ -15,8 +17,6 @@ codeCell
  highlightScope comment
 commentCell
  highlightScope comment
-urlCell
- highlightScope constant.language
 bulletPointCell
  highlightScope keyword
 abstractScrollNode
@@ -196,8 +196,15 @@ paragraphNode
  description Prose content.
  catchAllNodeType paragraphContentNode
  extends abstractScrollNode
+ inScope abstractMarkupNode
  crux paragraph
  javascript
+  get markupNodes() {
+   return this.filter(node => node.isMarkupNode)
+  }
+  get textLines() {
+   return this.filter(node => node.getNodeTypeId() === "paragraphContentNode")
+  }
   get dateHtml() {
    const rootNode = this.getParent()
    const isFirst = rootNode.indexOf("paragraph") === this.getIndex()
@@ -213,7 +220,10 @@ paragraphNode
    }
   }
   compile() {
-   return `<p class="scrollParagraphComponent">${this.dateHtml}${this.getRootNode().compileATags(this.childrenToString())}</p>`
+   let text = this.textLines.map(node => node.toString()).join("\n")
+   const { markupNodes } = this
+   if (markupNodes.length) markupNodes.forEach(node => (text = node.transform(text)))
+   return `<p class="scrollParagraphComponent">${this.dateHtml}${this.getRootNode().compileATags(text)}</p>`
   }
 quoteNode
  description A blockquote.
@@ -358,6 +368,77 @@ listItemNode
   compile() {
    return `<li>${this.getRootNode().compileATags(this.getContent() || "")}</li>`
   }
+abstractMarkupNode
+ cells keywordCell
+ catchAllCellType textCell
+ javascript
+  isMarkupNode = true
+  get pattern() {
+   return this.getWordsFrom(1).join(" ")
+  }
+  transform(text) {
+   const { pattern } = this
+   return text.replace(pattern, `<${this.openTag}>${pattern}</${this.closeTag}>`)
+  }
+  get openTag() {
+   return this.tag
+  }
+  get closeTag() {
+   return this.tag
+  }
+boldNode
+ crux bold
+ extends abstractMarkupNode
+ javascript
+  tag = "b"
+ example
+  paragraph
+   Hello world
+  bold Hello
+italicsNode
+ crux italics
+ extends abstractMarkupNode
+ javascript
+  tag = "i"
+ example
+  paragraph
+   Hello world
+  italics Hello world
+underlineNode
+ crux underline
+ extends abstractMarkupNode
+ javascript
+  tag = "u"
+ example
+  paragraph
+   Hello world
+  underline world
+linkNode
+ extends abstractMarkupNode
+ cells keywordCell urlCell
+ crux link
+ javascript
+  tag = "a"
+  get openTag() {
+   const link = this.getWord(1)
+   return `a href="${link}"`
+  }
+  get pattern() {
+   return this.getWordsFrom(2).join(" ")
+  }
+ example
+  paragraph
+   Click here to visit my homepage
+   link homepage.com Click here
+strikethroughNode
+ crux strikethrough
+ extends abstractMarkupNode
+ javascript
+  tag = "s"
+ example
+  paragraph
+   Good evening morning
+   strikethrough evening
 paragraphContentNode
  catchAllCellType textCell
 quoteLineNode
