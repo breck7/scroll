@@ -6,6 +6,8 @@ integerCell
 permalinkCell
  highlightScope string
 anyCell
+urlCell
+ highlightScope constant.language
 keywordCell
  highlightScope keyword
 textCell
@@ -15,8 +17,6 @@ codeCell
  highlightScope comment
 commentCell
  highlightScope comment
-urlCell
- highlightScope constant.language
 bulletPointCell
  highlightScope keyword
 abstractScrollNode
@@ -84,6 +84,25 @@ codeWithLanguageNode
  description Use this to specify the language of the code block, such as csvCode or rustCode.
  extends codeNode
  pattern ^[a-zA-Z0-9_]+Code$
+belowAsCodeNode
+ description Print the Scroll code of the next node.
+ extends abstractScrollNode
+ crux belowAsCode
+ javascript
+  get target() {
+   return this.getNext()
+  }
+  compile() {
+   return `<code class="scrollCodeBlockComponent">${this.target.toString().replace(/\</g, "&lt;")}</code>`
+  }
+aboveAsCodeNode
+ description Print the Scroll code for the previous node.
+ extends belowAsCodeNode
+ crux aboveAsCode
+ javascript
+  get target() {
+   return this.getPrevious()
+  }
 commentNode
  description Will not appear in the compiled HTML.
  catchAllCellType commentCell
@@ -212,8 +231,11 @@ paragraphNode
     return ""
    }
   }
+  get paragraphContent() {
+   return this.childrenToString()
+  }
   compile() {
-   return `<p class="scrollParagraphComponent">${this.dateHtml}${this.getRootNode().compileATags(this.childrenToString())}</p>`
+   return `<p class="scrollParagraphComponent">${this.dateHtml}${this.getRootNode().compileATags(this.paragraphContent)}</p>`
   }
 quoteNode
  description A blockquote.
