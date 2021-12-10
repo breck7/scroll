@@ -96,26 +96,6 @@ const defaultSettings = {
 	baseUrl: ""
 }
 
-// LinkSuffixLang. [anyWord🔗absoluteUrl] or [anyWord🔗./relativeUrl]
-// anyWord text cannot contain 🔗
-// url should not contain the protocol. It will compile always to https. Use <a> if you need something else.
-// If url ends in a period, that will be dropped.
-// Url cannot contain a comma.
-const linkReplacer = (match, p1, p2, p3, offset, str) => {
-	let suffix = ""
-	if (p3.endsWith(",")) suffix = "," + suffix
-	if (p3.endsWith(".")) suffix = "." + suffix
-	p3 = p3.replace(/(,|\.)$/, "")
-	let prefix = "https://"
-	const isRelativeLink = p3.startsWith("./")
-	if (isRelativeLink) {
-		prefix = ""
-		p3 = p3.substr(2)
-	}
-	if (p3.startsWith("https://") || p3.startsWith("http://")) prefix = ""
-	return `${p1}<a href="${prefix}${p3}">${p2}</a>${suffix}`
-}
-const compileATags = text => text.replace(/(^|\s)(\S+)🔗(\S+)(?=(\s|$))/g, linkReplacer)
 const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + SCROLL_SETTINGS_FILENAME))
 
 const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.icons")).toObject()
@@ -704,4 +684,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, compileATags, scrollKeywords }
+module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords }

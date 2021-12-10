@@ -1,7 +1,7 @@
 const tap = require("tap")
 const fs = require("fs")
 const { jtree } = require("jtree")
-const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, compileATags, scrollKeywords } = require("./scroll.js")
+const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords } = require("./scroll.js")
 const Scrolldown = new jtree.HandGrammarProgram(fs.readFileSync(__dirname + "/" + SCROLLDOWN_GRAMMAR_FILENAME, "utf8")).compileAndReturnRootConstructor()
 
 const testString = "The extensible alternative to Markdown"
@@ -16,6 +16,11 @@ const runTree = testTree =>
 
 const testTree = {}
 
+// LinkSuffixLang. [anyWord🔗absoluteUrl] or [anyWord🔗./relativeUrl]
+// anyWord text cannot contain 🔗
+// url should not contain the protocol. It will compile always to https. Use <a> if you need something else.
+// If url ends in a period, that will be dropped.
+// Url cannot contain a comma.
 testTree.compileATags = areEqual => {
 	const tests = [
 		{ input: `this🔗example.com`, expected: `<a href="https://example.com">this</a>` },
@@ -28,8 +33,9 @@ testTree.compileATags = areEqual => {
 		{ input: `View the releaseNotes🔗./releaseNotes.html.`, expected: `View the <a href="releaseNotes.html">releaseNotes</a>.` }
 	]
 
+	const doc = new Scrolldown()
 	tests.forEach(example => {
-		areEqual(compileATags(example.input), example.expected)
+		areEqual(doc.compileATags(example.input), example.expected)
 	})
 }
 

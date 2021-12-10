@@ -348,7 +348,10 @@ abstractMarkupNode
    const { pattern } = this
    const start = text.indexOf(pattern)
    if (start === -1) return false
-   return [{ index: start, string: `<${this.openTag}>` }, { index: start + pattern.length, string: `</${this.closeTag}>` }]
+   return [
+    { index: start, string: `<${this.openTag}>` },
+    { index: start + pattern.length, string: `</${this.closeTag}>` }
+   ]
   }
   get openTag() {
    return this.tag
@@ -433,7 +436,8 @@ scrolldownNode
    return this
   }
   compileATags(text) {
-   // TODO: this is manually copy and pasted from scroll.js
+   // todo: a better place for these util functions? I stick them in here so the
+   // grammar is all in one file for ease of use in TreeLanguageDesigner
    const linkReplacer = (match, p1, p2, p3, offset, str) => {
     let suffix = ""
     if (p3.endsWith(",")) suffix = "," + suffix
