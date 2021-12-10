@@ -4,6 +4,12 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 23.0.0 12-09-2021
+list
+ - 🎉 add aftertext node type, with bold, italics, underline, link (& quick link), email, code and strikethrough keywords
+ - 🎉 add belowAsCode and aboveAsCode
+ - 🎉 split base grammar into files for easier extensibility
+
 section 22.4.0 11-25-2021
 list
  - 🎉 add basic caption support to images

@@ -348,10 +348,7 @@ abstractMarkupNode
    const { pattern } = this
    const start = text.indexOf(pattern)
    if (start === -1) return false
-   return [
-    { index: start, string: `<${this.openTag}>` },
-    { index: start + pattern.length, string: `</${this.closeTag}>` }
-   ]
+   return [{ index: start, string: `<${this.openTag}>` }, { index: start + pattern.length, string: `</${this.closeTag}>` }]
   }
   get openTag() {
    return this.tag

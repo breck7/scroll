@@ -387,11 +387,10 @@ question How is a keyword different than a web components?
 paragraph
  Scrolldown and Web Components are similar in that both empower users to define their own reusable components. But Scrolldown is higher level than web components. For example, in addition to easily targetting HTML and web components, Scrolldown also plays really nicely with version control and 2D editors. Scrolldown encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
 
-question How do I format the Scrolldown Grammar file?
+question How do I build and format the combined Scrolldown Grammar file?
 
 code
- # Assuming you've already done `jtree register YOUR_PATH/jtree/langs/grammar/grammar.grammar`
- jtree format scrolldown.grammar
+ ./buildGrammar.js
 
 question How do I run cross browser tests?
 
