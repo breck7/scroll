@@ -10,19 +10,23 @@ image screenshot.png
 
 question What makes Scroll different?
 
-paragraph
- Scroll is different than other🔗staticsitegenerators.net static site generators because it uses the easily extendible <strong>Scrolldown</strong>, so you can invent new languages to better fit your content.
+aftertext
+ Scroll is different than other static site generators because it uses the easily extendible Scrolldown, so you can invent new languages to better fit your content.
+ bold Scrolldown
+ https://staticsitegenerators.net other static site generators
 
-paragraph
- The basics of Scrolldown are even simpler than Markdown. For example, <b>the keyword for title is title</b>.
+aftertext
+ The basics of Scrolldown are even simpler than Markdown. For example, the keyword for title is title.
+ italics the keyword for title is title
 
 paragraph
  You can stick to the basics or easily define new keywords to better fit your content and workflows. A simple indent is all you need to include sublanguages. No complex encoding needed.
 
 question How do I extend Scroll?
 
-paragraph
- Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a <i>recipe</i> keyword and write a post like this:
+aftertext
+ Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a recipe keyword and write a post like this:
+ italics recipe
 
 code
  title My Snowball Cookies
@@ -43,10 +47,10 @@ paragraph
  Your grammar extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scrolldown let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.
 
 paragraph
- (Warning: the cookie recipe above has not been tested)
+ (Warning: the cookies above have not been tasted)
 
 paragraph
- For a working example of extending Scroll check out this one🔗github.com/breck7/breckyunits.com/tree/main/markups which adds node types for Markdown, Textile, and BBCode.
+ For an extended example of extending Scroll check out this one🔗github.com/breck7/breckyunits.com/tree/main/markups which adds node types for Markdown, Textile, and BBCode.
 
 question What kind of sites can I use Scroll to build?
 
@@ -94,8 +98,9 @@ code
 
 question Where do I get help?
 
-paragraph
- Post an issue in this GitHub or email <a href="mailto:scroll@publicdomaincompany.com">us</a>.
+aftertext
+ Post an issue in this GitHub or email us.
+ email scroll@publicdomaincompany.com us
 
 question What are some example sites using Scroll?
 
@@ -104,10 +109,11 @@ paragraph
 
 question What does the name Scroll refer to?
 
-paragraph
- <em>A scroll</em> is a single folder containing Scrolldown files and a `scroll.settings` file.
- Scroll compiles those Scrolldown files into a static
- index.html page.
+aftertext
+ A scroll is a single folder containing Scrolldown files and an optional scroll.settings file.
+ Scroll compiles those Scrolldown files into a static index.html page.
+ italics A scroll
+ code scroll.settings
 
 paragraph
  Scroll is also the name of the command line app that includes a
@@ -129,18 +135,18 @@ code
   anImageInTheArticle.png
   scroll.settings
 
-paragraph
- The `scroll.settings` file let's Scroll know that
- a folder contains a Scroll.
+aftertext
+ When you build a Scroll site, you are simply generating
+ the index.html and [article].html files in the site's folder.
+ code index.html
+ code [article].html
 
-paragraph
- When you "build" a Scroll site, you are simply generating
- the `index.html` and `[article].html` files in the site's folder.
-
-paragraph
+aftertext
  With Scroll your site's Scroll files and static files and generated html
- are all in one public folder and checked into version control. Though often
- you may want to add `*.html` to your `.gitignore`.
+ are all in one public folder and checked into version control. Usually you
+ want to add *.html to your .gitignore.
+ code *.html
+ code .gitignore
  
 question How do I save drafts?
 
@@ -150,16 +156,16 @@ paragraph
 code
  📁drafts
   someDraft.scroll
-  scroll.settings
  📁yourDomainName.org
   publishedArticle.scroll
-  scroll.settings
 
 question What file formats does Scroll use?
 
-paragraph
+aftertext
  Scroll articles are written as Scrolldown files with the file
- extension `scroll`. The grammar for Scrolldown is defined here🔗github.com/publicdomaincompany/scroll/blob/main/scrolldown.grammar.
+ extension scroll. The current base grammar for Scrolldown is defined here.
+ code scroll
+ https://github.com/publicdomaincompany/scroll/blob/main/scrolldown.grammar here
 
 question What language is Scroll written in?
 
@@ -186,11 +192,9 @@ paragraph
 
 question Why does the default theme have a single page layout?
 
-paragraph
- The default Scroll theme is designed to make it easier for <strong>syntopic
- reading</strong>. Being able to scan the page like a
- newspaper. This allows you to read at a higher level—to "get in the author's head"—
- compared to reading one article at a time from beginning to end.
+aftertext
+ The default Scroll theme is designed to make it easier for syntopic reading. Being able to scan the page like a newspaper. This allows you to read at a higher level—to "get in the author's head"—compared to reading one article at a time from beginning to end.
+ bold syntopic reading
 
 paragraph
  And if anyone prefers to read a scroll in a different way—they can! Scroll is for
@@ -214,8 +218,9 @@ paragraph
 
 question Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
 
-paragraph
- Yes. In the Tree Language Designer🔗jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.pub%2Fscrolldown.grammar.
+aftertext
+ Yes. In the Tree Language Designer.
+ https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.pub%2Fscrolldown.grammar Tree Language Designer
 
 question What's an easy way to have GitHub run Scroll and build my HTML files automatically?
 
@@ -254,8 +259,11 @@ code
            branch: scroll-output # The branch the action should deploy to.
            folder: .
 
-paragraph
- Commit and push. Now go to your GitHub Repo and then `Settings`, then `Pages`, and select the `scroll-output` branch as the Source for the pages. Click save. Your built site should be live.
+aftertext
+ Commit and push. Now go to your GitHub Repo and then Settings, then Pages, and select the scroll-output branch as the Source for the pages. Click save. Your built site should be live.
+ code Settings
+ code Pages
+ code scroll-output
 
 question How do I check for broken links?
 
@@ -277,13 +285,15 @@ code
 
 question Where should I host my site?
 
-paragraph
- Any web server works. You can even host your scroll for free using GitHub Pages🔗pages.github.com, just like this site.
+aftertext
+ Any web server works. You can even host your scroll for free using GitHub Pages, just like this site.
+ https://pages.github.com GitHub Pages
 
 question How do I use Scroll with a custom domain?
 
-paragraph
- Just buy a domain and point it to your web server or web host (such as GitHub Pages). Google Domains🔗domains.google is where this domain is registered and is a great service.
+aftertext
+ Just buy a domain and point it to your web server or web host (such as GitHub Pages). Google Domains is where this domain is registered and is a great service.
+ https://domains.google Google Domains
 
 question How can I deploy my site?
 
@@ -324,8 +334,12 @@ code
 
 question Does Scroll support Open Graph tags for better social media sharing?
 
-paragraph
- Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl` in your `scroll.settings` file. For more help check out the debuggers from Facebook🔗developers.facebook.com/tools/debug and Twitter🔗cards-dev.twitter.com/validator.
+aftertext
+ Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify baseUrl in your scroll.settings file. For more help check out the debuggers from Facebook and Twitter.
+ code baseUrl
+ code scroll.settings
+ https://developers.facebook.com/tools/debug Facebook
+ https://cards-dev.twitter.com/validator Twitter
 
 question Does Scroll support themes?
 
