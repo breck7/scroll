@@ -1,6 +1,8 @@
 const tap = require("tap")
 const fs = require("fs")
-const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, compileATags, scrollKeywords } = require("./scroll.js")
+const { jtree } = require("jtree")
+const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, compileATags, scrollKeywords } = require("./scroll.js")
+const Scrolldown = new jtree.HandGrammarProgram(fs.readFileSync(__dirname + "/" + SCROLLDOWN_GRAMMAR_FILENAME, "utf8")).compileAndReturnRootConstructor()
 
 const testString = "The extensible alternative to Markdown"
 const testPort = 5435
@@ -28,6 +30,25 @@ testTree.compileATags = areEqual => {
 
 	tests.forEach(example => {
 		areEqual(compileATags(example.input), example.expected)
+	})
+}
+
+testTree.compileAftertext = areEqual => {
+	const tests = [
+		{
+			text: `aftertext
+ Hello brave new world
+ link home.com new
+ bold brave new
+ underline new world
+ strikethrough wor`,
+			expected: `<p class="scrollParagraphComponent">Hello <b>brave <a href="home.com"><u>new</a></b> <s>wor</s>ld</u></p>`
+		}
+	]
+
+	tests.forEach(example => {
+		const result = new Scrolldown(example.text).compile()
+		areEqual(result, example.expected)
 	})
 }
 

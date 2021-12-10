@@ -19,9 +19,52 @@ commentCell
  highlightScope comment
 bulletPointCell
  highlightScope keyword
+aftertextTextNode
+ catchAllCellType textCell
 abstractScrollNode
  abstract
  cells keywordCell
+aftertextNode
+ description Text followed by markup commands.
+ extends abstractScrollNode
+ catchAllNodeType aftertextTextNode
+ inScope abstractMarkupNode
+ crux aftertext
+ example
+  aftertext
+   Hello brave new world
+   link home.com new
+   bold brave new
+   underline new world
+   strikethrough wor
+ javascript
+  get markupInserts() {
+   const { originalText } = this
+   return this.filter(node => node.isMarkupNode)
+    .map(node => node.getInserts(originalText))
+    .filter(i => i)
+    .flat()
+  }
+  get originalText() {
+   return this.filter(node => !node.isMarkupNode)
+    .map(node => node.toString())
+    .join("\n")
+  }
+  get text() {
+   const { originalText, markupInserts } = this
+   let adjustment = 0
+   let newText = originalText
+   markupInserts.sort((a, b) => a.index - b.index)
+   markupInserts.forEach(insertion => {
+    insertion.index += adjustment
+    newText = newText.slice(0, insertion.index) + insertion.string + newText.slice(insertion.index)
+    adjustment += insertion.string.length
+   })
+   return newText
+  }
+  compile() {
+   return `<p class="scrollParagraphComponent">${this.text}</p>`
+  }
 abstractTopLevelSingleMetaNode
  abstract
  description Use these keywords once per file.
@@ -293,6 +336,88 @@ spaceTableNode
  description Space separated values table. Last column is a catch all.
  extends abstractTableNode
  crux spaceTable
+abstractMarkupNode
+ cells keywordCell
+ catchAllCellType textCell
+ javascript
+  isMarkupNode = true
+  get pattern() {
+   return this.getWordsFrom(1).join(" ")
+  }
+  getInserts(text) {
+   const { pattern } = this
+   const start = text.indexOf(pattern)
+   if (start === -1) return false
+   return [
+    { index: start, string: `<${this.openTag}>` },
+    { index: start + pattern.length, string: `</${this.closeTag}>` }
+   ]
+  }
+  get openTag() {
+   return this.tag
+  }
+  get closeTag() {
+   return this.tag
+  }
+boldNode
+ crux bold
+ extends abstractMarkupNode
+ javascript
+  tag = "b"
+italicsNode
+ crux italics
+ extends abstractMarkupNode
+ javascript
+  tag = "i"
+underlineNode
+ crux underline
+ extends abstractMarkupNode
+ javascript
+  tag = "u"
+aftertextCodeNode
+ crux code
+ extends abstractMarkupNode
+ javascript
+  tag = "code"
+linkNode
+ extends abstractMarkupNode
+ cells keywordCell urlCell
+ crux link
+ javascript
+  tag = "a"
+  get link() {
+   return this.getWord(1)
+  }
+  get openTag() {
+   return `a href="${this.link}"`
+  }
+  get pattern() {
+   return this.getWordsFrom(2).join(" ")
+  }
+emailLinkNode
+ description A mailto link
+ crux email
+ extends linkNode
+ javascript
+  get openTag() {
+   return `a href="mailto:${this.link}"`
+  }
+quickLinkNode
+ pattern ^https\:
+ extends linkNode
+ cells urlCell
+ javascript
+  get link() {
+   return this.getWord(0)
+  }
+  get pattern() {
+   return this.getWordsFrom(1).join(" ")
+  }
+strikethroughNode
+ crux strikethrough
+ extends abstractMarkupNode
+ javascript
+  tag = "s"
 errorNode
  baseNodeType errorNode
 scrolldownNode
