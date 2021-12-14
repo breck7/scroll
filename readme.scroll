@@ -8,6 +8,12 @@ question Can you show me a screenshot?
 
 image screenshot.png
 
+question Can I try Scroll in the browser?
+
+aftertext
+ Yes. Here is a web demo.
+ https://try.scroll.pub/ web demo
+
 question What makes Scroll different?
 
 aftertext
