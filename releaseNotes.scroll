@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 23.1.0 12-21-2021
+list
+ - 🎉 add dateline node to aftertext.
+
 section 23.0.0 12-09-2021
 list
  - 🎉 add aftertext node type, with bold, italics, underline, link (& quick link), email, code and strikethrough keywords

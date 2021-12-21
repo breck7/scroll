@@ -111,6 +111,22 @@ quickLinkNode
   get pattern() {
     return this.getWordsFrom(1).join(" ")
   }
+datelineNode
+ crux dateline
+ description Gives your paragraph a dateline like "December 15, 2021 — The..."
+ extends abstractMarkupNode
+ javascript
+  getInserts() {
+   const day = this.getContent() || this.getParent().getParent().get("date")
+   if (!day) return false
+   try {
+    const dayjs = require("dayjs")
+    return [{index: 0, string: `<span class="scrollArticleDateComponent">${dayjs(day).format(`MMMM D, YYYY`)} — </span>`}]
+   } catch (err) {
+    console.error(err)
+    return false
+   }
+  }
 strikethroughNode
  crux strikethrough
  extends abstractMarkupNode

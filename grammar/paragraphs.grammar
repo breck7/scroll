@@ -5,6 +5,7 @@ paragraphNode
  crux paragraph
  javascript
   get dateHtml() {
+   // TODO: Deprecate in favor of aftertext.
    const rootNode = this.getParent()
    const isFirst = rootNode.indexOf("paragraph") === this.getIndex()
    if (!isFirst) return ""
