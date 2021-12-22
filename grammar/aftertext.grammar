@@ -1,10 +1,14 @@
+tooling
+ Related work
+ CSS is great for text selector ideas: https://www.w3schools.com/cssref/css_selectors.asp
+ Roff has a lot of related markup ideas: https://www.systutorials.com/docs/linux/man/7-groff_man/
 aftertextTextNode
  catchAllCellType textCell
 aftertextNode
  description Text followed by markup commands.
  extends abstractScrollNode
  catchAllNodeType aftertextTextNode
- inScope abstractMarkupNode
+ inScope abstractAftertextDirectiveNode
  crux aftertext
  example
   aftertext
@@ -25,7 +29,8 @@ aftertextNode
     const {originalText, markupInserts} = this
     let adjustment = 0
     let newText = originalText
-    markupInserts.sort((a, b) => a.index - b.index);
+    // If multiple tags start at same index, the tag that closes first should start last. Otherwise HTML breaks.
+    markupInserts.sort((a, b) => a.index === b.index ? b.endIndex - a.endIndex : a.index - b.index);
     markupInserts.forEach(insertion => {
         insertion.index += adjustment
         newText = newText.slice(0, insertion.index) + insertion.string + newText.slice(insertion.index)
@@ -36,7 +41,7 @@ aftertextNode
   compile() {
    return `<p class="scrollParagraphComponent">${this.text}</p>`
   }
-abstractMarkupNode
+abstractAftertextDirectiveNode
  cells keywordCell
  catchAllCellType textCell
  javascript
@@ -46,10 +51,20 @@ abstractMarkupNode
   }
   getInserts(text) {
     const {pattern }= this
-    const start = text.indexOf(pattern)
-    if (start === -1)
+    const escapedPattern = pattern.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+    const matches = [...text.matchAll(new RegExp(escapedPattern, 'g'))].map(match => {
+      const {index} = match
+      const endIndex = index + pattern.length
+      return [{index, string: `<${this.openTag}>`, endIndex: index + pattern.length}, {index: endIndex, endIndex, string: `</${this.closeTag}>`}]
+    })
+    if (!matches.length)
       return false
-    return [{index: start, string: `<${this.openTag}>`}, {index: start + pattern.length, string: `</${this.closeTag}>`}]
+    if (this.has("matchAll"))
+    return matches.flat()
+    const indexNode = this.getNode("match")
+    if (indexNode)
+     return indexNode.indexes.map(index => matches[index]).filter(i => i).flat()
+    return matches[0]
   }
   get openTag() {
     return this.tag
@@ -57,6 +72,27 @@ abstractMarkupNode
   get closeTag() {
     return this.tag
   }
+abstractMarkupNode
+ extends abstractAftertextDirectiveNode
+ inScope abstractMarkupParameterNode
+abstractMarkupParameterNode
+ cells keywordCell
+matchAllNode
+ description Use this to match all occurrences of the text.
+ extends abstractMarkupParameterNode
+ crux matchAll
+matchNode
+ catchAllCellType integerCell
+ description Use this to specify which index(es) to match.
+ javascript
+  get indexes() { return this.getWordsFrom(1).map(num => parseInt(num))}
+ example
+  aftertext
+   hello ello ello
+   bold ello
+    match 0 2
+ extends abstractMarkupParameterNode
+ crux match
 boldNode
  crux bold
  extends abstractMarkupNode
@@ -92,6 +128,21 @@ linkNode
   get pattern() {
     return this.getWordsFrom(2).join(" ")
   }
+classNameCell
+ highlightScope constant
+classMarkupNode
+ description Add a span with a class name around matching text.
+ extends abstractMarkupNode
+ cells keywordCell classNameCell
+ crux class
+ javascript
+  tag = "span"
+  get openTag() {
+    return `span class="${this.getWord(1)}"`
+  }
+  get pattern() {
+    return this.getWordsFrom(2).join(" ")
+  }
 emailLinkNode
  description A mailto link
  crux email
@@ -111,24 +162,24 @@ quickLinkNode
   get pattern() {
     return this.getWordsFrom(1).join(" ")
   }
-datelineNode
- crux dateline
- description Gives your paragraph a dateline like "December 15, 2021 — The..."
- extends abstractMarkupNode
- javascript
-  getInserts() {
-   const day = this.getContent() || this.getParent().getParent().get("date")
-   if (!day) return false
-   try {
-    const dayjs = require("dayjs")
-    return [{index: 0, string: `<span class="scrollArticleDateComponent">${dayjs(day).format(`MMMM D, YYYY`)} — </span>`}]
-   } catch (err) {
-    console.error(err)
-    return false
-   }
-  }
 strikethroughNode
  crux strikethrough
  extends abstractMarkupNode
  javascript
   tag = "s"
+datelineNode
+ crux dateline
+ description Gives your paragraph a dateline like "December 15, 2021 — The..."
+ extends abstractAftertextDirectiveNode
+ javascript
+  getInserts() {
+   let day = this.getContent() || this.getParent().getParent().get("date")
+   if (!day) return false
+   try {
+    const dayjs = require("dayjs")
+    day = dayjs(day).format(`MMMM D, YYYY`)
+   } catch (err) {
+    console.error(err)
+   }
+   return [{index: 0, string: `<span class="scrollArticleDateComponent">${day} — </span>`}]
+  }

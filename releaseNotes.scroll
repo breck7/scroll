@@ -4,6 +4,32 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 23.2.0 12-22-2021
+list
+ - 🎉 add "matchAll" and "match" support to aftertext for more advanced matching options
+ - 🎉 add "class" markup directive to aftertext
+ - 🎉 add "css" node for easier insertion of CSS
+ - 🏥 fix bug in aftertext when 2 tags started at same index
+ - 🏥 make basic dateline work in browser
+
+question Can you show an example of the new advanced aftertext features?
+
+aftertext
+ How much wood can a woodchuck chuck if a woodchuck could chuck wood?
+ link https://en.wikipedia.org/wiki/Groundhog woodchuck
+  matchAll
+ class standout wood
+  match 0 3
+aboveAsCode
+
+css
+ .standout {
+  background-color: yellow;
+  border: 1px dashed red;
+  padding: 5px;
+ }
+aboveAsCode
+
 section 23.1.0 12-21-2021
 list
  - 🎉 add dateline node to aftertext.
@@ -14,9 +40,21 @@ list
  - 🎉 add belowAsCode and aboveAsCode
  - 🎉 split base grammar into files for easier extensibility
 
+question Can you show an example of aftertext?
+
+aftertext
+ You write some text. After your text, you add your markup instructions with selectors to select the text to markup, one command per line. For example, this paragraph is written in Aftertext and the source code looks like:
+ italics After your text
+ italics selectors
+aboveAsCode
+
 section 22.4.0 11-25-2021
 list
  - 🎉 add basic caption support to images
+
+image screenshot.png
+ caption This is a caption
+aboveAsCode
 
 section 22.3.0 08-23-2021
 list

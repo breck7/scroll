@@ -1,0 +1,13 @@
+cssLineNode
+ catchAllCellType anyCell
+ catchAllNodeType cssLineNode
+cssNode
+ extends abstractScrollNode
+ description Prints CSS content wrapped in a style tag.
+ crux css
+ extends abstractScrollNode
+ catchAllNodeType cssLineNode
+ javascript
+  compile() {
+   return `<style>${this.childrenToString()}</style>`
+  }

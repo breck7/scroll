@@ -9,9 +9,9 @@ const fs = require("fs")
 const grammar =
 	`tooling A function generates this Scrolldown grammar by combining all files in the grammars folder.\n` +
 	fs
-		.readdirSync("./grammar")
+		.readdirSync(__dirname + "/grammar")
 		.filter(file => file.endsWith(".grammar"))
-		.map(file => fs.readFileSync("./grammar/" + file, "utf8"))
+		.map(file => fs.readFileSync(__dirname + "/grammar/" + file, "utf8"))
 		.join("\n")
 
 // Write the concatenated grammar to "scrolldown.grammar":
