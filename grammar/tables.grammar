@@ -4,24 +4,34 @@ abstractTableNode
  javascript
   _delimiter = " "
   get tableHeader() {
+   return this.columns.filter(col => !col.isLink).map(column => `<th>${column.name}</th>\n`)
+  }
+  get columns() {
    const header = this.nodeAt(0)
-   return header
+   const cols = header
     ? header
       .getLine()
       .split(this._delimiter)
-      .map(word => `<th>${word}</th>\n`)
-    : []
+    : [] 
+    return cols.map((name, index) => {
+      const isLink = name.endsWith("Link")
+      const linkIndex = cols.indexOf(name + "Link")
+      return {
+        name,
+        isLink,
+        linkIndex
+      }
+    })
   }
-  getTableBody(columnCount) {
+  getTableBody() {
    const delimiter = this._delimiter
    return this.getTopDownArray()
     .slice(1)
-    .map(node => `<tr>${node.toRow(columnCount, delimiter)}</tr>`)
+    .map(node => `<tr>${node.toRow(this.columns, delimiter)}</tr>`)
     .join("\n")
   }
   compile() {
-   const tableHeader = this.tableHeader
-   return `<table class="scrollTableComponent"><thead><tr>${tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
+   return `<table class="scrollTableComponent"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody()}</tbody></table>`
   }
 commaTableNode
  crux commaTable
@@ -48,14 +58,23 @@ spaceTableNode
 rowNode
  catchAllCellType textCell
  javascript
-  toRow(columnCount, delimiter) {
+  toRow(columns, delimiter) {
    const words = this.getLine().split(delimiter)
    let str = ""
    let column = 0
+   const columnCount = columns.length
    while (column < columnCount) {
+    const col = columns[column]
     column++
     const content = columnCount === column ? words.slice(columnCount - 1).join(" ") : words[column - 1]
-    str += `<td>${this.getRootNode().compileATags(content ?? "")}</td>\n`
+    if (col.isLink) continue
+    let tagged = ""
+    const link = words[col.linkIndex]
+    if (col.linkIndex > -1 && link)
+     tagged = `<a href="${link}">${content}</a>`
+    else
+     tagged = this.getRootNode().compileATags(content ?? "")
+    str += `<td>${tagged}</td>\n`
    }
    return str
   }

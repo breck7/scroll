@@ -58,6 +58,22 @@ testTree.compileAftertext = areEqual => {
 	})
 }
 
+testTree.tableWithLinks = areEqual => {
+	const tests = [
+		{
+			text: `commaTable
+ name,nameLink
+ Wikipedia,https://wikipedia.org`,
+			contains: `<a href="https://wikipedia.org">`
+		}
+	]
+
+	tests.forEach(example => {
+		const result = new Scrolldown(example.text).compile()
+		areEqual(result.includes(example.contains), true)
+	})
+}
+
 testTree.scroll = areEqual => {
 	areEqual(new ScrollFolder().indexPage.toHtml().includes(testString), true)
 }

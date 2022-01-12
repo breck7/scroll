@@ -4,6 +4,27 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 24.0.0 1-11-2022
+list
+ - 🎉 if a table has a column name ending in "Link", that will be used to link the matching column. See example below.
+ - ⚠️ if you have tables with a column ending in "Link" beware the new behavior
+
+belowAsCode
+pipeTable
+ name|nameLink
+ Wikipedia|https://wikipedia.org
+
+list
+ - ⚠️ the first paragraph of an article no longer prints a dateline. Use aftertext instead. See example below.
+
+aftertext
+ By default the article's date will be used but you can also provide a custom date.
+
+belowAsCode
+aftertext
+ A truck transporting llamas collided into a pajama factory late last night.
+ dateline 2/21/2020
+
 section 23.2.0 12-22-2021
 list
  - 🎉 add "matchAll" and "match" support to aftertext for more advanced matching options

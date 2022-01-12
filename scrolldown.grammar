@@ -277,26 +277,11 @@ paragraphNode
  extends abstractScrollNode
  crux paragraph
  javascript
-  get dateHtml() {
-   // TODO: Deprecate in favor of aftertext.
-   const rootNode = this.getParent()
-   const isFirst = rootNode.indexOf("paragraph") === this.getIndex()
-   if (!isFirst) return ""
-   const day = rootNode.get("date")
-   if (!day) return ""
-   try {
-    const dayjs = require("dayjs")
-    return `<span class="scrollArticleDateComponent">${dayjs(day).format(`MMMM D, YYYY`)} — </span>`
-   } catch (err) {
-    console.error(err)
-    return ""
-   }
-  }
   get paragraphContent() {
    return this.childrenToString()
   }
   compile() {
-   return `<p class="scrollParagraphComponent">${this.dateHtml}${this.getRootNode().compileATags(this.paragraphContent)}</p>`
+   return `<p class="scrollParagraphComponent">${this.getRootNode().compileATags(this.paragraphContent)}</p>`
   }
 quoteNode
  description A blockquote.
@@ -313,24 +298,30 @@ abstractTableNode
  javascript
   _delimiter = " "
   get tableHeader() {
-   const header = this.nodeAt(0)
-   return header
-    ? header
-      .getLine()
-      .split(this._delimiter)
-      .map(word => `<th>${word}</th>\n`)
-    : []
+   return this.columns.filter(col => !col.isLink).map(column => `<th>${column.name}</th>\n`)
   }
-  getTableBody(columnCount) {
+  get columns() {
+   const header = this.nodeAt(0)
+   const cols = header ? header.getLine().split(this._delimiter) : []
+   return cols.map((name, index) => {
+    const isLink = name.endsWith("Link")
+    const linkIndex = cols.indexOf(name + "Link")
+    return {
+     name,
+     isLink,
+     linkIndex
+    }
+   })
+  }
+  getTableBody() {
    const delimiter = this._delimiter
    return this.getTopDownArray()
     .slice(1)
-    .map(node => `<tr>${node.toRow(columnCount, delimiter)}</tr>`)
+    .map(node => `<tr>${node.toRow(this.columns, delimiter)}</tr>`)
     .join("\n")
   }
   compile() {
-   const tableHeader = this.tableHeader
-   return `<table class="scrollTableComponent"><thead><tr>${tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody(tableHeader.length)}</tbody></table>`
+   return `<table class="scrollTableComponent"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody()}</tbody></table>`
   }
 commaTableNode
  crux commaTable
@@ -603,14 +594,21 @@ quoteLineNode
 rowNode
  catchAllCellType textCell
  javascript
-  toRow(columnCount, delimiter) {
+  toRow(columns, delimiter) {
    const words = this.getLine().split(delimiter)
    let str = ""
    let column = 0
+   const columnCount = columns.length
    while (column < columnCount) {
+    const col = columns[column]
     column++
     const content = columnCount === column ? words.slice(columnCount - 1).join(" ") : words[column - 1]
-    str += `<td>${this.getRootNode().compileATags(content ?? "")}</td>\n`
+    if (col.isLink) continue
+    let tagged = ""
+    const link = words[col.linkIndex]
+    if (col.linkIndex > -1 && link) tagged = `<a href="${link}">${content}</a>`
+    else tagged = this.getRootNode().compileATags(content ?? "")
+    str += `<td>${tagged}</td>\n`
    }
    return str
   }
