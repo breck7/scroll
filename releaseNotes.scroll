@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 24.1.0 1-13-2022
+list
+ - 🎉 added migrate command to automate migrations when there are breaking changes
+ - 🎨 added background color and styling to inline code elements in default theme
+
 section 24.0.0 1-11-2022
 list
  - 🎉 if a table has a column name ending in "Link", that will be used to link the matching column. See example below.
@@ -24,6 +29,10 @@ belowAsCode
 aftertext
  A truck transporting llamas collided into a pajama factory late last night.
  dateline 2/21/2020
+
+aftertext 
+ To migrate and keep your existing datelines use the command scroll migrate.
+ code scroll migrate
 
 section 23.2.0 12-22-2021
 list

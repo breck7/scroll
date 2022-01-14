@@ -108,6 +108,13 @@ comment On the index page add some spacing around articles
  text-align left
  margin-top 2em
 
+
+code
+ font-size 90%
+ background-color rgba(204,204,204,.5)
+ padding 2px 4px
+ border-radius 4px
+
 .scrollCodeBlockComponent
  overflow auto
  font-size 80%
@@ -118,7 +125,7 @@ comment On the index page add some spacing around articles
  display block
  margin .5em 0
  padding .5em
- background rgba(204,204,204,.5)
+ border-radius 0
 
 .scrollTableComponent
  table-layout fixed

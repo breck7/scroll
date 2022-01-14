@@ -7,6 +7,7 @@ const fs = require("fs")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
 const open = require("open")
+const semver = require("semver")
 
 // Tree Notation Includes
 const { jtree } = require("jtree")
@@ -54,12 +55,6 @@ const scrollBoilerplateCompiledMessage = `<!doctype html>
 
 -->`
 
-const initReadmePage = `title Hello world
-date ${dayjs().format(`MM-DD-YYYY`)}
-
-paragraph
- This is my new Scroll.`
-
 const cssClasses = {
 	scrollIndexPageComponent: "scrollIndexPageComponent",
 	scrollIndexPageArticleContainerComponent: "scrollIndexPageArticleContainerComponent",
@@ -84,7 +79,8 @@ const scrollKeywords = {
 // todo: move all keywords here
 const settingsKeywords = {
 	ignoreGrammarFiles: "ignoreGrammarFiles",
-	git: "git"
+	git: "git",
+	scrollVersion: "scrollVersion"
 }
 
 const defaultSettings = {
@@ -96,19 +92,31 @@ const defaultSettings = {
 	baseUrl: ""
 }
 
+const initReadmePage = `${scrollKeywords.title} Hello world
+${scrollKeywords.date} ${dayjs().format(`MM-DD-YYYY`)}
+
+${scrollKeywords.paragraph}
+ This is my new Scroll.`
+
 const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + SCROLL_SETTINGS_FILENAME))
 
 const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.icons")).toObject()
 
 class Article {
-	constructor(scrolldownProgram, filename, sourceLink) {
+	constructor(scrolldownProgram, filePath, sourceLink) {
 		this.scrolldownProgram = scrolldownProgram
 		this.sourceLink = sourceLink
-		this.filename = filename
+		this.filePath = filePath
+		this.filename = path.basename(filePath)
+	}
+
+	save() {
+		write(`${this.filePath}`, this.scrolldownProgram.toString())
 	}
 
 	sourceLink = ""
 	filename = ""
+	filePath = ""
 
 	get permalink() {
 		return this.scrolldownProgram.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
@@ -174,10 +182,10 @@ class RssImporter {
 
 	savePost(item, content, destinationFolder) {
 		const { title, pubDate, isoDate } = item
-		const date = pubDate || isoDate ? `date ${pubDate || isoDate}` : ""
-		const scrollFile = `title ${title}
+		const date = pubDate || isoDate ? `${scrollKeywords.date} ${pubDate || isoDate}` : ""
+		const scrollFile = `${scrollKeywords.title} ${title}
 ${date}
-paragraph
+${scrollKeywords.paragraph}
  ${cleanAndRightShift(content, 1)}
 `
 		write(destinationFolder + "/" + Utils.stringToPermalink(title) + ".scroll", scrollFile)
@@ -471,7 +479,7 @@ class ScrollFolder {
 		const { gitLink, scrolldownCompiler, scrollFolder } = this
 		const all = Disk.getFiles(scrollFolder)
 			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-			.map(filename => new Article(new scrolldownCompiler(read(filename)), path.basename(filename), gitLink ? gitLink + path.basename(filename) : ""))
+			.map(filename => new Article(new scrolldownCompiler(read(filename)), filename, gitLink ? gitLink + path.basename(filename) : ""))
 		return lodash.sortBy(all, article => article.timestamp).reverse()
 	}
 
@@ -498,8 +506,39 @@ class ScrollFolder {
 	}
 
 	get settingsTree() {
-		const settingsFilepath = this.scrollFolder + "/" + SCROLL_SETTINGS_FILENAME
-		return new TreeNode(fs.existsSync(settingsFilepath) ? read(settingsFilepath) : "")
+		return new TreeNode(this.hasSettingsFile ? read(this.settingsFilepath) : "")
+	}
+
+	get settingsFilepath() {
+		return this.scrollFolder + "/" + SCROLL_SETTINGS_FILENAME
+	}
+
+	get hasSettingsFile() {
+		return fs.existsSync(this.settingsFilepath)
+	}
+
+	get onScrollVersion() {
+		return this.settingsTree.toObject()[scrollKeywords.scrollVersion]
+	}
+
+	migrate(fromVersion) {
+		if (semver.lt(fromVersion, "24.0.0")) {
+			// Articles that have a date, a paragraph, and no dateline added yet need one
+			console.log(`🚚 Applying 24.0.0 migrations`)
+			this.allArticles
+				.filter(article => {
+					const content = article.scrolldownProgram
+					return content.has("date") && content.has("paragraph") && content.findNodes("aftertext dateline").length === 0
+				})
+				.forEach(article => {
+					const firstParagraph = article.scrolldownProgram.findNodes("paragraph")[0]
+					firstParagraph.setWord(0, "aftertext")
+					firstParagraph.appendLine("dateline")
+					article.save()
+				})
+		}
+
+		return this
 	}
 
 	silence() {
@@ -640,6 +679,14 @@ class ScrollCli {
 		folder.verbose = this.verbose
 		folder.buildIndexPage()
 		folder.buildSinglePages()
+		return folder
+	}
+
+	async migrateCommand(cwd) {
+		const folder = new ScrollFolder(resolvePath(cwd))
+		folder.verbose = this.verbose
+		const currentVersion = folder.onScrollVersion ?? "23.0.0"
+		folder.migrate(currentVersion)
 		return folder
 	}
 
