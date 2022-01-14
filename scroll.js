@@ -522,6 +522,30 @@ class ScrollFolder {
 	}
 
 	migrate(fromVersion) {
+		const replaceEmojiLinksWithAftertextLinks = node => {
+			// todo: a better place for these util functions? I stick them in here so the
+			// grammar is all in one file for ease of use in TreeLanguageDesigner
+			const linksToAdd = []
+			const linkReplacer = (match, p1, p2, p3, offset, str) => {
+				let suffix = ""
+				if (p3.endsWith(",")) suffix = "," + suffix
+				if (p3.endsWith(".")) suffix = "." + suffix
+				p3 = p3.replace(/(,|\.)$/, "")
+				let prefix = "https://"
+				const isRelativeLink = p3.startsWith("./")
+				if (isRelativeLink) {
+					prefix = ""
+					p3 = p3.substr(2)
+				}
+				if (p3.startsWith("https://") || p3.startsWith("http://")) prefix = ""
+				const linkText = p2
+				const fullLink = `${prefix}${p3}`
+				linksToAdd.push([fullLink, linkText])
+				return `${p1}${linkText}${suffix}`
+			}
+			return [node.childrenToString().replace(/(^|\s)(\S+)🔗(\S+)(?=(\s|$))/g, linkReplacer), linksToAdd]
+		}
+
 		if (semver.lt(fromVersion, "24.0.0")) {
 			// Articles that have a date, a paragraph, and no dateline added yet need one
 			console.log(`🚚 Applying 24.0.0 migrations`)
@@ -532,6 +556,11 @@ class ScrollFolder {
 				})
 				.forEach(article => {
 					const firstParagraph = article.scrolldownProgram.findNodes("paragraph")[0]
+					const results = replaceEmojiLinksWithAftertextLinks(firstParagraph)
+					firstParagraph.setChildren(results[0])
+					results[1].forEach(link => {
+						firstParagraph.appendLine(`link ${link[0]} ${link[1]}`)
+					})
 					firstParagraph.setWord(0, "aftertext")
 					firstParagraph.appendLine("dateline")
 					article.save()

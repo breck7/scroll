@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 24.1.1 1-13-2022
+list
+ - 🏥 fix bug where migrator was not replacing 🔗 links in paragraphs when upgrading to aftertext
+ - 🏥 fix typo in release notes
+
 section 24.1.0 1-13-2022
 list
  - 🎉 added migrate command to automate migrations when there are breaking changes
@@ -30,7 +35,7 @@ aftertext
  A truck transporting llamas collided into a pajama factory late last night.
  dateline 2/21/2020
 
-aftertext 
+aftertext
  To migrate and keep your existing datelines use the command scroll migrate.
  code scroll migrate
 
