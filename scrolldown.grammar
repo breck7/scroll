@@ -104,7 +104,7 @@ dateNode
  crux date
 maxColumnsNode
  catchAllCellType integerCell
- description Set your own max column count for the generated HTML.
+ description Set your own max column count for a single article's generated HTML.
  extends abstractTopLevelSingleMetaNode
  crux maxColumns
 columnWidthNode
