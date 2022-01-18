@@ -4,6 +4,27 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 24.2.0 1-18-2022
+list
+ - 🎉 added 'id' directive to aftertext for adding ids to paragraphs <p id="foo"></p>
+ - 🎉 added 'loremIpsum' nodeType to help in testing and exploring
+
+paragraph
+ Example demonstrating the above:
+
+code
+ aftertext
+  Click here to go to the middle paragraph.
+  link #middleParagraph Click here
+ 
+ loremIpsum 20
+ 
+ aftertext
+  Here is the middle paragraph.
+  id middleParagraph
+ 
+ loremIpsum 20
+
 section 24.1.1 1-13-2022
 list
  - 🏥 fix bug where migrator was not replacing 🔗 links in paragraphs when upgrading to aftertext

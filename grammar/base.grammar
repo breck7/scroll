@@ -7,6 +7,8 @@ textCell
  highlightScope string
 errorNode
  baseNodeType errorNode
+idCell
+ highlightScope string
 scrolldownNode
  extensions scroll
  description A simple language for structurable thought. An extensible alternative to Markdown. Compiles to HTML.

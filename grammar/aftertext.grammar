@@ -4,11 +4,12 @@ tooling
  Roff has a lot of related markup ideas: https://www.systutorials.com/docs/linux/man/7-groff_man/
 aftertextTextNode
  catchAllCellType textCell
+ boolean isTextNode true
 aftertextNode
  description Text followed by markup commands.
  extends abstractScrollNode
  catchAllNodeType aftertextTextNode
- inScope abstractAftertextDirectiveNode
+ inScope abstractAftertextDirectiveNode abstractAftertextAttributeNode
  crux aftertext
  example
   aftertext
@@ -23,7 +24,7 @@ aftertextNode
     return this.filter(node => node.isMarkupNode).map(node => node.getInserts(originalText)).filter(i => i).flat()
   }
   get originalText() {
-    return this.filter(node => !node.isMarkupNode).map(node => node.toString()).join("\n")
+    return this.filter(node => node.isTextNode).map(node => node.toString()).join("\n")
   }
   get text() {
     const {originalText, markupInserts} = this
@@ -39,8 +40,20 @@ aftertextNode
    return newText
   }
   compile() {
-   return `<p class="scrollParagraphComponent">${this.text}</p>`
+   return `<p ${this.attributes}class="scrollParagraphComponent">${this.text}</p>`
   }
+  get attributes() {
+    const attrs = this.filter(node => node.isAttributeNode)
+    return attrs.length ? attrs.map(node => node.attributes).join(" ") + " " : ""
+  }
+abstractAftertextAttributeNode
+ cells keywordCell
+ boolean isAttributeNode true
+ javascript
+  get attributes() {
+    return `${this.getWord(0)}="${this.getContent()}"`
+  }
+  compile() { return ""}
 abstractAftertextDirectiveNode
  cells keywordCell
  catchAllCellType textCell
@@ -167,6 +180,14 @@ strikethroughNode
  extends abstractMarkupNode
  javascript
   tag = "s"
+htmlIdCell
+ extends idCell
+aftertextIdNode
+ crux id
+ description Provide an ID to be output in the generated HTML paragraph.
+ extends abstractAftertextAttributeNode
+ cells keywordCell htmlIdCell
+ single
 datelineNode
  crux dateline
  description Gives your paragraph a dateline like "December 15, 2021 — The..."
@@ -182,4 +203,16 @@ datelineNode
     console.error(err)
    }
    return [{index: 0, string: `<span class="scrollArticleDateComponent">${day} — </span>`}]
+  }
+loremIpsumNode
+ extends aftertextNode
+ description Generate dummy text.
+ crux loremIpsum
+ catchAllCellType integerCell
+ javascript
+  get originalText() {
+    return `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+  }
+  compile() {
+   return super.compile().repeat(this.getWord(1) ? parseInt(this.getWord(1)) : 1)
   }
