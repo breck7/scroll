@@ -1,0 +1,9 @@
+using treenotation.org/gram.grammar
+importThese textCell from base.gram
+
+quickParagraphNode
+ description A catch all block. This may be removed in future versions.
+ catchAllCellType textCell
+ baseNodeType errorNode
+ compiler
+  stringTemplate <p class="scrollParagraphComponent">{textCell}</p>

@@ -1,3 +1,6 @@
+using treenotation.org/gram.grammar
+importThese textCell abstractScrollNode from base.gram
+
 abstractTableNode
  catchAllNodeType rowNode
  extends abstractScrollNode
@@ -37,26 +40,31 @@ commaTableNode
  crux commaTable
  description Comma separated values table.
  extends abstractTableNode
+ exported
  javascript
   _delimiter = ","
 pipeTableNode
  crux pipeTable
  description Pipie separated values table.
  extends abstractTableNode
+ exported
  javascript
   _delimiter = "|"
 tabTableNode
  crux tabTable
  description Tab separated values table.
  extends abstractTableNode
+ exported
  javascript
   _delimiter = "\t"
 spaceTableNode
  description Space separated values table. Last column is a catch all.
  extends abstractTableNode
  crux spaceTable
+ exported
 rowNode
  catchAllCellType textCell
+ exported
  javascript
   toRow(columns, delimiter) {
    const words = this.getLine().split(delimiter)

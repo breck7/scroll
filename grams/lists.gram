@@ -1,3 +1,6 @@
+using treenotation.org/gram.grammar
+importThese textCell abstractScrollNode from base.gram
+
 bulletPointCell
  highlightScope keyword
 listNode
@@ -5,6 +8,7 @@ listNode
  catchAllNodeType listItemNode
  crux list
  extends abstractScrollNode
+ exported
  compiler
   stringTemplate 
   openChildren <ul class="scrollUnorderedListComponent">
@@ -13,6 +17,7 @@ orderedListNode
  description An ordered list.
  extends listNode
  crux orderedList
+ exported
  compiler
   stringTemplate 
   openChildren <ol class="scrollOrderedListComponent">

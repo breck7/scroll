@@ -1,7 +1,11 @@
+using treenotation.org/gram.grammar
+importThese anyCell abstractScrollNode from base.gram
+
 customHeaderNode
  extends abstractScrollNode
  description Define a header for a certain page. Setting to blank will also remove the header on a page.
  crux header
+ exported
  catchAllNodeType stumpNode
  javascript
   compile() { return ""}
@@ -9,6 +13,7 @@ customFooterNode
  extends abstractScrollNode
  description Define a footer for a certain page. Setting to blank will also remove the footer on a page.
  crux footer
+ exported
  catchAllNodeType stumpNode
  javascript
   compile() { return ""}

@@ -1,0 +1,13 @@
+using treenotation.org/grammar.grammar
+
+siteSettingsGrammar
+ extensions siteSettings
+ shortName scrollSiteSettings
+ example
+  title 📜 Scroll
+  description The extensible alternative to Markdown
+  github https://github.com/publicdomaincompany/scroll
+  git https://github.com/publicdomaincompany/scroll/blob/main
+  twitter https://twitter.com/publicdomainpub
+  email scroll@publicdomaincompany.com
+  baseUrl https://scroll.pub/

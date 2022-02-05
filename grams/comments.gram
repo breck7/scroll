@@ -1,3 +1,6 @@
+using treenotation.org/gram.grammar
+importThese abstractScrollNode from base.gram
+
 commentCell
  highlightScope comment
 commentLineNode
@@ -6,6 +9,7 @@ commentNode
  description Will not appear in the compiled HTML.
  catchAllCellType commentCell
  extends abstractScrollNode
+ exported
  crux comment
  javascript
   compile() {

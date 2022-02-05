@@ -1,7 +1,8 @@
+using treenotation.org/gram.grammar
+importThese keywordCell textCell integerCell abstractScrollNode from base.gram
+
 dateCell
  highlightScope string
-integerCell
- highlightScope constant.numeric
 abstractTopLevelSingleMetaNode
  abstract
  description Use these keywords once per file.

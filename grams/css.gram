@@ -1,3 +1,6 @@
+using treenotation.org/gram.grammar
+importThese anyCell abstractScrollNode from base.gram
+
 cssLineNode
  catchAllCellType anyCell
  catchAllNodeType cssLineNode
@@ -6,6 +9,7 @@ cssNode
  description Prints CSS content wrapped in a style tag.
  crux css
  extends abstractScrollNode
+ exported
  catchAllNodeType cssLineNode
  javascript
   compile() {

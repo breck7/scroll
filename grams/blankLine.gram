@@ -1,0 +1,11 @@
+using treenotation.org/gram.grammar
+
+blankCell
+blankLineNode
+ description Blank lines compile to nothing in the HTML.
+ cells blankCell
+ compiler
+  stringTemplate 
+ pattern ^$
+ tags doNotSynthesize
+ exported

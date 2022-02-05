@@ -1,3 +1,6 @@
+using treenotation.org/gram.grammar
+importThese abstractScrollNode from base.gram
+
 codeCell
  highlightScope comment
 lineOfCodeNode
@@ -7,6 +10,7 @@ codeNode
  description A code block.
  catchAllNodeType lineOfCodeNode
  extends abstractScrollNode
+ exported
  javascript
   compile() {
    return `<code class="scrollCodeBlockComponent">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
@@ -16,10 +20,12 @@ codeWithLanguageNode
  description Use this to specify the language of the code block, such as csvCode or rustCode.
  extends codeNode
  pattern ^[a-zA-Z0-9_]+Code$
+ exported
 belowAsCodeNode
  description Print the Scroll code of the next node.
  extends abstractScrollNode
  crux belowAsCode
+ exported
  javascript
   get target() { return this.getNext()}
   compile() {
@@ -28,6 +34,7 @@ belowAsCodeNode
 aboveAsCodeNode
  description Print the Scroll code for the previous node.
  extends belowAsCodeNode
+ exported
  crux aboveAsCode
  javascript
   get target() { return this.getPrevious()}

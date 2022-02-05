@@ -1,7 +1,11 @@
+using treenotation.org/gram.grammar
+importThese keywordCell textCell urlCell abstractScrollNode from base.gram
+
 imageNode
  description An img tag.
  cells keywordCell urlCell
  extends abstractScrollNode
+ exported
  crux image
  inScope imageCaptionNode
  javascript
