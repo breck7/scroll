@@ -187,3 +187,8 @@ comment Dialogues that look like SMS conversations
   height auto
  figcaption
   font-style italic
+
+comment
+.scrollCaveat
+ text-decoration underline dashed 1px rgba(0,0,0,.1)
+ cursor default

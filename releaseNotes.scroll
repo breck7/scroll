@@ -4,6 +4,32 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+paragraph
+ This tiny release adds some ways to include more caveats and context around words and references.
+
+section 24.3.0 2-16-2022
+list
+ - 🎉 added 'caveat' directive to aftertext for adding caveats around parts of text
+ - 🎉 added 'note' directive to aftertext links for providing more context around included links
+
+subsection Caveat Example
+
+aftertext
+ This is a great idea.
+ caveat great
+  I'm not actually sure if this is a great idea. But often I want to include a comment and link it
+  back to the text, but don't quite want to footnote it.
+aboveAsCode
+
+subsection Link Quote Example
+
+aftertext
+ This report showed the treatment had a big impact.
+ https://example.com/report This report
+  note
+   The average growth in the treatment group was 14.2x higher than the control group.
+aboveAsCode
+
 section 24.2.0 1-18-2022
 list
  - 🎉 added 'id' directive to aftertext for adding ids to paragraphs <p id="foo"></p>

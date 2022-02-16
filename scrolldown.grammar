@@ -75,11 +75,11 @@ aftertextNode
    return newText
   }
   compile() {
-   return `<p ${this.attributes}class="scrollParagraphComponent">${this.text}</p>`
+   return `<p ${this.divAttributes}class="scrollParagraphComponent">${this.text}</p>`
   }
-  get attributes() {
+  get divAttributes() {
    const attrs = this.filter(node => node.isAttributeNode)
-   return attrs.length ? attrs.map(node => node.attributes).join(" ") + " " : ""
+   return attrs.length ? attrs.map(node => node.divAttributes).join(" ") + " " : ""
   }
 loremIpsumNode
  extends aftertextNode
@@ -370,7 +370,7 @@ abstractAftertextAttributeNode
  cells keywordCell
  boolean isAttributeNode true
  javascript
-  get attributes() {
+  get divAttributes() {
    return `${this.getWord(0)}="${this.getContent()}"`
   }
   compile() {
@@ -397,7 +397,7 @@ abstractAftertextDirectiveNode
     const { index } = match
     const endIndex = index + pattern.length
     return [
-     { index, string: `<${this.openTag}>`, endIndex: index + pattern.length },
+     { index, string: `<${this.openTag}${this.allAttributes}>`, endIndex: index + pattern.length },
      { index: endIndex, endIndex, string: `</${this.closeTag}>` }
     ]
    })
@@ -410,6 +410,13 @@ abstractAftertextDirectiveNode
      .filter(i => i)
      .flat()
    return matches[0]
+  }
+  get allAttributes() {
+   const attr = this.attributes.join(" ")
+   return attr ? " " + attr : ""
+  }
+  get attributes() {
+   return []
   }
   get openTag() {
    return this.tag
@@ -443,14 +450,18 @@ aftertextCodeNode
 linkNode
  extends abstractMarkupNode
  cells keywordCell urlCell
+ inScope linkNoteNode
  crux link
  javascript
   tag = "a"
   get link() {
    return this.getWord(1)
   }
-  get openTag() {
-   return `a href="${this.link}"`
+  get attributes() {
+   const attrs = [`href="${this.link}"`]
+   const title = this.getNode("note")
+   if (title) attrs.push(`title="${title.childrenToString().replace(/\n/g, " ")}"`)
+   return attrs
   }
   get pattern() {
    return this.getWordsFrom(2).join(" ")
@@ -460,8 +471,8 @@ emailLinkNode
  crux email
  extends linkNode
  javascript
-  get openTag() {
-   return `a href="mailto:${this.link}"`
+  get attributes() {
+   return [`href="mailto:${this.link}"`]
   }
 quickLinkNode
  pattern ^https\:
@@ -481,11 +492,29 @@ classMarkupNode
  crux class
  javascript
   tag = "span"
-  get openTag() {
-   return `span class="${this.getWord(1)}"`
+  get className() {
+   return this.getWord(1)
+  }
+  get attributes() {
+   return [`class="${this.className}"`]
   }
   get pattern() {
    return this.getWordsFrom(2).join(" ")
+  }
+caveatNode
+ description Add a caveat viewable on hover on matching text. When you want to be sure you've thoroughly addressed obvious concerns but ones that don't warrant to distract from the main argument of the text.
+ crux caveat
+ extends classMarkupNode
+ cells keywordCell
+ javascript
+  get pattern() {
+   return this.getWordsFrom(1).join(" ")
+  }
+  get attributes() {
+   return [`class="scrollCaveat"`, `title="${this.caveatText}"`]
+  }
+  get caveatText() {
+   return this.childrenToString().replace(/\n/g, " ")
   }
 strikethroughNode
  crux strikethrough
@@ -532,6 +561,19 @@ matchNode
     match 0 2
  extends abstractMarkupParameterNode
  crux match
+linkNoteNode
+ description When you want to include more information than just the link to your reference.
+ crux note
+ cells keywordCell
+ example
+  aftertext
+   This report showed the treatment had a big impact.
+  https://example.com/report This report.
+   note
+    The average growth in the treatment group was 14.2x higher than the control group.
+ baseNodeType blobNode
+ compiler
+  stringTemplate 
 errorNode
  baseNodeType errorNode
 scrolldownNode
