@@ -4,10 +4,13 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
-paragraph
- This tiny release adds some ways to include more caveats and context around words and references.
+section 24.3.1 5-25-2022
+list
+ - 🏥 fix bug where images were stuck at 35ch even when the browser sized columns wider
 
 section 24.3.0 2-16-2022
+paragraph
+ This tiny release adds some ways to include more caveats and context around words and references.
 list
  - 🎉 added 'caveat' directive to aftertext for adding caveats around parts of text
  - 🎉 added 'note' directive to aftertext links for providing more context around included links

@@ -183,7 +183,7 @@ comment Dialogues that look like SMS conversations
  display block
  text-align center
  img
-  max-width COLUMN_WIDTH
+  max-width 98%
   height auto
  figcaption
   font-style italic
