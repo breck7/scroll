@@ -192,6 +192,7 @@ ${scrollKeywords.footer}
 		// Assert
 		areEqual(singleFile.includes("CustomHeader"), true)
 		areEqual(singleFile.includes("CustomFooter"), true)
+		areEqual(folder.shouldBuildSnippetsPage, false)
 	} catch (err) {
 		console.log(err)
 	}

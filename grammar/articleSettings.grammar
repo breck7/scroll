@@ -44,3 +44,7 @@ columnWidthNode
  description Set your own column width, in ch units, for the generated HTML.
  extends abstractTopLevelSingleMetaNode
  crux columnWidth
+endSnippetNode
+ description Insert one of these where you want to cut the article for the snippets.html page.
+ extends abstractTopLevelSingleMetaNode
+ crux endSnippet

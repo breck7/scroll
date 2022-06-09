@@ -161,6 +161,10 @@ comment Subtle "Article Source" link
   color #000
   text-decoration none
 
+.scrollContinueReadingLink
+ display block
+ text-align center
+
 comment Dialogues that look like SMS conversations
 .scrollDialogueComponent
  span

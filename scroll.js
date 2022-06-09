@@ -70,6 +70,7 @@ const scrollKeywords = {
 	date: "date",
 	importFrom: "importFrom",
 	skipIndexPage: "skipIndexPage",
+	endSnippet: "endSnippet",
 	maxColumns: "maxColumns",
 	header: "header",
 	footer: "footer",
@@ -166,11 +167,23 @@ class Article {
 	}
 
 	get htmlCode() {
-		const sourceLink = this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : ""
-
 		const program = this.scrolldownProgram
 		program.setPermalink(this.permalink)
-		return program.compile() + sourceLink
+		return program.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : "")
+	}
+
+	get htmlCodeForSnippetsPage() {
+		const { snippetBreakNode } = this
+		if (!snippetBreakNode) return this.htmlCode
+
+		const program = this.scrolldownProgram
+		const indexOfBreak = snippetBreakNode.getIndex()
+		program.setPermalink(this.permalink)
+		return program.map((child, index) => (index >= indexOfBreak ? "" : child.compile())).join(program._getChildJoinCharacter()) + `<a class="scrollContinueReadingLink" href="${this.permalink}.html">Full article...</a>`
+	}
+
+	get snippetBreakNode() {
+		return this.scrolldownProgram.getNode(scrollKeywords.endSnippet)
 	}
 }
 
@@ -346,21 +359,6 @@ class AbstractScrollPage {
   ${cleanAndRightShift(this.footer, 2)}`
 	}
 
-	get pageCode() {
-		const articles = this.scroll.articlesToIncludeInIndex
-			.map(article => {
-				const node = new TreeNode(`div
- class ${cssClasses.scrollIndexPageArticleContainerComponent}`)
-				node.getNode("div").appendLineAndChildren("bern", article.htmlCode)
-				return node.toString()
-			})
-			.join("\n")
-
-		return `div
- class ${cssClasses.scrollIndexPageComponent}
- ${cleanAndRightShift(articles, 1)}`
-	}
-
 	get ogTitle() {
 		return this.scrollSettings.title
 	}
@@ -441,7 +439,32 @@ class ScrollArticlePage extends AbstractScrollPage {
 	}
 }
 
-class ScrollIndexPage extends AbstractScrollPage {}
+class ScrollIndexPage extends AbstractScrollPage {
+	get pageCode() {
+		const articles = this.scroll.articlesToIncludeInIndex
+			.map(article => {
+				const node = new TreeNode(`div
+ class ${cssClasses.scrollIndexPageArticleContainerComponent}`)
+				node.getNode("div").appendLineAndChildren("bern", this.getArticleHtml(article))
+				return node.toString()
+			})
+			.join("\n")
+
+		return `div
+ class ${cssClasses.scrollIndexPageComponent}
+ ${cleanAndRightShift(articles, 1)}`
+	}
+
+	getArticleHtml(article) {
+		return article.htmlCode
+	}
+}
+
+class ScrollSnippetsPage extends ScrollIndexPage {
+	getArticleHtml(article) {
+		return article.htmlCodeForSnippetsPage
+	}
+}
 
 const compilerCache = new Map()
 const getCompiler = filePaths => {
@@ -591,8 +614,6 @@ class ScrollFolder {
 		return message
 	}
 
-	previousVersion = ""
-
 	_singlePages = new Map()
 	buildSinglePages() {
 		const start = Date.now()
@@ -611,16 +632,40 @@ class ScrollFolder {
 		return pages
 	}
 
+	_cachedIndexPage = ""
 	buildIndexPage() {
 		if (this.articlesToIncludeInIndex.length === 0) return this.log(`Skipping build of 'index.html' because no articles to include.`)
 		const html = this.indexPage.toHtml()
-		if (this.previousVersion !== html) {
+		if (this._cachedIndexPage !== html) {
 			const start = Date.now()
 			write(this.scrollFolder + "/index.html", html)
-			this.previousVersion = html
+			this._cachedIndexPage = html
 			this.log(`Built and wrote new index.html to disk in ${(Date.now() - start) / 1000} seconds`)
 		}
 		return html
+	}
+
+	_cachedSnippetsPage = ""
+	buildSnippetsPage() {
+		if (this.articlesToIncludeInIndex.length === 0) return this.log(`Skipping build of 'snippets.html' because no articles to include.`)
+		const html = new ScrollSnippetsPage(this).toHtml()
+		if (this._cachedSnippetsPage !== html) {
+			const start = Date.now()
+			write(this.scrollFolder + "/snippets.html", html)
+			this._cachedSnippetsPage = html
+			this.log(`Built and wrote new snippets.html to disk in ${(Date.now() - start) / 1000} seconds`)
+		}
+		return html
+	}
+
+	buildAll() {
+		this.buildIndexPage()
+		this.buildSinglePages()
+		if (this.shouldBuildSnippetsPage) this.buildSnippetsPage()
+	}
+
+	get shouldBuildSnippetsPage() {
+		return this.allArticles.some(article => !!article.snippetBreakNode)
 	}
 
 	// rss, twitter, hn, reddit, pinterest, instagram, tiktok, youtube?
@@ -706,8 +751,7 @@ class ScrollCli {
 	async buildCommand(cwd) {
 		const folder = new ScrollFolder(resolvePath(cwd))
 		folder.verbose = this.verbose
-		folder.buildIndexPage()
-		folder.buildSinglePages()
+		folder.buildAll()
 		return folder
 	}
 
@@ -738,8 +782,7 @@ class ScrollCli {
 			} else {
 				// file updates
 			}
-			folder.buildIndexPage()
-			folder.buildSinglePages()
+			folder.buildAll()
 		})
 
 		if (this.verbose) await open(folder.localIndexAsUrl)

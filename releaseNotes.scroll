@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 24.4.0 6-08-2022
+list
+ - 🎉 if your scroll has an article(s) with "endSnippet", scroll will create "snippets.html".
+
 section 24.3.1 5-25-2022
 list
  - 🏥 fix bug where images were stuck at 35ch even when the browser sized columns wider

@@ -133,6 +133,10 @@ columnWidthNode
  description Set your own column width, in ch units, for the generated HTML.
  extends abstractTopLevelSingleMetaNode
  crux columnWidth
+endSnippetNode
+ description If you want to show only a snippet of an article on the homepage, insert one of these.
+ extends abstractTopLevelSingleMetaNode
+ crux endSnippet
 chatNode
  description A dialogue between two people.
  catchAllNodeType chatLineNode
