@@ -4,6 +4,15 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 24.5.0 6-10-2022
+list
+ - 🎉 added `wrapsOn` keyword to aftertext.
+
+aftertext
+ Support for traditional *bold*, `code`, and _italics_ in aftertext with the keyword `wrapsOn`.
+ wrapsOn
+aboveAsCode
+
 section 24.4.0 6-08-2022
 list
  - 🎉 if your scroll has an article(s) with "endSnippet", scroll will create "snippets.html".

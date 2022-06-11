@@ -34,8 +34,10 @@ aftertextNode
     markupInserts.sort((a, b) => a.index === b.index ? b.endIndex - a.endIndex : a.index - b.index);
     markupInserts.forEach(insertion => {
         insertion.index += adjustment
-        newText = newText.slice(0, insertion.index) + insertion.string + newText.slice(insertion.index)
-        adjustment += insertion.string.length
+        const consumeStartCharacters = insertion.consumeStartCharacters ?? 0
+        const consumeEndCharacters = insertion.consumeEndCharacters ?? 0
+        newText = newText.slice(0, insertion.index - consumeEndCharacters) + insertion.string + newText.slice(insertion.index + consumeStartCharacters)
+        adjustment += insertion.string.length - consumeEndCharacters - consumeStartCharacters
     });
    return newText
   }
@@ -62,18 +64,24 @@ abstractAftertextDirectiveNode
   get pattern() {
     return this.getWordsFrom(1).join(" ")
   }
-  getInserts(text) {
+  get shouldMatchAll() {
+   return this.has("matchAll")
+  }
+  getMatches(text) {
     const {pattern }= this
     const escapedPattern = pattern.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
-    const matches = [...text.matchAll(new RegExp(escapedPattern, 'g'))].map(match => {
+    return [...text.matchAll(new RegExp(escapedPattern, 'g'))].map(match => {
       const {index} = match
       const endIndex = index + pattern.length
-      return [{index, string: `<${this.openTag}${this.allAttributes}>`, endIndex: index + pattern.length}, {index: endIndex, endIndex, string: `</${this.closeTag}>`}]
+      return [{index, string: `<${this.openTag}${this.allAttributes}>`, endIndex}, {index: endIndex, endIndex, string: `</${this.closeTag}>`}]
     })
+  }
+  getInserts(text) {
+    const matches = this.getMatches(text)
     if (!matches.length)
       return false
-    if (this.has("matchAll"))
-    return matches.flat()
+    if (this.shouldMatchAll)
+      return matches.flat()
     const indexNode = this.getNode("match")
     if (indexNode)
      return indexNode.indexes.map(index => matches[index]).filter(i => i).flat()
@@ -113,6 +121,26 @@ matchNode
     match 0 2
  extends abstractMarkupParameterNode
  crux match
+wrapsNode
+ crux wrapsOn
+ description Enable `code`, *bold*, and _italics_ rules.
+ extends abstractAftertextDirectiveNode
+ javascript
+  get shouldMatchAll() {
+   return true
+  }
+  getMatches(text) {
+    return [this.runPattern(text, /\`[^\`]+\`/g, '<code>', '</code>'),
+    this.runPattern(text, /\*[^\*]+\*/g, '<strong>', '</strong>'),
+    this.runPattern(text, /\_[^\_]+\_/g, '<em>', '</em>')].filter(i => i).flat()
+  }
+  runPattern(text, pattern, openTag, closeTag) {
+    return [...text.matchAll(pattern)].map(match => {
+      const {index} = match
+      const endIndex = index + match[0].length
+      return [{index, string: openTag, endIndex, consumeStartCharacters: 1}, {index: endIndex, endIndex, string: closeTag, consumeEndCharacters: 1}]
+    })
+  }
 boldNode
  crux bold
  extends abstractMarkupNode
