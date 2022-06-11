@@ -4,6 +4,22 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 24.6.0 6-10-2022
+list
+ - 🎉 added `wrap` keyword for advanced custom wraps in aftertext.
+
+aftertext
+ Some !simple! and *advanced* usages.
+ An #absolute link# and @@@a relative link@@@.
+ Show some ++added text++ or some --deleted text--.
+ wrap ! em
+ wrap * b
+ wrap # https://example.com
+ wrap @@@ a href="potato.html"
+ wrap ++ span style="color:green"
+ wrap -- span style="color:red; text-decoration: line-through;"
+aboveAsCode
+
 section 24.5.0 6-10-2022
 list
  - 🎉 added `wrapsOn` keyword to aftertext.

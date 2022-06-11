@@ -3,6 +3,14 @@ tooling
  Related work
  CSS is great for text selector ideas: https://www.w3schools.com/cssref/css_selectors.asp
  Roff has a lot of related markup ideas: https://www.systutorials.com/docs/linux/man/7-groff_man/
+tagOrUrlCell
+ description An HTML tag or a url.
+ highlightScope constant.language
+delimiterCell
+ description String to use as a delimiter.
+ highlightScope string
+htmlAttributesCell
+ highlightScope comment
 classNameCell
  highlightScope constant
 htmlIdCell
@@ -542,17 +550,40 @@ wrapsNode
    return true
   }
   getMatches(text) {
-   return [this.runPattern(text, /\`[^\`]+\`/g, "<code>", "</code>"), this.runPattern(text, /\*[^\*]+\*/g, "<strong>", "</strong>"), this.runPattern(text, /\_[^\_]+\_/g, "<em>", "</em>")].filter(i => i).flat()
+   return [this.runPattern(text, "`", "code"), this.runPattern(text, "*", "strong"), this.runPattern(text, "_", "em")].filter(i => i).flat()
   }
-  runPattern(text, pattern, openTag, closeTag) {
+  runPattern(text, delimiter, tag, attributes = "") {
+   const escapedDelimiter = delimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+   const pattern = new RegExp(`${escapedDelimiter}[^${escapedDelimiter}]+${escapedDelimiter}`, "g")
+   const delimiterLength = delimiter.length
    return [...text.matchAll(pattern)].map(match => {
     const { index } = match
     const endIndex = index + match[0].length
     return [
-     { index, string: openTag, endIndex, consumeStartCharacters: 1 },
-     { index: endIndex, endIndex, string: closeTag, consumeEndCharacters: 1 }
+     { index, string: `<${tag + (attributes ? " " + attributes : "")}>`, endIndex, consumeStartCharacters: delimiterLength },
+     { index: endIndex, endIndex, string: `</${tag}>`, consumeEndCharacters: delimiterLength }
     ]
    })
+  }
+wrapNode
+ crux wrap
+ cells keywordCell delimiterCell tagOrUrlCell
+ catchAllCellType htmlAttributesCell
+ extends wrapsNode
+ description Define a custom wrap, for example "wrap _ em" would support: _italics_.
+ javascript
+  getMatches(text) {
+   try {
+    const delimiter = this.getWord(1)
+    const tag = this.getWord(2)
+    const attributes = this.getWordsFrom(3).join(" ")
+    if (tag.startsWith("https:")) return this.runPattern(text, delimiter, "a", `href="${tag}"` + attributes)
+    return this.runPattern(text, delimiter, tag, attributes)
+   } catch (err) {
+    console.error(err)
+    return []
+   }
+   // Note: doubling up doesn't work because of the consumption characters.
   }
 datelineNode
  crux dateline
