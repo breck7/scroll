@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 24.7.0 6-13-2022
+list
+ - 🏥 fix when using Scroll programmatically image sizeOf check will use correct folder
+ - 🎉 add param to specify index/snippets page when using programmatically
+
 section 24.6.0 6-10-2022
 list
  - 🎉 added `wrap` keyword for advanced custom wraps in aftertext.

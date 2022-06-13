@@ -24,6 +24,13 @@ scrolldownNode
    this._permalink = permalink
    return this
   }
+  get folder() {
+   return this._folder || ""
+  }
+  setFolder(folder) {
+   this._folder = folder
+   return this
+  }
   compileATags(text) {
    // todo: a better place for these util functions? I stick them in here so the
    // grammar is all in one file for ease of use in TreeLanguageDesigner

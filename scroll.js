@@ -109,6 +109,8 @@ class Article {
 		this.sourceLink = sourceLink
 		this.filePath = filePath
 		this.filename = path.basename(filePath)
+		scrolldownProgram.setPermalink(this.permalink)
+		scrolldownProgram.setFolder(path.dirname(filePath))
 	}
 
 	save() {
@@ -168,7 +170,6 @@ class Article {
 
 	get htmlCode() {
 		const program = this.scrolldownProgram
-		program.setPermalink(this.permalink)
 		return program.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : "")
 	}
 
@@ -178,7 +179,6 @@ class Article {
 
 		const program = this.scrolldownProgram
 		const indexOfBreak = snippetBreakNode.getIndex()
-		program.setPermalink(this.permalink)
 		return program.map((child, index) => (index >= indexOfBreak ? "" : child.compile())).join(program._getChildJoinCharacter()) + `<a class="scrollContinueReadingLink" href="${this.permalink}.html">Full article...</a>`
 	}
 
@@ -632,30 +632,25 @@ class ScrollFolder {
 		return pages
 	}
 
-	_cachedIndexPage = ""
-	buildIndexPage() {
-		if (this.articlesToIncludeInIndex.length === 0) return this.log(`Skipping build of 'index.html' because no articles to include.`)
-		const html = this.indexPage.toHtml()
-		if (this._cachedIndexPage !== html) {
+	_cachedPages = {}
+	_buildCollectionPage(filename, articles, page) {
+		if (articles.length === 0) return this.log(`Skipping build of '${filename}' because no articles to include.`)
+		const html = page.toHtml()
+		if (this._cachedPages[filename] !== html) {
 			const start = Date.now()
-			write(this.scrollFolder + "/index.html", html)
-			this._cachedIndexPage = html
-			this.log(`Built and wrote new index.html to disk in ${(Date.now() - start) / 1000} seconds`)
+			write(this.scrollFolder + "/" + filename, html)
+			this._cachedPages[filename] = html
+			this.log(`Built and wrote new ${filename} to disk in ${(Date.now() - start) / 1000} seconds`)
 		}
 		return html
 	}
 
-	_cachedSnippetsPage = ""
-	buildSnippetsPage() {
-		if (this.articlesToIncludeInIndex.length === 0) return this.log(`Skipping build of 'snippets.html' because no articles to include.`)
-		const html = new ScrollSnippetsPage(this).toHtml()
-		if (this._cachedSnippetsPage !== html) {
-			const start = Date.now()
-			write(this.scrollFolder + "/snippets.html", html)
-			this._cachedSnippetsPage = html
-			this.log(`Built and wrote new snippets.html to disk in ${(Date.now() - start) / 1000} seconds`)
-		}
-		return html
+	buildIndexPage(filename = "index.html") {
+		return this._buildCollectionPage(filename, this.articlesToIncludeInIndex, this.indexPage)
+	}
+
+	buildSnippetsPage(filename = "snippets.html") {
+		return this._buildCollectionPage(filename, this.articlesToIncludeInIndex, new ScrollSnippetsPage(this))
 	}
 
 	buildAll() {

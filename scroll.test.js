@@ -150,7 +150,10 @@ testTree.errorStates = async areEqual => {
 
 		const folder = new ScrollFolder(tempFolder).silence()
 		const singleFile = folder.buildIndexPage()
+
+		// Assert
 		areEqual(singleFile.includes(testString), true)
+		areEqual(folder.shouldBuildSnippetsPage, false)
 
 		// Act
 		const singlePages = folder.buildSinglePages()
@@ -183,16 +186,24 @@ ${scrollKeywords.footer}
  div CustomFooter`,
 			"utf8"
 		)
-		fs.writeFileSync(tempFolder + "hello.scroll", `${scrollKeywords.title} hello world`, "utf8")
+		fs.writeFileSync(
+			tempFolder + "hello.scroll",
+			`${scrollKeywords.title} hello world
+endSnippet`,
+			"utf8"
+		)
 
 		// Act
 		const folder = new ScrollFolder(tempFolder).silence()
 		const singleFile = folder.buildIndexPage()
+		const customSnippetsPageName = "foobar.html"
+		const snippetsPage = folder.buildSnippetsPage(customSnippetsPageName)
 
 		// Assert
 		areEqual(singleFile.includes("CustomHeader"), true)
 		areEqual(singleFile.includes("CustomFooter"), true)
-		areEqual(folder.shouldBuildSnippetsPage, false)
+		areEqual(folder.shouldBuildSnippetsPage, true)
+		areEqual(fs.existsSync(tempFolder + customSnippetsPageName), true)
 	} catch (err) {
 		console.log(err)
 	}
