@@ -182,7 +182,12 @@ class Article {
 
 		const program = this.scrolldownProgram
 		const indexOfBreak = snippetBreakNode.getIndex()
-		return program.map((child, index) => (index >= indexOfBreak ? "" : child.compile())).join(program._getChildJoinCharacter()) + `<a class="scrollContinueReadingLink" href="${this.permalink}.html">Full article...</a>`
+		return (
+			program
+				.map((child, index) => (index >= indexOfBreak ? "" : child.compile()))
+				.filter(i => i)
+				.join(program._getChildJoinCharacter()) + `<a class="scrollContinueReadingLink" href="${this.permalink}.html">Full article...</a>`
+		)
 	}
 
 	get snippetBreakNode() {
