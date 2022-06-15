@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 24.9.0 6-15-2022
+list
+ - 🎉 added "css" setting. Set `css split` to write CSS to `scroll.css` instead of inline, or `css none` to not generate CSS.
+ - 🏥 removed extra blank lines in snippets.html generation
+
 section 24.8.0 6-15-2022
 list
  - 🎉 if "baseUrl" is set building will also generate an RSS "feed.xml"
