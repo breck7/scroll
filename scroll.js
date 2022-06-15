@@ -81,7 +81,8 @@ const scrollKeywords = {
 const settingsKeywords = {
 	ignoreGrammarFiles: "ignoreGrammarFiles",
 	git: "git",
-	scrollVersion: "scrollVersion"
+	scrollVersion: "scrollVersion",
+	baseUrl: "baseUrl"
 }
 
 const defaultSettings = {
@@ -104,11 +105,12 @@ const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + S
 const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.icons")).toObject()
 
 class Article {
-	constructor(scrolldownProgram, filePath, sourceLink) {
+	constructor(scrolldownProgram, filePath, sourceLink, baseUrl) {
 		this.scrolldownProgram = scrolldownProgram
 		this.sourceLink = sourceLink
 		this.filePath = filePath
 		this.filename = path.basename(filePath)
+		this.baseUrl = baseUrl
 		scrolldownProgram.setPermalink(this.permalink)
 		scrolldownProgram.setFolder(path.dirname(filePath))
 	}
@@ -120,6 +122,7 @@ class Article {
 	sourceLink = ""
 	filename = ""
 	filePath = ""
+	baseUrl = ""
 
 	get permalink() {
 		return this.scrolldownProgram.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
@@ -184,6 +187,14 @@ class Article {
 
 	get snippetBreakNode() {
 		return this.scrolldownProgram.getNode(scrollKeywords.endSnippet)
+	}
+
+	toRss() {
+		const { title, permalink, baseUrl } = this
+		return ` <item>
+  <title>${title}</title>
+  <link>${baseUrl + permalink}</link>
+ </item>`
 	}
 }
 
@@ -476,6 +487,26 @@ const getCompiler = filePaths => {
 	return compiler
 }
 
+class ScrollRssFeed {
+	constructor(scroll) {
+		this.scroll = scroll
+	}
+
+	toXml() {
+		const { title, baseUrl, description } = this.scroll.settings
+		return `<?xml version="1.0" encoding="ISO-8859-1" ?>
+<rss version="0.91">
+<channel>
+ <title>${title}</title>
+ <link>${baseUrl}</link>
+ <description>${description}</description>
+ <language>en-us</language>
+${this.scroll.articlesToIncludeInIndex.map(article => article.toRss()).join("\n")}
+</channel>
+</rss>`
+	}
+}
+
 class ScrollFolder {
 	constructor(scrollFolder = __dirname) {
 		this.scrollFolder = path.normalize(scrollFolder + "/")
@@ -502,7 +533,7 @@ class ScrollFolder {
 		const { gitLink, scrolldownCompiler, scrollFolder } = this
 		const all = Disk.getFiles(scrollFolder)
 			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-			.map(filename => new Article(new scrolldownCompiler(read(filename)), filename, gitLink ? gitLink + path.basename(filename) : ""))
+			.map(filename => new Article(new scrolldownCompiler(read(filename)), filename, gitLink ? gitLink + path.basename(filename) : "", this.settings.baseUrl))
 		return lodash.sortBy(all, article => article.timestamp).reverse()
 	}
 
@@ -653,10 +684,15 @@ class ScrollFolder {
 		return this._buildCollectionPage(filename, this.articlesToIncludeInIndex, new ScrollSnippetsPage(this))
 	}
 
+	buildRssFeed(filename = "feed.xml") {
+		return write(this.scrollFolder + "/" + filename, new ScrollRssFeed(this).toXml())
+	}
+
 	buildAll() {
 		this.buildIndexPage()
 		this.buildSinglePages()
 		if (this.shouldBuildSnippetsPage) this.buildSnippetsPage()
+		if (this.settings[settingsKeywords.baseUrl]) this.buildRssFeed()
 	}
 
 	get shouldBuildSnippetsPage() {

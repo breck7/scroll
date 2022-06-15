@@ -18,3 +18,4 @@ importExamples/
 
 # Do not check in HTML files
 *.html
+feed.xml

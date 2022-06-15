@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 24.8.0 6-15-2022
+list
+ - 🎉 if "baseUrl" is set building will also generate an RSS "feed.xml"
+
 section 24.7.0 6-13-2022
 list
  - 🏥 fix when using Scroll programmatically image sizeOf check will use correct folder
