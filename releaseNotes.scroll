@@ -1,8 +1,12 @@
-title Release Notes
+title Scroll Release Notes
 skipIndexPage
 
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
+
+section 25.0.0 6-15-2022
+list
+ - ⚠️ on single article pages, the header will now span across all columns.
 
 section 24.9.0 6-15-2022
 list

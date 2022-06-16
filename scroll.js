@@ -59,7 +59,8 @@ const cssClasses = {
 	scrollIndexPageComponent: "scrollIndexPageComponent",
 	scrollIndexPageArticleContainerComponent: "scrollIndexPageArticleContainerComponent",
 	scrollArticleSourceLinkComponent: "scrollArticleSourceLinkComponent",
-	scrollArticlePageComponent: "scrollArticlePageComponent"
+	scrollArticlePageComponent: "scrollArticlePageComponent",
+	scrollSingleArticleTitle: "scrollSingleArticleTitle"
 }
 
 const scrollKeywords = {
@@ -444,7 +445,11 @@ class ScrollArticlePage extends AbstractScrollPage {
 	}
 
 	get pageCode() {
-		return `div
+		return `h1
+ class ${cssClasses.scrollSingleArticleTitle}
+ a ${this.ogTitle}
+  href ${this.article.permalink}.html
+div
  class ${cssClasses.scrollArticlePageComponent}
  style ${this.cssColumnWorkaround}
  bern

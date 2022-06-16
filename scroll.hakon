@@ -66,6 +66,16 @@ comment Column rules not needed on single articles
 .scrollArticlePageComponent
  column-rule none
  padding-top 8px
+ .scrollTitleComponent
+  comment Hide the title since we will display it up top.
+  display none
+.scrollSingleArticleTitle
+ text-align center
+ margin-top 8px
+ margin-bottom 8px
+ a
+  text-decoration none
+  color #000
 
 comment On the index page add some spacing around articles
 .scrollIndexPageArticleContainerComponent
