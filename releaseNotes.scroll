@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 25.1.0 6-19-2022
+list
+ - 🎉 if scroll has an rss feed add a <link> tag to built pages
+
 section 25.0.0 6-15-2022
 list
  - ⚠️ on single article pages, the header will now span across all columns.

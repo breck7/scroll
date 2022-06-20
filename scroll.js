@@ -20,7 +20,7 @@ const stump = require("jtree/products/stump.nodejs.js")
 const read = filename => fs.readFileSync(filename, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.
 const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
 const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
-const cleanAndRightShift = (str, numSpaces) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
+const removeReturnCharsAndRightShift = (str, numSpaces) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
 const unsafeStripHtml = html => html.replace(/<[^>]*>?/gm, "")
 
 // Constants
@@ -217,7 +217,7 @@ class RssImporter {
 		const scrollFile = `${scrollKeywords.title} ${title}
 ${date}
 ${scrollKeywords.paragraph}
- ${cleanAndRightShift(content, 1)}
+ ${removeReturnCharsAndRightShift(content, 1)}
 `
 		write(destinationFolder + "/" + Utils.stringToPermalink(title) + ".scroll", scrollFile)
 	}
@@ -350,7 +350,16 @@ class AbstractScrollPage {
 
 		return `styleTag
    bern
-    ${cleanAndRightShift(SCROLL_CSS, 4)}`
+    ${removeReturnCharsAndRightShift(SCROLL_CSS, 4)}`
+	}
+
+	get rssTag() {
+		if (!this.scroll.rssFeedUrl) return ""
+		return `link
+ rel alternate
+ type application/rss+xml
+ title ${this.scrollSettings.title}
+ href ${this.scroll.rssFeedUrl}`
 	}
 
 	get stumpCode() {
@@ -378,14 +387,15 @@ class AbstractScrollPage {
   meta
    property og:image
    content ${this.ogImage ? this.baseUrl + this.ogImage : ""}
+  ${removeReturnCharsAndRightShift(this.rssTag, 2)}
   meta
    name twitter:card
    content summary_large_image
   ${this.styleCode}
  body
-  ${cleanAndRightShift(this.header, 2)}
-  ${cleanAndRightShift(this.pageCode, 2)}
-  ${cleanAndRightShift(this.footer, 2)}`
+  ${removeReturnCharsAndRightShift(this.header, 2)}
+  ${removeReturnCharsAndRightShift(this.pageCode, 2)}
+  ${removeReturnCharsAndRightShift(this.footer, 2)}`
 	}
 
 	get ogTitle() {
@@ -453,7 +463,7 @@ div
  class ${cssClasses.scrollArticlePageComponent}
  style ${this.cssColumnWorkaround}
  bern
-  ${cleanAndRightShift(this.article.htmlCode, 2)}`
+  ${removeReturnCharsAndRightShift(this.article.htmlCode, 2)}`
 	}
 
 	get estimatedLines() {
@@ -486,7 +496,7 @@ class ScrollIndexPage extends AbstractScrollPage {
 		return `div
  class ${cssClasses.scrollIndexPageComponent}
  style column-width:${this.columnWidth}ch;
- ${cleanAndRightShift(articles, 1)}`
+ ${removeReturnCharsAndRightShift(articles, 1)}`
 	}
 
 	getArticleHtml(article) {
@@ -707,7 +717,16 @@ class ScrollFolder {
 		return this._buildCollectionPage(filename, this.articlesToIncludeInIndex, new ScrollSnippetsPage(this))
 	}
 
-	buildRssFeed(filename = "feed.xml") {
+	get rssFilename() {
+		return "feed.xml"
+	}
+
+	get rssFeedUrl() {
+		const baseUrl = this.settings[settingsKeywords.baseUrl]
+		return baseUrl ? baseUrl + this.rssFilename : ""
+	}
+
+	buildRssFeed(filename = this.rssFilename) {
 		return write(this.scrollFolder + "/" + filename, new ScrollRssFeed(this).toXml())
 	}
 
