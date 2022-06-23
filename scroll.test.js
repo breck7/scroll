@@ -169,7 +169,7 @@ testTree.errorStates = async areEqual => {
 	} catch (err) {
 		console.log(err)
 	}
-	fs.rmdirSync(tempFolder, { recursive: true })
+	fs.rmSync(tempFolder, { recursive: true })
 }
 
 testTree.kitchenSink = async areEqual => {
@@ -207,7 +207,7 @@ endSnippet`,
 	} catch (err) {
 		console.log(err)
 	}
-	fs.rmdirSync(tempFolder, { recursive: true })
+	fs.rmSync(tempFolder, { recursive: true })
 }
 
 // FS tests:

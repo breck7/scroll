@@ -29,6 +29,16 @@ titleNode
   compile() {
    return `<h1 class="scrollTitleComponent"><a href="${this.getRootNode().permalink}.html">${this.getContent()}</a></h1>`
   }
+htmlTitleNode
+ catchAllCellType textCell
+ crux htmlTitle
+ description Use this to override the automatic HTML <title> generation.
+ extends abstractTopLevelSingleMetaNode
+sourceLinkNode
+ catchAllCellType urlCell
+ crux sourceLink
+ description Use this to override the link to the source code for a scroll file.
+ extends abstractTopLevelSingleMetaNode
 dateNode
  catchAllCellType dateCell
  description Date the article was first published.

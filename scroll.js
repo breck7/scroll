@@ -65,6 +65,8 @@ const cssClasses = {
 
 const scrollKeywords = {
 	title: "title",
+	htmlTitle: "htmlTitle",
+	sourceLink: "sourceLink",
 	permalink: "permalink",
 	paragraph: "paragraph",
 	image: "image",
@@ -109,7 +111,7 @@ const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.icons")).toOb
 class Article {
 	constructor(scrolldownProgram, filePath, sourceLink, baseUrl) {
 		this.scrolldownProgram = scrolldownProgram
-		this.sourceLink = sourceLink
+		this._sourceLink = sourceLink
 		this.filePath = filePath
 		this.filename = path.basename(filePath)
 		this.baseUrl = baseUrl
@@ -121,7 +123,7 @@ class Article {
 		write(`${this.filePath}`, this.scrolldownProgram.toString())
 	}
 
-	sourceLink = ""
+	_sourceLink = ""
 	filename = ""
 	filePath = ""
 	baseUrl = ""
@@ -159,6 +161,14 @@ class Article {
 
 	get title() {
 		return this.scrolldownProgram.get(scrollKeywords.title) ?? ""
+	}
+
+	get htmlTitle() {
+		return this.scrolldownProgram.get(scrollKeywords.htmlTitle)
+	}
+
+	get sourceLink() {
+		return this.scrolldownProgram.get(scrollKeywords.sourceLink) || this._sourceLink
 	}
 
 	get timestamp() {
@@ -450,6 +460,8 @@ class ScrollArticlePage extends AbstractScrollPage {
 	}
 
 	get htmlTitle() {
+		if (this.article.htmlTitle) return this.article.htmlTitle
+
 		const { title } = this.article
 		return (title ? `${title} - ` : "") + this.scrollSettings.title
 	}
