@@ -210,7 +210,7 @@ class Article {
 		const { title, permalink, baseUrl } = this
 		return ` <item>
   <title>${title}</title>
-  <link>${baseUrl + permalink}</link>
+  <link>${baseUrl + permalink}.html</link>
  </item>`
 	}
 }
