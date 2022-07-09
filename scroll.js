@@ -645,25 +645,29 @@ class ScrollFolder {
 			return [node.childrenToString().replace(/(^|\s)(\S+)🔗(\S+)(?=(\s|$))/g, linkReplacer), linksToAdd]
 		}
 
+		const updateParagraph = node => {
+			const results = replaceEmojiLinksWithAftertextLinks(node)
+			node.setChildren(results[0])
+			results[1].forEach(link => {
+				node.appendLine(`link ${link[0]} ${link[1]}`)
+			})
+			node.setWord(0, "aftertext")
+		}
+
 		if (semver.lt(fromVersion, "24.0.0")) {
 			// Articles that have a date, a paragraph, and no dateline added yet need one
 			console.log(`🚚 Applying 24.0.0 migrations`)
-			this.allArticles
-				.filter(article => {
-					const content = article.scrolldownProgram
-					return content.has("date") && content.has("paragraph") && content.findNodes("aftertext dateline").length === 0
-				})
-				.forEach(article => {
-					const firstParagraph = article.scrolldownProgram.findNodes("paragraph")[0]
-					const results = replaceEmojiLinksWithAftertextLinks(firstParagraph)
-					firstParagraph.setChildren(results[0])
-					results[1].forEach(link => {
-						firstParagraph.appendLine(`link ${link[0]} ${link[1]}`)
-					})
-					firstParagraph.setWord(0, "aftertext")
+			this.allArticles.forEach(article => {
+				const content = article.scrolldownProgram
+				const ps = content.findNodes("paragraph")
+				if (content.has("date") && content.has("paragraph") && content.findNodes("aftertext dateline").length === 0) {
+					const firstParagraph = ps.shift()
+					updateParagraph(firstParagraph)
 					firstParagraph.appendLine("dateline")
-					article.save()
-				})
+				}
+				ps.forEach(updateParagraph)
+				article.save()
+			})
 		}
 
 		return this
