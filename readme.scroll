@@ -25,7 +25,7 @@ aftertext
  The basics of Scrolldown are even simpler than Markdown. For example, the keyword for title is title.
  italics the keyword for title is title
 
-paragraph
+aftertext
  You can stick to the basics or easily define new keywords to better fit your content and workflows. A simple indent is all you need to include sublanguages. No complex encoding needed.
 
 question How do I extend Scroll?
@@ -49,38 +49,43 @@ code
   step Heat oven to 350 degrees
   step Bake for 10 minutes
 
-paragraph
+aftertext
  Your grammar extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scrolldown let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.
 
-paragraph
+aftertext
  (Warning: the cookies above have not been tasted)
 
-paragraph
- For an extended example of extending Scroll check out this one🔗github.com/breck7/breckyunits.com/tree/main/markups which adds node types for Markdown, Textile, and BBCode.
+aftertext
+ For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
+ link https://github.com/breck7/breckyunits.com/tree/main/markups one
 
 question What kind of sites can I use Scroll to build?
 
-paragraph
+aftertext
  Scroll work great for blogs, collaborative databases, newspapers, intranets and other types of static sites as well.
 
 question How do I get Scroll?
 
-paragraph
- The instant way is to try Scroll in GitPod🔗gitpod.io/#https://github.com/publicdomaincompany/scroll.
+aftertext
+ The instant way is to try Scroll in GitPod.
+ link https://gitpod.io/#https://github.com/publicdomaincompany/scroll GitPod
 
-paragraph
+aftertext
  Scroll is a command line app you install on your local machine. Scroll requires basic familiarity with the command line
- and NodeJs🔗nodejs.org >=14. If you do not have NodeJs on your machine, one
- way is to install n🔗github.com/tj/n which makes it easy to get NodeJs.
+ and NodeJs >=14. If you do not have NodeJs on your machine, one
+ way is to install #n# which makes it easy to get NodeJs.
+ link https://nodejs.org NodeJs
+ wrap # https://github.com/tj/n
 
-paragraph
+aftertext
  If you would like to use Scroll but aren't familiar with the command
  line, please open an issue and we may be able to help.
 
-paragraph
- Once you have NodeJs installed you can install from GitHub or npm. Scroll is scroll-cli🔗www.npmjs.com/package/scroll-cli on npm.
+aftertext
+ Once you have NodeJs installed you can install from GitHub or npm. Scroll is scroll-cli on npm.
+ link https://www.npmjs.com/package/scroll-cli scroll-cli
 
-paragraph
+aftertext
  You can install from GitHub:
 
 code
@@ -88,7 +93,7 @@ code
  cd scroll
  npm install -g .
 
-paragraph
+aftertext
  Or you can install Scroll with npm by typing:
 
 code
@@ -96,7 +101,7 @@ code
 
 question How do I use Scroll?
 
-paragraph
+aftertext
  Scroll is a command line app. To see the commands type:
 
 code
@@ -110,8 +115,10 @@ aftertext
 
 question What are some example sites using Scroll?
 
-paragraph
- This page, BreckYunits.com🔗breckyunits.com and TreeDB🔗treebase.treenotation.org/treedb/.
+aftertext
+ This page, BreckYunits.com and TreeDB.
+ link https://breckyunits.com BreckYunits.com
+ link https://treebase.treenotation.org/treedb/ TreeDB
 
 question What does the name Scroll refer to?
 
@@ -121,16 +128,17 @@ aftertext
  italics A scroll
  code scroll.settings
 
-paragraph
+aftertext
  Scroll is also the name of the command line app that includes a
  simple fs watch app for live preview.
 
-paragraph
- Scrolldown is the name of a Tree Language defined in this grammar🔗github.com/publicdomaincompany/scroll/blob/main/scrolldown.grammar.
+aftertext
+ Scrolldown is the name of a Tree Language defined in this grammar.
+ link https://github.com/publicdomaincompany/scroll/blob/main/scrolldown.grammar grammar
 
 question What does a typical project folder look like?
 
-paragraph
+aftertext
  A typical Scroll project folder, excluding the html files
  built by Scroll, looks like this:
 
@@ -156,7 +164,7 @@ aftertext
  
 question How do I save drafts?
 
-paragraph
+aftertext
  Have a draft scroll next to your published scroll. For example:
 
 code
@@ -175,25 +183,27 @@ aftertext
 
 question What language is Scroll written in?
 
-paragraph
+aftertext
  The Scroll CLI app is written in plain Javascript and
  runs in Node.js. Scroll makes heavy use of Tree Languages. The CSS is
- written in Hakon🔗jtree.treenotation.org/designer/#standard%20hakon.
- The HTML is written in stump🔗jtree.treenotation.org/designer/#standard%20stump.
+ written in Hakon.
+ The HTML is written in stump.
+ link https://jtree.treenotation.org/designer/#standard%20hakon Hakon
+ link https://jtree.treenotation.org/designer/#standard%20stump stump
 
-paragraph
+aftertext
  TypeScript may be used in the future but Scroll may
  never get over 1kloc so that might not be necessary.
 
 question How does versioning of articles work?
 
-paragraph
+aftertext
  Scroll is designed for git. A single article is stored as
  a single file tracked by git.
 
 question Is Scroll public domain?
 
-paragraph
+aftertext
  Yes! Scroll is also 100% focused on helping people build internal or <strong>public domain sites</strong> and everything is designed with that assumption.
 
 question Why does the default theme have a single page layout?
@@ -202,23 +212,23 @@ aftertext
  The default Scroll theme is designed to make it easier for syntopic reading. Being able to scan the page like a newspaper. This allows you to read at a higher level—to "get in the author's head"—compared to reading one article at a time from beginning to end.
  bold syntopic reading
 
-paragraph
+aftertext
  And if anyone prefers to read a scroll in a different way—they can! Scroll is for
  public domain sites. People are free to arrange the symbols any way they wish.
 
 question Will you make design decisions for non-public domain sites?
 
-paragraph
+aftertext
  No.
 
 question Can I use Scroll for internal private sites not intended for publishing?
 
-paragraph
+aftertext
  Yes!
 
 question In the single page layout why don't you have only the newest articles above the fold?
 
-paragraph
+aftertext
  This was originally a bug. But then it turns out to be a feature, as it
  gives older articles, which are often more important, more visibility.
 
@@ -230,14 +240,14 @@ aftertext
 
 question What's an easy way to have GitHub run Scroll and build my HTML files automatically?
 
-paragraph
+aftertext
  Go to your project folder and create the file below:
 
 code
  mkdir -p .github/workflows
  touch .github/workflows/buildAndDeployScroll.yaml
 
-paragraph
+aftertext
  Then open that file and paste in this code:
 
 code
@@ -273,8 +283,9 @@ aftertext
 
 question How do I check for broken links?
 
-paragraph
- Scroll does not check for broken links. For that, try linkinator🔗github.com/JustinBeckwith/linkinator.
+aftertext
+ Scroll does not check for broken links. For that, try linkinator.
+ link https://github.com/JustinBeckwith/linkinator linkinator
 
 code
  # npm install -g linkinator
@@ -282,8 +293,9 @@ code
 
 question How do I check browser performance?
 
-paragraph
- Scroll does not have browser perf tools built in. For that, try lighthouse🔗github.com/GoogleChrome/lighthouse.
+aftertext
+ Scroll does not have browser perf tools built in. For that, try lighthouse.
+ link https://github.com/GoogleChrome/lighthouse lighthouse
 
 code
  # npm install -g lighthouse
@@ -303,7 +315,7 @@ aftertext
 
 question How can I deploy my site?
 
-paragraph
+aftertext
  If you have your own web server try rsync. Here's a bash one liner:
 
 code
@@ -311,8 +323,9 @@ code
  # swap "/var/www/html" with the path to your website's location on your web server
  rsync -vr /[path/to/your/site]/* [yourdomain.com]:/var/www/html
 
-paragraph
- Add a section🔗unix.stackexchange.com/questions/494483/specifying-an-identityfile-with-ssh like the one below to your ~.ssh/config to save your username and correct key pair.
+aftertext
+ Add a section like the one below to your ~.ssh/config to save your username and correct key pair.
+ link https://unix.stackexchange.com/questions/494483/specifying-an-identityfile-with-ssh section
 
 code
  Host example.com
@@ -322,8 +335,9 @@ code
 
 question How can I output my Scroll to an EPUB file?
 
-paragraph
- Pandoc is one way to do it. If you are on a Mac and have Homebrew🔗brew.sh installed:
+aftertext
+ Pandoc is one way to do it. If you are on a Mac and have Homebrew installed:
+ link https://brew.sh Homebrew
 
 code
  brew install pandoc
@@ -331,8 +345,9 @@ code
 
 question How can I track web traffic?
 
-paragraph
- Scroll emits HTML with zero Javascript and does not have any tracking or cookies. If you are using a web server like Nginx you might have some access logs on your server. The one liner below uses GoAccess🔗goaccess.io to summarize recent Nginx access logs.
+aftertext
+ Scroll emits HTML with zero Javascript and does not have any tracking or cookies. If you are using a web server like Nginx you might have some access logs on your server. The one liner below uses GoAccess to summarize recent Nginx access logs.
+ link https://goaccess.io GoAccess
 
 code
  # apt-get install goaccess
@@ -349,35 +364,39 @@ aftertext
 
 question Does Scroll support themes?
 
-paragraph
+aftertext
  Yes! Scroll includes a simple API for changing the style of your site. This is an active area of development so please reach out if you'd like to customize the look of your Scroll.
 
 question How can I build a scroll from a Twitter account?
 
-paragraph
- Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets JSON into scroll files. Or to experiment faster use this tool🔗www.vicinitas.io/free-tools/download-user-tweets to grab some tweets as a TSV.
+aftertext
+ Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets JSON into scroll files. Or to experiment faster use this tool to grab some tweets as a TSV.
+ link https://www.vicinitas.io/free-tools/download-user-tweets tool
 
 question What were some alternatives considered?
 
-paragraph
+aftertext
  There was no publishing software that reads and writes Scrolldown yet
- so building Scroll was necessary. Jekyll🔗jekyllrb.com
- and Brecksblog🔗github.com/breck7/brecksblog were the two
+ so building Scroll was necessary. Jekyll
+ and Brecksblog were the two
  biggest inspirations.
+ link https://jekyllrb.com Jekyll
+ link https://github.com/breck7/brecksblog Brecksblog
 
 question What has changed in recent versions?
 
-paragraph
- View the releaseNotes🔗./releaseNotes.html.
+aftertext
+ View the releaseNotes.
+ link releaseNotes.html releaseNotes
 
 section Contributing to Scroll development
 
 question How do I contribute?
 
-paragraph
+aftertext
  File issues. Share your Scroll sites.
 
-paragraph
+aftertext
  You can submit pull requests too. The shorter the better.
 
 question How do I debug node.js performance?
@@ -390,7 +409,7 @@ code
 
 question How is a keyword different than a web components?
 
-paragraph
+aftertext
  Scrolldown and Web Components are similar in that both empower users to define their own reusable components. But Scrolldown is higher level than web components. For example, in addition to easily targetting HTML and web components, Scrolldown also plays really nicely with version control and 2D editors. Scrolldown encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
 
 question How do I build and format the combined Scrolldown Grammar file?
@@ -400,6 +419,7 @@ code
 
 question How do I run cross browser tests?
 
-paragraph
- For that we use BrowserStack🔗browserstack.com.
+aftertext
+ For that we use BrowserStack.
+ link https://browserstack.com BrowserStack
 
