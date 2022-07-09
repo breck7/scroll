@@ -1,0 +1,22 @@
+anyCell
+urlCell
+ highlightScope constant.language
+keywordCell
+ highlightScope keyword
+textCell
+ highlightScope string
+errorNode
+ baseNodeType errorNode
+idCell
+ highlightScope string
+abstractScrollNode
+ abstract
+ cells keywordCell
+blankCell
+blankLineNode
+ description Blank lines compile to nothing in the HTML.
+ cells blankCell
+ compiler
+  stringTemplate 
+ pattern ^$
+ tags doNotSynthesize

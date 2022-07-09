@@ -21,6 +21,12 @@ integerCell
  highlightScope constant.numeric
 permalinkCell
  highlightScope string
+codeCell
+ highlightScope comment
+commentCell
+ highlightScope comment
+bulletPointCell
+ highlightScope keyword
 anyCell
 urlCell
  highlightScope constant.language
@@ -31,12 +37,6 @@ textCell
 idCell
  highlightScope string
 blankCell
-codeCell
- highlightScope comment
-commentCell
- highlightScope comment
-bulletPointCell
- highlightScope keyword
 aftertextTextNode
  catchAllCellType textCell
  boolean isTextNode true
@@ -649,14 +649,64 @@ linkNoteNode
  baseNodeType blobNode
  compiler
   stringTemplate 
+catchAllParagraphNode
+ description A catch all block. This may be removed in future versions.
+ catchAllCellType textCell
+ baseNodeType errorNode
+ compiler
+  stringTemplate <p class="scrollParagraphComponent">{textCell}</p>
+chatLineNode
+ catchAllCellType anyCell
+ catchAllNodeType chatLineNode
+lineOfCodeNode
+ catchAllCellType codeCell
+ catchAllNodeType lineOfCodeNode
+commentLineNode
+ catchAllCellType commentCell
+cssLineNode
+ catchAllCellType anyCell
+ catchAllNodeType cssLineNode
+multilineTitleNode
+ catchAllCellType textCell
+htmlLineNode
+ catchAllCellType anyCell
+ catchAllNodeType htmlLineNode
+imageCaptionNode
+ description An optional caption to accompany the image.
+ crux caption
+ cells keywordCell
+ catchAllCellType textCell
+stumpNode
+ description Stump is a Tree Language that compiles to HTML.
+ catchAllCellType anyCell
+ catchAllNodeType stumpNode
+listItemNode
+ cells bulletPointCell
+ catchAllCellType textCell
+ javascript
+  compile() {
+   return `<li>${this.getRootNode().compileATags(this.getContent() || "")}</li>`
+  }
+paragraphContentNode
+ catchAllCellType textCell
 errorNode
  baseNodeType errorNode
+blankLineNode
+ description Blank lines compile to nothing in the HTML.
+ cells blankCell
+ compiler
+  stringTemplate 
+ pattern ^$
+ tags doNotSynthesize
+quoteLineNode
+ catchAllCellType anyCell
+ catchAllNodeType quoteLineNode
 scrolldownNode
  extensions scroll
  description A simple language for structurable thought. An extensible alternative to Markdown. Compiles to HTML.
  root
  inScope abstractScrollNode blankLineNode
- catchAllNodeType quickParagraphNode
+ catchAllNodeType catchAllParagraphNode
  compilesTo html
  javascript
   get permalink() {
@@ -702,56 +752,6 @@ scrolldownNode
   code
    // You can add code as well.
    print("Hello world")
-blankLineNode
- description Blank lines compile to nothing in the HTML.
- cells blankCell
- compiler
-  stringTemplate 
- pattern ^$
- tags doNotSynthesize
-quickParagraphNode
- description A catch all block. This may be removed in future versions.
- catchAllCellType textCell
- baseNodeType errorNode
- compiler
-  stringTemplate <p class="scrollParagraphComponent">{textCell}</p>
-chatLineNode
- catchAllCellType anyCell
- catchAllNodeType chatLineNode
-lineOfCodeNode
- catchAllCellType codeCell
- catchAllNodeType lineOfCodeNode
-commentLineNode
- catchAllCellType commentCell
-cssLineNode
- catchAllCellType anyCell
- catchAllNodeType cssLineNode
-multilineTitleNode
- catchAllCellType textCell
-htmlLineNode
- catchAllCellType anyCell
- catchAllNodeType htmlLineNode
-imageCaptionNode
- description An optional caption to accompany the image.
- crux caption
- cells keywordCell
- catchAllCellType textCell
-stumpNode
- description Stump is a Tree Language that compiles to HTML.
- catchAllCellType anyCell
- catchAllNodeType stumpNode
-listItemNode
- cells bulletPointCell
- catchAllCellType textCell
- javascript
-  compile() {
-   return `<li>${this.getRootNode().compileATags(this.getContent() || "")}</li>`
-  }
-paragraphContentNode
- catchAllCellType textCell
-quoteLineNode
- catchAllCellType anyCell
- catchAllNodeType quoteLineNode
 rowNode
  catchAllCellType textCell
  javascript

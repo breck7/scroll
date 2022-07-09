@@ -1,20 +1,9 @@
-anyCell
-urlCell
- highlightScope constant.language
-keywordCell
- highlightScope keyword
-textCell
- highlightScope string
-errorNode
- baseNodeType errorNode
-idCell
- highlightScope string
 scrolldownNode
  extensions scroll
  description A simple language for structurable thought. An extensible alternative to Markdown. Compiles to HTML.
  root
  inScope abstractScrollNode blankLineNode
- catchAllNodeType quickParagraphNode
+ catchAllNodeType catchAllParagraphNode
  compilesTo html
  javascript
   get permalink() {
@@ -60,20 +49,3 @@ scrolldownNode
   code
    // You can add code as well.
    print("Hello world")
-abstractScrollNode
- abstract
- cells keywordCell
-blankCell
-blankLineNode
- description Blank lines compile to nothing in the HTML.
- cells blankCell
- compiler
-  stringTemplate 
- pattern ^$
- tags doNotSynthesize
-quickParagraphNode
- description A catch all block. This may be removed in future versions.
- catchAllCellType textCell
- baseNodeType errorNode
- compiler
-  stringTemplate <p class="scrollParagraphComponent">{textCell}</p>
