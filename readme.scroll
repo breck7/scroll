@@ -1,4 +1,4 @@
-title 📜 Scroll: the extensible alternative to Markdown.
+title 📜 Scroll: an extensible alternative to Markdown.
 permalink index
 
 html
@@ -72,10 +72,10 @@ aftertext
 
 aftertext
  Scroll is a command line app you install on your local machine. Scroll requires basic familiarity with the command line
- and NodeJs >=14. If you do not have NodeJs on your machine, one
- way is to install #n# which makes it easy to get NodeJs.
+ and NodeJs >=14. If you do not have NodeJs, Mac/Linux users can install NodeJs with #n# and Windows users can install NodeJs with Scoop.
  link https://nodejs.org NodeJs
  wrap # https://github.com/tj/n
+ https://scoop.sh/ Scoop
 
 aftertext
  If you would like to use Scroll but aren't familiar with the command

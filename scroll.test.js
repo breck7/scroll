@@ -4,7 +4,7 @@ const { jtree } = require("jtree")
 const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords } = require("./scroll.js")
 const Scrolldown = new jtree.HandGrammarProgram(fs.readFileSync(__dirname + "/" + SCROLLDOWN_GRAMMAR_FILENAME, "utf8")).compileAndReturnRootConstructor()
 
-const testString = "The extensible alternative to Markdown"
+const testString = "An extensible alternative to Markdown"
 const testPort = 5435
 
 // todo: 1) rss import tests 2) grammar errors test 4) scroll errors tests

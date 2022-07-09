@@ -1,7 +1,7 @@
 {
   "name": "scroll-cli",
   "version": "25.2.1",
-  "description": "The extensible alternative to Markdown.",
+  "description": "An extensible alternative to Markdown.",
   "main": "scroll.js",
   "engines": {
     "node": ">=14.0"
