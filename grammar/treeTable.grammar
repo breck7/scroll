@@ -23,7 +23,7 @@ treeRowNode
     }
     const content = node.length ? node.childrenToString() : node.getContent()
     let tagged = ""
-    const link = columns[col.linkIndex]
+    const link = this.get(col.name + "Link")
     if (col.linkIndex > -1 && link)
      tagged = `<a href="${link}">${content}</a>`
     else if (node.length)

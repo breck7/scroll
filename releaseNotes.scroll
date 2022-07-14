@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 25.3.1 7-14-2022
+list
+ - 🏥 fixed links in treeTable
+
 section 25.3.0 7-14-2022
 list
  - 🎉 added `treeTable`
