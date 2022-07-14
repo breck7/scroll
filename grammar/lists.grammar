@@ -3,7 +3,7 @@ bulletPointCell
 listNode
  description An unordered list.
  catchAllNodeType listItemNode
- crux list
+ cruxFromId
  extends abstractScrollNode
  compiler
   stringTemplate 
@@ -12,7 +12,7 @@ listNode
 orderedListNode
  description An ordered list.
  extends listNode
- crux orderedList
+ cruxFromId
  compiler
   stringTemplate 
   openChildren <ol class="scrollOrderedListComponent">

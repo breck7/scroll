@@ -2,7 +2,7 @@ paragraphNode
  description Prose content.
  catchAllNodeType paragraphContentNode
  extends abstractScrollNode
- crux paragraph
+ cruxFromId
  javascript
   get paragraphContent() {
     return this.childrenToString()

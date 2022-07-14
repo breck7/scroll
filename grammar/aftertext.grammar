@@ -10,7 +10,7 @@ aftertextNode
  extends abstractScrollNode
  catchAllNodeType aftertextTextNode
  inScope abstractAftertextDirectiveNode abstractAftertextAttributeNode
- crux aftertext
+ cruxFromId
  example
   aftertext
    Hello brave new world
@@ -105,10 +105,10 @@ abstractMarkupNode
  inScope abstractMarkupParameterNode
 abstractMarkupParameterNode
  cells keywordCell
+ cruxFromId
 matchAllNode
  description Use this to match all occurrences of the text.
  extends abstractMarkupParameterNode
- crux matchAll
 matchNode
  catchAllCellType integerCell
  description Use this to specify which index(es) to match.
@@ -120,9 +120,8 @@ matchNode
    bold ello
     match 0 2
  extends abstractMarkupParameterNode
- crux match
-wrapsNode
- crux wrapsOn
+wrapsOnNode
+ cruxFromId
  description Enable `code`, *bold*, and _italics_ rules.
  extends abstractAftertextDirectiveNode
  javascript
@@ -153,10 +152,10 @@ delimiterCell
 htmlAttributesCell
  highlightScope comment
 wrapNode
- crux wrap
+ cruxFromId
  cells keywordCell delimiterCell tagOrUrlCell
  catchAllCellType htmlAttributesCell
- extends wrapsNode
+ extends wrapsOnNode
  description Define a custom wrap, for example "wrap _ em" would support: _italics_.
  javascript
   getMatches(text) {
@@ -174,17 +173,17 @@ wrapNode
     // Note: doubling up doesn't work because of the consumption characters.
   }
 boldNode
- crux bold
+ cruxFromId
  extends abstractMarkupNode
  javascript
   tag = "b"
 italicsNode
- crux italics
+ cruxFromId
  extends abstractMarkupNode
  javascript
   tag = "i"
 underlineNode
- crux underline
+ cruxFromId
  extends abstractMarkupNode
  javascript
   tag = "u"
@@ -210,7 +209,7 @@ linkNode
  extends abstractMarkupNode
  cells keywordCell urlCell
  inScope linkNoteNode
- crux link
+ cruxFromId
  javascript
   tag = "a"
   get link() {
@@ -246,7 +245,7 @@ classMarkupNode
   }
 caveatNode
  description Add a caveat viewable on hover on matching text. When you want to be sure you've thoroughly addressed obvious concerns but ones that don't warrant to distract from the main argument of the text.
- crux caveat
+ cruxFromId
  extends classMarkupNode
  cells keywordCell
  javascript
@@ -279,7 +278,7 @@ quickLinkNode
     return this.getWordsFrom(1).join(" ")
   }
 strikethroughNode
- crux strikethrough
+ cruxFromId
  extends abstractMarkupNode
  javascript
   tag = "s"
@@ -292,7 +291,7 @@ aftertextIdNode
  cells keywordCell htmlIdCell
  single
 datelineNode
- crux dateline
+ cruxFromId
  description Gives your paragraph a dateline like "December 15, 2021 — The..."
  extends abstractAftertextDirectiveNode
  javascript
@@ -310,7 +309,7 @@ datelineNode
 loremIpsumNode
  extends aftertextNode
  description Generate dummy text.
- crux loremIpsum
+ cruxFromId
  catchAllCellType integerCell
  javascript
   get originalText() {

@@ -6,7 +6,7 @@ commentNode
  description Will not appear in the compiled HTML.
  catchAllCellType commentCell
  extends abstractScrollNode
- crux comment
+ cruxFromId
  javascript
   compile() {
    return ``

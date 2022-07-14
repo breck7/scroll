@@ -4,7 +4,7 @@ cssLineNode
 cssNode
  extends abstractScrollNode
  description Prints CSS content wrapped in a style tag.
- crux css
+ cruxFromId
  extends abstractScrollNode
  catchAllNodeType cssLineNode
  javascript

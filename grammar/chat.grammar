@@ -4,7 +4,7 @@ chatLineNode
 chatNode
  description A dialogue between two people.
  catchAllNodeType chatLineNode
- crux chat
+ cruxFromId
  extends abstractScrollNode
  javascript
   compile() {

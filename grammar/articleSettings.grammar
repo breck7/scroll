@@ -6,6 +6,7 @@ abstractTopLevelSingleMetaNode
  abstract
  description Use these keywords once per file.
  extends abstractScrollNode
+ cruxFromId
  cells keywordCell
  compiler
   stringTemplate 
@@ -13,48 +14,39 @@ permalinkCell
  highlightScope string
 permalinkNode
  description When compiling, Scroll will save this article to {permalink}.html
- crux permalink
  extends abstractTopLevelSingleMetaNode
  cells keywordCell permalinkCell
 skipIndexPageNode
  description Add this tag if you want to build a page but not include it in the index page.
- crux skipIndexPage
  extends abstractTopLevelSingleMetaNode
 titleNode
  catchAllCellType textCell
  description Title of the article.
  extends abstractTopLevelSingleMetaNode
- crux title
  javascript
   compile() {
    return `<h1 class="scrollTitleComponent"><a href="${this.getRootNode().permalink}.html">${this.getContent()}</a></h1>`
   }
 htmlTitleNode
  catchAllCellType textCell
- crux htmlTitle
  description Use this to override the automatic HTML <title> generation.
  extends abstractTopLevelSingleMetaNode
 sourceLinkNode
  catchAllCellType urlCell
- crux sourceLink
  description Use this to override the link to the source code for a scroll file.
  extends abstractTopLevelSingleMetaNode
 dateNode
  catchAllCellType dateCell
  description Date the article was first published.
  extends abstractTopLevelSingleMetaNode
- crux date
 maxColumnsNode
  catchAllCellType integerCell
  description Set your own max column count for a single article's generated HTML.
  extends abstractTopLevelSingleMetaNode
- crux maxColumns
 columnWidthNode
  catchAllCellType integerCell
  description Set your own column width, in ch units, for the generated HTML.
  extends abstractTopLevelSingleMetaNode
- crux columnWidth
 endSnippetNode
  description Insert one of these where you want to cut the article for the snippets.html page.
  extends abstractTopLevelSingleMetaNode
- crux endSnippet

@@ -1,4 +1,5 @@
 abstractTableNode
+ cruxFromId
  catchAllNodeType rowNode
  extends abstractScrollNode
  javascript
@@ -34,19 +35,16 @@ abstractTableNode
    return `<table class="scrollTableComponent"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody()}</tbody></table>`
   }
 commaTableNode
- crux commaTable
  description Comma separated values table.
  extends abstractTableNode
  javascript
   _delimiter = ","
 pipeTableNode
- crux pipeTable
- description Pipie separated values table.
+ description Pipe separated values table.
  extends abstractTableNode
  javascript
   _delimiter = "|"
 tabTableNode
- crux tabTable
  description Tab separated values table.
  extends abstractTableNode
  javascript
@@ -54,7 +52,6 @@ tabTableNode
 spaceTableNode
  description Space separated values table. Last column is a catch all.
  extends abstractTableNode
- crux spaceTable
 rowNode
  catchAllCellType textCell
  javascript

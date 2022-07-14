@@ -11,7 +11,7 @@ codeNode
   compile() {
    return `<code class="scrollCodeBlockComponent">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
   }
- crux code
+ cruxFromId
 codeWithLanguageNode
  description Use this to specify the language of the code block, such as csvCode or rustCode.
  extends codeNode
@@ -19,7 +19,7 @@ codeWithLanguageNode
 belowAsCodeNode
  description Print the Scroll code of the next node.
  extends abstractScrollNode
- crux belowAsCode
+ cruxFromId
  javascript
   get target() { return this.getNext()}
   compile() {
@@ -28,6 +28,5 @@ belowAsCodeNode
 aboveAsCodeNode
  description Print the Scroll code for the previous node.
  extends belowAsCodeNode
- crux aboveAsCode
  javascript
   get target() { return this.getPrevious()}
