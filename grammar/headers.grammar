@@ -1,6 +1,6 @@
 abstractHeaderNode
  cruxFromId
- catchAllCellType textCell
+ catchAllCellType stringCell
  extends abstractScrollNode
  catchAllNodeType multilineTitleNode
  javascript
@@ -21,4 +21,4 @@ subsectionNode
   tag = "h4"
   className = "scrollSubsectionComponent"
 multilineTitleNode
- catchAllCellType textCell
+ catchAllCellType stringCell

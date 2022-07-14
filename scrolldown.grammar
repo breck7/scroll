@@ -32,13 +32,13 @@ urlCell
  highlightScope constant.language
 keywordCell
  highlightScope keyword
-textCell
+stringCell
  highlightScope string
 idCell
- highlightScope string
+ highlightScope constant.language
 blankCell
 aftertextTextNode
- catchAllCellType textCell
+ catchAllCellType stringCell
  boolean isTextNode true
 abstractScrollNode
  abstract
@@ -119,7 +119,7 @@ skipIndexPageNode
  description Add this tag if you want to build a page but not include it in the index page.
  extends abstractTopLevelSingleMetaNode
 titleNode
- catchAllCellType textCell
+ catchAllCellType stringCell
  description Title of the article.
  extends abstractTopLevelSingleMetaNode
  javascript
@@ -127,7 +127,7 @@ titleNode
    return `<h1 class="scrollTitleComponent"><a href="${this.getRootNode().permalink}.html">${this.getContent()}</a></h1>`
   }
 htmlTitleNode
- catchAllCellType textCell
+ catchAllCellType stringCell
  description Use this to override the automatic HTML <title> generation.
  extends abstractTopLevelSingleMetaNode
 sourceLinkNode
@@ -211,7 +211,7 @@ cssNode
   }
 abstractHeaderNode
  cruxFromId
- catchAllCellType textCell
+ catchAllCellType stringCell
  extends abstractScrollNode
  catchAllNodeType multilineTitleNode
  javascript
@@ -332,13 +332,15 @@ abstractTableNode
  catchAllNodeType rowNode
  extends abstractScrollNode
  javascript
-  _delimiter = " "
   get tableHeader() {
    return this.columns.filter(col => !col.isLink).map(column => `<th>${column.name}</th>\n`)
   }
-  get columns() {
+  get columnNames() {
    const header = this.nodeAt(0)
-   const cols = header ? header.getLine().split(this._delimiter) : []
+   return header ? header.getLine().split(this.delimiter) : []
+  }
+  get columns() {
+   const cols = this.columnNames
    return cols.map((name, index) => {
     const isLink = name.endsWith("Link")
     const linkIndex = cols.indexOf(name + "Link")
@@ -349,34 +351,53 @@ abstractTableNode
     }
    })
   }
-  getTableBody() {
-   const delimiter = this._delimiter
+  get tableBody() {
+   const { delimiter } = this
    return this.getTopDownArray()
     .slice(1)
     .map(node => `<tr>${node.toRow(this.columns, delimiter)}</tr>`)
     .join("\n")
   }
   compile() {
-   return `<table class="scrollTableComponent"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody()}</tbody></table>`
+   return `<table class="scrollTableComponent"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.tableBody}</tbody></table>`
   }
 commaTableNode
  description Comma separated values table.
  extends abstractTableNode
- javascript
-  _delimiter = ","
+ string delimiter ,
 pipeTableNode
  description Pipe separated values table.
  extends abstractTableNode
- javascript
-  _delimiter = "|"
-tabTableNode
- description Tab separated values table.
- extends abstractTableNode
- javascript
-  _delimiter = "\t"
+ string delimiter |
 spaceTableNode
  description Space separated values table. Last column is a catch all.
  extends abstractTableNode
+ string delimiter  
+tabTableNode
+ description Tab separated values table.
+ extends abstractTableNode
+ string delimiter \t
+treeTableNode
+ description A table of data written in Tree Notation form. Useful when a column contains a text blob.
+ extends abstractTableNode
+ catchAllNodeType treeRowNode
+ javascript
+  get columnNames() {
+   return this._getUnionNames()
+  }
+  get tableBody() {
+   return this.map(node => `<tr>${node.toRow(this.columns)}</tr>`).join("\n")
+  }
+ example
+  treeTable
+   row
+    name Javascript
+    example
+     console.log("Hello world")
+   row
+    name Python
+    example
+     print "Hello world"
 abstractAftertextAttributeNode
  cells keywordCell
  boolean isAttributeNode true
@@ -395,7 +416,7 @@ aftertextIdNode
  single
 abstractAftertextDirectiveNode
  cells keywordCell
- catchAllCellType textCell
+ catchAllCellType stringCell
  javascript
   isMarkupNode = true
   get pattern() {
@@ -636,10 +657,10 @@ linkNoteNode
   stringTemplate 
 catchAllParagraphNode
  description A catch all block. This may be removed in future versions.
- catchAllCellType textCell
+ catchAllCellType stringCell
  baseNodeType errorNode
  compiler
-  stringTemplate <p class="scrollParagraphComponent">{textCell}</p>
+  stringTemplate <p class="scrollParagraphComponent">{stringCell}</p>
 chatLineNode
  catchAllCellType anyCell
  catchAllNodeType chatLineNode
@@ -652,7 +673,7 @@ cssLineNode
  catchAllCellType anyCell
  catchAllNodeType cssLineNode
 multilineTitleNode
- catchAllCellType textCell
+ catchAllCellType stringCell
 htmlLineNode
  catchAllCellType anyCell
  catchAllNodeType htmlLineNode
@@ -660,20 +681,20 @@ imageCaptionNode
  description An optional caption to accompany the image.
  crux caption
  cells keywordCell
- catchAllCellType textCell
+ catchAllCellType stringCell
 stumpNode
  description Stump is a Tree Language that compiles to HTML.
  catchAllCellType anyCell
  catchAllNodeType stumpNode
 listItemNode
  cells bulletPointCell
- catchAllCellType textCell
+ catchAllCellType stringCell
  javascript
   compile() {
    return `<li>${this.getRootNode().compileATags(this.getContent() || "")}</li>`
   }
 paragraphContentNode
- catchAllCellType textCell
+ catchAllCellType stringCell
 errorNode
  baseNodeType errorNode
 blankLineNode
@@ -738,7 +759,7 @@ scrolldownNode
    // You can add code as well.
    print("Hello world")
 rowNode
- catchAllCellType textCell
+ catchAllCellType stringCell
  javascript
   toRow(columns, delimiter) {
    const words = this.getLine().split(delimiter)
@@ -756,5 +777,38 @@ rowNode
     else tagged = this.getRootNode().compileATags(content ?? "")
     str += `<td>${tagged}</td>\n`
    }
+   return str
+  }
+treeRowContentNode
+ description Any blob content in a cell.
+ cells stringCell
+ catchAllCellType stringCell
+treeRowColumnNode
+ catchAllNodeType treeRowContentNode
+ description A columnName value pair, or just a columnName if the value is a text blob.
+ cells idCell
+ catchAllCellType stringCell
+treeRowNode
+ cells idCell
+ description The root node of a row.
+ catchAllNodeType treeRowColumnNode
+ javascript
+  toRow(columns) {
+   let str = ""
+   columns.forEach(col => {
+    const node = this.getNode(col.name)
+    if (col.isLink) return
+    if (!node) {
+     str += "<td></td>\n"
+     return
+    }
+    const content = node.length ? node.childrenToString() : node.getContent()
+    let tagged = ""
+    const link = columns[col.linkIndex]
+    if (col.linkIndex > -1 && link) tagged = `<a href="${link}">${content}</a>`
+    else if (node.length) tagged = `<pre>${content ?? ""}</pre>`
+    else tagged = content ?? ""
+    str += `<td>${tagged}</td>\n`
+   })
    return str
   }

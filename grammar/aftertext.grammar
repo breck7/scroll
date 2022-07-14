@@ -3,7 +3,7 @@ tooling
  CSS is great for text selector ideas: https://www.w3schools.com/cssref/css_selectors.asp
  Roff has a lot of related markup ideas: https://www.systutorials.com/docs/linux/man/7-groff_man/
 aftertextTextNode
- catchAllCellType textCell
+ catchAllCellType stringCell
  boolean isTextNode true
 aftertextNode
  description Text followed by markup commands.
@@ -58,7 +58,7 @@ abstractAftertextAttributeNode
   compile() { return ""}
 abstractAftertextDirectiveNode
  cells keywordCell
- catchAllCellType textCell
+ catchAllCellType stringCell
  javascript
   isMarkupNode = true
   get pattern() {

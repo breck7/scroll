@@ -27,4 +27,4 @@ imageCaptionNode
  description An optional caption to accompany the image.
  crux caption
  cells keywordCell
- catchAllCellType textCell
+ catchAllCellType stringCell

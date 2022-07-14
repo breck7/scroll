@@ -4,6 +4,22 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 25.3.0 7-14-2022
+list
+ - 🎉 added `treeTable`
+
+belowAsCode
+treeTable
+ row
+  name Javascript
+  example
+   console.log("Hello world")
+ row
+  name Python
+  example
+   # A code block
+   print "Hello world"
+
 section 25.2.1 7-01-2022
 list
  - 🏥 fixed broken links in feed.xml

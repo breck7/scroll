@@ -3,17 +3,19 @@ abstractTableNode
  catchAllNodeType rowNode
  extends abstractScrollNode
  javascript
-  _delimiter = " "
   get tableHeader() {
    return this.columns.filter(col => !col.isLink).map(column => `<th>${column.name}</th>\n`)
   }
-  get columns() {
-   const header = this.nodeAt(0)
-   const cols = header
+  get columnNames() {
+    const header = this.nodeAt(0)
+    return header
     ? header
       .getLine()
-      .split(this._delimiter)
-    : [] 
+      .split(this.delimiter)
+    : []  
+  }
+  get columns() {
+    const cols = this.columnNames
     return cols.map((name, index) => {
       const isLink = name.endsWith("Link")
       const linkIndex = cols.indexOf(name + "Link")
@@ -24,36 +26,18 @@ abstractTableNode
       }
     })
   }
-  getTableBody() {
-   const delimiter = this._delimiter
+  get tableBody() {
+   const {delimiter} = this
    return this.getTopDownArray()
     .slice(1)
     .map(node => `<tr>${node.toRow(this.columns, delimiter)}</tr>`)
     .join("\n")
   }
   compile() {
-   return `<table class="scrollTableComponent"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.getTableBody()}</tbody></table>`
+   return `<table class="scrollTableComponent"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.tableBody}</tbody></table>`
   }
-commaTableNode
- description Comma separated values table.
- extends abstractTableNode
- javascript
-  _delimiter = ","
-pipeTableNode
- description Pipe separated values table.
- extends abstractTableNode
- javascript
-  _delimiter = "|"
-tabTableNode
- description Tab separated values table.
- extends abstractTableNode
- javascript
-  _delimiter = "\t"
-spaceTableNode
- description Space separated values table. Last column is a catch all.
- extends abstractTableNode
 rowNode
- catchAllCellType textCell
+ catchAllCellType stringCell
  javascript
   toRow(columns, delimiter) {
    const words = this.getLine().split(delimiter)
@@ -75,3 +59,19 @@ rowNode
    }
    return str
   }
+commaTableNode
+ description Comma separated values table.
+ extends abstractTableNode
+ string delimiter ,
+pipeTableNode
+ description Pipe separated values table.
+ extends abstractTableNode
+ string delimiter |
+spaceTableNode
+ description Space separated values table. Last column is a catch all.
+ extends abstractTableNode
+ string delimiter  
+tabTableNode
+ description Tab separated values table.
+ extends abstractTableNode
+ string delimiter \t

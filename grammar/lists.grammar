@@ -19,7 +19,7 @@ orderedListNode
   closeChildren </ol>
 listItemNode
  cells bulletPointCell
- catchAllCellType textCell
+ catchAllCellType stringCell
  javascript
   compile() {
    return `<li>${this.getRootNode().compileATags(this.getContent() || "")}</li>`

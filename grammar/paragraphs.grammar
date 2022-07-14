@@ -11,4 +11,4 @@ paragraphNode
    return `<p class="scrollParagraphComponent">${this.getRootNode().compileATags(this.paragraphContent)}</p>`
   }
 paragraphContentNode
- catchAllCellType textCell
+ catchAllCellType stringCell

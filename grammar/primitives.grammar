@@ -3,12 +3,12 @@ urlCell
  highlightScope constant.language
 keywordCell
  highlightScope keyword
-textCell
+stringCell
  highlightScope string
 errorNode
  baseNodeType errorNode
 idCell
- highlightScope string
+ highlightScope constant.language
 abstractScrollNode
  abstract
  cells keywordCell

@@ -20,7 +20,7 @@ skipIndexPageNode
  description Add this tag if you want to build a page but not include it in the index page.
  extends abstractTopLevelSingleMetaNode
 titleNode
- catchAllCellType textCell
+ catchAllCellType stringCell
  description Title of the article.
  extends abstractTopLevelSingleMetaNode
  javascript
@@ -28,7 +28,7 @@ titleNode
    return `<h1 class="scrollTitleComponent"><a href="${this.getRootNode().permalink}.html">${this.getContent()}</a></h1>`
   }
 htmlTitleNode
- catchAllCellType textCell
+ catchAllCellType stringCell
  description Use this to override the automatic HTML <title> generation.
  extends abstractTopLevelSingleMetaNode
 sourceLinkNode

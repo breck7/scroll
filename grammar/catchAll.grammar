@@ -1,6 +1,6 @@
 catchAllParagraphNode
  description A catch all block. This may be removed in future versions.
- catchAllCellType textCell
+ catchAllCellType stringCell
  baseNodeType errorNode
  compiler
-  stringTemplate <p class="scrollParagraphComponent">{textCell}</p>
+  stringTemplate <p class="scrollParagraphComponent">{stringCell}</p>
