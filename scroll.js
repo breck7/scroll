@@ -574,12 +574,15 @@ class ScrollFolder {
 		return new grammarNode(this.grammarFiles.map(file => read(file)).join("\n")).getAllErrors().map(err => err.toObject())
 	}
 
+	_articles
 	get allArticles() {
+		if (this._articles) return this._articles
 		const { gitLink, scrolldownCompiler, scrollFolder } = this
 		const all = Disk.getFiles(scrollFolder)
 			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
 			.map(filename => new Article(new scrolldownCompiler(read(filename)), filename, gitLink ? gitLink + path.basename(filename) : "", this.settings.baseUrl))
-		return lodash.sortBy(all, article => article.timestamp).reverse()
+		this._articles = lodash.sortBy(all, article => article.timestamp).reverse()
+		return this._articles
 	}
 
 	get articlesToIncludeInIndex() {
@@ -600,12 +603,16 @@ class ScrollFolder {
 			.flat()
 	}
 
+	_settings
 	get settings() {
-		return { ...defaultSettings, ...this.settingsTree.toObject() }
+		if (!this._settings) this._settings = { ...defaultSettings, ...this.settingsTree.toObject() }
+		return this._settings
 	}
 
+	_settingsTree
 	get settingsTree() {
-		return new TreeNode(this.hasSettingsFile ? read(this.settingsFilepath) : "")
+		if (!this._settingsTree) this._settingsTree = new TreeNode(this.hasSettingsFile ? read(this.settingsFilepath) : "")
+		return this._settingsTree
 	}
 
 	get settingsFilepath() {
