@@ -179,8 +179,10 @@ class Article {
 		return this.scrolldownProgram.get(scrollKeywords.columnWidth)
 	}
 
+	_htmlCode = ""
 	get htmlCode() {
-		return this.scrolldownProgram.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : "")
+		if (!this._htmlCode) this._htmlCode = this.scrolldownProgram.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : "")
+		return this._htmlCode
 	}
 
 	get htmlCodeForSnippetsPage() {
