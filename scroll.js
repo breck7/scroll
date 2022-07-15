@@ -476,7 +476,7 @@ div
 	}
 
 	get estimatedLines() {
-		return lodash.sum(this.article.scrolldownProgram.map(node => (node.getNodeTypeId() === "blankLineNode" ? 0 : node.getTopDownArray().length)))
+		return lodash.sum(this.article.scrolldownProgram.map(node => (node.getLine() === "" ? 0 : node.getTopDownArray().length)))
 	}
 
 	get cssColumnWorkaround() {
