@@ -109,8 +109,10 @@ abstractTopLevelSingleMetaNode
  extends abstractScrollNode
  cruxFromId
  cells keywordCell
- compiler
-  stringTemplate 
+ javascript
+  compile() {
+   return ""
+  }
 permalinkNode
  description When compiling, Scroll will save this article to {permalink}.html
  extends abstractTopLevelSingleMetaNode
@@ -653,14 +655,18 @@ linkNoteNode
    note
     The average growth in the treatment group was 14.2x higher than the control group.
  baseNodeType blobNode
- compiler
-  stringTemplate 
+ javascript
+  compile() {
+   return ""
+  }
 catchAllParagraphNode
  description A catch all block. This may be removed in future versions.
  catchAllCellType stringCell
  baseNodeType errorNode
- compiler
-  stringTemplate <p class="scrollParagraphComponent">{stringCell}</p>
+ javascript
+  compile() {
+   return `<p class="scrollParagraphComponent">${this.getLine()}</p>`
+  }
 chatLineNode
  catchAllCellType anyCell
  catchAllNodeType chatLineNode
@@ -700,8 +706,10 @@ errorNode
 blankLineNode
  description Blank lines compile to nothing in the HTML.
  cells blankCell
- compiler
-  stringTemplate 
+ javascript
+  compile() {
+   return ""
+  }
  pattern ^$
  tags doNotSynthesize
 quoteLineNode

@@ -180,8 +180,7 @@ class Article {
 	}
 
 	get htmlCode() {
-		const program = this.scrolldownProgram
-		return program.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : "")
+		return this.scrolldownProgram.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : "")
 	}
 
 	get htmlCodeForSnippetsPage() {

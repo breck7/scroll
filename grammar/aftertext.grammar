@@ -203,8 +203,8 @@ linkNoteNode
    note
     The average growth in the treatment group was 14.2x higher than the control group.
  baseNodeType blobNode
- compiler
-  stringTemplate 
+ javascript
+  compile() { return ""}
 linkNode
  extends abstractMarkupNode
  cells keywordCell urlCell

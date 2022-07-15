@@ -8,8 +8,8 @@ abstractTopLevelSingleMetaNode
  extends abstractScrollNode
  cruxFromId
  cells keywordCell
- compiler
-  stringTemplate 
+ javascript
+  compile() { return ""}
 permalinkCell
  highlightScope string
 permalinkNode

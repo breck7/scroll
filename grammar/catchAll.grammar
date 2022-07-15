@@ -2,5 +2,5 @@ catchAllParagraphNode
  description A catch all block. This may be removed in future versions.
  catchAllCellType stringCell
  baseNodeType errorNode
- compiler
-  stringTemplate <p class="scrollParagraphComponent">{stringCell}</p>
+ javascript
+  compile() { return `<p class="scrollParagraphComponent">${this.getLine()}</p>`}
