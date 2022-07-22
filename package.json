@@ -30,14 +30,14 @@
   },
   "homepage": "https://github.com/publicdomaincompany/scroll#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.5",
     "dayjs": "^1.10.4",
+    "got": "^11.8.2",
     "image-size": "^1.0.0",
-    "jtree": "^53.6.0",
+    "jtree": "^53.8.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "open": "^8.0.5",
-    "cheerio": "^1.0.0-rc.5",
-    "got": "^11.8.2",
     "rss-parser": "^3.12.0",
     "semver": "^7.3.5",
     "tap": "^15.0.9"
