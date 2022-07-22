@@ -1,8 +1,9 @@
 const tap = require("tap")
 const fs = require("fs")
+const path = require("path")
 const { jtree } = require("jtree")
 const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords } = require("./scroll.js")
-const Scrolldown = new jtree.HandGrammarProgram(fs.readFileSync(__dirname + "/" + SCROLLDOWN_GRAMMAR_FILENAME, "utf8")).compileAndReturnRootConstructor()
+const Scrolldown = new jtree.HandGrammarProgram(fs.readFileSync(path.join(__dirname, SCROLLDOWN_GRAMMAR_FILENAME), "utf8")).compileAndReturnRootConstructor()
 
 const testString = "An extensible alternative to Markdown"
 const testPort = 5435
@@ -137,7 +138,7 @@ testTree.cli = async areEqual => {
 }
 
 testTree.errorStates = async areEqual => {
-	const tempFolder = __dirname + "/tempFolderForTesting/"
+	const tempFolder = path.join(__dirname, "tempFolderForTesting")
 
 	try {
 		fs.mkdirSync(tempFolder)
@@ -146,7 +147,7 @@ testTree.errorStates = async areEqual => {
 
 		// Act
 		const result = await cli.initCommand(tempFolder)
-		areEqual(fs.existsSync(tempFolder + SCROLL_SETTINGS_FILENAME), true)
+		areEqual(fs.existsSync(path.join(tempFolder, SCROLL_SETTINGS_FILENAME)), true)
 
 		const folder = new ScrollFolder(tempFolder).silence()
 		const singleFile = folder.buildIndexPage()
@@ -173,13 +174,13 @@ testTree.errorStates = async areEqual => {
 }
 
 testTree.kitchenSink = async areEqual => {
-	const tempFolder = __dirname + "/tempFolderForKitchenSinkTesting/"
+	const tempFolder = path.join(__dirname, "tempFolderForKitchenSinkTesting")
 
 	try {
 		// Arrange
 		fs.mkdirSync(tempFolder)
 		fs.writeFileSync(
-			tempFolder + SCROLL_SETTINGS_FILENAME,
+			path.join(tempFolder, SCROLL_SETTINGS_FILENAME),
 			`${scrollKeywords.header}
  div CustomHeader
 ${scrollKeywords.footer}
@@ -187,7 +188,7 @@ ${scrollKeywords.footer}
 			"utf8"
 		)
 		fs.writeFileSync(
-			tempFolder + "hello.scroll",
+			path.join(tempFolder, "hello.scroll"),
 			`${scrollKeywords.title} hello world
 endSnippet`,
 			"utf8"
@@ -203,7 +204,7 @@ endSnippet`,
 		areEqual(singleFile.includes("CustomHeader"), true)
 		areEqual(singleFile.includes("CustomFooter"), true)
 		areEqual(folder.shouldBuildSnippetsPage, true)
-		areEqual(fs.existsSync(tempFolder + customSnippetsPageName), true)
+		areEqual(fs.existsSync(path.join(tempFolder, customSnippetsPageName)), true)
 	} catch (err) {
 		console.log(err)
 	}

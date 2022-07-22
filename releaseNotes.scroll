@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 25.5.0 7-22-2022
+list
+ - 🏥 path fixes for Windows thanks to @celtic-coder
+
 section 25.4.0 7-14-2022
 list
  - 🎉 50% faster builds

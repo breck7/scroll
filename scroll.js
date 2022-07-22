@@ -17,15 +17,16 @@ const grammarNode = require("jtree/products/grammar.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
 
 // Helper utils
-const read = filename => fs.readFileSync(filename, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.
-const write = (filename, content) => fs.writeFileSync(filename, content, "utf8")
-const resolvePath = (folder = "") => (folder.startsWith("/") ? folder : path.resolve(process.cwd() + "/" + folder))
+const read = fullFilePath => fs.readFileSync(fullFilePath, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.
+const write = (fullFilePath, content) => fs.writeFileSync(fullFilePath, content, "utf8")
 const removeReturnCharsAndRightShift = (str, numSpaces) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
 const unsafeStripHtml = html => html.replace(/<[^>]*>?/gm, "")
+// Normalize 3 possible inputs: 1) cwd of the process 2) provided absolute path 3) cwd of process + provided relative path
+const resolvePath = (folder = "") => (path.isAbsolute(folder) ? path.normalize(folder) : path.resolve(path.join(process.cwd(), folder)))
 
 // Constants
 const packageJson = require("./package.json")
-const SCROLL_SRC_FOLDER = __dirname + "/"
+const SCROLL_SRC_FOLDER = __dirname
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const SCROLL_GRAMMAR_EXTENSION = ".grammar"
@@ -36,7 +37,7 @@ const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROL
 // This is all the CSS
 const hakon = require("jtree/products/hakon.nodejs.js")
 const SCROLL_HAKON_FILENAME = "scroll.hakon"
-const SCROLL_CSS = new hakon(read(SCROLL_SRC_FOLDER + SCROLL_HAKON_FILENAME)).compile()
+const SCROLL_CSS = new hakon(read(path.join(SCROLL_SRC_FOLDER, SCROLL_HAKON_FILENAME))).compile()
 const DEFAULT_COLUMN_WIDTH = 35
 const COLUMN_GAP = 20
 
@@ -105,9 +106,9 @@ ${scrollKeywords.date} ${dayjs().format(`MM-DD-YYYY`)}
 ${scrollKeywords.paragraph}
  This is my new Scroll.`
 
-const isScrollFolder = absPath => fs.existsSync(path.normalize(absPath + "/" + SCROLL_SETTINGS_FILENAME))
+const isScrollFolder = absPath => fs.existsSync(path.normalize(path.join(absPath, SCROLL_SETTINGS_FILENAME)))
 
-const SCROLL_ICONS = new TreeNode(read(SCROLL_SRC_FOLDER + "scroll.icons")).toObject()
+const SCROLL_ICONS = new TreeNode(read(path.join(SCROLL_SRC_FOLDER, "scroll.icons"))).toObject()
 
 class Article {
 	constructor(scrolldownProgram, filePath, sourceLink, baseUrl) {
@@ -226,7 +227,7 @@ ${date}
 ${scrollKeywords.paragraph}
  ${removeReturnCharsAndRightShift(content, 1)}
 `
-		write(destinationFolder + "/" + Utils.stringToPermalink(title) + ".scroll", scrollFile)
+		write(path.join(destinationFolder, Utils.stringToPermalink(title) + ".scroll"), scrollFile)
 	}
 
 	async downloadFilesTo(destinationFolder) {
@@ -551,9 +552,9 @@ ${this.scroll.articlesToIncludeInIndex.map(article => article.toRss()).join("\n"
 
 class ScrollFolder {
 	constructor(scrollFolder = __dirname) {
-		this.scrollFolder = path.normalize(scrollFolder + "/")
-		const grammarFiles = this.ignoreGrammarFiles ? [] : Disk.getFiles(this.scrollFolder).filter(filename => filename.endsWith(SCROLL_GRAMMAR_EXTENSION) && !filename.endsWith(SCROLLDOWN_GRAMMAR_FILENAME))
-		grammarFiles.unshift(`${__dirname}/${SCROLLDOWN_GRAMMAR_FILENAME}`)
+		this.scrollFolder = path.normalize(scrollFolder)
+		const grammarFiles = this.ignoreGrammarFiles ? [] : this.fullFilePaths.filter(fullFilePath => fullFilePath.endsWith(SCROLL_GRAMMAR_EXTENSION) && !fullFilePath.endsWith(SCROLLDOWN_GRAMMAR_FILENAME))
+		grammarFiles.unshift(path.join(__dirname, SCROLLDOWN_GRAMMAR_FILENAME))
 		this.grammarFiles = grammarFiles
 	}
 
@@ -571,13 +572,17 @@ class ScrollFolder {
 		return new grammarNode(this.grammarFiles.map(file => read(file)).join("\n")).getAllErrors().map(err => err.toObject())
 	}
 
+	get fullFilePaths() {
+		return Disk.getFiles(this.scrollFolder)
+	}
+
 	_articles
 	get allArticles() {
 		if (this._articles) return this._articles
-		const { gitLink, scrolldownCompiler, scrollFolder } = this
-		const all = Disk.getFiles(scrollFolder)
+		const { gitLink, scrolldownCompiler, fullFilePaths } = this
+		const all = fullFilePaths
 			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-			.map(filename => new Article(new scrolldownCompiler(read(filename)), filename, gitLink ? gitLink + path.basename(filename) : "", this.settings.baseUrl))
+			.map(fullFilePath => new Article(new scrolldownCompiler(read(fullFilePath)), fullFilePath, gitLink ? gitLink + path.basename(fullFilePath) : "", this.settings.baseUrl))
 		this._articles = lodash.sortBy(all, article => article.timestamp).reverse()
 		return this._articles
 	}
@@ -613,7 +618,7 @@ class ScrollFolder {
 	}
 
 	get settingsFilepath() {
-		return this.scrollFolder + "/" + SCROLL_SETTINGS_FILENAME
+		return path.join(this.scrollFolder, SCROLL_SETTINGS_FILENAME)
 	}
 
 	get hasSettingsFile() {
@@ -685,10 +690,6 @@ class ScrollFolder {
 	verbose = true
 	scrollFolder = ""
 
-	get settingsPath() {
-		return this.scrollFolder + SCROLL_SETTINGS_FILENAME
-	}
-
 	get indexPage() {
 		return new ScrollIndexPage(this)
 	}
@@ -701,12 +702,12 @@ class ScrollFolder {
 	_singlePages = new Map()
 	buildSinglePages() {
 		const start = Date.now()
-		const settings = this.settings
-		const pages = this.allArticles.map(article => {
+		const { settings, allArticles } = this
+		const pages = allArticles.map(article => {
 			const permalink = `${article.permalink}.html`
 			const html = new ScrollArticlePage(this, article).toHtml()
 			if (this._singlePages.get(permalink) === html) return "Unmodified"
-			write(`${this.scrollFolder}/${permalink}`, html)
+			this.write(permalink, html)
 			this._singlePages.set(permalink, html)
 			this.log(`Wrote ${permalink} to disk`)
 			return { permalink, html }
@@ -722,7 +723,7 @@ class ScrollFolder {
 		const html = page.toHtml()
 		if (this._cachedPages[filename] !== html) {
 			const start = Date.now()
-			write(this.scrollFolder + "/" + filename, html)
+			this.write(filename, html)
 			this._cachedPages[filename] = html
 			this.log(`Built and wrote new ${filename} to disk in ${(Date.now() - start) / 1000} seconds`)
 		}
@@ -747,11 +748,15 @@ class ScrollFolder {
 	}
 
 	buildRssFeed(filename = this.rssFilename) {
-		return write(this.scrollFolder + "/" + filename, new ScrollRssFeed(this).toXml())
+		return this.write(filename, new ScrollRssFeed(this).toXml())
 	}
 
 	buildCssFile(filename = "scroll.css") {
-		return write(this.scrollFolder + "/" + filename, SCROLL_CSS)
+		return this.write(filename, SCROLL_CSS)
+	}
+
+	write(filename, content) {
+		return write(path.join(this.scrollFolder, filename), content)
 	}
 
 	buildAll() {
@@ -770,7 +775,7 @@ class ScrollFolder {
 	async importSite() {
 		const { importFrom } = this
 
-		if (!importFrom) return `❌ You need to add a line to '${this.settingsPath}' like '${scrollKeywords.importFrom}'`
+		if (!importFrom) return `❌ You need to add a line to '${this.settingsFilepath}' like '${scrollKeywords.importFrom}'`
 
 		// A loose check for now to catch things like "format=rss"
 		if (importFrom.includes("rss") || importFrom.includes("feed")) {
@@ -818,8 +823,8 @@ class ScrollCli {
 		const folder = new ScrollFolder()
 		if (isScrollFolder(cwd)) return this.log(`❌ Initialization aborted. Folder '${cwd}' already contains a '${SCROLL_SETTINGS_FILENAME}'.`)
 		this.log(`Initializing scroll in "${cwd}"`)
-		write(cwd + "/" + SCROLL_SETTINGS_FILENAME, read(__dirname + "/" + SCROLL_SETTINGS_FILENAME))
-		const readmePath = cwd + "/readme.scroll"
+		write(path.join(cwd, SCROLL_SETTINGS_FILENAME), read(path.join(__dirname, SCROLL_SETTINGS_FILENAME)))
+		const readmePath = path.join(cwd, "readme.scroll")
 		if (!fs.existsSync(readmePath)) write(readmePath, initReadmePage)
 		return this.log(`\n👍 Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
 	}
@@ -870,17 +875,20 @@ class ScrollCli {
 		this.log(`\n🔭 Watching for changes in 📁 ${scrollFolder}`)
 
 		this._watcher = fs.watch(scrollFolder, (event, filename) => {
-			const fullPath = scrollFolder + filename
-			if (!EXTENSIONS_REQUIRING_REBUILD.test(fullPath)) return
+			const fullFilePath = path.join(scrollFolder, filename)
+			if (!EXTENSIONS_REQUIRING_REBUILD.test(fullFilePath)) return
+			this.log(`\n✅ "${fullFilePath}" changed.`)
 
-			if (!Disk.exists(fullPath)) {
+			if (!Disk.exists(fullFilePath)) {
 				// file deleted
 			} else if (false) {
 				// new file
 			} else {
 				// file updates
 			}
-			folder.buildAll()
+			const newFolder = new ScrollFolder(scrollFolder)
+			newFolder.verbose = folder.verbose
+			newFolder.buildAll()
 		})
 
 		if (this.verbose) await open(folder.localIndexAsUrl)
