@@ -205,7 +205,6 @@ cssNode
  extends abstractScrollNode
  description Prints CSS content wrapped in a style tag.
  cruxFromId
- extends abstractScrollNode
  catchAllNodeType cssLineNode
  javascript
   compile() {
@@ -261,7 +260,8 @@ imageNode
    let imgTag = ""
    try {
     const sizeOf = require("image-size")
-    const dimensions = sizeOf(dirPath + "/" + src)
+    const path = require("path")
+    const dimensions = sizeOf(path.join(dirPath, src))
     const width = dimensions.width
     const height = dimensions.height
     imgTag = `<img src="${src}" width="${width}" height="${height}" loading="lazy"/>`
