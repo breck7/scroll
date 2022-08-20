@@ -423,6 +423,24 @@ class AbstractScrollPage {
 	}
 }
 
+class ScrollPage {
+	constructor(content = "", settings = "") {
+		this.settings = settings
+		this.content = content
+	}
+
+	settings = ""
+	content = ""
+
+	get html() {
+		const scrollFolder = new ScrollFolder(undefined, this.settings)
+		const { scrolldownCompiler } = scrollFolder
+		const program = new scrolldownCompiler(this.content)
+		const article = new Article(program, "", "", scrollFolder.settings.baseUrl)
+		return new ScrollArticlePage(scrollFolder, article).toHtml()
+	}
+}
+
 class ScrollArticlePage extends AbstractScrollPage {
 	constructor(scroll, article) {
 		super(scroll)
@@ -551,11 +569,20 @@ ${this.scroll.articlesToIncludeInIndex.map(article => article.toRss()).join("\n"
 }
 
 class ScrollFolder {
-	constructor(scrollFolder = __dirname) {
+	constructor(scrollFolder = __dirname, settingsContent = undefined) {
 		this.scrollFolder = path.normalize(scrollFolder)
-		const grammarFiles = this.ignoreGrammarFiles ? [] : this.fullFilePaths.filter(fullFilePath => fullFilePath.endsWith(SCROLL_GRAMMAR_EXTENSION) && !fullFilePath.endsWith(SCROLLDOWN_GRAMMAR_FILENAME))
-		grammarFiles.unshift(path.join(__dirname, SCROLLDOWN_GRAMMAR_FILENAME))
-		this.grammarFiles = grammarFiles
+		this._settingsContent = settingsContent !== undefined ? settingsContent : fs.existsSync(this.settingsFilepath) ? read(this.settingsFilepath) : ""
+
+		this.grammarFiles = [path.join(__dirname, SCROLLDOWN_GRAMMAR_FILENAME)]
+		if (this.useCustomGrammarFiles) this._initCustomGrammarFiles()
+	}
+
+	_initCustomGrammarFiles() {
+		this.fullFilePaths
+			.filter(fullFilePath => fullFilePath.endsWith(SCROLL_GRAMMAR_EXTENSION) && !fullFilePath.endsWith(SCROLLDOWN_GRAMMAR_FILENAME))
+			.forEach(file => {
+				this.grammarFiles.push(file)
+			})
 	}
 
 	grammarFiles = []
@@ -564,8 +591,8 @@ class ScrollFolder {
 		return getCompiler(this.grammarFiles)
 	}
 
-	get ignoreGrammarFiles() {
-		return this.settingsTree.has(settingsKeywords.ignoreGrammarFiles)
+	get useCustomGrammarFiles() {
+		return this.settingsTree.has(settingsKeywords.ignoreGrammarFiles) ? false : true
 	}
 
 	get grammarErrors() {
@@ -605,6 +632,8 @@ class ScrollFolder {
 			.flat()
 	}
 
+	_settingsContent = ""
+
 	_settings
 	get settings() {
 		if (!this._settings) this._settings = { ...defaultSettings, ...this.settingsTree.toObject() }
@@ -613,16 +642,12 @@ class ScrollFolder {
 
 	_settingsTree
 	get settingsTree() {
-		if (!this._settingsTree) this._settingsTree = new TreeNode(this.hasSettingsFile ? read(this.settingsFilepath) : "")
+		if (!this._settingsTree) this._settingsTree = new TreeNode(this._settingsContent)
 		return this._settingsTree
 	}
 
 	get settingsFilepath() {
 		return path.join(this.scrollFolder, SCROLL_SETTINGS_FILENAME)
-	}
-
-	get hasSettingsFile() {
-		return fs.existsSync(this.settingsFilepath)
 	}
 
 	get onScrollVersion() {
@@ -699,8 +724,11 @@ class ScrollFolder {
 		return message
 	}
 
-	_singlePages = new Map()
 	buildSinglePages() {
+		return this._buildAndWriteSinglePages()
+	}
+	_singlePages = new Map()
+	_buildAndWriteSinglePages() {
 		const start = Date.now()
 		const { settings, allArticles } = this
 		const pages = allArticles.map(article => {
@@ -718,7 +746,7 @@ class ScrollFolder {
 	}
 
 	_cachedPages = {}
-	_buildCollectionPage(filename, articles, page) {
+	_buildAndWriteCollectionPage(filename, articles, page) {
 		if (articles.length === 0) return this.log(`Skipping build of '${filename}' because no articles to include.`)
 		const html = page.toHtml()
 		if (this._cachedPages[filename] !== html) {
@@ -731,11 +759,11 @@ class ScrollFolder {
 	}
 
 	buildIndexPage(filename = "index.html") {
-		return this._buildCollectionPage(filename, this.articlesToIncludeInIndex, this.indexPage)
+		return this._buildAndWriteCollectionPage(filename, this.articlesToIncludeInIndex, this.indexPage)
 	}
 
 	buildSnippetsPage(filename = "snippets.html") {
-		return this._buildCollectionPage(filename, this.articlesToIncludeInIndex, new ScrollSnippetsPage(this))
+		return this._buildAndWriteCollectionPage(filename, this.articlesToIncludeInIndex, new ScrollSnippetsPage(this))
 	}
 
 	get rssFilename() {
@@ -909,4 +937,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords }
+module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords, ScrollPage }

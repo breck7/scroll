@@ -1,8 +1,10 @@
+#! /usr/bin/env node
+
 const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
 const { jtree } = require("jtree")
-const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords } = require("./scroll.js")
+const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords, ScrollPage } = require("./scroll.js")
 const Scrolldown = new jtree.HandGrammarProgram(fs.readFileSync(path.join(__dirname, SCROLLDOWN_GRAMMAR_FILENAME), "utf8")).compileAndReturnRootConstructor()
 
 const testString = "An extensible alternative to Markdown"
@@ -135,6 +137,16 @@ testTree.cli = async areEqual => {
 
 	// Act/Assert
 	areEqual(cli.execute(["help"]).includes("help"), true)
+}
+
+testTree.standalonePage = areEqual => {
+	// Arrange
+	const page = new ScrollPage(`title A standalone page
+paragraph
+ Blue sky`)
+	// Act/Assert
+	const { html } = page
+	areEqual(html.includes("Blue sky"), true)
 }
 
 testTree.errorStates = async areEqual => {

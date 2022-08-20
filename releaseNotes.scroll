@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 25.6.0 8-19-2022
+list
+ - 🎉 simpler API for programmatic usage: `new ScrollPage('title Hello world')`
+
 section 25.5.1 7-22-2022
 list
  - 🏥 minor grammar fix
