@@ -134,7 +134,7 @@ aftertext
 
 aftertext
  Scrolldown is the name of a Tree Language defined in this grammar.
- link https://github.com/publicdomaincompany/scroll/blob/main/scrolldown.grammar grammar
+ link https://github.com/breck7/scroll/tree/main/grammar grammar
 
 question What does a typical project folder look like?
 
@@ -179,7 +179,7 @@ aftertext
  Scroll articles are written as Scrolldown files with the file
  extension scroll. The current base grammar for Scrolldown is defined here.
  code scroll
- https://github.com/publicdomaincompany/scroll/blob/main/scrolldown.grammar here
+ https://github.com/breck7/scroll/tree/main/grammar here
 
 question What language is Scroll written in?
 
@@ -236,7 +236,7 @@ question Is there a place I can play with the Scrolldown grammar and see how it 
 
 aftertext
  Yes. In the Tree Language Designer.
- https://jtree.treenotation.org/designer#url%20https%3A%2F%2Fscroll.pub%2Fscrolldown.grammar Tree Language Designer
+ https://jtree.treenotation.org/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscrolldown.grammar Tree Language Designer
 
 question What's an easy way to have GitHub run Scroll and build my HTML files automatically?
 
@@ -411,11 +411,6 @@ question How is a keyword different than a web components?
 
 aftertext
  Scrolldown and Web Components are similar in that both empower users to define their own reusable components. But Scrolldown is higher level than web components. For example, in addition to easily targetting HTML and web components, Scrolldown also plays really nicely with version control and 2D editors. Scrolldown encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
-
-question How do I build and format the combined Scrolldown Grammar file?
-
-code
- ./buildGrammar.js
 
 question How do I run cross browser tests?
 

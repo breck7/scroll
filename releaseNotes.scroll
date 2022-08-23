@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and Scrolldown.
 
+section 26.0.0 8-23-2022
+list
+ - ⚠️ (potentially) breaking: scrolldown.grammar is no longer built/checked in and SCROLLDOWN_GRAMMAR_FILENAME no longer exported.
+
 section 25.6.0 8-19-2022
 list
  - 🎉 simpler API for programmatic usage: `new ScrollPage('title Hello world')`

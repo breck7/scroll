@@ -30,9 +30,26 @@ const SCROLL_SRC_FOLDER = __dirname
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const SCROLL_GRAMMAR_EXTENSION = ".grammar"
-const SCROLLDOWN_GRAMMAR_FILENAME = "scrolldown.grammar"
 const SCROLL_SETTINGS_FILENAME = "scroll.settings"
 const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROLL_SETTINGS_FILENAME, SCROLL_GRAMMAR_EXTENSION].join("|")}$`)
+
+const getGrammarConstructorFromFiles = files => {
+	const asOneFile = files.map(Disk.read).join("\n")
+	const formatted = new grammarNode(asOneFile).format().toString()
+	return new jtree.HandGrammarProgram(formatted).compileAndReturnRootConstructor()
+}
+// Default compiler
+const DefaultGrammarFiles = Disk.getFiles(path.join(__dirname, "grammar")).filter(file => file.endsWith(SCROLL_GRAMMAR_EXTENSION))
+const compilerCache = new Map()
+const getCompiler = filePaths => {
+	const key = filePaths.join("\n")
+	const hit = compilerCache.get(key)
+	if (hit) return hit
+	const compiler = getGrammarConstructorFromFiles(filePaths)
+	compilerCache.set(key, compiler)
+	return compiler
+}
+const DefaultScrolldownCompiler = getCompiler(DefaultGrammarFiles)
 
 // This is all the CSS
 const hakon = require("jtree/products/hakon.nodejs.js")
@@ -542,16 +559,6 @@ class ScrollSnippetsPage extends ScrollIndexPage {
 	}
 }
 
-const compilerCache = new Map()
-const getCompiler = filePaths => {
-	const key = filePaths.join("\n")
-	const hit = compilerCache.get(key)
-	if (hit) return hit
-	const compiler = new jtree.HandGrammarProgram(filePaths.map(file => read(file)).join("\n")).compileAndReturnRootConstructor()
-	compilerCache.set(key, compiler)
-	return compiler
-}
-
 class ScrollRssFeed {
 	constructor(scroll) {
 		this.scroll = scroll
@@ -577,23 +584,17 @@ class ScrollFolder {
 		this.scrollFolder = path.normalize(scrollFolder)
 		this._settingsContent = settingsContent !== undefined ? settingsContent : fs.existsSync(this.settingsFilepath) ? read(this.settingsFilepath) : ""
 
-		this.grammarFiles = [path.join(__dirname, SCROLLDOWN_GRAMMAR_FILENAME)]
+		this.grammarFiles = DefaultGrammarFiles
 		if (this.useCustomGrammarFiles) this._initCustomGrammarFiles()
+		this.scrolldownCompiler = getCompiler(this.grammarFiles)
 	}
 
+	// Loads any grammar files in the scroll folder. TODO: Deprecate this? Move to explicit inclusion of grammar nodes on a per article basis?
 	_initCustomGrammarFiles() {
-		this.fullFilePaths
-			.filter(fullFilePath => fullFilePath.endsWith(SCROLL_GRAMMAR_EXTENSION) && !fullFilePath.endsWith(SCROLLDOWN_GRAMMAR_FILENAME))
-			.forEach(file => {
-				this.grammarFiles.push(file)
-			})
+		this.fullFilePaths.filter(fullFilePath => fullFilePath.endsWith(SCROLL_GRAMMAR_EXTENSION)).forEach(file => this.grammarFiles.push(file))
 	}
 
 	grammarFiles = []
-
-	get scrolldownCompiler() {
-		return getCompiler(this.grammarFiles)
-	}
 
 	get useCustomGrammarFiles() {
 		return this.settingsTree.has(settingsKeywords.ignoreGrammarFiles) ? false : true
@@ -941,4 +942,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords, ScrollPage }
+module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollPage, DefaultScrolldownCompiler }
