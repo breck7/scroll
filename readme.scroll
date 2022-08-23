@@ -2,7 +2,7 @@ title 📜 Scroll: an extensible alternative to Markdown.
 permalink index
 
 html
- <a href="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/publicdomaincompany/scroll/actions/workflows/didTheTestsPass.yml/badge.svg" style="width: 49%;"/></a> <a href="https://gitpod.io/#https://github.com/publicdomaincompany/scroll"><img style="width: 49%;" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod"/></a>
+ <a href="https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml/badge.svg" style="width: 49%;"/></a> <a href="https://gitpod.io/#https://github.com/breck7/scroll"><img style="width: 49%;" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod"/></a>
 
 question Can you show me a screenshot?
 
@@ -17,12 +17,12 @@ aftertext
 question What makes Scroll different?
 
 aftertext
- Scroll is different than other static site generators because it uses the easily extendible Scrolldown, so you can invent new languages to better fit your content.
- bold Scrolldown
+ Scroll is different than other static site generators because it uses the easily extendible ScrollScript, so you can invent new languages to better fit your content.
+ bold ScrollScript
  https://staticsitegenerators.net other static site generators
 
 aftertext
- The basics of Scrolldown are even simpler than Markdown. For example, the keyword for title is title.
+ The basics of ScrollScript are even simpler than Markdown. For example, the keyword for title is title.
  italics the keyword for title is title
 
 aftertext
@@ -50,7 +50,7 @@ code
   step Bake for 10 minutes
 
 aftertext
- Your grammar extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scrolldown let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.
+ Your grammar extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. ScrollScript let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.
 
 aftertext
  (Warning: the cookies above have not been tasted)
@@ -68,7 +68,7 @@ question How do I get Scroll?
 
 aftertext
  The instant way is to try Scroll in GitPod.
- link https://gitpod.io/#https://github.com/publicdomaincompany/scroll GitPod
+ link https://gitpod.io/#https://github.com/breck7/scroll GitPod
 
 aftertext
  Scroll is a command line app you install on your local machine. Scroll requires basic familiarity with the command line
@@ -89,7 +89,7 @@ aftertext
  You can install from GitHub:
 
 code
- git clone https://github.com/publicdomaincompany/scroll
+ git clone https://github.com/breck7/scroll
  cd scroll
  npm install -g .
 
@@ -111,7 +111,7 @@ question Where do I get help?
 
 aftertext
  Post an issue in this GitHub or email us.
- email scroll@publicdomaincompany.com us
+ email feedback@scroll.pub us
 
 question What are some example sites using Scroll?
 
@@ -123,17 +123,16 @@ aftertext
 question What does the name Scroll refer to?
 
 aftertext
- A scroll is a single folder containing Scrolldown files and an optional scroll.settings file.
- Scroll compiles those Scrolldown files into a static index.html page.
- italics A scroll
- code scroll.settings
+ _A scroll_ is a single folder containing ScrollScript files ending in `.scroll` and an optional `scroll.settings` file.
+ Scroll compiles those ScrollScript files into a static index.html page.
+ wrapsOn
 
 aftertext
  Scroll is also the name of the command line app that includes a
  simple fs watch app for live preview.
 
 aftertext
- Scrolldown is the name of a Tree Language defined in this grammar.
+ ScrollScript is the name of a Tree Language defined in this grammar.
  link https://github.com/breck7/scroll/tree/main/grammar grammar
 
 question What does a typical project folder look like?
@@ -176,8 +175,8 @@ code
 question What file formats does Scroll use?
 
 aftertext
- Scroll articles are written as Scrolldown files with the file
- extension scroll. The current base grammar for Scrolldown is defined here.
+ Scroll articles are written as ScrollScript files with the file
+ extension scroll. The current base grammar for ScrollScript is defined here.
  code scroll
  https://github.com/breck7/scroll/tree/main/grammar here
 
@@ -232,11 +231,11 @@ aftertext
  This was originally a bug. But then it turns out to be a feature, as it
  gives older articles, which are often more important, more visibility.
 
-question Is there a place I can play with the Scrolldown grammar and see how it compiles to HTML?
+question Is there a place I can play with the ScrollScript grammar and see how it compiles to HTML?
 
 aftertext
  Yes. In the Tree Language Designer.
- https://jtree.treenotation.org/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscrolldown.grammar Tree Language Designer
+ https://jtree.treenotation.org/designer#url%20https%3A%2F%2Ftry.scroll.pub%2FscrollScript.grammar Tree Language Designer
 
 question What's an easy way to have GitHub run Scroll and build my HTML files automatically?
 
@@ -376,7 +375,7 @@ aftertext
 question What were some alternatives considered?
 
 aftertext
- There was no publishing software that reads and writes Scrolldown yet
+ There was no publishing software that reads and writes ScrollScript yet
  so building Scroll was necessary. Jekyll
  and Brecksblog were the two
  biggest inspirations.
@@ -410,7 +409,7 @@ code
 question How is a keyword different than a web components?
 
 aftertext
- Scrolldown and Web Components are similar in that both empower users to define their own reusable components. But Scrolldown is higher level than web components. For example, in addition to easily targetting HTML and web components, Scrolldown also plays really nicely with version control and 2D editors. Scrolldown encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
+ ScrollScript and Web Components are similar in that both empower users to define their own reusable components. But ScrollScript is higher level than web components. For example, in addition to easily targetting HTML and web components, ScrollScript also plays really nicely with version control and 2D editors. ScrollScript encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
 
 question How do I run cross browser tests?
 

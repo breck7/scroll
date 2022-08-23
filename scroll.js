@@ -49,7 +49,7 @@ const getCompiler = filePaths => {
 	compilerCache.set(key, compiler)
 	return compiler
 }
-const DefaultScrolldownCompiler = getCompiler(DefaultGrammarFiles)
+const DefaultScrollScriptCompiler = getCompiler(DefaultGrammarFiles)
 
 // This is all the CSS
 const hakon = require("jtree/products/hakon.nodejs.js")
@@ -132,18 +132,18 @@ const SCROLL_ICONS = {
 }
 
 class Article {
-	constructor(scrolldownProgram, filePath, sourceLink, baseUrl) {
-		this.scrolldownProgram = scrolldownProgram
+	constructor(scrollScriptProgram, filePath, sourceLink, baseUrl) {
+		this.scrollScriptProgram = scrollScriptProgram
 		this._sourceLink = sourceLink
 		this.filePath = filePath
 		this.filename = path.basename(filePath)
 		this.baseUrl = baseUrl
-		scrolldownProgram.setPermalink(this.permalink)
-		scrolldownProgram.setFolder(path.dirname(filePath))
+		scrollScriptProgram.setPermalink(this.permalink)
+		scrollScriptProgram.setFolder(path.dirname(filePath))
 	}
 
 	save() {
-		write(`${this.filePath}`, this.scrolldownProgram.toString())
+		write(`${this.filePath}`, this.scrollScriptProgram.toString())
 	}
 
 	_sourceLink = ""
@@ -152,17 +152,17 @@ class Article {
 	baseUrl = ""
 
 	get permalink() {
-		return this.scrolldownProgram.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
+		return this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
 	}
 
 	get ogImage() {
-		const index = this.scrolldownProgram.indexOf(scrollKeywords.image)
-		return index > -1 ? this.scrolldownProgram.nodeAt(index).getContent() : ""
+		const index = this.scrollScriptProgram.indexOf(scrollKeywords.image)
+		return index > -1 ? this.scrollScriptProgram.nodeAt(index).getContent() : ""
 	}
 
 	// Use the first paragraph for the description
 	get ogDescription() {
-		const program = this.scrolldownProgram
+		const program = this.scrollScriptProgram
 		for (let node of program.getTopDownArrayIterator()) {
 			const word = node.getWord(0)
 			if (word === scrollKeywords.paragraph || word === scrollKeywords.aftertext)
@@ -174,36 +174,36 @@ class Article {
 	}
 
 	get includeInIndex() {
-		return !this.scrolldownProgram.has(scrollKeywords.skipIndexPage)
+		return !this.scrollScriptProgram.has(scrollKeywords.skipIndexPage)
 	}
 
 	get title() {
-		return this.scrolldownProgram.get(scrollKeywords.title) ?? ""
+		return this.scrollScriptProgram.get(scrollKeywords.title) ?? ""
 	}
 
 	get htmlTitle() {
-		return this.scrolldownProgram.get(scrollKeywords.htmlTitle)
+		return this.scrollScriptProgram.get(scrollKeywords.htmlTitle)
 	}
 
 	get sourceLink() {
-		return this.scrolldownProgram.get(scrollKeywords.sourceLink) || this._sourceLink
+		return this.scrollScriptProgram.get(scrollKeywords.sourceLink) || this._sourceLink
 	}
 
 	get timestamp() {
-		return dayjs(this.scrolldownProgram.get(scrollKeywords.date) ?? 0).unix()
+		return dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
 	}
 
 	get maxColumns() {
-		return this.scrolldownProgram.get(scrollKeywords.maxColumns)
+		return this.scrollScriptProgram.get(scrollKeywords.maxColumns)
 	}
 
 	get columnWidth() {
-		return this.scrolldownProgram.get(scrollKeywords.columnWidth)
+		return this.scrollScriptProgram.get(scrollKeywords.columnWidth)
 	}
 
 	_htmlCode = ""
 	get htmlCode() {
-		if (!this._htmlCode) this._htmlCode = this.scrolldownProgram.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : "")
+		if (!this._htmlCode) this._htmlCode = this.scrollScriptProgram.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : "")
 		return this._htmlCode
 	}
 
@@ -211,7 +211,7 @@ class Article {
 		const { snippetBreakNode } = this
 		if (!snippetBreakNode) return this.htmlCode
 
-		const program = this.scrolldownProgram
+		const program = this.scrollScriptProgram
 		const indexOfBreak = snippetBreakNode.getIndex()
 		return (
 			program
@@ -222,7 +222,7 @@ class Article {
 	}
 
 	get snippetBreakNode() {
-		return this.scrolldownProgram.getNode(scrollKeywords.endSnippet)
+		return this.scrollScriptProgram.getNode(scrollKeywords.endSnippet)
 	}
 
 	toRss() {
@@ -455,8 +455,8 @@ class ScrollPage {
 
 	get html() {
 		const scrollFolder = new ScrollFolder(undefined, this.settings)
-		const { scrolldownCompiler } = scrollFolder
-		const program = new scrolldownCompiler(this.content)
+		const { scrollScriptCompiler } = scrollFolder
+		const program = new scrollScriptCompiler(this.content)
 		const article = new Article(program, "", "", scrollFolder.settings.baseUrl)
 		return new ScrollArticlePage(scrollFolder, article).toHtml()
 	}
@@ -477,11 +477,11 @@ class ScrollArticlePage extends AbstractScrollPage {
 	}
 
 	get customHeader() {
-		return this.article.scrolldownProgram.getNode(scrollKeywords.header) || super.customHeader
+		return this.article.scrollScriptProgram.getNode(scrollKeywords.header) || super.customHeader
 	}
 
 	get customFooter() {
-		return this.article.scrolldownProgram.getNode(scrollKeywords.footer) || super.customFooter
+		return this.article.scrollScriptProgram.getNode(scrollKeywords.footer) || super.customFooter
 	}
 
 	get ogDescription() {
@@ -516,7 +516,7 @@ div
 	}
 
 	get estimatedLines() {
-		return lodash.sum(this.article.scrolldownProgram.map(node => (node.getLine() === "" ? 0 : node.getTopDownArray().length)))
+		return lodash.sum(this.article.scrollScriptProgram.map(node => (node.getLine() === "" ? 0 : node.getTopDownArray().length)))
 	}
 
 	get cssColumnWorkaround() {
@@ -586,7 +586,7 @@ class ScrollFolder {
 
 		this.grammarFiles = DefaultGrammarFiles
 		if (this.useCustomGrammarFiles) this._initCustomGrammarFiles()
-		this.scrolldownCompiler = getCompiler(this.grammarFiles)
+		this.scrollScriptCompiler = getCompiler(this.grammarFiles)
 	}
 
 	// Loads any grammar files in the scroll folder. TODO: Deprecate this? Move to explicit inclusion of grammar nodes on a per article basis?
@@ -611,10 +611,10 @@ class ScrollFolder {
 	_articles
 	get allArticles() {
 		if (this._articles) return this._articles
-		const { gitLink, scrolldownCompiler, fullFilePaths } = this
+		const { gitLink, scrollScriptCompiler, fullFilePaths } = this
 		const all = fullFilePaths
 			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-			.map(fullFilePath => new Article(new scrolldownCompiler(read(fullFilePath)), fullFilePath, gitLink ? gitLink + path.basename(fullFilePath) : "", this.settings.baseUrl))
+			.map(fullFilePath => new Article(new scrollScriptCompiler(read(fullFilePath)), fullFilePath, gitLink ? gitLink + path.basename(fullFilePath) : "", this.settings.baseUrl))
 		this._articles = lodash.sortBy(all, article => article.timestamp).reverse()
 		return this._articles
 	}
@@ -630,7 +630,7 @@ class ScrollFolder {
 	get errors() {
 		return this.allArticles
 			.map(article =>
-				article.scrolldownProgram.getAllErrors().map(err => {
+				article.scrollScriptProgram.getAllErrors().map(err => {
 					return { filename: article.filename, ...err.toObject() }
 				})
 			)
@@ -697,7 +697,7 @@ class ScrollFolder {
 			// Articles that have a date, a paragraph, and no dateline added yet need one
 			console.log(`🚚 Applying 24.0.0 migrations`)
 			this.allArticles.forEach(article => {
-				const content = article.scrolldownProgram
+				const content = article.scrollScriptProgram
 				const ps = content.findNodes("paragraph")
 				if (content.has("date") && content.has("paragraph") && content.findNodes("aftertext dateline").length === 0) {
 					const firstParagraph = ps.shift()
@@ -816,7 +816,7 @@ class ScrollFolder {
 			return await importer.downloadFilesTo(this.scrollFolder)
 		}
 
-		return `❌ Scroll wasn't sure how to import '${importFrom}'.\n💡 You can open an issue here: https://github.com/publicdomaincompany/scroll/issues`
+		return `❌ Scroll wasn't sure how to import '${importFrom}'.\n💡 You can open an issue here: https://github.com/breck7/scroll/issues`
 	}
 
 	get importFrom() {
@@ -942,4 +942,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollPage, DefaultScrolldownCompiler }
+module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler, SCROLL_CSS }

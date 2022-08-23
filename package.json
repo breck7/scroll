@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "26.0.0",
+  "version": "26.1.0",
   "description": "An extensible alternative to Markdown.",
   "main": "scroll.js",
   "engines": {
@@ -16,11 +16,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/publicdomaincompany/scroll.git"
+    "url": "git+https://github.com/breck7/scroll.git"
   },
   "author": "Breck Yunits",
   "bugs": {
-    "url": "https://github.com/publicdomaincompany/scroll/issues"
+    "url": "https://github.com/breck7/scroll/issues"
   },
   "prettier": {
     "useTabs": false,
@@ -28,7 +28,7 @@
     "semi": false,
     "printWidth": 240
   },
-  "homepage": "https://github.com/publicdomaincompany/scroll#readme",
+  "homepage": "https://github.com/breck7/scroll#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.5",
     "dayjs": "^1.10.4",

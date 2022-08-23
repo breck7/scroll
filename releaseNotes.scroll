@@ -2,7 +2,12 @@ title Scroll Release Notes
 skipIndexPage
 
 paragraph
- Here's a list of the notable changes in Scroll and Scrolldown.
+ Here's a list of the notable changes in Scroll and ScrollScript.
+
+section 26.1.0 8-23-2022
+list
+ - 🎉 export SCROLL_CSS for tryscroll app
+ - ⚠️ now calling the language ScrollScript instead of Scrolldown
 
 section 26.0.0 8-23-2022
 list
@@ -471,14 +476,14 @@ code
 question How do I use the 🔗link tag with multiword links?
 
 paragraph
- The 🔗link tag only supports single word links. Like everything with Scrolldown, you have
+ The 🔗link tag only supports single word links. Like everything with ScrollScript, you have
  a number of options if the conventional design doesn't work for you. Your options are:
 
 list
  1. Link just one word. If you need more, perhaps camelCase or snake_case your words together into one concept.
  2. Repeat the link twice <code>foo 🔗link bar 🔗link</code>
  3. Use &lt;a> tags.
- 4. Extend the Scrolldown grammar for your site.
+ 4. Extend the ScrollScript grammar for your site.
 
 question Can I not include a page in the index page?
 
@@ -509,7 +514,7 @@ list
 section 10.0.0 05-10-2021
 list
  - 🎉 table nodeType for SSVs with linkify
- - 🎉 Better docs in Scrolldown grammar
+ - 🎉 Better docs in ScrollScript grammar
  - ⚠️ Removed list nodeType
  - ⚠️ Removed link nodeType
  - 🏥 Windows return character fix
@@ -517,7 +522,7 @@ list
  
 section 9.0.0 05-05-2021
 list
- - 🎉 Scrolldown now has a quote nodeType.
+ - 🎉 ScrollScript now has a quote nodeType.
  - 🏥 Code block format bug fixes.
  - 🏥 Styling improvements
 
@@ -527,7 +532,7 @@ list
 
 section 7.0.0 04-03-2021
 list
- - ⚠️ Scroll the language is now called Scrolldown (thanks FB!).
+ - ⚠️ Scroll the language is now called ScrollScript (thanks FB!).
  - 🏥 Bug fixes.
  - 🎉 Better perf.
 

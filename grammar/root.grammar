@@ -1,4 +1,4 @@
-scrolldownNode
+scrollScriptNode
  extensions scroll
  description A simple language for structurable thought. An extensible alternative to Markdown. Compiles to HTML.
  root
@@ -41,7 +41,7 @@ scrolldownNode
   }
  example
   title Hello world
-  section This is Scrolldown
+  section This is ScrollScript
   
   paragraph
    It compiles to HTML. Blank lines get turned into brs.
