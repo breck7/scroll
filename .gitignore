@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+ignore/
 
 # I hate checking this file in. May need to at some point.
 package-lock.json
