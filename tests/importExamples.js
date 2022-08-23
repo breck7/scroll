@@ -1,6 +1,7 @@
 #! /usr/bin/env node
-const { SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollFolder } = require("./scroll.js")
+const { SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollFolder } = require("../scroll.js")
 const fs = require("fs")
+const path = require("path")
 
 const cases = `https://juliagalef.com/feed/
 http://www.aaronsw.com/2002/feeds/pgessays.rss
@@ -16,7 +17,7 @@ https://vitalik.ca/feed.xml
 https://worksinprogress.co/feed/
 https://meyerweb.com/eric/thoughts/feed/`.split("\n")
 
-const rootFolder = __dirname + "/importExamples/"
+const rootFolder = path.join(__dirname, "importExamples")
 try {
 	fs.mkdirSync(rootFolder)
 } catch (err) {
@@ -24,10 +25,10 @@ try {
 }
 cases.forEach(async url => {
 	const { hostname } = new URL(url)
-	const folder = rootFolder + hostname
+	const folder = path.join(rootFolder, hostname)
 	try {
 		fs.mkdirSync(folder)
-		fs.writeFileSync(folder + "/" + SCROLL_SETTINGS_FILENAME, scrollKeywords.importFrom + " " + url, "utf8")
+		fs.writeFileSync(path.join(folder, SCROLL_SETTINGS_FILENAME), scrollKeywords.importFrom + " " + url, "utf8")
 		const scroll = new ScrollFolder(folder)
 		await scroll.importSite()
 		scroll.buildSinglePages()

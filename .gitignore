@@ -12,11 +12,10 @@ coverage/
 # Prevent accidental checking in of perf reports
 scrollBrowserPerf.html
 scrollNodePerf.cpuprofile
-browserstackCreds.json
 
 # Dump import examples here
-importExamples/
+tests/importExamples/
 
-# Do not check in HTML files
+# Do not check in files built by Scroll
 *.html
 feed.xml

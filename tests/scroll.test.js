@@ -4,8 +4,8 @@ const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
 const { jtree } = require("jtree")
-const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords, ScrollPage } = require("./scroll.js")
-const Scrolldown = new jtree.HandGrammarProgram(fs.readFileSync(path.join(__dirname, SCROLLDOWN_GRAMMAR_FILENAME), "utf8")).compileAndReturnRootConstructor()
+const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, SCROLLDOWN_GRAMMAR_FILENAME, scrollKeywords, ScrollPage } = require("../scroll.js")
+const Scrolldown = new jtree.HandGrammarProgram(fs.readFileSync(path.join(__dirname, "..", SCROLLDOWN_GRAMMAR_FILENAME), "utf8")).compileAndReturnRootConstructor()
 
 const testString = "An extensible alternative to Markdown"
 const testPort = 5435

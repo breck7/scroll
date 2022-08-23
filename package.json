@@ -7,9 +7,9 @@
     "node": ">=14.0"
   },
   "scripts": {
-    "buildCoverageReport": "tap scroll.test.js",
-    "buildCoverageHtmlReport": "tap scroll.test.js --coverage-report=lcov",
-    "test": "node scroll.test.js"
+    "buildCoverageReport": "tap tests/scroll.test.js",
+    "buildCoverageHtmlReport": "tap tests/scroll.test.js --coverage-report=lcov",
+    "test": "node tests/scroll.test.js"
   },
   "bin": {
     "scroll": "./scroll.js"

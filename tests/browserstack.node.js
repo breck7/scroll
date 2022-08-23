@@ -3,8 +3,8 @@
 // open https://automate.browserstack.com/dashboard/v2/
 
 const webdriver = require("selenium-webdriver")
-const { userName, accessKey } = require("./ignore/browserstackCreds.json")
-const { version } = require("./package.json")
+const { userName, accessKey } = require("../ignore/browserstackCreds.json")
+const { version } = require("../package.json")
 
 const browserstackURL = "https://" + userName + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub"
 

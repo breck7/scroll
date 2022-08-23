@@ -236,7 +236,7 @@ section 22.4.0 11-25-2021
 list
  - 🎉 add basic caption support to images
 
-image screenshot.png
+image public/screenshot.png
  caption This is a caption
 aboveAsCode
 

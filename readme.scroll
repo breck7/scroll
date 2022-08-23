@@ -6,7 +6,7 @@ html
 
 question Can you show me a screenshot?
 
-image screenshot.png
+image public/screenshot.png
 
 question Can I try Scroll in the browser?
 
