@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and ScrollScript.
 
+section 27.1.1 8-24-2022
+list
+ - 🏥 only activate keyboard shortcuts if no element has focus
+
 section 27.1.0 8-24-2022
 list
  - 🎉 added new cli command: `scroll where`

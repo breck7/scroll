@@ -9,6 +9,7 @@ keyboardNavNode
    const linkToPrevious = this.getWord(1) ?? article.linkToPrevious
    const linkToNext = this.getWord(2) ?? article.linkToNext
    const script = `<script>document.addEventListener('keydown', function(event) {
+    if (document.activeElement !== document.body) return
     const getLinks = () => document.getElementsByClassName("scrollKeyboardNav")[0].getElementsByTagName("a")
     if (event.key === "ArrowLeft")
       getLinks()[0].click()
