@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and ScrollScript.
 
+section 27.0.1 8-23-2022
+list
+ - 🏥 mutability fix
+
 section 27.0.0 8-23-2022
 list
  - 🎉 added `keyboardNav` node

@@ -608,6 +608,7 @@ class ScrollFolder {
 
 	// Loads any grammar files in the scroll folder. TODO: Deprecate this? Move to explicit inclusion of grammar nodes on a per article basis?
 	_initCustomGrammarFiles() {
+		this.grammarFiles = this.grammarFiles.slice()
 		this.fullFilePaths.filter(fullFilePath => fullFilePath.endsWith(SCROLL_GRAMMAR_EXTENSION)).forEach(file => this.grammarFiles.push(file))
 	}
 
