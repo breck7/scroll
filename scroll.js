@@ -4,6 +4,7 @@
 const parseArgs = require("minimist")
 const path = require("path")
 const fs = require("fs")
+const os = require("os")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
 const open = require("open")
@@ -31,6 +32,18 @@ const nextAndPrevious = (arr, item) => {
 		next: arr[(current + 1) % len]
 	}
 }
+
+const recursiveReaddirSync = (folder, callback) =>
+	fs.readdirSync(folder).forEach(file => {
+		try {
+			const fullPath = path.join(folder, file)
+			const isDir = fs.lstatSync(fullPath).isDirectory()
+			if (isDir) recursiveReaddirSync(fullPath, callback)
+			else callback(fullPath)
+		} catch (err) {
+			// Ignore errors
+		}
+	})
 
 // Constants
 const packageJson = require("./package.json")
@@ -963,6 +976,34 @@ class ScrollCli {
 	stopWatchingForFileChanges() {
 		this._watcher.close()
 		this._watcher = undefined
+	}
+
+	whereCommand() {
+		return this.findScrollsInDirRecursive(os.homedir())
+	}
+
+	findScrollsInDirRecursive(dir) {
+		const folders = {}
+
+		this.log(`\n🔭 Scanning '${dir}' for folders with ${SCROLL_FILE_EXTENSION} files.`)
+		recursiveReaddirSync(dir, filename => {
+			if (!filename.endsWith(SCROLL_FILE_EXTENSION)) return
+
+			const folder = path.dirname(filename)
+			if (!folders[folder]) {
+				folders[folder] = {
+					folder,
+					count: 0
+				}
+				this.log(`Found ${SCROLL_FILE_EXTENSION} file(s) in ${folder}`)
+			}
+			folders[folder].count++
+		})
+
+		const sorted = lodash.sortBy(folders, "count").reverse()
+		const table = new jtree.TreeNode(sorted).toFormattedTable(120)
+
+		return this.log(`\n🔭 Found the following folders in '${dir}' containing ${SCROLL_FILE_EXTENSION} files:\n${table}`)
 	}
 
 	helpCommand() {

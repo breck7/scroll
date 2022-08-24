@@ -4,6 +4,10 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and ScrollScript.
 
+section 27.1.0 8-24-2022
+list
+ - 🎉 added new cli command: `scroll where`
+
 section 27.0.1 8-23-2022
 list
  - 🏥 mutability fix

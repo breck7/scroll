@@ -136,6 +136,11 @@ testTree.cli = async areEqual => {
 
 	// Act/Assert
 	areEqual(cli.execute(["help"]).includes("help"), true)
+
+	// Act
+	const results = cli.findScrollsInDirRecursive(__dirname)
+	// Assert
+	areEqual(results.includes("containing .scroll files"), true, "search was run")
 }
 
 testTree.standalonePage = areEqual => {
@@ -201,7 +206,8 @@ ${scrollKeywords.footer}
 		fs.writeFileSync(
 			path.join(tempFolder, "hello.scroll"),
 			`${scrollKeywords.title} hello world
-endSnippet`,
+endSnippet
+keyboardNav`,
 			"utf8"
 		)
 
