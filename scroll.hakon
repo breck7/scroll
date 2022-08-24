@@ -202,6 +202,9 @@ comment Dialogues that look like SMS conversations
  figcaption
   font-style italic
 
+.scrollKeyboardNav
+ display none
+
 comment
 .scrollCaveat
  text-decoration underline dashed 1px rgba(0,0,0,.1)

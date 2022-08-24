@@ -100,10 +100,10 @@ testTree.check = async areEqual => {
 }
 
 testTree.article = areEqual => {
-	const article = new ScrollFolder().allArticles[0]
+	const article = new ScrollFolder().articles[0]
 	const content = article.htmlCode
 
-	areEqual(article.permalink, "releaseNotes")
+	areEqual(article.permalink, "releaseNotes.html")
 	areEqual(content.includes("Scroll the language is now called ScrollScript"), true)
 }
 

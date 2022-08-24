@@ -6,12 +6,13 @@ scrollScriptNode
  catchAllNodeType catchAllParagraphNode
  compilesTo html
  javascript
-  get permalink() {
-   return this.get("permalink") || this._permalink || ""
+  setArticle(article) {
+    this.article = article
+    return this
   }
-  setPermalink(permalink) {
-   this._permalink = permalink
-   return this
+  article = {}
+  get permalink() {
+   return this.get("permalink") || this.article.permalink || ""
   }
   get folder() {
    return this._folder || ""

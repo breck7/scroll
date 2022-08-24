@@ -4,6 +4,11 @@ skipIndexPage
 paragraph
  Here's a list of the notable changes in Scroll and ScrollScript.
 
+section 27.0.0 8-23-2022
+list
+ - 🎉 added `keyboardNav` node
+ - ⚠️ BREAKING: all `permalink` lines in `.scroll` files need `.html`. Run `scroll migrate` to find and update automatically.
+
 section 26.1.0 8-23-2022
 list
  - 🎉 export SCROLL_CSS for tryscroll app

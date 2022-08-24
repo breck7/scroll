@@ -1,0 +1,19 @@
+keyboardNavNode
+ description Makes left go to previous article and right go to next article.
+ extends abstractScrollNode
+ cruxFromId
+ catchAllCellType urlCell
+ javascript
+  compile() {
+   const article = this.getRootNode().article
+   const linkToPrevious = this.getWord(1) ?? article.linkToPrevious
+   const linkToNext = this.getWord(2) ?? article.linkToNext
+   const script = `<script>document.addEventListener('keydown', function(event) {
+    const getLinks = () => document.getElementsByClassName("scrollKeyboardNav")[0].getElementsByTagName("a")
+    if (event.key === "ArrowLeft")
+      getLinks()[0].click()
+    else if (event.key === "ArrowRight")
+      getLinks()[1].click()
+   });</script>`
+   return `<div class="scrollKeyboardNav"><a href="${linkToPrevious}">${linkToPrevious}</a> · ${article.permalink} · <a href="${linkToNext}">${linkToNext}</a>${script}</div>`
+  }

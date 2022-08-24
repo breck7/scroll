@@ -7,7 +7,6 @@ const fs = require("fs")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
 const open = require("open")
-const semver = require("semver")
 
 // Tree Notation Includes
 const { jtree } = require("jtree")
@@ -23,6 +22,15 @@ const removeReturnCharsAndRightShift = (str, numSpaces) => str.replace(/\r/g, ""
 const unsafeStripHtml = html => html.replace(/<[^>]*>?/gm, "")
 // Normalize 3 possible inputs: 1) cwd of the process 2) provided absolute path 3) cwd of process + provided relative path
 const resolvePath = (folder = "") => (path.isAbsolute(folder) ? path.normalize(folder) : path.resolve(path.join(process.cwd(), folder)))
+
+const nextAndPrevious = (arr, item) => {
+	const len = arr.length
+	const current = arr.indexOf(item)
+	return {
+		previous: arr[(current + len - 1) % len],
+		next: arr[(current + 1) % len]
+	}
+}
 
 // Constants
 const packageJson = require("./package.json")
@@ -132,14 +140,23 @@ const SCROLL_ICONS = {
 }
 
 class Article {
-	constructor(scrollScriptProgram, filePath, sourceLink, baseUrl) {
+	constructor(scrollScriptProgram, filePath, sourceLink, folder) {
 		this.scrollScriptProgram = scrollScriptProgram
 		this._sourceLink = sourceLink
 		this.filePath = filePath
 		this.filename = path.basename(filePath)
-		this.baseUrl = baseUrl
-		scrollScriptProgram.setPermalink(this.permalink)
+		this.folder = folder
+		this.baseUrl = folder.settings.baseUrl
+		scrollScriptProgram.setArticle(this)
 		scrollScriptProgram.setFolder(path.dirname(filePath))
+	}
+
+	get linkToPrevious() {
+		return nextAndPrevious(this.folder.articles, this).previous.permalink
+	}
+
+	get linkToNext() {
+		return nextAndPrevious(this.folder.articles, this).next.permalink
 	}
 
 	save() {
@@ -152,7 +169,7 @@ class Article {
 	baseUrl = ""
 
 	get permalink() {
-		return this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "")
+		return this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "") + ".html"
 	}
 
 	get ogImage() {
@@ -217,7 +234,7 @@ class Article {
 			program
 				.map((child, index) => (index >= indexOfBreak ? "" : child.compile()))
 				.filter(i => i)
-				.join(program._getChildJoinCharacter()) + `<a class="scrollContinueReadingLink" href="${this.permalink}.html">Full article...</a>`
+				.join(program._getChildJoinCharacter()) + `<a class="scrollContinueReadingLink" href="${this.permalink}">Full article...</a>`
 		)
 	}
 
@@ -229,7 +246,7 @@ class Article {
 		const { title, permalink, baseUrl } = this
 		return ` <item>
   <title>${title}</title>
-  <link>${baseUrl + permalink}.html</link>
+  <link>${baseUrl + permalink}</link>
  </item>`
 	}
 }
@@ -457,7 +474,7 @@ class ScrollPage {
 		const scrollFolder = new ScrollFolder(undefined, this.settings)
 		const { scrollScriptCompiler } = scrollFolder
 		const program = new scrollScriptCompiler(this.content)
-		const article = new Article(program, "", "", scrollFolder.settings.baseUrl)
+		const article = new Article(program, "", "", scrollFolder)
 		return new ScrollArticlePage(scrollFolder, article).toHtml()
 	}
 }
@@ -507,7 +524,7 @@ class ScrollArticlePage extends AbstractScrollPage {
 		return `h1
  class ${cssClasses.scrollSingleArticleTitle}
  a ${this.ogTitle}
-  href ${this.article.permalink}.html
+  href ${this.article.permalink}
 div
  class ${cssClasses.scrollArticlePageComponent}
  style ${this.cssColumnWorkaround}
@@ -609,18 +626,16 @@ class ScrollFolder {
 	}
 
 	_articles
-	get allArticles() {
+	get articles() {
 		if (this._articles) return this._articles
 		const { gitLink, scrollScriptCompiler, fullFilePaths } = this
-		const all = fullFilePaths
-			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-			.map(fullFilePath => new Article(new scrollScriptCompiler(read(fullFilePath)), fullFilePath, gitLink ? gitLink + path.basename(fullFilePath) : "", this.settings.baseUrl))
+		const all = fullFilePaths.filter(file => file.endsWith(SCROLL_FILE_EXTENSION)).map(fullFilePath => new Article(new scrollScriptCompiler(read(fullFilePath)), fullFilePath, gitLink ? gitLink + path.basename(fullFilePath) : "", this))
 		this._articles = lodash.sortBy(all, article => article.timestamp).reverse()
 		return this._articles
 	}
 
 	get articlesToIncludeInIndex() {
-		return this.allArticles.filter(article => article.includeInIndex)
+		return this.articles.filter(article => article.includeInIndex)
 	}
 
 	get gitLink() {
@@ -628,7 +643,7 @@ class ScrollFolder {
 	}
 
 	get errors() {
-		return this.allArticles
+		return this.articles
 			.map(article =>
 				article.scrollScriptProgram.getAllErrors().map(err => {
 					return { filename: article.filename, ...err.toObject() }
@@ -655,11 +670,28 @@ class ScrollFolder {
 		return path.join(this.scrollFolder, SCROLL_SETTINGS_FILENAME)
 	}
 
-	get onScrollVersion() {
-		return this.settingsTree.toObject()[scrollKeywords.scrollVersion]
+	_migrate27() {
+		let changed = false
+		console.log(`🚚 Applying 27.0.0 migrations`)
+		this.articles.forEach(article => {
+			const code = article.scrollScriptProgram
+			const original = code.toString()
+			const permalink = code.get("permalink")
+			if (permalink) {
+				code.set("permalink", permalink.replace(".html", "") + ".html")
+				article.save()
+				if (original !== code.toString()) changed = true
+			}
+		})
+		return changed
 	}
 
-	migrate(fromVersion) {
+	migrate() {
+		if (this._migrate27()) {
+			console.log(`Migration step resulted in changes. Run migrate again to run more migrations.`)
+			return
+		}
+
 		const replaceEmojiLinksWithAftertextLinks = node => {
 			// todo: a better place for these util functions? I stick them in here so the
 			// grammar is all in one file for ease of use in TreeLanguageDesigner
@@ -693,21 +725,19 @@ class ScrollFolder {
 			node.setWord(0, "aftertext")
 		}
 
-		if (semver.lt(fromVersion, "24.0.0")) {
-			// Articles that have a date, a paragraph, and no dateline added yet need one
-			console.log(`🚚 Applying 24.0.0 migrations`)
-			this.allArticles.forEach(article => {
-				const content = article.scrollScriptProgram
-				const ps = content.findNodes("paragraph")
-				if (content.has("date") && content.has("paragraph") && content.findNodes("aftertext dateline").length === 0) {
-					const firstParagraph = ps.shift()
-					updateParagraph(firstParagraph)
-					firstParagraph.appendLine("dateline")
-				}
-				ps.forEach(updateParagraph)
-				article.save()
-			})
-		}
+		// Articles that have a date, a paragraph, and no dateline added yet need one
+		console.log(`🚚 Applying 24.0.0 migrations`)
+		this.articles.forEach(article => {
+			const content = article.scrollScriptProgram
+			const ps = content.findNodes("paragraph")
+			if (content.has("date") && content.has("paragraph") && content.findNodes("aftertext dateline").length === 0) {
+				const firstParagraph = ps.shift()
+				updateParagraph(firstParagraph)
+				firstParagraph.appendLine("dateline")
+			}
+			ps.forEach(updateParagraph)
+			article.save()
+		})
 
 		return this
 	}
@@ -735,9 +765,9 @@ class ScrollFolder {
 	_singlePages = new Map()
 	_buildAndWriteSinglePages() {
 		const start = Date.now()
-		const { settings, allArticles } = this
-		const pages = allArticles.map(article => {
-			const permalink = `${article.permalink}.html`
+		const { settings, articles } = this
+		const pages = articles.map(article => {
+			const permalink = `${article.permalink}`
 			const html = new ScrollArticlePage(this, article).toHtml()
 			if (this._singlePages.get(permalink) === html) return "Unmodified"
 			this.write(permalink, html)
@@ -801,7 +831,7 @@ class ScrollFolder {
 	}
 
 	get shouldBuildSnippetsPage() {
-		return this.allArticles.some(article => !!article.snippetBreakNode)
+		return this.articles.some(article => !!article.snippetBreakNode)
 	}
 
 	// rss, twitter, hn, reddit, pinterest, instagram, tiktok, youtube?
@@ -894,8 +924,7 @@ class ScrollCli {
 	async migrateCommand(cwd) {
 		const folder = new ScrollFolder(resolvePath(cwd))
 		folder.verbose = this.verbose
-		const currentVersion = folder.onScrollVersion ?? "23.0.0"
-		folder.migrate(currentVersion)
+		folder.migrate()
 		return folder
 	}
 
