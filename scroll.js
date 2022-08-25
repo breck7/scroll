@@ -150,16 +150,18 @@ const SCROLL_ICONS = {
 }
 
 class ScrollFile {
-	constructor(scrollScriptProgram, filePath, viewSourceLink, folder) {
+	constructor(scrollScriptProgram, filePath, folder) {
 		this.scrollScriptProgram = scrollScriptProgram
-		this._viewSourceLink = viewSourceLink
 		this.filePath = filePath
-		this.filename = path.basename(filePath)
 		this.folder = folder
-		this.baseUrl = folder.settings.baseUrl
-		scrollScriptProgram.setFile(this)
-		scrollScriptProgram.setFolder(path.dirname(filePath))
 		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
+		scrollScriptProgram.setFile(this)
+	}
+
+	filePath = ""
+
+	get filename() {
+		return path.basename(this.filePath)
 	}
 
 	// Do not build a file marked 'importOnly'
@@ -199,11 +201,6 @@ class ScrollFile {
 		write(`${this.filePath}`, this.scrollScriptProgram.toString())
 	}
 
-	_viewSourceLink = ""
-	filename = ""
-	filePath = ""
-	baseUrl = ""
-
 	get permalink() {
 		return this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
 	}
@@ -239,7 +236,7 @@ class ScrollFile {
 	}
 
 	get sourceLink() {
-		return this.scrollScriptProgram.get(scrollKeywords.viewSourceLink) || this._viewSourceLink
+		return this.scrollScriptProgram.get(scrollKeywords.viewSourceLink) || (this.folder.viewSourceLink ? this.folder.viewSourceLink + path.basename(this.filePath) : "")
 	}
 
 	get timestamp() {
@@ -287,7 +284,8 @@ class ScrollFile {
 	}
 
 	toRss() {
-		const { title, permalink, baseUrl } = this
+		const { title, permalink } = this
+		const { baseUrl } = this.folder.settings
 		return ` <item>
   <title>${title}</title>
   <link>${baseUrl + permalink}</link>
@@ -620,7 +618,7 @@ class ScrollPage {
 		const scrollFolder = new ScrollFolder(undefined, "")
 		const { scrollScriptCompiler } = scrollFolder
 		const program = new scrollScriptCompiler(this.content)
-		const file = new ScrollFile(program, "", "", scrollFolder)
+		const file = new ScrollFile(program, "", scrollFolder)
 		return file.html
 	}
 }
@@ -658,10 +656,13 @@ class ScrollFolder {
 	_files
 	get files() {
 		if (this._files) return this._files
-		const { viewSourceLink, scrollScriptCompiler, fullFilePaths } = this
+		const { scrollScriptCompiler, fullFilePaths } = this
 		const all = fullFilePaths
 			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-			.map(fullFilePath => new ScrollFile(new scrollScriptCompiler(read(fullFilePath)), fullFilePath, viewSourceLink ? viewSourceLink + path.basename(fullFilePath) : "", this))
+			.map(fullFilePath => {
+				const parsedProgram = new scrollScriptCompiler(read(fullFilePath))
+				return new ScrollFile(parsedProgram, fullFilePath, this)
+			})
 		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
 		return this._files
 	}

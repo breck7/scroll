@@ -24,13 +24,6 @@ scrollScriptNode
   get permalink() {
    return this.get("permalink") || this.file.permalink || ""
   }
-  get folder() {
-   return this._folder || ""
-  }
-  setFolder(folder) {
-   this._folder = folder
-   return this
-  }
   compileATags(text) {
    // todo: a better place for these util functions? I stick them in here so the
    // grammar is all in one file for ease of use in TreeLanguageDesigner

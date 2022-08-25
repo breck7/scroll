@@ -6,13 +6,14 @@ imageNode
  inScope imageCaptionNode
  javascript
   compile() {
-   const dirPath = this.getParent().folder
+   const file = this.getRootNode().file
+   const folder = file.folder.folder
    const src = this.getWord(1)
    let imgTag = ""
    try {
     const sizeOf = require("image-size")
     const path = require("path")
-    const dimensions = sizeOf(path.join(dirPath, src))
+    const dimensions = sizeOf(path.join(folder, src))
     const width = dimensions.width
     const height = dimensions.height
     imgTag = `<img src="${src}" width="${width}" height="${height}" loading="lazy"/>`
