@@ -110,30 +110,28 @@ const scrollKeywords = {
 	aftertext: "aftertext",
 	image: "image",
 	date: "date",
-	importFrom: "importFrom",
 	endSnippet: "endSnippet",
-	maxColumns: "maxColumns",
-	header: "header",
-	footer: "footer",
-	columnWidth: "columnWidth",
-	settings: "settings",
-	groups: "groups"
+	groups: "groups",
+	import: "import",
+	importOnly: "importOnly",
+	settings: "settings"
 }
 
-// todo: move all keywords here
+// Todo: how to keep in sync with grammar?
 const settingsKeywords = {
+	title: "title",
+	description: "description",
 	git: "git",
 	baseUrl: "baseUrl",
+	maxColumns: "maxColumns",
+	columnWidth: "columnWidth",
+	twitter: "twitter",
+	github: "github",
+	email: "email",
+	importFrom: "importFrom",
+	header: "header",
+	footer: "footer",
 	css: "css" // "none", "split", or "inline". If not set defaults to "inline"
-}
-
-const defaultSettings = {
-	twitter: "",
-	github: "",
-	email: "",
-	description: "",
-	title: "",
-	baseUrl: ""
 }
 
 const initReadmePage = `${scrollKeywords.title} Hello world
@@ -162,6 +160,11 @@ class Article {
 		scrollScriptProgram.setFolder(path.dirname(filePath))
 	}
 
+	// Do not build a file marked 'importOnly'
+	get shouldBuild() {
+		return !this.scrollScriptProgram.has(scrollKeywords.importOnly)
+	}
+
 	get linkToPrevious() {
 		return nextAndPrevious(this.folder.articles, this).previous.permalink
 	}
@@ -180,7 +183,7 @@ class Article {
 	baseUrl = ""
 
 	get permalink() {
-		return this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(/\.scroll$/, "") + ".html"
+		return this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
 	}
 
 	get ogImage() {
@@ -221,12 +224,16 @@ class Article {
 		return dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
 	}
 
+	get settingsNode() {
+		return this.scrollScriptProgram.getNode(scrollKeywords.settings) || new TreeNode()
+	}
+
 	get maxColumns() {
-		return this.scrollScriptProgram.get(scrollKeywords.maxColumns)
+		return this.settingsNode.get(settingsKeywords.maxColumns)
 	}
 
 	get columnWidth() {
-		return this.scrollScriptProgram.get(scrollKeywords.columnWidth)
+		return this.settingsNode.get(settingsKeywords.columnWidth)
 	}
 
 	_htmlCode = ""
@@ -277,7 +284,7 @@ ${date}
 ${scrollKeywords.paragraph}
  ${removeReturnCharsAndRightShift(content, 1)}
 `
-		write(path.join(destinationFolder, Utils.stringToPermalink(title) + ".scroll"), scrollFile)
+		write(path.join(destinationFolder, Utils.stringToPermalink(title) + SCROLL_FILE_EXTENSION), scrollFile)
 	}
 
 	async downloadFilesTo(destinationFolder) {
@@ -341,17 +348,7 @@ class AbstractScrollPage {
 		return this.scrollSettings.baseUrl ?? ""
 	}
 
-	get customHeader() {
-		return this.scroll.settingsTree.getNode(scrollKeywords.header)
-	}
-
-	get customFooter() {
-		return this.scroll.settingsTree.getNode(scrollKeywords.footer)
-	}
-
 	get header() {
-		const { customHeader } = this
-		if (customHeader) return customHeader.childrenToString()
 		return `div
  class scrollHeaderComponent
  div
@@ -368,8 +365,6 @@ class AbstractScrollPage {
 	}
 
 	get footer() {
-		const { customFooter } = this
-		if (customFooter) return customFooter.childrenToString()
 		return `div
  class scrollFooterComponent
  div
@@ -505,12 +500,16 @@ class ScrollArticlePage extends AbstractScrollPage {
 		return this.article.maxColumns || super.maxColumns
 	}
 
-	get customHeader() {
-		return this.article.scrollScriptProgram.getNode(scrollKeywords.header) || super.customHeader
+	get header() {
+		const header = this.article.settingsNode.getNode(settingsKeywords.header)
+		if (header) return header.childrenToString()
+		return super.header
 	}
 
-	get customFooter() {
-		return this.article.scrollScriptProgram.getNode(scrollKeywords.footer) || super.customFooter
+	get footer() {
+		const footer = this.article.settingsNode.getNode(settingsKeywords.footer)
+		if (footer) return footer.childrenToString()
+		return super.footer
 	}
 
 	get ogDescription() {
@@ -666,13 +665,13 @@ class ScrollFolder {
 
 	_settings
 	get settings() {
-		if (!this._settings) this._settings = { ...defaultSettings, ...this.settingsTree.toObject() }
+		if (!this._settings) this._settings = { ...this.settingsTree.toObject() }
 		return this._settings
 	}
 
 	_settingsTree
 	get settingsTree() {
-		if (!this._settingsTree) this._settingsTree = new TreeNode(this._settingsContent).getNode("settings")
+		if (!this._settingsTree) this._settingsTree = new TreeNode(this._settingsContent).getNode(scrollKeywords.settings)
 		return this._settingsTree
 	}
 
@@ -764,8 +763,10 @@ class ScrollFolder {
 		return new ScrollIndexPage(this)
 	}
 
+	logIndent = 0
 	log(message) {
-		if (this.verbose) console.log(message)
+		const indent = "-".repeat(this.logIndent)
+		if (this.verbose) console.log(indent + message)
 		return message
 	}
 
@@ -776,25 +777,26 @@ class ScrollFolder {
 	_buildAndWriteSinglePages() {
 		const start = Date.now()
 		const { settings, articles } = this
-		const pages = articles.map(article => {
+		const articlesToBuild = articles.filter(article => article.shouldBuild)
+		this.log(`Building ${articlesToBuild.length} articles from ${articles.length} ${SCROLL_FILE_EXTENSION} files found in folder`)
+		this.logIndent++
+		const pages = articlesToBuild.map(article => {
 			const permalink = `${article.permalink}`
 			const html = new ScrollArticlePage(this, article).toHtml()
 			if (this._singlePages.get(permalink) === html) return "Unmodified"
-			if (html.trim()) {
-				// Todo: make it so blank articles are not written, to support scroll.settings situation.
-				this.write(permalink, html, `Wrote ${article.filename} to ${permalink}`)
-			}
+			this.write(permalink, html, `Wrote ${article.filename} to ${permalink}`)
 			this._singlePages.set(permalink, html)
 			return { permalink, html }
 		})
 		const seconds = (Date.now() - start) / 1000
-		this.log(`⌛️ compiled ${pages.length} files to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second`)
+		this.log(`⌛️ compiled ${pages.length} single article pages to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second\n`)
+		this.logIndent--
 		return pages
 	}
 
 	_cachedPages = {}
 	_buildAndWriteCollectionPage(filename, articles, page) {
-		if (articles.length === 0) return this.log(`🫙 Skipping build of '${filename}' because no articles in group.`)
+		if (articles.length === 0) return this.log(`🫙 Skipping build of '${filename}' because no articles in '${filename}' group.`)
 		const html = page.toHtml()
 		if (this._cachedPages[filename] !== html) {
 			const start = Date.now()
@@ -822,11 +824,11 @@ class ScrollFolder {
 	}
 
 	buildRssFeed(filename = this.rssFilename) {
-		return this.write(filename, new ScrollRssFeed(this).toXml(), `Wrote RSS to '${filename}'`)
+		return this.write(filename, new ScrollRssFeed(this).toXml(), `Wrote RSS feed to '${filename}'\n`)
 	}
 
 	buildCssFile(filename = "scroll.css") {
-		return this.write(filename, SCROLL_CSS, `Wrote CSS to '${filename}'`)
+		return this.write(filename, SCROLL_CSS, `Wrote scroll CSS content to '${filename}'`)
 	}
 
 	write(filename, content, message) {
@@ -836,12 +838,14 @@ class ScrollFolder {
 	}
 
 	buildAll() {
-		this.log(`👷 building ${this.scrollFolder}`)
+		this.log(`\n👷 building folder '${this.scrollFolder}'`)
+		this.logIndent++
 		this.buildIndexPage()
 		this.buildSinglePages()
 		if (this.shouldBuildSnippetsPage) this.buildSnippetsPage()
 		if (this.settings[settingsKeywords.baseUrl]) this.buildRssFeed()
 		if (this.settings[settingsKeywords.css] === "split") this.buildCssFile()
+		this.logIndent--
 	}
 
 	get shouldBuildSnippetsPage() {
@@ -1015,4 +1019,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler, SCROLL_CSS }
+module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, settingsKeywords, ScrollPage, DefaultScrollScriptCompiler, SCROLL_CSS }

@@ -10,6 +10,7 @@ list
  - ⚠️ BREAKING: removed `skipIndexPage`. Instead you now opt-in to group pages like this: `groups index.html`
  - ⚠️ BREAKING: if a ".scroll" file compiles to "" (after trimming), it will not be written..
  - ⚠️ BREAKING: removed `scroll.settings` concept. Use `import settings.scroll` now.
+ - ⚠️ BREAKING: `maxColumns`, `columnWidth`, `footer`, and `header` now nest under `settings`.
  - ⚠️ BREAKING: removed `ignoreGrammarFiles`. Custom grammar extensions must now be explicitly imported.
 
 section 27.1.1 8-24-2022
