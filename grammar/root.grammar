@@ -16,13 +16,13 @@ scrollScriptNode
  catchAllNodeType catchAllParagraphNode
  compilesTo html
  javascript
-  setArticle(article) {
-    this.article = article
+  setFile(file) {
+    this.file = file
     return this
   }
-  article = {}
+  file = {}
   get permalink() {
-   return this.get("permalink") || this.article.permalink || ""
+   return this.get("permalink") || this.file.permalink || ""
   }
   get folder() {
    return this._folder || ""

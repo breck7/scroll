@@ -1,13 +1,13 @@
 keyboardNavNode
- description Makes left go to previous article and right go to next article.
+ description Makes left go to previous file and right go to next file.
  extends abstractScrollNode
  cruxFromId
  catchAllCellType urlCell
  javascript
   compile() {
-   const article = this.getRootNode().article
-   const linkToPrevious = this.getWord(1) ?? article.linkToPrevious
-   const linkToNext = this.getWord(2) ?? article.linkToNext
+   const file = this.getRootNode().file
+   const linkToPrevious = this.getWord(1) ?? file.linkToPrevious
+   const linkToNext = this.getWord(2) ?? file.linkToNext
    const script = `<script>document.addEventListener('keydown', function(event) {
     if (document.activeElement !== document.body) return
     const getLinks = () => document.getElementsByClassName("scrollKeyboardNav")[0].getElementsByTagName("a")
@@ -16,5 +16,5 @@ keyboardNavNode
     else if (event.key === "ArrowRight")
       getLinks()[1].click()
    });</script>`
-   return `<div class="scrollKeyboardNav"><a href="${linkToPrevious}">${linkToPrevious}</a> · ${article.permalink} · <a href="${linkToNext}">${linkToNext}</a>${script}</div>`
+   return `<div class="scrollKeyboardNav"><a href="${linkToPrevious}">${linkToPrevious}</a> · ${file.permalink} · <a href="${linkToNext}">${linkToNext}</a>${script}</div>`
   }

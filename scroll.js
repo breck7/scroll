@@ -754,7 +754,7 @@ class ScrollFolder {
 		return message
 	}
 
-	buildSinglePages() {
+	buildFiles() {
 		return this._buildAndWriteSinglePages()
 	}
 	_singlePages = new Map()
@@ -814,7 +814,7 @@ class ScrollFolder {
 		this.log(`\n👷 building folder '${this.scrollFolder}\n'`)
 		this.logIndent++
 		this.buildIndexPage()
-		this.buildSinglePages()
+		this.buildFiles()
 		this.buildSnippetsPage()
 		this.logIndent--
 	}

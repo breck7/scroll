@@ -5,8 +5,8 @@ printFeedNode
  cells keywordCell groupNameCell
  javascript
   compile() {
-  const article = this.getRootNode().article
-  const folder = article.folder
+  const file = this.getRootNode().file
+  const folder = file.folder
   const files = folder.getGroup(this.getWord(1))
   const { title, baseUrl, description } = folder.settings
         return `<?xml version="1.0" encoding="ISO-8859-1" ?>

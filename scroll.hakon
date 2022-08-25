@@ -93,7 +93,7 @@ comment On the index page add some spacing around articles
   text-decoration none
   color #000
 
-.scrollArticleDateComponent
+.scrollDateComponent
  font-style italic
  font-size 80%
 

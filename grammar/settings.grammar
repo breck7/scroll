@@ -30,7 +30,7 @@ descriptionSettingNode
  catchAllCellType stringCell
 gitSettingNode
  todo Deprecate?
- description The base link to be used to generate the "article source" link on article pages.
+ description The base link to be used to generate the "file source" link.
  extends abstractUrlSettingNode
  crux git
 githubSettingNode
@@ -56,7 +56,7 @@ rssUrlSettingNode
  crux rssFeedUrl
 maxColumnsNode
  extends abstractIntSettingNode
- description Set your own max column count for a single article's generated HTML.
+ description Set your own max column count for a single file's generated HTML.
 cssSettingEnumCell
  enum inline none
  extends stringCell

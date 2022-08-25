@@ -7,11 +7,11 @@ abstractTopLevelSingleMetaNode
  javascript
   compile() { return ""}
 permalinkNode
- description When compiling, Scroll will save this article to {permalink}
+ description When compiling, Scroll will save this file to {permalink}
  extends abstractTopLevelSingleMetaNode
  cells keywordCell permalinkCell
 groupsNode
- description Scroll will group all articles in each group and generate a page for each group.
+ description Add this file to zero or more groups.
  cruxFromId
  example
   groups index.html
@@ -20,7 +20,7 @@ groupsNode
  catchAllCellType permalinkCell
 titleNode
  catchAllCellType stringCell
- description Title of the article.
+ description Title of the file.
  extends abstractTopLevelSingleMetaNode
  javascript
   compile() {
@@ -36,8 +36,8 @@ sourceLinkNode
  extends abstractTopLevelSingleMetaNode
 dateNode
  catchAllCellType dateCell
- description Date the article was first published.
+ description Date this file was first published.
  extends abstractTopLevelSingleMetaNode
 endSnippetNode
- description Insert one of these where you want to cut the article for the snippets.html page.
+ description Insert one of these where you want to cut the file for a snippet.
  extends abstractTopLevelSingleMetaNode

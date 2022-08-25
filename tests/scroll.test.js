@@ -173,7 +173,7 @@ testTree.errorStates = async areEqual => {
 		areEqual(singleFile.includes(testString), true)
 
 		// Act
-		const singlePages = folder.buildSinglePages()
+		const singlePages = folder.buildFiles()
 
 		// Assert
 		areEqual(singlePages.length, 1)
