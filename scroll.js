@@ -645,7 +645,7 @@ class ScrollFolder {
 	}
 
 	_files
-	get file() {
+	get files() {
 		if (this._files) return this._files
 		const { gitLink, scrollScriptCompiler, fullFilePaths } = this
 		const all = fullFilePaths.filter(file => file.endsWith(SCROLL_FILE_EXTENSION)).map(fullFilePath => new ScrollFile(new scrollScriptCompiler(read(fullFilePath)), fullFilePath, gitLink ? gitLink + path.basename(fullFilePath) : "", this))
