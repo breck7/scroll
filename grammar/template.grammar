@@ -7,3 +7,7 @@ templateNode
  cells keywordCell templateEnumCell
  catchAllCellType stringCell
  description Defaults to "file".
+ javascript
+  compile() {
+    return ""
+  }
