@@ -48,8 +48,10 @@ list
       scrollArticleDateComponent => scrollDateComponent
       scrollArticlePageComponent => scrollFilePageComponent
       scrollSingleArticleTitle => scrollFilePageTitle
-      scrollIndexPageArticleContainerComponent => scrollIndexPageFileContainerComponent
+      scrollIndexPageArticleContainerComponent => scrollGroupPageFileContainerComponent
       scrollArticleSourceLinkComponent => scrollFileSourceLinkComponent
+      scrollIndexPageComponent => scrollGroupPageComponent
+      scrollIndexPageFileContainerComponent => scrollGroupPageFileContainerComponent
  - 🎉 keyboardNav will now use the first group a file belongs to if prev and next are not supplied
 
 subsection Updating custom CSS

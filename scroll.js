@@ -94,8 +94,8 @@ const scrollBoilerplateCompiledMessage = `<!doctype html>
 -->`
 
 const cssClasses = {
-	scrollIndexPageComponent: "scrollIndexPageComponent",
-	scrollIndexPageFileContainerComponent: "scrollIndexPageFileContainerComponent",
+	scrollGroupPageComponent: "scrollGroupPageComponent",
+	scrollGroupPageFileContainerComponent: "scrollGroupPageFileContainerComponent",
 	scrollFileSourceLinkComponent: "scrollFileSourceLinkComponent",
 	scrollFilePageComponent: "scrollFilePageComponent",
 	scrollFilePageTitle: "scrollFilePageTitle"
@@ -563,14 +563,14 @@ class GroupTemplate extends AbstractTemplate {
 			.getGroup()
 			.map(file => {
 				const node = new TreeNode(`div
- class ${cssClasses.scrollIndexPageFileContainerComponent}`)
+ class ${cssClasses.scrollGroupPageFileContainerComponent}`)
 				node.getNode("div").appendLineAndChildren("bern", this.getFileHtml(file))
 				return node.toString()
 			})
 			.join("\n")
 
 		return `div
- class ${cssClasses.scrollIndexPageComponent}
+ class ${cssClasses.scrollGroupPageComponent}
  style column-width:${this.columnWidth}ch;
  ${removeReturnCharsAndRightShift(files, 1)}`
 	}
