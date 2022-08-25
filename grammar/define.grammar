@@ -1,0 +1,20 @@
+defineNode
+ description Define a variable token and replacement that will be applied to all lines following this one.
+ extends abstractScrollNode
+ cruxFromId
+ example
+  define YEAR 2022
+ javascript
+  compile() {
+   return ""
+  }
+defineDefaultNode
+ description Define the default value for a variable token.
+ extends abstractScrollNode
+ example
+  defineDefault YEAR 2021
+ cruxFromId
+ javascript
+  compile() {
+   return ""
+  }
