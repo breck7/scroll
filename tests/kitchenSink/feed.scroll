@@ -1,1 +1,6 @@
 import settings.scroll
+
+settings
+ noTemplate
+
+printFeed index
