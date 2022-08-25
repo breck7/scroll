@@ -1,0 +1,47 @@
+abstractSettingNode
+ abstract
+ cells keywordCell
+abstractUrlSettingNode
+ abstract
+ extends abstractSettingNode
+ cells keywordCell urlCell
+settingsNode
+ description Blog wide settings. Usually only used in a "settings.scroll" file.
+ cruxFromId
+ inScope abstractSettingNode
+ extends abstractScrollNode
+ javascript
+  compile() { return ""}
+titleSettingNode
+ description Title of the blog.
+ extends abstractSettingNode
+ crux title
+ catchAllCellType stringCell
+ example
+descriptionSettingNode
+ description Description of the blog.
+ extends abstractSettingNode
+ crux description
+ catchAllCellType stringCell
+gitSettingNode
+ todo Deprecate?
+ description The base link to be used to generate the "article source" link on article pages.
+ extends abstractUrlSettingNode
+ crux git
+githubSettingNode
+ description A link to a GitHub project.
+ extends abstractUrlSettingNode
+ crux github
+twitterSettingNode
+ description A link to the blog or author's Twitter account.
+ extends abstractUrlSettingNode
+ crux twitter
+emailSettingNode
+ description Email address of author admin.
+ extends abstractSettingNode
+ crux email
+ cells keywordCell emailAddressCell
+baseUrlSettingNode
+ description Root url of the published site. Needed for og tags.
+ extends abstractUrlSettingNode
+ crux baseUrl

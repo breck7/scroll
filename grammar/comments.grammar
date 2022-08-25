@@ -1,5 +1,3 @@
-commentCell
- highlightScope comment
 commentLineNode
  catchAllCellType commentCell
 commentNode

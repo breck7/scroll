@@ -1,0 +1,9 @@
+importNode
+ description Import one file into another.
+ cruxFromId
+ extends abstractScrollNode
+ catchAllCellType filePathCell
+ javascript
+  compile() { return ""}
+ example
+  import settings.scroll

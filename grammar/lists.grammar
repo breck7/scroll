@@ -1,5 +1,3 @@
-bulletPointCell
- highlightScope keyword
 listNode
  description An unordered list.
  catchAllNodeType listItemNode

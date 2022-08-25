@@ -1,5 +1,4 @@
 title 📜 Scroll: an extensible alternative to Markdown.
-permalink index.html
 
 html
  <a href="https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml"><img src="https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml/badge.svg" style="width: 49%;"/></a> <a href="https://gitpod.io/#https://github.com/breck7/scroll"><img style="width: 49%;" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod"/></a>
@@ -417,3 +416,6 @@ aftertext
  For that we use BrowserStack.
  link https://browserstack.com BrowserStack
 
+permalink index.html
+import settings.scroll
+keyboardNav releaseNotes.html releaseNotes.html

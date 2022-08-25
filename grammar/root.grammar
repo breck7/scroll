@@ -1,3 +1,13 @@
+abstractScrollNode
+ abstract
+ cells keywordCell
+blankLineNode
+ description Blank lines compile to nothing in the HTML.
+ cells blankCell
+ javascript
+  compile() { return ""}
+ pattern ^$
+ tags doNotSynthesize
 scrollScriptNode
  extensions scroll
  description A simple language for structurable thought. An extensible alternative to Markdown. Compiles to HTML.

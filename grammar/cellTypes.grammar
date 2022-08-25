@@ -1,0 +1,41 @@
+anyCell
+urlCell
+ highlightScope constant.language
+keywordCell
+ highlightScope keyword
+stringCell
+ highlightScope string
+errorNode
+ baseNodeType errorNode
+idCell
+ highlightScope constant.language
+dateCell
+ highlightScope string
+integerCell
+ highlightScope constant.numeric
+permalinkCell
+ highlightScope string
+commentCell
+ highlightScope comment
+blankCell
+codeCell
+ highlightScope comment
+bulletPointCell
+ description Any token used as a bullet point such as "-" or "1." or ">"
+ highlightScope keyword
+emailAddressCell
+ extends stringCell
+tagOrUrlCell
+ description An HTML tag or a url.
+ highlightScope constant.language
+delimiterCell
+ description String to use as a delimiter.
+ highlightScope string
+htmlAttributesCell
+ highlightScope comment
+classNameCell
+ highlightScope constant
+htmlIdCell
+ extends idCell
+filePathCell
+ extends stringCell

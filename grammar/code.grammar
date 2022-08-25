@@ -1,5 +1,3 @@
-codeCell
- highlightScope comment
 lineOfCodeNode
  catchAllCellType codeCell
  catchAllNodeType lineOfCodeNode

@@ -15,6 +15,8 @@ const { TreeNode, Utils } = jtree
 const { Disk } = require("jtree/products/Disk.node.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
+const hakon = require("jtree/products/hakon.nodejs.js")
+const packageJson = require("./package.json")
 
 // Helper utils
 const read = fullFilePath => fs.readFileSync(fullFilePath, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.
@@ -46,13 +48,11 @@ const recursiveReaddirSync = (folder, callback) =>
 	})
 
 // Constants
-const packageJson = require("./package.json")
 const SCROLL_SRC_FOLDER = __dirname
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
-const SCROLL_GRAMMAR_EXTENSION = ".grammar"
-const SCROLL_SETTINGS_FILENAME = "scroll.settings"
-const EXTENSIONS_REQUIRING_REBUILD = new RegExp(`${[SCROLL_FILE_EXTENSION, SCROLL_SETTINGS_FILENAME, SCROLL_GRAMMAR_EXTENSION].join("|")}$`)
+const SCROLL_SETTINGS_FILENAME = "settings.scroll"
+const GRAMMAR_EXTENSION = ".grammar"
 
 const getGrammarConstructorFromFiles = files => {
 	const asOneFile = files.map(Disk.read).join("\n")
@@ -60,7 +60,7 @@ const getGrammarConstructorFromFiles = files => {
 	return new jtree.HandGrammarProgram(formatted).compileAndReturnRootConstructor()
 }
 // Default compiler
-const DefaultGrammarFiles = Disk.getFiles(path.join(__dirname, "grammar")).filter(file => file.endsWith(SCROLL_GRAMMAR_EXTENSION))
+const DefaultGrammarFiles = Disk.getFiles(path.join(__dirname, "grammar")).filter(file => file.endsWith(GRAMMAR_EXTENSION))
 const compilerCache = new Map()
 const getCompiler = filePaths => {
 	const key = filePaths.join("\n")
@@ -73,7 +73,6 @@ const getCompiler = filePaths => {
 const DefaultScrollScriptCompiler = getCompiler(DefaultGrammarFiles)
 
 // This is all the CSS
-const hakon = require("jtree/products/hakon.nodejs.js")
 const SCROLL_HAKON_FILENAME = "scroll.hakon"
 const SCROLL_CSS = new hakon(read(path.join(SCROLL_SRC_FOLDER, SCROLL_HAKON_FILENAME))).compile()
 const DEFAULT_COLUMN_WIDTH = 35
@@ -112,19 +111,18 @@ const scrollKeywords = {
 	image: "image",
 	date: "date",
 	importFrom: "importFrom",
-	skipIndexPage: "skipIndexPage",
 	endSnippet: "endSnippet",
 	maxColumns: "maxColumns",
 	header: "header",
 	footer: "footer",
-	columnWidth: "columnWidth"
+	columnWidth: "columnWidth",
+	settings: "settings",
+	groups: "groups"
 }
 
 // todo: move all keywords here
 const settingsKeywords = {
-	ignoreGrammarFiles: "ignoreGrammarFiles",
 	git: "git",
-	scrollVersion: "scrollVersion",
 	baseUrl: "baseUrl",
 	css: "css" // "none", "split", or "inline". If not set defaults to "inline"
 }
@@ -144,7 +142,7 @@ ${scrollKeywords.date} ${dayjs().format(`MM-DD-YYYY`)}
 ${scrollKeywords.paragraph}
  This is my new Scroll.`
 
-const isScrollFolder = absPath => fs.existsSync(path.normalize(path.join(absPath, SCROLL_SETTINGS_FILENAME)))
+const doesFolderHaveASettingsDotScrollFile = absPath => fs.existsSync(path.normalize(path.join(absPath, SCROLL_SETTINGS_FILENAME)))
 
 const SCROLL_ICONS = {
 	githubSvg: `<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>`,
@@ -203,8 +201,8 @@ class Article {
 		return ""
 	}
 
-	get includeInIndex() {
-		return !this.scrollScriptProgram.has(scrollKeywords.skipIndexPage)
+	get groups() {
+		return (this.scrollScriptProgram.get(scrollKeywords.groups) || "").split(" ")
 	}
 
 	get title() {
@@ -264,6 +262,7 @@ class Article {
 	}
 }
 
+// Todo: deprecate/remove/split out into sep project?
 class RssImporter {
 	constructor(path) {
 		this.path = path
@@ -615,21 +614,17 @@ class ScrollFolder {
 		this._settingsContent = settingsContent !== undefined ? settingsContent : fs.existsSync(this.settingsFilepath) ? read(this.settingsFilepath) : ""
 
 		this.grammarFiles = DefaultGrammarFiles
-		if (this.useCustomGrammarFiles) this._initCustomGrammarFiles()
+		this._initCustomGrammarFiles()
 		this.scrollScriptCompiler = getCompiler(this.grammarFiles)
 	}
 
 	// Loads any grammar files in the scroll folder. TODO: Deprecate this? Move to explicit inclusion of grammar nodes on a per article basis?
 	_initCustomGrammarFiles() {
 		this.grammarFiles = this.grammarFiles.slice()
-		this.fullFilePaths.filter(fullFilePath => fullFilePath.endsWith(SCROLL_GRAMMAR_EXTENSION)).forEach(file => this.grammarFiles.push(file))
+		this.fullFilePaths.filter(fullFilePath => fullFilePath.endsWith(GRAMMAR_EXTENSION)).forEach(file => this.grammarFiles.push(file))
 	}
 
 	grammarFiles = []
-
-	get useCustomGrammarFiles() {
-		return this.settingsTree.has(settingsKeywords.ignoreGrammarFiles) ? false : true
-	}
 
 	get grammarErrors() {
 		return new grammarNode(this.grammarFiles.map(file => read(file)).join("\n")).getAllErrors().map(err => err.toObject())
@@ -648,8 +643,9 @@ class ScrollFolder {
 		return this._articles
 	}
 
+	// todo: right now index.html is sort of special cased for RSS and snippets pages and its the only collection page built.
 	get articlesToIncludeInIndex() {
-		return this.articles.filter(article => article.includeInIndex)
+		return this.articles.filter(article => article.groups.includes("index.html"))
 	}
 
 	get gitLink() {
@@ -676,7 +672,7 @@ class ScrollFolder {
 
 	_settingsTree
 	get settingsTree() {
-		if (!this._settingsTree) this._settingsTree = new TreeNode(this._settingsContent)
+		if (!this._settingsTree) this._settingsTree = new TreeNode(this._settingsContent).getNode("settings")
 		return this._settingsTree
 	}
 
@@ -784,25 +780,26 @@ class ScrollFolder {
 			const permalink = `${article.permalink}`
 			const html = new ScrollArticlePage(this, article).toHtml()
 			if (this._singlePages.get(permalink) === html) return "Unmodified"
-			this.write(permalink, html)
+			if (html.trim()) {
+				// Todo: make it so blank articles are not written, to support scroll.settings situation.
+				this.write(permalink, html, `Wrote ${article.filename} to ${permalink}`)
+			}
 			this._singlePages.set(permalink, html)
-			this.log(`Wrote ${permalink} to disk`)
 			return { permalink, html }
 		})
 		const seconds = (Date.now() - start) / 1000
-		this.log(`⌛️ built ${pages.length} html files in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second`)
+		this.log(`⌛️ compiled ${pages.length} files to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second`)
 		return pages
 	}
 
 	_cachedPages = {}
 	_buildAndWriteCollectionPage(filename, articles, page) {
-		if (articles.length === 0) return this.log(`Skipping build of '${filename}' because no articles to include.`)
+		if (articles.length === 0) return this.log(`🫙 Skipping build of '${filename}' because no articles in group.`)
 		const html = page.toHtml()
 		if (this._cachedPages[filename] !== html) {
 			const start = Date.now()
-			this.write(filename, html)
+			this.write(filename, html, `Wrote ${filename} to disk in ${(Date.now() - start) / 1000} seconds`)
 			this._cachedPages[filename] = html
-			this.log(`Built and wrote new ${filename} to disk in ${(Date.now() - start) / 1000} seconds`)
 		}
 		return html
 	}
@@ -825,18 +822,21 @@ class ScrollFolder {
 	}
 
 	buildRssFeed(filename = this.rssFilename) {
-		return this.write(filename, new ScrollRssFeed(this).toXml())
+		return this.write(filename, new ScrollRssFeed(this).toXml(), `Wrote RSS to '${filename}'`)
 	}
 
 	buildCssFile(filename = "scroll.css") {
-		return this.write(filename, SCROLL_CSS)
+		return this.write(filename, SCROLL_CSS, `Wrote CSS to '${filename}'`)
 	}
 
-	write(filename, content) {
-		return write(path.join(this.scrollFolder, filename), content)
+	write(filename, content, message) {
+		const result = write(path.join(this.scrollFolder, filename), content)
+		this.log(`💾 ` + message)
+		return result
 	}
 
 	buildAll() {
+		this.log(`👷 building ${this.scrollFolder}`)
 		this.buildIndexPage()
 		this.buildSinglePages()
 		if (this.shouldBuildSnippetsPage) this.buildSnippetsPage()
@@ -852,7 +852,9 @@ class ScrollFolder {
 	async importSite() {
 		const { importFrom } = this
 
-		if (!importFrom) return `❌ You need to add a line to '${this.settingsFilepath}' like '${scrollKeywords.importFrom}'`
+		if (!importFrom)
+			return `❌ You need to define an import source in '${SCROLL_SETTINGS_FILENAME}' like 'settings
+ ${scrollKeywords.importFrom} https://example.com/feed.rss`
 
 		// A loose check for now to catch things like "format=rss"
 		if (importFrom.includes("rss") || importFrom.includes("feed")) {
@@ -898,7 +900,7 @@ class ScrollCli {
 
 	async initCommand(cwd) {
 		const folder = new ScrollFolder()
-		if (isScrollFolder(cwd)) return this.log(`❌ Initialization aborted. Folder '${cwd}' already contains a '${SCROLL_SETTINGS_FILENAME}'.`)
+		if (doesFolderHaveASettingsDotScrollFile(cwd)) return this.log(`❌ Initialization aborted. Folder '${cwd}' already contains a '${SCROLL_SETTINGS_FILENAME}'.`)
 		this.log(`Initializing scroll in "${cwd}"`)
 		write(path.join(cwd, SCROLL_SETTINGS_FILENAME), read(path.join(__dirname, SCROLL_SETTINGS_FILENAME)))
 		const readmePath = path.join(cwd, "readme.scroll")
@@ -912,7 +914,7 @@ class ScrollCli {
 
 	async importCommand(cwd) {
 		const fullPath = resolvePath(cwd)
-		if (!isScrollFolder(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
+		if (!doesFolderHaveASettingsDotScrollFile(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
 		const folder = new ScrollFolder(cwd)
 		const result = await folder.importSite()
 		return this.log(result)
@@ -952,7 +954,7 @@ class ScrollCli {
 
 		this._watcher = fs.watch(scrollFolder, (event, filename) => {
 			const fullFilePath = path.join(scrollFolder, filename)
-			if (!EXTENSIONS_REQUIRING_REBUILD.test(fullFilePath)) return
+			if (!fullFilePath.endsWith(SCROLL_FILE_EXTENSION)) return
 			this.log(`\n✅ "${fullFilePath}" changed.`)
 
 			if (!Disk.exists(fullFilePath)) {
