@@ -837,6 +837,10 @@ class ScrollFolder {
 		return result
 	}
 
+	clean() {
+		// todo.
+	}
+
 	buildAll() {
 		this.log(`\n👷 building folder '${this.scrollFolder}\n'`)
 		this.logIndent++

@@ -8,7 +8,7 @@ const { version } = require("../package.json")
 
 const browserstackURL = "https://" + userName + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub"
 
-const kitchenSinkUrl = "https://scroll.pub"
+const homePageUrl = "https://scroll.pub"
 
 async function runTestWithCaps(capabilities) {
   try {
@@ -16,7 +16,7 @@ async function runTestWithCaps(capabilities) {
       .usingServer(`http://${userName}:${accessKey}@hub-cloud.browserstack.com/wd/hub`)
       .withCapabilities(capabilities)
       .build()
-    await driver.get(kitchenSinkUrl)
+    await driver.get(homePageUrl)
     try {
       await driver.wait(webdriver.until.titleMatches(/Scroll/i), 5000)
       const title = await driver.getTitle()

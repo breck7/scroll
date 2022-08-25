@@ -5,6 +5,7 @@ const fs = require("fs")
 const path = require("path")
 const { jtree } = require("jtree")
 const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, settingsKeywords, ScrollPage, DefaultScrollScriptCompiler } = require("../scroll.js")
+const shell = require("child_process").execSync
 
 const testString = "An extensible alternative to Markdown"
 const testPort = 5435
@@ -190,50 +191,25 @@ testTree.errorStates = async areEqual => {
 }
 
 testTree.kitchenSink = async areEqual => {
-	const tempFolder = path.join(__dirname, "tempFolderForKitchenSinkTesting")
-
+	const kitchenSinkFolder = path.join(__dirname, "kitchenSink")
 	try {
-		// Arrange
-		fs.mkdirSync(tempFolder)
-		fs.writeFileSync(
-			path.join(tempFolder, SCROLL_SETTINGS_FILENAME),
-			`${scrollKeywords.importOnly}
-${scrollKeywords.settings}
- ${settingsKeywords.header}
-  div CustomHeader
- ${settingsKeywords.footer}
-  div CustomFooter`,
-			"utf8"
-		)
-		fs.writeFileSync(
-			path.join(tempFolder, "hello.scroll"),
-			`${scrollKeywords.title} hello world
-
-paragraph
- Here is some content.
-endSnippet
-
-${scrollKeywords.groups} index.html
-import settings.scroll
-keyboardNav`,
-			"utf8"
-		)
-
-		// Act
-		const folder = new ScrollFolder(tempFolder).silence()
-		const indexPage = folder.buildIndexPage()
-		const customSnippetsPageName = "customSnippetsPage.html"
-		const snippetsPage = folder.buildSnippetsPage(customSnippetsPageName)
+		// Arrange/act
+		const folder = new ScrollFolder(kitchenSinkFolder).silence()
+		folder.buildAll()
+		const indexPage = Disk.read(path.join(kitchenSinkFolder, "index.hmtl"))
 
 		// Assert
 		areEqual(indexPage.includes("CustomHeader"), true, "should have custom header")
 		areEqual(indexPage.includes("CustomFooter"), true, "should have custom footer")
-		areEqual(folder.shouldBuildSnippetsPage, true)
-		areEqual(fs.existsSync(path.join(tempFolder, customSnippetsPageName)), true)
+		areEqual(fs.existsSync(path.join(kitchenSinkFolder, "full.html")), true, "should have full page")
+
+		// todo
+		folder.clean()
 	} catch (err) {
 		console.log(err)
 	}
-	fs.rmSync(tempFolder, { recursive: true })
+
+	shell(`rm -f ${kitchenSinkFolder}/*.html`)
 }
 
 // FS tests:

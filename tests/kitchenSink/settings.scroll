@@ -1,0 +1,7 @@
+importOnly
+settings
+ title The Kitchen Sink Blog
+ header
+  div CustomHeader
+ footer
+  div CustomFooter
