@@ -15,6 +15,7 @@ scrollNodePerf.cpuprofile
 
 # Dump import examples here
 tests/importExamples/
+tests/kitchenSink/style.css
 
 # Do not check in files built by Scroll
 *.html

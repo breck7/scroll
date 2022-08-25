@@ -174,7 +174,7 @@ class ScrollFile {
 			none: NoTemplate,
 			file: FileTemplate
 		}
-		return templates[this.get("template")] || FileTemplate
+		return templates[this.scrollScriptProgram.get("template")] || FileTemplate
 	}
 
 	get html() {
@@ -257,10 +257,14 @@ class ScrollFile {
 		return this.settingsNode.get(settingsKeywords.columnWidth)
 	}
 
-	_htmlCode = ""
+	_compiled = ""
+	get compiled() {
+		if (!this._compiled) this._compiled = this.scrollScriptProgram.compile()
+		return this._compiled
+	}
+
 	get htmlCode() {
-		if (!this._htmlCode) this._htmlCode = this.scrollScriptProgram.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollFileSourceLinkComponent}"><a href="${this.sourceLink}">File source</a></p>` : "")
-		return this._htmlCode
+		return this.compiled + (this.sourceLink ? `<p class="${cssClasses.scrollFileSourceLinkComponent}"><a href="${this.sourceLink}">File source</a></p>` : "")
 	}
 
 	get htmlCodeForSnippetsPage() {
@@ -498,7 +502,7 @@ class AbstractTemplate {
 
 class NoTemplate extends AbstractTemplate {
 	toHtml() {
-		return this.file.htmlCode
+		return this.file.compiled
 	}
 }
 
