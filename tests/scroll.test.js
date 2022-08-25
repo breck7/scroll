@@ -78,7 +78,7 @@ testTree.tableWithLinks = areEqual => {
 }
 
 testTree.scroll = areEqual => {
-	areEqual(new ScrollFolder().indexPage.toHtml().includes(testString), true)
+	areEqual(new ScrollFolder().files[0].toHtml().includes(testString), true)
 }
 
 testTree.fullIntegrationTest = areEqual => {
@@ -167,7 +167,7 @@ testTree.errorStates = async areEqual => {
 		areEqual(fs.existsSync(path.join(tempFolder, SCROLL_SETTINGS_FILENAME)), true)
 
 		const folder = new ScrollFolder(tempFolder).silence()
-		const singleFile = folder.buildIndexPage()
+		const singleFile = folder.buildFiles()
 
 		// Assert
 		areEqual(singleFile.includes(testString), true)
@@ -195,11 +195,11 @@ testTree.kitchenSink = async areEqual => {
 		// Arrange/act
 		const folder = new ScrollFolder(kitchenSinkFolder).silence()
 		folder.buildAll()
-		const indexPage = Disk.read(path.join(kitchenSinkFolder, "index.hmtl"))
+		const groupPage = Disk.read(path.join(kitchenSinkFolder, "index.hmtl"))
 
 		// Assert
-		areEqual(indexPage.includes("CustomHeader"), true, "should have custom header")
-		areEqual(indexPage.includes("CustomFooter"), true, "should have custom footer")
+		areEqual(groupPage.includes("CustomHeader"), true, "should have custom header")
+		areEqual(groupPage.includes("CustomFooter"), true, "should have custom footer")
 		areEqual(fs.existsSync(path.join(kitchenSinkFolder, "full.html")), true, "should have full page")
 	} catch (err) {
 		console.log(err)

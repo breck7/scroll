@@ -176,6 +176,11 @@ class ScrollFile {
 		return templates[this.get("template")] || FileTemplate
 	}
 
+	get html() {
+		const { template } = this
+		return new template(this).toHtml()
+	}
+
 	get primaryGroup() {
 		return this.folder.getGroup(this.groups[0])
 	}
@@ -331,36 +336,41 @@ ${scrollKeywords.paragraph}
 }
 
 class AbstractTemplate {
-	constructor(scroll) {
-		this.scroll = scroll
+	constructor(file) {
+		this.file = file
 	}
 
-	get scrollSettings() {
-		return this.scroll.settings
+	get folder() {
+		return this.file.folder
+	}
+
+	// todo: remove
+	get folderSettings() {
+		return this.folder.settings
 	}
 
 	get htmlTitle() {
-		return this.scrollSettings.title
+		return this.folderSettings.title
 	}
 
 	get description() {
-		return this.scrollSettings.description
+		return this.folderSettings.description
 	}
 
 	get github() {
-		return this.scrollSettings.github
+		return this.folderSettings.github
 	}
 
 	get email() {
-		return this.scrollSettings.email
+		return this.folderSettings.email
 	}
 
 	get twitter() {
-		return this.scrollSettings.twitter
+		return this.folderSettings.twitter
 	}
 
 	get baseUrl() {
-		return this.scrollSettings.baseUrl ?? ""
+		return this.folderSettings.baseUrl ?? ""
 	}
 
 	get header() {
@@ -374,7 +384,7 @@ class AbstractTemplate {
     href ${this.github}
  h2
   class scrollNameComponent
-  a ${this.scrollSettings.title}
+  a ${this.folderSettings.title}
    href index.html
  div ${this.description}`
 	}
@@ -396,17 +406,18 @@ class AbstractTemplate {
 	}
 
 	get columnWidth() {
-		return this.scrollSettings.columnWidth ?? DEFAULT_COLUMN_WIDTH
+		return this.folderSettings.columnWidth ?? DEFAULT_COLUMN_WIDTH
 	}
 
 	get maxColumns() {
 		// If undefined will be autocomputed
-		return this.scrollSettings.maxColumns
+		return this.folderSettings.maxColumns
 	}
 
+	// Todo: scroll.css link thing fix.
 	get styleCode() {
 		// Default is to inline CSS. Otherwise we can split it into a sep file.
-		const css = this.scrollSettings[settingsKeywords.css]
+		const css = this.folderSettings[settingsKeywords.css]
 
 		if (css === "none") return ""
 
@@ -422,12 +433,13 @@ class AbstractTemplate {
 	}
 
 	get rssTag() {
-		if (!this.scroll.rssFeedUrl) return ""
+		const { rssFeedUrl } = this.folder
+		if (!rssFeedUrl) return ""
 		return `link
  rel alternate
  type application/rss+xml
- title ${this.scrollSettings.title}
- href ${this.scroll.rssFeedUrl}`
+ title ${this.folderSettings.title}
+ href ${rssFeedUrl}`
 	}
 
 	get stumpCode() {
@@ -467,7 +479,7 @@ class AbstractTemplate {
 	}
 
 	get ogTitle() {
-		return this.scrollSettings.title
+		return this.folderSettings.title
 	}
 
 	get ogDescription() {
@@ -484,11 +496,6 @@ class AbstractTemplate {
 }
 
 class FileTemplate extends AbstractTemplate {
-	constructor(scroll, file) {
-		super(scroll)
-		this.file = file
-	}
-
 	get columnWidth() {
 		return this.file.columnWidth || super.columnWidth
 	}
@@ -525,7 +532,7 @@ class FileTemplate extends AbstractTemplate {
 		if (this.file.htmlTitle) return this.file.htmlTitle
 
 		const { title } = this.file
-		return (title ? `${title} - ` : "") + this.scrollSettings.title
+		return (title ? `${title} - ` : "") + this.folderSettings.title
 	}
 
 	get pageCode() {
@@ -558,9 +565,14 @@ div
 }
 
 class GroupTemplate extends AbstractTemplate {
+	get groupName() {
+		return this.file.get("template").getWord(2)
+	}
+
 	get pageCode() {
-		const files = this.scroll
-			.getGroup()
+		const { folder, groupName } = this
+		const files = folder
+			.getGroup(groupName)
 			.map(file => {
 				const node = new TreeNode(`div
  class ${cssClasses.scrollGroupPageFileContainerComponent}`)
@@ -598,7 +610,7 @@ class ScrollPage {
 		const { scrollScriptCompiler } = scrollFolder
 		const program = new scrollScriptCompiler(this.content)
 		const file = new ScrollFile(program, "", "", scrollFolder)
-		return new FileTemplate(scrollFolder, file).toHtml()
+		return file.html
 	}
 }
 
@@ -761,19 +773,18 @@ class ScrollFolder {
 	}
 
 	buildFiles() {
-		return this._buildAndWriteSinglePages()
+		return this._buildAndWriteFiles()
 	}
 
 	_publishedFiles = new Map()
-	_buildAndWriteSinglePages() {
+	_buildAndWriteFiles() {
 		const start = Date.now()
 		const { settings, files, scrollFolder } = this
 		const filesToBuild = files.filter(file => file.shouldBuild)
 		this.log(`Building ${filesToBuild.length} files from ${files.length} ${SCROLL_FILE_EXTENSION} files found in '${scrollFolder}'\n`)
 		this.logIndent++
 		const pages = filesToBuild.map(file => {
-			const { permalink, template } = file
-			const html = new template(this, file).toHtml()
+			const { permalink, html } = file
 			if (this._publishedFiles.get(permalink) === html) return "Unmodified"
 			this.write(permalink, html, `Wrote ${file.filename} to ${permalink}`)
 			this._publishedFiles.set(permalink, html)
