@@ -152,7 +152,7 @@ const SCROLL_ICONS = {
 class ScrollFile {
 	constructor(scrollScriptProgram, filePath, viewSourceLink, folder) {
 		this.scrollScriptProgram = scrollScriptProgram
-		this._viewSourceLink = sourcviewSourceLinkeLink
+		this._viewSourceLink = viewSourceLink
 		this.filePath = filePath
 		this.filename = path.basename(filePath)
 		this.folder = folder
