@@ -50,17 +50,21 @@ baseUrlSettingNode
  description Root url of the published site. Needed for og tags.
  extends abstractUrlSettingNode
  crux baseUrl
+rssUrlSettingNode
+ description URL for RSS feed, if any.
+ extends abstractUrlSettingNode
+ crux rssFeedUrl
 maxColumnsNode
  extends abstractIntSettingNode
  description Set your own max column count for a single article's generated HTML.
 cssSettingEnumCell
- enum inline split none
+ enum inline none
  extends stringCell
 cssSettingNode
  extends abstractSettingNode
  crux css 
  cells keywordCell cssSettingEnumCell
- description Defaults to "inline", meaning default Scroll style CSS will be included on each page. Can set to split to write CSS to separate page, or none if you provide your own CSS.
+ description Defaults to "inline", meaning default Scroll style CSS will be included on each page. Can set to none to if you provide your own CSS.
 columnWidthNode
  extends abstractIntSettingNode
  description Set your own column width, in ch units, for the generated HTML.

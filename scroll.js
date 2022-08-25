@@ -128,10 +128,11 @@ const settingsKeywords = {
 	twitter: "twitter",
 	github: "github",
 	email: "email",
+	rssFeedUrl: "rssFeedUrl",
 	importFrom: "importFrom",
 	header: "header",
 	footer: "footer",
-	css: "css" // "none", "split", or "inline". If not set defaults to "inline"
+	css: "css" // "none" or "inline". Defaults to "inline"
 }
 
 const initReadmePage = `${scrollKeywords.title} Hello world
@@ -158,6 +159,7 @@ class Article {
 		this.baseUrl = folder.settings.baseUrl
 		scrollScriptProgram.setArticle(this)
 		scrollScriptProgram.setFolder(path.dirname(filePath))
+		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
 	}
 
 	// Do not build a file marked 'importOnly'
@@ -585,26 +587,6 @@ class ScrollSnippetsPage extends ScrollIndexPage {
 	}
 }
 
-class ScrollRssFeed {
-	constructor(scroll) {
-		this.scroll = scroll
-	}
-
-	toXml() {
-		const { title, baseUrl, description } = this.scroll.settings
-		return `<?xml version="1.0" encoding="ISO-8859-1" ?>
-<rss version="0.91">
-<channel>
- <title>${title}</title>
- <link>${baseUrl}</link>
- <description>${description}</description>
- <language>en-us</language>
-${this.scroll.articlesToIncludeInIndex.map(article => article.toRss()).join("\n")}
-</channel>
-</rss>`
-	}
-}
-
 class ScrollFolder {
 	constructor(scrollFolder = __dirname, settingsContent = undefined) {
 		this.scrollFolder = path.normalize(scrollFolder)
@@ -613,6 +595,10 @@ class ScrollFolder {
 		this.grammarFiles = DefaultGrammarFiles
 		this._initCustomGrammarFiles()
 		this.scrollScriptCompiler = getCompiler(this.grammarFiles)
+	}
+
+	getGroup(groupName) {
+		return this.articles.filter(file => file.groups.includes(groupName))
 	}
 
 	// Loads any grammar files in the scroll folder. TODO: Deprecate this? Move to explicit inclusion of grammar nodes on a per article basis?
@@ -814,21 +800,8 @@ class ScrollFolder {
 		return this._buildAndWriteCollectionPage(filename, this.articlesToIncludeInIndex, new ScrollSnippetsPage(this))
 	}
 
-	get rssFilename() {
-		return "feed.xml"
-	}
-
 	get rssFeedUrl() {
-		const baseUrl = this.settings[settingsKeywords.baseUrl]
-		return baseUrl ? baseUrl + this.rssFilename : ""
-	}
-
-	buildRssFeed(filename = this.rssFilename) {
-		return this.write(filename, new ScrollRssFeed(this).toXml(), `Wrote RSS feed to '${filename}'\n`)
-	}
-
-	buildCssFile(filename = "scroll.css") {
-		return this.write(filename, SCROLL_CSS, `Wrote scroll CSS content to '${filename}'`)
+		return this.settings[settingsKeywords.rssFeedUrl]
 	}
 
 	write(filename, content, message) {
@@ -837,28 +810,18 @@ class ScrollFolder {
 		return result
 	}
 
-	clean() {
-		// todo.
-	}
-
 	buildAll() {
 		this.log(`\n👷 building folder '${this.scrollFolder}\n'`)
 		this.logIndent++
 		this.buildIndexPage()
 		this.buildSinglePages()
-		if (this.shouldBuildSnippetsPage) this.buildSnippetsPage()
-		if (this.settings[settingsKeywords.baseUrl]) this.buildRssFeed()
-		if (this.settings[settingsKeywords.css] === "split") this.buildCssFile()
+		this.buildSnippetsPage()
 		this.logIndent--
-	}
-
-	get shouldBuildSnippetsPage() {
-		return this.articles.some(article => !!article.snippetBreakNode)
 	}
 
 	// rss, twitter, hn, reddit, pinterest, instagram, tiktok, youtube?
 	async importSite() {
-		const { importFrom } = this
+		const importFrom = this.settings.importFrom
 
 		if (!importFrom)
 			return `❌ You need to define an import source in '${SCROLL_SETTINGS_FILENAME}' like 'settings
@@ -871,14 +834,6 @@ class ScrollFolder {
 		}
 
 		return `❌ Scroll wasn't sure how to import '${importFrom}'.\n💡 You can open an issue here: https://github.com/breck7/scroll/issues`
-	}
-
-	get importFrom() {
-		return this.settings.importFrom
-	}
-
-	get localIndexAsUrl() {
-		return `file://${this.scrollFolder}/index.html`
 	}
 }
 
@@ -977,7 +932,7 @@ class ScrollCli {
 			newFolder.buildAll()
 		})
 
-		if (this.verbose) await open(folder.localIndexAsUrl)
+		if (this.verbose) await open(`file://${scrollFolder}/index.html`)
 		return this
 	}
 

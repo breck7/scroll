@@ -171,7 +171,6 @@ testTree.errorStates = async areEqual => {
 
 		// Assert
 		areEqual(singleFile.includes(testString), true)
-		areEqual(folder.shouldBuildSnippetsPage, false)
 
 		// Act
 		const singlePages = folder.buildSinglePages()
@@ -202,9 +201,6 @@ testTree.kitchenSink = async areEqual => {
 		areEqual(indexPage.includes("CustomHeader"), true, "should have custom header")
 		areEqual(indexPage.includes("CustomFooter"), true, "should have custom footer")
 		areEqual(fs.existsSync(path.join(kitchenSinkFolder, "full.html")), true, "should have full page")
-
-		// todo
-		folder.clean()
 	} catch (err) {
 		console.log(err)
 	}

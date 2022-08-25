@@ -12,6 +12,17 @@ list
  - ⚠️ BREAKING: removed `scroll.settings` concept. Use `import settings.scroll` now.
  - ⚠️ BREAKING: `maxColumns`, `columnWidth`, `footer`, and `header` now nest under `settings`.
  - ⚠️ BREAKING: removed `ignoreGrammarFiles`. Custom grammar extensions must now be explicitly imported.
+ - ⚠️ BREAKING: removed `css` settings. Migration step is explained below.
+
+
+subsection 
+
+code
+ comment Put this in a file named style.scroll
+ permalink style.css
+ settings
+  noTemplate
+ printScrollCSS
 
 section 27.1.1 8-24-2022
 list

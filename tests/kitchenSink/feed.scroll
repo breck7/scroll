@@ -1,5 +1,7 @@
 import settings.scroll
 
+permalink feed.xml
+
 settings
  noTemplate
 
