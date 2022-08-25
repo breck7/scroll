@@ -95,10 +95,10 @@ const scrollBoilerplateCompiledMessage = `<!doctype html>
 
 const cssClasses = {
 	scrollIndexPageComponent: "scrollIndexPageComponent",
-	scrollIndexPageArticleContainerComponent: "scrollIndexPageArticleContainerComponent",
-	scrollArticleSourceLinkComponent: "scrollArticleSourceLinkComponent",
-	scrollArticlePageComponent: "scrollArticlePageComponent",
-	scrollSingleArticleTitle: "scrollSingleArticleTitle"
+	scrollIndexPageFileContainerComponent: "scrollIndexPageFileContainerComponent",
+	scrollFileSourceLinkComponent: "scrollFileSourceLinkComponent",
+	scrollFilePageComponent: "scrollFilePageComponent",
+	scrollFilePageTitle: "scrollFilePageTitle"
 }
 
 const scrollKeywords = {
@@ -149,7 +149,7 @@ const SCROLL_ICONS = {
 	emailSvg: `<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Gmail icon</title><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>`
 }
 
-class Article {
+class ScrollFile {
 	constructor(scrollScriptProgram, filePath, sourceLink, folder) {
 		this.scrollScriptProgram = scrollScriptProgram
 		this._sourceLink = sourceLink
@@ -157,7 +157,7 @@ class Article {
 		this.filename = path.basename(filePath)
 		this.folder = folder
 		this.baseUrl = folder.settings.baseUrl
-		scrollScriptProgram.setArticle(this)
+		scrollScriptProgram.setFile(this)
 		scrollScriptProgram.setFolder(path.dirname(filePath))
 		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
 	}
@@ -167,12 +167,25 @@ class Article {
 		return !this.scrollScriptProgram.has(scrollKeywords.importOnly)
 	}
 
+	get template() {
+		const templates = {
+			group: GroupTemplate,
+			snippets: SnippetsGroupTemplate,
+			none: NoTemplate
+		}
+		return templates[this.get("template")] || FileTemplate
+	}
+
+	get primaryGroup() {
+		return this.folder.getGroup(this.groups[0])
+	}
+
 	get linkToPrevious() {
-		return nextAndPrevious(this.folder.articles, this).previous.permalink
+		return nextAndPrevious(this.primaryGroup, this).previous.permalink
 	}
 
 	get linkToNext() {
-		return nextAndPrevious(this.folder.articles, this).next.permalink
+		return nextAndPrevious(this.primaryGroup, this).next.permalink
 	}
 
 	save() {
@@ -240,7 +253,7 @@ class Article {
 
 	_htmlCode = ""
 	get htmlCode() {
-		if (!this._htmlCode) this._htmlCode = this.scrollScriptProgram.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollArticleSourceLinkComponent}"><a href="${this.sourceLink}">Article source</a></p>` : "")
+		if (!this._htmlCode) this._htmlCode = this.scrollScriptProgram.compile() + (this.sourceLink ? `<p class="${cssClasses.scrollFileSourceLinkComponent}"><a href="${this.sourceLink}">File source</a></p>` : "")
 		return this._htmlCode
 	}
 
@@ -254,7 +267,7 @@ class Article {
 			program
 				.map((child, index) => (index >= indexOfBreak ? "" : child.compile()))
 				.filter(i => i)
-				.join(program._getChildJoinCharacter()) + `<a class="scrollContinueReadingLink" href="${this.permalink}">Full article...</a>`
+				.join(program._getChildJoinCharacter()) + `<a class="scrollContinueReadingLink" href="${this.permalink}">Continue reading...</a>`
 		)
 	}
 
@@ -317,7 +330,7 @@ ${scrollKeywords.paragraph}
 	}
 }
 
-class AbstractScrollPage {
+class AbstractTemplate {
 	constructor(scroll) {
 		this.scroll = scroll
 	}
@@ -470,81 +483,66 @@ class AbstractScrollPage {
 	}
 }
 
-class ScrollPage {
-	constructor(content = "") {
-		this.content = content
-	}
-
-	content = ""
-
-	get html() {
-		const scrollFolder = new ScrollFolder(undefined, "")
-		const { scrollScriptCompiler } = scrollFolder
-		const program = new scrollScriptCompiler(this.content)
-		const article = new Article(program, "", "", scrollFolder)
-		return new ScrollArticlePage(scrollFolder, article).toHtml()
-	}
-}
-
-class ScrollArticlePage extends AbstractScrollPage {
-	constructor(scroll, article) {
+class FileTemplate extends AbstractTemplate {
+	constructor(scroll, file) {
 		super(scroll)
-		this.article = article
+		this.file = file
 	}
 
 	get columnWidth() {
-		return this.article.columnWidth || super.columnWidth
+		return this.file.columnWidth || super.columnWidth
 	}
 
 	get maxColumns() {
-		return this.article.maxColumns || super.maxColumns
+		return this.file.maxColumns || super.maxColumns
 	}
 
 	get header() {
-		const header = this.article.settingsNode.getNode(settingsKeywords.header)
+		const header = this.file.settingsNode.getNode(settingsKeywords.header)
 		if (header) return header.childrenToString()
 		return super.header
 	}
 
 	get footer() {
-		const footer = this.article.settingsNode.getNode(settingsKeywords.footer)
+		const footer = this.file.settingsNode.getNode(settingsKeywords.footer)
 		if (footer) return footer.childrenToString()
 		return super.footer
 	}
 
 	get ogDescription() {
-		return this.article.ogDescription
+		return this.file.ogDescription
 	}
 
 	get ogImage() {
-		return this.article.ogImage
+		return this.file.ogImage
 	}
 
 	get ogTitle() {
-		return this.article.title
+		return this.file.title
 	}
 
 	get htmlTitle() {
-		if (this.article.htmlTitle) return this.article.htmlTitle
+		if (this.file.htmlTitle) return this.file.htmlTitle
 
-		const { title } = this.article
+		const { title } = this.file
 		return (title ? `${title} - ` : "") + this.scrollSettings.title
 	}
 
 	get pageCode() {
+		const { file } = this
 		return `h1
- class ${cssClasses.scrollSingleArticleTitle}
+ class ${cssClasses.scrollFilePageTitle}
  a ${this.ogTitle}
-  href ${this.article.permalink}
+  href ${file.permalink}
 div
- class ${cssClasses.scrollArticlePageComponent}
+ class ${cssClasses.scrollFilePageComponent}
  style ${this.cssColumnWorkaround}
  bern
-  ${removeReturnCharsAndRightShift(this.article.htmlCode, 2)}`
+  ${removeReturnCharsAndRightShift(file.htmlCode, 2)}`
 	}
 
 	get estimatedLines() {
-		return lodash.sum(this.article.scrollScriptProgram.map(node => (node.getLine() === "" ? 0 : node.getTopDownArray().length)))
+		return lodash.sum(this.file.scrollScriptProgram.map(node => (node.getLine() === "" ? 0 : node.getTopDownArray().length)))
 	}
 
 	get cssColumnWorkaround() {
@@ -559,13 +557,14 @@ div
 	}
 }
 
-class ScrollIndexPage extends AbstractScrollPage {
+class GroupTemplate extends AbstractTemplate {
 	get pageCode() {
-		const articles = this.scroll.articlesToIncludeInIndex
-			.map(article => {
+		const files = this.scroll
+			.getGroup()
+			.map(file => {
 				const node = new TreeNode(`div
- class ${cssClasses.scrollIndexPageArticleContainerComponent}`)
-				node.getNode("div").appendLineAndChildren("bern", this.getArticleHtml(article))
+ class ${cssClasses.scrollIndexPageFileContainerComponent}`)
+				node.getNode("div").appendLineAndChildren("bern", this.getFileHtml(file))
 				return node.toString()
 			})
 			.join("\n")
@@ -573,17 +572,33 @@ class ScrollIndexPage extends AbstractScrollPage {
 		return `div
  class ${cssClasses.scrollIndexPageComponent}
  style column-width:${this.columnWidth}ch;
- ${removeReturnCharsAndRightShift(articles, 1)}`
+ ${removeReturnCharsAndRightShift(files, 1)}`
 	}
 
-	getArticleHtml(article) {
-		return article.htmlCode
+	getFileHtml(file) {
+		return file.htmlCode
 	}
 }
 
-class ScrollSnippetsPage extends ScrollIndexPage {
-	getArticleHtml(article) {
-		return article.htmlCodeForSnippetsPage
+class SnippetsGroupTemplate extends GroupTemplate {
+	getFileHtml(file) {
+		return file.htmlCodeForSnippetsPage
+	}
+}
+
+class ScrollPage {
+	constructor(content = "") {
+		this.content = content
+	}
+
+	content = ""
+
+	get html() {
+		const scrollFolder = new ScrollFolder(undefined, "")
+		const { scrollScriptCompiler } = scrollFolder
+		const program = new scrollScriptCompiler(this.content)
+		const file = new ScrollFile(program, "", "", scrollFolder)
+		return new FileTemplate(scrollFolder, file).toHtml()
 	}
 }
 
@@ -598,10 +613,10 @@ class ScrollFolder {
 	}
 
 	getGroup(groupName) {
-		return this.articles.filter(file => file.groups.includes(groupName))
+		return this.files.filter(file => file.groups.includes(groupName))
 	}
 
-	// Loads any grammar files in the scroll folder. TODO: Deprecate this? Move to explicit inclusion of grammar nodes on a per article basis?
+	// Loads any grammar files in the scroll folder. TODO: Deprecate this? Move to explicit inclusion of grammar nodes on a per file basis?
 	_initCustomGrammarFiles() {
 		this.grammarFiles = this.grammarFiles.slice()
 		this.fullFilePaths.filter(fullFilePath => fullFilePath.endsWith(GRAMMAR_EXTENSION)).forEach(file => this.grammarFiles.push(file))
@@ -617,18 +632,13 @@ class ScrollFolder {
 		return Disk.getFiles(this.scrollFolder)
 	}
 
-	_articles
-	get articles() {
-		if (this._articles) return this._articles
+	_files
+	get file() {
+		if (this._files) return this._files
 		const { gitLink, scrollScriptCompiler, fullFilePaths } = this
-		const all = fullFilePaths.filter(file => file.endsWith(SCROLL_FILE_EXTENSION)).map(fullFilePath => new Article(new scrollScriptCompiler(read(fullFilePath)), fullFilePath, gitLink ? gitLink + path.basename(fullFilePath) : "", this))
-		this._articles = lodash.sortBy(all, article => article.timestamp).reverse()
-		return this._articles
-	}
-
-	// todo: right now index.html is sort of special cased for RSS and snippets pages and its the only collection page built.
-	get articlesToIncludeInIndex() {
-		return this.articles.filter(article => article.groups.includes("index.html"))
+		const all = fullFilePaths.filter(file => file.endsWith(SCROLL_FILE_EXTENSION)).map(fullFilePath => new ScrollFile(new scrollScriptCompiler(read(fullFilePath)), fullFilePath, gitLink ? gitLink + path.basename(fullFilePath) : "", this))
+		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
+		return this._files
 	}
 
 	get gitLink() {
@@ -636,10 +646,10 @@ class ScrollFolder {
 	}
 
 	get errors() {
-		return this.articles
-			.map(article =>
-				article.scrollScriptProgram.getAllErrors().map(err => {
-					return { filename: article.filename, ...err.toObject() }
+		return this.files
+			.map(file =>
+				file.scrollScriptProgram.getAllErrors().map(err => {
+					return { filename: file.filename, ...err.toObject() }
 				})
 			)
 			.flat()
@@ -666,13 +676,13 @@ class ScrollFolder {
 	_migrate27() {
 		let changed = false
 		console.log(`🚚 Applying 27.0.0 migrations`)
-		this.articles.forEach(article => {
-			const code = article.scrollScriptProgram
+		this.files.forEach(file => {
+			const code = file.scrollScriptProgram
 			const original = code.toString()
 			const permalink = code.get("permalink")
 			if (permalink) {
 				code.set("permalink", permalink.replace(".html", "") + ".html")
-				article.save()
+				file.save()
 				if (original !== code.toString()) changed = true
 			}
 		})
@@ -718,10 +728,10 @@ class ScrollFolder {
 			node.setWord(0, "aftertext")
 		}
 
-		// Articles that have a date, a paragraph, and no dateline added yet need one
+		// Files that have a date, a paragraph, and no dateline added yet need one
 		console.log(`🚚 Applying 24.0.0 migrations`)
-		this.articles.forEach(article => {
-			const content = article.scrollScriptProgram
+		this.files.forEach(file => {
+			const content = file.scrollScriptProgram
 			const ps = content.findNodes("paragraph")
 			if (content.has("date") && content.has("paragraph") && content.findNodes("aftertext dateline").length === 0) {
 				const firstParagraph = ps.shift()
@@ -729,7 +739,7 @@ class ScrollFolder {
 				firstParagraph.appendLine("dateline")
 			}
 			ps.forEach(updateParagraph)
-			article.save()
+			file.save()
 		})
 
 		return this
@@ -743,10 +753,6 @@ class ScrollFolder {
 	verbose = true
 	scrollFolder = ""
 
-	get indexPage() {
-		return new ScrollIndexPage(this)
-	}
-
 	logIndent = 0
 	log(message) {
 		const indent = "    ".repeat(this.logIndent)
@@ -757,47 +763,28 @@ class ScrollFolder {
 	buildFiles() {
 		return this._buildAndWriteSinglePages()
 	}
-	_singlePages = new Map()
+
+	_publishedFiles = new Map()
 	_buildAndWriteSinglePages() {
 		const start = Date.now()
-		const { settings, articles, scrollFolder } = this
-		const articlesToBuild = articles.filter(article => article.shouldBuild)
-		this.log(`Building ${articlesToBuild.length} articles from ${articles.length} ${SCROLL_FILE_EXTENSION} files found in '${scrollFolder}'\n`)
+		const { settings, files, scrollFolder } = this
+		const filesToBuild = files.filter(file => file.shouldBuild)
+		this.log(`Building ${filesToBuild.length} files from ${files.length} ${SCROLL_FILE_EXTENSION} files found in '${scrollFolder}'\n`)
 		this.logIndent++
-		const pages = articlesToBuild.map(article => {
-			const permalink = `${article.permalink}`
-			const html = new ScrollArticlePage(this, article).toHtml()
-			if (this._singlePages.get(permalink) === html) return "Unmodified"
-			this.write(permalink, html, `Wrote ${article.filename} to ${permalink}`)
-			this._singlePages.set(permalink, html)
+		const pages = filesToBuild.map(file => {
+			const { permalink, template } = file
+			const html = new template(this, file).toHtml()
+			if (this._publishedFiles.get(permalink) === html) return "Unmodified"
+			this.write(permalink, html, `Wrote ${file.filename} to ${permalink}`)
+			this._publishedFiles.set(permalink, html)
 			return { permalink, html }
 		})
 		const seconds = (Date.now() - start) / 1000
 		this.logIndent--
 		this.log(``)
-		this.log(`⌛️ Compiled ${pages.length} single article pages to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second\n`)
+		this.log(`⌛️ Compiled ${pages.length} files to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second\n`)
 
 		return pages
-	}
-
-	_cachedPages = {}
-	_buildAndWriteCollectionPage(filename, articles, page) {
-		if (articles.length === 0) return this.log(`💤 Skipping build of '${filename}' because no articles in '${filename}' group.\n`)
-		const html = page.toHtml()
-		if (this._cachedPages[filename] !== html) {
-			const start = Date.now()
-			this.write(filename, html, `Wrote ${filename} to disk in ${(Date.now() - start) / 1000} seconds`)
-			this._cachedPages[filename] = html
-		}
-		return html
-	}
-
-	buildIndexPage(filename = "index.html") {
-		return this._buildAndWriteCollectionPage(filename, this.articlesToIncludeInIndex, this.indexPage)
-	}
-
-	buildSnippetsPage(filename = "snippets.html") {
-		return this._buildAndWriteCollectionPage(filename, this.articlesToIncludeInIndex, new ScrollSnippetsPage(this))
 	}
 
 	get rssFeedUrl() {
@@ -813,9 +800,7 @@ class ScrollFolder {
 	buildAll() {
 		this.log(`\n👷 building folder '${this.scrollFolder}\n'`)
 		this.logIndent++
-		this.buildIndexPage()
 		this.buildFiles()
-		this.buildSnippetsPage()
 		this.logIndent--
 	}
 

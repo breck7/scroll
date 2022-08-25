@@ -32,7 +32,6 @@ cases.forEach(async url => {
 		const scroll = new ScrollFolder(folder)
 		await scroll.importSite()
 		scroll.buildFiles()
-		scroll.buildIndexPage()
 	} catch (err) {
 		console.error(err)
 	}

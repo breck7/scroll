@@ -52,7 +52,7 @@ comment Default footer theme
  color rgba(204,204,204,.5)
 
 comment Main body of both pages is similar
-.scrollIndexPageComponent,.scrollArticlePageComponent
+.scrollIndexPageComponent,.scrollFilePageComponent
  column-count auto
  column-fill balance
  column-width 35ch
@@ -62,14 +62,14 @@ comment Main body of both pages is similar
  padding-right 20px
  margin auto
 
-comment Column rules not needed on single articles
-.scrollArticlePageComponent
+comment Column rules not needed on single files
+.scrollFilePageComponent
  column-rule none
  padding-top 8px
  .scrollTitleComponent
   comment Hide the title since we will display it up top.
   display none
-.scrollSingleArticleTitle
+.scrollFilePageTitle
  text-align center
  margin-top 8px
  margin-bottom 8px
@@ -77,8 +77,8 @@ comment Column rules not needed on single articles
   text-decoration none
   color #000
 
-comment On the index page add some spacing around articles
-.scrollIndexPageArticleContainerComponent
+comment On group pages add some spacing around files
+.scrollIndexPageFileContainerComponent
  border-bottom 1px solid rgb(204,204,204)
  padding 1ch 0
  break-inside avoid
@@ -161,7 +161,7 @@ code
  margin-top 0.4em
 
 comment Subtle "Article Source" link
-.scrollArticleSourceLinkComponent
+.scrollFileSourceLinkComponent
  text-align center
  font-size 80%
  margin 0
