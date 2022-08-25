@@ -171,10 +171,11 @@ class ScrollFile {
 		const templates = {
 			group: GroupTemplate,
 			snippets: SnippetsGroupTemplate,
-			none: NoTemplate,
+			blank: BlankTemplate,
 			file: FileTemplate
 		}
-		return templates[this.scrollScriptProgram.get("template")] || FileTemplate
+		const templateName = this.scrollScriptProgram.getNode("template")?.getWord(1)
+		return templates[templateName] || FileTemplate
 	}
 
 	get html() {
@@ -500,7 +501,7 @@ class AbstractTemplate {
 	}
 }
 
-class NoTemplate extends AbstractTemplate {
+class BlankTemplate extends AbstractTemplate {
 	toHtml() {
 		return this.file.compiled.trim()
 	}
@@ -577,17 +578,20 @@ div
 
 class GroupTemplate extends AbstractTemplate {
 	get groupName() {
-		return this.file.get("template").getWord(2)
+		return this.file.scrollScriptProgram.getNode("template").getWord(2)
+	}
+
+	get files() {
+		return this.folder.getGroup(this.groupName)
 	}
 
 	get pageCode() {
-		const { folder, groupName } = this
-		const files = folder
-			.getGroup(groupName)
+		const { property, files } = this
+		const fileCode = files
 			.map(file => {
 				const node = new TreeNode(`div
  class ${cssClasses.scrollGroupPageFileContainerComponent}`)
-				node.getNode("div").appendLineAndChildren("bern", this.getFileHtml(file))
+				node.getNode("div").appendLineAndChildren("bern", file[property])
 				return node.toString()
 			})
 			.join("\n")
@@ -595,18 +599,14 @@ class GroupTemplate extends AbstractTemplate {
 		return `div
  class ${cssClasses.scrollGroupPageComponent}
  style column-width:${this.columnWidth}ch;
- ${removeReturnCharsAndRightShift(files, 1)}`
+ ${removeReturnCharsAndRightShift(fileCode, 1)}`
 	}
 
-	getFileHtml(file) {
-		return file.htmlCode
-	}
+	property = "htmlCode"
 }
 
 class SnippetsGroupTemplate extends GroupTemplate {
-	getFileHtml(file) {
-		return file.htmlCodeForSnippetsPage
-	}
+	property = "htmlCodeForSnippetsPage"
 }
 
 class ScrollPage {
@@ -822,7 +822,7 @@ class ScrollFolder {
 	}
 
 	buildAll() {
-		this.log(`\n👷 building folder '${this.scrollFolder}\n'`)
+		this.log(`\n👷 building folder '${this.scrollFolder}'\n`)
 		this.logIndent++
 		this.buildFiles()
 		this.logIndent--

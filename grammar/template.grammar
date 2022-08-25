@@ -1,5 +1,5 @@
 templateEnumCell
- enum group snippets file none
+ enum group snippets file blank
  extends stringCell
 templateNode
  extends abstractScrollNode

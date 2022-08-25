@@ -2,5 +2,5 @@ import settings.scroll
 
 permalink feed.xml
 
-template none
+template blank
 printFeed index
