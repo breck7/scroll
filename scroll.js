@@ -171,7 +171,8 @@ class ScrollFile {
 		const templates = {
 			group: GroupTemplate,
 			snippets: SnippetsGroupTemplate,
-			none: NoTemplate
+			none: NoTemplate,
+			file: FileTemplate
 		}
 		return templates[this.get("template")] || FileTemplate
 	}
@@ -492,6 +493,12 @@ class AbstractTemplate {
 
 	toHtml() {
 		return scrollBoilerplateCompiledMessage + "\n" + new stump(this.stumpCode).compile()
+	}
+}
+
+class NoTemplate extends AbstractTemplate {
+	toHtml() {
+		return this.file.htmlCode
 	}
 }
 

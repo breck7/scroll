@@ -62,7 +62,7 @@ cssSettingEnumCell
  extends stringCell
 cssSettingNode
  extends abstractSettingNode
- crux css 
+ crux css
  cells keywordCell cssSettingEnumCell
  description Defaults to "inline", meaning default Scroll style CSS will be included on each page. Can set to none to if you provide your own CSS.
 columnWidthNode

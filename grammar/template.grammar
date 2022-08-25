@@ -1,0 +1,9 @@
+templateEnumCell
+ enum group snippets file none
+ extends stringCell
+templateNode
+ extends abstractScrollNode
+ cruxFromId
+ cells keywordCell templateEnumCell
+ catchAllCellType stringCell
+ description Defaults to "file".
