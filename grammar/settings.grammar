@@ -56,9 +56,10 @@ maxColumnsNode
 cssSettingEnumCell
  enum inline split none
  extends stringCell
-cssNode
+cssSettingNode
  extends abstractSettingNode
- cellss keywordCell cssSettingEnumCell
+ crux css 
+ cells keywordCell cssSettingEnumCell
  description Defaults to "inline", meaning default Scroll style CSS will be included on each page. Can set to split to write CSS to separate page, or none if you provide your own CSS.
 columnWidthNode
  extends abstractIntSettingNode
