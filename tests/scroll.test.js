@@ -100,7 +100,7 @@ testTree.check = async areEqual => {
 }
 
 testTree.article = areEqual => {
-	const article = new ScrollFolder().articles[0]
+	const article = new ScrollFolder().articles[1]
 	const content = article.htmlCode
 
 	areEqual(article.permalink, "releaseNotes.html")
@@ -197,29 +197,37 @@ testTree.kitchenSink = async areEqual => {
 		fs.mkdirSync(tempFolder)
 		fs.writeFileSync(
 			path.join(tempFolder, SCROLL_SETTINGS_FILENAME),
-			`${settingsKeywords.header}
- div CustomHeader
-${settingsKeywords.footer}
- div CustomFooter`,
+			`${scrollKeywords.importOnly}
+${scrollKeywords.settings}
+ ${settingsKeywords.header}
+  div CustomHeader
+ ${settingsKeywords.footer}
+  div CustomFooter`,
 			"utf8"
 		)
 		fs.writeFileSync(
 			path.join(tempFolder, "hello.scroll"),
 			`${scrollKeywords.title} hello world
+
+paragraph
+ Here is some content.
 endSnippet
+
+${scrollKeywords.groups} index.html
+import settings.scroll
 keyboardNav`,
 			"utf8"
 		)
 
 		// Act
 		const folder = new ScrollFolder(tempFolder).silence()
-		const singleFile = folder.buildIndexPage()
-		const customSnippetsPageName = "foobar.html"
+		const indexPage = folder.buildIndexPage()
+		const customSnippetsPageName = "customSnippetsPage.html"
 		const snippetsPage = folder.buildSnippetsPage(customSnippetsPageName)
 
 		// Assert
-		areEqual(singleFile.includes("CustomHeader"), true)
-		areEqual(singleFile.includes("CustomFooter"), true)
+		areEqual(indexPage.includes("CustomHeader"), true, "should have custom header")
+		areEqual(indexPage.includes("CustomFooter"), true, "should have custom footer")
 		areEqual(folder.shouldBuildSnippetsPage, true)
 		areEqual(fs.existsSync(path.join(tempFolder, customSnippetsPageName)), true)
 	} catch (err) {

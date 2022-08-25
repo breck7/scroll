@@ -469,16 +469,14 @@ class AbstractScrollPage {
 }
 
 class ScrollPage {
-	constructor(content = "", settings = "") {
-		this.settings = settings
+	constructor(content = "") {
 		this.content = content
 	}
 
-	settings = ""
 	content = ""
 
 	get html() {
-		const scrollFolder = new ScrollFolder(undefined, this.settings)
+		const scrollFolder = new ScrollFolder(undefined, "")
 		const { scrollScriptCompiler } = scrollFolder
 		const program = new scrollScriptCompiler(this.content)
 		const article = new Article(program, "", "", scrollFolder)
@@ -671,7 +669,7 @@ class ScrollFolder {
 
 	_settingsTree
 	get settingsTree() {
-		if (!this._settingsTree) this._settingsTree = new TreeNode(this._settingsContent).getNode(scrollKeywords.settings)
+		if (!this._settingsTree) this._settingsTree = new TreeNode(this._settingsContent).getNode(scrollKeywords.settings) || new TreeNode("")
 		return this._settingsTree
 	}
 
@@ -765,7 +763,7 @@ class ScrollFolder {
 
 	logIndent = 0
 	log(message) {
-		const indent = "-".repeat(this.logIndent)
+		const indent = "    ".repeat(this.logIndent)
 		if (this.verbose) console.log(indent + message)
 		return message
 	}
@@ -776,9 +774,9 @@ class ScrollFolder {
 	_singlePages = new Map()
 	_buildAndWriteSinglePages() {
 		const start = Date.now()
-		const { settings, articles } = this
+		const { settings, articles, scrollFolder } = this
 		const articlesToBuild = articles.filter(article => article.shouldBuild)
-		this.log(`Building ${articlesToBuild.length} articles from ${articles.length} ${SCROLL_FILE_EXTENSION} files found in folder`)
+		this.log(`Building ${articlesToBuild.length} articles from ${articles.length} ${SCROLL_FILE_EXTENSION} files found in '${scrollFolder}'\n`)
 		this.logIndent++
 		const pages = articlesToBuild.map(article => {
 			const permalink = `${article.permalink}`
@@ -789,14 +787,16 @@ class ScrollFolder {
 			return { permalink, html }
 		})
 		const seconds = (Date.now() - start) / 1000
-		this.log(`⌛️ compiled ${pages.length} single article pages to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second\n`)
 		this.logIndent--
+		this.log(``)
+		this.log(`⌛️ Compiled ${pages.length} single article pages to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second\n`)
+
 		return pages
 	}
 
 	_cachedPages = {}
 	_buildAndWriteCollectionPage(filename, articles, page) {
-		if (articles.length === 0) return this.log(`🫙 Skipping build of '${filename}' because no articles in '${filename}' group.`)
+		if (articles.length === 0) return this.log(`💤 Skipping build of '${filename}' because no articles in '${filename}' group.\n`)
 		const html = page.toHtml()
 		if (this._cachedPages[filename] !== html) {
 			const start = Date.now()
@@ -838,7 +838,7 @@ class ScrollFolder {
 	}
 
 	buildAll() {
-		this.log(`\n👷 building folder '${this.scrollFolder}'`)
+		this.log(`\n👷 building folder '${this.scrollFolder}\n'`)
 		this.logIndent++
 		this.buildIndexPage()
 		this.buildSinglePages()
@@ -885,8 +885,8 @@ class ScrollCli {
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		const cwd = process.cwd()
 		if (this[commandName]) return this[commandName](cwd)
-
-		this.log(`No command provided. Running help command.`)
+		else if (command) this.log(`No command '${command}'. Running help command.`)
+		else this.log(`No command provided. Running help command.`)
 		return this.helpCommand()
 	}
 
