@@ -1,5 +1,7 @@
 importOnly
 settings
+ baseUrl https://scroll.pub/tests/kitchenSink/
+ description Kitchen sink test site.
  viewSourceBaseUrl https://github.com/breck7/scroll/blob/main/tests/kitchenSink/
  title The Kitchen Sink Blog
  header

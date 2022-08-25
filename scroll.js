@@ -502,7 +502,7 @@ class AbstractTemplate {
 
 class NoTemplate extends AbstractTemplate {
 	toHtml() {
-		return this.file.compiled
+		return this.file.compiled.trim()
 	}
 }
 
