@@ -626,8 +626,8 @@ class ScrollPage {
 }
 
 class ScrollFolder {
-	constructor(scrollFolder = __dirname, settingsContent = undefined) {
-		this.scrollFolder = path.normalize(scrollFolder)
+	constructor(folder = __dirname, settingsContent = undefined) {
+		this.folder = path.normalize(folder)
 		this._settingsContent = settingsContent !== undefined ? settingsContent : fs.existsSync(this.settingsFilepath) ? read(this.settingsFilepath) : ""
 
 		this.grammarFiles = DefaultGrammarFiles
@@ -652,7 +652,7 @@ class ScrollFolder {
 	}
 
 	get fullFilePaths() {
-		return Disk.getFiles(this.scrollFolder)
+		return Disk.getFiles(this.folder)
 	}
 
 	_files
@@ -695,7 +695,7 @@ class ScrollFolder {
 	}
 
 	get settingsFilepath() {
-		return path.join(this.scrollFolder, SCROLL_SETTINGS_FILENAME)
+		return path.join(this.folder, SCROLL_SETTINGS_FILENAME)
 	}
 
 	_migrate27() {
@@ -776,7 +776,7 @@ class ScrollFolder {
 	}
 
 	verbose = true
-	scrollFolder = ""
+	folder = ""
 
 	logIndent = 0
 	log(message) {
@@ -792,9 +792,9 @@ class ScrollFolder {
 	_publishedFiles = new Map()
 	_buildAndWriteFiles() {
 		const start = Date.now()
-		const { settings, files, scrollFolder } = this
+		const { settings, files, folder } = this
 		const filesToBuild = files.filter(file => file.shouldBuild)
-		this.log(`Building ${filesToBuild.length} files from ${files.length} ${SCROLL_FILE_EXTENSION} files found in '${scrollFolder}'\n`)
+		this.log(`Building ${filesToBuild.length} files from ${files.length} ${SCROLL_FILE_EXTENSION} files found in '${folder}'\n`)
 		this.logIndent++
 		const pages = filesToBuild.map(file => {
 			const { permalink, html } = file
@@ -816,13 +816,13 @@ class ScrollFolder {
 	}
 
 	write(filename, content, message) {
-		const result = write(path.join(this.scrollFolder, filename), content)
+		const result = write(path.join(this.folder, filename), content)
 		this.log(`💾 ` + message)
 		return result
 	}
 
 	buildAll() {
-		this.log(`\n👷 building folder '${this.scrollFolder}'\n`)
+		this.log(`\n👷 building folder '${this.folder}'\n`)
 		this.logIndent++
 		this.buildFiles()
 		this.logIndent--
@@ -839,7 +839,7 @@ class ScrollFolder {
 		// A loose check for now to catch things like "format=rss"
 		if (importFrom.includes("rss") || importFrom.includes("feed")) {
 			const importer = new RssImporter(importFrom)
-			return await importer.downloadFilesTo(this.scrollFolder)
+			return await importer.downloadFilesTo(this.folder)
 		}
 
 		return `❌ Scroll wasn't sure how to import '${importFrom}'.\n💡 You can open an issue here: https://github.com/breck7/scroll/issues`
@@ -919,13 +919,12 @@ class ScrollCli {
 	async watchCommand(cwd) {
 		const folderOrErrorMessage = await this.buildCommand(cwd)
 		if (typeof folderOrErrorMessage === "string") return folderOrErrorMessage
-		const folder = folderOrErrorMessage
-		const { scrollFolder } = folder
+		const { folder } = folderOrErrorMessage
 
-		this.log(`\n🔭 Watching for changes in 📁 ${scrollFolder}`)
+		this.log(`\n🔭 Watching for changes in 📁 ${folder}`)
 
-		this._watcher = fs.watch(scrollFolder, (event, filename) => {
-			const fullFilePath = path.join(scrollFolder, filename)
+		this._watcher = fs.watch(folder, (event, filename) => {
+			const fullFilePath = path.join(folder, filename)
 			if (!fullFilePath.endsWith(SCROLL_FILE_EXTENSION)) return
 			this.log(`\n✅ "${fullFilePath}" changed.`)
 
@@ -936,12 +935,12 @@ class ScrollCli {
 			} else {
 				// file updates
 			}
-			const newFolder = new ScrollFolder(scrollFolder)
+			const newFolder = new ScrollFolder(folder)
 			newFolder.verbose = folder.verbose
 			newFolder.buildAll()
 		})
 
-		if (this.verbose) await open(`file://${scrollFolder}/index.html`)
+		if (this.verbose) await open(`file://${folder}/index.html`)
 		return this
 	}
 
