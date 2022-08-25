@@ -104,7 +104,7 @@ const cssClasses = {
 const scrollKeywords = {
 	title: "title",
 	htmlTitle: "htmlTitle",
-	sourceLink: "sourceLink",
+	viewSourceLink: "viewSourceLink",
 	permalink: "permalink",
 	paragraph: "paragraph",
 	aftertext: "aftertext",
@@ -121,8 +121,8 @@ const scrollKeywords = {
 const settingsKeywords = {
 	title: "title",
 	description: "description",
-	git: "git",
 	baseUrl: "baseUrl",
+	viewSourceBaseUrl: "viewSourceBaseUrl",
 	maxColumns: "maxColumns",
 	columnWidth: "columnWidth",
 	twitter: "twitter",
@@ -150,9 +150,9 @@ const SCROLL_ICONS = {
 }
 
 class ScrollFile {
-	constructor(scrollScriptProgram, filePath, sourceLink, folder) {
+	constructor(scrollScriptProgram, filePath, viewSourceLink, folder) {
 		this.scrollScriptProgram = scrollScriptProgram
-		this._sourceLink = sourceLink
+		this._viewSourceLink = sourcviewSourceLinkeLink
 		this.filePath = filePath
 		this.filename = path.basename(filePath)
 		this.folder = folder
@@ -198,7 +198,7 @@ class ScrollFile {
 		write(`${this.filePath}`, this.scrollScriptProgram.toString())
 	}
 
-	_sourceLink = ""
+	_viewSourceLink = ""
 	filename = ""
 	filePath = ""
 	baseUrl = ""
@@ -238,7 +238,7 @@ class ScrollFile {
 	}
 
 	get sourceLink() {
-		return this.scrollScriptProgram.get(scrollKeywords.sourceLink) || this._sourceLink
+		return this.scrollScriptProgram.get(scrollKeywords.viewSourceLink) || this._viewSourceLink
 	}
 
 	get timestamp() {
@@ -264,7 +264,7 @@ class ScrollFile {
 	}
 
 	get htmlCode() {
-		return this.compiled + (this.sourceLink ? `<p class="${cssClasses.scrollFileSourceLinkComponent}"><a href="${this.sourceLink}">File source</a></p>` : "")
+		return this.compiled + (this.sourceLink ? `<p class="${cssClasses.scrollFileSourceLinkComponent}"><a href="${this.sourceLink}">View source</a></p>` : "")
 	}
 
 	get htmlCodeForSnippetsPage() {
@@ -658,14 +658,16 @@ class ScrollFolder {
 	_files
 	get files() {
 		if (this._files) return this._files
-		const { gitLink, scrollScriptCompiler, fullFilePaths } = this
-		const all = fullFilePaths.filter(file => file.endsWith(SCROLL_FILE_EXTENSION)).map(fullFilePath => new ScrollFile(new scrollScriptCompiler(read(fullFilePath)), fullFilePath, gitLink ? gitLink + path.basename(fullFilePath) : "", this))
+		const { viewSourceLink, scrollScriptCompiler, fullFilePaths } = this
+		const all = fullFilePaths
+			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
+			.map(fullFilePath => new ScrollFile(new scrollScriptCompiler(read(fullFilePath)), fullFilePath, viewSourceLink ? viewSourceLink + path.basename(fullFilePath) : "", this))
 		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
 		return this._files
 	}
 
-	get gitLink() {
-		return this.settings[settingsKeywords.git] + "/"
+	get viewSourceLink() {
+		return (this.settings[settingsKeywords.viewSourceBaseUrl] || "").replace(/\/$/, "") + "/"
 	}
 
 	get errors() {

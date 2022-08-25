@@ -30,7 +30,7 @@ htmlTitleNode
  catchAllCellType stringCell
  description Use this to override the automatic HTML <title> generation.
  extends abstractTopLevelSingleMetaNode
-sourceLinkNode
+viewSourceLinkNode
  catchAllCellType urlCell
  description Use this to override the link to the source code for a scroll file.
  extends abstractTopLevelSingleMetaNode

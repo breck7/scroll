@@ -28,11 +28,10 @@ descriptionSettingNode
  extends abstractSettingNode
  crux description
  catchAllCellType stringCell
-gitSettingNode
- todo Deprecate?
- description The base link to be used to generate the "file source" link.
+viewSourceBaseUrlNode
+ description The base link to be used to generate the "View source" link.
  extends abstractUrlSettingNode
- crux git
+ cruxFromId
 githubSettingNode
  description A link to a GitHub project.
  extends abstractUrlSettingNode
@@ -50,10 +49,10 @@ baseUrlSettingNode
  description Root url of the published site. Needed for og tags.
  extends abstractUrlSettingNode
  crux baseUrl
-rssUrlSettingNode
+rssFeedUrlNode
  description URL for RSS feed, if any.
  extends abstractUrlSettingNode
- crux rssFeedUrl
+ cruxFromId
 maxColumnsNode
  extends abstractIntSettingNode
  description Set your own max column count for a single file's generated HTML.

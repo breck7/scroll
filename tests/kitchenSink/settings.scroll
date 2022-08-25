@@ -1,5 +1,6 @@
 importOnly
 settings
+ viewSourceBaseUrl https://github.com/breck7/scroll/blob/main/tests/kitchenSink/
  title The Kitchen Sink Blog
  header
   div CustomHeader
