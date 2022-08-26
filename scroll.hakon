@@ -161,7 +161,7 @@ code
  margin-top 0.4em
 
 comment Subtle "Article Source" link
-.scrollFileSourceLinkComponent
+.scrollFileViewSourceUrlComponent
  text-align center
  font-size 80%
  margin 0

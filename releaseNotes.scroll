@@ -37,7 +37,7 @@ subsection Change list
 
 list
  - ⚠️ BREAKING: The `git` setting is renamed to `viewSourceBaseUrl`
- - ⚠️ BREAKING: The `sourceLink` setting is renamed to `viewSourceLink`
+ - ⚠️ BREAKING: The `sourceLink` setting is renamed to `viewSourceUrl`
  - ⚠️ BREAKING: removed `skipIndexPage`. Instead you now opt-in to group pages like this: `groups index.html`
  - ⚠️ BREAKING: if a ".scroll" file compiles to "" (after trimming), it will not be written..
  - ⚠️ BREAKING: removed `scroll.settings` concept. Use `import settings.scroll` now.
@@ -51,7 +51,7 @@ list
       scrollArticlePageComponent => scrollFilePageComponent
       scrollSingleArticleTitle => scrollFilePageTitle
       scrollIndexPageArticleContainerComponent => scrollGroupPageFileContainerComponent
-      scrollArticleSourceLinkComponent => scrollFileSourceLinkComponent
+      scrollArticleSourceLinkComponent => scrollFileViewSourceUrlComponent
       scrollIndexPageComponent => scrollGroupPageComponent
       scrollIndexPageFileContainerComponent => scrollGroupPageFileContainerComponent
  - 🎉 keyboardNav will now use the first group a file belongs to if prev and next are not supplied

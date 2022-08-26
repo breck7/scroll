@@ -112,7 +112,7 @@ const scrollBoilerplateCompiledMessage = `<!doctype html>
 const cssClasses = {
 	scrollGroupPageComponent: "scrollGroupPageComponent",
 	scrollGroupPageFileContainerComponent: "scrollGroupPageFileContainerComponent",
-	scrollFileSourceLinkComponent: "scrollFileSourceLinkComponent",
+	scrollFileViewSourceUrlComponent: "scrollFileViewSourceUrlComponent",
 	scrollFilePageComponent: "scrollFilePageComponent",
 	scrollFilePageTitle: "scrollFilePageTitle"
 }
@@ -121,7 +121,7 @@ const cssClasses = {
 const scrollKeywords = {
 	title: "title",
 	htmlTitle: "htmlTitle",
-	viewSourceLink: "viewSourceLink",
+	viewSourceUrl: "viewSourceUrl",
 	permalink: "permalink",
 	paragraph: "paragraph",
 	aftertext: "aftertext",
@@ -300,8 +300,9 @@ class ScrollFile {
 		return this.scrollScriptProgram.get(scrollKeywords.htmlTitle)
 	}
 
-	get sourceLink() {
-		return this.scrollScriptProgram.get(scrollKeywords.viewSourceLink) || (this.folder.viewSourceLink ? this.folder.viewSourceLink + path.basename(this.filePath) : "")
+	get viewSourceUrl() {
+		const { viewSourceUrl, viewSourceBaseUrl } = this.object
+		return viewSourceUrl || (viewSourceBaseUrl ? viewSourceBaseUrl + path.basename(this.filePath) : "")
 	}
 
 	get timestamp() {
@@ -315,7 +316,7 @@ class ScrollFile {
 	}
 
 	get htmlCode() {
-		return this.compiled + (this.sourceLink ? `<p class="${cssClasses.scrollFileSourceLinkComponent}"><a href="${this.sourceLink}">View source</a></p>` : "")
+		return this.compiled + (this.viewSourceUrl ? `<p class="${cssClasses.scrollFileViewSourceUrlComponent}"><a href="${this.viewSourceUrl}">View source</a></p>` : "")
 	}
 
 	get htmlCodeForSnippetsPage() {
