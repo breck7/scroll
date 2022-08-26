@@ -1,5 +1,6 @@
 #! /usr/bin/env node
-const { SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollFolder } = require("../scroll.js")
+const { ScrollFolder } = require("../scroll.js")
+const { importSite } = require("./RssImporter.js")
 const fs = require("fs")
 const path = require("path")
 
@@ -18,6 +19,7 @@ https://worksinprogress.co/feed/
 https://meyerweb.com/eric/thoughts/feed/`.split("\n")
 
 const rootFolder = path.join(__dirname, "importExamples")
+
 try {
 	fs.mkdirSync(rootFolder)
 } catch (err) {
@@ -28,9 +30,8 @@ cases.forEach(async url => {
 	const folder = path.join(rootFolder, hostname)
 	try {
 		fs.mkdirSync(folder)
-		fs.writeFileSync(path.join(folder, SCROLL_SETTINGS_FILENAME), scrollKeywords.importFrom + " " + url, "utf8")
+		await importSite(url, folder)
 		const scroll = new ScrollFolder(folder)
-		await scroll.importSite()
 		scroll.buildFiles()
 	} catch (err) {
 		console.error(err)

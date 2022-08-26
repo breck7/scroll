@@ -125,19 +125,20 @@ const scrollKeywords = {
 	github: "github",
 	email: "email",
 	rssFeedUrl: "rssFeedUrl",
-	importFrom: "importFrom",
 	scrollHeader: "scrollHeader",
 	scrollFooter: "scrollFooter",
 	scrollCss: "scrollCss"
 }
 
-const initReadmePage = `${scrollKeywords.title} Hello world
+const initReadmeFile = `${scrollKeywords.title} Hello world
 ${scrollKeywords.date} ${dayjs().format(`MM-DD-YYYY`)}
 
 ${scrollKeywords.paragraph}
- This is my new Scroll.`
+ This is my new Scroll.
 
-const doesFolderHaveASettingsDotScrollFile = absPath => fs.existsSync(path.normalize(path.join(absPath, SCROLL_SETTINGS_FILENAME)))
+import settings.scroll`
+
+const initSettingsFile = read(path.join(__dirname, SCROLL_SETTINGS_FILENAME))
 
 const SCROLL_ICONS = {
 	githubSvg: `<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>`,
@@ -286,52 +287,6 @@ class ScrollFile {
   <title>${title}</title>
   <link>${baseUrl + permalink}</link>
  </item>`
-	}
-}
-
-// Todo: deprecate/remove/split out into sep project?
-class RssImporter {
-	constructor(path) {
-		this.path = path
-	}
-	path = ""
-
-	savePost(item, content, destinationFolder) {
-		const { title, pubDate, isoDate } = item
-		const date = pubDate || isoDate ? `${scrollKeywords.date} ${pubDate || isoDate}` : ""
-		const scrollFile = `${scrollKeywords.title} ${title}
-${date}
-${scrollKeywords.paragraph}
- ${removeReturnCharsAndRightShift(content, 1)}
-`
-		write(path.join(destinationFolder, Utils.stringToPermalink(title) + SCROLL_FILE_EXTENSION), scrollFile)
-	}
-
-	async downloadFilesTo(destinationFolder) {
-		const Parser = require("rss-parser")
-		const got = require("got")
-		const cheerio = require("cheerio")
-
-		const parser = new Parser()
-
-		console.log(`⏳ downloading '${this.path}'`)
-		const feed = await parser.parseURL(this.path)
-
-		await Promise.all(
-			feed.items.map(async item => {
-				if (item.content) return this.savePost(item, item.content, destinationFolder)
-
-				try {
-					console.log(`⏳ downloading '${item.link}'`)
-					const response = await got(item.link)
-					const html = response.body
-					const dom = cheerio.load(html)
-					this.savePost(item, dom.text(), destinationFolder)
-				} catch (err) {
-					console.log(`❌ downloading '${item.link}'`)
-				}
-			})
-		)
 	}
 }
 
@@ -681,24 +636,6 @@ class ScrollFolder {
 			.flat()
 	}
 
-	_settingsContent = ""
-
-	_settings
-	get settings() {
-		if (!this._settings) this._settings = { ...this.settingsTree.toObject() }
-		return this._settings
-	}
-
-	_settingsTree
-	get settingsTree() {
-		if (!this._settingsTree) this._settingsTree = new TreeNode(this._settingsContent).getNode(scrollKeywords.settings) || new TreeNode("")
-		return this._settingsTree
-	}
-
-	get settingsFilepath() {
-		return path.join(this.folder, SCROLL_SETTINGS_FILENAME)
-	}
-
 	_migrate27() {
 		let changed = false
 		console.log(`🚚 Applying 27.0.0 migrations`)
@@ -828,23 +765,6 @@ class ScrollFolder {
 		this.buildFiles()
 		this.logIndent--
 	}
-
-	// rss, twitter, hn, reddit, pinterest, instagram, tiktok, youtube?
-	async importSite() {
-		const importFrom = this.settings.importFrom
-
-		if (!importFrom)
-			return `❌ You need to define an import source in '${SCROLL_SETTINGS_FILENAME}' like 'settings
- ${scrollKeywords.importFrom} https://example.com/feed.rss`
-
-		// A loose check for now to catch things like "format=rss"
-		if (importFrom.includes("rss") || importFrom.includes("feed")) {
-			const importer = new RssImporter(importFrom)
-			return await importer.downloadFilesTo(this.folder)
-		}
-
-		return `❌ Scroll wasn't sure how to import '${importFrom}'.\n💡 You can open an issue here: https://github.com/breck7/scroll/issues`
-	}
 }
 
 class ScrollCli {
@@ -873,24 +793,19 @@ class ScrollCli {
 
 	async initCommand(cwd) {
 		const folder = new ScrollFolder()
-		if (doesFolderHaveASettingsDotScrollFile(cwd)) return this.log(`❌ Initialization aborted. Folder '${cwd}' already contains a '${SCROLL_SETTINGS_FILENAME}'.`)
 		this.log(`Initializing scroll in "${cwd}"`)
-		write(path.join(cwd, SCROLL_SETTINGS_FILENAME), read(path.join(__dirname, SCROLL_SETTINGS_FILENAME)))
+
+		const settingsPath = path.join(cwd, SCROLL_SETTINGS_FILENAME)
+		if (!fs.existsSync(settingsPath)) write(settingsPath, initSettingsFile)
+
 		const readmePath = path.join(cwd, "readme.scroll")
-		if (!fs.existsSync(readmePath)) write(readmePath, initReadmePage)
+		if (!fs.existsSync(readmePath)) write(readmePath, initReadmeFile)
+
 		return this.log(`\n👍 Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
 	}
 
 	deleteCommand() {
 		return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
-	}
-
-	async importCommand(cwd) {
-		const fullPath = resolvePath(cwd)
-		if (!doesFolderHaveASettingsDotScrollFile(fullPath)) return this.log(`❌ Folder '${cwd}' has no '${SCROLL_SETTINGS_FILENAME}' file.`)
-		const folder = new ScrollFolder(cwd)
-		const result = await folder.importSite()
-		return this.log(result)
 	}
 
 	checkCommand(cwd) {
