@@ -16,7 +16,7 @@ aftertext
 question Who is Scroll for?
 
 aftertext
- Scroll is built for people who like writing, open source, git backed static site generators, and fast simple code.
+ Scroll is built for developers who like writing, tools for thought, open source, git backed static site generators, and fast simple code.
 
 question What makes Scroll different?
 
@@ -24,7 +24,7 @@ replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
 replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
 
 aftertext
- Scroll is not just another static site generator but also a *new language*. More than that—it's a simple, magical new language that you can extend in amazing ways. Scroll is mostly written in a new language called GrammarLinked, and both Grammar and Scroll are built on a new revolutionarily simple new syntax called TreeNotationLinked.
+ Scroll is not just another static site generator but also a *new language*. More than just a new language. It's a _freakishly simple new language that you can extend in amazing ways_. Scroll is a high level language mostly written in a new lower level language called GrammarLinked, and both Grammar and Scroll are built on the new syntax called TreeNotationLinked.
  https://staticsitegenerators.net another static site generator
  wrapsOn
 
@@ -57,12 +57,13 @@ code
   step Bake for 10 minutes
 
 aftertext
- Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just define it yourself using the Grammar Language, extending your dialect of Scroll:
+ Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just define it yourself using GrammarLinked, extending your dialect of Scroll:
  wrapsOn
 
 code
  recipeNode
   extends abstractScrollNode
+  crux recipe
   javascript
    compile() {
      const addYourSpecialMagic = ""
@@ -73,18 +74,20 @@ aftertext
  Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.
 
 aftertext
- (Diclosure: the cookie recipe above has not been taste tested)
+ For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
+ link https://scroll.pub/public/blog/indented-heredocs.html one
+
+question What is the biggest downside to Scroll?
 
 aftertext
- For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
- link https://scroll.pub/blog/indented-heredocs.html one
+ Althought it is simple to write GrammarLinked when you know what you're doing, documentation for GrammarLinked is still very poor and tooling isn't great yet. That will get better.
 
 question What kind of sites can I use Scroll to build?
 
 aftertext
  Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
  link https://scroll.pub one page
- link https://scroll.pub/blog/ a few pages
+ link https://scroll.pub/public/blog/ a few pages
  link https://breckyunits.com/code/ tens of pages
  link https://breckyunits.com/ hundreds of pages
  link https://pldb.com/ thousands of pages
@@ -143,7 +146,7 @@ question What are some example sites using Scroll?
 aftertext
  Scroll currently powers blog and sites of one page, a few pages, tens of pages, hundreds of pages, and even thousands of pages.
  link https://scroll.pub one page
- link https://scroll.pub/blog/ a few pages
+ link https://scroll.pub/public/blog/ a few pages
  link https://breckyunits.com/code/ tens of pages
  link https://breckyunits.com/ hundreds of pages
  link https://pldb.com/ thousands of pages
@@ -151,7 +154,7 @@ aftertext
 question What does a typical project folder look like?
 
 aftertext
- A typical Scroll project folder, excluding the html files
+ A typical Scroll project folder, excluding the files
  built by Scroll, looks like this:
 
 code
@@ -447,3 +450,12 @@ aftertext
 permalink index.html
 import settings.scroll
 keyboardNav releaseNotes.html releaseNotes.html
+
+
+scrollHeader
+ div
+  class scrollTopRightBarComponent
+  div
+   class scrollSocialMediaIconsComponent
+   a <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    href https://github.com/breck7/scroll
