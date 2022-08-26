@@ -16,7 +16,7 @@ jobs:
           ./scroll.js build
           cp public/favicon.ico .
           cd public/blog
-          npm install marked textile-js ya-bbcode
+          npm install -g marked textile-js ya-bbcode
           ../../scroll.js build
           cd ..
           cd ..
