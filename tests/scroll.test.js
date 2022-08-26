@@ -4,7 +4,7 @@ const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
 const { jtree } = require("jtree")
-const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler } = require("../scroll.js")
+const { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler } = require("../scroll.js")
 const shell = require("child_process").execSync
 
 const testString = "An extensible alternative to Markdown"
@@ -164,7 +164,7 @@ testTree.errorStates = async areEqual => {
 
 		// Act
 		const result = await cli.initCommand(tempFolder)
-		areEqual(fs.existsSync(path.join(tempFolder, SCROLL_SETTINGS_FILENAME)), true)
+		areEqual(fs.existsSync(path.join(tempFolder, "settings.scroll")), true)
 
 		const folder = new ScrollFolder(tempFolder).silence()
 		const singleFile = folder.buildFiles()

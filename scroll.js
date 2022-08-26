@@ -130,15 +130,16 @@ const scrollKeywords = {
 	scrollCss: "scrollCss"
 }
 
-const initReadmeFile = `${scrollKeywords.title} Hello world
+const initSite = {
+	"readme.scroll": `${scrollKeywords.title} Hello world
 ${scrollKeywords.date} ${dayjs().format(`MM-DD-YYYY`)}
 
 ${scrollKeywords.paragraph}
  This is my new Scroll.
 
-import settings.scroll`
-
-const initSettingsFile = read(path.join(__dirname, SCROLL_SETTINGS_FILENAME))
+import settings.scroll`,
+	"settings.scroll": read(path.join(__dirname, SCROLL_SETTINGS_FILENAME))
+}
 
 const SCROLL_ICONS = {
 	githubSvg: `<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub icon</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>`,
@@ -240,16 +241,12 @@ class ScrollFile {
 		return dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
 	}
 
-	get settingsNode() {
-		return this.scrollScriptProgram.getNode(scrollKeywords.settings) || new TreeNode()
-	}
-
 	get maxColumns() {
-		return this.settingsNode.get(scrollKeywords.maxColumns)
+		return this.scrollScriptProgram.get(scrollKeywords.maxColumns)
 	}
 
 	get columnWidth() {
-		return this.settingsNode.get(scrollKeywords.columnWidth)
+		return this.scrollScriptProgram.get(scrollKeywords.columnWidth)
 	}
 
 	_compiled = ""
@@ -282,26 +279,26 @@ class ScrollFile {
 
 	toRss() {
 		const { title, permalink } = this
-		const { baseUrl } = this.folder.settings
+		const { baseUrl } = this.object
 		return ` <item>
   <title>${title}</title>
   <link>${baseUrl + permalink}</link>
  </item>`
+	}
+
+	get object() {
+		return this.scrollScriptProgram.toObject()
 	}
 }
 
 class AbstractTemplate {
 	constructor(file) {
 		this.file = file
+		this.object = file.object
 	}
 
 	get folder() {
 		return this.file.folder
-	}
-
-	// todo: remove
-	get folderSettings() {
-		return this.folder.settings
 	}
 
 	get htmlTitle() {
@@ -309,27 +306,27 @@ class AbstractTemplate {
 	}
 
 	get siteTitle() {
-		siteDescription
+		return this.object.siteTitle
 	}
 
 	get siteDescription() {
-		return this.folderSettings.siteDescription
+		return this.object.siteDescription
 	}
 
 	get github() {
-		return this.folderSettings.github
+		return this.object.github
 	}
 
 	get email() {
-		return this.folderSettings.email
+		return this.object.email
 	}
 
 	get twitter() {
-		return this.folderSettings.twitter
+		return this.object.twitter
 	}
 
 	get baseUrl() {
-		return this.folderSettings.baseUrl ?? ""
+		return this.object.baseUrl
 	}
 
 	get header() {
@@ -365,18 +362,18 @@ class AbstractTemplate {
 	}
 
 	get columnWidth() {
-		return this.folderSettings.columnWidth ?? DEFAULT_COLUMN_WIDTH
+		return this.object.columnWidth ?? DEFAULT_COLUMN_WIDTH
 	}
 
 	get maxColumns() {
 		// If undefined will be autocomputed
-		return this.folderSettings.maxColumns
+		return this.object.maxColumns
 	}
 
 	// Todo: scroll.css link thing fix.
 	get styleCode() {
 		// Default is to inline CSS. Otherwise we can split it into a sep file.
-		const css = this.folderSettings[scrollKeywords.scrollCss]
+		const css = this.object[scrollKeywords.scrollCss]
 
 		if (css === "none") return ""
 
@@ -392,12 +389,12 @@ class AbstractTemplate {
 	}
 
 	get rssTag() {
-		const { rssFeedUrl } = this.folder
+		const { rssFeedUrl } = this.object
 		if (!rssFeedUrl) return ""
 		return `link
  rel alternate
  type application/rss+xml
- title ${this.folderSettings.title}
+ title ${this.siteTitle}
  href ${rssFeedUrl}`
 	}
 
@@ -438,7 +435,7 @@ class AbstractTemplate {
 	}
 
 	get ogTitle() {
-		return this.folderSettings.title
+		return this.object.title
 	}
 
 	get ogDescription() {
@@ -470,13 +467,13 @@ class FileTemplate extends AbstractTemplate {
 	}
 
 	get header() {
-		const header = this.file.settingsNode.getNode(scrollKeywords.scrollHeader)
+		const header = this.file.scrollScriptProgram.getNode(scrollKeywords.scrollHeader)
 		if (header) return header.childrenToString()
 		return super.header
 	}
 
 	get footer() {
-		const footer = this.file.settingsNode.getNode(scrollKeywords.scrollFooter)
+		const footer = this.file.scrollScriptProgram.getNode(scrollKeywords.scrollFooter)
 		if (footer) return footer.childrenToString()
 		return super.footer
 	}
@@ -494,21 +491,22 @@ class FileTemplate extends AbstractTemplate {
 	}
 
 	get htmlTitle() {
-		if (this.file.htmlTitle) return this.file.htmlTitle
+		const { htmlTitle } = this.file
+		if (htmlTitle) return htmlTitle
 
 		const { title } = this.file
-		return (title ? `${title} - ` : "") + this.folderSettings.title
+		return (title ? `${title} - ` : "") + this.siteTitle
 	}
 
 	get pageCode() {
-		const { file } = this
+		const { file, ogTitle, cssColumnWorkaround } = this
 		return `h1
  class ${cssClasses.scrollFilePageTitle}
- a ${this.ogTitle}
+ a ${ogTitle}
   href ${file.permalink}
 div
  class ${cssClasses.scrollFilePageComponent}
- style ${this.cssColumnWorkaround}
+ style ${cssColumnWorkaround}
  bern
   ${removeReturnCharsAndRightShift(file.htmlCode, 2)}`
 	}
@@ -570,7 +568,7 @@ class ScrollPage {
 	content = ""
 
 	get html() {
-		const scrollFolder = new ScrollFolder(undefined, "")
+		const scrollFolder = new ScrollFolder()
 		const { scrollScriptCompiler } = scrollFolder
 		const program = new scrollScriptCompiler(this.content)
 		const file = new ScrollFile(program, "", scrollFolder)
@@ -579,23 +577,16 @@ class ScrollPage {
 }
 
 class ScrollFolder {
-	constructor(folder = __dirname, settingsContent = undefined) {
+	constructor(folder = __dirname) {
 		this.folder = path.normalize(folder)
-		this._settingsContent = settingsContent !== undefined ? settingsContent : fs.existsSync(this.settingsFilepath) ? read(this.settingsFilepath) : ""
-
-		this.grammarFiles = DefaultGrammarFiles
-		this._initCustomGrammarFiles()
+		this.grammarFiles = DefaultGrammarFiles.slice()
+		// Loads any grammar files in the scroll folder. TODO: Deprecate this? Move to explicit inclusion of grammar nodes on a per file basis?
+		this.fullFilePaths.filter(fullFilePath => fullFilePath.endsWith(GRAMMAR_EXTENSION)).forEach(file => this.grammarFiles.push(file))
 		this.scrollScriptCompiler = getCompiler(this.grammarFiles)
 	}
 
 	getGroup(groupName) {
 		return this.files.filter(file => file.groups.includes(groupName))
-	}
-
-	// Loads any grammar files in the scroll folder. TODO: Deprecate this? Move to explicit inclusion of grammar nodes on a per file basis?
-	_initCustomGrammarFiles() {
-		this.grammarFiles = this.grammarFiles.slice()
-		this.fullFilePaths.filter(fullFilePath => fullFilePath.endsWith(GRAMMAR_EXTENSION)).forEach(file => this.grammarFiles.push(file))
 	}
 
 	grammarFiles = []
@@ -620,10 +611,6 @@ class ScrollFolder {
 			})
 		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
 		return this._files
-	}
-
-	get viewSourceLink() {
-		return (this.settings[scrollKeywords.viewSourceBaseUrl] || "").replace(/\/$/, "") + "/"
 	}
 
 	get errors() {
@@ -730,7 +717,7 @@ class ScrollFolder {
 	_publishedFiles = new Map()
 	_buildAndWriteFiles() {
 		const start = Date.now()
-		const { settings, files, folder } = this
+		const { files, folder } = this
 		const filesToBuild = files.filter(file => file.shouldBuild)
 		this.log(`Building ${filesToBuild.length} files from ${files.length} ${SCROLL_FILE_EXTENSION} files found in '${folder}'\n`)
 		this.logIndent++
@@ -747,10 +734,6 @@ class ScrollFolder {
 		this.log(`⌛️ Compiled ${pages.length} files to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second\n`)
 
 		return pages
-	}
-
-	get rssFeedUrl() {
-		return this.settings[scrollKeywords.rssFeedUrl]
 	}
 
 	write(filename, content, message) {
@@ -795,11 +778,10 @@ class ScrollCli {
 		const folder = new ScrollFolder()
 		this.log(`Initializing scroll in "${cwd}"`)
 
-		const settingsPath = path.join(cwd, SCROLL_SETTINGS_FILENAME)
-		if (!fs.existsSync(settingsPath)) write(settingsPath, initSettingsFile)
-
-		const readmePath = path.join(cwd, "readme.scroll")
-		if (!fs.existsSync(readmePath)) write(readmePath, initReadmeFile)
+		Object.keys(initSite).forEach(filename => {
+			const filePath = path.join(cwd, filename)
+			if (!fs.existsSync(filePath)) write(filePath, initSite[filename])
+		})
 
 		return this.log(`\n👍 Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
 	}
@@ -902,4 +884,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler, SCROLL_CSS }
+module.exports = { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler, SCROLL_CSS }
