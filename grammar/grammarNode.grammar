@@ -1,0 +1,10 @@
+scrollNodeTypeDefinitionNode
+ extends abstractScrollNode
+ todo Figure out best pattern for integrating Scroll and Grammar?
+ pattern ^[a-zA-Z0-9_]+Node$
+ description Define your own nodeTypes in the Grammar language for using in your Scroll files.
+ baseNodeType blobNode
+ javascript
+  compile() {
+    return ""
+  }

@@ -143,14 +143,6 @@ wrapsOnNode
       return [{index, string: `<${tag + (attributes ? " " + attributes : "")}>`, endIndex, consumeStartCharacters: delimiterLength}, {index: endIndex, endIndex, string: `</${tag}>`, consumeEndCharacters: delimiterLength}]
     })
   }
-tagOrUrlCell
- description An HTML tag or a url.
- highlightScope constant.language
-delimiterCell
- description String to use as a delimiter.
- highlightScope string
-htmlAttributesCell
- highlightScope comment
 wrapNode
  cruxFromId
  cells keywordCell delimiterCell tagOrUrlCell
@@ -225,8 +217,6 @@ linkNode
   get pattern() {
     return this.getWordsFrom(2).join(" ")
   }
-classNameCell
- highlightScope constant
 classMarkupNode
  description Add a span with a class name around matching text.
  extends abstractMarkupNode
@@ -282,8 +272,6 @@ strikethroughNode
  extends abstractMarkupNode
  javascript
   tag = "s"
-htmlIdCell
- extends idCell
 aftertextIdNode
  crux id
  description Provide an ID to be output in the generated HTML paragraph.
@@ -304,7 +292,7 @@ datelineNode
    } catch (err) {
     console.error(err)
    }
-   return [{index: 0, string: `<span class="scrollArticleDateComponent">${day} — </span>`}]
+   return [{index: 0, string: `<span class="scrollDateComponent">${day} — </span>`}]
   }
 loremIpsumNode
  extends aftertextNode

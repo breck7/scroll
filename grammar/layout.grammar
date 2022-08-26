@@ -1,0 +1,47 @@
+templateEnumCell
+ enum group snippets file blank
+ extends stringCell
+templateNode
+ extends abstractScrollNode
+ cruxFromId
+ cells keywordCell templateEnumCell
+ catchAllCellType stringCell
+ description Defaults to "file".
+ javascript
+  compile() {
+    return ""
+  }
+abstractIntSettingNode
+ abstract
+ cruxFromId
+ extends abstractSiteSettingNode
+ cells keywordCell integerCell
+scrollCssNode
+ extends abstractSiteSettingNode
+ cruxFromId
+ cells keywordCell permalinkCell
+ description If not present Scroll style CSS will be included on each page.
+maxColumnsNode
+ extends abstractIntSettingNode
+ description Set your own max column count for a single file's generated HTML.
+columnWidthNode
+ extends abstractIntSettingNode
+ description Set your own column width, in ch units, for the generated HTML.
+stumpNode
+ description Stump is a Tree Language that compiles to HTML.
+ catchAllCellType anyCell
+ catchAllNodeType stumpNode
+scrollHeaderNode
+ extends abstractSiteSettingNode
+ description Define a header for a certain page. Setting to blank will also remove the header on a page.
+ cruxFromId
+ catchAllNodeType stumpNode
+ javascript
+  compile() { return ""}
+scrollFooterNode
+ extends abstractSiteSettingNode
+ description Define a footer for a certain page. Setting to blank will also remove the footer on a page.
+ cruxFromId
+ catchAllNodeType stumpNode
+ javascript
+  compile() { return ""}

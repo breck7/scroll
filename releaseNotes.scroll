@@ -1,8 +1,70 @@
 title Scroll Release Notes
-skipIndexPage
 
 paragraph
- Here's a list of the notable changes in Scroll and ScrollScript.
+ Here's a list of the notable changes in Scroll.
+
+section 28.0.0 8-24-2022
+paragraph
+ This is a *major* update that radically simplifies Scroll and adds significant new capabilities.
+
+subsection From 3 file types to 1
+
+paragraph
+ `scroll.settings` and `*.grammar` files are gone. Everything is now done with `.scroll` files, and
+ now every keyword is documented and usable on try.scroll.com and type checked.
+
+subsection Imports and variables
+
+paragraph
+ Use `import [filepath]` to import one file into another. Use `replace` and `replaceDefault` for variables.
+
+subsection Add your own Grammar extensions directly in your Scroll files
+
+paragraph
+ Define new nodeTypes or create your own aliases on a per file basis. Use the import keyword and build your own collection of common reusable node types for your project(s).
+
+subsection Unlimited Groups and Group Pages
+
+paragraph
+ Add files to one or more groups and then customize how each group page prints. No more magic or implicit creation of collection pages.
+
+subsection Multiple Compiler Passes
+
+paragraph
+ The new language features (imports, grammar nodes, and variables) required a change from a 1 one stage compilation process to a multi-stage compiler pass pattern. The compilers passes run in this order: imports, grammar extensions, then variables. So variables cannot be used in imports or grammar extensions.
+
+subsection Change list
+
+list
+ - ⚠️ BREAKING: The `git` setting is renamed to `viewSourceBaseUrl`
+ - ⚠️ BREAKING: The `sourceLink` setting is renamed to `viewSourceUrl`
+ - ⚠️ BREAKING: removed `skipIndexPage`. Instead you now opt-in to group pages like this: `groups index.html`
+ - ⚠️ BREAKING: if a ".scroll" file compiles to "" (after trimming), it will not be written..
+ - ⚠️ BREAKING: removed `scroll.settings` concept. Use `import settings.scroll` now.
+ - ⚠️ BREAKING: `maxColumns`, `columnWidth`, `footer`, and `header` now nest under `settings`.
+ - ⚠️ BREAKING: removed `ignoreGrammarFiles`. Custom grammar extensions must now be explicitly imported.
+ - ⚠️ BREAKING: removed `css` settings. Migration step is explained below.
+ - ⚠️ BREAKING: buildSinglePages is now buildFiles
+ - ⚠️ BREAKING: removed buildIndexPage, buildSnippetsPage, buildRssFeed, and buildCssFile. Everything done by `buildFiles` now. See 'full.scroll', `index.scroll`, `feed.scroll`, and `style.scroll` in `tests/kitchenSink` for how to implement those in new pattern.
+ - ⚠️ BREAKING: in default theme CSS some class names have changed:
+      scrollArticleDateComponent => scrollDateComponent
+      scrollArticlePageComponent => scrollFilePageComponent
+      scrollSingleArticleTitle => scrollFilePageTitle
+      scrollIndexPageArticleContainerComponent => scrollGroupPageFileContainerComponent
+      scrollArticleSourceLinkComponent => scrollFileViewSourceUrlComponent
+      scrollIndexPageComponent => scrollGroupPageComponent
+      scrollIndexPageFileContainerComponent => scrollGroupPageFileContainerComponent
+ - ⚠️ just calling ScrollScript Scroll again unless it becomes confusing
+ - 🎉 keyboardNav will now use the first group a file belongs to if prev and next are not supplied
+
+subsection Updating custom CSS
+
+code
+ comment Put this in a file named style.scroll
+ permalink style.css
+ settings
+  noTemplate
+ printScrollCSS
 
 section 27.1.1 8-24-2022
 list
@@ -572,3 +634,6 @@ list
 section 4.1.0 02-22-2021
 list
  - 🎉 "git" scrollSetting for article source links.
+
+import settings.scroll
+keyboardNav index.html index.html

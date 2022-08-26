@@ -1,0 +1,41 @@
+abstractSiteSettingNode
+ extends abstractScrollNode
+ abstract
+ cells keywordCell
+ javascript
+  compile() {
+    return ""
+  }
+abstractUrlSettingNode
+ abstract
+ extends abstractSiteSettingNode
+ cells keywordCell urlCell
+ cruxFromId
+abstractSiteStringSettingNode
+ abstract
+ extends abstractSiteSettingNode
+ catchAllCellType stringCell
+ cruxFromId
+siteTitleNode
+ description Title of the site.
+ extends abstractSiteStringSettingNode
+siteDescriptionNode
+ description Description of the site.
+ extends abstractSiteStringSettingNode
+baseUrlNode
+ description Root url of the published site. Needed for og tags and RSS feeds.
+ extends abstractUrlSettingNode
+viewSourceBaseUrlNode
+ description The base link to be used to generate the "View source" link.
+ extends abstractUrlSettingNode
+githubNode
+ description A link to the GitHub project or profile page.
+ extends abstractUrlSettingNode
+twitterNode
+ description A link to the blog or author's Twitter account.
+ extends abstractUrlSettingNode
+emailNode
+ description Email address for the site owner.
+ extends abstractSiteSettingNode
+ cruxFromId
+ cells keywordCell emailAddressCell

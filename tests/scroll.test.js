@@ -4,10 +4,9 @@ const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
 const { jtree } = require("jtree")
-const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler } = require("../scroll.js")
-
-const testString = "An extensible alternative to Markdown"
-const testPort = 5435
+const { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollCompiler } = require("../scroll.js")
+const { Disk } = require("jtree/products/Disk.node.js")
+const shell = require("child_process").execSync
 
 // todo: 1) rss import tests 2) grammar errors test 4) scroll errors tests
 
@@ -35,7 +34,7 @@ testTree.compileATags = areEqual => {
 		{ input: `View the releaseNotes🔗./releaseNotes.html.`, expected: `View the <a href="releaseNotes.html">releaseNotes</a>.` }
 	]
 
-	const doc = new DefaultScrollScriptCompiler()
+	const doc = new DefaultScrollCompiler()
 	tests.forEach(example => {
 		areEqual(doc.compileATags(example.input), example.expected)
 	})
@@ -55,7 +54,7 @@ testTree.compileAftertext = areEqual => {
 	]
 
 	tests.forEach(example => {
-		const result = new DefaultScrollScriptCompiler(example.text).compile()
+		const result = new DefaultScrollCompiler(example.text).compile()
 		areEqual(result, example.expected)
 	})
 }
@@ -71,25 +70,14 @@ testTree.tableWithLinks = areEqual => {
 	]
 
 	tests.forEach(example => {
-		const result = new DefaultScrollScriptCompiler(example.text).compile()
+		const result = new DefaultScrollCompiler(example.text).compile()
 		areEqual(result.includes(example.contains), true)
 	})
-}
-
-testTree.scroll = areEqual => {
-	areEqual(new ScrollFolder().indexPage.toHtml().includes(testString), true)
 }
 
 testTree.fullIntegrationTest = areEqual => {
 	const folder = new ScrollFolder()
 	areEqual(!!folder, true)
-}
-
-testTree.import = async areEqual => {
-	const cli = new ScrollCli()
-	cli.verbose = false
-	const result = await cli.importCommand()
-	areEqual(result.includes("You need to add a"), true)
 }
 
 testTree.check = async areEqual => {
@@ -99,12 +87,12 @@ testTree.check = async areEqual => {
 	areEqual(result.includes("0 errors"), true)
 }
 
-testTree.article = areEqual => {
-	const article = new ScrollFolder().articles[0]
-	const content = article.htmlCode
+testTree.file = areEqual => {
+	const file = new ScrollFolder().files[1]
+	const content = file.htmlCode
 
-	areEqual(article.permalink, "releaseNotes.html")
-	areEqual(content.includes("Scroll the language is now called ScrollScript"), true)
+	areEqual(file.permalink, "releaseNotes.html")
+	areEqual(content.includes("Scroll the language is now called"), true)
 }
 
 testTree.watchCommand = async areEqual => {
@@ -153,7 +141,7 @@ paragraph
 	areEqual(html.includes("Blue sky"), true)
 }
 
-testTree.errorStates = async areEqual => {
+testTree.initCommand = async areEqual => {
 	const tempFolder = path.join(__dirname, "tempFolderForTesting")
 
 	try {
@@ -163,25 +151,14 @@ testTree.errorStates = async areEqual => {
 
 		// Act
 		const result = await cli.initCommand(tempFolder)
-		areEqual(fs.existsSync(path.join(tempFolder, SCROLL_SETTINGS_FILENAME)), true)
+		areEqual(fs.existsSync(path.join(tempFolder, "settings.scroll")), true)
 
 		const folder = new ScrollFolder(tempFolder).silence()
-		const singleFile = folder.buildIndexPage()
+		const pages = folder.buildFiles()
 
 		// Assert
-		areEqual(singleFile.includes(testString), true)
-		areEqual(folder.shouldBuildSnippetsPage, false)
-
-		// Act
-		const singlePages = folder.buildSinglePages()
-
-		// Assert
-		areEqual(singlePages.length, 1)
-
-		// Assert
-		const singlePageTitleSnippet = `Scroll</title>`
-		areEqual(singlePages[0].html.includes(singlePageTitleSnippet), true)
-
+		areEqual(pages[0].html.includes("Powered by Scroll"), true)
+		areEqual(pages.length, 4)
 		areEqual(folder.errors.flat().length, 0)
 	} catch (err) {
 		console.log(err)
@@ -190,42 +167,22 @@ testTree.errorStates = async areEqual => {
 }
 
 testTree.kitchenSink = async areEqual => {
-	const tempFolder = path.join(__dirname, "tempFolderForKitchenSinkTesting")
-
+	const kitchenSinkFolder = path.join(__dirname, "kitchenSink")
 	try {
-		// Arrange
-		fs.mkdirSync(tempFolder)
-		fs.writeFileSync(
-			path.join(tempFolder, SCROLL_SETTINGS_FILENAME),
-			`${scrollKeywords.header}
- div CustomHeader
-${scrollKeywords.footer}
- div CustomFooter`,
-			"utf8"
-		)
-		fs.writeFileSync(
-			path.join(tempFolder, "hello.scroll"),
-			`${scrollKeywords.title} hello world
-endSnippet
-keyboardNav`,
-			"utf8"
-		)
-
-		// Act
-		const folder = new ScrollFolder(tempFolder).silence()
-		const singleFile = folder.buildIndexPage()
-		const customSnippetsPageName = "foobar.html"
-		const snippetsPage = folder.buildSnippetsPage(customSnippetsPageName)
+		// Arrange/act
+		const folder = new ScrollFolder(kitchenSinkFolder).silence()
+		folder.buildAll()
+		const groupPage = Disk.read(path.join(kitchenSinkFolder, "all.html"))
 
 		// Assert
-		areEqual(singleFile.includes("CustomHeader"), true)
-		areEqual(singleFile.includes("CustomFooter"), true)
-		areEqual(folder.shouldBuildSnippetsPage, true)
-		areEqual(fs.existsSync(path.join(tempFolder, customSnippetsPageName)), true)
+		areEqual(groupPage.includes("CustomHeader"), true, "should have custom header")
+		areEqual(groupPage.includes("CustomFooter"), true, "should have custom footer")
+		areEqual(fs.existsSync(path.join(kitchenSinkFolder, "full.html")), true, "should have full page")
 	} catch (err) {
 		console.log(err)
 	}
-	fs.rmSync(tempFolder, { recursive: true })
+
+	shell(`rm -f ${kitchenSinkFolder}/*.html`)
 }
 
 // FS tests:

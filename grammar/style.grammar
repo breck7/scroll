@@ -1,0 +1,8 @@
+printScrollCSSNode
+ description Prints out the default Scroll theme CSS.
+ extends abstractScrollNode
+ cruxFromId
+ javascript
+  compile() {
+   return this.getRootNode().file.SCROLL_CSS
+  }

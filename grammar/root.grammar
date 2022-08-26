@@ -1,3 +1,13 @@
+abstractScrollNode
+ abstract
+ cells keywordCell
+blankLineNode
+ description Blank lines compile to nothing in the HTML.
+ cells blankCell
+ javascript
+  compile() { return ""}
+ pattern ^$
+ tags doNotSynthesize
 scrollScriptNode
  extensions scroll
  description A simple language for structurable thought. An extensible alternative to Markdown. Compiles to HTML.
@@ -6,20 +16,13 @@ scrollScriptNode
  catchAllNodeType catchAllParagraphNode
  compilesTo html
  javascript
-  setArticle(article) {
-    this.article = article
+  setFile(file) {
+    this.file = file
     return this
   }
-  article = {}
+  file = {}
   get permalink() {
-   return this.get("permalink") || this.article.permalink || ""
-  }
-  get folder() {
-   return this._folder || ""
-  }
-  setFolder(folder) {
-   this._folder = folder
-   return this
+   return this.get("permalink") || this.file.permalink || ""
   }
   compileATags(text) {
    // todo: a better place for these util functions? I stick them in here so the
@@ -42,7 +45,7 @@ scrollScriptNode
   }
  example
   title Hello world
-  section This is ScrollScript
+  section This is Scroll
   
   paragraph
    It compiles to HTML. Blank lines get turned into brs.

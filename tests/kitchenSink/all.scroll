@@ -1,0 +1,8 @@
+import settings.scroll
+
+template group all
+
+scrollHeader
+ div CustomHeader
+scrollFooter
+ div CustomFooter

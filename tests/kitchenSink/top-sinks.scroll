@@ -1,0 +1,15 @@
+title Top Sinks
+import settings.scroll
+
+replace NUM_SINKS 10
+
+keyboardNav
+
+groups index all
+
+goodMorning
+goodMorning
+goodMorning
+
+paragraph
+ There are NUM_SINKS in my list.

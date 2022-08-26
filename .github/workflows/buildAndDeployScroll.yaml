@@ -15,6 +15,12 @@ jobs:
           npm install .
           ./scroll.js build
           cp public/favicon.ico .
+          cd public/blog
+          ./scroll.js build
+          cd ..
+          cd ..
+          cd tests/kitchenSink
+          ./scroll.js build
           rm .gitignore
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4

@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "27.1.1",
+  "version": "28.0.0",
   "description": "An extensible alternative to Markdown.",
   "main": "scroll.js",
   "engines": {
@@ -9,7 +9,8 @@
   "scripts": {
     "buildCoverageReport": "tap tests/scroll.test.js",
     "buildCoverageHtmlReport": "tap tests/scroll.test.js --coverage-report=lcov",
-    "test": "node tests/scroll.test.js"
+    "test": "node tests/scroll.test.js",
+    "cloc": "cloc --vcs git . --read-lang-def=tests/clocLangs.txt"
   },
   "bin": {
     "scroll": "./scroll.js"
@@ -30,15 +31,12 @@
   },
   "homepage": "https://github.com/breck7/scroll#readme",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.5",
     "dayjs": "^1.10.4",
-    "got": "^11.8.2",
     "image-size": "^1.0.0",
     "jtree": "^53.8.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "open": "^8.0.5",
-    "rss-parser": "^3.12.0",
     "tap": "^16.3.0"
   }
 }

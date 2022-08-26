@@ -1,0 +1,177 @@
+title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
+import markups.scroll
+date 08-23-2021
+maxColumns 1
+columnWidth 60
+
+replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
+replace ScrollLinked <a href="https://scroll.pub">Scroll</a>
+replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
+
+paragraph
+ ScrollLinked is a new language and static site generator that is mostly written in a new language called GrammarLinked which are both built on a new syntax called TreeNotationLinked.
+
+paragraph
+ In this demo, I extend Scroll by adding support for Markdown🔗en.wikipedia.org/wiki/Markdown, Textile🔗en.wikipedia.org/wiki/Textile_(markup_language), and BBCode🔗en.wikipedia.org/wiki/BBCode.
+
+paragraph
+ My code is still a bit researchy and buggy, but I think the more important thing here is to demo how simple and powerful indented heredocs are. They allow you to compose many languages in a clean and scalable way. You don't need escaping. I think this is a very helpful pattern you can use in your own languages and code.
+
+section Indented Heredocs
+
+paragraph
+ A simple but largely accurate description of Tree Notation is that it is indented HereDocs🔗en.wikipedia.org/wiki/Here_document. A single indent down your block is all you need, no end delimiters or encoding necessary. It takes a little getting used to (it keeps improving as the Tree Notation tooling ecosystem improves), but I thoroughly enjoy it already and am surprised this simple trick was overlooked for so long.
+
+section Quick Example
+
+paragraph
+ The code below:
+
+scrollCode
+ markdown
+  ### Markdown is best
+ 
+ textile
+  *No!* _textile is best_
+ 
+ bbCode
+  [u]bbCode rules![/u]
+
+paragraph
+ Emits this:
+
+markdown
+ ### Markdown is best
+
+textile
+ *No!* _textile is best_
+
+bbCode
+ [u]bbCode rules![/u]
+
+paragraph
+ More extensive examples are pasted below. Source is here🔗github.com/breck7/breckyunits.com/tree/main/markups.
+
+section Extended Examples
+
+subsection Markdown
+
+belowAsCode
+markdown
+ Marked - Markdown Parser
+ ========================
+ 
+ [Marked] lets you convert [Markdown] into HTML.  Markdown is a simple text format whose goal is to be very easy to read and write, even when not converted to HTML.  This demo page will let you type anything you like and see how it gets converted.  Live.  No more waiting around.
+ 
+ How To Use The Demo
+ -------------------
+ 
+ 1. Type in stuff on the left.
+ 2. See the live updates on the right.
+ 
+ That's it.  Pretty simple.  There's also a drop-down option in the upper right to switch between various views:
+ 
+ - **Preview:**  A live display of the generated HTML as it would render in a browser.
+ - **HTML Source:**  The generated HTML before your browser makes it pretty.
+ - **Lexer Data:**  What [marked] uses internally, in case you like gory stuff like this.
+ - **Quick Reference:**  A brief run-down of how to format things using markdown.
+ 
+ Why Markdown?
+ -------------
+ 
+ It's easy.  It's not overly bloated, unlike HTML.  Also, as the creator of [markdown] says,
+ 
+ > The overriding design goal for Markdown's
+ > formatting syntax is to make it as readable
+ > as possible. The idea is that a
+ > Markdown-formatted document should be
+ > publishable as-is, as plain text, without
+ > looking like it's been marked up with tags
+ > or formatting instructions.
+ 
+ Ready to start writing?  Either start changing stuff on the left or
+ [clear everything](/demo/?text=) with a simple click.
+ 
+ [Marked]: https://github.com/markedjs/marked/
+ [Markdown]: http://daringfireball.net/projects/markdown/
+
+subsection Textile
+
+belowAsCode
+textile
+ h1. level 1 heading
+ 
+ h2. level 2 heading
+ 
+ h3. level 3 heading
+ 
+ h4. level 4 heading
+ 
+ bq. this is blockquoted text
+ 
+ fn1. footnote 1
+ 
+ fn2. footnote 2
+ 
+ This text refernces a footnote[1]
+ 
+ # numbered list item 1
+ # numbered list item 2
+ 
+ * bulleted list first item
+ * bulleted list second item
+ 
+ _emphasis_
+ *strong*
+ ??citation??
+ -deleted text-
+ +inserted text+
+ ^superscript^
+ ~subscript~
+ %span%
+ 
+ p(class). paragraph with a classname
+ 
+ p(#id). paragraph with an ID
+ 
+ p{color:red}. paragrah with a CSS style
+ 
+ p[fr]. paragraphe en français
+ 
+ p<. left aligned paragraph
+ 
+ p>. right aligned paragraph
+ 
+ p=. centered aligned paragraph
+ 
+ p<>. justified text paragraph
+ 
+ |_. head |_. table |_. row |
+ | a | table | row 1 |
+ | a | table | row 2 |
+ 
+ "linktext":url
+ 
+ !imageurl!
+ 
+ ABBR(Abbreviation)
+
+
+subsection BBCode
+
+belowAsCode
+bbCode
+ [b]bolded text[/b]
+ [i]italicized text[/i]
+ [u]underlined text[/u]
+ [url]https://en.wikipedia.org[/url]
+ [url=https://en.wikipedia.org]English Wikipedia[/url]
+ [img]https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png[/img] 
+ [quote]quoted text[/quote]
+ [code]monospaced text[/code]
+ [list]
+  [*]Entry A
+  [*]Entry B
+ [/list]
+
+

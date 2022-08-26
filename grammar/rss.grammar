@@ -1,0 +1,25 @@
+rssFeedUrlNode
+ description URL for RSS feed, if any.
+ extends abstractUrlSettingNode
+printFeedNode
+ description Prints out the RSS feed for a group.
+ extends abstractScrollNode
+ cruxFromId
+ cells keywordCell groupNameCell
+ javascript
+  compile() {
+  const file = this.getRootNode().file
+  const folder = file.folder
+  const files = folder.getGroup(this.getWord(1))
+  const { siteTitle, baseUrl, siteDescription } = file.object
+        return `<?xml version="1.0" encoding="ISO-8859-1" ?>
+  <rss version="0.91">
+  <channel>
+   <title>${siteTitle}</title>
+   <link>${baseUrl}</link>
+   <description>${siteDescription}</description>
+   <language>en-us</language>
+  ${files.map(file => file.toRss()).join("\n")}
+  </channel>
+  </rss>`
+  }
