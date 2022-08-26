@@ -195,7 +195,7 @@ testTree.kitchenSink = async areEqual => {
 		// Arrange/act
 		const folder = new ScrollFolder(kitchenSinkFolder).silence()
 		folder.buildAll()
-		const groupPage = Disk.read(path.join(kitchenSinkFolder, "index.hmtl"))
+		const groupPage = Disk.read(path.join(kitchenSinkFolder, "all.hmtl"))
 
 		// Assert
 		areEqual(groupPage.includes("CustomHeader"), true, "should have custom header")

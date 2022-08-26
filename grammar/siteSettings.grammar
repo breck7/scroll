@@ -21,6 +21,9 @@ siteTitleNode
 siteDescriptionNode
  description Description of the site.
  extends abstractSiteStringSettingNode
+baseUrlNode
+ description Root url of the published site. Needed for og tags and RSS feeds.
+ extends abstractUrlSettingNode
 viewSourceBaseUrlNode
  description The base link to be used to generate the "View source" link.
  extends abstractUrlSettingNode
@@ -35,6 +38,3 @@ emailNode
  extends abstractSiteSettingNode
  cruxFromId
  cells keywordCell emailAddressCell
-baseUrlNode
- description Root url of the published site. Needed for og tags.
- extends abstractUrlSettingNode

@@ -3,7 +3,3 @@ baseUrl https://scroll.pub/tests/kitchenSink/
 siteDescription Kitchen sink test site.
 viewSourceBaseUrl https://github.com/breck7/scroll/blob/main/tests/kitchenSink/
 siteTitle The Kitchen Sink Blog
-scrollHeader
- div CustomHeader
-scrollFooter
- div CustomFooter
