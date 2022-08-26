@@ -271,13 +271,13 @@ class ScrollFile {
 		return this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
 	}
 
-	get ogImage() {
+	get openGraphImage() {
 		const index = this.scrollScriptProgram.indexOf(scrollKeywords.image)
 		return index > -1 ? this.scrollScriptProgram.nodeAt(index).getContent() : ""
 	}
 
 	// Use the first paragraph for the description
-	get ogDescription() {
+	get openGraphDescription() {
 		const program = this.scrollScriptProgram
 		for (let node of program.getTopDownArrayIterator()) {
 			const word = node.getWord(0)
@@ -307,14 +307,6 @@ class ScrollFile {
 
 	get timestamp() {
 		return dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
-	}
-
-	get maxColumns() {
-		return this.scrollScriptProgram.get(scrollKeywords.maxColumns)
-	}
-
-	get columnWidth() {
-		return this.scrollScriptProgram.get(scrollKeywords.columnWidth)
 	}
 
 	_compiled = ""
@@ -398,6 +390,9 @@ class AbstractTemplate {
 	}
 
 	get header() {
+		const header = this.file.scrollScriptProgram.getNode(scrollKeywords.scrollHeader)
+		if (header) return header.childrenToString()
+
 		return `div
  class scrollHeaderComponent
  div
@@ -414,6 +409,8 @@ class AbstractTemplate {
 	}
 
 	get footer() {
+		const footer = this.file.scrollScriptProgram.getNode(scrollKeywords.scrollFooter)
+		if (footer) return footer.childrenToString()
 		return `div
  class scrollFooterComponent
  div
@@ -484,13 +481,13 @@ class AbstractTemplate {
    content Scroll v${SCROLL_VERSION}
   meta
    property og:title
-   content ${this.ogTitle}
+   content ${this.openGraphTitle}
   meta
    property og:description
-   content ${this.ogDescription}
+   content ${this.openGraphDescription}
   meta
    property og:image
-   content ${this.ogImage ? this.baseUrl + this.ogImage : ""}
+   content ${this.openGraphImage ? this.baseUrl + this.openGraphImage : ""}
   ${removeReturnCharsAndRightShift(this.rssTag, 2)}
   meta
    name twitter:card
@@ -502,15 +499,15 @@ class AbstractTemplate {
   ${removeReturnCharsAndRightShift(this.footer, 2)}`
 	}
 
-	get ogTitle() {
+	get openGraphTitle() {
 		return this.object.title
 	}
 
-	get ogDescription() {
+	get openGraphDescription() {
 		return this.siteDescription
 	}
 
-	get ogImage() {
+	get openGraphImage() {
 		return ""
 	}
 
@@ -526,35 +523,15 @@ class BlankTemplate extends AbstractTemplate {
 }
 
 class FileTemplate extends AbstractTemplate {
-	get columnWidth() {
-		return this.file.columnWidth || super.columnWidth
+	get openGraphDescription() {
+		return this.file.openGraphDescription
 	}
 
-	get maxColumns() {
-		return this.file.maxColumns || super.maxColumns
+	get openGraphImage() {
+		return this.file.openGraphImage
 	}
 
-	get header() {
-		const header = this.file.scrollScriptProgram.getNode(scrollKeywords.scrollHeader)
-		if (header) return header.childrenToString()
-		return super.header
-	}
-
-	get footer() {
-		const footer = this.file.scrollScriptProgram.getNode(scrollKeywords.scrollFooter)
-		if (footer) return footer.childrenToString()
-		return super.footer
-	}
-
-	get ogDescription() {
-		return this.file.ogDescription
-	}
-
-	get ogImage() {
-		return this.file.ogImage
-	}
-
-	get ogTitle() {
+	get openGraphTitle() {
 		return this.file.title
 	}
 
@@ -567,10 +544,10 @@ class FileTemplate extends AbstractTemplate {
 	}
 
 	get pageCode() {
-		const { file, ogTitle, cssColumnWorkaround } = this
+		const { file, openGraphTitle, cssColumnWorkaround } = this
 		return `h1
  class ${cssClasses.scrollFilePageTitle}
- a ${ogTitle}
+ a ${openGraphTitle}
   href ${file.permalink}
 div
  class ${cssClasses.scrollFilePageComponent}
