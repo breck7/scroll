@@ -4,7 +4,7 @@ const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
 const { jtree } = require("jtree")
-const { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler } = require("../scroll.js")
+const { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollCompiler } = require("../scroll.js")
 const { Disk } = require("jtree/products/Disk.node.js")
 const shell = require("child_process").execSync
 
@@ -34,7 +34,7 @@ testTree.compileATags = areEqual => {
 		{ input: `View the releaseNotes🔗./releaseNotes.html.`, expected: `View the <a href="releaseNotes.html">releaseNotes</a>.` }
 	]
 
-	const doc = new DefaultScrollScriptCompiler()
+	const doc = new DefaultScrollCompiler()
 	tests.forEach(example => {
 		areEqual(doc.compileATags(example.input), example.expected)
 	})
@@ -54,7 +54,7 @@ testTree.compileAftertext = areEqual => {
 	]
 
 	tests.forEach(example => {
-		const result = new DefaultScrollScriptCompiler(example.text).compile()
+		const result = new DefaultScrollCompiler(example.text).compile()
 		areEqual(result, example.expected)
 	})
 }
@@ -70,7 +70,7 @@ testTree.tableWithLinks = areEqual => {
 	]
 
 	tests.forEach(example => {
-		const result = new DefaultScrollScriptCompiler(example.text).compile()
+		const result = new DefaultScrollCompiler(example.text).compile()
 		areEqual(result.includes(example.contains), true)
 	})
 }
@@ -92,7 +92,7 @@ testTree.file = areEqual => {
 	const content = file.htmlCode
 
 	areEqual(file.permalink, "releaseNotes.html")
-	areEqual(content.includes("Scroll the language is now called ScrollScript"), true)
+	areEqual(content.includes("Scroll the language is now called"), true)
 }
 
 testTree.watchCommand = async areEqual => {

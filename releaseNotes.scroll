@@ -1,7 +1,7 @@
 title Scroll Release Notes
 
 paragraph
- Here's a list of the notable changes in Scroll and ScrollScript.
+ Here's a list of the notable changes in Scroll.
 
 section 28.0.0 8-24-2022
 paragraph
@@ -54,6 +54,7 @@ list
       scrollArticleSourceLinkComponent => scrollFileViewSourceUrlComponent
       scrollIndexPageComponent => scrollGroupPageComponent
       scrollIndexPageFileContainerComponent => scrollGroupPageFileContainerComponent
+ - ⚠️ just calling ScrollScript Scroll again unless it becomes confusing
  - 🎉 keyboardNav will now use the first group a file belongs to if prev and next are not supplied
 
 subsection Updating custom CSS

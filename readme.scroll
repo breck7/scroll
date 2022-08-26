@@ -13,19 +13,27 @@ aftertext
  Yes. Here is a web demo.
  https://try.scroll.pub/ web demo
 
+question Who is Scroll for?
+
+aftertext
+ Scroll is built for people who like writing, open source, git backed static site generators, and fast simple code.
+
 question What makes Scroll different?
 
-aftertext
- Scroll is different than other static site generators because it uses the easily extendible ScrollScript, so you can invent new languages to better fit your content.
- bold ScrollScript
- https://staticsitegenerators.net other static site generators
+replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
+replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
 
 aftertext
- The basics of ScrollScript are even simpler than Markdown. For example, the keyword for title is title.
+ Scroll is not just another static site generator but also a *new language*. More than that—it's a simple, magical new language that you can extend in amazing ways. Scroll is mostly written in a new language called GrammarLinked, and both Grammar and Scroll are built on a new revolutionarily simple new syntax called TreeNotationLinked.
+ https://staticsitegenerators.net another static site generator
+ wrapsOn
+
+aftertext
+ The basics of Scroll are even simpler than Markdown. For example, the keyword for title is title.
  italics the keyword for title is title
 
 aftertext
- You can stick to the basics or easily define new keywords to better fit your content and workflows. A simple indent is all you need to include sublanguages. No complex encoding needed.
+ You can stick to the basics or easily define new keywords extending the language to better fit your content and workflows. A simple indent is all you need to include sublanguages. No complex encoding needed.
 
 question How do I extend Scroll?
 
@@ -49,19 +57,37 @@ code
   step Bake for 10 minutes
 
 aftertext
- Your grammar extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. ScrollScript let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.
+ Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just define it yourself using the Grammar Language, extending your dialect of Scroll:
+ wrapsOn
+
+code
+ recipeNode
+  extends abstractScrollNode
+  javascript
+   compile() {
+     const addYourSpecialMagic = ""
+     return `<div>${addYourSpecialMagic}</div>`
+   }
 
 aftertext
- (Warning: the cookies above have not been tasted)
+ Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.
+
+aftertext
+ (Diclosure: the cookie recipe above has not been taste tested)
 
 aftertext
  For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
- link https://github.com/breck7/breckyunits.com/tree/main/markups one
+ link https://scroll.pub/blog/indented-heredocs.html one
 
 question What kind of sites can I use Scroll to build?
 
 aftertext
- Scroll work great for blogs, collaborative databases, newspapers, intranets and other types of static sites as well.
+ Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
+ link https://scroll.pub one page
+ link https://scroll.pub/blog/ a few pages
+ link https://breckyunits.com/code/ tens of pages
+ link https://breckyunits.com/ hundreds of pages
+ link https://pldb.com/ thousands of pages
 
 question How do I get Scroll?
 
@@ -115,24 +141,12 @@ aftertext
 question What are some example sites using Scroll?
 
 aftertext
- This page, BreckYunits.com and TreeDB.
- link https://breckyunits.com BreckYunits.com
- link https://treebase.treenotation.org/treedb/ TreeDB
-
-question What does the name Scroll refer to?
-
-aftertext
- _A scroll_ is a single folder containing ScrollScript files ending in `.scroll` and an optional `scroll.settings` file.
- Scroll compiles those ScrollScript files into a static index.html page.
- wrapsOn
-
-aftertext
- Scroll is also the name of the command line app that includes a
- simple fs watch app for live preview.
-
-aftertext
- ScrollScript is the name of a Tree Language defined in this grammar.
- link https://github.com/breck7/scroll/tree/main/grammar grammar
+ Scroll currently powers blog and sites of one page, a few pages, tens of pages, hundreds of pages, and even thousands of pages.
+ link https://scroll.pub one page
+ link https://scroll.pub/blog/ a few pages
+ link https://breckyunits.com/code/ tens of pages
+ link https://breckyunits.com/ hundreds of pages
+ link https://pldb.com/ thousands of pages
 
 question What does a typical project folder look like?
 
@@ -143,27 +157,27 @@ aftertext
 code
  📁yourDomainName.org
   about.scroll
-  publishedArticle.scroll
-  anImageInTheArticle.png
-  scroll.settings
+  feed.scroll
+  firstPost.scroll
+  index.scroll
+  settings.scroll
+  anImageInTheArticle.png 
 
 aftertext
- When you build a Scroll site, you are simply generating
- the index.html and [article].html files in the site's folder.
- code index.html
- code [article].html
+ When you run `scroll build`, Scroll reads those files and generates
+ the outputs right in that site's folder.
+ wrapsOn
 
 aftertext
  With Scroll your site's Scroll files and static files and generated html
  are all in one public folder and checked into version control. Usually you
- want to add *.html to your .gitignore.
- code *.html
- code .gitignore
+ want to add `*.html` and `feed.xml` to your `.gitignore`.
+ wrapsOn
  
 question How do I save drafts?
 
 aftertext
- Have a draft scroll next to your published scroll. For example:
+ Have a drafts folder next to your published scroll. For example:
 
 code
  📁drafts
@@ -174,24 +188,22 @@ code
 question What file formats does Scroll use?
 
 aftertext
- Scroll articles are written as ScrollScript files with the file
- extension scroll. The current base grammar for ScrollScript is defined here.
+ Scroll articles are written as Scroll files with the file
+ extension scroll. The current base grammar for Scroll is defined here.
  code scroll
  https://github.com/breck7/scroll/tree/main/grammar here
 
 question What language is Scroll written in?
 
 aftertext
- The Scroll CLI app is written in plain Javascript and
+ Scroll is mostly written in GrammarLinked. The Scroll CLI app is written in plain Javascript and
  runs in Node.js. Scroll makes heavy use of Tree Languages. The CSS is
- written in Hakon.
- The HTML is written in stump.
+ written in Hakon. The HTML is written in stump.
  link https://jtree.treenotation.org/designer/#standard%20hakon Hakon
  link https://jtree.treenotation.org/designer/#standard%20stump stump
 
 aftertext
- TypeScript may be used in the future but Scroll may
- never get over 1kloc so that might not be necessary.
+ TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.
 
 question How does versioning of articles work?
 
@@ -207,8 +219,8 @@ aftertext
 question Why does the default theme have a single page layout?
 
 aftertext
- The default Scroll theme is designed to make it easier for syntopic reading. Being able to scan the page like a newspaper. This allows you to read at a higher level—to "get in the author's head"—compared to reading one article at a time from beginning to end.
- bold syntopic reading
+ The default Scroll theme is designed to make it easier for *syntopic reading*. Being able to scan the page like a newspaper. This allows you to read at a higher level—to "get in the author's head"—compared to reading one article at a time from beginning to end.
+ wrapsOn
 
 aftertext
  And if anyone prefers to read a scroll in a different way—they can! Scroll is for
@@ -230,7 +242,7 @@ aftertext
  This was originally a bug. But then it turns out to be a feature, as it
  gives older articles, which are often more important, more visibility.
 
-question Is there a place I can play with the ScrollScript grammar and see how it compiles to HTML?
+question Is there a place I can play with the Scroll grammar?
 
 aftertext
  Yes. In the Tree Language Designer.
@@ -351,16 +363,29 @@ code
  # apt-get install goaccess
  goaccess /var/log/nginx/access.log -o /var/www/html/YOUR_SECRET_REPORT_URL.html --log-format=COMBINED --real-time-html --ws-url=wss://YOURDOMAIN.com
 
+question Does Scroll support RSS?
+
+aftertext
+ Yes! Just create a `feed.scroll` file like this.
+ https://github.com/breck7/scroll/blob/main/public/blog/feed.scroll this
+ wrapsOn
+
+question Does Scroll support categories and category pages?
+
+aftertext
+ Yes! Just add your page to a category by using the `groups` keyword and then creating a `yourGroupName.scroll` page for the group. See a demo here.
+ wrapsOn
+ https://github.com/breck7/scroll/blob/main/public/blog/ here
+
 question Does Scroll support Open Graph tags for better social media sharing?
 
 aftertext
- Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify baseUrl in your scroll.settings file. For more help check out the debuggers from Facebook and Twitter.
- code baseUrl
- code scroll.settings
+ Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl`. For more help check out the debuggers from Facebook and Twitter.
+ wrapsOn
  https://developers.facebook.com/tools/debug Facebook
  https://cards-dev.twitter.com/validator Twitter
 
-question Does Scroll support themes?
+question Does Scroll support themes and templates?
 
 aftertext
  Yes! Scroll includes a simple API for changing the style of your site. This is an active area of development so please reach out if you'd like to customize the look of your Scroll.
@@ -374,10 +399,8 @@ aftertext
 question What were some alternatives considered?
 
 aftertext
- There was no publishing software that reads and writes ScrollScript yet
- so building Scroll was necessary. Jekyll
- and Brecksblog were the two
- biggest inspirations.
+ There was no publishing software that reads and writes Scroll yet
+ so building Scroll was necessary. Jekyll and Brecksblog were the two biggest inspirations.
  link https://jekyllrb.com Jekyll
  link https://github.com/breck7/brecksblog Brecksblog
 
@@ -408,7 +431,7 @@ code
 question How is a keyword different than a web components?
 
 aftertext
- ScrollScript and Web Components are similar in that both empower users to define their own reusable components. But ScrollScript is higher level than web components. For example, in addition to easily targetting HTML and web components, ScrollScript also plays really nicely with version control and 2D editors. ScrollScript encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
+ Scroll and Web Components are similar in that both empower users to define their own reusable components. But Scroll is higher level than web components. For example, in addition to easily targetting HTML and web components, Scroll also plays really nicely with version control and 2D editors. Scroll encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
 
 question How do I run cross browser tests?
 

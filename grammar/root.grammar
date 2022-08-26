@@ -45,7 +45,7 @@ scrollScriptNode
   }
  example
   title Hello world
-  section This is ScrollScript
+  section This is Scroll
   
   paragraph
    It compiles to HTML. Blank lines get turned into brs.

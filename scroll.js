@@ -87,7 +87,7 @@ const getCompiler = filePaths => {
 	compilerCache.set(key, compiler)
 	return compiler
 }
-const DefaultScrollScriptCompiler = getCompiler(DefaultGrammarFiles)
+const DefaultScrollCompiler = getCompiler(DefaultGrammarFiles)
 
 // This is all the CSS
 const SCROLL_HAKON_FILENAME = "scroll.hakon"
@@ -186,15 +186,15 @@ const SCROLL_ICONS = {
 }
 
 class ScrollFile {
-	constructor(originalScrollScriptCode, folder, filePath) {
+	constructor(originalScrollCode, folder, filePath) {
 		this.folder = folder
 		this.filePath = filePath
 		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
-		this.originalScrollScriptCode = originalScrollScriptCode
+		this.originalScrollCode = originalScrollCode
 		this._parseProgram()
 	}
 
-	originalScrollScriptCode = ""
+	originalScrollCode = ""
 	filePath = ""
 
 	_parseProgram() {
@@ -202,7 +202,7 @@ class ScrollFile {
 
 		const folder = this.folder.folder
 
-		const codeAsTree = new TreeNode(this.originalScrollScriptCode)
+		const codeAsTree = new TreeNode(this.originalScrollCode)
 
 		// Apply imports
 		codeAsTree.findNodes(scrollKeywords.import).forEach(node => node.replaceNode(str => getFile(path.join(folder, str.replace("import ", ""))).replace("importOnly", "")))
@@ -222,7 +222,7 @@ class ScrollFile {
 			codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])
 		})
 
-		if (!scrollFilesWithGrammarNodeDefinitions.length) this.scrollScriptProgram = new DefaultScrollScriptCompiler(codeAfterVariableSubstitution)
+		if (!scrollFilesWithGrammarNodeDefinitions.length) this.scrollScriptProgram = new DefaultScrollCompiler(codeAfterVariableSubstitution)
 		else {
 			const scrollScriptCompiler = getCompiler(DefaultGrammarFiles.concat(scrollFilesWithGrammarNodeDefinitions))
 			this.scrollScriptProgram = new scrollScriptCompiler(codeAfterVariableSubstitution)
@@ -233,7 +233,7 @@ class ScrollFile {
 
 	// todo: currently only 1 level supported
 	get importFilePaths() {
-		return new TreeNode(this.originalScrollScriptCode).findNodes(scrollKeywords.import).map(node => node.getContent())
+		return new TreeNode(this.originalScrollCode).findNodes(scrollKeywords.import).map(node => node.getContent())
 	}
 
 	get scrollFilesWithGrammarNodeDefinitions() {
@@ -241,7 +241,7 @@ class ScrollFile {
 			const content = getFile(filename)
 			return content.match(grammarDefinitionRegex)
 		})
-		if (this.originalScrollScriptCode.match(grammarDefinitionRegex)) filepathsWithGrammarDefinitions.push(this.filePath)
+		if (this.originalScrollCode.match(grammarDefinitionRegex)) filepathsWithGrammarDefinitions.push(this.filePath)
 		return filepathsWithGrammarDefinitions
 	}
 
@@ -935,4 +935,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler, SCROLL_CSS }
+module.exports = { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollCompiler, SCROLL_CSS }

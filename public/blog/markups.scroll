@@ -1,0 +1,47 @@
+importOnly
+markupLineNode
+ catchAllCellType anyCell
+ catchAllNodeType markupLineNode
+abstractMarkupLangNode
+ extends abstractScrollNode
+ catchAllNodeType markupLineNode
+ javascript
+  compile() {
+   return this.compiler(this.childrenToString())
+  }
+  get compiler() {
+    try {
+      const path = require("path")
+      const compiler = require(path.join(this.globalPath, this.packageName))
+      return this.importName ? compiler[this.importName] : compiler
+    } catch (err) {
+      console.error(`❌ ${this.getWord(0)} skipped. Try "npm install -g ${this.packageName}"`)
+      return str => str
+    }
+  }
+  get globalPath() {
+    const { execSync } = require("child_process")
+    return execSync("npm root -g").toString().trim()
+  }
+markdownNode
+ description If npm package `marked` is installed globally will compile markdown.
+ crux markdown
+ extends abstractMarkupLangNode
+ javascript
+  packageName = "marked"
+  importName = "marked"
+textileNode
+ description If npm package `textile-js` is installed globally will compile textile.
+ crux textile
+ extends abstractMarkupLangNode
+ javascript
+  packageName = "textile-js"
+bbCodeNode
+ description If npm package `ya-bbcode` is installed globally will compile BBcode.
+ crux bbCode
+ extends abstractMarkupLangNode
+ javascript
+  packageName = "ya-bbcode"
+  compile() {
+   return new this.compiler().parse(this.childrenToString())
+  }
