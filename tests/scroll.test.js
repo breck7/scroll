@@ -5,6 +5,7 @@ const fs = require("fs")
 const path = require("path")
 const { jtree } = require("jtree")
 const { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler } = require("../scroll.js")
+const { Disk } = require("jtree/products/Disk.node.js")
 const shell = require("child_process").execSync
 
 const testString = "An extensible alternative to Markdown"
@@ -77,20 +78,9 @@ testTree.tableWithLinks = areEqual => {
 	})
 }
 
-testTree.scroll = areEqual => {
-	areEqual(new ScrollFolder().files[0].toHtml().includes(testString), true)
-}
-
 testTree.fullIntegrationTest = areEqual => {
 	const folder = new ScrollFolder()
 	areEqual(!!folder, true)
-}
-
-testTree.import = async areEqual => {
-	const cli = new ScrollCli()
-	cli.verbose = false
-	const result = await cli.importCommand()
-	areEqual(result.includes("You need to add a"), true)
 }
 
 testTree.check = async areEqual => {
@@ -167,20 +157,17 @@ testTree.errorStates = async areEqual => {
 		areEqual(fs.existsSync(path.join(tempFolder, "settings.scroll")), true)
 
 		const folder = new ScrollFolder(tempFolder).silence()
-		const singleFile = folder.buildFiles()
+		const pages = folder.buildFiles()
 
 		// Assert
-		areEqual(singleFile.includes(testString), true)
-
-		// Act
-		const singlePages = folder.buildFiles()
+		areEqual(pages[0].html.includes(testString), true)
 
 		// Assert
-		areEqual(singlePages.length, 1)
+		areEqual(pages.length, 1)
 
 		// Assert
 		const singlePageTitleSnippet = `Scroll</title>`
-		areEqual(singlePages[0].html.includes(singlePageTitleSnippet), true)
+		areEqual(pages[0].html.includes(singlePageTitleSnippet), true)
 
 		areEqual(folder.errors.flat().length, 0)
 	} catch (err) {
@@ -195,7 +182,7 @@ testTree.kitchenSink = async areEqual => {
 		// Arrange/act
 		const folder = new ScrollFolder(kitchenSinkFolder).silence()
 		folder.buildAll()
-		const groupPage = Disk.read(path.join(kitchenSinkFolder, "all.hmtl"))
+		const groupPage = Disk.read(path.join(kitchenSinkFolder, "all.html"))
 
 		// Assert
 		areEqual(groupPage.includes("CustomHeader"), true, "should have custom header")
