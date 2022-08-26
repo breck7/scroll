@@ -2,6 +2,10 @@ abstractSiteSettingNode
  extends abstractScrollNode
  abstract
  cells keywordCell
+ javascript
+  compile() {
+    return ""
+  }
 abstractUrlSettingNode
  abstract
  extends abstractSiteSettingNode
