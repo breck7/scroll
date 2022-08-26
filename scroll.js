@@ -438,15 +438,15 @@ class AbstractTemplate {
 	// Todo: scroll.css link thing fix.
 	get styleCode() {
 		// Default is to inline CSS. Otherwise we can split it into a sep file.
-		const css = this.object[scrollKeywords.scrollCss]
+		const cssFile = this.object[scrollKeywords.scrollCss]
 
-		if (css === "none") return ""
+		if (cssFile === "") return ""
 
-		if (css === "split")
+		if (cssFile)
 			return `link
    rel stylesheet
    type text/css
-   href scroll.css`
+   href ${cssFile}`
 
 		return `styleTag
    bern

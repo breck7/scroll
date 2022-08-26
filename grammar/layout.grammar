@@ -11,9 +11,6 @@ templateNode
   compile() {
     return ""
   }
-cssSettingEnumCell
- enum inline none
- extends stringCell
 abstractIntSettingNode
  abstract
  cruxFromId
@@ -22,8 +19,8 @@ abstractIntSettingNode
 scrollCssNode
  extends abstractSiteSettingNode
  cruxFromId
- cells keywordCell cssSettingEnumCell
- description Defaults to "inline", meaning default Scroll style CSS will be included on each page. Can set to none to if you provide your own CSS.
+ cells keywordCell permalinkCell
+ description If not present Scroll style CSS will be included on each page.
 maxColumnsNode
  extends abstractIntSettingNode
  description Set your own max column count for a single file's generated HTML.
