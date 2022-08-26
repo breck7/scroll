@@ -31,7 +31,7 @@ paragraph
 subsection Multiple Compiler Passes
 
 paragraph
- The new language features (imports, variables, and grammar nodes) required a change from a 1 one stage compilation process to a multi-stage compiler pass pattern. The compilers passes run in this order:
+ The new language features (imports, grammar nodes, and variables) required a change from a 1 one stage compilation process to a multi-stage compiler pass pattern. The compilers passes run in this order: imports, grammar extensions, then variables. So variables cannot be used in imports or grammar extensions.
 
 subsection Change list
 

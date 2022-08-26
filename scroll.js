@@ -124,6 +124,8 @@ const scrollKeywords = {
 	date: "date",
 	endSnippet: "endSnippet",
 	groups: "groups",
+	define: "define",
+	defineDefault: "defineDefault",
 	import: "import",
 	importOnly: "importOnly",
 	siteTitle: "siteTitle",
@@ -166,8 +168,8 @@ const getFile = path => {
 }
 
 class ScrollFile {
-	constructor(scrollScriptCode, folder, filePath) {
-		this.scrollScriptCode = scrollScriptCode
+	constructor(originalScrollScriptCode, folder, filePath) {
+		this.originalScrollScriptCode = originalScrollScriptCode
 		this._parseProgram()
 		this.filePath = filePath
 		this.folder = folder
@@ -175,31 +177,55 @@ class ScrollFile {
 		scrollScriptProgram.setFile(this)
 	}
 
-	scrollScriptCode = ""
+	originalScrollScriptCode = ""
 	filePath = ""
 
 	_parseProgram() {
 		const { scrollFilesWithGrammarNodeDefinitions } = this
 
+		const folder = this.folder.folder
+
+		const codeAsTree = new TreeNode(this.originalScrollScriptCode)
+
+		// Apply imports
+		codeAsTree.filter(node => node.getLine().beginsWith(scrollKeywords.import)).forEach(node => node.replaceNode(node => getFile(path.join(folder, node.getContent()))))
+
+		// Process variables
+		const varMap = {}
+		codeAsTree.findNodes(scrollKeywords.defineDefault).forEach(node => {
+			varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")
+		})
+		codeAsTree.findNodes(scrollKeywords.define).forEach(node => {
+			varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")
+		})
+
+		let codeAfterVariableSubstitution = codeAsTree.toString()
+
+		Object.keys(varMap).forEach(key => {
+			codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])
+		})
+
 		if (!scrollFilesWithGrammarNodeDefinitions.length) {
-			this.scrollScriptProgram = new DefaultScrollScriptCompiler(this.scrollScriptCode)
+			this.scrollScriptProgram = new DefaultScrollScriptCompiler(codeAfterVariableSubstitution)
 			return this
 		}
 
 		const scrollScriptCompiler = getCompiler(DefaultGrammarFiles.concat(scrollFilesWithGrammarNodeDefinitions))
-		this.scrollScriptProgram = new scrollScriptCompiler(this.scrollScriptCode)
+		this.scrollScriptProgram = new scrollScriptCompiler(codeAfterVariableSubstitution)
 	}
 
 	// todo: currently only 1 level supported
 	get importFilePaths() {
-		return new TreeNode(this.scrollScriptCode).findNodes(scrollKeywords.import).map(node => node.getContent())
+		return new TreeNode(this.originalScrollScriptCode).findNodes(scrollKeywords.import).map(node => node.getContent())
 	}
 
 	get scrollFilesWithGrammarNodeDefinitions() {
-		return this.importFilePaths.filter(filename => {
+		const filepathsWithGrammarDefinitions = this.importFilePaths.filter(filename => {
 			const content = getFile(filename)
 			return new TreeNode(content).match(nodeDefinitionRegex)
 		})
+		if (this.originalScrollScriptCode.match(nodeDefinitionRegex)) filepathsWithGrammarDefinitions.push(this.filePath)
+		return filepathsWithGrammarDefinitions
 	}
 
 	get filename() {
