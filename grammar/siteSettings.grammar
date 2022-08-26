@@ -12,6 +12,7 @@ abstractUrlSettingNode
  cells keywordCell urlCell
  cruxFromId
 abstractSiteStringSettingNode
+ abstract
  extends abstractSiteSettingNode
  catchAllCellType stringCell
  cruxFromId
@@ -34,7 +35,7 @@ twitterNode
  description A link to the blog or author's Twitter account.
  extends abstractUrlSettingNode
 emailNode
- description Email address of author admin.
+ description Email address for the site owner.
  extends abstractSiteSettingNode
  cruxFromId
  cells keywordCell emailAddressCell
