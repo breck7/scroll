@@ -60,6 +60,32 @@ const getFile = path => {
 	return importCache[path]
 }
 
+const getAllImports = absoluteFilePath => {
+	let imports = []
+	const codeAsTree = new TreeNode(read(absoluteFilePath))
+	const folder = path.dirname(absoluteFilePath)
+	// Apply imports
+	codeAsTree.findNodes(scrollKeywords.import).forEach(node => {
+		const absoluteFilePath = path.join(folder, node.getContent())
+		imports.push(absoluteFilePath)
+		imports = imports.concat(getAllImports(absoluteFilePath))
+	})
+	return imports
+}
+
+const expandedImportCache = {}
+const getFullyExpandedFile = absoluteFilePath => {
+	if (expandedImportCache[absoluteFilePath]) return expandedImportCache[absoluteFilePath]
+
+	const codeAsTree = new TreeNode(read(absoluteFilePath))
+	const folder = path.dirname(absoluteFilePath)
+	// Apply imports
+	codeAsTree.findNodes(scrollKeywords.import).forEach(node => node.replaceNode(str => getFullyExpandedFile(path.join(folder, node.getContent()))))
+
+	expandedImportCache[absoluteFilePath] = codeAsTree.toString().replace("importOnly", "")
+	return expandedImportCache[absoluteFilePath]
+}
+
 const getOneGrammarFromFiles = files => {
 	const asOneFile = files
 		.map(filePath => {
@@ -205,7 +231,10 @@ class ScrollFile {
 		const codeAsTree = new TreeNode(this.originalScrollCode)
 
 		// Apply imports
-		codeAsTree.findNodes(scrollKeywords.import).forEach(node => node.replaceNode(str => getFile(path.join(folder, str.replace("import ", ""))).replace("importOnly", "")))
+		codeAsTree.findNodes(scrollKeywords.import).forEach(node => {
+			const absoluteFilePath = path.join(folder, node.getContent())
+			node.replaceNode(str => getFullyExpandedFile(absoluteFilePath))
+		})
 
 		// Process variables
 		const varMap = {}
@@ -233,7 +262,16 @@ class ScrollFile {
 
 	// todo: currently only 1 level supported
 	get importFilePaths() {
-		return new TreeNode(this.originalScrollCode).findNodes(scrollKeywords.import).map(node => node.getContent())
+		let imports = []
+		const folder = this.folder.folder
+		const codeAsTree = new TreeNode(this.originalScrollCode)
+		codeAsTree.findNodes(scrollKeywords.import).forEach(node => {
+			const absoluteFilePath = path.join(folder, node.getContent())
+			imports.push(absoluteFilePath)
+			imports = imports.concat(getAllImports(absoluteFilePath))
+		})
+
+		return imports
 	}
 
 	get scrollFilesWithGrammarNodeDefinitions() {

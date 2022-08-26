@@ -1,0 +1,9 @@
+importOnly
+goodMorningNode
+ description A test of included custom node types.
+ cruxFromId
+ extends abstractScrollNode
+ javascript
+  compile() {
+    return "Good morning"
+  }
