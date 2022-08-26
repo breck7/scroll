@@ -52,7 +52,7 @@ const SCROLL_SRC_FOLDER = __dirname
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const GRAMMAR_EXTENSION = ".grammar"
-const grammarDefinitionRegex = /^[a-zA-Z0-9_]+Node$/g
+const grammarDefinitionRegex = /[a-zA-Z0-9_]+Node/
 
 const importCache = {}
 const getFile = path => {
@@ -60,21 +60,19 @@ const getFile = path => {
 	return importCache[path]
 }
 
-const getGrammarConstructorFromFiles = files => {
+const getOneGrammarFromFiles = files => {
 	const asOneFile = files
 		.map(filePath => {
 			const content = getFile(filePath)
 			if (filePath.endsWith(GRAMMAR_EXTENSION)) return content
 			// Strip scroll content
-			const tree = new TreeNode(content)
-			tree.forEach(node => {
-				if (!node.getLine().match(grammarDefinitionRegex)) node.destroy()
-			})
-			return tree.toString()
+			return new TreeNode(content)
+				.filter(node => node.getLine().match(grammarDefinitionRegex))
+				.map(node => node.toString())
+				.join("\n")
 		})
 		.join("\n")
-	const formatted = new grammarNode(asOneFile).format().toString()
-	return new jtree.HandGrammarProgram(formatted).compileAndReturnRootConstructor()
+	return new grammarNode(asOneFile).format().toString()
 }
 // Default compiler
 const DefaultGrammarFiles = Disk.getFiles(path.join(__dirname, "grammar")).filter(file => file.endsWith(GRAMMAR_EXTENSION))
@@ -83,7 +81,8 @@ const getCompiler = filePaths => {
 	const key = filePaths.join("\n")
 	const hit = compilerCache.get(key)
 	if (hit) return hit
-	const compiler = getGrammarConstructorFromFiles(filePaths)
+	const grammarCode = getOneGrammarFromFiles(filePaths)
+	const compiler = new jtree.HandGrammarProgram(grammarCode).compileAndReturnRootConstructor()
 	compilerCache.set(key, compiler)
 	return compiler
 }
@@ -627,7 +626,8 @@ class ScrollFolder {
 	}
 
 	get grammarErrors() {
-		return new grammarNode(this.grammarFiles.map(file => read(file)).join("\n")).getAllErrors().map(err => err.toObject())
+		const grammarFiles = lodash.uniq(this.files.map(file => file.scrollFilesWithGrammarNodeDefinitions).flat())
+		return new grammarNode(getOneGrammarFromFiles(grammarFiles)).getAllErrors().map(err => err.toObject())
 	}
 
 	get fullFilePaths() {
