@@ -72,6 +72,7 @@ const getOneGrammarFromFiles = files => {
 				.join("\n")
 		})
 		.join("\n")
+		.trim()
 	return new grammarNode(asOneFile).format().toString()
 }
 // Default compiler
