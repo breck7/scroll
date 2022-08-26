@@ -3,7 +3,7 @@ import markups.scroll
 date 08-23-2021
 maxColumns 1
 columnWidth 60
-https://scroll.pub/
+groups index
 
 replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
 replace ScrollLinked <a href="https://scroll.pub">Scroll</a>
