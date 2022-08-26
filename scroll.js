@@ -499,18 +499,6 @@ class AbstractTemplate {
   ${removeReturnCharsAndRightShift(this.footer, 2)}`
 	}
 
-	get openGraphTitle() {
-		return this.object.title
-	}
-
-	get openGraphDescription() {
-		return this.siteDescription
-	}
-
-	get openGraphImage() {
-		return ""
-	}
-
 	toHtml() {
 		return scrollBoilerplateCompiledMessage + "\n" + new stump(this.stumpCode).compile()
 	}
@@ -523,16 +511,16 @@ class BlankTemplate extends AbstractTemplate {
 }
 
 class FileTemplate extends AbstractTemplate {
+	get openGraphTitle() {
+		return this.file.title
+	}
+
 	get openGraphDescription() {
 		return this.file.openGraphDescription
 	}
 
 	get openGraphImage() {
 		return this.file.openGraphImage
-	}
-
-	get openGraphTitle() {
-		return this.file.title
 	}
 
 	get htmlTitle() {
@@ -573,6 +561,18 @@ div
 }
 
 class GroupTemplate extends AbstractTemplate {
+	get openGraphTitle() {
+		return this.siteTitle
+	}
+
+	get openGraphDescription() {
+		return this.siteDescription
+	}
+
+	get openGraphImage() {
+		return ""
+	}
+
 	get groupName() {
 		return this.file.scrollScriptProgram.getNode("template").getWord(2)
 	}
