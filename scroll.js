@@ -52,9 +52,21 @@ const SCROLL_SRC_FOLDER = __dirname
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const GRAMMAR_EXTENSION = ".grammar"
+const grammarDefinitionRegex = /^[a-zA-Z0-9_]+Node$/g
 
 const getGrammarConstructorFromFiles = files => {
-	const asOneFile = files.map(Disk.read).join("\n")
+	const asOneFile = files
+		.map(filePath => {
+			const content = Disk.read(getFile)
+			if (filePath.endsWith(GRAMMAR_EXTENSION)) return content
+			// Strip scroll content
+			const tree = new TreeNode(content)
+			tree.forEach(node => {
+				if (!node.getLine().match(grammarDefinitionRegex)) node.destroy()
+			})
+			return tree.toString()
+		})
+		.join("\n")
 	const formatted = new grammarNode(asOneFile).format().toString()
 	return new jtree.HandGrammarProgram(formatted).compileAndReturnRootConstructor()
 }
@@ -146,16 +158,49 @@ const SCROLL_ICONS = {
 	emailSvg: `<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Gmail icon</title><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>`
 }
 
+const importCache = {}
+
+const getFile = path => {
+	if (!importCache[path]) importCache[path] = Disk.read(path)
+	return importCache[path]
+}
+
 class ScrollFile {
-	constructor(scrollScriptProgram, filePath, folder) {
-		this.scrollScriptProgram = scrollScriptProgram
+	constructor(scrollScriptCode, folder, filePath) {
+		this.scrollScriptCode = scrollScriptCode
+		this._parseProgram()
 		this.filePath = filePath
 		this.folder = folder
 		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
 		scrollScriptProgram.setFile(this)
 	}
 
+	scrollScriptCode = ""
 	filePath = ""
+
+	_parseProgram() {
+		const { scrollFilesWithGrammarNodeDefinitions } = this
+
+		if (!scrollFilesWithGrammarNodeDefinitions.length) {
+			this.scrollScriptProgram = new DefaultScrollScriptCompiler(this.scrollScriptCode)
+			return this
+		}
+
+		const scrollScriptCompiler = getCompiler(DefaultGrammarFiles.concat(scrollFilesWithGrammarNodeDefinitions))
+		this.scrollScriptProgram = new scrollScriptCompiler(this.scrollScriptCode)
+	}
+
+	// todo: currently only 1 level supported
+	get importFilePaths() {
+		return new TreeNode(this.scrollScriptCode).findNodes(scrollKeywords.import).map(node => node.getContent())
+	}
+
+	get scrollFilesWithGrammarNodeDefinitions() {
+		return this.importFilePaths.filter(filename => {
+			const content = getFile(filename)
+			return new TreeNode(content).match(nodeDefinitionRegex)
+		})
+	}
 
 	get filename() {
 		return path.basename(this.filePath)
@@ -567,28 +612,18 @@ class ScrollPage {
 	content = ""
 
 	get html() {
-		const scrollFolder = new ScrollFolder()
-		const { scrollScriptCompiler } = scrollFolder
-		const program = new scrollScriptCompiler(this.content)
-		const file = new ScrollFile(program, "", scrollFolder)
-		return file.html
+		return new ScrollFile(this.content, new ScrollFolder(), "").html
 	}
 }
 
 class ScrollFolder {
 	constructor(folder = __dirname) {
 		this.folder = path.normalize(folder)
-		this.grammarFiles = DefaultGrammarFiles.slice()
-		// Loads any grammar files in the scroll folder. TODO: Deprecate this? Move to explicit inclusion of grammar nodes on a per file basis?
-		this.fullFilePaths.filter(fullFilePath => fullFilePath.endsWith(GRAMMAR_EXTENSION)).forEach(file => this.grammarFiles.push(file))
-		this.scrollScriptCompiler = getCompiler(this.grammarFiles)
 	}
 
 	getGroup(groupName) {
 		return this.files.filter(file => file.groups.includes(groupName))
 	}
-
-	grammarFiles = []
 
 	get grammarErrors() {
 		return new grammarNode(this.grammarFiles.map(file => read(file)).join("\n")).getAllErrors().map(err => err.toObject())
@@ -601,13 +636,8 @@ class ScrollFolder {
 	_files
 	get files() {
 		if (this._files) return this._files
-		const { scrollScriptCompiler, fullFilePaths } = this
-		const all = fullFilePaths
-			.filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-			.map(fullFilePath => {
-				const parsedProgram = new scrollScriptCompiler(read(fullFilePath))
-				return new ScrollFile(parsedProgram, fullFilePath, this)
-			})
+		const { fullFilePaths } = this
+		const all = fullFilePaths.filter(file => file.endsWith(SCROLL_FILE_EXTENSION)).map(fullFilePath => new ScrollFile(read(fullFilePath), this, fullFilePath))
 		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
 		return this._files
 	}
