@@ -1,5 +1,6 @@
 title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
 import markups.scroll
+import settings.scroll
 date 08-23-2021
 maxColumns 1
 columnWidth 60
@@ -12,18 +13,50 @@ replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard
 paragraph
  ScrollLinked is a new language and static site generator that is mostly written in a new language called GrammarLinked which are both built on a new syntax called TreeNotationLinked.
 
-paragraph
- In this demo, I extend Scroll by adding support for Markdown🔗en.wikipedia.org/wiki/Markdown, Textile🔗en.wikipedia.org/wiki/Textile_(markup_language), and BBCode🔗en.wikipedia.org/wiki/BBCode.
+endSnippet
 
 paragraph
- My code is still a bit researchy and buggy, but I think the more important thing here is to demo how simple and powerful indented heredocs are. They allow you to compose many languages in a clean and scalable way. You don't need escaping. I think this is a very helpful pattern you can use in your own languages and code.
+ In this demo, I extend Scroll by adding support for Markdown🔗en.wikipedia.org/wiki/Markdown, Textile🔗en.wikipedia.org/wiki/Textile_(markup_language), and BBCode🔗en.wikipedia.org/wiki/BBCode. I want to demonstrate how easy it is to compose many languages into one using TreeNotationLinked, which is due to what you might call the Indented or Off-side Heredoc pattern.
+
+aftertext
+ My implementation is still _researchy_—GrammarLinked still needs a lot of work—but my main point here is to demo how _simple and powerful indented heredocs are_. They allow you to compose unlimited languages in one file in a clean and scalable way. You don't need escaping. I think this is a very helpful pattern you can use in your own languages and code.
+ wrapsOn
+
+section Traditional Heredocs
+
+aftertext
+ Traditional heredocs use start and end delimiters, like these examples from Ruby and Python and Markdown:
+
+rubyCode
+ # Heredoc in Ruby
+ puts <<GROCERY_LIST
+ Grocery list
+ ----
+ 1. Salad mix.
+ 2. Strawberries
+ GROCERY_LIST
+
+pythonCode
+ # Heredoc in Python
+ print("""
+ Customer: Not much of a cheese shop is it?
+ Shopkeeper: Finest in the district , sir.
+ """)
+
+markdownCode
+ ```javascript
+ // A heredoc/code block in Markdown
+ console.log(123)
+ ```
 
 section Indented Heredocs
 
-paragraph
- A simple but largely accurate description of Tree Notation is that it is indented HereDocs🔗en.wikipedia.org/wiki/Here_document. A single indent down your block is all you need, no end delimiters or encoding necessary. It takes a little getting used to (it keeps improving as the Tree Notation tooling ecosystem improves), but I thoroughly enjoy it already and am surprised this simple trick was overlooked for so long.
+aftertext
+ In contrast here is the indented/off-side heredoc pattern
+ in Scroll.
+aboveAsCode
 
-section Quick Example
+section The Demo
 
 paragraph
  The code below:
@@ -52,6 +85,14 @@ bbCode
 
 paragraph
  More extensive examples are pasted below. Source is here🔗github.com/breck7/breckyunits.com/tree/main/markups.
+
+section Summary
+
+aftertext
+ A simple but largely accurate description of TreeNotationLinked is that it is just indented or off-side HereDocs. Or in colloquial academic speak _The Off-Side Rule is all you need_. Most people learn of the off-side rule via Python. Imagine if your whole language was just the off-side rule. That's basically Tree Notation. But my code is not the important thing—the important thing is this pattern. Try it yourself—I bet you will love it.
+ https://en.wikipedia.org/wiki/Off-side_rule Off-Side Rule
+ https://en.wikipedia.org/wiki/Here_document HereDocs
+ wrapsOn
 
 section Extended Examples
 
