@@ -4,7 +4,7 @@ const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
 const { jtree } = require("jtree")
-const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, settingsKeywords, ScrollPage, DefaultScrollScriptCompiler } = require("../scroll.js")
+const { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler } = require("../scroll.js")
 const shell = require("child_process").execSync
 
 const testString = "An extensible alternative to Markdown"

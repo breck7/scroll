@@ -101,6 +101,7 @@ const cssClasses = {
 	scrollFilePageTitle: "scrollFilePageTitle"
 }
 
+// Todo: how to keep in sync with grammar?
 const scrollKeywords = {
 	title: "title",
 	htmlTitle: "htmlTitle",
@@ -114,11 +115,6 @@ const scrollKeywords = {
 	groups: "groups",
 	import: "import",
 	importOnly: "importOnly",
-	settings: "settings"
-}
-
-// Todo: how to keep in sync with grammar?
-const settingsKeywords = {
 	siteTitle: "siteTitle",
 	siteDescription: "siteDescription",
 	baseUrl: "baseUrl",
@@ -248,11 +244,11 @@ class ScrollFile {
 	}
 
 	get maxColumns() {
-		return this.settingsNode.get(settingsKeywords.maxColumns)
+		return this.settingsNode.get(scrollKeywords.maxColumns)
 	}
 
 	get columnWidth() {
-		return this.settingsNode.get(settingsKeywords.columnWidth)
+		return this.settingsNode.get(scrollKeywords.columnWidth)
 	}
 
 	_compiled = ""
@@ -425,7 +421,7 @@ class AbstractTemplate {
 	// Todo: scroll.css link thing fix.
 	get styleCode() {
 		// Default is to inline CSS. Otherwise we can split it into a sep file.
-		const css = this.folderSettings[settingsKeywords.scrollCss]
+		const css = this.folderSettings[scrollKeywords.scrollCss]
 
 		if (css === "none") return ""
 
@@ -519,13 +515,13 @@ class FileTemplate extends AbstractTemplate {
 	}
 
 	get header() {
-		const header = this.file.settingsNode.getNode(settingsKeywords.scrollHeader)
+		const header = this.file.settingsNode.getNode(scrollKeywords.scrollHeader)
 		if (header) return header.childrenToString()
 		return super.header
 	}
 
 	get footer() {
-		const footer = this.file.settingsNode.getNode(settingsKeywords.scrollFooter)
+		const footer = this.file.settingsNode.getNode(scrollKeywords.scrollFooter)
 		if (footer) return footer.childrenToString()
 		return super.footer
 	}
@@ -672,7 +668,7 @@ class ScrollFolder {
 	}
 
 	get viewSourceLink() {
-		return (this.settings[settingsKeywords.viewSourceBaseUrl] || "").replace(/\/$/, "") + "/"
+		return (this.settings[scrollKeywords.viewSourceBaseUrl] || "").replace(/\/$/, "") + "/"
 	}
 
 	get errors() {
@@ -817,7 +813,7 @@ class ScrollFolder {
 	}
 
 	get rssFeedUrl() {
-		return this.settings[settingsKeywords.rssFeedUrl]
+		return this.settings[scrollKeywords.rssFeedUrl]
 	}
 
 	write(filename, content, message) {
@@ -991,4 +987,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, settingsKeywords, ScrollPage, DefaultScrollScriptCompiler, SCROLL_CSS }
+module.exports = { ScrollFolder, ScrollCli, SCROLL_SETTINGS_FILENAME, scrollKeywords, ScrollPage, DefaultScrollScriptCompiler, SCROLL_CSS }
