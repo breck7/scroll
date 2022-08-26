@@ -119,8 +119,8 @@ const scrollKeywords = {
 
 // Todo: how to keep in sync with grammar?
 const settingsKeywords = {
-	title: "title",
-	description: "description",
+	siteTitle: "siteTitle",
+	siteDescription: "siteDescription",
 	baseUrl: "baseUrl",
 	viewSourceBaseUrl: "viewSourceBaseUrl",
 	maxColumns: "maxColumns",
@@ -130,9 +130,9 @@ const settingsKeywords = {
 	email: "email",
 	rssFeedUrl: "rssFeedUrl",
 	importFrom: "importFrom",
-	header: "header",
-	footer: "footer",
-	css: "css" // "none" or "inline". Defaults to "inline"
+	scrollHeader: "scrollHeader",
+	scrollFooter: "scrollFooter",
+	scrollCss: "scrollCss"
 }
 
 const initReadmePage = `${scrollKeywords.title} Hello world
@@ -354,11 +354,15 @@ class AbstractTemplate {
 	}
 
 	get htmlTitle() {
-		return this.folderSettings.title
+		return this.siteTitle
 	}
 
-	get description() {
-		return this.folderSettings.description
+	get siteTitle() {
+		siteDescription
+	}
+
+	get siteDescription() {
+		return this.folderSettings.siteDescription
 	}
 
 	get github() {
@@ -388,9 +392,9 @@ class AbstractTemplate {
     href ${this.github}
  h2
   class scrollNameComponent
-  a ${this.folderSettings.title}
+  a ${this.siteTitle}
    href index.html
- div ${this.description}`
+ div ${this.siteDescription}`
 	}
 
 	get footer() {
@@ -421,7 +425,7 @@ class AbstractTemplate {
 	// Todo: scroll.css link thing fix.
 	get styleCode() {
 		// Default is to inline CSS. Otherwise we can split it into a sep file.
-		const css = this.folderSettings[settingsKeywords.css]
+		const css = this.folderSettings[settingsKeywords.scrollCss]
 
 		if (css === "none") return ""
 
@@ -458,7 +462,7 @@ class AbstractTemplate {
    content width=device-width,initial-scale=1
   meta
    name description
-   content ${this.description}
+   content ${this.siteDescription}
   meta
    name generator
    content Scroll v${SCROLL_VERSION}
@@ -487,7 +491,7 @@ class AbstractTemplate {
 	}
 
 	get ogDescription() {
-		return this.description
+		return this.siteDescription
 	}
 
 	get ogImage() {
@@ -515,13 +519,13 @@ class FileTemplate extends AbstractTemplate {
 	}
 
 	get header() {
-		const header = this.file.settingsNode.getNode(settingsKeywords.header)
+		const header = this.file.settingsNode.getNode(settingsKeywords.scrollHeader)
 		if (header) return header.childrenToString()
 		return super.header
 	}
 
 	get footer() {
-		const footer = this.file.settingsNode.getNode(settingsKeywords.footer)
+		const footer = this.file.settingsNode.getNode(settingsKeywords.scrollFooter)
 		if (footer) return footer.childrenToString()
 		return super.footer
 	}
