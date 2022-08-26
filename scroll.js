@@ -51,7 +51,6 @@ const recursiveReaddirSync = (folder, callback) =>
 const SCROLL_SRC_FOLDER = __dirname
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
-const SCROLL_SETTINGS_FILENAME = "settings.scroll"
 const GRAMMAR_EXTENSION = ".grammar"
 
 const getGrammarConstructorFromFiles = files => {
@@ -138,7 +137,7 @@ ${scrollKeywords.paragraph}
  This is my new Scroll.
 
 import settings.scroll`,
-	"settings.scroll": read(path.join(__dirname, SCROLL_SETTINGS_FILENAME))
+	"settings.scroll": read(path.join(__dirname, "settings.scroll"))
 }
 
 const SCROLL_ICONS = {
