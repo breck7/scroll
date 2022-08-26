@@ -16,7 +16,7 @@ paragraph
 subsection Imports and variables
 
 paragraph
- Use `import [filepath]` to import one file into another. Use `define` and `defineDefault` for variables.
+ Use `import [filepath]` to import one file into another. Use `replace` and `replaceDefault` for variables.
 
 subsection Add your own Grammar extensions directly in your Scroll files
 

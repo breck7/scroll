@@ -1,0 +1,9 @@
+importOnly
+siteTitle The Scroll Blog
+siteDescription Official blog for Scroll
+github https://github.com/breck7/scroll
+viewSourceBaseUrl https://github.com/breck7/scroll/blob/main/public/blog
+twitter https://twitter.com/breckyunits
+email feedback@scroll.pub
+baseUrl https://scroll.pub/blog/
+rssFeedUrl feed.xml

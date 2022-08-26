@@ -130,8 +130,8 @@ const scrollKeywords = {
 	date: "date",
 	endSnippet: "endSnippet",
 	groups: "groups",
-	define: "define",
-	defineDefault: "defineDefault",
+	replace: "replace",
+	replaceDefault: "replaceDefault",
 	import: "import",
 	importOnly: "importOnly",
 	siteTitle: "siteTitle",
@@ -150,14 +150,33 @@ const scrollKeywords = {
 }
 
 const initSite = {
-	"readme.scroll": `${scrollKeywords.title} Hello world
+	firstPost: `${scrollKeywords.title} Hello world
 ${scrollKeywords.date} ${dayjs().format(`MM-DD-YYYY`)}
 
 ${scrollKeywords.paragraph}
- This is my new Scroll.
-
+ This is my first blog post using Scroll. This post will appear in the feed and on the index page.
+groups index
 import settings.scroll`,
-	"settings.scroll": read(path.join(__dirname, "settings.scroll"))
+	settings: `importOnly
+siteTitle My Website
+siteDescription Powered by Scroll
+github https://github.com/breck7/scroll
+viewSourceBaseUrl https://github.com/breck7/scroll/blob/main
+twitter https://twitter.com/breckyunits
+email feedback@scroll.pub
+rssFeedUrl feed.xml
+baseUrl https://scroll.pub/`,
+	about: `import settings.scroll
+title About this site
+
+paragraph
+ This is a static page.`,
+	feed: `import settings.scroll
+permalink feed.xml
+template blank
+printFeed index`,
+	index: `import settings.scroll
+template group index`
 }
 
 const SCROLL_ICONS = {
@@ -190,10 +209,10 @@ class ScrollFile {
 
 		// Process variables
 		const varMap = {}
-		codeAsTree.findNodes(scrollKeywords.defineDefault).forEach(node => {
+		codeAsTree.findNodes(scrollKeywords.replaceDefault).forEach(node => {
 			varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")
 		})
-		codeAsTree.findNodes(scrollKeywords.define).forEach(node => {
+		codeAsTree.findNodes(scrollKeywords.replace).forEach(node => {
 			varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")
 		})
 
@@ -811,7 +830,7 @@ class ScrollCli {
 		this.log(`Initializing scroll in "${cwd}"`)
 
 		Object.keys(initSite).forEach(filename => {
-			const filePath = path.join(cwd, filename)
+			const filePath = path.join(cwd, filename + SCROLL_FILE_EXTENSION)
 			if (!fs.existsSync(filePath)) write(filePath, initSite[filename])
 		})
 

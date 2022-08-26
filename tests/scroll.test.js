@@ -8,9 +8,6 @@ const { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollScript
 const { Disk } = require("jtree/products/Disk.node.js")
 const shell = require("child_process").execSync
 
-const testString = "An extensible alternative to Markdown"
-const testPort = 5435
-
 // todo: 1) rss import tests 2) grammar errors test 4) scroll errors tests
 
 const runTree = testTree =>
@@ -144,7 +141,7 @@ paragraph
 	areEqual(html.includes("Blue sky"), true)
 }
 
-testTree.errorStates = async areEqual => {
+testTree.initCommand = async areEqual => {
 	const tempFolder = path.join(__dirname, "tempFolderForTesting")
 
 	try {
@@ -160,15 +157,8 @@ testTree.errorStates = async areEqual => {
 		const pages = folder.buildFiles()
 
 		// Assert
-		areEqual(pages[0].html.includes(testString), true)
-
-		// Assert
-		areEqual(pages.length, 1)
-
-		// Assert
-		const singlePageTitleSnippet = `Scroll</title>`
-		areEqual(pages[0].html.includes(singlePageTitleSnippet), true)
-
+		areEqual(pages[0].html.includes("Powered by Scroll"), true)
+		areEqual(pages.length, 4)
 		areEqual(folder.errors.flat().length, 0)
 	} catch (err) {
 		console.log(err)

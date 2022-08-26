@@ -1,7 +1,7 @@
 title Top Sinks
 import settings.scroll
 
-define NUM_SINKS 10
+replace NUM_SINKS 10
 
 keyboardNav
 

@@ -1,20 +1,20 @@
-defineNode
+replaceNode
  description Define a variable token and replacement that will be applied to all lines following this one.
  extends abstractScrollNode
  cruxFromId
  catchAllCellType stringCell
  example
-  define YEAR 2022
+  replace YEAR 2022
  javascript
   compile() {
    return ""
   }
-defineDefaultNode
- description Define the default value for a variable token.
+replaceDefaultNode
+ description Define the default value for a replacement. Useful if you want to import a file and set a replacement later.
  extends abstractScrollNode
  catchAllCellType stringCell
  example
-  defineDefault YEAR 2021
+  replaceDefault YEAR 2021
  cruxFromId
  javascript
   compile() {
