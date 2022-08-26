@@ -45,6 +45,7 @@ list
  - ⚠️ BREAKING: removed `ignoreGrammarFiles`. Custom grammar extensions must now be explicitly imported.
  - ⚠️ BREAKING: removed `css` settings. Migration step is explained below.
  - ⚠️ BREAKING: buildSinglePages is now buildFiles
+ - ⚠️ BREAKING: DefaultScrollScriptCompiler is now DefaultScrollCompiler
  - ⚠️ BREAKING: removed buildIndexPage, buildSnippetsPage, buildRssFeed, and buildCssFile. Everything done by `buildFiles` now. See 'full.scroll', `index.scroll`, `feed.scroll`, and `style.scroll` in `tests/kitchenSink` for how to implement those in new pattern.
  - ⚠️ BREAKING: in default theme CSS some class names have changed:
       scrollArticleDateComponent => scrollDateComponent
