@@ -302,7 +302,7 @@ class ScrollFile {
 
 	get viewSourceUrl() {
 		const { viewSourceUrl, viewSourceBaseUrl } = this.object
-		return viewSourceUrl || (viewSourceBaseUrl ? viewSourceBaseUrl + path.basename(this.filePath) : "")
+		return viewSourceUrl || (viewSourceBaseUrl ? viewSourceBaseUrl.replace(/\/$/, "") + "/" + path.basename(this.filePath) : "")
 	}
 
 	get timestamp() {
