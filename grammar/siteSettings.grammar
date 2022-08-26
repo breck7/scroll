@@ -39,9 +39,6 @@ emailNode
 baseUrlNode
  description Root url of the published site. Needed for og tags.
  extends abstractUrlSettingNode
-rssFeedUrlNode
- description URL for RSS feed, if any.
- extends abstractUrlSettingNode
 cssSettingEnumCell
  enum inline none
  extends stringCell

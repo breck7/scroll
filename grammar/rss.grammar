@@ -1,3 +1,6 @@
+rssFeedUrlNode
+ description URL for RSS feed, if any.
+ extends abstractUrlSettingNode
 printFeedNode
  description Prints out the RSS feed for a group.
  extends abstractScrollNode
