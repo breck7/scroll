@@ -626,7 +626,7 @@ class ScrollFolder {
 	}
 
 	get grammarErrors() {
-		const grammarFiles = lodash.uniq(this.files.map(file => file.scrollFilesWithGrammarNodeDefinitions).flat())
+		const grammarFiles = DefaultGrammarFiles.concat(lodash.uniq(this.files.map(file => file.scrollFilesWithGrammarNodeDefinitions).flat()))
 		return new grammarNode(getOneGrammarFromFiles(grammarFiles)).getAllErrors().map(err => err.toObject())
 	}
 
