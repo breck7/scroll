@@ -54,10 +54,16 @@ const SCROLL_FILE_EXTENSION = ".scroll"
 const GRAMMAR_EXTENSION = ".grammar"
 const grammarDefinitionRegex = /^[a-zA-Z0-9_]+Node$/g
 
+const importCache = {}
+const getFile = path => {
+	if (!importCache[path]) importCache[path] = Disk.read(path)
+	return importCache[path]
+}
+
 const getGrammarConstructorFromFiles = files => {
 	const asOneFile = files
 		.map(filePath => {
-			const content = Disk.read(getFile)
+			const content = getFile(filePath)
 			if (filePath.endsWith(GRAMMAR_EXTENSION)) return content
 			// Strip scroll content
 			const tree = new TreeNode(content)
@@ -160,21 +166,13 @@ const SCROLL_ICONS = {
 	emailSvg: `<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Gmail icon</title><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>`
 }
 
-const importCache = {}
-
-const getFile = path => {
-	if (!importCache[path]) importCache[path] = Disk.read(path)
-	return importCache[path]
-}
-
 class ScrollFile {
 	constructor(originalScrollScriptCode, folder, filePath) {
+		this.folder = folder
+		this.filePath = filePath
+		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
 		this.originalScrollScriptCode = originalScrollScriptCode
 		this._parseProgram()
-		this.filePath = filePath
-		this.folder = folder
-		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
-		scrollScriptProgram.setFile(this)
 	}
 
 	originalScrollScriptCode = ""
@@ -188,7 +186,7 @@ class ScrollFile {
 		const codeAsTree = new TreeNode(this.originalScrollScriptCode)
 
 		// Apply imports
-		codeAsTree.filter(node => node.getLine().beginsWith(scrollKeywords.import)).forEach(node => node.replaceNode(node => getFile(path.join(folder, node.getContent()))))
+		codeAsTree.findNodes(scrollKeywords.import).forEach(node => node.replaceNode(str => getFile(path.join(folder, str.replace("import ", ""))).replace("importOnly", "")))
 
 		// Process variables
 		const varMap = {}
@@ -205,13 +203,13 @@ class ScrollFile {
 			codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])
 		})
 
-		if (!scrollFilesWithGrammarNodeDefinitions.length) {
-			this.scrollScriptProgram = new DefaultScrollScriptCompiler(codeAfterVariableSubstitution)
-			return this
+		if (!scrollFilesWithGrammarNodeDefinitions.length) this.scrollScriptProgram = new DefaultScrollScriptCompiler(codeAfterVariableSubstitution)
+		else {
+			const scrollScriptCompiler = getCompiler(DefaultGrammarFiles.concat(scrollFilesWithGrammarNodeDefinitions))
+			this.scrollScriptProgram = new scrollScriptCompiler(codeAfterVariableSubstitution)
 		}
 
-		const scrollScriptCompiler = getCompiler(DefaultGrammarFiles.concat(scrollFilesWithGrammarNodeDefinitions))
-		this.scrollScriptProgram = new scrollScriptCompiler(codeAfterVariableSubstitution)
+		this.scrollScriptProgram.setFile(this)
 	}
 
 	// todo: currently only 1 level supported
@@ -222,9 +220,9 @@ class ScrollFile {
 	get scrollFilesWithGrammarNodeDefinitions() {
 		const filepathsWithGrammarDefinitions = this.importFilePaths.filter(filename => {
 			const content = getFile(filename)
-			return new TreeNode(content).match(nodeDefinitionRegex)
+			return content.match(grammarDefinitionRegex)
 		})
-		if (this.originalScrollScriptCode.match(nodeDefinitionRegex)) filepathsWithGrammarDefinitions.push(this.filePath)
+		if (this.originalScrollScriptCode.match(grammarDefinitionRegex)) filepathsWithGrammarDefinitions.push(this.filePath)
 		return filepathsWithGrammarDefinitions
 	}
 
