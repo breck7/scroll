@@ -60,6 +60,32 @@ rowNode
    }
    return str
   }
+kpiTableNode
+ description Display key statistics in a big font.
+ catchAllNodeType rowNode
+ cruxFromId
+ extends abstractScrollNode
+ example
+  kpiTable
+   #2 Popularity
+   30 Years Old
+   $456 Revenue
+ javascript
+  get tableBody() {
+   const items = this.getTopDownArray()
+   let str = ""
+   for (let i = 0; i < items.length; i = i + 3) {
+      str += this.makeRow(items.slice(i, i + 3))
+   }
+   return str
+  }
+  makeRow(items) {
+    return `<tr>` + items.map(node => `<td>${node.getWord(0)}<span>${node.getContent()}</span></td>`)
+    .join("\n") + `</tr>\n`
+  }
+  compile() {
+   return `<table class="scrollKpiTable">${this.tableBody}</table>`
+  }
 commaTableNode
  description Comma separated values table.
  extends abstractTableNode
