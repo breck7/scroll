@@ -23,7 +23,7 @@ siteDescriptionNode
  description Description of the site.
  extends abstractSiteStringSettingNode
 baseUrlNode
- description Root url of the published site. Needed for og tags and RSS feeds.
+ description Root url of the published site on the web. Must be provided for RSS Feeds and OpenGraph tags to work, but has no effect locally.
  extends abstractUrlSettingNode
 viewSourceBaseUrlNode
  description The base link to be used to generate the "View source" link.

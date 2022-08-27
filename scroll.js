@@ -25,6 +25,7 @@ const removeReturnCharsAndRightShift = (str, numSpaces) => str.replace(/\r/g, ""
 const unsafeStripHtml = html => html.replace(/<[^>]*>?/gm, "")
 // Normalize 3 possible inputs: 1) cwd of the process 2) provided absolute path 3) cwd of process + provided relative path
 const resolvePath = (folder = "") => (path.isAbsolute(folder) ? path.normalize(folder) : path.resolve(path.join(process.cwd(), folder)))
+const isAbsoluteUrl = url => url.startsWith("https://") || url.startsWith("http://")
 
 const nextAndPrevious = (arr, item) => {
 	const len = arr.length
@@ -328,11 +329,16 @@ class ScrollFile {
 		return this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
 	}
 
+	// todo: add an openGraph node type to define this stuff manually
 	get openGraphImage() {
-		const index = this.scrollScriptProgram.indexOf(scrollKeywords.image)
-		return index > -1 ? this.scrollScriptProgram.nodeAt(index).getContent() : ""
+		const node = this.scrollScriptProgram.getNode(scrollKeywords.image)
+		if (!node) return ""
+
+		const link = node.getContent()
+		return isAbsoluteUrl(link) ? link : this.baseUrl + "/" + link
 	}
 
+	// todo: add an openGraph node type to define this stuff manually
 	// Use the first paragraph for the description
 	get openGraphDescription() {
 		const program = this.scrollScriptProgram
@@ -395,9 +401,14 @@ class ScrollFile {
 		return this.scrollScriptProgram.getNode(scrollKeywords.endSnippet)
 	}
 
+	// todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
+	// BaseUrl must be provided for RSS Feeds and OpenGraph tags to work
+	get baseUrl() {
+		return this.object.baseUrl ?? ""
+	}
+
 	toRss() {
-		const { title, permalink } = this
-		const { baseUrl } = this.object
+		const { title, permalink, baseUrl } = this
 		return ` <item>
   <title>${title}</title>
   <link>${baseUrl + permalink}</link>
@@ -441,10 +452,6 @@ class AbstractTemplate {
 
 	get twitter() {
 		return this.object.twitter
-	}
-
-	get baseUrl() {
-		return this.object.baseUrl
 	}
 
 	get header() {
@@ -545,7 +552,7 @@ class AbstractTemplate {
    content ${this.openGraphDescription}
   meta
    property og:image
-   content ${this.openGraphImage ? this.baseUrl + this.openGraphImage : ""}
+   content ${this.file.openGraphImage}
   ${removeReturnCharsAndRightShift(this.rssTag, 2)}
   meta
    name twitter:card
@@ -575,10 +582,6 @@ class FileTemplate extends AbstractTemplate {
 
 	get openGraphDescription() {
 		return this.file.openGraphDescription
-	}
-
-	get openGraphImage() {
-		return this.file.openGraphImage
 	}
 
 	get htmlTitle() {
@@ -625,10 +628,6 @@ class GroupTemplate extends AbstractTemplate {
 
 	get openGraphDescription() {
 		return this.siteDescription
-	}
-
-	get openGraphImage() {
-		return ""
 	}
 
 	get groupName() {
@@ -749,7 +748,7 @@ class ScrollFolder {
 					prefix = ""
 					p3 = p3.substr(2)
 				}
-				if (p3.startsWith("https://") || p3.startsWith("http://")) prefix = ""
+				if (isAbsoluteUrl(p3)) prefix = ""
 				const linkText = p2
 				const fullLink = `${prefix}${p3}`
 				linksToAdd.push([fullLink, linkText])
