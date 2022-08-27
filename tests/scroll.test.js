@@ -6,6 +6,7 @@ const path = require("path")
 const { jtree } = require("jtree")
 const { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollCompiler } = require("../scroll.js")
 const { Disk } = require("jtree/products/Disk.node.js")
+const grammarNode = require("jtree/products/grammar.nodejs.js")
 const shell = require("child_process").execSync
 
 // todo: 1) rss import tests 2) grammar errors test 4) scroll errors tests
@@ -93,6 +94,12 @@ testTree.file = areEqual => {
 
 	areEqual(file.permalink, "releaseNotes.html")
 	areEqual(content.includes("Scroll the language is now called"), true)
+}
+
+testTree.ensureNoErrorsInGrammar = areEqual => {
+	const grammarErrors = new grammarNode(new DefaultScrollCompiler().getDefinition().toString()).getAllErrors().map(err => err.toObject())
+	if (grammarErrors.length) console.log(grammarErrors)
+	areEqual(grammarErrors.length, 0, "no errors in scroll standard library grammar")
 }
 
 testTree.watchCommand = async areEqual => {

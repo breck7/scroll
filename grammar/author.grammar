@@ -1,10 +1,9 @@
 authorNode
- description Prints an author byline with a link to a page for the author.
+ description Prints an author byline with an optional link to a page for the author.
  extends abstractScrollNode
  cruxFromId
  cells keywordCell urlCell
  catchAllCellType personNameCell
- description The author of a post.
  example
   comment With Link:
   author https://breckyunits.com Breck Yunits

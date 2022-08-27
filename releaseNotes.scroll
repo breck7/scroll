@@ -3,6 +3,10 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 28.3.1 8-27-2022
+list
+ - 🏥 fixed minor grammar typo and added test
+
 section 28.3.0 8-27-2022
 list
  - 🎉 added `author` and `kpiTable` node types
