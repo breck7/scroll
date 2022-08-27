@@ -154,6 +154,12 @@ code
  tr:nth-child(even)
   background rgba(224,224,224,.6)
 
+.scrollAuthor
+ font-size 12px
+ font-style italic
+ margin 4px 0
+ text-align center
+
 .scrollKpiTable
  width 100%
  font-size 30px

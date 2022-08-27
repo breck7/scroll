@@ -18,6 +18,8 @@ permalinkCell
 commentCell
  highlightScope comment
 blankCell
+personNameCell
+ extends stringCell
 codeCell
  highlightScope comment
 bulletPointCell

@@ -1,0 +1,17 @@
+authorNode
+ description Prints an author byline with a link to a page for the author.
+ extends abstractScrollNode
+ cruxFromId
+ cells keywordCell urlCell
+ catchAllCellType personNameCell
+ description The author of a post.
+ example
+  comment With Link:
+  author https://breckyunits.com Breck Yunits
+  comment No link:
+  author  Breck Yunits
+ javascript
+  compile() {
+   const link = this.getWord(1)
+   return `<div class="scrollAuthor">by <a ${link ? `href="${link}"` : ""}>${this.getWordsFrom(2).join(" ")}</a></div>`
+  }
