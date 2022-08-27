@@ -105,7 +105,7 @@ const getOneGrammarFromFiles = files => {
 const DefaultGrammarFiles = Disk.getFiles(path.join(__dirname, "grammar")).filter(file => file.endsWith(GRAMMAR_EXTENSION))
 const compilerCache = new Map()
 const getCompiler = filePaths => {
-	const key = filePaths.join("\n")
+	const key = filePaths.filter(fp => fp).join("\n")
 	const hit = compilerCache.get(key)
 	if (hit) return hit
 	const grammarCode = getOneGrammarFromFiles(filePaths)
@@ -973,4 +973,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollCompiler, SCROLL_CSS }
+module.exports = { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollCompiler, SCROLL_CSS, getFullyExpandedFile }
