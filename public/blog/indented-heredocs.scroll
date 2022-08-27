@@ -83,7 +83,7 @@ textile
 bbCode
  [u]bbCode rules![/u]
 
-paragraph
+aftertext
  More extensive examples are pasted below. Source is here.
  https://github.com/breck7/scroll/blob/main/public/blog/indented-heredocs.scroll here
 
