@@ -972,4 +972,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollCompiler, SCROLL_CSS, getFullyExpandedFile }
+module.exports = { ScrollFile, ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollCompiler, SCROLL_CSS, getFullyExpandedFile }
