@@ -3,6 +3,10 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 29.0.0 8-28-2022
+list
+ - ⚠️ BREAKING: if using programatically instead of ScrollPage use ScrollFile
+
 section 28.3.2 8-27-2022
 list
  - 🏥 fixed bug with open graph image tags

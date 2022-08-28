@@ -213,7 +213,7 @@ const SCROLL_ICONS = {
 }
 
 class ScrollFile {
-	constructor(originalScrollCode, folder, filePath) {
+	constructor(originalScrollCode = "", folder = new ScrollFolder(), filePath = "") {
 		this.folder = folder
 		this.filePath = filePath
 		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
@@ -662,18 +662,6 @@ class SnippetsGroupTemplate extends GroupTemplate {
 	property = "htmlCodeForSnippetsPage"
 }
 
-class ScrollPage {
-	constructor(content = "") {
-		this.content = content
-	}
-
-	content = ""
-
-	get html() {
-		return new ScrollFile(this.content, new ScrollFolder(), "").html
-	}
-}
-
 class ScrollFolder {
 	constructor(folder = __dirname) {
 		this.folder = path.normalize(folder)
@@ -972,4 +960,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFile, ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollCompiler, SCROLL_CSS, getFullyExpandedFile }
+module.exports = { ScrollFile, ScrollFolder, ScrollCli, scrollKeywords, DefaultScrollCompiler, SCROLL_CSS, getFullyExpandedFile }

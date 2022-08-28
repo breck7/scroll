@@ -4,7 +4,7 @@ const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
 const { jtree } = require("jtree")
-const { ScrollFolder, ScrollCli, scrollKeywords, ScrollPage, DefaultScrollCompiler } = require("../scroll.js")
+const { ScrollFolder, ScrollCli, scrollKeywords, ScrollFile, DefaultScrollCompiler } = require("../scroll.js")
 const { Disk } = require("jtree/products/Disk.node.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 const shell = require("child_process").execSync
@@ -140,7 +140,7 @@ testTree.cli = async areEqual => {
 
 testTree.standalonePage = areEqual => {
 	// Arrange
-	const page = new ScrollPage(`title A standalone page
+	const page = new ScrollFile(`title A standalone page
 paragraph
  Blue sky`)
 	// Act/Assert
