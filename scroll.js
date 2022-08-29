@@ -67,6 +67,11 @@ const getAllImportFilePaths = absoluteFilePath => {
 
 	let imports = []
 	const codeAsTree = getFileAsTree(absoluteFilePath)
+	if (!codeAsTree.has(scrollKeywords.import)) {
+		importFilePathCache[absoluteFilePath] = []
+		return importFilePathCache[absoluteFilePath]
+	}
+
 	const folder = path.dirname(absoluteFilePath)
 	// Apply imports
 	codeAsTree.findNodes(scrollKeywords.import).forEach(node => {
@@ -75,19 +80,33 @@ const getAllImportFilePaths = absoluteFilePath => {
 		imports = imports.concat(getAllImportFilePaths(absoluteFilePath))
 	})
 	importFilePathCache[absoluteFilePath] = imports
-	return imports
+	return importFilePathCache[absoluteFilePath]
 }
 
 const expandedImportCache = {}
 const getFullyExpandedFile = absoluteFilePath => {
 	if (expandedImportCache[absoluteFilePath]) return expandedImportCache[absoluteFilePath]
+	let importFilePaths = []
 
 	const codeAsTree = getFileAsTree(absoluteFilePath)
-	const folder = path.dirname(absoluteFilePath)
 	// Apply imports
-	codeAsTree.findNodes(scrollKeywords.import).forEach(node => node.replaceNode(str => getFullyExpandedFile(path.join(folder, node.getContent()))))
+	if (codeAsTree.has(scrollKeywords.import)) {
+		const folder = path.dirname(absoluteFilePath)
+		codeAsTree.findNodes(scrollKeywords.import).forEach(node => {
+			const absoluteImportFilePath = path.join(folder, node.getContent())
+			const expandedFile = getFullyExpandedFile(absoluteImportFilePath)
+			node.replaceNode(str => expandedFile.code)
+			importFilePaths.push(absoluteImportFilePath)
+			importFilePaths = importFilePaths.concat(expandedFile.importFilePaths)
+		})
+	}
 
-	expandedImportCache[absoluteFilePath] = codeAsTree.toString().replace("importOnly", "")
+	const code = codeAsTree.has(scrollKeywords.importOnly) ? codeAsTree.toString().replace(scrollKeywords.importOnly, "") : codeAsTree.toString()
+
+	expandedImportCache[absoluteFilePath] = {
+		code,
+		importFilePaths
+	}
 	return expandedImportCache[absoluteFilePath]
 }
 
@@ -220,17 +239,17 @@ const evalVariables = code => {
 	const codeAsTree = new TreeNode(code)
 	// Process variables
 	const varMap = {}
-	codeAsTree.findNodes(scrollKeywords.replaceDefault).forEach(node => {
-		varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")
-	})
-	codeAsTree.findNodes(scrollKeywords.replace).forEach(node => {
-		varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")
-	})
-	let codeAfterVariableSubstitution = codeAsTree.toString()
 
-	Object.keys(varMap).forEach(key => {
-		codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])
-	})
+	if (codeAsTree.has(scrollKeywords.replaceDefault)) codeAsTree.findNodes(scrollKeywords.replaceDefault).forEach(node => (varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")))
+
+	if (codeAsTree.has(scrollKeywords.replace)) codeAsTree.findNodes(scrollKeywords.replace).forEach(node => (varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")))
+
+	const keys = Object.keys(varMap)
+	if (!keys.length) return code
+
+	let codeAfterVariableSubstitution = code
+	// Todo: speed up
+	Object.keys(varMap).forEach(key => (codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])))
 
 	return codeAfterVariableSubstitution
 }
@@ -259,34 +278,29 @@ class ScrollFile {
 		this.filename = path.basename(this.filePath)
 		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
 
-		const codeAsTree = absoluteFilePath ? getFileAsTree(absoluteFilePath) : new TreeNode(originalScrollCode)
-
-		// Do not build a file marked 'importOnly'
-		this.shouldBuild = !codeAsTree.has(scrollKeywords.importOnly)
-
 		let afterImportPass = originalScrollCode
-
-		const importFilePaths = absoluteFilePath ? getAllImportFilePaths(absoluteFilePath) : []
-		// If no file path (runtime usage) or imports skip import compilation pass
-		if (absoluteFilePath && importFilePaths.length) afterImportPass = getFullyExpandedFile(absoluteFilePath)
+		let filepathsWithGrammarDefinitions = []
+		if (absoluteFilePath) {
+			// Do not build a file marked 'importOnly'
+			this.shouldBuild = !getFileAsTree(absoluteFilePath).has(scrollKeywords.importOnly)
+			const expandedFile = getFullyExpandedFile(absoluteFilePath)
+			filepathsWithGrammarDefinitions = expandedFile.importFilePaths.filter(doesFileHaveGrammarDefinitions)
+			if (doesFileHaveGrammarDefinitions(absoluteFilePath)) filepathsWithGrammarDefinitions.push(absoluteFilePath)
+			afterImportPass = expandedFile.code
+		}
 
 		const afterVariablePass = evalVariables(afterImportPass)
 
-		const filepathsWithGrammarDefinitions = importFilePaths.filter(doesFileHaveGrammarDefinitions)
+		// Compile with STD LIB or custom compiler if there are grammar defs defined
+		this.scrollScriptProgram = filepathsWithGrammarDefinitions.length ? new (getCompiler(DefaultGrammarFiles.concat(filepathsWithGrammarDefinitions)))(afterVariablePass) : new DefaultScrollCompiler(afterVariablePass)
+
 		this.scrollFilesWithGrammarNodeDefinitions = filepathsWithGrammarDefinitions
-		if (doesFileHaveGrammarDefinitions(absoluteFilePath)) filepathsWithGrammarDefinitions.push(absoluteFilePath)
-
-		if (!filepathsWithGrammarDefinitions.length) this.scrollScriptProgram = new DefaultScrollCompiler(afterVariablePass)
-		else {
-			const scrollScriptCompiler = getCompiler(DefaultGrammarFiles.concat(filepathsWithGrammarDefinitions))
-			this.scrollScriptProgram = new scrollScriptCompiler(afterVariablePass)
-		}
-
 		this.scrollScriptProgram.setFile(this)
 		this.timestamp = dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
 		this.permalink = this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
 	}
 
+	shouldBuild = true
 	filePath = ""
 
 	get template() {
