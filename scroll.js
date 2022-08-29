@@ -370,8 +370,21 @@ class ScrollFile {
 		return this.scrollScriptProgram.get(scrollKeywords.htmlTitle)
 	}
 
+	get(keyword) {
+		return this.scrollScriptProgram.get(keyword)
+	}
+
+	get siteTitle() {
+		return this.get(scrollKeywords.siteTitle)
+	}
+
+	get siteDescription() {
+		return this.get(scrollKeywords.siteDescription)
+	}
+
 	get viewSourceUrl() {
-		const { viewSourceUrl, viewSourceBaseUrl } = this.object
+		const viewSourceUrl = this.get(scrollKeywords.viewSourceUrl)
+		const viewSourceBaseUrl = this.get(scrollKeywords.viewSourceBaseUrl)
 		return viewSourceUrl || (viewSourceBaseUrl ? viewSourceBaseUrl.replace(/\/$/, "") + "/" + path.basename(this.filePath) : "")
 	}
 
@@ -406,7 +419,7 @@ class ScrollFile {
 	// todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
 	// BaseUrl must be provided for RSS Feeds and OpenGraph tags to work
 	get baseUrl() {
-		return this.object.baseUrl ?? ""
+		return this.scrollScriptProgram.get(scrollKeywords.baseUrl) ?? ""
 	}
 
 	toRss() {
@@ -416,16 +429,11 @@ class ScrollFile {
   <link>${baseUrl + permalink}</link>
  </item>`
 	}
-
-	get object() {
-		return this.scrollScriptProgram.toObject()
-	}
 }
 
 class AbstractTemplate {
 	constructor(file) {
 		this.file = file
-		this.object = file.object
 	}
 
 	get folder() {
@@ -437,23 +445,23 @@ class AbstractTemplate {
 	}
 
 	get siteTitle() {
-		return this.object.siteTitle
+		return this.file.siteTitle
 	}
 
 	get siteDescription() {
-		return this.object.siteDescription
+		return this.file.siteDescription
 	}
 
 	get github() {
-		return this.object.github
+		return this.file.get(scrollKeywords.github)
 	}
 
 	get email() {
-		return this.object.email
+		return this.file.get(scrollKeywords.email)
 	}
 
 	get twitter() {
-		return this.object.twitter
+		return this.file.get(scrollKeywords.twitter)
 	}
 
 	get header() {
@@ -494,18 +502,18 @@ class AbstractTemplate {
 	}
 
 	get columnWidth() {
-		return this.object.columnWidth ?? DEFAULT_COLUMN_WIDTH
+		return this.file.get(scrollKeywords.columnWidth) ?? DEFAULT_COLUMN_WIDTH
 	}
 
 	get maxColumns() {
 		// If undefined will be autocomputed
-		return this.object.maxColumns
+		return this.file.get(scrollKeywords.maxColumns)
 	}
 
 	// Todo: scroll.css link thing fix.
 	get styleCode() {
 		// Default is to inline CSS. Otherwise we can split it into a sep file.
-		const cssFile = this.object[scrollKeywords.scrollCss]
+		const cssFile = this.file.get(scrollKeywords.scrollCss)
 
 		if (cssFile === "") return ""
 
@@ -521,7 +529,7 @@ class AbstractTemplate {
 	}
 
 	get rssTag() {
-		const { rssFeedUrl } = this.object
+		const rssFeedUrl = this.file.get(scrollKeywords.rssFeedUrl)
 		if (!rssFeedUrl) return ""
 		return `link
  rel alternate
