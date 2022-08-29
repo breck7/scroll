@@ -635,7 +635,7 @@ list
 
 section 7.0.0 04-03-2021
 list
- - ⚠️ Scroll the language is now called ScrollScript (thanks FB!).
+ - ⚠️ Scroll the language is now called Scrolldown (thanks FB!).
  - 🏥 Bug fixes.
  - 🎉 Better perf.
 
