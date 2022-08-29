@@ -256,6 +256,7 @@ class ScrollFile {
 	constructor(originalScrollCode = "", folder = new ScrollFolder(), absoluteFilePath = "") {
 		this.folder = folder
 		this.filePath = absoluteFilePath
+		this.filename = path.basename(this.filePath)
 		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
 
 		const codeAsTree = absoluteFilePath ? getFileAsTree(absoluteFilePath) : new TreeNode(originalScrollCode)
@@ -282,13 +283,11 @@ class ScrollFile {
 		}
 
 		this.scrollScriptProgram.setFile(this)
+		this.timestamp = dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
+		this.permalink = this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
 	}
 
 	filePath = ""
-
-	get filename() {
-		return path.basename(this.filePath)
-	}
 
 	get template() {
 		const templates = {
@@ -320,10 +319,6 @@ class ScrollFile {
 
 	save() {
 		write(`${this.filePath}`, this.scrollScriptProgram.toString())
-	}
-
-	get permalink() {
-		return this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
 	}
 
 	// todo: add an openGraph node type to define this stuff manually
@@ -364,10 +359,6 @@ class ScrollFile {
 	get viewSourceUrl() {
 		const { viewSourceUrl, viewSourceBaseUrl } = this.object
 		return viewSourceUrl || (viewSourceBaseUrl ? viewSourceBaseUrl.replace(/\/$/, "") + "/" + path.basename(this.filePath) : "")
-	}
-
-	get timestamp() {
-		return dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
 	}
 
 	_compiled = ""
