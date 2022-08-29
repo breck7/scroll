@@ -61,28 +61,6 @@ const readFileWithCache = path => {
 	return readFileCache[path]
 }
 
-const importFilePathCache = {}
-const getAllImportFilePaths = absoluteFilePath => {
-	if (importFilePathCache[absoluteFilePath]) return importFilePathCache[absoluteFilePath]
-
-	let imports = []
-	const codeAsTree = getFileAsTree(absoluteFilePath)
-	if (!codeAsTree.has(scrollKeywords.import)) {
-		importFilePathCache[absoluteFilePath] = []
-		return importFilePathCache[absoluteFilePath]
-	}
-
-	const folder = path.dirname(absoluteFilePath)
-	// Apply imports
-	codeAsTree.findNodes(scrollKeywords.import).forEach(node => {
-		const absoluteFilePath = path.join(folder, node.getContent())
-		imports.push(absoluteFilePath)
-		imports = imports.concat(getAllImportFilePaths(absoluteFilePath))
-	})
-	importFilePathCache[absoluteFilePath] = imports
-	return importFilePathCache[absoluteFilePath]
-}
-
 const expandedImportCache = {}
 const getFullyExpandedFile = absoluteFilePath => {
 	if (expandedImportCache[absoluteFilePath]) return expandedImportCache[absoluteFilePath]
@@ -101,10 +79,8 @@ const getFullyExpandedFile = absoluteFilePath => {
 		})
 	}
 
-	const code = codeAsTree.has(scrollKeywords.importOnly) ? codeAsTree.toString().replace(scrollKeywords.importOnly, "") : codeAsTree.toString()
-
 	expandedImportCache[absoluteFilePath] = {
-		code,
+		code: codeAsTree.toString(), // todo: no need to turn it back into string here
 		importFilePaths
 	}
 	return expandedImportCache[absoluteFilePath]
@@ -346,6 +322,8 @@ class ScrollFile {
 
 	// todo: add an openGraph node type to define this stuff manually
 	// Use the first paragraph for the description
+	// todo: add a tree method version of get that gets you the first node. (actulaly make get return array?)
+	// would speed up a lot.
 	get openGraphDescription() {
 		const program = this.scrollScriptProgram
 		for (let node of program.getTopDownArrayIterator()) {
