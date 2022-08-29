@@ -165,7 +165,7 @@ testTree.initCommand = async areEqual => {
 
 		// Assert
 		areEqual(pages[0].html.includes("Powered by Scroll"), true)
-		areEqual(pages.length, 4)
+		areEqual(pages.length, 4, "should have 4 pagee")
 		areEqual(folder.errors.flat().length, 0)
 	} catch (err) {
 		console.log(err)
