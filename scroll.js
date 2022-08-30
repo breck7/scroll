@@ -664,15 +664,14 @@ class ScrollFolder {
 		return new grammarNode(getOneGrammarFromFiles(grammarFiles)).getAllErrors().map(err => err.toObject())
 	}
 
-	get fullFilePaths() {
-		return Disk.getFiles(this.folder)
+	get fullScrollFilePaths() {
+		return Disk.getFiles(this.folder).filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
 	}
 
 	_files
 	get files() {
 		if (this._files) return this._files
-		const { fullFilePaths } = this
-		const all = fullFilePaths.filter(file => file.endsWith(SCROLL_FILE_EXTENSION)).map(fullFilePath => new ScrollFile(readFileWithCache(fullFilePath), this, fullFilePath))
+		const all = this.fullScrollFilePaths.map(fullFilePath => new ScrollFile(readFileWithCache(fullFilePath), this, fullFilePath))
 		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
 		return this._files
 	}
