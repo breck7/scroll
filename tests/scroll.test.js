@@ -165,7 +165,7 @@ testTree.initCommand = async areEqual => {
 
 		// Assert
 		areEqual(pages[0].html.includes("Powered by Scroll"), true)
-		areEqual(pages.length, 4)
+		areEqual(pages.length, 4, "should have 4 pagee")
 		areEqual(folder.errors.flat().length, 0)
 	} catch (err) {
 		console.log(err)
@@ -184,6 +184,7 @@ testTree.kitchenSink = async areEqual => {
 		// Assert
 		areEqual(groupPage.includes("CustomHeader"), true, "should have custom header")
 		areEqual(groupPage.includes("CustomFooter"), true, "should have custom footer")
+		areEqual(groupPage.includes("NUM_SINKS"), false, "var substitution worked")
 		areEqual(fs.existsSync(path.join(kitchenSinkFolder, "full.html")), true, "should have full page")
 	} catch (err) {
 		console.log(err)

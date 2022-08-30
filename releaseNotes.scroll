@@ -3,6 +3,11 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 30.0.0 8-29-2022
+list
+ - 🎉 Perf: ~2x as fast
+ - ⚠️ BREAKING: If using any ScrollFile programatically, a few undocumented getters may have changed.
+
 section 29.0.0 8-28-2022
 list
  - ⚠️ BREAKING: if using programatically instead of ScrollPage use ScrollFile

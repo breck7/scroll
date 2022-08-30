@@ -3,7 +3,7 @@ import settings.scroll
 
 author https://breckyunits.com Breck Yunits
 
-replace NUM_SINKS 10
+replace NUM_SINKS 283
 
 keyboardNav
 

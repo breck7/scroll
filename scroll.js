@@ -11,7 +11,7 @@ const open = require("open")
 
 // Tree Notation Includes
 const { jtree } = require("jtree")
-const { TreeNode, Utils } = jtree
+const { TreeNode } = jtree
 const { Disk } = require("jtree/products/Disk.node.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
@@ -55,42 +55,55 @@ const SCROLL_FILE_EXTENSION = ".scroll"
 const GRAMMAR_EXTENSION = ".grammar"
 const grammarDefinitionRegex = /[a-zA-Z0-9_]+Node/
 
-const importCache = {}
-const getFile = path => {
-	if (!importCache[path]) importCache[path] = Disk.read(path)
-	return importCache[path]
-}
-
-const getAllImports = absoluteFilePath => {
-	let imports = []
-	const codeAsTree = new TreeNode(read(absoluteFilePath))
-	const folder = path.dirname(absoluteFilePath)
-	// Apply imports
-	codeAsTree.findNodes(scrollKeywords.import).forEach(node => {
-		const absoluteFilePath = path.join(folder, node.getContent())
-		imports.push(absoluteFilePath)
-		imports = imports.concat(getAllImports(absoluteFilePath))
-	})
-	return imports
+const readFileCache = {}
+const readFileWithCache = path => {
+	if (!readFileCache[path]) readFileCache[path] = Disk.read(path)
+	return readFileCache[path]
 }
 
 const expandedImportCache = {}
+// A regex to check if a multiline string has a line that starts with "import ".
+const importRegex = /^import /gm
 const getFullyExpandedFile = absoluteFilePath => {
 	if (expandedImportCache[absoluteFilePath]) return expandedImportCache[absoluteFilePath]
+	const code = readFileWithCache(absoluteFilePath)
 
-	const codeAsTree = new TreeNode(read(absoluteFilePath))
-	const folder = path.dirname(absoluteFilePath)
-	// Apply imports
-	codeAsTree.findNodes(scrollKeywords.import).forEach(node => node.replaceNode(str => getFullyExpandedFile(path.join(folder, node.getContent()))))
+	if (!code.match(importRegex))
+		return {
+			code,
+			importFilePaths: []
+		}
 
-	expandedImportCache[absoluteFilePath] = codeAsTree.toString().replace("importOnly", "")
+	let importFilePaths = []
+	const lines = code.split("\n")
+	const replacements = []
+	lines.forEach((line, index) => {
+		const folder = path.dirname(absoluteFilePath)
+		if (line.match(importRegex)) {
+			const absoluteImportFilePath = path.join(folder, line.replace("import ", ""))
+			const expandedFile = getFullyExpandedFile(absoluteImportFilePath)
+			replacements.push([index, expandedFile.code])
+			importFilePaths.push(absoluteImportFilePath)
+			importFilePaths = importFilePaths.concat(expandedFile.importFilePaths)
+		}
+	})
+
+	replacements.forEach(replacement => {
+		const [lineNumber, text] = replacement
+		lines[lineNumber] = text
+	})
+
+	expandedImportCache[absoluteFilePath] = {
+		code: lines.join("\n"),
+		importFilePaths
+	}
 	return expandedImportCache[absoluteFilePath]
 }
 
 const getOneGrammarFromFiles = files => {
 	const asOneFile = files
 		.map(filePath => {
-			const content = getFile(filePath)
+			const content = readFileWithCache(filePath)
 			if (filePath.endsWith(GRAMMAR_EXTENSION)) return content
 			// Strip scroll content
 			return new TreeNode(content)
@@ -100,6 +113,7 @@ const getOneGrammarFromFiles = files => {
 		})
 		.join("\n")
 		.trim()
+	// todo: speed up format.
 	return new grammarNode(asOneFile).format().toString()
 }
 // Default compiler
@@ -212,86 +226,78 @@ const SCROLL_ICONS = {
 	emailSvg: `<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Gmail icon</title><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>`
 }
 
-class ScrollFile {
-	constructor(originalScrollCode = "", folder = new ScrollFolder(), filePath = "") {
-		this.folder = folder
-		this.filePath = filePath
-		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
-		this.originalScrollCode = originalScrollCode
-		this._parseProgram()
+const evalVariables = code => {
+	const codeAsTree = new TreeNode(code)
+	// Process variables
+	const varMap = {}
+
+	const addToMap = line => {
+		const parts = line.split(" ")
+		const name = parts[1]
+		const value = parts.slice(2).join(" ")
+		varMap[name] = value
 	}
 
-	originalScrollCode = ""
-	filePath = ""
+	code.match(/^replaceDefault .+$/gm)?.forEach(addToMap)
+	code.match(/^replace .+$/gm)?.forEach(addToMap)
 
-	_parseProgram() {
-		const { scrollFilesWithGrammarNodeDefinitions } = this
+	const keys = Object.keys(varMap)
+	if (!keys.length) return code
 
-		const folder = this.folder.folder
+	let codeAfterVariableSubstitution = code
+	// Todo: speed up. build a template?
+	Object.keys(varMap).forEach(key => (codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])))
 
-		const codeAsTree = new TreeNode(this.originalScrollCode)
+	return codeAfterVariableSubstitution
+}
 
-		// Apply imports
-		codeAsTree.findNodes(scrollKeywords.import).forEach(node => {
-			const absoluteFilePath = path.join(folder, node.getContent())
-			node.replaceNode(str => getFullyExpandedFile(absoluteFilePath))
-		})
+const _grammarExpandersCache = {}
+const doesFileHaveGrammarDefinitions = absoluteFilePath => {
+	if (!absoluteFilePath) return false
+	if (_grammarExpandersCache[absoluteFilePath] === undefined) _grammarExpandersCache[absoluteFilePath] = !!readFileWithCache(absoluteFilePath).match(/^[a-zA-Z0-9_]+Node/gm)
 
-		// Process variables
-		const varMap = {}
-		codeAsTree.findNodes(scrollKeywords.replaceDefault).forEach(node => {
-			varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")
-		})
-		codeAsTree.findNodes(scrollKeywords.replace).forEach(node => {
-			varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")
-		})
+	return _grammarExpandersCache[absoluteFilePath]
+}
 
-		let codeAfterVariableSubstitution = codeAsTree.toString()
+const _treeCache = {}
+const getFileAsTree = absoluteFilePath => {
+	if (_treeCache[absoluteFilePath] === undefined) {
+		_treeCache[absoluteFilePath] = new TreeNode(read(absoluteFilePath))
+	}
+	return _treeCache[absoluteFilePath]
+}
 
-		Object.keys(varMap).forEach(key => {
-			codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])
-		})
+class ScrollFile {
+	constructor(originalScrollCode = "", folder = new ScrollFolder(), absoluteFilePath = "") {
+		this.folder = folder
+		this.filePath = absoluteFilePath
+		this.filename = path.basename(this.filePath)
+		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
 
-		if (!scrollFilesWithGrammarNodeDefinitions.length) this.scrollScriptProgram = new DefaultScrollCompiler(codeAfterVariableSubstitution)
-		else {
-			const scrollScriptCompiler = getCompiler(DefaultGrammarFiles.concat(scrollFilesWithGrammarNodeDefinitions))
-			this.scrollScriptProgram = new scrollScriptCompiler(codeAfterVariableSubstitution)
+		let afterImportPass = originalScrollCode
+		let filepathsWithGrammarDefinitions = []
+		if (absoluteFilePath) {
+			// Do not build a file marked 'importOnly'
+			this.shouldBuild = !getFileAsTree(absoluteFilePath).has(scrollKeywords.importOnly)
+			const expandedFile = getFullyExpandedFile(absoluteFilePath)
+			filepathsWithGrammarDefinitions = expandedFile.importFilePaths.filter(doesFileHaveGrammarDefinitions)
+			if (doesFileHaveGrammarDefinitions(absoluteFilePath)) filepathsWithGrammarDefinitions.push(absoluteFilePath)
+			afterImportPass = expandedFile.code
 		}
 
+		const afterVariablePass = evalVariables(afterImportPass)
+
+		// Compile with STD LIB or custom compiler if there are grammar defs defined
+		this.scrollScriptProgram = filepathsWithGrammarDefinitions.length ? new (getCompiler(DefaultGrammarFiles.concat(filepathsWithGrammarDefinitions)))(afterVariablePass) : new DefaultScrollCompiler(afterVariablePass)
+
+		this.scrollFilesWithGrammarNodeDefinitions = filepathsWithGrammarDefinitions
 		this.scrollScriptProgram.setFile(this)
+		this.timestamp = dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
+		this.permalink = this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
 	}
 
-	// todo: currently only 1 level supported
-	get importFilePaths() {
-		let imports = []
-		const folder = this.folder.folder
-		const codeAsTree = new TreeNode(this.originalScrollCode)
-		codeAsTree.findNodes(scrollKeywords.import).forEach(node => {
-			const absoluteFilePath = path.join(folder, node.getContent())
-			imports.push(absoluteFilePath)
-			imports = imports.concat(getAllImports(absoluteFilePath))
-		})
-
-		return imports
-	}
-
-	get scrollFilesWithGrammarNodeDefinitions() {
-		const filepathsWithGrammarDefinitions = this.importFilePaths.filter(filename => {
-			const content = getFile(filename)
-			return content.match(grammarDefinitionRegex)
-		})
-		if (this.originalScrollCode.match(grammarDefinitionRegex)) filepathsWithGrammarDefinitions.push(this.filePath)
-		return filepathsWithGrammarDefinitions
-	}
-
-	get filename() {
-		return path.basename(this.filePath)
-	}
-
-	// Do not build a file marked 'importOnly'
-	get shouldBuild() {
-		return !this.scrollScriptProgram.has(scrollKeywords.importOnly)
-	}
+	shouldBuild = true
+	filePath = ""
 
 	get template() {
 		const templates = {
@@ -325,10 +331,6 @@ class ScrollFile {
 		write(`${this.filePath}`, this.scrollScriptProgram.toString())
 	}
 
-	get permalink() {
-		return this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
-	}
-
 	// todo: add an openGraph node type to define this stuff manually
 	get openGraphImage() {
 		const node = this.scrollScriptProgram.getNode(scrollKeywords.image)
@@ -340,6 +342,8 @@ class ScrollFile {
 
 	// todo: add an openGraph node type to define this stuff manually
 	// Use the first paragraph for the description
+	// todo: add a tree method version of get that gets you the first node. (actulaly make get return array?)
+	// would speed up a lot.
 	get openGraphDescription() {
 		const program = this.scrollScriptProgram
 		for (let node of program.getTopDownArrayIterator()) {
@@ -364,13 +368,22 @@ class ScrollFile {
 		return this.scrollScriptProgram.get(scrollKeywords.htmlTitle)
 	}
 
-	get viewSourceUrl() {
-		const { viewSourceUrl, viewSourceBaseUrl } = this.object
-		return viewSourceUrl || (viewSourceBaseUrl ? viewSourceBaseUrl.replace(/\/$/, "") + "/" + path.basename(this.filePath) : "")
+	get(keyword) {
+		return this.scrollScriptProgram.get(keyword)
 	}
 
-	get timestamp() {
-		return dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
+	get siteTitle() {
+		return this.get(scrollKeywords.siteTitle)
+	}
+
+	get siteDescription() {
+		return this.get(scrollKeywords.siteDescription)
+	}
+
+	get viewSourceUrl() {
+		const viewSourceUrl = this.get(scrollKeywords.viewSourceUrl)
+		const viewSourceBaseUrl = this.get(scrollKeywords.viewSourceBaseUrl)
+		return viewSourceUrl || (viewSourceBaseUrl ? viewSourceBaseUrl.replace(/\/$/, "") + "/" + path.basename(this.filePath) : "")
 	}
 
 	_compiled = ""
@@ -404,7 +417,7 @@ class ScrollFile {
 	// todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
 	// BaseUrl must be provided for RSS Feeds and OpenGraph tags to work
 	get baseUrl() {
-		return this.object.baseUrl ?? ""
+		return this.scrollScriptProgram.get(scrollKeywords.baseUrl) ?? ""
 	}
 
 	toRss() {
@@ -414,16 +427,11 @@ class ScrollFile {
   <link>${baseUrl + permalink}</link>
  </item>`
 	}
-
-	get object() {
-		return this.scrollScriptProgram.toObject()
-	}
 }
 
 class AbstractTemplate {
 	constructor(file) {
 		this.file = file
-		this.object = file.object
 	}
 
 	get folder() {
@@ -435,23 +443,23 @@ class AbstractTemplate {
 	}
 
 	get siteTitle() {
-		return this.object.siteTitle
+		return this.file.siteTitle
 	}
 
 	get siteDescription() {
-		return this.object.siteDescription
+		return this.file.siteDescription
 	}
 
 	get github() {
-		return this.object.github
+		return this.file.get(scrollKeywords.github)
 	}
 
 	get email() {
-		return this.object.email
+		return this.file.get(scrollKeywords.email)
 	}
 
 	get twitter() {
-		return this.object.twitter
+		return this.file.get(scrollKeywords.twitter)
 	}
 
 	get header() {
@@ -492,18 +500,18 @@ class AbstractTemplate {
 	}
 
 	get columnWidth() {
-		return this.object.columnWidth ?? DEFAULT_COLUMN_WIDTH
+		return this.file.get(scrollKeywords.columnWidth) ?? DEFAULT_COLUMN_WIDTH
 	}
 
 	get maxColumns() {
 		// If undefined will be autocomputed
-		return this.object.maxColumns
+		return this.file.get(scrollKeywords.maxColumns)
 	}
 
 	// Todo: scroll.css link thing fix.
 	get styleCode() {
 		// Default is to inline CSS. Otherwise we can split it into a sep file.
-		const cssFile = this.object[scrollKeywords.scrollCss]
+		const cssFile = this.file.get(scrollKeywords.scrollCss)
 
 		if (cssFile === "") return ""
 
@@ -519,7 +527,7 @@ class AbstractTemplate {
 	}
 
 	get rssTag() {
-		const { rssFeedUrl } = this.object
+		const rssFeedUrl = this.file.get(scrollKeywords.rssFeedUrl)
 		if (!rssFeedUrl) return ""
 		return `link
  rel alternate
@@ -676,15 +684,14 @@ class ScrollFolder {
 		return new grammarNode(getOneGrammarFromFiles(grammarFiles)).getAllErrors().map(err => err.toObject())
 	}
 
-	get fullFilePaths() {
-		return Disk.getFiles(this.folder)
+	get fullScrollFilePaths() {
+		return Disk.getFiles(this.folder).filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
 	}
 
 	_files
 	get files() {
 		if (this._files) return this._files
-		const { fullFilePaths } = this
-		const all = fullFilePaths.filter(file => file.endsWith(SCROLL_FILE_EXTENSION)).map(fullFilePath => new ScrollFile(read(fullFilePath), this, fullFilePath))
+		const all = this.fullScrollFilePaths.map(fullFilePath => new ScrollFile(readFileWithCache(fullFilePath), this, fullFilePath))
 		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
 		return this._files
 	}
@@ -790,7 +797,6 @@ class ScrollFolder {
 		return this._buildAndWriteFiles()
 	}
 
-	_publishedFiles = new Map()
 	_buildAndWriteFiles() {
 		const start = Date.now()
 		const { files, folder } = this
@@ -799,9 +805,7 @@ class ScrollFolder {
 		this.logIndent++
 		const pages = filesToBuild.map(file => {
 			const { permalink, html } = file
-			if (this._publishedFiles.get(permalink) === html) return "Unmodified"
 			this.write(permalink, html, `Wrote ${file.filename} to ${permalink}`)
-			this._publishedFiles.set(permalink, html)
 			return { permalink, html }
 		})
 		const seconds = (Date.now() - start) / 1000

@@ -11,7 +11,7 @@ printFeedNode
   const file = this.getRootNode().file
   const folder = file.folder
   const files = folder.getGroup(this.getWord(1))
-  const { siteTitle, baseUrl, siteDescription } = file.object
+  const { siteTitle, baseUrl, siteDescription } = file
         return `<?xml version="1.0" encoding="ISO-8859-1" ?>
   <rss version="0.91">
   <channel>
