@@ -113,6 +113,7 @@ const getOneGrammarFromFiles = files => {
 		})
 		.join("\n")
 		.trim()
+	// todo: speed up format.
 	return new grammarNode(asOneFile).format().toString()
 }
 // Default compiler
@@ -237,8 +238,8 @@ const evalVariables = code => {
 		varMap[name] = value
 	}
 
-	code.match(/^replaceDefault /g)?.forEach(addToMap)
-	code.match(/^replace /g)?.forEach(addToMap)
+	code.match(/^replaceDefault .+$/gm)?.forEach(addToMap)
+	code.match(/^replace .+$/gm)?.forEach(addToMap)
 
 	const keys = Object.keys(varMap)
 	if (!keys.length) return code

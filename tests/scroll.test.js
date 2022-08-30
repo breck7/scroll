@@ -184,6 +184,7 @@ testTree.kitchenSink = async areEqual => {
 		// Assert
 		areEqual(groupPage.includes("CustomHeader"), true, "should have custom header")
 		areEqual(groupPage.includes("CustomFooter"), true, "should have custom footer")
+		areEqual(groupPage.includes("NUM_SINKS"), false, "var substitution worked")
 		areEqual(fs.existsSync(path.join(kitchenSinkFolder, "full.html")), true, "should have full page")
 	} catch (err) {
 		console.log(err)
