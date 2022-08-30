@@ -100,8 +100,8 @@ const getFullyExpandedFile = absoluteFilePath => {
 	return expandedImportCache[absoluteFilePath]
 }
 
-const getOneGrammarFromFiles = files => {
-	const asOneFile = files
+const getOneGrammarFromFiles = filePaths => {
+	const asOneFile = filePaths
 		.map(filePath => {
 			const content = readFileWithCache(filePath)
 			if (filePath.endsWith(GRAMMAR_EXTENSION)) return content
@@ -113,22 +113,32 @@ const getOneGrammarFromFiles = files => {
 		})
 		.join("\n")
 		.trim()
-	// todo: speed up format.
-	return new grammarNode(asOneFile).format().toString()
+
+	// todo: clean up jtree so we are using supported methods (perhaps add a formatOptions that allows you to tell Grammar not to run prettier on js nodes)
+	return new grammarNode(asOneFile)
+		._sortNodesByInScopeOrder()
+		._sortWithParentNodeTypesUpTop()
+		.toString()
 }
 // Default compiler
 const DefaultGrammarFiles = Disk.getFiles(path.join(__dirname, "grammar")).filter(file => file.endsWith(GRAMMAR_EXTENSION))
-const compilerCache = new Map()
+const compilerCache = {}
 const getCompiler = filePaths => {
-	const key = filePaths.filter(fp => fp).join("\n")
-	const hit = compilerCache.get(key)
+	const key = filePaths
+		.filter(fp => fp)
+		.sort()
+		.join("\n")
+	const hit = compilerCache[key]
 	if (hit) return hit
 	const grammarCode = getOneGrammarFromFiles(filePaths)
 	const compiler = new jtree.HandGrammarProgram(grammarCode).compileAndReturnRootConstructor()
-	compilerCache.set(key, compiler)
-	return compiler
+	compilerCache[key] = {
+		grammarCode,
+		compiler
+	}
+	return compilerCache[key]
 }
-const DefaultScrollCompiler = getCompiler(DefaultGrammarFiles)
+const DefaultScrollCompiler = getCompiler(DefaultGrammarFiles).compiler
 
 // This is all the CSS
 const SCROLL_HAKON_FILENAME = "scroll.hakon"
@@ -288,7 +298,8 @@ class ScrollFile {
 		const afterVariablePass = evalVariables(afterImportPass)
 
 		// Compile with STD LIB or custom compiler if there are grammar defs defined
-		this.scrollScriptProgram = filepathsWithGrammarDefinitions.length ? new (getCompiler(DefaultGrammarFiles.concat(filepathsWithGrammarDefinitions)))(afterVariablePass) : new DefaultScrollCompiler(afterVariablePass)
+		const compiler = filepathsWithGrammarDefinitions.length === 0 ? DefaultScrollCompiler : getCompiler(DefaultGrammarFiles.concat(filepathsWithGrammarDefinitions)).compiler
+		this.scrollScriptProgram = new compiler(afterVariablePass)
 
 		this.scrollFilesWithGrammarNodeDefinitions = filepathsWithGrammarDefinitions
 		this.scrollScriptProgram.setFile(this)
@@ -680,19 +691,26 @@ class ScrollFolder {
 	}
 
 	get grammarErrors() {
-		const grammarFiles = DefaultGrammarFiles.concat(lodash.uniq(this.files.map(file => file.scrollFilesWithGrammarNodeDefinitions).flat()))
-		return new grammarNode(getOneGrammarFromFiles(grammarFiles)).getAllErrors().map(err => err.toObject())
+		this._initFiles() // Init all compilers
+		return Object.values(compilerCache)
+			.map(compiler => new grammarNode(compiler.grammarCode).getAllErrors().map(err => err.toObject()))
+			.flat()
 	}
 
 	get fullScrollFilePaths() {
 		return Disk.getFiles(this.folder).filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
 	}
 
+	_initFiles() {
+		if (this._files) return
+		const all = this.fullScrollFilePaths.map(fullFilePath => new ScrollFile(readFileWithCache(fullFilePath), this, fullFilePath))
+		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
+	}
+
 	_files
 	get files() {
 		if (this._files) return this._files
-		const all = this.fullScrollFilePaths.map(fullFilePath => new ScrollFile(readFileWithCache(fullFilePath), this, fullFilePath))
-		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
+		this._initFiles()
 		return this._files
 	}
 
