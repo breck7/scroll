@@ -62,25 +62,39 @@ const readFileWithCache = path => {
 }
 
 const expandedImportCache = {}
+// A regex to check if a multiline string has a line that starts with "import ".
+const importRegex = /^import /gm
 const getFullyExpandedFile = absoluteFilePath => {
 	if (expandedImportCache[absoluteFilePath]) return expandedImportCache[absoluteFilePath]
+	const code = readFileWithCache(absoluteFilePath)
+	
+	if (!code.match(importRegex))
+		return {
+			code,
+			importFilePaths: []
+		}
+	
 	let importFilePaths = []
-
-	const codeAsTree = getFileAsTree(absoluteFilePath)
-	// Apply imports
-	if (codeAsTree.has(scrollKeywords.import)) {
+	const lines = code.split("\n")
+	const replacements = []
+	lines.forEach((line, index) => {
 		const folder = path.dirname(absoluteFilePath)
-		codeAsTree.findNodes(scrollKeywords.import).forEach(node => {
-			const absoluteImportFilePath = path.join(folder, node.getContent())
+		if (line.match(importRegex)) {
+			const absoluteImportFilePath = path.join(folder, line.replace("import ", ""))
 			const expandedFile = getFullyExpandedFile(absoluteImportFilePath)
-			node.replaceNode(str => expandedFile.code)
+			replacements.push([index, expandedFile.code])
 			importFilePaths.push(absoluteImportFilePath)
 			importFilePaths = importFilePaths.concat(expandedFile.importFilePaths)
-		})
-	}
+		}
+	})
+
+	replacements.forEach(replacement => {
+		const [lineNumber, text] = replacement
+		lines[lineNumber] = text
+	})
 
 	expandedImportCache[absoluteFilePath] = {
-		code: codeAsTree.toString(), // todo: no need to turn it back into string here
+		code: lines.join("\n"),
 		importFilePaths
 	}
 	return expandedImportCache[absoluteFilePath]
