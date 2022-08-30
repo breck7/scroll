@@ -6,6 +6,7 @@ paragraph
 section 30.0.0 8-29-2022
 list
  - 🎉 Perf: ~2x as fast
+ - ⚠️ BREAKING: If using `getFullyExpandedFile(str)` replace with `getFullyExpandedFile(str).code`
  - ⚠️ BREAKING: If using any ScrollFile programatically, a few undocumented getters may have changed.
 
 section 29.0.0 8-28-2022
