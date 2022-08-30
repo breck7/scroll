@@ -226,8 +226,6 @@ const SCROLL_ICONS = {
 }
 
 const evalVariables = code => {
-
-
 	const codeAsTree = new TreeNode(code)
 	// Process variables
 	const varMap = {}
@@ -241,7 +239,7 @@ const evalVariables = code => {
 
 	code.match(/^replaceDefault /g)?.forEach(addToMap)
 	code.match(/^replace /g)?.forEach(addToMap)
-	
+
 	const keys = Object.keys(varMap)
 	if (!keys.length) return code
 
@@ -255,9 +253,8 @@ const evalVariables = code => {
 const _grammarExpandersCache = {}
 const doesFileHaveGrammarDefinitions = absoluteFilePath => {
 	if (!absoluteFilePath) return false
-	if (_grammarExpandersCache[absoluteFilePath] === undefined) {
-		_grammarExpandersCache[absoluteFilePath] = !!readFileWithCache(absoluteFilePath).match(grammarDefinitionRegex)
-	}
+	if (_grammarExpandersCache[absoluteFilePath] === undefined) _grammarExpandersCache[absoluteFilePath] = !!readFileWithCache(absoluteFilePath).match(/^[a-zA-Z0-9_]+Node/gm)
+
 	return _grammarExpandersCache[absoluteFilePath]
 }
 
