@@ -67,13 +67,13 @@ const importRegex = /^import /gm
 const getFullyExpandedFile = absoluteFilePath => {
 	if (expandedImportCache[absoluteFilePath]) return expandedImportCache[absoluteFilePath]
 	const code = readFileWithCache(absoluteFilePath)
-	
+
 	if (!code.match(importRegex))
 		return {
 			code,
 			importFilePaths: []
 		}
-	
+
 	let importFilePaths = []
 	const lines = code.split("\n")
 	const replacements = []
@@ -226,19 +226,27 @@ const SCROLL_ICONS = {
 }
 
 const evalVariables = code => {
+
+
 	const codeAsTree = new TreeNode(code)
 	// Process variables
 	const varMap = {}
 
-	if (codeAsTree.has(scrollKeywords.replaceDefault)) codeAsTree.findNodes(scrollKeywords.replaceDefault).forEach(node => (varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")))
+	const addToMap = line => {
+		const parts = line.split(" ")
+		const name = parts[1]
+		const value = parts.slice(2).join(" ")
+		varMap[name] = value
+	}
 
-	if (codeAsTree.has(scrollKeywords.replace)) codeAsTree.findNodes(scrollKeywords.replace).forEach(node => (varMap[node.getWord(1)] = node.getWordsFrom(2).join(" ")))
-
+	code.match(/^replaceDefault /g)?.forEach(addToMap)
+	code.match(/^replace /g)?.forEach(addToMap)
+	
 	const keys = Object.keys(varMap)
 	if (!keys.length) return code
 
 	let codeAfterVariableSubstitution = code
-	// Todo: speed up
+	// Todo: speed up. build a template?
 	Object.keys(varMap).forEach(key => (codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])))
 
 	return codeAfterVariableSubstitution
