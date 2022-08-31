@@ -1,5 +1,4 @@
 abstractTableNode
- abstract
  cruxFromId
  catchAllNodeType rowNode
  extends abstractScrollNode

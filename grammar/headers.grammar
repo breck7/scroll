@@ -1,5 +1,4 @@
 abstractHeaderNode
- abstract
  cruxFromId
  catchAllCellType stringCell
  extends abstractScrollNode

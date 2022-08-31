@@ -1,5 +1,4 @@
 abstractScrollNode
- abstract
  cells keywordCell
 blankLineNode
  description Blank lines compile to nothing in the HTML.

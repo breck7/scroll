@@ -12,7 +12,6 @@ templateNode
     return ""
   }
 abstractIntSettingNode
- abstract
  cruxFromId
  extends abstractSiteSettingNode
  cells keywordCell integerCell

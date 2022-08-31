@@ -1,18 +1,15 @@
 abstractSiteSettingNode
  extends abstractScrollNode
- abstract
  cells keywordCell
  javascript
   compile() {
     return ""
   }
 abstractUrlSettingNode
- abstract
  extends abstractSiteSettingNode
  cells keywordCell urlCell
  cruxFromId
 abstractSiteStringSettingNode
- abstract
  extends abstractSiteSettingNode
  catchAllCellType stringCell
  cruxFromId

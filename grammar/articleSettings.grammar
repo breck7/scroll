@@ -1,5 +1,4 @@
 abstractTopLevelSingleMetaNode
- abstract
  description Use these keywords once per file.
  extends abstractScrollNode
  cruxFromId
