@@ -150,8 +150,8 @@ const CommandFnDecoratorSuffix = "Command"
 const scrollBoilerplateCompiledMessage = `<!doctype html>
 <!--
 
- This page was compiled by 📜 Scroll, the public domain
- static site publishing software.
+ This page was compiled by 📜 Scroll, a public domain
+ programming language and static site publishing tool.
  
  https://scroll.pub
  

@@ -3,6 +3,10 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 30.1.1 8-30-2022
+list
+ - 🎉 Improve header message thanks to dg's feedback
+
 section 30.1.0 8-29-2022
 list
  - 🎉 Perf: ~2x as fast as v30.1
