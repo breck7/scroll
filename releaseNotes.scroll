@@ -3,6 +3,11 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 31.1.0 9-1-2022
+list
+ - 🎉 `replace` now supports multiline strings
+ - 🏥 fixed broken links bug if using keyboard nav without groups
+
 section 31.0.0 8-31-2022
 list
  - ⚠️ BREAKING: upgraded to jtree 56. This is not likely to break anyone. However, if you are extending Scroll with your own nodeTypes you will need to make sure that your abstract nodes (and *only* your abstract nodes) have an id that begins with `abstract`. You can then remove all occurrences of the keyword `abstract` from your grammar node definitions.

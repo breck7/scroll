@@ -18,5 +18,15 @@ kpiTable
  $0 budget
  3 countries
 
+replace TABLE
+ pipeTable
+  sinkManufacturer|country
+  Blue|USA
+  Red|Canada
+
+TABLE
+TABLE
+TABLE
+
 paragraph
  There are NUM_SINKS in my list.

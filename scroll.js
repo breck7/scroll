@@ -240,16 +240,14 @@ const evalVariables = code => {
 	const codeAsTree = new TreeNode(code)
 	// Process variables
 	const varMap = {}
-
-	const addToMap = line => {
-		const parts = line.split(" ")
-		const name = parts[1]
-		const value = parts.slice(2).join(" ")
-		varMap[name] = value
-	}
-
-	code.match(/^replaceDefault .+$/gm)?.forEach(addToMap)
-	code.match(/^replace .+$/gm)?.forEach(addToMap)
+	codeAsTree
+		.filter(node => {
+			const keyword = node.getWord(0)
+			return keyword === "replace" || keyword === "replaceDefault"
+		})
+		.forEach(node => {
+			varMap[node.getWord(1)] = node.length ? node.childrenToString() : node.getWord(2)
+		})
 
 	const keys = Object.keys(varMap)
 	if (!keys.length) return code
@@ -330,12 +328,16 @@ class ScrollFile {
 		return this.folder.getGroup(this.groups[0])
 	}
 
+	get keyboardNavGroup() {
+		return this.primaryGroup.filter(file => file.shouldBuild)
+	}
+
 	get linkToPrevious() {
-		return nextAndPrevious(this.primaryGroup, this).previous.permalink
+		return nextAndPrevious(this.keyboardNavGroup, this).previous.permalink
 	}
 
 	get linkToNext() {
-		return nextAndPrevious(this.primaryGroup, this).next.permalink
+		return nextAndPrevious(this.keyboardNavGroup, this).next.permalink
 	}
 
 	save() {

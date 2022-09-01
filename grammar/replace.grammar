@@ -3,6 +3,7 @@ replaceNode
  extends abstractScrollNode
  cruxFromId
  catchAllCellType stringCell
+ baseNodeType blobNode
  example
   replace YEAR 2022
  javascript
@@ -13,6 +14,7 @@ replaceDefaultNode
  description Define the default value for a replacement. Useful if you want to import a file and set a replacement later.
  extends abstractScrollNode
  catchAllCellType stringCell
+ baseNodeType blobNode
  example
   replaceDefault YEAR 2021
  cruxFromId
