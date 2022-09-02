@@ -189,6 +189,7 @@ const scrollKeywords = {
 	siteDescription: "siteDescription",
 	baseUrl: "baseUrl",
 	viewSourceBaseUrl: "viewSourceBaseUrl",
+	openGraphImage: "openGraphImage",
 	maxColumns: "maxColumns",
 	columnWidth: "columnWidth",
 	twitter: "twitter",
@@ -346,6 +347,9 @@ class ScrollFile {
 
 	// todo: add an openGraph node type to define this stuff manually
 	get openGraphImage() {
+		const openGraphImage = this.get(scrollKeywords.openGraphImage)
+		if (openGraphImage !== undefined) return openGraphImage
+
 		const node = this.scrollScriptProgram.getNode(scrollKeywords.image)
 		if (!node) return ""
 

@@ -1,0 +1,3 @@
+openGraphImageNode
+ description URL for Open Graph Image. https://ogp.me/. If not defined, Scroll will try to generate it's own using the first image tag on your page.
+ extends abstractUrlSettingNode
