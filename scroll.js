@@ -247,7 +247,7 @@ const evalVariables = code => {
 			return keyword === "replace" || keyword === "replaceDefault"
 		})
 		.forEach(node => {
-			varMap[node.getWord(1)] = node.length ? node.childrenToString() : node.getWord(2)
+			varMap[node.getWord(1)] = node.length ? node.childrenToString() : node.getWordsFrom(2).join(" ")
 		})
 
 	const keys = Object.keys(varMap)

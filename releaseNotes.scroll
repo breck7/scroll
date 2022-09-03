@@ -3,6 +3,10 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 31.3.0 9-3-2022
+list
+ - 🏥 Fixed bad regression where only the first word of a replacement line was getting replaced. Sloppy breck, real sloppy.
+
 section 31.2.0 9-2-2022
 list
  - 🎉 added `openGraphImage` node
