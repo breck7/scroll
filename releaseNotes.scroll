@@ -3,6 +3,10 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 31.4.1 9-3-2022
+list
+ - 🏥 and that is why you always run the tests.
+
 section 31.4.0 9-3-2022
 list
  - 🎉 New keywords: `*`, `footnote`, and `readingList`

@@ -256,6 +256,7 @@ footnoteNode
 thoughtNode
  todo Perhaps rewrite this from scratch and move out of aftertext.
  extends aftertextNode
+ catchAllCellType stringCell
  example
   * I had a _new_ thought.
  description An upgrade to the humble bullet point. The best of aftertext in a condensed form.

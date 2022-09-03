@@ -1,6 +1,6 @@
 readingListItemNode
  cells urlCell
- catchAllCell stringCell
+ catchAllCellType stringCell
  javascript
   compile() {
     const url = this.getWord(0)
