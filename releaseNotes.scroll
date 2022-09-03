@@ -3,6 +3,25 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 31.4.0 9-3-2022
+list
+ - 🎉 New keywords: `*`, `footnote`, and `readingList`
+
+* This is a _thought_. It's like a condensed form of aftertext with *bold* and _italics_ and `code` turned on by default.
+ footnote default
+  And it supports footnotes!
+aboveAsCode
+
+section Projects list
+
+* Projects I'm very actively working on:
+
+readingList
+ https://pldb.com PLDB.com
+ https://scroll.pub Scroll
+ https://breckyunits.com A Blog by Breck Yunits
+aboveAsCode
+
 section 31.3.0 9-3-2022
 list
  - 🏥 Fixed bad regression where only the first word of a replacement line was getting replaced. Sloppy breck, real sloppy.

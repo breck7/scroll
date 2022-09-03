@@ -248,6 +248,25 @@ caveatNode
   get caveatText() {
      return this.childrenToString().replace(/\n/g, " ")
   }
+footnoteNode
+ todo Improve this
+ description Provide a little more information to the interested reader, without diverting the main flow of the text.
+ extends caveatNode
+ crux footnote
+thoughtNode
+ todo Perhaps rewrite this from scratch and move out of aftertext.
+ extends aftertextNode
+ example
+  * I had a _new_ thought.
+ description An upgrade to the humble bullet point. The best of aftertext in a condensed form.
+ crux *
+ javascript
+  compile() {
+    // Hacky, I know. I will fix and upstream to scroll.
+    this.prependLine(this.getContent())
+    this.appendLine('wrapsOn')
+    return super.compile()
+  }
 emailLinkNode
  description A mailto link
  crux email

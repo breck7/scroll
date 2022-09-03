@@ -13,6 +13,12 @@ aftertext
  Yes. Here is a web demo.
  https://try.scroll.pub/ web demo
 
+question What has changed in recent versions?
+
+aftertext
+ View the releaseNotes.
+ link releaseNotes.html releaseNotes
+
 question Who is Scroll for?
 
 aftertext
@@ -406,12 +412,6 @@ aftertext
  so building Scroll was necessary. Jekyll and Brecksblog were the two biggest inspirations.
  link https://jekyllrb.com Jekyll
  link https://github.com/breck7/brecksblog Brecksblog
-
-question What has changed in recent versions?
-
-aftertext
- View the releaseNotes.
- link releaseNotes.html releaseNotes
 
 section Contributing to Scroll development
 
