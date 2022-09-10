@@ -9,7 +9,7 @@ blankLineNode
  tags doNotSynthesize
 scrollScriptNode
  extensions scroll
- description A simple language for structurable thought. An extensible alternative to Markdown. Compiles to HTML.
+ description Tools for thought that compile to HTML.
  root
  inScope abstractScrollNode blankLineNode
  catchAllNodeType catchAllParagraphNode
