@@ -28,7 +28,7 @@ aboveAsCode
 
 section 31.3.0 9-3-2022
 list
- - 🏥 Fixed bad regression where only the first word of a replacement line was getting replaced. Sloppy breck, real sloppy.
+ - 🏥 Fixed bad regression where only the first word of a replacement line was getting replaced.
 
 section 31.2.0 9-2-2022
 list
