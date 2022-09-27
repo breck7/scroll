@@ -3,6 +3,10 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 32.0.0 9-27-2022
+list
+ - 🎉 improved 'where' command to scan pwd and skip node_modules folders. much faster and simpler.
+
 section 31.5.0 9-9-2022
 list
  - 🎉 new keywords: `?`, `#` and `##`

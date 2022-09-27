@@ -4,7 +4,6 @@
 const parseArgs = require("minimist")
 const path = require("path")
 const fs = require("fs")
-const os = require("os")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
 const open = require("open")
@@ -953,8 +952,8 @@ class ScrollCli {
 		this._watcher = undefined
 	}
 
-	whereCommand() {
-		return this.findScrollsInDirRecursive(os.homedir())
+	whereCommand(cwd) {
+		return this.findScrollsInDirRecursive(cwd)
 	}
 
 	findScrollsInDirRecursive(dir) {
@@ -963,6 +962,7 @@ class ScrollCli {
 		this.log(`\n🔭 Scanning '${dir}' for folders with ${SCROLL_FILE_EXTENSION} files.`)
 		recursiveReaddirSync(dir, filename => {
 			if (!filename.endsWith(SCROLL_FILE_EXTENSION)) return
+			if (filename.includes("node_modules")) return
 
 			const folder = path.dirname(filename)
 			if (!folders[folder]) {
@@ -970,7 +970,7 @@ class ScrollCli {
 					folder,
 					count: 0
 				}
-				this.log(`Found ${SCROLL_FILE_EXTENSION} file(s) in ${folder}`)
+				this.log(`Found '*${SCROLL_FILE_EXTENSION}' file(s) in ${folder}`)
 			}
 			folders[folder].count++
 		})
