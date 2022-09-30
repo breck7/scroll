@@ -3,10 +3,14 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 33.1.0 9-29-2022
+list
+ - 🎉 remove extraneous words and lines printing in CLI
+
 section 33.0.0 9-29-2022
 list
- - ⚠️ BREAKING: removed "migrate" command. was more trouble than it was worth. better to have that as a separate module.
- - ⚠️ BREAKING: `where` command is now `list`
+ - ⚠️ BREAKING: (no one should be affected) removed "migrate" command. was more trouble than it was worth. better to have that as a separate module.
+ - ⚠️ BREAKING: (no one should be affected) `where` command is now `list`
 
 section 32.0.0 9-27-2022
 list

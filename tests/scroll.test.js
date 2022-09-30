@@ -135,7 +135,7 @@ testTree.cli = async areEqual => {
 	// Act
 	const results = cli.findScrollsInDirRecursive(__dirname)
 	// Assert
-	areEqual(results.includes("containing .scroll files"), true, "search was run")
+	areEqual(results.includes("kitchen"), true, "list works")
 }
 
 testTree.standalonePage = areEqual => {

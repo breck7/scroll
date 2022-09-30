@@ -783,7 +783,6 @@ class ScrollFolder {
 
 class ScrollCli {
 	execute(args = []) {
-		this.log(`\n📜📜📜 WELCOME TO SCROLL (v${SCROLL_VERSION}) 📜📜📜`)
 		const command = args[0] // Note: we don't take any parameters on purpose. Simpler UX.
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		const cwd = process.cwd()
@@ -879,8 +878,6 @@ class ScrollCli {
 
 	findScrollsInDirRecursive(dir) {
 		const folders = {}
-
-		this.log(`\n🔭 Recursively scanning '${dir}' for folders with ${SCROLL_FILE_EXTENSION} files.`)
 		recursiveReaddirSync(dir, filename => {
 			if (!filename.endsWith(SCROLL_FILE_EXTENSION)) return
 			if (filename.includes("node_modules")) return
@@ -891,18 +888,17 @@ class ScrollCli {
 					folder,
 					scrollFileCount: 0
 				}
-				this.log(`Found '*${SCROLL_FILE_EXTENSION}' file(s) in ${folder}`)
+				this.log(folder)
 			}
 			folders[folder].scrollFileCount++
 		})
 
 		const sorted = lodash.sortBy(folders, "scrollFileCount").reverse()
-		const table = new jtree.TreeNode(sorted).toFormattedTable(120)
-
-		return this.log(`\n🔭 Found the following folders in '${dir}' containing ${SCROLL_FILE_EXTENSION} files:\n${table}`)
+		return new jtree.TreeNode(sorted).toFormattedTable(120)
 	}
 
 	helpCommand() {
+		this.log(`\n📜📜📜 WELCOME TO SCROLL (v${SCROLL_VERSION}) 📜📜📜`)
 		return this.log(`\nThis is the Scroll help page.\n\nCommands you can run from your Scroll's folder:\n\n${this._allCommands.map(comm => `🖌️ ` + comm.replace(CommandFnDecoratorSuffix, "")).join("\n")}\n​​`)
 	}
 }
