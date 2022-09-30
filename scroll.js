@@ -796,14 +796,20 @@ class ScrollCli {
 		process.stdin.on("readable", function() {
 			pipedData += this.read() // todo: what's the lambda way to do this?
 		})
-		process.stdin.on("end", () =>
-			pipedData
+		process.stdin.on("end", () => {
+			const folders = pipedData
 				.trim()
 				.split("\n")
 				.map(line => line.trim())
 				.filter(line => fs.existsSync(line))
-				.forEach(line => this[commandName](line))
-		)
+
+			folders.forEach(line => this[commandName](line))
+
+			if (folders.length === 0)
+				// Hacky to make sure this at least does something in all environments.
+				// process.stdin.isTTY is not quite accurate for pipe detection
+				this[commandName](process.cwd())
+		})
 	}
 
 	verbose = true

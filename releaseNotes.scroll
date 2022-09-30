@@ -3,6 +3,10 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 34.0.3 9-30-2022
+list
+ - 🏥 Fix github workflow building.
+
 section 34.0.2 9-30-2022
 list
  - 🏥 !
