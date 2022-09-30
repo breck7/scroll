@@ -782,14 +782,28 @@ class ScrollFolder {
 }
 
 class ScrollCli {
-	execute(args = []) {
+	executeUsersInstructionsFromShell(args = []) {
 		const command = args[0] // Note: we don't take any parameters on purpose. Simpler UX.
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
-		const cwd = process.cwd()
-		if (this[commandName]) return this[commandName](cwd)
+		if (this[commandName]) return process.stdin.isTTY ? this[commandName](process.cwd()) : this._runCommandOnPipedStdIn(commandName)
 		else if (command) this.log(`No command '${command}'. Running help command.`)
 		else this.log(`No command provided. Running help command.`)
 		return this.helpCommand()
+	}
+
+	_runCommandOnPipedStdIn(commandName) {
+		let pipedData = ""
+		process.stdin.on("readable", function() {
+			pipedData += this.read() // todo: what's the lambda way to do this?
+		})
+		process.stdin.on("end", () =>
+			pipedData
+				.trim()
+				.split("\n")
+				.map(line => line.trim())
+				.filter(line => fs.existsSync(line))
+				.forEach(line => this[commandName](line))
+		)
 	}
 
 	verbose = true
@@ -903,6 +917,6 @@ class ScrollCli {
 	}
 }
 
-if (module && !module.parent) new ScrollCli().execute(parseArgs(process.argv.slice(2))._)
+if (module && !module.parent) new ScrollCli().executeUsersInstructionsFromShell(parseArgs(process.argv.slice(2))._)
 
 module.exports = { ScrollFile, ScrollFolder, ScrollCli, scrollKeywords, DefaultScrollCompiler, SCROLL_CSS, getFullyExpandedFile }

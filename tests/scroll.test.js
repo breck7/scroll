@@ -130,7 +130,7 @@ testTree.cli = async areEqual => {
 	areEqual(!!folder, true)
 
 	// Act/Assert
-	areEqual(cli.execute(["help"]).includes("help"), true)
+	areEqual(cli.executeUsersInstructionsFromShell(["help"]).includes("help"), true)
 
 	// Act
 	const results = cli.findScrollsInDirRecursive(__dirname)

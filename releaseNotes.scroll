@@ -3,6 +3,11 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 34.0.0 9-30-2022
+list
+ - 🎉 add support for recursive building and checking using pipes! `scroll list | scroll build`
+ - ⚠️ BREAKING: (no one should be affected) renamed `execute` method on ScrollCli class to `executeUsersInstructionsFromShell`
+
 section 33.1.0 9-29-2022
 list
  - 🎉 remove extraneous words and lines printing in CLI
