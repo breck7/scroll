@@ -782,10 +782,10 @@ class ScrollFolder {
 }
 
 class ScrollCli {
-	executeUsersInstructionsFromShell(args = []) {
+	executeUsersInstructionsFromShell(args = [], hasPipedInput = process.stdin.isTTY) {
 		const command = args[0] // Note: we don't take any parameters on purpose. Simpler UX.
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
-		if (this[commandName]) return process.stdin.isTTY ? this[commandName](process.cwd()) : this._runCommandOnPipedStdIn(commandName)
+		if (this[commandName]) return hasPipedInput ? this._runCommandOnPipedStdIn(commandName) : this[commandName](process.cwd())
 		else if (command) this.log(`No command '${command}'. Running help command.`)
 		else this.log(`No command provided. Running help command.`)
 		return this.helpCommand()
