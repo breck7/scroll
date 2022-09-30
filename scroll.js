@@ -729,78 +729,6 @@ class ScrollFolder {
 			.flat()
 	}
 
-	_migrate27() {
-		let changed = false
-		console.log(`🚚 Applying 27.0.0 migrations`)
-		this.files.forEach(file => {
-			const code = file.scrollScriptProgram
-			const original = code.toString()
-			const permalink = code.get("permalink")
-			if (permalink) {
-				code.set("permalink", permalink.replace(".html", "") + ".html")
-				file.save()
-				if (original !== code.toString()) changed = true
-			}
-		})
-		return changed
-	}
-
-	migrate() {
-		if (this._migrate27()) {
-			console.log(`Migration step resulted in changes. Run migrate again to run more migrations.`)
-			return
-		}
-
-		const replaceEmojiLinksWithAftertextLinks = node => {
-			// todo: a better place for these util functions? I stick them in here so the
-			// grammar is all in one file for ease of use in TreeLanguageDesigner
-			const linksToAdd = []
-			const linkReplacer = (match, p1, p2, p3, offset, str) => {
-				let suffix = ""
-				if (p3.endsWith(",")) suffix = "," + suffix
-				if (p3.endsWith(".")) suffix = "." + suffix
-				p3 = p3.replace(/(,|\.)$/, "")
-				let prefix = "https://"
-				const isRelativeLink = p3.startsWith("./")
-				if (isRelativeLink) {
-					prefix = ""
-					p3 = p3.substr(2)
-				}
-				if (isAbsoluteUrl(p3)) prefix = ""
-				const linkText = p2
-				const fullLink = `${prefix}${p3}`
-				linksToAdd.push([fullLink, linkText])
-				return `${p1}${linkText}${suffix}`
-			}
-			return [node.childrenToString().replace(/(^|\s)(\S+)🔗(\S+)(?=(\s|$))/g, linkReplacer), linksToAdd]
-		}
-
-		const updateParagraph = node => {
-			const results = replaceEmojiLinksWithAftertextLinks(node)
-			node.setChildren(results[0])
-			results[1].forEach(link => {
-				node.appendLine(`link ${link[0]} ${link[1]}`)
-			})
-			node.setWord(0, "aftertext")
-		}
-
-		// Files that have a date, a paragraph, and no dateline added yet need one
-		console.log(`🚚 Applying 24.0.0 migrations`)
-		this.files.forEach(file => {
-			const content = file.scrollScriptProgram
-			const ps = content.findNodes("paragraph")
-			if (content.has("date") && content.has("paragraph") && content.findNodes("aftertext dateline").length === 0) {
-				const firstParagraph = ps.shift()
-				updateParagraph(firstParagraph)
-				firstParagraph.appendLine("dateline")
-			}
-			ps.forEach(updateParagraph)
-			file.save()
-		})
-
-		return this
-	}
-
 	silence() {
 		this.verbose = false
 		return this
@@ -910,13 +838,6 @@ class ScrollCli {
 		return folder
 	}
 
-	async migrateCommand(cwd) {
-		const folder = new ScrollFolder(resolvePath(cwd))
-		folder.verbose = this.verbose
-		folder.migrate()
-		return folder
-	}
-
 	async watchCommand(cwd) {
 		const folderOrErrorMessage = await this.buildCommand(cwd)
 		if (typeof folderOrErrorMessage === "string") return folderOrErrorMessage
@@ -952,14 +873,14 @@ class ScrollCli {
 		this._watcher = undefined
 	}
 
-	whereCommand(cwd) {
+	listCommand(cwd) {
 		return this.findScrollsInDirRecursive(cwd)
 	}
 
 	findScrollsInDirRecursive(dir) {
 		const folders = {}
 
-		this.log(`\n🔭 Scanning '${dir}' for folders with ${SCROLL_FILE_EXTENSION} files.`)
+		this.log(`\n🔭 Recursively scanning '${dir}' for folders with ${SCROLL_FILE_EXTENSION} files.`)
 		recursiveReaddirSync(dir, filename => {
 			if (!filename.endsWith(SCROLL_FILE_EXTENSION)) return
 			if (filename.includes("node_modules")) return
@@ -968,14 +889,14 @@ class ScrollCli {
 			if (!folders[folder]) {
 				folders[folder] = {
 					folder,
-					count: 0
+					scrollFileCount: 0
 				}
 				this.log(`Found '*${SCROLL_FILE_EXTENSION}' file(s) in ${folder}`)
 			}
-			folders[folder].count++
+			folders[folder].scrollFileCount++
 		})
 
-		const sorted = lodash.sortBy(folders, "count").reverse()
+		const sorted = lodash.sortBy(folders, "scrollFileCount").reverse()
 		const table = new jtree.TreeNode(sorted).toFormattedTable(120)
 
 		return this.log(`\n🔭 Found the following folders in '${dir}' containing ${SCROLL_FILE_EXTENSION} files:\n${table}`)
