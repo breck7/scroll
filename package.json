@@ -1,12 +1,13 @@
 {
   "name": "scroll-cli",
-  "version": "34.0.3",
+  "version": "34.1.0",
   "description": "Tools for thought.",
   "main": "scroll.js",
   "engines": {
     "node": ">=14.0"
   },
   "scripts": {
+    "build": "scroll list | scroll build",
     "buildCoverageReport": "tap tests/scroll.test.js",
     "buildCoverageHtmlReport": "tap tests/scroll.test.js --coverage-report=lcov",
     "test": "node tests/scroll.test.js",

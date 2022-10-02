@@ -1,0 +1,23 @@
+title Introducing the Blink Tag
+import settings.scroll
+date 10/02/2022
+author https://github.com/breck7 Breck Yunits
+
+blink *Scroll's new blink tag lets you call attention to something important*
+
+* I am really happy with the current state of Scroll and so grateful for the many, many people who have helped us get it to this point, but I have had a feeling that we were missing something important and that's why not a lot of people have paid attention.
+
+blink *So I invented something simple and completely novel*
+
+* Introducing the `blink` tag. When you have something important to say and you want to interupt people's lives, use the `blink` tag. It's as easy as this:
+
+code
+ blink This blinks
+
+* Advertisers have known for ages that human eyes evolved to respond fast to motion. Now, using my new invention, the `blink` tag, you can bring this innovation from advertising to your products and websites.
+
+blink *The blink tag, available now in Scroll 34.1.0*
+ https://scroll.pub/ Scroll 34.1.0
+
+groups index
+keyboardNav
