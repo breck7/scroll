@@ -3,6 +3,10 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 34.2.0 10-03-2022
+list
+ - 🎉 add `redirectTo` tag
+
 section 34.1.0 10-02-2022
 list
  - 🎉 had an idea for a new type of text tag that blinks
