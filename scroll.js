@@ -913,8 +913,7 @@ class ScrollCli {
 			folders[folder].scrollFileCount++
 		})
 
-		const sorted = lodash.sortBy(folders, "scrollFileCount").reverse()
-		return new jtree.TreeNode(sorted).toFormattedTable(120)
+		return folders
 	}
 
 	helpCommand() {

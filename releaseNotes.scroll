@@ -3,6 +3,10 @@ title Scroll Release Notes
 paragraph
  Here's a list of the notable changes in Scroll.
 
+section 35.0.0 10-04-2022
+list
+ - ⚠️ BREAKING: (no one should be affected) changed return value of api method `findScrollsInDirRecursive`.
+
 section 34.2.0 10-03-2022
 list
  - 🎉 add `redirectTo` tag
