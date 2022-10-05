@@ -575,7 +575,8 @@ question How do I use the 🔗link tag with multiword links?
 * The 🔗link tag only supports single word links. Like everything with ScrollScript, you have
  a number of options if the conventional design doesn't work for you. Your options are:
 
-1. Link just one word. If you need more, perhaps camelCase or snake_case your words together into one concept.
+list
+ 1. Link just one word. If you need more, perhaps camelCase or snake_case your words together into one concept.
  2. Repeat the link twice <code>foo 🔗link bar 🔗link</code>
  3. Use &lt;a> tags.
  4. Extend the ScrollScript grammar for your site.
