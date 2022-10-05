@@ -20,25 +20,30 @@ aftertextNode
    strikethrough wor
  javascript
   get markupInserts() {
-    const {originalText} = this
-    return this.filter(node => node.isMarkupNode).map(node => node.getInserts(originalText)).filter(i => i).flat()
+   const { originalText } = this
+   return this.filter(node => node.isMarkupNode)
+    .map(node => node.getInserts(originalText))
+    .filter(i => i)
+    .flat()
   }
   get originalText() {
-    return this.filter(node => node.isTextNode).map(node => node.toString()).join("\n")
+   return this.filter(node => node.isTextNode)
+    .map(node => node.toString())
+    .join("\n")
   }
   get text() {
-    const {originalText, markupInserts} = this
-    let adjustment = 0
-    let newText = originalText
-    // If multiple tags start at same index, the tag that closes first should start last. Otherwise HTML breaks.
-    markupInserts.sort((a, b) => a.index === b.index ? b.endIndex - a.endIndex : a.index - b.index);
-    markupInserts.forEach(insertion => {
-        insertion.index += adjustment
-        const consumeStartCharacters = insertion.consumeStartCharacters ?? 0
-        const consumeEndCharacters = insertion.consumeEndCharacters ?? 0
-        newText = newText.slice(0, insertion.index - consumeEndCharacters) + insertion.string + newText.slice(insertion.index + consumeStartCharacters)
-        adjustment += insertion.string.length - consumeEndCharacters - consumeStartCharacters
-    });
+   const { originalText, markupInserts } = this
+   let adjustment = 0
+   let newText = originalText
+   // If multiple tags start at same index, the tag that closes first should start last. Otherwise HTML breaks.
+   markupInserts.sort((a, b) => (a.index === b.index ? b.endIndex - a.endIndex : a.index - b.index))
+   markupInserts.forEach(insertion => {
+    insertion.index += adjustment
+    const consumeStartCharacters = insertion.consumeStartCharacters ?? 0
+    const consumeEndCharacters = insertion.consumeEndCharacters ?? 0
+    newText = newText.slice(0, insertion.index - consumeEndCharacters) + insertion.string + newText.slice(insertion.index + consumeStartCharacters)
+    adjustment += insertion.string.length - consumeEndCharacters - consumeStartCharacters
+   })
    return newText
   }
   tag = "p"
@@ -47,60 +52,63 @@ aftertextNode
    return `<${this.tag} ${this.divAttributes}class="${this.className}">${this.text}</${this.tag}>`
   }
   get divAttributes() {
-    const attrs = this.filter(node => node.isAttributeNode)
-    return attrs.length ? attrs.map(node => node.divAttributes).join(" ") + " " : ""
+   const attrs = this.filter(node => node.isAttributeNode)
+   return attrs.length ? attrs.map(node => node.divAttributes).join(" ") + " " : ""
   }
 abstractAftertextAttributeNode
  cells keywordCell
  boolean isAttributeNode true
  javascript
   get divAttributes() {
-    return `${this.getWord(0)}="${this.getContent()}"`
+   return `${this.getWord(0)}="${this.getContent()}"`
   }
-  compile() { return ""}
+  compile() {
+   return ""
+  }
 abstractAftertextDirectiveNode
  cells keywordCell
  catchAllCellType stringCell
  javascript
   isMarkupNode = true
   get pattern() {
-    return this.getWordsFrom(1).join(" ")
+   return this.getWordsFrom(1).join(" ")
   }
   get shouldMatchAll() {
    return this.has("matchAll")
   }
   getMatches(text) {
-    const {pattern }= this
-    const escapedPattern = pattern.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
-    return [...text.matchAll(new RegExp(escapedPattern, 'g'))].map(match => {
-      const {index} = match
-      const endIndex = index + pattern.length
-      return [{index, string: `<${this.openTag}${this.allAttributes}>`, endIndex}, {index: endIndex, endIndex, string: `</${this.closeTag}>`}]
-    })
+   const { pattern } = this
+   const escapedPattern = pattern.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+   return [...text.matchAll(new RegExp(escapedPattern, "g"))].map(match => {
+    const { index } = match
+    const endIndex = index + pattern.length
+    return [{ index, string: `<${this.openTag}${this.allAttributes}>`, endIndex }, { index: endIndex, endIndex, string: `</${this.closeTag}>` }]
+   })
   }
   getInserts(text) {
-    const matches = this.getMatches(text)
-    if (!matches.length)
-      return false
-    if (this.shouldMatchAll)
-      return matches.flat()
-    const indexNode = this.getNode("match")
-    if (indexNode)
-     return indexNode.indexes.map(index => matches[index]).filter(i => i).flat()
-    return matches[0]
+   const matches = this.getMatches(text)
+   if (!matches.length) return false
+   if (this.shouldMatchAll) return matches.flat()
+   const indexNode = this.getNode("match")
+   if (indexNode)
+    return indexNode.indexes
+     .map(index => matches[index])
+     .filter(i => i)
+     .flat()
+   return matches[0]
   }
   get allAttributes() {
-    const attr = this.attributes.join(" ")
-    return attr ? " " + attr : ""
+   const attr = this.attributes.join(" ")
+   return attr ? " " + attr : ""
   }
   get attributes() {
-    return []
+   return []
   }
   get openTag() {
-    return this.tag
+   return this.tag
   }
   get closeTag() {
-    return this.tag
+   return this.tag
   }
 abstractMarkupNode
  extends abstractAftertextDirectiveNode
@@ -115,7 +123,9 @@ matchNode
  catchAllCellType integerCell
  description Use this to specify which index(es) to match.
  javascript
-  get indexes() { return this.getWordsFrom(1).map(num => parseInt(num))}
+  get indexes() {
+   return this.getWordsFrom(1).map(num => parseInt(num))
+  }
  example
   aftertext
    hello ello ello
@@ -131,19 +141,17 @@ wrapsOnNode
    return true
   }
   getMatches(text) {
-    return [this.runPattern(text, "`", 'code'),
-    this.runPattern(text, "*", 'strong'),
-    this.runPattern(text, "_", 'em')].filter(i => i).flat()
+   return [this.runPattern(text, "`", "code"), this.runPattern(text, "*", "strong"), this.runPattern(text, "_", "em")].filter(i => i).flat()
   }
   runPattern(text, delimiter, tag, attributes = "") {
-    const escapedDelimiter = delimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
-    const pattern = new RegExp(`${escapedDelimiter}[^${escapedDelimiter}]+${escapedDelimiter}`, 'g')
-    const delimiterLength = delimiter.length
-    return [...text.matchAll(pattern)].map(match => {
-      const {index} = match
-      const endIndex = index + match[0].length
-      return [{index, string: `<${tag + (attributes ? " " + attributes : "")}>`, endIndex, consumeStartCharacters: delimiterLength}, {index: endIndex, endIndex, string: `</${tag}>`, consumeEndCharacters: delimiterLength}]
-    })
+   const escapedDelimiter = delimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+   const pattern = new RegExp(`${escapedDelimiter}[^${escapedDelimiter}]+${escapedDelimiter}`, "g")
+   const delimiterLength = delimiter.length
+   return [...text.matchAll(pattern)].map(match => {
+    const { index } = match
+    const endIndex = index + match[0].length
+    return [{ index, string: `<${tag + (attributes ? " " + attributes : "")}>`, endIndex, consumeStartCharacters: delimiterLength }, { index: endIndex, endIndex, string: `</${tag}>`, consumeEndCharacters: delimiterLength }]
+   })
   }
 wrapNode
  cruxFromId
@@ -153,18 +161,17 @@ wrapNode
  description Define a custom wrap, for example "wrap _ em" would support: _italics_.
  javascript
   getMatches(text) {
-    try {
+   try {
     const delimiter = this.getWord(1)
     const tag = this.getWord(2)
     const attributes = this.getWordsFrom(3).join(" ")
-    if (tag.startsWith("https:"))
-      return this.runPattern(text, delimiter, "a", `href="${tag}"` + attributes)
+    if (tag.startsWith("https:")) return this.runPattern(text, delimiter, "a", `href="${tag}"` + attributes)
     return this.runPattern(text, delimiter, tag, attributes)
-    } catch (err) {
-      console.error(err)
-      return []
-    }
-    // Note: doubling up doesn't work because of the consumption characters.
+   } catch (err) {
+    console.error(err)
+    return []
+   }
+   // Note: doubling up doesn't work because of the consumption characters.
   }
 boldNode
  cruxFromId
@@ -198,7 +205,9 @@ linkNoteNode
     The average growth in the treatment group was 14.2x higher than the control group.
  baseNodeType blobNode
  javascript
-  compile() { return ""}
+  compile() {
+   return ""
+  }
 linkNode
  extends abstractMarkupNode
  cells keywordCell urlCell
@@ -207,17 +216,16 @@ linkNode
  javascript
   tag = "a"
   get link() {
-    return this.getWord(1)
+   return this.getWord(1)
   }
   get attributes() {
-    const attrs = [`href="${this.link}"`]
-    const title = this.getNode("note")
-    if (title)
-     attrs.push(`title="${title.childrenToString().replace(/\n/g, " ")}"`)
-    return attrs
+   const attrs = [`href="${this.link}"`]
+   const title = this.getNode("note")
+   if (title) attrs.push(`title="${title.childrenToString().replace(/\n/g, " ")}"`)
+   return attrs
   }
   get pattern() {
-    return this.getWordsFrom(2).join(" ")
+   return this.getWordsFrom(2).join(" ")
   }
 classMarkupNode
  description Add a span with a class name around matching text.
@@ -227,13 +235,13 @@ classMarkupNode
  javascript
   tag = "span"
   get className() {
-    return this.getWord(1)
+   return this.getWord(1)
   }
   get attributes() {
-    return [`class="${this.className}"`]
+   return [`class="${this.className}"`]
   }
   get pattern() {
-    return this.getWordsFrom(2).join(" ")
+   return this.getWordsFrom(2).join(" ")
   }
 caveatNode
  description Add a caveat viewable on hover on matching text. When you want to be sure you've thoroughly addressed obvious concerns but ones that don't warrant to distract from the main argument of the text.
@@ -242,13 +250,13 @@ caveatNode
  cells keywordCell
  javascript
   get pattern() {
-    return this.getWordsFrom(1).join(" ")
+   return this.getWordsFrom(1).join(" ")
   }
   get attributes() {
-    return [`class="scrollCaveat"`, `title="${this.caveatText}"`]
+   return [`class="scrollCaveat"`, `title="${this.caveatText}"`]
   }
   get caveatText() {
-     return this.childrenToString().replace(/\n/g, " ")
+   return this.childrenToString().replace(/\n/g, " ")
   }
 footnoteNode
  todo Improve this
@@ -265,10 +273,10 @@ thoughtNode
  crux *
  javascript
   compile() {
-    // Hacky, I know.
-    this.prependLine(this.getContent())
-    this.appendLine('wrapsOn')
-    return super.compile()
+   // Hacky, I know.
+   this.prependLine(this.getContent())
+   this.appendLine("wrapsOn")
+   return super.compile()
   }
 listAftertextNode
  extends thoughtNode
@@ -278,15 +286,25 @@ listAftertextNode
  crux -
  javascript
   compile() {
-    const index = this.getIndex()
-    const parent = this.getParent()
-    const isStartOfList = index === 0 || !parent.nodeAt(index - 1).getLine().startsWith("- ")
-    const isEndOfList = parent.length === (index + 1) || !parent.nodeAt(index + 1).getLine().startsWith("- ")
-    const {listType} = this
-    return (isStartOfList ? `<${listType}>` : "") + `<li>${super.compile()}</li>` + (isEndOfList ? `</${listType}>` : "")
+   const index = this.getIndex()
+   const parent = this.getParent()
+   const isStartOfList =
+    index === 0 ||
+    !parent
+     .nodeAt(index - 1)
+     .getLine()
+     .startsWith("- ")
+   const isEndOfList =
+    parent.length === index + 1 ||
+    !parent
+     .nodeAt(index + 1)
+     .getLine()
+     .startsWith("- ")
+   const { listType } = this
+   return (isStartOfList ? `<${listType}>` : "") + `<li>${super.compile()}</li>` + (isEndOfList ? `</${listType}>` : "")
   }
   get listType() {
-    return 'ol'
+   return "ul" // todo: in the future add support for ol
   }
 questionAftertextNode
  extends thoughtNode
@@ -312,7 +330,7 @@ emailLinkNode
  extends linkNode
  javascript
   get attributes() {
-    return [`href="mailto:${this.link}"`]
+   return [`href="mailto:${this.link}"`]
   }
 quickLinkNode
  pattern ^https\:
@@ -320,10 +338,10 @@ quickLinkNode
  cells urlCell
  javascript
   get link() {
-    return this.getWord(0)
+   return this.getWord(0)
   }
   get pattern() {
-    return this.getWordsFrom(1).join(" ")
+   return this.getWordsFrom(1).join(" ")
   }
 strikethroughNode
  cruxFromId
@@ -342,7 +360,11 @@ datelineNode
  extends abstractAftertextDirectiveNode
  javascript
   getInserts() {
-   let day = this.getContent() || this.getParent().getParent().get("date")
+   let day =
+    this.getContent() ||
+    this.getParent()
+     .getParent()
+     .get("date")
    if (!day) return false
    try {
     const dayjs = require("dayjs")
@@ -350,7 +372,7 @@ datelineNode
    } catch (err) {
     console.error(err)
    }
-   return [{index: 0, string: `<span class="scrollDateComponent">${day} — </span>`}]
+   return [{ index: 0, string: `<span class="scrollDateComponent">${day} — </span>` }]
   }
 loremIpsumNode
  extends aftertextNode
@@ -359,7 +381,7 @@ loremIpsumNode
  catchAllCellType integerCell
  javascript
   get originalText() {
-    return `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+   return `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
   }
   compile() {
    return super.compile().repeat(this.getWord(1) ? parseInt(this.getWord(1)) : 1)
