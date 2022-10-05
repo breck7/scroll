@@ -265,10 +265,28 @@ thoughtNode
  crux *
  javascript
   compile() {
-    // Hacky, I know. I will fix and upstream to scroll.
+    // Hacky, I know.
     this.prependLine(this.getContent())
     this.appendLine('wrapsOn')
     return super.compile()
+  }
+listAftertextNode
+ extends thoughtNode
+ example
+  - I had a _new_ thought.
+ description A list item.
+ crux -
+ javascript
+  compile() {
+    const index = this.getIndex()
+    const parent = this.getParent()
+    const isStartOfList = index === 0 || !parent.nodeAt(index - 1).getLine().startsWith("- ")
+    const isEndOfList = parent.length === (index + 1) || !parent.nodeAt(index + 1).getLine().startsWith("- ")
+    const {listType} = this
+    return (isStartOfList ? `<${listType}>` : "") + `<li>${super.compile()}</li>` + (isEndOfList ? `</${listType}>` : "")
+  }
+  get listType() {
+    return 'ol'
   }
 questionAftertextNode
  extends thoughtNode

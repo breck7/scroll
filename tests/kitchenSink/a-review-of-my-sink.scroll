@@ -8,7 +8,13 @@ endSnippet
 
 groups index all
 
-paragraph
- I have learned that a sink is a sink.
+* I have learned that a sink is a sink.
+
+## My favorite things about sinks
+
+- They can hold water
+- You can put things in them
+
+- This should be in a new list
 
 keyboardNav
