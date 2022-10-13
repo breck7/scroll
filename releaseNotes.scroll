@@ -2,6 +2,9 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 35.1.2 10-12-2022
+- 🏥 cleanup previous commit
+
 # 35.1.1 10-12-2022
 - 🏥 fix duplicated text in `*` nodes bug
 
