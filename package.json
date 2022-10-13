@@ -34,7 +34,7 @@
   "dependencies": {
     "dayjs": "^1.10.4",
     "image-size": "^1.0.0",
-    "jtree": "^56.0.0",
+    "jtree": "^59.0.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "open": "^8.0.5",
