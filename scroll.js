@@ -413,21 +413,18 @@ class ScrollFile {
 	}
 
 	get htmlCodeForSnippetsPage() {
-		const { snippetBreakNode } = this
+		const snippetBreakNode = this.scrollScriptProgram.getNode(scrollKeywords.endSnippet)
 		if (!snippetBreakNode) return this.htmlCode
-
-		const program = this.scrollScriptProgram
 		const indexOfBreak = snippetBreakNode.getIndex()
+
+		const { scrollScriptProgram, permalink } = this
+		const joinChar = scrollScriptProgram._getChildJoinCharacter()
 		return (
-			program
+			scrollScriptProgram
 				.map((child, index) => (index >= indexOfBreak ? "" : child.compile()))
 				.filter(i => i)
-				.join(program._getChildJoinCharacter()) + `<a class="scrollContinueReadingLink" href="${this.permalink}">Continue reading...</a>`
+				.join(joinChar) + `<a class="scrollContinueReadingLink" href="${permalink}">Continue reading...</a>`
 		)
-	}
-
-	get snippetBreakNode() {
-		return this.scrollScriptProgram.getNode(scrollKeywords.endSnippet)
 	}
 
 	// todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
