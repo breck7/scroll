@@ -2,6 +2,9 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 35.1.1 10-12-2022
+- 🏥 fix duplicated text in `*` nodes bug
+
 # 35.1.0 10-05-2022
 - 🎉 Added new better way to do lists.
 aboveAsCode

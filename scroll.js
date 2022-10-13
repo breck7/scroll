@@ -419,12 +419,13 @@ class ScrollFile {
 
 		const { scrollScriptProgram, permalink } = this
 		const joinChar = scrollScriptProgram._getChildJoinCharacter()
-		return (
+		const html =
 			scrollScriptProgram
 				.map((child, index) => (index >= indexOfBreak ? "" : child.compile()))
 				.filter(i => i)
 				.join(joinChar) + `<a class="scrollContinueReadingLink" href="${permalink}">Continue reading...</a>`
-		)
+
+		return html
 	}
 
 	// todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)

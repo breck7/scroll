@@ -274,9 +274,13 @@ thoughtNode
  javascript
   compile() {
    // Hacky, I know.
-   this.prependLine(this.getContent())
-   this.appendLine("wrapsOn")
-   return super.compile()
+   const clone = this.clone()
+   clone.prependLine(this.getContent())
+   clone.appendLine("wrapsOn")
+   return clone.superCompile()
+  }
+  superCompile() {
+    return super.compile()
   }
 listAftertextNode
  extends thoughtNode

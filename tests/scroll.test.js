@@ -60,6 +60,17 @@ testTree.compileAftertext = areEqual => {
 	})
 }
 
+testTree.thoughtNode = areEqual => {
+	// Arrange
+	const program = new DefaultScrollCompiler(`* foo`)
+
+	// Act
+	program.compile()
+	const result = program.compile()
+
+	areEqual(result, `<p class="scrollParagraphComponent">foo</p>`)
+}
+
 testTree.tableWithLinks = areEqual => {
 	const tests = [
 		{
