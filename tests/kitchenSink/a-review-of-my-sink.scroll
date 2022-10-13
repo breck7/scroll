@@ -2,8 +2,8 @@ title A review of my sink
 
 import settings.scroll
 
-paragraph
- I have been using my sink for one year, and this is what I have learned.
+* I have been using my sink for one year, and this is what I have learned.
+
 endSnippet
 
 groups index all

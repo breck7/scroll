@@ -663,12 +663,12 @@ class GroupTemplate extends AbstractTemplate {
 	}
 
 	get pageCode() {
-		const { property, files } = this
+		const { files } = this
 		const fileCode = files
 			.map(file => {
 				const node = new TreeNode(`div
  class ${cssClasses.scrollGroupPageFileContainerComponent}`)
-				node.getNode("div").appendLineAndChildren("bern", file[property])
+				node.getNode("div").appendLineAndChildren("bern", this.getHtml(file))
 				return node.toString()
 			})
 			.join("\n")
@@ -679,11 +679,15 @@ class GroupTemplate extends AbstractTemplate {
  ${removeReturnCharsAndRightShift(fileCode, 1)}`
 	}
 
-	property = "htmlCode"
+	getHtml(file) {
+		return file.htmlCode
+	}
 }
 
 class SnippetsGroupTemplate extends GroupTemplate {
-	property = "htmlCodeForSnippetsPage"
+	getHtml(file) {
+		return file.htmlCodeForSnippetsPage
+	}
 }
 
 class ScrollFolder {
