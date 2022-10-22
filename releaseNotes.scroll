@@ -2,6 +2,9 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 36.0.0 10-22-2022
+- ⚠️ BREAKING: simpler CSS and header
+
 # 35.1.2 10-12-2022
 - 🏥 cleanup previous commit
 
