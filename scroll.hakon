@@ -18,7 +18,7 @@ comment Default header theme
 .scrollHeaderComponent
  svg
   width 30px
-  fill rgba(204,204,204, .5)
+  fill rgba(204,204,204,.8)
   &:hover
    fill #333
  a

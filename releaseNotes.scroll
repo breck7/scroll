@@ -2,6 +2,9 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 36.0.1 10-24-2022
+- 🏥 Fix home icon
+
 # 36.0.0 10-22-2022
 - ⚠️ BREAKING: simpler CSS and header
 
