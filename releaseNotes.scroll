@@ -2,6 +2,10 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 36.1.0 10-27-2022
+- 🎉 Now you can leave the "pattern" part blank in link node in aftertext to make the whole line a link.
+- 🏥 Adjust estimateLines hueristics
+
 # 36.0.1 10-24-2022
 - 🏥 Fix home icon
 

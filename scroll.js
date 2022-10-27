@@ -629,8 +629,8 @@ div
 		let { maxColumns, columnWidth } = this
 		if (!maxColumns) {
 			const { estimatedLines } = this
-			if (estimatedLines > 20) return ""
-			maxColumns = estimatedLines > 10 ? 2 : 1
+			if (estimatedLines > 10) return ""
+			maxColumns = estimatedLines > 5 ? 2 : 1
 		}
 		const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
 		return `column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;`

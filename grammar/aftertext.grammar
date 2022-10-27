@@ -224,8 +224,11 @@ linkNode
    if (title) attrs.push(`title="${title.childrenToString().replace(/\n/g, " ")}"`)
    return attrs
   }
+  patternStartsAtWord = 2
   get pattern() {
-   return this.getWordsFrom(2).join(" ")
+   // If no pattern is provided, make the *entire* line a link.
+   const words = this.getWordsFrom(this.patternStartsAtWord)
+   return words.length ? words.join(" ") : this.getParent().getContent()
   }
 classMarkupNode
  description Add a span with a class name around matching text.
@@ -343,9 +346,7 @@ quickLinkNode
   get link() {
    return this.getWord(0)
   }
-  get pattern() {
-   return this.getWordsFrom(1).join(" ")
-  }
+  patternStartsAtWord = 1
 strikethroughNode
  cruxFromId
  extends abstractMarkupNode
