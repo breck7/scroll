@@ -9,7 +9,6 @@ title Scroll Release Notes
 - ⚠️ BREAKING: Removed the original `aftertext` node in favor of `*` nodes. Regex [search replace] to upgrade: `^aftertext\n ` `* `
 - ⚠️ BREAKING: Removed basic `paragraph` node. Regex [search replace] to upgrade: `^paragraph\n ` `* `
 - ⚠️ BREAKING: Removed basic `question` node. Regex [search replace] to upgrade: `^question ` `? `
-- ⚠️ BREAKING: Removed basic `question` node. Regex [search replace] to upgrade: `^question ` `? `
 - ⚠️ BREAKING: Removed basic `section` node. Regex [search replace] to upgrade: `^section ` `# `
 - ⚠️ BREAKING: Removed basic `subsection` node. Regex [search replace] to upgrade: `^subsection ` `## `
 - ⚠️ BREAKING: Removed basic `list` node.
