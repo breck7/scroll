@@ -271,7 +271,7 @@ thoughtNode
  catchAllCellType stringCell
  example
   * I had a _new_ thought.
- description An upgrade to the humble bullet point. The best of aftertext in a condensed form.
+ description A thought.
  crux *
  javascript
   compile() {
@@ -312,6 +312,7 @@ listAftertextNode
    return "ul" // todo: in the future add support for ol
   }
 questionAftertextNode
+ description A question.
  extends thoughtNode
  crux ?
  javascript

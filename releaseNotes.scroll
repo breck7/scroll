@@ -2,6 +2,9 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 37.1.0 10-28-2022
+- 🎉 Documentation improvement
+
 # 37.0.0 10-28-2022
 - ⚠️ BREAKING: Removed the original `aftertext` node in favor of `*` nodes. Regex [search replace] to upgrade: `^aftertext\n ` `* `
 - ⚠️ BREAKING: Removed basic `paragraph` node. Regex [search replace] to upgrade: `^paragraph\n ` `* `
