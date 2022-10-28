@@ -9,13 +9,13 @@ title Scroll Release Notes
 - ⚠️ BREAKING: Removed the original `aftertext` node in favor of `*` nodes. Regex [search replace] to upgrade: `^aftertext\n ` `* `
 - ⚠️ BREAKING: Removed basic `paragraph` node. Regex [search replace] to upgrade: `^paragraph\n ` `* `
 - ⚠️ BREAKING: Removed basic `question` node. Regex [search replace] to upgrade: `^question ` `? `
-- ⚠️ BREAKING: Removed basic `question` node. Regex [search replace] to upgrade: `^question ` `? `
 - ⚠️ BREAKING: Removed basic `section` node. Regex [search replace] to upgrade: `^section ` `# `
 - ⚠️ BREAKING: Removed basic `subsection` node. Regex [search replace] to upgrade: `^subsection ` `## `
 - ⚠️ BREAKING: Removed basic `list` node.
 - ⚠️ BREAKING: Removed basic `orderedList` node.
 - ⚠️ BREAKING: Removed basic `unorderedList` node.
-- ⚠️ BREAKING: Removed support for 🔗 links.
+- ⚠️ BREAKING: Removed support for 🔗 links. Regex [search replace] to upgrade: ` ([^ ]+)🔗([^ ]+)` ` <a href="https://$2">$1</a>`
+
 
 * The goal of this release is to simplify and speed up Scroll by removing legacy features.
 * This is a major release that removes a bunch of the original keywords in favor of the newer more advanced aftertext nodes.
