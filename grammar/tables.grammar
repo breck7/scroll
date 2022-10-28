@@ -49,7 +49,7 @@ rowNode
     column++
     const content = columnCount === column ? words.slice(columnCount - 1).join(" ") : words[column - 1]
     if (col.isLink) continue
-    let tagged = ""
+    let tagged = content
     const link = words[col.linkIndex]
     if (col.linkIndex > -1 && link)
      tagged = `<a href="${link}">${content}</a>`

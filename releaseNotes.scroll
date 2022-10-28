@@ -2,6 +2,9 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 37.1.1 10-28-2022
+- 🏥 Fixed bad table regression where table content was not printing
+
 # 37.1.0 10-28-2022
 - 🎉 Documentation improvement
 
