@@ -16,7 +16,6 @@ title Scroll Release Notes
 - ⚠️ BREAKING: Removed basic `unorderedList` node.
 - ⚠️ BREAKING: Removed support for 🔗 links. Regex [search replace] to upgrade: ` ([^ ]+)🔗([^ ]+)` ` <a href="https://$2">$1</a>`
 
-
 * The goal of this release is to simplify and speed up Scroll by removing legacy features.
 * This is a major release that removes a bunch of the original keywords in favor of the newer more advanced aftertext nodes.
 * If you don't want to upgrade at this time, it's very easy to just add the removed grammar definitions from this commit into your existing scrolls using the normal extension pattern.
