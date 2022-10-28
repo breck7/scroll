@@ -174,10 +174,9 @@ const scrollKeywords = {
 	htmlTitle: "htmlTitle",
 	viewSourceUrl: "viewSourceUrl",
 	permalink: "permalink",
-	paragraph: "paragraph",
-	aftertext: "aftertext",
 	image: "image",
 	date: "date",
+	thoughtKeyword: "*",
 	endSnippet: "endSnippet",
 	groups: "groups",
 	replace: "replace",
@@ -204,8 +203,7 @@ const initSite = {
 	firstPost: `${scrollKeywords.title} Hello world
 ${scrollKeywords.date} ${dayjs().format(`MM-DD-YYYY`)}
 
-${scrollKeywords.paragraph}
- This is my first blog post using Scroll. This post will appear in the feed and on the index page.
+* This is my first blog post using Scroll. This post will appear in the feed and on the index page.
 groups index
 import settings.scroll`,
 	settings: `importOnly
@@ -220,8 +218,7 @@ baseUrl https://scroll.pub/`,
 	about: `import settings.scroll
 title About this site
 
-paragraph
- This is a static page.`,
+* This is a static page.`,
 	feed: `import settings.scroll
 permalink feed.xml
 template blank
@@ -358,14 +355,14 @@ class ScrollFile {
 	}
 
 	// todo: add an openGraph node type to define this stuff manually
-	// Use the first paragraph for the description
+	// Use the first thought for the description
 	// todo: add a tree method version of get that gets you the first node. (actulaly make get return array?)
 	// would speed up a lot.
 	get openGraphDescription() {
 		const program = this.scrollScriptProgram
 		for (let node of program.getTopDownArrayIterator()) {
 			const word = node.getWord(0)
-			if (word === scrollKeywords.paragraph || word === scrollKeywords.aftertext)
+			if (word === scrollKeywords.thoughtKeyword)
 				return unsafeStripHtml(node.compile())
 					.replace(/\n/g, " ")
 					.substr(0, 300)

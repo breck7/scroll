@@ -18,34 +18,10 @@ const runTree = testTree =>
 
 const testTree = {}
 
-// LinkSuffixLang. [anyWord🔗absoluteUrl] or [anyWord🔗./relativeUrl]
-// anyWord text cannot contain 🔗
-// url should not contain the protocol. It will compile always to https. Use <a> if you need something else.
-// If url ends in a period, that will be dropped.
-// Url cannot contain a comma.
-testTree.compileATags = areEqual => {
-	const tests = [
-		{ input: `this🔗example.com`, expected: `<a href="https://example.com">this</a>` },
-		{ input: `this🔗example.com this🔗example.com`, expected: `<a href="https://example.com">this</a> <a href="https://example.com">this</a>` },
-		{ input: `this🔗https://example.com`, expected: `<a href="https://example.com">this</a>` },
-		{ input: `this🔗http://example.com`, expected: `<a href="http://example.com">this</a>` },
-		{ input: `this🔗example.com/`, expected: `<a href="https://example.com/">this</a>` },
-		{ input: `this🔗example.com/index.`, expected: `<a href="https://example.com/index">this</a>.` },
-		{ input: `this🔗./foo.html, bar`, expected: `<a href="foo.html">this</a>, bar` },
-		{ input: `View the releaseNotes🔗./releaseNotes.html.`, expected: `View the <a href="releaseNotes.html">releaseNotes</a>.` }
-	]
-
-	const doc = new DefaultScrollCompiler()
-	tests.forEach(example => {
-		areEqual(doc.compileATags(example.input), example.expected)
-	})
-}
-
 testTree.compileAftertext = areEqual => {
 	const tests = [
 		{
-			text: `aftertext
- Hello brave new world
+			text: `* Hello brave new world
  link home.com new
  bold brave new
  underline new world
@@ -152,8 +128,7 @@ testTree.cli = async areEqual => {
 testTree.standalonePage = areEqual => {
 	// Arrange
 	const page = new ScrollFile(`title A standalone page
-paragraph
- Blue sky`)
+* Blue sky`)
 	// Act/Assert
 	const { html } = page
 	areEqual(html.includes("Blue sky"), true)

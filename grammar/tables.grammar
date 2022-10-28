@@ -53,8 +53,6 @@ rowNode
     const link = words[col.linkIndex]
     if (col.linkIndex > -1 && link)
      tagged = `<a href="${link}">${content}</a>`
-    else
-     tagged = this.getRootNode().compileATags(content ?? "")
     str += `<td>${tagged}</td>\n`
    }
    return str

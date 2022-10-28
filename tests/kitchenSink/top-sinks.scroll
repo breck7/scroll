@@ -28,5 +28,4 @@ TABLE
 TABLE
 TABLE
 
-paragraph
- There are NUM_SINKS in my list.
+* There are NUM_SINKS in my list.

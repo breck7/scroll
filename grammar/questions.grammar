@@ -1,6 +1,0 @@
-questionNode
- description Use for pages like FAQs.
- extends abstractHeaderNode
- javascript
-  tag = "h4"
-  className = "scrollQuestionComponent"

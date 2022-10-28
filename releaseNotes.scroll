@@ -2,6 +2,23 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 37.0.0 10-28-2022
+- ⚠️ BREAKING: Removed the original `aftertext` node in favor of `*` nodes. Regex [search replace] to upgrade: `^aftertext\n ` `* `
+- ⚠️ BREAKING: Removed basic `paragraph` node. Regex [search replace] to upgrade: `^paragraph\n ` `* `
+- ⚠️ BREAKING: Removed basic `question` node. Regex [search replace] to upgrade: `^question ` `? `
+- ⚠️ BREAKING: Removed basic `question` node. Regex [search replace] to upgrade: `^question ` `? `
+- ⚠️ BREAKING: Removed basic `section` node. Regex [search replace] to upgrade: `^section ` `# `
+- ⚠️ BREAKING: Removed basic `subsection` node. Regex [search replace] to upgrade: `^subsection ` `## `
+- ⚠️ BREAKING: Removed basic `list` node.
+- ⚠️ BREAKING: Removed basic `orderedList` node.
+- ⚠️ BREAKING: Removed basic `unorderedList` node.
+- ⚠️ BREAKING: Removed support for 🔗 links.
+
+* The goal of this release is to simplify and speed up Scroll by removing legacy features.
+* This is a major release that removes a bunch of the original keywords in favor of the newer more advanced aftertext nodes.
+* If you don't want to upgrade at this time, it's very easy to just add the removed grammar definitions from this commit into your existing scrolls using the normal extension pattern.
+* You can also easily alias the newer aftertext node types with the original keywords above if you'd prefer.
+
 # 36.1.0 10-27-2022
 - 🎉 Now you can leave the "pattern" part blank in link node in aftertext to make the whole line a link.
 - 🏥 Adjust estimateLines hueristics
@@ -261,8 +278,7 @@ treeTable
 # 24.6.0 6-10-2022
 - 🎉 added `wrap` keyword for advanced custom wraps in aftertext.
 
-aftertext
- Some !simple! and *advanced* usages.
+* Some !simple! and *advanced* usages.
  An #absolute link# and @@@a relative link@@@.
  Show some ++added text++ or some --deleted text--.
  wrap ! em
@@ -276,8 +292,7 @@ aboveAsCode
 # 24.5.0 6-10-2022
 - 🎉 added `wrapsOn` keyword to aftertext.
 
-aftertext
- Support for traditional *bold*, `code`, and _italics_ in aftertext with the keyword `wrapsOn`.
+* Support for traditional *bold*, `code`, and _italics_ in aftertext with the keyword `wrapsOn`.
  wrapsOn
 aboveAsCode
 
@@ -294,8 +309,7 @@ aboveAsCode
 
 ## Caveat Example
 
-aftertext
- This is a great idea.
+* This is a great idea.
  caveat great
   I'm not actually sure if this is a great idea. But often I want to include a comment and link it
   back to the text, but don't quite want to footnote it.
@@ -303,8 +317,7 @@ aboveAsCode
 
 ## Link Quote Example
 
-aftertext
- This report showed the treatment had a big impact.
+* This report showed the treatment had a big impact.
  https://example.com/report This report
   note
    The average growth in the treatment group was 14.2x higher than the control group.
@@ -348,16 +361,13 @@ pipeTable
 
 - ⚠️ the first paragraph of an article no longer prints a dateline. Use aftertext instead. See example below.
 
-aftertext
- By default the article's date will be used but you can also provide a custom date.
+* By default the article's date will be used but you can also provide a custom date.
 
 belowAsCode
-aftertext
- A truck transporting llamas collided into a pajama factory late last night.
+* A truck transporting llamas collided into a pajama factory late last night.
  dateline 2/21/2020
 
-aftertext
- To migrate and keep your existing datelines use the command scroll migrate.
+* To migrate and keep your existing datelines use the command scroll migrate.
  code scroll migrate
 
 # 23.2.0 12-22-2021
@@ -367,10 +377,9 @@ aftertext
 - 🏥 fix bug in aftertext when 2 tags started at same index
 - 🏥 make basic dateline work in browser
 
-question Can you show an example of the new advanced aftertext features?
+? Can you show an example of the new advanced aftertext features?
 
-aftertext
- How much wood can a woodchuck chuck if a woodchuck could chuck wood?
+* How much wood can a woodchuck chuck if a woodchuck could chuck wood?
  link https://en.wikipedia.org/wiki/Groundhog woodchuck
   matchAll
  class standout wood
@@ -393,10 +402,9 @@ aboveAsCode
 - 🎉 add belowAsCode and aboveAsCode
 - 🎉 split base grammar into files for easier extensibility
 
-question Can you show an example of aftertext?
+? Can you show an example of aftertext?
 
-aftertext
- You write some text. After your text, you add your markup instructions with selectors to select the text to markup, one command per line. For example, this paragraph is written in Aftertext and the source code looks like:
+* You write some text. After your text, you add your markup instructions with selectors to select the text to markup, one command per line. For example, this paragraph is written in Aftertext and the source code looks like:
  italics After your text
  italics selectors
 aboveAsCode
@@ -441,11 +449,11 @@ aboveAsCode
 - 🎉 new subsection nodetype. Simply compiles to an h4 for now but more semantic this way.
 - ⚠️ title2-title6 have been removed. use question, section and subsection instead.
 
-question Why the new `question` nodes?
+? Why the new `question` nodes?
 
 * Question and answer structures are literally older than the Socratic Method. Such a common semantic pattern deserves it's own keywords.
 
-question How do I migrate from title# nodes?
+? How do I migrate from title# nodes?
 
 * The below regex may help.
 
@@ -572,7 +580,7 @@ code
 - 🎉 🔗links in paragraph nodes.
 - 🎉 skipIndexPage nodeType
 
-question How do I use the new single word links?
+? How do I use the new single word links?
 
 * For single word links in paragraph nodes only (for now) you can now do:
 
@@ -586,18 +594,17 @@ code
  <a href="https://([^"]+)">([^ ]+)</a>
  $2🔗$1
 
-question How do I use the 🔗link tag with multiword links?
+? How do I use the 🔗link tag with multiword links?
 
 * The 🔗link tag only supports single word links. Like everything with ScrollScript, you have
  a number of options if the conventional design doesn't work for you. Your options are:
 
-list
- 1. Link just one word. If you need more, perhaps camelCase or snake_case your words together into one concept.
- 2. Repeat the link twice <code>foo 🔗link bar 🔗link</code>
- 3. Use &lt;a> tags.
- 4. Extend the ScrollScript grammar for your site.
+- 1. Link just one word. If you need more, perhaps camelCase or snake_case your words together into one concept.
+- 2. Repeat the link twice <code>foo 🔗link bar 🔗link</code>
+- 3. Use &lt;a> tags.
+- 4. Extend the ScrollScript grammar for your site.
 
-question Can I not include a page in the index page?
+? Can I not include a page in the index page?
 
 * Now you can! Sometimes you just want to publish an independent page without including it
  in the index. To do that, just add <code>skipIndexPage</code>.

@@ -5,12 +5,11 @@ tooling
 aftertextTextNode
  catchAllCellType stringCell
  boolean isTextNode true
-aftertextNode
+abstractAftertextNode
  description Text followed by markup commands.
  extends abstractScrollNode
  catchAllNodeType aftertextTextNode
  inScope abstractAftertextDirectiveNode abstractAftertextAttributeNode
- cruxFromId
  example
   aftertext
    Hello brave new world
@@ -268,7 +267,7 @@ footnoteNode
  crux footnote
 thoughtNode
  todo Perhaps rewrite this from scratch and move out of aftertext.
- extends aftertextNode
+ extends abstractAftertextNode
  catchAllCellType stringCell
  example
   * I had a _new_ thought.
@@ -379,7 +378,7 @@ datelineNode
    return [{ index: 0, string: `<span class="scrollDateComponent">${day} — </span>` }]
   }
 loremIpsumNode
- extends aftertextNode
+ extends abstractAftertextNode
  description Generate dummy text.
  cruxFromId
  catchAllCellType integerCell

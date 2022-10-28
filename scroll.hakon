@@ -111,7 +111,7 @@ comment On group pages add some spacing around files
  white-space pre-line
  border-left .5em solid rgba(204,204,204,.8)
 
-.scrollSectionComponent,.scrollSubsectionComponent
+.scrollSectionComponent
  text-align center
  margin-top 1em
 
@@ -175,12 +175,6 @@ code
  span
   font-size 20p;
   display block
-
-.scrollUnorderedListComponent,.scrollOrderedListComponent
- text-align left
- line-height 1.4em
- padding-left 1em
- margin-top 0.4em
 
 comment Subtle "Article Source" link
 .scrollFileViewSourceUrlComponent

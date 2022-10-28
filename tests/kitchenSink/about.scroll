@@ -2,13 +2,11 @@ title About the Kitchen Sink Blog
 
 import settings.scroll
 
-paragraph
- This blog is for testing purposes—to excercise/test all the features of Scroll.
+* This blog is for testing purposes—to excercise/test all the features of Scroll.
 
 groups all
 
 replace KEY_MESSAGE Public domain products are strictly superior to equivalent non-public domain alternatives by a significant margin on three dimensions: trust, speed, and cost to build.
 
-aftertext
- KEY_MESSAGE If enough capable people start building public domain products we can change the world.
+* KEY_MESSAGE If enough capable people start building public domain products we can change the world.
  dateline
