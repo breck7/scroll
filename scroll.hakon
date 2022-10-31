@@ -22,14 +22,23 @@ comment Default header theme
   &:hover
    fill #333
  a
+  color rgba(204,204,204,.8)
   position absolute
-  display block
+  font-size 30px
+  line-height 30px
+  text-decoration none
+  &:hover
+   color #333
  .scrollTopLeftBarComponent
   text-align left
-  left 20px
+  left 25px
  .scrollTopRightBarComponent
   text-align right
-  right 20px
+  right 25px
+ a.scrollPrevPageLink
+  left 3px
+ a.scrollNextPageLink
+  right 3px
 
 comment Default footer theme
 .scrollFooterComponent
@@ -74,6 +83,8 @@ comment Column rules not needed on single files
  text-align center
  margin-top 8px
  margin-bottom 8px
+ padding-left 50px
+ padding-right 50px
  a
   text-decoration none
   color #000

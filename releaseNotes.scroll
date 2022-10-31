@@ -2,6 +2,9 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 38.0.0 10-31-2022
+- 🎉 add left and right buttons to default theme.
+
 # 37.1.1 10-28-2022
 - 🏥 Fixed bad table regression where table content was not printing
 

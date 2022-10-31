@@ -165,7 +165,9 @@ const cssClasses = {
 	scrollGroupPageFileContainerComponent: "scrollGroupPageFileContainerComponent",
 	scrollFileViewSourceUrlComponent: "scrollFileViewSourceUrlComponent",
 	scrollFilePageComponent: "scrollFilePageComponent",
-	scrollFilePageTitle: "scrollFilePageTitle"
+	scrollFilePageTitle: "scrollFilePageTitle",
+	scrollPrevPageLink: "scrollPrevPageLink",
+	scrollNextPageLink: "scrollNextPageLink"
 }
 
 // Todo: how to keep in sync with grammar?
@@ -474,18 +476,28 @@ class AbstractTemplate {
 		return this.file.get(scrollKeywords.twitter)
 	}
 
+	get previousLink() {
+		return " "
+	}
+
+	get nextLink() {
+		return " "
+	}
+
 	get header() {
 		const header = this.file.scrollScriptProgram.getNode(scrollKeywords.scrollHeader)
 		if (header) return header.childrenToString()
 
 		return `div
  class scrollHeaderComponent
+${this.previousLink}
  a ${SCROLL_ICONS.homeSvg}
   class scrollTopLeftBarComponent
   href index.html
  a ${SCROLL_ICONS.githubSvg}
   class scrollTopRightBarComponent
-  href ${this.github}`
+  href ${this.github}
+${this.nextLink}`
 	}
 
 	get footer() {
@@ -603,6 +615,20 @@ class FileTemplate extends AbstractTemplate {
 
 		const { title } = this.file
 		return (title ? `${title} - ` : "") + this.siteTitle
+	}
+
+	get previousLink() {
+		const { file } = this
+		return ` a <
+  class ${cssClasses.scrollPrevPageLink}
+  href ${file.linkToPrevious}`
+	}
+
+	get nextLink() {
+		const { file } = this
+		return ` a >
+  class ${cssClasses.scrollNextPageLink}
+  href ${file.linkToNext}`
 	}
 
 	get pageCode() {
