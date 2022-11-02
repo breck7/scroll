@@ -18,3 +18,6 @@ groups index all
 - This should be in a new list
 
 keyboardNav
+
+- days old
+ dayjs Math.floor(dayjs().diff(dayjs("1984-2-26"), "day", true))

@@ -390,3 +390,14 @@ loremIpsumNode
   compile() {
    return super.compile().repeat(this.getWord(1) ? parseInt(this.getWord(1)) : 1)
   }
+dayjsNode
+ description Advanced directive that evals some Javascript code in an environment including "dayjs".
+ cruxFromId
+ extends abstractAftertextDirectiveNode
+ javascript
+  getInserts() {
+    const dayjs = require("dayjs")
+    const days = eval(this.getContent())
+    const index = this.getParent().originalText.indexOf("days")
+    return [{ index, string: `${days} ` }]
+  }
