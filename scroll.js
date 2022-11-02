@@ -585,12 +585,21 @@ ${this.nextLink}`
   ${this.styleCode}
  body
   ${removeReturnCharsAndRightShift(this.header, 2)}
+  ${removeReturnCharsAndRightShift(this.pageHeader, 2)}
   ${removeReturnCharsAndRightShift(this.pageCode, 2)}
   ${removeReturnCharsAndRightShift(this.footer, 2)}`
 	}
 
 	toHtml() {
 		return scrollBoilerplateCompiledMessage + "\n" + new stump(this.stumpCode).compile()
+	}
+
+	get pageHeader() {
+		const { file, openGraphTitle } = this
+		return `h1
+ class ${cssClasses.scrollFilePageTitle}
+ a ${openGraphTitle}
+  href ${file.permalink}`
 	}
 }
 
@@ -632,12 +641,8 @@ class FileTemplate extends AbstractTemplate {
 	}
 
 	get pageCode() {
-		const { file, openGraphTitle, cssColumnWorkaround } = this
-		return `h1
- class ${cssClasses.scrollFilePageTitle}
- a ${openGraphTitle}
-  href ${file.permalink}
-div
+		const { file, cssColumnWorkaround } = this
+		return `div
  class ${cssClasses.scrollFilePageComponent}
  style ${cssColumnWorkaround}
  bern
@@ -678,8 +683,7 @@ class GroupTemplate extends AbstractTemplate {
 	}
 
 	get pageCode() {
-		const { files } = this
-		const fileCode = files
+		const fileCode = this.files
 			.map(file => {
 				const node = new TreeNode(`div
  class ${cssClasses.scrollGroupPageFileContainerComponent}`)
