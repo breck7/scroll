@@ -17,6 +17,11 @@ image public/screenshot.png
 * View the releaseNotes.
  link releaseNotes.html releaseNotes
 
+? Is there an official blog for the project?
+
+* Yes.
+ link public/blog/ Yes
+
 ? Who is Scroll for?
 
 * Scroll is built for developers who like writing, tools for thought, open source, git backed static site generators, and fast simple code.
