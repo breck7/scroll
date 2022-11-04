@@ -2,6 +2,21 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 39.0.0 11-03-2022
+- ⚠️ BREAKING: `scroll init` no longer creates a `feed.xml` file by default. You can easily add an XML feed manually with the 2 steps below:
+
+code
+ comment Add the content below to feed.scroll
+ import settings.scroll
+ permalink feed.xml
+ template blank
+ printFeed index
+
+code
+ comment Add the line below to your posts and/or settings import file.
+ rssFeedUrl feed.xml
+
+
 # 38.2.0 11-01-2022
 - 🎉 new dayjs aftertext directive.
 

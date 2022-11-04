@@ -215,16 +215,11 @@ github https://github.com/breck7/scroll
 viewSourceBaseUrl https://github.com/breck7/scroll/blob/main
 twitter https://twitter.com/breckyunits
 email feedback@scroll.pub
-rssFeedUrl feed.xml
 baseUrl https://scroll.pub/`,
 	about: `import settings.scroll
 title About this site
 
 * This is a static page.`,
-	feed: `import settings.scroll
-permalink feed.xml
-template blank
-printFeed index`,
 	index: `import settings.scroll
 template group index`
 }
