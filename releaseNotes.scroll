@@ -2,6 +2,12 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 40.0.0 11-05-2022
+- ⚠️ BREAKING: (no one should be affected) `caption` now extends the thought (`*`) node.
+
+image public/screenshot.png
+ caption You can now use all aftertext directives like *bold* in caption nodes. Note: in the future we may just remove the keyword `caption` and you can just use `*` directly.
+
 # 39.0.0 11-03-2022
 - ⚠️ BREAKING: `scroll init` no longer creates a `feed.xml` file by default. You can easily add an XML feed manually with the 2 steps below:
 

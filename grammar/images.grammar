@@ -3,7 +3,7 @@ imageNode
  cells keywordCell urlCell
  extends abstractScrollNode
  cruxFromId
- inScope imageCaptionNode
+ inScope imageCaptionAftertextNode
  javascript
   compile() {
    const file = this.getRootNode().file
@@ -21,12 +21,11 @@ imageNode
     console.error(err)
     imgTag = `<img src="${src}">`
    }
-    const caption = this.get("caption")
-    const captionFig = caption  ? `<figcaption>${caption}</figcaption>` : ""
+    const caption = this.getNode("caption")
+    const captionFig = caption  ? `<figcaption>${caption.compile()}</figcaption>` : ""
     return `<figure class="scrollImageComponent"><a href="${src}" target="_blank">${imgTag}</a>${captionFig}</figure>`
   }
-imageCaptionNode
+imageCaptionAftertextNode
  description An optional caption to accompany the image.
  crux caption
- cells keywordCell
- catchAllCellType stringCell
+ extends thoughtNode
