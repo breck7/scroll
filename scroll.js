@@ -52,6 +52,7 @@ const SCROLL_SRC_FOLDER = __dirname
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const GRAMMAR_EXTENSION = ".grammar"
+const standardDateFormat = `YYYY.MM.DD`
 const grammarDefinitionRegex = /[a-zA-Z0-9_]+Node/
 
 const readFileCache = {}
@@ -203,7 +204,7 @@ const scrollKeywords = {
 
 const initSite = {
 	firstPost: `${scrollKeywords.title} Hello world
-${scrollKeywords.date} ${dayjs().format(`MM-DD-YYYY`)}
+${scrollKeywords.date} ${dayjs().format(standardDateFormat)}
 
 * This is my first blog post using Scroll. This post will appear in the feed and on the index page.
 groups index
