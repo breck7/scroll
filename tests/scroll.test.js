@@ -68,10 +68,10 @@ testTree.fullIntegrationTest = areEqual => {
 	areEqual(!!folder, true)
 }
 
-testTree.check = async areEqual => {
+testTree.test = async areEqual => {
 	const cli = new ScrollCli()
 	cli.verbose = false
-	const result = await cli.checkCommand()
+	const result = await cli.testCommand()
 	areEqual(result.includes("0 errors"), true)
 }
 

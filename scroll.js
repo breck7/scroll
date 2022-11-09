@@ -859,7 +859,7 @@ class ScrollCli {
 		return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
 	}
 
-	checkCommand(cwd) {
+	testCommand(cwd) {
 		const folder = new ScrollFolder(resolvePath(cwd))
 		const { grammarErrors } = folder
 		const grammarMessage = grammarErrors.length ? new jtree.TreeNode(grammarErrors).toFormattedTable(200) + "\n" : ""

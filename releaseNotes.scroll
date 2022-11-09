@@ -2,7 +2,10 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
-# 41.0.0 2022.11.05
+# 42.0.0 2022.11.09
+- ⚠️ BREAKING: `scroll check` is now `scroll test`
+
+# 41.0.0 2022.11.08
 - ⚠️ BREAKING: switched from date format of MM-DD-YYYY to YYYY.MM.DD
 
 regexCode
