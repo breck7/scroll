@@ -2,6 +2,10 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 43.0.0 2022.11.12
+- 🎉 New: Linkify! Links like https://breckyunits.com and email addresses like feedback@scroll.pub are now compiled to HTML `a` tags automatically. Note: if an `a` tag is detected in the node Linkify will be DISABLED for that node.
+- ⚠️ BREAKING: (no one should be affected) slim chance linkify may insert links where you previously did not want them.
+
 # 42.0.0 2022.11.09
 - ⚠️ BREAKING: `scroll check` is now `scroll test`
 

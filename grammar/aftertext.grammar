@@ -19,21 +19,23 @@ abstractAftertextNode
    strikethrough wor
  javascript
   get markupInserts() {
-   const { originalText } = this
+   const { originalTextPostLinkify } = this
    return this.filter(node => node.isMarkupNode)
-    .map(node => node.getInserts(originalText))
+    .map(node => node.getInserts(originalTextPostLinkify))
     .filter(i => i)
     .flat()
   }
-  get originalText() {
-   return this.filter(node => node.isTextNode)
+  get originalTextPostLinkify() {
+    const originalText = this.filter(node => node.isTextNode)
     .map(node => node.toString())
     .join("\n")
+    const shouldLinkify = originalText.includes("<a ") ? false : true
+    return shouldLinkify ? jtree.Utils.linkify(originalText) : originalText
   }
   get text() {
-   const { originalText, markupInserts } = this
+   const { originalTextPostLinkify, markupInserts } = this
    let adjustment = 0
-   let newText = originalText
+   let newText = originalTextPostLinkify
    // If multiple tags start at same index, the tag that closes first should start last. Otherwise HTML breaks.
    markupInserts.sort((a, b) => (a.index === b.index ? b.endIndex - a.endIndex : a.index - b.index))
    markupInserts.forEach(insertion => {
@@ -384,7 +386,7 @@ loremIpsumNode
  cruxFromId
  catchAllCellType integerCell
  javascript
-  get originalText() {
+  get originalTextPostLinkify() {
    return `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
   }
   compile() {
@@ -398,6 +400,6 @@ dayjsNode
   getInserts() {
     const dayjs = require("dayjs")
     const days = eval(this.getContent())
-    const index = this.getParent().originalText.indexOf("days")
+    const index = this.getParent().originalTextPostLinkify.indexOf("days")
     return [{ index, string: `${days} ` }]
   }

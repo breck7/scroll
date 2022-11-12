@@ -22,6 +22,11 @@ image public/screenshot.png
 * Yes.
  link public/blog/ Yes
 
+? Where is the NPM package?
+
+* Here.
+ link https://www.npmjs.com/package/scroll-cli
+
 ? Who is Scroll for?
 
 * Scroll is built for developers who like writing, tools for thought, open source, git backed static site generators, and fast simple code.
