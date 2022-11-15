@@ -2,6 +2,9 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 43.1.0 2022.11.14
+- 🎉 new: new `SVGS` export when using as a library.
+
 # 43.0.1 2022.11.14
 - 🏥 list element (`- some item`) compiler was generating an extra `p` tag.
 
