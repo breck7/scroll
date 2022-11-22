@@ -2,6 +2,9 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 43.1.1 2022.11.22
+- 🏥 fix aftertext bug where `http` quick links were not matching.
+
 # 43.1.0 2022.11.14
 - 🎉 new: new `SVGS` export when using as a library.
 

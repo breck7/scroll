@@ -342,7 +342,7 @@ emailLinkNode
    return [`href="mailto:${this.link}"`]
   }
 quickLinkNode
- pattern ^https\:
+ pattern ^https?\:
  extends linkNode
  cells urlCell
  javascript
