@@ -2,6 +2,16 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 44.0.0 11/24/2022
+
+* This is the `title` simplification refactor release.
+
+- 🎉 new: `description` keyword for use in open graph description generation.
+- 🎉 new: optional `hidden` keyword on `title` nodes for setting `title` without printing it.
+- ⚠️ BREAKING: Group pages no longer have a `title` in their HTML by default. Must set manually.
+- ⚠️ BREAKING: Removed `siteTitle` and `siteDescription` keywords. Those concepts no longer make sense after the introduction of `groups` concept.
+- ⚠️ BREAKING: Removed `htmlTitle` keyword.
+
 # 43.1.1 2022.11.22
 - 🏥 fix aftertext bug where `http` quick links were not matching.
 

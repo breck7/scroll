@@ -13,12 +13,6 @@ abstractSiteStringSettingNode
  extends abstractSiteSettingNode
  catchAllCellType stringCell
  cruxFromId
-siteTitleNode
- description Title of the site.
- extends abstractSiteStringSettingNode
-siteDescriptionNode
- description Description of the site.
- extends abstractSiteStringSettingNode
 baseUrlNode
  description Root url of the published site on the web. Must be provided for RSS Feeds and OpenGraph tags to work, but has no effect locally.
  extends abstractUrlSettingNode
