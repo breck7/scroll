@@ -9,7 +9,7 @@ title Scroll Release Notes
 - 🎉 new: `description` keyword for use in open graph description generation.
 - 🎉 new: optional `hidden` keyword on `title` nodes for setting `title` without printing it.
 - ⚠️ BREAKING: Group pages no longer have a `title` in their HTML by default. Must set manually.
-- ⚠️ BREAKING: Removed `siteTitle` and `siteDescription` keywords. Those concepts no longer make sense after the introduction of `groups` concept.
+- ⚠️ BREAKING: Removed `siteTitle` and `siteDescription` keywords. Those concepts no longer make sense after the introduction of `groups` concept. Generally if you rename `siteTitle` to `title` and `siteDescription` to `description` it should work well.
 - ⚠️ BREAKING: Removed `htmlTitle` keyword.
 
 # 43.1.1 2022.11.22
