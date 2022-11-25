@@ -2,6 +2,23 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
+# 45.0.0 11/24/2022
+- 🎉 a whole new way to do footnotes/end notes.
+
+## Footnotes example
+
+* Brockton is a city in Massachusetts^state. It was incorporated in 1881^inc. 
+ https://en.wikipedia.org/wiki/Brockton,_Massachusetts Brockton
+
+^state A state in the United States.
+
+^inc Incorporated as a city in 1881, but as a town in 1821. Wikipedia.
+ https://en.wikipedia.org/wiki/Brockton,_Massachusetts Wikipedia
+
+## Notes
+
+notes
+
 # 44.0.1 11/24/2022
 - 🏥 fix hidden title bug
 

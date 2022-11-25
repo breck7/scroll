@@ -130,6 +130,8 @@ comment On group pages add some spacing around files
  text-align left
  margin-top 2em
 
+.scrollNoteLink
+ text-decoration none
 
 code
  font-size 90%
