@@ -1,5 +1,6 @@
 title Introducing the Blink Tag
 import settings.scroll
+scrollHeader
 date 2022.10.02
 author https://github.com/breck7 Breck Yunits
 
@@ -22,3 +23,4 @@ blink *The blink tag, available now in Scroll 34.1.0*
 
 groups index
 keyboardNav
+scrollFooter

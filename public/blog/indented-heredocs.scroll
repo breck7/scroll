@@ -5,6 +5,7 @@ date 2021.08.23
 maxColumns 1
 columnWidth 60
 groups index
+scrollHeader
 
 replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
 replace ScrollLinked <a href="https://scroll.pub">Scroll</a>
@@ -214,3 +215,4 @@ bbCode
  [/list]
 
 
+scrollFooter
