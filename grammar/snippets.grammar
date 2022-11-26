@@ -57,17 +57,18 @@ scrollSnippetsNode
    const files = folder.getGroup(groupName)
    const fileCode = files
                .map(file => {
-                   const node = new TreeNode(`div
+                   const node = new jtree.TreeNode(`div
     class ${cssClasses.scrollGroupPageFileContainerComponent}`)
                    node.getNode("div").appendLineAndChildren("bern", file[this.methodForGettingHtml])
                    return node.toString()
                })
                .join("\n")
    
-           return `div
-    class ${cssClasses.scrollSnippetsComponent}
-    style column-width:35ch;
-    ${removeReturnCharsAndRightShift(fileCode, 1)}`
+           return file.compileStumpCode(`div
+   class ${cssClasses.scrollSnippetsComponent}
+   style column-width:35ch;
+   bern
+    ${fileCode.replace(/\n/g, "\n" + " ".repeat(2))}`)
   }
 scrollFullNode
  extends scrollSnippetsNode
