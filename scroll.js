@@ -401,7 +401,11 @@ class ScrollFile {
    content summary_large_image
   ${this.styleCode}
  body
-  ${removeReturnCharsAndRightShift(this.pageCode, 2)}`
+  div
+   class ${cssClasses.scrollFilePageComponent}
+   style ${this.cssColumnWorkaround}
+   bern
+    ${removeReturnCharsAndRightShift(this.htmlCode, 4)}`
 	}
 
 	get html() {
@@ -418,14 +422,6 @@ class ScrollFile {
 		return ` a >
   class ${cssClasses.scrollNextPageLink}
   href ${this.linkToNext}`
-	}
-
-	get pageCode() {
-		return `div
- class ${cssClasses.scrollFilePageComponent}
- style ${this.cssColumnWorkaround}
- bern
-  ${removeReturnCharsAndRightShift(this.htmlCode, 2)}`
 	}
 
 	get estimatedLines() {
