@@ -7,7 +7,7 @@ scrollHeaderNode
  javascript
   compile() {
   const file = this.getParent().file
-  const {SVGS} = file
+  const {SVGS, cssClasses} = file
   return file.compileStumpCode(`div
    class scrollHeaderComponent
    ${file.previousLink}
