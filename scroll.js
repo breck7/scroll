@@ -370,33 +370,32 @@ class ScrollFile {
 	}
 
 	get stumpCode() {
-		const { file } = this
-
+		const { title, description, openGraphImage, rssTag } = this
 		return `html
  lang en-US
  head
   meta
    charset utf-8
-  titleTag ${file.title}
+  titleTag ${title}
   meta
    name viewport
    content width=device-width,initial-scale=1
   meta
    name description
-   content ${file.description}
+   content ${description}
   meta
    name generator
    content Scroll v${SCROLL_VERSION}
   meta
    property og:title
-   content ${file.title}
+   content ${title}
   meta
    property og:description
-   content ${file.description}
+   content ${description}
   meta
    property og:image
-   content ${file.openGraphImage}
-  ${removeReturnCharsAndRightShift(this.rssTag, 2)}
+   content ${openGraphImage}
+  ${removeReturnCharsAndRightShift(rssTag, 2)}
   meta
    name twitter:card
    content summary_large_image
