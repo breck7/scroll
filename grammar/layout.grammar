@@ -30,17 +30,3 @@ stumpNode
  description Stump is a Tree Language that compiles to HTML.
  catchAllCellType anyCell
  catchAllNodeType stumpNode
-scrollHeaderNode
- extends abstractSiteSettingNode
- description Define a header for a certain page. Setting to blank will also remove the header on a page.
- cruxFromId
- catchAllNodeType stumpNode
- javascript
-  compile() { return ""}
-scrollFooterNode
- extends abstractSiteSettingNode
- description Define a footer for a certain page. Setting to blank will also remove the footer on a page.
- cruxFromId
- catchAllNodeType stumpNode
- javascript
-  compile() { return ""}

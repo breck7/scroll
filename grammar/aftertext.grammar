@@ -415,18 +415,6 @@ datelineNode
    }
    return [{ index: 0, string: `<span class="scrollDateComponent">${day} — </span>` }]
   }
-loremIpsumNode
- extends abstractAftertextNode
- description Generate dummy text.
- cruxFromId
- catchAllCellType integerCell
- javascript
-  get originalTextPostLinkify() {
-   return `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-  }
-  compile() {
-   return super.compile().repeat(this.getWord(1) ? parseInt(this.getWord(1)) : 1)
-  }
 dayjsNode
  description Advanced directive that evals some Javascript code in an environment including "dayjs".
  cruxFromId

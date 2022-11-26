@@ -1,3 +1,4 @@
+import header.scroll
 title 📜 Scroll: tools for thought.
 
 html
@@ -398,5 +399,5 @@ code
 * The scroll was invented thousands of years ago and scrolls are still useful today. Scroll has been designed with a focus on simplicity and a goal of making something that would have been useful decades ago, with the hope that this will make it useful decades into the future.
 
 permalink index.html
-import settings.scroll
 keyboardNav releaseNotes.html releaseNotes.html
+scrollFooter

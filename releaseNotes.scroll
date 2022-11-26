@@ -1,3 +1,4 @@
+import header.scroll
 title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
@@ -751,5 +752,5 @@ chat
 # 4.1.0 2021.02.22
 - 🎉 "git" scrollSetting for article source links.
 
-import settings.scroll
 keyboardNav index.html index.html
+scrollFooter

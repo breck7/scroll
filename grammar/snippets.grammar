@@ -1,0 +1,50 @@
+abstractSnippetNode
+ extends abstractAftertextNode
+scrollHeaderNode
+ extends abstractSnippetNode
+ description Define a header for a certain page. Setting to blank will also remove the header on a page.
+ cruxFromId
+ javascript
+  compile() {
+  const file = this.getParent().file
+  const {SVGS} = file
+  return file.compileStumpCode(`div
+   class scrollHeaderComponent
+   ${file.previousLink}
+   a ${SVGS.home}
+    class scrollTopLeftBarComponent
+    href index.html
+   a ${SVGS.github}
+    class scrollTopRightBarComponent
+    href ${file.github}
+   ${file.nextLink}`)}
+scrollFooterNode
+ extends abstractSnippetNode
+ cruxFromId
+ javascript
+  compile() {
+  const file = this.getParent().file
+  const {SVGS, SCROLL_VERSION} = file
+  return file.compileStumpCode(`div
+   class scrollFooterComponent
+   a ${SVGS.email}
+    href mailto:${file.email}
+   a ${SVGS.twitter}
+    href ${this.twitter}
+   a ${SVGS.github}
+    href ${file.github}
+   a Built with Scroll v${SCROLL_VERSION}
+    href https://scroll.pub
+    class scrollCommunityLinkComponent`)}
+loremIpsumNode
+ extends abstractAftertextNode
+ description Generate dummy text.
+ cruxFromId
+ catchAllCellType integerCell
+ javascript
+  get originalTextPostLinkify() {
+   return `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+  }
+  compile() {
+   return super.compile().repeat(this.getWord(1) ? parseInt(this.getWord(1)) : 1)
+  }

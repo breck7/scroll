@@ -195,8 +195,6 @@ const scrollKeywords = {
 	github: "github",
 	email: "email",
 	rssFeedUrl: "rssFeedUrl",
-	scrollHeader: "scrollHeader",
-	scrollFooter: "scrollFooter",
 	scrollCss: "scrollCss"
 }
 
@@ -301,6 +299,8 @@ class ScrollFile {
 		this.permalink = this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
 	}
 
+	SVGS = SVGS
+	SCROLL_VERSION = SCROLL_VERSION
 	shouldBuild = true
 	filePath = ""
 
@@ -313,6 +313,10 @@ class ScrollFile {
 		}
 		const templateName = this.scrollScriptProgram.getNode("template")?.getWord(1)
 		return templates[templateName] || FileTemplate
+	}
+
+	compileStumpCode(code) {
+		return new stump(code).compile()
 	}
 
 	get html() {
@@ -459,38 +463,6 @@ class AbstractTemplate {
 		return " "
 	}
 
-	get header() {
-		const header = this.file.scrollScriptProgram.getNode(scrollKeywords.scrollHeader)
-		if (header) return header.childrenToString()
-
-		return `div
- class scrollHeaderComponent
-${this.previousLink}
- a ${SVGS.home}
-  class scrollTopLeftBarComponent
-  href index.html
- a ${SVGS.github}
-  class scrollTopRightBarComponent
-  href ${this.github}
-${this.nextLink}`
-	}
-
-	get footer() {
-		const footer = this.file.scrollScriptProgram.getNode(scrollKeywords.scrollFooter)
-		if (footer) return footer.childrenToString()
-		return `div
- class scrollFooterComponent
- a ${SVGS.email}
-  href mailto:${this.email}
- a ${SVGS.twitter}
-  href ${this.twitter}
- a ${SVGS.github}
-  href ${this.github}
- a Built with Scroll v${SCROLL_VERSION}
-  href https://scroll.pub
-  class scrollCommunityLinkComponent`
-	}
-
 	get columnWidth() {
 		return this.file.get(scrollKeywords.columnWidth) ?? DEFAULT_COLUMN_WIDTH
 	}
@@ -561,22 +533,11 @@ ${this.nextLink}`
    content summary_large_image
   ${this.styleCode}
  body
-  ${removeReturnCharsAndRightShift(this.header, 2)}
-  ${removeReturnCharsAndRightShift(this.pageHeader, 2)}
-  ${removeReturnCharsAndRightShift(this.pageCode, 2)}
-  ${removeReturnCharsAndRightShift(this.footer, 2)}`
+  ${removeReturnCharsAndRightShift(this.pageCode, 2)}`
 	}
 
 	toHtml() {
-		return scrollBoilerplateCompiledMessage + "\n" + new stump(this.stumpCode).compile()
-	}
-
-	get pageHeader() {
-		const { file } = this
-		return `h1
- class ${cssClasses.scrollFilePageTitle}
- a ${file.title}
-  href ${file.permalink}`
+		return scrollBoilerplateCompiledMessage + "\n" + this.file.compileStumpCode(this.stumpCode)
 	}
 }
 
