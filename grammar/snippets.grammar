@@ -7,17 +7,21 @@ scrollHeaderNode
  javascript
   compile() {
   const file = this.getParent().file
-  const {SVGS, cssClasses} = file
+  const {SVGS, cssClasses, linkToPrevious, linkToNext} = file
   return file.compileStumpCode(`div
    class scrollHeaderComponent
-   ${file.previousLink}
+   a <
+    class ${cssClasses.scrollPrevPageLink}
+    href ${linkToPrevious}
    a ${SVGS.home}
     class scrollTopLeftBarComponent
     href index.html
    a ${SVGS.github}
     class scrollTopRightBarComponent
     href ${file.github}
-   ${file.nextLink}
+   a >
+    class ${cssClasses.scrollNextPageLink}
+    href ${linkToNext}
   div
    class ${cssClasses.scrollFilePageComponent}
    style ${this.cssColumnWorkaround}`)}

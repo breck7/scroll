@@ -324,14 +324,6 @@ class ScrollFile {
 		return this.get(scrollKeywords.twitter)
 	}
 
-	get previousLink() {
-		return " "
-	}
-
-	get nextLink() {
-		return " "
-	}
-
 	get columnWidth() {
 		return this.get(scrollKeywords.columnWidth) ?? DEFAULT_COLUMN_WIDTH
 	}
@@ -367,18 +359,6 @@ class ScrollFile {
  type application/rss+xml
  title ${this.title}
  href ${rssFeedUrl}`
-	}
-
-	get previousLink() {
-		return ` a <
-  class ${cssClasses.scrollPrevPageLink}
-  href ${this.linkToPrevious}`
-	}
-
-	get nextLink() {
-		return ` a >
-  class ${cssClasses.scrollNextPageLink}
-  href ${this.linkToNext}`
 	}
 
 	get estimatedLines() {
