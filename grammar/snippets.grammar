@@ -24,7 +24,7 @@ scrollHeaderNode
     href ${linkToNext}
   div
    class ${cssClasses.scrollFilePageComponent}
-   style ${this.cssColumnWorkaround}`)}
+   style ${file.cssColumnWorkaround}`)}
 scrollFooterNode
  extends abstractSnippetNode
  javascript
