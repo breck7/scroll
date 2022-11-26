@@ -60,21 +60,21 @@ scrollSnippetsNode
            return file.compileStumpCode(`div
    class ${cssClasses.scrollSnippetsComponent}
    style column-width:35ch;
-  ${files
+   ${files
                .map(file => {
                    const snippet = new jtree.TreeNode(`div
-   class ${cssClasses.scrollSnippetContainerComponent}`)
+    class ${cssClasses.scrollSnippetContainerComponent}`)
                    snippet.getNode("div").appendLineAndChildren("bern", file[this.methodForGettingHtml])
                    return snippet.toString()
                })
-               .join("\n")}`)
+               .join("\n ")}`)
   }
 scrollFullNode
  extends scrollSnippetsNode
  cruxFromId
  description Prints the full contents of files in a folder that are in the named group.
  javascript
-  methodForGettingHtml = "htmlCodeForFullSnippetsPage"
+  methodForGettingHtml = "compiledSnippet"
 loremIpsumNode
  extends abstractSnippetNode
  description Generate dummy text.

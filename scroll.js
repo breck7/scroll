@@ -445,12 +445,6 @@ class ScrollFile {
 		return viewSourceUrl || (viewSourceBaseUrl ? viewSourceBaseUrl.replace(/\/$/, "") + "/" + path.basename(this.filePath) : "")
 	}
 
-	_compiled = ""
-	get compiled() {
-		if (!this._compiled) this._compiled = this.scrollScriptProgram.compile()
-		return this._compiled
-	}
-
 	get stumpCode() {
 		const { title, description, openGraphImage, rssTag } = this
 		return `html
@@ -487,19 +481,37 @@ class ScrollFile {
    ${removeReturnCharsAndRightShift(this.compiled, 3)}`
 	}
 
+	_compiled = ""
+	get compiled() {
+		if (!this._compiled) this._compiled = this.scrollScriptProgram.compile()
+		return this._compiled
+	}
+
+	_compiledSnippet = ""
+	get compiledSnippet() {
+		if (!this._compiledSnippet) this._compiledSnippet = this.scrollScriptProgramForSnippets.compile()
+		return this._compiledSnippet
+	}
+
+	get scrollScriptProgramForSnippets() {
+		const clone = this.scrollScriptProgram.clone()
+		clone.forEach(node => node.getWord(0) === "scrollHeader" || node.getWord(0) === "scrollFooter").forEach(node => node.destroy())
+		return clone
+	}
+
 	get html() {
 		return scrollBoilerplateCompiledMessage + "\n" + this.compileStumpCode(this.stumpCode)
 	}
 
 	get htmlCodeForSnippetsPage() {
 		const snippetBreakNode = this.scrollScriptProgram.getNode(scrollKeywords.endSnippet)
-		if (!snippetBreakNode) return this.htmlCodeForFullSnippetsPage
+		if (!snippetBreakNode) return this.compiledSnippet
 		const indexOfBreak = snippetBreakNode.getIndex()
 
-		const { scrollScriptProgram, permalink } = this
-		const joinChar = scrollScriptProgram._getChildJoinCharacter()
+		const { scrollScriptProgramForSnippets, permalink } = this
+		const joinChar = scrollScriptProgramForSnippets._getChildJoinCharacter()
 		const html =
-			scrollScriptProgram
+			scrollScriptProgramForSnippets
 				.map((child, index) => (index >= indexOfBreak ? "" : child.compile()))
 				.filter(i => i)
 				.join(joinChar) + `<a class="scrollContinueReadingLink" href="${permalink}">Continue reading...</a>`
