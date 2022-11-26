@@ -38,10 +38,11 @@ scrollFooterNode
 scrollSnippetsNode
  extends abstractSnippetNode
  keywords keywordCell groupNameCell
- description Prints snippets of all files in a folder that are in the named group.
+ description Prints the snippets of all files in a folder that are in the named group.
  example
   scrollSnippets index
  javascript
+  methodForGettingHtml = "htmlCodeForSnippetsPage"
   compile() {
    const file = this.getParent().file
    const cssClasses = file.cssClasses
@@ -51,7 +52,7 @@ scrollSnippetsNode
                .map(file => {
                    const node = new TreeNode(`div
     class ${cssClasses.scrollGroupPageFileContainerComponent}`)
-                   node.getNode("div").appendLineAndChildren("bern", file.htmlCodeForSnippetsPage)
+                   node.getNode("div").appendLineAndChildren("bern", file[this.methodForGettingHtml])
                    return node.toString()
                })
                .join("\n")
@@ -61,6 +62,12 @@ scrollSnippetsNode
     style column-width:35ch;
     ${removeReturnCharsAndRightShift(fileCode, 1)}`
   }
+scrollFullNode
+ extends scrollSnippetsNode
+ cruxFromId
+ description Prints the full contents of files in a folder that are in the named group.
+ javascript
+  methodForGettingHtml = "htmlCode"
 loremIpsumNode
  extends abstractSnippetNode
  description Generate dummy text.

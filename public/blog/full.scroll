@@ -1,0 +1,5 @@
+import settings.scroll
+scrollHeader
+title The Official Scroll Blog
+scrollFull index
+scrollFooter

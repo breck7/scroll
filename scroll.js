@@ -308,24 +308,140 @@ class ScrollFile {
 	shouldBuild = true
 	filePath = ""
 
-	get template() {
-		const templates = {
-			group: GroupTemplate,
-			snippets: SnippetsGroupTemplate,
-			blank: BlankTemplate,
-			file: FileTemplate
-		}
-		const templateName = this.scrollScriptProgram.getNode("template")?.getWord(1)
-		return templates[templateName] || FileTemplate
-	}
-
 	compileStumpCode(code) {
 		return new stump(code).compile()
 	}
 
+	get github() {
+		return this.file.get(scrollKeywords.github)
+	}
+
+	get email() {
+		return this.file.get(scrollKeywords.email)
+	}
+
+	get twitter() {
+		return this.file.get(scrollKeywords.twitter)
+	}
+
+	get previousLink() {
+		return " "
+	}
+
+	get nextLink() {
+		return " "
+	}
+
+	get columnWidth() {
+		return this.file.get(scrollKeywords.columnWidth) ?? DEFAULT_COLUMN_WIDTH
+	}
+
+	get maxColumns() {
+		// If undefined will be autocomputed
+		return this.file.get(scrollKeywords.maxColumns)
+	}
+
+	// Todo: scroll.css link thing fix.
+	get styleCode() {
+		// Default is to inline CSS. Otherwise we can split it into a sep file.
+		const cssFile = this.file.get(scrollKeywords.scrollCss)
+
+		if (cssFile === "") return ""
+
+		if (cssFile)
+			return `link
+   rel stylesheet
+   type text/css
+   href ${cssFile}`
+
+		return `styleTag
+   bern
+    ${removeReturnCharsAndRightShift(SCROLL_CSS, 4)}`
+	}
+
+	get rssTag() {
+		const rssFeedUrl = this.file.get(scrollKeywords.rssFeedUrl)
+		if (!rssFeedUrl) return ""
+		return `link
+ rel alternate
+ type application/rss+xml
+ title ${this.title}
+ href ${rssFeedUrl}`
+	}
+
+	get stumpCode() {
+		const { file } = this
+
+		return `html
+ lang en-US
+ head
+  meta
+   charset utf-8
+  titleTag ${file.title}
+  meta
+   name viewport
+   content width=device-width,initial-scale=1
+  meta
+   name description
+   content ${file.description}
+  meta
+   name generator
+   content Scroll v${SCROLL_VERSION}
+  meta
+   property og:title
+   content ${file.title}
+  meta
+   property og:description
+   content ${file.description}
+  meta
+   property og:image
+   content ${file.openGraphImage}
+  ${removeReturnCharsAndRightShift(this.rssTag, 2)}
+  meta
+   name twitter:card
+   content summary_large_image
+  ${this.styleCode}
+ body
+  ${removeReturnCharsAndRightShift(this.pageCode, 2)}`
+	}
+
 	get html() {
-		const { template } = this
-		return new template(this).toHtml()
+		return scrollBoilerplateCompiledMessage + "\n" + this.compileStumpCode(this.stumpCode)
+	}
+
+	get previousLink() {
+		return ` a <
+  class ${cssClasses.scrollPrevPageLink}
+  href ${this.linkToPrevious}`
+	}
+
+	get nextLink() {
+		return ` a >
+  class ${cssClasses.scrollNextPageLink}
+  href ${this.linkToNext}`
+	}
+
+	get pageCode() {
+		return `div
+ class ${cssClasses.scrollFilePageComponent}
+ style ${cssColumnWorkaround}
+ bern
+  ${removeReturnCharsAndRightShift(this.htmlCode, 2)}`
+	}
+
+	get estimatedLines() {
+		return lodash.sum(this.scrollScriptProgram.map(node => (node.getLine() === "" ? 0 : node.getTopDownArray().length)))
+	}
+
+	get cssColumnWorkaround() {
+		let { maxColumns, columnWidth } = this
+		if (!maxColumns) {
+			const { estimatedLines } = this
+			if (estimatedLines > 10) return ""
+			maxColumns = estimatedLines > 5 ? 2 : 1
+		}
+		const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
+		return `column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;`
 	}
 
 	get primaryGroup() {
@@ -435,195 +551,6 @@ class ScrollFile {
   <title>${title}</title>
   <link>${baseUrl + permalink}</link>
  </item>`
-	}
-}
-
-class AbstractTemplate {
-	constructor(file) {
-		this.file = file
-	}
-
-	get folder() {
-		return this.file.folder
-	}
-
-	get github() {
-		return this.file.get(scrollKeywords.github)
-	}
-
-	get email() {
-		return this.file.get(scrollKeywords.email)
-	}
-
-	get twitter() {
-		return this.file.get(scrollKeywords.twitter)
-	}
-
-	get previousLink() {
-		return " "
-	}
-
-	get nextLink() {
-		return " "
-	}
-
-	get columnWidth() {
-		return this.file.get(scrollKeywords.columnWidth) ?? DEFAULT_COLUMN_WIDTH
-	}
-
-	get maxColumns() {
-		// If undefined will be autocomputed
-		return this.file.get(scrollKeywords.maxColumns)
-	}
-
-	// Todo: scroll.css link thing fix.
-	get styleCode() {
-		// Default is to inline CSS. Otherwise we can split it into a sep file.
-		const cssFile = this.file.get(scrollKeywords.scrollCss)
-
-		if (cssFile === "") return ""
-
-		if (cssFile)
-			return `link
-   rel stylesheet
-   type text/css
-   href ${cssFile}`
-
-		return `styleTag
-   bern
-    ${removeReturnCharsAndRightShift(SCROLL_CSS, 4)}`
-	}
-
-	get rssTag() {
-		const rssFeedUrl = this.file.get(scrollKeywords.rssFeedUrl)
-		if (!rssFeedUrl) return ""
-		return `link
- rel alternate
- type application/rss+xml
- title ${this.title}
- href ${rssFeedUrl}`
-	}
-
-	get stumpCode() {
-		const { file } = this
-
-		return `html
- lang en-US
- head
-  meta
-   charset utf-8
-  titleTag ${file.title}
-  meta
-   name viewport
-   content width=device-width,initial-scale=1
-  meta
-   name description
-   content ${file.description}
-  meta
-   name generator
-   content Scroll v${SCROLL_VERSION}
-  meta
-   property og:title
-   content ${file.title}
-  meta
-   property og:description
-   content ${file.description}
-  meta
-   property og:image
-   content ${file.openGraphImage}
-  ${removeReturnCharsAndRightShift(this.rssTag, 2)}
-  meta
-   name twitter:card
-   content summary_large_image
-  ${this.styleCode}
- body
-  ${removeReturnCharsAndRightShift(this.pageCode, 2)}`
-	}
-
-	toHtml() {
-		return scrollBoilerplateCompiledMessage + "\n" + this.file.compileStumpCode(this.stumpCode)
-	}
-}
-
-class BlankTemplate extends AbstractTemplate {
-	toHtml() {
-		return this.file.compiled.trim()
-	}
-}
-
-class FileTemplate extends AbstractTemplate {
-	get previousLink() {
-		const { file } = this
-		return ` a <
-  class ${cssClasses.scrollPrevPageLink}
-  href ${file.linkToPrevious}`
-	}
-
-	get nextLink() {
-		const { file } = this
-		return ` a >
-  class ${cssClasses.scrollNextPageLink}
-  href ${file.linkToNext}`
-	}
-
-	get pageCode() {
-		const { file, cssColumnWorkaround } = this
-		return `div
- class ${cssClasses.scrollFilePageComponent}
- style ${cssColumnWorkaround}
- bern
-  ${removeReturnCharsAndRightShift(file.htmlCode, 2)}`
-	}
-
-	get estimatedLines() {
-		return lodash.sum(this.file.scrollScriptProgram.map(node => (node.getLine() === "" ? 0 : node.getTopDownArray().length)))
-	}
-
-	get cssColumnWorkaround() {
-		let { maxColumns, columnWidth } = this
-		if (!maxColumns) {
-			const { estimatedLines } = this
-			if (estimatedLines > 10) return ""
-			maxColumns = estimatedLines > 5 ? 2 : 1
-		}
-		const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
-		return `column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;`
-	}
-}
-
-class GroupTemplate extends AbstractTemplate {
-	get groupName() {
-		return this.file.scrollScriptProgram.getNode("template").getWord(2)
-	}
-
-	get files() {
-		return this.folder.getGroup(this.groupName)
-	}
-
-	get pageCode() {
-		const fileCode = this.files
-			.map(file => {
-				const node = new TreeNode(`div
- class ${cssClasses.scrollGroupPageFileContainerComponent}`)
-				node.getNode("div").appendLineAndChildren("bern", this.getHtml(file))
-				return node.toString()
-			})
-			.join("\n")
-
-		return `div
- class ${cssClasses.scrollGroupPageComponent}
- style column-width:${this.columnWidth}ch;
- ${removeReturnCharsAndRightShift(fileCode, 1)}`
-	}
-
-	getHtml(file) {
-		return file.htmlCode
-	}
-}
-
-class SnippetsGroupTemplate extends GroupTemplate {
-	getHtml(file) {
-		return file.htmlCodeForSnippetsPage
 	}
 }
 
