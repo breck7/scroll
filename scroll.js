@@ -504,20 +504,16 @@ class ScrollFile {
   ${this.styleCode}
  body
   bern
-   ${removeReturnCharsAndRightShift(this.htmlCodeForFullPage, 3)}`
+   ${removeReturnCharsAndRightShift(this.compiled, 3)}`
 	}
 
 	get html() {
 		return scrollBoilerplateCompiledMessage + "\n" + this.compileStumpCode(this.stumpCode)
 	}
 
-	get htmlCodeForFullPage() {
-		return this.compiled
-	}
-
 	get htmlCodeForSnippetsPage() {
 		const snippetBreakNode = this.scrollScriptProgram.getNode(scrollKeywords.endSnippet)
-		if (!snippetBreakNode) return this.htmlCodeForFullPage
+		if (!snippetBreakNode) return this.htmlCodeForFullSnippetsPage
 		const indexOfBreak = snippetBreakNode.getIndex()
 
 		const { scrollScriptProgram, permalink } = this

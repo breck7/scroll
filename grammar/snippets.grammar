@@ -73,7 +73,7 @@ scrollFullNode
  cruxFromId
  description Prints the full contents of files in a folder that are in the named group.
  javascript
-  methodForGettingHtml = "htmlCode"
+  methodForGettingHtml = "htmlCodeForFullSnippetsPage"
 loremIpsumNode
  extends abstractSnippetNode
  description Generate dummy text.
