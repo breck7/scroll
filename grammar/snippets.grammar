@@ -21,10 +21,7 @@ scrollHeaderNode
     href ${file.github}
    a >
     class ${cssClasses.scrollNextPageLink}
-    href ${linkToNext}
-  div
-   class ${cssClasses.scrollFilePageComponent}
-   style ${file.cssColumnWorkaround}`)}
+    href ${linkToNext}`)}
 scrollFooterNode
  extends abstractSnippetNode
  javascript
