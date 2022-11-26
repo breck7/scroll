@@ -162,7 +162,7 @@ const scrollBoilerplateCompiledMessage = `<!doctype html>
 -->`
 
 const cssClasses = {
-	scrollGroupPageComponent: "scrollGroupPageComponent",
+	scrollSnippetsComponent: "scrollSnippetsComponent",
 	scrollGroupPageFileContainerComponent: "scrollGroupPageFileContainerComponent",
 	scrollFileViewSourceUrlComponent: "scrollFileViewSourceUrlComponent",
 	scrollFilePageComponent: "scrollFilePageComponent",
@@ -503,11 +503,8 @@ class ScrollFile {
    content summary_large_image
   ${this.styleCode}
  body
-  div
-   class ${cssClasses.scrollFilePageComponent}
-   style ${this.cssColumnWorkaround}
-   bern
-    ${removeReturnCharsAndRightShift(this.htmlCodeForFullPage, 4)}`
+  bern
+   ${removeReturnCharsAndRightShift(this.htmlCodeForFullPage, 3)}`
 	}
 
 	get html() {

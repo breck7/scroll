@@ -62,7 +62,7 @@ comment Default footer theme
  color rgba(204,204,204,.5)
 
 comment Main body of both pages is similar
-.scrollGroupPageComponent,.scrollFilePageComponent
+.scrollSnippetsComponent,.scrollFilePageComponent
  column-count auto
  column-fill balance
  column-width 35ch
@@ -75,7 +75,6 @@ comment Main body of both pages is similar
 comment Column rules not needed on single files
 .scrollFilePageComponent
  column-rule none
- padding-top 8px
 
 comment On group pages add some spacing around files
 .scrollGroupPageFileContainerComponent
