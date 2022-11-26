@@ -1,9 +1,9 @@
 abstractSnippetNode
  extends abstractAftertextNode
+ cruxFromId
 scrollHeaderNode
  extends abstractSnippetNode
  description Define a header for a certain page. Setting to blank will also remove the header on a page.
- cruxFromId
  javascript
   compile() {
   const file = this.getParent().file
@@ -20,7 +20,6 @@ scrollHeaderNode
    ${file.nextLink}`)}
 scrollFooterNode
  extends abstractSnippetNode
- cruxFromId
  javascript
   compile() {
   const file = this.getParent().file
@@ -36,10 +35,35 @@ scrollFooterNode
    a Built with Scroll v${SCROLL_VERSION}
     href https://scroll.pub
     class scrollCommunityLinkComponent`)}
+scrollSnippetsNode
+ extends abstractSnippetNode
+ keywords keywordCell groupNameCell
+ description Prints snippets of all files in a folder that are in the named group.
+ example
+  scrollSnippets index
+ javascript
+  compile() {
+   const file = this.getParent().file
+   const cssClasses = file.cssClasses
+   const groupName = this.getWord(1)
+   const files = file.folder.getGroup(groupName)
+   const fileCode = files
+               .map(file => {
+                   const node = new TreeNode(`div
+    class ${cssClasses.scrollGroupPageFileContainerComponent}`)
+                   node.getNode("div").appendLineAndChildren("bern", file.htmlCodeForSnippetsPage)
+                   return node.toString()
+               })
+               .join("\n")
+   
+           return `div
+    class ${cssClasses.scrollGroupPageComponent}
+    style column-width:35ch;
+    ${removeReturnCharsAndRightShift(fileCode, 1)}`
+  }
 loremIpsumNode
- extends abstractAftertextNode
+ extends abstractSnippetNode
  description Generate dummy text.
- cruxFromId
  catchAllCellType integerCell
  javascript
   get originalTextPostLinkify() {

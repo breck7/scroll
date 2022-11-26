@@ -207,8 +207,8 @@ ${scrollKeywords.date} ${dayjs().format(standardDateFormat)}
 groups index
 scrollFooter`,
 	header: `importOnly
-title My Website
-description Powered by Scroll
+title My Personal Blog
+description My thoughts about life and the world.
 github https://github.com/breck7/scroll
 viewSourceBaseUrl https://github.com/breck7/scroll/blob/main
 twitter https://twitter.com/breckyunits
@@ -221,7 +221,7 @@ title About this site
 * This is a static page.
 scrollFooter`,
 	index: `import header.scroll
-template group index
+scrollSnippets index
 scrollFooter`
 }
 
