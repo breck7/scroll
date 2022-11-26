@@ -305,6 +305,7 @@ class ScrollFile {
 
 	SVGS = SVGS
 	SCROLL_VERSION = SCROLL_VERSION
+	cssClasses = cssClasses
 	shouldBuild = true
 	filePath = ""
 
@@ -367,49 +368,6 @@ class ScrollFile {
  type application/rss+xml
  title ${this.title}
  href ${rssFeedUrl}`
-	}
-
-	get stumpCode() {
-		const { title, description, openGraphImage, rssTag } = this
-		return `html
- lang en-US
- head
-  meta
-   charset utf-8
-  titleTag ${title}
-  meta
-   name viewport
-   content width=device-width,initial-scale=1
-  meta
-   name description
-   content ${description}
-  meta
-   name generator
-   content Scroll v${SCROLL_VERSION}
-  meta
-   property og:title
-   content ${title}
-  meta
-   property og:description
-   content ${description}
-  meta
-   property og:image
-   content ${openGraphImage}
-  ${removeReturnCharsAndRightShift(rssTag, 2)}
-  meta
-   name twitter:card
-   content summary_large_image
-  ${this.styleCode}
- body
-  div
-   class ${cssClasses.scrollFilePageComponent}
-   style ${this.cssColumnWorkaround}
-   bern
-    ${removeReturnCharsAndRightShift(this.htmlCode, 4)}`
-	}
-
-	get html() {
-		return scrollBoilerplateCompiledMessage + "\n" + this.compileStumpCode(this.stumpCode)
 	}
 
 	get previousLink() {
@@ -514,13 +472,56 @@ class ScrollFile {
 		return this._compiled
 	}
 
-	get htmlCode() {
-		return this.compiled + (this.viewSourceUrl ? `<p class="${cssClasses.scrollFileViewSourceUrlComponent}"><a href="${this.viewSourceUrl}">View source</a></p>` : "")
+	get stumpCode() {
+		const { title, description, openGraphImage, rssTag } = this
+		return `html
+ lang en-US
+ head
+  meta
+   charset utf-8
+  titleTag ${title}
+  meta
+   name viewport
+   content width=device-width,initial-scale=1
+  meta
+   name description
+   content ${description}
+  meta
+   name generator
+   content Scroll v${SCROLL_VERSION}
+  meta
+   property og:title
+   content ${title}
+  meta
+   property og:description
+   content ${description}
+  meta
+   property og:image
+   content ${openGraphImage}
+  ${removeReturnCharsAndRightShift(rssTag, 2)}
+  meta
+   name twitter:card
+   content summary_large_image
+  ${this.styleCode}
+ body
+  div
+   class ${cssClasses.scrollFilePageComponent}
+   style ${this.cssColumnWorkaround}
+   bern
+    ${removeReturnCharsAndRightShift(this.htmlCodeForFullPage, 4)}`
+	}
+
+	get html() {
+		return scrollBoilerplateCompiledMessage + "\n" + this.compileStumpCode(this.stumpCode)
+	}
+
+	get htmlCodeForFullPage() {
+		return this.compiled
 	}
 
 	get htmlCodeForSnippetsPage() {
 		const snippetBreakNode = this.scrollScriptProgram.getNode(scrollKeywords.endSnippet)
-		if (!snippetBreakNode) return this.htmlCode
+		if (!snippetBreakNode) return this.htmlCodeForFullPage
 		const indexOfBreak = snippetBreakNode.getIndex()
 
 		const { scrollScriptProgram, permalink } = this

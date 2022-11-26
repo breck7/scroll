@@ -23,8 +23,12 @@ scrollFooterNode
  javascript
   compile() {
   const file = this.getParent().file
-  const {SVGS, SCROLL_VERSION} = file
-  return file.compileStumpCode(`div
+  const {SVGS, SCROLL_VERSION, viewSourceUrl, cssClasses} = file
+  return file.compileStumpCode(`p
+   class ${cssClasses.scrollFileViewSourceUrlComponent}
+   a
+    href ${viewSourceUrl} View source
+  div
    class scrollFooterComponent
    a ${SVGS.email}
     href mailto:${file.email}
@@ -44,10 +48,10 @@ scrollSnippetsNode
  javascript
   methodForGettingHtml = "htmlCodeForSnippetsPage"
   compile() {
-   const file = this.getParent().file
-   const cssClasses = file.cssClasses
    const groupName = this.getWord(1)
-   const files = file.folder.getGroup(groupName)
+   const file = this.getParent().file
+   const {cssClasses, folder} = file
+   const files = folder.getGroup(groupName)
    const fileCode = files
                .map(file => {
                    const node = new TreeNode(`div
