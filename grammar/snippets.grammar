@@ -30,8 +30,8 @@ scrollFooterNode
   const {SVGS, SCROLL_VERSION, viewSourceUrl, cssClasses} = file
   return file.compileStumpCode(`p
    class ${cssClasses.scrollFileViewSourceUrlComponent}
-   a
-    href ${viewSourceUrl} View source
+   a View source
+    href ${viewSourceUrl}
   div
    class scrollFooterComponent
    a ${SVGS.email}
