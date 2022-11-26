@@ -423,7 +423,7 @@ class ScrollFile {
 	get pageCode() {
 		return `div
  class ${cssClasses.scrollFilePageComponent}
- style ${cssColumnWorkaround}
+ style ${this.cssColumnWorkaround}
  bern
   ${removeReturnCharsAndRightShift(this.htmlCode, 2)}`
 	}
