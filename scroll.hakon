@@ -77,7 +77,7 @@ comment Column rules not needed on single files
  column-rule none
 
 comment On group pages add some spacing around files
-.scrollGroupPageFileContainerComponent
+.scrollSnippetContainerComponent
  border-bottom 1px solid rgb(204,204,204)
  padding 1ch 0
  break-inside avoid

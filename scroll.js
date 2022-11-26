@@ -163,7 +163,7 @@ const scrollBoilerplateCompiledMessage = `<!doctype html>
 
 const cssClasses = {
 	scrollSnippetsComponent: "scrollSnippetsComponent",
-	scrollGroupPageFileContainerComponent: "scrollGroupPageFileContainerComponent",
+	scrollSnippetContainerComponent: "scrollSnippetContainerComponent",
 	scrollFileViewSourceUrlComponent: "scrollFileViewSourceUrlComponent",
 	scrollFilePageComponent: "scrollFilePageComponent",
 	scrollPrevPageLink: "scrollPrevPageLink",
