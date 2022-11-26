@@ -313,15 +313,15 @@ class ScrollFile {
 	}
 
 	get github() {
-		return this.file.get(scrollKeywords.github)
+		return this.get(scrollKeywords.github)
 	}
 
 	get email() {
-		return this.file.get(scrollKeywords.email)
+		return this.get(scrollKeywords.email)
 	}
 
 	get twitter() {
-		return this.file.get(scrollKeywords.twitter)
+		return this.get(scrollKeywords.twitter)
 	}
 
 	get previousLink() {
@@ -333,18 +333,18 @@ class ScrollFile {
 	}
 
 	get columnWidth() {
-		return this.file.get(scrollKeywords.columnWidth) ?? DEFAULT_COLUMN_WIDTH
+		return this.get(scrollKeywords.columnWidth) ?? DEFAULT_COLUMN_WIDTH
 	}
 
 	get maxColumns() {
 		// If undefined will be autocomputed
-		return this.file.get(scrollKeywords.maxColumns)
+		return this.get(scrollKeywords.maxColumns)
 	}
 
 	// Todo: scroll.css link thing fix.
 	get styleCode() {
 		// Default is to inline CSS. Otherwise we can split it into a sep file.
-		const cssFile = this.file.get(scrollKeywords.scrollCss)
+		const cssFile = this.get(scrollKeywords.scrollCss)
 
 		if (cssFile === "") return ""
 
@@ -360,7 +360,7 @@ class ScrollFile {
 	}
 
 	get rssTag() {
-		const rssFeedUrl = this.file.get(scrollKeywords.rssFeedUrl)
+		const rssFeedUrl = this.get(scrollKeywords.rssFeedUrl)
 		if (!rssFeedUrl) return ""
 		return `link
  rel alternate
