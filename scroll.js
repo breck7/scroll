@@ -166,7 +166,6 @@ const cssClasses = {
 	scrollGroupPageFileContainerComponent: "scrollGroupPageFileContainerComponent",
 	scrollFileViewSourceUrlComponent: "scrollFileViewSourceUrlComponent",
 	scrollFilePageComponent: "scrollFilePageComponent",
-	scrollFilePageTitle: "scrollFilePageTitle",
 	scrollPrevPageLink: "scrollPrevPageLink",
 	scrollNextPageLink: "scrollNextPageLink"
 }

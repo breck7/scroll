@@ -24,7 +24,8 @@ titleNode
  inScope hiddenTitleNode
  javascript
   compile() {
-   return this.has("hidden") ? "" : `<h1 class="scrollTitleComponent"><a href="${this.getRootNode().permalink}">${this.getContent()}</a></h1>`
+   const {file} = this.getParent()
+   return this.has("hidden") ? "" : `<h1 class="scrollTitleComponent"><a href="${file.permalink}">${this.getContent()}</a></h1>`
   }
 hiddenTitleNode
  description Set this to not print the title.

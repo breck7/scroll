@@ -76,18 +76,6 @@ comment Column rules not needed on single files
 .scrollFilePageComponent
  column-rule none
  padding-top 8px
- .scrollTitleComponent
-  comment Hide the title since we will display it up top.
-  display none
-.scrollFilePageTitle
- text-align center
- margin-top 8px
- margin-bottom 8px
- padding-left 50px
- padding-right 50px
- a
-  text-decoration none
-  color #000
 
 comment On group pages add some spacing around files
 .scrollGroupPageFileContainerComponent
