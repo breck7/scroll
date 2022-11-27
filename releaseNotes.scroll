@@ -10,6 +10,7 @@ title Scroll Release Notes
 - ⚠️ BREAKING: removed `maxColumns` and `columnWidth` and `template`
 - ⚠️ BREAKING: headers and footers are not provided by default. You now must explicitly include them with `scrollHeader` and `scrollFooter.
 - ⚠️ BREAKING: columns are not provided by default. You now need to wrap your content in `startColumns` and `endColumns`.
+- ⚠️ BREAKING: CSS is not included by default. You need to use the snippet keyword `scrollCss`. The previous behavior of `scrollCss` has been removed.
 
 # 45.0.0 11/24/2022
 - 🎉 a whole new way to do footnotes/end notes.

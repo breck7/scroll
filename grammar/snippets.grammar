@@ -104,6 +104,14 @@ endColumnsNode
   compile() {
    return '</div>'
   }
+scrollCssNode
+ extends abstractSnippetNode
+ cruxFromId
+ description Prints the Scroll CSS in an <style> tag.
+ javascript
+  compile() {
+   return `<style>${this.getParent().file.SCROLL_CSS}</style>`
+  }
 loremIpsumNode
  extends abstractSnippetNode
  description Generate dummy text.

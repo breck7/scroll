@@ -10,3 +10,7 @@ htmlNode
 htmlLineNode
  catchAllCellType anyCell
  catchAllNodeType htmlLineNode
+stumpNode
+ description Stump is a Tree Language that compiles to HTML.
+ catchAllCellType anyCell
+ catchAllNodeType stumpNode

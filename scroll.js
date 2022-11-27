@@ -189,8 +189,7 @@ const scrollKeywords = {
 	twitter: "twitter",
 	github: "github",
 	email: "email",
-	rssFeedUrl: "rssFeedUrl",
-	scrollCss: "scrollCss"
+	rssFeedUrl: "rssFeedUrl"
 }
 
 const initSite = {
@@ -300,6 +299,7 @@ class ScrollFile {
 
 	SVGS = SVGS
 	SCROLL_VERSION = SCROLL_VERSION
+	SCROLL_CSS = SCROLL_CSS
 	cssClasses = cssClasses
 	shouldBuild = true
 	filePath = ""
@@ -318,24 +318,6 @@ class ScrollFile {
 
 	get twitter() {
 		return this.get(scrollKeywords.twitter)
-	}
-
-	// Todo: scroll.css link thing fix.
-	get styleCode() {
-		// Default is to inline CSS. Otherwise we can split it into a sep file.
-		const cssFile = this.get(scrollKeywords.scrollCss)
-
-		if (cssFile === "") return ""
-
-		if (cssFile)
-			return `link
-   rel stylesheet
-   type text/css
-   href ${cssFile}`
-
-		return `styleTag
-   bern
-    ${removeReturnCharsAndRightShift(SCROLL_CSS, 4)}`
 	}
 
 	get rssTag() {
@@ -447,7 +429,6 @@ class ScrollFile {
   meta
    name twitter:card
    content summary_large_image
-  ${this.styleCode}
  body
   bern
    ${removeReturnCharsAndRightShift(this.compiled, 3)}`
