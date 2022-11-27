@@ -6,7 +6,7 @@ scrollHeaderNode
  description Define a header for a certain page. Setting to blank will also remove the header on a page.
  javascript
   compileSnippet() {
-    return ""
+   return ""
   }
   compile() {
    const file = this.getParent().file
@@ -30,7 +30,7 @@ scrollFooterNode
  extends abstractSnippetNode
  javascript
   compileSnippet() {
-    return ""
+   return ""
   }
   compile() {
    const file = this.getParent().file
@@ -61,10 +61,10 @@ scrollSnippetsNode
   methodForGettingHtml = "htmlCodeForSnippetsPage"
   makeSnippet(file) {
    const snippet = new jtree.TreeNode(`div`)
-   const { cssClasses} = file
+   const { cssClasses } = file
    const div = snippet.getNode("div")
    div.appendLine(`class ${cssClasses.scrollSnippetContainerComponent}`)
-   div.appendLineAndChildren("bern", file[this.methodForGettingHtml])   
+   div.appendLineAndChildren("bern", file[this.methodForGettingHtml])
    return snippet.toString()
   }
   compile() {
@@ -72,9 +72,7 @@ scrollSnippetsNode
    const file = this.getParent().file
    const { cssClasses, folder } = file
    const files = folder.getGroup(groupName)
-   const snippets = files
-   .map(file => this.makeSnippet(file))
-   .join("\n")
+   const snippets = files.map(file => this.makeSnippet(file)).join("\n")
    return file.compileStumpCode(`div
    class ${cssClasses.scrollSnippetsComponent}
    style column-width:35ch;

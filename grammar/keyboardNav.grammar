@@ -5,7 +5,7 @@ keyboardNavNode
  catchAllCellType urlCell
  javascript
   compileSnippet() {
-    return ""
+   return ""
   }
   compile() {
    const file = this.getRootNode().file
