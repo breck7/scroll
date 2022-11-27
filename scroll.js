@@ -506,7 +506,7 @@ class ScrollFile {
 		const joinChar = scrollScriptProgram._getChildJoinCharacter()
 		const html =
 			scrollScriptProgram
-				.map((child, index) => (index >= indexOfBreak ? "" : child.compileSnippet()))
+				.map((child, index) => (index >= indexOfBreak ? "" : child.compileSnippet ? child.compileSnippet() : child.compile()))
 				.filter(i => i)
 				.join(joinChar) + `<a class="scrollContinueReadingLink" href="${permalink}">Continue reading...</a>`
 
