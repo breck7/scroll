@@ -150,7 +150,7 @@ testTree.initCommand = async areEqual => {
 		const pages = folder.buildFiles()
 
 		// Assert
-		areEqual(pages[0].html.includes("Powered by Scroll"), true)
+		areEqual(pages[0].html.includes("Built with Scroll"), true)
 		areEqual(pages.length, 3, "should have 3 pagee")
 		areEqual(folder.errors.flat().length, 0)
 	} catch (err) {
