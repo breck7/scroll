@@ -4,9 +4,17 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 46.2.0 11/27/2022
+
+- 🏥 `stump` keyword works now
+
 # 46.1.0 11/27/2022
 
-* This is a major breaking refactor. *All the implicit imports are gone*. Everything must be explicitly included now (perhaps with a few slight exceptions like meta tags). This migration guide is a work in progress. This release is NOT recommended for the feint of heart. Wait a day or two until the first bug fix release.
+- 🏥 `scrollCss` works now
+
+# 46.0.0 11/27/2022
+
+* This is a major breaking refactor. *All the implicit imports are gone*. Everything must be explicitly included now (perhaps with a few slight exceptions like meta tags). This migration guide is a work in progress. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out.
 
 - ⚠️ BREAKING: removed `maxColumns` and `columnWidth` and `template`
 - ⚠️ BREAKING: headers and footers are not provided by default. You now must explicitly include them with `scrollHeader` and `scrollFooter`. The previous behavior of `scrollHeader` and `scrollFooter` has been removed.

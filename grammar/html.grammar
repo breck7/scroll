@@ -10,7 +10,15 @@ htmlNode
 htmlLineNode
  catchAllCellType anyCell
  catchAllNodeType htmlLineNode
-stumpNode
- description Stump is a Tree Language that compiles to HTML.
+stumpContentNode
  catchAllCellType anyCell
- catchAllNodeType stumpNode
+stumpNode
+ cruxFromId
+ extends abstractScrollNode
+ description Stump is a Tree Language that compiles to HTML.
+ catchAllNodeType stumpContentNode
+ javascript
+  compile() {
+    const file = this.getParent().file
+    return file.compileStumpCode(this.childrenToString())
+  }
