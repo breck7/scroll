@@ -186,8 +186,6 @@ const scrollKeywords = {
 	baseUrl: "baseUrl",
 	viewSourceBaseUrl: "viewSourceBaseUrl",
 	openGraphImage: "openGraphImage",
-	maxColumns: "maxColumns",
-	columnWidth: "columnWidth",
 	twitter: "twitter",
 	github: "github",
 	email: "email",
@@ -322,15 +320,6 @@ class ScrollFile {
 		return this.get(scrollKeywords.twitter)
 	}
 
-	get columnWidth() {
-		return this.get(scrollKeywords.columnWidth) ?? DEFAULT_COLUMN_WIDTH
-	}
-
-	get maxColumns() {
-		// If undefined will be autocomputed
-		return this.get(scrollKeywords.maxColumns)
-	}
-
 	// Todo: scroll.css link thing fix.
 	get styleCode() {
 		// Default is to inline CSS. Otherwise we can split it into a sep file.
@@ -357,21 +346,6 @@ class ScrollFile {
  type application/rss+xml
  title ${this.title}
  href ${rssFeedUrl}`
-	}
-
-	get estimatedLines() {
-		return lodash.sum(this.scrollScriptProgram.map(node => (node.getLine() === "" ? 0 : node.getTopDownArray().length)))
-	}
-
-	get cssColumnWorkaround() {
-		let { maxColumns, columnWidth } = this
-		if (!maxColumns) {
-			const { estimatedLines } = this
-			if (estimatedLines > 10) return ""
-			maxColumns = estimatedLines > 5 ? 2 : 1
-		}
-		const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
-		return `column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;`
 	}
 
 	get primaryGroup() {
