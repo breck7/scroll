@@ -4,6 +4,9 @@ keyboardNavNode
  cruxFromId
  catchAllCellType urlCell
  javascript
+  compileSnippet() {
+    return ""
+  }
   compile() {
    const file = this.getRootNode().file
    const linkToPrevious = this.getWord(1) ?? file.linkToPrevious

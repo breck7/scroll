@@ -489,14 +489,8 @@ class ScrollFile {
 
 	_compiledSnippet = ""
 	get compiledSnippet() {
-		if (!this._compiledSnippet) this._compiledSnippet = this.scrollScriptProgramForSnippets.compile()
+		if (!this._compiledSnippet) this._compiledSnippet = this.scrollScriptProgram.compileSnippet()
 		return this._compiledSnippet
-	}
-
-	get scrollScriptProgramForSnippets() {
-		const clone = this.scrollScriptProgram.clone()
-		clone.forEach(node => node.getWord(0) === "scrollHeader" || node.getWord(0) === "scrollFooter").forEach(node => node.destroy())
-		return clone
 	}
 
 	get html() {
@@ -508,11 +502,11 @@ class ScrollFile {
 		if (!snippetBreakNode) return this.compiledSnippet
 		const indexOfBreak = snippetBreakNode.getIndex()
 
-		const { scrollScriptProgramForSnippets, permalink } = this
-		const joinChar = scrollScriptProgramForSnippets._getChildJoinCharacter()
+		const { scrollScriptProgram, permalink } = this
+		const joinChar = scrollScriptProgram._getChildJoinCharacter()
 		const html =
-			scrollScriptProgramForSnippets
-				.map((child, index) => (index >= indexOfBreak ? "" : child.compile()))
+			scrollScriptProgram
+				.map((child, index) => (index >= indexOfBreak ? "" : child.compileSnippet()))
 				.filter(i => i)
 				.join(joinChar) + `<a class="scrollContinueReadingLink" href="${permalink}">Continue reading...</a>`
 

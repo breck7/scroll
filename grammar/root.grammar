@@ -1,5 +1,9 @@
 abstractScrollNode
  cells keywordCell
+ javascript
+  compileSnippet() {
+    return this.compile()
+  }
 blankLineNode
  description Blank lines compile to nothing in the HTML.
  cells blankCell
@@ -20,6 +24,9 @@ scrollScriptNode
   setFile(file) {
    this.file = file
    return this
+  }
+  compileSnippet() {
+    return this.map(child => child.compileSnippet ? child.compileSnippet() : child.compile()).join("\n")
   }
   file = {}
   get permalink() {

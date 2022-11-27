@@ -5,6 +5,9 @@ scrollHeaderNode
  extends abstractSnippetNode
  description Define a header for a certain page. Setting to blank will also remove the header on a page.
  javascript
+  compileSnippet() {
+    return ""
+  }
   compile() {
    const file = this.getParent().file
    const { SVGS, cssClasses, linkToPrevious, linkToNext } = file
@@ -26,6 +29,9 @@ scrollHeaderNode
 scrollFooterNode
  extends abstractSnippetNode
  javascript
+  compileSnippet() {
+    return ""
+  }
   compile() {
    const file = this.getParent().file
    const { SVGS, SCROLL_VERSION, viewSourceUrl, cssClasses } = file
@@ -53,23 +59,26 @@ scrollSnippetsNode
   scrollSnippets index
  javascript
   methodForGettingHtml = "htmlCodeForSnippetsPage"
+  makeSnippet(file) {
+   const snippet = new jtree.TreeNode(`div`)
+   const { cssClasses} = file
+   const div = snippet.getNode("div")
+   div.appendLine(`class ${cssClasses.scrollSnippetContainerComponent}`)
+   div.appendLineAndChildren("bern", file[this.methodForGettingHtml])   
+   return snippet.toString()
+  }
   compile() {
    const groupName = this.getWord(1)
    const file = this.getParent().file
    const { cssClasses, folder } = file
    const files = folder.getGroup(groupName)
-  
+   const snippets = files
+   .map(file => this.makeSnippet(file))
+   .join("\n")
    return file.compileStumpCode(`div
    class ${cssClasses.scrollSnippetsComponent}
    style column-width:35ch;
-   ${files
-   .map(file => {
-    const snippet = new jtree.TreeNode(`div
-    class ${cssClasses.scrollSnippetContainerComponent}`)
-    snippet.getNode("div").appendLineAndChildren("bern", file[this.methodForGettingHtml])
-    return snippet.toString()
-   })
-   .join("\n ")}`)
+   ${snippets}`)
   }
 scrollFullNode
  extends scrollSnippetsNode
