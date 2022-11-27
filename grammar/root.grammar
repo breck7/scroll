@@ -4,7 +4,9 @@ blankLineNode
  description Blank lines compile to nothing in the HTML.
  cells blankCell
  javascript
-  compile() { return ""}
+  compile() {
+   return ""
+  }
  pattern ^$
  tags doNotSynthesize
 scrollScriptNode
@@ -16,8 +18,8 @@ scrollScriptNode
  compilesTo html
  javascript
   setFile(file) {
-    this.file = file
-    return this
+   this.file = file
+   return this
   }
   file = {}
   get permalink() {

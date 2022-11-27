@@ -19,7 +19,9 @@ belowAsCodeNode
  extends abstractScrollNode
  cruxFromId
  javascript
-  get target() { return this.getNext()}
+  get target() {
+   return this.getNext()
+  }
   compile() {
    return `<code class="scrollCodeBlockComponent">${this.target.toString().replace(/\</g, "&lt;")}</code>`
   }
@@ -27,4 +29,6 @@ aboveAsCodeNode
  description Print the Scroll code for the previous node.
  extends belowAsCodeNode
  javascript
-  get target() { return this.getPrevious()}
+  get target() {
+   return this.getPrevious()
+  }

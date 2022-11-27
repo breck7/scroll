@@ -7,27 +7,23 @@ abstractTableNode
    return this.columns.filter(col => !col.isLink).map(column => `<th>${column.name}</th>\n`)
   }
   get columnNames() {
-    const header = this.nodeAt(0)
-    return header
-    ? header
-      .getLine()
-      .split(this.delimiter)
-    : []  
+   const header = this.nodeAt(0)
+   return header ? header.getLine().split(this.delimiter) : []
   }
   get columns() {
-    const cols = this.columnNames
-    return cols.map((name, index) => {
-      const isLink = name.endsWith("Link")
-      const linkIndex = cols.indexOf(name + "Link")
-      return {
-        name,
-        isLink,
-        linkIndex
-      }
-    })
+   const cols = this.columnNames
+   return cols.map((name, index) => {
+    const isLink = name.endsWith("Link")
+    const linkIndex = cols.indexOf(name + "Link")
+    return {
+     name,
+     isLink,
+     linkIndex
+    }
+   })
   }
   get tableBody() {
-   const {delimiter} = this
+   const { delimiter } = this
    return this.getTopDownArray()
     .slice(1)
     .map(node => `<tr>${node.toRow(this.columns, delimiter)}</tr>`)
@@ -51,8 +47,7 @@ rowNode
     if (col.isLink) continue
     let tagged = content
     const link = words[col.linkIndex]
-    if (col.linkIndex > -1 && link)
-     tagged = `<a href="${link}">${content}</a>`
+    if (col.linkIndex > -1 && link) tagged = `<a href="${link}">${content}</a>`
     str += `<td>${tagged}</td>\n`
    }
    return str
@@ -72,13 +67,12 @@ kpiTableNode
    const items = this.getTopDownArray()
    let str = ""
    for (let i = 0; i < items.length; i = i + 3) {
-      str += this.makeRow(items.slice(i, i + 3))
+    str += this.makeRow(items.slice(i, i + 3))
    }
    return str
   }
   makeRow(items) {
-    return `<tr>` + items.map(node => `<td>${node.getWord(0)}<span>${node.getContent()}</span></td>`)
-    .join("\n") + `</tr>\n`
+   return `<tr>` + items.map(node => `<td>${node.getWord(0)}<span>${node.getContent()}</span></td>`).join("\n") + `</tr>\n`
   }
   compile() {
    return `<table class="scrollKpiTable">${this.tableBody}</table>`

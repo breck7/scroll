@@ -21,9 +21,9 @@ imageNode
     console.error(err)
     imgTag = `<img src="${src}">`
    }
-    const caption = this.getNode("caption")
-    const captionFig = caption  ? `<figcaption>${caption.compile()}</figcaption>` : ""
-    return `<figure class="scrollImageComponent"><a href="${src}" target="_blank">${imgTag}</a>${captionFig}</figure>`
+   const caption = this.getNode("caption")
+   const captionFig = caption ? `<figcaption>${caption.compile()}</figcaption>` : ""
+   return `<figure class="scrollImageComponent"><a href="${src}" target="_blank">${imgTag}</a>${captionFig}</figure>`
   }
 imageCaptionAftertextNode
  description An optional caption to accompany the image.

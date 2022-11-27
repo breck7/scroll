@@ -5,8 +5,6 @@ keywordCell
  highlightScope keyword
 stringCell
  highlightScope string
-errorNode
- baseNodeType errorNode
 idCell
  highlightScope constant.language
 dateCell
@@ -43,3 +41,5 @@ filePathCell
  extends stringCell
 groupNameCell
  extends stringCell
+errorNode
+ baseNodeType errorNode

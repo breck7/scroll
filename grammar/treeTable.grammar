@@ -18,18 +18,15 @@ treeRowNode
     const node = this.getNode(col.name)
     if (col.isLink) return
     if (!node) {
-      str += "<td></td>\n"
-      return
+     str += "<td></td>\n"
+     return
     }
     const content = node.length ? node.childrenToString() : node.getContent()
     let tagged = ""
     const link = this.get(col.name + "Link")
-    if (col.linkIndex > -1 && link)
-     tagged = `<a href="${link}">${content}</a>`
-    else if (node.length)
-     tagged = `<pre>${content ?? ""}</pre>`
-    else
-     tagged = content ?? ""
+    if (col.linkIndex > -1 && link) tagged = `<a href="${link}">${content}</a>`
+    else if (node.length) tagged = `<pre>${content ?? ""}</pre>`
+    else tagged = content ?? ""
     str += `<td>${tagged}</td>\n`
    })
    return str
@@ -40,12 +37,10 @@ treeTableNode
  catchAllNodeType treeRowNode
  javascript
   get columnNames() {
-    return this._getUnionNames()
+   return this._getUnionNames()
   }
   get tableBody() {
-   return this
-    .map(node => `<tr>${node.toRow(this.columns)}</tr>`)
-    .join("\n")
+   return this.map(node => `<tr>${node.toRow(this.columns)}</tr>`).join("\n")
   }
  example
   treeTable

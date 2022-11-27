@@ -9,7 +9,7 @@ templateNode
  description Defaults to "file".
  javascript
   compile() {
-    return ""
+   return ""
   }
 abstractIntSettingNode
  cruxFromId

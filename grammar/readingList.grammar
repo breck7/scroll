@@ -3,9 +3,9 @@ readingListItemNode
  catchAllCellType stringCell
  javascript
   compile() {
-    const url = this.getWord(0)
-    const [title, author] = this.getContent().split(" by ")
-    return `<li><a href="${url}">${title ?? url}</a>${author ? ` by ${author}` : ""}</li>`
+   const url = this.getWord(0)
+   const [title, author] = this.getContent().split(" by ")
+   return `<li><a href="${url}">${title ?? url}</a>${author ? ` by ${author}` : ""}</li>`
   }
 readingListNode
  extends abstractScrollNode
@@ -18,5 +18,5 @@ readingListNode
    https://example.com/similar by Author Name
  javascript
   compile() {
-    return `<br><ul>${this.map(child => child.compile()).join("\n")}</ul>`
+   return `<br><ul>${this.map(child => child.compile()).join("\n")}</ul>`
   }

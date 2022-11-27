@@ -6,5 +6,5 @@ scrollNodeTypeDefinitionNode
  baseNodeType blobNode
  javascript
   compile() {
-    return ""
+   return ""
   }

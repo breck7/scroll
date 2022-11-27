@@ -4,7 +4,9 @@ abstractTopLevelSingleMetaNode
  cruxFromId
  cells keywordCell
  javascript
-  compile() { return ""}
+  compile() {
+   return ""
+  }
 permalinkNode
  description When compiling, Scroll will save this file to {permalink}
  extends abstractTopLevelSingleMetaNode
@@ -24,7 +26,7 @@ titleNode
  inScope hiddenTitleNode
  javascript
   compile() {
-   const {file} = this.getParent()
+   const { file } = this.getParent()
    return this.has("hidden") ? "" : `<h1 class="scrollTitleComponent"><a href="${file.permalink}">${this.getContent()}</a></h1>`
   }
 hiddenTitleNode

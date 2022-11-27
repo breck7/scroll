@@ -26,18 +26,18 @@ abstractAftertextNode
     .flat()
   }
   get originalTextPostLinkify() {
-    const originalText = this.filter(node => node.isTextNode)
+   const originalText = this.filter(node => node.isTextNode)
     .map(node => node.toString())
     .join("\n")
-    const shouldLinkify = originalText.includes("<a ") ? false : true
-    return shouldLinkify ? this.replaceNotes(jtree.Utils.linkify(originalText)) : originalText
+   const shouldLinkify = originalText.includes("<a ") ? false : true
+   return shouldLinkify ? this.replaceNotes(jtree.Utils.linkify(originalText)) : originalText
   }
   get notes() {
-    return this.getParent().filter(node => node.getLine().startsWith("^"))
+   return this.getParent().filter(node => node.getLine().startsWith("^"))
   }
   replaceNotes(originalText) {
-    this.notes.forEach((note, index) => originalText = originalText.replace(note.getWord(0), `<a href="#note${index + 1}" class="scrollNoteLink"><sup>${index + 1}</sup></a>`))
-    return originalText
+   this.notes.forEach((note, index) => (originalText = originalText.replace(note.getWord(0), `<a href="#note${index + 1}" class="scrollNoteLink"><sup>${index + 1}</sup></a>`)))
+   return originalText
   }
   get text() {
    const { originalTextPostLinkify, markupInserts } = this
@@ -90,7 +90,10 @@ abstractAftertextDirectiveNode
    return [...text.matchAll(new RegExp(escapedPattern, "g"))].map(match => {
     const { index } = match
     const endIndex = index + pattern.length
-    return [{ index, string: `<${this.openTag}${this.allAttributes}>`, endIndex }, { index: endIndex, endIndex, string: `</${this.closeTag}>` }]
+    return [
+     { index, string: `<${this.openTag}${this.allAttributes}>`, endIndex },
+     { index: endIndex, endIndex, string: `</${this.closeTag}>` }
+    ]
    })
   }
   getInserts(text) {
@@ -158,7 +161,10 @@ wrapsOnNode
    return [...text.matchAll(pattern)].map(match => {
     const { index } = match
     const endIndex = index + match[0].length
-    return [{ index, string: `<${tag + (attributes ? " " + attributes : "")}>`, endIndex, consumeStartCharacters: delimiterLength }, { index: endIndex, endIndex, string: `</${tag}>`, consumeEndCharacters: delimiterLength }]
+    return [
+     { index, string: `<${tag + (attributes ? " " + attributes : "")}>`, endIndex, consumeStartCharacters: delimiterLength },
+     { index: endIndex, endIndex, string: `</${tag}>`, consumeEndCharacters: delimiterLength }
+    ]
    })
   }
 wrapNode
@@ -333,16 +339,18 @@ noteDefinitionNode
  extends thoughtNode
  pattern ^\^.+$
  javascript
-  compile() { return ""}
+  compile() {
+   return ""
+  }
   get divAttributes() {
-    return super.divAttributes + ` id="note${this.noteIndex}" `
+   return super.divAttributes + ` id="note${this.noteIndex}" `
   }
   get text() {
-    return `${this.noteIndex}. ${super.text}`
+   return `${this.noteIndex}. ${super.text}`
   }
   compileNote(noteIndex) {
-    this.noteIndex = noteIndex
-    return super.compile()
+   this.noteIndex = noteIndex
+   return super.compile()
   }
 notesNode
  extends abstractScrollNode
@@ -350,7 +358,7 @@ notesNode
  cruxFromId
  javascript
   get notes() {
-    return this.getParent().filter(node => node.getLine().startsWith("^"))
+   return this.getParent().filter(node => node.getLine().startsWith("^"))
   }
   compile() {
    return this.notes.map((note, noteIndex) => note.compileNote(noteIndex + 1)).join("\n")
@@ -421,8 +429,8 @@ dayjsNode
  extends abstractAftertextDirectiveNode
  javascript
   getInserts() {
-    const dayjs = require("dayjs")
-    const days = eval(this.getContent())
-    const index = this.getParent().originalTextPostLinkify.indexOf("days")
-    return [{ index, string: `${days} ` }]
+   const dayjs = require("dayjs")
+   const days = eval(this.getContent())
+   const index = this.getParent().originalTextPostLinkify.indexOf("days")
+   return [{ index, string: `${days} ` }]
   }

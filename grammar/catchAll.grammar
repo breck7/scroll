@@ -3,4 +3,6 @@ catchAllParagraphNode
  catchAllCellType stringCell
  baseNodeType errorNode
  javascript
-  compile() { return `<p class="scrollParagraphComponent">${this.getLine()}</p>`}
+  compile() {
+   return `<p class="scrollParagraphComponent">${this.getLine()}</p>`
+  }

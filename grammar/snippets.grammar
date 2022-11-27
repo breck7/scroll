@@ -6,9 +6,9 @@ scrollHeaderNode
  description Define a header for a certain page. Setting to blank will also remove the header on a page.
  javascript
   compile() {
-  const file = this.getParent().file
-  const {SVGS, cssClasses, linkToPrevious, linkToNext} = file
-  return file.compileStumpCode(`div
+   const file = this.getParent().file
+   const { SVGS, cssClasses, linkToPrevious, linkToNext } = file
+   return file.compileStumpCode(`div
    class scrollHeaderComponent
    a <
     class ${cssClasses.scrollPrevPageLink}
@@ -21,14 +21,15 @@ scrollHeaderNode
     href ${file.github}
    a >
     class ${cssClasses.scrollNextPageLink}
-    href ${linkToNext}`)}
+    href ${linkToNext}`)
+  }
 scrollFooterNode
  extends abstractSnippetNode
  javascript
   compile() {
-  const file = this.getParent().file
-  const {SVGS, SCROLL_VERSION, viewSourceUrl, cssClasses} = file
-  return file.compileStumpCode(`p
+   const file = this.getParent().file
+   const { SVGS, SCROLL_VERSION, viewSourceUrl, cssClasses } = file
+   return file.compileStumpCode(`p
    class ${cssClasses.scrollFileViewSourceUrlComponent}
    a View source
     href ${viewSourceUrl}
@@ -42,7 +43,8 @@ scrollFooterNode
     href ${file.github}
    a Built with Scroll v${SCROLL_VERSION}
     href https://scroll.pub
-    class scrollCommunityLinkComponent`)}
+    class scrollCommunityLinkComponent`)
+  }
 scrollSnippetsNode
  extends abstractSnippetNode
  keywords keywordCell groupNameCell
@@ -54,20 +56,20 @@ scrollSnippetsNode
   compile() {
    const groupName = this.getWord(1)
    const file = this.getParent().file
-   const {cssClasses, folder} = file
+   const { cssClasses, folder } = file
    const files = folder.getGroup(groupName)
-   
-           return file.compileStumpCode(`div
+  
+   return file.compileStumpCode(`div
    class ${cssClasses.scrollSnippetsComponent}
    style column-width:35ch;
    ${files
-               .map(file => {
-                   const snippet = new jtree.TreeNode(`div
+   .map(file => {
+    const snippet = new jtree.TreeNode(`div
     class ${cssClasses.scrollSnippetContainerComponent}`)
-                   snippet.getNode("div").appendLineAndChildren("bern", file[this.methodForGettingHtml])
-                   return snippet.toString()
-               })
-               .join("\n ")}`)
+    snippet.getNode("div").appendLineAndChildren("bern", file[this.methodForGettingHtml])
+    return snippet.toString()
+   })
+   .join("\n ")}`)
   }
 scrollFullNode
  extends scrollSnippetsNode

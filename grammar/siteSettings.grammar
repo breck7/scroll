@@ -3,7 +3,7 @@ abstractSiteSettingNode
  cells keywordCell
  javascript
   compile() {
-    return ""
+   return ""
   }
 abstractUrlSettingNode
  extends abstractSiteSettingNode
