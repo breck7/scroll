@@ -401,4 +401,4 @@ code
 
 permalink index.html
 keyboardNav releaseNotes.html releaseNotes.html
-scrollFooter
+import footer.scroll

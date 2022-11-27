@@ -759,4 +759,4 @@ chat
 - 🎉 "git" scrollSetting for article source links.
 
 keyboardNav index.html index.html
-scrollFooter
+import footer.scroll
