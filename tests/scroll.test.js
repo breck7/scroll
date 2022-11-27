@@ -76,8 +76,8 @@ testTree.test = async areEqual => {
 }
 
 testTree.file = areEqual => {
-	const file = new ScrollFolder().files[1]
-	const content = file.htmlCode
+	const file = new ScrollFolder().files[0]
+	const content = file.html
 
 	areEqual(file.permalink, "releaseNotes.html")
 	areEqual(content.includes("Scroll the language is now called"), true)

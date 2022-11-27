@@ -53,7 +53,7 @@ scrollFooterNode
   }
 scrollSnippetsNode
  extends abstractSnippetNode
- keywords keywordCell groupNameCell
+ cells keywordCell groupNameCell
  description Prints the snippets of all files in a folder that are in the named group.
  example
   scrollSnippets index
