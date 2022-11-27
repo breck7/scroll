@@ -11,6 +11,7 @@ scrollHeaderNode
   compile() {
    const file = this.getParent().file
    const { SVGS, cssClasses, linkToPrevious, linkToNext } = file
+   const openContainerTag = '<div class="scrollGroupPageComponent" style="column-width:35ch;">'
    return file.compileStumpCode(`div
    class scrollHeaderComponent
    a <
@@ -24,7 +25,7 @@ scrollHeaderNode
     href ${file.github}
    a >
     class ${cssClasses.scrollNextPageLink}
-    href ${linkToNext}`)
+    href ${linkToNext}`) + openContainerTag
   }
 scrollFooterNode
  extends abstractSnippetNode
@@ -35,7 +36,8 @@ scrollFooterNode
   compile() {
    const file = this.getParent().file
    const { SVGS, SCROLL_VERSION, viewSourceUrl, cssClasses } = file
-   return file.compileStumpCode(`p
+   const closeContainerTag = '</div>'
+   return closeContainerTag + file.compileStumpCode(`p
    class ${cssClasses.scrollFileViewSourceUrlComponent}
    a View source
     href ${viewSourceUrl}
