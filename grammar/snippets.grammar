@@ -60,12 +60,12 @@ scrollSnippetsNode
  javascript
   methodForGettingHtml = "htmlCodeForSnippetsPage"
   makeSnippet(file) {
-   const snippet = new jtree.TreeNode(`div`)
-   const { cssClasses } = file
+  const { cssClasses } = file
+   const snippet = new jtree.TreeNode(`div
+   class ${cssClasses.scrollSnippetContainerComponent}`)
    const div = snippet.getNode("div")
-   div.appendLine(`class ${cssClasses.scrollSnippetContainerComponent}`)
    div.appendLineAndChildren("bern", file[this.methodForGettingHtml])
-   return snippet.toString()
+   return snippet.toString().replace(/\n/g, "\n ")
   }
   compile() {
    const groupName = this.getWord(1)
@@ -73,10 +73,12 @@ scrollSnippetsNode
    const { cssClasses, folder } = file
    const files = folder.getGroup(groupName)
    const snippets = files.map(file => this.makeSnippet(file)).join("\n ")
-   return file.compileStumpCode(`div
+   const code = `div
    class ${cssClasses.scrollSnippetsComponent}
    style column-width:35ch;
-   ${snippets}`)
+   ${snippets}`
+   console.log(code)
+   return file.compileStumpCode(code)
   }
 scrollFullNode
  extends scrollSnippetsNode

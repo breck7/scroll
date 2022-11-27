@@ -489,8 +489,15 @@ class ScrollFile {
 
 	_compiledSnippet = ""
 	get compiledSnippet() {
-		if (!this._compiledSnippet) this._compiledSnippet = this.scrollScriptProgram.compileSnippet()
+		if (!this._compiledSnippet) this._compiledSnippet = this.scrollScriptProgram.compileSnippet() + this.viewSourceHtml
 		return this._compiledSnippet
+	}
+
+	get viewSourceHtml() {
+		return this.compileStumpCode(`p
+ class ${this.cssClasses.scrollFileViewSourceUrlComponent}
+ a View source
+  href ${this.viewSourceUrl}`)
 	}
 
 	get html() {
@@ -510,7 +517,7 @@ class ScrollFile {
 				.filter(i => i)
 				.join(joinChar) + `<a class="scrollContinueReadingLink" href="${permalink}">Continue reading...</a>`
 
-		return html
+		return html + this.viewSourceHtml
 	}
 
 	// todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
