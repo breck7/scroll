@@ -220,7 +220,7 @@ title About this site
 * This is a static page.
 scrollFooter`,
 	index: `import header.scroll
-scrollSnippets index
+snippets index
 scrollFooter`
 }
 

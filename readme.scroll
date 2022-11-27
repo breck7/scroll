@@ -156,7 +156,8 @@ code
   about.scroll
   firstPost.scroll
   index.scroll
-  settings.scroll
+  header.scroll
+  footer.scroll
   anImageInTheArticle.png 
 
 * When you run `scroll build`, Scroll reads those files and generates

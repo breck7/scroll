@@ -8,7 +8,7 @@ importNode
    return ""
   }
  example
-  import settings.scroll
+  import header.scroll
 importOnlyNode
  description Mark a file as not one to build. This line will be not be imported into the importing file.
  cruxFromId

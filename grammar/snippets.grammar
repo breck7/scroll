@@ -51,12 +51,12 @@ scrollFooterNode
     href https://scroll.pub
     class scrollCommunityLinkComponent`)
   }
-scrollSnippetsNode
+snippetsNode
  extends abstractSnippetNode
  cells keywordCell groupNameCell
  description Prints the snippets of all files in a folder that are in the named group.
  example
-  scrollSnippets index
+  snippets index
  javascript
   methodForGettingHtml = "htmlCodeForSnippetsPage"
   makeSnippet(file) {
@@ -77,11 +77,10 @@ scrollSnippetsNode
    class ${cssClasses.scrollSnippetsComponent}
    style column-width:35ch;
    ${snippets}`
-   console.log(code)
    return file.compileStumpCode(code)
   }
-scrollFullNode
- extends scrollSnippetsNode
+fullSnippetsNode
+ extends snippetsNode
  cruxFromId
  description Prints the full contents of files in a folder that are in the named group.
  javascript

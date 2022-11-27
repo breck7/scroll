@@ -1,6 +1,6 @@
-title About the Kitchen Sink Blog
+import header.scroll
 
-import settings.scroll
+title About the Kitchen Sink Blog
 
 * This blog is for testing purposes—to excercise/test all the features of Scroll.
 

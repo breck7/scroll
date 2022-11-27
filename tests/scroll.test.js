@@ -144,7 +144,7 @@ testTree.initCommand = async areEqual => {
 
 		// Act
 		const result = await cli.initCommand(tempFolder)
-		areEqual(fs.existsSync(path.join(tempFolder, "settings.scroll")), true)
+		areEqual(fs.existsSync(path.join(tempFolder, "header.scroll")), true)
 
 		const folder = new ScrollFolder(tempFolder).silence()
 		const pages = folder.buildFiles()
@@ -168,8 +168,6 @@ testTree.kitchenSink = async areEqual => {
 		const groupPage = Disk.read(path.join(kitchenSinkFolder, "all.html"))
 
 		// Assert
-		areEqual(groupPage.includes("CustomHeader"), true, "should have custom header")
-		areEqual(groupPage.includes("CustomFooter"), true, "should have custom footer")
 		areEqual(groupPage.includes("NUM_SINKS"), false, "var substitution worked")
 		areEqual(fs.existsSync(path.join(kitchenSinkFolder, "full.html")), true, "should have full page")
 	} catch (err) {
