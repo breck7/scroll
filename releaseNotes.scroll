@@ -9,7 +9,7 @@ startColumns
 * This is a major breaking refactor. *All the implicit imports are gone*. Everything must be explicitly included now (perhaps with a few slight exceptions like meta tags). This migration guide is a work in progress.
 
 - ⚠️ BREAKING: removed `maxColumns` and `columnWidth` and `template`
-- ⚠️ BREAKING: headers and footers are not provided by default. You now must explicitly include them with `scrollHeader` and `scrollFooter.
+- ⚠️ BREAKING: headers and footers are not provided by default. You now must explicitly include them with `scrollHeader` and `scrollFooter`. The previous behavior of `scrollHeader` and `scrollFooter` has been removed.
 - ⚠️ BREAKING: columns are not provided by default. You now need to wrap your content in `startColumns` and `endColumns`.
 - ⚠️ BREAKING: CSS is not included by default. You need to use the snippet keyword `scrollCss`. The previous behavior of `scrollCss` has been removed.
 
