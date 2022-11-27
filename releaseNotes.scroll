@@ -3,11 +3,13 @@ title Scroll Release Notes
 
 * Here's a list of the notable changes in Scroll.
 
-# 46.0.0 11/26/2022
+# 46.0.0 11/27/2022
 
-* This is a major breaking refactor. All the _magical_ imports are gone.
+* This is a major breaking refactor. All the _magical_ imports are gone. This migration guide is a work in progress.
 
--  ⚠️ BREAKING: 
+- ⚠️ BREAKING: removed `maxColumns` and `columnWidth` and `template`
+- ⚠️ BREAKING: headers and footers are not provided by default. You now must explicitly include them with `scrollHeader` and `scrollFooter.
+- ⚠️ BREAKING: columns are not provided by default. You now need to wrap your content in `startColumns` and `endColumns`.
 
 # 45.0.0 11/24/2022
 - 🎉 a whole new way to do footnotes/end notes.
