@@ -35,8 +35,10 @@ scrollFooterNode
   compile() {
    const file = this.getParent().file
    const { SVGS, SCROLL_VERSION, viewSourceUrl, cssClasses } = file
-   const closeContainerTag = '</div>'
-   return closeContainerTag + file.compileStumpCode(`p
+   const closeContainerTag = "</div>"
+   return (
+    closeContainerTag +
+    file.compileStumpCode(`p
    class ${cssClasses.scrollFileViewSourceUrlComponent}
    a View source
     href ${viewSourceUrl}
@@ -45,12 +47,13 @@ scrollFooterNode
    a ${SVGS.email}
     href mailto:${file.email}
    a ${SVGS.twitter}
-    href ${this.twitter}
+    href ${file.twitter}
    a ${SVGS.github}
     href ${file.github}
    a Built with Scroll v${SCROLL_VERSION}
     href https://scroll.pub
     class scrollCommunityLinkComponent`)
+   )
   }
 snippetsNode
  extends abstractSnippetNode
@@ -61,7 +64,7 @@ snippetsNode
  javascript
   methodForGettingHtml = "htmlCodeForSnippetsPage"
   makeSnippet(file) {
-  const { cssClasses } = file
+   const { cssClasses } = file
    const snippet = new jtree.TreeNode(`div
    class ${cssClasses.scrollSnippetContainerComponent}`)
    const div = snippet.getNode("div")
@@ -102,7 +105,7 @@ endColumnsNode
  description End a multicolumn grid.
  javascript
   compile() {
-   return '</div>'
+   return "</div>"
   }
 scrollCssTagNode
  extends abstractSnippetNode
@@ -110,6 +113,9 @@ scrollCssTagNode
  javascript
   compile() {
    return `<style>${this.getParent().file.SCROLL_CSS}</style>`
+  }
+  compileSnippet() {
+   return ""
   }
 scrollCssNode
  extends scrollCssTagNode

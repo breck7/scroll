@@ -1,5 +1,4 @@
-import settings.scroll
-scrollHeader
+import header.scroll
 title The Official Scroll Blog
 snippets index
 scrollFooter

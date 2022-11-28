@@ -19,6 +19,6 @@ stumpNode
  catchAllNodeType stumpContentNode
  javascript
   compile() {
-    const file = this.getParent().file
-    return file.compileStumpCode(this.childrenToString())
+   const file = this.getParent().file
+   return file.compileStumpCode(this.childrenToString())
   }

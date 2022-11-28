@@ -4,6 +4,14 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 47.0.0 11/28/2022
+
+* This is a major breaking refactor. Scroll now generates flat html. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out. 
+
+- ⚠️ BREAKING: removed automatic meta tag generation. You now need to explicitly add a `metaTags` keyword.
+- ⚠️ BREAKING: removed `<!doctype>`, `<html>`, `<head>`, and `<body>` tags. Unnecessary. Modern browsers don't need them. HTML never should have had head/body split.
+- ⚠️ BREAKING: removed `SCROLL_CSS` export.
+
 # 46.2.0 11/27/2022
 
 - 🏥 `stump` keyword works now
