@@ -143,8 +143,6 @@ const DefaultScrollCompiler = getCompiler(DefaultGrammarFiles).compiler
 // This is all the CSS
 const SCROLL_HAKON_FILENAME = "scroll.hakon"
 const SCROLL_CSS = new hakon(read(path.join(SCROLL_SRC_FOLDER, SCROLL_HAKON_FILENAME))).compile()
-const DEFAULT_COLUMN_WIDTH = 35
-const COLUMN_GAP = 20
 
 const CommandFnDecoratorSuffix = "Command"
 

@@ -8,6 +8,7 @@ html,body,div,span,h1,h2,h3,h4,p,ol,ul,table,figure
 
 comment General page style
 html
+ padding 4px
  background-color rgb(244,244,244)
  font-family Exchange,Georgia,serif
  color #000
@@ -57,7 +58,6 @@ comment Default footer theme
  font-family Verdana
  font-weight 100
  margin .5em
- padding-bottom 1em
  text-decoration none
  color rgba(204,204,204,.5)
 
@@ -85,7 +85,6 @@ comment On group pages add some spacing around files
 
 .scrollTitleComponent
  text-align center
- font-size 24px
  margin-bottom .25em
  a
   text-decoration none

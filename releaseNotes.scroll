@@ -4,8 +4,11 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
-# 47.0.0 11/28/2022
+# 47.1.0 11/29/2022
+- 🎉 you can now specify number of max columns in `startColumns` keyword
+- 🏥 fixed body padding regression
 
+# 47.0.0 11/28/2022
 * This is a major breaking refactor. Scroll now generates flat html. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out. 
 
 - ⚠️ BREAKING: removed automatic meta tag generation. You now need to explicitly add a `metaTags` keyword.
@@ -13,15 +16,12 @@ startColumns
 - ⚠️ BREAKING: removed `SCROLL_CSS` export.
 
 # 46.2.0 11/27/2022
-
 - 🏥 `stump` keyword works now
 
 # 46.1.0 11/27/2022
-
 - 🏥 `scrollCss` works now
 
 # 46.0.0 11/27/2022
-
 * This is a major breaking refactor. *All the implicit imports are gone*. Everything must be explicitly included now (perhaps with a few slight exceptions like meta tags). This migration guide is a work in progress. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out.
 
 - ⚠️ BREAKING: removed `maxColumns` and `columnWidth` and `template`
@@ -50,7 +50,6 @@ notes
 - 🏥 fix hidden title bug
 
 # 44.0.0 11/24/2022
-
 * This is the `title` simplification refactor release.
 
 - 🎉 new: `description` keyword for use in open graph description generation.

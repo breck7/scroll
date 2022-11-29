@@ -91,10 +91,18 @@ fullSnippetsNode
   methodForGettingHtml = "compiledSnippet"
 startColumnsNode
  extends abstractSnippetNode
+ catchAllCellType integerCell
  description Start a multicolumn grid.
  javascript
+  compileSnippet() {
+   return ""
+  }
   compile() {
-   return '<div class="scrollColumnsComponent" style="column-width:35ch;">'
+   const columnWidth = 35
+   const COLUMN_GAP = 20
+   const maxColumns = parseInt(this.getWord(1) ?? 10)
+   const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
+   return `<div class="scrollColumnsComponent" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
   }
 startRuledColumnsNode
  extends startColumnsNode
