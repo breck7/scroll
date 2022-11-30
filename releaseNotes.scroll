@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 47.1.1 11/30/2022
+- 🏥 init fixes
+
 # 47.1.0 11/29/2022
 - 🎉 you can now specify number of max columns in `startColumns` keyword
 - 🏥 fixed body padding regression

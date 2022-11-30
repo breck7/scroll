@@ -186,13 +186,12 @@ ${scrollKeywords.date} ${dayjs().format(standardDateFormat)}
 groups index
 scrollFooter`,
 	header: `importOnly
-title My Personal Blog
-description My thoughts about life and the world.
 github https://github.com/breck7/scroll
 viewSourceBaseUrl https://github.com/breck7/scroll/blob/main
 twitter https://twitter.com/breckyunits
 email feedback@scroll.pub
 baseUrl https://scroll.pub/
+scrollCssTag
 scrollHeader`,
 	about: `import header.scroll
 title About this site
@@ -200,6 +199,8 @@ title About this site
 * This is a static page.
 scrollFooter`,
 	index: `import header.scroll
+title My Personal Blog
+description My thoughts about life and the world.
 snippets index
 scrollFooter`
 }
