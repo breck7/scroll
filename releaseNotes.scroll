@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 47.1.2 12/05/2022
+- 🏥 character encoding regression fix.
+
 # 47.1.1 11/30/2022
 - 🏥 init fixes
 
