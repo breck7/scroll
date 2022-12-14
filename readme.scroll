@@ -40,7 +40,6 @@ replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard
 
 * Scroll is not just another static site generator but also a *new language*. More than just a new language. It's a _freakishly simple new language that you can extend in amazing ways_. Scroll is a high level language mostly written in a new lower level language called GrammarLinked, and both Grammar and Scroll are built on the new syntax called TreeNotationLinked.
  https://staticsitegenerators.net another static site generator
- wrapsOn
 
 * The basics of Scroll are even simpler than Markdown. For example, the keyword for title is title.
  italics the keyword for title is title
@@ -67,7 +66,6 @@ code
   step Bake for 10 minutes
 
 * Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just define it yourself using GrammarLinked, extending your dialect of Scroll:
- wrapsOn
 
 code
  recipeNode
@@ -163,12 +161,10 @@ code
 
 * When you run `scroll build`, Scroll reads those files and generates
  the outputs right in that site's folder.
- wrapsOn
 
 * With Scroll your site's Scroll files and static files and generated html
  are all in one public folder and checked into version control. Usually you
  want to add `*.html` and `feed.xml` to your `.gitignore`.
- wrapsOn
  
 ? How do I save drafts?
 
@@ -209,7 +205,6 @@ code
 ? Why does the default theme have a single page layout?
 
 * The default Scroll theme is designed to make it easier for *syntopic reading*. Being able to scan the page like a newspaper. This allows you to read at a higher level—to "get in the author's head"—compared to reading one article at a time from beginning to end.
- wrapsOn
 
 * And if anyone prefers to read a scroll in a different way—they can! Scroll is for
  public domain sites. People are free to arrange the symbols any way they wish.
@@ -340,18 +335,15 @@ code
 
 * Yes! Just create a `feed.scroll` file like this.
  https://github.com/breck7/scroll/blob/main/public/blog/feed.scroll this
- wrapsOn
 
 ? Does Scroll support categories and category pages?
 
 * Yes! Just add your page to a category by using the `groups` keyword and then creating a `yourGroupName.scroll` page for the group. See a demo here.
- wrapsOn
  https://github.com/breck7/scroll/blob/main/public/blog/ here
 
 ? Does Scroll support Open Graph tags for better social media sharing?
 
 * Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl`. For more help check out the debuggers from Facebook and Twitter.
- wrapsOn
  https://developers.facebook.com/tools/debug Facebook
  https://cards-dev.twitter.com/validator Twitter
 

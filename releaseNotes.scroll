@@ -413,7 +413,6 @@ aboveAsCode
 - 🎉 added `wrapsOn` keyword to aftertext.
 
 * Support for traditional *bold*, `code`, and _italics_ in aftertext with the keyword `wrapsOn`.
- wrapsOn
 aboveAsCode
 
 # 24.4.0 2022.6.08
