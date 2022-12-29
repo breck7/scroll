@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 47.3.0 12/29/2022
+- 🎉 upstreamed `stumpNoSnippet` for advanced use case of PLDB until we have better support for custom grammars when using as a library.
+
 # 47.2.1 12/29/2022
 - 🏥 endColumns nodes should not be printed in snippets
 

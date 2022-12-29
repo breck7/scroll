@@ -22,3 +22,11 @@ stumpNode
    const file = this.getParent().file
    return file.compileStumpCode(this.childrenToString())
   }
+stumpNoSnippetNode
+ extends stumpNode
+ description Useful for headers and footers when you have something you don't want included in snippets.
+ cruxFromId
+ javascript
+  compileSnippet() {
+   return ""
+  }
