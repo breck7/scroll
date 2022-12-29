@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 47.2.0 12/29/2022
+- 🎉 added `doNotPrint` class to header and footer elements for better printability.
+
 # 47.1.2 12/05/2022
 - 🏥 character encoding regression fix.
 

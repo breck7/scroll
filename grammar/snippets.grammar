@@ -12,7 +12,7 @@ scrollHeaderNode
    const file = this.getParent().file
    const { SVGS, cssClasses, linkToPrevious, linkToNext } = file
    return file.compileStumpCode(`div
-   class scrollHeaderComponent
+   class scrollHeaderComponent doNotPrint
    a <
     class ${cssClasses.scrollPrevPageLink}
     href ${linkToPrevious}
@@ -39,11 +39,11 @@ scrollFooterNode
    return (
     closeContainerTag +
     file.compileStumpCode(`p
-   class ${cssClasses.scrollFileViewSourceUrlComponent}
+   class ${cssClasses.scrollFileViewSourceUrlComponent} doNotPrint
    a View source
     href ${viewSourceUrl}
   div
-   class scrollFooterComponent
+   class scrollFooterComponent doNotPrint
    a ${SVGS.email}
     href mailto:${file.email}
    a ${SVGS.twitter}
