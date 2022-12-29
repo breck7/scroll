@@ -115,6 +115,9 @@ endColumnsNode
   compile() {
    return "</div>"
   }
+  compileSnippet() {
+   return ""
+  }
 scrollCssTagNode
  extends abstractSnippetNode
  description Prints the Scroll CSS in an <style> tag. To not print the style tag use `scrollCss`.
