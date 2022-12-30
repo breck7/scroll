@@ -8,16 +8,18 @@ printFeedNode
  cells keywordCell groupNameCell
  javascript
   compile() {
+   const dayjs = require("dayjs")
    const file = this.getRootNode().file
    const folder = file.folder
    const files = folder.getGroup(this.getWord(1))
    const { title, baseUrl, description } = file
    return `<?xml version="1.0" encoding="ISO-8859-1" ?>
-  <rss version="0.91">
+  <rss version="2.0">
   <channel>
    <title>${title}</title>
    <link>${baseUrl}</link>
    <description>${description}</description>
+   <lastBuildDate>${dayjs().format("ddd, DD MMM YYYY HH:mm:ss ZZ")}</lastBuildDate>
    <language>en-us</language>
   ${files.map(file => file.toRss()).join("\n")}
   </channel>

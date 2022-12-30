@@ -425,6 +425,7 @@ class ScrollFile {
 		return ` <item>
   <title>${title}</title>
   <link>${baseUrl + permalink}</link>
+  <pubDate>${dayjs(this.timestamp * 1000).format("ddd, DD MMM YYYY HH:mm:ss ZZ")}</pubDate>
  </item>`
 	}
 }
