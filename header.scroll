@@ -2,7 +2,6 @@ importOnly
 description Tools for thought.
 git https://github.com/breck7/scroll
 viewSourceBaseUrl https://github.com/breck7/scroll/blob/main
-twitter https://twitter.com/breckyunits
 email feedback@scroll.pub
 baseUrl https://scroll.pub/
 metaTags

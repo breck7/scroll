@@ -22,9 +22,6 @@ viewSourceBaseUrlNode
 gitNode
  description A link to a web UI for the Git repo for the project.
  extends abstractUrlSettingNode
-twitterNode
- description A link to the blog or author's Twitter account.
- extends abstractUrlSettingNode
 emailNode
  description Email address for the site owner.
  extends abstractSiteSettingNode

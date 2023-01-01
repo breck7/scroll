@@ -46,8 +46,6 @@ scrollFooterNode
    class scrollFooterComponent doNotPrint
    a ${SVGS.email}
     href mailto:${file.email}
-   a ${SVGS.twitter}
-    href ${file.twitter}
    a ${SVGS.git}
     href ${file.git}
    a Built with Scroll v${SCROLL_VERSION}

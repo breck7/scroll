@@ -50,6 +50,7 @@ comment Default footer theme
  text-align center
  svg
   width 30px
+  height 30px
   fill rgba(204,204,204, .5)
   padding 0 7px
   &:hover
