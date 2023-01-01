@@ -19,9 +19,9 @@ scrollHeaderNode
    a ${SVGS.home}
     class scrollTopLeftBarComponent
     href index.html
-   a ${SVGS.github}
+   a ${SVGS.git}
     class scrollTopRightBarComponent
-    href ${file.github}
+    href ${file.git}
    a >
     class ${cssClasses.scrollNextPageLink}
     href ${linkToNext}`)
@@ -48,8 +48,8 @@ scrollFooterNode
     href mailto:${file.email}
    a ${SVGS.twitter}
     href ${file.twitter}
-   a ${SVGS.github}
-    href ${file.github}
+   a ${SVGS.git}
+    href ${file.git}
    a Built with Scroll v${SCROLL_VERSION}
     href https://scroll.pub
     class scrollCommunityLinkComponent`)

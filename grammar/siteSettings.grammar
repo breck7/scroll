@@ -19,8 +19,8 @@ baseUrlNode
 viewSourceBaseUrlNode
  description The base link to be used to generate the "View source" link.
  extends abstractUrlSettingNode
-githubNode
- description A link to the GitHub project or profile page.
+gitNode
+ description A link to a web UI for the Git repo for the project.
  extends abstractUrlSettingNode
 twitterNode
  description A link to the blog or author's Twitter account.
