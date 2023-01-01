@@ -4,6 +4,14 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 48.0.0 1/1/2023
+* This release simplifies and removes things from the default install.
+
+- ⚠️ BREAKING: the `github` keyword is now `git` to make it clearer what it does. The git SVG is now used in the default theme.
+- ⚠️ BREAKING: removed `twitter` keyword and removed the Twitter link from default theme.
+- ⚠️ BREAKING: `SVGS` is no longer exported.
+- 🎉 Minor style fix of header and switched email SVG with a nice svg from http://laurareen.com
+
 # 47.4.0 12/30/2022
 - 🎉 rss 2.0 now generated with `printFeed`, meaning pubDate and lastBuildDate are included.
 
