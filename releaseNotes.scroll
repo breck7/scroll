@@ -4,6 +4,10 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 48.1.0 1/2/2023
+- 🏥 fix: keyboardNav now only cycles through pages with keyboardNav (feed.xml files are excluded, for example)
+- 🏥 fix: previous/next buttons are not shown if there is no keyboardNav
+
 # 48.0.0 1/1/2023
 * This release simplifies and removes things from the default install.
 

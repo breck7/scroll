@@ -11,20 +11,26 @@ scrollHeaderNode
   compile() {
    const file = this.getParent().file
    const { SVGS, cssClasses, linkToPrevious, linkToNext } = file
+   let previousButton = ""
+   if (linkToPrevious)
+     previousButton = `a <
+    class ${cssClasses.scrollPrevPageLink}
+    href ${linkToPrevious}`
+   let nextButton = ""
+   if (linkToNext)
+     nextButton = `a >
+    class ${cssClasses.scrollNextPageLink}
+    href ${linkToNext}`
    return file.compileStumpCode(`div
    class scrollHeaderComponent doNotPrint
-   a <
-    class ${cssClasses.scrollPrevPageLink}
-    href ${linkToPrevious}
+   ${previousButton}
    a ${SVGS.home}
     class scrollTopLeftBarComponent
     href index.html
    a ${SVGS.git}
     class scrollTopRightBarComponent
     href ${file.git}
-   a >
-    class ${cssClasses.scrollNextPageLink}
-    href ${linkToNext}`)
+   ${nextButton}`)
   }
 scrollFooterNode
  extends abstractSnippetNode

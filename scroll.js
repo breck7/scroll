@@ -27,11 +27,12 @@ const resolvePath = (folder = "") => (path.isAbsolute(folder) ? path.normalize(f
 const isAbsoluteUrl = url => url.startsWith("https://") || url.startsWith("http://")
 
 const nextAndPrevious = (arr, item) => {
-	const len = arr.length
 	const current = arr.indexOf(item)
+	const nextIndex = current + 1
+	const previousIndex = current - 1
 	return {
-		previous: arr[(current + len - 1) % len],
-		next: arr[(current + 1) % len]
+		previous: arr[previousIndex] ?? arr[arr.length - 1],
+		next: arr[nextIndex] ?? arr[0]
 	}
 }
 
@@ -164,6 +165,7 @@ const scrollKeywords = {
 	thoughtKeyword: "*",
 	endSnippet: "endSnippet",
 	groups: "groups",
+	keyboardNav: "keyboardNav",
 	replace: "replace",
 	replaceDefault: "replaceDefault",
 	import: "import",
@@ -301,16 +303,24 @@ class ScrollFile {
 		return this.folder.getGroup(this.groups[0])
 	}
 
+	get hasKeyboardNav() {
+		return this.scrollScriptProgram.has(scrollKeywords.keyboardNav)
+	}
+
 	get keyboardNavGroup() {
-		return this.primaryGroup.filter(file => file.shouldBuild)
+		return this.hasKeyboardNav ? this.primaryGroup.filter(file => file.shouldBuild && file.hasKeyboardNav) : undefined
 	}
 
 	get linkToPrevious() {
-		return nextAndPrevious(this.keyboardNavGroup, this).previous.permalink
+		const { keyboardNavGroup } = this
+		if (!keyboardNavGroup) return undefined
+		return nextAndPrevious(keyboardNavGroup, this).previous.permalink
 	}
 
 	get linkToNext() {
-		return nextAndPrevious(this.keyboardNavGroup, this).next.permalink
+		const { keyboardNavGroup } = this
+		if (!keyboardNavGroup) return undefined
+		return nextAndPrevious(keyboardNavGroup, this).next.permalink
 	}
 
 	save() {
