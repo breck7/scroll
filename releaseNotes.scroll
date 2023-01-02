@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 48.3.0 1/2/2023
+- 🎉 added `youTube` keyword for embedding youTube videos with proper responsive sizing.
+
 # 48.2.0 1/2/2023
 - 🎉 simplify default theme by removing ornamental borders
 

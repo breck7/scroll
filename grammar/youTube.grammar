@@ -1,0 +1,9 @@
+youTubeNode
+ description Embed a YouTube video. Include the YouTube embed URL such as https://www.youtube.com/embed/CYPYZnVQoLg
+ extends abstractScrollNode
+ cruxFromId
+ cells urlCell
+ javascript
+  compile() {
+   return `<div class="youTubeHolder"><iframe class="youTubeEmbed" src="${this.getWord(1)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+  }
