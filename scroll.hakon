@@ -44,7 +44,6 @@ comment Default header theme
 
 comment Default footer theme
 .scrollFooterComponent
- border-top 1px solid rgb(204,204,204)
  margin-top 8px
  padding-top 8px
  text-align center
@@ -73,17 +72,11 @@ comment Main body of both pages is similar
  padding-right 20px
  margin auto
 
-comment Column rules not needed on single files
-.scrollColumnsComponentRuled
- column-rule 1px solid rgb(204,204,204)
-
 comment On group pages add some spacing around files
 .scrollSnippetContainerComponent
- border-bottom 1px solid rgb(204,204,204)
  padding 1ch 0
  break-inside avoid
  text-align justify
- margin-bottom .5em
 
 .scrollTitleComponent
  text-align center
@@ -183,6 +176,7 @@ comment Subtle "Article Source" link
  margin 0
  margin-top 0.4em
  line-height 1.4em
+ margin-bottom 1em
  a
   color #000
   text-decoration none

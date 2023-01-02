@@ -82,7 +82,7 @@ snippetsNode
    const files = folder.getGroup(groupName)
    const snippets = files.map(file => this.makeSnippet(file)).join("\n ")
    const code = `div
-   class scrollColumnsComponent scrollColumnsComponentRuled
+   class scrollColumnsComponent
    style column-width:35ch;
    ${snippets}`
    return file.compileStumpCode(code)
