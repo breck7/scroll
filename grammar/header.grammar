@@ -11,12 +11,12 @@ scrollHeaderNode
    const { SVGS, linkToPrevious, linkToNext } = file
    let previousButton = ""
    if (linkToPrevious)
-     previousButton = `a <
+    previousButton = `a <
     class scrollPrevPageLink
     href ${linkToPrevious}`
    let nextButton = ""
    if (linkToNext)
-     nextButton = `a >
+    nextButton = `a >
     class scrollNextPageLink
     href ${linkToNext}`
    return file.compileStumpCode(`div

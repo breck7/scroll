@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 49.1.0 1/4/2023
+- 🎉 add `viewSource` keyword.
+
 # 49.0.0 1/4/2023
 - ⚠️ BREAKING: renamed `footnote` and `caveat` directives to `hoverNote` to avoid confusion with footnotes.
 - ⚠️ BREAKING: removed `startRuledColumns` which doesn't appear to be used anywhere
