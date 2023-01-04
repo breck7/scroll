@@ -4,6 +4,16 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 50.0.0 1/4/2023
+- 🎉 made footnotes compile faster
+- ⚠️ BREAKING: simplified footnotes by removing `notes` keyword. Referencing a footnote is done the same way but now footnotes just print immediately like you'd expect.
+
+belowAsCode
+* For example^exampleFootnote
+
+^exampleFootnote This is an example footnote.
+aboveAsCode
+
 # 49.1.0 1/4/2023
 - 🎉 add `viewSource` keyword.
 
@@ -81,14 +91,12 @@ startColumns
 * Brockton is a city in Massachusetts^state. It was incorporated in 1881^inc. 
  https://en.wikipedia.org/wiki/Brockton,_Massachusetts Brockton
 
+## Notes
+
 ^state A state in the United States.
 
 ^inc Incorporated as a city in 1881, but as a town in 1821. Wikipedia.
  https://en.wikipedia.org/wiki/Brockton,_Massachusetts Wikipedia
-
-## Notes
-
-notes
 
 # 44.0.1 11/24/2022
 - 🏥 fix hidden title bug

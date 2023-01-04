@@ -1,29 +1,25 @@
-noteDefinitionNode
- description A section note or footnote.
+footnoteDefinitionNode
+ description A footnote. Can also be used as section notes.
  extends thoughtNode
+ boolean isFootnote true
  pattern ^\^.+$
  javascript
-  compile() {
-   return ""
-  }
   get divAttributes() {
-   return super.divAttributes + ` id="note${this.noteIndex}" `
+   return super.divAttributes + ` id="${this.anchorId}"`
+  }
+  get anchorId() {
+    return `note${this.noteIndex}`
+  }
+  get noteId() {
+    // In the future we could allow common practices like author name
+    return this.noteIndex
+  }
+  linkBack() {
+    return `noteUsage${this.noteIndex}`
   }
   get text() {
-   return `${this.noteIndex}. ${super.text}`
+   return `<a class="scrollNoteIndex" href="#noteUsage${this.noteIndex}">${this.noteIndex}</a> ${super.text}`
   }
-  compileNote(noteIndex) {
-   this.noteIndex = noteIndex
-   return super.compile()
-  }
-notesNode
- extends abstractScrollNode
- description Print all preceding notes. Currently only supports 1 group of notes but may expand in future.
- cruxFromId
- javascript
-  get notes() {
-   return this.getParent().filter(node => node.getLine().startsWith("^"))
-  }
-  compile() {
-   return this.notes.map((note, noteIndex) => note.compileNote(noteIndex + 1)).join("\n")
+  get noteIndex() {
+   return this.getParent().footnotes.indexOf(this) + 1
   }

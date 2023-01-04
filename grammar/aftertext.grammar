@@ -32,11 +32,12 @@ abstractAftertextNode
    const shouldLinkify = originalText.includes("<a ") ? false : true
    return shouldLinkify ? this.replaceNotes(jtree.Utils.linkify(originalText)) : originalText
   }
-  get notes() {
-   return this.getParent().filter(node => node.getLine().startsWith("^"))
-  }
   replaceNotes(originalText) {
-   this.notes.forEach((note, index) => (originalText = originalText.replace(note.getWord(0), `<a href="#note${index + 1}" class="scrollNoteLink"><sup>${index + 1}</sup></a>`)))
+   this.getRootNode().footnotes.forEach((note, index) => {
+    const needle = note.getWord(0)
+    if (originalText.includes(needle))
+        originalText = originalText.replace(needle, `<a href="#${note.anchorId}" class="scrollNoteLink" id="${note.linkBack()}"><sup>${note.noteId}</sup></a>`)
+   })
    return originalText
   }
   get text() {
