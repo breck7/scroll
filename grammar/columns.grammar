@@ -1,0 +1,27 @@
+startColumnsNode
+ extends abstractAftertextNode
+ cruxFromId
+ catchAllCellType integerCell
+ description Start a multicolumn grid.
+ javascript
+  compileSnippet() {
+   return ""
+  }
+  compile() {
+   const columnWidth = 35
+   const COLUMN_GAP = 20
+   const maxColumns = parseInt(this.getWord(1) ?? 10)
+   const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
+   return `<div class="scrollColumnsComponent" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
+  }
+endColumnsNode
+ extends abstractAftertextNode
+ cruxFromId
+ description End a multicolumn grid.
+ javascript
+  compile() {
+   return "</div>"
+  }
+  compileSnippet() {
+   return ""
+  }

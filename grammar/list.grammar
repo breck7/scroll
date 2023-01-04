@@ -1,0 +1,29 @@
+listAftertextNode
+ extends thoughtNode
+ example
+  - I had a _new_ thought.
+ description A list item.
+ crux -
+ javascript
+  compile() {
+   const index = this.getIndex()
+   const parent = this.getParent()
+   const isStartOfList =
+    index === 0 ||
+    !parent
+     .nodeAt(index - 1)
+     .getLine()
+     .startsWith("- ")
+   const isEndOfList =
+    parent.length === index + 1 ||
+    !parent
+     .nodeAt(index + 1)
+     .getLine()
+     .startsWith("- ")
+   const { listType } = this
+   return (isStartOfList ? `<${listType}>` : "") + `${super.compile()}` + (isEndOfList ? `</${listType}>` : "")
+  }
+  tag = "li"
+  get listType() {
+   return "ul" // todo: in the future add support for ol
+  }

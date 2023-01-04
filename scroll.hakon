@@ -216,7 +216,7 @@ comment Dialogues that look like SMS conversations
  display none
 
 comment
-.scrollCaveat
+.scrollHoverNote
  text-decoration underline dashed 1px rgba(0,0,0,.1)
  cursor default
 

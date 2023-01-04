@@ -1,4 +1,4 @@
-abstractSiteSettingNode
+abstractFolderSettingNode
  extends abstractScrollNode
  cells keywordCell
  javascript
@@ -6,24 +6,24 @@ abstractSiteSettingNode
    return ""
   }
 abstractUrlSettingNode
- extends abstractSiteSettingNode
+ extends abstractFolderSettingNode
  cells keywordCell urlCell
  cruxFromId
 abstractSiteStringSettingNode
- extends abstractSiteSettingNode
+ extends abstractFolderSettingNode
  catchAllCellType stringCell
  cruxFromId
 baseUrlNode
- description Root url of the published site on the web. Must be provided for RSS Feeds and OpenGraph tags to work, but has no effect locally.
+ description Root url of this published folder on the web. Must be provided for RSS Feeds and OpenGraph tags to work, but has no effect locally.
  extends abstractUrlSettingNode
 viewSourceBaseUrlNode
  description The base link to be used to generate the "View source" link.
  extends abstractUrlSettingNode
 gitNode
- description A link to a web UI for the Git repo for the project.
+ description A link to the web Git UI for this folder.
  extends abstractUrlSettingNode
 emailNode
- description Email address for the site owner.
- extends abstractSiteSettingNode
+ description Email address for the folder owner.
+ extends abstractFolderSettingNode
  cruxFromId
  cells keywordCell emailAddressCell

@@ -1,66 +1,6 @@
-abstractSnippetNode
+snippetsNode
  extends abstractAftertextNode
  cruxFromId
-scrollHeaderNode
- extends abstractSnippetNode
- description Define a header for a certain page. Setting to blank will also remove the header on a page.
- javascript
-  compileSnippet() {
-   return ""
-  }
-  compile() {
-   const file = this.getParent().file
-   const { SVGS, cssClasses, linkToPrevious, linkToNext } = file
-   let previousButton = ""
-   if (linkToPrevious)
-     previousButton = `a <
-    class ${cssClasses.scrollPrevPageLink}
-    href ${linkToPrevious}`
-   let nextButton = ""
-   if (linkToNext)
-     nextButton = `a >
-    class ${cssClasses.scrollNextPageLink}
-    href ${linkToNext}`
-   return file.compileStumpCode(`div
-   class scrollHeaderComponent doNotPrint
-   ${previousButton}
-   a ${SVGS.home}
-    class scrollTopLeftBarComponent
-    href index.html
-   a ${SVGS.git}
-    class scrollTopRightBarComponent
-    href ${file.git}
-   ${nextButton}`)
-  }
-scrollFooterNode
- extends abstractSnippetNode
- javascript
-  compileSnippet() {
-   return ""
-  }
-  compile() {
-   const file = this.getParent().file
-   const { SVGS, SCROLL_VERSION, viewSourceUrl, cssClasses } = file
-   const closeContainerTag = "</div>"
-   return (
-    closeContainerTag +
-    file.compileStumpCode(`p
-   class ${cssClasses.scrollFileViewSourceUrlComponent} doNotPrint
-   a View source
-    href ${viewSourceUrl}
-  div
-   class scrollFooterComponent doNotPrint
-   a ${SVGS.email}
-    href mailto:${file.email}
-   a ${SVGS.git}
-    href ${file.git}
-   a Built with Scroll v${SCROLL_VERSION}
-    href https://scroll.pub
-    class scrollCommunityLinkComponent`)
-   )
-  }
-snippetsNode
- extends abstractSnippetNode
  cells keywordCell groupNameCell
  description Prints the snippets of all files in a folder that are in the named group.
  example
@@ -68,9 +8,8 @@ snippetsNode
  javascript
   methodForGettingHtml = "htmlCodeForSnippetsPage"
   makeSnippet(file) {
-   const { cssClasses } = file
    const snippet = new jtree.TreeNode(`div
-   class ${cssClasses.scrollSnippetContainerComponent}`)
+   class scrollSnippetContainerComponent`)
    const div = snippet.getNode("div")
    div.appendLineAndChildren("bern", file[this.methodForGettingHtml])
    return snippet.toString().replace(/\n/g, "\n ")
@@ -78,7 +17,7 @@ snippetsNode
   compile() {
    const groupName = this.getWord(1)
    const file = this.getParent().file
-   const { cssClasses, folder } = file
+   const { folder } = file
    const files = folder.getGroup(groupName)
    const snippets = files.map(file => this.makeSnippet(file)).join("\n ")
    const code = `div
@@ -93,57 +32,3 @@ fullSnippetsNode
  description Prints the full contents of files in a folder that are in the named group.
  javascript
   methodForGettingHtml = "compiledSnippet"
-startColumnsNode
- extends abstractSnippetNode
- catchAllCellType integerCell
- description Start a multicolumn grid.
- javascript
-  compileSnippet() {
-   return ""
-  }
-  compile() {
-   const columnWidth = 35
-   const COLUMN_GAP = 20
-   const maxColumns = parseInt(this.getWord(1) ?? 10)
-   const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
-   return `<div class="scrollColumnsComponent" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
-  }
-startRuledColumnsNode
- extends startColumnsNode
- description Columns but with rules.
- cruxFromId
-endColumnsNode
- extends abstractSnippetNode
- description End a multicolumn grid.
- javascript
-  compile() {
-   return "</div>"
-  }
-  compileSnippet() {
-   return ""
-  }
-scrollCssTagNode
- extends abstractSnippetNode
- description Prints the Scroll CSS in an <style> tag. To not print the style tag use `scrollCss`.
- javascript
-  compile() {
-   return `<style>${this.getParent().file.SCROLL_CSS}</style>`
-  }
-  compileSnippet() {
-   return ""
-  }
-scrollCssNode
- extends scrollCssTagNode
- javascript
-  compile() {
-   return this.getParent().file.SCROLL_CSS
-  }
-loremIpsumNode
- extends abstractSnippetNode
- description Generate dummy text.
- catchAllCellType integerCell
- javascript
-  compile() {
-   const text = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-   return text.repeat(this.getWord(1) ? parseInt(this.getWord(1)) : 1)
-  }

@@ -1,0 +1,20 @@
+datelineNode
+ cruxFromId
+ description Gives your paragraph a dateline like "December 15, 2021 — The..."
+ extends abstractAftertextDirectiveNode
+ javascript
+  getInserts() {
+   let day =
+    this.getContent() ||
+    this.getParent()
+     .getParent()
+     .get("date")
+   if (!day) return false
+   try {
+    const dayjs = require("dayjs")
+    day = dayjs(day).format(`MMMM D, YYYY`)
+   } catch (err) {
+    console.error(err)
+   }
+   return [{ index: 0, string: `<span class="scrollDateComponent">${day} — </span>` }]
+  }

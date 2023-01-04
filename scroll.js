@@ -147,13 +147,6 @@ const SCROLL_CSS = new hakon(read(path.join(SCROLL_SRC_FOLDER, SCROLL_HAKON_FILE
 
 const CommandFnDecoratorSuffix = "Command"
 
-const cssClasses = {
-	scrollSnippetContainerComponent: "scrollSnippetContainerComponent",
-	scrollFileViewSourceUrlComponent: "scrollFileViewSourceUrlComponent",
-	scrollPrevPageLink: "scrollPrevPageLink",
-	scrollNextPageLink: "scrollNextPageLink"
-}
-
 // Todo: how to keep in sync with grammar?
 const scrollKeywords = {
 	title: "title",
@@ -283,7 +276,6 @@ class ScrollFile {
 	SVGS = SVGS
 	SCROLL_VERSION = SCROLL_VERSION
 	SCROLL_CSS = SCROLL_CSS
-	cssClasses = cssClasses
 	shouldBuild = true
 	filePath = ""
 
@@ -390,7 +382,7 @@ class ScrollFile {
 
 	get viewSourceHtml() {
 		return this.compileStumpCode(`p
- class ${this.cssClasses.scrollFileViewSourceUrlComponent}
+ class scrollFileViewSourceUrlComponent
  a View source
   href ${this.viewSourceUrl}`)
 	}

@@ -4,6 +4,11 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 49.0.0 1/4/2023
+- ⚠️ BREAKING: renamed `footnote` and `caveat` directives to `hoverNote` to avoid confusion with footnotes.
+- ⚠️ BREAKING: removed `startRuledColumns` which doesn't appear to be used anywhere
+- 🏥 general code cleanup and refactor by splitting big grammar files into separate files.
+
 # 48.3.0 1/2/2023
 - 🎉 added `youTube` keyword for embedding youTube videos with proper responsive sizing.
 
@@ -237,8 +242,8 @@ aboveAsCode
 - 🎉 New keywords: `*`, `footnote`, and `readingList`
 
 * This is a _thought_. It's like a condensed form of aftertext with *bold* and _italics_ and `code` turned on by default.
- footnote default
-  And it supports footnotes!
+ hoverNote default
+  And it supports hover notes!
 aboveAsCode
 
 # Projects list
@@ -459,7 +464,7 @@ aboveAsCode
 ## Caveat Example
 
 * This is a great idea.
- caveat great
+ hoverNote great
   I'm not actually sure if this is a great idea. But often I want to include a comment and link it
   back to the text, but don't quite want to footnote it.
 aboveAsCode

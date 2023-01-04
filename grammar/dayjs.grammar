@@ -1,0 +1,11 @@
+dayjsNode
+ description Advanced directive that evals some Javascript code in an environment including "dayjs".
+ cruxFromId
+ extends abstractAftertextDirectiveNode
+ javascript
+  getInserts() {
+   const dayjs = require("dayjs")
+   const days = eval(this.getContent())
+   const index = this.getParent().originalTextPostLinkify.indexOf("days")
+   return [{ index, string: `${days} ` }]
+  }

@@ -1,0 +1,28 @@
+scrollFooterNode
+ extends abstractAftertextNode
+ cruxFromId
+ javascript
+  compileSnippet() {
+   return ""
+  }
+  compile() {
+   const file = this.getParent().file
+   const { SVGS, SCROLL_VERSION, viewSourceUrl } = file
+   const closeContainerTag = "</div>"
+   return (
+    closeContainerTag +
+    file.compileStumpCode(`p
+   class scrollFileViewSourceUrlComponent doNotPrint
+   a View source
+    href ${viewSourceUrl}
+  div
+   class scrollFooterComponent doNotPrint
+   a ${SVGS.email}
+    href mailto:${file.email}
+   a ${SVGS.git}
+    href ${file.git}
+   a Built with Scroll v${SCROLL_VERSION}
+    href https://scroll.pub
+    class scrollCommunityLinkComponent`)
+   )
+  }
