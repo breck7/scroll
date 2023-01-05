@@ -4,6 +4,10 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 50.2.0 1/5/2023
+- 🏥 fix bug where it was tryying to get image dimensions of remote images when building
+- 🎉 upgrade jtree to get perf improvements
+
 # 50.1.0 1/5/2023
 - 🎉 `listCommand` now much faster (~33% in pldb) because `findScrollsInDirRecursive` will now skip `node_modules` folders entirely.
 

@@ -9,18 +9,22 @@ imageNode
    const file = this.getRootNode().file
    const folder = file.folder.folder
    const src = this.getWord(1)
-   let imgTag = ""
-   try {
-    const sizeOf = require("image-size")
-    const path = require("path")
-    const dimensions = sizeOf(path.join(folder, src))
-    const width = dimensions.width
-    const height = dimensions.height
-    imgTag = `<img src="${src}" width="${width}" height="${height}" loading="lazy"/>`
-   } catch (err) {
-    console.error(err)
-    imgTag = `<img src="${src}">`
+   let dimensionAttributes = ""
+   // If its a local image, get the dimensions and put them in the HTML
+   // to avoid flicker
+   if (!src.startsWith("http:") && !src.startsWith("https:")) {
+    try {
+     const sizeOf = require("image-size")
+     const path = require("path")
+     const dimensions = sizeOf(path.join(folder, src))
+     const width = dimensions.width
+     const height = dimensions.height
+     dimensionAttributes = `width="${width}" height="${height}" `
+    } catch (err) {
+     console.error(err)
+    }
    }
+   const imgTag = `<img src="${src}" ${dimensionAttributes}loading="lazy">`
    const caption = this.getNode("caption")
    const captionFig = caption ? `<figcaption>${caption.compile()}</figcaption>` : ""
    return `<figure class="scrollImageComponent"><a href="${src}" target="_blank">${imgTag}</a>${captionFig}</figure>`
