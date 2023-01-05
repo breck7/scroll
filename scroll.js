@@ -41,6 +41,7 @@ const recursiveReaddirSync = (folder, callback) =>
 		try {
 			const fullPath = path.join(folder, file)
 			const isDir = fs.lstatSync(fullPath).isDirectory()
+			if (file.includes("node_modules")) return // Do not recurse into node_modules folders
 			if (isDir) recursiveReaddirSync(fullPath, callback)
 			else callback(fullPath)
 		} catch (err) {
@@ -637,7 +638,6 @@ class ScrollCli {
 		const folders = {}
 		recursiveReaddirSync(dir, filename => {
 			if (!filename.endsWith(SCROLL_FILE_EXTENSION)) return
-			if (filename.includes("node_modules")) return
 
 			const folder = path.dirname(filename)
 			if (!folders[folder]) {
