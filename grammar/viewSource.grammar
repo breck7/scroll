@@ -1,3 +1,7 @@
+viewSourceUrlNode
+ catchAllCellType urlCell
+ description Use this to override the link to the source code for a scroll file.
+ extends abstractTopLevelSingleMetaNode
 viewSourceNode
  extends abstractAftertextNode
  cruxFromId

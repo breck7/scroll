@@ -1,3 +1,6 @@
+endSnippetNode
+ description Insert one of these where you want to cut the file for a snippet.
+ extends abstractTopLevelSingleMetaNode
 snippetsNode
  extends abstractAftertextNode
  cruxFromId

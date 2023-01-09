@@ -1,0 +1,14 @@
+titleNode
+ catchAllCellType stringCell
+ description Title of the page.
+ extends abstractTopLevelSingleMetaNode
+ inScope hiddenTitleNode
+ javascript
+  compile() {
+   const { file } = this.getParent()
+   return this.has("hidden") ? "" : `<h1 class="scrollTitleComponent"><a href="${file.permalink}">${this.getContent()}</a></h1>`
+  }
+hiddenTitleNode
+ description Set this to not print the title.
+ crux hidden
+ cells keywordCell

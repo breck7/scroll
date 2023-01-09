@@ -13,6 +13,19 @@ blankLineNode
   }
  pattern ^$
  tags doNotSynthesize
+abstractTopLevelSingleMetaNode
+ description Use these keywords once per file.
+ extends abstractScrollNode
+ cruxFromId
+ cells keywordCell
+ javascript
+  compile() {
+   return ""
+  }
+permalinkNode
+ description When compiling, Scroll will save this file to {permalink}
+ extends abstractTopLevelSingleMetaNode
+ cells keywordCell permalinkCell
 scrollScriptNode
  extensions scroll
  description Tools for thought that compile to HTML.

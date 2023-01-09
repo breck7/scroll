@@ -1,3 +1,7 @@
+dateNode
+ catchAllCellType dateCell
+ description Date this file was first published.
+ extends abstractTopLevelSingleMetaNode
 datelineNode
  cruxFromId
  description Gives your paragraph a dateline like "December 15, 2021 — The..."

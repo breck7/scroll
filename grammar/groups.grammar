@@ -1,0 +1,8 @@
+groupsNode
+ description Add this file to zero or more groups.
+ cruxFromId
+ example
+  groups index.html
+ extends abstractTopLevelSingleMetaNode
+ cells keywordCell
+ catchAllCellType permalinkCell
