@@ -12,3 +12,26 @@ hiddenTitleNode
  description Set this to not print the title.
  crux hidden
  cells keywordCell
+sectionTitleNode
+ description Compiles to an html h3 tag.
+ extends thoughtNode
+ crux #
+ javascript
+  compile() {
+    this.getParent().stack.push("</div>")
+    return `<div class="scrollSectionComponent">` + super.compile()
+  }
+  tag = "h3"
+sectionSubTitleNode
+ description Compiles to an html h4 tag.
+ extends sectionTitleNode
+ crux ##
+ javascript
+  tag = "h4"
+questionAftertextNode
+ description A question.
+ extends sectionTitleNode
+ crux ?
+ javascript
+  tag = "h4"
+  className = "scrollQuestionComponent"

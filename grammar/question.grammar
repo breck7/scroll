@@ -1,7 +1,0 @@
-questionAftertextNode
- description A question.
- extends thoughtNode
- crux ?
- javascript
-  tag = "h4"
-  className = "scrollQuestionComponent"

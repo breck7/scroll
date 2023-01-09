@@ -279,18 +279,6 @@ thoughtNode
    newLine2.destroy()
    return compiled
   }
-h3AftertextNode
- description Compiles to an h3 tag.
- extends thoughtNode
- crux #
- javascript
-  tag = "h3"
-  className = "scrollSectionComponent"
-h4AftertextNode
- extends h3AftertextNode
- crux ##
- javascript
-  tag = "h4"
 emailLinkNode
  description A mailto link
  crux email

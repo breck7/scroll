@@ -4,8 +4,12 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 51.0.0 1/9/2023
+* 🎉 This version introduces the concept of `Sections`. Headers (`#`, `##` and `?`) now start a section, and a blank line ends it. A section will not be split across columns.
+- ⚠️ BREAKING This slightly changes layouts (for the better, hopefully in all cases) so do a manual inspection of output.
+
 # 50.2.0 1/5/2023
-- 🏥 fix bug where it was tryying to get image dimensions of remote images when building
+- 🏥 fix bug where it was trying to get image dimensions of remote images when building
 - 🎉 upgrade jtree to get perf improvements
 
 # 50.1.0 1/5/2023

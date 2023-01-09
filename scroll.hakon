@@ -103,12 +103,18 @@ comment On group pages add some spacing around files
  border-left .5em solid rgba(204,204,204,.8)
 
 .scrollSectionComponent
- text-align center
- margin-top 1em
+ break-inside avoid
 
-.scrollQuestionComponent
+.scrollSectionComponent
+ h3
+  margin-top 1em
+  text-align center
+ h4
+  margin-top 1em
+  text-align center
+
+h4.scrollQuestionComponent
  text-align left
- margin-top 2em
 
 .scrollNoteLink
  text-decoration none

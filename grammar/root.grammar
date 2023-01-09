@@ -9,7 +9,7 @@ blankLineNode
  cells blankCell
  javascript
   compile() {
-   return ""
+   return this.getParent().clearStack()
   }
  pattern ^$
  tags doNotSynthesize
@@ -37,6 +37,12 @@ scrollScriptNode
   setFile(file) {
    this.file = file
    return this
+  }
+  stack = []
+  clearStack() {
+    const result = this.stack.join("")
+    this.stack = []
+    return result
   }
   compileSnippet() {
    return this.map(child => (child.compileSnippet ? child.compileSnippet() : child.compile())).join("\n")
