@@ -19,7 +19,6 @@ const packageJson = require("./package.json")
 
 // Helper utils
 const read = fullFilePath => fs.readFileSync(fullFilePath, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.
-const write = (fullFilePath, content) => fs.writeFileSync(fullFilePath, content, "utf8")
 const removeReturnCharsAndRightShift = (str, numSpaces) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
 const unsafeStripHtml = html => html.replace(/<[^>]*>?/gm, "")
 // Normalize 3 possible inputs: 1) cwd of the process 2) provided absolute path 3) cwd of process + provided relative path
@@ -34,6 +33,11 @@ const nextAndPrevious = (arr, item) => {
 		previous: arr[previousIndex] ?? arr[arr.length - 1],
 		next: arr[nextIndex] ?? arr[0]
 	}
+}
+
+// Do not overwrite to preserve mtimes for cache
+const writeIfChanged = (filepath, content) => {
+	if (!Disk.exists(filepath) || Disk.read(filepath) !== content) Disk.write(filepath, content)
 }
 
 const recursiveReaddirSync = (folder, callback) =>
@@ -58,9 +62,9 @@ const standardDateFormat = `YYYY.MM.DD`
 const grammarDefinitionRegex = /[a-zA-Z0-9_]+Node/
 
 const readFileCache = {}
-const readFileWithCache = path => {
-	if (!readFileCache[path]) readFileCache[path] = Disk.read(path)
-	return readFileCache[path]
+const readFileWithCache = absolutePath => {
+	if (!readFileCache[absolutePath]) readFileCache[absolutePath] = { absolutePath, content: Disk.read(absolutePath), mtime: fs.statSync(absolutePath) }
+	return readFileCache[absolutePath]
 }
 
 const expandedImportCache = {}
@@ -68,7 +72,7 @@ const expandedImportCache = {}
 const importRegex = /^import /gm
 const getFullyExpandedFile = absoluteFilePath => {
 	if (expandedImportCache[absoluteFilePath]) return expandedImportCache[absoluteFilePath]
-	const code = readFileWithCache(absoluteFilePath)
+	const code = readFileWithCache(absoluteFilePath).content
 
 	if (!code.match(importRegex))
 		return {
@@ -105,7 +109,7 @@ const getFullyExpandedFile = absoluteFilePath => {
 const getOneGrammarFromFiles = filePaths => {
 	const asOneFile = filePaths
 		.map(filePath => {
-			const content = readFileWithCache(filePath)
+			const content = readFileWithCache(filePath).content
 			if (filePath.endsWith(GRAMMAR_EXTENSION)) return content
 			// Strip scroll content
 			return new TreeNode(content)
@@ -231,7 +235,7 @@ const evalVariables = code => {
 const _grammarExpandersCache = {}
 const doesFileHaveGrammarDefinitions = absoluteFilePath => {
 	if (!absoluteFilePath) return false
-	if (_grammarExpandersCache[absoluteFilePath] === undefined) _grammarExpandersCache[absoluteFilePath] = !!readFileWithCache(absoluteFilePath).match(/^[a-zA-Z0-9_]+Node/gm)
+	if (_grammarExpandersCache[absoluteFilePath] === undefined) _grammarExpandersCache[absoluteFilePath] = !!readFileWithCache(absoluteFilePath).content.match(/^[a-zA-Z0-9_]+Node/gm)
 
 	return _grammarExpandersCache[absoluteFilePath]
 }
@@ -244,8 +248,10 @@ const getFileAsTree = absoluteFilePath => {
 	return _treeCache[absoluteFilePath]
 }
 
+const makePermalink = filename => filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
+
 class ScrollFile {
-	constructor(originalScrollCode = "", folder = new ScrollFolder(), absoluteFilePath = "") {
+	constructor(originalScrollCode = "", folder = new ScrollFolder(), absoluteFilePath = "", mtime = 0) {
 		this.folder = folder
 		this.filePath = absoluteFilePath
 		this.filename = path.basename(this.filePath)
@@ -271,7 +277,7 @@ class ScrollFile {
 		this.scrollFilesWithGrammarNodeDefinitions = filepathsWithGrammarDefinitions
 		this.scrollScriptProgram.setFile(this)
 		this.timestamp = dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
-		this.permalink = this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
+		this.permalink = this.scrollScriptProgram.get(scrollKeywords.permalink) || makePermalink(this.filename)
 	}
 
 	SVGS = SVGS
@@ -317,7 +323,7 @@ class ScrollFile {
 	}
 
 	save() {
-		write(`${this.filePath}`, this.scrollScriptProgram.toString())
+		writeIfChanged(`${this.filePath}`, this.scrollScriptProgram.toString())
 	}
 
 	// todo: add an openGraph node type to define this stuff manually
@@ -446,7 +452,10 @@ class ScrollFolder {
 
 	_initFiles() {
 		if (this._files) return
-		const all = this.fullScrollFilePaths.map(fullFilePath => new ScrollFile(readFileWithCache(fullFilePath), this, fullFilePath))
+		const all = this.fullScrollFilePaths.map(fullFilePath => {
+			const { content, mtime } = readFileWithCache(fullFilePath)
+			return new ScrollFile(content, this, fullFilePath, mtime)
+		})
 		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
 	}
 
@@ -486,6 +495,36 @@ class ScrollFolder {
 		return this._buildAndWriteFiles()
 	}
 
+	// This is an advanced method designed to work fast most of the time, but not check every case.
+	// It does not yet check mtimes of any imports not in this folder.
+	// It also assumes metaTags to check for scroll version.
+	get buildNeeded() {
+		const scrollFiles = this.fullScrollFilePaths.map(filepath => readFileWithCache(filepath))
+		const lastMTime = lodash.max(scrollFiles.map(file => file.mtime))
+		let haveWeCheckedScrollVersion = false
+
+		let reason = ""
+		scrollFiles.some(file => {
+			const { content, mtime, absolutePath } = file
+			if (content.includes(scrollKeywords.importOnly)) return false
+			let outputFilePath = makePermalink(absolutePath)
+			if (!fs.existsSync(outputFilePath)) {
+				if (content.includes(scrollKeywords.permalink)) outputFilePath = path.join(this.folder, new TreeNode(content).get(scrollKeywords.permalink)) // note this won't resolve substitutions
+				if (!fs.existsSync(outputFilePath)) return (reason = `Need to build ${absolutePath} to create ${outputFilePath}`)
+			}
+			const lastBuiltTime = fs.statSync(outputFilePath).mtime
+			if (lastMTime > lastBuiltTime) return (reason = `Need to build to update ${outputFilePath}`)
+			if (!haveWeCheckedScrollVersion) {
+				haveWeCheckedScrollVersion = true
+				// Assume metaTags. Returns true if the current version of scroll !== the version used to build this html file.
+				// We only check one for better perf
+				if (!readFileWithCache(outputFilePath).content.includes(`Scroll v${SCROLL_VERSION}`)) return (reason = `Need to build to update ${outputFilePath} to Scroll Version ${SCROLL_VERSION}`)
+			}
+			return false
+		})
+		return reason
+	}
+
 	_buildAndWriteFiles() {
 		const start = Date.now()
 		const { files, folder } = this
@@ -506,7 +545,7 @@ class ScrollFolder {
 	}
 
 	write(filename, content, message) {
-		const result = write(path.join(this.folder, filename), content)
+		const result = writeIfChanged(path.join(this.folder, filename), content)
 		this.log(`💾 ` + message)
 		return result
 	}
@@ -568,7 +607,7 @@ class ScrollCli {
 
 		Object.keys(initSite).forEach(filename => {
 			const filePath = path.join(cwd, filename + SCROLL_FILE_EXTENSION)
-			if (!fs.existsSync(filePath)) write(filePath, initSite[filename])
+			if (!fs.existsSync(filePath)) writeIfChanged(filePath, initSite[filename])
 		})
 
 		return this.log(`\n👍 Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
