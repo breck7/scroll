@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 52.1.0 1/12/2023
+- 🏥 Upgrade JTree.
+
 # 52.0.0 1/10/2023
 - 🎉 API usage: new getter `buildNeeded` returns whether the folder needs to be rebuilt. You can use this to skip unnecessary builds for faster perf.
 - ⚠️ BREAKING: This should not break anyone however behavior has changed. `scroll build` now does not overwrite unmodified files. Now `mtime` reflects when the generated HTML last changed instead of when the `scroll build` command was last run. This speeds up `rsync` deploys.
