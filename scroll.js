@@ -436,7 +436,7 @@ class ScrollFolder {
 	}
 
 	getGroup(groupName) {
-		return this.files.filter(file => file.groups.includes(groupName))
+		return this.files.filter(file => file.shouldBuild && file.groups.includes(groupName))
 	}
 
 	get grammarErrors() {
