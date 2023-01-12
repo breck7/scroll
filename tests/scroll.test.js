@@ -3,7 +3,6 @@
 const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
-const { jtree } = require("jtree")
 const { ScrollFolder, ScrollCli, scrollKeywords, ScrollFile, DefaultScrollCompiler } = require("../scroll.js")
 const { Disk } = require("jtree/products/Disk.node.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")

@@ -9,9 +9,9 @@ const dayjs = require("dayjs")
 const open = require("open")
 
 // Tree Notation Includes
-const { jtree } = require("jtree")
-const { TreeNode } = jtree
+const { TreeNode } = require("jtree/products/TreeNode.js")
 const { Disk } = require("jtree/products/Disk.node.js")
+const { HandGrammarProgram } = require("jtree/products/GrammarLanguage.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
 const hakon = require("jtree/products/hakon.nodejs.js")
@@ -137,7 +137,7 @@ const getCompiler = filePaths => {
 	const hit = compilerCache[key]
 	if (hit) return hit
 	const grammarCode = getOneGrammarFromFiles(filePaths)
-	const compiler = new jtree.HandGrammarProgram(grammarCode).compileAndReturnRootConstructor()
+	const compiler = new HandGrammarProgram(grammarCode).compileAndReturnRootConstructor()
 	compilerCache[key] = {
 		grammarCode,
 		compiler
@@ -620,10 +620,10 @@ class ScrollCli {
 	testCommand(cwd) {
 		const folder = new ScrollFolder(resolvePath(cwd))
 		const { grammarErrors } = folder
-		const grammarMessage = grammarErrors.length ? new jtree.TreeNode(grammarErrors).toFormattedTable(200) + "\n" : ""
+		const grammarMessage = grammarErrors.length ? new TreeNode(grammarErrors).toFormattedTable(200) + "\n" : ""
 		if (grammarMessage) this.log(grammarMessage)
 		const scrollErrors = folder.errors
-		const message = scrollErrors.length ? new jtree.TreeNode(scrollErrors).toFormattedTable(60) : "0 errors"
+		const message = scrollErrors.length ? new TreeNode(scrollErrors).toFormattedTable(60) : "0 errors"
 		return this.log(message)
 	}
 
