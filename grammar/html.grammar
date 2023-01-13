@@ -1,14 +1,17 @@
+htmlAnyCell
+ extends anyCell
 htmlNode
- description A catch all block to drop in any loose html.
+ description A catch all block to drop in any loose html. Use for HTML one liners and/or blocks of HTML.
  cruxFromId
  extends abstractScrollNode
  catchAllNodeType htmlLineNode
+ catchAllCellType htmlAnyCell
  javascript
   compile() {
-   return `${this.childrenToString()}`
+   return `${this.getContent() ?? ""}${this.childrenToString()}`
   }
 htmlLineNode
- catchAllCellType anyCell
+ catchAllCellType htmlAnyCell
  catchAllNodeType htmlLineNode
 stumpContentNode
  catchAllCellType anyCell
