@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 52.2.1 1/16/2023
+- 🏥 fix: a `*` node with just a link now works correctly. Previously was rendering blank.
+
 # 52.2.0 1/13/2023
 - 🎉 `html` now also supports quick oneliners:
 

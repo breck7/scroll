@@ -46,6 +46,17 @@ testTree.thoughtNode = areEqual => {
 	areEqual(result, `<p class="scrollParagraphComponent">foo</p>`)
 }
 
+testTree.linkOnly = areEqual => {
+	// Arrange
+	const program = new DefaultScrollCompiler(`* https://treenotation.org`)
+
+	// Act
+	program.compile()
+	const result = program.compile()
+
+	areEqual(result, `<p class="scrollParagraphComponent"><a href="https://treenotation.org" target="_blank">https://treenotation.org</a></p>`)
+}
+
 testTree.tableWithLinks = areEqual => {
 	const tests = [
 		{

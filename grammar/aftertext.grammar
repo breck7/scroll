@@ -25,10 +25,13 @@ abstractAftertextNode
     .filter(i => i)
     .flat()
   }
-  get originalTextPostLinkify() {
-   const originalText = this.filter(node => node.isTextNode)
+  get originalText() {
+    return this.filter(node => node.isTextNode)
     .map(node => node.toString())
     .join("\n")
+  }
+  get originalTextPostLinkify() {
+   const {originalText} = this
    const shouldLinkify = originalText.includes("<a ") ? false : true
    return shouldLinkify ? this.replaceNotes(jtree.Utils.linkify(originalText)) : originalText
   }
@@ -270,13 +273,14 @@ thoughtNode
  description A thought.
  crux *
  javascript
+  get originalText() {
+    return this.getContent() ?? ""
+  }
   compile() {
    // Hacky, I know.
-   const newLine = this.prependLine(this.getContent())
-   const newLine2 = this.appendLine("wrapsOn")
+   const newLine = this.appendLine("wrapsOn")
    const compiled = super.compile()
    newLine.destroy()
-   newLine2.destroy()
    return compiled
   }
 emailLinkNode
