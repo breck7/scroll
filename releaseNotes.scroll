@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 53.0.0 1/17/2023
+- ⚠️ BREAKING: there was undocumented behavior where `*` nodes previously supported multiple lines of text. This now throws an errors. If you need the old behavior you can copy/paste the old node's Grammar code into your project.
+
 # 52.2.1 1/16/2023
 - 🏥 fix: a `*` node with just a link now works correctly. Previously was rendering blank.
 
@@ -344,8 +347,7 @@ aboveAsCode
 
 ## From 3 file types to 1
 
-* `scroll.settings` and `*.grammar` files are gone. Everything is now done with `.scroll` files, and
- now every keyword is documented and usable on try.scroll.com and type checked.
+* `scroll.settings` and `*.grammar` files are gone. Everything is now done with `.scroll` files, and now every keyword is documented and usable on try.scroll.com and type checked.
 
 ## Imports and variables
 
@@ -376,13 +378,16 @@ aboveAsCode
 - ⚠️ BREAKING: DefaultScrollScriptCompiler is now DefaultScrollCompiler
 - ⚠️ BREAKING: removed buildSinglePages, buildIndexPage, buildSnippetsPage, buildRssFeed, and buildCssFile. Everything done by `buildFiles` now. See 'full.scroll', `index.scroll`, `feed.scroll`, and `style.scroll` in `tests/kitchenSink` for how to implement those in new pattern.
 - ⚠️ BREAKING: in default theme CSS some class names have changed:
-      scrollArticleDateComponent => scrollDateComponent
-      scrollArticlePageComponent => scrollFilePageComponent
-      scrollSingleArticleTitle => scrollFilePageTitle
-      scrollIndexPageArticleContainerComponent => scrollGroupPageFileContainerComponent
-      scrollArticleSourceLinkComponent => scrollFileViewSourceUrlComponent
-      scrollIndexPageComponent => scrollGroupPageComponent
-      scrollIndexPageFileContainerComponent => scrollGroupPageFileContainerComponent
+
+code
+ scrollArticleDateComponent => scrollDateComponent
+ scrollArticlePageComponent => scrollFilePageComponent
+ scrollSingleArticleTitle => scrollFilePageTitle
+ scrollIndexPageArticleContainerComponent => scrollGroupPageFileContainerComponent
+ scrollArticleSourceLinkComponent => scrollFileViewSourceUrlComponent
+ scrollIndexPageComponent => scrollGroupPageComponent
+ scrollIndexPageFileContainerComponent => scrollGroupPageFileContainerComponent
+
 - ⚠️ just calling ScrollScript Scroll again unless it becomes confusing
 - 🎉 keyboardNav will now use the first group a file belongs to if prev and next are not supplied
 
@@ -474,9 +479,7 @@ treeTable
 # 24.6.0 2022.6.10
 - 🎉 added `wrap` keyword for advanced custom wraps in aftertext.
 
-* Some !simple! and *advanced* usages.
- An #absolute link# and @@@a relative link@@@.
- Show some ++added text++ or some --deleted text--.
+* Some !simple! and *advanced* usages. An #absolute link# and @@@a relative link@@@. Show some ++added text++ or some --deleted text--.
  wrap ! em
  wrap * b
  wrap # https://example.com
@@ -575,7 +578,7 @@ belowAsCode
 ? Can you show an example of the new advanced aftertext features?
 
 * How much wood can a woodchuck chuck if a woodchuck could chuck wood?
- link https://en.wikipedia.org/wiki/Groundhog woodchuck
+ https://en.wikipedia.org/wiki/Groundhog woodchuck
   matchAll
  class standout wood
   match 0 3
@@ -791,8 +794,7 @@ code
 
 ? How do I use the 🔗link tag with multiword links?
 
-* The 🔗link tag only supports single word links. Like everything with ScrollScript, you have
- a number of options if the conventional design doesn't work for you. Your options are:
+* The 🔗link tag only supports single word links. Like everything with ScrollScript, you have a number of options if the conventional design doesn't work for you. Your options are:
 
 - 1. Link just one word. If you need more, perhaps camelCase or snake_case your words together into one concept.
 - 2. Repeat the link twice <code>foo 🔗link bar 🔗link</code>
@@ -800,9 +802,7 @@ code
 - 4. Extend the ScrollScript grammar for your site.
 
 ? Can I not include a page in the index page?
-
-* Now you can! Sometimes you just want to publish an independent page without including it
- in the index. To do that, just add <code>skipIndexPage</code>.
+* Now you can! Sometimes you just want to publish an independent page without including it in the index. To do that, just add `skipIndexPage`.
 
 # 12.1.0 2021.05.14
 - 🎉 chat nodeType
@@ -828,7 +828,7 @@ chat
 - ⚠️ Removed link nodeType
 - 🏥 Windows return character fix
 - 🏥 multiline support in subheader nodeTypes
- 
+
 # 9.0.0 2021.05.05
 - 🎉 ScrollScript now has a quote nodeType.
 - 🏥 Code block format bug fixes.

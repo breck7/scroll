@@ -2,13 +2,9 @@ tooling
  Related work
  CSS is great for text selector ideas: https://www.w3schools.com/cssref/css_selectors.asp
  Roff has a lot of related markup ideas: https://www.systutorials.com/docs/linux/man/7-groff_man/
-aftertextTextNode
- catchAllCellType stringCell
- boolean isTextNode true
 abstractAftertextNode
  description Text followed by markup commands.
  extends abstractScrollNode
- catchAllNodeType aftertextTextNode
  inScope abstractAftertextDirectiveNode abstractAftertextAttributeNode
  example
   aftertext
@@ -26,9 +22,7 @@ abstractAftertextNode
     .flat()
   }
   get originalText() {
-    return this.filter(node => node.isTextNode)
-    .map(node => node.toString())
-    .join("\n")
+    return this.getContent() ?? ""
   }
   get originalTextPostLinkify() {
    const {originalText} = this
@@ -273,9 +267,6 @@ thoughtNode
  description A thought.
  crux *
  javascript
-  get originalText() {
-    return this.getContent() ?? ""
-  }
   compile() {
    // Hacky, I know.
    const newLine = this.appendLine("wrapsOn")

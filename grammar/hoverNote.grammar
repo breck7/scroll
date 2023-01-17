@@ -1,7 +1,11 @@
+lineOfTextNode
+ catchAllCellType stringCell
+ boolean isTextNode true
 hoverNoteNode
  description Add a caveat viewable on hover on matching text. When you want to be sure you've thoroughly addressed obvious concerns but ones that don't warrant to distract from the main argument of the text.
  cruxFromId
  extends classMarkupNode
+ catchAllNodeType lineOfTextNode
  cells keywordCell
  javascript
   get pattern() {
