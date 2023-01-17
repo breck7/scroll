@@ -1,6 +1,7 @@
 redirectToNode
  description Prints an HTML redirect tag. In the future might also emit nginx config.
  extends abstractScrollNode
+ cells keywordCell urlCell
  cruxFromId
  example
   redirectTo https://scroll.pub/releaseNotes.html

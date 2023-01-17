@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 53.0.1 1/17/2023
+- 🏥 fix: `redirectTo` definition was missing a cell type for url.
+
 # 53.0.0 1/17/2023
 - ⚠️ BREAKING: there was undocumented behavior where `*` nodes previously supported multiple lines of text. This now throws an errors. If you need the old behavior you can copy/paste the old node's Grammar code into your project.
 
