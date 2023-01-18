@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 53.0.2 1/18/2023
+- 🏥 fix: `youTube` definition was missing a cell type for url.
+
 # 53.0.1 1/17/2023
 - 🏥 fix: `redirectTo` definition was missing a cell type for url.
 
