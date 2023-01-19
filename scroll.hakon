@@ -212,7 +212,7 @@ comment Dialogues that look like SMS conversations
   color white
   background rgb(0,132,255)
 
-.scrollImageComponent
+.scrollCaptionedComponent
  display block
  text-align center
  img
