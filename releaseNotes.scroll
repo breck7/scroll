@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 54.1.0 1/19/2023
+- 🏥 `scroll init` no longer starts with a `viewSourceBaseUrl`. If not provided then the View Source link is to the scroll file, so new sites don't start with broken links.
+
 # 54.0.0 1/19/2023
 - 🎉 `link` nodes can now have `target`. This link will open in blank tab.
  https://scroll.pub This link

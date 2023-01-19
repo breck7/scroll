@@ -186,7 +186,6 @@ groups index
 scrollFooter`,
 	header: `importOnly
 git https://github.com/breck7/scroll
-viewSourceBaseUrl https://github.com/breck7/scroll/blob/main
 email feedback@scroll.pub
 baseUrl https://scroll.pub/
 scrollCssTag
@@ -371,8 +370,12 @@ class ScrollFile {
 
 	get viewSourceUrl() {
 		const viewSourceUrl = this.get(scrollKeywords.viewSourceUrl)
+		if (viewSourceUrl) return viewSourceUrl
+
+		const filename = path.basename(this.filePath)
+
 		const viewSourceBaseUrl = this.get(scrollKeywords.viewSourceBaseUrl)
-		return viewSourceUrl || (viewSourceBaseUrl ? viewSourceBaseUrl.replace(/\/$/, "") + "/" + path.basename(this.filePath) : "")
+		return viewSourceBaseUrl ? viewSourceBaseUrl.replace(/\/$/, "") + "/" + filename : filename
 	}
 
 	_compiled = ""
