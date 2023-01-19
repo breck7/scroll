@@ -4,6 +4,24 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 55.0.0 1/19/2023
+- 🏥 improve detection of piped input.
+- 🏥 improve `youTube` CORS fix to work whether someone includes www.youtube or not.
+- ⚠️ BREAKING: removed `watch` command. `nodemon` can be used for hot reloading. Install with `sudo npm install -g nodemon`. Then run:
+
+bashCode
+ nodemon -e scroll -x "scroll build"
+
+* Or alias it:
+
+bashCode
+ alias watch="nodemon -e scroll -x 'scroll build'"
+
+* You can add the following code to the page(s) you are working on to have them reload without manually refreshing the browser:
+
+scrollCode
+ html <meta http-equiv="refresh" content="1;">
+
 # 54.1.0 1/19/2023
 - 🏥 `scroll init` no longer starts with a `viewSourceBaseUrl`. If not provided then the View Source link is to the scroll file, so new sites don't start with broken links.
 

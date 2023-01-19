@@ -6,7 +6,6 @@ const path = require("path")
 const fs = require("fs")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
-const open = require("open")
 
 // Tree Notation Includes
 const { TreeNode } = require("jtree/products/TreeNode.js")
@@ -19,7 +18,6 @@ const packageJson = require("./package.json")
 
 // Helper utils
 const read = fullFilePath => fs.readFileSync(fullFilePath, "utf8").replace(/\r/g, "") // Note: This also removes \r. There's never a reason to use \r.
-const removeReturnCharsAndRightShift = (str, numSpaces) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
 const unsafeStripHtml = html => html.replace(/<[^>]*>?/gm, "")
 // Normalize 3 possible inputs: 1) cwd of the process 2) provided absolute path 3) cwd of process + provided relative path
 const resolvePath = (folder = "") => (path.isAbsolute(folder) ? path.normalize(folder) : path.resolve(path.join(process.cwd(), folder)))
@@ -562,7 +560,7 @@ class ScrollFolder {
 }
 
 class ScrollCli {
-	executeUsersInstructionsFromShell(args = [], userIsPipingInput = !process.stdin.isTTY) {
+	executeUsersInstructionsFromShell(args = [], userIsPipingInput = fs.fstatSync(0).isFIFO()) {
 		const command = args[0] // Note: we don't take any parameters on purpose. Simpler UX.
 		const commandName = `${command}${CommandFnDecoratorSuffix}`
 		if (this[commandName]) return userIsPipingInput ? this._runCommandOnPipedStdIn(commandName) : this[commandName](process.cwd())
@@ -635,41 +633,6 @@ class ScrollCli {
 		folder.verbose = this.verbose
 		folder.buildAll()
 		return folder
-	}
-
-	async watchCommand(cwd) {
-		const folderOrErrorMessage = await this.buildCommand(cwd)
-		if (typeof folderOrErrorMessage === "string") return folderOrErrorMessage
-		const { folder } = folderOrErrorMessage
-
-		this.log(`\n🔭 Watching for changes in 📁 ${folder}`)
-
-		this._watcher = fs.watch(folder, (event, filename) => {
-			const fullFilePath = path.join(folder, filename)
-			if (!fullFilePath.endsWith(SCROLL_FILE_EXTENSION)) return
-			this.log(`\n✅ "${fullFilePath}" changed.`)
-
-			if (!Disk.exists(fullFilePath)) {
-				// file deleted
-			} else if (false) {
-				// new file
-			} else {
-				// file updates
-			}
-			const newFolder = new ScrollFolder(folder)
-			newFolder.verbose = folder.verbose
-			newFolder.buildAll()
-		})
-
-		if (this.verbose) await open(`file://${folder}/index.html`)
-		return this
-	}
-
-	_watcher = undefined
-
-	stopWatchingForFileChanges() {
-		this._watcher.close()
-		this._watcher = undefined
 	}
 
 	listCommand(cwd) {

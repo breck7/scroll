@@ -4,6 +4,7 @@ const Parser = require("rss-parser")
 const got = require("got")
 const cheerio = require("cheerio")
 const { SCROLL_FILE_EXTENSION, scrollKeywords } = require("../scroll.js")
+const removeReturnCharsAndRightShift = (str, numSpaces) => str.replace(/\r/g, "").replace(/\n/g, "\n" + " ".repeat(numSpaces))
 
 // Todo: deprecate/remove/split out into sep project?
 class RssImporter {

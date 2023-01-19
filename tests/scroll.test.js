@@ -99,20 +99,6 @@ testTree.ensureNoErrorsInGrammar = areEqual => {
 	areEqual(grammarErrors.length, 0, "no errors in scroll standard library grammar")
 }
 
-testTree.watchCommand = async areEqual => {
-	// Arrange
-	const cli = new ScrollCli()
-	cli.verbose = false
-
-	// Act
-	const folder = await cli.watchCommand()
-
-	// Assert
-	areEqual(!!cli._watcher, true)
-
-	cli.stopWatchingForFileChanges()
-}
-
 testTree.cli = async areEqual => {
 	const cli = new ScrollCli()
 	cli.verbose = false

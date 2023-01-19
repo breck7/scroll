@@ -248,6 +248,17 @@ code
  brew install pandoc
  pandoc index.html -o book.epub
 
+? How can I do hot reloading?
+* Scroll does not come with hot reloading but you can easily set it up with `nodemon`. Install `nodemon` with `sudo npm install -g nodemon`. Then run:
+bashCode
+ nodemon -e scroll -x "scroll build"
+* Or alias it:
+bashCode
+ alias watch="nodemon -e scroll -x 'scroll build'"
+* You can also add the following code to the page(s) you are working on to have them reload without manually refreshing the browser:
+scrollCode
+ html <meta http-equiv="refresh" content="1;">
+
 ? How can I track web traffic?
 * Scroll emits HTML with zero Javascript and does not have any tracking or cookies. If you are using a web server like Nginx you might have some access logs on your server. The one liner below uses GoAccess to summarize recent Nginx access logs.
  https://goaccess.io GoAccess
