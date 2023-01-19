@@ -4,6 +4,17 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 54.0.0 1/19/2023
+- 🎉 `link` nodes can now have `target`. This link will open in blank tab.
+ https://scroll.pub This link
+  target _blank
+  title Title can also be set.
+aboveAsCode
+- 🎉 `youTube` nodes can now have captions.
+- 🏥 fix: non-embed `youTube` links are converted to proper embed links to fix CORS issues.
+- ⚠️ BREAKING: ~no one should be affected. `scrollImageComponent` CSS class changed to `scrollCaptionedComponent`. If you were overwriting the previous class may need to update.
+- ⚠️ BREAKING: `note` keyword under `link` nodes has been renamed to `title` and instead of it being a block just the line is used. This is to better reflect what it does. See example above.
+
 # 53.0.2 1/18/2023
 - 🏥 fix: `youTube` definition was missing a cell type for url.
 
@@ -523,8 +534,7 @@ aboveAsCode
 
 * This report showed the treatment had a big impact.
  https://example.com/report This report
-  note
-   The average growth in the treatment group was 14.2x higher than the control group.
+  title The average growth in the treatment group was 14.2x higher than the control group.
 aboveAsCode
 
 # 24.2.0 2022.1.18

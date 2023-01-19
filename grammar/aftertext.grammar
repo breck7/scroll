@@ -205,25 +205,29 @@ aftertextCodeNode
  extends abstractMarkupNode
  javascript
   tag = "code"
-linkNoteNode
- description When you want to include more information than just the link to your reference.
- crux note
- cells keywordCell
- example
-  aftertext
-   This report showed the treatment had a big impact.
-  https://example.com/report This report.
-   note
-    The average growth in the treatment group was 14.2x higher than the control group.
- baseNodeType blobNode
+abstractHtmlAttributeNode
  javascript
   compile() {
    return ""
   }
+linkTargetNode
+ extends abstractHtmlAttributeNode
+ description If you want to set the target of the link. To "_blank", for example.
+ crux target
+ cells keywordCell anyCell
+linkTitleNode
+ description If you want to set the title of the link.
+ crux title
+ cells keywordCell
+ catchAllCellType anyCell
+ example
+  * This report showed the treatment had a big impact.
+   https://example.com/report This report.
+    title The average growth in the treatment group was 14.2x higher than the control group.
 linkNode
  extends abstractMarkupNode
  cells keywordCell urlCell
- inScope linkNoteNode
+ inScope linkTitleNode linkTargetNode commentNode
  cruxFromId
  javascript
   tag = "a"
@@ -232,8 +236,11 @@ linkNode
   }
   get attributes() {
    const attrs = [`href="${this.link}"`]
-   const title = this.getNode("note")
-   if (title) attrs.push(`title="${title.childrenToString().replace(/\n/g, " ")}"`)
+   const options = ["title", "target"]
+   options.forEach(option => {
+    const node = this.getNode(option)
+   if (node) attrs.push(`${option}="${node.getContent()}"`)
+   })
    return attrs
   }
   patternStartsAtWord = 2
