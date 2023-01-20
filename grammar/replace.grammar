@@ -10,6 +10,15 @@ replaceNode
   compile() {
    return ""
   }
+javascriptCell
+ extends stringCell
+replaceJsNode
+ description Define a variable token and replacement that will be applied to all lines following this one.
+ extends replaceNode
+ catchAllCellType javascriptCell
+ example
+  replaceJs SUM 1+1
+  * 1+1 = SUM
 replaceDefaultNode
  description Define the default value for a replacement. Useful if you want to import a file and set a replacement later.
  extends abstractScrollNode

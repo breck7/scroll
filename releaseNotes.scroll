@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 55.1.0 1/20/2023
+- 🎉 added `replaceJs` keyword.
+
 # 55.0.1 1/19/2023
 - 🏥 fix bug where variables were replacing themselves, leading to possible errors.
 

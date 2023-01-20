@@ -163,6 +163,7 @@ const scrollKeywords = {
 	groups: "groups",
 	keyboardNav: "keyboardNav",
 	replace: "replace",
+	replaceJs: "replaceJs",
 	replaceDefault: "replaceDefault",
 	import: "import",
 	importOnly: "importOnly",
@@ -213,10 +214,13 @@ const evalVariables = code => {
 	codeAsTree
 		.filter(node => {
 			const keyword = node.getWord(0)
-			return keyword === "replace" || keyword === "replaceDefault"
+			return keyword === scrollKeywords.replace || keyword === scrollKeywords.replaceDefault || keyword === scrollKeywords.replaceJs
 		})
 		.forEach(node => {
-			varMap[node.getWord(1)] = node.length ? node.childrenToString() : node.getWordsFrom(2).join(" ")
+			let value = node.length ? node.childrenToString() : node.getWordsFrom(2).join(" ")
+			const kind = node.getWord(0)
+			if (kind === scrollKeywords.replaceJs) value = eval(value)
+			varMap[node.getWord(1)] = value
 			node.destroy() // Destroy definitions after eval
 		})
 

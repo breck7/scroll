@@ -10,6 +10,8 @@ keyboardNav
 
 groups index all
 
+date 1/11/2019
+
 goodMorning
 goodMorning
 goodMorning
@@ -28,5 +30,14 @@ replace TABLE
 TABLE
 TABLE
 TABLE
+
+replaceJs TODAYS_DATE Date()
+* Today is TODAYS_DATE
+
+replaceJs SUM 1+1
+* 1+1 = SUM
+
+replaceJs THE_DAY dayjs(node.getParent().get("date")).format(`MMMM D, YYYY`)
+* THE_DAY was a great day
 
 * There are NUM_SINKS in my list.
