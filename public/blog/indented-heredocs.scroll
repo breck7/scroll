@@ -51,12 +51,9 @@ markdownCode
 
 # Indented Heredocs
 
-* In contrast here is the indented/off-side heredoc pattern
- in Scroll.
-aboveAsCode
+* In contrast here is the indented/off-side heredoc pattern in Scroll.
 
 # The Demo
-
 * The code below:
 
 scrollCode

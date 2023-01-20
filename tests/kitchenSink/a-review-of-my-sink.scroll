@@ -27,4 +27,4 @@ keyboardNav
 - days old
  dayjs Math.floor(dayjs().diff(dayjs("1984.2.26"), "day", true))
 
- endColumns
+endColumns
