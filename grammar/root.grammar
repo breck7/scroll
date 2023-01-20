@@ -57,11 +57,9 @@ scrollScriptNode
    return this.get("permalink") || this.file.permalink || ""
   }
  example
-  title Hello world
-  section This is Scroll
-  
-  paragraph
-   It compiles to HTML. Blank lines get turned into brs.
+  # Hello world
+  ## This is Scroll
+  * It compiles to HTML. Blank lines get turned into brs.
   
   code
    // You can add code as well.
