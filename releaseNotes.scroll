@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 55.0.1 1/19/2023
+- 🏥 fix bug where variables were replacing themselves, leading to possible errors.
+
 # 55.0.0 1/19/2023
 - 🏥 improve detection of piped input.
 - 🏥 improve `youTube` CORS fix to work whether someone includes www.youtube or not.

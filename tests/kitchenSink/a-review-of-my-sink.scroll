@@ -6,6 +6,12 @@ startColumns 1
 
 * I have been using my sink for one year, and this is what I have learned.
 
+replace SOME_DATA
+ - foo
+  link bar.html
+ - bar
+  link bam.html
+
 endSnippet
 
 groups index all
@@ -26,5 +32,7 @@ keyboardNav
 
 - days old
  dayjs Math.floor(dayjs().diff(dayjs("1984.2.26"), "day", true))
+
+SOME_DATA
 
 endColumns

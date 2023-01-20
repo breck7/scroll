@@ -217,12 +217,13 @@ const evalVariables = code => {
 		})
 		.forEach(node => {
 			varMap[node.getWord(1)] = node.length ? node.childrenToString() : node.getWordsFrom(2).join(" ")
+			node.destroy() // Destroy definitions after eval
 		})
 
 	const keys = Object.keys(varMap)
 	if (!keys.length) return code
 
-	let codeAfterVariableSubstitution = code
+	let codeAfterVariableSubstitution = codeAsTree.toString()
 	// Todo: speed up. build a template?
 	Object.keys(varMap).forEach(key => (codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])))
 
@@ -254,6 +255,7 @@ class ScrollFile {
 		this.filename = path.basename(this.filePath)
 		this.SCROLL_CSS = SCROLL_CSS // todo: cleanup
 
+		// PASS 1: IMPORT PASS
 		let afterImportPass = originalScrollCode
 		let filepathsWithGrammarDefinitions = []
 		if (absoluteFilePath) {
@@ -265,10 +267,13 @@ class ScrollFile {
 			afterImportPass = expandedFile.code
 		}
 
+		// PASS 2: REPLACEMENT PASS. PARSE AND REMOVE VARIABLE DEFINITIONS THEN REPLACE REFERENCES.
 		const afterVariablePass = evalVariables(afterImportPass)
 
-		// Compile with STD LIB or custom compiler if there are grammar defs defined
+		// PASS 3: BUILD CUSTOM COMPILER PASS, IF THERE ARE CUSTOM GRAMMAR NODES DEFINED
 		const compiler = filepathsWithGrammarDefinitions.length === 0 ? DefaultScrollCompiler : getCompiler(DefaultGrammarFiles.concat(filepathsWithGrammarDefinitions)).compiler
+
+		// PASS 4: LOAD WITH STD COMPILER OR CUSTOM COMPILER FROM PASS 3
 		this.scrollScriptProgram = new compiler(afterVariablePass)
 
 		this.scrollFilesWithGrammarNodeDefinitions = filepathsWithGrammarDefinitions
