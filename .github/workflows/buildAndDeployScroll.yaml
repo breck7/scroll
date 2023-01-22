@@ -12,14 +12,17 @@ jobs:
         uses: actions/checkout@v2.3.1
       - name: Install and Build
         run: |
-          cp public/favicon.ico .
           rm .gitignore
-          npm install -g .
+          npm install .
+          ./scroll.js build
+          cp public/favicon.ico .
           cd public/blog
           npm install -g marked textile-js ya-bbcode
+          ../../scroll.js build
           cd ..
           cd ..
-          scroll list | scroll build
+          cd tests/kitchenSink
+          ../../scroll.js build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
