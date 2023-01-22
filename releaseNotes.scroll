@@ -1,5 +1,6 @@
 import header.scroll
 title Scroll Release Notes
+
 startColumns
 
 * Here's a list of the notable changes in Scroll.
@@ -901,6 +902,6 @@ chat
 # 4.1.0 2021.02.22
 - 🎉 "git" scrollSetting for article source links.
 
-keyboardNav index.html index.html
 endColumns
+
 import footer.scroll

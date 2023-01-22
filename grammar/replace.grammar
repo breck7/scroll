@@ -1,5 +1,5 @@
 replaceNode
- description Define a variable token and replacement that will be applied to all lines following this one.
+ description Define a variable token and replacement that will be applied to all lines before and after this one.
  extends abstractScrollNode
  cruxFromId
  catchAllCellType stringCell
@@ -13,7 +13,7 @@ replaceNode
 javascriptCell
  extends stringCell
 replaceJsNode
- description Define a variable token and replacement that will be applied to all lines following this one.
+ description Define a variable token and replacement that will be applied to all lines before and after this one.
  extends replaceNode
  catchAllCellType javascriptCell
  example
