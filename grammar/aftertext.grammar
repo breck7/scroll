@@ -27,7 +27,7 @@ abstractAftertextNode
   get originalTextPostLinkify() {
    const {originalText} = this
    const shouldLinkify = originalText.includes("<a ") ? false : true
-   return shouldLinkify ? this.replaceNotes(jtree.Utils.linkify(originalText)) : originalText
+   return shouldLinkify ? this.replaceNotes(Utils.linkify(originalText)) : originalText
   }
   replaceNotes(originalText) {
    this.getRootNode().footnotes.forEach((note, index) => {

@@ -5,6 +5,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 55.2.0 1/26/2023
+- 🏥 upgrade jtree
+
 # 55.1.0 1/20/2023
 - 🎉 added `replaceJs` keyword.
 

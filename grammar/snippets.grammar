@@ -11,7 +11,7 @@ snippetsNode
  javascript
   methodForGettingHtml = "htmlCodeForSnippetsPage"
   makeSnippet(file) {
-   const snippet = new jtree.TreeNode(`div
+   const snippet = new TreeNode(`div
    class scrollSnippetContainerComponent`)
    const div = snippet.getNode("div")
    div.appendLineAndChildren("bern", file[this.methodForGettingHtml])
