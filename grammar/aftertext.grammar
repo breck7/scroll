@@ -245,12 +245,12 @@ linkNode
   }
   patternStartsAtWord = 2
   get pattern() {
-   // If no pattern is provided, make the *entire* line a link.
+   // If no pattern is provided, apply to the *entire* content.
    const words = this.getWordsFrom(this.patternStartsAtWord)
    return words.length ? words.join(" ") : this.getParent().getContent()
   }
 classMarkupNode
- description Add a span with a class name around matching text.
+ description Add a span with a class name around matching text. If no matching text provided, class will be set on the whole element.
  extends abstractMarkupNode
  cells keywordCell classNameCell
  crux class
@@ -263,7 +263,8 @@ classMarkupNode
    return [`class="${this.className}"`]
   }
   get pattern() {
-   return this.getWordsFrom(2).join(" ")
+   const words = this.getWordsFrom(2)
+   return words.length ? words.join(" ") : this.getParent().getContent()
   }
 thoughtNode
  todo Perhaps rewrite this from scratch and move out of aftertext.

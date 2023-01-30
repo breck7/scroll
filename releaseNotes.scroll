@@ -5,6 +5,16 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 55.3.0 1/29/2023
+- 🎉 the `class` aftertext directive now inserts a span across the whole element content if no text search is provided.
+
+css
+ .classDemo {color:blue;}
+aboveAsCode
+belowAsCode
+* This whole text will be blue.
+ class classDemo
+
 # 55.2.0 1/26/2023
 - 🏥 upgrade jtree
 
