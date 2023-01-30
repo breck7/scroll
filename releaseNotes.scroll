@@ -5,6 +5,15 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 55.4.0 1/30/2023
+- 🎉 added `table` keyword which supports custom delimiters:
+
+table &&
+ name&&score
+ kaia&&400
+ pemma&&100
+aboveAsCode
+
 # 55.3.0 1/29/2023
 - 🎉 the `class` aftertext directive now inserts a span across the whole element content if no text search is provided.
 

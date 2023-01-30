@@ -77,6 +77,13 @@ kpiTableNode
   compile() {
    return `<table class="scrollKpiTable">${this.tableBody}</table>`
   }
+tableNode
+ description A table with a custom delimiter.
+ extends abstractTableNode
+ javascript
+  get delimiter() {
+    return this.getContent() ?? ""
+  }
 commaTableNode
  description Comma separated values table.
  extends abstractTableNode
