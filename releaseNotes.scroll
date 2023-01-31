@@ -5,6 +5,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 55.4.1 1/31/2023
+- 🏥 fix spurious `table` grammar error message
+
 # 55.4.0 1/30/2023
 - 🎉 added `table` keyword which supports custom delimiters:
 

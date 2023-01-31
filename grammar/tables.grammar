@@ -80,6 +80,7 @@ kpiTableNode
 tableNode
  description A table with a custom delimiter.
  extends abstractTableNode
+ catchAllCellType anyCell
  javascript
   get delimiter() {
     return this.getContent() ?? ""
