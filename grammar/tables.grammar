@@ -83,7 +83,7 @@ tableNode
  catchAllCellType anyCell
  javascript
   get delimiter() {
-    return this.getContent() ?? ""
+   return this.getContent() ?? ""
   }
 commaTableNode
  description Comma separated values table.

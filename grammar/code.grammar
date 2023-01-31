@@ -17,18 +17,33 @@ codeWithLanguageNode
 belowAsCodeNode
  description Print the Scroll code of the next node.
  extends abstractScrollNode
+ catchAllCellType integerCell
  cruxFromId
  javascript
-  get target() {
-   return this.getNext()
+  method = "getNext"
+  get code() {
+   const { method } = this
+   let code = ""
+   let howMany = parseInt(this.getWord(1))
+   if (!howMany || isNaN(howMany)) howMany = 1
+   let nodes = []
+   let next = this[method]()
+   while (howMany) {
+    nodes.push(next)
+    next = next[method]()
+    howMany--
+   }
+   if (this.reverseNodes)
+    nodes.reverse()
+   return nodes.map(node => node.toString()).join("\n")
   }
+  reverseNodes = false
   compile() {
-   return `<code class="scrollCodeBlockComponent">${this.target.toString().replace(/\</g, "&lt;")}</code>`
+   return `<code class="scrollCodeBlockComponent">${this.code.replace(/\</g, "&lt;")}</code>`
   }
 aboveAsCodeNode
  description Print the Scroll code for the previous node.
  extends belowAsCodeNode
  javascript
-  get target() {
-   return this.getPrevious()
-  }
+  method = "getPrevious"
+  reverseNodes = true

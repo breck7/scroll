@@ -8,14 +8,14 @@ footnoteDefinitionNode
    return super.divAttributes + ` id="${this.anchorId}"`
   }
   get anchorId() {
-    return `note${this.noteIndex}`
+   return `note${this.noteIndex}`
   }
   get noteId() {
-    // In the future we could allow common practices like author name
-    return this.noteIndex
+   // In the future we could allow common practices like author name
+   return this.noteIndex
   }
   linkBack() {
-    return `noteUsage${this.noteIndex}`
+   return `noteUsage${this.noteIndex}`
   }
   get text() {
    return `<a class="scrollNoteIndex" href="#noteUsage${this.noteIndex}">${this.noteIndex}</a> ${super.text}`

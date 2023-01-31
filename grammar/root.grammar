@@ -4,15 +4,6 @@ abstractScrollNode
   compileSnippet() {
    return this.compile()
   }
-blankLineNode
- description Blank lines compile to nothing in the HTML.
- cells blankCell
- javascript
-  compile() {
-   return this.getParent().clearStack()
-  }
- pattern ^$
- tags doNotSynthesize
 abstractTopLevelSingleMetaNode
  description Use these keywords once per file.
  extends abstractScrollNode
@@ -26,6 +17,15 @@ permalinkNode
  description When compiling, Scroll will save this file to {permalink}
  extends abstractTopLevelSingleMetaNode
  cells keywordCell permalinkCell
+blankLineNode
+ description Blank lines compile to nothing in the HTML.
+ cells blankCell
+ javascript
+  compile() {
+   return this.getParent().clearStack()
+  }
+ pattern ^$
+ tags doNotSynthesize
 scrollScriptNode
  extensions scroll
  description Tools for thought that compile to HTML.
@@ -40,16 +40,15 @@ scrollScriptNode
   }
   stack = []
   clearStack() {
-    const result = this.stack.join("")
-    this.stack = []
-    return result
+   const result = this.stack.join("")
+   this.stack = []
+   return result
   }
   compileSnippet() {
    return this.map(child => (child.compileSnippet ? child.compileSnippet() : child.compile())).join("\n")
   }
   get footnotes() {
-   if (this._footnotes === undefined)
-    this._footnotes = this.filter(node => node.isFootnote)
+   if (this._footnotes === undefined) this._footnotes = this.filter(node => node.isFootnote)
    return this._footnotes
   }
   file = {}

@@ -22,18 +22,17 @@ abstractAftertextNode
     .flat()
   }
   get originalText() {
-    return this.getContent() ?? ""
+   return this.getContent() ?? ""
   }
   get originalTextPostLinkify() {
-   const {originalText} = this
+   const { originalText } = this
    const shouldLinkify = originalText.includes("<a ") ? false : true
    return shouldLinkify ? this.replaceNotes(Utils.linkify(originalText)) : originalText
   }
   replaceNotes(originalText) {
    this.getRootNode().footnotes.forEach((note, index) => {
     const needle = note.getWord(0)
-    if (originalText.includes(needle))
-        originalText = originalText.replace(needle, `<a href="#${note.anchorId}" class="scrollNoteLink" id="${note.linkBack()}"><sup>${note.noteId}</sup></a>`)
+    if (originalText.includes(needle)) originalText = originalText.replace(needle, `<a href="#${note.anchorId}" class="scrollNoteLink" id="${note.linkBack()}"><sup>${note.noteId}</sup></a>`)
    })
    return originalText
   }
@@ -55,7 +54,9 @@ abstractAftertextNode
   tag = "p"
   className = "scrollParagraphComponent"
   compile() {
-   return `<${this.tag} ${this.divAttributes}class="${this.className}">${this.text}</${this.tag}>`
+   const {className} = this
+   const classAttr = className ? `class="${this.className}"` : ""
+   return `<${this.tag} ${this.divAttributes}${classAttr}>${this.text}</${this.tag}>`
   }
   get divAttributes() {
    const attrs = this.filter(node => node.isAttributeNode)
@@ -239,7 +240,7 @@ linkNode
    const options = ["title", "target"]
    options.forEach(option => {
     const node = this.getNode(option)
-   if (node) attrs.push(`${option}="${node.getContent()}"`)
+    if (node) attrs.push(`${option}="${node.getContent()}"`)
    })
    return attrs
   }

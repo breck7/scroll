@@ -1,3 +1,5 @@
+javascriptCell
+ extends stringCell
 replaceNode
  description Define a variable token and replacement that will be applied to all lines before and after this one.
  extends abstractScrollNode
@@ -10,8 +12,6 @@ replaceNode
   compile() {
    return ""
   }
-javascriptCell
- extends stringCell
 replaceJsNode
  description Define a variable token and replacement that will be applied to all lines before and after this one.
  extends replaceNode

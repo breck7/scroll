@@ -1,10 +1,15 @@
 comment CSS reset
-html,body,div,span,h1,h2,h3,h4,p,ol,ul,table,figure
+html,body,div,span,h1,h2,h3,h4,p,ol,ul,li,table,figure
  margin 0
  padding 0
  border 0
  vertical-align baseline
  border-spacing 0
+
+li
+ list-style-position inside
+ margin-top .4em
+ line-height 1.2em
 
 comment General page style
 html

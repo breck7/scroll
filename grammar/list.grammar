@@ -5,25 +5,23 @@ listAftertextNode
  description A list item.
  crux -
  javascript
+  className = ""
   compile() {
    const index = this.getIndex()
    const parent = this.getParent()
-   const isStartOfList =
-    index === 0 ||
-    !parent
-     .nodeAt(index - 1)
-     .getLine()
-     .startsWith("- ")
-   const isEndOfList =
-    parent.length === index + 1 ||
-    !parent
-     .nodeAt(index + 1)
-     .getLine()
-     .startsWith("- ")
+   const nodeClass = this.constructor
+   const isStartOfList = index === 0 || !(parent.nodeAt(index - 1) instanceof nodeClass)
+   const isEndOfList = parent.length === index + 1 || !(parent.nodeAt(index + 1) instanceof nodeClass)
    const { listType } = this
    return (isStartOfList ? `<${listType}>` : "") + `${super.compile()}` + (isEndOfList ? `</${listType}>` : "")
   }
   tag = "li"
-  get listType() {
-   return "ul" // todo: in the future add support for ol
-  }
+  listType = "ul"
+orderedListAftertextNode
+ extends listAftertextNode
+ description A list item.
+ example
+  1. Hello world
+ pattern ^\d+\. 
+ javascript
+  listType = "ol"

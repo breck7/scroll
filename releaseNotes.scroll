@@ -5,6 +5,15 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 55.5.0 1/31/2023
+- 🎉 `aboveAsCode` and `belowAsCode` now take an optional number for showing multiple nodes.
+- 🎉 default list CSS style has been adjusted slightly to move bullets inline.
+- 🎉 New list type: _ordered lists_:
+belowAsCode 3
+1. One
+2. Two
+3. Three
+
 # 55.4.1 1/31/2023
 - 🏥 fix spurious `table` grammar error message
 
@@ -206,7 +215,6 @@ aboveAsCode
 
 # 44.0.0 11/24/2022
 * This is the `title` simplification refactor release.
-
 - 🎉 new: `description` keyword for use in open graph description generation.
 - 🎉 new: optional `hidden` keyword on `title` nodes for setting `title` without printing it.
 - ⚠️ BREAKING: Group pages no longer have a `title` in their HTML by default. Must set manually.
