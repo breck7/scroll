@@ -9,9 +9,9 @@ datelineNode
  javascript
   getInserts() {
    let day =
-    this.getContent() ||
-    this.getParent()
-     .getParent()
+    this.content ||
+    this.parent
+     .parent
      .get("date")
    if (!day) return false
    try {

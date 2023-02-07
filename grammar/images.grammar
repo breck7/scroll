@@ -18,7 +18,7 @@ imageNode
  extends abstractCaptionedNode
  javascript
   get content() {
-   const file = this.getRootNode().file
+   const file = this.root.file
    const folder = file.folder.folder
    const src = this.getWord(1)
    let dimensionAttributes = ""

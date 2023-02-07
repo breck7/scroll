@@ -5,8 +5,8 @@ titleNode
  inScope hiddenTitleNode
  javascript
   compile() {
-   const { file } = this.getParent()
-   return this.has("hidden") ? "" : `<h1 class="scrollTitleComponent"><a href="${file.permalink}">${this.getContent()}</a></h1>`
+   const { file } = this.parent
+   return this.has("hidden") ? "" : `<h1 class="scrollTitleComponent"><a href="${file.permalink}">${this.content}</a></h1>`
   }
 hiddenTitleNode
  description Set this to not print the title.
@@ -18,7 +18,7 @@ sectionTitleNode
  crux #
  javascript
   compile() {
-   this.getParent().stack.push("</div>")
+   this.parent.stack.push("</div>")
    return `<div class="scrollSectionComponent">` + super.compile()
   }
   tag = "h3"

@@ -3,8 +3,8 @@ readingListItemNode
  catchAllCellType stringCell
  javascript
   compile() {
-   const url = this.getWord(0)
-   const [title, author] = this.getContent().split(" by ")
+   const url = this.firstWord
+   const [title, author] = this.content.split(" by ")
    return `<li><a href="${url}">${title ?? url}</a>${author ? ` by ${author}` : ""}</li>`
   }
 readingListNode

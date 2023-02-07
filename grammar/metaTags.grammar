@@ -7,7 +7,7 @@ metaTagsNode
    return ""
   }
   compile() {
-   const { file } = this.getParent()
+   const { file } = this.parent
    const { title, description, openGraphImage, SCROLL_VERSION } = file
    const rssFeedUrl = file.get("rssFeedUrl")
    let rssTag = ""

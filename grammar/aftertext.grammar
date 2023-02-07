@@ -22,7 +22,7 @@ abstractAftertextNode
     .flat()
   }
   get originalText() {
-   return this.getContent() ?? ""
+   return this.content ?? ""
   }
   get originalTextPostLinkify() {
    const { originalText } = this
@@ -30,8 +30,8 @@ abstractAftertextNode
    return shouldLinkify ? this.replaceNotes(Utils.linkify(originalText)) : originalText
   }
   replaceNotes(originalText) {
-   this.getRootNode().footnotes.forEach((note, index) => {
-    const needle = note.getWord(0)
+   this.root.footnotes.forEach((note, index) => {
+    const needle = note.firstWord
     if (originalText.includes(needle)) originalText = originalText.replace(needle, `<a href="#${note.anchorId}" class="scrollNoteLink" id="${note.linkBack()}"><sup>${note.noteId}</sup></a>`)
    })
    return originalText
@@ -67,7 +67,7 @@ abstractAftertextAttributeNode
  boolean isAttributeNode true
  javascript
   get divAttributes() {
-   return `${this.getWord(0)}="${this.getContent()}"`
+   return `${this.firstWord}="${this.content}"`
   }
   compile() {
    return ""
@@ -240,7 +240,7 @@ linkNode
    const options = ["title", "target"]
    options.forEach(option => {
     const node = this.getNode(option)
-    if (node) attrs.push(`${option}="${node.getContent()}"`)
+    if (node) attrs.push(`${option}="${node.content}"`)
    })
    return attrs
   }
@@ -248,7 +248,7 @@ linkNode
   get pattern() {
    // If no pattern is provided, apply to the *entire* content.
    const words = this.getWordsFrom(this.patternStartsAtWord)
-   return words.length ? words.join(" ") : this.getParent().getContent()
+   return words.length ? words.join(" ") : this.parent.content
   }
 classMarkupNode
  description Add a span with a class name around matching text. If no matching text provided, class will be set on the whole element.
@@ -265,7 +265,7 @@ classMarkupNode
   }
   get pattern() {
    const words = this.getWordsFrom(2)
-   return words.length ? words.join(" ") : this.getParent().getContent()
+   return words.length ? words.join(" ") : this.parent.content
   }
 thoughtNode
  todo Perhaps rewrite this from scratch and move out of aftertext.
@@ -297,7 +297,7 @@ quickLinkNode
  cells urlCell
  javascript
   get link() {
-   return this.getWord(0)
+   return this.firstWord
   }
   patternStartsAtWord = 1
 strikethroughNode

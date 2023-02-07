@@ -6,7 +6,7 @@ scrollFooterNode
    return ""
   }
   compile() {
-   const file = this.getParent().file
+   const file = this.parent.file
    const { SVGS, SCROLL_VERSION, viewSourceUrl } = file
    const closeContainerTag = "</div>"
    return (

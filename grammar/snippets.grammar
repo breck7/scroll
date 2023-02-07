@@ -19,7 +19,7 @@ snippetsNode
   }
   compile() {
    const groupName = this.getWord(1)
-   const file = this.getParent().file
+   const file = this.parent.file
    const { folder } = file
    const files = folder.getGroup(groupName)
    const snippets = files.map(file => this.makeSnippet(file)).join("\n ")

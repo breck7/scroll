@@ -37,7 +37,7 @@ replaceJs TODAYS_DATE Date()
 replaceJs SUM 1+1
 * 1+1 = SUM
 
-replaceJs THE_DAY dayjs(node.getParent().get("date")).format(`MMMM D, YYYY`)
+replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
 * THE_DAY was a great day
 
 * There are NUM_SINKS in my list.

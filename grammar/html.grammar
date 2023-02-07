@@ -8,7 +8,7 @@ htmlNode
  catchAllCellType htmlAnyCell
  javascript
   compile() {
-   return `${this.getContent() ?? ""}${this.childrenToString()}`
+   return `${this.content ?? ""}${this.childrenToString()}`
   }
 htmlLineNode
  catchAllCellType htmlAnyCell
@@ -22,7 +22,7 @@ stumpNode
  catchAllNodeType stumpContentNode
  javascript
   compile() {
-   const file = this.getParent().file
+   const file = this.parent.file
    return file.compileStumpCode(this.childrenToString())
   }
 stumpNoSnippetNode

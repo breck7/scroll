@@ -15,7 +15,7 @@ abstractMarkupLangNode
       const compiler = require(path.join(this.globalPath, this.packageName))
       return this.importName ? compiler[this.importName] : compiler
     } catch (err) {
-      console.error(`❌ ${this.getWord(0)} skipped. Try "npm install -g ${this.packageName}"`)
+      console.error(`❌ ${this.firstWord} skipped. Try "npm install -g ${this.packageName}"`)
       return str => str
     }
   }

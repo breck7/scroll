@@ -216,12 +216,12 @@ const evalVariables = code => {
 	const varMap = {}
 	codeAsTree
 		.filter(node => {
-			const keyword = node.getWord(0)
+			const keyword = node.firstWord
 			return keyword === scrollKeywords.replace || keyword === scrollKeywords.replaceDefault || keyword === scrollKeywords.replaceJs
 		})
 		.forEach(node => {
 			let value = node.length ? node.childrenToString() : node.getWordsFrom(2).join(" ")
-			const kind = node.getWord(0)
+			const kind = node.firstWord
 			if (kind === scrollKeywords.replaceJs) value = eval(value)
 			varMap[node.getWord(1)] = value
 			node.destroy() // Destroy definitions after eval
@@ -343,7 +343,7 @@ class ScrollFile {
 		const node = this.scrollScriptProgram.getNode(scrollKeywords.image)
 		if (!node) return ""
 
-		const link = node.getContent()
+		const link = node.content
 		return isAbsoluteUrl(link) ? link : this.baseUrl + "/" + link
 	}
 
@@ -357,7 +357,7 @@ class ScrollFile {
 		if (description) return description
 
 		for (let node of program.getTopDownArrayIterator()) {
-			const word = node.getWord(0)
+			const word = node.firstWord
 			if (word === scrollKeywords.thoughtKeyword)
 				return unsafeStripHtml(node.compile())
 					.replace(/\n/g, " ")

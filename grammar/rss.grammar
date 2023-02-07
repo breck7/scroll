@@ -9,7 +9,7 @@ printFeedNode
  javascript
   compile() {
    const dayjs = require("dayjs")
-   const file = this.getRootNode().file
+   const file = this.root.file
    const folder = file.folder
    const files = folder.getGroup(this.getWord(1))
    const { title, baseUrl, description } = file

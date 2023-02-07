@@ -22,7 +22,7 @@ blankLineNode
  cells blankCell
  javascript
   compile() {
-   return this.getParent().clearStack()
+   return this.parent.clearStack()
   }
  pattern ^$
  tags doNotSynthesize

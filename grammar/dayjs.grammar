@@ -5,7 +5,7 @@ dayjsNode
  javascript
   getInserts() {
    const dayjs = require("dayjs")
-   const days = eval(this.getContent())
-   const index = this.getParent().originalTextPostLinkify.indexOf("days")
+   const days = eval(this.content)
+   const index = this.parent.originalTextPostLinkify.indexOf("days")
    return [{ index, string: `${days} ` }]
   }

@@ -10,7 +10,7 @@ viewSourceNode
    return ""
   }
   compile() {
-   const file = this.getParent().file
+   const file = this.parent.file
    const { viewSourceUrl } = file
    return file.compileStumpCode(`p
    class scrollFileViewSourceUrlComponent doNotPrint

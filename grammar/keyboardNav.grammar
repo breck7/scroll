@@ -8,7 +8,7 @@ keyboardNavNode
    return ""
   }
   compile() {
-   const file = this.getRootNode().file
+   const file = this.root.file
    const linkToPrevious = this.getWord(1) ?? file.linkToPrevious
    const linkToNext = this.getWord(2) ?? file.linkToNext
    const script = `<script>document.addEventListener('keydown', function(event) {
