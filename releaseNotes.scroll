@@ -5,6 +5,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 55.6.0 2/7/2023
+- 🏥 tweaks to improve site created by `scroll init`
+
 # 55.5.0 1/31/2023
 - 🎉 `aboveAsCode` and `belowAsCode` now take an optional number for showing multiple nodes.
 - 🎉 default list CSS style has been adjusted slightly to move bullets inline.

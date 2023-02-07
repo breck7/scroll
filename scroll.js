@@ -176,29 +176,32 @@ const scrollKeywords = {
 }
 
 const initSite = {
-	firstPost: `import header.scroll
-${scrollKeywords.title} Hello world
-${scrollKeywords.date} ${dayjs().format(standardDateFormat)}
-
-* This is my first blog post using Scroll. This post will appear in the feed and on the index page.
-groups index
-scrollFooter`,
 	header: `importOnly
 git https://github.com/breck7/scroll
 email feedback@scroll.pub
 baseUrl https://scroll.pub/
+metaTags
 scrollCssTag
 scrollHeader`,
-	about: `import header.scroll
-title About this site
-
-* This is a static page.
+	footer: `importOnly
 scrollFooter`,
+	firstPost: `import header.scroll
+groups index
+${scrollKeywords.title} Hello world
+${scrollKeywords.date} ${dayjs().format(standardDateFormat)}
+
+startColumns 2
+
+* This is my first blog post using Scroll. This post will appear in the feed and on the index page.
+
+endColumns
+import footer.scroll`,
 	index: `import header.scroll
 title My Personal Blog
 description My thoughts about life and the world.
 snippets index
-scrollFooter`
+
+import footer.scroll`
 }
 
 const SVGS = {
