@@ -286,7 +286,7 @@ class ScrollFile {
 		this.scrollFilesWithGrammarNodeDefinitions = filepathsWithGrammarDefinitions
 		this.scrollScriptProgram.setFile(this)
 		this.timestamp = dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
-		this.permalink = this.scrollScriptProgram.get(scrollKeywords.permalink) || this.filename ? makePermalink(this.filename) : ""
+		this.permalink = this.scrollScriptProgram.get(scrollKeywords.permalink) || (this.filename ? makePermalink(this.filename) : "")
 	}
 
 	SVGS = SVGS

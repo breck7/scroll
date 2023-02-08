@@ -5,6 +5,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 57.0.1 2/8/2023
+- 🏥 fix permalink regression
+
 # 57.0.0 2/8/2023
 - 🎉 added support for `css` one liners
  class blueOneLiner

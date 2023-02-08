@@ -91,6 +91,8 @@ testTree.file = areEqual => {
 
 	areEqual(file.permalink, "releaseNotes.html")
 	areEqual(content.includes("Scroll the language is now called"), true)
+
+	areEqual(new ScrollFolder().files[1].permalink, "index.html")
 }
 
 testTree.ensureNoErrorsInGrammar = areEqual => {
