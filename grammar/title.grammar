@@ -6,7 +6,8 @@ titleNode
  javascript
   compile() {
    const { file } = this.parent
-   return this.has("hidden") ? "" : `<h1 class="scrollTitleComponent"><a href="${file.permalink}">${this.content}</a></h1>`
+   const {relativePath} = file
+   return this.has("hidden") ? "" : `<h1 class="scrollTitleComponent"><a href="${relativePath + file.permalink}">${this.content}</a></h1>`
   }
 hiddenTitleNode
  description Set this to not print the title.

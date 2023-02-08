@@ -21,6 +21,7 @@ imageNode
    const file = this.root.file
    const folder = file.folder.folder
    const src = this.getWord(1)
+   const {relativePath} = file
    let dimensionAttributes = ""
    // If its a local image, get the dimensions and put them in the HTML
    // to avoid flicker
@@ -36,5 +37,5 @@ imageNode
      console.error(err)
     }
    }
-   return `<a href="${src}" target="_blank"><img src="${src}" ${dimensionAttributes}loading="lazy"></a>`
+   return `<a href="${relativePath + src}" target="_blank"><img src="${relativePath + src}" ${dimensionAttributes}loading="lazy"></a>`
   }

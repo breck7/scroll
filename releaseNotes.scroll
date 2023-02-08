@@ -5,6 +5,13 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 56.1.0 2/8/2023
+- 🎉 `snippets` nodes can now accept multiple groups and also groups can be in different folders. Syntax is `[folderPath]/[groupName]` For example:
+
+scrollCode
+ title The Long Beach Pub
+ snippets 2023/index stories/index 2022/index
+
 # 56.0.1 2/7/2023
 - 🏥 fix bug with images after jtree upgrade
 

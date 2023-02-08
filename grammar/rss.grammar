@@ -12,7 +12,6 @@ printFeedNode
    const dayjs = require("dayjs")
    const file = this.root.file
    const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
-   // Todo: relative links need to be adjusted for inclusions from a different folder.
    const { title, baseUrl, description } = file
    return `<?xml version="1.0" encoding="ISO-8859-1" ?>
   <rss version="2.0">

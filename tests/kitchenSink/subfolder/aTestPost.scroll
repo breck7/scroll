@@ -1,0 +1,6 @@
+import ../header.scroll
+
+title This is a test
+# This file is in a subfolder
+
+groups index

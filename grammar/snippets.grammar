@@ -21,7 +21,6 @@ snippetsNode
   compile() {
    const file = this.parent.file
    const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
-   // Todo: relative links need to be adjusted for inclusions from a different folder.
    const snippets = files.map(file => this.makeSnippet(file)).join("\n ")
    const code = `div
    class scrollColumnsComponent
