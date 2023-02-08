@@ -13,6 +13,7 @@ integerCell
  highlightScope constant.numeric
 permalinkCell
  highlightScope string
+ description A string that doesn't contain characters that might interfere with most filesystems. No slashes, for instance.
 commentCell
  highlightScope comment
 blankCell
@@ -38,8 +39,6 @@ classNameCell
 htmlIdCell
  extends idCell
 filePathCell
- extends stringCell
-groupNameCell
  extends stringCell
 errorNode
  baseNodeType errorNode

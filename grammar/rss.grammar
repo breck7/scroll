@@ -5,13 +5,14 @@ printFeedNode
  description Prints out the RSS feed for a group.
  extends abstractScrollNode
  cruxFromId
- cells keywordCell groupNameCell
+ cells keywordCell groupNameWithOptionalFolderCell
+ catchAllCellType groupNameWithOptionalFolderCell
  javascript
   compile() {
    const dayjs = require("dayjs")
    const file = this.root.file
-   const folder = file.folder
-   const files = folder.getGroup(this.getWord(1))
+   const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
+   // Todo: relative links need to be adjusted for inclusions from a different folder.
    const { title, baseUrl, description } = file
    return `<?xml version="1.0" encoding="ISO-8859-1" ?>
   <rss version="2.0">

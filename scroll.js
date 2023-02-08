@@ -395,7 +395,7 @@ class ScrollFile {
 	}
 
 	_compiledSnippet = ""
-	get compiledSnippet() {
+	getCompiledSnippet() {
 		if (!this._compiledSnippet) this._compiledSnippet = this.scrollScriptProgram.compileSnippet() + this.viewSourceHtml
 		return this._compiledSnippet
 	}
@@ -411,9 +411,9 @@ class ScrollFile {
 		return this.compiled.trim()
 	}
 
-	get htmlCodeForSnippetsPage() {
+	getHtmlCodeForSnippetsPage() {
 		const snippetBreakNode = this.scrollScriptProgram.getNode(scrollKeywords.endSnippet)
-		if (!snippetBreakNode) return this.compiledSnippet
+		if (!snippetBreakNode) return this.getCompiledSnippet()
 		const indexOfBreak = snippetBreakNode.getIndex()
 
 		const { scrollScriptProgram, permalink } = this
@@ -450,6 +450,21 @@ class ScrollFolder {
 
 	getGroup(groupName) {
 		return this.files.filter(file => file.shouldBuild && file.groups.includes(groupName))
+	}
+
+	getFilesInGroups(groupNames) {
+		let arr = []
+		groupNames.forEach(name => {
+			if (!name.includes("/")) return (arr = arr.concat(this.getGroup(name)))
+			const parts = name.split("/")
+			const group = parts.pop()
+			const folderPath = path.join(this.folder, path.normalize(parts.join("/")))
+			console.log(folderPath)
+			const folder = new ScrollFolder(folderPath)
+			arr = arr.concat(folder.getGroup(group))
+		})
+
+		return arr
 	}
 
 	get grammarErrors() {

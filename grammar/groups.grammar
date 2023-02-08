@@ -1,3 +1,8 @@
+groupNameCell
+ extends permalinkCell
+groupNameWithOptionalFolderCell
+ description A group name combined with a folder path. Only used when referencing groups, not in posts.
+ extends stringCell
 groupsNode
  description Add this file to zero or more groups.
  cruxFromId
@@ -5,4 +10,4 @@ groupsNode
   groups index.html
  extends abstractTopLevelSingleMetaNode
  cells keywordCell
- catchAllCellType permalinkCell
+ catchAllCellType groupNameCell

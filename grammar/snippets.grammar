@@ -4,24 +4,24 @@ endSnippetNode
 snippetsNode
  extends abstractAftertextNode
  cruxFromId
- cells keywordCell groupNameCell
+ cells keywordCell groupNameWithOptionalFolderCell
+ catchAllCellType groupNameWithOptionalFolderCell
  description Prints the snippets of all files in a folder that are in the named group.
  example
   snippets index
  javascript
-  methodForGettingHtml = "htmlCodeForSnippetsPage"
+  methodForGettingHtml = "getHtmlCodeForSnippetsPage"
   makeSnippet(file) {
    const snippet = new TreeNode(`div
    class scrollSnippetContainerComponent`)
    const div = snippet.getNode("div")
-   div.appendLineAndChildren("bern", file[this.methodForGettingHtml])
+   div.appendLineAndChildren("bern", file[this.methodForGettingHtml]())
    return snippet.toString().replace(/\n/g, "\n ")
   }
   compile() {
-   const groupName = this.getWord(1)
    const file = this.parent.file
-   const { folder } = file
-   const files = folder.getGroup(groupName)
+   const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
+   // Todo: relative links need to be adjusted for inclusions from a different folder.
    const snippets = files.map(file => this.makeSnippet(file)).join("\n ")
    const code = `div
    class scrollColumnsComponent
@@ -34,4 +34,4 @@ fullSnippetsNode
  cruxFromId
  description Prints the full contents of files in a folder that are in the named group.
  javascript
-  methodForGettingHtml = "compiledSnippet"
+  methodForGettingHtml = "getCompiledSnippet"
