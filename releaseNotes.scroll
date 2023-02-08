@@ -5,6 +5,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 56.0.1 2/7/2023
+- 🏥 fix bug with images after jtree upgrade
+
 # 56.0.0 2/7/2023
 - ⚠️ BREAKING: upgraded to `jtree` 66. If you are extending Scroll you may need to migrate extensions.
 
