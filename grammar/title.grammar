@@ -1,18 +1,3 @@
-titleNode
- catchAllCellType stringCell
- description Title of the page.
- extends abstractTopLevelSingleMetaNode
- inScope hiddenTitleNode
- javascript
-  compile() {
-   const { file } = this.parent
-   const {relativePath} = file
-   return this.has("hidden") ? "" : `<h1 class="scrollTitleComponent"><a href="${relativePath + file.permalink}">${this.content}</a></h1>`
-  }
-hiddenTitleNode
- description Set this to not print the title.
- crux hidden
- cells keywordCell
 sectionTitleNode
  description Compiles to an html h3 tag.
  extends thoughtNode
@@ -23,6 +8,23 @@ sectionTitleNode
    return `<div class="scrollSectionComponent">` + super.compile()
   }
   tag = "h3"
+titleNode
+ description Title of the page for meta tags and also compiles to an html h1 tag.
+ extends sectionTitleNode
+ crux title
+ javascript
+  compile() {
+   // Hacky, I know.
+   const {relativePath, permalink} = this.parent.file
+   if (!permalink)
+    return super.compile()
+   const newLine = this.appendLine("link " + relativePath + permalink)
+   const compiled = super.compile()
+   newLine.destroy()
+   return compiled
+  }
+  className = "scrollTitleComponent"
+  tag = "h1"
 sectionSubTitleNode
  description Compiles to an html h4 tag.
  extends sectionTitleNode

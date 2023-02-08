@@ -5,6 +5,17 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 57.0.0 2/8/2023
+- 🎉 added support for `css` one liners
+ class blueOneLiner
+css .blueOneLiner { color: blue;}
+aboveAsCode 2
+
+- 🎉 `title` nodes are now proper aftertext nodes and can use all features of aftertext
+- 🎉 the `hidden` keyword can now be used on any aftertext node
+- 🏥 if there is no `permalink` on a file the `title` node won't output an a tag
+- ⚠️ BREAKING: (no one should be affected). If you had put markup directives in your title tags, such as *bolds*, those will now actually be evaluated.
+
 # 56.1.0 2/8/2023
 - 🎉 `snippets` nodes can now accept multiple groups and also groups can be in different folders. Syntax is `[folderPath]/[groupName]` For example:
 

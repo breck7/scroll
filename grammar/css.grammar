@@ -15,15 +15,18 @@ scrollCssNode
   compile() {
    return this.parent.file.SCROLL_CSS
   }
+cssAnyCell
+ extends anyCell
 cssLineNode
- catchAllCellType anyCell
+ catchAllCellType cssAnyCell
  catchAllNodeType cssLineNode
 cssNode
  extends abstractScrollNode
  description Prints CSS content wrapped in a style tag.
  cruxFromId
  catchAllNodeType cssLineNode
+ catchAllCellType cssAnyCell
  javascript
   compile() {
-   return `<style>${this.childrenToString()}</style>`
+   return `<style>${this.content ?? ""}${this.childrenToString()}</style>`
   }

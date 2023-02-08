@@ -311,3 +311,9 @@ aftertextIdNode
  extends abstractAftertextAttributeNode
  cells keywordCell htmlIdCell
  single
+aftertextHiddenNode
+ crux hidden
+ cells keywordCell
+ description Do not compile this node to HTML.
+ extends abstractAftertextAttributeNode
+ single
