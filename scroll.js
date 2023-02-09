@@ -61,14 +61,14 @@ const grammarDefinitionRegex = /[a-zA-Z0-9_]+Node/
 
 const readFileCache = {}
 const readFileWithCache = absolutePath => {
-	if (!readFileCache[absolutePath]) readFileCache[absolutePath] = { absolutePath, content: Disk.read(absolutePath), mtime: fs.statSync(absolutePath) }
+	if (!readFileCache[absolutePath]) readFileCache[absolutePath] = { absolutePath, content: Disk.read(absolutePath), mtimeMs: fs.statSync(absolutePath) }
 	return readFileCache[absolutePath]
 }
 
 const expandedImportCache = {}
 // A regex to check if a multiline string has a line that starts with "import ".
 const importRegex = /^import /gm
-const getFullyExpandedFile = absoluteFilePath => {
+const evaluateImports = absoluteFilePath => {
 	if (expandedImportCache[absoluteFilePath]) return expandedImportCache[absoluteFilePath]
 	const code = readFileWithCache(absoluteFilePath).content
 
@@ -85,7 +85,7 @@ const getFullyExpandedFile = absoluteFilePath => {
 		const folder = path.dirname(absoluteFilePath)
 		if (line.match(importRegex)) {
 			const absoluteImportFilePath = path.join(folder, line.replace("import ", ""))
-			const expandedFile = getFullyExpandedFile(absoluteImportFilePath)
+			const expandedFile = evaluateImports(absoluteImportFilePath)
 			replacements.push([index, expandedFile.code])
 			importFilePaths.push(absoluteImportFilePath)
 			importFilePaths = importFilePaths.concat(expandedFile.importFilePaths)
@@ -256,7 +256,9 @@ const getFileAsTree = absoluteFilePath => {
 const makePermalink = filename => filename.replace(SCROLL_FILE_EXTENSION, "") + ".html"
 
 class ScrollFile {
-	constructor(originalScrollCode = "", folder = new ScrollFolder(), absoluteFilePath = "", mtime = 0) {
+	constructor(originalScrollCode, absoluteFilePath = "", folder = new ScrollFolder()) {
+		if (originalScrollCode === undefined) originalScrollCode = absoluteFilePath ? readFileWithCache(absoluteFilePath).content : ""
+
 		this.folder = folder
 		this.filePath = absoluteFilePath
 		this.filename = path.basename(this.filePath)
@@ -268,10 +270,10 @@ class ScrollFile {
 		if (absoluteFilePath) {
 			// Do not build a file marked 'importOnly'
 			this.shouldBuild = !getFileAsTree(absoluteFilePath).has(scrollKeywords.importOnly)
-			const expandedFile = getFullyExpandedFile(absoluteFilePath)
-			filepathsWithGrammarDefinitions = expandedFile.importFilePaths.filter(doesFileHaveGrammarDefinitions)
+			const importResults = this.importResults
+			filepathsWithGrammarDefinitions = importResults.importFilePaths.filter(doesFileHaveGrammarDefinitions)
 			if (doesFileHaveGrammarDefinitions(absoluteFilePath)) filepathsWithGrammarDefinitions.push(absoluteFilePath)
-			afterImportPass = expandedFile.code
+			afterImportPass = importResults.code
 		}
 
 		// PASS 2: REPLACEMENT PASS. PARSE AND REMOVE VARIABLE DEFINITIONS THEN REPLACE REFERENCES.
@@ -287,6 +289,14 @@ class ScrollFile {
 		this.scrollScriptProgram.setFile(this)
 		this.timestamp = dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
 		this.permalink = this.scrollScriptProgram.get(scrollKeywords.permalink) || (this.filename ? makePermalink(this.filename) : "")
+	}
+
+	get mtimeMs() {
+		return readFileCache(this.filePath).mtimeMs
+	}
+
+	get importResults() {
+		return evaluateImports(this.filePath)
 	}
 
 	SVGS = SVGS
@@ -487,10 +497,7 @@ class ScrollFolder {
 
 	_initFiles() {
 		if (this._files) return
-		const all = this.fullScrollFilePaths.map(fullFilePath => {
-			const { content, mtime } = readFileWithCache(fullFilePath)
-			return new ScrollFile(content, this, fullFilePath, mtime)
-		})
+		const all = this.fullScrollFilePaths.map(fullFilePath => new ScrollFile(undefined, fullFilePath, this))
 		this._files = lodash.sortBy(all, file => file.timestamp).reverse()
 	}
 
@@ -535,19 +542,19 @@ class ScrollFolder {
 	// It also assumes metaTags to check for scroll version.
 	get buildNeeded() {
 		const scrollFiles = this.fullScrollFilePaths.map(filepath => readFileWithCache(filepath))
-		const lastMTime = lodash.max(scrollFiles.map(file => file.mtime))
+		const lastMTime = lodash.max(scrollFiles.map(file => file.mtimeMs))
 		let haveWeCheckedScrollVersion = false
 
 		let reason = ""
 		scrollFiles.some(file => {
-			const { content, mtime, absolutePath } = file
+			const { content, mtimeMs, absolutePath } = file
 			if (content.includes(scrollKeywords.importOnly)) return false
 			let outputFilePath = makePermalink(absolutePath)
 			if (!fs.existsSync(outputFilePath)) {
 				if (content.includes(scrollKeywords.permalink)) outputFilePath = path.join(this.folder, new TreeNode(content).get(scrollKeywords.permalink)) // note this won't resolve substitutions
 				if (!fs.existsSync(outputFilePath)) return (reason = `Need to build ${absolutePath} to create ${outputFilePath}`)
 			}
-			const lastBuiltTime = fs.statSync(outputFilePath).mtime
+			const lastBuiltTime = fs.statSync(outputFilePath).mtimeMs
 			if (lastMTime > lastBuiltTime) return (reason = `Need to build to update ${outputFilePath}`)
 			if (!haveWeCheckedScrollVersion) {
 				haveWeCheckedScrollVersion = true
@@ -700,4 +707,4 @@ class ScrollCli {
 
 if (module && !module.parent) new ScrollCli().executeUsersInstructionsFromShell(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFile, ScrollFolder, ScrollCli, scrollKeywords, DefaultScrollCompiler, getFullyExpandedFile }
+module.exports = { ScrollFile, ScrollFolder, ScrollCli, scrollKeywords, DefaultScrollCompiler }

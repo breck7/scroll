@@ -5,6 +5,11 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 58.0.0 2/9/2023
+- ⚠️ BREAKING: (no one should be affected). `getFullyExpandedFile` is no longer exported. Instead use: `new ScrollFile(undefined, filePath).importResults.code`
+- ⚠️ BREAKING: (no one should be affected). Order of params to `ScrollFile` have changed. `absoluteFilePath` is now param #2, instaed of #3.
+- 🏥 mtime fixes for cache builds.
+
 # 57.0.1 2/8/2023
 - 🏥 fix permalink regression
 
