@@ -18,6 +18,7 @@ aboveAsCode 2
 - 🎉 the `hidden` keyword can now be used on any aftertext node
 - 🏥 if there is no `permalink` on a file the `title` node won't output an a tag
 - ⚠️ BREAKING: (no one should be affected). If you had put markup directives in your title tags, such as *bolds*, those will now actually be evaluated.
+- ⚠️ BREAKING: `title` blocks now start a section like `#` and `##`, so you may need to add an empty line to end the section, for example if you previously had a `startColumns` right after the title tag.
 
 # 56.1.0 2/8/2023
 - 🎉 `snippets` nodes can now accept multiple groups and also groups can be in different folders. Syntax is `[folderPath]/[groupName]` For example:
