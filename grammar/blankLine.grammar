@@ -1,0 +1,9 @@
+blankLineNode
+ description Blank lines compile to nothing in the HTML.
+ cells blankCell
+ javascript
+  compile() {
+   return this.parent.clearStack()
+  }
+ pattern ^$
+ tags doNotSynthesize

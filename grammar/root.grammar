@@ -17,15 +17,6 @@ permalinkNode
  description When compiling, Scroll will save this file to {permalink}
  extends abstractTopLevelSingleMetaNode
  cells keywordCell permalinkCell
-blankLineNode
- description Blank lines compile to nothing in the HTML.
- cells blankCell
- javascript
-  compile() {
-   return this.parent.clearStack()
-  }
- pattern ^$
- tags doNotSynthesize
 scrollScriptNode
  extensions scroll
  description Tools for thought that compile to HTML.
