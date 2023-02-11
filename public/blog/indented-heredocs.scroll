@@ -2,6 +2,8 @@ import markups.scroll
 import header.scroll
 title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
 
+startColumns 4
+
 date 2021.08.23
 groups index
 keyboardNav
@@ -89,7 +91,6 @@ bbCode
 # Extended Examples
 
 ## Markdown
-
 belowAsCode
 markdown
  Marked - Markdown Parser
@@ -130,7 +131,6 @@ markdown
  [Markdown]: http://daringfireball.net/projects/markdown/
 
 ## Textile
-
 belowAsCode
 textile
  h1. level 1 heading
@@ -192,7 +192,6 @@ textile
 
 
 ## BBCode
-
 belowAsCode
 bbCode
  [b]bolded text[/b]
@@ -208,5 +207,6 @@ bbCode
   [*]Entry B
  [/list]
 
+endColumns
 
 import footer.scroll
