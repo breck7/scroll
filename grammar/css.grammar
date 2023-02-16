@@ -1,3 +1,5 @@
+cssAnyCell
+ extends anyCell
 scrollCssTagNode
  extends abstractAftertextNode
  cruxFromId
@@ -15,8 +17,6 @@ scrollCssNode
   compile() {
    return this.parent.file.SCROLL_CSS
   }
-cssAnyCell
- extends anyCell
 cssLineNode
  catchAllCellType cssAnyCell
  catchAllNodeType cssLineNode

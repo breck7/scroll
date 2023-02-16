@@ -33,8 +33,7 @@ belowAsCodeNode
     next = next[method]()
     howMany--
    }
-   if (this.reverseNodes)
-    nodes.reverse()
+   if (this.reverseNodes) nodes.reverse()
    return nodes.map(node => node.toString()).join("\n")
   }
   reverseNodes = false

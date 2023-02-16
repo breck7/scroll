@@ -8,11 +8,7 @@ datelineNode
  extends abstractAftertextDirectiveNode
  javascript
   getInserts() {
-   let day =
-    this.content ||
-    this.parent
-     .parent
-     .get("date")
+   let day = this.content || this.parent.parent.get("date")
    if (!day) return false
    try {
     const dayjs = require("dayjs")

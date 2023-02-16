@@ -49,8 +49,8 @@ loopNode
    try {
     return files.map((file, index) => eval(code)).join(delimiter)
    } catch (err) {
-     console.error(error)
-     return ""
+    console.error(error)
+    return ""
    }
   }
 loopDelimiterNode

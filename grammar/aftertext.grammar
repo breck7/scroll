@@ -54,7 +54,7 @@ abstractAftertextNode
   tag = "p"
   className = "scrollParagraphComponent"
   compile() {
-   const {className} = this
+   const { className } = this
    const classAttr = className ? `class="${this.className}"` : ""
    return `<${this.tag} ${this.divAttributes}${classAttr}>${this.text}</${this.tag}>`
   }
