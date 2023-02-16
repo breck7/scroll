@@ -36,29 +36,78 @@ fullSnippetsNode
  javascript
   methodForGettingHtml = "getCompiledSnippet"
 loopNode
- extends snippetsNode
+ extends abstractAftertextNode
+ cells keywordCell
+ description Iterate over files, lines or words, evaluating code and joining the resulting HTML.
  cruxFromId
- description Executes Javascript for each file in the matching group(s).
- inScope loopCodeNode loopDelimiterNode
+ inScope abstractLoopConfigNode
  javascript
   compile() {
-   const file = this.parent.file
-   const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
    const code = this.get("javascript")
-   const delimiter = this.get("delimiter") ?? "<br>"
+   const joinWith = this.get("join") ?? ""
    try {
-    return files.map((file, index) => eval(code)).join(delimiter)
+    const limit = this.get("limit")
+    let items = this.items
+    if (limit)
+      items = items.slice(0, parseInt(limit))
+    return items.map((item, index) => eval(code)).join(joinWith)
    } catch (err) {
-    console.error(error)
+    console.error(err)
     return ""
    }
   }
-loopDelimiterNode
- cruxFromId
- cells keywordCell
+  get items() {
+   // todo: what's the best jtree way to do this?
+   if (this.has("groups")) return this.getNode("groups").items
+   if (this.has("lines")) return this.getNode("lines").items
+   if (this.has("words")) return this.getNode("words").items
+   return []
+  }
+loopLineNode
  catchAllCellType stringCell
-loopCodeNode
- crux javascript
+abstractLoopConfigNode
  cells keywordCell
+abstractItemsProviderNode
+ extends abstractLoopConfigNode
+loopLinesNode
+ crux lines
+ extends abstractItemsProviderNode
+ description Iterate over the provided lines.
+ catchAllNodeType loopLineNode
+ javascript
+  get items() {
+   return this.map(node => node.toString())
+  }
+loopWordsNode
+ crux words
+ extends abstractItemsProviderNode
+ catchAllCellType stringCell
+ description Iterate over the provided words.
+ javascript
+  get items() {
+   return this.getWordsFrom(1)
+  }
+loopGroupsNode
+ crux groups
+ extends abstractItemsProviderNode
+ catchAllCellType groupNameWithOptionalFolderCell
+ description Set this to iterate over files in a folder.
+ javascript
+  get items() {
+   return this.parent.parent.file.folder.getFilesInGroups(this.getWordsFrom(1))
+  }
+loopJoinNode
+ extends abstractLoopConfigNode
+ crux join
+ catchAllCellType stringCell
+ description HTML to use to join the items.
+loopLimitNode
+ extends abstractLoopConfigNode
+ crux limit
+ catchAllCellType stringCell
+ description HTML to use to join the items.
+loopCodeNode
+ extends abstractLoopConfigNode
+ crux javascript
  catchAllCellType javascriptCell
  description Javascript to execute for each file in the loop.

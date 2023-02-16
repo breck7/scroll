@@ -6,18 +6,44 @@ endColumns
 
 html <hr>
 
-loop index subfolder/index
- delimiter ·
- javascript `${file.title}`
+loop
+ groups index subfolder/index
+ join ·
+ javascript `${item.title}`
 
 html <hr>
 
-loop index subfolder/index
- delimiter ..
+loop
+ groups index subfolder/index
+ join ..
  javascript index
 
 html <hr>
 
-loop index subfolder/index
- delimiter <br>
- javascript `<a href="${file.relativeLink}">${file.title}</a>`
+loop
+ groups index subfolder/index
+ join <br>
+ javascript `<a href="${item.relativeLink}">${item.title}</a>`
+
+html <hr>
+
+loop
+ words #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
+ javascript `<span style="background-color: ${item}; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>`
+
+html <hr>
+
+loop
+ words #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
+ limit 2
+ javascript `<span style="background-color: ${item}; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>`
+
+html <hr>
+
+loop
+ lines
+  rgba( 200, 212, 222, .9)
+  rgba( 200, 212, 222, .5)
+  rgba( 200, 212, 222, .2)
+  rgba( 200, 212, 222, .1)
+ javascript `<div style="background-color: ${item};">&nbsp;</div>`

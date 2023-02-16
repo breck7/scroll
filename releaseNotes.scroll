@@ -4,6 +4,14 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 58.1.0 2/16/2023
+- 🎉 added `loop` node type:
+
+belowAsCode
+loop
+ words #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
+ javascript `<span style="background-color: ${item}; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>`
+
 # 58.0.1 2/9/2023
 - 🏥 made `startColumns` clear the section stack. Simpler behavior.
 
