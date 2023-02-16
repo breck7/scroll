@@ -421,8 +421,8 @@ class ScrollFile {
 		return this.compiled.trim()
 	}
 
-	get relativePath() {
-		return this.folder.relativePath
+	get relativeLink() {
+		return this.folder.relativePath + this.permalink
 	}
 
 	getHtmlCodeForSnippetsPage() {
@@ -430,13 +430,13 @@ class ScrollFile {
 		if (!snippetBreakNode) return this.getCompiledSnippet()
 		const indexOfBreak = snippetBreakNode.getIndex()
 
-		const { scrollScriptProgram, permalink, relativePath } = this
+		const { scrollScriptProgram, relativeLink } = this
 		const joinChar = scrollScriptProgram._getChildJoinCharacter()
 		const html =
 			scrollScriptProgram
 				.map((child, index) => (index >= indexOfBreak ? "" : child.compileSnippet ? child.compileSnippet() : child.compile()))
 				.filter(i => i)
-				.join(joinChar) + `<a class="scrollContinueReadingLink" href="${relativePath + permalink}">Continue reading...</a>`
+				.join(joinChar) + `<a class="scrollContinueReadingLink" href="${relativeLink}">Continue reading...</a>`
 
 		return html + this.viewSourceHtml
 	}

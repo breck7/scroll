@@ -2,3 +2,22 @@ import header.scroll
 
 snippets index subfolder/index
 
+endColumns
+
+html <hr>
+
+loop index subfolder/index
+ delimiter ·
+ javascript `${file.title}`
+
+html <hr>
+
+loop index subfolder/index
+ delimiter ..
+ javascript index
+
+html <hr>
+
+loop index subfolder/index
+ delimiter <br>
+ javascript `<a href="${file.relativeLink}">${file.title}</a>`

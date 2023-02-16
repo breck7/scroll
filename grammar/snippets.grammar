@@ -21,16 +21,44 @@ snippetsNode
   compile() {
    const file = this.parent.file
    const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
-   const snippets = files.map(file => this.makeSnippet(file)).join("\n ")
+   const snippets = files.map(file => this.makeSnippet(file)).join(this.delimiter)
    const code = `div
    class scrollColumnsComponent
    style column-width:35ch;
    ${snippets}`
    return file.compileStumpCode(code)
   }
+  delimiter = "\n "
 fullSnippetsNode
  extends snippetsNode
  cruxFromId
  description Prints the full contents of files in a folder that are in the named group.
  javascript
   methodForGettingHtml = "getCompiledSnippet"
+loopNode
+ extends snippetsNode
+ cruxFromId
+ description Executes Javascript for each file in the matching group(s).
+ inScope loopCodeNode loopDelimiterNode
+ javascript
+  compile() {
+   const file = this.parent.file
+   const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
+   const code = this.get("javascript")
+   const delimiter = this.get("delimiter") ?? "<br>"
+   try {
+    return files.map((file, index) => eval(code)).join(delimiter)
+   } catch (err) {
+     console.error(error)
+     return ""
+   }
+  }
+loopDelimiterNode
+ cruxFromId
+ cells keywordCell
+ catchAllCellType stringCell
+loopCodeNode
+ crux javascript
+ cells keywordCell
+ catchAllCellType javascriptCell
+ description Javascript to execute for each file in the loop.
