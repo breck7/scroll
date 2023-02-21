@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 58.2.1 2/21/2023
+- 🏥 fix for empty cells
+
 # 58.2.0 2/21/2023
 - 🎉 table nodes now make cells that are just a link links
 
