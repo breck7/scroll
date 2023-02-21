@@ -48,6 +48,8 @@ rowNode
     let tagged = content
     const link = words[col.linkIndex]
     if (col.linkIndex > -1 && link) tagged = `<a href="${link}">${content}</a>`
+    else if (content.match(/^https?\:[^ ]+x$/))
+     tagged = `<a href="${content}">${content}</a>`
     str += `<td>${tagged}</td>\n`
    }
    return str
