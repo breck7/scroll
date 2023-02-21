@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 58.2.2 2/21/2023
+- 🏥 Bug fix
+
 # 58.2.1 2/21/2023
 - 🏥 fix for empty cells
 

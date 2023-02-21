@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "58.2.1",
+  "version": "58.2.2",
   "description": "Tools for thought.",
   "main": "scroll.js",
   "engines": {
