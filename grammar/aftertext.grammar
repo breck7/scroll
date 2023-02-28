@@ -123,6 +123,10 @@ abstractAftertextDirectiveNode
 abstractMarkupNode
  extends abstractAftertextDirectiveNode
  inScope abstractMarkupParameterNode
+ javascript
+  compile() {
+   return ""
+  }
 abstractMarkupParameterNode
  cells keywordCell
  cruxFromId

@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 58.3.1 2/28/2023
+- 🏥 markup directives in indented lists should not compile to anything
+
 # 58.3.0 2/28/2023
 - 🎉 checklists! use `[]` and `[x]`
 - 🎉 lists `-` are now indentable
