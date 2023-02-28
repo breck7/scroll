@@ -4,6 +4,19 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 58.3.0 2/28/2023
+- 🎉 checklists! use `[]` and `[x]`
+- 🎉 lists `-` are now indentable
+
+## Scroll now has checklists!
+
+[x] Support checklists
+ [x] Make them indentable
+[] Solve world peace
+- Regular Lists are also now indentable
+ - This is a child
+  - And this is a grandchild
+
 # 58.2.3 2/22/2023
 - 🏥 Windows fix
 

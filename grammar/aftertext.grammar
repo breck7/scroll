@@ -317,3 +317,10 @@ aftertextHiddenNode
  description Do not compile this node to HTML.
  extends abstractAftertextAttributeNode
  single
+indentableThoughtNode
+ extends thoughtNode
+ inScope abstractAftertextDirectiveNode abstractAftertextAttributeNode indentableThoughtNode
+ javascript
+  compile() {
+    return super.compile() + this.map(node => node.compile()).join("\n").trim()
+  }
