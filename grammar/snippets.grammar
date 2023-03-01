@@ -57,11 +57,8 @@ loopNode
    }
   }
   get items() {
-   // todo: what's the best jtree way to do this?
-   if (this.has("groups")) return this.getNode("groups").items
-   if (this.has("lines")) return this.getNode("lines").items
-   if (this.has("words")) return this.getNode("words").items
-   return []
+   const provider = this.getChildInstancesOfNodeTypeId("abstractItemsProviderNode")[0]
+   return provider ? provider.items : []
   }
 loopLineNode
  catchAllCellType stringCell
@@ -91,7 +88,7 @@ loopGroupsNode
  crux groups
  extends abstractItemsProviderNode
  catchAllCellType groupNameWithOptionalFolderCell
- description Set this to iterate over files in a folder.
+ description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[groupName]
  javascript
   get items() {
    return this.parent.parent.file.folder.getFilesInGroups(this.getWordsFrom(1))
