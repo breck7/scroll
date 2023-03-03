@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 58.5.1 3/2/2023
+- 🏥 don't compile linkify node to HTML
+
 # 58.5.0 3/2/2023
 - 🎉 you can now disable linkify on a node.
 
