@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 58.5.0 3/2/2023
+- 🎉 you can now disable linkify on a node.
+
 # 58.4.0 3/1/2023
 - 🎉 you can now create new loop item providers in extensions by extending `abstractItemsProviderNode`
 

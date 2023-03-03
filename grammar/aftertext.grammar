@@ -26,7 +26,7 @@ abstractAftertextNode
   }
   get originalTextPostLinkify() {
    const { originalText } = this
-   const shouldLinkify = originalText.includes("<a ") ? false : true
+   const shouldLinkify = this.get("linkify") === "false" || originalText.includes("<a ") ? false : true
    return shouldLinkify ? this.replaceNotes(Utils.linkify(originalText)) : originalText
   }
   replaceNotes(originalText) {
@@ -133,6 +133,11 @@ abstractMarkupParameterNode
 matchAllNode
  description Use this to match all occurrences of the text.
  extends abstractMarkupParameterNode
+linkifyNode
+ description Use this to disable linkify on the text.
+ extends abstractAftertextDirectiveNode
+ cruxFromId
+ cells keywordCell booleanCell
 matchNode
  catchAllCellType integerCell
  description Use this to specify which index(es) to match.

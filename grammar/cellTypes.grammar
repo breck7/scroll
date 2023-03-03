@@ -5,6 +5,9 @@ keywordCell
  highlightScope keyword
 stringCell
  highlightScope string
+booleanCell
+ highlightScope constant.language
+ enum true false
 idCell
  highlightScope constant.language
 dateCell
