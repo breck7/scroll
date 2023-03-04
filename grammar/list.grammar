@@ -5,7 +5,7 @@ listAftertextNode
  description A list item.
  crux -
  javascript
-  className = ""
+  defaultClassName = ""
   compile() {
    const index = this.getIndex()
    const parent = this.parent

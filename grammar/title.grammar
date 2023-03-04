@@ -22,7 +22,7 @@ titleNode
    newLine.destroy()
    return compiled
   }
-  className = "scrollTitleComponent"
+  defaultClassName = "scrollTitleComponent"
   tag = "h1"
 sectionSubTitleNode
  description Compiles to an html h4 tag.
@@ -36,4 +36,4 @@ questionAftertextNode
  crux ?
  javascript
   tag = "h4"
-  className = "scrollQuestionComponent"
+  defaultClassName = "scrollQuestionComponent"

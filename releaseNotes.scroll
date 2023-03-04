@@ -4,6 +4,11 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 59.0.0 3/3/2023
+- 🎉 `image` keyword now supports `class` and `id` tags
+- 🎉 `class` tag with just a class will now apply to the whole parent element and not insert a span
+- 🏥 fix so image tag works in try.scroll.pub
+
 # 58.5.1 3/2/2023
 - 🏥 don't compile linkify node to HTML
 

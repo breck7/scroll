@@ -13,7 +13,7 @@ abstractMarkupLangNode
     try {
       const path = require("path")
       const compiler = require(path.join(this.globalPath, this.packageName))
-      return this.importName ? compiler[this.importName] : compiler
+      return (this.importName ? compiler[this.importName] : compiler) || (str => str)
     } catch (err) {
       console.error(`❌ ${this.firstWord} skipped. Try "npm install -g ${this.packageName}"`)
       return str => str
