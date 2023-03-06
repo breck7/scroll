@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 59.2.0 3/6/2023
+- 🎉 Default theme change: links are now only underlined on hover.
+
 # 59.1.0 3/6/2023
 - 🎉 `scroll init` now creates a `.gitignore` file and also runs `git init`.
 

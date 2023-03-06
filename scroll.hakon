@@ -11,6 +11,11 @@ li
  margin-top .4em
  line-height 1.2em
 
+a
+ text-decoration-color transparent
+a:hover
+ text-decoration-color initial
+
 comment General page style
 html
  padding 4px
@@ -64,7 +69,6 @@ comment Default footer theme
  font-family Verdana
  font-weight 100
  margin .5em
- text-decoration none
  color rgba(204,204,204,.5)
 
 comment Main body of both pages is similar
@@ -87,7 +91,6 @@ comment On group pages add some spacing around files
  text-align center
  margin-bottom .25em
  a
-  text-decoration none
   color #000
 
 .scrollDateComponent
@@ -122,10 +125,7 @@ h4.scrollQuestionComponent
  text-align left
 
 .scrollNoteLink
- text-decoration none
  opacity .4
-.scrollNoteIndex
- text-decoration none
 
 code
  font-size 90%
@@ -193,7 +193,6 @@ comment Subtle "Article Source" link
  margin-bottom 1em
  a
   color #000
-  text-decoration none
 
 .scrollContinueReadingLink
  display block
