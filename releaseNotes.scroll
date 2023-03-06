@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 59.3.0 3/6/2023
+- 🏥 CSS fix in default theme so super elements in footnotes don't increase line-height.
+
 # 59.2.0 3/6/2023
 - 🎉 Default theme change: links are now only underlined on hover.
 

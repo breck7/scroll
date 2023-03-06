@@ -16,6 +16,13 @@ a
 a:hover
  text-decoration-color initial
 
+sup,sub
+ vertical-align baseline
+ position relative
+ top -0.6em
+sub
+ top 0.6em
+
 comment General page style
 html
  padding 4px
