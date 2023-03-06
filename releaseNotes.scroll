@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 59.1.0 3/6/2023
+- 🎉 `scroll init` now creates a `.gitignore` file and also runs `git init`.
+
 # 59.0.0 3/3/2023
 - 🎉 `image` keyword now supports `class` and `id` tags
 - 🎉 `class` tag with just a class will now apply to the whole parent element and not insert a span

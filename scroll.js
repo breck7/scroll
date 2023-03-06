@@ -176,16 +176,17 @@ const scrollKeywords = {
 }
 
 const initSite = {
-	header: `importOnly
+	".gitignore": "*.html",
+	"header.scroll": `importOnly
 git https://github.com/breck7/scroll
 email feedback@scroll.pub
 baseUrl https://scroll.pub/
 metaTags
 scrollCssTag
 scrollHeader`,
-	footer: `importOnly
+	"footer.scroll": `importOnly
 scrollFooter`,
-	firstPost: `import header.scroll
+	"firstPost.scroll": `import header.scroll
 groups index
 ${scrollKeywords.title} Hello world
 ${scrollKeywords.date} ${dayjs().format(standardDateFormat)}
@@ -196,7 +197,7 @@ startColumns 2
 
 endColumns
 import footer.scroll`,
-	index: `import header.scroll
+	"index.scroll": `import header.scroll
 title My Personal Blog
 description My thoughts about life and the world.
 snippets index
@@ -648,10 +649,10 @@ class ScrollCli {
 		this.log(`Initializing scroll in "${cwd}"`)
 
 		Object.keys(initSite).forEach(filename => {
-			const filePath = path.join(cwd, filename + SCROLL_FILE_EXTENSION)
+			const filePath = path.join(cwd, filename)
 			if (!fs.existsSync(filePath)) writeIfChanged(filePath, initSite[filename])
 		})
-
+		require("child_process").execSync("git init", { cwd })
 		return this.log(`\n👍 Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
 	}
 
