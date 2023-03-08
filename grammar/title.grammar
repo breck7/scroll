@@ -15,9 +15,9 @@ titleNode
  javascript
   compile() {
    // Hacky, I know.
-   const { relativeLink, permalink } = this.parent.file
+   const { permalink } = this.parent.file
    if (!permalink) return super.compile()
-   const newLine = this.appendLine("link " + relativeLink)
+   const newLine = this.appendLine(`link ${permalink}`)
    const compiled = super.compile()
    newLine.destroy()
    return compiled

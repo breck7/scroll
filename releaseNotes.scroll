@@ -4,6 +4,10 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 59.4.0 3/7/2023
+- 🏥 fix relative links when using snippets from multiple folders
+- 🎉 ability to override the default home link in the default theme
+
 # 59.3.0 3/6/2023
 - 🏥 CSS fix in default theme so super elements in footnotes don't increase line-height.
 

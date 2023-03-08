@@ -247,7 +247,9 @@ linkNode
  javascript
   tag = "a"
   get link() {
-   return this.getWord(1)
+   const link = this.getWord(1)
+   const isAbsoluteLink = link.startsWith("https://") || link.startsWith("http://")
+   return isAbsoluteLink ? link : (this.root.file.folder?.relativePath || "") + link
   }
   get attributes() {
    const attrs = [`href="${this.link}"`]

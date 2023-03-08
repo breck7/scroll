@@ -24,7 +24,7 @@ scrollHeaderNode
    ${previousButton}
    a ${SVGS.home}
     class scrollTopLeftBarComponent
-    href index.html
+    href ${file.get("homeLink") || "index.html"}
    a ${SVGS.git}
     class scrollTopRightBarComponent
     href ${file.git}
