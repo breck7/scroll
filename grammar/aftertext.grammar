@@ -5,7 +5,7 @@ tooling
 abstractAftertextNode
  description Text followed by markup commands.
  extends abstractScrollNode
- inScope abstractAftertextDirectiveNode abstractAftertextAttributeNode
+ inScope abstractAftertextDirectiveNode abstractAftertextAttributeNode slashCommentNode
  example
   aftertext
    Hello brave new world

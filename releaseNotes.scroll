@@ -4,6 +4,11 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 59.5.0 3/9/2023
+- 🎉 Additional shorter comment syntax: `//`. Previously it was only `comment`
+
+// This comment won't appear in the HTML
+
 # 59.4.0 3/7/2023
 - 🏥 fix relative links when using snippets from multiple folders
 - 🎉 ability to override the default home link in the default theme

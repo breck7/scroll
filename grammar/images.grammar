@@ -5,7 +5,7 @@ captionAftertextNode
 abstractCaptionedNode
  extends abstractScrollNode
  cells keywordCell urlCell
- inScope captionAftertextNode
+ inScope captionAftertextNode slashCommentNode
  cruxFromId
  javascript
   compile() {

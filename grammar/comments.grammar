@@ -1,7 +1,7 @@
 commentLineNode
  catchAllCellType commentCell
 commentNode
- description Will not appear in the compiled HTML.
+ description Comments do not appear in the compiled HTML.
  catchAllCellType commentCell
  extends abstractScrollNode
  cruxFromId
@@ -10,3 +10,6 @@ commentNode
    return ``
   }
  catchAllNodeType commentLineNode
+slashCommentNode
+ extends commentNode
+ crux //
