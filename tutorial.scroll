@@ -1,0 +1,164 @@
+import header.scroll
+
+title Scroll Tutorial
+
+## View in editor
+ https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll
+
+html <div style="max-width: 480px; margin: auto;">
+
+# Scroll is an extensible alternative to Markdown.
+* Like Markdown, Scroll is a plaintext language that compiles to HTML.
+# Scroll is minimal and extensible—designed to help you *clarify* and *fully develop* your thoughts.
+
+* Scroll is improving fast. Scroll debuted in 2021 and is now on Version 59.
+
+# This Tutorial will walk you through most keywords in Scroll AND teach you how to build your own Scroll keywords.
+
+html <hr>
+
+## A Scroll document
+* A Scroll document (or "program") is a _list of nodes_. Every node is one line and every line is one node.
+* If you put a space at the beginning of a line, that line becomes a child of the preceding line. You have probably seen this _indent trick_ before in languages like Python. But Scroll pushes it to the max.
+* If you master the indent trick, you master Scroll. But we're getting ahead of ourselves, let's start with the basics.
+
+html <hr>
+
+# Basic Node Types
+## 1. Paragraphs
+* Let's start with the most common node, the `*` node (aka the "paragraph", "idea", or "thought" node). If you look at the code for this paragraph, you will see this:
+aboveAsCode
+* In Markdown, you wouldn't need to start a paragraph with `&#42;`. In Markdown every line just defaults to a new paragraph. But Scroll is different. *All lines in Scroll start with a keyword^blank*.
+^blank Except blank lines—blank lines are fine in Scroll.
+
+## 2. Headers
+* There are a few types of headers in scroll. Let's show the 3 main ones and what they generate:
+belowAsCode 3
+title This is a title
+# This is a section header
+## This is a subsection header
+
+## 3. Unordered lists
+* Here's how you write unordered lists:
+belowAsCode 2
+- Scroll has lists
+ - That can be nested
+
+## 4. Checklists
+* Below is the code for a checklist and its rendered version:
+belowAsCode 2
+[] Finish full tutorial
+ [x] Learn that checklists support nesting
+
+## 5. Tables
+* Use the `table` keyword and include your delimiter for tables:
+belowAsCode
+table ,
+ Name,Rank
+ Scroll,#1
+ Markdown,#2
+
+## 6. Images
+* To add an image use the `image` keyword:
+belowAsCode 2
+image https://scroll.pub/public/screenshot.png
+ caption An image with a caption
+
+## 7. Footnotes
+* You can make footnotes like this:
+belowAsCode 2
+* Pau means done^pau
+^pau In Hawaiian
+
+## 8. Key Numbers Node
+* If you are building a dashboard you might want to try the `kpiTable` keyword:
+kpiTable
+ #1 Lang
+ 2k Users
+ 300 Stars
+
+## 9. Including HTML and CSS
+html If you need to jump into regular HTML, use the <code>html</code> keyword.
+aboveAsCode
+
+* For CSS, use the `css` keyword:
+belowAsCode 2
+css .green {color: green;}
+* This text should be green.
+ class green
+
+html <hr>
+
+# Marking Up Text
+## Bold, italics and code
+* Formatting text is similar to Markdown or Textile.
+belowAsCode
+* Here's how to *bold*, _italicize_, or denote `code`.
+
+## Links
+* Scroll does links different. Instead of mixing in the link with the content, you put the link _after the text_ along with the text you want the link to match against. For example:
+belowAsCode
+* A link to Wikipedia
+ https://wikipedia.org Wikipedia
+* You can also make the whole node a link by not including any text to match against.
+belowAsCode
+* A link to Wikipedia
+ https://wikipedia.org
+
+## Columns
+* You can use the `startColumns [maxNumberOfColumns]` keyword to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between nodes. Line breaks will clear sections.
+
+html <hr>
+
+# Advanced
+## Variables
+* Use the `replace` keyword to define variables. Variables definitions are parsed and removed on the first compiler pass.
+replace DOMAIN scroll.pub
+* Our domain is: *DOMAIN*
+
+## Import statements
+* Scroll files can import other Scroll files. Use the `import` keyword followed by the path to the file, such as: `import header.scroll`
+
+## Theming
+* Scroll tries to generate as little HTML code as possible to make theming easier. There is not yet a standard guide for creating Scroll themes.
+
+html <hr>
+
+# Expert: Building your own keywords
+* Scroll is based on the insight that a language should adapt to the domain, not the other way around. Unlike Markdown, Scroll has extendibility built-in.
+
+* You can define your own keywords right in your Scroll documents using `*Node` nodes. These nodes are written in the `Grammar` language.
+
+* Here is a simple example that extends Scroll by making `p` work the same as `*`:
+
+belowAsCode 2
+pNode
+ extends thoughtNode
+ crux p
+p We can then make paragraphs using `p`.
+
+* Let's now make a `hiddenMessage` node that alerts a message when clicked:
+belowAsCode 3
+messageNode
+ cruxFromId
+ catchAllCellType stringCell
+hiddenMessageNode
+ extends thoughtNode
+ inScope messageNode
+ cruxFromId
+ javascript
+  compile() {
+    return `<span onclick="alert('${this.get('message')}')">${super.compile()}</span>`
+  }
+hiddenMessage Click me.
+ message Hello world
+
+* As you can see, you can define new keywords with a small amount of code. You probably also can see that the Grammar Langauge is powerful but has lots of sharp edges. While the documentation on Grammar evolves, feel free to get in touch for help in building your own Scroll keywords.
+
+html </div>
+
+import footer.scroll
+css body {font-family: Arial;}
+// Need to set the title again to override the above usage of that.
+title Scroll Tutorial
+ hidden
