@@ -86,13 +86,13 @@ testTree.test = async areEqual => {
 }
 
 testTree.file = areEqual => {
-	const file = new ScrollFolder().files[0]
+	const file = new ScrollFolder().files[1]
 	const content = file.html
 
 	areEqual(file.permalink, "releaseNotes.html")
 	areEqual(content.includes("Scroll the language is now called"), true)
 
-	areEqual(new ScrollFolder().files[1].permalink, "index.html")
+	areEqual(new ScrollFolder().files[2].permalink, "index.html")
 }
 
 testTree.ensureNoErrorsInGrammar = areEqual => {
