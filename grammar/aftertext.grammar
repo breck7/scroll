@@ -264,7 +264,7 @@ linkNode
   get pattern() {
    // If no pattern is provided, apply to the *entire* content.
    const words = this.getWordsFrom(this.patternStartsAtWord)
-   return words.length ? words.join(" ") : this.parent.content
+   return words.length ? words.join(" ") : this.parent.originalText
   }
 classMarkupNode
  description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.

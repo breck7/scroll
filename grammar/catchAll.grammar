@@ -1,8 +1,9 @@
 catchAllParagraphNode
  description A catch all block. This may be removed in future versions.
- catchAllCellType stringCell
+ extends thoughtNode
+ cells stringCell
  baseNodeType errorNode
  javascript
-  compile() {
-   return `<p class="scrollParagraphComponent">${this.getLine()}</p>`
+  get originalText() {
+   return this.getLine() || ""
   }

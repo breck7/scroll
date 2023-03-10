@@ -4,6 +4,15 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 60.0.0 3/10/2023
+- 🎉 Added `quickHtml` node. A line starting with `<` will be treated as an `html` node. So these are the same:
+
+code
+ html <hr>
+ <hr>
+
+- ⚠️ BREAKING: (no one should be affected). The default _catch all_ node will still report as an error but will now behave as if it's a paragraph (`*`) node.
+
 # 59.6.0 3/10/2023
 - 🎉 Added Horizontal line keyword: `---`
 

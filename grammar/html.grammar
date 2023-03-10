@@ -1,5 +1,5 @@
 htmlAnyCell
- extends anyCell
+ extends stringCell
 htmlNode
  description A catch all block to drop in any loose html. Use for HTML one liners and/or blocks of HTML.
  cruxFromId
@@ -13,6 +13,15 @@ htmlNode
 htmlLineNode
  catchAllCellType htmlAnyCell
  catchAllNodeType htmlLineNode
+quickHtmlNode
+ extends htmlNode
+ cells htmlAnyCell
+ pattern ^<
+ description Start a line with a less than sign to immediately write HTML
+ javascript
+  compile() {
+   return `${this.getLine() ?? ""}${this.childrenToString()}`
+  }
 stumpContentNode
  catchAllCellType anyCell
 stumpNode
