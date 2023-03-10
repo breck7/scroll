@@ -4,41 +4,41 @@ snippets index subfolder/index
 
 endColumns
 
-html <hr>
+---
 
 loop
  groups index subfolder/index
  join ·
  javascript `${item.title}`
 
-html <hr>
+---
 
 loop
  groups index subfolder/index
  join ..
  javascript index
 
-html <hr>
+---
 
 loop
  groups index subfolder/index
  join <br>
  javascript `<a href="${item.relativeLink}">${item.title}</a>`
 
-html <hr>
+---
 
 loop
  words #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
  javascript `<span style="background-color: ${item}; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>`
 
-html <hr>
+---
 
 loop
  words #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
  limit 2
  javascript `<span style="background-color: ${item}; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>`
 
-html <hr>
+---
 
 loop
  lines

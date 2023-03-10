@@ -1,0 +1,8 @@
+horizontalRuleNode
+ crux ---
+ description Prints an html <hr> tag
+ extends abstractAftertextNode
+ javascript
+  compile() {
+   return `<hr>`
+  }

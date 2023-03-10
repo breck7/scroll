@@ -15,14 +15,14 @@ html <div style="max-width: 480px; margin: auto;">
 
 # This Tutorial will walk you through most keywords in Scroll AND teach you how to build your own Scroll keywords.
 
-html <hr>
+---
 
 ## A Scroll document
 * A Scroll document (or "program") is a _list of nodes_. Every node is one line and every line is one node.
 * If you put a space at the beginning of a line, that line becomes a child of the preceding line. You have probably seen this _indent trick_ before in languages like Python. But Scroll pushes it to the max.
 * If you master the indent trick, you master Scroll. But we're getting ahead of ourselves, let's start with the basics.
 
-html <hr>
+---
 
 # Basic Node Types
 ## 1. Paragraphs
@@ -87,7 +87,7 @@ css .green {color: green;}
 * This text should be green.
  class green
 
-html <hr>
+---
 
 # Marking Up Text
 ## Bold, italics and code
@@ -108,7 +108,7 @@ belowAsCode
 ## Columns
 * You can use the `startColumns [maxNumberOfColumns]` keyword to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between nodes. Line breaks will clear sections.
 
-html <hr>
+---
 
 # Advanced
 ## Variables
@@ -122,7 +122,7 @@ replace DOMAIN scroll.pub
 ## Theming
 * Scroll tries to generate as little HTML code as possible to make theming easier. There is not yet a standard guide for creating Scroll themes.
 
-html <hr>
+---
 
 # Expert: Building your own keywords
 * Scroll is based on the insight that a language should adapt to the domain, not the other way around. Unlike Markdown, Scroll has extendibility built-in.
