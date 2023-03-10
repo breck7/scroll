@@ -26,27 +26,33 @@ image public/screenshot.png
 * Here.
  https://www.npmjs.com/package/scroll-cli
 
-? Who funds the development of Scroll?
-* Development of Scroll is funded by Public Domain Publishing Inc.
- https://pd.pub/ Public Domain Publishing Inc.
-
 ? Do you offer full service Scroll website hosting?
-* Yes.
+* Sure!
  https://buy.stripe.com/eVabMubeV62xdiMfZ4
 
 ? Do you offer custom theme and extension development?
-* Yes.
+* Sure!
  https://buy.stripe.com/3csaIqaaRez3emQ149
 
 ? Who is Scroll for?
 * Scroll is built for developers who like writing, tools for thought, open source, git backed static site generators, and fast simple code.
 
 ? What makes Scroll different?
-* Scroll is not just another static site generator but also a *new language*. More than just a new language. It's a _freakishly simple new language that you can extend in amazing ways_. Scroll is a high level language mostly written in a new lower level language called GrammarLinked, and both Grammar and Scroll are built on the new syntax called TreeNotationLinked.
+* Scroll is not just another static site generator but also a *new language*. More than just a new language. It's a _simple new language that you can extend in amazing ways_. Scroll is a high level language mostly written in a new lower level language called GrammarLinked, and both Grammar and Scroll are built on the new syntax called TreeNotationLinked.
  https://staticsitegenerators.net another static site generator
 * The basics of Scroll are even simpler than Markdown. For example, the keyword for title is title.
  italics the keyword for title is title
 * You can stick to the basics or easily define new keywords extending the language to better fit your content and workflows. A simple indent is all you need to include sublanguages. No complex encoding needed.
+
+? How does Scroll improve over the latest incarnations of Markdown?
+* Scroll evolved based on the theory that instead of one language for writing it would be better to get to choose from an ever evolving ecosystem of thousands of mini-languages, and mix and match them to better fit your domain.
+
+* So, compared to other languages, Scroll is designed to be remarkably easy to extend.
+
+* You can see this in the Scroll source code. Scroll is primarily written in GrammarLinked, and there are currently dozens of `.grammar` files in the base distribution. Each Grammar file can define a mini language of its own. You can simply add (or remove) Grammar files to generate your own custom dialects to better fit your domains.
+
+* Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by exploiting the indent trick. Each line gets its own scope. So you can add, remove, and update your mini-languages and their associated blocks without breaking the rest of the documents.
+ https://en.wikipedia.org/wiki/Off-side_rule indent trick
 
 ? How do I extend Scroll?
 * Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a recipe keyword and write a post like this:
