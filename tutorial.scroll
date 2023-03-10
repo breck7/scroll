@@ -127,6 +127,8 @@ html <hr>
 # Expert: Building your own keywords
 * Scroll is based on the insight that a language should adapt to the domain, not the other way around. Unlike Markdown, Scroll has extendibility built-in.
 
+* _Note: Custom node types are currently only supported using the `npm` package. The web editor does *not* currently support custom keywords_.
+
 * You can define your own keywords right in your Scroll documents using `*Node` nodes. These nodes are written in the `Grammar` language.
 
 * Here is a simple example that extends Scroll by making `p` work the same as `*`:
