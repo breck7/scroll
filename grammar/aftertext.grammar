@@ -53,10 +53,9 @@ abstractAftertextNode
   }
   tag = "p"
   get className() {
-    const classNode = this.getNode("class")
-    if (classNode && classNode.applyToParentElement)
-      return classNode.content
-    return this.defaultClassName
+   const classNode = this.getNode("class")
+   if (classNode && classNode.applyToParentElement) return classNode.content
+   return this.defaultClassName
   }
   defaultClassName = "scrollParagraphComponent"
   compile() {
@@ -274,12 +273,12 @@ classMarkupNode
  javascript
   tag = "span"
   get applyToParentElement() {
-    return this.words.length === 2
+   return this.words.length === 2
   }
   getInserts(text) {
-    // If no select text is added, set the class on the parent element.
-    if (this.applyToParentElement) return []
-    return super.getInserts(text)
+   // If no select text is added, set the class on the parent element.
+   if (this.applyToParentElement) return []
+   return super.getInserts(text)
   }
   get className() {
    return this.getWord(1)
@@ -346,5 +345,10 @@ indentableThoughtNode
  inScope abstractAftertextDirectiveNode abstractAftertextAttributeNode indentableThoughtNode
  javascript
   compile() {
-    return super.compile() + this.map(node => node.compile()).join("\n").trim()
+   return (
+    super.compile() +
+    this.map(node => node.compile())
+     .join("\n")
+     .trim()
+   )
   }

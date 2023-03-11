@@ -48,8 +48,7 @@ loopNode
    try {
     const limit = this.get("limit")
     let items = this.items
-    if (limit)
-      items = items.slice(0, parseInt(limit))
+    if (limit) items = items.slice(0, parseInt(limit))
     return items.map((item, index) => eval(code)).join(joinWith)
    } catch (err) {
     console.error(err)
