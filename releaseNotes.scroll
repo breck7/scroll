@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 61.0.0 3/11/2023
+- ⚠️ BREAKING: (no one should be affected). Removed `buildNeeded` method only used programmatically by PLDB. Switching that to dynamic generation which is a better pattern.
+
 # 60.0.0 3/10/2023
 - 🎉 Added `quickHtml` node. A line starting with `<` will be treated as an `html` node. So these are the same:
 

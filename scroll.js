@@ -10,6 +10,7 @@ const dayjs = require("dayjs")
 // Tree Notation Includes
 const { TreeNode } = require("jtree/products/TreeNode.js")
 const { Disk } = require("jtree/products/Disk.node.js")
+const { Utils } = require("jtree/products/Utils.js")
 const { HandGrammarProgram } = require("jtree/products/GrammarLanguage.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 const stump = require("jtree/products/stump.nodejs.js")
@@ -21,7 +22,6 @@ const read = fullFilePath => fs.readFileSync(fullFilePath, "utf8").replace(/\r/g
 const unsafeStripHtml = html => html.replace(/<[^>]*>?/gm, "")
 // Normalize 3 possible inputs: 1) cwd of the process 2) provided absolute path 3) cwd of process + provided relative path
 const resolvePath = (folder = "") => (path.isAbsolute(folder) ? path.normalize(folder) : path.resolve(path.join(process.cwd(), folder)))
-const isAbsoluteUrl = url => url.startsWith("https://") || url.startsWith("http://")
 
 const nextAndPrevious = (arr, item) => {
   const current = arr.indexOf(item)
@@ -32,24 +32,6 @@ const nextAndPrevious = (arr, item) => {
     next: arr[nextIndex] ?? arr[0]
   }
 }
-
-// Do not overwrite to preserve mtimes for cache
-const writeIfChanged = (filepath, content) => {
-  if (!Disk.exists(filepath) || Disk.read(filepath) !== content) Disk.write(filepath, content)
-}
-
-const recursiveReaddirSync = (folder, callback) =>
-  fs.readdirSync(folder).forEach(file => {
-    try {
-      const fullPath = path.join(folder, file)
-      const isDir = fs.lstatSync(fullPath).isDirectory()
-      if (file.includes("node_modules")) return // Do not recurse into node_modules folders
-      if (isDir) recursiveReaddirSync(fullPath, callback)
-      else callback(fullPath)
-    } catch (err) {
-      // Ignore errors
-    }
-  })
 
 // Constants
 const SCROLL_SRC_FOLDER = __dirname
@@ -175,7 +157,7 @@ const scrollKeywords = {
   rssFeedUrl: "rssFeedUrl"
 }
 
-const initSite = {
+const initFolder = {
   ".gitignore": "*.html",
   "header.scroll": `importOnly
 git https://github.com/breck7/scroll
@@ -343,7 +325,7 @@ class ScrollFile {
   }
 
   save() {
-    writeIfChanged(`${this.filePath}`, this.scrollScriptProgram.toString())
+    Disk.writeIfChanged(`${this.filePath}`, this.scrollScriptProgram.toString())
   }
 
   // todo: add an openGraph node type to define this stuff manually
@@ -355,7 +337,7 @@ class ScrollFile {
     if (!node) return ""
 
     const link = node.content
-    return isAbsoluteUrl(link) ? link : this.baseUrl + "/" + link
+    return Utils.isAbsoluteUrl(link) ? link : this.baseUrl + "/" + link
   }
 
   // todo: add an openGraph node type to define this stuff manually
@@ -538,36 +520,6 @@ class ScrollFolder {
     return this._buildAndWriteFiles()
   }
 
-  // This is an advanced method designed to work fast most of the time, but not check every case.
-  // It does not yet check mtimes of any imports not in this folder.
-  // It also assumes metaTags to check for scroll version.
-  get buildNeeded() {
-    const scrollFiles = this.fullScrollFilePaths.map(filepath => readFileWithCache(filepath))
-    const lastMTime = lodash.max(scrollFiles.map(file => file.mtimeMs))
-    let haveWeCheckedScrollVersion = false
-
-    let reason = ""
-    scrollFiles.some(file => {
-      const { content, mtimeMs, absolutePath } = file
-      if (content.includes(scrollKeywords.importOnly)) return false
-      let outputFilePath = makePermalink(absolutePath)
-      if (!fs.existsSync(outputFilePath)) {
-        if (content.includes(scrollKeywords.permalink)) outputFilePath = path.join(this.folder, new TreeNode(content).get(scrollKeywords.permalink)) // note this won't resolve substitutions
-        if (!fs.existsSync(outputFilePath)) return (reason = `Need to build ${absolutePath} to create ${outputFilePath}`)
-      }
-      const lastBuiltTime = fs.statSync(outputFilePath).mtimeMs
-      if (lastMTime > lastBuiltTime) return (reason = `Need to build to update ${outputFilePath}`)
-      if (!haveWeCheckedScrollVersion) {
-        haveWeCheckedScrollVersion = true
-        // Assume metaTags. Returns true if the current version of scroll !== the version used to build this html file.
-        // We only check one for better perf
-        if (!readFileWithCache(outputFilePath).content.includes(`Scroll v${SCROLL_VERSION}`)) return (reason = `Need to build to update ${outputFilePath} to Scroll Version ${SCROLL_VERSION}`)
-      }
-      return false
-    })
-    return reason
-  }
-
   _buildAndWriteFiles() {
     const start = Date.now()
     const { files, folder } = this
@@ -588,7 +540,7 @@ class ScrollFolder {
   }
 
   write(filename, content, message) {
-    const result = writeIfChanged(path.join(this.folder, filename), content)
+    const result = Disk.writeIfChanged(path.join(this.folder, filename), content)
     this.log(`💾 ` + message)
     return result
   }
@@ -646,11 +598,7 @@ class ScrollCli {
 
   async initCommand(cwd) {
     this.log(`Initializing scroll in "${cwd}"`)
-
-    Object.keys(initSite).forEach(filename => {
-      const filePath = path.join(cwd, filename)
-      if (!fs.existsSync(filePath)) writeIfChanged(filePath, initSite[filename])
-    })
+    Disk.writeObjectToDisk(cwd, initFolder)
     require("child_process").execSync("git init", { cwd })
     return this.log(`\n👍 Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
   }
@@ -682,7 +630,7 @@ class ScrollCli {
 
   findScrollsInDirRecursive(dir) {
     const folders = {}
-    recursiveReaddirSync(dir, filename => {
+    Disk.recursiveReaddirSync(dir, filename => {
       if (!filename.endsWith(SCROLL_FILE_EXTENSION)) return
 
       const folder = path.dirname(filename)
