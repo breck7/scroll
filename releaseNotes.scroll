@@ -4,6 +4,11 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 62.0.0 3/11/2023
+- 🎉 Support for in memory file systems. Useful for dynamic websites and future web browser versions and versions with url imports.
+- ⚠️ BREAKING: (no one should be affected). `ScrollFolder` constructor now requires an argument. You can now pass an object as a second param to use a virtual filesystem.
+- ⚠️ BREAKING: (no one should be affected). Removed `DefaultScrollCompiler` export. Instead use `new ScrollFolder().defaultScrollCompiler`
+
 # 61.0.0 3/11/2023
 - ⚠️ BREAKING: (no one should be affected). Removed `buildNeeded` method only used programmatically by PLDB. Switching that to dynamic generation which is a better pattern.
 

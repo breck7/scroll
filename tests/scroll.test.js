@@ -3,10 +3,11 @@
 const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
-const { ScrollFolder, ScrollCli, scrollKeywords, ScrollFile, DefaultScrollCompiler } = require("../scroll.js")
+const { ScrollFolder, ScrollCli, scrollKeywords, ScrollFile } = require("../scroll.js")
 const { Disk } = require("jtree/products/Disk.node.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 const shell = require("child_process").execSync
+const DefaultScrollCompiler = new ScrollFolder(__dirname).defaultScrollCompiler
 
 // todo: 1) rss import tests 2) grammar errors test 4) scroll errors tests
 
@@ -73,11 +74,6 @@ testTree.tableWithLinks = areEqual => {
 	})
 }
 
-testTree.fullIntegrationTest = areEqual => {
-	const folder = new ScrollFolder()
-	areEqual(!!folder, true)
-}
-
 testTree.test = async areEqual => {
 	const cli = new ScrollCli()
 	cli.verbose = false
@@ -85,14 +81,32 @@ testTree.test = async areEqual => {
 	areEqual(result.includes("0 errors"), true)
 }
 
+testTree.inMemoryFileSystem = areEqual => {
+	// You could get all in folders with lodash.unique(Object.keys(this.files).map(filename => path.dirname(filename)))
+
+	// Arrange
+	const files = {
+		"header.scroll": "import settings.scroll",
+		"settings.scroll": "* This should be imported",
+		"pages/about.scroll": `import ../header.scroll\ntitle About us`
+	}
+	// Act
+	new ScrollFolder("", files).silence().buildFiles()
+	new ScrollFolder("pages/", files).silence().buildFiles()
+
+	// Assert
+	areEqual(files["pages/about.html"].includes("This should be imported"), true, "In memory file system worked")
+}
+
 testTree.file = areEqual => {
-	const file = new ScrollFolder().files[1]
+	const rootFolder = path.join(__dirname, "..")
+	const file = new ScrollFolder(rootFolder).files[1]
 	const content = file.html
 
 	areEqual(file.permalink, "releaseNotes.html")
 	areEqual(content.includes("Scroll the language is now called"), true)
 
-	areEqual(new ScrollFolder().files[2].permalink, "index.html")
+	areEqual(new ScrollFolder(rootFolder).files[2].permalink, "index.html")
 }
 
 testTree.ensureNoErrorsInGrammar = areEqual => {
