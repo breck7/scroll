@@ -88,7 +88,11 @@ testTree.inMemoryFileSystem = areEqual => {
 	const files = {
 		"header.scroll": "import settings.scroll",
 		"settings.scroll": "* This should be imported",
-		"pages/about.scroll": `import ../header.scroll\ntitle About us`
+		"pages/about.scroll": `import ../header.scroll\ntitle About us
+pNode
+ extends thoughtNode
+ crux p
+p A custom grammar`
 	}
 	// Act
 	new ScrollFolder("", files).silence().buildFiles()

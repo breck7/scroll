@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 62.0.1 3/13/2023
+- 🏥 fixes bug when using custom grammars with in memory node types.
+
 # 62.0.0 3/11/2023
 - 🎉 Support for in memory file systems. Useful for dynamic websites and future web browser versions and versions with url imports.
 - ⚠️ BREAKING: (no one should be affected). `ScrollFolder` constructor now requires an argument. You can now pass an object as a second param to use a virtual filesystem.

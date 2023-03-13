@@ -135,7 +135,7 @@ class ScrollFileSystem {
     return expandedImportCache[absoluteFilePath]
   }
 
-  getOneGrammarFromFiles(filePaths) {
+  getOneGrammarFromFiles(filePaths, baseGrammarCode) {
     const grammarDefinitionRegex = /[a-zA-Z0-9_]+Node/
     const asOneFile = filePaths
       .map(filePath => {
@@ -151,14 +151,14 @@ class ScrollFileSystem {
       .trim()
 
     // todo: clean up jtree so we are using supported methods (perhaps add a formatOptions that allows you to tell Grammar not to run prettier on js nodes)
-    return new grammarNode(asOneFile)
+    return new grammarNode(baseGrammarCode + asOneFile)
       ._sortNodesByInScopeOrder()
       ._sortWithParentNodeTypesUpTop()
       .toString()
   }
 
   compilerCache = {}
-  getCompiler(filePaths) {
+  getCompiler(filePaths, baseGrammarCode = "") {
     const { compilerCache } = this
     const key = filePaths
       .filter(fp => fp)
@@ -166,7 +166,7 @@ class ScrollFileSystem {
       .join("\n")
     const hit = compilerCache[key]
     if (hit) return hit
-    const grammarCode = this.getOneGrammarFromFiles(filePaths)
+    const grammarCode = this.getOneGrammarFromFiles(filePaths, baseGrammarCode)
     const compiler = new HandGrammarProgram(grammarCode).compileAndReturnRootConstructor()
     compilerCache[key] = {
       grammarCode,
@@ -177,7 +177,7 @@ class ScrollFileSystem {
 }
 const fileSystemSingleton = new ScrollFileSystem()
 const defaultGrammarFiles = Disk.getFiles(path.join(__dirname, "grammar")).filter(file => file.endsWith(GRAMMAR_EXTENSION))
-const defaultScrollCompiler = fileSystemSingleton.getCompiler(defaultGrammarFiles).compiler
+const defaultScrollCompiler = fileSystemSingleton.getCompiler(defaultGrammarFiles)
 
 class InMemoryScrollFileSystem extends ScrollFileSystem {
   constructor(files) {
@@ -229,7 +229,7 @@ class ScrollFile {
     const afterVariablePass = this.evalVariables(afterImportPass)
 
     // PASS 3: BUILD CUSTOM COMPILER PASS, IF THERE ARE CUSTOM GRAMMAR NODES DEFINED
-    const compiler = filepathsWithGrammarDefinitions.length === 0 ? defaultScrollCompiler : fileSystem.getCompiler(defaultGrammarFiles.concat(filepathsWithGrammarDefinitions)).compiler
+    const compiler = filepathsWithGrammarDefinitions.length === 0 ? defaultScrollCompiler.compiler : fileSystem.getCompiler(filepathsWithGrammarDefinitions, defaultScrollCompiler.grammarCode + "\n").compiler
 
     // PASS 4: LOAD WITH STD COMPILER OR CUSTOM COMPILER FROM PASS 3
     this.scrollScriptProgram = new compiler(afterVariablePass)
@@ -453,7 +453,7 @@ class ScrollFolder {
   }
 
   relativePath = ""
-  defaultScrollCompiler = defaultScrollCompiler
+  defaultScrollCompiler = defaultScrollCompiler.compiler
 
   getGroup(groupName) {
     return this.files.filter(file => file.shouldBuild && file.groups.includes(groupName))
