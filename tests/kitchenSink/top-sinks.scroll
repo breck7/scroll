@@ -41,3 +41,9 @@ replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
 * THE_DAY was a great day
 
 * There are NUM_SINKS in my list.
+
+
+nodejs
+ module.exports = {DIRNAME: __dirname}
+
+* This file is in dir: DIRNAME

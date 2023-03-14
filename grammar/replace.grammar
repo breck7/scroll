@@ -19,6 +19,16 @@ replaceJsNode
  example
   replaceJs SUM 1+1
   * 1+1 = SUM
+nodejsNode
+ description Write nodejs code inside a Scroll file. Sort of like PHP.
+ extends abstractScrollNode
+ cruxFromId
+ catchAllCellType javascriptCell
+ baseNodeType blobNode
+ example
+  nodejs
+   module.exports = {SCORE : 1 + 2}
+  * The score is SCORE
 replaceDefaultNode
  description Define the default value for a replacement. Useful if you want to import a file and set a replacement later.
  extends abstractScrollNode

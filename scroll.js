@@ -37,6 +37,7 @@ const scrollKeywords = {
   keyboardNav: "keyboardNav",
   replace: "replace",
   replaceJs: "replaceJs",
+  nodejs: "nodejs",
   replaceDefault: "replaceDefault",
   import: "import",
   importOnly: "importOnly",
@@ -247,13 +248,24 @@ class ScrollFile {
     codeAsTree
       .filter(node => {
         const keyword = node.firstWord
-        return keyword === scrollKeywords.replace || keyword === scrollKeywords.replaceDefault || keyword === scrollKeywords.replaceJs
+        return keyword === scrollKeywords.replace || keyword === scrollKeywords.replaceDefault || keyword === scrollKeywords.replaceJs || keyword === scrollKeywords.nodejs
       })
       .forEach(node => {
         let value = node.length ? node.childrenToString() : node.getWordsFrom(2).join(" ")
         const kind = node.firstWord
         if (kind === scrollKeywords.replaceJs) value = eval(value)
-        varMap[node.getWord(1)] = value
+        if (kind === scrollKeywords.nodejs) {
+          const tempPath = this.filePath + ".js"
+          try {
+            if (Disk.exists(tempPath)) throw new Error(`Failed to write/require nodejs snippet since '${tempPath}' already exists.`)
+            Disk.write(tempPath, value)
+            const results = require(tempPath)
+            Object.keys(results).forEach(key => (varMap[key] = results[key]))
+            Disk.rm(tempPath)
+          } catch (err) {
+            console.error(err)
+          }
+        } else varMap[node.getWord(1)] = value
         node.destroy() // Destroy definitions after eval
       })
 

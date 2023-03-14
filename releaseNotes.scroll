@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 62.1.0 3/13/2023
+- 🎉 Added `nodejs` node for including small node.js scripts inside a Scroll file, similar to a PHP snippet. <?php ?>. The snippet is written to disk and then require is used to run it. Exports variables are then replaced throughout the script.
+
 # 62.0.1 3/13/2023
 - 🏥 fixes bug when using custom grammars with in memory node types.
 
