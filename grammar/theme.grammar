@@ -1,0 +1,16 @@
+abstractThemeNode
+ description Extend this to create a Scroll CSS theme.
+ extends abstractTopLevelSingleMetaNode
+ cruxFromId
+ todo Provide a better way to indicate tagged or not
+ catchAllCellType stringCell
+ javascript
+  get tagged() {
+    return this.content !== "noTag"
+  }
+  compile() {
+   return this.tagged ? `<style>${this.css}</style>` : this.css
+  }
+  compileSnippet() {
+   return ""
+  }
