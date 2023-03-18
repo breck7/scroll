@@ -2,4 +2,4 @@ importOnly
 import settings.scroll
 metaTags
 gazetteTheme
-scrollHeader
+gazetteHeader

@@ -14,3 +14,19 @@ abstractThemeNode
   compileSnippet() {
    return ""
   }
+abstractThemeHeaderNode
+ cruxFromId
+ description A theme header.
+ extends abstractTopLevelSingleMetaNode
+ javascript
+  compileSnippet() {
+   return ""
+  }
+abstractThemeFooterNode
+ cruxFromId
+ description A theme footer.
+ extends abstractTopLevelSingleMetaNode
+ javascript
+  compileSnippet() {
+   return ""
+  }
