@@ -200,7 +200,7 @@ gazetteThemeNode
    tr:nth-child(even)
     background rgba(224,224,224,.6)
   
-  .scrollAuthor
+  .byLine
    font-size 12px
    font-style italic
    margin 4px 0

@@ -119,8 +119,42 @@ replace DOMAIN scroll.pub
 ## Import statements
 * Scroll files can import other Scroll files. Use the `import` keyword followed by the path to the file, such as: `import header.scroll`
 
-## Theming
-* Scroll tries to generate as little HTML code as possible to make theming easier. There is not yet a standard guide for creating Scroll themes.
+---
+
+# Advanced: Custom Themes
+* The default scroll theme is called `Gazette`. Themes are mainly just CSS stuck into a Scroll keyword in a Grammar file. The checklist below walks you through creating a complete Scroll Theme.
+
+[] Create a `[yourThemeName].grammar` file
+[] Add a `[yourThemeName]ThemeNode`
+ - You can refer to the `gazetteThemeNode` in `gazetteTheme.grammar` for an example. This node should extend `abstractThemeNode` and have a `css` getter.
+ [] Add CSS resets
+  - Generally you probably want to adjust the base CSS of the browser. You can use the same CSS reset used in Gazette.
+ [] Add any custom styles for any custom keywords you include in your theme.
+  - If you don't have any custom keywords you can skip this step.
+ [] Add CSS for the standard Scroll keywords
+  - You probably want to customize the styles of Scroll keywords like `*` and `#`.
+  - There is not currently an exhaustive list or consistent pattern to these class names, but that is coming soon!
+[] Add a `[yourThemeName]HeaderNode`.
+ - See the Gazette theme for an example.
+ - This is optional.
+[] Add a `[yourThemeName]FooterNode`.
+ - See the Gazette theme for an example.
+ - This is optional.
+
+## Using Custom Themes
+* By default Scroll emits HTML with no theming. To use any theme—including the default `Gazette` theme—the user simply uses the keywords provided by the theme, such as `gazetteTheme`, `gazetteHeader` and `gazetteFooter`.
+
+## Examples
+## A page using no theme:
+code
+ # This page has no theme
+## A page using a theme:
+code
+ gazetteTheme
+ gazetteHeader
+ * This page uses the Gazette theme.
+ gazetteFooter
+
 
 ---
 

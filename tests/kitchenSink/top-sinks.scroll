@@ -2,7 +2,7 @@ import header.scroll
 
 title Top Sinks
 
-author https://breckyunits.com Breck Yunits
+byLine https://breckyunits.com Breck Yunits
 
 replace NUM_SINKS 283
 

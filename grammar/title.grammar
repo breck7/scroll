@@ -30,7 +30,7 @@ sectionSubTitleNode
  crux ##
  javascript
   tag = "h4"
-questionAftertextNode
+questionNode
  description A question.
  extends sectionTitleNode
  crux ?
