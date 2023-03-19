@@ -32,7 +32,7 @@ abstractAftertextNode
   replaceNotes(originalText) {
    this.root.footnotes.forEach((note, index) => {
     const needle = note.firstWord
-    if (originalText.includes(needle)) originalText = originalText.replace(needle, `<a href="#${note.anchorId}" class="scrollNoteLink" id="${note.linkBack()}"><sup>${note.noteId}</sup></a>`)
+    if (originalText.includes(needle)) originalText = originalText.replace(needle, `<a href="#${note.anchorId}" class="noteLink" id="${note.linkBack()}"><sup>${note.noteId}</sup></a>`)
    })
    return originalText
   }
@@ -57,7 +57,7 @@ abstractAftertextNode
    if (classNode && classNode.applyToParentElement) return classNode.content
    return this.defaultClassName
   }
-  defaultClassName = "scrollParagraphComponent"
+  defaultClassName = ""
   compile() {
    const { className } = this
    const classAttr = className ? `class="${this.className}"` : ""

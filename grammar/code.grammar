@@ -7,7 +7,7 @@ codeNode
  extends abstractScrollNode
  javascript
   compile() {
-   return `<code class="scrollCodeBlockComponent">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
+   return `<code class="codeBlock">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
   }
  cruxFromId
 codeWithLanguageNode
@@ -21,14 +21,14 @@ copyButtonsNode
  javascript
   compile() {
    return `
-      <script>document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollCodeBlockComponent").forEach(block => {
+      <script>document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".codeBlock").forEach(block => {
    if (!navigator.clipboard) return
    const button = document.createElement("span")
-   button.classList.add("scrollCopyButton")
+   button.classList.add("copyButton")
    block.appendChild(button)
    button.addEventListener("click", async () => {
      await navigator.clipboard.writeText(block.innerText)
-     button.classList.add("scrollCopied")
+     button.classList.add("copiedButton")
    })
    }))</script>`
   }
@@ -56,7 +56,7 @@ belowAsCodeNode
   }
   reverseNodes = false
   compile() {
-   return `<code class="scrollCodeBlockComponent">${this.code.replace(/\</g, "&lt;")}</code>`
+   return `<code class="codeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
   }
 aboveAsCodeNode
  description Print the Scroll code for the previous node.

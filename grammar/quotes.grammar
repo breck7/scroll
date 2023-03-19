@@ -8,5 +8,5 @@ quoteNode
  extends abstractScrollNode
  javascript
   compile() {
-   return `<blockquote class="scrollQuoteComponent">${this.childrenToString()}</blockquote>`
+   return `<blockquote>${this.childrenToString()}</blockquote>`
   }

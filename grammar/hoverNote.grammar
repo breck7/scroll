@@ -7,12 +7,16 @@ hoverNoteNode
  extends classMarkupNode
  catchAllNodeType lineOfTextNode
  cells keywordCell
+ string hakon
+  .hoverNote
+   text-decoration underline dashed 1px rgba(0,0,0,.1)
+   cursor default
  javascript
   get pattern() {
    return this.getWordsFrom(1).join(" ")
   }
   get attributes() {
-   return [`class="scrollHoverNote"`, `title="${this.hoverNoteText}"`]
+   return [`class="hoverNote"`, `title="${this.hoverNoteText}"`]
   }
   get hoverNoteText() {
    return this.childrenToString().replace(/\n/g, " ")

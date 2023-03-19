@@ -1,0 +1,40 @@
+dashboardNode
+ description Display key statistics in a big font.
+ catchAllNodeType rowNode
+ cruxFromId
+ extends abstractScrollNode
+ string hakon
+  .dashboardNode
+   width 100%
+   font-size 30px
+   text-align center
+   font-weight bold
+   break-inside avoid
+   margin-top 8px
+   margin-bottom 8px
+   td
+    width 33.3%
+    border 1px solid #e8e8e8
+   span
+    font-size 20p;
+    display block
+ example
+  dashboard
+   #2 Popularity
+   30 Years Old
+   $456 Revenue
+ javascript
+  get tableBody() {
+   const items = this.getTopDownArray()
+   let str = ""
+   for (let i = 0; i < items.length; i = i + 3) {
+    str += this.makeRow(items.slice(i, i + 3))
+   }
+   return str
+  }
+  makeRow(items) {
+   return `<tr>` + items.map(node => `<td>${node.firstWord}<span>${node.content}</span></td>`).join("\n") + `</tr>\n`
+  }
+  compile() {
+   return `<table class="dashboardNode">${this.tableBody}</table>`
+  }

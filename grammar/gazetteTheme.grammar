@@ -6,10 +6,10 @@ gazetteThemeNode
     if (this.constructor._cachedCss)
       return this.constructor._cachedCss
     const hakon = require("jtree/products/hakon.nodejs.js")
-    this.constructor._cachedCss = new hakon(this.hakon).compile()
+    this.constructor._cachedCss = new hakon([this.hakonReset, this.hakonCustomComponents, this.hakonOverides].join("\n")).compile()
     return this.constructor._cachedCss
   }
- string hakon
+ string hakonReset
   comment CSS reset
   html,body,div,span,h1,h2,h3,h4,p,ol,ul,li,table,figure
    margin 0
@@ -17,25 +17,20 @@ gazetteThemeNode
    border 0
    vertical-align baseline
    border-spacing 0
-  
   li
    list-style-position inside
    margin-top .4em
    line-height 1.2em
-  
   a
    text-decoration-color transparent
   a:hover
    text-decoration-color initial
-  
   sup,sub
    vertical-align baseline
    position relative
    top -0.6em
   sub
    top 0.6em
-  
-  comment General page style
   html
    padding 4px
    background-color rgb(244,244,244)
@@ -43,8 +38,23 @@ gazetteThemeNode
    color #000
    font-size 14px
    hyphens auto
-  
-  comment Default header theme
+  p
+   margin-top 0.4em
+   line-height 1.4em
+  blockquote
+   break-inside avoid
+   display block
+   margin .5em 0
+   padding .5em
+   background rgba(204,204,204,.5)
+   white-space pre-line
+   border-left .5em solid rgba(204,204,204,.8)
+  code
+   font-size 90%
+   background-color rgba(204,204,204,.5)
+   padding 2px 4px
+   border-radius 4px
+ string hakonCustomComponents
   .gazetteHeader
    svg
     width 30px
@@ -70,8 +80,6 @@ gazetteThemeNode
     left 3px
    a.gazetteNextPageLink
     right 3px
-  
-  comment Default footer theme
   .gazetteFooter
    margin-top 8px
    padding-top 8px
@@ -83,15 +91,15 @@ gazetteThemeNode
     padding 0 7px
     &:hover
      fill #333
-  .scrollCommunityLinkComponent
+  .gazetteScrollLink
    display block
    font-family Verdana
    font-weight 100
    margin .5em
    color rgba(204,204,204,.5)
-  
+ string hakonOverrides
   comment Main body of both pages is similar
-  .scrollColumnsComponent
+  .columns
    column-count auto
    column-fill balance
    column-width 35ch
@@ -99,60 +107,33 @@ gazetteThemeNode
    padding-left 20px
    padding-right 20px
    margin auto
-  
   comment On group pages add some spacing around files
-  .scrollSnippetContainerComponent
+  .snippetsContainer
    padding 1ch 0
    break-inside avoid
    text-align justify
-  
-  .scrollTitleComponent
+  .titleNode
    text-align center
    margin-bottom .25em
    a
     color #000
-  
-  .scrollDateComponent
+  .dateline
    font-style italic
    font-size 80%
-  
-  .scrollParagraphComponent
-   margin-top 0.4em
-   line-height 1.4em
-  
-  .scrollQuoteComponent
+  .section
    break-inside avoid
-   display block
-   margin .5em 0
-   padding .5em
-   background rgba(204,204,204,.5)
-   white-space pre-line
-   border-left .5em solid rgba(204,204,204,.8)
-  
-  .scrollSectionComponent
-   break-inside avoid
-  
-  .scrollSectionComponent
    h3
     margin-top 1em
     text-align center
    h4
     margin-top 1em
     text-align center
-  
-  h4.scrollQuestionComponent
+  h4.question
    text-align left
-  
-  .scrollNoteLink
+  .noteLink
    opacity .4
   
-  code
-   font-size 90%
-   background-color rgba(204,204,204,.5)
-   padding 2px 4px
-   border-radius 4px
-  
-  .scrollCodeBlockComponent
+  .codeBlock
    overflow auto
    font-size 80%
    hyphens none
@@ -164,26 +145,26 @@ gazetteThemeNode
    padding .5em
    border-radius 0
    position relative
-  .scrollCodeBlockComponent:hover
-   .scrollCopyButton
+  .codeBlock:hover
+   .copyButton
     opacity .5
-   .scrollCopyButton:hover
+   .copyButton:hover
     opacity .8
-   .scrollCopyButton:active
+   .copyButton:active
     opacity 1
-  .scrollCopyButton
+  .copyButton
    position absolute
    top 2px
    right 2px
    font-size 14px
    cursor pointer
    opacity 0
-  .scrollCopyButton::after
+  .copyButton::after
    content "[ ]"
-  .scrollCopied::after
+  .copiedButton::after
    content "[✓]"
   
-  .scrollTableComponent
+  .tableNode
    table-layout fixed
    margin .5em 0
    overflow hidden
@@ -206,23 +187,8 @@ gazetteThemeNode
    margin 4px 0
    text-align center
   
-  .scrollKpiTable
-   width 100%
-   font-size 30px
-   text-align center
-   font-weight bold
-   break-inside avoid
-   margin-top 8px
-   margin-bottom 8px
-   td
-    width 33.3%
-    border 1px solid #e8e8e8
-   span
-    font-size 20p;
-    display block
-  
   comment Subtle "Article Source" link
-  .scrollFileViewSourceUrlComponent
+  .viewSourceNode
    text-align center
    font-size 80%
    margin 0
@@ -232,29 +198,11 @@ gazetteThemeNode
    a
     color #000
   
-  .scrollContinueReadingLink
+  .continueReadingLink
    display block
    text-align center
   
-  comment Dialogues that look like SMS conversations
-  .scrollDialogueComponent
-   span
-    font-family Verdana
-    margin-top 5px
-    padding 5px 20px
-    border-radius 15px
-    display inline-block
-  .scrollDialogueComponentLeft
-   text-align left
-   span
-    background rgba(204,204,204, .5)
-  .scrollDialogueComponentRight
-   text-align right
-   span
-    color white
-    background rgb(0,132,255)
-  
-  .scrollCaptionedComponent
+  .captionedNode
    display block
    text-align center
    img
@@ -262,26 +210,6 @@ gazetteThemeNode
     height auto
    figcaption
     font-style italic
-  
-  .scrollKeyboardNav
-   display none
-  
-  comment
-  .scrollHoverNote
-   text-decoration underline dashed 1px rgba(0,0,0,.1)
-   cursor default
-  
-  .youTubeHolder
-   position relative
-   width 100%
-   height 0
-   padding-bottom 56.25%
-  .youTubeEmbed
-   position absolute
-   top 0
-   left 0
-   width 100%
-   height 100%
 gazetteHeaderNode
  extends abstractThemeHeaderNode
  javascript
@@ -319,7 +247,7 @@ gazetteFooterNode
    return (
     closeContainerTag +
     file.compileStumpCode(`p
-   class scrollFileViewSourceUrlComponent doNotPrint
+   class viewSourceNode doNotPrint
    a View source
     href ${viewSourceUrl}
   div
@@ -330,6 +258,6 @@ gazetteFooterNode
     href ${file.git}
    a Built with Scroll v${SCROLL_VERSION}
     href https://scroll.pub
-    class scrollCommunityLinkComponent`)
+    class gazetteScrollLink`)
    )
   }

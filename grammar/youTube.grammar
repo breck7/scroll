@@ -6,3 +6,15 @@ youTubeNode
    const url = this.getWord(1).replace("youtube.com/watch?v=", "youtube.com/embed/")
    return `<div class="youTubeHolder"><iframe class="youTubeEmbed" src="${url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
   }
+ string hakon
+  .youTubeHolder
+   position relative
+   width 100%
+   height 0
+   padding-bottom 56.25%
+  .youTubeEmbed
+   position absolute
+   top 0
+   left 0
+   width 100%
+   height 100%

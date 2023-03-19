@@ -2,14 +2,14 @@ blinkNode
  description Useful when you have a client that always needs to find 1 thing they would like you to change.
  extends thoughtNode
  crux blink
- javascript
-  compile() {
-   return `<span class="scrollBlink">${super.compile()}</span>
-    <script>
-    setInterval(()=>{
-        Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => 
+ string htmlClass blinkNode
+ string javascript
+  setInterval(()=>{
+        Array.from(document.getElementsByClassName("${this.htmlClass}")).forEach(el => 
         el.style.color = el.style.color === "white" ? "black" : "white"
         )
     }, 2000)
-    </script>`
+ javascript
+  compile() {
+   return `<span class="${this.htmlClass}">${super.compile()}</span>`
   }

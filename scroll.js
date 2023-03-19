@@ -404,7 +404,7 @@ class ScrollFile {
 
   get viewSourceHtml() {
     return this.compileStumpCode(`p
- class scrollFileViewSourceUrlComponent
+ class viewSourceNode
  a View source
   href ${this.viewSourceUrl}`)
   }
@@ -428,7 +428,7 @@ class ScrollFile {
       scrollScriptProgram
         .map((child, index) => (index >= indexOfBreak ? "" : child.compileSnippet ? child.compileSnippet() : child.compile()))
         .filter(i => i)
-        .join(joinChar) + `<a class="scrollContinueReadingLink" href="${relativeLink}">Continue reading...</a>`
+        .join(joinChar) + `<a class="continueReadingLink" href="${relativeLink}">Continue reading...</a>`
 
     return html + this.viewSourceHtml
   }

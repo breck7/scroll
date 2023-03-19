@@ -70,9 +70,9 @@ belowAsCode 2
 * Pau means done^pau
 ^pau In Hawaiian
 
-## 8. Key Numbers Node
-* If you are building a dashboard you might want to try the `kpiTable` keyword:
-kpiTable
+## 8. Dashboard Node
+* If you are building a dashboard you might want to try the `dashboard` keyword:
+dashboard
  #1 Lang
  2k Users
  300 Stars

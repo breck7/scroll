@@ -13,7 +13,7 @@ snippetsNode
   methodForGettingHtml = "getHtmlCodeForSnippetsPage"
   makeSnippet(file) {
    const snippet = new TreeNode(`div
-   class scrollSnippetContainerComponent`)
+   class snippetsContainer`)
    const div = snippet.getNode("div")
    div.appendLineAndChildren("bern", file[this.methodForGettingHtml]())
    return snippet.toString().replace(/\n/g, "\n ")
@@ -23,7 +23,7 @@ snippetsNode
    const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
    const snippets = files.map(file => this.makeSnippet(file)).join(this.delimiter)
    const code = `div
-   class scrollColumnsComponent
+   class columns
    style column-width:35ch;
    ${snippets}`
    return file.compileStumpCode(code)

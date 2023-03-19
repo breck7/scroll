@@ -5,7 +5,7 @@ sectionTitleNode
  javascript
   compile() {
    this.parent.stack.push("</div>")
-   return `<div class="scrollSectionComponent">` + super.compile()
+   return `<div class="section">` + super.compile()
   }
   tag = "h3"
 titleNode
@@ -22,7 +22,7 @@ titleNode
    newLine.destroy()
    return compiled
   }
-  defaultClassName = "scrollTitleComponent"
+  defaultClassName = "titleNode"
   tag = "h1"
 sectionSubTitleNode
  description Compiles to an html h4 tag.
@@ -36,4 +36,4 @@ questionNode
  crux ?
  javascript
   tag = "h4"
-  defaultClassName = "scrollQuestionComponent"
+  defaultClassName = "question"

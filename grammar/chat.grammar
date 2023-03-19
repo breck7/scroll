@@ -6,7 +6,26 @@ chatNode
  catchAllNodeType chatLineNode
  cruxFromId
  extends abstractScrollNode
+ string htmlClass chatNode
  javascript
   compile() {
-   return this.map((line, index) => `<div class="scrollDialogueComponent ${index % 2 ? "scrollDialogueComponentRight" : "scrollDialogueComponentLeft"}"><span>${line.toString()}</span></div>`).join("")
+   return this.map((line, index) => `<div class="chatNode ${index % 2 ? "chatNodeRight" : "chatNodeLeft"}"><span>${line.toString()}</span></div>`).join("")
   }
+ string hakon
+  comment Dialogues that look like SMS conversations
+  .chatNode
+   span
+    font-family Verdana
+    margin-top 5px
+    padding 5px 20px
+    border-radius 15px
+    display inline-block
+  .chatNodeLeft
+   text-align left
+   span
+    background rgba(204,204,204, .5)
+  .chatNodeRight
+   text-align right
+   span
+    color white
+    background rgb(0,132,255)

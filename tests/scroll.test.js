@@ -26,7 +26,7 @@ testTree.compileAftertext = areEqual => {
  bold brave new
  underline new world
  strikethrough wor`,
-			expected: `<p class="scrollParagraphComponent">Hello <b>brave <u><a href="home.com">new</a></b> <s>wor</s>ld</u></p>`
+			expected: `<p>Hello <b>brave <u><a href="home.com">new</a></b> <s>wor</s>ld</u></p>`
 		}
 	]
 
@@ -44,7 +44,7 @@ testTree.thoughtNode = areEqual => {
 	program.compile()
 	const result = program.compile()
 
-	areEqual(result, `<p class="scrollParagraphComponent">foo</p>`)
+	areEqual(result, `<p>foo</p>`)
 }
 
 testTree.linkOnly = areEqual => {
@@ -55,7 +55,7 @@ testTree.linkOnly = areEqual => {
 	program.compile()
 	const result = program.compile()
 
-	areEqual(result, `<p class="scrollParagraphComponent"><a href="https://treenotation.org" target="_blank">https://treenotation.org</a></p>`)
+	areEqual(result, `<p><a href="https://treenotation.org" target="_blank">https://treenotation.org</a></p>`)
 }
 
 testTree.tableWithLinks = areEqual => {

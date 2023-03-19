@@ -11,6 +11,7 @@ startColumns
 - ⚠️ BREAKING: SCROLL_CSS has been removed. `gazetteTheme` now contains that CSS code.
 - ⚠️ BREAKING: `scrollHeader` is now `gazetteHeader` and `scrollFooter` is now `gazetteFooter`
 - ⚠️ BREAKING: css classes: `scrollHeaderComponent` => `gazetteHeader`, `scrollFooterComponent` => `gazetteFooter`
+- ⚠️ BREAKING: `kpiTable` is now `dashboard`
 
 # 62.2.0 3/15/2023
 - 🎉 Added `copyButtons` keyword. Use that to give code blocks a copy-to-clipboard button on hover.
