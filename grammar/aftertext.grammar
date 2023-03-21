@@ -60,8 +60,9 @@ abstractAftertextNode
   defaultClassName = ""
   compile() {
    const { className } = this
-   const classAttr = className ? `class="${this.className}"` : ""
-   return `<${this.tag} ${this.divAttributes}${classAttr}>${this.text}</${this.tag}>`
+   const classAttr = className ? `class="${className}"` : ""
+   const attr = this.divAttributes + classAttr
+   return `<${this.tag}${attr ? " " + attr : ""}>${this.text}</${this.tag}>`
   }
   get divAttributes() {
    const attrs = this.filter(node => node.isAttributeNode)
