@@ -4,6 +4,10 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 62.3.0 3/22/2023
+- 🎉 New keyword `map` using LeafletJS
+ https://leafletjs.com/ LeafletJS
+
 # 62.2.0 3/15/2023
 - 🎉 Added `copyButtons` keyword. Use that to give code blocks a copy-to-clipboard button on hover.
 

@@ -14,6 +14,8 @@ dateCell
  highlightScope string
 integerCell
  highlightScope constant.numeric
+floatCell
+ highlightScope constant.numeric
 permalinkCell
  highlightScope string
  description A string that doesn't contain characters that might interfere with most filesystems. No slashes, for instance.
