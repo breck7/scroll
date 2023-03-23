@@ -339,6 +339,10 @@ class ScrollFile {
     return this.nextAndPrevious(keyboardNavGroup, this).next.permalink
   }
 
+  get canonicalLink() {
+    return this.baseUrl + this.permalink
+  }
+
   // todo: add an openGraph node type to define this stuff manually
   get openGraphImage() {
     const openGraphImage = this.get(scrollKeywords.openGraphImage)
@@ -444,10 +448,10 @@ class ScrollFile {
   }
 
   toRss() {
-    const { title, permalink, baseUrl } = this
+    const { title, permalink, canonicalLink } = this
     return ` <item>
   <title>${title}</title>
-  <link>${baseUrl + permalink}</link>
+  <link>${canonicalLink}</link>
   <pubDate>${dayjs(this.timestamp * 1000).format("ddd, DD MMM YYYY HH:mm:ss ZZ")}</pubDate>
  </item>`
   }

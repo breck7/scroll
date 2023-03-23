@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 62.4.0 3/23/2023
+- 🏥 SEO fix: metaTags now sets canonical link
+
 # 62.3.0 3/22/2023
 - 🎉 New keyword `map` using LeafletJS
  https://leafletjs.com/ LeafletJS
