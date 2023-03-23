@@ -4,6 +4,12 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 62.5.0 3/23/2023
+- 🎉 New keyword `canonicalLink` if you need to include query strings in canonical link.
+
+code
+ canonicalLink https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
+
 # 62.4.0 3/23/2023
 - 🏥 SEO fix: metaTags now sets canonical link
 

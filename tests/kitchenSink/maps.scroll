@@ -1,5 +1,7 @@
 import header.scroll
 
+canonicalLink https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
+
 map
  lat 37.8
  long -96

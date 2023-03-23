@@ -29,6 +29,7 @@ const scrollKeywords = {
   description: "description",
   viewSourceUrl: "viewSourceUrl",
   permalink: "permalink",
+  canonicalLink: "canonicalLink",
   image: "image",
   date: "date",
   thoughtKeyword: "*",
@@ -340,7 +341,7 @@ class ScrollFile {
   }
 
   get canonicalLink() {
-    return this.baseUrl + this.permalink
+    return this.get(scrollKeywords.canonicalLink) || this.baseUrl + this.permalink
   }
 
   // todo: add an openGraph node type to define this stuff manually

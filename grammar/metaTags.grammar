@@ -1,3 +1,6 @@
+canonicalLinkNode
+ description Canonical URL for SEO. If undefined Scroll generates this from the baseUrl and permalink.
+ extends abstractUrlSettingNode
 metaTagsNode
  cruxFromId
  extends abstractTopLevelSingleMetaNode
