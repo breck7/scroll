@@ -73,17 +73,19 @@ class ScrollDiskFileSystem {
     return this.scrollFiles[absolutePath]
   }
 
-  getScrollFilesInFolder(absolutePath) {
-    if (this.folderCache[absolutePath]) return this.folderCache[absolutePath]
-    const files = this.list(absolutePath)
+  getScrollFilesInFolder(folderPath) {
+    folderPath = this.ensureFolderEndsInSlash(folderPath)
+    if (this.folderCache[folderPath]) return this.folderCache[folderPath]
+    const files = this.list(folderPath)
       .filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
       .map(filePath => this.getScrollFile(filePath))
 
-    this.folderCache[absolutePath] = lodash.sortBy(files, file => file.timestamp).reverse()
-    return this.folderCache[absolutePath]
+    this.folderCache[folderPath] = lodash.sortBy(files, file => file.timestamp).reverse()
+    return this.folderCache[folderPath]
   }
 
   getGrammarErrorsInFolder(folderPath) {
+    folderPath = this.ensureFolderEndsInSlash(folderPath)
     this.getScrollFilesInFolder(folderPath) // Init all compilers
     return Object.values(this.compilerCache)
       .map(compiler => new grammarNode(compiler.grammarCode).getAllErrors().map(err => err.toObject()))
@@ -91,6 +93,7 @@ class ScrollDiskFileSystem {
   }
 
   getScrollErrorsInFolder(folderPath) {
+    folderPath = this.ensureFolderEndsInSlash(folderPath)
     return this.getScrollFilesInFolder(folderPath)
       .map(file =>
         file.scrollProgram.getAllErrors().map(err => {
@@ -113,7 +116,12 @@ class ScrollDiskFileSystem {
     return message
   }
 
-  buildFilesInFolder(folder = "") {
+  ensureFolderEndsInSlash(folder) {
+    return folder.replace(/\/$/, "") + "/"
+  }
+
+  buildFilesInFolder(folder = "/") {
+    folder = this.ensureFolderEndsInSlash(folder)
     const start = Date.now()
     const files = this.getScrollFilesInFolder(folder)
     const filesToBuild = files.filter(file => file.shouldBuild)
@@ -122,7 +130,7 @@ class ScrollDiskFileSystem {
     const pages = filesToBuild.map(file => {
       const { permalink, html } = file
       this.write(folder + permalink, html)
-      this.log(`💾 Wrote ${folder + file.filename} to ${folder + permalink}`)
+      this.log(`💾 Wrote ${file.filename} to ${permalink}`)
       return { permalink: folder + permalink, html }
     })
     const seconds = (Date.now() - start) / 1000

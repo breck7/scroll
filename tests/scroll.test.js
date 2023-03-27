@@ -85,9 +85,9 @@ testTree.inMemoryFileSystem = areEqual => {
 
 	// Arrange
 	const files = {
-		"header.scroll": "import settings.scroll",
-		"settings.scroll": "* This should be imported",
-		"pages/about.scroll": `import ../header.scroll\ntitle About us
+		"/header.scroll": "import settings.scroll",
+		"/settings.scroll": "* This should be imported",
+		"/pages/about.scroll": `import ../header.scroll\ntitle About us
 pNode
  extends thoughtNode
  crux p
@@ -96,10 +96,10 @@ p A custom grammar`
 	// Act
 	const fileSystem = new ScrollInMemoryFileSystem(files).silence()
 	fileSystem.buildFilesInFolder()
-	fileSystem.buildFilesInFolder("pages/")
+	fileSystem.buildFilesInFolder("/pages/")
 
 	// Assert
-	areEqual(files["pages/about.html"].includes("This should be imported"), true, "In memory file system worked")
+	areEqual(files["/pages/about.html"].includes("This should be imported"), true, "In memory file system worked")
 }
 
 testTree.file = areEqual => {
