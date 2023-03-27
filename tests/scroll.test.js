@@ -180,7 +180,7 @@ testTree.kitchenSink = async areEqual => {
 	try {
 		// Arrange/act
 		const fileSystem = new ScrollDiskFileSystem().silence()
-		fileSystem.buildFilesInFolder(kitchenSinkFolder + "/")
+		fileSystem.buildFilesInFolder(kitchenSinkFolder)
 		const groupPage = Disk.read(path.join(kitchenSinkFolder, "all.html"))
 
 		// Assert

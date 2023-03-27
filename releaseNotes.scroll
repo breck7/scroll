@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 63.0.0 3/27/2023
+- ⚠️ BREAKING: (only users using Scroll as a module are affected). Removed ScrollFolder. Exports now include ScrollDiskFileSystem and ScrollInMemoryFileSystem. To get the same behavior as `new ScrollFolder("folder").buildFiles()` use `new ScrollDiskFileSystem().buildFilesInFolder("folder")`.
+
 # 62.5.1 3/27/2023
 - 🏥 if something goes wrong in a nodejs block, be sure to clean up the temporary file
 
