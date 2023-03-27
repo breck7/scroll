@@ -4,7 +4,7 @@ startColumnsNode
  catchAllCellType integerCell
  description Start a multicolumn grid.
  javascript
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return ""
   }
   compile() {
@@ -22,6 +22,6 @@ endColumnsNode
   compile() {
    return "</div>"
   }
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return ""
   }

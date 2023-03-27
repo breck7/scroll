@@ -404,10 +404,10 @@ class ScrollFile {
     return this._compiled
   }
 
-  _compiledSnippet = ""
-  getCompiledSnippet() {
-    if (!this._compiledSnippet) this._compiledSnippet = this.scrollProgram.compileSnippet() + this.viewSourceHtml
-    return this._compiledSnippet
+  _compiledEmbeddedVersion = ""
+  get compiledEmbeddedVersion() {
+    if (!this._compiledEmbeddedVersion) this._compiledEmbeddedVersion = this.scrollProgram.compileEmbeddedVersion() + this.viewSourceHtml
+    return this._compiledEmbeddedVersion
   }
 
   get viewSourceHtml() {
@@ -449,16 +449,16 @@ class ScrollFile {
     return lodash.sortBy(arr, file => file.timestamp).reverse()
   }
 
-  getHtmlCodeForSnippetsPage() {
+  get htmlForEmbeddedVersionWithShortSnippets() {
     const snippetBreakNode = this.scrollProgram.getNode(scrollKeywords.endSnippet)
-    if (!snippetBreakNode) return this.getCompiledSnippet()
+    if (!snippetBreakNode) return this.compiledEmbeddedVersion
     const indexOfBreak = snippetBreakNode.getIndex()
 
     const { scrollProgram, linkRelativeToCompileTarget } = this
     const joinChar = scrollProgram._getChildJoinCharacter()
     const html =
       scrollProgram
-        .map((child, index) => (index >= indexOfBreak ? "" : child.compileSnippet ? child.compileSnippet() : child.compile()))
+        .map((child, index) => (index >= indexOfBreak ? "" : child.compileEmbeddedVersion ? child.compileEmbeddedVersion() : child.compile()))
         .filter(i => i)
         .join(joinChar) + `<a class="scrollContinueReadingLink" href="${linkRelativeToCompileTarget}">Continue reading...</a>`
 

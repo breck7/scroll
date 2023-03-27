@@ -3,7 +3,7 @@ scrollHeaderNode
  cruxFromId
  description The simple default Scroll header.
  javascript
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return ""
   }
   compile() {

@@ -11,7 +11,7 @@ snippetsNode
   snippets index
  javascript
   getHtml(file) {
-    return file.getHtmlCodeForSnippetsPage()
+    return file.htmlForEmbeddedVersionWithShortSnippets
   }
   makeSnippet(file) {
    const snippet = new TreeNode(`div
@@ -37,7 +37,7 @@ fullSnippetsNode
  description Prints the full contents of files that are in the named group.
  javascript
   getHtml(file) {
-    return file.getCompiledSnippet()
+    return file.compiledEmbeddedVersion
   }
 loopNode
  extends abstractAftertextNode
