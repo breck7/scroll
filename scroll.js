@@ -75,10 +75,62 @@ class ScrollDiskFileSystem {
 
   getScrollFilesInFolder(absolutePath) {
     if (this.folderCache[absolutePath]) return this.folderCache[absolutePath]
-    this.folderCache[absolutePath] = this.list(absolutePath)
+    const files = this.list(absolutePath)
       .filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
       .map(filePath => this.getScrollFile(filePath))
+
+    this.folderCache[absolutePath] = lodash.sortBy(files, file => file.timestamp).reverse()
     return this.folderCache[absolutePath]
+  }
+
+  getGrammarErrorsInFolder(folderPath) {
+    this.getScrollFilesInFolder(folderPath) // Init all compilers
+    return Object.values(this.compilerCache)
+      .map(compiler => new grammarNode(compiler.grammarCode).getAllErrors().map(err => err.toObject()))
+      .flat()
+  }
+
+  getScrollErrorsInFolder(folderPath) {
+    return this.getScrollFilesInFolder(folderPath)
+      .map(file =>
+        file.scrollProgram.getAllErrors().map(err => {
+          return { filename: file.filename, ...err.toObject() }
+        })
+      )
+      .flat()
+  }
+  silence() {
+    this.verbose = false
+    return this
+  }
+
+  verbose = true
+
+  logIndent = 0
+  log(message) {
+    const indent = "    ".repeat(this.logIndent)
+    if (this.verbose) console.log(indent + message)
+    return message
+  }
+
+  buildFilesInFolder(folder = "") {
+    const start = Date.now()
+    const files = this.getScrollFilesInFolder(folder)
+    const filesToBuild = files.filter(file => file.shouldBuild)
+    this.log(`Building ${filesToBuild.length} files from ${files.length} ${SCROLL_FILE_EXTENSION} files found in '${folder}'\n`)
+    this.logIndent++
+    const pages = filesToBuild.map(file => {
+      const { permalink, html } = file
+      this.write(folder + permalink, html)
+      this.log(`💾 Wrote ${folder + file.filename} to ${folder + permalink}`)
+      return { permalink: folder + permalink, html }
+    })
+    const seconds = (Date.now() - start) / 1000
+    this.logIndent--
+    this.log(``)
+    this.log(`⌛️ Compiled ${pages.length} files to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second\n`)
+
+    return pages
   }
 
   read(absolutePath) {
@@ -198,6 +250,7 @@ class ScrollDiskFileSystem {
 const fileSystemSingleton = new ScrollDiskFileSystem()
 const defaultGrammarFiles = Disk.getFiles(path.join(__dirname, "grammar")).filter(file => file.endsWith(GRAMMAR_EXTENSION))
 const defaultScrollCompiler = fileSystemSingleton.getCompiler(defaultGrammarFiles)
+const DefaultScrollCompiler = defaultScrollCompiler.compiler
 
 class ScrollInMemoryFileSystem extends ScrollDiskFileSystem {
   constructor(files) {
@@ -251,7 +304,7 @@ class ScrollFile {
     const afterVariablePass = this.evalVariables(afterImportPass)
 
     // PASS 3: BUILD CUSTOM COMPILER PASS, IF THERE ARE CUSTOM GRAMMAR NODES DEFINED
-    const compiler = filepathsWithGrammarDefinitions.length === 0 ? defaultScrollCompiler.compiler : fileSystem.getCompiler(filepathsWithGrammarDefinitions, defaultScrollCompiler.grammarCode + "\n").compiler
+    const compiler = filepathsWithGrammarDefinitions.length === 0 ? DefaultScrollCompiler : fileSystem.getCompiler(filepathsWithGrammarDefinitions, defaultScrollCompiler.grammarCode + "\n").compiler
 
     // PASS 4: LOAD WITH STD COMPILER OR CUSTOM COMPILER FROM PASS 3
     this.scrollProgram = new compiler(afterVariablePass)
@@ -512,102 +565,6 @@ class ScrollFile {
   }
 }
 
-class ScrollFolder {
-  constructor(folder, filesObject) {
-    if (!filesObject) {
-      this.folder = path.normalize(folder)
-      this.fileSystem = fileSystemSingleton
-    } else {
-      this.folder = folder
-      this.fileSystem = new ScrollInMemoryFileSystem(filesObject)
-    }
-  }
-
-  defaultScrollCompiler = defaultScrollCompiler.compiler
-
-  get grammarErrors() {
-    this._initFiles() // Init all compilers
-    return Object.values(this.fileSystem.compilerCache)
-      .map(compiler => new grammarNode(compiler.grammarCode).getAllErrors().map(err => err.toObject()))
-      .flat()
-  }
-
-  _initFiles() {
-    if (this._files) return
-    const fullScrollFilePaths = this.fileSystem.list(this.folder).filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-    const all = fullScrollFilePaths.map(fullFilePath => new ScrollFile(undefined, fullFilePath, this.fileSystem))
-    this._files = lodash.sortBy(all, file => file.timestamp).reverse()
-  }
-
-  _files
-  get files() {
-    if (this._files) return this._files
-    this._initFiles()
-    return this._files
-  }
-
-  get errors() {
-    return this.files
-      .map(file =>
-        file.scrollProgram.getAllErrors().map(err => {
-          return { filename: file.filename, ...err.toObject() }
-        })
-      )
-      .flat()
-  }
-
-  silence() {
-    this.verbose = false
-    return this
-  }
-
-  verbose = true
-  folder = ""
-
-  logIndent = 0
-  log(message) {
-    const indent = "    ".repeat(this.logIndent)
-    if (this.verbose) console.log(indent + message)
-    return message
-  }
-
-  buildFiles() {
-    return this._buildAndWriteFiles()
-  }
-
-  _buildAndWriteFiles() {
-    const start = Date.now()
-    const { files, folder } = this
-    const filesToBuild = files.filter(file => file.shouldBuild)
-    this.log(`Building ${filesToBuild.length} files from ${files.length} ${SCROLL_FILE_EXTENSION} files found in '${folder}'\n`)
-    this.logIndent++
-    const pages = filesToBuild.map(file => {
-      const { permalink, html } = file
-      this.write(permalink, html, `Wrote ${file.filename} to ${permalink}`)
-      return { permalink, html }
-    })
-    const seconds = (Date.now() - start) / 1000
-    this.logIndent--
-    this.log(``)
-    this.log(`⌛️ Compiled ${pages.length} files to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second\n`)
-
-    return pages
-  }
-
-  write(filename, content, message) {
-    const result = this.fileSystem.write(path.join(this.folder, filename), content)
-    this.log(`💾 ` + message)
-    return result
-  }
-
-  buildAll() {
-    this.log(`\n👷 building folder '${this.folder}'\n`)
-    this.logIndent++
-    this.buildFiles()
-    this.logIndent--
-  }
-}
-
 class ScrollCli {
   CommandFnDecoratorSuffix = "Command"
 
@@ -701,20 +658,21 @@ import footer.scroll`
   }
 
   testCommand(cwd) {
-    const folder = new ScrollFolder(this.resolvePath(cwd))
-    const { grammarErrors } = folder
+    const folder = this.resolvePath(cwd)
+    const fileSystem = new ScrollDiskFileSystem()
+    const grammarErrors = fileSystem.getGrammarErrorsInFolder(folder)
     const grammarMessage = grammarErrors.length ? new TreeNode(grammarErrors).toFormattedTable(200) + "\n" : ""
     if (grammarMessage) this.log(grammarMessage)
-    const scrollErrors = folder.errors
+    const scrollErrors = fileSystem.getScrollErrorsInFolder(folder)
     const message = scrollErrors.length ? new TreeNode(scrollErrors).toFormattedTable(60) : "0 errors"
     return this.log(message)
   }
 
   async buildCommand(cwd) {
-    const folder = new ScrollFolder(this.resolvePath(cwd))
-    folder.verbose = this.verbose
-    folder.buildAll()
-    return folder
+    const fileSystem = new ScrollDiskFileSystem()
+    fileSystem.verbose = this.verbose
+    fileSystem.buildFilesInFolder(this.resolvePath(cwd))
+    return this
   }
 
   listCommand(cwd) {
@@ -748,4 +706,4 @@ import footer.scroll`
 
 if (module && !module.parent) new ScrollCli().executeUsersInstructionsFromShell(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFile, ScrollFolder, ScrollCli, scrollKeywords }
+module.exports = { ScrollFile, ScrollCli, ScrollDiskFileSystem, ScrollInMemoryFileSystem, scrollKeywords, DefaultScrollCompiler }

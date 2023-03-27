@@ -3,11 +3,10 @@
 const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
-const { ScrollFolder, ScrollCli, scrollKeywords, ScrollFile } = require("../scroll.js")
+const { ScrollCli, ScrollDiskFileSystem, ScrollInMemoryFileSystem, scrollKeywords, ScrollFile, DefaultScrollCompiler } = require("../scroll.js")
 const { Disk } = require("jtree/products/Disk.node.js")
 const grammarNode = require("jtree/products/grammar.nodejs.js")
 const shell = require("child_process").execSync
-const DefaultScrollCompiler = new ScrollFolder(__dirname).defaultScrollCompiler
 
 // todo: 1) rss import tests 2) grammar errors test 4) scroll errors tests
 
@@ -95,8 +94,9 @@ pNode
 p A custom grammar`
 	}
 	// Act
-	new ScrollFolder("", files).silence().buildFiles()
-	new ScrollFolder("pages/", files).silence().buildFiles()
+	const fileSystem = new ScrollInMemoryFileSystem(files).silence()
+	fileSystem.buildFilesInFolder()
+	fileSystem.buildFilesInFolder("pages/")
 
 	// Assert
 	areEqual(files["pages/about.html"].includes("This should be imported"), true, "In memory file system worked")
@@ -104,13 +104,12 @@ p A custom grammar`
 
 testTree.file = areEqual => {
 	const rootFolder = path.join(__dirname, "..")
-	const file = new ScrollFolder(rootFolder).files[1]
-	const content = file.html
+	const fileSystem = new ScrollDiskFileSystem()
+	const files = fileSystem.getScrollFilesInFolder(rootFolder)
 
-	areEqual(file.permalink, "releaseNotes.html")
-	areEqual(content.includes("Scroll the language is now called"), true)
-
-	areEqual(new ScrollFolder(rootFolder).files[2].permalink, "index.html")
+	areEqual(files[1].permalink, "releaseNotes.html")
+	areEqual(files[1].html.includes("Scroll the language is now called"), true)
+	areEqual(files[2].permalink, "index.html")
 }
 
 testTree.ensureNoErrorsInGrammar = areEqual => {
@@ -129,8 +128,8 @@ testTree.cli = async areEqual => {
 	areEqual(cli.deleteCommand().includes("delete"), true)
 
 	// Act/Assert
-	const folder = await cli.buildCommand()
-	areEqual(!!folder, true)
+	const result = await cli.buildCommand()
+	areEqual(!!result, true)
 
 	// Act/Assert
 	areEqual(cli.executeUsersInstructionsFromShell(["help"], false).includes("help"), true)
@@ -156,19 +155,20 @@ testTree.initCommand = async areEqual => {
 	try {
 		fs.mkdirSync(tempFolder)
 		const cli = new ScrollCli()
+		const fileSystem = new ScrollDiskFileSystem()
 		cli.verbose = false
 
 		// Act
 		const result = await cli.initCommand(tempFolder)
 		areEqual(fs.existsSync(path.join(tempFolder, "header.scroll")), true)
 
-		const folder = new ScrollFolder(tempFolder).silence()
-		const pages = folder.buildFiles()
+		const pages = fileSystem.silence().buildFilesInFolder(tempFolder)
 
 		// Assert
 		areEqual(pages[0].html.includes("Built with Scroll"), true)
 		areEqual(pages.length, 2, "should have 3 pagee")
-		areEqual(folder.errors.flat().length, 0)
+
+		areEqual(fileSystem.getScrollErrorsInFolder(tempFolder).length, 0)
 	} catch (err) {
 		console.log(err)
 	}
@@ -179,8 +179,8 @@ testTree.kitchenSink = async areEqual => {
 	const kitchenSinkFolder = path.join(__dirname, "kitchenSink")
 	try {
 		// Arrange/act
-		const folder = new ScrollFolder(kitchenSinkFolder).silence()
-		folder.buildAll()
+		const fileSystem = new ScrollDiskFileSystem().silence()
+		fileSystem.buildFilesInFolder(kitchenSinkFolder + "/")
 		const groupPage = Disk.read(path.join(kitchenSinkFolder, "all.html"))
 
 		// Assert
