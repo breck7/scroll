@@ -10,12 +10,14 @@ snippetsNode
  example
   snippets index
  javascript
-  methodForGettingHtml = "getHtmlCodeForSnippetsPage"
+  getHtml(file) {
+    return file.getHtmlCodeForSnippetsPage()
+  }
   makeSnippet(file) {
    const snippet = new TreeNode(`div
    class scrollSnippetContainerComponent`)
    const div = snippet.getNode("div")
-   div.appendLineAndChildren("bern", file[this.methodForGettingHtml]())
+   div.appendLineAndChildren("bern", this.getHtml(file))
    return snippet.toString().replace(/\n/g, "\n ")
   }
   compile() {
@@ -34,7 +36,9 @@ fullSnippetsNode
  cruxFromId
  description Prints the full contents of files that are in the named group.
  javascript
-  methodForGettingHtml = "getCompiledSnippet"
+  getHtml(file) {
+    return file.getCompiledSnippet()
+  }
 loopNode
  extends abstractAftertextNode
  cells keywordCell
@@ -90,7 +94,7 @@ loopGroupsNode
  description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[groupName]
  javascript
   get items() {
-   return this.parent.parent.file.getFilesInGroups(this.getWordsFrom(1))
+   return this.root.file.getFilesInGroups(this.getWordsFrom(1))
   }
 loopJoinNode
  extends abstractLoopConfigNode

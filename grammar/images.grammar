@@ -21,7 +21,7 @@ imageNode
   get figureContent() {
    const file = this.root.file
    const src = this.getWord(1)
-   const linkRelativeToCompileTarget = (file.folder ? file.folder.relativePath : "") + src
+   const linkRelativeToCompileTarget = this.root.relativePathToCompileTarget + src
    let dimensionAttributes = ""
    // If its a local image, get the dimensions and put them in the HTML
    // to avoid flicker

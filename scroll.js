@@ -56,6 +56,8 @@ const SVGS = {
 }
 
 class ScrollDiskFileSystem {
+  constructor() {}
+
   fileCache = {}
   _read(absolutePath) {
     const { fileCache } = this
@@ -238,12 +240,12 @@ class ScrollFile {
     const compiler = filepathsWithGrammarDefinitions.length === 0 ? defaultScrollCompiler.compiler : fileSystem.getCompiler(filepathsWithGrammarDefinitions, defaultScrollCompiler.grammarCode + "\n").compiler
 
     // PASS 4: LOAD WITH STD COMPILER OR CUSTOM COMPILER FROM PASS 3
-    this.scrollScriptProgram = new compiler(afterVariablePass)
+    this.scrollProgram = new compiler(afterVariablePass)
 
     this.scrollFilesWithGrammarNodeDefinitions = filepathsWithGrammarDefinitions
-    this.scrollScriptProgram.setFile(this)
-    this.timestamp = dayjs(this.scrollScriptProgram.get(scrollKeywords.date) ?? 0).unix()
-    this.permalink = this.scrollScriptProgram.get(scrollKeywords.permalink) || (this.filename ? this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html" : "")
+    this.scrollProgram.setFile(this)
+    this.timestamp = dayjs(this.scrollProgram.get(scrollKeywords.date) ?? 0).unix()
+    this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html" : "")
   }
 
   evalVariables(code) {
@@ -312,7 +314,7 @@ class ScrollFile {
   }
 
   get hasKeyboardNav() {
-    return this.scrollScriptProgram.has(scrollKeywords.keyboardNav)
+    return this.scrollProgram.has(scrollKeywords.keyboardNav)
   }
 
   get keyboardNavGroup() {
@@ -350,7 +352,7 @@ class ScrollFile {
     const openGraphImage = this.get(scrollKeywords.openGraphImage)
     if (openGraphImage !== undefined) return openGraphImage
 
-    const node = this.scrollScriptProgram.getNode(scrollKeywords.image)
+    const node = this.scrollProgram.getNode(scrollKeywords.image)
     if (!node) return ""
 
     const link = node.content
@@ -362,7 +364,7 @@ class ScrollFile {
   // todo: add a tree method version of get that gets you the first node. (actulaly make get return array?)
   // would speed up a lot.
   get description() {
-    const program = this.scrollScriptProgram
+    const program = this.scrollProgram
     const description = program.get(scrollKeywords.description)
     if (description) return description
 
@@ -379,11 +381,11 @@ class ScrollFile {
   }
 
   get title() {
-    return this.scrollScriptProgram.get(scrollKeywords.title) ?? ""
+    return this.scrollProgram.get(scrollKeywords.title) ?? ""
   }
 
   get(keyword) {
-    return this.scrollScriptProgram.get(keyword)
+    return this.scrollProgram.get(keyword)
   }
 
   get viewSourceUrl() {
@@ -398,13 +400,13 @@ class ScrollFile {
 
   _compiled = ""
   get compiled() {
-    if (!this._compiled) this._compiled = this.scrollScriptProgram.compile()
+    if (!this._compiled) this._compiled = this.scrollProgram.compile()
     return this._compiled
   }
 
   _compiledSnippet = ""
   getCompiledSnippet() {
-    if (!this._compiledSnippet) this._compiledSnippet = this.scrollScriptProgram.compileSnippet() + this.viewSourceHtml
+    if (!this._compiledSnippet) this._compiledSnippet = this.scrollProgram.compileSnippet() + this.viewSourceHtml
     return this._compiledSnippet
   }
 
@@ -420,11 +422,11 @@ class ScrollFile {
   }
 
   get linkRelativeToCompileTarget() {
-    return this.folder.relativePath + this.permalink
+    return (this.folder?.relativePath || "") + this.permalink
   }
 
   get groups() {
-    return (this.scrollScriptProgram.get(scrollKeywords.groups) || "").split(" ")
+    return (this.scrollProgram.get(scrollKeywords.groups) || "").split(" ")
   }
 
   get primaryGroup() {
@@ -434,11 +436,11 @@ class ScrollFile {
   getFilesInGroups(groupNames) {
     let arr = []
     groupNames.forEach(name => {
-      if (!name.includes("/")) return (arr = arr.concat(getGroup(name), this.folder.files))
+      if (!name.includes("/")) return (arr = arr.concat(getGroup(name, this.folder.files)))
       const parts = name.split("/")
       const group = parts.pop()
       const relativePath = parts.join("/")
-      const folderPath = path.join(this.folder.folder, path.normalize(relativePath))
+      const folderPath = path.join(this.folderPath, path.normalize(relativePath))
       const folder = new ScrollFolder(folderPath)
       folder.relativePath = relativePath + "/"
       arr = arr.concat(getGroup(group, folder.files))
@@ -448,14 +450,14 @@ class ScrollFile {
   }
 
   getHtmlCodeForSnippetsPage() {
-    const snippetBreakNode = this.scrollScriptProgram.getNode(scrollKeywords.endSnippet)
+    const snippetBreakNode = this.scrollProgram.getNode(scrollKeywords.endSnippet)
     if (!snippetBreakNode) return this.getCompiledSnippet()
     const indexOfBreak = snippetBreakNode.getIndex()
 
-    const { scrollScriptProgram, linkRelativeToCompileTarget } = this
-    const joinChar = scrollScriptProgram._getChildJoinCharacter()
+    const { scrollProgram, linkRelativeToCompileTarget } = this
+    const joinChar = scrollProgram._getChildJoinCharacter()
     const html =
-      scrollScriptProgram
+      scrollProgram
         .map((child, index) => (index >= indexOfBreak ? "" : child.compileSnippet ? child.compileSnippet() : child.compile()))
         .filter(i => i)
         .join(joinChar) + `<a class="scrollContinueReadingLink" href="${linkRelativeToCompileTarget}">Continue reading...</a>`
@@ -466,11 +468,11 @@ class ScrollFile {
   // todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
   // BaseUrl must be provided for RSS Feeds and OpenGraph tags to work
   get baseUrl() {
-    return this.scrollScriptProgram.get(scrollKeywords.baseUrl) ?? ""
+    return this.scrollProgram.get(scrollKeywords.baseUrl) ?? ""
   }
 
   toRss() {
-    const { title, permalink, canonicalLink } = this
+    const { title, canonicalLink } = this
     return ` <item>
   <title>${title}</title>
   <link>${canonicalLink}</link>
@@ -520,7 +522,7 @@ class ScrollFolder {
   get errors() {
     return this.files
       .map(file =>
-        file.scrollScriptProgram.getAllErrors().map(err => {
+        file.scrollProgram.getAllErrors().map(err => {
           return { filename: file.filename, ...err.toObject() }
         })
       )

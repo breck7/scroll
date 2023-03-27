@@ -17,7 +17,7 @@ permalinkNode
  description When compiling, Scroll will save this file to {permalink}
  extends abstractTopLevelSingleMetaNode
  cells keywordCell permalinkCell
-scrollScriptNode
+scrollNode
  extensions scroll
  description Tools for thought that compile to HTML.
  root
@@ -29,6 +29,7 @@ scrollScriptNode
    this.file = file
    return this
   }
+  relativePathToCompileTarget = ""
   stack = []
   clearStack() {
    const result = this.stack.join("")

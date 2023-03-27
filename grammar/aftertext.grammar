@@ -249,8 +249,7 @@ linkNode
    const link = this.getWord(1)
    const isAbsoluteLink = link.startsWith("https://") || link.startsWith("http://")
    if (isAbsoluteLink) return link
-   const linkRelativeToCompileTarget = (this.root.file.folder?.relativePath || "") + link
-   return linkRelativeToCompileTarget
+   return this.root.relativePathToCompileTarget + link
   }
   get attributes() {
    const attrs = [`href="${this.link}"`]
