@@ -21,7 +21,7 @@ imageNode
   get figureContent() {
    const file = this.root.file
    const src = this.getWord(1)
-   let relativePath = file.folder ? file.folder.relativePath : ""
+   const linkRelativeToCompileTarget = (file.folder ? file.folder.relativePath : "") + src
    let dimensionAttributes = ""
    // If its a local image, get the dimensions and put them in the HTML
    // to avoid flicker
@@ -29,7 +29,8 @@ imageNode
     try {
      const sizeOf = require("image-size")
      const path = require("path")
-     const dimensions = sizeOf(path.join(file.folder.folder, src))
+     const fullImagePath = path.join(file.folderPath, src)
+     const dimensions = sizeOf(fullImagePath)
      const width = dimensions.width
      const height = dimensions.height
      dimensionAttributes = `width="${width}" height="${height}" `
@@ -39,5 +40,5 @@ imageNode
    }
    const className = this.has("class") ? ` class="${this.get("class")}" ` : ""
    const id = this.has("id") ? ` id="${this.get("id")}" ` : ""
-   return `<a href="${relativePath + src}" target="_blank" ${className} ${id}><img src="${relativePath + src}" ${dimensionAttributes}loading="lazy"></a>`
+   return `<a href="${linkRelativeToCompileTarget}" target="_blank" ${className} ${id}><img src="${linkRelativeToCompileTarget}" ${dimensionAttributes}loading="lazy"></a>`
   }

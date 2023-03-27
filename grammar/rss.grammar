@@ -7,11 +7,14 @@ printFeedNode
  cruxFromId
  cells keywordCell groupNameWithOptionalFolderCell
  catchAllCellType groupNameWithOptionalFolderCell
+ example
+  printFeed index
+  printFeed cars/index
  javascript
   compile() {
    const dayjs = require("dayjs")
    const file = this.root.file
-   const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
+   const files = file.getFilesInGroups(this.getWordsFrom(1))
    const { title, baseUrl, description } = file
    return `<?xml version="1.0" encoding="ISO-8859-1" ?>
   <rss version="2.0">

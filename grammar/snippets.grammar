@@ -6,7 +6,7 @@ snippetsNode
  cruxFromId
  cells keywordCell groupNameWithOptionalFolderCell
  catchAllCellType groupNameWithOptionalFolderCell
- description Prints the snippets of all files in a folder that are in the named group.
+ description Prints the snippets of all files in the named group(s).
  example
   snippets index
  javascript
@@ -20,7 +20,7 @@ snippetsNode
   }
   compile() {
    const file = this.parent.file
-   const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
+   const files = file.getFilesInGroups(this.getWordsFrom(1))
    const snippets = files.map(file => this.makeSnippet(file)).join(this.delimiter)
    const code = `div
    class scrollColumnsComponent
@@ -32,7 +32,7 @@ snippetsNode
 fullSnippetsNode
  extends snippetsNode
  cruxFromId
- description Prints the full contents of files in a folder that are in the named group.
+ description Prints the full contents of files that are in the named group.
  javascript
   methodForGettingHtml = "getCompiledSnippet"
 loopNode
@@ -90,7 +90,7 @@ loopGroupsNode
  description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[groupName]
  javascript
   get items() {
-   return this.parent.parent.file.folder.getFilesInGroups(this.getWordsFrom(1))
+   return this.parent.parent.file.getFilesInGroups(this.getWordsFrom(1))
   }
 loopJoinNode
  extends abstractLoopConfigNode
