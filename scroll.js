@@ -248,6 +248,13 @@ class ScrollFile {
     this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html" : "")
   }
 
+  setRelativePath(relativePath = "") {
+    this.scrollProgram.relativePathToCompileTarget = relativePath
+    this.relativePath = relativePath
+  }
+
+  relativePath = ""
+
   evalVariables(code) {
     const codeAsTree = new TreeNode(code)
     // Process variables
@@ -422,7 +429,7 @@ class ScrollFile {
   }
 
   get linkRelativeToCompileTarget() {
-    return (this.folder?.relativePath || "") + this.permalink
+    return this.relativePath + this.permalink
   }
 
   get groups() {
@@ -433,7 +440,7 @@ class ScrollFile {
     return getGroup(this.groups[0], this.folder.files)
   }
 
-  getFilesInGroups(groupNames) {
+  getFilesInGroupsForEmbedding(groupNames) {
     let arr = []
     groupNames.forEach(name => {
       if (!name.includes("/")) return (arr = arr.concat(getGroup(name, this.folder.files)))
@@ -442,11 +449,16 @@ class ScrollFile {
       const relativePath = parts.join("/")
       const folderPath = path.join(this.folderPath, path.normalize(relativePath))
       const folder = new ScrollFolder(folderPath)
-      folder.relativePath = relativePath + "/"
+      folder.files.forEach(file => file.setRelativePath(relativePath + "/"))
       arr = arr.concat(getGroup(group, folder.files))
     })
 
     return lodash.sortBy(arr, file => file.timestamp).reverse()
+  }
+
+  clearEmbeddingRelativeUrls(files) {
+    // todo: remove
+    files.forEach(file => file.setRelativePath(""))
   }
 
   get htmlForEmbeddedVersionWithShortSnippets() {

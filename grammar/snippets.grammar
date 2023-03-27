@@ -22,8 +22,9 @@ snippetsNode
   }
   compile() {
    const file = this.parent.file
-   const files = file.getFilesInGroups(this.getWordsFrom(1))
+   const files = file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
    const snippets = files.map(file => this.makeSnippet(file)).join(this.delimiter)
+   file.clearEmbeddingRelativeUrls(files)
    const code = `div
    class scrollColumnsComponent
    style column-width:35ch;
@@ -57,12 +58,15 @@ loopNode
    } catch (err) {
     console.error(err)
     return ""
+   } finally {
+     this.teardown()
    }
   }
   get items() {
    const provider = this.getChildInstancesOfNodeTypeId("abstractItemsProviderNode")[0]
    return provider ? provider.items : []
   }
+  teardown() {}
 loopLineNode
  catchAllCellType stringCell
 abstractLoopConfigNode
@@ -94,7 +98,12 @@ loopGroupsNode
  description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[groupName]
  javascript
   get items() {
-   return this.root.file.getFilesInGroups(this.getWordsFrom(1))
+   this.files = this.root.file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
+   return this.files
+  }
+  teardown() {
+    this.root.file.clearEmbeddingRelativeUrls(this.files)
+    delete this.files
   }
 loopJoinNode
  extends abstractLoopConfigNode
