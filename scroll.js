@@ -507,6 +507,7 @@ class ScrollFile {
     return this.compiled.trim()
   }
 
+  // todo: cleanup
   get linkRelativeToCompileTarget() {
     return this.relativePath + this.permalink
   }
@@ -537,8 +538,11 @@ class ScrollFile {
   }
 
   clearEmbeddingRelativeUrls(files) {
-    // todo: remove
-    files.forEach(file => file.setRelativePath(""))
+    // todo: clean up
+    files.forEach(file => {
+      file.setRelativePath("")
+      delete file._compiledEmbeddedVersion
+    })
   }
 
   get htmlForEmbeddedVersionWithShortSnippets() {
