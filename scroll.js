@@ -257,14 +257,15 @@ class ScrollFile {
         if (kind === scrollKeywords.replaceJs) value = eval(value)
         if (kind === scrollKeywords.nodejs) {
           const tempPath = this.filePath + ".js"
+          if (Disk.exists(tempPath)) throw new Error(`Failed to write/require nodejs snippet since '${tempPath}' already exists.`)
           try {
-            if (Disk.exists(tempPath)) throw new Error(`Failed to write/require nodejs snippet since '${tempPath}' already exists.`)
             Disk.write(tempPath, value)
             const results = require(tempPath)
             Object.keys(results).forEach(key => (varMap[key] = results[key]))
-            Disk.rm(tempPath)
           } catch (err) {
             console.error(err)
+          } finally {
+            Disk.rm(tempPath)
           }
         } else varMap[node.getWord(1)] = value
         node.destroy() // Destroy definitions after eval
