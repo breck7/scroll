@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "62.5.1",
+  "version": "63.0.0",
   "description": "Tools for thought.",
   "main": "scroll.js",
   "engines": {
@@ -11,6 +11,7 @@
     "buildCoverageReport": "tap tests/scroll.test.js",
     "buildCoverageHtmlReport": "tap tests/scroll.test.js --coverage-report=lcov",
     "open": "open index.html",
+    "debug": "node --inspect tests/scroll.test.js;",
     "test": "node tests/scroll.test.js",
     "cloc": "cloc --vcs git . --read-lang-def=tests/clocLangs.txt"
   },

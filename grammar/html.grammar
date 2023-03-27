@@ -39,6 +39,6 @@ stumpNoSnippetNode
  description Useful for headers and footers when you have something you don't want included in snippets.
  cruxFromId
  javascript
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return ""
   }

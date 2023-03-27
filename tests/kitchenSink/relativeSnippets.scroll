@@ -23,7 +23,7 @@ loop
 loop
  groups index subfolder/index
  join <br>
- javascript `<a href="${item.relativeLink}">${item.title}</a>`
+ javascript `<a href="${item.linkRelativeToCompileTarget}">${item.title}</a>`
 
 ---
 

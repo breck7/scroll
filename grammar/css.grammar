@@ -8,7 +8,7 @@ scrollCssTagNode
   compile() {
    return `<style>${this.parent.file.SCROLL_CSS}</style>`
   }
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return ""
   }
 scrollCssNode

@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-const { ScrollFolder } = require("../scroll.js")
+const { ScrollCli } = require("../scroll.js")
 const { importSite } = require("./RssImporter.js")
 const fs = require("fs")
 const path = require("path")
@@ -31,8 +31,7 @@ cases.forEach(async url => {
 	try {
 		fs.mkdirSync(folder)
 		await importSite(url, folder)
-		const scroll = new ScrollFolder(folder)
-		scroll.buildFiles()
+		new ScrollCli().buildCommand(folder)
 	} catch (err) {
 		console.error(err)
 	}

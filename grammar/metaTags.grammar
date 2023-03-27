@@ -6,7 +6,7 @@ metaTagsNode
  extends abstractTopLevelSingleMetaNode
  description Adds meta tags like title, description, et cetera.
  javascript
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return ""
   }
   compile() {

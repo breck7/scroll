@@ -6,22 +6,25 @@ snippetsNode
  cruxFromId
  cells keywordCell groupNameWithOptionalFolderCell
  catchAllCellType groupNameWithOptionalFolderCell
- description Prints the snippets of all files in a folder that are in the named group.
+ description Prints the snippets of all files in the named group(s).
  example
   snippets index
  javascript
-  methodForGettingHtml = "getHtmlCodeForSnippetsPage"
+  getHtml(file) {
+    return file.htmlForEmbeddedVersionWithShortSnippets
+  }
   makeSnippet(file) {
    const snippet = new TreeNode(`div
    class scrollSnippetContainerComponent`)
    const div = snippet.getNode("div")
-   div.appendLineAndChildren("bern", file[this.methodForGettingHtml]())
+   div.appendLineAndChildren("bern", this.getHtml(file))
    return snippet.toString().replace(/\n/g, "\n ")
   }
   compile() {
    const file = this.parent.file
-   const files = file.folder.getFilesInGroups(this.getWordsFrom(1))
+   const files = file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
    const snippets = files.map(file => this.makeSnippet(file)).join(this.delimiter)
+   file.clearEmbeddingRelativeUrls(files)
    const code = `div
    class scrollColumnsComponent
    style column-width:35ch;
@@ -32,9 +35,11 @@ snippetsNode
 fullSnippetsNode
  extends snippetsNode
  cruxFromId
- description Prints the full contents of files in a folder that are in the named group.
+ description Prints the full contents of files that are in the named group.
  javascript
-  methodForGettingHtml = "getCompiledSnippet"
+  getHtml(file) {
+    return file.compiledEmbeddedVersion
+  }
 loopNode
  extends abstractAftertextNode
  cells keywordCell
@@ -53,12 +58,15 @@ loopNode
    } catch (err) {
     console.error(err)
     return ""
+   } finally {
+     this.teardown()
    }
   }
   get items() {
    const provider = this.getChildInstancesOfNodeTypeId("abstractItemsProviderNode")[0]
    return provider ? provider.items : []
   }
+  teardown() {}
 loopLineNode
  catchAllCellType stringCell
 abstractLoopConfigNode
@@ -90,7 +98,12 @@ loopGroupsNode
  description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[groupName]
  javascript
   get items() {
-   return this.parent.parent.file.folder.getFilesInGroups(this.getWordsFrom(1))
+   this.files = this.root.file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
+   return this.files
+  }
+  teardown() {
+    this.root.file.clearEmbeddingRelativeUrls(this.files)
+    delete this.files
   }
 loopJoinNode
  extends abstractLoopConfigNode

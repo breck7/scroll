@@ -1,7 +1,7 @@
 groupNameCell
  extends permalinkCell
 groupNameWithOptionalFolderCell
- description A group name combined with a folder path. Only used when referencing groups, not in posts.
+ description A group name optionally combined with a folder path. Only used when referencing groups, not in posts.
  extends stringCell
 groupsNode
  description Add this file to zero or more groups.

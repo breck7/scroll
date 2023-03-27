@@ -6,7 +6,7 @@ viewSourceNode
  extends abstractAftertextNode
  cruxFromId
  javascript
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return ""
   }
   compile() {

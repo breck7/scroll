@@ -1,7 +1,7 @@
 abstractScrollNode
  cells keywordCell
  javascript
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return this.compile()
   }
 abstractTopLevelSingleMetaNode
@@ -17,7 +17,7 @@ permalinkNode
  description When compiling, Scroll will save this file to {permalink}
  extends abstractTopLevelSingleMetaNode
  cells keywordCell permalinkCell
-scrollScriptNode
+scrollNode
  extensions scroll
  description Tools for thought that compile to HTML.
  root
@@ -29,14 +29,15 @@ scrollScriptNode
    this.file = file
    return this
   }
+  relativePathToCompileTarget = ""
   stack = []
   clearStack() {
    const result = this.stack.join("")
    this.stack = []
    return result
   }
-  compileSnippet() {
-   return this.map(child => (child.compileSnippet ? child.compileSnippet() : child.compile())).join("\n")
+  compileEmbeddedVersion() {
+   return this.map(child => (child.compileEmbeddedVersion ? child.compileEmbeddedVersion() : child.compile())).join("\n")
   }
   get footnotes() {
    if (this._footnotes === undefined) this._footnotes = this.filter(node => node.isFootnote)
