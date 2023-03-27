@@ -59,10 +59,26 @@ class ScrollDiskFileSystem {
   constructor() {}
 
   fileCache = {}
+  scrollFiles = {}
+  folderCache = {}
   _read(absolutePath) {
     const { fileCache } = this
     if (!fileCache[absolutePath]) fileCache[absolutePath] = { absolutePath, content: Disk.read(absolutePath).replace(/\r/g, ""), mtimeMs: fs.statSync(absolutePath) }
     return fileCache[absolutePath]
+  }
+
+  getScrollFile(absolutePath) {
+    if (this.scrollFiles[absolutePath]) return this.scrollFiles[absolutePath]
+    this.scrollFiles[absolutePath] = new ScrollFile(undefined, absolutePath, this)
+    return this.scrollFiles[absolutePath]
+  }
+
+  getScrollFilesInFolder(absolutePath) {
+    if (this.folderCache[absolutePath]) return this.folderCache[absolutePath]
+    this.folderCache[absolutePath] = this.list(absolutePath)
+      .filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
+      .map(filePath => this.getScrollFile(filePath))
+    return this.folderCache[absolutePath]
   }
 
   read(absolutePath) {
@@ -211,12 +227,10 @@ class ScrollInMemoryFileSystem extends ScrollDiskFileSystem {
 const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && file.groups.includes(groupName))
 
 class ScrollFile {
-  constructor(originalScrollCode, absoluteFilePath = "", folder = new ScrollFolder("", {})) {
-    const { fileSystem } = folder
+  constructor(originalScrollCode, absoluteFilePath = "", fileSystem = new ScrollInMemoryFileSystem({})) {
     this.fileSystem = fileSystem
     if (originalScrollCode === undefined) originalScrollCode = absoluteFilePath ? fileSystem.read(absoluteFilePath) : ""
 
-    this.folder = folder
     this.filePath = absoluteFilePath
     this.filename = path.basename(this.filePath)
     this.folderPath = path.dirname(absoluteFilePath) + "/"
@@ -246,6 +260,10 @@ class ScrollFile {
     this.scrollProgram.setFile(this)
     this.timestamp = dayjs(this.scrollProgram.get(scrollKeywords.date) ?? 0).unix()
     this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html" : "")
+  }
+
+  get allFiles() {
+    return this.fileSystem.getScrollFilesInFolder(this.folderPath)
   }
 
   setRelativePath(relativePath = "") {
@@ -437,20 +455,21 @@ class ScrollFile {
   }
 
   get primaryGroup() {
-    return getGroup(this.groups[0], this.folder.files)
+    return getGroup(this.groups[0], this.allFiles)
   }
 
   getFilesInGroupsForEmbedding(groupNames) {
     let arr = []
     groupNames.forEach(name => {
-      if (!name.includes("/")) return (arr = arr.concat(getGroup(name, this.folder.files)))
+      if (!name.includes("/")) return (arr = arr.concat(getGroup(name, this.allFiles)))
       const parts = name.split("/")
       const group = parts.pop()
       const relativePath = parts.join("/")
       const folderPath = path.join(this.folderPath, path.normalize(relativePath))
-      const folder = new ScrollFolder(folderPath)
-      folder.files.forEach(file => file.setRelativePath(relativePath + "/"))
-      arr = arr.concat(getGroup(group, folder.files))
+      const files = this.fileSystem.getScrollFilesInFolder(folderPath)
+      const filtered = getGroup(group, files)
+      filtered.forEach(file => file.setRelativePath(relativePath + "/"))
+      arr = arr.concat(filtered)
     })
 
     return lodash.sortBy(arr, file => file.timestamp).reverse()
@@ -504,7 +523,6 @@ class ScrollFolder {
     }
   }
 
-  relativePath = ""
   defaultScrollCompiler = defaultScrollCompiler.compiler
 
   get grammarErrors() {
@@ -514,13 +532,10 @@ class ScrollFolder {
       .flat()
   }
 
-  get fullScrollFilePaths() {
-    return this.fileSystem.list(this.folder).filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
-  }
-
   _initFiles() {
     if (this._files) return
-    const all = this.fullScrollFilePaths.map(fullFilePath => new ScrollFile(undefined, fullFilePath, this))
+    const fullScrollFilePaths = this.fileSystem.list(this.folder).filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
+    const all = fullScrollFilePaths.map(fullFilePath => new ScrollFile(undefined, fullFilePath, this.fileSystem))
     this._files = lodash.sortBy(all, file => file.timestamp).reverse()
   }
 
