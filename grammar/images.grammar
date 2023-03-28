@@ -8,20 +8,20 @@ abstractCaptionedNode
  inScope captionAftertextNode slashCommentNode
  cruxFromId
  javascript
-  compile() {
+  compile(compileSettings) {
    const caption = this.getNode("caption")
    const captionFig = caption ? `<figcaption>${caption.compile()}</figcaption>` : ""
-   return `<figure class="scrollCaptionedComponent">${this.figureContent}${captionFig}</figure>`
+   return `<figure class="scrollCaptionedComponent">${this.getFigureContent(compileSettings)}${captionFig}</figure>`
   }
 imageNode
  description An img tag.
  extends abstractCaptionedNode
  inScope classMarkupNode aftertextIdNode
  javascript
-  get figureContent() {
+  getFigureContent(compileSettings) {
    const file = this.root.file
    const src = this.getWord(1)
-   const linkRelativeToCompileTarget = this.root.relativePathToCompileTarget + src
+   const linkRelativeToCompileTarget = compileSettings ? (compileSettings.relativePath ?? "") : src
    let dimensionAttributes = ""
    // If its a local image, get the dimensions and put them in the HTML
    // to avoid flicker

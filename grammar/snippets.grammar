@@ -10,8 +10,21 @@ snippetsNode
  example
   snippets index
  javascript
-  getHtml(file) {
-    return file.htmlForEmbeddedVersionWithShortSnippets
+  getHtml(fileInfo) {
+    const {file, relativePath} = fileInfo
+    const {scrollProgram} = file
+    const snippetBreakNode = scrollProgram.getNode("endSnippet")
+    if (!snippetBreakNode) return scrollProgram.compileEmbeddedVersion({relativePath}) + file.viewSourceHtml
+    const indexOfBreak = snippetBreakNode.getIndex()
+    const linkRelativeToCompileTarget = relativePath + file.permalink
+    const joinChar = "\n"
+    const html = scrollProgram
+        .map((child, index) => (index >= indexOfBreak ? "" : child.compileEmbeddedVersion ? child.compileEmbeddedVersion({relativePath}) : child.compile({relativePath})))
+        .filter(i => i)
+        .join(joinChar)
+        .trim() +
+      `<a class="scrollContinueReadingLink" href="${linkRelativeToCompileTarget}">Continue reading...</a>`
+    return html + file.viewSourceHtml
   }
   makeSnippet(file) {
    const snippet = new TreeNode(`div
@@ -24,7 +37,6 @@ snippetsNode
    const file = this.parent.file
    const files = file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
    const snippets = files.map(file => this.makeSnippet(file)).join(this.delimiter)
-   file.clearEmbeddingRelativeUrls(files)
    const code = `div
    class scrollColumnsComponent
    style column-width:35ch;
@@ -37,8 +49,9 @@ fullSnippetsNode
  cruxFromId
  description Prints the full contents of files that are in the named group.
  javascript
-  getHtml(file) {
-    return file.compiledEmbeddedVersion
+  getHtml(fileInfo) {
+   const {file, relativePath} = fileInfo
+   return file.scrollProgram.compileEmbeddedVersion({relativePath}) + file.viewSourceHtml
   }
 loopNode
  extends abstractAftertextNode
@@ -59,7 +72,7 @@ loopNode
     console.error(err)
     return ""
    } finally {
-     this.teardown()
+    this.teardown()
    }
   }
   get items() {
@@ -98,12 +111,7 @@ loopGroupsNode
  description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[groupName]
  javascript
   get items() {
-   this.files = this.root.file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
-   return this.files
-  }
-  teardown() {
-    this.root.file.clearEmbeddingRelativeUrls(this.files)
-    delete this.files
+   return this.root.file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
   }
 loopJoinNode
  extends abstractLoopConfigNode

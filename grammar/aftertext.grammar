@@ -58,7 +58,8 @@ abstractAftertextNode
    return this.defaultClassName
   }
   defaultClassName = "scrollParagraphComponent"
-  compile() {
+  compile(compileSettings) {
+   this.compileSettings = compileSettings
    const { className } = this
    const classAttr = className ? `class="${this.className}"` : ""
    return `<${this.tag} ${this.divAttributes}${classAttr}>${this.text}</${this.tag}>`
@@ -249,7 +250,8 @@ linkNode
    const link = this.getWord(1)
    const isAbsoluteLink = link.startsWith("https://") || link.startsWith("http://")
    if (isAbsoluteLink) return link
-   return this.root.relativePathToCompileTarget + link
+   const relativePath = this.parent.compileSettings?.relativePath || ""
+   return relativePath + link
   }
   get attributes() {
    const attrs = [`href="${this.link}"`]

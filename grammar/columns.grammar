@@ -12,7 +12,7 @@ startColumnsNode
    const COLUMN_GAP = 20
    const maxColumns = parseInt(this.getWord(1) ?? 10)
    const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
-   return this.parent.clearStack() + `<div class="scrollColumnsComponent" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
+   return this.parent.clearSectionStack() + `<div class="scrollColumnsComponent" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
   }
 endColumnsNode
  extends abstractAftertextNode

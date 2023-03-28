@@ -4,7 +4,7 @@ sectionTitleNode
  crux #
  javascript
   compile() {
-   this.parent.stack.push("</div>")
+   this.parent.sectionStack.push("</div>")
    return `<div class="scrollSectionComponent">` + super.compile()
   }
   tag = "h3"

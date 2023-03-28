@@ -4,6 +4,19 @@ abstractScrollNode
   compileEmbeddedVersion() {
    return this.compile()
   }
+abstractScrollWithRequirementsNode
+ extends abstractScrollNode
+ javascript
+  get requirements() {
+    const {requireOnce} = this
+    if (this.root.alreadyRequired.has(requireOnce))
+      return ""
+    this.root.alreadyRequired.add(requireOnce)
+    return requireOnce + "\n\n"
+  }
+  compile() {
+    return this.requirements + this.compileInstance()
+  }
 abstractTopLevelSingleMetaNode
  description Use these keywords once per file.
  extends abstractScrollNode
@@ -29,15 +42,18 @@ scrollNode
    this.file = file
    return this
   }
-  relativePathToCompileTarget = ""
-  stack = []
-  clearStack() {
-   const result = this.stack.join("")
-   this.stack = []
+  sectionStack = []
+  clearSectionStack() {
+   const result = this.sectionStack.join("")
+   this.sectionStack = []
    return result
   }
-  compileEmbeddedVersion() {
-   return this.map(child => (child.compileEmbeddedVersion ? child.compileEmbeddedVersion() : child.compile())).join("\n")
+  alreadyRequired = new Set()
+  compileEmbeddedVersion(compileSettings) {
+   return this.map(child => (child.compileEmbeddedVersion ? child.compileEmbeddedVersion(compileSettings) : child.compile(compileSettings)))
+     .filter(i => i)
+     .join("\n")
+     .trim()
   }
   get footnotes() {
    if (this._footnotes === undefined) this._footnotes = this.filter(node => node.isFootnote)
@@ -50,7 +66,7 @@ scrollNode
  example
   # Hello world
   ## This is Scroll
-  * It compiles to HTML. Blank lines get turned into brs.
+  * It compiles to HTML.
   
   code
    // You can add code as well.

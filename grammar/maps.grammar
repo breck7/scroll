@@ -31,31 +31,33 @@ pointNode
 mapNode
  cruxFromId
  inScope latNode longNode zoomNode pointNode heightNode
- extends abstractScrollNode
+ extends abstractScrollWithRequirementsNode
  description Uses LeafletJs
  todo Make this only require once
  string requireOnce
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
  javascript
-  compile() {
+  compileInstance() {
    const height = 500
    const id = this._getUid()
-   return `<div id="map${id}" style="height: ${height}px;"></div>${this.requireOnce}<script>
-        {
-        const lat = ${this.get("lat") ?? 37.8}
-        const long = ${this.get("long") ?? 4}
-        const zoomLevel = ${this.get("zoom") ?? 4}
-        const points = ${JSON.stringify(this.findNodes("point").map(node => node.toObject()))}
-        const map = L.map("map${id}").setView([lat, long], zoomLevel)
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution: '<a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
-          maxZoom: 18
-        }).addTo(map)
-        points.forEach(point => {
-          L.marker([point.lat, point.long])
-            .addTo(map)
-            .bindPopup("<b>" +point.title + "</b><br />" + point.description)
-        })
-      }</script>`
+   return `<div id="map${id}" style="height: ${height}px;"></div>
+  <script>
+   {
+    const lat = ${this.get("lat") ?? 37.8}
+    const long = ${this.get("long") ?? 4}
+    const zoomLevel = ${this.get("zoom") ?? 4}
+    const points = ${JSON.stringify(this.findNodes("point").map(node => node.toObject()))}
+    const map = L.map("map${id}").setView([lat, long], zoomLevel)
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+     attribution: '<a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+     maxZoom: 18
+    }).addTo(map)
+    points.forEach(point => {
+     L.marker([point.lat, point.long])
+      .addTo(map)
+      .bindPopup("<b>" +point.title + "</b><br />" + point.description)
+    })
+   }
+  </script>`
   }
