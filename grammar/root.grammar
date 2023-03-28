@@ -43,7 +43,8 @@ scrollNode
    return this
   }
   compile(compileSettings) {
-    return this.map(child => child.compile(compileSettings)).filter(i => i).join("\n")
+    this.sectionStack = []
+    return this.map(child => child.compile(compileSettings)).filter(i => i).join("\n") + this.clearSectionStack()
   }
   sectionStack = []
   clearSectionStack() {
@@ -53,10 +54,11 @@ scrollNode
   }
   alreadyRequired = new Set()
   compileEmbeddedVersion(compileSettings) {
+   this.sectionStack = []
    return this.map(child => (child.compileEmbeddedVersion ? child.compileEmbeddedVersion(compileSettings) : child.compile(compileSettings)))
      .filter(i => i)
      .join("\n")
-     .trim()
+     .trim() + this.clearSectionStack()
   }
   get footnotes() {
    if (this._footnotes === undefined) this._footnotes = this.filter(node => node.isFootnote)

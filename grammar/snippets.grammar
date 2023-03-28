@@ -10,7 +10,7 @@ snippetsNode
  example
   snippets index
  javascript
-  getHtml(file, compileSettings) {
+  makeSnippet(file, compileSettings) {
     const {scrollProgram} = file
     const snippetBreakNode = scrollProgram.getNode("endSnippet")
     if (!snippetBreakNode) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
@@ -25,31 +25,22 @@ snippetsNode
       `<a class="scrollContinueReadingLink" href="${linkRelativeToCompileTarget}">Continue reading...</a>`
     return html + file.viewSourceHtml
   }
-  makeSnippet(file) {
-   const snippet = new TreeNode(`div
-   class scrollSnippetContainerComponent`)
-   const div = snippet.getNode("div")
-   const compileSettings = {relativePath: file.relativePath, alreadyRequired: this.root.alreadyRequired}
-   div.appendLineAndChildren("bern", this.getHtml(file.file, compileSettings))
-   return snippet.toString().replace(/\n/g, "\n ")
-  }
   compile() {
    const file = this.parent.file
    const files = file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
-   const snippets = files.map(file => this.makeSnippet(file)).join(this.delimiter)
-   const code = `div
-   class scrollColumnsComponent
-   style column-width:35ch;
-   ${snippets}`
-   return file.compileStumpCode(code)
+   const alreadyRequired = this.root.alreadyRequired
+   const snippets = files.map(file => {
+   const compileSettings = {relativePath: file.relativePath, alreadyRequired }
+   return `<div class="scrollSnippetContainerComponent">${this.makeSnippet(file.file, compileSettings)}</div>`
+   }).join("\n\n")
+   return `<div class="scrollColumnsComponent" style="column-width:35ch;">${snippets}</div>`
   }
-  delimiter = "\n "
 fullSnippetsNode
  extends snippetsNode
  cruxFromId
  description Prints the full contents of files that are in the named group.
  javascript
-  getHtml(file, compileSettings) {
+  makeSnippet(file, compileSettings) {
    return file.scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
   }
 loopNode
