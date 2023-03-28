@@ -6,6 +6,8 @@ startColumns
 
 # 63.1.0 3/27/2023
 - 🎉 Added `abstractScrollWithRequirementsNode` and use it for `copyButtons` and `map` to only include the external JS and CSS once.
+- 🎉 Added `compileSettings` as an input in all Scroll nodes rather than maintaining state on instances
+- 🏥 minor code cleanup and bug fixes
 
 # 63.0.1 3/27/2023
 - 🏥 cache hotfix for embedded snippets.
