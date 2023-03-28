@@ -7,15 +7,15 @@ abstractScrollNode
 abstractScrollWithRequirementsNode
  extends abstractScrollNode
  javascript
-  get requirements() {
+  compile(compileSettings) {
     const {requireOnce} = this
-    if (this.root.alreadyRequired.has(requireOnce))
-      return ""
-    this.root.alreadyRequired.add(requireOnce)
-    return requireOnce + "\n\n"
-  }
-  compile() {
-    return this.requirements + this.compileInstance()
+    const set = compileSettings?.alreadyRequired || this.root.alreadyRequired
+    let requireSnippet = ""
+    if (!set.has(requireOnce)) {
+      set.add(requireOnce)
+      requireSnippet = requireOnce + "\n\n"
+    }
+    return requireSnippet + this.compileInstance()
   }
 abstractTopLevelSingleMetaNode
  description Use these keywords once per file.

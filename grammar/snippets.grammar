@@ -10,16 +10,15 @@ snippetsNode
  example
   snippets index
  javascript
-  getHtml(fileInfo) {
-    const {file, relativePath} = fileInfo
+  getHtml(file, compileSettings) {
     const {scrollProgram} = file
     const snippetBreakNode = scrollProgram.getNode("endSnippet")
-    if (!snippetBreakNode) return scrollProgram.compileEmbeddedVersion({relativePath}) + file.viewSourceHtml
+    if (!snippetBreakNode) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
     const indexOfBreak = snippetBreakNode.getIndex()
-    const linkRelativeToCompileTarget = relativePath + file.permalink
+    const linkRelativeToCompileTarget = compileSettings.relativePath + file.permalink
     const joinChar = "\n"
     const html = scrollProgram
-        .map((child, index) => (index >= indexOfBreak ? "" : child.compileEmbeddedVersion ? child.compileEmbeddedVersion({relativePath}) : child.compile({relativePath})))
+        .map((child, index) => (index >= indexOfBreak ? "" : child.compileEmbeddedVersion ? child.compileEmbeddedVersion(compileSettings) : child.compile(compileSettings)))
         .filter(i => i)
         .join(joinChar)
         .trim() +
@@ -30,7 +29,8 @@ snippetsNode
    const snippet = new TreeNode(`div
    class scrollSnippetContainerComponent`)
    const div = snippet.getNode("div")
-   div.appendLineAndChildren("bern", this.getHtml(file))
+   const compileSettings = {relativePath: file.relativePath, alreadyRequired: this.root.alreadyRequired}
+   div.appendLineAndChildren("bern", this.getHtml(file.file, compileSettings))
    return snippet.toString().replace(/\n/g, "\n ")
   }
   compile() {
@@ -49,9 +49,8 @@ fullSnippetsNode
  cruxFromId
  description Prints the full contents of files that are in the named group.
  javascript
-  getHtml(fileInfo) {
-   const {file, relativePath} = fileInfo
-   return file.scrollProgram.compileEmbeddedVersion({relativePath}) + file.viewSourceHtml
+  getHtml(file, compileSettings) {
+   return file.scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
   }
 loopNode
  extends abstractAftertextNode
