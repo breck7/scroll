@@ -1,8 +1,21 @@
 abstractScrollNode
  cells keywordCell
  javascript
-  compileEmbeddedVersion() {
-   return this.compile()
+  compileEmbeddedVersion(compileSettings) {
+   return this.compile(compileSettings)
+  }
+abstractScrollWithRequirementsNode
+ extends abstractScrollNode
+ javascript
+  compile(compileSettings) {
+    const {requireOnce} = this
+    const set = compileSettings?.alreadyRequired || this.root.alreadyRequired
+    let requireSnippet = ""
+    if (!set.has(requireOnce)) {
+      set.add(requireOnce)
+      requireSnippet = requireOnce + "\n\n"
+    }
+    return requireSnippet + this.compileInstance()
   }
 abstractTopLevelSingleMetaNode
  description Use these keywords once per file.
@@ -29,15 +42,23 @@ scrollNode
    this.file = file
    return this
   }
-  relativePathToCompileTarget = ""
-  stack = []
-  clearStack() {
-   const result = this.stack.join("")
-   this.stack = []
+  compile(compileSettings) {
+    this.sectionStack = []
+    return this.map(child => child.compile(compileSettings)).filter(i => i).join("\n") + this.clearSectionStack()
+  }
+  sectionStack = []
+  clearSectionStack() {
+   const result = this.sectionStack.join("")
+   this.sectionStack = []
    return result
   }
-  compileEmbeddedVersion() {
-   return this.map(child => (child.compileEmbeddedVersion ? child.compileEmbeddedVersion() : child.compile())).join("\n")
+  alreadyRequired = new Set()
+  compileEmbeddedVersion(compileSettings) {
+   this.sectionStack = []
+   return this.map(child => (child.compileEmbeddedVersion ? child.compileEmbeddedVersion(compileSettings) : child.compile(compileSettings)))
+     .filter(i => i)
+     .join("\n")
+     .trim() + this.clearSectionStack()
   }
   get footnotes() {
    if (this._footnotes === undefined) this._footnotes = this.filter(node => node.isFootnote)
@@ -50,7 +71,7 @@ scrollNode
  example
   # Hello world
   ## This is Scroll
-  * It compiles to HTML. Blank lines get turned into brs.
+  * It compiles to HTML.
   
   code
    // You can add code as well.

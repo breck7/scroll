@@ -14,7 +14,7 @@ printFeedNode
   compile() {
    const dayjs = require("dayjs")
    const file = this.root.file
-   const files = file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
+   const files = file.getFilesInGroupsForEmbedding(this.getWordsFrom(1)).map(file => file.file)
    const { title, baseUrl, description } = file
    return `<?xml version="1.0" encoding="ISO-8859-1" ?>
   <rss version="2.0">

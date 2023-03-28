@@ -3,7 +3,7 @@ blankLineNode
  cells blankCell
  javascript
   compile() {
-   return this.parent.clearStack()
+   return this.parent.clearSectionStack()
   }
  pattern ^$
  tags doNotSynthesize

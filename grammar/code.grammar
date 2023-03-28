@@ -16,22 +16,27 @@ codeWithLanguageNode
  pattern ^[a-zA-Z0-9_]+Code$
 copyButtonsNode
  cruxFromId
- extends abstractScrollNode
+ extends abstractScrollWithRequirementsNode
  description Make code snippets copyable.
  javascript
-  compile() {
-   return `
-      <script>document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollCodeBlockComponent").forEach(block => {
-   if (!navigator.clipboard) return
-   const button = document.createElement("span")
-   button.classList.add("scrollCopyButton")
-   block.appendChild(button)
-   button.addEventListener("click", async () => {
-     await navigator.clipboard.writeText(block.innerText)
-     button.classList.add("scrollCopied")
-   })
-   }))</script>`
+  compileInstance() {
+   return ""
   }
+ string requireOnce
+  <script>
+  document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollCodeBlockComponent").forEach(block =>
+   {
+    if (!navigator.clipboard) return
+    const button = document.createElement("span")
+    button.classList.add("scrollCopyButton")
+    block.appendChild(button)
+    button.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(block.innerText)
+      button.classList.add("scrollCopied")
+    })
+   }
+  ))
+  </script>
 belowAsCodeNode
  description Print the Scroll code of the next node.
  extends abstractScrollNode

@@ -327,13 +327,6 @@ class ScrollFile {
     return this.fileSystem.getScrollFilesInFolder(this.folderPath)
   }
 
-  setRelativePath(relativePath = "") {
-    this.scrollProgram.relativePathToCompileTarget = relativePath
-    this.relativePath = relativePath
-  }
-
-  relativePath = ""
-
   evalVariables(code) {
     const codeAsTree = new TreeNode(code)
     // Process variables
@@ -484,34 +477,6 @@ class ScrollFile {
     return viewSourceBaseUrl ? viewSourceBaseUrl.replace(/\/$/, "") + "/" + filename : filename
   }
 
-  _compiled = ""
-  get compiled() {
-    if (!this._compiled) this._compiled = this.scrollProgram.compile()
-    return this._compiled
-  }
-
-  _compiledEmbeddedVersion = ""
-  get compiledEmbeddedVersion() {
-    if (!this._compiledEmbeddedVersion) this._compiledEmbeddedVersion = this.scrollProgram.compileEmbeddedVersion() + this.viewSourceHtml
-    return this._compiledEmbeddedVersion
-  }
-
-  get viewSourceHtml() {
-    return this.compileStumpCode(`p
- class scrollFileViewSourceUrlComponent
- a View source
-  href ${this.viewSourceUrl}`)
-  }
-
-  get html() {
-    return this.compiled.trim()
-  }
-
-  // todo: cleanup
-  get linkRelativeToCompileTarget() {
-    return this.relativePath + this.permalink
-  }
-
   get groups() {
     return (this.scrollProgram.get(scrollKeywords.groups) || "").split(" ")
   }
@@ -523,42 +488,42 @@ class ScrollFile {
   getFilesInGroupsForEmbedding(groupNames) {
     let arr = []
     groupNames.forEach(name => {
-      if (!name.includes("/")) return (arr = arr.concat(getGroup(name, this.allFiles)))
+      if (!name.includes("/"))
+        return (arr = arr.concat(
+          getGroup(name, this.allFiles).map(file => {
+            return { file, relativePath: "" }
+          })
+        ))
       const parts = name.split("/")
       const group = parts.pop()
       const relativePath = parts.join("/")
       const folderPath = path.join(this.folderPath, path.normalize(relativePath))
       const files = this.fileSystem.getScrollFilesInFolder(folderPath)
-      const filtered = getGroup(group, files)
-      filtered.forEach(file => file.setRelativePath(relativePath + "/"))
+      const filtered = getGroup(group, files).map(file => {
+        return { file, relativePath: relativePath + "/" }
+      })
+
       arr = arr.concat(filtered)
     })
 
-    return lodash.sortBy(arr, file => file.timestamp).reverse()
+    return lodash.sortBy(arr, file => file.file.timestamp).reverse()
   }
 
-  clearEmbeddingRelativeUrls(files) {
-    // todo: clean up
-    files.forEach(file => {
-      file.setRelativePath("")
-      delete file._compiledEmbeddedVersion
-    })
+  get viewSourceHtml() {
+    return this.compileStumpCode(`p
+ class scrollFileViewSourceUrlComponent
+ a View source
+  href ${this.viewSourceUrl}`)
   }
 
-  get htmlForEmbeddedVersionWithShortSnippets() {
-    const snippetBreakNode = this.scrollProgram.getNode(scrollKeywords.endSnippet)
-    if (!snippetBreakNode) return this.compiledEmbeddedVersion
-    const indexOfBreak = snippetBreakNode.getIndex()
+  _compiledStandalonePage = ""
+  get compiled() {
+    if (!this._compiledStandalonePage) this._compiledStandalonePage = this.scrollProgram.compile().trim()
+    return this._compiledStandalonePage
+  }
 
-    const { scrollProgram, linkRelativeToCompileTarget } = this
-    const joinChar = scrollProgram._getChildJoinCharacter()
-    const html =
-      scrollProgram
-        .map((child, index) => (index >= indexOfBreak ? "" : child.compileEmbeddedVersion ? child.compileEmbeddedVersion() : child.compile()))
-        .filter(i => i)
-        .join(joinChar) + `<a class="scrollContinueReadingLink" href="${linkRelativeToCompileTarget}">Continue reading...</a>`
-
-    return html + this.viewSourceHtml
+  get html() {
+    return this.compiled
   }
 
   // todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)

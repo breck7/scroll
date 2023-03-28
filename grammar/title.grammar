@@ -3,9 +3,9 @@ sectionTitleNode
  extends thoughtNode
  crux #
  javascript
-  compile() {
-   this.parent.stack.push("</div>")
-   return `<div class="scrollSectionComponent">` + super.compile()
+  compile(compileSettings) {
+   this.parent.sectionStack.push("</div>")
+   return `<div class="scrollSectionComponent">` + super.compile(compileSettings)
   }
   tag = "h3"
 titleNode
@@ -13,12 +13,12 @@ titleNode
  extends sectionTitleNode
  crux title
  javascript
-  compile() {
+  compile(compileSettings) {
    // Hacky, I know.
    const { permalink } = this.parent.file
-   if (!permalink) return super.compile()
+   if (!permalink) return super.compile(compileSettings)
    const newLine = this.appendLine(`link ${permalink}`)
-   const compiled = super.compile()
+   const compiled = super.compile(compileSettings)
    newLine.destroy()
    return compiled
   }
