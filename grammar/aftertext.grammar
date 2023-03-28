@@ -302,10 +302,10 @@ thoughtNode
  description A thought.
  crux *
  javascript
-  compile() {
+  compile(compileSettings) {
    // Hacky, I know.
    const newLine = this.appendLine("wrapsOn")
-   const compiled = super.compile()
+   const compiled = super.compile(compileSettings)
    newLine.destroy()
    return compiled
   }
