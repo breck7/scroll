@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 64.0.0 3/28/2023
+- 🎉 Upgrade to Jtree 70 to get Grammar 4. Now comments and blank lines are okay in grammars.
+
 # 63.1.0 3/27/2023
 - 🎉 Added `abstractScrollWithRequirementsNode` and use it for `copyButtons` and `map` to only include the external JS and CSS once.
 - 🎉 Added `compileSettings` as an input in all Scroll nodes rather than maintaining state on instances

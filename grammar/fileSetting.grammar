@@ -1,4 +1,4 @@
-abstractFolderSettingNode
+abstractFileSettingNode
  extends abstractScrollNode
  cells keywordCell
  javascript
@@ -6,11 +6,11 @@ abstractFolderSettingNode
    return ""
   }
 abstractUrlSettingNode
- extends abstractFolderSettingNode
+ extends abstractFileSettingNode
  cells keywordCell urlCell
  cruxFromId
 abstractSiteStringSettingNode
- extends abstractFolderSettingNode
+ extends abstractFileSettingNode
  catchAllCellType stringCell
  cruxFromId
 baseUrlNode
@@ -27,6 +27,10 @@ gitNode
  extends abstractUrlSettingNode
 emailNode
  description Email address for the site owner.
- extends abstractFolderSettingNode
+ extends abstractFileSettingNode
  cruxFromId
  cells keywordCell emailAddressCell
+permalinkNode
+ description When compiling, Scroll will save this file to {permalink}
+ extends abstractTopLevelSingleMetaNode
+ cells keywordCell permalinkCell

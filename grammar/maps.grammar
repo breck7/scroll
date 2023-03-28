@@ -33,7 +33,7 @@ mapNode
  inScope latNode longNode zoomNode pointNode heightNode
  extends abstractScrollWithRequirementsNode
  description Uses LeafletJs
- todo Make this only require once
+ // todo Make this only require once
  string requireOnce
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>

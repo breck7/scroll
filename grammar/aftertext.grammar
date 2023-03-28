@@ -1,5 +1,4 @@
-tooling
- Related work
+// Related work:
  CSS is great for text selector ideas: https://www.w3schools.com/cssref/css_selectors.asp
  Roff has a lot of related markup ideas: https://www.systutorials.com/docs/linux/man/7-groff_man/
 abstractAftertextNode
@@ -294,7 +293,7 @@ classMarkupNode
    return words.length ? words.join(" ") : this.parent.content
   }
 thoughtNode
- todo Perhaps rewrite this from scratch and move out of aftertext.
+ // todo Perhaps rewrite this from scratch and move out of aftertext.
  extends abstractAftertextNode
  catchAllCellType stringCell
  example
