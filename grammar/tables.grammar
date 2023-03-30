@@ -24,7 +24,7 @@ abstractTableNode
   }
   get tableBody() {
    const { delimiter } = this
-   return this.getTopDownArray()
+   return this.topDownArray
     .slice(1)
     .map(node => `<tr>${node.toRow(this.columns, delimiter)}</tr>`)
     .join("\n")
@@ -65,7 +65,7 @@ kpiTableNode
    $456 Revenue
  javascript
   get tableBody() {
-   const items = this.getTopDownArray()
+   const items = this.topDownArray
    let str = ""
    for (let i = 0; i < items.length; i = i + 3) {
     str += this.makeRow(items.slice(i, i + 3))

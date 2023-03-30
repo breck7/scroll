@@ -224,17 +224,14 @@ class ScrollDiskFileSystem {
         // Strip scroll content
         return new TreeNode(content)
           .filter(node => node.getLine().match(grammarDefinitionRegex))
-          .map(node => node.toString())
+          .map(node => node.asString)
           .join("\n")
       })
       .join("\n")
       .trim()
 
     // todo: clean up jtree so we are using supported methods (perhaps add a formatOptions that allows you to tell Grammar not to run prettier on js nodes)
-    return new grammarNode(baseGrammarCode + asOneFile)
-      ._sortNodesByInScopeOrder()
-      ._sortWithParentNodeTypesUpTop()
-      .toString()
+    return new grammarNode(baseGrammarCode + asOneFile)._sortNodesByInScopeOrder()._sortWithParentNodeTypesUpTop().asString
   }
 
   compilerCache = {}
@@ -359,7 +356,7 @@ class ScrollFile {
     const keys = Object.keys(varMap)
     if (!keys.length) return code
 
-    let codeAfterVariableSubstitution = codeAsTree.toString()
+    let codeAfterVariableSubstitution = codeAsTree.asString
     // Todo: speed up. build a template?
     Object.keys(varMap).forEach(key => (codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])))
 

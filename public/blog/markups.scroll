@@ -25,20 +25,20 @@ abstractMarkupLangNode
   }
 markdownNode
  description If npm package `marked` is installed globally will compile markdown.
- crux markdown
+ cruxFromId
  extends abstractMarkupLangNode
  javascript
   packageName = "marked"
   importName = "marked"
 textileNode
  description If npm package `textile-js` is installed globally will compile textile.
- crux textile
+ cruxFromId
  extends abstractMarkupLangNode
  javascript
   packageName = "textile-js"
 bbCodeNode
  description If npm package `ya-bbcode` is installed globally will compile BBcode.
- crux bbCode
+ cruxFromId
  extends abstractMarkupLangNode
  javascript
   packageName = "ya-bbcode"

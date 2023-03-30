@@ -113,7 +113,7 @@ testTree.file = areEqual => {
 }
 
 testTree.ensureNoErrorsInGrammar = areEqual => {
-	const grammarErrors = new grammarNode(new DefaultScrollCompiler().getDefinition().toString()).getAllErrors().map(err => err.toObject())
+	const grammarErrors = new grammarNode(new DefaultScrollCompiler().definition.asString).getAllErrors().map(err => err.toObject())
 	if (grammarErrors.length) console.log(grammarErrors)
 	areEqual(grammarErrors.length, 0, "no errors in scroll standard library grammar")
 }

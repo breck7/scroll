@@ -1,0 +1,76 @@
+loopNode
+ extends abstractAftertextNode
+ cells keywordCell
+ description Iterate over files, lines or words, evaluating code and joining the resulting HTML.
+ cruxFromId
+ inScope abstractItemsProviderNode
+ joinNode
+  extends abstractLoopConfigNode
+  description HTML to use to join the items.
+ limitNode
+  extends abstractLoopConfigNode
+  description HTML to use to join the items.
+ javascriptNode
+  extends abstractLoopConfigNode
+  description Javascript to execute for each file in the loop.
+ javascript
+  compile() {
+   const code = this.get("javascript")
+   const joinWith = this.get("join") ?? ""
+   try {
+    const limit = this.get("limit")
+    let items = this.items
+    if (limit) items = items.slice(0, parseInt(limit))
+    return items.map((item, index) => eval(code)).join(joinWith)
+   } catch (err) {
+    console.error(err)
+    return ""
+   } finally {
+    this.teardown()
+   }
+  }
+  get items() {
+   const provider = this.getChildInstancesOfNodeTypeId("abstractItemsProviderNode")[0]
+   return provider ? provider.items : []
+  }
+  teardown() {}
+
+abstractLoopConfigNode
+ cells keywordCell
+ cruxFromId
+ catchAllCellType stringCell
+
+// Extend this if you want to create a new provider
+abstractItemsProviderNode
+ cells keywordCell
+
+// Some basic providers:
+loopLinesNode
+ crux lines
+ extends abstractItemsProviderNode
+ description Iterate over the provided lines.
+ catchAllNodeType loopLineNode
+ loopLineNode
+  catchAllCellType stringCell
+ javascript
+  get items() {
+   return this.map(node => node.asString)
+  }
+loopWordsNode
+ crux words
+ extends abstractItemsProviderNode
+ catchAllCellType stringCell
+ description Iterate over the provided words.
+ javascript
+  get items() {
+   return this.getWordsFrom(1)
+  }
+loopGroupsNode
+ crux groups
+ extends abstractItemsProviderNode
+ catchAllCellType groupNameWithOptionalFolderCell
+ description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[groupName]
+ javascript
+  get items() {
+   return this.root.file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
+  }

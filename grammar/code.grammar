@@ -43,21 +43,21 @@ belowAsCodeNode
  catchAllCellType integerCell
  cruxFromId
  javascript
-  method = "getNext"
+  method = "next"
   get code() {
    const { method } = this
    let code = ""
    let howMany = parseInt(this.getWord(1))
    if (!howMany || isNaN(howMany)) howMany = 1
    let nodes = []
-   let next = this[method]()
+   let next = this[method]
    while (howMany) {
     nodes.push(next)
-    next = next[method]()
+    next = next[method]
     howMany--
    }
    if (this.reverseNodes) nodes.reverse()
-   return nodes.map(node => node.toString()).join("\n")
+   return nodes.map(node => node.asString).join("\n")
   }
   reverseNodes = false
   compile() {
@@ -67,5 +67,5 @@ aboveAsCodeNode
  description Print the Scroll code for the previous node.
  extends belowAsCodeNode
  javascript
-  method = "getPrevious"
+  method = "previous"
   reverseNodes = true

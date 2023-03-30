@@ -8,5 +8,5 @@ chatNode
  extends abstractScrollNode
  javascript
   compile() {
-   return this.map((line, index) => `<div class="scrollDialogueComponent ${index % 2 ? "scrollDialogueComponentRight" : "scrollDialogueComponentLeft"}"><span>${line.toString()}</span></div>`).join("")
+   return this.map((line, index) => `<div class="scrollDialogueComponent ${index % 2 ? "scrollDialogueComponentRight" : "scrollDialogueComponentLeft"}"><span>${line.asString}</span></div>`).join("")
   }

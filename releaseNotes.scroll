@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 65.0.0 3/30/2023
+- 🎉 Upgrade to Jtree 71 to get Grammar 5 wiith scoped parsers.
+
 # 64.0.0 3/28/2023
 - 🎉 Upgrade to Jtree 70 to get Grammar 4. Now comments and blank lines are okay in grammars.
 

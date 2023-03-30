@@ -9,7 +9,7 @@ endColumns
 loop
  groups index subfolder/index
  join ·
- javascript `${item.title}`
+ javascript `${item.file.title}`
 
 ---
 
@@ -23,7 +23,7 @@ loop
 loop
  groups index subfolder/index
  join <br>
- javascript `<a href="${item.linkRelativeToCompileTarget}">${item.title}</a>`
+ javascript `<a href="${item.relativePath + item.file.permalink}">${item.file.title}</a>`
 
 ---
 
