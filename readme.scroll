@@ -184,7 +184,7 @@ code
 
 ? Is there a place I can play with the Scroll grammar?
 * Yes. In the Tree Language Designer.
- https://jtree.treenotation.org/designer#url%20https%3A%2F%2Ftry.scroll.pub%2FscrollScript.grammar Tree Language Designer
+ https://jtree.treenotation.org/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.grammar Tree Language Designer
 
 ? How do I recursively build multiple scrolls in child folders?
 code
