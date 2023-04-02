@@ -1,39 +1,39 @@
-abstractPointConfigNode
+abstractPointConfigParser
  // todo: scoped parsers should support abstract types
  cruxFromId
  cells keywordCell
  catchAllCellType stringCell
  single
 
-latNode
+latParser
  cells keywordCell floatCell
  cruxFromId
  single
-longNode
+longParser
  cells keywordCell floatCell
  cruxFromId
  single
 
-mapNode
+mapParser
  cruxFromId
- inScope latNode longNode
- zoomNode
+ inScope latParser longParser
+ zoomParser
   cells keywordCell integerCell
   cruxFromId
   single
- heightNode
+ heightParser
   cells keywordCell floatCell
   cruxFromId
   single
- pointNode
+ pointParser
   cells keywordCell
-  inScope latNode longNode
+  inScope latParser longParser
   cruxFromId
-  titleNode
-   extends abstractPointConfigNode
-  descriptionNode
-   extends abstractPointConfigNode
- extends abstractScrollWithRequirementsNode
+  titleParser
+   extends abstractPointConfigParser
+  descriptionParser
+   extends abstractPointConfigParser
+ extends abstractScrollWithRequirementsParser
  description Uses LeafletJs
  // todo Make this only require once
  string requireOnce

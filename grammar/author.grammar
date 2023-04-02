@@ -1,6 +1,6 @@
-authorNode
+authorParser
  description Prints an author byline with an optional link to a page for the author.
- extends abstractScrollNode
+ extends abstractScrollParser
  cruxFromId
  cells keywordCell urlCell
  catchAllCellType personNameCell

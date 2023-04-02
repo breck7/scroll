@@ -1,6 +1,6 @@
-sectionTitleNode
+sectionTitleParser
  description Compiles to an html h3 tag.
- extends thoughtNode
+ extends thoughtParser
  crux #
  javascript
   compile(compileSettings) {
@@ -8,9 +8,9 @@ sectionTitleNode
    return `<div class="scrollSectionComponent">` + super.compile(compileSettings)
   }
   tag = "h3"
-titleNode
+titleParser
  description Title of the page for meta tags and also compiles to an html h1 tag.
- extends sectionTitleNode
+ extends sectionTitleParser
  crux title
  javascript
   compile(compileSettings) {
@@ -24,15 +24,15 @@ titleNode
   }
   defaultClassName = "scrollTitleComponent"
   tag = "h1"
-sectionSubTitleNode
+sectionSubTitleParser
  description Compiles to an html h4 tag.
- extends sectionTitleNode
+ extends sectionTitleParser
  crux ##
  javascript
   tag = "h4"
-questionAftertextNode
+questionAftertextParser
  description A question.
- extends sectionTitleNode
+ extends sectionTitleParser
  crux ?
  javascript
   tag = "h4"

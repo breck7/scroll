@@ -3,11 +3,11 @@ groupNameCell
 groupNameWithOptionalFolderCell
  description A group name optionally combined with a folder path. Only used when referencing groups, not in posts.
  extends stringCell
-groupsNode
+groupsParser
  description Add this file to zero or more groups.
  cruxFromId
  example
   groups index.html
- extends abstractTopLevelSingleMetaNode
+ extends abstractTopLevelSingleMetaParser
  cells keywordCell
  catchAllCellType groupNameCell

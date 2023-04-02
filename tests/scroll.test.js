@@ -5,7 +5,7 @@ const fs = require("fs")
 const path = require("path")
 const { ScrollCli, ScrollDiskFileSystem, ScrollInMemoryFileSystem, scrollKeywords, ScrollFile, DefaultScrollCompiler } = require("../scroll.js")
 const { Disk } = require("jtree/products/Disk.node.js")
-const grammarNode = require("jtree/products/grammar.nodejs.js")
+const grammarParser = require("jtree/products/grammar.nodejs.js")
 const shell = require("child_process").execSync
 
 // todo: 1) rss import tests 2) grammar errors test 4) scroll errors tests
@@ -35,7 +35,7 @@ testTree.compileAftertext = areEqual => {
 	})
 }
 
-testTree.thoughtNode = areEqual => {
+testTree.thoughtParser = areEqual => {
 	// Arrange
 	const program = new DefaultScrollCompiler(`* foo`)
 
@@ -88,8 +88,8 @@ testTree.inMemoryFileSystem = areEqual => {
 		"/header.scroll": "import settings.scroll",
 		"/settings.scroll": "* This should be imported",
 		"/pages/about.scroll": `import ../header.scroll\ntitle About us
-pNode
- extends thoughtNode
+pParser
+ extends thoughtParser
  crux p
 p A custom grammar`
 	}
@@ -113,7 +113,7 @@ testTree.file = areEqual => {
 }
 
 testTree.ensureNoErrorsInGrammar = areEqual => {
-	const grammarErrors = new grammarNode(new DefaultScrollCompiler().definition.asString).getAllErrors().map(err => err.toObject())
+	const grammarErrors = new grammarParser(new DefaultScrollCompiler().definition.asString).getAllErrors().map(err => err.toObject())
 	if (grammarErrors.length) console.log(grammarErrors)
 	areEqual(grammarErrors.length, 0, "no errors in scroll standard library grammar")
 }

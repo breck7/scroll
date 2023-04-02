@@ -72,8 +72,8 @@ code
   step Bake for 10 minutes
 * Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just define it yourself using GrammarLinked, extending your dialect of Scroll:
 code
- recipeNode
-  extends abstractScrollNode
+ recipeParser
+  extends abstractScrollParser
   crux recipe
   javascript
    compile() {

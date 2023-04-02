@@ -1,7 +1,7 @@
-dayjsNode
+dayjsParser
  description Advanced directive that evals some Javascript code in an environment including "dayjs".
  cruxFromId
- extends abstractAftertextDirectiveNode
+ extends abstractAftertextDirectiveParser
  javascript
   getInserts() {
    const dayjs = require("dayjs")

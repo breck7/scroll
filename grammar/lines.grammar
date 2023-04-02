@@ -1,7 +1,7 @@
-horizontalRuleNode
+horizontalRuleParser
  crux ---
  description Prints an html <hr> tag
- extends abstractAftertextNode
+ extends abstractAftertextParser
  javascript
   compile() {
    return `<hr>`

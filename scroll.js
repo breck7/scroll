@@ -12,9 +12,9 @@ const { TreeNode } = require("jtree/products/TreeNode.js")
 const { Disk } = require("jtree/products/Disk.node.js")
 const { Utils } = require("jtree/products/Utils.js")
 const { HandGrammarProgram } = require("jtree/products/GrammarLanguage.js")
-const grammarNode = require("jtree/products/grammar.nodejs.js")
-const stump = require("jtree/products/stump.nodejs.js")
-const hakon = require("jtree/products/hakon.nodejs.js")
+const grammarParser = require("jtree/products/grammar.nodejs.js")
+const stumpParser = require("jtree/products/stump.nodejs.js")
+const hakonParser = require("jtree/products/hakon.nodejs.js")
 const packageJson = require("./package.json")
 
 // Constants
@@ -22,7 +22,7 @@ const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const GRAMMAR_EXTENSION = ".grammar"
 // This is all the CSS
-const SCROLL_CSS = new hakon(Disk.read(path.join(__dirname, "scroll.hakon"))).compile()
+const SCROLL_CSS = new hakonParser(Disk.read(path.join(__dirname, "scroll.hakon"))).compile()
 // Todo: how to keep in sync with grammar?
 const scrollKeywords = {
   title: "title",
@@ -88,7 +88,7 @@ class ScrollDiskFileSystem {
     folderPath = this.ensureFolderEndsInSlash(folderPath)
     this.getScrollFilesInFolder(folderPath) // Init all compilers
     return Object.values(this.compilerCache)
-      .map(compiler => new grammarNode(compiler.grammarCode).getAllErrors().map(err => err.toObject()))
+      .map(compiler => new grammarParser(compiler.grammarCode).getAllErrors().map(err => err.toObject()))
       .flat()
   }
 
@@ -170,7 +170,7 @@ class ScrollDiskFileSystem {
   doesFileHaveGrammarDefinitions(absoluteFilePath) {
     if (!absoluteFilePath) return false
     const { _grammarExpandersCache } = this
-    if (_grammarExpandersCache[absoluteFilePath] === undefined) _grammarExpandersCache[absoluteFilePath] = !!this.read(absoluteFilePath).match(/^[a-zA-Z0-9_]+Node/gm)
+    if (_grammarExpandersCache[absoluteFilePath] === undefined) _grammarExpandersCache[absoluteFilePath] = !!this.read(absoluteFilePath).match(/^[a-zA-Z0-9_]+Parser/gm)
 
     return _grammarExpandersCache[absoluteFilePath]
   }
@@ -216,7 +216,7 @@ class ScrollDiskFileSystem {
   }
 
   getOneGrammarFromFiles(filePaths, baseGrammarCode) {
-    const grammarDefinitionRegex = /[a-zA-Z0-9_]+Node/
+    const grammarDefinitionRegex = /[a-zA-Z0-9_]+Parser/
     const asOneFile = filePaths
       .map(filePath => {
         const content = this.read(filePath)
@@ -231,7 +231,7 @@ class ScrollDiskFileSystem {
       .trim()
 
     // todo: clean up jtree so we are using supported methods (perhaps add a formatOptions that allows you to tell Grammar not to run prettier on js nodes)
-    return new grammarNode(baseGrammarCode + asOneFile)._sortNodesByInScopeOrder()._sortWithParentNodeTypesUpTop().asString
+    return new grammarParser(baseGrammarCode + asOneFile)._sortNodesByInScopeOrder()._sortWithParentParsersUpTop().asString
   }
 
   compilerCache = {}
@@ -244,7 +244,7 @@ class ScrollDiskFileSystem {
     const hit = compilerCache[key]
     if (hit) return hit
     const grammarCode = this.getOneGrammarFromFiles(filePaths, baseGrammarCode)
-    const compiler = new HandGrammarProgram(grammarCode).compileAndReturnRootConstructor()
+    const compiler = new HandGrammarProgram(grammarCode).compileAndReturnRootParser()
     compilerCache[key] = {
       grammarCode,
       compiler
@@ -295,13 +295,13 @@ class ScrollFile {
 
     // PASS 1: IMPORT PASS
     let afterImportPass = originalScrollCode
-    let filepathsWithGrammarDefinitions = []
+    let filepathsWithParserDefinitions = []
     if (absoluteFilePath) {
       // Do not build a file marked 'importOnly'
       this.shouldBuild = !fileSystem.getFileAsTree(absoluteFilePath).has(scrollKeywords.importOnly)
       const importResults = this.importResults
-      filepathsWithGrammarDefinitions = importResults.importFilePaths.filter(filename => fileSystem.doesFileHaveGrammarDefinitions(filename))
-      if (fileSystem.doesFileHaveGrammarDefinitions(absoluteFilePath)) filepathsWithGrammarDefinitions.push(absoluteFilePath)
+      filepathsWithParserDefinitions = importResults.importFilePaths.filter(filename => fileSystem.doesFileHaveGrammarDefinitions(filename))
+      if (fileSystem.doesFileHaveGrammarDefinitions(absoluteFilePath)) filepathsWithParserDefinitions.push(absoluteFilePath)
       afterImportPass = importResults.code
     }
 
@@ -309,12 +309,12 @@ class ScrollFile {
     const afterVariablePass = this.evalVariables(afterImportPass)
 
     // PASS 3: BUILD CUSTOM COMPILER PASS, IF THERE ARE CUSTOM GRAMMAR NODES DEFINED
-    const compiler = filepathsWithGrammarDefinitions.length === 0 ? DefaultScrollCompiler : fileSystem.getCompiler(filepathsWithGrammarDefinitions, defaultScrollCompiler.grammarCode + "\n").compiler
+    const compiler = filepathsWithParserDefinitions.length === 0 ? DefaultScrollCompiler : fileSystem.getCompiler(filepathsWithParserDefinitions, defaultScrollCompiler.grammarCode + "\n").compiler
 
     // PASS 4: LOAD WITH STD COMPILER OR CUSTOM COMPILER FROM PASS 3
     this.scrollProgram = new compiler(afterVariablePass)
 
-    this.scrollFilesWithGrammarNodeDefinitions = filepathsWithGrammarDefinitions
+    this.scrollFilesWithParserDefinitions = filepathsWithParserDefinitions
     this.scrollProgram.setFile(this)
     this.timestamp = dayjs(this.scrollProgram.get(scrollKeywords.date) ?? 0).unix()
     this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html" : "")
@@ -378,7 +378,7 @@ class ScrollFile {
   filePath = ""
 
   compileStumpCode(code) {
-    return new stump(code).compile()
+    return new stumpParser(code).compile()
   }
 
   get git() {

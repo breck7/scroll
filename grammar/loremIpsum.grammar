@@ -1,5 +1,5 @@
-loremIpsumNode
- extends abstractAftertextNode
+loremIpsumParser
+ extends abstractAftertextParser
  cruxFromId
  description Generate dummy text.
  catchAllCellType integerCell

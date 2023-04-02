@@ -1,7 +1,7 @@
-importNode
+importParser
  description Import one file into another.
  cruxFromId
- extends abstractScrollNode
+ extends abstractScrollParser
  catchAllCellType filePathCell
  javascript
   compile() {
@@ -9,10 +9,10 @@ importNode
   }
  example
   import header.scroll
-importOnlyNode
+importOnlyParser
  description Mark a file as not one to build. This line will be not be imported into the importing file.
  cruxFromId
- extends abstractScrollNode
+ extends abstractScrollParser
  javascript
   compile() {
    return ""

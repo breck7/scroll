@@ -1,5 +1,5 @@
-startColumnsNode
- extends abstractAftertextNode
+startColumnsParser
+ extends abstractAftertextParser
  cruxFromId
  catchAllCellType integerCell
  description Start a multicolumn grid.
@@ -14,8 +14,8 @@ startColumnsNode
    const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
    return this.parent.clearSectionStack() + `<div class="scrollColumnsComponent" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
   }
-endColumnsNode
- extends abstractAftertextNode
+endColumnsParser
+ extends abstractAftertextParser
  cruxFromId
  description End a multicolumn grid.
  javascript

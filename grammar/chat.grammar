@@ -1,11 +1,11 @@
-chatLineNode
+chatLineParser
  catchAllCellType anyCell
- catchAllNodeType chatLineNode
-chatNode
+ catchAllParser chatLineParser
+chatParser
  description A dialogue between two people.
- catchAllNodeType chatLineNode
+ catchAllParser chatLineParser
  cruxFromId
- extends abstractScrollNode
+ extends abstractScrollParser
  javascript
   compile() {
    return this.map((line, index) => `<div class="scrollDialogueComponent ${index % 2 ? "scrollDialogueComponentRight" : "scrollDialogueComponentLeft"}"><span>${line.asString}</span></div>`).join("")

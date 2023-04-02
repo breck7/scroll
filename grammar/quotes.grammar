@@ -1,11 +1,11 @@
-quoteLineNode
+quoteLineParser
  catchAllCellType anyCell
- catchAllNodeType quoteLineNode
-quoteNode
+ catchAllParser quoteLineParser
+quoteParser
  cruxFromId
  description A blockquote.
- catchAllNodeType quoteLineNode
- extends abstractScrollNode
+ catchAllParser quoteLineParser
+ extends abstractScrollParser
  javascript
   compile() {
    return `<blockquote class="scrollQuoteComponent">${this.childrenToString()}</blockquote>`

@@ -1,5 +1,5 @@
-scrollFooterNode
- extends abstractAftertextNode
+scrollFooterParser
+ extends abstractAftertextParser
  cruxFromId
  javascript
   compileEmbeddedVersion() {

@@ -1,36 +1,36 @@
-abstractFileSettingNode
- extends abstractScrollNode
+abstractFileSettingParser
+ extends abstractScrollParser
  cells keywordCell
  javascript
   compile() {
    return ""
   }
-abstractUrlSettingNode
- extends abstractFileSettingNode
+abstractUrlSettingParser
+ extends abstractFileSettingParser
  cells keywordCell urlCell
  cruxFromId
-abstractSiteStringSettingNode
- extends abstractFileSettingNode
+abstractSiteStringSettingParser
+ extends abstractFileSettingParser
  catchAllCellType stringCell
  cruxFromId
-baseUrlNode
+baseUrlParser
  description Root url of this published site on the web. Must be provided for RSS Feeds and OpenGraph tags to work, but has no effect locally.
- extends abstractUrlSettingNode
-homeLinkNode
+ extends abstractUrlSettingParser
+homeLinkParser
  description In the default Scroll theme the home button will link to "index.html". You can override this with this setting.
- extends abstractUrlSettingNode
-viewSourceBaseUrlNode
+ extends abstractUrlSettingParser
+viewSourceBaseUrlParser
  description The base link to be used to generate the "View source" link.
- extends abstractUrlSettingNode
-gitNode
+ extends abstractUrlSettingParser
+gitParser
  description A link to the web Git UI for this site.
- extends abstractUrlSettingNode
-emailNode
+ extends abstractUrlSettingParser
+emailParser
  description Email address for the site owner.
- extends abstractFileSettingNode
+ extends abstractFileSettingParser
  cruxFromId
  cells keywordCell emailAddressCell
-permalinkNode
+permalinkParser
  description When compiling, Scroll will save this file to {permalink}
- extends abstractTopLevelSingleMetaNode
+ extends abstractTopLevelSingleMetaParser
  cells keywordCell permalinkCell

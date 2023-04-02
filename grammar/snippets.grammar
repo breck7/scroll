@@ -1,8 +1,8 @@
-endSnippetNode
+endSnippetParser
  description Insert one of these where you want to cut the file for a snippet.
- extends abstractTopLevelSingleMetaNode
-snippetsNode
- extends abstractAftertextNode
+ extends abstractTopLevelSingleMetaParser
+snippetsParser
+ extends abstractAftertextParser
  cruxFromId
  cells keywordCell groupNameWithOptionalFolderCell
  catchAllCellType groupNameWithOptionalFolderCell
@@ -12,9 +12,9 @@ snippetsNode
  javascript
   makeSnippet(file, compileSettings) {
     const {scrollProgram} = file
-    const snippetBreakNode = scrollProgram.getNode("endSnippet")
-    if (!snippetBreakNode) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
-    const indexOfBreak = snippetBreakNode.getIndex()
+    const snippetBreak = scrollProgram.getNode("endSnippet")
+    if (!snippetBreak) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
+    const indexOfBreak = snippetBreak.getIndex()
     const linkRelativeToCompileTarget = compileSettings.relativePath + file.permalink
     const joinChar = "\n"
     const html = scrollProgram
@@ -35,8 +35,8 @@ snippetsNode
    }).join("\n\n")
    return `<div class="scrollColumnsComponent" style="column-width:35ch;">${snippets}</div>`
   }
-fullSnippetsNode
- extends snippetsNode
+fullSnippetsParser
+ extends snippetsParser
  cruxFromId
  description Prints the full contents of files that are in the named group.
  javascript

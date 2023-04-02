@@ -45,5 +45,5 @@ htmlIdCell
  extends idCell
 filePathCell
  extends stringCell
-errorNode
- baseNodeType errorNode
+errorParser
+ baseParser errorParser

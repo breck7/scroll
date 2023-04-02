@@ -1,6 +1,6 @@
-footnoteDefinitionNode
+footnoteDefinitionParser
  description A footnote. Can also be used as section notes.
- extends thoughtNode
+ extends thoughtParser
  boolean isFootnote true
  pattern ^\^.+$
  javascript

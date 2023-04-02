@@ -1,10 +1,10 @@
 // Related work:
  CSS is great for text selector ideas: https://www.w3schools.com/cssref/css_selectors.asp
  Roff has a lot of related markup ideas: https://www.systutorials.com/docs/linux/man/7-groff_man/
-abstractAftertextNode
+abstractAftertextParser
  description Text followed by markup commands.
- extends abstractScrollNode
- inScope abstractAftertextDirectiveNode abstractAftertextAttributeNode slashCommentNode
+ extends abstractScrollParser
+ inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser slashCommentParser
  example
   aftertext
    Hello brave new world
@@ -15,7 +15,7 @@ abstractAftertextNode
  javascript
   get markupInserts() {
    const { originalTextPostLinkify } = this
-   return this.filter(node => node.isMarkupNode)
+   return this.filter(node => node.isMarkup)
     .map(node => node.getInserts(originalTextPostLinkify))
     .filter(i => i)
     .flat()
@@ -52,8 +52,8 @@ abstractAftertextNode
   }
   tag = "p"
   get className() {
-   const classNode = this.getNode("class")
-   if (classNode && classNode.applyToParentElement) return classNode.content
+   const classLine = this.getNode("class")
+   if (classLine && classLine.applyToParentElement) return classLine.content
    return this.defaultClassName
   }
   defaultClassName = "scrollParagraphComponent"
@@ -64,12 +64,12 @@ abstractAftertextNode
    return `<${this.tag} ${this.divAttributes}${classAttr}>${this.text}</${this.tag}>`
   }
   get divAttributes() {
-   const attrs = this.filter(node => node.isAttributeNode)
+   const attrs = this.filter(node => node.isAttribute)
    return attrs.length ? attrs.map(node => node.divAttributes).join(" ") + " " : ""
   }
-abstractAftertextAttributeNode
+abstractAftertextAttributeParser
  cells keywordCell
- boolean isAttributeNode true
+ boolean isAttribute true
  javascript
   get divAttributes() {
    return `${this.firstWord}="${this.content}"`
@@ -77,11 +77,11 @@ abstractAftertextAttributeNode
   compile() {
    return ""
   }
-abstractAftertextDirectiveNode
+abstractAftertextDirectiveParser
  cells keywordCell
  catchAllCellType stringCell
  javascript
-  isMarkupNode = true
+  isMarkup = true
   compile() {
    return ""
   }
@@ -107,9 +107,9 @@ abstractAftertextDirectiveNode
    const matches = this.getMatches(text)
    if (!matches.length) return false
    if (this.shouldMatchAll) return matches.flat()
-   const indexNode = this.getNode("match")
-   if (indexNode)
-    return indexNode.indexes
+   const match = this.getNode("match")
+   if (match)
+    return match.indexes
      .map(index => matches[index])
      .filter(i => i)
      .flat()
@@ -128,21 +128,21 @@ abstractAftertextDirectiveNode
   get closeTag() {
    return this.tag
   }
-abstractMarkupNode
- extends abstractAftertextDirectiveNode
- inScope abstractMarkupParameterNode
-abstractMarkupParameterNode
+abstractMarkupParser
+ extends abstractAftertextDirectiveParser
+ inScope abstractMarkupParameterParser
+abstractMarkupParameterParser
  cells keywordCell
  cruxFromId
-matchAllNode
+matchAllParser
  description Use this to match all occurrences of the text.
- extends abstractMarkupParameterNode
-linkifyNode
+ extends abstractMarkupParameterParser
+linkifyParser
  description Use this to disable linkify on the text.
- extends abstractAftertextDirectiveNode
+ extends abstractAftertextDirectiveParser
  cruxFromId
  cells keywordCell booleanCell
-matchNode
+matchParser
  catchAllCellType integerCell
  description Use this to specify which index(es) to match.
  javascript
@@ -154,11 +154,11 @@ matchNode
    hello ello ello
    bold ello
     match 0 2
- extends abstractMarkupParameterNode
-wrapsOnNode
+ extends abstractMarkupParameterParser
+wrapsOnParser
  cruxFromId
  description Enable `code`, *bold*, and _italics_ rules.
- extends abstractAftertextDirectiveNode
+ extends abstractAftertextDirectiveParser
  javascript
   get shouldMatchAll() {
    return true
@@ -179,11 +179,11 @@ wrapsOnNode
     ]
    })
   }
-wrapNode
+wrapParser
  cruxFromId
  cells keywordCell delimiterCell tagOrUrlCell
  catchAllCellType htmlAttributesCell
- extends wrapsOnNode
+ extends wrapsOnParser
  description Define a custom wrap, for example "wrap _ em" would support: _italics_.
  javascript
   getMatches(text) {
@@ -199,37 +199,37 @@ wrapNode
    }
    // Note: doubling up doesn't work because of the consumption characters.
   }
-boldNode
+boldParser
  cruxFromId
- extends abstractMarkupNode
+ extends abstractMarkupParser
  javascript
   tag = "b"
-italicsNode
+italicsParser
  cruxFromId
- extends abstractMarkupNode
+ extends abstractMarkupParser
  javascript
   tag = "i"
-underlineNode
+underlineParser
  cruxFromId
- extends abstractMarkupNode
+ extends abstractMarkupParser
  javascript
   tag = "u"
-aftertextCodeNode
+aftertextCodeParser
  crux code
- extends abstractMarkupNode
+ extends abstractMarkupParser
  javascript
   tag = "code"
-abstractHtmlAttributeNode
+abstractHtmlAttributeParser
  javascript
   compile() {
    return ""
   }
-linkTargetNode
- extends abstractHtmlAttributeNode
+linkTargetParser
+ extends abstractHtmlAttributeParser
  description If you want to set the target of the link. To "_blank", for example.
  crux target
  cells keywordCell anyCell
-linkTitleNode
+linkTitleParser
  description If you want to set the title of the link.
  crux title
  cells keywordCell
@@ -238,10 +238,10 @@ linkTitleNode
   * This report showed the treatment had a big impact.
    https://example.com/report This report.
     title The average growth in the treatment group was 14.2x higher than the control group.
-linkNode
- extends abstractMarkupNode
+linkParser
+ extends abstractMarkupParser
  cells keywordCell urlCell
- inScope linkTitleNode linkTargetNode commentNode
+ inScope linkTitleParser linkTargetParser commentParser
  cruxFromId
  javascript
   tag = "a"
@@ -267,9 +267,9 @@ linkNode
    const words = this.getWordsFrom(this.patternStartsAtWord)
    return words.length ? words.join(" ") : this.parent.originalText
   }
-classMarkupNode
+classMarkupParser
  description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.
- extends abstractMarkupNode
+ extends abstractMarkupParser
  cells keywordCell classNameCell
  crux class
  javascript
@@ -292,9 +292,9 @@ classMarkupNode
    const words = this.getWordsFrom(2)
    return words.length ? words.join(" ") : this.parent.content
   }
-thoughtNode
+thoughtParser
  // todo Perhaps rewrite this from scratch and move out of aftertext.
- extends abstractAftertextNode
+ extends abstractAftertextParser
  catchAllCellType stringCell
  example
   * I had a _new_ thought.
@@ -308,43 +308,43 @@ thoughtNode
    newLine.destroy()
    return compiled
   }
-emailLinkNode
+emailLinkParser
  description A mailto link
  crux email
- extends linkNode
+ extends linkParser
  javascript
   get attributes() {
    return [`href="mailto:${this.link}"`]
   }
-quickLinkNode
+quickLinkParser
  pattern ^https?\:
- extends linkNode
+ extends linkParser
  cells urlCell
  javascript
   get link() {
    return this.firstWord
   }
   patternStartsAtWord = 1
-strikethroughNode
+strikethroughParser
  cruxFromId
- extends abstractMarkupNode
+ extends abstractMarkupParser
  javascript
   tag = "s"
-aftertextIdNode
+aftertextIdParser
  crux id
  description Provide an ID to be output in the generated HTML tag.
- extends abstractAftertextAttributeNode
+ extends abstractAftertextAttributeParser
  cells keywordCell htmlIdCell
  single
-aftertextHiddenNode
+aftertextHiddenParser
  crux hidden
  cells keywordCell
  description Do not compile this node to HTML.
- extends abstractAftertextAttributeNode
+ extends abstractAftertextAttributeParser
  single
-indentableThoughtNode
- extends thoughtNode
- inScope abstractAftertextDirectiveNode abstractAftertextAttributeNode indentableThoughtNode
+indentableThoughtParser
+ extends thoughtParser
+ inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser indentableThoughtParser
  javascript
   compile() {
    return (

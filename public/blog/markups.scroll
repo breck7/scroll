@@ -1,10 +1,10 @@
 importOnly
-markupLineNode
+markupLineParser
  catchAllCellType anyCell
- catchAllNodeType markupLineNode
-abstractMarkupLangNode
- extends abstractScrollNode
- catchAllNodeType markupLineNode
+ catchAllParserType markupLineParser
+abstractMarkupLangParser
+ extends abstractScrollParser
+ catchAllParserType markupLineParser
  javascript
   compile() {
    return this.compiler(this.childrenToString())
@@ -23,23 +23,23 @@ abstractMarkupLangNode
     const { execSync } = require("child_process")
     return execSync("npm root -g").toString().trim()
   }
-markdownNode
+markdownParser
  description If npm package `marked` is installed globally will compile markdown.
  cruxFromId
- extends abstractMarkupLangNode
+ extends abstractMarkupLangParser
  javascript
   packageName = "marked"
   importName = "marked"
-textileNode
+textileParser
  description If npm package `textile-js` is installed globally will compile textile.
  cruxFromId
- extends abstractMarkupLangNode
+ extends abstractMarkupLangParser
  javascript
   packageName = "textile-js"
-bbCodeNode
+bbCodeParser
  description If npm package `ya-bbcode` is installed globally will compile BBcode.
  cruxFromId
- extends abstractMarkupLangNode
+ extends abstractMarkupLangParser
  javascript
   packageName = "ya-bbcode"
   compile() {

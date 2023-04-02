@@ -1,17 +1,17 @@
-loopNode
- extends abstractAftertextNode
+loopParser
+ extends abstractAftertextParser
  cells keywordCell
  description Iterate over files, lines or words, evaluating code and joining the resulting HTML.
  cruxFromId
- inScope abstractItemsProviderNode
- joinNode
-  extends abstractLoopConfigNode
+ inScope abstractItemsProviderParser
+ joinParser
+  extends abstractLoopConfigParser
   description HTML to use to join the items.
- limitNode
-  extends abstractLoopConfigNode
+ limitParser
+  extends abstractLoopConfigParser
   description HTML to use to join the items.
- javascriptNode
-  extends abstractLoopConfigNode
+ javascriptParser
+  extends abstractLoopConfigParser
   description Javascript to execute for each file in the loop.
  javascript
   compile() {
@@ -30,44 +30,44 @@ loopNode
    }
   }
   get items() {
-   const provider = this.getChildInstancesOfNodeTypeId("abstractItemsProviderNode")[0]
+   const provider = this.getChildInstancesOfParserId("abstractItemsProviderParser")[0]
    return provider ? provider.items : []
   }
   teardown() {}
 
-abstractLoopConfigNode
+abstractLoopConfigParser
  cells keywordCell
  cruxFromId
  catchAllCellType stringCell
 
 // Extend this if you want to create a new provider
-abstractItemsProviderNode
+abstractItemsProviderParser
  cells keywordCell
 
 // Some basic providers:
-loopLinesNode
+loopLinesParser
  crux lines
- extends abstractItemsProviderNode
+ extends abstractItemsProviderParser
  description Iterate over the provided lines.
- catchAllNodeType loopLineNode
- loopLineNode
+ catchAllParser loopLineParser
+ loopLineParser
   catchAllCellType stringCell
  javascript
   get items() {
    return this.map(node => node.asString)
   }
-loopWordsNode
+loopWordsParser
  crux words
- extends abstractItemsProviderNode
+ extends abstractItemsProviderParser
  catchAllCellType stringCell
  description Iterate over the provided words.
  javascript
   get items() {
    return this.getWordsFrom(1)
   }
-loopGroupsNode
+loopGroupsParser
  crux groups
- extends abstractItemsProviderNode
+ extends abstractItemsProviderParser
  catchAllCellType groupNameWithOptionalFolderCell
  description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[groupName]
  javascript

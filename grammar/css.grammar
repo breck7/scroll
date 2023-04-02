@@ -1,7 +1,7 @@
 cssAnyCell
  extends anyCell
-scrollCssTagNode
- extends abstractAftertextNode
+scrollCssTagParser
+ extends abstractAftertextParser
  cruxFromId
  description Prints the Scroll CSS in an <style> tag. To not print the style tag use `scrollCss`.
  javascript
@@ -11,20 +11,20 @@ scrollCssTagNode
   compileEmbeddedVersion() {
    return ""
   }
-scrollCssNode
- extends scrollCssTagNode
+scrollCssParser
+ extends scrollCssTagParser
  javascript
   compile() {
    return this.parent.file.SCROLL_CSS
   }
-cssLineNode
+cssLineParser
  catchAllCellType cssAnyCell
- catchAllNodeType cssLineNode
-cssNode
- extends abstractScrollNode
+ catchAllParser cssLineParser
+cssParser
+ extends abstractScrollParser
  description Prints CSS content wrapped in a style tag.
  cruxFromId
- catchAllNodeType cssLineNode
+ catchAllParser cssLineParser
  catchAllCellType cssAnyCell
  javascript
   compile() {

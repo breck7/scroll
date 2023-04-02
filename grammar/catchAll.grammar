@@ -1,8 +1,8 @@
-catchAllParagraphNode
+catchAllParagraphParser
  description A catch all block. This may be removed in future versions.
- extends thoughtNode
+ extends thoughtParser
  cells stringCell
- baseNodeType errorNode
+ baseParser errorParser
  javascript
   get originalText() {
    return this.getLine() || ""

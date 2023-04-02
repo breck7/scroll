@@ -1,5 +1,5 @@
-scrollHeaderNode
- extends abstractAftertextNode
+scrollHeaderParser
+ extends abstractAftertextParser
  cruxFromId
  description The simple default Scroll header.
  javascript

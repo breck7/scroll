@@ -1,11 +1,11 @@
-captionAftertextNode
+captionAftertextParser
  description An optional caption to accompany the resource.
  crux caption
- extends thoughtNode
-abstractCaptionedNode
- extends abstractScrollNode
+ extends thoughtParser
+abstractCaptionedParser
+ extends abstractScrollParser
  cells keywordCell urlCell
- inScope captionAftertextNode slashCommentNode
+ inScope captionAftertextParser slashCommentParser
  cruxFromId
  javascript
   compile(compileSettings) {
@@ -13,10 +13,10 @@ abstractCaptionedNode
    const captionFig = caption ? `<figcaption>${caption.compile()}</figcaption>` : ""
    return `<figure class="scrollCaptionedComponent">${this.getFigureContent(compileSettings)}${captionFig}</figure>`
   }
-imageNode
+imageParser
  description An img tag.
- extends abstractCaptionedNode
- inScope classMarkupNode aftertextIdNode
+ extends abstractCaptionedParser
+ inScope classMarkupParser aftertextIdParser
  javascript
   getFigureContent(compileSettings) {
    const file = this.root.file

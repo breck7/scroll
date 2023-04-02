@@ -1,5 +1,5 @@
-checklistTodoNode
- extends indentableThoughtNode
+checklistTodoParser
+ extends indentableThoughtParser
  example
   [] Get milk
  description An incomplete checklist item.
@@ -12,8 +12,8 @@ checklistTodoNode
   get id() {
    return this.get("id") || "item" + this._getUid()
   }
-checklistDoneNode
- extends checklistTodoNode
+checklistDoneParser
+ extends checklistTodoParser
  description A complete checklist list item.
  string checked checked
  crux [x]

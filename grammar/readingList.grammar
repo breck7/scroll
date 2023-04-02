@@ -1,4 +1,4 @@
-readingListItemNode
+readingListItemParser
  cells urlCell
  catchAllCellType stringCell
  javascript
@@ -7,12 +7,12 @@ readingListItemNode
    const [title, author] = this.content.split(" by ")
    return `<li><a href="${url}">${title ?? url}</a>${author ? ` by ${author}` : ""}</li>`
   }
-readingListNode
- extends abstractScrollNode
+readingListParser
+ extends abstractScrollParser
  description Easily create a reading list with links, titles, and author names.
  cells keywordCell
  cruxFromId
- catchAllNodeType readingListItemNode
+ catchAllParser readingListItemParser
  example
   readingList
    https://example.com/similar by Author Name

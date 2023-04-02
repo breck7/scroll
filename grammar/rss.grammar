@@ -1,9 +1,9 @@
-rssFeedUrlNode
+rssFeedUrlParser
  description URL for RSS feed, if any.
- extends abstractUrlSettingNode
-printFeedNode
+ extends abstractUrlSettingParser
+printFeedParser
  description Prints out the RSS feed for a group.
- extends abstractScrollNode
+ extends abstractScrollParser
  cruxFromId
  cells keywordCell groupNameWithOptionalFolderCell
  catchAllCellType groupNameWithOptionalFolderCell

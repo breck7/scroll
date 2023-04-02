@@ -1,4 +1,4 @@
-blankLineNode
+blankLineParser
  description Blank lines compile to nothing in the HTML.
  cells blankCell
  javascript

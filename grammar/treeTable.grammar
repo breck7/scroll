@@ -1,16 +1,16 @@
-treeRowContentNode
+treeRowContentParser
  description Any blob content in a cell.
  cells stringCell
  catchAllCellType stringCell
-treeRowColumnNode
- catchAllNodeType treeRowContentNode
+treeRowColumnParser
+ catchAllParser treeRowContentParser
  description A columnName value pair, or just a columnName if the value is a text blob.
  cells idCell
  catchAllCellType stringCell
-treeRowNode
+treeRowParser
  cells idCell
  description The root node of a row.
- catchAllNodeType treeRowColumnNode
+ catchAllParser treeRowColumnParser
  javascript
   toRow(columns) {
    let str = ""
@@ -31,10 +31,10 @@ treeRowNode
    })
    return str
   }
-treeTableNode
+treeTableParser
  description A table of data written in Tree Notation form. Useful when a column contains a text blob.
- extends abstractTableNode
- catchAllNodeType treeRowNode
+ extends abstractTableParser
+ catchAllParser treeRowParser
  javascript
   get columnNames() {
    return this._getUnionNames()

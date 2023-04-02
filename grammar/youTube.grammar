@@ -1,5 +1,5 @@
-youTubeNode
- extends abstractCaptionedNode
+youTubeParser
+ extends abstractCaptionedParser
  description Embed a YouTube video. Include the YouTube embed URL such as https://www.youtube.com/embed/CYPYZnVQoLg
  javascript
   getFigureContent() {

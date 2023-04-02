@@ -1,6 +1,6 @@
-keyboardNavNode
+keyboardNavParser
  description Makes left go to previous file and right go to next file.
- extends abstractScrollNode
+ extends abstractScrollParser
  cruxFromId
  catchAllCellType urlCell
  javascript

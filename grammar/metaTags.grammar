@@ -1,9 +1,9 @@
-canonicalLinkNode
+canonicalLinkParser
  description Canonical URL for SEO. If undefined Scroll generates this from the baseUrl and permalink.
- extends abstractUrlSettingNode
-metaTagsNode
+ extends abstractUrlSettingParser
+metaTagsParser
  cruxFromId
- extends abstractTopLevelSingleMetaNode
+ extends abstractTopLevelSingleMetaParser
  description Adds meta tags like title, description, et cetera.
  javascript
   compileEmbeddedVersion() {

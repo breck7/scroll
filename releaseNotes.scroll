@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 66.0.0 4/2/2023
+- ⚠️ BREAKING: This upgrades to JTree 73 and Grammar 6. Any custom grammar files need to be updated (generally this just means a find/replace of `Node` to `Parser`).
+
 # 65.0.0 3/30/2023
 - 🎉 Upgrade to Jtree 71 to get Grammar 5 wiith scoped parsers.
 

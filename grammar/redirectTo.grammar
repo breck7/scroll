@@ -1,6 +1,6 @@
-redirectToNode
+redirectToParser
  description Prints an HTML redirect tag. In the future might also emit nginx config.
- extends abstractScrollNode
+ extends abstractScrollParser
  cells keywordCell urlCell
  cruxFromId
  example

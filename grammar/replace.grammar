@@ -1,39 +1,39 @@
 javascriptCell
  extends stringCell
-replaceNode
+replaceParser
  description Define a variable token and replacement that will be applied to all lines before and after this one.
- extends abstractScrollNode
+ extends abstractScrollParser
  cruxFromId
  catchAllCellType stringCell
- baseNodeType blobNode
+ baseParser blobParser
  example
   replace YEAR 2022
  javascript
   compile() {
    return ""
   }
-replaceJsNode
+replaceJsParser
  description Define a variable token and replacement that will be applied to all lines before and after this one.
- extends replaceNode
+ extends replaceParser
  catchAllCellType javascriptCell
  example
   replaceJs SUM 1+1
   * 1+1 = SUM
-nodejsNode
+nodejsParser
  description Write nodejs code inside a Scroll file. Sort of like PHP.
- extends abstractScrollNode
+ extends abstractScrollParser
  cruxFromId
  catchAllCellType javascriptCell
- baseNodeType blobNode
+ baseParser blobParser
  example
   nodejs
    module.exports = {SCORE : 1 + 2}
   * The score is SCORE
-replaceDefaultNode
+replaceDefaultParser
  description Define the default value for a replacement. Useful if you want to import a file and set a replacement later.
- extends abstractScrollNode
+ extends abstractScrollParser
  catchAllCellType stringCell
- baseNodeType blobNode
+ baseParser blobParser
  example
   replaceDefault YEAR 2021
  cruxFromId

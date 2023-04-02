@@ -1,22 +1,22 @@
-lineOfCodeNode
+lineOfCodeParser
  catchAllCellType codeCell
- catchAllNodeType lineOfCodeNode
-codeNode
+ catchAllParser lineOfCodeParser
+codeParser
  description A code block.
- catchAllNodeType lineOfCodeNode
- extends abstractScrollNode
+ catchAllParser lineOfCodeParser
+ extends abstractScrollParser
  javascript
   compile() {
    return `<code class="scrollCodeBlockComponent">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
   }
  cruxFromId
-codeWithLanguageNode
+codeWithLanguageParser
  description Use this to specify the language of the code block, such as csvCode or rustCode.
- extends codeNode
+ extends codeParser
  pattern ^[a-zA-Z0-9_]+Code$
-copyButtonsNode
+copyButtonsParser
  cruxFromId
- extends abstractScrollWithRequirementsNode
+ extends abstractScrollWithRequirementsParser
  description Make code snippets copyable.
  javascript
   compileInstance() {
@@ -37,9 +37,9 @@ copyButtonsNode
    }
   ))
   </script>
-belowAsCodeNode
+belowAsCodeParser
  description Print the Scroll code of the next node.
- extends abstractScrollNode
+ extends abstractScrollParser
  catchAllCellType integerCell
  cruxFromId
  javascript
@@ -56,16 +56,16 @@ belowAsCodeNode
     next = next[method]
     howMany--
    }
-   if (this.reverseNodes) nodes.reverse()
+   if (this.reverse) nodes.reverse()
    return nodes.map(node => node.asString).join("\n")
   }
-  reverseNodes = false
+  reverse = false
   compile() {
    return `<code class="scrollCodeBlockComponent">${this.code.replace(/\</g, "&lt;")}</code>`
   }
-aboveAsCodeNode
+aboveAsCodeParser
  description Print the Scroll code for the previous node.
- extends belowAsCodeNode
+ extends belowAsCodeParser
  javascript
   method = "previous"
-  reverseNodes = true
+  reverse = true

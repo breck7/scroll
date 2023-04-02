@@ -1,5 +1,5 @@
-listAftertextNode
- extends indentableThoughtNode
+listAftertextParser
+ extends indentableThoughtParser
  example
   - I had a _new_ thought.
  description A list item.
@@ -17,8 +17,8 @@ listAftertextNode
   }
   tag = "li"
   listType = "ul"
-orderedListAftertextNode
- extends listAftertextNode
+orderedListAftertextParser
+ extends listAftertextParser
  description A list item.
  example
   1. Hello world

@@ -1,11 +1,11 @@
-dateNode
+dateParser
  catchAllCellType dateCell
  description Date this file was first published.
- extends abstractTopLevelSingleMetaNode
-datelineNode
+ extends abstractTopLevelSingleMetaParser
+datelineParser
  cruxFromId
  description Gives your paragraph a dateline like "December 15, 2021 — The..."
- extends abstractAftertextDirectiveNode
+ extends abstractAftertextDirectiveParser
  javascript
   getInserts() {
    let day = this.content || this.root.get("date")

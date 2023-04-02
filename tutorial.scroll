@@ -124,29 +124,29 @@ replace DOMAIN scroll.pub
 
 ---
 
-# Expert: Building your own keywords
-* Scroll is based on the insight that a language should adapt to the domain, not the other way around. Unlike Markdown, Scroll has extendibility built-in.
+# Expert: Adding your own parsers
+* Scroll is based on the theory that a language should adapt to the domain, not the other way around. So Scroll has extendibility built-in.
 
 * _Note: Custom node types are currently only supported using the `npm` package. The web editor does *not* currently support custom keywords_.
 
-* You can define your own keywords right in your Scroll documents using `*Node` nodes. These nodes are written in the `Grammar` language.
+* You can define your own parsers right in your Scroll documents using `*Parser` nodes. These Parsers are written in the `Grammar` language.
 
 * Here is a simple example that extends Scroll by making `p` work the same as `*`:
 
 belowAsCode 2
-pNode
- extends thoughtNode
+pParser
+ extends thoughtParser
  crux p
 p We can then make paragraphs using `p`.
 
 * Let's now make a `hiddenMessage` node that alerts a message when clicked:
 belowAsCode 3
-messageNode
+messageParser
  cruxFromId
  catchAllCellType stringCell
-hiddenMessageNode
- extends thoughtNode
- inScope messageNode
+hiddenMessageParser
+ extends thoughtParser
+ inScope messageParser
  cruxFromId
  javascript
   compile() {
@@ -155,7 +155,7 @@ hiddenMessageNode
 hiddenMessage Click me.
  message Hello world
 
-* As you can see, you can define new keywords with a small amount of code. You probably also can see that the Grammar Langauge is powerful but has lots of sharp edges. While the documentation on Grammar evolves, feel free to get in touch for help in building your own Scroll keywords.
+* As you can see, you can define new parsers with a small amount of code. You probably also can see that the Grammar Langauge is powerful but has lots of sharp edges. While the documentation on Grammar evolves, feel free to get in touch for help in adding your own parsers.
 
 html </div>
 

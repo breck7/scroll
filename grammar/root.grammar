@@ -1,11 +1,11 @@
-abstractScrollNode
+abstractScrollParser
  cells keywordCell
  javascript
   compileEmbeddedVersion(compileSettings) {
    return this.compile(compileSettings)
   }
-abstractScrollWithRequirementsNode
- extends abstractScrollNode
+abstractScrollWithRequirementsParser
+ extends abstractScrollParser
  javascript
   compile(compileSettings) {
     const {requireOnce} = this
@@ -17,21 +17,21 @@ abstractScrollWithRequirementsNode
     }
     return requireSnippet + this.compileInstance()
   }
-abstractTopLevelSingleMetaNode
+abstractTopLevelSingleMetaParser
  description Use these keywords once per file.
- extends abstractScrollNode
+ extends abstractScrollParser
  cruxFromId
  cells keywordCell
  javascript
   compile() {
    return ""
   }
-scrollNode
+scrollParser
  extensions scroll
  description Tools for thought that compile to HTML.
  root
- inScope abstractScrollNode blankLineNode
- catchAllNodeType catchAllParagraphNode
+ inScope abstractScrollParser blankLineParser
+ catchAllParser catchAllParagraphParser
  compilesTo html
  javascript
   setFile(file) {

@@ -1,11 +1,11 @@
-lineOfTextNode
+lineOfTextParser
  catchAllCellType stringCell
- boolean isTextNode true
-hoverNoteNode
+ boolean isTextParser true
+hoverNoteParser
  description Add a caveat viewable on hover on matching text. When you want to be sure you've thoroughly addressed obvious concerns but ones that don't warrant to distract from the main argument of the text.
  cruxFromId
- extends classMarkupNode
- catchAllNodeType lineOfTextNode
+ extends classMarkupParser
+ catchAllParser lineOfTextParser
  cells keywordCell
  javascript
   get pattern() {
