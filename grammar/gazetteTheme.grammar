@@ -128,7 +128,7 @@ gazetteThemeParser
    h4
     margin-top 1em
     text-align center
-  .scrollQuestion
+  h4.scrollQuestion
    text-align left
   .scrollNoteLink
    opacity .4
