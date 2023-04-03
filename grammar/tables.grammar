@@ -53,13 +53,13 @@ rowParser
    }
    return str
   }
-kpiTableParser
- description Display key statistics in a big font.
+dashboardParser
+ description Display key stats in a big font.
  catchAllParser rowParser
  cruxFromId
  extends abstractScrollParser
  example
-  kpiTable
+  dashboard
    #2 Popularity
    30 Years Old
    $456 Revenue
@@ -76,7 +76,7 @@ kpiTableParser
    return `<tr>` + items.map(node => `<td>${node.firstWord}<span>${node.content}</span></td>`).join("\n") + `</tr>\n`
   }
   compile() {
-   return `<table class="scrollKpiTable">${this.tableBody}</table>`
+   return `<table class="scrollDashboard">${this.tableBody}</table>`
   }
 tableParser
  description A table with a custom delimiter.

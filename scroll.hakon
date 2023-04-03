@@ -194,7 +194,7 @@ code
  margin 4px 0
  text-align center
 
-.scrollKpiTable
+.scrollDashboard
  width 100%
  font-size 30px
  text-align center

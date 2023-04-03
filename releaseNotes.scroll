@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 67.0.0 4/2/2023
+- ⚠️ BREAKING: `kpiTable` is now `dashboard`
+
 # 66.0.0 4/2/2023
 - ⚠️ BREAKING: This upgrades to JTree 73 and Grammar 6. Any custom grammar files need to be updated (generally this just means a find/replace of `Node` to `Parser`).
 
