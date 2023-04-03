@@ -11,7 +11,7 @@ abstractThemeParser
   compile() {
    return this.tagged ? `<style>${this.css}</style>` : this.css
   }
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return ""
   }
 abstractThemeHeaderParser
@@ -19,7 +19,7 @@ abstractThemeHeaderParser
  description A theme header.
  extends abstractTopLevelSingleMetaParser
  javascript
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return ""
   }
 abstractThemeFooterParser
@@ -27,6 +27,6 @@ abstractThemeFooterParser
  description A theme footer.
  extends abstractTopLevelSingleMetaParser
  javascript
-  compileSnippet() {
+  compileEmbeddedVersion() {
    return ""
   }
