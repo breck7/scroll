@@ -5,7 +5,7 @@ sectionTitleParser
  javascript
   compile(compileSettings) {
    this.parent.sectionStack.push("</div>")
-   return `<div class="scrollSectionComponent">` + super.compile(compileSettings)
+   return `<div class="scrollSection">` + super.compile(compileSettings)
   }
   tag = "h3"
 titleParser
@@ -22,7 +22,7 @@ titleParser
    newLine.destroy()
    return compiled
   }
-  defaultClassName = "scrollTitleComponent"
+  defaultClassName = "scrollTitle"
   tag = "h1"
 sectionSubTitleParser
  description Compiles to an html h4 tag.
@@ -30,10 +30,3 @@ sectionSubTitleParser
  crux ##
  javascript
   tag = "h4"
-questionAftertextParser
- description A question.
- extends sectionTitleParser
- crux ?
- javascript
-  tag = "h4"
-  defaultClassName = "scrollQuestionComponent"

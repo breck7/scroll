@@ -5,6 +5,6 @@ viewSourceBaseUrl https://github.com/breck7/scroll/blob/main
 email feedback@scroll.pub
 baseUrl https://scroll.pub/
 metaTags
-scrollCssTag
-scrollHeader
+gazetteTheme
+gazetteHeader
 copyButtons

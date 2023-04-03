@@ -8,5 +8,5 @@ quoteParser
  extends abstractScrollParser
  javascript
   compile() {
-   return `<blockquote class="scrollQuoteComponent">${this.childrenToString()}</blockquote>`
+   return `<blockquote class="scrollQuote">${this.childrenToString()}</blockquote>`
   }

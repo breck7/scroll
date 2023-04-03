@@ -2,7 +2,7 @@ import header.scroll
 
 title Top Sinks
 
-author https://breckyunits.com Breck Yunits
+byLine https://breckyunits.com Breck Yunits
 
 replace NUM_SINKS 283
 
@@ -16,7 +16,7 @@ goodMorning
 goodMorning
 goodMorning
 
-kpiTable
+dashboard
  NUM_SINKS in database
  $0 budget
  3 countries

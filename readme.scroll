@@ -158,7 +158,7 @@ code
  https://github.com/breck7/scroll/tree/main/grammar here
 
 ? What language is Scroll written in?
-* Scroll is mostly written in GrammarLinked. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll makes heavy use of Tree Languages. The CSS is written in Hakon. The HTML is written in stump.
+* Scroll is mostly written in GrammarLinked. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll makes heavy use of Tree Languages. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
  https://jtree.treenotation.org/designer/#standard%20hakon Hakon
  https://jtree.treenotation.org/designer/#standard%20stump stump
 * TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.

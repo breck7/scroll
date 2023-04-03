@@ -14,15 +14,12 @@ const { Utils } = require("jtree/products/Utils.js")
 const { HandGrammarProgram } = require("jtree/products/GrammarLanguage.js")
 const grammarParser = require("jtree/products/grammar.nodejs.js")
 const stumpParser = require("jtree/products/stump.nodejs.js")
-const hakonParser = require("jtree/products/hakon.nodejs.js")
 const packageJson = require("./package.json")
 
 // Constants
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const GRAMMAR_EXTENSION = ".grammar"
-// This is all the CSS
-const SCROLL_CSS = new hakonParser(Disk.read(path.join(__dirname, "scroll.hakon"))).compile()
 // Todo: how to keep in sync with grammar?
 const scrollKeywords = {
   title: "title",
@@ -373,7 +370,6 @@ class ScrollFile {
 
   SVGS = SVGS
   SCROLL_VERSION = SCROLL_VERSION
-  SCROLL_CSS = SCROLL_CSS // todo: cleanup
   shouldBuild = true
   filePath = ""
 
@@ -508,7 +504,7 @@ class ScrollFile {
 
   get viewSourceHtml() {
     return this.compileStumpCode(`p
- class scrollFileViewSourceUrlComponent
+ class scrollViewSource
  a View source
   href ${this.viewSourceUrl}`)
   }
@@ -593,10 +589,10 @@ git https://github.com/breck7/scroll
 email feedback@scroll.pub
 baseUrl https://scroll.pub/
 metaTags
-scrollCssTag
-scrollHeader`,
+gazetteTheme
+gazetteHeader`,
       "footer.scroll": `importOnly
-scrollFooter`,
+gazetteFooter`,
       "firstPost.scroll": `import header.scroll
 groups index
 ${scrollKeywords.title} Hello world

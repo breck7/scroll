@@ -1,7 +1,7 @@
 import header.scroll
 title Introducing the Blink Tag
 date 2022.10.02
-author https://github.com/breck7 Breck Yunits
+byLine https://github.com/breck7 Breck Yunits
 
 blink *Scroll's new blink tag lets you call attention to something important*
  dateline

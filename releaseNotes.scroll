@@ -4,6 +4,16 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 67.0.0 4/2/2023
+* This is _The Theme Release_.
+- 🎉 Introduce the idea of keywords for theming scrolls.
+- ⚠️ BREAKING: `author` node is now `byLine`. `author` is kept for now but updating is recommended.
+- ⚠️ BREAKING: `scrollCssTag` is gone. use `gazetteTheme` for previous behavior. `scrollCss` is gone, use `gazetteTheme noTag`.
+- ⚠️ BREAKING: SCROLL_CSS has been removed. `gazetteTheme` now contains that CSS code.
+- ⚠️ BREAKING: `scrollHeader` is now `gazetteHeader` and `scrollFooter` is now `gazetteFooter`
+- ⚠️ BREAKING: css classes: `scrollHeaderComponent` => `gazetteHeader`, `scrollFooterComponent` => `gazetteFooter`
+- ⚠️ BREAKING: `kpiTable` is now `dashboard`
+
 # 66.0.0 4/2/2023
 - ⚠️ BREAKING: This upgrades to JTree 73 and Grammar 6. Any custom grammar files need to be updated (generally this just means a find/replace of `Node` to `Parser`).
 

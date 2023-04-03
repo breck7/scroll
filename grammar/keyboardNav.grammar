@@ -19,5 +19,5 @@ keyboardNavParser
     else if (event.key === "ArrowRight")
       getLinks()[1].click()
    });</script>`
-   return `<div class="scrollKeyboardNav"><a href="${linkToPrevious}">${linkToPrevious}</a> · ${file.permalink} · <a href="${linkToNext}">${linkToNext}</a>${script}</div>`
+   return `<div class="scrollKeyboardNav" style="display:none;"><a href="${linkToPrevious}">${linkToPrevious}</a> · ${file.permalink} · <a href="${linkToNext}">${linkToNext}</a>${script}</div>`
   }

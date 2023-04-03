@@ -31,9 +31,9 @@ snippetsParser
    const alreadyRequired = this.root.alreadyRequired
    const snippets = files.map(file => {
    const compileSettings = {relativePath: file.relativePath, alreadyRequired }
-   return `<div class="scrollSnippetContainerComponent">${this.makeSnippet(file.file, compileSettings)}</div>`
+   return `<div class="scrollSnippetContainer">${this.makeSnippet(file.file, compileSettings)}</div>`
    }).join("\n\n")
-   return `<div class="scrollColumnsComponent" style="column-width:35ch;">${snippets}</div>`
+   return `<div class="scrollColumns" style="column-width:35ch;">${snippets}</div>`
   }
 fullSnippetsParser
  extends snippetsParser

@@ -70,9 +70,9 @@ belowAsCode 2
 * Pau means done^pau
 ^pau In Hawaiian
 
-## 8. Key Numbers Node
-* If you are building a dashboard you might want to try the `kpiTable` keyword:
-kpiTable
+## 8. Dashboard
+* If you are building a dashboard you might want to try the `dashboard` keyword:
+dashboard
  #1 Lang
  2k Users
  300 Stars
@@ -100,13 +100,13 @@ belowAsCode
 belowAsCode
 * A link to Wikipedia
  https://wikipedia.org Wikipedia
-* You can also make the whole node a link by not including any text to match against.
+* You can also make the whole paragraph a link by not including any text to match against.
 belowAsCode
 * A link to Wikipedia
  https://wikipedia.org
 
 ## Columns
-* You can use the `startColumns [maxNumberOfColumns]` keyword to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between nodes. Line breaks will clear sections.
+* You can use the `startColumns [maxNumberOfColumns]` keyword to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between lines. Line breaks will clear sections.
 
 ---
 
@@ -119,17 +119,50 @@ replace DOMAIN scroll.pub
 ## Import statements
 * Scroll files can import other Scroll files. Use the `import` keyword followed by the path to the file, such as: `import header.scroll`
 
-## Theming
-* Scroll tries to generate as little HTML code as possible to make theming easier. There is not yet a standard guide for creating Scroll themes.
+---
+
+# Advanced: Custom Themes
+* The default scroll theme is called `Gazette`. Themes are mainly just CSS put into a Scroll keyword in a Grammar file. The checklist below walks you through creating a complete Scroll Theme.
+
+[] Create a `[yourThemeName].grammar` file
+[] Add a `[yourThemeName]ThemeParser`
+ - You can refer to the `gazetteThemeParser` in `gazetteTheme.grammar` for an example. Your theme can extend `abstractThemeParser` or be its own tag.
+ [] Add CSS
+  - The Gazette theme uses Hakon, a language that compiles to CSS, but you are free to use plain CSS—even in an external file.
+  [] Add CSS resets
+   - Like any other normal site you probably want to adjust the base CSS of the browser.
+  [] Add any custom styles for any custom keywords you include in your theme.
+   - For example, the Gazette theme includes `gazetteHeader` and `gazetteFooter`. If you don't have any custom keywords you can skip this step.
+  [] Add CSS for the standard Scroll keywords
+   - You probably want to customize the styles of Scroll keywords like `*` and `#`.
+   - There is not currently an exhaustive list or consistent pattern to these class names. See the Gazette theme for reference.
+ [] Add a custom header: `[yourThemeName]HeaderParser`.
+  - See the Gazette theme for an example. This is optional.
+ [] Add a custom footer: `[yourThemeName]FooterParser`.
+  - See the Gazette theme for an example. This is optional.
+
+## Using Custom Themes
+* By default Scroll emits HTML with no theming. To use any theme—including the default `Gazette` theme—the user simply uses the keywords provided by the theme, such as `gazetteTheme`, `gazetteHeader` and `gazetteFooter`.
+
+## Examples
+## A page using no theme:
+code
+ # This page has no theme
+## A page using a theme:
+code
+ gazetteTheme
+ gazetteHeader
+ * This page uses the Gazette theme.
+ gazetteFooter
 
 ---
 
 # Expert: Adding your own parsers
 * Scroll is based on the theory that a language should adapt to the domain, not the other way around. So Scroll has extendibility built-in.
 
-* _Note: Custom node types are currently only supported using the `npm` package. The web editor does *not* currently support custom keywords_.
+* _Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom keywords_.
 
-* You can define your own parsers right in your Scroll documents using `*Parser` nodes. These Parsers are written in the `Grammar` language.
+* You can define your own parsers right in your Scroll documents using `*Parser`. These Parsers are written in the `Grammar` language.
 
 * Here is a simple example that extends Scroll by making `p` work the same as `*`:
 
@@ -139,7 +172,7 @@ pParser
  crux p
 p We can then make paragraphs using `p`.
 
-* Let's now make a `hiddenMessage` node that alerts a message when clicked:
+* Let's now make a `hiddenMessage` Parser that alerts a message when clicked:
 belowAsCode 3
 messageParser
  cruxFromId
