@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 67.1.0 4/3/2023
+* Maintenance release. Update packages and remove unused package and specify required NodeJs versions accurately.
+
 # 67.0.0 4/2/2023
 * This is _The Theme Release_.
 - 🎉 Introduce the idea of keywords for theming scrolls.

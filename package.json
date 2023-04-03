@@ -1,10 +1,10 @@
 {
   "name": "scroll-cli",
-  "version": "67.0.0",
+  "version": "67.1.0",
   "description": "Tools for thought.",
   "main": "scroll.js",
   "engines": {
-    "node": ">=14.0"
+    "node": ">=16.0"
   },
   "scripts": {
     "build": "scroll list | scroll build",
@@ -35,12 +35,11 @@
   },
   "homepage": "https://github.com/breck7/scroll#readme",
   "dependencies": {
-    "dayjs": "^1.10.4",
-    "image-size": "^1.0.0",
-    "jtree": "^73.0.0",
+    "dayjs": "^1.11.7",
+    "image-size": "^1.0.2",
+    "jtree": "^74.0.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "open": "^8.0.5",
     "tap": "^16.3.0"
   }
 }
