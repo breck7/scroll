@@ -1,15 +1,19 @@
-abstractThemeParser
+tagsParser
+ // Todo: there may be a bug with having scoped parsers in abstract classes not being available to child classes.
+ cells keywordCell booleanCell
+ cruxFromId
+abstractThemeCssParser
  description Extend this to create a Scroll CSS theme.
  extends abstractTopLevelSingleMetaParser
+ inScope tagsParser
  cruxFromId
- // todo Provide a better way to indicate tagged or not
  catchAllCellType stringCell
  javascript
-  get tagged() {
-    return this.content !== "noTag"
+  get useTags() {
+    return !(this.get("tags") === "false")
   }
   compile() {
-   return this.tagged ? `<style>${this.css}</style>` : this.css
+   return this.useTags ? `<style>${this.css}</style>` : this.css
   }
   compileEmbeddedVersion() {
    return ""

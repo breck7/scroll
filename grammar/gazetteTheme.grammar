@@ -1,6 +1,6 @@
-gazetteThemeParser
+gazetteCssParser
  description The default Scroll theme.
- extends abstractThemeParser
+ extends abstractThemeCssParser
  javascript
   get css() {
     if (this.constructor._cachedCss)

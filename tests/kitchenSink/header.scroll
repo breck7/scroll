@@ -1,5 +1,5 @@
 importOnly
 import settings.scroll
 metaTags
-gazetteTheme
+gazetteCss
 gazetteHeader

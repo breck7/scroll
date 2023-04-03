@@ -4,6 +4,15 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 68.0.0 4/3/2023
+* Simplify theme building.
+- ⚠️ BREAKING: `gazetteTheme` is now `gazetteCss`.
+- ⚠️ BREAKING:
+code
+ // Change `gazetteTheme noTags` to:
+ gazetteCss
+  tags false
+
 # 67.1.0 4/3/2023
 * Maintenance release. Update packages and remove unused package and specify required NodeJs versions accurately.
 
