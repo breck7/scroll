@@ -115,7 +115,7 @@ gazetteThemeParser
    padding-right 20px
    margin auto
   comment On group pages add some spacing around files
-  .scrollSnippetsContainer
+  .scrollSnippetContainer
    padding 1ch 0
    break-inside avoid
    text-align justify
