@@ -30,7 +30,7 @@ abstractTableParser
     .join("\n")
   }
   compile() {
-   return `<table class="scrollTableComponent"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.tableBody}</tbody></table>`
+   return `<table class="scrollTable"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.tableBody}</tbody></table>`
   }
 rowParser
  catchAllCellType stringCell
@@ -52,31 +52,6 @@ rowParser
     str += `<td>${tagged}</td>\n`
    }
    return str
-  }
-dashboardParser
- description Display key stats in a big font.
- catchAllParser rowParser
- cruxFromId
- extends abstractScrollParser
- example
-  dashboard
-   #2 Popularity
-   30 Years Old
-   $456 Revenue
- javascript
-  get tableBody() {
-   const items = this.topDownArray
-   let str = ""
-   for (let i = 0; i < items.length; i = i + 3) {
-    str += this.makeRow(items.slice(i, i + 3))
-   }
-   return str
-  }
-  makeRow(items) {
-   return `<tr>` + items.map(node => `<td>${node.firstWord}<span>${node.content}</span></td>`).join("\n") + `</tr>\n`
-  }
-  compile() {
-   return `<table class="scrollDashboard">${this.tableBody}</table>`
   }
 tableParser
  description A table with a custom delimiter.

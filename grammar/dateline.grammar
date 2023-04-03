@@ -16,5 +16,5 @@ datelineParser
    } catch (err) {
     console.error(err)
    }
-   return [{ index: 0, string: `<span class="scrollDateComponent">${day} — </span>` }]
+   return [{ index: 0, string: `<span class="scrollDateline">${day} — </span>` }]
   }

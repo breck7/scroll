@@ -7,7 +7,7 @@ codeParser
  extends abstractScrollParser
  javascript
   compile() {
-   return `<code class="scrollCodeBlockComponent">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
+   return `<code class="scrollCodeBlock">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
   }
  cruxFromId
 codeWithLanguageParser
@@ -24,7 +24,7 @@ copyButtonsParser
   }
  string requireOnce
   <script>
-  document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollCodeBlockComponent").forEach(block =>
+  document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollCodeBlock").forEach(block =>
    {
     if (!navigator.clipboard) return
     const button = document.createElement("span")
@@ -32,7 +32,7 @@ copyButtonsParser
     block.appendChild(button)
     button.addEventListener("click", async () => {
       await navigator.clipboard.writeText(block.innerText)
-      button.classList.add("scrollCopied")
+      button.classList.add("scrollCopiedButton")
     })
    }
   ))
@@ -61,7 +61,7 @@ belowAsCodeParser
   }
   reverse = false
   compile() {
-   return `<code class="scrollCodeBlockComponent">${this.code.replace(/\</g, "&lt;")}</code>`
+   return `<code class="scrollCodeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
   }
 aboveAsCodeParser
  description Print the Scroll code for the previous node.

@@ -1,0 +1,32 @@
+abstractThemeParser
+ description Extend this to create a Scroll CSS theme.
+ extends abstractTopLevelSingleMetaParser
+ cruxFromId
+ // todo Provide a better way to indicate tagged or not
+ catchAllCellType stringCell
+ javascript
+  get tagged() {
+    return this.content !== "noTag"
+  }
+  compile() {
+   return this.tagged ? `<style>${this.css}</style>` : this.css
+  }
+  compileSnippet() {
+   return ""
+  }
+abstractThemeHeaderParser
+ cruxFromId
+ description A theme header.
+ extends abstractTopLevelSingleMetaParser
+ javascript
+  compileSnippet() {
+   return ""
+  }
+abstractThemeFooterParser
+ cruxFromId
+ description A theme footer.
+ extends abstractTopLevelSingleMetaParser
+ javascript
+  compileSnippet() {
+   return ""
+  }

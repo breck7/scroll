@@ -56,7 +56,7 @@ abstractAftertextParser
    if (classLine && classLine.applyToParentElement) return classLine.content
    return this.defaultClassName
   }
-  defaultClassName = "scrollParagraphComponent"
+  defaultClassName = "scrollParagraph"
   compile(compileSettings) {
    this.compileSettings = compileSettings
    const { className } = this

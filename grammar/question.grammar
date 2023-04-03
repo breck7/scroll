@@ -1,0 +1,7 @@
+questionAftertextParser
+ description A question.
+ extends sectionTitleParser
+ crux ?
+ javascript
+  tag = "h4"
+  defaultClassName = "scrollQuestion"

@@ -1,22 +1,5 @@
 cssAnyCell
  extends anyCell
-scrollCssTagParser
- extends abstractAftertextParser
- cruxFromId
- description Prints the Scroll CSS in an <style> tag. To not print the style tag use `scrollCss`.
- javascript
-  compile() {
-   return `<style>${this.parent.file.SCROLL_CSS}</style>`
-  }
-  compileEmbeddedVersion() {
-   return ""
-  }
-scrollCssParser
- extends scrollCssTagParser
- javascript
-  compile() {
-   return this.parent.file.SCROLL_CSS
-  }
 cssLineParser
  catchAllCellType cssAnyCell
  catchAllParser cssLineParser

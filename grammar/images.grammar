@@ -11,7 +11,7 @@ abstractCaptionedParser
   compile(compileSettings) {
    const caption = this.getNode("caption")
    const captionFig = caption ? `<figcaption>${caption.compile()}</figcaption>` : ""
-   return `<figure class="scrollCaptionedComponent">${this.getFigureContent(compileSettings)}${captionFig}</figure>`
+   return `<figure class="scrollCaptionedFigure">${this.getFigureContent(compileSettings)}${captionFig}</figure>`
   }
 imageParser
  description An img tag.

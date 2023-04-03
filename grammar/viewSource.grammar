@@ -13,7 +13,7 @@ viewSourceParser
    const file = this.parent.file
    const { viewSourceUrl } = file
    return file.compileStumpCode(`p
-   class scrollFileViewSourceUrlComponent doNotPrint
+   class scrollViewSource doNotPrint
    a View source
     href ${viewSourceUrl}`)
   }
