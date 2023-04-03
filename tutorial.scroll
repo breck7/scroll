@@ -126,20 +126,20 @@ replace DOMAIN scroll.pub
 
 [] Create a `[yourThemeName].grammar` file
 [] Add a `[yourThemeName]ThemeParser`
- - You can refer to the `gazetteThemeParser` in `gazetteTheme.grammar` for an example. Yours should extend `abstractThemeParser` and have a `css` getter.
- [] Add CSS resets
-  - Generally you probably want to adjust the base CSS of the browser. You can use the same CSS reset used in Gazette.
- [] Add any custom styles for any custom keywords you include in your theme.
-  - If you don't have any custom keywords you can skip this step.
- [] Add CSS for the standard Scroll keywords
-  - You probably want to customize the styles of Scroll keywords like `*` and `#`.
-  - There is not currently an exhaustive list or consistent pattern to these class names, but that is coming soon!
-[] Add a `[yourThemeName]HeaderParser`.
- - See the Gazette theme for an example.
- - This is optional.
-[] Add a `[yourThemeName]FooterParser`.
- - See the Gazette theme for an example.
- - This is optional.
+ - You can refer to the `gazetteThemeParser` in `gazetteTheme.grammar` for an example. Your theme can extend `abstractThemeParser` or be its own tag.
+ [] Add CSS
+  - The Gazette theme uses Hakon, a language that compiles to CSS, but you are free to use plain CSS—even in an external file.
+  [] Add CSS resets
+   - Like any other normal site you probably want to adjust the base CSS of the browser.
+  [] Add any custom styles for any custom keywords you include in your theme.
+   - For example, the Gazette theme includes `gazetteHeader` and `gazetteFooter`. If you don't have any custom keywords you can skip this step.
+  [] Add CSS for the standard Scroll keywords
+   - You probably want to customize the styles of Scroll keywords like `*` and `#`.
+   - There is not currently an exhaustive list or consistent pattern to these class names. See the Gazette theme for reference.
+ [] Add a custom header: `[yourThemeName]HeaderParser`.
+  - See the Gazette theme for an example. This is optional.
+ [] Add a custom footer: `[yourThemeName]FooterParser`.
+  - See the Gazette theme for an example. This is optional.
 
 ## Using Custom Themes
 * By default Scroll emits HTML with no theming. To use any theme—including the default `Gazette` theme—the user simply uses the keywords provided by the theme, such as `gazetteTheme`, `gazetteHeader` and `gazetteFooter`.
