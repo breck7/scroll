@@ -5,12 +5,17 @@ gazetteThemeParser
   get css() {
     if (this.constructor._cachedCss)
       return this.constructor._cachedCss
-    const hakonParser = require("jtree/products/hakon.nodejs.js")
+    const hakonParser = this.hakonParser
     this.constructor._cachedCss = new hakonParser([this.hakonReset, this.hakonStandardStyles, this.hakonCustomElements].join("\n")).compile()
     return this.constructor._cachedCss
   }
+  get hakonParser() {
+    if (this.isNodeJs())
+      return require("jtree/products/hakon.nodejs.js")
+    return hakonParser
+  }
+ // CSS Reset
  string hakonReset
-  comment CSS reset
   html,body,div,span,h1,h2,h3,h4,p,ol,ul,li,table,figure
    margin 0
    padding 0
@@ -54,6 +59,7 @@ gazetteThemeParser
    background-color rgba(204,204,204,.5)
    padding 2px 4px
    border-radius 4px
+ // Header and Footer
  string hakonCustomElements
   .gazetteHeader
    svg
@@ -97,6 +103,7 @@ gazetteThemeParser
    font-weight 100
    margin .5em
    color rgba(204,204,204,.5)
+ // Styles for Scroll standard tags
  string hakonStandardStyles
   comment Main body of both pages is similar
   .scrollColumns
@@ -255,6 +262,7 @@ gazetteThemeParser
    left 0
    width 100%
    height 100%
+
 gazetteHeaderParser
  extends abstractThemeHeaderParser
  javascript
@@ -282,6 +290,7 @@ gazetteHeaderParser
     href ${file.git}
    ${nextButton}`)
   }
+
 gazetteFooterParser
  extends abstractThemeFooterParser
  javascript
