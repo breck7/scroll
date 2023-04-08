@@ -164,18 +164,21 @@ wrapsOnParser
    return true
   }
   getMatches(text) {
-   return [this.runPattern(text, "`", "code"), this.runPattern(text, "*", "strong"), this.runPattern(text, "_", "em")].filter(i => i).flat()
+   return [this.runPattern(text, "`", "`", "code"), this.runPattern(text, "*", "*", "strong"), this.runPattern(text, "_", "_", "em"), this.runPattern(text, "[[", "]]", "a", content => `href="${content.toLowerCase()}.html"`)].filter(i => i).flat()
   }
-  runPattern(text, delimiter, tag, attributes = "") {
-   const escapedDelimiter = delimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
-   const pattern = new RegExp(`${escapedDelimiter}[^${escapedDelimiter}]+${escapedDelimiter}`, "g")
-   const delimiterLength = delimiter.length
+  runPattern(text, startDelimiter, endDelimiter, tag, attributesFn) {
+   const escapedStartDelimiter = startDelimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+   const escapedEndDelimiter = endDelimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+   const startDelimiterLength = startDelimiter.length
+   const endDelimiterLength = endDelimiter.length
+   const pattern = new RegExp(`${escapedStartDelimiter}[^${escapedEndDelimiter}]+${escapedEndDelimiter}`, "g")
    return [...text.matchAll(pattern)].map(match => {
     const { index } = match
     const endIndex = index + match[0].length
+    const content = text.substr(index + startDelimiterLength, endIndex - index - startDelimiterLength - endDelimiterLength)
     return [
-     { index, string: `<${tag + (attributes ? " " + attributes : "")}>`, endIndex, consumeStartCharacters: delimiterLength },
-     { index: endIndex, endIndex, string: `</${tag}>`, consumeEndCharacters: delimiterLength }
+     { index, string: `<${tag + (attributesFn ? " " + attributesFn(content) : "")}>`, endIndex, consumeStartCharacters: startDelimiterLength },
+     { index: endIndex, endIndex, string: `</${tag}>`, consumeEndCharacters: endDelimiterLength }
     ]
    })
   }
@@ -191,8 +194,8 @@ wrapParser
     const delimiter = this.getWord(1)
     const tag = this.getWord(2)
     const attributes = this.getWordsFrom(3).join(" ")
-    if (tag.startsWith("https:")) return this.runPattern(text, delimiter, "a", `href="${tag}"` + attributes)
-    return this.runPattern(text, delimiter, tag, attributes)
+    if (tag.startsWith("https:")) return this.runPattern(text, delimiter, delimiter, "a", () => `href="${tag}"` + attributes)
+    return this.runPattern(text, delimiter, delimiter, tag, () => attributes)
    } catch (err) {
     console.error(err)
     return []
