@@ -4,6 +4,12 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 69.0.0 4/9/2023
+* No one should be affected. This was an internal rewrite to upstream the imports code to `TreeFileSystem` in Jtree. No changes for Scroll users.
+- ⚠️ BREAKING: `scrollKeywords` is no longer exported
+- ⚠️ BREAKING: `DefaultScrollCompiler` is now `DefaultScrollParser`
+- ⚠️ BREAKING: `ScrollDiskFileSystem` and `ScrollInMemoryFileSystem` replaced by `ScrollFileSystem`
+
 # 68.0.0 4/3/2023
 * Simplify theme building.
 - ⚠️ BREAKING: `gazetteTheme` is now `gazetteCss`.

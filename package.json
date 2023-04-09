@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "68.0.0",
+  "version": "69.0.0",
   "description": "Tools for thought.",
   "main": "scroll.js",
   "engines": {
@@ -28,16 +28,20 @@
     "url": "https://github.com/breck7/scroll/issues"
   },
   "prettier": {
+    "parser": "babel",
     "useTabs": false,
     "tabWidth": 2,
     "semi": false,
-    "printWidth": 240
+    "printWidth": 240,
+    "trailingComma": "none",
+    "arrowParens": "avoid",
+    "quoteProps": "as-needed"
   },
   "homepage": "https://github.com/breck7/scroll#readme",
   "dependencies": {
     "dayjs": "^1.11.7",
     "image-size": "^1.0.2",
-    "jtree": "^74.0.0",
+    "jtree": "^74.1.1",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "tap": "^16.3.0"

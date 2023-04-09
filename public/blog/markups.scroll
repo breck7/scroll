@@ -1,10 +1,10 @@
 importOnly
 markupLineParser
  catchAllCellType anyCell
- catchAllParserType markupLineParser
+ catchAllParser markupLineParser
 abstractMarkupLangParser
  extends abstractScrollParser
- catchAllParserType markupLineParser
+ catchAllParser markupLineParser
  javascript
   compile() {
    return this.compiler(this.childrenToString())
