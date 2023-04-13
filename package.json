@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "69.1.1",
+  "version": "69.1.2",
   "description": "Tools for thought.",
   "main": "scroll.js",
   "engines": {
@@ -41,7 +41,7 @@
   "dependencies": {
     "dayjs": "^1.11.7",
     "image-size": "^1.0.2",
-    "jtree": "^74.1.1",
+    "jtree": "^74.3.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "tap": "^16.3.0"
