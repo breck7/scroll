@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 69.1.3 4/13/2023
+- 🏥 get tfs fixes in jtree
+
 # 69.1.1 4/13/2023
 - 🏥 Improve syntax highlighting of counters and comments
 
