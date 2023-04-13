@@ -6,7 +6,9 @@ byLine https://github.com/breck7 Breck Yunits
 blink *Scroll's new blink tag lets you call attention to something important*
  dateline
 
-* I am really happy with the current state of Scroll and so grateful for the many, many people who have helped us get it to this point, but I have had a feeling that we were missing something important and that's why not a lot of people have paid attention.
+* I am really happy with the current state of Scroll and so grateful for the many people who have helped us get it to this point. That being said, I had a feeling we were missing something important.
+
+endSnippet
 
 blink *So I invented something simple and completely novel*
 
@@ -19,6 +21,8 @@ code
 
 blink *The blink tag, available now in Scroll 34.1.0*
  https://scroll.pub/ Scroll 34.1.0
+
+* _Note: please don't use this. It's a joke_
 
 groups index
 keyboardNav

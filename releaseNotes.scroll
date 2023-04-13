@@ -4,6 +4,9 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 69.1.0 4/13/2023
+- 🎉 Added counters
+
 # 69.0.0 4/9/2023
 * No one should be affected. This was an internal rewrite to upstream the imports code to `TreeFileSystem` in Jtree. No changes for Scroll users.
 - ⚠️ BREAKING: `scrollKeywords` is no longer exported
