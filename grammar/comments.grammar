@@ -3,6 +3,7 @@ commentLineParser
 commentParser
  description Comments do not appear in the compiled HTML.
  catchAllCellType commentCell
+ cells commentCell
  extends abstractScrollParser
  cruxFromId
  javascript

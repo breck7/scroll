@@ -4,7 +4,7 @@
 abstractAftertextParser
  description Text followed by markup commands.
  extends abstractScrollParser
- inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser slashCommentParser
+ inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser commentParser
  example
   aftertext
    Hello brave new world
