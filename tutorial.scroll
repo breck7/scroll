@@ -61,7 +61,7 @@ table ,
 ## 6. Images
 * To add an image use the `image` keyword:
 belowAsCode 2
-image https://scroll.pub/public/screenshot.png
+image https://scroll.pub/blog/screenshot.png
  caption An image with a caption
 
 ## 7. Footnotes

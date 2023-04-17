@@ -468,7 +468,7 @@ regexCode
 # 40.0.0 2022.11.05
 - ⚠️ BREAKING: (no one should be affected) `caption` now extends the thought (`*`) node.
 
-image public/screenshot.png
+image blog/screenshot.png
  caption You can now use all aftertext directives like *bold* in caption nodes. Note: in the future we may just remove the keyword `caption` and you can just use `*` directly.
 
 # 39.0.0 2022.11.03
@@ -908,7 +908,7 @@ aboveAsCode
 # 22.4.0 2021.11.25
 - 🎉 add basic caption support to images
 
-image public/screenshot.png
+image blog/screenshot.png
  caption This is a caption
 aboveAsCode
 

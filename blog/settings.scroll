@@ -1,7 +1,7 @@
 importOnly
 description Official blog for Scroll
 git https://github.com/breck7/scroll
-viewSourceBaseUrl https://github.com/breck7/scroll/blob/main/public/blog
+viewSourceBaseUrl https://github.com/breck7/scroll/blob/main/blog
 email feedback@scroll.pub
-baseUrl https://scroll.pub/public/blog/
+baseUrl https://scroll.pub/blog/
 rssFeedUrl feed.xml

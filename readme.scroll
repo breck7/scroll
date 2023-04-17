@@ -4,7 +4,7 @@ startColumns
 import ciBadges.scroll
 
 ? Can you show me a screenshot?
-image public/screenshot.png
+image blog/screenshot.png
 
 ? Can I try Scroll in the browser?
 * Yes. Here is a web demo.
@@ -20,7 +20,7 @@ image public/screenshot.png
 
 ? Is there an official blog for the project?
 * Yes.
- link public/blog/ Yes
+ link blog/ Yes
 
 ? Where is the NPM package?
 * Here.
@@ -82,7 +82,7 @@ code
    }
 * Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.
 * For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
- https://scroll.pub/public/blog/indented-heredocs.html one
+ https://scroll.pub/blog/indented-heredocs.html one
 
 ? What is the biggest downside to Scroll?
 * Althought it is simple to write GrammarLinked when you know what you're doing, documentation for GrammarLinked is still very poor and tooling isn't great yet. That will get better.
@@ -90,7 +90,7 @@ code
 ? What kind of sites can I use Scroll to build?
 * Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
  https://scroll.pub one page
- https://scroll.pub/public/blog/ a few pages
+ https://scroll.pub/blog/ a few pages
  https://breckyunits.com/code/ tens of pages
  https://breckyunits.com/ hundreds of pages
  https://pldb.com/ thousands of pages
@@ -126,7 +126,7 @@ code
 ? What are some example sites using Scroll?
 * Scroll currently powers blog and sites of one page, a few pages, tens of pages, hundreds of pages, and even thousands of pages.
  https://scroll.pub one page
- https://scroll.pub/public/blog/ a few pages
+ https://scroll.pub/blog/ a few pages
  https://breckyunits.com/code/ tens of pages
  https://breckyunits.com/ hundreds of pages
  https://pldb.com/ thousands of pages
@@ -294,11 +294,11 @@ code
 
 ? Does Scroll support RSS?
 * Yes! Just create a `feed.scroll` file like this.
- https://github.com/breck7/scroll/blob/main/public/blog/feed.scroll this
+ https://github.com/breck7/scroll/blob/main/blog/feed.scroll this
 
 ? Does Scroll support categories and category pages?
 * Yes! Just add your page to a category by using the `groups` keyword and then creating a `yourGroupName.scroll` page for the group. See a demo here.
- https://github.com/breck7/scroll/blob/main/public/blog/ here
+ https://github.com/breck7/scroll/blob/main/blog/ here
 
 ? Does Scroll support Open Graph tags for better social media sharing?
 * Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl`. For more help check out the debuggers from Facebook and Twitter.
