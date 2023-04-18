@@ -25,8 +25,8 @@ html <div style="max-width: 480px; margin: auto;">
 ---
 
 # Basic Node Types
-## 1. Paragraphs
-* Let's start with the most common node, the `*` node (aka the "paragraph", "idea", or "thought" node). If you look at the code for this paragraph, you will see this:
+## 1. The Thought Node
+* Let's start with the most common node, the `thought` node. To use this node you can write out the word `thought` or use the shorthand: `*` node. You can think of this node as similar to a `p` or `div` tag in HTML. This paragraph you are reading is written using one of these nodes. The code is:
 aboveAsCode
 * In Markdown, you wouldn't need to start a paragraph with `&#42;`. In Markdown every line just defaults to a new paragraph. But Scroll is different. *All lines in Scroll start with a keyword^blank*.
 ^blank Except blank lines—blank lines are fine in Scroll.

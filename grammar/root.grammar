@@ -28,7 +28,7 @@ abstractTopLevelSingleMetaParser
   }
 scrollParser
  extensions scroll
- description Tools for thought that compile to HTML.
+ description Tools for thought thats compile to HTML.
  root
  inScope abstractScrollParser blankLineParser
  catchAllParser catchAllParagraphParser

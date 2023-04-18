@@ -1,5 +1,10 @@
 import header.scroll
-title 📜 Scroll: tools for thought.
+title 📜 Scroll: tools for thoughts.
+
+# An extensible alternative to Markdown
+ tag h2
+
+<br>
 startColumns
 import ciBadges.scroll
 
@@ -35,24 +40,26 @@ image blog/screenshot.png
  https://buy.stripe.com/3csaIqaaRez3emQ149
 
 ? Who is Scroll for?
-* Scroll is built for developers who like writing, tools for thought, open source, git backed static site generators, and fast simple code.
+* Scroll is built for developers who like writing, tools for thoughts, open source, git backed static site generators, and fast simple code.
 
 ? What makes Scroll different?
-* Scroll is not just another static site generator but also a *new language*. More than just a new language. It's a _simple new language that you can extend in amazing ways_. Scroll is a high level language mostly written in a new lower level language called GrammarLinked, and both Grammar and Scroll are built on the new syntax called TreeNotationLinked.
+* Scroll is not just another static site generator but also a *new language*. A new language that you can _extend_.
  https://staticsitegenerators.net another static site generator
 * The basics of Scroll are even simpler than Markdown. For example, the keyword for title is title.
- italics the keyword for title is title
-* You can stick to the basics or easily define new keywords extending the language to better fit your content and workflows. A simple indent is all you need to include sublanguages. No complex encoding needed.
+* You can stick to the basics or easily define new keywords extending the language to better fit your content and workflows. A simple indent is all you need to include sub-languages. No complex encoding needed.
+* Scroll is written in a language called GrammarLinked, and both Grammar and Scroll are built on the new syntax called TreeNotationLinked.
 
 ? How does Scroll improve over the latest incarnations of Markdown?
 * Scroll evolved based on the theory that instead of one language for writing it would be better to get to choose from an ever evolving ecosystem of thousands of mini-languages, and mix and match them to better fit your domain.
 
-* So, compared to other languages, Scroll is designed to be remarkably easy to extend.
+* So, compared to other languages, Scroll is designed to be easy to extend.
 
 * You can see this in the Scroll source code. Scroll is primarily written in GrammarLinked, and there are currently dozens of `.grammar` files in the base distribution. Each Grammar file can define a mini language of its own. You can simply add (or remove) Grammar files to generate your own custom dialects to better fit your domains.
 
-* Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by exploiting the indent trick. Each line gets its own scope. So you can add, remove, and update your mini-languages and their associated blocks without breaking the rest of the documents.
- https://en.wikipedia.org/wiki/Off-side_rule indent trick
+* Think of it as one file, many languages.
+
+* Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by making the most of the indent trick (also known as the off-side rule). Each line gets its own scope. So you can add, remove, and update your mini-languages and their associated blocks without breaking the rest of the documents.
+ https://en.wikipedia.org/wiki/Off-side_rule off-side rule
 
 ? How do I extend Scroll?
 * Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a recipe keyword and write a post like this:
@@ -85,7 +92,8 @@ code
  https://scroll.pub/blog/indented-heredocs.html one
 
 ? What is the biggest downside to Scroll?
-* Althought it is simple to write GrammarLinked when you know what you're doing, documentation for GrammarLinked is still very poor and tooling isn't great yet. That will get better.
+* Compared to Markdown there is very little tooling and the ecosystem is currently very small.
+* Also, although it is simple to write GrammarLinked when you know what you're doing, documentation for GrammarLinked is still poor and tooling isn't great yet.
 
 ? What kind of sites can I use Scroll to build?
 * Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
@@ -167,10 +175,11 @@ code
 * Scroll is designed for git. A single article is stored as a single file tracked by git.
 
 ? Is Scroll public domain?
-* Yes! Scroll is also 100% focused on helping people build internal or <strong>public domain sites</strong> and everything is designed with that assumption.
+* Yes! Scroll is also 100% focused on helping people build internal or *public domain sites* and everything is designed with that assumption.
 
 ? Why does the default theme have a single page layout?
-* The default Scroll theme is designed to make it easier for *syntopic reading*. Being able to scan the page like a newspaper. This allows you to read at a higher level—to "get in the author's head"—compared to reading one article at a time from beginning to end.
+* The default Scroll theme is designed to make it easier for syntopic reading. Being able to scan the page like a newspaper. This allows you to read at a higher level—to "get in the author's head"—compared to reading one article at a time from beginning to end.
+ https://fs.blog/how-to-read-a-book syntopic reading
 * And if anyone prefers to read a scroll in a different way—they can! Scroll is for public domain sites. People are free to arrange the symbols any way they wish.
 
 ? Will you make design decisions for non-public domain sites?
@@ -330,7 +339,7 @@ code
  # Now ➡️ open a new Chrome tab ➡️ open devtools ➡️ click Performance ➡️ click "Load Profile..." ➡️ select your scrollNodePerf.cpuprofile
 
 ? How is a keyword different than a web components?
-* Scroll and Web Components are similar in that both empower users to define their own reusable components. But Scroll is higher level than web components. For example, in addition to easily targetting HTML and web components, Scroll also plays really nicely with version control and 2D editors. Scroll encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
+* Scroll and Web Components are similar in that both empower users to define their own reusable components. But Scroll is higher level than web components. For example, in addition to easily targeting HTML and web components, Scroll also plays really nicely with version control and 2D editors. Scroll encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
 
 ? How do I run cross browser tests?
 * For that we use BrowserStack.

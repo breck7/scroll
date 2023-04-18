@@ -4,7 +4,7 @@
 abstractAftertextParser
  description Text followed by markup commands.
  extends abstractScrollParser
- inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser commentParser
+ inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser commentParser
  example
   aftertext
    Hello brave new world
@@ -61,7 +61,8 @@ abstractAftertextParser
    this.compileSettings = compileSettings
    const { className } = this
    const classAttr = className ? `class="${this.className}"` : ""
-   return `<${this.tag} ${this.divAttributes}${classAttr}>${this.text}</${this.tag}>`
+   const tag = this.get("tag") || this.tag
+   return `<${tag} ${this.divAttributes}${classAttr}>${this.text}</${tag}>`
   }
   get divAttributes() {
    const attrs = this.filter(node => node.isAttribute)
@@ -74,6 +75,13 @@ abstractAftertextAttributeParser
   get divAttributes() {
    return `${this.firstWord}="${this.content}"`
   }
+  compile() {
+   return ""
+  }
+aftertextTagParser
+ cells keywordCell htmlTagCell
+ crux tag
+ javascript
   compile() {
    return ""
   }
@@ -292,22 +300,6 @@ classMarkupParser
    const words = this.getWordsFrom(2)
    return words.length ? words.join(" ") : this.parent.content
   }
-thoughtParser
- // todo Perhaps rewrite this from scratch and move out of aftertext.
- extends abstractAftertextParser
- catchAllCellType stringCell
- example
-  * I had a _new_ thought.
- description A thought.
- crux *
- javascript
-  compile(compileSettings) {
-   // Hacky, I know.
-   const newLine = this.appendLine("wrapsOn")
-   const compiled = super.compile(compileSettings)
-   newLine.destroy()
-   return compiled
-  }
 emailLinkParser
  description A mailto link
  crux email
@@ -336,6 +328,12 @@ aftertextIdParser
  extends abstractAftertextAttributeParser
  cells keywordCell htmlIdCell
  single
+aftertextStyleParser
+ crux style
+ description Provide code for the generated HTML tag's "style" attribute.
+ extends abstractAftertextAttributeParser
+ cells keywordCell
+ catchAllCellType cssAnyCell
 aftertextHiddenParser
  crux hidden
  cells keywordCell

@@ -1,0 +1,19 @@
+thoughtParser
+ // todo Perhaps rewrite this from scratch and move out of aftertext.
+ extends abstractAftertextParser
+ catchAllCellType stringCell
+ description A thought.
+ cruxFromId
+ javascript
+  compile(compileSettings) {
+   // Hacky, I know.
+   const newLine = this.appendLine("wrapsOn")
+   const compiled = super.compile(compileSettings)
+   newLine.destroy()
+   return compiled
+  }
+quickThoughtParser
+ crux *
+ extends thoughtParser
+ example
+  * I had a _new_ thought.

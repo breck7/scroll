@@ -129,6 +129,8 @@ gazetteCssParser
    font-size 80%
   .scrollSection
    break-inside avoid
+   h2
+    text-align center
    h3
     margin-top 1em
     text-align center

@@ -4,6 +4,11 @@ startColumns
 
 * Here's a list of the notable changes in Scroll.
 
+# 69.2.0 4/18/2023
+- 🎉 added the `tag` keyword to thought nodes so you can change the compiled html tag (needed in rare circumstances)
+- 🎉 added the `thought` keyword and standardized vocab to calling the thought node the main node that most nodes extend.
+- 🎉 added the `style` keyword to provide inline html styles to a thought node.
+
 # 69.1.4 4/13/2023
 - 🏥 get tfs fixes in jtree
 

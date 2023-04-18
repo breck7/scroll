@@ -39,6 +39,9 @@ delimiterCell
  highlightScope string
 htmlAttributesCell
  highlightScope comment
+htmlTagCell
+ highlightScope constant.language
+ enum div span p a img ul ol li h1 h2 h3 h4 h5 h6 header nav section article aside main footer input button form label select option textarea table tr td th tbody thead tfoot br hr meta link script style title code
 classNameCell
  highlightScope constant
 htmlIdCell
