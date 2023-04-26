@@ -1,0 +1,24 @@
+katexParser
+ cruxFromId
+ extends abstractScrollWithRequirementsParser
+ catchAllCellType codeCell
+ catchAllParser lineOfCodeParser
+ description Use the KaTex library to typeset math.
+ string requireOnce
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.6/dist/katex.min.css" integrity="sha384-mXD7x5S50Ko38scHSnD4egvoExgMPbrseZorkbE49evAfv9nNcbrXJ8LLNsDgh9d" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.6/dist/katex.min.js" integrity="sha384-j/ZricySXBnNMJy9meJCtyXTKMhIJ42heyr7oAdxTDBy/CYA9hzpMo+YTNV5C+1X" crossorigin="anonymous"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollKatex").forEach(el =>
+   {
+    katex.render(el.innerText, el, {
+        throwOnError: false
+    });
+   }
+  ))
+  </script>
+ javascript
+  compileInstance() {
+   const id = this._getUid()
+   const content = this.content === undefined ? "" : this.content
+   return `<div class="scrollKatex" id="${id}">${content + this.childrenToString()}</div>`
+  }
