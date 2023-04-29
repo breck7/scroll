@@ -15,6 +15,10 @@ image blog/screenshot.png
 Yes. Here is a web demo.
  https://try.scroll.pub/ web demo
 
+? How do I install Scroll?
+code
+ npm install -g scroll-cli
+
 ? What has changed in recent versions?
 View the releaseNotes.
  link releaseNotes.html releaseNotes

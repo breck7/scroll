@@ -80,6 +80,7 @@ abstractAftertextAttributeParser
   }
 aftertextTagParser
  cells keywordCell htmlTagCell
+ description Override the HTML tag that the compiled node will use.
  crux tag
  javascript
   compile() {
@@ -209,20 +210,24 @@ wrapParser
   }
 boldParser
  cruxFromId
+ description Bold the matching text.
  extends abstractMarkupParser
  javascript
   tag = "b"
 italicsParser
  cruxFromId
+ description Italicize the matching text.
  extends abstractMarkupParser
  javascript
   tag = "i"
 underlineParser
+ description Underline the matching text.
  cruxFromId
  extends abstractMarkupParser
  javascript
   tag = "u"
 aftertextCodeParser
+ description Wrap the matching text in a <code> span.
  crux code
  extends abstractMarkupParser
  javascript
@@ -248,6 +253,7 @@ linkTitleParser
     title The average growth in the treatment group was 14.2x higher than the control group.
 linkParser
  extends abstractMarkupParser
+ description Put the matching text in an <a> tag.
  cells keywordCell urlCell
  inScope linkTitleParser linkTargetParser commentParser
  cruxFromId
