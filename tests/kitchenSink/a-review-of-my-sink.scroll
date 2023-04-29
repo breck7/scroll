@@ -4,7 +4,7 @@ title A review of my sink
 
 startColumns 1
 
-* I have been using my sink for one year, and this is what I have learned.
+I have been using my sink for one year, and this is what I have learned.
 
 replace SOME_DATA
  - foo
@@ -16,7 +16,7 @@ endSnippet
 
 groups index all
 
-* I have learned that a sink is a sink.
+I have learned that a sink is a sink.
 
 ## My favorite things about sinks
 

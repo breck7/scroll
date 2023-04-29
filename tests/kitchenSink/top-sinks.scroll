@@ -32,18 +32,18 @@ TABLE
 TABLE
 
 replaceJs TODAYS_DATE Date()
-* Today is TODAYS_DATE
+Today is TODAYS_DATE
 
 replaceJs SUM 1+1
-* 1+1 = SUM
+1+1 = SUM
 
 replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
-* THE_DAY was a great day
+THE_DAY was a great day
 
-* There are NUM_SINKS in my list.
+There are NUM_SINKS in my list.
 
 
 nodejs
  module.exports = {DIRNAME: __dirname}
 
-* This file is in dir: DIRNAME
+This file is in dir: DIRNAME

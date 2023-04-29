@@ -1,8 +1,7 @@
 catchAllParagraphParser
- description A catch all block. This may be removed in future versions.
+ description Any top level line that doesn't match a keyword is treated as a thought (aka paragraph) node.
  extends thoughtParser
  cells stringCell
- baseParser errorParser
  javascript
   get originalText() {
    return this.getLine() || ""

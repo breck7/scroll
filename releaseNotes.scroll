@@ -2,7 +2,12 @@ import header.scroll
 title Scroll Release Notes
 startColumns
 
-* Here's a list of the notable changes in Scroll.
+Here's a list of the notable changes in Scroll.
+
+# 70.0.0 4/29/2023
+- 🎉 Paragraphs no longer need to start with '* '. All non-blank lines that don't start with a defined keyword are now treated as a paragraph. The catch-all is no longer an error. It is recommended to start all paragraphs with a capital letter, as in the future it may become the standard that keywords start with a lowercase or symbol, and you will avoid any future keyword collisions.
+ - Thanks to zoeartemis for the feedback.
+ - No changes are needed but you can update your files with the find/replace combo: `\n\* ` `\n`. You may want to use the case sensitive `\n\* [a-z]` search first to find any paragraphs that start with a lowercase letter.
 
 # 69.3.0 4/26/2023
 - 🎉 Add `katex` keyword. KaTeX: "The fastest math typesetting library for the web."
@@ -26,13 +31,13 @@ startColumns
 - 🎉 Added counters
 
 # 69.0.0 4/9/2023
-* No one should be affected. This was an internal rewrite to upstream the imports code to `TreeFileSystem` in Jtree. No changes for Scroll users.
+No one should be affected. This was an internal rewrite to upstream the imports code to `TreeFileSystem` in Jtree. No changes for Scroll users.
 - ⚠️ BREAKING: `scrollKeywords` is no longer exported
 - ⚠️ BREAKING: `DefaultScrollCompiler` is now `DefaultScrollParser`
 - ⚠️ BREAKING: `ScrollDiskFileSystem` and `ScrollInMemoryFileSystem` replaced by `ScrollFileSystem`
 
 # 68.0.0 4/3/2023
-* Simplify theme building.
+Simplify theme building.
 - ⚠️ BREAKING: `gazetteTheme` is now `gazetteCss`.
 - ⚠️ BREAKING:
 code
@@ -41,10 +46,10 @@ code
   tags false
 
 # 67.1.0 4/3/2023
-* Maintenance release. Update packages and remove unused package and specify required NodeJs versions accurately.
+Maintenance release. Update packages and remove unused package and specify required NodeJs versions accurately.
 
 # 67.0.0 4/2/2023
-* This is _The Theme Release_.
+This is _The Theme Release_.
 - 🎉 Introduce the idea of keywords for theming scrolls.
 - ⚠️ BREAKING: `author` node is now `byLine`. `author` is kept for now but updating is recommended.
 - ⚠️ BREAKING: `scrollCssTag` is gone. use `gazetteTheme` for previous behavior. `scrollCss` is gone, use `gazetteTheme noTag`.
@@ -71,7 +76,7 @@ code
 - 🏥 cache hotfix for embedded snippets.
 
 # 63.0.0 3/27/2023
-* This was a big internal refactor to remove the outdated concept of `ScrollFolder` and rely on the file system parameter instead. This makes it easier to build webapps serving dynamic Scroll pages. It also simplifies the upcoming isomorphic release.
+This was a big internal refactor to remove the outdated concept of `ScrollFolder` and rely on the file system parameter instead. This makes it easier to build webapps serving dynamic Scroll pages. It also simplifies the upcoming isomorphic release.
 - ⚠️ BREAKING: Only users using Scroll as a module may be affected:
  - Removed `ScrollFolder`. Exports now include `ScrollDiskFileSystem` and `ScrollInMemoryFileSystem`. To get the same behavior as `new ScrollFolder("folder").buildFiles()` use `new ScrollDiskFileSystem().buildFilesInFolder("folder")`.
  - Instead of `new ScrollFolder(__dirname).defaultScrollCompiler` use `DefaultScrollCompiler`
@@ -263,7 +268,7 @@ css
  .classDemo {color:blue;}
 aboveAsCode
 belowAsCode
-* This whole text will be blue.
+This whole text will be blue.
  class classDemo
 
 # 55.2.0 1/26/2023
@@ -283,12 +288,12 @@ belowAsCode
 bashCode
  nodemon -e scroll -x "scroll build"
 
-* Or alias it:
+Or alias it:
 
 bashCode
  alias watch="nodemon -e scroll -x 'scroll build'"
 
-* You can add the following code to the page(s) you are working on to have them reload without manually refreshing the browser:
+You can add the following code to the page(s) you are working on to have them reload without manually refreshing the browser:
 
 scrollCode
  html <meta http-equiv="refresh" content="1;">
@@ -336,7 +341,7 @@ html <b>here is some html</b>
 - ⚠️ BREAKING: This should not break anyone however behavior has changed. `scroll build` now does not overwrite unmodified files. Now `mtime` reflects when the generated HTML last changed instead of when the `scroll build` command was last run. This speeds up `rsync` deploys.
 
 # 51.0.0 1/9/2023
-* 🎉 This version introduces the concept of `Sections`. Headers (`#`, `##` and `?`) now start a section, and a blank line ends it. A section will not be split across columns.
+- 🎉 This version introduces the concept of `Sections`. Headers (`#`, `##` and `?`) now start a section, and a blank line ends it. A section will not be split across columns.
 - ⚠️ BREAKING: This slightly changes layouts (for the better, hopefully in all cases) so do a manual inspection of output.
 
 # 50.2.0 1/5/2023
@@ -351,7 +356,7 @@ html <b>here is some html</b>
 - ⚠️ BREAKING: simplified footnotes by removing `notes` keyword. Referencing a footnote is done the same way but now footnotes just print immediately like you'd expect.
 
 belowAsCode
-* For example^exampleFootnote
+For example^exampleFootnote
 
 ^exampleFootnote This is an example footnote.
 aboveAsCode
@@ -375,7 +380,7 @@ aboveAsCode
 - 🏥 fix: previous/next buttons are not shown if there is no keyboardNav
 
 # 48.0.0 1/1/2023
-* This release simplifies and removes things from the default install.
+This release simplifies and removes things from the default install.
 
 - ⚠️ BREAKING: the `github` keyword is now `git` to make it clearer what it does. The git SVG is now used in the default theme.
 - ⚠️ BREAKING: removed `twitter` keyword and removed the Twitter link from default theme.
@@ -405,7 +410,7 @@ aboveAsCode
 - 🏥 fixed body padding regression
 
 # 47.0.0 11/28/2022
-* This is a major breaking refactor. Scroll now generates flat html. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out. 
+This is a major breaking refactor. Scroll now generates flat html. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out. 
 
 - ⚠️ BREAKING: removed automatic meta tag generation. You now need to explicitly add a `metaTags` keyword.
 - ⚠️ BREAKING: removed `<!doctype>`, `<html>`, `<head>`, and `<body>` tags. Unnecessary. Modern browsers don't need them. HTML never should have had head/body split.
@@ -418,7 +423,7 @@ aboveAsCode
 - 🏥 `scrollCss` works now
 
 # 46.0.0 11/27/2022
-* This is a major breaking refactor. *All the implicit imports are gone*. Everything must be explicitly included now (perhaps with a few slight exceptions like meta tags). This migration guide is a work in progress. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out.
+This is a major breaking refactor. *All the implicit imports are gone*. Everything must be explicitly included now (perhaps with a few slight exceptions like meta tags). This migration guide is a work in progress. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out.
 
 - ⚠️ BREAKING: removed `maxColumns` and `columnWidth` and `template`
 - ⚠️ BREAKING: headers and footers are not provided by default. You now must explicitly include them with `scrollHeader` and `scrollFooter`. The previous behavior of `scrollHeader` and `scrollFooter` has been removed.
@@ -430,7 +435,7 @@ aboveAsCode
 
 ## Footnotes example
 
-* Brockton is a city in Massachusetts^state. It was incorporated in 1881^inc. 
+Brockton is a city in Massachusetts^state. It was incorporated in 1881^inc. 
  https://en.wikipedia.org/wiki/Brockton,_Massachusetts Brockton
 
 ## Notes
@@ -444,7 +449,7 @@ aboveAsCode
 - 🏥 fix hidden title bug
 
 # 44.0.0 11/24/2022
-* This is the `title` simplification refactor release.
+This is the `title` simplification refactor release.
 - 🎉 new: `description` keyword for use in open graph description generation.
 - 🎉 new: optional `hidden` keyword on `title` nodes for setting `title` without printing it.
 - ⚠️ BREAKING: Group pages no longer have a `title` in their HTML by default. Must set manually.
@@ -521,10 +526,10 @@ code
 - ⚠️ BREAKING: Removed basic `unorderedList` node.
 - ⚠️ BREAKING: Removed support for 🔗 links. Regex [search replace] to upgrade: ` ([^ ]+)🔗([^ ]+)` ` <a href="https://$2">$1</a>`
 
-* The goal of this release is to simplify and speed up Scroll by removing legacy features.
-* This is a major release that removes a bunch of the original keywords in favor of the newer more advanced aftertext nodes.
-* If you don't want to upgrade at this time, it's very easy to just add the removed grammar definitions from this commit into your existing scrolls using the normal extension pattern.
-* You can also easily alias the newer aftertext node types with the original keywords above if you'd prefer.
+The goal of this release is to simplify and speed up Scroll by removing legacy features.
+This is a major release that removes a bunch of the original keywords in favor of the newer more advanced aftertext nodes.
+If you don't want to upgrade at this time, it's very easy to just add the removed grammar definitions from this commit into your existing scrolls using the normal extension pattern.
+You can also easily alias the newer aftertext node types with the original keywords above if you'd prefer.
 
 # 36.1.0 2022.10.27
 - 🎉 Now you can leave the "pattern" part blank in link node in aftertext to make the whole line a link.
@@ -598,9 +603,8 @@ aboveAsCode
   And it supports hover notes!
 aboveAsCode
 
-# Projects list
-
-* Projects I'm very actively working on:
+# Reading lists
+Projects I'm very actively working on:
 
 readingList
  https://pldb.com PLDB.com
@@ -651,27 +655,27 @@ aboveAsCode
 - 🏥 imports can now be recursive
 
 # 28.0.0 2022.8.26
-* This is a *major* update that radically simplifies Scroll and adds significant new capabilities.
+This is a *major* update that radically simplifies Scroll and adds significant new capabilities.
 
 ## From 3 file types to 1
 
-* `scroll.settings` and `*.grammar` files are gone. Everything is now done with `.scroll` files, and now every keyword is documented and usable on try.scroll.com and type checked.
+`scroll.settings` and `*.grammar` files are gone. Everything is now done with `.scroll` files, and now every keyword is documented and usable on try.scroll.com and type checked.
 
 ## Imports and variables
 
-* Use `import [filepath]` to import one file into another. Use `replace` and `replaceDefault` for variables.
+Use `import [filepath]` to import one file into another. Use `replace` and `replaceDefault` for variables.
 
 ## Add your own Grammar extensions directly in your Scroll files
 
-* Define new nodeTypes or create your own aliases on a per file basis. Use the import keyword and build your own collection of common reusable node types for your project(s).
+Define new nodeTypes or create your own aliases on a per file basis. Use the import keyword and build your own collection of common reusable node types for your project(s).
 
 ## Unlimited Groups and Group Pages
 
-* Add files to one or more groups and then customize how each group page prints. No more magic or implicit creation of collection pages.
+Add files to one or more groups and then customize how each group page prints. No more magic or implicit creation of collection pages.
 
 ## Multiple Compiler Passes
 
-* The new language features (imports, grammar nodes, and variables) required a change from a 1 one stage compilation process to a multi-stage compiler pass pattern. The compilers passes run in this order: imports, grammar extensions, then variables. So variables cannot be used in imports or grammar extensions.
+The new language features (imports, grammar nodes, and variables) required a change from a 1 one stage compilation process to a multi-stage compiler pass pattern. The compilers passes run in this order: imports, grammar extensions, then variables. So variables cannot be used in imports or grammar extensions.
 
 ## Change list
 
@@ -787,7 +791,7 @@ treeTable
 # 24.6.0 2022.6.10
 - 🎉 added `wrap` keyword for advanced custom wraps in aftertext.
 
-* Some !simple! and *advanced* usages. An #absolute link# and @@@a relative link@@@. Show some ++added text++ or some --deleted text--.
+Some !simple! and *advanced* usages. An #absolute link# and @@@a relative link@@@. Show some ++added text++ or some --deleted text--.
  wrap ! em
  wrap * b
  wrap # https://example.com
@@ -799,7 +803,7 @@ aboveAsCode
 # 24.5.0 2022.6.10
 - 🎉 added `wrapsOn` keyword to aftertext.
 
-* Support for traditional *bold*, `code`, and _italics_ in aftertext with the keyword `wrapsOn`.
+Support for traditional *bold*, `code`, and _italics_ in aftertext with the keyword `wrapsOn`.
 aboveAsCode
 
 # 24.4.0 2022.6.08
@@ -809,13 +813,13 @@ aboveAsCode
 - 🏥 fix bug where images were stuck at 35ch even when the browser sized columns wider
 
 # 24.3.0 2022.2.16
-* This tiny release adds some ways to include more caveats and context around words and references.
+This tiny release adds some ways to include more caveats and context around words and references.
 - 🎉 added 'caveat' directive to aftertext for adding caveats around parts of text
 - 🎉 added 'note' directive to aftertext links for providing more context around included links
 
 ## Caveat Example
 
-* This is a great idea.
+This is a great idea.
  hoverNote great
   I'm not actually sure if this is a great idea. But often I want to include a comment and link it
   back to the text, but don't quite want to footnote it.
@@ -823,7 +827,7 @@ aboveAsCode
 
 ## Link Quote Example
 
-* This report showed the treatment had a big impact.
+This report showed the treatment had a big impact.
  https://example.com/report This report
   title The average growth in the treatment group was 14.2x higher than the control group.
 aboveAsCode
@@ -832,7 +836,7 @@ aboveAsCode
 - 🎉 added 'id' directive to aftertext for adding ids to paragraphs <p id="foo"></p>
 - 🎉 added 'loremIpsum' nodeType to help in testing and exploring
 
-* Example demonstrating the above:
+Example demonstrating the above:
 
 code
  aftertext
@@ -866,13 +870,13 @@ pipeTable
 
 - ⚠️ the first paragraph of an article no longer prints a dateline. Use aftertext instead. See example below.
 
-* By default the article's date will be used but you can also provide a custom date.
+By default the article's date will be used but you can also provide a custom date.
 
 belowAsCode
-* A truck transporting llamas collided into a pajama factory late last night.
+A truck transporting llamas collided into a pajama factory late last night.
  dateline 2/21/2020
 
-* To migrate and keep your existing datelines use the command scroll migrate.
+To migrate and keep your existing datelines use the command scroll migrate.
  code scroll migrate
 
 # 23.2.0 2021.12.22
@@ -884,7 +888,7 @@ belowAsCode
 
 ? Can you show an example of the new advanced aftertext features?
 
-* How much wood can a woodchuck chuck if a woodchuck could chuck wood?
+How much wood can a woodchuck chuck if a woodchuck could chuck wood?
  https://en.wikipedia.org/wiki/Groundhog woodchuck
   matchAll
  class standout wood
@@ -909,7 +913,7 @@ aboveAsCode
 
 ? Can you show an example of aftertext?
 
-* You write some text. After your text, you add your markup instructions with selectors to select the text to markup, one command per line. For example, this paragraph is written in Aftertext and the source code looks like:
+You write some text. After your text, you add your markup instructions with selectors to select the text to markup, one command per line. For example, this paragraph is written in Aftertext and the source code looks like:
  italics After your text
  italics selectors
 aboveAsCode
@@ -956,11 +960,11 @@ aboveAsCode
 
 ? Why the new `question` nodes?
 
-* Question and answer structures are literally older than the Socratic Method. Such a common semantic pattern deserves it's own keywords.
+Question and answer structures are literally older than the Socratic Method. Such a common semantic pattern deserves it's own keywords.
 
 ? How do I migrate from title# nodes?
 
-* The below regex may help.
+The below regex may help.
 
 code
  Find ^title\d (.+\?)
@@ -1064,12 +1068,12 @@ pipeTable
 # 13.3.0 2021.05.18
 - 🎉 html and image node types
 
-* To use an image node:
+To use an image node:
 
 code
  image foo.jpg
 
-* QuickParagraphs are now an error. When you want to drop in some HTML, do so with HTML node:
+QuickParagraphs are now an error. When you want to drop in some HTML, do so with HTML node:
 
 code
  html
@@ -1087,13 +1091,13 @@ code
 
 ? How do I use the new single word links?
 
-* For single word links in paragraph nodes only (for now) you can now do:
+For single word links in paragraph nodes only (for now) you can now do:
 
 code
  paragraph
   This is a link🔗example.com
 
-* Below is a regex for migrating existing <code>*.scroll</code> files.
+Below is a regex for migrating existing <code>*.scroll</code> files.
 
 code
  <a href="https://([^"]+)">([^ ]+)</a>
@@ -1101,7 +1105,7 @@ code
 
 ? How do I use the 🔗link tag with multiword links?
 
-* The 🔗link tag only supports single word links. Like everything with ScrollScript, you have a number of options if the conventional design doesn't work for you. Your options are:
+The 🔗link tag only supports single word links. Like everything with ScrollScript, you have a number of options if the conventional design doesn't work for you. Your options are:
 
 - 1. Link just one word. If you need more, perhaps camelCase or snake_case your words together into one concept.
 - 2. Repeat the link twice <code>foo 🔗link bar 🔗link</code>
@@ -1109,7 +1113,7 @@ code
 - 4. Extend the ScrollScript grammar for your site.
 
 ? Can I not include a page in the index page?
-* Now you can! Sometimes you just want to publish an independent page without including it in the index. To do that, just add `skipIndexPage`.
+Now you can! Sometimes you just want to publish an independent page without including it in the index. To do that, just add `skipIndexPage`.
 
 # 12.1.0 2021.05.14
 - 🎉 chat nodeType

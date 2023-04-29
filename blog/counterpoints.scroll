@@ -6,37 +6,37 @@ startColumns 2
 
 # Improve your writing by welcoming counterarguments
 
-* There's a tiny new symbol in Scroll today: `!`. The exclamation mark stands for *Counterpoint*. "Counters" aim to help writers strengthen their ideas by encouraging the integration of counterarguments throughout their essays. You can write your own counters or invite counters from friends, LLMs or Internet commenters.
+There's a tiny new symbol in Scroll today: `!`. The exclamation mark stands for *Counterpoint*. "Counters" aim to help writers strengthen their ideas by encouraging the integration of counterarguments throughout their essays. You can write your own counters or invite counters from friends, LLMs or Internet commenters.
  dateline
  https://scroll.pub/ Scroll
 
 endSnippet
 
-* Counterpoints are easy to use: just start a line with `!`. For example:
+Counterpoints are easy to use: just start a line with `!`. For example:
 
 code
- * Humans will eventually establish colonies on Mars.
+ Humans will eventually establish colonies on Mars.
   ! But we haven't colonized the Arctic, 1,000x easier
 
-* You can go as deep as you want in countering your own counters!
+You can go as deep as you want in countering your own counters!
 
 code
- * Humans will eventually establish colonies on Mars.
+ Humans will eventually establish colonies on Mars.
   ! But we haven't colonized the Arctic, 1,000x easier
    - Colonizing Mars is 10,000x more valuable
 
 ## The Benefits of Countering
-* When we have a lot of terms for a thing, it's usually a hint that it's a valuable thing. And we have a lot of terms for countering. "Steel manning", "red teaming", "playing devil's advocate", to name a few. Countering is a helpful habit that helps clarify your thoughts, understand and empathize with other perspectives, fix logical blunders, hone your pitch, and improve at truth-seeking. Counterpoints in Scroll are in a sense just a reminder to frequently use these techniques.
+When we have a lot of terms for a thing, it's usually a hint that it's a valuable thing. And we have a lot of terms for countering. "Steel manning", "red teaming", "playing devil's advocate", to name a few. Countering is a helpful habit that helps clarify your thoughts, understand and empathize with other perspectives, fix logical blunders, hone your pitch, and improve at truth-seeking. Counterpoints in Scroll are in a sense just a reminder to frequently use these techniques.
 
 ## The Downsides of Countering
-* Addressing every plausible counter in your main thread can be difficult if not impossible. It can make your writing too verbose and lose reader interest. Counters in Scroll give you a place to record every scattered counter as it comes to you. You can then choose which are important enough to address in your main argument and relegate the rest to the source code (for the very avid reader).
+Addressing every plausible counter in your main thread can be difficult if not impossible. It can make your writing too verbose and lose reader interest. Counters in Scroll give you a place to record every scattered counter as it comes to you. You can then choose which are important enough to address in your main argument and relegate the rest to the source code (for the very avid reader).
 
 ## Implementation
-* Counterpoints do not currently appear in the compiled HTML. Instead you only see them during write time. For now, they are just an alternate syntax for comments. But though they perform no new function, like traffic lines, sometimes form is function.
+Counterpoints do not currently appear in the compiled HTML. Instead you only see them during write time. For now, they are just an alternate syntax for comments. But though they perform no new function, like traffic lines, sometimes form is function.
 
-* That being said, there are potentially interesting directions this could go in the future, and it would be interesting to hear ideas of what people would like in a v2.
+That being said, there are potentially interesting directions this could go in the future, and it would be interesting to hear ideas of what people would like in a v2.
 
-* Keep writing, keep thinking!
+Keep writing, keep thinking!
 
 byLine https://github.com/breck7 Breck Yunits
 
