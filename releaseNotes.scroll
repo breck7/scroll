@@ -7,7 +7,9 @@ Here's a list of the notable changes in Scroll.
 # 70.0.0 4/29/2023
 - 🎉 Paragraphs no longer need to start with '* '. All non-blank lines that don't start with a defined keyword are now treated as a paragraph. The catch-all is no longer an error. It is recommended to start all paragraphs with a capital letter, as in the future it may become the standard that keywords start with a lowercase or symbol, and you will avoid any future keyword collisions.
  - Thanks to zoeartemis for the feedback.
- - No changes are needed but you can update your files with the find/replace combo: `\n\* ` `\n`. You may want to use the case sensitive `\n\* [a-z]` search first to find any paragraphs that start with a lowercase letter.
+ - No changes are needed but you can update your files with the find/replace combo: `\n\* ` `\n`.
+  - You may want to use the case sensitive `\n\* [a-z]` search first to find any paragraphs that start with a lowercase letter.
+  - You also want to be careful of any lines that would now start with `<`, as they will be parsed as HTML nodes.
 
 # 69.3.0 4/26/2023
 - 🎉 Add `katex` keyword. KaTeX: "The fastest math typesetting library for the web."
