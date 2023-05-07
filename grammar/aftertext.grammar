@@ -31,7 +31,8 @@ abstractAftertextParser
   replaceNotes(originalText) {
    this.root.footnotes.forEach((note, index) => {
     const needle = note.firstWord
-    if (originalText.includes(needle)) originalText = originalText.replace(needle, `<a href="#${note.anchorId}" class="scrollNoteLink" id="${note.linkBack()}"><sup>${note.noteId}</sup></a>`)
+    const {linkBack} = note
+    if (originalText.includes(needle)) originalText = originalText.replace(new RegExp("\\" + needle + "\\b"), `<a href="#${note.anchorId}" class="scrollNoteLink" id="${linkBack}"><sup>${note.noteId}</sup></a>`)
    })
    return originalText
   }
