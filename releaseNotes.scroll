@@ -7,7 +7,8 @@ startColumns
 # 71.0.0 5/06/2023
 - 🎉 added `tufteCss` beta theme.
 - 🎉 added `###`, `####` and `#####` headers.
-- ⚠️ BREAKING: slight changes to the 
+- ⚠️ BREAKING: slight changes to the h1-h4 font sizes and margins in the default gazetteTheme.
+ - A single # is now h1, ## is h2, et cetera. `title` can be thought of as `h0`.
 - ⚠️ BREAKING: `gazetteHeader` is now `pageHeader` and `gazetteFooter` is now `pageFooter`. Headers and footers can be independent of themes.
 
 # 70.0.0 4/29/2023
