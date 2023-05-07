@@ -134,10 +134,7 @@ gazetteCssParser
    h3
     margin-top 1em
     text-align center
-   h4
-    margin-top 1em
-    text-align center
-  h4.scrollQuestion
+  h3.scrollQuestion
    text-align left
   .scrollNoteLink
    opacity .4
