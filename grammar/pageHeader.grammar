@@ -4,6 +4,10 @@ pageHeaderParser
  extends abstractTopLevelSingleMetaParser
  string hakon
   .pageHeader
+   position absolute
+   top 4px
+   right 0
+   left 0
    svg
     width 30px
     height 30px

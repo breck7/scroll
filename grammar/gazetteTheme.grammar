@@ -6,7 +6,7 @@ gazetteCssParser
     if (this.constructor._cachedCss)
       return this.constructor._cachedCss
     const hakonParser = this.root.hakonParser
-    this.constructor._cachedCss = new hakonParser([this.hakonReset, this.hakonStandardStyles].join("\n")).compile()
+    this.constructor._cachedCss = this.scrollCss + new hakonParser([this.hakonReset, this.hakonStandardStyles].join("\n")).compile()
     return this.constructor._cachedCss
   }
  // CSS Reset
@@ -180,14 +180,6 @@ gazetteCssParser
    display block
    text-align center
   
-  .scrollCaptionedFigure
-   display block
-   text-align center
-   img
-    max-width 98%
-    height auto
-   figcaption
-    font-style italic
   .scrollDashboard
    width 100%
    font-size 30px
