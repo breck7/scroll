@@ -389,9 +389,9 @@ email feedback@scroll.pub
 baseUrl https://scroll.pub/
 metaTags
 gazetteCss
-gazetteHeader`,
+pageHeader`,
       "footer.scroll": `importOnly
-gazetteFooter`,
+pageFooter`,
       "firstPost.scroll": `import header.scroll
 groups index
 ${scrollKeywords.title} Hello world

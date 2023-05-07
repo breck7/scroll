@@ -2,7 +2,6 @@ import header.scroll
 title 📜 Scroll: tools for thoughts.
 
 # An extensible alternative to Markdown
- tag h2
 
 <br>
 startColumns

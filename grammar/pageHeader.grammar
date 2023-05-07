@@ -1,0 +1,55 @@
+pageHeaderParser
+ cruxFromId
+ description A header for your page.
+ extends abstractTopLevelSingleMetaParser
+ string hakon
+  .pageHeader
+   svg
+    width 30px
+    height 30px
+    fill rgba(204,204,204,.8)
+    &:hover
+     fill #333
+   a
+    color rgba(204,204,204,.8)
+    position absolute
+    font-size 30px
+    line-height 27px
+    text-decoration none
+    &:hover
+     color #333
+ javascript
+  compileEmbeddedVersion() {
+   return ""
+  }
+  get css() {
+    const hakonParser = this.root.hakonParser
+    return new hakonParser(this.hakon).compile()
+  }
+  compile() {
+   const file = this.parent.file
+   const { SVGS, linkToPrevious, linkToNext } = file
+   let previousButton = ""
+   if (linkToPrevious)
+    previousButton = `a <
+    style left:3px;
+    href ${linkToPrevious}`
+   let nextButton = ""
+   if (linkToNext)
+    nextButton = `a >
+    style right:3px;
+    href ${linkToNext}`
+   return `<style>${this.css}</style>` + file.compileStumpCode(`div
+   class pageHeader doNotPrint
+   ${previousButton}
+   a ${SVGS.home}
+    style text-align:left;left:25px;
+    href ${file.get("homeLink") || "index.html"}
+   a ${SVGS.git}
+    style text-align:right;right: 25px;
+    href ${file.git}
+   ${nextButton}`)
+  }
+gazetteHeaderParser
+ extends pageHeaderParser
+ description DEPRECATED! Use "pageHeader" instead.
