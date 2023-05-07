@@ -131,44 +131,9 @@ tufteCssParser
    dt:not(:first-child), li:not(:first-child) {
        margin-top: 0.25rem;
   }
-   figure {
-       padding: 0;
-       border: 0;
-       font-size: 100%;
-       font: inherit;
-       vertical-align: baseline;
-       max-width: 55%;
-       -webkit-margin-start: 0;
-       -webkit-margin-end: 0;
-       margin: 0 0 3em 0;
-  }
-   figcaption {
-       float: right;
-       clear: right;
-       margin-top: 0;
-       margin-bottom: 0;
-       font-size: 1.1rem;
-       line-height: 1.6;
-       vertical-align: baseline;
-       position: relative;
-       max-width: 40%;
-  }
-   figure.fullwidth figcaption {
-       margin-right: 24%;
-  }
   /* Links: replicate underline that clears descenders */
    a:link, a:visited {
        color: inherit;
-  }
-  /* Adds dark mode */
-   @media (prefers-color-scheme: dark) {
-       a:link, .tufte-underline, .hover-tufte-underline:hover {
-           text-shadow: 0.03em 0 #151515, -0.03em 0 #151515, 0 0.03em #151515, 0 -0.03em #151515, 0.06em 0 #151515, -0.06em 0 #151515, 0.09em 0 #151515, -0.09em 0 #151515,   0.12em 0 #151515, -0.12em 0 #151515, 0.15em 0 #151515, -0.15em 0 #151515;
-      }
-  }
-   a:link::selection, a:link::-moz-selection {
-       text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe,   0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-       background: #b4d5fe;
   }
   /* Sidenotes, margin notes, figures, captions */
    img {
@@ -294,13 +259,6 @@ tufteCssParser
       }
        section > dl, section > ol, section > ul {
            width: 90%;
-      }
-       figure {
-           max-width: 90%;
-      }
-       figcaption, figure.fullwidth figcaption {
-           margin-right: 0%;
-           max-width: none;
       }
        blockquote {
            margin-left: 1.5em;

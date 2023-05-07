@@ -9,6 +9,9 @@ abstractThemeCssParser
  cruxFromId
  catchAllCellType stringCell
  string scrollStyles
+  figure
+   margin 0
+   padding 0
   .scrollCaptionedFigure
    display block
    text-align center
@@ -17,6 +20,35 @@ abstractThemeCssParser
     height auto
    figcaption
     font-style italic
+  .scrollCodeBlock
+   overflow auto
+   font-size 80%
+   hyphens none
+   white-space pre
+   break-inside avoid
+   display block
+   margin .5em 0
+   padding .5em
+   border-radius 0
+   position relative
+  .scrollCodeBlock:hover
+   .scrollCopyButton
+    opacity .5
+   .scrollCopyButton:hover
+    opacity .8
+   .scrollCopyButton:active
+    opacity 1
+  .scrollCopyButton
+   position absolute
+   top 2px
+   right 2px
+   font-size 14px
+   cursor pointer
+   opacity 0
+  .scrollCopyButton::after
+   content "[ ]"
+  .scrollCopiedButton::after
+   content "[✓]"
  javascript
   get useTags() {
     return !(this.get("tags") === "false")
