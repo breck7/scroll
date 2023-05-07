@@ -168,6 +168,10 @@ class ScrollFile {
     return new stumpParser(code).compile()
   }
 
+  get shouldBuildTex() {
+    return this.shouldBuild && this.has("buildTeX")
+  }
+
   get git() {
     return this.get(scrollKeywords.git)
   }
@@ -304,6 +308,46 @@ class ScrollFile {
   get compiled() {
     if (!this._compiledStandalonePage) this._compiledStandalonePage = this.scrollProgram.compile().trim()
     return this._compiledStandalonePage
+  }
+
+  get author() {
+    const author = this.getNode("author")
+    if (author) return author.getWordsFrom(2).join(" ")
+    return ""
+  }
+
+  get TeX() {
+    return `\\documentclass[10pt]{article}
+
+% Packages
+\\usepackage{multicol}
+\\usepackage{fontspec}
+\\usepackage{titlesec}
+\\usepackage{hyperref}
+
+% Set main font
+\\setmainfont{Times New Roman} % Replace with desired font
+
+% Formatting title
+\\titleformat*{\\section}{\\large\\bfseries}
+\\titleformat*{\\subsection}{\\normalsize\\bfseries}
+
+% Title, author, and date
+\\title{\\vspace{-2cm}${this.title}}
+\\author{}
+\\date{${dayjs(this.timestamp).format("MM/DD/YYYY")}}
+
+\\begin{document}
+\\maketitle
+
+\\begin{multicols}{2}
+
+\\section{The New Luddite Challenge}
+\\lipsum[1-2] % Remove this line and add your content for this section
+
+\\end{multicols}
+\\end{document}
+`
   }
 
   get html() {
@@ -458,6 +502,17 @@ import footer.scroll`
     return this
   }
 
+  buildHtmlFile(file) {
+    const { permalink, html } = file
+    fileSystem.write(folder + permalink, html)
+    this.log(`💾 Wrote ${file.filename} to ${permalink}`)
+    return { permalink: folder + permalink, html }
+  }
+
+  buildTeXFile(file) {
+    // todo
+  }
+
   buildFilesInFolder(fileSystem, folder = "/") {
     folder = Utils.ensureFolderEndsInSlash(folder)
     const start = Date.now()
@@ -465,16 +520,14 @@ import footer.scroll`
     const filesToBuild = files.filter(file => file.shouldBuild)
     this.log(`Building ${filesToBuild.length} files from ${files.length} ${SCROLL_FILE_EXTENSION} files found in '${folder}'\n`)
     this.logIndent++
-    const pages = filesToBuild.map(file => {
-      const { permalink, html } = file
-      fileSystem.write(folder + permalink, html)
-      this.log(`💾 Wrote ${file.filename} to ${permalink}`)
-      return { permalink: folder + permalink, html }
-    })
+    const pages = filesToBuild.map(file => this.buildHtmlFile(file))
     const seconds = (Date.now() - start) / 1000
     this.logIndent--
     this.log(``)
     this.log(`⌛️ Compiled ${pages.length} files to html in ${seconds} seconds. ${lodash.round(pages.length / seconds)} pages per second\n`)
+
+    const TeXFilesToBuild = files.filter(file => file.shouldBuildTex)
+    if (TeXFilesToBuild.length) TeXFilesToBuild.map(file => this.buildTeXFile(file))
 
     return pages
   }
