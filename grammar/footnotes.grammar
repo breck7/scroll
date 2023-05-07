@@ -14,7 +14,7 @@ footnoteDefinitionParser
    // In the future we could allow common practices like author name
    return this.noteIndex
   }
-  linkBack() {
+  get linkBack() {
    return `noteUsage${this.noteIndex}`
   }
   get text() {
