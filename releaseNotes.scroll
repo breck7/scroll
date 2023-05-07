@@ -1,8 +1,14 @@
 import header.scroll
 title Scroll Release Notes
+## A list of what has changed in Scroll releases.
+
 startColumns
 
-Here's a list of the notable changes in Scroll.
+# 71.0.0 5/06/2023
+- 🎉 added `tufteCss` beta theme.
+- 🎉 added `###`, `####` and `#####` headers.
+- ⚠️ BREAKING: slight changes to the 
+- ⚠️ BREAKING: `gazetteHeader` is now `pageHeader` and `gazetteFooter` is now `pageFooter`. Headers and footers can be independent of themes.
 
 # 70.0.0 4/29/2023
 - 🎉 Paragraphs no longer need to start with '* '. All non-blank lines that don't start with a defined keyword are now treated as a paragraph. The catch-all is no longer an error. It is recommended to start all paragraphs with a capital letter, as in the future it may become the standard that keywords start with a lowercase or symbol, and you will avoid any future keyword collisions.

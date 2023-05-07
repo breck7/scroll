@@ -5,18 +5,13 @@ gazetteCssParser
   get css() {
     if (this.constructor._cachedCss)
       return this.constructor._cachedCss
-    const hakonParser = this.hakonParser
-    this.constructor._cachedCss = new hakonParser([this.hakonReset, this.hakonStandardStyles, this.hakonCustomElements].join("\n")).compile()
+    const hakonParser = this.root.hakonParser
+    this.constructor._cachedCss = new hakonParser([this.hakonReset, this.hakonStandardStyles].join("\n")).compile()
     return this.constructor._cachedCss
-  }
-  get hakonParser() {
-    if (this.isNodeJs())
-      return require("jtree/products/hakon.nodejs.js")
-    return hakonParser
   }
  // CSS Reset
  string hakonReset
-  html,body,div,span,h1,h2,h3,h4,p,ol,ul,li,table,figure
+  html,body,div,span,p,ol,ul,li,table,figure
    margin 0
    padding 0
    border 0
@@ -59,50 +54,6 @@ gazetteCssParser
    background-color rgba(204,204,204,.5)
    padding 2px 4px
    border-radius 4px
- // Header and Footer
- string hakonCustomElements
-  .gazetteHeader
-   svg
-    width 30px
-    height 30px
-    fill rgba(204,204,204,.8)
-    &:hover
-     fill #333
-   a
-    color rgba(204,204,204,.8)
-    position absolute
-    font-size 30px
-    line-height 27px
-    text-decoration none
-    &:hover
-     color #333
-   .gazetteTopLeftBar
-    text-align left
-    left 25px
-   .gazetteTopRightBar
-    text-align right
-    right 25px
-   a.gazettePrevPageLink
-    left 3px
-   a.gazetteNextPageLink
-    right 3px
-  .gazetteFooter
-   margin-top 8px
-   padding-top 8px
-   text-align center
-   svg
-    width 30px
-    height 30px
-    fill rgba(204,204,204, .5)
-    padding 0 7px
-    &:hover
-     fill #333
-  .gazetteScrollLink
-   display block
-   font-family Verdana
-   font-weight 100
-   margin .5em
-   color rgba(204,204,204,.5)
  // Styles for Scroll standard tags
  string hakonStandardStyles
   comment Main body of both pages is similar
@@ -119,9 +70,23 @@ gazetteCssParser
    padding 1ch 0
    break-inside avoid
    text-align justify
-  .scrollTitle
+  h1
+   font-size 18px
+   margin 10px 0
+  h2
+   font-size 16px
+   margin 10px 0
+  h3
+   font-size 14px
+   margin 10px 0
+  h4
+   margin 10px 0
+   font-size 14px
+  h1.scrollTitle
    text-align center
    margin-bottom .25em
+   margin-top 0
+   font-size 28px
    a
     color #000
   .scrollDateline
@@ -129,12 +94,15 @@ gazetteCssParser
    font-size 80%
   .scrollSection
    break-inside avoid
+   h1
+    text-align center
    h2
     text-align center
    h3
-    margin-top 1em
     text-align center
-  h3.scrollQuestion
+   h4
+    text-align center
+  h4.scrollQuestion
    text-align left
   .scrollNoteLink
    opacity .4
@@ -259,56 +227,3 @@ gazetteCssParser
    left 0
    width 100%
    height 100%
-
-gazetteHeaderParser
- extends abstractThemeHeaderParser
- javascript
-  compile() {
-   const file = this.parent.file
-   const { SVGS, linkToPrevious, linkToNext } = file
-   let previousButton = ""
-   if (linkToPrevious)
-    previousButton = `a <
-    class gazettePrevPageLink
-    href ${linkToPrevious}`
-   let nextButton = ""
-   if (linkToNext)
-    nextButton = `a >
-    class gazetteNextPageLink
-    href ${linkToNext}`
-   return file.compileStumpCode(`div
-   class gazetteHeader doNotPrint
-   ${previousButton}
-   a ${SVGS.home}
-    class gazetteTopLeftBar
-    href ${file.get("homeLink") || "index.html"}
-   a ${SVGS.git}
-    class gazetteTopRightBar
-    href ${file.git}
-   ${nextButton}`)
-  }
-
-gazetteFooterParser
- extends abstractThemeFooterParser
- javascript
-  compile() {
-   const file = this.parent.file
-   const { SVGS, SCROLL_VERSION, viewSourceUrl } = file
-   const closeContainerTag = "</div>"
-   return (
-    closeContainerTag +
-    file.compileStumpCode(`p
-   class scrollViewSource doNotPrint
-   a View source
-    href ${viewSourceUrl}
-  div
-   class gazetteFooter doNotPrint
-   a ${SVGS.email}
-    href mailto:${file.email}
-   a ${SVGS.git}
-    href ${file.git}
-   a Built with Scroll v${SCROLL_VERSION}
-    href https://scroll.pub
-    class gazetteScrollLink`)
-   )
-  }
