@@ -8,5 +8,5 @@ chatParser
  extends abstractScrollParser
  javascript
   compile() {
-   return this.map((line, index) => `<div class="scrollChat ${index % 2 ? "scrollChatRight" : "scrollChatLeft"}"><span>${line.asString}</span></div>`).join("")
+   return this.map((line, index) => `<div style="text-align: ${index % 2 ? "right" : "left"};" class="scrollChat ${index % 2 ? "scrollChatRight" : "scrollChatLeft"}"><span>${line.asString}</span></div>`).join("")
   }

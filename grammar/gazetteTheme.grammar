@@ -245,11 +245,9 @@ gazetteCssParser
     border-radius 15px
     display inline-block
   .scrollChatLeft
-   text-align left
    span
     background rgba(204,204,204, .5)
   .scrollChatRight
-   text-align right
    span
     color white
     background rgb(0,132,255)
