@@ -1,5 +1,5 @@
 sectionTitleParser
- description Compiles to an html h3 tag.
+ description Compiles to an html h2 tag.
  extends thoughtParser
  crux #
  javascript
@@ -7,7 +7,7 @@ sectionTitleParser
    this.parent.sectionStack.push("</div>")
    return `<div class="scrollSection">` + super.compile(compileSettings)
   }
-  tag = "h3"
+  tag = "h2"
 titleParser
  description Title of the page for meta tags and also compiles to an html h1 tag.
  extends sectionTitleParser
@@ -25,8 +25,8 @@ titleParser
   defaultClassName = "scrollTitle"
   tag = "h1"
 sectionSubTitleParser
- description Compiles to an html h4 tag.
+ description Compiles to an html h3 tag.
  extends sectionTitleParser
  crux ##
  javascript
-  tag = "h4"
+  tag = "h3"
