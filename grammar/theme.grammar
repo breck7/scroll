@@ -8,6 +8,15 @@ abstractThemeCssParser
  inScope tagsParser
  cruxFromId
  catchAllCellType stringCell
+ string scrollStyles
+  .scrollCaptionedFigure
+   display block
+   text-align center
+   img
+    max-width 98%
+    height auto
+   figcaption
+    font-style italic
  javascript
   get useTags() {
     return !(this.get("tags") === "false")
@@ -17,4 +26,8 @@ abstractThemeCssParser
   }
   compileEmbeddedVersion() {
    return ""
+  }
+  get scrollCss() {
+    const hakonParser = this.root.hakonParser
+    return new hakonParser(this.scrollStyles).compile()
   }
