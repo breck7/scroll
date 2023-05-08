@@ -9,12 +9,12 @@ startColumns
  link blog/programLinks.html blog post
 
 # 71.2.0 5/07/2023
-- 🏥 add `<!DOCTYPE html>` to improve performance on Google Lighthouse.
+- 🏥 add `&lt;!DOCTYPE html&gt;` to improve performance on Google Lighthouse.
 - 🏥 fix regression of meta description generation and add test
 - 🏥 upgrade JTree to get colorized test output
 
 # 71.1.0 5/07/2023
-- 🏥 add `<html lang></html>` back as you need that to get proper hyphenation. Added test.
+- 🏥 add `&lt;html lang&gt;&lt;/html&gt;` back as you need that to get proper hyphenation. Added test.
 - 🎉 added `htmlLang` keyword for overriding the default lang which is set to "en"
 - 🎉 added `text-align: justify;` on paragraphs to Gazette and Tufte themes.
 
@@ -30,7 +30,7 @@ startColumns
  - Thanks to zoeartemis for the feedback.
  - No changes are needed but you can update your files with the find/replace combo: `\n\* ` `\n`.
   - You may want to use the case sensitive `\n\* [a-z]` search first to find any paragraphs that start with a lowercase letter.
-  - You also want to be careful of any lines that would now start with `<`, as they will be parsed as HTML nodes.
+  - You also want to be careful of any lines that would now start with `&lt;!`, as they will be parsed as HTML nodes.
 
 # 69.3.0 4/26/2023
 - 🎉 Add `katex` keyword. KaTeX: "The fastest math typesetting library for the web."
