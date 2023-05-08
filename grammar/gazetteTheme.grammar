@@ -57,6 +57,8 @@ gazetteCssParser
  // Styles for Scroll standard tags
  string hakonStandardStyles
   comment Main body of both pages is similar
+  .scrollParagraph
+   text-align justify
   .scrollColumns
    column-count auto
    column-fill balance

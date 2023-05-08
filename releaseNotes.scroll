@@ -4,6 +4,11 @@ title Scroll Release Notes
 
 startColumns
 
+# 71.1.0 5/07/2023
+- 🏥 add `<html lang></html>` back as you need that to get proper hyphenation. Added test.
+- 🎉 added `htmlLang` keyword for overriding the default lang which is set to "en"
+- 🎉 added `text-align: justify;` on paragraphs to Gazette and Tufte themes.
+
 # 71.0.0 5/06/2023
 - 🎉 added `tufteCss` beta theme.
 - 🎉 added `###`, `####` and `#####` headers.

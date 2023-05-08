@@ -301,13 +301,14 @@ class ScrollFile {
   }
 
   _compiledStandalonePage = ""
-  get compiled() {
-    if (!this._compiledStandalonePage) this._compiledStandalonePage = this.scrollProgram.compile().trim()
+  get html() {
+    if (!this._compiledStandalonePage) this._compiledStandalonePage = `<html lang="${this.lang}">` + this.scrollProgram.compile().trim() + "</html>"
     return this._compiledStandalonePage
   }
 
-  get html() {
-    return this.compiled
+  // Without specifying the language hyphenation will not work.
+  get lang() {
+    return this.get("htmlLang") || "en"
   }
 
   // todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)

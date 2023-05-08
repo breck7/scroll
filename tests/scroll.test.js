@@ -101,6 +101,7 @@ p A custom grammar`
 
   // Assert
   areEqual(files["/pages/about.html"].includes("This should be imported"), true, "In memory file system worked")
+  areEqual(files["/pages/about.html"].includes(`<html lang="en">`), true, "HTML tag and lang attribute set to ensure hyphenation will work.")
 }
 
 testTree.file = areEqual => {
