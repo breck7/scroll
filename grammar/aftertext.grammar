@@ -252,17 +252,34 @@ linkTitleParser
   * This report showed the treatment had a big impact.
    https://example.com/report This report.
     title The average growth in the treatment group was 14.2x higher than the control group.
+programLinkParser
+ catchAllCellType codeCell
 linkParser
  extends abstractMarkupParser
  description Put the matching text in an <a> tag.
  cells keywordCell urlCell
  inScope linkTitleParser linkTargetParser commentParser
+ programParser
+  description Anything here will be URI encoded and then appended to the link.
+  cruxFromId
+  cells keywordCell
+  catchAllParser programLinkParser
+  javascript
+   get encoded() {
+    return encodeURIComponent(this.childrenToString())
+   }
  cruxFromId
  javascript
   tag = "a"
   get link() {
+   const {baseLink} = this
+   if (this.has("program"))
+     return baseLink + this.getNode("program").encoded
+   return baseLink
+  }
+  get baseLink() {
    const link = this.getWord(1)
-   const isAbsoluteLink = link.startsWith("https://") || link.startsWith("http://")
+   const isAbsoluteLink = link.includes("://")
    if (isAbsoluteLink) return link
    const relativePath = this.parent.compileSettings?.relativePath || ""
    return relativePath + link

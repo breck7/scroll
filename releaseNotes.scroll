@@ -4,6 +4,10 @@ title Scroll Release Notes
 
 startColumns
 
+# 71.3.0 5/8/2023
+- 🎉 added `program` keyword for Program Links. See blog post for details.
+ link blog/programLinks.html blog post
+
 # 71.2.0 5/07/2023
 - 🏥 add `<!DOCTYPE html>` to improve performance on Google Lighthouse.
 - 🏥 fix regression of meta description generation and add test
