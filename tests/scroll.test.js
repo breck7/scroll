@@ -5,15 +5,9 @@ const fs = require("fs")
 const path = require("path")
 const { ScrollCli, ScrollFile, DefaultScrollParser, ScrollFileSystem } = require("../scroll.js")
 const { Disk } = require("jtree/products/Disk.node.js")
+const { TestRacer } = require("jtree/products/TestRacer.js")
 const grammarParser = require("jtree/products/grammar.nodejs.js")
 const shell = require("child_process").execSync
-
-// todo: 1) rss import tests 2) grammar errors test 4) scroll errors tests
-
-const runTree = testTree =>
-  Object.keys(testTree).forEach(key => {
-    testTree[key](tap.equal)
-  })
 
 const testTree = {}
 
@@ -111,6 +105,7 @@ testTree.file = areEqual => {
 
   areEqual(files[1].permalink, "releaseNotes.html")
   areEqual(files[1].html.includes("Scroll the language is now called"), true)
+  areEqual(files[1].description, "A list of what has changed in Scroll releases.", "Meta description auto-generated if not specified.")
   areEqual(files[2].permalink, "index.html")
 }
 
@@ -198,11 +193,6 @@ testTree.kitchenSink = async areEqual => {
   shell(`rm -f ${kitchenSinkFolder}/*.html`)
 }
 
-// FS tests:
-// scroll missing settings file
-// settings file missing required settings
-// bad Scroll files
-
-if (module && !module.parent) runTree(testTree)
+if (module && !module.parent) TestRacer.testSingleFile(__filename, testTree)
 
 module.exports = { testTree }

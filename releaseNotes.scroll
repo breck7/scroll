@@ -4,6 +4,11 @@ title Scroll Release Notes
 
 startColumns
 
+# 71.2.0 5/07/2023
+- 🏥 add `<!DOCTYPE html>` to improve performance on Google Lighthouse.
+- 🏥 fix regression of meta description generation and add test
+- 🏥 upgrade JTree to get colorized test output
+
 # 71.1.0 5/07/2023
 - 🏥 add `<html lang></html>` back as you need that to get proper hyphenation. Added test.
 - 🎉 added `htmlLang` keyword for overriding the default lang which is set to "en"

@@ -232,13 +232,7 @@ class ScrollFile {
     if (description) return description
 
     for (let node of program.getTopDownArrayIterator()) {
-      const word = node.firstWord
-      if (word === scrollKeywords.thoughtKeyword)
-        return node
-          .compile()
-          .replace(/<[^>]*>?/gm, "")
-          .replace(/\n/g, " ")
-          .substr(0, 300)
+      if (node.constructor.name !== "titleParser" && node.doesExtend("thoughtParser")) return Utils.stripHtml(node.compile()).replace(/\n/g, " ").replace(/\"/g, "'").substr(0, 300)
     }
     return ""
   }
@@ -302,7 +296,7 @@ class ScrollFile {
 
   _compiledStandalonePage = ""
   get html() {
-    if (!this._compiledStandalonePage) this._compiledStandalonePage = `<html lang="${this.lang}">` + this.scrollProgram.compile().trim() + "</html>"
+    if (!this._compiledStandalonePage) this._compiledStandalonePage = `<!DOCTYPE html><html lang="${this.lang}">` + this.scrollProgram.compile().trim() + "</html>"
     return this._compiledStandalonePage
   }
 
