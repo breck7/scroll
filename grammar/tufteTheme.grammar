@@ -35,6 +35,7 @@ tufteCssParser
   }
   .scrollTitle a { text-decoration: none; font-size: 3.2rem;}
   .scrollParagraph { text-align: justify; hyphens: auto;}
+  a.scrollNoteLink { text-decoration: none;}
    h2 {
        font-style: italic;
        font-weight: 400;
