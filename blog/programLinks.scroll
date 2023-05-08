@@ -15,7 +15,8 @@ endSnippet
 
 ## Here are two examples
 
-Let's start with a small example and the source code used to generate it.
+Let's start with a small example. View the source of this page to see the code used to generate the program links.
+ https://github.com/breck7/scroll/blob/main/blog/programLinks.scroll View the source
 
 Here is a program link to the Scroll web app.
  link https://try.scroll.pub/# program link
@@ -24,7 +25,6 @@ Here is a program link to the Scroll web app.
     # Testing Program Links
     It worked!
      style color:green; font-size: 100px;
-aboveAsCode
 
 If you click that link you should see "It worked!" in big green text.
 
