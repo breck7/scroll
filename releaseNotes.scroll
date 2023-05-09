@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 71.4.0 5/9/2023
+- 🎉 style improvements to lists
+
 # 71.3.0 5/8/2023
 - 🎉 added `program` keyword for Program Links. See blog post for details.
  link blog/programLinks.html blog post

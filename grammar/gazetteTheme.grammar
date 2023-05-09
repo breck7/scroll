@@ -17,10 +17,11 @@ gazetteCssParser
    border 0
    vertical-align baseline
    border-spacing 0
+  ol,ul
+   padding-left 1em
   li
-   list-style-position inside
    margin-top .4em
-   line-height 1.2em
+   line-height 140%
   a
    text-decoration-color transparent
   a:hover
