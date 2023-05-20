@@ -29,6 +29,8 @@ abstractAftertextParser
    return shouldLinkify ? this.replaceNotes(Utils.linkify(originalText)) : originalText
   }
   replaceNotes(originalText) {
+   // Skip the replacements if there are no footnotes or the text has none.
+   if (!this.root.footnotes.length || !originalText.includes("^")) return originalText
    this.root.footnotes.forEach((note, index) => {
     const needle = note.firstWord
     const {linkBack} = note
