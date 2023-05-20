@@ -3,23 +3,28 @@ footnoteDefinitionParser
  extends thoughtParser
  boolean isFootnote true
  pattern ^\^.+$
+ labelParser
+  description If you want to show a custom label for a footnote. Default label is the note definition index.
+  cruxFromId
+  cells keywordCell
+  catchAllCellType stringCell
  javascript
   get divAttributes() {
    return super.divAttributes + ` id="${this.anchorId}"`
   }
   get anchorId() {
-   return `note${this.noteIndex}`
+   return `note${this.noteDefinitionIndex}`
   }
-  get noteId() {
+  get label() {
    // In the future we could allow common practices like author name
-   return this.noteIndex
+   return this.get("label") || this.noteDefinitionIndex
   }
   get linkBack() {
-   return `noteUsage${this.noteIndex}`
+   return `noteUsage${this.noteDefinitionIndex}`
   }
   get text() {
-   return `<a class="scrollNoteIndex" href="#noteUsage${this.noteIndex}">${this.noteIndex}</a> ${super.text}`
+   return `${this.label} ${super.text} <a class="scrollFootNoteUsageLink" href="#noteUsage${this.noteDefinitionIndex}">⮐</a>`
   }
-  get noteIndex() {
+  get noteDefinitionIndex() {
    return this.parent.footnotes.indexOf(this) + 1
   }

@@ -20,6 +20,9 @@ pageFooterParser
    font-weight 100
    margin .5em
    color rgba(204,204,204,.5)
+   &:hover
+    color #333
+    text-decoration none
  javascript
   compileEmbeddedVersion() {
    return ""

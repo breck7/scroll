@@ -183,6 +183,11 @@ gazetteCssParser
    span
     color white
     background rgb(0,132,255)
+  .scrollFootNoteUsageLink
+   color rgba(204,204,204,.5)
+   &:hover
+    color #333
+    text-decoration none
   .scrollYouTubeHolder
    position relative
    width 100%

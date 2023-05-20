@@ -6,6 +6,8 @@ startColumns
 
 # 71.5.0 5/19/2023
 - 🎉 added support for extra newlines between items in ordered lists
+- 🎉 added support for custom footnote labels and move footnote link to end with new style
+- 🎉 added hover style to "Built with Scroll" footer link
 
 # 71.4.0 5/9/2023
 - 🎉 style improvements to lists
