@@ -175,8 +175,9 @@ wrapsOnParser
   get shouldMatchAll() {
    return true
   }
+  wraps = [{delimiter: "`", tag: "code"},{delimiter: "*", tag: "strong"}, {delimiter: "_", tag: "em"}, {delimiter: "$", tag: "span", attributes: ' class="scrollKatex"'}]
   getMatches(text) {
-   return [this.runPattern(text, "`", "code"), this.runPattern(text, "*", "strong"), this.runPattern(text, "_", "em")].filter(i => i).flat()
+   return this.wraps.map(wrap => this.runPattern(text, wrap.delimiter, wrap.tag, wrap.attributes)).filter(i => i).flat()
   }
   runPattern(text, delimiter, tag, attributes = "") {
    const escapedDelimiter = delimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
