@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 72.1.0 5/26/2023
+- 🏥 Bold and italics are no longer parsed inside inline code `2*4*2` or inline $\KaTeX$ $X_{2_i}$.
+
 # 72.0.0 5/25/2023
 - 🎉 added support for inline $\TeX$ via $\KaTeX$.
  - Current implementation requires adding at least one `katex` node in your file and will load the KaTeX code via CDN.

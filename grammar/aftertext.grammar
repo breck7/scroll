@@ -175,22 +175,32 @@ wrapsOnParser
   get shouldMatchAll() {
    return true
   }
-  wraps = [{delimiter: "`", tag: "code"},{delimiter: "*", tag: "strong"}, {delimiter: "_", tag: "em"}, {delimiter: "$", tag: "span", attributes: ' class="scrollKatex"'}]
+  wraps = [{delimiter: "$", tag: "span", attributes: ' class="scrollKatex"', exclusive: true}, {delimiter: "`", tag: "code", exclusive: true},{delimiter: "*", tag: "strong"}, {delimiter: "_", tag: "em"}]
   getMatches(text) {
-   return this.wraps.map(wrap => this.runPattern(text, wrap.delimiter, wrap.tag, wrap.attributes)).filter(i => i).flat()
+   const exclusives = []
+   return this.wraps.map(wrap => this.runPattern(text, wrap, exclusives)).filter(i => i).flat()
   }
-  runPattern(text, delimiter, tag, attributes = "") {
+  runPattern(text, wrap, exclusives = []) {
+   const {delimiter, tag, attributes} = wrap
    const escapedDelimiter = delimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
    const pattern = new RegExp(`${escapedDelimiter}[^${escapedDelimiter}]+${escapedDelimiter}`, "g")
    const delimiterLength = delimiter.length
    return [...text.matchAll(pattern)].map(match => {
     const { index } = match
     const endIndex = index + match[0].length
+    // I'm too lazy to clean up Grammar to write a proper inline markup parser so doing this for now.
+    // The exclusive idea is to not try and apply bold or italic styles inside a TeX or code inline style.
+    // Note that the way this is currently implemented any TeX in an inline code will get rendered, but code
+    // inline of TeX will not. Seems like an okay tradeoff until a proper refactor and cleanup can be done.
+    if (exclusives.some(exclusive => index >= exclusive[0] && index <= exclusive[1]))
+      return undefined
+    if (wrap.exclusive)
+      exclusives.push([index, endIndex])
     return [
      { index, string: `<${tag + (attributes ? " " + attributes : "")}>`, endIndex, consumeStartCharacters: delimiterLength },
      { index: endIndex, endIndex, string: `</${tag}>`, consumeEndCharacters: delimiterLength }
     ]
-   })
+   }).filter(i => i)
   }
 wrapParser
  cruxFromId
@@ -204,8 +214,8 @@ wrapParser
     const delimiter = this.getWord(1)
     const tag = this.getWord(2)
     const attributes = this.getWordsFrom(3).join(" ")
-    if (tag.startsWith("https:")) return this.runPattern(text, delimiter, "a", `href="${tag}"` + attributes)
-    return this.runPattern(text, delimiter, tag, attributes)
+    if (tag.startsWith("https:")) return this.runPattern(text, {delimiter, tag: "a", attributes: `href="${tag}"` + attributes})
+    return this.runPattern(text, {delimiter, tag, attributes})
    } catch (err) {
     console.error(err)
     return []
