@@ -1,18 +1,24 @@
 import header.scroll
+
+wideColumns 1
+
 title Scroll Tutorial
 
-## View in editor
+## Edit this in the Scroll Web Editor
  https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll
 
-html <div style="max-width: 480px; margin: auto;">
+endColumns
+startColumns 2
 
-# Scroll is an extensible alternative to Markdown.
+## Scroll is an extensible alternative to Markdown.
 Like Markdown, Scroll is a plaintext language that compiles to HTML.
-# Scroll is minimal and extensible—designed to help you *clarify* and *fully develop* your thoughts.
+Scroll is minimal to help you reduce your ideas to their essence.
+Scroll is extensible to help you use and build new mini languages to fully develop your ideas.
 
-Scroll is improving fast. Scroll debuted in 2021 and is now on Version 59.
+Scroll debuted in 2021 and is now on Version 72, approximately 1 release every 2 weeks. There is no official spec yet but creating a spec is on the roadmap.
+ link roadmap.html roadmap
 
-# This Tutorial will walk you through most keywords in Scroll AND teach you how to build your own Scroll keywords.
+This Tutorial will walk you through most keywords in Scroll AND teach you how to build your own Scroll keywords.
 
 ---
 
@@ -178,10 +184,11 @@ hiddenMessage Click me.
 
 As you can see, you can define new parsers with a small amount of code. You probably also can see that the Grammar Langauge is powerful but has lots of sharp edges. While the documentation on Grammar evolves, feel free to get in touch for help in adding your own parsers.
 
-html </div>
+endColumns
 
 import footer.scroll
-css body {font-family: Arial;}
 // Need to set the title again to override the above usage of that.
 title Scroll Tutorial
  hidden
+
+

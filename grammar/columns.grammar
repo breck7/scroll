@@ -7,14 +7,20 @@ startColumnsParser
   compileEmbeddedVersion() {
    return ""
   }
+  columnWidth = 35
+  columnGap = 20
   compile() {
-   const columnWidth = 35
-   const COLUMN_GAP = 20
+   const {columnWidth, columnGap} = this
    const maxColumns = parseInt(this.getWord(1) ?? 10)
-   const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * COLUMN_GAP
+   const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * columnGap
    // Starting the columns always first clears the section stack.
    return this.parent.clearSectionStack() + `<div class="scrollColumns" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
   }
+wideColumnsParser
+ extends startColumnsParser
+ description Start a double wide column.
+ javascript
+  columnWidth = 90
 endColumnsParser
  extends abstractAftertextParser
  cruxFromId
