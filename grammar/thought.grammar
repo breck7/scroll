@@ -7,9 +7,10 @@ thoughtParser
  javascript
   compile(compileSettings) {
    // Hacky, I know.
-   const newLine = this.appendLine("wrapsOn")
+   const newLine = this.has("wrapsOn") ? undefined : this.appendLine("wrapsOn")
    const compiled = super.compile(compileSettings)
-   newLine.destroy()
+   if (newLine)
+    newLine.destroy()
    return compiled
   }
 quickThoughtParser

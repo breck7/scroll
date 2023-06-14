@@ -167,15 +167,26 @@ matchParser
    bold ello
     match 0 2
  extends abstractMarkupParameterParser
+wrapNameCell
+ description What wraps are available to turn on?
+ enum bold italics code katex
 wrapsOnParser
  cruxFromId
  description Enable `code`, *bold*, and _italics_ rules.
  extends abstractAftertextDirectiveParser
+ catchAllCellType wrapNameCell
  javascript
   get shouldMatchAll() {
    return true
   }
-  wraps = [{delimiter: "$", tag: "span", attributes: ' class="scrollKatex"', exclusive: true}, {delimiter: "`", tag: "code", exclusive: true},{delimiter: "*", tag: "strong"}, {delimiter: "_", tag: "em"}]
+  get wraps() {
+    const wraps = [{delimiter: "`", tag: "code", exclusive: true, name: "code"},{delimiter: "*", tag: "strong", name: "bold"}, {delimiter: "_", tag: "em", name: "italics"}]
+    if (this.root.has("katex"))
+      wraps.unshift({delimiter: "$", tag: "span", attributes: ' class="scrollKatex"', exclusive: true, name: "katex"})
+    if (this.content)
+      return wraps.filter(wrap => this.content.includes(wrap.name))
+    return wraps
+  }
   getMatches(text) {
    const exclusives = []
    return this.wraps.map(wrap => this.runPattern(text, wrap, exclusives)).filter(i => i).flat()

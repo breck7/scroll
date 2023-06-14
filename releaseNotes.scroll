@@ -4,6 +4,10 @@ title Scroll Release Notes
 
 startColumns
 
+# 72.3.0 6/13/2023
+- 🎉 if you want to disable `wrapsOn` you can now provide parameters to specify only the wraps you want, if any.
+- 🏥 by default katex wraps won't run unless there is a `katex` node in a file. So any paragraph containing multiple $ will now behave as before katex wraps were added.
+
 # 72.2.0 5/31/2023
 - 🎉 added `wideColumns` keyword
 
