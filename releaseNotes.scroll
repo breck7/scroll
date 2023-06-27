@@ -4,6 +4,14 @@ title Scroll Release Notes
 
 startColumns
 
+# 72.4.0 6/27/2023
+- 🎉 provide "dropcap" CSS class.
+- 🎉 tweaked default styling of images and captions
+
+This paragraph has a dropcap. It can be a useful visual aid for the reader to break up sections. You can read more about dropcaps on Wikipedia.
+ class dropcap
+ https://en.wikipedia.org/wiki/Initial dropcaps on Wikipedia
+
 # 72.3.0 6/13/2023
 - 🎉 if you want to disable `wrapsOn` you can now provide parameters to specify only the wraps you want, if any.
 - 🏥 by default katex wraps won't run unless there is a `katex` node in a file. So any paragraph containing multiple $ will now behave as before katex wraps were added.
