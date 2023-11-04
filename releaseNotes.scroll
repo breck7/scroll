@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 72.4.2 11/04/2023
+- 🏥 do not compile aftertext nodes having the "hidden" attribute
+
 # 72.4.1 11/04/2023
 - 🏥 fixed regression where `<!DOCTYPE html>` was present in RSS pages. Thank you to Joao for the report.
 

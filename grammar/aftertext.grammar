@@ -60,7 +60,11 @@ abstractAftertextParser
    return this.defaultClassName
   }
   defaultClassName = "scrollParagraph"
+  get isHidden() {
+    return this.has("hidden")
+  }
   compile(compileSettings) {
+   if (this.isHidden) return ""
    this.compileSettings = compileSettings
    const { className } = this
    const classAttr = className ? `class="${this.className}"` : ""

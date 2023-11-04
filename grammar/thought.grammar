@@ -6,6 +6,7 @@ thoughtParser
  cruxFromId
  javascript
   compile(compileSettings) {
+   if (this.isHidden) return ""
    // Hacky, I know.
    const newLine = this.has("wrapsOn") ? undefined : this.appendLine("wrapsOn")
    const compiled = super.compile(compileSettings)
