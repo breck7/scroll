@@ -296,7 +296,14 @@ class ScrollFile {
 
   _compiledStandalonePage = ""
   get html() {
-    if (!this._compiledStandalonePage) this._compiledStandalonePage = `<!DOCTYPE html><html lang="${this.lang}">` + this.scrollProgram.compile().trim() + "</html>"
+    if (!this._compiledStandalonePage) {
+      const { permalink } = this
+      const content = this.scrollProgram.compile().trim()
+      // Don't add html tags to XML/RSS feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
+      // <1% of use case so might be good enough.
+      const wrapWithHtmlTags = permalink.endsWith(".xml") || permalink.endsWith(".rss") ? false : true
+      this._compiledStandalonePage = wrapWithHtmlTags ? `<!DOCTYPE html><html lang="${this.lang}">` + content + "</html>" : content
+    }
     return this._compiledStandalonePage
   }
 

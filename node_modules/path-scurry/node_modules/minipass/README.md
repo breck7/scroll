@@ -23,9 +23,9 @@ written will be emitted. Otherwise, it'll do a minimal amount of
 Buffer copying to ensure proper Streams semantics when `read(n)`
 is called.
 
-`objectMode` can also be set by doing `stream.objectMode = true`,
-or by writing any non-string/non-buffer data. `objectMode` cannot
-be set to false once it is set.
+`objectMode` can only be set at instantiation. Attempting to
+write something other than a String or Buffer without having set
+`objectMode` in the options will throw an error.
 
 This is not a `through` or `through2` stream. It doesn't
 transform the data, it just passes it right through. If you want
@@ -444,7 +444,7 @@ you want.
 
 ```js
 import { Minipass } from 'minipass'
-const mp = new Minipass(options) // optional: { encoding, objectMode }
+const mp = new Minipass(options) // options is optional
 mp.write('foo')
 mp.pipe(someOtherStream)
 mp.end('bar')
@@ -483,8 +483,6 @@ Implements the user-facing portions of Node.js's `Readable` and
 - `end([chunk, [encoding]], [callback])` - Signal that you have
   no more data to write. This will queue an `end` event to be
   fired when all the data has been consumed.
-- `setEncoding(encoding)` - Set the encoding for data coming of
-  the stream. This can only be done once.
 - `pause()` - No more data for a while, please. This also
   prevents `end` from being emitted for empty streams until the
   stream is resumed.
@@ -535,9 +533,7 @@ Implements the user-facing portions of Node.js's `Readable` and
 
 - `bufferLength` Read-only. Total number of bytes buffered, or in
   the case of objectMode, the total number of objects.
-- `encoding` The encoding that has been set. (Setting this is
-  equivalent to calling `setEncoding(enc)` and has the same
-  prohibition against setting multiple times.)
+- `encoding` Read-only. The encoding that has been set.
 - `flowing` Read-only. Boolean indicating whether a chunk written
   to the stream will be immediately emitted.
 - `emittedEnd` Read-only. Boolean indicating whether the end-ish
@@ -554,7 +550,6 @@ Implements the user-facing portions of Node.js's `Readable` and
 - `paused` True if the stream has been explicitly paused,
   otherwise false.
 - `objectMode` Indicates whether the stream is in `objectMode`.
-  Once set to `true`, it cannot be set to `false`.
 - `aborted` Readonly property set when the `AbortSignal`
   dispatches an `abort` event.
 
@@ -758,6 +753,7 @@ class SlowEnd extends Minipass {
         console.log('ok, ready to end now')
         super.emit('end', ...args)
       }, 100)
+      return true
     } else {
       return super.emit(ev, ...args)
     }

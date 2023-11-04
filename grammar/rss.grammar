@@ -10,6 +10,7 @@ printFeedParser
  example
   printFeed index
   printFeed cars/index
+  permalink feed.xml
  javascript
   compile() {
    const dayjs = require("dayjs")

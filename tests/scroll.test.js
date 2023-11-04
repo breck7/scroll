@@ -148,6 +148,15 @@ testTree.standalonePage = areEqual => {
   areEqual(html.includes("Blue sky"), true)
 }
 
+testTree.rss = areEqual => {
+  // Arrange
+  const page = new ScrollFile(`printFeed index
+permalink feed.rss`)
+  // Act/Assert
+  const { html } = page
+  areEqual(html.startsWith("<?xml "), true)
+}
+
 testTree.initCommand = async areEqual => {
   const tempFolder = path.join(__dirname, "tempFolderForTesting")
 

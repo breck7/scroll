@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 72.4.1 11/04/2023
+- 🏥 fixed regression where `<!DOCTYPE html>` was present in RSS pages. Thank you to Joao for the report.
+
 # 72.4.0 6/27/2023
 - 🎉 provide "dropcap" CSS class.
 - 🎉 tweaked default styling of images and captions
