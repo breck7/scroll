@@ -2,6 +2,7 @@ abstractHeaderParser
  extends thoughtParser
  javascript
   compile(compileSettings) {
+   if (this.isHidden) return ""
    this.parent.sectionStack.push("</div>")
    return `<div class="scrollSection">` + super.compile(compileSettings)
   }
@@ -10,10 +11,6 @@ h1Parser
  extends abstractHeaderParser
  crux #
  javascript
-  compile(compileSettings) {
-   this.parent.sectionStack.push("</div>")
-   return `<div class="scrollSection">` + super.compile(compileSettings)
-  }
   tag = "h1"
 titleParser
  description Title of the page for meta tags and also compiles to an html h1 tag.
