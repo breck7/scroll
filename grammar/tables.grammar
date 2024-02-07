@@ -43,12 +43,12 @@ rowParser
    while (column < columnCount) {
     const col = columns[column]
     column++
-    const content = columnCount === column ? words.slice(columnCount - 1).join(" ") : words[column - 1]
+    const content = (columnCount === column ? words.slice(columnCount - 1).join(" ") : words[column - 1]) ?? ""
     if (col.isLink) continue
     let tagged = content
     const link = words[col.linkIndex]
     if (col.linkIndex > -1 && link) tagged = `<a href="${link}">${content}</a>`
-    else if (content && content.match(/^https?\:[^ ]+$/)) tagged = `<a href="${content}">${content}</a>`
+    else if (content.match(/^https?\:[^ ]+$/)) tagged = `<a href="${content}">${content}</a>`
     str += `<td>${tagged}</td>\n`
    }
    return str

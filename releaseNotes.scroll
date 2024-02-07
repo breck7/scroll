@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 72.4.4 2/07/2024
+- 🏥 do not print "undefined" in tables in rows missing columns
+
 # 72.4.3 11/04/2023
 - 🏥 fix extra indentation in nested lists. Browser already adds it.
 

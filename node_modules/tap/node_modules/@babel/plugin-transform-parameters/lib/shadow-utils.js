@@ -7,7 +7,7 @@ exports.buildScopeIIFE = buildScopeIIFE;
 exports.collectShadowedParamsNames = collectShadowedParamsNames;
 exports.iifeVisitor = void 0;
 var _core = require("@babel/core");
-const iifeVisitor = {
+const iifeVisitor = exports.iifeVisitor = {
   "ReferencedIdentifier|BindingIdentifier"(path, state) {
     const {
       scope,
@@ -23,7 +23,6 @@ const iifeVisitor = {
   },
   "TypeAnnotation|TSTypeAnnotation|TypeParameterDeclaration|TSTypeParameterDeclaration": path => path.skip()
 };
-exports.iifeVisitor = iifeVisitor;
 function collectShadowedParamsNames(param, functionScope, shadowedParams) {
   for (const name of Object.keys(param.getBindingIdentifiers())) {
     var _functionScope$bindin;

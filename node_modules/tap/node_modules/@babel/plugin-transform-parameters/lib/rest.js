@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = convertFunctionRest;
 var _core = require("@babel/core");
-var _shadowUtils = require("./shadow-utils");
+var _shadowUtils = require("./shadow-utils.js");
 const buildRest = _core.template.statement(`
   for (var LEN = ARGUMENTS.length,
            ARRAY = new Array(ARRAY_LEN),

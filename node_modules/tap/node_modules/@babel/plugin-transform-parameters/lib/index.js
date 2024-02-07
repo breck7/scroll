@@ -11,9 +11,9 @@ Object.defineProperty(exports, "convertFunctionParams", {
 });
 exports.default = void 0;
 var _helperPluginUtils = require("@babel/helper-plugin-utils");
-var _params = require("./params");
-var _rest = require("./rest");
-var _default = (0, _helperPluginUtils.declare)((api, options) => {
+var _params = require("./params.js");
+var _rest = require("./rest.js");
+var _default = exports.default = (0, _helperPluginUtils.declare)((api, options) => {
   var _api$assumption, _api$assumption2;
   api.assertVersion(7);
   const ignoreFunctionLength = (_api$assumption = api.assumption("ignoreFunctionLength")) != null ? _api$assumption : options.loose;
@@ -38,6 +38,5 @@ var _default = (0, _helperPluginUtils.declare)((api, options) => {
     }
   };
 });
-exports.default = _default;
 
 //# sourceMappingURL=index.js.map

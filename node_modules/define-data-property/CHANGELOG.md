@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.2](https://github.com/ljharb/define-data-property/compare/v1.1.1...v1.1.2) - 2024-02-05
+
+### Commits
+
+- [Dev Deps] update @types packages, `object-inspect`, `tape`, `typescript` [`df41bf8`](https://github.com/ljharb/define-data-property/commit/df41bf84ca3456be6226055caab44e38e3a7fd2f)
+- [Dev Deps] update DT packages, `aud`, `npmignore`, `tape`, typescript` [`fab0e4e`](https://github.com/ljharb/define-data-property/commit/fab0e4ec709ee02b79f42d6db3ee5f26e0a34b8a)
+- [Dev Deps] use `hasown` instead of `has` [`aa51ef9`](https://github.com/ljharb/define-data-property/commit/aa51ef93f6403d49d9bb72a807bcdb6e418978c0)
+- [Refactor] use `es-errors`, so things that only need those do not need `get-intrinsic` [`d89be50`](https://github.com/ljharb/define-data-property/commit/d89be50571175888d391238605122679f7e65ffc)
+- [Deps] update `has-property-descriptors` [`7af887c`](https://github.com/ljharb/define-data-property/commit/7af887c9083b59b195b0079e04815cfed9fcee2b)
+- [Deps] update `get-intrinsic` [`bb8728e`](https://github.com/ljharb/define-data-property/commit/bb8728ec42cd998505a7157ae24853a560c20646)
+
 ## [v1.1.1](https://github.com/ljharb/define-data-property/compare/v1.1.0...v1.1.1) - 2023-10-12
 
 ### Commits

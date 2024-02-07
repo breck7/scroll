@@ -39,6 +39,11 @@ test('has', function (t) {
 	channel.set(o, 'foo');
 	t.equal(channel.has(o), true, 'existent value yields true');
 
+	t.equal(channel.has('abc'), false, 'non object value non existent yields false');
+
+	channel.set('abc', 'foo');
+	t.equal(channel.has('abc'), true, 'non object value that exists yields true');
+
 	t.end();
 });
 

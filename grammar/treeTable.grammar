@@ -21,12 +21,12 @@ treeRowParser
      str += "<td></td>\n"
      return
     }
-    const content = node.length ? node.childrenToString() : node.content
+    const content = (node.length ? node.childrenToString() : node.content) ?? ""
     let tagged = ""
     const link = this.get(col.name + "Link")
     if (col.linkIndex > -1 && link) tagged = `<a href="${link}">${content}</a>`
-    else if (node.length) tagged = `<pre>${content ?? ""}</pre>`
-    else tagged = content ?? ""
+    else if (node.length) tagged = `<pre>${content}</pre>`
+    else tagged = content
     str += `<td>${tagged}</td>\n`
    })
    return str
