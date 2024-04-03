@@ -170,6 +170,16 @@ permalink feed.rss`)
   areEqual(html.startsWith("<?xml "), true)
 }
 
+testTree.csv = areEqual => {
+  // Arrange
+  const page = new ScrollFile(`printCsv index
+permalink posts.csv`)
+  // Act/Assert
+  const { html } = page
+  areEqual(html.startsWith("date,title,permalink,"), true)
+  console.log(html)
+}
+
 testTree.initCommand = async areEqual => {
   const tempFolder = path.join(__dirname, "tempFolderForTesting")
 

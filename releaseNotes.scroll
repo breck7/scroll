@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 73.0.0 4/03/2024
+- 🎉 added `printCsv` keyword to make it as easy to generate a CSV of a blog as it is to generate an RSS feed
+
 # 72.4.4 2/07/2024
 - 🏥 do not print "undefined" in tables in rows missing columns
 
