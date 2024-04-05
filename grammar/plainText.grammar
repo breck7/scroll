@@ -1,0 +1,13 @@
+plainTextParser
+ description Use for plain text one liners and/or blocks of plain text.
+ cruxFromId
+ extends abstractScrollParser
+ catchAllParser plainTextLineParser
+ catchAllCellType stringCell
+ javascript
+  compile() {
+   return `${this.content ?? ""}${this.childrenToString()}`
+  }
+plainTextLineParser
+ catchAllCellType stringCell
+ catchAllParser plainTextLineParser

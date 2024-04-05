@@ -4,6 +4,10 @@ title Scroll Release Notes
 
 startColumns
 
+# 73.1.0 4/05/2024
+- 🎉 added `plainText` keyword
+- 🎉 added `printSource` keyword to be able to dump the source code for a group of posts to a plain text file.
+
 # 73.0.0 4/03/2024
 - 🎉 added `printCsv` keyword to make it as easy to generate a CSV of a blog as it is to generate an RSS feed
 
