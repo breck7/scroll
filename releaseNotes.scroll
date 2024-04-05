@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 73.2.0 4/05/2024
+- 🎉 added `thanksTo` keyword
+
 # 73.1.0 4/05/2024
 - 🎉 added `plainText` keyword
 - 🎉 added `printSource` keyword to be able to dump the source code for a group of posts to a plain text file.
