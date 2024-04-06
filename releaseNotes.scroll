@@ -4,9 +4,11 @@ title Scroll Release Notes
 
 startColumns
 
+# 75.0.0 4/06/2024
+- 🏥 Revert version 74. There was a simpler way to fix that pattern.
+
 # 74.0.0 4/06/2024
-- 🎉 you can now use the keyword `groups` multiple times.
-- ⚠️ BREAKING: if for some reason you were using multiple `groups` keywords expecting the latter to override the former (I don't think this should ever have happened), this will break that behavior.
+- (Reverted)
 
 # 73.2.0 4/05/2024
 - 🎉 added `thanksTo` keyword

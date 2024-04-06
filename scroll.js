@@ -267,17 +267,8 @@ class ScrollFile {
     return viewSourceBaseUrl ? viewSourceBaseUrl.replace(/\/$/, "") + "/" + filename : filename
   }
 
-  _groups = undefined
   get groups() {
-    if (this._groups !== undefined) return this._groups
-    // merge all groups
-    // todo: TN really needs a better hash table for key:values[] type. such a horrible mess of footguns.
-    const groups = this.scrollProgram
-      .findNodes(scrollKeywords.groups)
-      .map(node => node.content)
-      .join(" ")
-    this._groups = groups || ""
-    return this._groups
+    return this.scrollProgram.get(scrollKeywords.groups) || ""
   }
 
   get primaryGroup() {

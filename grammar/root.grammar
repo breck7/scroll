@@ -26,9 +26,6 @@ abstractTopLevelSingleMetaParser
   compile() {
    return ""
   }
-abstractTopLevelMultipleMetaParser
- description Use these keywords once or more per file. Values will be treated as if they were concatenated by a space.
- extends abstractTopLevelSingleMetaParser
 scrollParser
  extensions scroll
  description Tools for thought thats compile to HTML.
