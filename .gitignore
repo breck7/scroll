@@ -6,8 +6,7 @@ ignore/
 package-lock.json
 
 # Prevent accidental checking in of code coverage reports
-.nyc_output/
-coverage/
+/.tap
 
 # Prevent accidental checking in of perf reports
 scrollBrowserPerf.html

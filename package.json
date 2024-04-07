@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "scroll list | scroll build",
-    "coverage": "tap tests/scroll.test.js --coverage-report=lcov",
+    "coverage": "tap tests/scroll.test.js",
     "open": "open index.html",
     "debug": "node --inspect tests/scroll.test.js;",
     "jtreeBeta": "npm install ~/jtree",
@@ -43,6 +43,6 @@
     "jtree": "^75.1.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "tap": "^16.3.0"
+    "tap": "^18.7.2"
   }
 }
