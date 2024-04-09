@@ -17,7 +17,9 @@ jobs:
           ./scroll.js build
           cp blog/favicon.ico .
           cd blog
+          echo "Installing packages for markups demo in blog."
           npm install -g marked textile-js ya-bbcode
+          echo "Building blog."
           ../scroll.js build
           cd ..
           cd tests/kitchenSink
