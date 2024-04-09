@@ -104,7 +104,7 @@ Scroll is a great solution for blogs and sites of one page, a few pages, tens of
  https://scroll.pub/blog/ a few pages
  https://breckyunits.com/code/ tens of pages
  https://breckyunits.com/ hundreds of pages
- https://pldb.com/ thousands of pages
+ https://pldb.io/ thousands of pages
 
 ? How do I get Scroll?
 The instant way is to try Scroll in GitPod.
@@ -140,7 +140,7 @@ Scroll currently powers blog and sites of one page, a few pages, tens of pages, 
  https://scroll.pub/blog/ a few pages
  https://breckyunits.com/code/ tens of pages
  https://breckyunits.com/ hundreds of pages
- https://pldb.com/ thousands of pages
+ https://pldb.io/ thousands of pages
 
 ? What does a typical project folder look like?
 A typical Scroll project folder, excluding the files built by Scroll, looks like this:
