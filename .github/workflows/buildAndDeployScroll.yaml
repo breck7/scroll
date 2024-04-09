@@ -18,6 +18,7 @@ jobs:
           cp blog/favicon.ico .
           cd blog
           echo "Installing packages for markups demo in blog."
+          mkdir node_modules
           npm install marked textile-js ya-bbcode
           echo "Building blog."
           ../scroll.js build
