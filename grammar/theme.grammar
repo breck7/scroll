@@ -18,6 +18,11 @@ abstractThemeCssParser
    margin-right 2px
    display block
    float left
+  .dinkus
+   text-align center
+   padding 1em
+   span
+    vertical-align sub
   .scrollCaptionedFigure
    display block
    text-align center

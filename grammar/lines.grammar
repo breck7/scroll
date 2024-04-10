@@ -6,3 +6,12 @@ horizontalRuleParser
   compile() {
    return `<hr>`
   }
+dinkusParser
+ crux ***
+ description Prints a centered *
+ extends abstractAftertextParser
+ javascript
+  compile() {
+   return `<div class="dinkus"><span>${this.dinkus}</span></div>`
+  }
+  dinkus = "*"
