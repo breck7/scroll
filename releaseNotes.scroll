@@ -4,8 +4,11 @@ title Scroll Release Notes
 
 startColumns
 
+# 75.1.1 4/16/2024
+- 🏥 fix bug where quick links could not be used inside a footnote definition.
+
 # 75.1.0 4/10/2024
-- Added `***` keyword to print a Dinkus
+- 🎉 Added `***` keyword to print a Dinkus
  https://en.wikipedia.org/wiki/Dinkus Dinkus
 
 belowAsCode 6
