@@ -1,16 +1,18 @@
 commentLineParser
  catchAllCellType commentCell
-commentParser
+abstractCommentParser
  description Comments do not appear in the compiled HTML.
  catchAllCellType commentCell
  cells commentCell
  extends abstractScrollParser
- cruxFromId
  javascript
   compile() {
    return ``
   }
  catchAllParser commentLineParser
+commentParser
+ extends abstractCommentParser
+ cruxFromId
 slashCommentParser
  extends commentParser
  crux //

@@ -18,5 +18,5 @@ authorParser
  extends byLineParser
 thanksToParser
  description A place to store data on reviewers who helped improve a post (and a reminder to seek feedback!). Does not appear in compiled HTML.
- extends commentParser
+ extends abstractCommentParser
  cruxFromId
