@@ -153,11 +153,6 @@ abstractMarkupParameterParser
 matchAllParser
  description Use this to match all occurrences of the text.
  extends abstractMarkupParameterParser
-linkifyParser
- description Use this to disable linkify on the text.
- extends abstractAftertextDirectiveParser
- cruxFromId
- cells keywordCell booleanCell
 matchParser
  catchAllCellType integerCell
  description Use this to specify which index(es) to match.
@@ -266,67 +261,6 @@ abstractHtmlAttributeParser
   compile() {
    return ""
   }
-linkTargetParser
- extends abstractHtmlAttributeParser
- description If you want to set the target of the link. To "_blank", for example.
- crux target
- cells keywordCell anyCell
-linkTitleParser
- description If you want to set the title of the link.
- crux title
- cells keywordCell
- catchAllCellType anyCell
- example
-  * This report showed the treatment had a big impact.
-   https://example.com/report This report.
-    title The average growth in the treatment group was 14.2x higher than the control group.
-programLinkParser
- catchAllCellType codeCell
-linkParser
- extends abstractMarkupParser
- description Put the matching text in an <a> tag.
- cells keywordCell urlCell
- inScope linkTitleParser linkTargetParser commentParser
- programParser
-  description Anything here will be URI encoded and then appended to the link.
-  cruxFromId
-  cells keywordCell
-  catchAllParser programLinkParser
-  javascript
-   get encoded() {
-    return encodeURIComponent(this.childrenToString())
-   }
- cruxFromId
- javascript
-  tag = "a"
-  get link() {
-   const {baseLink} = this
-   if (this.has("program"))
-     return baseLink + this.getNode("program").encoded
-   return baseLink
-  }
-  get baseLink() {
-   const link = this.getWord(1)
-   const isAbsoluteLink = link.includes("://")
-   if (isAbsoluteLink) return link
-   const relativePath = this.parent.compileSettings?.relativePath || ""
-   return relativePath + link
-  }
-  get attributes() {
-   const attrs = [`href="${this.link}"`]
-   const options = ["title", "target"]
-   options.forEach(option => {
-    const node = this.getNode(option)
-    if (node) attrs.push(`${option}="${node.content}"`)
-   })
-   return attrs
-  }
-  patternStartsAtWord = 2
-  get pattern() {
-   // If no pattern is provided, apply to the *entire* content.
-   const words = this.getWordsFrom(this.patternStartsAtWord)
-   return words.length ? words.join(" ") : this.parent.originalText
-  }
 classMarkupParser
  description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.
  extends abstractMarkupParser
@@ -352,23 +286,6 @@ classMarkupParser
    const words = this.getWordsFrom(2)
    return words.length ? words.join(" ") : this.parent.content
   }
-emailLinkParser
- description A mailto link
- crux email
- extends linkParser
- javascript
-  get attributes() {
-   return [`href="mailto:${this.link}"`]
-  }
-quickLinkParser
- pattern ^https?\:
- extends linkParser
- cells urlCell
- javascript
-  get link() {
-   return this.firstWord
-  }
-  patternStartsAtWord = 1
 strikethroughParser
  cruxFromId
  extends abstractMarkupParser
