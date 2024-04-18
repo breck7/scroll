@@ -110,6 +110,9 @@ gazetteCssParser
   h4.scrollQuestion
    text-align left
    margin 1.4em 0 0 0
+  .scrollSection:first-child
+   h4.scrollQuestion
+    margin-top 0
   .scrollNoteLink
    opacity .4
   
