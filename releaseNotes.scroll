@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 75.2.1 4/18/2024
+- 🏥 style fix: removed top margin on headers when they are in the first section
+
 # 75.2.0 4/18/2024
 - 🎨 increased the default font-size from 14px to 16px
 - 🎨 changed the font-family and line height of captions which previously looked off

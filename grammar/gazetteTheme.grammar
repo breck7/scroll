@@ -73,17 +73,15 @@ gazetteCssParser
    padding 1ch 0
    break-inside avoid
    text-align justify
+  h1,h2,h3,h4
+   margin 10px 0
   h1
    font-size 20px
-   margin 10px 0
   h2
    font-size 18px
-   margin 10px 0
   h3
    font-size 16px
-   margin 10px 0
   h4
-   margin 10px 0
    font-size 16px
   h1.scrollTitle
    text-align center
@@ -111,6 +109,8 @@ gazetteCssParser
    text-align left
    margin 1.4em 0 0 0
   .scrollSection:first-child
+   h1,h2,h3,h4
+    margin-top 0
    h4.scrollQuestion
     margin-top 0
   .scrollNoteLink
