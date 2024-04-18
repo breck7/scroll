@@ -31,11 +31,10 @@ abstractThemeCssParser
     height auto
     margin-top 3px
    figcaption
-    font-family Verdana
+    font-family "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"
     font-size 80%
     .scrollParagraph
      margin-top 0
-     line-height 1.1em
   .scrollCodeBlock
    overflow auto
    font-size 80%

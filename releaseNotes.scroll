@@ -4,6 +4,12 @@ title Scroll Release Notes
 
 startColumns
 
+# 75.2.0 4/18/2024
+- 🎨 increased the default font-size from 14px to 16px
+- 🎨 changed the font-family and line height of captions which previously looked off
+- 🎨 adjusted margins on question h4s
+- 🏥 fix slight line-height issue with datelines
+
 # 75.1.1 4/16/2024
 - 🏥 fix bug where quick links could not be used inside a footnote definition.
 
