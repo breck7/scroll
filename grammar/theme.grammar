@@ -13,14 +13,14 @@ abstractThemeCssParser
    margin 0
    padding 0
   .dropcap:first-letter
-   font-size 3em
+   font-size 3rem
    line-height .9em
-   margin-right 2px
+   margin-right .125rem
    display block
    float left
   .dinkus
    text-align center
-   padding 1em
+   padding 1rem
    span
     vertical-align sub
   .scrollCaptionedFigure
@@ -29,21 +29,21 @@ abstractThemeCssParser
    img
     max-width 100%
     height auto
-    margin-top 3px
+    margin-top .1875rem
    figcaption
     font-family "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"
-    font-size 80%
+    font-size .8rem
     .scrollParagraph
      margin-top 0
   .scrollCodeBlock
    overflow auto
-   font-size 80%
+   font-size .8rem
    hyphens none
    white-space pre
    break-inside avoid
    display block
-   margin .5em 0
-   padding .5em
+   margin .5rem 0
+   padding .5rem
    border-radius 0
    position relative
   .scrollCodeBlock:hover
@@ -55,9 +55,9 @@ abstractThemeCssParser
     opacity 1
   .scrollCopyButton
    position absolute
-   top 2px
-   right 2px
-   font-size 14px
+   top .125rem
+   right .125rem
+   font-size .875rem
    cursor pointer
    opacity 0
   .scrollCopyButton::after

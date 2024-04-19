@@ -18,10 +18,10 @@ gazetteCssParser
    vertical-align baseline
    border-spacing 0
   ol,ul
-   padding-left 1em
+   padding-left 1rem
   li
-   margin-top .4em
-   line-height 140%
+   margin-top .4rem
+   line-height 1.4
   a
    text-decoration-color transparent
   a:hover
@@ -29,32 +29,32 @@ gazetteCssParser
   sup,sub
    vertical-align baseline
    position relative
-   top -0.6em
+   top -.375rem
   sub
-   top 0.6em
+   top .375rem
   html
-   padding 4px
+   padding .25rem
    background-color rgb(244,244,244)
    font-family Exchange,Georgia,serif
    color #000
-   font-size 16px
+   font-size var(--base-font-size, 16px)
    hyphens auto
   p
-   margin-top 0.4em
-   line-height 1.4em
+   margin-top .4rem
+   line-height 1.4rem
   .scrollQuote
    break-inside avoid
    display block
-   margin .5em 0
-   padding .5em
+   margin .5rem 0
+   padding .5rem
    background rgba(204,204,204,.5)
    white-space pre-line
-   border-left .5em solid rgba(204,204,204,.8)
+   border-left .5rem solid rgba(204,204,204,.8)
   code
-   font-size 90%
+   font-size .9rem
    background-color rgba(204,204,204,.5)
-   padding 2px 4px
-   border-radius 4px
+   padding .125rem .25rem
+   border-radius .25rem
  // Styles for Scroll standard tags
  string hakonStandardStyles
   comment Main body of both pages is similar
@@ -64,9 +64,9 @@ gazetteCssParser
    column-count auto
    column-fill balance
    column-width 35ch
-   column-gap 20px
-   padding-left 20px
-   padding-right 20px
+   column-gap 1.5rem
+   padding-left 1.25rem
+   padding-right 1.25rem
    margin auto
   comment On group pages add some spacing around files
   .scrollSnippetContainer
@@ -74,40 +74,32 @@ gazetteCssParser
    break-inside avoid
    text-align justify
   h1,h2,h3,h4
-   margin 10px 0
+   margin .625rem 0
   h1
-   font-size 20px
+   font-size 1.25rem
   h2
-   font-size 18px
-  h3
-   font-size 16px
-  h4
-   font-size 16px
+   font-size 1.125rem
+  h3,h4
+   font-size 1rem
   h1.scrollTitle
    text-align center
-   margin-bottom .25em
+   margin-bottom .15625rem
    margin-top 0
-   font-size 28px
+   font-size 1.75rem
    a
     color #000
   .scrollDateline
    font-style italic
-   line-height 1.4em
+   line-height 1.4rem
    comment Decrease font size to deemphasize dateline but keep the line height the same to not cause different line spacing.
-   font-size 12px
+   font-size .75rem
   .scrollSection
    break-inside avoid
-   h1
-    text-align center
-   h2
-    text-align center
-   h3
-    text-align center
-   h4
+   h1,h2,h3,h4
     text-align center
   h4.scrollQuestion
    text-align left
-   margin 1.4em 0 0 0
+   margin 1.4rem 0 0 0
   .scrollSection:first-child
    h1,h2,h3,h4
     margin-top 0
@@ -121,18 +113,18 @@ gazetteCssParser
    cursor default
   
   .scrollCodeBlock
-   border-left .5em solid rgba(204,204,204,.8)
+   border-left .5rem solid rgba(204,204,204,.8)
   
   .scrollTable
    table-layout fixed
-   margin .5em 0
+   margin .5rem 0
    overflow hidden
-   font-size 80%
+   font-size .8rem
    width 100%
    hyphens none
    border 1px solid rgba(224,224,224,.8)
    td,th
-    padding 3px
+    padding .1875rem
     overflow hidden
    th
     border-bottom 2px solid rgba(0,0,0,.6)
@@ -141,19 +133,19 @@ gazetteCssParser
     background rgba(224,224,224,.6)
   
   .scrollByLine
-   font-size 14px
+   font-size .875rem
    font-style italic
-   margin 4px 0
+   margin .25rem 0
    text-align center
   
   comment Subtle "Article Source" link
   .scrollViewSource
    text-align center
-   font-size 80%
+   font-size .8rem
    margin 0
-   margin-top 0.4em
-   line-height 1.4em
-   margin-bottom 1em
+   margin-top .4rem
+   line-height 1.4rem
+   margin-bottom 1rem
    a
     color #000
   
@@ -163,24 +155,24 @@ gazetteCssParser
   
   .scrollDashboard
    width 100%
-   font-size 30px
+   font-size 1.875rem
    text-align center
    font-weight bold
    break-inside avoid
-   margin-top 8px
-   margin-bottom 8px
+   margin-top .5rem
+   margin-bottom .5rem
    td
     width 33.3%
     border 1px solid #e8e8e8
    span
-    font-size 20p;
+    font-size 1.25rem
     display block
   .scrollChat
    span
     font-family Verdana
-    margin-top 5px
-    padding 5px 20px
-    border-radius 15px
+    margin-top .3125rem
+    padding .3125rem 1.25rem
+    border-radius .9375rem
     display inline-block
   .scrollChatLeft
    span

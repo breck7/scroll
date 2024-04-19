@@ -5,20 +5,20 @@ pageHeaderParser
  string hakon
   .pageHeader
    position absolute
-   top 4px
+   top .25rem
    right 0
    left 0
    svg
-    width 30px
-    height 30px
+    width 1.875rem
+    height 1.875rem
     fill rgba(204,204,204,.8)
     &:hover
      fill #333
    a
     color rgba(204,204,204,.8)
     position absolute
-    font-size 30px
-    line-height 27px
+    font-size 1.875rem
+    line-height 1.7rem
     text-decoration none
     &:hover
      color #333
@@ -36,21 +36,21 @@ pageHeaderParser
    let previousButton = ""
    if (linkToPrevious)
     previousButton = `a <
-    style left:3px;
+    style left:.1875rem;
     href ${linkToPrevious}`
    let nextButton = ""
    if (linkToNext)
     nextButton = `a >
-    style right:3px;
+    style right:.1875rem;
     href ${linkToNext}`
    return `<style>${this.css}</style>` + file.compileStumpCode(`div
    class pageHeader doNotPrint
    ${previousButton}
    a ${SVGS.home}
-    style text-align:left;left:25px;
+    style text-align:left;left:1.5625rem;
     href ${file.get("homeLink") || "index.html"}
    a ${SVGS.git}
-    style text-align:right;right: 25px;
+    style text-align:right;right: 1.5625rem;
     href ${file.git}
    ${nextButton}`)
   }

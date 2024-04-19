@@ -4,6 +4,16 @@ title Scroll Release Notes
 
 startColumns
 
+# 76.0.0 4/19/2024
+- 🎨 try using "rem" in CSS to better support the "zooming out" effect on a blog
+
+The code below added to a page will create the zoom out effect:
+
+code
+ css html {font-size: var(--base-font-size, 8px);}
+
+- ⚠️ BREAKING: There might be some slight style breaks related to this change.
+
 # 75.2.1 4/18/2024
 - 🏥 style fix: removed top margin on headers when they are in the first section
 
