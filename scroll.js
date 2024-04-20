@@ -558,7 +558,7 @@ import footer.scroll`
 
           const extension = link.split(".").pop()
           fileSystem.write(folder + link, file.makeDataset(extension))
-          this.log(`💾 Wrote dataset in ${file.filename} to ${link}`)
+          this.log(`💾 Wrote 🔢 in ${file.filename} to ${link}`)
         })
       }
 
