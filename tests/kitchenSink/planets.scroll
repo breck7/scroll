@@ -60,6 +60,7 @@ code
 # Generates a dataset like this:
 
 printDataset
+tableSearch
 
 # Overview:
 - A dataset consists of 5 atomic elements:
@@ -75,11 +76,11 @@ printDataset
 - Mix of "looseness" for creative work with just enough tightness to enable easy generation of clean data.
 
 # Features
-- Autojoins across files on ids^roadmap
 - Supports nested fields^roadmap
+- Gradual typing (schema optional. a schema is a set of measure definitions)^roadmap
+- Autojoins across files on ids^roadmap
 - Auto generates normalized tables for repeated keys^roadmap
 - Supports text blobs^roadmap
-- Gradual typing (schema optional. a schema is a set of measure definitions)^roadmap
 - Define computed columns in schema^roadmap
 
 ^roadmap Planned.

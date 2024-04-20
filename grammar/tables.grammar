@@ -77,3 +77,23 @@ tabTableParser
  description Tab separated values table.
  extends abstractTableParser
  string delimiter \t
+
+tableSearchParser
+ cruxFromId
+ extends abstractScrollWithRequirementsParser
+ string requireOnce
+  <script defer src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css" />
+    <script defer src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+    <script>
+     document.addEventListener("DOMContentLoaded", function () {
+      const urlSearchParams = new URLSearchParams(window.location.search)
+      const params = Object.fromEntries(urlSearchParams.entries())
+      jQuery('table').DataTable({"order": [],"paging": false,search:{ search: params.filter || ""}});
+    } );
+    </script>
+ description Add table search to all tables on the page.
+ javascript
+  compileInstance() {
+   return ""
+  }
