@@ -1,0 +1,47 @@
+// Note: this is an MVP of Scroll Datasets for initial experimentation and to test the syntax. Few features are implemented yet.
+
+valueCell
+ highlightScope comment
+
+schemaParser
+ description A place to define the schema for concepts. Currently just treated as a comment.
+ cruxFromId
+ extends abstractCommentParser
+
+conceptStartParser
+ crux :::
+ description Begins a concept.
+ extends abstractCommentParser
+
+measureNameCell
+ highlightScope keyword
+ regex [a-zA-Z0-9_]+
+
+measurementParser
+ description Add a measurement to a concept.
+ cells measureNameCell
+ pattern ^[a-zA-Z0-9_]+:( |$)
+ catchAllCellType valueCell
+ extends abstractCommentParser
+ example
+  :::
+  id: earth
+  order: 3
+
+printDatasetParser
+ description Print the dataset in a page into an HTML table.
+ cruxFromId
+ extends abstractCommentParser
+ javascript
+   compile() {
+   // A hacky but simple way to do this for now.
+   const node = this.appendSibling("commaTable", this.parent.file.makeDataset("csv"))
+   const html = node.compile()
+   node.destroy()
+   return html
+   }
+
+writeDatasetParser
+ cruxFromId
+ description Write a dataset file to disk.
+ extends abstractCommentParser

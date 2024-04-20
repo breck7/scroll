@@ -83,6 +83,42 @@ const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 
 const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && file.groups.includes(groupName))
 
+const parseDataset = content => {
+  const parseSchema = tree => tree.toObject()
+  const conceptDelimiter = /^:::/m
+  let schema = null
+  const concepts = content
+    .split(conceptDelimiter)
+    .map(section => {
+      const str = section.trim()
+      const tree = new TreeNode(str)
+      if (tree.has("schema")) {
+        schema = parseSchema(tree.getNode("schema"))
+        return null
+      } else if (!str.match(/(^|\n)[a-zA-Z0-9_]+: /))
+        // A concept must contain at least 1 measurement
+        // Strip any blanks
+        return null
+
+      const row = {}
+      if (schema) {
+        Object.keys(schema).forEach(measure => {
+          row[measure.replace(":", "")] = tree.get(measure)
+        })
+      } else {
+        tree.forEach(node => {
+          const measure = node.getWord(0)
+          if (measure.endsWith(":")) row[measure.replace(":", "")] = tree.get(measure)
+        })
+      }
+
+      return row
+    })
+    .filter(i => i)
+
+  return concepts
+}
+
 class ScrollFile {
   constructor(originalScrollCode, absoluteFilePath = "", fileSystem = new ScrollFileSystem({})) {
     this.fileSystem = fileSystem
@@ -108,6 +144,7 @@ class ScrollFile {
     const afterVariablePass = this.evalVariables(afterImportPass)
 
     // PASS 4: LOAD WITH STD COMPILER OR CUSTOM COMPILER FROM PASS 3
+    this.afterVariablePass = afterVariablePass
     this.scrollProgram = new parser(afterVariablePass)
 
     this.scrollProgram.setFile(this)
@@ -117,6 +154,22 @@ class ScrollFile {
 
   get allFiles() {
     return this.fileSystem.getScrollFilesInFolder(this.folderPath)
+  }
+
+  _dataset
+  get dataset() {
+    if (this._dataset) return this._dataset
+    this._dataset = parseDataset(this.afterVariablePass)
+    return this._dataset
+  }
+
+  makeDataset(format = "csv") {
+    if (format === "json") return JSON.stringify(this.dataset, null, 2)
+    const tree = new TreeNode(this.dataset)
+    if (format === "csv") return tree.asCsv
+    if (format === "tsv") return tree.asTsv
+    if (format === "tree") return tree.toString()
+    return tree.toString()
   }
 
   evalVariables(code) {
@@ -255,6 +308,10 @@ class ScrollFile {
 
   get(keyword) {
     return this.scrollProgram.get(keyword)
+  }
+
+  has(keyword) {
+    return this.scrollProgram.has(keyword)
   }
 
   get viewSourceUrl() {
@@ -489,6 +546,22 @@ import footer.scroll`
       const { permalink, html } = file
       fileSystem.write(folder + permalink, html)
       this.log(`💾 Wrote ${file.filename} to ${permalink}`)
+
+      // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
+      if (file.has("writeDataset")) {
+        file.scrollProgram.findNodes("writeDataset").forEach(node => {
+          const link = node.getWord(1)
+          if (!link) {
+            this.log(`⚠️ No filename provided after writeDataset keyword. Skipping`)
+            return
+          }
+
+          const extension = link.split(".").pop()
+          fileSystem.write(folder + link, file.makeDataset(extension))
+          this.log(`💾 Wrote dataset in ${file.filename} to ${link}`)
+        })
+      }
+
       return { permalink: folder + permalink, html }
     })
     const seconds = (Date.now() - start) / 1000

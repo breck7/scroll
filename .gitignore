@@ -17,6 +17,10 @@ tests/importExamples/
 tests/kitchenSink/style.css
 tests/kitchenSink/posts.csv
 tests/kitchenSink/prompt.txt
+tests/kitchenSink/planets.csv
+tests/kitchenSink/planets.tsv
+tests/kitchenSink/planets.json
+tests/kitchenSink/planetsNoSchema.csv
 
 # Do not check in files built by Scroll
 *.html

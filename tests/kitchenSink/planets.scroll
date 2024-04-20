@@ -1,0 +1,216 @@
+import header.scroll
+
+wideColumns 1
+
+title Planets. A demonstration of Scroll Datasets.
+
+viewSource
+
+This file generates this HTML page as well as a CSV, TSV, and JSON file. It demonstrates Scroll Datasets.
+ link planets.scroll This file
+ link planets.csv CSV
+ link planets.tsv TSV
+ link planets.json JSON
+
+writeDataset planets.csv
+writeDataset planets.json
+writeDataset planets.tsv
+
+groups index all
+
+endSnippet
+
+Scroll Datasets are a way to store structured data in plain text files that easily convert to tabular formats like CSV for visualization and analysis. They are handy when working with LLMs to generate ad hoc datasets. Structured data can be intermingled with markup. A Scroll Dataset file can contain the data, schema, and documentation all in one plain text file (easily tracked by git).
+
+# Quick Code Example:
+
+code
+ # This dataset has 2 concepts.
+ Data and *markup* can go in the same file.
+ 
+ :::
+ 
+ id: mars
+ title: Mars
+ diameter: 6794
+ surfaceGravity: 4
+ yearsToOrbitSun: 1.881
+ moons: 2
+ 
+ :::
+ 
+ id: jupiter
+ title: Jupiter
+ diameter: 142984
+ surfaceGravity: 25
+ yearsToOrbitSun: 11.86
+ moons: 63
+  Cool! The moons of Jupiter have their own Wikipedia Page
+    https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
+ 
+ ...
+
+# Generates a dataset like this:
+
+printDataset
+
+# Overview:
+- A dataset consists of 5 atomic elements:
+ - concepts (rows)
+ - measures (columns)
+ - values (values)
+ - measurements (concept+measure+value = measurement)
+ - [optional] schemas (for adding typing and computed columns)
+
+# Benefits
+- Can store everything (documentation, schema, all concepts) in 1 clean plain text file or split into many files.
+- Mix of "looseness" for creative work with just enough tightness to enable easy generation of clean data.
+- Nest unlimited scroll content within each measurement.
+
+# Features
+- Autojoins across files on ids^roadmap
+- Supports nested fields^roadmap
+- Auto generates normalized tables for repeated keys^roadmap
+- Supports text blobs^roadmap
+- Gradual typing (schema optional. a schema is a set of measure definitions)^roadmap
+- Define computed columns in schema^roadmap
+
+^roadmap Planned.
+ label +
+
+# Origin
+Scroll Datasets evolved out of TrueBase. Scroll Datasets have eliminated the need for the TrueBase software, but were informed by the TrueBase build experience.
+ https://truebase.treenotation.org TrueBase
+
+# Related Work
+Can you do this same thing with YAML and/or Markdown? Yes! You can easily achieve the same thing as LLMs & Scroll Datasets using LLMs & YAML, or LLMs & YAML & Markdown.
+ https://yaml.org/ YAML
+ https://github.github.com/gfm/ Markdown
+
+For YAML, just put your documentation and schema in YAML comments up top and then have a tiny script to read that YAML and dump CSV/TSV/JSON or whatever. YAML gives you loads of data structures to use and is widely supported in many languages. But generating HTML from the same file would require more work.
+
+If you want to intermix markup content with your datasets, you can use Markdown to add the marked up content and then have code sections embedding the YAML and a tiny script to parse out those YAML blocks and write your data to disk.
+
+So, why use Scroll for this instead of YAML? Either works. Thanks to LLMs it would be easy to go from system one to the other. I try to make Scroll a simple, powerful, enjoyable workflow, but nothing done here couldn't be done using a different toolset.
+
+# How to use
+- A concept is like a row in a database. Concepts are marked by the `:::`.
+- Measurements are done like this `appeared: 2024`
+- You can add concepts and measurments without a schema and add that later if desired.
+
+## Schemas
+
+A schema is an [optional] set of measures definitions. A measure is basically just another word for column. Measure names currently can only contain [a-zA-Z0-9_]. They cannot contain spaces or periods (the period is reserved for nested measures).
+
+belowAsCode
+schema
+ id: string
+ title: string
+ diameter: int
+  description What is the diameter of the planet?
+ surfaceGravity: int
+  description What is the surface gravity of the planet?
+ yearsToOrbitSun: float
+  description How many Earth years does it take for the planet to orbit the Sun?
+ moons: int
+  description How many moons does the planet have?
+ aka: string
+  description A comma separated list of other names for this chemical, such as brand names.
+ description: string
+ aka: string
+  single false
+  description What are the alternative names for the planet?
+
+:::
+
+id: mars
+title: Mars
+diameter: 6794
+surfaceGravity: 4
+yearsToOrbitSun: 1.881
+moons: 2
+
+:::
+
+id: jupiter
+title: Jupiter
+diameter: 142984
+surfaceGravity: 25
+yearsToOrbitSun: 11.86
+moons: 63
+ Cool! The moons of Jupiter have their own Wikipedia Page
+   https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
+
+:::
+
+id: earth
+title: Earth
+diameter: 12756
+surfaceGravity: 10
+yearsToOrbitSun: 1
+moons: 1
+aka: Pale Blue Dot
+aka: Planet Earth
+hasLife: true
+nicknames: Pale Blue Dot & Planet Earth
+description: It's where we live.
+neighbor:
+ id: mars
+ distance: 110000000
+neighbor:
+ id: venus
+ distance: 141000000
+wikipedia:
+ url: https://en.wikipedia.org/wiki/Earth
+ pageViews: 123
+age: 4500000000
+ * Note: It was only during the 19th century that geologists realized Earth's age was at least many millions of years.
+
+:::
+
+id: mercury
+title: Mercury
+diameter: 4879
+surfaceGravity: 4
+yearsToOrbitSun: 0.241
+moons: 0
+
+:::
+
+id: saturn
+title: Saturn
+diameter: 120536
+surfaceGravity: 9
+yearsToOrbitSun: 29.46
+moons: 64
+
+:::
+
+id: uranus
+title: Uranus
+diameter: 51118
+surfaceGravity: 8
+yearsToOrbitSun: 84.01
+moons: 27
+
+:::
+
+id: venus
+title: Venus
+diameter: 12104
+surfaceGravity: 9
+yearsToOrbitSun: 0.615
+moons: 0
+
+:::
+
+id: neptune
+title: Neptune
+diameter: 49572
+surfaceGravity: 11
+yearsToOrbitSun: 164.79
+moons: 14
+
+:::
+
+pageFooter
