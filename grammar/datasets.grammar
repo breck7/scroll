@@ -29,7 +29,7 @@ measurementParser
  extends abstractCommentParser
  javascript
   compile() {
-   return `<div>${this.getLine()}</div>`
+   return `<div>${Utils.linkify(this.getLine())}</div>`
   }
  example
   :::

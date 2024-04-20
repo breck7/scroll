@@ -41,6 +41,8 @@ code
  yearsToOrbitSun: 1.881
  moons: 2
  
+ // Til Mars has 2 moons!
+ 
  :::
  
  id: jupiter
@@ -49,8 +51,9 @@ code
  surfaceGravity: 25
  yearsToOrbitSun: 11.86
  moons: 63
-  Cool! The moons of Jupiter have their own Wikipedia Page
-    https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
+ 
+ The moons of Jupiter have their own Wikipedia Page
+  https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
  
  ...
 
@@ -119,11 +122,19 @@ schema
  moons: int
   description How many moons does the planet have?
  aka: string
-  description A comma separated list of other names for this chemical, such as brand names.
- description: string
- aka: string
-  single false
   description What are the alternative names for the planet?
+
+# Design notes
+? Why the flat design with the delimiter and not something like:
+code
+ concept
+  id mars
+  moons 2
+ concept
+  id jupiter
+  moons 63
+
+The flat design seems more ergonomic and worth breaking from Scroll convention a bit. Scroll Datasets are still experimental. Maybe the current design will change.
 
 # Data
 
@@ -136,6 +147,8 @@ surfaceGravity: 4
 yearsToOrbitSun: 1.881
 moons: 2
 
+// Til Mars has 2 moons!
+
 :::
 
 id: jupiter
@@ -144,8 +157,9 @@ diameter: 142984
 surfaceGravity: 25
 yearsToOrbitSun: 11.86
 moons: 63
- Cool! The moons of Jupiter have their own Wikipedia Page
-   https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
+
+The moons of Jupiter have their own Wikipedia Page
+ https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
 
 :::
 
@@ -156,21 +170,11 @@ surfaceGravity: 10
 yearsToOrbitSun: 1
 moons: 1
 aka: Pale Blue Dot
-aka: Planet Earth
 hasLife: true
-nicknames: Pale Blue Dot & Planet Earth
-description: It's where we live.
-neighbor:
- id: mars
- distance: 110000000
-neighbor:
- id: venus
- distance: 141000000
-wikipedia:
- url: https://en.wikipedia.org/wiki/Earth
- pageViews: 123
+wikipedia: https://en.wikipedia.org/wiki/Earth
 age: 4500000000
- * Note: It was only during the 19th century that geologists realized Earth's age was at least many millions of years.
+
+* Note: It was only during the 19th century that geologists realized Earth's age was at least many millions of years.
 
 :::
 
