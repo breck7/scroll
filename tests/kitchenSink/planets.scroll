@@ -6,8 +6,8 @@ title Scroll Datasets: source code for CSVs
 
 viewSource
 
-This file generates this HTML page as well as a CSV, TSV, and JSON file. It demonstrates Scroll Datasets.
- link planets.scroll This file
+This source file contains a dataset on the planets and generates this HTML page as well as a CSV, TSV, and JSON file. It demonstrates Scroll Datasets.
+ link planets.scroll This source file
  link planets.csv CSV
  link planets.tsv TSV
  link planets.json JSON
@@ -22,45 +22,51 @@ endSnippet
 
 Scroll Datasets are a format for sticking structured data in plain text files that easily convert to tabular formats like CSV for visualization and analysis.
 
-- They are designed for working alongside LLMs to generate ad hoc datasets with human review.
-- Structured data can be intermingled with markup and you can easily annotate and document each value in a dataset.
-- A Scroll Dataset file can contain the documentation, schema and data all in one plain text file (easily tracked by git).
+- *Designed for working with LLMs* to generate ad hoc datasets with human review.
+- You can *intermingle structured data with markup* to easily annotate any and every part of a dataset while still generating clean datasets.
+- A Scroll Dataset file can contain the documentation, schema and data all in one (or more) plain text file(s) so the dataset can continually be improved and *tracked by git*.
 
 # Quick Code Example:
 
 code
- # This dataset has 2 concepts.
- Data and *markup* can go in the same file.
+ 
+ This dataset has 2 measures (columns) and 2 concepts (rows).
+ 
+ Documentation, column definitions, rows and *any notes/markup/content* can go in the same file.
+ 
+ # Schema:
+ 
+ id: string
+ moons: int
+ 
+ # Data:
  
  :::
  
  id: mars
- title: Mars
- diameter: 6794
- surfaceGravity: 4
- yearsToOrbitSun: 1.881
  moons: 2
  
- // Til Mars has 2 moons!
+ I verified moon count with Google. - BY
  
  :::
  
  id: jupiter
- title: Jupiter
- diameter: 142984
- surfaceGravity: 25
- yearsToOrbitSun: 11.86
  moons: 63
  
  The moons of Jupiter have their own Wikipedia Page
   https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
  
- ...
+ :::
+ 
+ writeDataset demo.csv
+ 
 
-# Generates a dataset like this:
+# The code above generates an HTML page and `demo.csv` that contains this:
 
-printDataset
-tableSearch
+code
+ id,moons
+ mars,2
+ jupiter,63
 
 # Overview:
 - A dataset consists of 4 atomic elements:
@@ -86,8 +92,9 @@ tableSearch
  label +
 
 # Origin
-Scroll Datasets evolved out of TrueBase. Scroll Datasets have eliminated the need for the TrueBase software, but were informed by the TrueBase build experience.
+Scroll Datasets evolved out of TrueBase. Scroll Datasets have eliminated the need for the TrueBase software, but were informed by the TrueBase build experience. They are designed to help solve the Dataset Needed problem.
  https://truebase.treenotation.org TrueBase
+ https://breckyunits.com/dataset-needed.html Dataset Needed
 
 # Related Work
 Can you do this same thing with YAML and/or Markdown? Yes! You can easily achieve the same thing as LLMs & Scroll Datasets using LLMs & YAML, or LLMs & YAML & Markdown.
@@ -98,17 +105,39 @@ For YAML, just put your documentation and schema in YAML comments up top and the
 
 If you want to intermix markup content with your datasets, you can use Markdown to add the marked up content and then have code sections embedding the YAML and a tiny script to parse out those YAML blocks and write your data to disk.
 
-So, why use Scroll for this instead of YAML? Either works. Thanks to LLMs it would be easy to go from system one to the other. I try to make Scroll a simple, powerful, enjoyable workflow, but nothing done here couldn't be done using a different toolset.
+? So, why use Scroll for this instead of YAML?
+
+Either can do the job. I expect the Scroll design to end up being more ergonomic, but that might not be true or may be unimportant.
+ // ergonomic: relating to or designed for efficiency and comfort in the working environment.
+
+If you don't like Scroll's (evolving) version and want to switch it will always be straightforward to automatically refactor to YAML.
+
+# Design notes
+? Why the flat design with the delimiter and not something like:
+code
+ concept
+  id mars
+  moons 2
+ concept
+  id jupiter
+  moons 63
+
+The flat design seems more ergonomic and worth breaking from Scroll convention a bit. Scroll Datasets are still experimental. Maybe the current design will change.
 
 # How to use
+- Measure definitions are done like this `appeared:: int`
 - A concept is like a row in a database. Concepts are marked by the `:::`.
 - Measurements are done like this `appeared: 2024`
-- Measure definitions are done like this `appeared:: int`
+
+# Planets Dataset
+
+Below is the dataset embedded in this Scroll file.
+
+printDataset
+tableSearch
 
 ## Measure Definitions (schemas)
 A schema is a set of measure definitions. You can think of measures as columns. Measure names (currently) can only contain [a-zA-Z0-9_]. They cannot contain spaces or periods (the period is reserved for nested measures).
-
-belowAsCode 20
 
 id:: string
 
@@ -128,18 +157,6 @@ moons:: int
 
 aka:: string
  description What are the alternative names for the planet?
-
-# Design notes
-? Why the flat design with the delimiter and not something like:
-code
- concept
-  id mars
-  moons 2
- concept
-  id jupiter
-  moons 63
-
-The flat design seems more ergonomic and worth breaking from Scroll convention a bit. Scroll Datasets are still experimental. Maybe the current design will change.
 
 # Data
 
