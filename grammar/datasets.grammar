@@ -43,7 +43,7 @@ printDatasetParser
  javascript
    compile() {
    // A hacky but simple way to do this for now.
-   const node = this.appendSibling("commaTable", this.parent.file.makeDataset("csv"))
+   const node = this.appendSibling("commaTable", this.parent.file.makeDataset("tsv"))
    const html = node.compile()
    node.destroy()
    return html
