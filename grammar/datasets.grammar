@@ -1,0 +1,68 @@
+// Note: this is an MVP of Scroll Datasets for initial experimentation and to test the syntax. Few features are implemented yet.
+
+valueCell
+ highlightScope comment
+
+measureTypeCell
+ extends enumCell
+ enum string int bool url uid float enum
+
+conceptStartParser
+ crux :::
+ description Begins a concept.
+ extends abstractCommentParser
+ javascript
+  compile() {
+   return `<hr>`
+  }
+
+measureNameCell
+ highlightScope keyword
+
+measureDefinitionParser
+ description Define a measure for a dataset.
+ cells measureNameCell measureTypeCell
+ pattern ^[a-zA-Z0-9_]+::( |$)
+ // Currently just treated as a comment while testing if Datasets is worth developing.
+ extends abstractCommentParser
+ javascript
+  compile() {
+   return `<div>${Utils.linkify(this.getLine())}</div>`
+  }
+ example
+  :::
+  name:: string
+  order:: int
+
+measurementParser
+ description Add a measurement to a concept.
+ cells measureNameCell
+ pattern ^[a-zA-Z0-9_]+:( |$)
+ catchAllCellType valueCell
+ extends abstractCommentParser
+ javascript
+  compile() {
+   return `<div>${Utils.linkify(this.getLine())}</div>`
+  }
+ example
+  :::
+  id: earth
+  order: 3
+
+printDatasetParser
+ description Print the dataset in a page into an HTML table.
+ cruxFromId
+ extends abstractCommentParser
+ javascript
+   compile() {
+   // A hacky but simple way to do this for now.
+   const node = this.appendSibling("table \t", this.parent.file.makeDataset("tsv"))
+   const html = node.compile()
+   node.destroy()
+   return html
+   }
+
+writeDatasetParser
+ cruxFromId
+ description Write a dataset file to disk.
+ extends abstractCommentParser

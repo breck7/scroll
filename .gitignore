@@ -18,6 +18,10 @@ tests/kitchenSink/style.css
 tests/kitchenSink/posts.csv
 tests/kitchenSink/prompt.txt
 
+blog/planets.csv
+blog/planets.tsv
+blog/planets.json
+
 # Do not check in files built by Scroll
 *.html
 feed.xml

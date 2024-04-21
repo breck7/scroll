@@ -1,3 +1,4 @@
+// todo: copy the external library to folder so it works offline?
 katexParser
  cruxFromId
  extends abstractScrollWithRequirementsParser

@@ -1,0 +1,264 @@
+import header.scroll
+
+wideColumns 1
+
+title Scroll Datasets: source code for CSVs
+
+byLine https://breckyunits.com Breck Yunits
+
+date 4/21/2024
+
+The source code for this blog post contains a dataset about the planets and generates this HTML file as well as a CSV, a TSV, and a JSON file. It demonstrates Scroll Datasets.
+ dateline
+ link datasets.scroll source code for this blog post
+ link planets.csv CSV
+ link planets.tsv TSV
+ link planets.json JSON
+
+writeDataset planets.csv
+writeDataset planets.json
+writeDataset planets.tsv
+
+groups index all
+
+endSnippet
+
+Scroll Datasets are normal plain text blog posts written in Scroll that also contain structured data and output that data into forms ready for visualization and analysis tools.
+ https://scroll.pub/ Scroll
+  match 1
+
+Scroll Datasets are line oriented but represent a table(s). You might call them _deconstructed spreadsheets_.
+
+- Use LLMs to *instantly generate datasets* that are ready for human review and improvement.
+- Intermingle structured data with markup to *annotate any and every part of a dataset* while still generating strict tabular files for data analysis tools.
+- Put documentation, schema and data all in one (or more) plain text file(s) to easily share, collaborate on, and improve, all *tracked by git for trust*.
+
+# Quick Code Example:
+
+code
+ 
+ This dataset has 2 measures (columns) and 2 concepts (rows).
+ 
+ Documentation, column definitions, rows and *any notes/markup/content* can go in the same file.
+ 
+ # Schema:
+ 
+ id: string
+ moons: int
+ 
+ # Data:
+ 
+ :::
+ 
+ id: mars
+ moons: 2
+ 
+ I verified moon count with Google. - BY
+ 
+ :::
+ 
+ id: jupiter
+ moons: 63
+ 
+ The moons of Jupiter have their own Wikipedia Page
+  https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
+ 
+ :::
+ 
+ writeDataset demo.csv
+ 
+
+# The code above generates an HTML page and `demo.csv` that contains this:
+
+code
+ id,moons
+ mars,2
+ jupiter,63
+
+# Overview:
+- A dataset consists of 4 atomic elements:
+ - measures (think columns)
+ - concepts (think rows)
+ - values (think values)
+ - measurements (concept & measure & value = measurement)
+
+# How to use
+- Measure definitions are done like this `appeared:: int`
+ // A schema is a set of measure definitions. You can think of measures as columns. Measure names (currently) can only contain [a-zA-Z0-9_]. They cannot contain spaces or periods (the period is reserved for nested measures).
+- A concept is like a row in a database. Concepts are marked by the `:::`.
+- Measurements are done like this `appeared: 2024`
+
+# FAQ
+? What did you say the benefits were?
+- Have an LLM do the bulk of the work while humans supervise to remove hallucinations.
+- Can store everything (documentation, schema, all concepts) in 1 clean plain text file or split into many files (using the `import` keyword).
+- The Scroll Dataset syntax balances _looseness_ useful in creative thinking with the _tightness_ needed by tabular data visualization and analysis tools.
+
+? What are the advanced features?
+- Supports nested measures^roadmap
+- Gradual typing in measure definitions^roadmap
+- Autojoins across files on ids^roadmap
+- Auto generates normalized tables for array measures^roadmap
+- Support for text blobs^roadmap
+- Support for computed measures^roadmap
+^roadmap Planned.
+ label +
+
+? What is the origin of Scroll Datasets?
+LLM dataset generation is a _major_ breakthrough in datasets. Scroll Datasets are, at best, a minor improvement. They are designed to work alongside LLMs to help solve the Dataset Needed problem.
+ https://breckyunits.com/dataset-needed.html Dataset Needed
+
+Scroll Datasets evolved out of TrueBase. Scroll Datasets have eliminated the need for the TrueBase software (and existing TrueBase sites should be migrated to Scroll Datasets), but were informed by the TrueBase build experience.
+ https://truebase.treenotation.org TrueBase
+
+Although Scroll Datasets are designed for a world with LLMs, the design is meant to be useful without them as well, and would also have been mildly useful 30 years ago.
+
+? Can't you do this same thing with YAML and/or Markdown?
+Yes! You can easily achieve the same thing as LLMs & Scroll Datasets using LLMs & YAML, or LLMs & YAML & Markdown.
+ https://yaml.org/ YAML
+ https://github.github.com/gfm/ Markdown
+
+For YAML, just put your documentation and schema in YAML comments up top and then have a tiny script to read that YAML and dump CSV/TSV/JSON or whatever. YAML gives you loads of data structures to use and is widely supported in many languages. But generating HTML from the same file would require more work.
+
+If you want to intermix markup content with your datasets, you can use Markdown to add the marked up content and then have code sections embedding the YAML and a tiny script to parse out those YAML blocks and write your data to disk.
+
+? What other related work is out there?
+This is a simple pattern to implement, so I'm sure it is likely it has been done a few times before. Please let me know so I can include links to--and learn from--any other prior art.
+
+? So, why use Scroll for storing datasets instead of YAML?
+Either can do the job. I expect the Scroll design to end up being more ergonomic, but that might not be true or may be unimportant.
+ // ergonomic: relating to or designed for efficiency and comfort in the working environment.
+
+If you don't like Scroll's (evolving) version and want to switch it will always be straightforward to automatically refactor to YAML.
+
+? Why are measures and concepts root-level features and not indented?
+The normal way to implement this in Scroll would be something like:
+code
+ measures
+  id string
+  moons int
+ concept
+  id mars
+  moons 2
+ concept
+  id jupiter
+  moons 63
+
+The flat design was chosen for ergonomic reasons. Datasets seem like they might be useful enough to be worth breaking from Scroll convention a bit. Like all things in Scroll, Datasets are experiment, and maybe this design will evolve.
+
+# Planets Dataset
+
+Below is the dataset embedded in this Scroll file.
+
+printDataset
+tableSearch
+
+## Measures
+
+id:: string
+
+title:: string
+
+diameter:: int
+ description What is the diameter of the planet?
+
+surfaceGravity:: int
+ description What is the surface gravity of the planet?
+
+yearsToOrbitSun:: float
+ description How many Earth years does it take for the planet to orbit the Sun?
+
+moons:: int
+ description How many moons does the planet have?
+
+aka:: string
+ description What are the alternative names for the planet?
+
+# Data
+
+:::
+
+id: mars
+title: Mars
+diameter: 6794
+surfaceGravity: 4
+yearsToOrbitSun: 1.881
+moons: 2
+
+// Til Mars has 2 moons!
+
+:::
+
+id: jupiter
+title: Jupiter
+diameter: 142984
+surfaceGravity: 25
+yearsToOrbitSun: 11.86
+moons: 63
+
+The moons of Jupiter have their own Wikipedia Page
+ https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
+
+:::
+
+id: earth
+title: Earth
+diameter: 12756
+surfaceGravity: 10
+yearsToOrbitSun: 1
+moons: 1
+aka: Pale Blue Dot
+hasLife: true
+wikipedia: https://en.wikipedia.org/wiki/Earth
+age: 4500000000
+
+* Note: It was only during the 19th century that geologists realized Earth's age was at least many millions of years.
+
+:::
+
+id: mercury
+title: Mercury
+diameter: 4879
+surfaceGravity: 4
+yearsToOrbitSun: 0.241
+moons: 0
+
+:::
+
+id: saturn
+title: Saturn
+diameter: 120536
+surfaceGravity: 9
+yearsToOrbitSun: 29.46
+moons: 64
+
+:::
+
+id: uranus
+title: Uranus
+diameter: 51118
+surfaceGravity: 8
+yearsToOrbitSun: 84.01
+moons: 27
+
+:::
+
+id: venus
+title: Venus
+diameter: 12104
+surfaceGravity: 9
+yearsToOrbitSun: 0.615
+moons: 0
+
+:::
+
+id: neptune
+title: Neptune
+diameter: 49572
+surfaceGravity: 11
+yearsToOrbitSun: 164.79
+moons: 14
+
+:::
+
+import footer.scroll
