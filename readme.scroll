@@ -21,21 +21,19 @@ Scroll is an npm package:
 code
  npm install -g scroll-cli
 
-? What has changed in recent versions?
-View the Scroll Release Notes.
- link releaseNotes.html Scroll Release Notes
-
 ? Is Scroll open source?
 Yes. Scroll is public domain and the source code is on GitHub.
  https://github.com/breck7/scroll source code
 
-? Is there a FAQ page?
-Yes.
- link faq.html Yes.
-
-? Is there a tutorial?
-Yes.
+? Where are the docs?
+- FAQ
+ link faq.html
+- Tutorial
  link tutorial.html
+- Blog
+ link blog/index.html
+- Release Notes
+ link releaseNotes.html
 
 ? Is there a place I can experiment with the Scroll grammar?
 Yes. You can edit the Scroll Language in Tree Language Designer.
