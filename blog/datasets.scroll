@@ -6,6 +6,10 @@ title Scroll Datasets: source code for CSVs
 
 byLine https://breckyunits.com Breck Yunits
 
+image datasets.png
+ caption More examples of Scroll Datasets from datasets.scroll.pub.
+  http://datasets.scroll.pub/ datasets.scroll.pub
+
 date 4/21/2024
 
 The source code for this blog post contains a dataset about the planets and generates this HTML file as well as a CSV, a TSV, and a JSON file. It demonstrates Scroll Datasets.
@@ -27,7 +31,7 @@ Scroll Datasets are normal plain text blog posts written in Scroll that also con
  https://scroll.pub/ Scroll
   match 1
 
-Scroll Datasets are line oriented but represent a table(s). You might call them _deconstructed spreadsheets_.
+Scroll Datasets are line oriented but represent a table(s). You might call them _deconstructed csvs_ or _deconstructed spreadsheets_.
 
 - Use LLMs to *instantly generate datasets* that are ready for human review and improvement.
 - Intermingle structured data with markup to *annotate any and every part of a dataset* while still generating strict tabular files for data analysis tools.
@@ -41,21 +45,21 @@ code
  
  Documentation, column definitions, rows and *any notes/markup/content* can go in the same file.
  
- # Schema:
+ # Measures (aka Header, aka Columns, aka Schema)
  
  id: string
  moons: int
  
- # Data:
+ # Concepts (aka Rows)
  
- :::
+ ::
  
  id: mars
  moons: 2
  
  I verified moon count with Google. - BY
  
- :::
+ ::
  
  id: jupiter
  moons: 63
@@ -63,7 +67,7 @@ code
  The moons of Jupiter have their own Wikipedia Page
   https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
  
- :::
+ ::
  
  writeDataset demo.csv
  
@@ -77,15 +81,15 @@ code
 
 # Overview:
 - A dataset consists of 4 atomic elements:
- - measures (think columns)
+ - measures (think columns or the header row in a CSV)
  - concepts (think rows)
  - values (think values)
  - measurements (concept & measure & value = measurement)
 
 # How to use
-- Measure definitions are done like this `appeared:: int`
+- A concept is like a row in a database. Concepts are delimited by `::`.
+- Measure definitions must come before the first concept (`::`) and are written like: `appeared: int`
  // A schema is a set of measure definitions. You can think of measures as columns. Measure names (currently) can only contain [a-zA-Z0-9_]. They cannot contain spaces or periods (the period is reserved for nested measures).
-- A concept is like a row in a database. Concepts are marked by the `:::`.
 - Measurements are done like this `appeared: 2024`
 
 # FAQ
@@ -160,28 +164,28 @@ tableSearch
 
 ## Measures
 
-id:: string
+id: string
 
-title:: string
+title: string
 
-diameter:: int
- description What is the diameter of the planet?
+diameter: int
+What is the diameter of the planet?
 
-surfaceGravity:: int
- description What is the surface gravity of the planet?
+surfaceGravity: int
+What is the surface gravity of the planet?
 
-yearsToOrbitSun:: float
- description How many Earth years does it take for the planet to orbit the Sun?
+yearsToOrbitSun: float
+How many Earth years does it take for the planet to orbit the Sun?
 
-moons:: int
- description How many moons does the planet have?
+moons: int
+How many moons does the planet have?
 
-aka:: string
- description What are the alternative names for the planet?
+aka: string
+What are the alternative names for the planet?
 
-# Data
+# Concepts
 
-:::
+::
 
 id: mars
 title: Mars
@@ -192,7 +196,7 @@ moons: 2
 
 // Til Mars has 2 moons!
 
-:::
+::
 
 id: jupiter
 title: Jupiter
@@ -204,7 +208,7 @@ moons: 63
 The moons of Jupiter have their own Wikipedia Page
  https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
 
-:::
+::
 
 id: earth
 title: Earth
@@ -219,7 +223,7 @@ age: 4500000000
 
 * Note: It was only during the 19th century that geologists realized Earth's age was at least many millions of years.
 
-:::
+::
 
 id: mercury
 title: Mercury
@@ -228,7 +232,7 @@ surfaceGravity: 4
 yearsToOrbitSun: 0.241
 moons: 0
 
-:::
+::
 
 id: saturn
 title: Saturn
@@ -237,7 +241,7 @@ surfaceGravity: 9
 yearsToOrbitSun: 29.46
 moons: 64
 
-:::
+::
 
 id: uranus
 title: Uranus
@@ -246,7 +250,7 @@ surfaceGravity: 8
 yearsToOrbitSun: 84.01
 moons: 27
 
-:::
+::
 
 id: venus
 title: Venus
@@ -255,7 +259,7 @@ surfaceGravity: 9
 yearsToOrbitSun: 0.615
 moons: 0
 
-:::
+::
 
 id: neptune
 title: Neptune
@@ -264,6 +268,6 @@ surfaceGravity: 11
 yearsToOrbitSun: 164.79
 moons: 14
 
-:::
+::
 
 import footer.scroll

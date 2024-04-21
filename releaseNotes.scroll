@@ -4,8 +4,11 @@ title Scroll Release Notes
 
 startColumns
 
+# 77.1.0 4/21/2024
+- 🎉 Simplified datasets further after user tests.
+
 # 77.0.0 4/21/2024
-- 🎉 Added Scroll Datasets, which consists of the `:::`, `printDataset`, `writeDataset`, and `*:` and `*::` keywords.
+- 🎉 Added Scroll Datasets, which consists of the `::`, `printDataset`, `writeDataset`, and `*:` and `*::` keywords.
  link blog/datasets.html Scroll Datasets
 
 - ⚠️ BREAKING: if you had lines starting with a word then colon, that used the catchall paragraph, such as `Sidenote: yada yada.`, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs `* Sidenote: yada yada.`

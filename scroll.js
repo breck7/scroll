@@ -89,11 +89,11 @@ const parseDataset = content => {
     const schema = {}
     tree.forEach(node => {
       const word = node.getWord(0)
-      if (word.endsWith("::")) schema[word.replace("::", ":")] = node
+      if (word.endsWith(":")) schema[word] = node
     })
     return schema
   }
-  const conceptDelimiter = /^:::/m
+  const conceptDelimiter = /^::/m
   let schema = null
   const concepts = content
     .split(conceptDelimiter)
@@ -551,11 +551,7 @@ import footer.scroll`
       // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
       if (file.has(scrollKeywords.writeDataset)) {
         file.scrollProgram.findNodes(scrollKeywords.writeDataset).forEach(node => {
-          const link = node.getWord(1)
-          if (!link) {
-            this.log(`⚠️ No filename provided after ${scrollKeywords.writeDataset} keyword. Skipping`)
-            return
-          }
+          const link = node.getWord(1) || permalink.replace(".html", ".tsv")
 
           const extension = link.split(".").pop()
           fileSystem.write(folder + link, file.makeDataset(extension))

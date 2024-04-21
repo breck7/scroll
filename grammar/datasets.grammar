@@ -8,7 +8,7 @@ measureTypeCell
  enum string int bool url uid float enum
 
 conceptStartParser
- crux :::
+ crux ::
  description Begins a concept.
  extends abstractCommentParser
  javascript
@@ -19,23 +19,8 @@ conceptStartParser
 measureNameCell
  highlightScope keyword
 
-measureDefinitionParser
- description Define a measure for a dataset.
- cells measureNameCell measureTypeCell
- pattern ^[a-zA-Z0-9_]+::( |$)
- // Currently just treated as a comment while testing if Datasets is worth developing.
- extends abstractCommentParser
- javascript
-  compile() {
-   return `<div>${Utils.linkify(this.getLine())}</div>`
-  }
- example
-  :::
-  name:: string
-  order:: int
-
 measurementParser
- description Add a measurement to a concept.
+ description Add a measurement to a concept. Also used for defining measures.
  cells measureNameCell
  pattern ^[a-zA-Z0-9_]+:( |$)
  catchAllCellType valueCell
@@ -45,7 +30,7 @@ measurementParser
    return `<div>${Utils.linkify(this.getLine())}</div>`
   }
  example
-  :::
+  ::
   id: earth
   order: 3
 
