@@ -1,0 +1,9 @@
+id,title,diameter,surfaceGravity,yearsToOrbitSun,moons,aka,hasLife,nicknames,description,neighbor,wikipedia,age
+jupiter,Jupiter,142984,25,11.86,63,,,,,,,
+mars,Mars,6794,4,1.881,2,,,,,,,
+earth,Earth,12756,10,1,1,Planet Earth,true,Pale Blue Dot & Planet Earth,It's where we live.,,,4500000000
+mercury,Mercury,4879,4,0.241,0,,,,,,,
+saturn,Saturn,120536,9,29.46,64,,,,,,,
+uranus,Uranus,51118,8,84.01,27,,,,,,,
+venus,Venus,12104,9,0.615,0,,,,,,,
+neptune,Neptune,49572,11,164.79,14,,,,,,,

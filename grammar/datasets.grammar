@@ -3,10 +3,9 @@
 valueCell
  highlightScope comment
 
-schemaParser
- description A place to define the schema for concepts. Currently just treated as a comment.
- cruxFromId
- extends abstractCommentParser
+measureTypeCell
+ extends enumCell
+ enum string int bool url uid float enum
 
 conceptStartParser
  crux :::
@@ -19,7 +18,21 @@ conceptStartParser
 
 measureNameCell
  highlightScope keyword
- regex [a-zA-Z0-9_]+
+
+measureDefinitionParser
+ description Define a measure for a dataset.
+ cells measureNameCell measureTypeCell
+ pattern ^[a-zA-Z0-9_]+::( |$)
+ // Currently just treated as a comment while testing Datasets ida.
+ extends abstractCommentParser
+ javascript
+  compile() {
+   return `<div>${Utils.linkify(this.getLine())}</div>`
+  }
+ example
+  :::
+  name:: string
+  order:: int
 
 measurementParser
  description Add a measurement to a concept.
@@ -43,7 +56,7 @@ printDatasetParser
  javascript
    compile() {
    // A hacky but simple way to do this for now.
-   const node = this.appendSibling("commaTable", this.parent.file.makeDataset("tsv"))
+   const node = this.appendSibling("table \t", this.parent.file.makeDataset("tsv"))
    const html = node.compile()
    node.destroy()
    return html

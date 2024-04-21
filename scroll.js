@@ -84,7 +84,14 @@ const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && file.groups.includes(groupName))
 
 const parseDataset = content => {
-  const parseSchema = tree => tree.toObject()
+  const parseSchema = tree => {
+    const schema = {}
+    tree.forEach(node => {
+      const word = node.getWord(0)
+      if (word.endsWith("::")) schema[word.replace("::", ":")] = node
+    })
+    return schema
+  }
   const conceptDelimiter = /^:::/m
   let schema = null
   const concepts = content
@@ -92,8 +99,8 @@ const parseDataset = content => {
     .map(section => {
       const str = section.trim()
       const tree = new TreeNode(str)
-      if (tree.has("schema")) {
-        schema = parseSchema(tree.getNode("schema"))
+      if (!schema) {
+        schema = parseSchema(tree)
         return null
       } else if (!str.match(/(^|\n)[a-zA-Z0-9_]+: /))
         // A concept must contain at least 1 measurement
@@ -101,16 +108,9 @@ const parseDataset = content => {
         return null
 
       const row = {}
-      if (schema) {
-        Object.keys(schema).forEach(measure => {
-          row[measure.replace(":", "")] = tree.get(measure)
-        })
-      } else {
-        tree.forEach(node => {
-          const measure = node.getWord(0)
-          if (measure.endsWith(":")) row[measure.replace(":", "")] = tree.get(measure)
-        })
-      }
+      Object.keys(schema).forEach(measure => {
+        row[measure.replace(":", "")] = tree.get(measure)
+      })
 
       return row
     })
