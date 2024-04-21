@@ -20,7 +20,7 @@ groups index all
 
 endSnippet
 
-Scroll Datasets are a format for sticking structured data in plain text files that easily convert to tabular formats like CSV for visualization and analysis.
+Scroll Datasets are a format for sticking structured data in plain text files that easily convert to tabular formats like CSV for visualization and analysis. Scroll Datasets are line oriented, but generate a table. You might call them a deconstructed spreadsheet.
 
 - *Designed for working with LLMs* to generate ad hoc datasets with human review.
 - You can *intermingle structured data with markup* to easily annotate any and every part of a dataset while still generating clean datasets.
