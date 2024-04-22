@@ -4,8 +4,6 @@ wideColumns 1
 
 title Scroll Datasets: source code for CSVs
 
-byLine https://breckyunits.com Breck Yunits
-
 image datasets.png
  caption More examples of Scroll Datasets from datasets.scroll.pub.
   http://datasets.scroll.pub/ datasets.scroll.pub
@@ -269,5 +267,7 @@ yearsToOrbitSun: 164.79
 moons: 14
 
 ::
+
+byLine https://breckyunits.com Breck Yunits
 
 import footer.scroll

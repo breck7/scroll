@@ -83,6 +83,7 @@ tableSearchParser
  extends abstractScrollWithRequirementsParser
  string requireOnce
   <script defer src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>.dt-search{font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";}</style>
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css" />
     <script defer src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
     <script>

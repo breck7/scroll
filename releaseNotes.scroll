@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 77.2.0 4/22/2024
+- 🎨 improved default table styles
+
 # 77.1.0 4/21/2024
 - 🎉 Simplified datasets further after user tests.
 

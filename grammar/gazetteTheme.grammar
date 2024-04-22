@@ -117,6 +117,7 @@ gazetteCssParser
   
   .scrollTable
    table-layout fixed
+   font-family "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"
    margin .5rem 0
    overflow hidden
    font-size .8rem
@@ -126,6 +127,9 @@ gazetteCssParser
    td,th
     padding .1875rem
     overflow hidden
+    white-space nowrap
+   th
+    text-transform capitalize
    th
     border-bottom 2px solid rgba(0,0,0,.6)
     text-align left
