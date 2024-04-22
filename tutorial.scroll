@@ -154,7 +154,7 @@ code
 # Expert: Adding your own parsers
 Scroll is based on the theory that a language should adapt to the domain, not the other way around. So Scroll has extendibility built-in.
 
-_Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom keywords_.
+* _Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom keywords_.
 
 You can define your own parsers right in your Scroll documents using `*Parser`. These Parsers are written in the `Grammar` language.
 

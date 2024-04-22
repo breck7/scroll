@@ -19,13 +19,13 @@ footnoteDefinitionParser
   }
   get label() {
    // In the future we could allow common practices like author name
-   return this.get("label") || this.noteDefinitionIndex
+   return this.get("label") || `[${this.noteDefinitionIndex}]`
   }
   get linkBack() {
    return `noteUsage${this.noteDefinitionIndex}`
   }
   get text() {
-   return `${this.label} ${super.text} <a class="scrollFootNoteUsageLink" href="#noteUsage${this.noteDefinitionIndex}">⮐</a>`
+   return `<a class="scrollFootNoteUsageLink" href="#noteUsage${this.noteDefinitionIndex}">${this.label}</a> ${super.text}`
   }
   get noteDefinitionIndex() {
    return this.parent.footnotes.indexOf(this) + 1

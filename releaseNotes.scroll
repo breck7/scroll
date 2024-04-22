@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 77.3.0 4/22/2024
+- 🎨 updated presentation of footnotes
+
 # 77.2.0 4/22/2024
 - 🎨 improved default table styles
 
@@ -14,7 +17,7 @@ startColumns
 - 🎉 Added Scroll Datasets, which consists of the `::`, `printDataset`, `writeDataset`, and `*:` and `*::` keywords.
  link blog/datasets.html Scroll Datasets
 
-- ⚠️ BREAKING: if you had lines starting with a word then colon, that used the catchall paragraph, such as `Sidenote: yada yada.`, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs `* Sidenote: yada yada.`
+- ⚠️ BREAKING: if you had lines starting with a word then colon, that used the catchall paragraph, such as `Sidenote: yada yada.`, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs `* Sidenote: yada yada.`. This regex can help you find any instances: `^[^ ]+: .`
 
 # 76.0.0 4/19/2024
 - 🎨 try using "rem" in CSS to better support the "zooming out" effect on a blog
