@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 77.3.1 4/23/2024
+- 🏥 style fix: fixed style bug where on narrow screens the post title would overlap the corner nav buttons.
+
 # 77.3.0 4/22/2024
 - 🎨 updated presentation of footnotes
 

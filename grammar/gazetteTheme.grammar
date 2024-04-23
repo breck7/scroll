@@ -83,9 +83,12 @@ gazetteCssParser
    font-size 1rem
   h1.scrollTitle
    text-align center
+   margin auto
    margin-bottom .15625rem
    margin-top 0
    font-size 1.75rem
+   comment On narrow browsers like phones make sure the title doesn't overlap with the icons buttons in top left and right.
+   max-width calc(100vw - 2 * (1.5625rem + 1.875rem))
    a
     color #000
   .scrollDateline
