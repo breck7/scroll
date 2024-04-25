@@ -4,6 +4,16 @@ title Scroll Release Notes
 
 startColumns
 
+# 78.0.0 4/25/2024
+- 🎉 made tabular data a root level parser in Scroll.
+- ⚠️ BREAKING: if you had lines with tabs that currently match the catchall paragraph, you'll need to make those explicit paragraphs to avoid them getting parsed by the tabular data parser. You should be able to find those lines with a regex like this: `^(\t|[^ ]+\t)`
+
+Spreadsheets are great tools for working with tabular data. I want to copy/paste between Scroll docs and spreadsheets. This makes it easier.
+
+Tabular data is better than line orientation for experimental data because it requires half the number of tokens and it's more efficient eye movement during comparisons and proofreading.
+
+Scroll already supported tabular data using `tabTable`, but that made copy/paste workflows between spreadsheets and text editors a pain. This should be more ergonomic and make it easier to work with this useful tool of thought.
+
 # 77.3.1 4/23/2024
 - 🏥 style fix: fixed style bug where on narrow screens the post title would overlap the corner nav buttons.
 

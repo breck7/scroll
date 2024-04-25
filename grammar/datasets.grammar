@@ -51,3 +51,33 @@ writeDatasetParser
  cruxFromId
  description Write a dataset file to disk.
  extends abstractCommentParser
+
+tabularDataParser
+ description Root lines with tabs are parsed as tsv data and printed as tables.
+ cells anyCell
+ pattern \t
+ catchAllCellType anyCell
+ extends abstractCommentParser
+ javascript
+  compile() {
+   // If this is not the first line in the table, do nothing, since the first line
+   // prints the table
+   if (this.previous.isTabularData) return ""
+   let table = this.getLine()
+   let line = this
+   while (line.next.isTabularData) {
+     table += "\n" + line.next.getLine()
+     line = line.next
+     if (line === this)
+       break
+   }
+   const node = this.appendSibling("table \t", table)
+   const html = node.compile()
+   node.destroy()
+   return html
+  }
+  isTabularData = true
+ example
+  // The below lines will print as a table
+  Index Name
+  1 Thermos
