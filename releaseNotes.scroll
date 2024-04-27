@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 78.0.1 4/26/2024
+- 🏥 style fix: ensure column splits don't separate images from their captions
+
 # 78.0.0 4/25/2024
 - 🎉 made tabular data a root level parser in Scroll.
 - ⚠️ BREAKING: if you had lines with tabs that currently match the catchall paragraph, you'll need to make those explicit paragraphs to avoid them getting parsed by the tabular data parser. You should be able to find those lines with a regex like this: `^(\t|[^ ]+\t)`
