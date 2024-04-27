@@ -170,6 +170,16 @@ permalink feed.rss`)
   areEqual(html.startsWith("<?xml "), true)
 }
 
+testTree.baseUrl = areEqual => {
+  // Arrange
+  const page = new ScrollFile(`baseUrl http://test.com/
+metaTags
+image blog/screenshot.png`)
+  // Act/Assert
+  const { html } = page
+  areEqual(html.includes("http://test.com/blog/screenshot.png"), true)
+}
+
 testTree.csv = areEqual => {
   // Arrange
   const page = new ScrollFile(`printCsv index

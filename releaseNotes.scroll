@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 78.0.2 4/27/2024
+- 🏥 open graph image url fix: remove the extra "/" which caused images not to show in Twitter 
+
 # 78.0.1 4/26/2024
 - 🏥 style fix: ensure column splits don't separate images from their captions
 

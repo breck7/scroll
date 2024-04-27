@@ -285,7 +285,7 @@ class ScrollFile {
     if (!node) return ""
 
     const link = node.content
-    return Utils.isAbsoluteUrl(link) ? link : this.baseUrl + "/" + link
+    return Utils.isAbsoluteUrl(link) ? link : this.baseUrl + link
   }
 
   // todo: add an openGraph node type to define this stuff manually
@@ -384,8 +384,9 @@ class ScrollFile {
 
   // todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
   // BaseUrl must be provided for RSS Feeds and OpenGraph tags to work
+  // maybe wwwBaseUrl?
   get baseUrl() {
-    return this.scrollProgram.get(scrollKeywords.baseUrl) ?? ""
+    return (this.scrollProgram.get(scrollKeywords.baseUrl) ?? "").replace(/\/$/, "") + "/"
   }
 
   csvFields = CSV_FIELDS
