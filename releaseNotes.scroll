@@ -4,6 +4,10 @@ title Scroll Release Notes
 
 startColumns
 
+# 79.0.0 4/27/2024
+- 🎉 better offline builds: if used, katex, tableSearch, and maps now copy their needed css and js into their folder and those assets are served locally rather than through CDN.
+- ⚠️ BREAKING: you may need to make some slight updates, such as adding the copied files to .gitignore.
+
 # 78.0.2 4/27/2024
 - 🏥 open graph image url fix: remove the extra "/" which caused images not to show in Twitter 
 
@@ -120,7 +124,9 @@ This paragraph has a dropcap. It can be a useful visual aid for the reader to br
 
 # 72.0.0 5/25/2023
 - 🎉 added support for inline $\TeX$ via $\KaTeX$.
- - Current implementation requires adding at least one `katex` node in your file and will load the KaTeX code via CDN.
+ - Current implementation requires adding at least one `katex` node in your file and will load the KaTeX code.
+
+katex
 
 # 71.5.0 5/19/2023
 - 🎉 added support for extra newlines between items in ordered lists

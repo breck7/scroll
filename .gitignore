@@ -25,3 +25,12 @@ blog/planets.json
 # Do not check in files built by Scroll
 *.html
 feed.xml
+
+# Do not check in external assets copied by Scroll
+blog/dataTables.dataTables.min.css
+blog/dataTables.min.js
+blog/jquery-3.7.1.min.js
+katex.min.css
+katex.min.js
+tests/kitchenSink/leaflet.css
+tests/kitchenSink/leaflet.js

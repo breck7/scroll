@@ -537,6 +537,42 @@ import footer.scroll`
     return this
   }
 
+  _copyExternalFiles(file, folder, fileSystem, externalFilesCopied) {
+    // If this file uses a parser that has external requirements,
+    // copy those from external folder into the destination folder.
+    // Right now this is hard coded. Probably will suffice as it's
+    // only necessary at the moment for commonly distributed parsers.
+    const keywordsRequiringExternals = ["katex", "map", "tableSearch"]
+    keywordsRequiringExternals.forEach(word => {
+      if (externalFilesCopied[word]) return
+      if (file.has(word)) {
+        const node = file.scrollProgram.getNode(word)
+        const externalFiles = node.copyFromExternal.split(" ")
+        externalFiles.forEach(name => {
+          const newPath = path.join(folder, name)
+          if (!Disk.exists(newPath)) {
+            fileSystem.write(newPath, Disk.read(path.join(__dirname, "external", name)))
+            this.log(`💾 Wrote external file needed by ${file.filename} to ${name}`)
+          }
+        })
+        externalFilesCopied[word] = true
+      }
+    })
+  }
+
+  _writeDatasets(file, folder, fileSystem) {
+    // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
+    if (!file.has(scrollKeywords.writeDataset)) return
+    const { permalink } = file
+    file.scrollProgram.findNodes(scrollKeywords.writeDataset).forEach(node => {
+      const link = node.getWord(1) || permalink.replace(".html", ".tsv")
+
+      const extension = link.split(".").pop()
+      fileSystem.write(folder + link, file.makeDataset(extension))
+      this.log(`💾 Wrote 🔢 in ${file.filename} to ${link}`)
+    })
+  }
+
   buildFilesInFolder(fileSystem, folder = "/") {
     folder = Utils.ensureFolderEndsInSlash(folder)
     const start = Date.now()
@@ -549,16 +585,10 @@ import footer.scroll`
       fileSystem.write(folder + permalink, html)
       this.log(`💾 Wrote ${file.filename} to ${permalink}`)
 
-      // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
-      if (file.has(scrollKeywords.writeDataset)) {
-        file.scrollProgram.findNodes(scrollKeywords.writeDataset).forEach(node => {
-          const link = node.getWord(1) || permalink.replace(".html", ".tsv")
+      this._writeDatasets(file, folder, fileSystem)
 
-          const extension = link.split(".").pop()
-          fileSystem.write(folder + link, file.makeDataset(extension))
-          this.log(`💾 Wrote 🔢 in ${file.filename} to ${link}`)
-        })
-      }
+      const externalFilesCopied = {}
+      this._copyExternalFiles(file, folder, fileSystem, externalFilesCopied)
 
       return { permalink: folder + permalink, html }
     })

@@ -35,10 +35,10 @@ mapParser
    extends abstractPointConfigParser
  extends abstractScrollWithRequirementsParser
  description Uses LeafletJs
- // todo Make this only require once
+ string copyFromExternal leaflet.css leaflet.js
  string requireOnce
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="leaflet.css" />
+  <script src="leaflet.js"></script>
  javascript
   compileInstance() {
    const height = 500
