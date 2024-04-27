@@ -32,6 +32,7 @@ abstractTableParser
   compile() {
    return `<table class="scrollTable"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.tableBody}</tbody></table>`
   }
+
 rowParser
  catchAllCellType stringCell
  javascript
@@ -53,6 +54,7 @@ rowParser
    }
    return str
   }
+
 tableParser
  description A table with a custom delimiter.
  extends abstractTableParser
@@ -61,18 +63,22 @@ tableParser
   get delimiter() {
    return this.content ?? ""
   }
+
 commaTableParser
  description Comma separated values table.
  extends abstractTableParser
  string delimiter ,
+
 pipeTableParser
  description Pipe separated values table.
  extends abstractTableParser
  string delimiter |
+
 spaceTableParser
  description Space separated values table. Last column is a catch all.
  extends abstractTableParser
  string delimiter  
+
 tabTableParser
  description Tab separated values table.
  extends abstractTableParser

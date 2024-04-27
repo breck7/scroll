@@ -2,11 +2,13 @@ treeRowContentParser
  description Any blob content in a cell.
  cells stringCell
  catchAllCellType stringCell
+
 treeRowColumnParser
  catchAllParser treeRowContentParser
  description A columnName value pair, or just a columnName if the value is a text blob.
  cells idCell
  catchAllCellType stringCell
+
 treeRowParser
  cells idCell
  description The root node of a row.
@@ -31,6 +33,7 @@ treeRowParser
    })
    return str
   }
+
 treeTableParser
  description A table of data written in Tree Notation form. Useful when a column contains a text blob.
  extends abstractTableParser
