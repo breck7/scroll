@@ -25,6 +25,7 @@ blog/planets.json
 # Do not check in files built by Scroll
 *.html
 feed.xml
+sitemap.txt
 
 # Do not check in external assets copied by Scroll
 blog/dataTables.dataTables.min.css

@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 79.1.0 4/27/2024
+- 🎉 added `printSiteMap` keyword for text sitemap generation.
+
 # 79.0.1 4/27/2024
 - 🏥 fix npm issue
 

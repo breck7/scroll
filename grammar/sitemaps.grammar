@@ -1,0 +1,16 @@
+// https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#text
+printSiteMapParser
+ description Prints out a plain text sitemap for a folder.
+ extends abstractScrollParser
+ cruxFromId
+ cells keywordCell
+ example
+  baseUrl http://test.com
+  printSiteMap
+ javascript
+  compile() {
+   const file = this.root.file
+   const { baseUrl } = file
+   const files = file.allFiles.filter(file => file.shouldBuild && file.permalink.endsWith(".html") && file.permalink !== "404.html" || file.permalink.endsWith(".htm"))
+   return files.map(file => baseUrl + file.permalink).join("\n")
+  }
