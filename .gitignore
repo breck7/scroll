@@ -32,5 +32,8 @@ blog/dataTables.min.js
 blog/jquery-3.7.1.min.js
 katex.min.css
 katex.min.js
+# We need to reinclude the below 2 files to get them in node_modules folder.
+!external/katex.min.css
+!external/katex.min.js
 tests/kitchenSink/leaflet.css
 tests/kitchenSink/leaflet.js

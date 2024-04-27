@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 79.0.1 4/27/2024
+- 🏥 fix npm issue
+
 # 79.0.0 4/27/2024
 - 🎉 better offline builds: if used, katex, tableSearch, and maps now copy their needed css and js into their folder and those assets are served locally rather than through CDN.
 - ⚠️ BREAKING: you may need to make some slight updates, such as adding the copied files to .gitignore.
