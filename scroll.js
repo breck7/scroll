@@ -561,7 +561,7 @@ import footer.scroll`
     // copy those from external folder into the destination folder.
     // Right now this is hard coded. Probably will suffice as it's
     // only necessary at the moment for commonly distributed parsers.
-    const keywordsRequiringExternals = ["katex", "map", "tableSearch"]
+    const keywordsRequiringExternals = ["katex", "map", "tableSearch", "helpfulNotFound"]
     keywordsRequiringExternals.forEach(word => {
       if (externalFilesCopied[word]) return
       if (file.has(word)) {

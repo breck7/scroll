@@ -1,0 +1,11 @@
+helpfulNotFoundParser
+ cruxFromId
+ extends abstractScrollWithRequirementsParser
+ string copyFromExternal helpfulNotFound.js
+ string requireOnce
+  <script defer src="helpfulNotFound.js"></script>
+ description Add a helpful not found element to the page.
+ javascript
+  compileInstance() {
+   return `<style>#helpfulNotFound{margin: 100px 0;}</style><h1 id="helpfulNotFound"></h1>`
+  }

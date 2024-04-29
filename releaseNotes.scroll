@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 80.2.0 4/29/2024
+- 🎉 added `helpfulNotFound` keyword for better 404s.
+
 # 80.1.0 4/29/2024
 - 🎉 `wordCount` in `printCsv` now measures wordCount in the text version of a post.
 
