@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 80.1.0 4/29/2024
+- 🎉 `wordCount` in `printCsv` now measures wordCount in the text version of a post.
+
 # 80.0.0 4/29/2024
 - 🎉 Scroll now generates text files! Added the `writeText` keyword.
  link blog/textFiles.html Scroll now generates text files

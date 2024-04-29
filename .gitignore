@@ -26,6 +26,7 @@ blog/planets.json
 *.html
 feed.xml
 *.txt
+*.csv
 
 # Do not check in external assets copied by Scroll
 blog/dataTables.dataTables.min.css
