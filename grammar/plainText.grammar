@@ -8,6 +8,9 @@ plainTextParser
   compile() {
    return `${this.content ?? ""}${this.childrenToString()}`
   }
+  compileTextVersion() {
+    return this.compile()
+  }
 plainTextLineParser
  catchAllCellType stringCell
  catchAllParser plainTextLineParser

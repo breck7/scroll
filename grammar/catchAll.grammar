@@ -6,3 +6,6 @@ catchAllParagraphParser
   get originalText() {
    return this.getLine() || ""
   }
+  compileTextVersion() {
+    return this.originalText
+  }

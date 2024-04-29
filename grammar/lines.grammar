@@ -6,6 +6,10 @@ horizontalRuleParser
   compile() {
    return `<hr>`
   }
+  compileTextVersion() {
+    return this.getLine()
+  }
+
 dinkusParser
  crux ***
  description Prints a centered *
@@ -15,3 +19,6 @@ dinkusParser
    return `<div class="dinkus"><span>${this.dinkus}</span></div>`
   }
   dinkus = "*"
+  compileTextVersion() {
+    return this.getLine()
+  }

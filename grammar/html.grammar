@@ -1,5 +1,6 @@
 htmlAnyCell
  extends stringCell
+
 htmlParser
  description A catch all block to drop in any loose html. Use for HTML one liners and/or blocks of HTML.
  cruxFromId
@@ -10,9 +11,14 @@ htmlParser
   compile() {
    return `${this.content ?? ""}${this.childrenToString()}`
   }
+  compileTextVersion() {
+    return this.compile()
+  }
+
 htmlLineParser
  catchAllCellType htmlAnyCell
  catchAllParser htmlLineParser
+
 quickHtmlParser
  extends htmlParser
  cells htmlAnyCell
@@ -22,8 +28,10 @@ quickHtmlParser
   compile() {
    return `${this.getLine() ?? ""}${this.childrenToString()}`
   }
+
 stumpContentParser
  catchAllCellType anyCell
+
 stumpParser
  cruxFromId
  extends abstractScrollParser
@@ -34,6 +42,7 @@ stumpParser
    const file = this.parent.file
    return file.compileStumpCode(this.childrenToString())
   }
+
 stumpNoSnippetParser
  extends stumpParser
  description Useful for headers and footers when you have something you don't want included in snippets.

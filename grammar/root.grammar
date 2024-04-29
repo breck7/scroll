@@ -4,6 +4,9 @@ abstractScrollParser
   compileEmbeddedVersion(compileSettings) {
    return this.compile(compileSettings)
   }
+  compileTextVersion() {
+    return ""
+  }
 abstractScrollWithRequirementsParser
  extends abstractScrollParser
  javascript

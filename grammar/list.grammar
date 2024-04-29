@@ -15,11 +15,15 @@ listAftertextParser
    const { listType } = this
    return (isStartOfList ? `<${listType} ${this.attributes}>` : "") + `${super.compile()}` + (isEndOfList ? `</${listType}>` : "")
   }
+  compileTextVersion() {
+    return this.getWord(0) + " " + super.compileTextVersion()
+  }
   get attributes() {
     return ""
   }
   tag = "li"
   listType = "ul"
+
 orderedListAftertextParser
  extends listAftertextParser
  description A list item.

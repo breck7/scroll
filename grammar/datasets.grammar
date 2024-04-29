@@ -62,7 +62,8 @@ tabularDataParser
   compile() {
    // If this is not the first line in the table, do nothing, since the first line
    // prints the table
-   if (this.previous.isTabularData) return ""
+   // todo: remove this feature. make it explicit that you have to add a keyword to print a root table. otherwise should be silent
+   if (this.isFirst) return ""
    let table = this.getLine()
    let line = this
    while (line.next.isTabularData) {
@@ -75,6 +76,12 @@ tabularDataParser
    const html = node.compile()
    node.destroy()
    return html
+  }
+  get isFirst() {
+    return !this.previous.isTabularData
+  }
+  compileTextVersion() {
+    return this.isFirst ? `[Table Omitted]` : ""
   }
   isTabularData = true
  example

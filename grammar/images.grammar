@@ -2,6 +2,7 @@ captionAftertextParser
  description An optional caption to accompany the resource.
  crux caption
  extends thoughtParser
+
 abstractCaptionedParser
  extends abstractScrollParser
  cells keywordCell urlCell
@@ -13,6 +14,7 @@ abstractCaptionedParser
    const captionFig = caption ? `<figcaption>${caption.compile()}</figcaption>` : ""
    return `<figure class="scrollCaptionedFigure">${this.getFigureContent(compileSettings)}${captionFig}</figure>`
   }
+
 imageParser
  description An img tag.
  extends abstractCaptionedParser
@@ -41,4 +43,7 @@ imageParser
    const className = this.has("class") ? ` class="${this.get("class")}" ` : ""
    const id = this.has("id") ? ` id="${this.get("id")}" ` : ""
    return `<a href="${linkRelativeToCompileTarget}" target="_blank" ${className} ${id}><img src="${linkRelativeToCompileTarget}" ${dimensionAttributes}loading="lazy"></a>`
+  }
+  compileTextVersion() {
+    return `[Image Omitted - ${this.getNode("caption")?.compileTextVersion()}]`
   }

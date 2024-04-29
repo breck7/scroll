@@ -32,6 +32,9 @@ abstractTableParser
   compile() {
    return `<table class="scrollTable"><thead><tr>${this.tableHeader.join("\n")}</tr></thead>\n<tbody>${this.tableBody}</tbody></table>`
   }
+  compileTextVersion() {
+    return `[Table Omitted]`
+  }
 
 rowParser
  catchAllCellType stringCell

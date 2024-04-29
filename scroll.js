@@ -37,6 +37,7 @@ const scrollKeywords = {
   nodejs: "nodejs",
   replaceDefault: "replaceDefault",
   writeDataset: "writeDataset",
+  writeText: "writeText",
   import: "import",
   importOnly: "importOnly",
   baseUrl: "baseUrl",
@@ -395,6 +396,21 @@ class ScrollFile {
     return CSV_FIELDS.map(field => escapeCommas(this[field]))
   }
 
+  get asText() {
+    return (
+      this.scrollProgram
+        .map(node => {
+          const text = node.compileTextVersion ? node.compileTextVersion() : ""
+          if (text) return text + "\n"
+          if (!node.getLine().length) return "\n"
+          return ""
+        })
+        .join("")
+        .replace(/<[^>]*>/g, "")
+        .replace(/\n\n\n\n/g, "\n\n\n")
+        .trim() + "\n"
+    )
+  }
   toRss() {
     const { title, canonicalLink } = this
     return ` <item>
@@ -573,6 +589,17 @@ import footer.scroll`
     })
   }
 
+  _writeText(file, folder, fileSystem) {
+    // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
+    if (!file.has(scrollKeywords.writeText)) return
+    const { permalink } = file
+    file.scrollProgram.findNodes(scrollKeywords.writeText).forEach(node => {
+      const link = node.getWord(1) || permalink.replace(".html", ".txt")
+      fileSystem.write(folder + link, file.asText)
+      this.log(`💾 Wrote ${file.filename} to text file ${link}`)
+    })
+  }
+
   buildFilesInFolder(fileSystem, folder = "/") {
     folder = Utils.ensureFolderEndsInSlash(folder)
     const start = Date.now()
@@ -586,6 +613,7 @@ import footer.scroll`
       this.log(`💾 Wrote ${file.filename} to ${permalink}`)
 
       this._writeDatasets(file, folder, fileSystem)
+      this._writeText(file, folder, fileSystem)
 
       const externalFilesCopied = {}
       this._copyExternalFiles(file, folder, fileSystem, externalFilesCopied)

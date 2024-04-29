@@ -9,6 +9,9 @@ codeParser
   compile() {
    return `<code class="scrollCodeBlock">${this.childrenToString().replace(/\</g, "&lt;")}</code>`
   }
+  compileTextVersion() {
+    return this.childrenToString()
+  }
  cruxFromId
 codeWithLanguageParser
  description Use this to specify the language of the code block, such as csvCode or rustCode.

@@ -1,21 +1,3 @@
-byLineParser
- description Prints a byline with the author's name and optionally a link to them.
- extends abstractScrollParser
- cruxFromId
- cells keywordCell urlCell
- catchAllCellType personNameCell
- example
-  // With Link:
-  byLine https://breckyunits.com Breck Yunits
-  // No link:
-  byLine  Breck Yunits
- javascript
-  compile() {
-   const link = this.getWord(1)
-   return `<div class="scrollByLine">by <a ${link ? `href="${link}"` : ""}>${this.getWordsFrom(2).join(" ")}</a></div>`
-  }
-authorParser
- extends byLineParser
 thanksToParser
  description A place to store data on reviewers who helped improve a post (and a reminder to seek feedback!). Does not appear in compiled HTML.
  extends abstractCommentParser
