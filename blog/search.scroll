@@ -1,0 +1,13 @@
+import header.scroll
+title Search the Official Scroll Blog
+wideColumns 2
+
+css td:hover {background:white; text-overflow: unset; z-index: 10; overflow: unset; white-space: unset;}
+
+
+printSearchTable
+
+tableSearch
+
+
+import footer.scroll
