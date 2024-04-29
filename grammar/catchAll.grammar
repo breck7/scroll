@@ -1,11 +1,11 @@
 catchAllParagraphParser
- description Any top level line that doesn't match a keyword is treated as a thought (aka paragraph) node.
- extends thoughtParser
+ description Any top level line that doesn't match a keyword is treated as a paragraph node.
+ extends paragraphParser
  cells stringCell
  javascript
   get originalText() {
    return this.getLine() || ""
   }
   compileTextVersion() {
-    return this.originalText
+    return this.getWord(0) + " " + super.compileTextVersion()
   }

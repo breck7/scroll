@@ -1,7 +1,7 @@
 captionAftertextParser
  description An optional caption to accompany the resource.
  crux caption
- extends thoughtParser
+ extends paragraphParser
 
 abstractCaptionedParser
  extends abstractScrollParser

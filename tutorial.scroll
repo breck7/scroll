@@ -30,8 +30,8 @@ If you master the indent trick, you master Scroll. But we're getting ahead of ou
 ---
 
 # Basic Node Types
-## 1. The Thought Node (aka "Paragraph" node)
-Let's start with the most common node, the `thought` node. You can think of this node as similar to a `p` or `div` tag in HTML. To use this node you can write out the word `thought`, or use an asterisk `*`, OR just start any text that does not begin with a keyword.  This paragraph you are reading is written using one of these nodes. The code is:
+## 1. The Paragraph Node
+Let's start with the most common node, the `paragraph` node. You can think of this node as similar to a `p` or `div` tag in HTML. To use this node you can write out the word `paragraph`, or use an asterisk `*`, OR just start any text that does not begin with a keyword.  This paragraph you are reading is written using one of these nodes. The code is:
 aboveAsCode
 
 ## 2. Headers
@@ -162,7 +162,7 @@ Here is a simple example that extends Scroll by making `p` work the same as `*`:
 
 belowAsCode 2
 pParser
- extends thoughtParser
+ extends paragraphParser
  crux p
 p We can then make paragraphs using `p`.
 
@@ -172,7 +172,7 @@ messageParser
  cruxFromId
  catchAllCellType stringCell
 hiddenMessageParser
- extends thoughtParser
+ extends paragraphParser
  inScope messageParser
  cruxFromId
  javascript

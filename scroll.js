@@ -28,7 +28,6 @@ const scrollKeywords = {
   canonicalLink: "canonicalLink",
   image: "image",
   date: "date",
-  thoughtKeyword: "*",
   endSnippet: "endSnippet",
   groups: "groups",
   keyboardNav: "keyboardNav",
@@ -293,7 +292,7 @@ class ScrollFile {
   }
 
   // todo: add an openGraph node type to define this stuff manually
-  // Use the first thought for the description
+  // Use the first paragraph for the description
   // todo: add a tree method version of get that gets you the first node. (actulaly make get return array?)
   // would speed up a lot.
   get description() {
@@ -302,7 +301,7 @@ class ScrollFile {
     if (description) return description
 
     for (let node of program.getTopDownArrayIterator()) {
-      if (node.constructor.name !== "titleParser" && node.doesExtend("thoughtParser")) return Utils.stripHtml(node.compile()).replace(/\n/g, " ").replace(/\"/g, "'").substr(0, 300)
+      if (node.constructor.name !== "titleParser" && node.doesExtend("paragraphParser")) return Utils.stripHtml(node.compile()).replace(/\n/g, " ").replace(/\"/g, "'").substr(0, 300)
     }
     return ""
   }

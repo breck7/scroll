@@ -75,6 +75,7 @@ abstractAftertextParser
    const attrs = this.filter(node => node.isAttribute)
    return attrs.length ? attrs.map(node => node.divAttributes).join(" ") + " " : ""
   }
+
 abstractAftertextAttributeParser
  cells keywordCell
  boolean isAttribute true
@@ -85,6 +86,7 @@ abstractAftertextAttributeParser
   compile() {
    return ""
   }
+
 aftertextTagParser
  cells keywordCell htmlTagCell
  description Override the HTML tag that the compiled node will use.
@@ -93,6 +95,7 @@ aftertextTagParser
   compile() {
    return ""
   }
+
 abstractAftertextDirectiveParser
  cells keywordCell
  catchAllCellType stringCell
@@ -144,15 +147,19 @@ abstractAftertextDirectiveParser
   get closeTag() {
    return this.tag
   }
+
 abstractMarkupParser
  extends abstractAftertextDirectiveParser
  inScope abstractMarkupParameterParser
+
 abstractMarkupParameterParser
  cells keywordCell
  cruxFromId
+
 matchAllParser
  description Use this to match all occurrences of the text.
  extends abstractMarkupParameterParser
+
 matchParser
  catchAllCellType integerCell
  description Use this to specify which index(es) to match.
@@ -166,9 +173,11 @@ matchParser
    bold ello
     match 0 2
  extends abstractMarkupParameterParser
+
 wrapNameCell
  description What wraps are available to turn on?
  enum bold italics code katex
+
 wrapsOnParser
  cruxFromId
  description Enable `code`, *bold*, and _italics_ rules.
@@ -212,6 +221,7 @@ wrapsOnParser
     ]
    }).filter(i => i)
   }
+
 wrapParser
  cruxFromId
  cells keywordCell delimiterCell tagOrUrlCell
@@ -232,35 +242,41 @@ wrapParser
    }
    // Note: doubling up doesn't work because of the consumption characters.
   }
+
 boldParser
  cruxFromId
  description Bold the matching text.
  extends abstractMarkupParser
  javascript
   tag = "b"
+
 italicsParser
  cruxFromId
  description Italicize the matching text.
  extends abstractMarkupParser
  javascript
   tag = "i"
+
 underlineParser
  description Underline the matching text.
  cruxFromId
  extends abstractMarkupParser
  javascript
   tag = "u"
+
 aftertextCodeParser
  description Wrap the matching text in a <code> span.
  crux code
  extends abstractMarkupParser
  javascript
   tag = "code"
+
 abstractHtmlAttributeParser
  javascript
   compile() {
    return ""
   }
+
 classMarkupParser
  description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.
  extends abstractMarkupParser
@@ -286,38 +302,30 @@ classMarkupParser
    const words = this.getWordsFrom(2)
    return words.length ? words.join(" ") : this.parent.content
   }
+
 strikethroughParser
  cruxFromId
  extends abstractMarkupParser
  javascript
   tag = "s"
+
 aftertextIdParser
  crux id
  description Provide an ID to be output in the generated HTML tag.
  extends abstractAftertextAttributeParser
  cells keywordCell htmlIdCell
  single
+
 aftertextStyleParser
  crux style
  description Provide code for the generated HTML tag's "style" attribute.
  extends abstractAftertextAttributeParser
  cells keywordCell
  catchAllCellType cssAnyCell
+
 aftertextHiddenParser
  crux hidden
  cells keywordCell
  description Do not compile this node to HTML.
  extends abstractAftertextAttributeParser
  single
-indentableThoughtParser
- extends thoughtParser
- inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser indentableThoughtParser
- javascript
-  compile() {
-   return (
-    super.compile() +
-    this.map(node => node.compile())
-     .join("\n")
-     .trim()
-   )
-  }

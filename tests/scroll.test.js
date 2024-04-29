@@ -29,7 +29,7 @@ testTree.compileAftertext = areEqual => {
   })
 }
 
-testTree.thoughtParser = areEqual => {
+testTree.paragraphParser = areEqual => {
   // Arrange
   const program = new DefaultScrollParser(`* foo`)
 
@@ -83,7 +83,7 @@ testTree.inMemoryFileSystem = areEqual => {
     "/settings.scroll": "* This should be imported",
     "/pages/about.scroll": `import ../header.scroll\ntitle About us
 pParser
- extends thoughtParser
+ extends paragraphParser
  crux p
 p A custom grammar`
   }

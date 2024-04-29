@@ -1,8 +1,8 @@
-thoughtParser
+paragraphParser
  // todo Perhaps rewrite this from scratch and move out of aftertext.
  extends abstractAftertextParser
  catchAllCellType stringCell
- description A thought.
+ description A paragraph.
  cruxFromId
  javascript
   compile(compileSettings) {
@@ -18,8 +18,25 @@ thoughtParser
     return this.content
   }
 
-quickThoughtParser
+quickParagraphParser
  crux *
- extends thoughtParser
+ extends paragraphParser
  example
-  * I had a _new_ thought.
+  * I had a _new_ idea.
+
+
+indentableParagraphParser
+ extends paragraphParser
+ inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser indentableParagraphParser
+ javascript
+  compile() {
+   return (
+    super.compile() +
+    this.map(node => node.compile())
+     .join("\n")
+     .trim()
+   )
+  }
+  compileTextVersion() {
+    return this.getWord(0) + " " + super.compileTextVersion()
+  }
