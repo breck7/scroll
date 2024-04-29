@@ -1,11 +1,11 @@
 import markups.scroll
 import header.scroll
 title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
-
+byLine https://github.com/breck7 Breck Yunits
 startColumns 4
 
 date 2021.08.23
-groups index
+groups All
 keyboardNav
 
 replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>

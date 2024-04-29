@@ -1,4 +1,7 @@
 importOnly
-keyboardNav
 pageFooter
+
+// Note that this footer is for content posts/pages. Pages like the 404 don't want the below lines.
+keyboardNav
+// Write the post to text
 writeText

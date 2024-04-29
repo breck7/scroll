@@ -1,6 +1,10 @@
 import header.scroll
 title Counterpoints: A new tool for thought in the Scroll Language
 date 4/13/2023
+byLine https://github.com/breck7 Breck Yunits
+groups All
+keyboardNav
+copyButtons
 
 startColumns 2
 
@@ -37,12 +41,6 @@ Counterpoints do not currently appear in the compiled HTML. Instead you only see
 That being said, there are potentially interesting directions this could go in the future, and it would be interesting to hear ideas of what people would like in a v2.
 
 Keep writing, keep thinking!
-
-byLine https://github.com/breck7 Breck Yunits
-
-groups index
-keyboardNav
-copyButtons
 
 endColumns
 import footer.scroll

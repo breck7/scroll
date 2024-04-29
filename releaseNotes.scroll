@@ -4,6 +4,12 @@ title Scroll Release Notes
 
 startColumns
 
+# 80.0.0 4/29/2024
+- 🎉 Scroll now generates text files! Added the `writeText` keyword.
+ link blog/textFiles.html Scroll now generates text files
+
+* Note: there are likely to be a few rapid releases to refine this.
+
 # 79.1.0 4/27/2024
 - 🎉 added `printSiteMap` keyword for text sitemap generation.
 

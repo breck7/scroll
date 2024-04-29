@@ -154,12 +154,12 @@ class ScrollFile {
     this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html" : "")
   }
 
-  get allFiles() {
+  get allScrollFiles() {
     return this.fileSystem.getScrollFilesInFolder(this.folderPath)
   }
 
   get allHtmlFiles() {
-    return this.allFiles.filter(file => file.shouldBuild && (file.permalink.endsWith(".html") || file.permalink.endsWith(".htm")) && file.permalink !== "404.html")
+    return this.allScrollFiles.filter(file => file.shouldBuild && (file.permalink.endsWith(".html") || file.permalink.endsWith(".htm")) && file.permalink !== "404.html")
   }
 
   _dataset
@@ -335,7 +335,7 @@ class ScrollFile {
   }
 
   get primaryGroup() {
-    return getGroup(this.groups.split(" ")[0], this.allFiles)
+    return getGroup(this.groups.split(" ")[0], this.allScrollFiles)
   }
 
   getFilesInGroupsForEmbedding(groupNames) {
@@ -343,7 +343,7 @@ class ScrollFile {
     groupNames.forEach(name => {
       if (!name.includes("/"))
         return (arr = arr.concat(
-          getGroup(name, this.allFiles).map(file => {
+          getGroup(name, this.allScrollFiles).map(file => {
             return { file, relativePath: "" }
           })
         ))

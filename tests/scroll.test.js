@@ -102,13 +102,12 @@ testTree.file = areEqual => {
   const rootFolder = path.join(__dirname, "..")
   const fileSystem = new ScrollFileSystem()
   const files = fileSystem.getScrollFilesInFolder(rootFolder)
-
   const releaseNotesFile = files.find(file => file.permalink === "releaseNotes.html")
 
   areEqual(releaseNotesFile.permalink, "releaseNotes.html")
   areEqual(releaseNotesFile.html.includes("Scroll the language is now called"), true)
   areEqual(releaseNotesFile.description, "A list of what has changed in Scroll releases.", "Meta description auto-generated if not specified.")
-  areEqual(files[3].permalink, "index.html")
+  areEqual(files[4].permalink, "index.html")
 }
 
 testTree.ensureNoErrorsInGrammar = areEqual => {

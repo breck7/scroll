@@ -1,6 +1,12 @@
 import header.scroll
 title Introducing Program Links
 date 5/08/2023
+byLine https://github.com/breck7 Breck Yunits
+
+groups All
+keyboardNav
+copyButtons
+
 
 startColumns 1
 
@@ -71,12 +77,6 @@ Modern browsers do their best to make URLs well-formed and you will notice that 
  https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace stripped and collapsed
 
 Program Links in Scroll handle encoding newlines and any other special characters so you can focus on your content and not the encoding.
-
-byLine https://github.com/breck7 Breck Yunits
-
-groups index
-keyboardNav
-copyButtons
 
 endColumns
 import footer.scroll
