@@ -158,6 +158,10 @@ class ScrollFile {
     return this.fileSystem.getScrollFilesInFolder(this.folderPath)
   }
 
+  get allHtmlFiles() {
+    return this.allFiles.filter(file => file.shouldBuild && (file.permalink.endsWith(".html") || file.permalink.endsWith(".htm")) && file.permalink !== "404.html")
+  }
+
   _dataset
   get dataset() {
     if (this._dataset) return this._dataset

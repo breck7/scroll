@@ -11,6 +11,5 @@ printSiteMapParser
   compile() {
    const file = this.root.file
    const { baseUrl } = file
-   const files = file.allFiles.filter(file => file.shouldBuild && file.permalink.endsWith(".html") && file.permalink !== "404.html" || file.permalink.endsWith(".htm"))
-   return files.map(file => baseUrl + file.permalink).join("\n")
+   return file.allHtmlFiles.map(file => baseUrl + file.permalink).join("\n")
   }
