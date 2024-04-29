@@ -7,5 +7,6 @@ catchAllParagraphParser
    return this.getLine() || ""
   }
   compileTextVersion() {
-    return this.getWord(0) + " " + super.compileTextVersion()
+    const content = super.compileTextVersion()
+    return this.getWord(0) + (content ? " " + content : "")
   }

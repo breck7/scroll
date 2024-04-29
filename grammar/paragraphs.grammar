@@ -15,7 +15,8 @@ paragraphParser
    return compiled
   }
   compileTextVersion() {
-    return this.content
+    const children = this.filter(node => node.compileTextVersion).map(node => node.compileTextVersion()).filter(i => i).join("\n")
+    return (this.content || "") + (children ? "\n " + children.replace(/\n/g, "\n ") : "")
   }
 
 quickParagraphParser

@@ -4,6 +4,12 @@ title Scroll Release Notes
 
 startColumns
 
+# 81.0.0 4/29/2024
+- 🏥 links now appear in plain text output. relative links are made absolute.
+- 🏥 indented lists now appear in plain text output.
+
+- ⚠️ BREAKING: (no one should be affected) if you extended the `thoughtParser`, that is now called `paragraphParser`.
+
 # 80.2.1 4/29/2024
 - 🏥 fixed regression in tabular tables printing
 // a hint that we should refactor that and make all table printing explicit :)

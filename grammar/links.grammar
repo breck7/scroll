@@ -40,6 +40,13 @@ linkParser
  cruxFromId
  javascript
   tag = "a"
+  compileTextVersion() {
+    const link = this.link
+    if (link.includes("://"))
+     return link
+    const { baseUrl } = this.root.file
+    return baseUrl + link.replace(/^\//, "")
+  }
   get link() {
    const {baseLink} = this
    if (this.has("program"))
