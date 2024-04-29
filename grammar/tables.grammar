@@ -97,10 +97,39 @@ tableSearchParser
   <link rel="stylesheet" href="dataTables.dataTables.min.css" />
     <script defer src="dataTables.min.js"></script>
     <script>
+     // Extract and parse the URL hash to retrieve the search parameter
+    var initialSearch = (function() {
+      var hashParams = window.location.hash.substr(1).split('&').reduce(function(p, e) {
+        var a = e.split('=');
+        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+        return p;
+      }, {});
+      return hashParams.search || ''; // return the search term or an empty string if not found
+    })();
      document.addEventListener("DOMContentLoaded", function () {
-      const urlSearchParams = new URLSearchParams(window.location.search)
-      const params = Object.fromEntries(urlSearchParams.entries())
-      jQuery('table').DataTable({"order": [],"paging": false,search:{ search: params.filter || ""}});
+      jQuery('table').DataTable({"order": [],"paging": false,
+      stateSave: true,
+      stateSaveCallback: function(settings, data) {
+      // Get the search term and encode it for URL safety
+      var search = encodeURIComponent(data.search.search);
+      // Set the hash to just the search term
+      window.location.hash = 'search=' + search;
+    },
+    // Set the search input to the initial value extracted from the URL
+    search: { search: initialSearch },
+    stateLoadCallback: function(settings) {
+      // Parse the hash to extract the search term
+      var hashParams = window.location.hash.substr(1).split('&').reduce(function(p, e) {
+        var a = e.split('=');
+        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+        return p;
+      }, {});
+      // Return the state object with only the search term
+      return {
+        search: { search: hashParams.search || '' }
+      };
+    }
+       });
     } );
     </script>
  description Add table search to all tables on the page.

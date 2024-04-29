@@ -415,6 +415,12 @@ class ScrollFile {
         .trim() + "\n"
     )
   }
+
+  get asSearchTsvRow() {
+    const text = this.asText.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
+    return [this.date, this.title, this.permalink, this.filename, this.groups, this.words, text].join("\t")
+  }
+
   toRss() {
     const { title, canonicalLink } = this
     return ` <item>
