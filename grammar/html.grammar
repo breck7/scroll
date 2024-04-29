@@ -12,7 +12,7 @@ htmlParser
    return `${this.content ?? ""}${this.childrenToString()}`
   }
   compileTextVersion() {
-    return this.compile()
+    return ""
   }
 
 htmlLineParser
