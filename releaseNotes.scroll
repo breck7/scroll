@@ -4,6 +4,10 @@ title Scroll Release Notes
 
 startColumns
 
+# 80.2.1 4/29/2024
+- 🏥 fixed regression in tabular tables printing
+// a hint that we should refactor that and make all table printing explicit :)
+
 # 80.2.0 4/29/2024
 - 🎉 added `helpfulNotFound` keyword for better 404s.
 
