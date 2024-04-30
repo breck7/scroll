@@ -153,6 +153,10 @@ class ScrollFile {
     this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html" : "")
   }
 
+  getFileFromId(id) {
+    return this.fileSystem.getScrollFile(path.join(this.folderPath, id + ".scroll"))
+  }
+
   get allScrollFiles() {
     return this.fileSystem.getScrollFilesInFolder(this.folderPath)
   }
@@ -241,6 +245,11 @@ class ScrollFile {
     return dayjs(this.get(scrollKeywords.date) || 0).format(`MM/DD/YYYY`)
   }
 
+  get year() {
+    const date = this.get(scrollKeywords.date)
+    return date ? dayjs(date).format(`YYYY`) : ""
+  }
+
   get wordCount() {
     return this.asText.match(/\b\w+\b/g).length
   }
@@ -277,6 +286,11 @@ class ScrollFile {
 
   get canonicalLink() {
     return this.get(scrollKeywords.canonicalLink) || this.baseUrl + this.permalink
+  }
+
+  ensureAbsoluteLink(link) {
+    if (link.includes("://")) return link
+    return this.baseUrl + link.replace(/^\//, "")
   }
 
   // todo: add an openGraph node type to define this stuff manually

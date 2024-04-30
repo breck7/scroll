@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 81.2.0 4/30/2024
+- 🎉 added `related` and `relatedList` keywords
+
 # 81.1.0 4/29/2024
 - 🎉 added `plainTextOnly` for rare case when you need to include content only for the plain text version.
 - 🏥 `html` should not print in text versions (since it is _html_ :)).

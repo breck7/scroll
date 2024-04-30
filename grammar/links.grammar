@@ -41,11 +41,7 @@ linkParser
  javascript
   tag = "a"
   compileTextVersion() {
-    const link = this.link
-    if (link.includes("://"))
-     return link
-    const { baseUrl } = this.root.file
-    return baseUrl + link.replace(/^\//, "")
+    return this.root.file.ensureAbsoluteLink(this.link)
   }
   get link() {
    const {baseLink} = this
