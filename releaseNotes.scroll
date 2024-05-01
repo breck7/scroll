@@ -4,19 +4,22 @@ title Scroll Release Notes
 
 startColumns
 
-# 81.3.0 5/01/2024
-- 🎉 added `formatCommand` to the CLI. The conventions are:
+# 82.0.0 5/01/2024
 - 🎉 meta tags can now have nested comments
+- 🎉 added `formatCommand` to the CLI for nicely formatting files, moving top matter to the top, cleaning up white space, etc, so you don't have to worry about that.
+
+The current formatting conventions are:
 
 - Scroll files end in a single newline
 - Trailing spaces and tabs are stripped from lines, unless the whole line is whitespace
 - `importOnly`, if present, is moved to the very top
+- 3 or more newlines are trimmed down to 2
 - Meta tags are moved to the top of the file
 - 2 newlines comes after meta tags
-- Comments stay put
-- Tags that print content stay put
-- 3 or more newlines are trimmed down to 2
+- Tags that print content and comments stay put
 - Meta tags are sorted alphabetically with no blank lines in between [In the future, may want to allow customizing this]
+
+Note that currently the `title` tag is a meta tag and a tag that prints content. Going to split that up into 2 tags soon.
 
 # 81.2.0 4/30/2024
 - 🎉 added `related` and `relatedList` keywords
