@@ -190,5 +190,3 @@ import footer.scroll
 // Need to set the title again to override the above usage of that.
 title Scroll Tutorial
  hidden
-
-

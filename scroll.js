@@ -172,6 +172,15 @@ class ScrollFile {
     return this._dataset
   }
 
+  get formatted() {
+    const formatted =
+      this.originalScrollCode
+        .replace(/(\S.*?)[  \t]*$/gm, "$1") // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic tree notation)
+        .replace(/\n+$/, "") + "\n" // End Scroll files in a newline character POSIX style for better working with tools like git
+    //this.setChildren(this.originalScrollCode.sortFromSortTemplate().asString.replace(/\n\n+/g, "\n\n").replace(/\n+$/g, "") + "\n")
+    return formatted
+  }
+
   makeDataset(format = "csv") {
     if (format === "json") return JSON.stringify(this.dataset, null, 2)
     const tree = new TreeNode(this.dataset)
@@ -562,6 +571,20 @@ import footer.scroll`
     if (grammarMessage) this.log(grammarMessage)
     const message = scrollErrors.length ? new TreeNode(scrollErrors).toFormattedTable(60) : "0 errors"
     return this.log(message)
+  }
+
+  formatCommand(cwd) {
+    const fileSystem = new ScrollFileSystem()
+    const folder = this.resolvePath(cwd)
+    const files = fileSystem.getScrollFilesInFolder(folder)
+    files.forEach(file => {
+      const { originalScrollCode, formatted } = file
+
+      if (originalScrollCode === formatted) return true
+
+      fileSystem.write(file.filePath, formatted)
+      this.log(`💾 formatted ${file.filename}`)
+    })
   }
 
   async buildCommand(cwd) {
