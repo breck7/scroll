@@ -1,6 +1,6 @@
+groups index
+
 import ../header.scroll
 
 title This is _a_ test
 # This file is in a subfolder
-
-groups index

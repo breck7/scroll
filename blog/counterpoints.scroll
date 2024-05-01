@@ -1,8 +1,9 @@
+date 4/13/2023
+groups All
+
 import header.scroll
 title Counterpoints: A new tool for thought in the Scroll Language
-date 4/13/2023
 byLine https://github.com/breck7 Breck Yunits
-groups All
 keyboardNav
 copyButtons
 

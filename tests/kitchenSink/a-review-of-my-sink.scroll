@@ -1,3 +1,10 @@
+groups index all
+replace SOME_DATA
+ - foo
+  link bar.html
+ - bar
+  link bam.html
+
 import header.scroll
 
 title A review of my sink
@@ -6,15 +13,7 @@ startColumns 1
 
 I have been using my sink for one year, and this is what I have learned.
 
-replace SOME_DATA
- - foo
-  link bar.html
- - bar
-  link bam.html
-
 endSnippet
-
-groups index all
 
 I have learned that a sink is a sink.
 

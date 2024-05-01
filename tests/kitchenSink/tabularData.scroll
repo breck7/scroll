@@ -1,15 +1,14 @@
+groups index
+
 import header.scroll
 
 title Tabular data test
-groups index
 
 wideColumns 1
 
 A test of pasting raw TSV data at the root level in a scroll document.
 
 endSnippet
-
-
 
 Index	Name	Diameter	Height	Covered	5	10	15	20	25	30	35	40	45	50	55
 1	Thermos	3	7.25	TRUE	149.9	147	144.6	141.2	138.2	137.1	134	132.8	131.1	129.3	127.2

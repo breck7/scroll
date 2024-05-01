@@ -1,7 +1,8 @@
 importOnly
+homeLink ../index.html
+writeText
+
 import settings.scroll
 metaTags
 gazetteCss
-homeLink ../index.html
 pageHeader
-writeText

@@ -1,5 +1,5 @@
-import settings.scroll
-
 permalink posts.csv
+
+import settings.scroll
 
 printCsv index

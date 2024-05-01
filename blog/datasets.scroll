@@ -1,6 +1,11 @@
+date 4/21/2024
+groups All
+writeDataset planets.csv
+writeDataset planets.json
+writeDataset planets.tsv
+
 import header.scroll
 keyboardNav
-date 4/21/2024
 wideColumns 1
 title Scroll Datasets: source code for CSVs
 byLine https://breckyunits.com Breck Yunits
@@ -9,20 +14,12 @@ image datasets.png
  caption More examples of Scroll Datasets from datasets.scroll.pub.
   http://datasets.scroll.pub/ datasets.scroll.pub
 
-
-
 The source code for this blog post contains a dataset about the planets and generates this HTML file as well as a CSV, a TSV, and a JSON file. It demonstrates Scroll Datasets.
  dateline
  link datasets.scroll source code for this blog post
  link planets.csv CSV
  link planets.tsv TSV
  link planets.json JSON
-
-writeDataset planets.csv
-writeDataset planets.json
-writeDataset planets.tsv
-
-groups All
 
 endSnippet
 

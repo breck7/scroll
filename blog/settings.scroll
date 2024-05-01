@@ -1,7 +1,7 @@
 importOnly
-description Official blog for Scroll
-git https://github.com/breck7/scroll
-viewSourceBaseUrl https://github.com/breck7/scroll/blob/main/blog
-email feedback@scroll.pub
 baseUrl https://scroll.pub/blog/
+description Official blog for Scroll
+email feedback@scroll.pub
+git https://github.com/breck7/scroll
 rssFeedUrl feed.xml
+viewSourceBaseUrl https://github.com/breck7/scroll/blob/main/blog

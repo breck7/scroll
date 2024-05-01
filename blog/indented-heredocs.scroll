@@ -1,16 +1,16 @@
+date 2021.08.23
+groups All
+replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
+replace ScrollLinked <a href="https://scroll.pub">Scroll</a>
+replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
+
 import markups.scroll
 import header.scroll
 title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
 byLine https://github.com/breck7 Breck Yunits
 startColumns 4
 
-date 2021.08.23
-groups All
 keyboardNav
-
-replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
-replace ScrollLinked <a href="https://scroll.pub">Scroll</a>
-replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
 
 ScrollLinked is a new language and static site generator that is mostly written in a new language called GrammarLinked which are both built on a new syntax called TreeNotationLinked.
  dateline
@@ -21,7 +21,6 @@ In this demo, I extend Scroll by adding support for Markdown, Textile, and BBCod
  https://en.wikipedia.org/wiki/Markdown Markdown
  https://en.wikipedia.org/wiki/Textile_(markup_language) Textile
  https://en.wikipedia.org/wiki/BBCode BBCDoe
-
 
 My implementation is still _researchy_—GrammarLinked still needs a lot of work—but my main point here is to demo how _simple and powerful indented heredocs are_. They allow you to compose unlimited languages in one file in a clean and scalable way. You don't need escaping. I think this is a very helpful pattern you can use in your own languages and code.
 
@@ -190,7 +189,6 @@ textile
  
  ABBR(Abbreviation)
 
-
 ## BBCode
 belowAsCode
 bbCode
@@ -199,7 +197,7 @@ bbCode
  [u]underlined text[/u]
  [url]https://en.wikipedia.org[/url]
  [url=https://en.wikipedia.org]English Wikipedia[/url]
- [img]https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png[/img] 
+ [img]https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png[/img]
  [quote]quoted text[/quote]
  [code]monospaced text[/code]
  [list]

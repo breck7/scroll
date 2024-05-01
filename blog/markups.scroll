@@ -1,4 +1,5 @@
 importOnly
+
 markupLineParser
  catchAllCellType anyCell
  catchAllParser markupLineParser
@@ -15,7 +16,7 @@ abstractMarkupLangParser
       const file = this.root.file
       const path = require("path")
       try {
-        // Scan the local folder for the module 
+        // Scan the local folder for the module
         compiler = require(path.join(file.folderPath, "node_modules", this.packageName))
       } catch (err) {
         // Fallback to global

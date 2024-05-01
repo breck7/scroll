@@ -1,6 +1,8 @@
+date 2022.10.02
+groups All
+
 import header.scroll
 title Introducing the Blink Tag
-date 2022.10.02
 byLine https://github.com/breck7 Breck Yunits
 
 blink *Scroll's new blink tag lets you call attention to something important*
@@ -24,6 +26,5 @@ blink *The blink tag, available now in Scroll 34.1.0*
 
 * _Note: please don't use this. It's a joke_
 
-groups All
 keyboardNav
 import footer.scroll

@@ -1,16 +1,24 @@
+date 1/11/2019
+groups index all
+nodejs
+ module.exports = {DIRNAME: __dirname}
+replace NUM_SINKS 283
+replace TABLE
+ pipeTable
+  sinkManufacturer|country
+  Blue|USA
+  Red|Canada
+replaceJs SUM 1+1
+replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
+replaceJs TODAYS_DATE Date()
+
 import header.scroll
 
 title Top Sinks
 
 byLine https://breckyunits.com Breck Yunits
 
-replace NUM_SINKS 283
-
 keyboardNav
-
-groups index all
-
-date 1/11/2019
 
 goodMorning
 goodMorning
@@ -21,29 +29,16 @@ dashboard
  $0 budget
  3 countries
 
-replace TABLE
- pipeTable
-  sinkManufacturer|country
-  Blue|USA
-  Red|Canada
-
 TABLE
 TABLE
 TABLE
 
-replaceJs TODAYS_DATE Date()
 Today is TODAYS_DATE
 
-replaceJs SUM 1+1
 1+1 = SUM
 
-replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
 THE_DAY was a great day
 
 There are NUM_SINKS in my list.
-
-
-nodejs
- module.exports = {DIRNAME: __dirname}
 
 This file is in dir: DIRNAME
