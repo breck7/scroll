@@ -6,7 +6,3 @@ catchAllParagraphParser
   get originalText() {
    return this.getLine() || ""
   }
-  compileTextVersion() {
-    const content = super.compileTextVersion()
-    return this.getWord(0) + (content ? " " + content : "")
-  }

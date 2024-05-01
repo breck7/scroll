@@ -7,6 +7,8 @@ startColumns
 # 82.0.0 5/01/2024
 - 🎉 meta tags can now have nested comments
 - 🎉 added `formatCommand` to the CLI for nicely formatting files, moving top matter to the top, cleaning up white space, etc, so you don't have to worry about that.
+- 🎉 plain text files now will have a maximum of 2 blank lines in a row
+- 🎉 plain text files now print date, if there's a dateline
 
 The current formatting conventions are:
 
@@ -20,6 +22,7 @@ The current formatting conventions are:
 - Meta tags are sorted alphabetically with no blank lines in between [In the future, may want to allow customizing this]
 
 Note that currently the `title` tag is a meta tag and a tag that prints content. Going to split that up into 2 tags soon.
+Note that if you are doing something like a tutorial and using a `belowAsCode` where you purposely put a top matter keyword not at the top, it will currently get moved to the top by format. We can probably add a feature like treating meta nodes with `// noFormat` as if they were content nodes.
 
 # 81.2.0 4/30/2024
 - 🎉 added `related` and `relatedList` keywords

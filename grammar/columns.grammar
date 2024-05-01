@@ -16,11 +16,13 @@ startColumnsParser
    // Starting the columns always first clears the section stack.
    return this.parent.clearSectionStack() + `<div class="scrollColumns" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
   }
+
 wideColumnsParser
  extends startColumnsParser
  description Start a double wide column.
  javascript
   columnWidth = 90
+
 endColumnsParser
  extends abstractAftertextParser
  cruxFromId

@@ -175,9 +175,8 @@ class ScrollFile {
 
   get formatted() {
     let formatted = this.originalScrollCode
-    //this.setChildren(this.originalScrollCode.sortFromSortTemplate().asString.replace(/\n\n+/g, "\n\n").replace(/\n+$/g, "") + "\n")
     const parsed = new this.parser(formatted)
-    let meta = []
+    let topMatter = []
     let importOnly = ""
     parsed.forEach(node => {
       if (node.isTopMatter) {
@@ -185,23 +184,20 @@ class ScrollFile {
           importOnly = node.toString() + "\n" // Put importOnly first, if present
           return node.destroy()
         }
-        meta.push(node.toString())
+        topMatter.push(node.toString())
         node.destroy()
       }
     })
 
-    let metaThenContent = importOnly + meta.sort().join("\n").trim() + "\n\n" + parsed.toString().trim()
-    // meta.concat("\n").concat(parsed)
+    let topMatterThenContent = importOnly + topMatter.sort().join("\n").trim() + "\n\n" + parsed.toString().trim()
 
     return (
-      metaThenContent
+      topMatterThenContent
         .trim() // Remove leading whitespace
         .replace(/(\S.*?)[  \t]*$/gm, "$1") // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic tree notation)
-        .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines
+        .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
         .replace(/\n+$/, "") + "\n"
     ) // End Scroll files in a newline character POSIX style for better working with tools like git
-
-    //return formatted // meta.toString()
   }
 
   makeDataset(format = "csv") {
@@ -455,8 +451,8 @@ class ScrollFile {
         })
         .join("")
         .replace(/<[^>]*>/g, "")
-        .replace(/\n\n\n\n/g, "\n\n\n")
-        .trim() + "\n"
+        .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
+        .trim() + "\n" // Always end in a newline, Posix style
     )
   }
   toRss() {

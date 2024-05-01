@@ -9,13 +9,18 @@ datelineParser
  extends abstractAftertextDirectiveParser
  javascript
   getInserts() {
-   let day = this.content || this.root.get("date")
+   const {day} = this
    if (!day) return false
+   return [{ index: 0, string: `<span class="scrollDateline">${day} — </span>` }]
+  }
+  get day() {
+   let day = this.content || this.root.get("date")
+   if (!day) return ""
    try {
     const dayjs = require("dayjs")
-    day = dayjs(day).format(`MMMM D, YYYY`)
+    return dayjs(day).format(`MMMM D, YYYY`)
    } catch (err) {
     console.error(err)
    }
-   return [{ index: 0, string: `<span class="scrollDateline">${day} — </span>` }]
+   return day || ""
   }

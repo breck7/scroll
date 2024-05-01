@@ -1,6 +1,7 @@
 endSnippetParser
  description Insert one of these where you want to cut the file for a snippet.
  extends abstractScrollParser
+ cruxFromId
 
 snippetsParser
  extends abstractAftertextParser
@@ -36,6 +37,7 @@ snippetsParser
    }).join("\n\n")
    return `<div class="scrollColumns" style="column-width:35ch;">${snippets}</div>`
   }
+
 fullSnippetsParser
  extends snippetsParser
  cruxFromId
