@@ -7,6 +7,7 @@ abstractScrollParser
   compileTextVersion() {
     return ""
   }
+
 abstractScrollWithRequirementsParser
  extends abstractScrollParser
  javascript
@@ -20,15 +21,31 @@ abstractScrollWithRequirementsParser
     }
     return requireSnippet + this.compileInstance()
   }
+
 abstractTopLevelSingleMetaParser
  description Use these keywords once per file.
  extends abstractScrollParser
+ inScope slashCommentParser
  cruxFromId
  cells keywordCell
  javascript
+  isTopMatter = true
+  isSetterParser = true
   compile() {
    return ""
   }
+
+abstractCommandParser
+ extends abstractScrollParser
+ cruxFromId
+ cells keywordCell
+ inScope slashCommentParser
+ javascript
+  isTopMatter = true
+  compile() {
+   return ""
+  }
+
 scrollParser
  extensions scroll
  description Tools for thought that compile to HTML.

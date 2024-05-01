@@ -1,7 +1,7 @@
 pageFooterParser
  cruxFromId
  description A footer for your page.
- extends abstractTopLevelSingleMetaParser
+ extends abstractScrollParser
  string hakon
   .pageFooter
    margin-top 8px
@@ -53,6 +53,7 @@ pageFooterParser
     style display:block; margin: .5em;`)
    )
   }
+
 gazetteFooterParser
  extends pageFooterParser
  description DEPRECATED! Use "pageFooter" instead.

@@ -1,3 +1,5 @@
+replace DOMAIN scroll.pub
+
 import header.scroll
 
 wideColumns 1
@@ -116,7 +118,6 @@ You can use the `startColumns [maxNumberOfColumns]` keyword to start a columns f
 # Advanced
 ## Variables
 Use the `replace` keyword to define variables. Variables definitions are parsed and removed on the first compiler pass.
-replace DOMAIN scroll.pub
 Our domain is: *DOMAIN*
 
 ## Import statements

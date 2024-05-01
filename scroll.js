@@ -146,6 +146,7 @@ class ScrollFile {
 
     // PASS 4: LOAD WITH STD COMPILER OR CUSTOM COMPILER FROM PASS 3
     this.afterVariablePass = afterVariablePass
+    this.parser = parser
     this.scrollProgram = new parser(afterVariablePass)
 
     this.scrollProgram.setFile(this)
@@ -173,12 +174,34 @@ class ScrollFile {
   }
 
   get formatted() {
-    const formatted =
-      this.originalScrollCode
-        .replace(/(\S.*?)[  \t]*$/gm, "$1") // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic tree notation)
-        .replace(/\n+$/, "") + "\n" // End Scroll files in a newline character POSIX style for better working with tools like git
+    let formatted = this.originalScrollCode
     //this.setChildren(this.originalScrollCode.sortFromSortTemplate().asString.replace(/\n\n+/g, "\n\n").replace(/\n+$/g, "") + "\n")
-    return formatted
+    const parsed = new this.parser(formatted)
+    let meta = []
+    let importOnly = ""
+    parsed.forEach(node => {
+      if (node.isTopMatter) {
+        if (node.getLine() === "importOnly") {
+          importOnly = node.toString() + "\n" // Put importOnly first, if present
+          return node.destroy()
+        }
+        meta.push(node.toString())
+        node.destroy()
+      }
+    })
+
+    let metaThenContent = importOnly + meta.sort().join("\n").trim() + "\n\n" + parsed.toString().trim()
+    // meta.concat("\n").concat(parsed)
+
+    return (
+      metaThenContent
+        .trim() // Remove leading whitespace
+        .replace(/(\S.*?)[  \t]*$/gm, "$1") // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic tree notation)
+        .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines
+        .replace(/\n+$/, "") + "\n"
+    ) // End Scroll files in a newline character POSIX style for better working with tools like git
+
+    //return formatted // meta.toString()
   }
 
   makeDataset(format = "csv") {

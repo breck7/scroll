@@ -1,7 +1,7 @@
 writeTextParser
  cruxFromId
  description Compile a post to text rather than html and save to disk.
- extends abstractCommentParser
+ extends abstractCommandParser
 
 plainTextParser
  description Use for plain text one liners and/or blocks of plain text. Will print in all output formats.

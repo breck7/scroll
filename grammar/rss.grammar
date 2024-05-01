@@ -1,6 +1,7 @@
 rssFeedUrlParser
  description URL for RSS feed, if any.
  extends abstractUrlSettingParser
+
 printFeedParser
  description Prints out the RSS feed for a group.
  extends abstractScrollParser

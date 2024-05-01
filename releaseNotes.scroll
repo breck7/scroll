@@ -4,6 +4,20 @@ title Scroll Release Notes
 
 startColumns
 
+# 81.3.0 5/01/2024
+- 🎉 added `formatCommand` to the CLI. The conventions are:
+- 🎉 meta tags can now have nested comments
+
+- Scroll files end in a single newline
+- Trailing spaces and tabs are stripped from lines, unless the whole line is whitespace
+- `importOnly`, if present, is moved to the very top
+- Meta tags are moved to the top of the file
+- 2 newlines comes after meta tags
+- Comments stay put
+- Tags that print content stay put
+- 3 or more newlines are trimmed down to 2
+- Meta tags are sorted alphabetically with no blank lines in between [In the future, may want to allow customizing this]
+
 # 81.2.0 4/30/2024
 - 🎉 added `related` and `relatedList` keywords
 
@@ -44,7 +58,7 @@ startColumns
 - ⚠️ BREAKING: you may need to make some slight updates, such as adding the copied files to .gitignore.
 
 # 78.0.2 4/27/2024
-- 🏥 open graph image url fix: remove the extra "/" which caused images not to show in Twitter 
+- 🏥 open graph image url fix: remove the extra "/" which caused images not to show in Twitter
 
 # 78.0.1 4/26/2024
 - 🏥 style fix: ensure column splits don't separate images from their captions
@@ -600,7 +614,7 @@ This release simplifies and removes things from the default install.
 - 🏥 fixed body padding regression
 
 # 47.0.0 11/28/2022
-This is a major breaking refactor. Scroll now generates flat html. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out. 
+This is a major breaking refactor. Scroll now generates flat html. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out.
 
 - ⚠️ BREAKING: removed automatic meta tag generation. You now need to explicitly add a `metaTags` keyword.
 - ⚠️ BREAKING: removed `<!doctype>`, `<html>`, `<head>`, and `<body>` tags. Unnecessary. Modern browsers don't need them. HTML never should have had head/body split.
@@ -625,7 +639,7 @@ This is a major breaking refactor. *All the implicit imports are gone*. Everythi
 
 ## Footnotes example
 
-Brockton is a city in Massachusetts^state. It was incorporated in 1881^inc. 
+Brockton is a city in Massachusetts^state. It was incorporated in 1881^inc.
  https://en.wikipedia.org/wiki/Brockton,_Massachusetts Brockton
 
 ## Notes
@@ -688,7 +702,6 @@ code
 code
  comment Add the line below to your posts and/or settings import file.
  rssFeedUrl feed.xml
-
 
 # 38.2.0 2022.11.01
 - 🎉 new dayjs aftertext directive.
@@ -1192,7 +1205,7 @@ code
 - 🏥 fix regression where 2 columns on mobile were not downsizing to 1
 
 # 18.1.0 2021.06.16
-- 🎉 short articles now are put into 1 or 2 columns 
+- 🎉 short articles now are put into 1 or 2 columns
 
 # 18.0.0 2021.06.15
 - 🎉 build is now ~46% faster

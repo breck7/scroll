@@ -50,7 +50,7 @@ printDatasetParser
 writeDatasetParser
  cruxFromId
  description Write a dataset file to disk.
- extends abstractCommentParser
+ extends abstractCommandParser
 
 tabularDataParser
  description Root lines with tabs are parsed as tsv data and printed as tables.

@@ -1,3 +1,6 @@
+replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
+replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
+
 import header.scroll
 title Scroll FAQ
 
@@ -121,7 +124,7 @@ code
   index.scroll
   header.scroll
   footer.scroll
-  anImageInTheArticle.png 
+  anImageInTheArticle.png
 When you run `scroll build`, Scroll reads those files and generates the outputs right in that site's folder.
 With Scroll your site's Scroll files and static files and generated html are all in one public folder and checked into version control. Usually you want to add `*.html` and `feed.xml` to your `.gitignore`.
 
@@ -328,8 +331,5 @@ Sure!
 The scroll was invented thousands of years ago and scrolls are still useful today. Scroll has been designed with a focus on simplicity and a goal of making something that would have been useful decades ago, with the hope that this will make it useful decades into the future.
 
 endColumns
-
-replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
-replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
 
 import footer.scroll

@@ -1,6 +1,7 @@
 endSnippetParser
  description Insert one of these where you want to cut the file for a snippet.
- extends abstractTopLevelSingleMetaParser
+ extends abstractScrollParser
+
 snippetsParser
  extends abstractAftertextParser
  cruxFromId

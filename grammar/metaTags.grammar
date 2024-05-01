@@ -1,10 +1,11 @@
 canonicalLinkParser
  description Canonical URL for SEO. If undefined Scroll generates this from the baseUrl and permalink.
  extends abstractUrlSettingParser
+
 metaTagsParser
  cruxFromId
- extends abstractTopLevelSingleMetaParser
- description Adds meta tags like title, description, et cetera.
+ extends abstractScrollParser
+ description Prints meta tags like title, description, et cetera.
  javascript
   compileEmbeddedVersion() {
    return ""
@@ -54,6 +55,7 @@ metaTagsParser
    name twitter:card
    content summary_large_image`)
   }
+
 htmlLangParser
  cells keywordCell stringCell
  description The lang attribute for the <html lang=""> tag. If not specified will be "en". See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang

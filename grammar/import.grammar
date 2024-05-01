@@ -9,10 +9,11 @@ importParser
   }
  example
   import header.scroll
+
 importOnlyParser
  description Mark a file as not one to build. This line will be not be imported into the importing file.
  cruxFromId
- extends abstractScrollParser
+ extends abstractTopLevelSingleMetaParser
  javascript
   compile() {
    return ""

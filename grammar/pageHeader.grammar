@@ -1,7 +1,7 @@
 pageHeaderParser
  cruxFromId
  description A header for your page.
- extends abstractTopLevelSingleMetaParser
+ extends abstractScrollParser
  string hakon
   .pageHeader
    position absolute
@@ -54,6 +54,7 @@ pageHeaderParser
     href ${file.git}
    ${nextButton}`)
   }
+
 gazetteHeaderParser
  extends pageHeaderParser
  description DEPRECATED! Use "pageHeader" instead.

@@ -1,5 +1,6 @@
 commentLineParser
  catchAllCellType commentCell
+
 abstractCommentParser
  description Comments do not appear in the compiled HTML.
  catchAllCellType commentCell
@@ -10,9 +11,11 @@ abstractCommentParser
    return ``
   }
  catchAllParser commentLineParser
+
 commentParser
  extends abstractCommentParser
  cruxFromId
+
 slashCommentParser
  extends commentParser
  crux //
