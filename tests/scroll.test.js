@@ -51,6 +51,14 @@ testTree.linkOnly = areEqual => {
   areEqual(result, `<p class="scrollParagraph"><a href="https://treenotation.org" target="_blank">https://treenotation.org</a></p>`)
 }
 
+testTree.endSnippet = areEqual => {
+  // Arrange
+  const program = new DefaultScrollParser(`Hi\nendSnippet`)
+
+  // Act/Assert
+  areEqual(program.compile().includes("endSnippet"), false, "should not print endSnippet")
+}
+
 testTree.tableWithLinks = areEqual => {
   const tests = [
     {

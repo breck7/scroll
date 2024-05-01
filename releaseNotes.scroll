@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 82.0.1 5/01/2024
+- 🏥 fixed regression where `endSnippet` was showing up in html
+
 # 82.0.0 5/01/2024
 - 🎉 meta tags can now have nested comments
 - 🎉 added `formatCommand` to the CLI for nicely formatting files, moving top matter to the top, cleaning up white space, etc, so you don't have to worry about that.
