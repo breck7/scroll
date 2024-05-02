@@ -8,3 +8,4 @@ metaTags
 gazetteCss
 pageHeader
 copyButtons
+css html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 14px);}
