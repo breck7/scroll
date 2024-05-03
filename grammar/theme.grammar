@@ -24,6 +24,11 @@ abstractThemeCssParser
    padding 1rem
    span
     vertical-align sub
+  details
+   margin-top 10px
+  summary
+   font-family "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"
+   cursor pointer
   .scrollCaptionedFigure
    display block
    break-inside avoid

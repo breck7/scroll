@@ -4,6 +4,13 @@ title Scroll Release Notes
 
 startColumns
 
+# 83.1.0 5/03/2024
+- 🎉 added `expander` keyword
+
+expander Click me
+Anything in the section will show up here. A blank line ends a section.
+
+
 # 83.0.0 5/03/2024
 - 🎉 all tables now print in plain text outputs
 - 🎉 added `printTable` keyword

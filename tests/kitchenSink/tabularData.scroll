@@ -30,5 +30,16 @@ printTable
 printTable 1
 printTable 0
 
+# Dropdown sections
+
+expander Full Dataset
+printTable
+Rows	LogLinear	Quadratic	Before	After
+1000	9966	1000000	36000	15000
+2000	21932	4000000	53000	29000
+10000	132877	100000000	258000	32000
+20000	285754	400000000	1236000	52000
+100000	1660964	10000000000	23122000	125000
+200000	3521928	40000000000	113886000	324000
 
 * This should not print as a table, even though it has a 2 tabs( 	 and `	`), because it is in an explicit paragraph node.
