@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 82.2.0 5/03/2024
+- 🎉 pruned more files from `npm install`
+
 # 82.1.0 5/03/2024
 - 🎉 pruned dependencies to make `npm install -g scroll-cli --production` fast
 
