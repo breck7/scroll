@@ -93,7 +93,7 @@ code
  npm install -g .
 Or you can install Scroll with npm by typing:
 code
- npm install -g scroll-cli
+ npm install -g scroll-cli --production
 
 One way to try the Scroll command line app without installing is with GitPod.
  https://gitpod.io/#https://github.com/breck7/scroll GitPod
@@ -192,7 +192,7 @@ code
          uses: actions/checkout@v2.3.1
        - name: Install and Build
          run: |
-           npm install -g scroll-cli
+           npm install -g scroll-cli --production
            scroll build
            # The line below is needed if you have *.html in your gitignore file
            rm .gitignore

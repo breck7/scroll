@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 startColumns
 
+# 82.1.0 5/03/2024
+- 🎉 pruned dependencies to make `npm install -g scroll-cli --production` fast
+
 # 82.0.1 5/01/2024
 - 🏥 fixed regression where `endSnippet` was showing up in html
 

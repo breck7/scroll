@@ -23,7 +23,7 @@ Yes. Here is a web demo.
 Scroll is an npm package:
  https://www.npmjs.com/package/scroll-cli npm package
 code
- npm install -g scroll-cli
+ npm install -g scroll-cli --production
 
 ? Is Scroll open source?
 Yes. Scroll is public domain and the source code is on GitHub.
