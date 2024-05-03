@@ -4,6 +4,17 @@ title Scroll Release Notes
 
 startColumns
 
+# 83.0.0 5/03/2024
+- 🎉 all tables now print in plain text outputs
+- 🎉 added `printTable` keyword
+- ⚠️ BREAKING: root level tabular tables no longer produce output. Add a `printTable [index]` to print any existing tabular tables.
+
+`printTable` will look for a table to print using this strategy:
+- If an index is provided, print that table.
+- Else, is there a table right below this line?
+- Else, is there a table right before this line?
+- Else, print the first table in the file.
+
 # 82.2.0 5/03/2024
 - 🎉 pruned more files from `npm install`
 

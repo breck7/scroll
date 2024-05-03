@@ -173,6 +173,10 @@ class ScrollFile {
     return this._dataset
   }
 
+  get tables() {
+    return this.scrollProgram.filter(node => node.isTabularData && node.isFirst)
+ }
+
   get formatted() {
     let formatted = this.originalScrollCode
     const parsed = new this.parser(formatted)
