@@ -328,7 +328,7 @@ class ScrollFile {
 
   get openGraphImage() {
     const openGraphImage = this.get(scrollKeywords.openGraphImage)
-    if (openGraphImage !== undefined) return openGraphImage
+    if (openGraphImage !== undefined) return this.ensureAbsoluteLink(openGraphImage)
 
     const images = this.scrollProgram.findNodes(scrollKeywords.image)
 
