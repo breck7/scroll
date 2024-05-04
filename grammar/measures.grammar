@@ -1,0 +1,76 @@
+measureNameCell
+ extends keywordCell
+
+// The main measure parser. All measures should extend from this.
+abstractMeasureParser
+ cells measureNameCell
+ cruxFromId
+ boolean isMeasure true
+ string typeForCsvDocs unspecified
+ extends abstractScrollParser
+ javascript
+  compileEmbeddedVersion() {
+   return ""
+  }
+  compile() {
+   return ""
+  }
+  get measureValue() {
+    return this.content ?? ""
+  }
+  get measureName() {
+    return this.definition.cruxPathAsColumnName
+  }
+
+// String Measures
+abstractWordMeasureParser
+ description A measure that contains a single word.
+ cells measureNameCell wordCell
+ string typeForCsvDocs word
+ extends abstractMeasureParser
+
+abstractStringMeasureParser
+ string typeForCsvDocs string
+ catchAllCellType stringCell
+ extends abstractMeasureParser
+
+// URL Parsers
+abstractUrlMeasureParser
+ string typeForCsvDocs url
+ cells measureNameCell urlCell
+ extends abstractWordMeasureParser
+
+// Required ID measure which denotes a concept
+idParser
+ description Each concept is required to have an id.
+ extends abstractWordMeasureParser
+
+// Numeric Measures
+abstractNumericMeasureParser
+ string typeForCsvDocs number
+ extends abstractMeasureParser
+ javascript
+  get measureValue() {
+    const {content} = this
+    return content === undefined ? "" : parseFloat(content)
+  }
+
+abstractIntegerMeasureParser
+ string typeForCsvDocs integer
+ cells measureNameCell integerCell
+ extends abstractNumericMeasureParser
+
+abstractFloatMeasureParser
+ cells measureNameCell floatCell
+ extends abstractNumericMeasureParser
+
+// Boolean Measures
+abstractBooleanMeasureParser
+ string typeForCsvDocs boolean
+ cells measureNameCell booleanCell
+ extends abstractMeasureParser
+ javascript
+  get measureValue() {
+    const {content} = this
+    return content === undefined ? "" : content == "true"
+  }

@@ -6,11 +6,11 @@ treeRowContentParser
 treeRowColumnParser
  catchAllParser treeRowContentParser
  description A columnName value pair, or just a columnName if the value is a text blob.
- cells idCell
+ cells anyCell
  catchAllCellType stringCell
 
 treeRowParser
- cells idCell
+ cells anyCell
  description The root node of a row.
  catchAllParser treeRowColumnParser
  javascript

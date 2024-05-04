@@ -35,8 +35,9 @@ const scrollKeywords = {
   replaceJs: "replaceJs",
   nodejs: "nodejs",
   replaceDefault: "replaceDefault",
-  writeDataset: "writeDataset",
+  writeConcepts: "writeConcepts",
   writeText: "writeText",
+  conceptDelimiter: "id",
   import: "import",
   importOnly: "importOnly",
   baseUrl: "baseUrl",
@@ -85,40 +86,17 @@ const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 
 const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && file.groups.includes(groupName))
 
-const parseDataset = content => {
-  const parseSchema = tree => {
-    const schema = {}
-    tree.forEach(node => {
-      const word = node.getWord(0)
-      if (word.endsWith(":")) schema[word] = node
-    })
-    return schema
-  }
-  const conceptDelimiter = /^::/m
-  let schema = null
-  const concepts = content
-    .split(conceptDelimiter)
-    .map(section => {
-      const str = section.trim()
-      const tree = new TreeNode(str)
-      if (!schema) {
-        schema = parseSchema(tree)
-        return null
-      } else if (!str.match(/(^|\n)[a-zA-Z0-9_]+: /))
-        // A concept must contain at least 1 measurement
-        // Strip any blanks
-        return null
-
+const parseConcepts = parsedProgram => {
+  const columnNames = [scrollKeywords.conceptDelimiter].concat(parsedProgram.filter(node => node.getWord(0).endsWith("Parser")).map(node => node.getWord(0).replace("Parser", "")))
+  return parsedProgram
+    .split(scrollKeywords.conceptDelimiter)
+    .map((node, index) => {
+      if (!index) return false
       const row = {}
-      Object.keys(schema).forEach(measure => {
-        row[measure.replace(":", "")] = tree.get(measure)
-      })
-
+      columnNames.forEach(measureName => (row[measureName] = node.getNode(measureName)?.measureValue ?? ""))
       return row
     })
     .filter(i => i)
-
-  return concepts
 }
 
 class ScrollFile {
@@ -167,11 +145,11 @@ class ScrollFile {
     return this.allScrollFiles.filter(file => file.shouldBuild && (file.permalink.endsWith(".html") || file.permalink.endsWith(".htm")) && file.permalink !== "404.html")
   }
 
-  _dataset
-  get dataset() {
-    if (this._dataset) return this._dataset
-    this._dataset = parseDataset(this.afterVariablePass)
-    return this._dataset
+  _concepts
+  get concepts() {
+    if (this._concepts) return this._concepts
+    this._concepts = parseConcepts(this.scrollProgram)
+    return this._concepts
   }
 
   get tables() {
@@ -205,9 +183,9 @@ class ScrollFile {
     ) // End Scroll files in a newline character POSIX style for better working with tools like git
   }
 
-  makeDataset(format = "csv") {
-    if (format === "json") return JSON.stringify(this.dataset, null, 2)
-    const tree = new TreeNode(this.dataset)
+  compileConcepts(format = "csv") {
+    if (format === "json") return JSON.stringify(this.concepts, null, 2)
+    const tree = new TreeNode(this.concepts)
     if (format === "csv") return tree.asCsv
     if (format === "tsv") return tree.asTsv
     if (format === "tree") return tree.toString()
@@ -640,15 +618,15 @@ import footer.scroll`
     })
   }
 
-  _writeDatasets(file, folder, fileSystem) {
+  _writeConcepts(file, folder, fileSystem) {
     // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
-    if (!file.has(scrollKeywords.writeDataset)) return
+    if (!file.has(scrollKeywords.writeConcepts)) return
     const { permalink } = file
-    file.scrollProgram.findNodes(scrollKeywords.writeDataset).forEach(node => {
+    file.scrollProgram.findNodes(scrollKeywords.writeConcepts).forEach(node => {
       const link = node.getWord(1) || permalink.replace(".html", ".tsv")
 
       const extension = link.split(".").pop()
-      fileSystem.write(folder + link, file.makeDataset(extension))
+      fileSystem.write(folder + link, file.compileConcepts(extension))
       this.log(`💾 Wrote 🔢 in ${file.filename} to ${link}`)
     })
   }
@@ -676,7 +654,7 @@ import footer.scroll`
       fileSystem.write(folder + permalink, html)
       this.log(`💾 Wrote ${file.filename} to ${permalink}`)
 
-      this._writeDatasets(file, folder, fileSystem)
+      this._writeConcepts(file, folder, fileSystem)
       this._writeText(file, folder, fileSystem)
 
       const externalFilesCopied = {}

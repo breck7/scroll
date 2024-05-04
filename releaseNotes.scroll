@@ -4,6 +4,17 @@ title Scroll Release Notes
 
 thinColumns
 
+# 84.0.0 5/04/2024
+- 🎉 Datasets (aka "Concept files") version 2! Much simpler.
+- 🎉 Added the `id` keyword for using datasets.
+- 🎉 Removed the `[measureName]: ` syntax introduced in version 77. You no longer have to worry about the annoyance that introduced when writing a paragraph such as "Sidenote: yada yada".
+- 🎉 Added `belowAsCodeUntil` keyword
+
+- ⚠️ BREAKING: removed `::` keyword. Now concepts are simply identified by the keyword `id`.
+- ⚠️ BREAKING: `writeDataset` is now `writeConcepts` and `printDataset` is now `printConcepts`.
+- ⚠️ BREAKING: Removed the `[measureName]: ` syntax introduced in version 77. To use datasets (aka Concept files) now, just extend Scroll parsers like you normally would. See this blog post for an example.
+ link blog/datasets.html this blog post for an example
+
 # 83.3.0 5/04/2024
 - 🎉 repeating the baseUrl after `openGraphImage` is no longer required. Will be auto-added if not present.
 

@@ -1,6 +1,7 @@
 lineOfCodeParser
  catchAllCellType codeCell
  catchAllParser lineOfCodeParser
+
 codeParser
  description A code block.
  catchAllParser lineOfCodeParser
@@ -13,10 +14,12 @@ codeParser
     return this.childrenToString()
   }
  cruxFromId
+
 codeWithLanguageParser
  description Use this to specify the language of the code block, such as csvCode or rustCode.
  extends codeParser
  pattern ^[a-zA-Z0-9_]+Code$
+
 copyButtonsParser
  cruxFromId
  extends abstractScrollWithRequirementsParser
@@ -40,35 +43,4 @@ copyButtonsParser
    }
   ))
   </script>
-belowAsCodeParser
- description Print the Scroll code of the next node.
- extends abstractScrollParser
- catchAllCellType integerCell
- cruxFromId
- javascript
-  method = "next"
-  get code() {
-   const { method } = this
-   let code = ""
-   let howMany = parseInt(this.getWord(1))
-   if (!howMany || isNaN(howMany)) howMany = 1
-   let nodes = []
-   let next = this[method]
-   while (howMany) {
-    nodes.push(next)
-    next = next[method]
-    howMany--
-   }
-   if (this.reverse) nodes.reverse()
-   return nodes.map(node => node.asString).join("\n")
-  }
-  reverse = false
-  compile() {
-   return `<code class="scrollCodeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
-  }
-aboveAsCodeParser
- description Print the Scroll code for the previous node.
- extends belowAsCodeParser
- javascript
-  method = "previous"
-  reverse = true
+

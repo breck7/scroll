@@ -1,8 +1,8 @@
 date 4/21/2024
 groups All
-writeDataset planets.csv
-writeDataset planets.json
-writeDataset planets.tsv
+writeConcepts planets.csv
+writeConcepts planets.json
+writeConcepts planets.tsv
 
 import header.scroll
 keyboardNav
@@ -23,13 +23,13 @@ The source code for this blog post contains a dataset about the planets and gene
 
 endSnippet
 
-Scroll Datasets are normal plain text blog posts written in Scroll that also contain structured data and output that data into formats ready for data visualization and analysis tools.
+Scroll Datasets are normal plain text blog posts written in Scroll that also contain measurements of concepts and output that data into formats ready for data visualization and analysis tools.
  https://scroll.pub/ Scroll
   match 1
 
 Scroll Datasets are line oriented but represent a table(s). You might call them _deconstructed csvs_ or _deconstructed spreadsheets_.
 
-- Use LLMs to *instantly generate datasets* that are ready for human review and improvement.
+- Use LLMs to *instantly generate datasets* that are ready for human verification and improvement.
 - Intermingle structured data with markup to *annotate any and every part of a dataset* while still generating strict tabular files for data analysis tools.
 - Put documentation, schema and data all in one (or more) plain text file(s) to easily share, collaborate on, and improve, all *tracked by git for trust*.
 
@@ -43,29 +43,23 @@ code
  
  # Measures (aka Header, aka Columns, aka Schema)
  
- id: string
- moons: int
+ // id Every concept needs an id
+ 
+ moonsParser
+  extends abstractIntegerParser
  
  # Concepts (aka Rows)
  
- ::
+ id mars
+ moons 2
+  // I verified moon count with Google. - BY
  
- id: mars
- moons: 2
+ id jupiter
+ moons 63
+  // Note: the moons of Jupiter have their own Wikipedia Page
+   https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
  
- I verified moon count with Google. - BY
- 
- ::
- 
- id: jupiter
- moons: 63
- 
- The moons of Jupiter have their own Wikipedia Page
-  https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
- 
- ::
- 
- writeDataset demo.csv
+ writeConcepts demo.csv
  
 
 # The code above generates an HTML page and `demo.csv` that contains this:
@@ -76,17 +70,27 @@ code
  jupiter,63
 
 # Overview:
-- A dataset consists of 4 atomic elements:
- - measures (think columns or the header row in a CSV)
- - concepts (think rows)
- - values (think values)
- - measurements (concept & measure & value = measurement)
+- Scroll Datasets are built from 4 atomic elements:
+ - measures
+  - think of these as the column names in a spreadsheet, along with meta information about the column
+  - aka "parsers"
+  - measures are defined in the language Grammar and start with a line like `moonsParser`
+ - concepts
+  - think of rows in a spreadsheet
+  - denoted by a line starting with `id `
+  - concepts are multiple lines of measurements
+ - values
+  - these are just the values of the measurements
+ - measurements
+  - concept & measure & value = measurement
+  - 1 measurement = 1 line
+  - measurements can have nested comments that are stripped when compiling to TSV/CSV
 
 # How to use
-- A concept is like a row in a database. Concepts are delimited by `::`.
-- Measure definitions must come before the first concept (`::`) and are written like: `appeared: int`
+- A concept is like a row in a database. All concepts need an id. When you write `id [conceptId]`, Scroll knows that is the beginning of a new concept.
+- Measure definitions (aka "parsers") must come before the first concept and are written in Grammar, just like any other Scroll extension. Measure parsers need to extend one of the abstract measure parser classes defined in `measures.grammar`.
  // A schema is a set of measure definitions. You can think of measures as columns. Measure names (currently) can only contain [a-zA-Z0-9_]. They cannot contain spaces or periods (the period is reserved for nested measures).
-- Measurements are done like this `appeared: 2024`
+- Measurements are then done like this `appeared 2024`
 
 # FAQ
 ? Isn't the better idea to enhance existing spreadsheet GUIs with LLM generation capabilities?
@@ -113,8 +117,8 @@ If you don't like Scroll's (evolving) version and want to switch it will always 
 This is a simple pattern to implement, so I'm sure it is likely it has been done a few times before. Please let me know so I can include links to--and learn from--any other prior art.
 
 ? What are the advanced features?
+- Types correctly exported in JSON
 - Supports nested measures^roadmap
-- Gradual typing in measure definitions^roadmap
 - Autojoins across files on ids^roadmap
 - Auto generates normalized tables for array measures^roadmap
 - Support for text blobs^roadmap
@@ -151,119 +155,112 @@ code
 
 The flat design was chosen for ergonomic reasons. Datasets seem like they might be useful enough to be worth breaking from Scroll convention a bit. Like all things in Scroll, Datasets are experiment, and maybe this design will evolve.
 
-# Planets Dataset
+# Extended Example: a Planets Dataset
 
 Below is the dataset embedded in this Scroll file.
 
-printDataset
+printConcepts
 tableSearch
 
-## Measures
+## Extended Measures Example
+belowAsCodeUntil // end measures
 
-id: string
+// id
 
-title: string
+diameterParser
+ extends abstractIntegerMeasureParser
+ description What is the diameter of the planet?
 
-diameter: int
-What is the diameter of the planet?
+surfaceGravityParser
+ extends abstractIntegerMeasureParser
+ description What is the surface gravity of the planet?
 
-surfaceGravity: int
-What is the surface gravity of the planet?
+yearsToOrbitSunParser
+ extends abstractFloatMeasureParser
+ description How many Earth years does it take for the planet to orbit the Sun?
 
-yearsToOrbitSun: float
-How many Earth years does it take for the planet to orbit the Sun?
+moonsParser
+ extends abstractIntegerMeasureParser
+ description How many moons does the planet have?
 
-moons: int
-How many moons does the planet have?
+akaParser
+ extends abstractStringMeasureParser
+ description What are the alternative names for the planet?
 
-aka: string
-What are the alternative names for the planet?
+ageParser
+ extends abstractIntegerMeasureParser
+ description How old is this planet?
 
-# Concepts
+hasLifeParser
+ extends abstractBooleanMeasureParser
+ description Does this planet have life?
 
-::
+wikipediaParser
+ extends abstractUrlMeasureParser
+ description URL to the Wikipedia page.
 
-id: mars
-title: Mars
-diameter: 6794
-surfaceGravity: 4
-yearsToOrbitSun: 1.881
-moons: 2
+// end measures
 
-// Til Mars has 2 moons!
+# Extended Concepts Example
 
-::
+belowAsCodeUntil // end concepts
 
-id: jupiter
-title: Jupiter
-diameter: 142984
-surfaceGravity: 25
-yearsToOrbitSun: 11.86
-moons: 63
+id Mars
+diameter 6794
+surfaceGravity 4
+yearsToOrbitSun 1.881
+moons 2
+ // Til Mars has 2 moons!
 
-The moons of Jupiter have their own Wikipedia Page
- https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
+id Jupiter
+diameter 142984
+surfaceGravity 25
+yearsToOrbitSun 11.86
+moons 63
+ // The moons of Jupiter have their own Wikipedia Page
+  https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
 
-::
+id Earth
+diameter 12756
+surfaceGravity 10
+yearsToOrbitSun 1
+moons 1
+aka Pale Blue Dot
+hasLife true
+wikipedia https://en.wikipedia.org/wiki/Earth
+age 4500000000
+ // Note: It was only during the 19th century that geologists realized Earth's age was at least many millions of years.
 
-id: earth
-title: Earth
-diameter: 12756
-surfaceGravity: 10
-yearsToOrbitSun: 1
-moons: 1
-aka: Pale Blue Dot
-hasLife: true
-wikipedia: https://en.wikipedia.org/wiki/Earth
-age: 4500000000
+id Mercury
+diameter 4879
+surfaceGravity 4
+yearsToOrbitSun 0.241
+moons 0
 
-* Note: It was only during the 19th century that geologists realized Earth's age was at least many millions of years.
+id Saturn
+diameter 120536
+surfaceGravity 9
+yearsToOrbitSun 29.46
+moons 64
 
-::
+id Uranus
+diameter 51118
+surfaceGravity 8
+yearsToOrbitSun 84.01
+moons 27
 
-id: mercury
-title: Mercury
-diameter: 4879
-surfaceGravity: 4
-yearsToOrbitSun: 0.241
-moons: 0
+id Venus
+diameter 12104
+surfaceGravity 9
+yearsToOrbitSun 0.615
+moons 0
 
-::
+id Neptune
+diameter 49572
+surfaceGravity 11
+yearsToOrbitSun 164.79
+moons 14
 
-id: saturn
-title: Saturn
-diameter: 120536
-surfaceGravity: 9
-yearsToOrbitSun: 29.46
-moons: 64
-
-::
-
-id: uranus
-title: Uranus
-diameter: 51118
-surfaceGravity: 8
-yearsToOrbitSun: 84.01
-moons: 27
-
-::
-
-id: venus
-title: Venus
-diameter: 12104
-surfaceGravity: 9
-yearsToOrbitSun: 0.615
-moons: 0
-
-::
-
-id: neptune
-title: Neptune
-diameter: 49572
-surfaceGravity: 11
-yearsToOrbitSun: 164.79
-moons: 14
-
-::
+// end concepts
 
 import footer.scroll

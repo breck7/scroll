@@ -1,43 +1,55 @@
+// Basic cell types
+blankCell
 anyCell
 
+// Enum cell types
 enumCell
-
-urlCell
  highlightScope constant.language
+booleanCell
+ enum true false
+ extends enumCell
 
-keywordCell
- highlightScope keyword
-
+// String cell types
 stringCell
  highlightScope string
 
-booleanCell
- highlightScope constant.language
- enum true false
+wordCell
+ highlightScope string
+ description A non-empty single word string.
+ regex .+
 
-idCell
- highlightScope constant.language
-
+// Date cell types
 dateCell
  highlightScope string
 
+// Numeric cell types
+numberCell
+ highlightScope constant.numeric
 integerCell
- highlightScope constant.numeric
-
+ extends numberCell
+ highlightScope constant.numeric.integer
 floatCell
- highlightScope constant.numeric
+ extends numberCell
+ highlightScope constant.numeric.float
+percentCell
+ extends numberCell
+ highlightScope constant.numeric.float
+ regex \d+%`
+countCell
+ extends integerCell
+yearCell
+ extends integerCell
 
-permalinkCell
- highlightScope string
- description A string that doesn't contain characters that might interfere with most filesystems. No slashes, for instance.
+// Scroll cell types
+keywordCell
+ highlightScope keyword
 
 commentCell
  highlightScope comment
 
-blankCell
-
-personNameCell
- extends stringCell
+delimiterCell
+ description String to use as a delimiter.
+ highlightScope string
 
 codeCell
  highlightScope comment
@@ -46,16 +58,31 @@ bulletPointCell
  description Any token used as a bullet point such as "-" or "1." or ">"
  highlightScope keyword
 
+personNameCell
+ extends stringCell
+
+// Link cell types
+urlCell
+ highlightScope constant.language
+absoluteUrlCell
+ highlightScope constant.language
+ regex (ftp|https?)://.+
+
 emailAddressCell
  extends stringCell
 
+// File system cell types
+permalinkCell
+ highlightScope string
+ description A string that doesn't contain characters that might interfere with most filesystems. No slashes, for instance.
+
+filePathCell
+ extends stringCell
+
+// HTML cell types
 tagOrUrlCell
  description An HTML tag or a url.
  highlightScope constant.language
-
-delimiterCell
- description String to use as a delimiter.
- highlightScope string
 
 htmlAttributesCell
  highlightScope comment
@@ -68,10 +95,4 @@ classNameCell
  highlightScope constant
 
 htmlIdCell
- extends idCell
-
-filePathCell
- extends stringCell
-
-errorParser
- baseParser errorParser
+ extends anyCell
