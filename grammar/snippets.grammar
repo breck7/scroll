@@ -36,10 +36,20 @@ snippetsParser
    const files = file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
    const alreadyRequired = this.root.alreadyRequired
    const snippets = files.map(file => {
-   const compileSettings = {relativePath: file.relativePath, alreadyRequired }
-   return `<div class="scrollSnippetContainer">${this.makeSnippet(file.file, compileSettings)}</div>`
-   }).join("\n\n")
+    const compileSettings = {relativePath: file.relativePath, alreadyRequired }
+    return `<div class="scrollSnippetContainer">${this.makeSnippet(file.file, compileSettings)}</div>`
+    }).join("\n\n")
    return `<div class="scrollColumns" style="column-width:35ch;">${snippets}</div>`
+  }
+  compileTextVersion() {
+   const file = this.parent.file
+   const files = file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
+   return files.map(file =>  {
+    const title = file.file.title
+    const ruler = "=".repeat(title.length)
+    // Note: I tried to print the description here but the description generating code needs work.
+    return `${title}\n${ruler}\n${file.file.date}\n${file.file.absoluteLink}`
+   }).join("\n\n")
   }
 
 fullSnippetsParser

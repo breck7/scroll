@@ -133,6 +133,10 @@ class ScrollFile {
     this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html" : "")
   }
 
+  get absoluteLink() {
+    return this.ensureAbsoluteLink(this.permalink)
+  }
+
   getFileFromId(id) {
     return this.fileSystem.getScrollFile(path.join(this.folderPath, id + ".scroll"))
   }
@@ -505,33 +509,52 @@ class ScrollCli {
   async initCommand(cwd) {
     const standardDateFormat = `MM/DD/YYYY`
     const initFolder = {
-      ".gitignore": "*.html",
+      ".gitignore": `*.html
+*.txt
+feed.xml`,
       "header.scroll": `importOnly
-git https://github.com/breck7/scroll
-email feedback@scroll.pub
-baseUrl https://scroll.pub/
+
+import settings.scroll
 metaTags
 gazetteCss
-pageHeader`,
+pageHeader
+`,
+      "feed.scroll": `permalink feed.xml
+
+import settings.scroll
+printFeed All
+`,
       "footer.scroll": `importOnly
-pageFooter`,
-      "firstPost.scroll": `import header.scroll
-groups index
+writeText
+
+pageFooter
+`,
+      "settings.scroll": `importOnly
+baseUrl https://scroll.pub/
+email feedback@scroll.pub
+git https://github.com/breck7/scroll
+`,
+      "helloWorld.scroll": `${scrollKeywords.date} ${dayjs().format(standardDateFormat)}
+groups All
+
+import header.scroll
 ${scrollKeywords.title} Hello world
-${scrollKeywords.date} ${dayjs().format(standardDateFormat)}
 
-thinColumns 2
+thinColumns 1
 
-* This is my first blog post using Scroll. This post will appear in the feed and on the index page.
+This is my first blog post using Scroll.
 
 endColumns
-import footer.scroll`,
-      "index.scroll": `import header.scroll
-title My Personal Blog
-description My thoughts about life and the world.
-snippets index
+import footer.scroll
+`,
+      "index.scroll": `description My thoughts about life and the world.
 
-import footer.scroll`
+import header.scroll
+title My Blog
+snippets All
+
+import footer.scroll
+`
     }
 
     this.log(`Initializing scroll in "${cwd}"`)

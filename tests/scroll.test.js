@@ -214,7 +214,7 @@ testTree.initCommand = async areEqual => {
 
     // Assert
     areEqual(pages[0].html.includes("Built with Scroll"), true)
-    areEqual(pages.length, 2, "should have 3 pagee")
+    areEqual(pages.length, 3, "should have 3 pages")
 
     const { scrollErrors, grammarErrors } = cli.getErrorsInFolder(tempFolder)
     areEqual(scrollErrors.length, 0)

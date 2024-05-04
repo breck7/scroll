@@ -120,7 +120,7 @@ A typical Scroll project folder, excluding the files built by Scroll, looks like
 code
  📁yourDomainName.org
   about.scroll
-  firstPost.scroll
+  helloWorld.scroll
   index.scroll
   header.scroll
   footer.scroll
