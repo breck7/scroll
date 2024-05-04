@@ -1,0 +1,21 @@
+metaTags
+gazetteCss
+
+thinColumns 1
+
+baseUrl https://scroll.pub/
+
+# Not this one
+image ../../blog/datasets.png
+ link index.html
+
+# The image below should be the og image
+image ../../blog/screenshot.png
+ openGraph
+
+# Not this one
+image ../../blog/datasets.png
+ caption A caption
+ link https://scroll.pub/blog/datasets.html
+
+

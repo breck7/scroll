@@ -10,7 +10,7 @@ title Scroll Tutorial
  https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll
 
 endColumns
-startColumns 2
+thinColumns 2
 
 ## Scroll is an extensible alternative to Markdown.
 Like Markdown, Scroll is a plaintext language that compiles to HTML.
@@ -111,7 +111,7 @@ A link to Wikipedia
  https://wikipedia.org
 
 ## Columns
-You can use the `startColumns [maxNumberOfColumns]` keyword to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between lines. Line breaks will clear sections.
+You can use the `thinColumns [maxNumberOfColumns]` keyword to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between lines. Line breaks will clear sections.
 
 ---
 

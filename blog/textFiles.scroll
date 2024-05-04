@@ -7,7 +7,7 @@ title Scroll now generates text files
 
 byLine https://breckyunits.com/ Breck Yunits
 
-startColumns 1
+thinColumns 1
 
 Scroll is a minimial (but extensible) language for generating HTML files, with the main use case being for web blogs. However, recently I've been needing to make readable text versions of blog posts for a few use cases. I was doing that by hand, but now it is built in to Scroll.
  dateline

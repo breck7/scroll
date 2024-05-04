@@ -18,7 +18,11 @@ abstractCaptionedParser
 imageParser
  description An img tag.
  extends abstractCaptionedParser
- inScope classMarkupParser aftertextIdParser
+ inScope classMarkupParser aftertextIdParser linkParser linkTargetParser
+ openGraphParser
+  description Add this line to make this the open graph image.
+  cruxFromId
+  cells keywordCell
  javascript
   getFigureContent(compileSettings) {
    const file = this.root.file
@@ -40,9 +44,12 @@ imageParser
      console.error(err)
     }
    }
+   // Todo: can we reuse more code from aftertext?
    const className = this.has("class") ? ` class="${this.get("class")}" ` : ""
    const id = this.has("id") ? ` id="${this.get("id")}" ` : ""
-   return `<a href="${linkRelativeToCompileTarget}" target="_blank" ${className} ${id}><img src="${linkRelativeToCompileTarget}" ${dimensionAttributes}loading="lazy"></a>`
+   const clickLink = this.get("link") || linkRelativeToCompileTarget
+   const target = this.has("target") ? this.get("target") : (this.has("link") ? "" : "_blank")
+   return `<a href="${clickLink}" target="${target}" ${className} ${id}><img src="${linkRelativeToCompileTarget}" ${dimensionAttributes}loading="lazy"></a>`
   }
   compileTextVersion() {
     const children = this.filter(node => node.compileTextVersion).map(node => node.compileTextVersion()).filter(i => i).join("\n")

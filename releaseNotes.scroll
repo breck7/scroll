@@ -2,7 +2,15 @@ import header.scroll
 title Scroll Release Notes
 ## A list of what has changed in Scroll releases.
 
-startColumns
+thinColumns
+
+# 83.2.0 5/04/2024
+- 🎉 added `link` under `image`. Also added `target`.
+- 🎉 for posts with multiple images, you can now put `openGraph` under an `image` node as an alternative to adding a separate `openGraphImage` line
+- 🎉 added `mediumColumns` keyword
+- 🎉 added `thinColumns` keyword.
+
+* Note: `startColumns` will eventually be removed. You can now safely switch those to `thinColumns`.
 
 # 83.1.0 5/03/2024
 - 🎉 added `expander` keyword

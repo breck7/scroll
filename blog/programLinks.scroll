@@ -8,7 +8,7 @@ byLine https://github.com/breck7 Breck Yunits
 keyboardNav
 copyButtons
 
-startColumns 1
+thinColumns 1
 
 Some web apps are designed to load _entire programs_ from a link. But if a program contain certain characters, such as _newlines_, those links won't work as-is. To create working links you have to run them through `encodeURIComponent`.
  dateline

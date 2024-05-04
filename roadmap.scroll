@@ -8,7 +8,7 @@ A list of what is ahead for Scroll. Scroll is written in Grammar, so will also b
 
 endColumns
 
-startColumns 2
+thinColumns 2
 
 # Official Language Spec
 - A Spec defining the core of Scroll in enough detail so someone could build a new implementation in any host language.

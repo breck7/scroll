@@ -1,4 +1,4 @@
-startColumnsParser
+thinColumnsParser
  extends abstractAftertextParser
  cruxFromId
  catchAllCellType integerCell
@@ -17,11 +17,21 @@ startColumnsParser
    return this.parent.clearSectionStack() + `<div class="scrollColumns" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
   }
 
+startColumnsParser
+ description Deprecated. Use "thinColumns" instead.
+ boolean isDeprecated true
+ extends thinColumnsParser
+
 wideColumnsParser
- extends startColumnsParser
+ extends thinColumnsParser
  description Start a double wide column.
  javascript
   columnWidth = 90
+
+mediumColumnsParser
+ extends thinColumnsParser
+ javascript
+  columnWidth = 65
 
 endColumnsParser
  extends abstractAftertextParser

@@ -42,6 +42,7 @@ const scrollKeywords = {
   baseUrl: "baseUrl",
   viewSourceBaseUrl: "viewSourceBaseUrl",
   openGraphImage: "openGraphImage",
+  openGraph: "openGraph",
   git: "git",
   email: "email",
   rssFeedUrl: "rssFeedUrl"
@@ -175,7 +176,7 @@ class ScrollFile {
 
   get tables() {
     return this.scrollProgram.filter(node => node.isTabularData && node.isFirst)
- }
+  }
 
   get formatted() {
     let formatted = this.originalScrollCode
@@ -325,16 +326,17 @@ class ScrollFile {
     return this.baseUrl + link.replace(/^\//, "")
   }
 
-  // todo: add an openGraph node type to define this stuff manually
   get openGraphImage() {
     const openGraphImage = this.get(scrollKeywords.openGraphImage)
     if (openGraphImage !== undefined) return openGraphImage
 
-    const node = this.scrollProgram.getNode(scrollKeywords.image)
-    if (!node) return ""
+    const images = this.scrollProgram.findNodes(scrollKeywords.image)
 
-    const link = node.content
-    return Utils.isAbsoluteUrl(link) ? link : this.baseUrl + link
+    const hit = images.find(node => node.has(scrollKeywords.openGraph)) || this.scrollProgram.getNode(scrollKeywords.image)
+
+    if (!hit) return ""
+
+    return this.ensureAbsoluteLink(hit.content)
   }
 
   // todo: add an openGraph node type to define this stuff manually
@@ -540,7 +542,7 @@ groups index
 ${scrollKeywords.title} Hello world
 ${scrollKeywords.date} ${dayjs().format(standardDateFormat)}
 
-startColumns 2
+thinColumns 2
 
 * This is my first blog post using Scroll. This post will appear in the feed and on the index page.
 

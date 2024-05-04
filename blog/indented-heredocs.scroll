@@ -8,7 +8,7 @@ import markups.scroll
 import header.scroll
 title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
 byLine https://github.com/breck7 Breck Yunits
-startColumns 4
+thinColumns 4
 
 keyboardNav
 
