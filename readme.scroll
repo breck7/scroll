@@ -26,7 +26,7 @@ Scroll is an npm package. Install with:
 code
  npm install -g scroll-cli
 
-? How do I want to install the developer version?
+? How do I install the developer version?
 code
  git clone https://github.com/breck7/scroll.git
  cd scroll

@@ -12,7 +12,7 @@ byLine https://breckyunits.com Breck Yunits
 
 image datasets.png
  caption More examples of Scroll Datasets from datasets.scroll.pub.
-  http://datasets.scroll.pub/ datasets.scroll.pub
+  https://datasets.scroll.pub/ datasets.scroll.pub
 
 The source code for this blog post contains a dataset about the planets and generates this HTML file as well as a CSV, a TSV, and a JSON file. It demonstrates Scroll Datasets.
  dateline
