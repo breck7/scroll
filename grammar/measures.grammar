@@ -43,7 +43,7 @@ abstractUrlMeasureParser
 // Required ID measure which denotes a concept
 idParser
  description Each concept is required to have an id.
- extends abstractWordMeasureParser
+ extends abstractStringMeasureParser
 
 // Numeric Measures
 abstractNumericMeasureParser
@@ -63,6 +63,12 @@ abstractIntegerMeasureParser
 abstractFloatMeasureParser
  cells measureNameCell floatCell
  extends abstractNumericMeasureParser
+
+// Enum Measures
+abstractEnumMeasureParser
+ string typeForCsvDocs enum
+ cells measureNameCell enumCell
+ extends abstractMeasureParser
 
 // Boolean Measures
 abstractBooleanMeasureParser
