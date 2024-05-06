@@ -1,7 +1,7 @@
 {
   "name": "scroll-cli",
   "version": "84.4.0",
-  "description": "Tools for thoughts. A language for bloggers.",
+  "description": "A language for bloggers. Tools for thoughts.",
   "main": "scroll.js",
   "engines": {
     "node": ">=16.0"

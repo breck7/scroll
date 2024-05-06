@@ -3,9 +3,7 @@ permalink index.html
 import header.scroll
 css html {font-size: var(--base-font-size, 16px);}
 
-title 📜 Scroll: tools for thoughts.
-
-# A language for bloggers.
+title 📜 Scroll is a Language for Bloggers
 
 <br>
 thinColumns 2
@@ -13,9 +11,9 @@ thinColumns 2
 ? What is Scroll?
 Scroll is a language for bloggers.
 
-Scroll also comes with a command line tool that builds static blogs and websites.
+Scroll also comes with a command line app that builds static blogs and websites.
 
-? Can you show me a sample site?
+? Can you show me a sample blog?
 image blog/screenshot.png
  link https://breckyunits.com/
  caption The screenshot above is from a blog powered by Scroll.
@@ -27,6 +25,8 @@ Yes. Here is a web demo.
 
 ? What is different about Scroll?
 Scroll has an unusually simple syntax, an extensive set of features needed by blogs and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
+
+Scroll is an evolving, carefully curated collection of _tools for thoughts_.
 
 ? How do I install Scroll?
 Scroll is an npm package. Install with:
