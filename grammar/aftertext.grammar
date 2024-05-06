@@ -69,6 +69,8 @@ abstractAftertextParser
    const { className } = this
    const classAttr = className ? `class="${this.className}"` : ""
    const tag = this.get("tag") || this.tag
+   if (tag === "none") // Allow no tag for aftertext in tables
+     return this.text
    return `<${tag} ${this.divAttributes}${classAttr}>${this.text}</${tag}>`
   }
   get divAttributes() {

@@ -44,11 +44,13 @@ printTableParser
     return this.getTableByIndex(0)
    }
    get tsv() {
-     const firstNode = this.table
+    const firstNode = this.table
+    const lastNode = firstNode.lastNode
+    const aftertext = lastNode.childrenToString() // todo: we could be more specific and ignore comments
     let tableNode = firstNode
     let tsv = tableNode.getLine()
     while (tableNode.next.isTabularData) {
-      tsv += "\n" + tableNode.next.getLine()
+      tsv += "\n" + (aftertext ? tableNode.next.applyAftertext(aftertext) : tableNode.next.getLine())
       tableNode = tableNode.next
       if (tableNode === firstNode)
         break
@@ -77,6 +79,17 @@ tabularDataParser
   }
   get isFirst() {
     return !this.previous.isTabularData
+  }
+  get lastNode() {
+    if (this.next.isTabularData && this.next.lineNumber)
+      return this.next.lastNode
+    return this
+  }
+  applyAftertext(aftertext) {
+    const node = this.parent.appendLineAndChildren("* " + this.getLine(), aftertext + "\ntag none")
+    const html = node.compile()
+    node.destroy()
+    return html
   }
   isTabularData = true
  example

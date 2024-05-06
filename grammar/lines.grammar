@@ -14,11 +14,16 @@ dinkusParser
  crux ***
  description Prints a centered *
  extends abstractAftertextParser
+ string dinkus *
  javascript
   compile() {
    return `<div class="dinkus"><span>${this.dinkus}</span></div>`
   }
-  dinkus = "*"
   compileTextVersion() {
     return this.getLine()
   }
+
+endOfPostDinkusParser
+ extends dinkusParser
+ crux ****
+ string dinkus ⁂
