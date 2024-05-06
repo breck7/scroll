@@ -5,10 +5,15 @@ css html {font-size: var(--base-font-size, 16px);}
 
 title 📜 Scroll: tools for thoughts.
 
-# An extensible alternative to Markdown
+# A language for bloggers.
 
 <br>
 thinColumns 2
+
+? What is Scroll?
+Scroll is a language for bloggers.
+
+Scroll also comes with a command line tool that builds static blogs and websites.
 
 ? Can you show me a sample site?
 image blog/screenshot.png
@@ -19,6 +24,9 @@ image blog/screenshot.png
 ? Can I try Scroll in the browser?
 Yes. Here is a web demo.
  https://try.scroll.pub/ web demo
+
+? What is different about Scroll?
+Scroll has an unusually simple syntax, an extensive set of features needed by blogs and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
 
 ? How do I install Scroll?
 Scroll is an npm package. Install with:
@@ -47,9 +55,9 @@ Yes. Scroll is public domain and the source code is on GitHub.
 - Release Notes
  link releaseNotes.html
 
-? Is there a place I can experiment with the Scroll grammar?
-Yes. You can edit the Scroll Language in Tree Language Designer.
- https://jtree.treenotation.org/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.grammar edit the Scroll Language
+? Can I experiment with the Scroll grammar in my browser?
+Yes. You can play with the Scroll grammar in Tree Language Designer.
+ https://jtree.treenotation.org/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.grammar play with the Scroll grammar
 
 ? Did the latest version of Scroll pass the automated tests?
 <br>
