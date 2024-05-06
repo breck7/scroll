@@ -106,6 +106,15 @@ abstractAftertextDirectiveParser
   compile() {
    return ""
   }
+  getErrors() {
+    const errors = super.getErrors()
+    if (!this.isMarkup || this.matchWholeLine) return errors
+    const inserts = this.getInserts(this.parent.originalTextPostLinkify)
+    // todo: make AbstractTreeError class exported by Grammar to allow Parsers to define their own error types.
+    if (!inserts.length)
+      errors.push({toObject: () => {return { message: `No matching text found for pattern "${this.pattern}".`}}})
+    return errors
+  }
   get pattern() {
    return this.getWordsFrom(1).join(" ")
   }
@@ -300,9 +309,11 @@ classMarkupParser
   get attributes() {
    return [`class="${this.className}"`]
   }
+  get matchWholeLine() {
+    return this.getWordsFrom(2).length === 0
+  }
   get pattern() {
-   const words = this.getWordsFrom(2)
-   return words.length ? words.join(" ") : this.parent.content
+   return this.matchWholeLine ? this.parent.content : this.getWordsFrom(2).join(" ")
   }
 
 strikethroughParser

@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 84.3.0 5/06/2024
+- 🎉 `scroll test` will now report if an aftertext pattern has no matches.
+
 # 84.2.0 5/06/2024
 - 🎉 added `****` as an "end of post dinkus" which prints ⁂
 - 🎉 tabular tables now support aftertext!

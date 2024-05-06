@@ -107,9 +107,11 @@ class ScrollFile {
     this.filePath = absoluteFilePath
     this.filename = path.basename(this.filePath)
     this.folderPath = path.dirname(absoluteFilePath) + "/"
+
+    // PASS 1: READ FULL FILE
     this.originalScrollCode = originalScrollCode
 
-    // PASS 1: IMPORT PASS
+    // PASS 2: READ AND REPLACE IMPORTs
     let afterImportPass = originalScrollCode
     let parser = DefaultScrollParser
     if (absoluteFilePath) {
@@ -120,10 +122,10 @@ class ScrollFile {
       if (postImport.parser) parser = postImport.parser
     }
 
-    // PASS 3: REPLACEMENT PASS. PARSE AND REMOVE VARIABLE DEFINITIONS THEN REPLACE REFERENCES.
+    // PASS 3: READ AND REPLACE VARIABLES. PARSE AND REMOVE VARIABLE DEFINITIONS THEN REPLACE REFERENCES.
     const afterVariablePass = this.evalVariables(afterImportPass)
 
-    // PASS 4: LOAD WITH STD COMPILER OR CUSTOM COMPILER FROM PASS 3
+    // PASS 4: READ WITH STD COMPILER OR CUSTOM COMPILER.
     this.afterVariablePass = afterVariablePass
     this.parser = parser
     this.scrollProgram = new parser(afterVariablePass)

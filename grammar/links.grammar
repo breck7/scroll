@@ -65,11 +65,12 @@ linkParser
    })
    return attrs
   }
+  get matchWholeLine() {
+    return this.getWordsFrom(this.patternStartsAtWord).length === 0
+  }
   patternStartsAtWord = 2
   get pattern() {
-   // If no pattern is provided, apply to the *entire* content.
-   const words = this.getWordsFrom(this.patternStartsAtWord)
-   return words.length ? words.join(" ") : this.parent.originalText
+   return this.matchWholeLine ? this.parent.originalText : this.getWordsFrom(this.patternStartsAtWord).join(" ")
   }
 
 emailLinkParser

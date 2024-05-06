@@ -15,30 +15,44 @@ Yes.
  link blog/ Yes
 
 ? Who is Scroll for?
-Scroll is built for developers who like writing, tools for thoughts, open source, git backed static site generators, and fast simple code.
+Scroll is built for bloggers who appreciate writing, tools for thoughts, open source, git backed static site generators, and fast simple code.
 
 ? What makes Scroll different?
-Scroll is not just another static site generator but also a *new language*. A new language that you can _extend_.
- https://staticsitegenerators.net another static site generator
-The basics of Scroll are even simpler than Markdown. For example, the keyword for title is title.
-You can stick to the basics or easily define new keywords extending the language to better fit your content and workflows. A simple indent is all you need to include sub-languages. No complex encoding needed.
-Scroll is written in a language called GrammarLinked, and both Grammar and Scroll are built on the new syntax called TreeNotationLinked.
+Scroll is different than other static site generators because it is also *an extendible language*.
+ https://staticsitegenerators.net other static site generators
+
+The basics of Scroll are even simpler than Markdown. For example, you can make a whole paragraph a link like this:
+
+This is a link
+ https://scroll.pub
+aboveAsCode
+
+You can stick to the basics or define new keywords (by writing "parsers") to extend Scroll to better fit your content and workflows.
+
+Your parsers can be simple or as complex as any programming language, and a simple indent is all you need to make sure your parser won't interfere with other parsers.
+
+Parsers in Scroll are written in a language called GrammarLinked, and both Grammar and Scroll are built on the syntax called TreeNotationLinked.
 
 ? How does Scroll improve over the latest incarnations of Markdown?
-Scroll evolved based on the theory that instead of one language for writing it would be better to get to choose from an ever evolving ecosystem of thousands of mini-languages, and mix and match them to better fit your domain.
+Scroll evolved based on the theory that instead of a fixed language for blogging it is better to have an ever evolving ecosystem of keywords, so that your symbolic tools can grow along with your mental tools.
 
-So, compared to other languages, Scroll is designed to be easy to extend.
+Thus, Scroll is designed to be easy to extend.
 
-You can see this in the Scroll source code. Scroll is primarily written in GrammarLinked, and there are currently dozens of `.grammar` files in the base distribution. Each Grammar file can define a mini language of its own. You can simply add (or remove) Grammar files to generate your own custom dialects to better fit your domains.
+You can see this in the Scroll source code.
+
+Scroll is primarily written in GrammarLinked, and there are currently dozens of `.grammar` files in the base distribution.
+
+Each Grammar file can define a mini language of its own. You can simply add (or remove) Grammar files to generate your own custom dialects to better fit your domains.
 
 Think of it as one file, many languages.
 
 Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by making the most of the indent trick (also known as the off-side rule). Each line gets its own scope. So you can add, remove, and update your mini-languages and their associated blocks without breaking the rest of the documents.
  https://en.wikipedia.org/wiki/Off-side_rule off-side rule
 
+In Scroll, it's almost as if each line is its own file.
+
 ? How do I extend Scroll?
-Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a recipe keyword and write a post like this:
- italics recipe
+Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a _recipe_ keyword and write a post like this:
 code
  title My Snowball Cookies
  
@@ -52,7 +66,7 @@ code
   step Add sugar
   step Heat oven to 350 degrees
   step Bake for 10 minutes
-Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just define it yourself using GrammarLinked, extending your dialect of Scroll:
+Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just write a recipe parser yourself using GrammarLinked, extending your dialect of Scroll:
 code
  recipeParser
   extends abstractScrollParser
@@ -68,7 +82,7 @@ For an extended example of extending Scroll check out this one which adds node t
 
 ? What is the biggest downside to Scroll?
 Compared to Markdown there is very little tooling and the ecosystem is currently very small.
-Also, although it is simple to write GrammarLinked when you know what you're doing, documentation for GrammarLinked is still poor and tooling isn't great yet.
+Also, although it is simple to write your own parsers in GrammarLinked once you know what you're doing, documentation for GrammarLinked is still poor and tooling isn't great yet.
 
 ? What kind of sites can I use Scroll to build?
 Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
@@ -79,7 +93,7 @@ Scroll is a great solution for blogs and sites of one page, a few pages, tens of
  https://pldb.io/ thousands of pages
 
 ? How do I get Scroll?
-Scroll is a command line app you install on your local machine. Scroll requires basic familiarity with the command line and NodeJs >=14. If you do not have NodeJs, Mac/Linux users can install NodeJs with #n# and Windows users can install NodeJs with Scoop.
+Scroll is a language and command line app you install on your local machine. Scroll requires basic familiarity with the command line and NodeJs >=16. If you do not have NodeJs, Mac/Linux users can install NodeJs with #n# and Windows users can install NodeJs with Scoop.
  https://nodejs.org NodeJs
  wrap # https://github.com/tj/n
  https://scoop.sh/ Scoop
@@ -142,7 +156,7 @@ Scroll articles are written as Scroll files with the file extension scroll. The 
  https://github.com/breck7/scroll/tree/main/grammar here
 
 ? What language is Scroll written in?
-Scroll is mostly written in GrammarLinked. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll makes heavy use of Tree Languages. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
+Scroll is mostly written in GrammarLinked. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a couple of other Tree Languages. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
  https://jtree.treenotation.org/designer/#standard%20hakon Hakon
  https://jtree.treenotation.org/designer/#standard%20stump stump
 TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.
@@ -207,6 +221,8 @@ Commit and push. Now go to your GitHub Repo and then Settings, then Pages, and s
  code scroll-output
 
 ? How do I setup a custom 404 page with GitHub pages?
+Check out the `404.scroll` file in this folder.
+
 GitHub has instructions but is really is as simple as this:
  https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site instructions
 scrollCode
@@ -247,6 +263,10 @@ code
    User yourUserName
    IdentityFile ~/.ssh/example_id_rsa
    IdentitiesOnly yes
+
+? Does Scroll compile to plain text as well as HTML?
+Yes! Support for plain text outputs as added in April, 2024.
+ https://scroll.pub/blog/textFiles.html
 
 ? How can I output my Scroll to an EPUB file?
 Pandoc is one way to do it. If you are on a Mac and have Homebrew installed:
@@ -319,6 +339,14 @@ Scroll and Web Components are similar in that both empower users to define their
 For that we use BrowserStack.
  https://browserstack.com BrowserStack
 
+? How many compiler passes are there in the language?
+Each Scroll file is currently passed over 4 times during compilation to HTML and/or text.
+1. The full file is read.
+2. All `import` statements are replaced with the contents of the imported file.
+3. All variable `replace` statements are executed and applied to the current file.
+4. Finally, an extended Scroll parser in constructed (if any extensions are found) and used to parse the resulting file for compilation.
+
+# Professional Support
 ? Do you offer full service Scroll website hosting?
 Sure!
  https://buy.stripe.com/eVabMubeV62xdiMfZ4
@@ -327,6 +355,7 @@ Sure!
 Sure!
  https://buy.stripe.com/3csaIqaaRez3emQ149
 
+# Other
 ? Why the name Scroll?
 The scroll was invented thousands of years ago and scrolls are still useful today. Scroll has been designed with a focus on simplicity and a goal of making something that would have been useful decades ago, with the hope that this will make it useful decades into the future.
 
