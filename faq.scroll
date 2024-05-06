@@ -344,7 +344,7 @@ Each Scroll file is currently passed over 4 times during compilation to HTML and
 1. The full file is read.
 2. All `import` statements are replaced with the contents of the imported file.
 3. All variable `replace` statements are executed and applied to the current file.
-4. Finally, an extended Scroll parser in constructed (if any extensions are found) and used to parse the resulting file for compilation.
+4. Finally, an extended Scroll parser is constructed if needed (if any new parser definitions appear in the document), and then is used to parse the resulting file for compilation.
 
 # Professional Support
 ? Do you offer full service Scroll website hosting?
