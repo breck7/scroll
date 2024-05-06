@@ -87,13 +87,21 @@ const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && file.groups.includes(groupName))
 
 const parseConcepts = parsedProgram => {
-  const columnNames = [scrollKeywords.conceptDelimiter].concat(parsedProgram.filter(node => node.getWord(0).endsWith("Parser")).map(node => node.getWord(0).replace("Parser", "")))
+  let measures = parsedProgram.filter(node => node.getWord(0).endsWith("Parser") && !node.getWord(0).startsWith("abstract"))
+  // sort by
+  measures = lodash.sortBy(measures, parser => {
+    const sortIndex = parser.getFrom("int sortIndex")
+    return sortIndex ? parseInt(sortIndex) : 10
+  })
+
+  const measureNames = [scrollKeywords.conceptDelimiter].concat(measures.map(node => node.getWord(0).replace("Parser", "")))
+
   return parsedProgram
     .split(scrollKeywords.conceptDelimiter)
     .map((node, index) => {
       if (!index) return false
       const row = {}
-      columnNames.forEach(measureName => (row[measureName] = node.getNode(measureName)?.measureValue ?? ""))
+      measureNames.forEach(measureName => (row[measureName] = node.getNode(measureName)?.measureValue ?? ""))
       return row
     })
     .filter(i => i)
