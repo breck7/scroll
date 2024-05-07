@@ -197,9 +197,9 @@ class ScrollFile {
     return this.fileSystem.getScrollFilesInFolder(this.folderPath)
   }
 
-  get asSearchTsvRow() {
+  toSearchTsvRow(relativePath = "") {
     const text = this.asText.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
-    return [this.title, this.permalink, text, this.date, this.wordCount].join("\t")
+    return [this.title, relativePath + this.permalink, text, this.date, this.wordCount].join("\t")
   }
 
   get allHtmlFiles() {
