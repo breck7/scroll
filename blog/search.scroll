@@ -1,0 +1,9 @@
+import header.scroll
+
+title Search the Official Scroll Blog
+
+wideColumns 2
+printSearchTable All
+tableSearch
+
+import footer.scroll

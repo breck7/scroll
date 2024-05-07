@@ -197,6 +197,11 @@ class ScrollFile {
     return this.fileSystem.getScrollFilesInFolder(this.folderPath)
   }
 
+  get asSearchTsvRow() {
+    const text = this.asText.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
+    return [this.title, this.permalink, text, this.date, this.wordCount].join("\t")
+  }
+
   get allHtmlFiles() {
     return this.allScrollFiles.filter(file => file.shouldBuild && (file.permalink.endsWith(".html") || file.permalink.endsWith(".htm")) && file.permalink !== "404.html")
   }

@@ -139,6 +139,10 @@ gazetteCssParser
     padding .1875rem
     overflow hidden
     white-space nowrap
+   td:hover
+    text-overflow unset
+    overflow unset
+    white-space unset
    th
     text-transform capitalize
    th
