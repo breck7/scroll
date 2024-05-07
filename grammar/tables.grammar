@@ -108,3 +108,85 @@ tableSearchParser
   compileInstance() {
    return ""
   }
+
+printTableParser
+ description Print a tabular table in a page into an HTML table.
+ cruxFromId
+ extends abstractScrollParser
+ javascript
+   compile() {
+    const node = this.appendSibling("table \t", this.tsv)
+    const html = node.compile()
+    node.destroy()
+    return html
+   }
+   getTableByIndex(index) {
+      const hit = this.root.file.tables[parseInt(index)]
+      if (!hit)
+        console.error(`Table "${index}" not found`)
+      return hit
+   }
+   get table() {
+     const index = this.getWord(1)
+     if (index !== undefined)
+        return this.getTableByIndex(index)
+     if (this.next.isTabularData)
+       return this.next
+     if (this.previous.isTabularData)
+       return this.previous.headerNode
+    return this.getTableByIndex(0)
+   }
+   get tsv() {
+    const firstNode = this.table
+    const lastNode = firstNode.lastNode
+    const aftertext = lastNode.childrenToString() // todo: we could be more specific and ignore comments
+    let tableNode = firstNode
+    let tsv = tableNode.getLine()
+    while (tableNode.next.isTabularData) {
+      tsv += "\n" + (aftertext ? tableNode.next.applyAftertext(aftertext) : tableNode.next.getLine())
+      tableNode = tableNode.next
+      if (tableNode === firstNode)
+        break
+    }
+     return tsv
+   }
+   compileTextVersion() {
+     return this.tsv
+   }
+
+tabularDataParser
+ description Root lines with tabs are parsed as tsv data and printed as tables.
+ cells anyCell
+ pattern \t
+ catchAllCellType anyCell
+ extends abstractCommentParser
+ javascript
+  compileTextVersion() {
+    return ""
+  }
+  get headerNode() {
+    return this.isFirst ? this : this.previous.headerNode
+  }
+  compile() {
+    return ""
+  }
+  get isFirst() {
+    return !this.previous.isTabularData
+  }
+  get lastNode() {
+    if (this.next.isTabularData && this.next.lineNumber)
+      return this.next.lastNode
+    return this
+  }
+  applyAftertext(aftertext) {
+    const node = this.parent.appendLineAndChildren("* " + this.getLine(), aftertext + "\ntag none")
+    const html = node.compile()
+    node.destroy()
+    return html
+  }
+  isTabularData = true
+ example
+  // The below lines will print a table
+  printTable
+  Index Name
+  1 Thermos
