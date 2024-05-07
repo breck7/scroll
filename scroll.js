@@ -36,6 +36,7 @@ const scrollKeywords = {
   nodejs: "nodejs",
   replaceDefault: "replaceDefault",
   writeConcepts: "writeConcepts",
+  writeMeasures: "writeMeasures",
   writeText: "writeText",
   conceptDelimiter: "id",
   import: "import",
@@ -86,16 +87,48 @@ const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 
 const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && file.groups.includes(groupName))
 
-const parseConcepts = parsedProgram => {
-  let measures = parsedProgram.filter(node => node.getWord(0).endsWith("Parser") && !node.getWord(0).startsWith("abstract"))
-  // sort by
-  measures = lodash.sortBy(measures, parser => {
-    const sortIndex = parser.getFrom("int sortIndex")
-    return sortIndex ? parseInt(sortIndex) : 10
+const parseMeasures = parsedProgram => {
+  // todo: inheritance is not working here yet.
+  const measures = parsedProgram
+    .filter(node => node.getWord(0).endsWith("Parser") && !node.getWord(0).startsWith("abstract"))
+    .map(node => {
+      return {
+        Name: node.getWord(0).replace("Parser", ""),
+        Question: node.get("description"),
+        SortIndex: node.getFrom("int sortIndex") ?? 10,
+        Source: node.getFrom("string sourceDomain") // todo: fix inheritance
+        //Definition: parsedProgram.root.file.filename + ":" + node.lineNumber
+      }
+    })
+  measures.unshift({ Name: scrollKeywords.conceptDelimiter, Question: "What is the ID of this concept?", SortIndex: 0, Source: "" })
+  return lodash.sortBy(measures, "SortIndex")
+}
+
+const addMeasureStats = (concepts, measures) => {
+  return measures.map(measure => {
+    let Example
+    let Values = 0
+    let Type
+    let Source
+    concepts.forEach(concept => {
+      const value = concept[measure.Name]
+      if (value === undefined || value === "") return
+      if (Example === undefined) Example = value.toString().replace(/\n/g, " ")
+      Values++
+      if (Type === undefined) Type = typeof value
+    })
+    return {
+      ...measure,
+      Type,
+      Example,
+      Values,
+      Coverage: Math.round((100 * Values) / concepts.length) + "%"
+    }
   })
+}
 
-  const measureNames = [scrollKeywords.conceptDelimiter].concat(measures.map(node => node.getWord(0).replace("Parser", "")))
-
+const parseConcepts = (parsedProgram, measures) => {
+  const measureNames = measures.map(measure => measure.Name)
   return parsedProgram
     .split(scrollKeywords.conceptDelimiter)
     .map((node, index) => {
@@ -162,8 +195,15 @@ class ScrollFile {
   _concepts
   get concepts() {
     if (this._concepts) return this._concepts
-    this._concepts = parseConcepts(this.scrollProgram)
+    this._concepts = parseConcepts(this.scrollProgram, this.measures)
     return this._concepts
+  }
+
+  _measures
+  get measures() {
+    if (this._measures) return this._measures
+    this._measures = parseMeasures(this.scrollProgram)
+    return this._measures
   }
 
   get tables() {
@@ -197,13 +237,21 @@ class ScrollFile {
     ) // End Scroll files in a newline character POSIX style for better working with tools like git
   }
 
-  compileConcepts(format = "csv") {
-    if (format === "json") return JSON.stringify(this.concepts, null, 2)
-    const tree = new TreeNode(this.concepts)
+  _compileArray(format, arr) {
+    if (format === "json") return JSON.stringify(arr, null, 2)
+    const tree = new TreeNode(arr)
     if (format === "csv") return tree.asCsv
     if (format === "tsv") return tree.asTsv
     if (format === "tree") return tree.toString()
     return tree.toString()
+  }
+
+  compileConcepts(format = "csv") {
+    return this._compileArray(format, this.concepts)
+  }
+
+  compileMeasures(format = "csv") {
+    return this._compileArray(format, addMeasureStats(this.concepts, this.measures))
   }
 
   evalVariables(code) {
@@ -651,7 +699,7 @@ import footer.scroll
     })
   }
 
-  _writeConcepts(file, folder, fileSystem) {
+  _writeConceptsAndMeasures(file, folder, fileSystem) {
     // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
     if (!file.has(scrollKeywords.writeConcepts)) return
     const { permalink } = file
@@ -660,7 +708,16 @@ import footer.scroll
 
       const extension = link.split(".").pop()
       fileSystem.write(folder + link, file.compileConcepts(extension))
-      this.log(`💾 Wrote 🔢 in ${file.filename} to ${link}`)
+      this.log(`💾 Wrote concepts in ${file.filename} to ${link}`)
+    })
+
+    if (!file.has(scrollKeywords.writeMeasures)) return
+    file.scrollProgram.findNodes(scrollKeywords.writeMeasures).forEach(node => {
+      const link = node.getWord(1) || permalink.replace(".html", ".tsv")
+
+      const extension = link.split(".").pop()
+      fileSystem.write(folder + link, file.compileMeasures(extension))
+      this.log(`💾 Wrote measures in ${file.filename} to ${link}`)
     })
   }
 
@@ -687,7 +744,7 @@ import footer.scroll
       fileSystem.write(folder + permalink, html)
       this.log(`💾 Wrote ${file.filename} to ${permalink}`)
 
-      this._writeConcepts(file, folder, fileSystem)
+      this._writeConceptsAndMeasures(file, folder, fileSystem)
       this._writeText(file, folder, fileSystem)
 
       const externalFilesCopied = {}

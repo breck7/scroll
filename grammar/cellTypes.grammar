@@ -34,7 +34,7 @@ floatCell
 percentCell
  extends numberCell
  highlightScope constant.numeric.float
- regex \d+%`
+ regex \d+%
 countCell
  extends integerCell
 yearCell

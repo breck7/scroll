@@ -1,6 +1,25 @@
 measureNameCell
  extends keywordCell
 
+writeMeasuresParser
+ cruxFromId
+ catchAllCellType filePathCell
+ description Writes measure statistics to a delimited file and write to disk.
+ extends abstractCommandParser
+
+printMeasuresParser
+ description Print measures statistics in a page into an HTML table.
+ cruxFromId
+ extends abstractCommentParser
+ javascript
+   compile() {
+   // A hacky but simple way to do this for now.
+   const node = this.appendSibling("table \t", this.parent.file.compileMeasures("tsv"))
+   const html = node.compile()
+   node.destroy()
+   return html
+   }
+
 // The main measure parser. All measures should extend from this.
 abstractMeasureParser
  cells measureNameCell
@@ -62,6 +81,10 @@ abstractIntegerMeasureParser
 
 abstractFloatMeasureParser
  cells measureNameCell floatCell
+ extends abstractNumericMeasureParser
+
+abstractPercentageMeasureParser
+ cells measureNameCell percentCell
  extends abstractNumericMeasureParser
 
 // Enum Measures

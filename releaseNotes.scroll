@@ -4,6 +4,10 @@ title Scroll Release Notes
 
 thinColumns
 
+# 84.5.0 5/07/2024
+- 🎉 Added `writeMeasures` and `printMeasures` keywords
+- 🎉 Added `abstractPercentageMeasureParser`
+
 # 84.4.0 5/06/2024
 - 🎉 Added `loadConcepts` keyword for if you had a dataset split into many files in a folder.
 - 🎉 Added `int sortIndex [int]` for sorting the measures(columns) in dataset generation. Lower sort indexes come first.
