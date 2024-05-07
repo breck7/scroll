@@ -86,6 +86,11 @@ abstractFloatMeasureParser
 abstractPercentageMeasureParser
  cells measureNameCell percentCell
  extends abstractNumericMeasureParser
+ javascript
+  get measureValue() {
+    const {content} = this
+    return content === undefined ? "" : parseFloat(content)
+  }
 
 // Enum Measures
 abstractEnumMeasureParser

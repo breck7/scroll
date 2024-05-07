@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 84.5.1 5/07/2024
+- 🏥 better error printing with `scroll test` and fix bug in `percentCell`
+
 # 84.5.0 5/07/2024
 - 🎉 Added `writeMeasures` and `printMeasures` keywords
 - 🎉 Added `abstractPercentageMeasureParser`

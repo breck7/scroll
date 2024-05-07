@@ -32,9 +32,9 @@ floatCell
  extends numberCell
  highlightScope constant.numeric.float
 percentCell
- extends numberCell
  highlightScope constant.numeric.float
- regex \d+%
+ extends stringCell
+ // todo: this currently extends from stringCell b/c jtree needs to be fixed. seems like if extending from number then the hard coded number typescript regex takes precedence over a custom regex
 countCell
  extends integerCell
 yearCell
