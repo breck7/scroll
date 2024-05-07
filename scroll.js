@@ -94,47 +94,56 @@ const parseMeasures = parsedProgram => {
     .map(node => {
       return {
         Name: node.getWord(0).replace("Parser", ""),
+        Values: 0,
+        Coverage: 0,
         Question: node.get("description"),
-        SortIndex: node.getFrom("int sortIndex") ?? 10,
-        Source: node.getFrom("string sourceDomain") // todo: fix inheritance
+        Example: "",
+        Type: "",
+        Source: node.getFrom("string sourceDomain"), // todo: fix inheritance
         //Definition: parsedProgram.root.file.filename + ":" + node.lineNumber
+        SortIndex: node.getFrom("int sortIndex") ?? 10,
+        IsComputed: node.getFrom("boolean isComputed") ?? false
       }
     })
-  measures.unshift({ Name: scrollKeywords.conceptDelimiter, Question: "What is the ID of this concept?", SortIndex: 0, Source: "" })
+  measures.unshift({ Name: scrollKeywords.conceptDelimiter, Values: 0, Coverage: 0, Question: "What is the ID of this concept?", Example: "", Type: "string", Source: "", SortIndex: 0, IsComputed: false })
   return lodash.sortBy(measures, "SortIndex")
 }
 
 const addMeasureStats = (concepts, measures) => {
   return measures.map(measure => {
-    let Example
-    let Values = 0
-    let Type
-    let Source
+    let Type = false
     concepts.forEach(concept => {
       const value = concept[measure.Name]
       if (value === undefined || value === "") return
-      if (Example === undefined) Example = value.toString().replace(/\n/g, " ")
-      Values++
-      if (Type === undefined) Type = typeof value
+      measure.Values++
+
+      if (!Type) {
+        measure.Example = value.toString().replace(/\n/g, " ")
+        measure.Type = typeof value
+        Type = true
+      }
     })
-    return {
-      ...measure,
-      Type,
-      Example,
-      Values,
-      Coverage: Math.round((100 * Values) / concepts.length) + "%"
-    }
+    measure.Coverage = Math.round((100 * measure.Values) / concepts.length) + "%"
+    return measure
   })
 }
 
 const parseConcepts = (parsedProgram, measures) => {
-  const measureNames = measures.map(measure => measure.Name)
   return parsedProgram
     .split(scrollKeywords.conceptDelimiter)
-    .map((node, index) => {
+    .map((concept, index) => {
       if (!index) return false
       const row = {}
-      measureNames.forEach(measureName => (row[measureName] = node.getNode(measureName)?.measureValue ?? ""))
+      measures.forEach(measure => {
+        const measureName = measure.Name
+        if (!measure.IsComputed) row[measureName] = concept.getNode(measureName)?.measureValue ?? ""
+        else {
+          // todo: this is probably way too slow
+          const node = parsedProgram.appendLine(measureName)
+          row[measureName] = node.computeValue(concept)
+          node.destroy()
+        }
+      })
       return row
     })
     .filter(i => i)

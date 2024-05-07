@@ -4,6 +4,10 @@ title Scroll Release Notes
 
 thinColumns
 
+# 84.6.0 5/07/2024
+- 🎉 Added support for computed measures
+- 🎉 better measure statistics printing
+
 # 84.5.1 5/07/2024
 - 🏥 better error printing with `scroll test` and fix bug in `percentCell`
 
