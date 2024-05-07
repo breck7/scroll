@@ -5,6 +5,8 @@ css html {font-size: var(--base-font-size, 16px);}
 
 title 📜 Scroll is a Language for Bloggers
 
+# A curated collection of tools for thoughts
+
 <br>
 thinColumns 2
 
@@ -25,8 +27,6 @@ Yes. Here is a web demo.
 
 ? What is different about Scroll?
 Scroll has an unusually simple syntax, an extensive set of features needed by blogs and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
-
-Scroll is an evolving, carefully curated collection of _tools for thoughts_.
 
 ? How do I install Scroll?
 Scroll is an npm package. Install with:

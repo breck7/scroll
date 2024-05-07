@@ -48,7 +48,7 @@ abstractCommandParser
 
 scrollParser
  extensions scroll
- description A language for bloggers. Tools for thoughts.
+ description A language for bloggers. A curated collection of tools for thoughts.
  root
  inScope abstractScrollParser blankLineParser
  catchAllParser catchAllParagraphParser
