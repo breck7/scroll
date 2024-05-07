@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 84.8.0 5/07/2024
+- 🎉 `tableSearch` now takes a parameter from the url `#q=[search]`. Updating the searching box also updates url.
+
 # 84.7.0 5/07/2024
 - 🎉 Added `printSearchTable` keyword
 
