@@ -128,6 +128,14 @@ const addMeasureStats = (concepts, measures) => {
   })
 }
 
+const computeMeasure = (parsedProgram, measureName, concept) => {
+  // todo: this is probably way too slow
+  const node = parsedProgram.appendLine(measureName)
+  const value = node.computeValue(concept)
+  node.destroy()
+  return value
+}
+
 const parseConcepts = (parsedProgram, measures) => {
   return parsedProgram
     .split(scrollKeywords.conceptDelimiter)
@@ -137,16 +145,32 @@ const parseConcepts = (parsedProgram, measures) => {
       measures.forEach(measure => {
         const measureName = measure.Name
         if (!measure.IsComputed) row[measureName] = concept.getNode(measureName)?.measureValue ?? ""
-        else {
-          // todo: this is probably way too slow
-          const node = parsedProgram.appendLine(measureName)
-          row[measureName] = node.computeValue(concept)
-          node.destroy()
-        }
+        else row[measureName] = computeMeasure(parsedProgram, measureName, concept)
       })
       return row
     })
     .filter(i => i)
+}
+
+const arrayToCSV = (data, delimiter = ",") => {
+  if (!data.length) return ""
+
+  // Extract headers
+  const headers = Object.keys(data[0])
+  const csv = data.map(row =>
+    headers
+      .map(fieldName => {
+        const fieldValue = row[fieldName]
+        // Escape commas if the value is a string
+        if (typeof fieldValue === "string" && fieldValue.includes(delimiter)) {
+          return `"${fieldValue.replace(/"/g, '""')}"` // Escape double quotes and wrap in double quotes
+        }
+        return fieldValue
+      })
+      .join(delimiter)
+  )
+  csv.unshift(headers.join(delimiter)) // Add header row at the top
+  return csv.join("\n")
 }
 
 class ScrollFile {
@@ -253,9 +277,8 @@ class ScrollFile {
 
   _compileArray(format, arr) {
     if (format === "json") return JSON.stringify(arr, null, 2)
-    const tree = new TreeNode(arr)
-    if (format === "csv") return tree.asCsv
-    if (format === "tsv") return tree.asTsv
+    if (format === "csv") return arrayToCSV(arr)
+    if (format === "tsv") return arrayToCSV(arr, "\t")
     if (format === "tree") return tree.toString()
     return tree.toString()
   }

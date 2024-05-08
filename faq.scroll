@@ -331,6 +331,9 @@ code
  # you may need to update the path below so it points to your scroll code
  node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile ~/scroll/scroll.js build
  # Now ➡️ open a new Chrome tab ➡️ open devtools ➡️ click Performance ➡️ click "Load Profile..." ➡️ select your scrollNodePerf.cpuprofile
+ # For profiling memory, use this line:
+ node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile --heap-prof --heap-prof-name=scrollNodeMem.heapprofile ~/scroll/scroll.js build
+ # Now ➡️ open a new Chrome tab ➡️ open devtools ➡️ click Memory ➡️ click "Load Profile..." ➡️ select your scrollNodeMem.heapprofile
 
 ? How is a keyword different than a web components?
 Scroll and Web Components are similar in that both empower users to define their own reusable components. But Scroll is higher level than web components. For example, in addition to easily targeting HTML and web components, Scroll also plays really nicely with version control and 2D editors. Scroll encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
