@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 84.10.0 5/08/2024
+- 🎉 faster html generation when `keyboardNav` was in use. First implementation was accidentally quadratic.
+
 # 84.9.0 5/08/2024
 - 🎉 faster concepts and measures compilation
 
