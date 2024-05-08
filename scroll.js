@@ -392,6 +392,9 @@ class ScrollFile {
   }
 
   get linkToPrevious() {
+    if (!this.hasKeyboardNav)
+      // Dont provide link to next unless keyboard nav is on
+      return undefined
     let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).previous
     while (!this.isInKeyboardNavGroup(file)) {
       file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).previous
@@ -400,6 +403,9 @@ class ScrollFile {
   }
 
   get linkToNext() {
+    if (!this.hasKeyboardNav)
+      // Dont provide link to next unless keyboard nav is on
+      return undefined
     let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).next
     while (!this.isInKeyboardNavGroup(file)) {
       file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).next

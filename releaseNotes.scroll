@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 84.10.1 5/08/2024
+- 🏥 fix hanging test (infinite loop regression) during build when you have just 1 file.
+
 # 84.10.0 5/08/2024
 - 🎉 faster html generation when `keyboardNav` was in use. First implementation was accidentally quadratic.
 
