@@ -196,11 +196,11 @@ class ScrollFile {
     let afterImportPass = originalScrollCode
     let parser = DefaultScrollParser
     if (absoluteFilePath) {
-      const postImport = fileSystem.evaluateImports(absoluteFilePath, defaultScrollParser.grammarCode)
+      const assembledFile = fileSystem.assembleFile(absoluteFilePath, defaultScrollParser.grammarCode)
       // Do not build a file marked 'importOnly'
-      this.shouldBuild = !postImport.originalFileAsTree.has(scrollKeywords.importOnly)
-      afterImportPass = postImport.afterImportPass
-      if (postImport.parser) parser = postImport.parser
+      this.shouldBuild = !assembledFile.originalFileAsTree.has(scrollKeywords.importOnly)
+      afterImportPass = assembledFile.afterImportPass
+      if (assembledFile.parser) parser = assembledFile.parser
     }
 
     // PASS 3: READ AND REPLACE VARIABLES. PARSE AND REMOVE VARIABLE DEFINITIONS THEN REPLACE REFERENCES.
