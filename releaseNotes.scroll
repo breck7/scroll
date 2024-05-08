@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 84.9.0 5/08/2024
+- 🎉 faster concepts and measures compilation
+
 # 84.8.1 5/07/2024
 - 🏥 `printSearchTable` now generates correct links when searching across multiple folders
 

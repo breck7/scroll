@@ -128,12 +128,17 @@ const addMeasureStats = (concepts, measures) => {
   })
 }
 
+// note that this is currently global, assuming there wont be
+// name conflicts in computed measures in a single scroll
+const measureFnCache = {}
 const computeMeasure = (parsedProgram, measureName, concept) => {
-  // todo: this is probably way too slow
-  const node = parsedProgram.appendLine(measureName)
-  const value = node.computeValue(concept)
-  node.destroy()
-  return value
+  if (!measureFnCache[measureName]) {
+    // a bit hacky but works??
+    const node = parsedProgram.appendLine(measureName)
+    measureFnCache[measureName] = node.computeValue
+    node.destroy()
+  }
+  return measureFnCache[measureName](concept)
 }
 
 const parseConcepts = (parsedProgram, measures) => {
