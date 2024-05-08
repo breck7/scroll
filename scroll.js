@@ -76,7 +76,9 @@ class ScrollFileSystem extends TreeFileSystem {
       .filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
       .map(filePath => this.getScrollFile(filePath))
 
-    this.folderCache[folderPath] = lodash.sortBy(files, file => file.timestamp).reverse()
+    const sorted = lodash.sortBy(files, file => file.timestamp).reverse()
+    sorted.forEach((file, index) => (file.timeIndex = index))
+    this.folderCache[folderPath] = sorted
     return this.folderCache[folderPath]
   }
 }
@@ -373,30 +375,36 @@ class ScrollFile {
     return this.scrollProgram.has(scrollKeywords.keyboardNav)
   }
 
-  get keyboardNavGroup() {
-    return this.hasKeyboardNav ? this.primaryGroup.filter(file => file.shouldBuild && file.hasKeyboardNav) : undefined
-  }
+  timeIndex = 0
 
-  nextAndPrevious(arr, item) {
-    const current = arr.indexOf(item)
-    const nextIndex = current + 1
-    const previousIndex = current - 1
+  _nextAndPrevious(arr, index) {
+    const nextIndex = index + 1
+    const previousIndex = index - 1
     return {
       previous: arr[previousIndex] ?? arr[arr.length - 1],
       next: arr[nextIndex] ?? arr[0]
     }
   }
 
+  // keyboard nav is always in the same folder. does not currently support cross folder
+  isInKeyboardNavGroup(file) {
+    return file.shouldBuild && file.hasKeyboardNav && file.groups.includes(this.primaryGroupName)
+  }
+
   get linkToPrevious() {
-    const { keyboardNavGroup } = this
-    if (!keyboardNavGroup) return undefined
-    return this.nextAndPrevious(keyboardNavGroup, this).previous.permalink
+    let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).previous
+    while (!this.isInKeyboardNavGroup(file)) {
+      file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).previous
+    }
+    return file.permalink
   }
 
   get linkToNext() {
-    const { keyboardNavGroup } = this
-    if (!keyboardNavGroup) return undefined
-    return this.nextAndPrevious(keyboardNavGroup, this).next.permalink
+    let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).next
+    while (!this.isInKeyboardNavGroup(file)) {
+      file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).next
+    }
+    return file.permalink
   }
 
   get canonicalLink() {
@@ -462,8 +470,12 @@ class ScrollFile {
     return this.scrollProgram.get(scrollKeywords.groups) || ""
   }
 
+  get primaryGroupName() {
+    return this.groups.split(" ")[0]
+  }
+
   get primaryGroup() {
-    return getGroup(this.groups.split(" ")[0], this.allScrollFiles)
+    return getGroup(this.primaryGroupName, this.allScrollFiles)
   }
 
   getFilesInGroupsForEmbedding(groupNames) {
