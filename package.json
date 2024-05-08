@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "84.10.1",
+  "version": "85.0.0",
   "description": "A language for bloggers. A curated collection of tools for thoughts.",
   "main": "scroll.js",
   "engines": {
@@ -45,7 +45,7 @@
   "dependencies": {
     "dayjs": "^1.11.7",
     "image-size": "^1.0.2",
-    "jtree": "^76.2.0",
+    "jtree": "^77.0.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5"
   },

@@ -26,20 +26,12 @@ replaceJsParser
   replaceJs SUM 1+1
   * 1+1 = SUM
 
-nodejsParser
+replaceNodejsParser
  description Write nodejs code inside a Scroll file. Sort of like PHP.
  extends abstractVariableParser
  catchAllCellType javascriptCell
  baseParser blobParser
  example
-  nodejs
+  replaceNodejs
    module.exports = {SCORE : 1 + 2}
   * The score is SCORE
-
-replaceDefaultParser
- // todo: remove this?
- description Define the default value for a replacement. Useful if you want to import a file and set a replacement later.
- extends abstractVariableParser
- baseParser blobParser
- example
-  replaceDefault YEAR 2021

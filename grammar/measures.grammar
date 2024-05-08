@@ -27,6 +27,9 @@ abstractMeasureParser
  boolean isMeasure true
  string typeForCsvDocs unspecified
  extends abstractScrollParser
+ // By default, nested content won't be parsed.
+ // todo: add support for nested measures
+ baseParser blobParser
  javascript
   compileEmbeddedVersion() {
    return ""

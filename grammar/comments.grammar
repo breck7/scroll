@@ -6,6 +6,7 @@ abstractCommentParser
  catchAllCellType commentCell
  cells commentCell
  extends abstractScrollParser
+ baseParser blobParser
  javascript
   compile() {
    return ``

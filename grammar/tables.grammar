@@ -182,9 +182,7 @@ printTableParser
 
 tabularDataParser
  description Root lines with tabs are parsed as tsv data and printed as tables.
- cells anyCell
  pattern \t
- catchAllCellType anyCell
  extends abstractCommentParser
  javascript
   compileTextVersion() {

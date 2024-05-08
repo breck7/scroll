@@ -4,6 +4,11 @@ title Scroll Release Notes
 
 thinColumns
 
+# 85.0.0 5/08/2024
+- 🎉 upgraded jtree to get ability for faster compilations
+- ⚠️ BREAKING: removed `replaceDefault` keyword. No one should be affected.
+- ⚠️ BREAKING: renamed `nodejs` keyword to `replaceNodejs. Few should be affected.
+
 # 84.10.1 5/08/2024
 - 🏥 fix hanging test (infinite loop regression) during build when you have just 1 file.
 

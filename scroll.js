@@ -33,8 +33,7 @@ const scrollKeywords = {
   keyboardNav: "keyboardNav",
   replace: "replace",
   replaceJs: "replaceJs",
-  nodejs: "nodejs",
-  replaceDefault: "replaceDefault",
+  replaceNodejs: "replaceNodejs",
   writeConcepts: "writeConcepts",
   writeMeasures: "writeMeasures",
   writeText: "writeText",
@@ -90,21 +89,22 @@ const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && file.groups.includes(groupName))
 
 const parseMeasures = parsedProgram => {
-  // todo: inheritance is not working here yet.
-  const measures = parsedProgram
-    .filter(node => node.getWord(0).endsWith("Parser") && !node.getWord(0).startsWith("abstract"))
+  // Generate a fake program with one of every of the available keywords. Then parse it. Then we can easily access the meta data on the parsers
+  const dummyProgram = new parsedProgram.constructor(parsedProgram.definition.map(node => node.getLine().replace("Parser", "")).join("\n"))
+  const measures = dummyProgram
+    .filter(node => node.isMeasure)
     .map(node => {
       return {
-        Name: node.getWord(0).replace("Parser", ""),
+        Name: node.getWord(0),
         Values: 0,
         Coverage: 0,
-        Question: node.get("description"),
+        Question: node.definition.get("description"),
         Example: "",
         Type: "",
-        Source: node.getFrom("string sourceDomain"), // todo: fix inheritance
+        Source: node.sourceDomain,
         //Definition: parsedProgram.root.file.filename + ":" + node.lineNumber
-        SortIndex: node.getFrom("int sortIndex") ?? 10,
-        IsComputed: node.getFrom("boolean isComputed") ?? false
+        SortIndex: node.sortIndex ?? 10,
+        IsComputed: node.isComputed ?? false
       }
     })
   measures.unshift({ Name: scrollKeywords.conceptDelimiter, Values: 0, Coverage: 0, Question: "What is the ID of this concept?", Example: "", Type: "string", Source: "", SortIndex: 0, IsComputed: false })
@@ -198,13 +198,13 @@ class ScrollFile {
     if (absoluteFilePath) {
       const assembledFile = fileSystem.assembleFile(absoluteFilePath, defaultScrollParser.grammarCode)
       // Do not build a file marked 'importOnly'
-      this.shouldBuild = !assembledFile.originalFileAsTree.has(scrollKeywords.importOnly)
+      this.shouldBuild = !assembledFile.isImportOnly
       afterImportPass = assembledFile.afterImportPass
       if (assembledFile.parser) parser = assembledFile.parser
     }
 
     // PASS 3: READ AND REPLACE VARIABLES. PARSE AND REMOVE VARIABLE DEFINITIONS THEN REPLACE REFERENCES.
-    const afterVariablePass = this.evalVariables(afterImportPass)
+    const afterVariablePass = this.evalVariables(afterImportPass, originalScrollCode)
 
     // PASS 4: READ WITH STD COMPILER OR CUSTOM COMPILER.
     this.afterVariablePass = afterVariablePass
@@ -298,22 +298,24 @@ class ScrollFile {
     return this._compileArray(format, addMeasureStats(this.concepts, this.measures))
   }
 
-  evalVariables(code) {
-    const codeAsTree = new TreeNode(code)
+  evalVariables(code, originalScrollCode) {
+    const regex = /^replace/gm
+    if (!regex.test(code)) return code
+    const tree = new TreeNode(code) // todo: this can be faster. a more lightweight tree class?
     // Process variables
     const varMap = {}
-    codeAsTree
+    tree
       .filter(node => {
         const keyword = node.firstWord
-        return keyword === scrollKeywords.replace || keyword === scrollKeywords.replaceDefault || keyword === scrollKeywords.replaceJs || keyword === scrollKeywords.nodejs
+        return keyword === scrollKeywords.replace || keyword === scrollKeywords.replaceJs || keyword === scrollKeywords.replaceNodejs
       })
       .forEach(node => {
         let value = node.length ? node.childrenToString() : node.getWordsFrom(2).join(" ")
         const kind = node.firstWord
         if (kind === scrollKeywords.replaceJs) value = eval(value)
-        if (kind === scrollKeywords.nodejs) {
+        if (kind === scrollKeywords.replaceNodejs) {
           const tempPath = this.filePath + ".js"
-          if (Disk.exists(tempPath)) throw new Error(`Failed to write/require nodejs snippet since '${tempPath}' already exists.`)
+          if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)
           try {
             Disk.write(tempPath, value)
             const results = require(tempPath)
@@ -330,7 +332,7 @@ class ScrollFile {
     const keys = Object.keys(varMap)
     if (!keys.length) return code
 
-    let codeAfterVariableSubstitution = codeAsTree.asString
+    let codeAfterVariableSubstitution = tree.asString
     // Todo: speed up. build a template?
     Object.keys(varMap).forEach(key => (codeAfterVariableSubstitution = codeAfterVariableSubstitution.replace(new RegExp(key, "g"), varMap[key])))
 
