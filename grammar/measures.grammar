@@ -25,11 +25,10 @@ abstractMeasureParser
  cells measureNameCell
  cruxFromId
  boolean isMeasure true
+ int sortIndex 1000
+ boolean isComputed false
  string typeForCsvDocs unspecified
  extends abstractScrollParser
- // By default, nested content won't be parsed.
- // todo: add support for nested measures
- baseParser blobParser
  javascript
   compileEmbeddedVersion() {
    return ""

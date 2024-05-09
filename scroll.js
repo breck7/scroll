@@ -90,23 +90,34 @@ const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && 
 
 const parseMeasures = parsedProgram => {
   // Generate a fake program with one of every of the available keywords. Then parse it. Then we can easily access the meta data on the parsers
-  const dummyProgram = new parsedProgram.constructor(parsedProgram.definition.map(node => node.getLine().replace("Parser", "")).join("\n"))
-  const measures = dummyProgram
-    .filter(node => node.isMeasure)
-    .map(node => {
-      return {
-        Name: node.getWord(0),
-        Values: 0,
-        Coverage: 0,
-        Question: node.definition.get("description"),
-        Example: "",
-        Type: "",
-        Source: node.sourceDomain,
-        //Definition: parsedProgram.root.file.filename + ":" + node.lineNumber
-        SortIndex: node.sortIndex ?? 10,
-        IsComputed: node.isComputed ?? false
-      }
-    })
+  const dummyProgram = new parsedProgram.constructor(
+    parsedProgram.definition
+      .map(node => {
+        return node.getLine().replace("Parser", "")
+      })
+      .join("\n")
+  )
+  dummyProgram.filter(node => !node.isMeasure).forEach(node => node.destroy())
+
+  dummyProgram.forEach(node => {
+    // add nested measures
+    Object.keys(node.definition.firstWordMapWithDefinitions).forEach(key => node.appendLine(key))
+  })
+
+  const measures = dummyProgram.topDownArray.map(node => {
+    return {
+      Name: node.measureName,
+      Values: 0,
+      Coverage: 0,
+      Question: node.definition.description,
+      Example: "",
+      Type: "",
+      Source: node.sourceDomain,
+      //Definition: parsedProgram.root.file.filename + ":" + node.lineNumber
+      SortIndex: node.sortIndex,
+      IsComputed: node.isComputed
+    }
+  })
   measures.unshift({ Name: scrollKeywords.conceptDelimiter, Values: 0, Coverage: 0, Question: "What is the ID of this concept?", Example: "", Type: "string", Source: "", SortIndex: 0, IsComputed: false })
   return lodash.sortBy(measures, "SortIndex")
 }
@@ -140,7 +151,7 @@ const computeMeasure = (parsedProgram, measureName, concept) => {
     measureFnCache[measureName] = node.computeValue
     node.destroy()
   }
-  return measureFnCache[measureName](concept)
+  return measureFnCache[measureName](concept, measureName, parsedProgram)
 }
 
 const parseConcepts = (parsedProgram, measures) => {
@@ -151,7 +162,7 @@ const parseConcepts = (parsedProgram, measures) => {
       const row = {}
       measures.forEach(measure => {
         const measureName = measure.Name
-        if (!measure.IsComputed) row[measureName] = concept.getNode(measureName)?.measureValue ?? ""
+        if (!measure.IsComputed) row[measureName] = concept.getNode(measureName.replace(/_/g, " "))?.measureValue ?? ""
         else row[measureName] = computeMeasure(parsedProgram, measureName, concept)
       })
       return row

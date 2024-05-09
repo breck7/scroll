@@ -118,11 +118,11 @@ This is a simple pattern to implement, so I'm sure it is likely it has been done
 
 ? What are the advanced features?
 - Types correctly exported in JSON
-- Supports nested measures^roadmap
+- Supports nested measures
+- Support for computed measures
 - Autojoins across files on ids^roadmap
 - Auto generates normalized tables for array measures^roadmap
 - Support for text blobs^roadmap
-- Support for computed measures^roadmap
 ^roadmap Planned.
  label +
 
