@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 85.3.0 5/10/2024
+- 🎉 Scroll now only wraps compiler output with html tags if permalink ends in "html" or "htm". Makes it easier to use Scroll to compile files to different language targets.
+
 # 85.2.1 5/10/2024
 - 🏥 fixed bug where `id` measure was appearing twice
 

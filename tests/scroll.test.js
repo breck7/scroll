@@ -159,10 +159,11 @@ testTree.aBlankPage = areEqual => {
   // Arrange
   const page = new ScrollFile(``)
   // Act/Assert
-  areEqual(page.html, `<!DOCTYPE html><html lang="en"></html>`)
+  areEqual(page.html, ``)
 
   // Arrange
-  const withTitle = new ScrollFile(`title Hello world
+  const withTitle = new ScrollFile(`permalink blank.html
+title Hello world
  hidden`)
   // Act/Assert
   areEqual(withTitle.html, `<!DOCTYPE html><html lang="en"></html>`)
