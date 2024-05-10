@@ -292,8 +292,11 @@ class ScrollFile {
     ) // End Scroll files in a newline character POSIX style for better working with tools like git
   }
 
-  _compileArray(format, arr) {
+  _compileArray(filename, arr) {
+    const parts = filename.split(".")
+    const format = parts.pop()
     if (format === "json") return JSON.stringify(arr, null, 2)
+    if (format === "js") return `const ${parts[0]} = ` + JSON.stringify(arr, null, 2)
     if (format === "csv") return arrayToCSV(arr)
     if (format === "tsv") return arrayToCSV(arr, "\t")
     if (format === "tree") return tree.toString()
@@ -306,17 +309,17 @@ class ScrollFile {
     return [part1.map(col => col.replace(/^\-/, "")), part2]
   }
 
-  compileConcepts(format = "csv", sortBy = "") {
-    if (!sortBy) return this._compileArray(format, this.concepts)
+  compileConcepts(filename = "csv", sortBy = "") {
+    if (!sortBy) return this._compileArray(filename, this.concepts)
     const orderBy = this.makeOrderByArr(sortBy)
-    return this._compileArray(format, lodash.orderBy(this.concepts, orderBy[0], orderBy[1]))
+    return this._compileArray(filename, lodash.orderBy(this.concepts, orderBy[0], orderBy[1]))
   }
 
-  compileMeasures(format = "csv", sortBy = "") {
+  compileMeasures(filename = "csv", sortBy = "") {
     const withStats = addMeasureStats(this.concepts, this.measures)
-    if (!sortBy) return this._compileArray(format, withStats)
+    if (!sortBy) return this._compileArray(filename, withStats)
     const orderBy = this.makeOrderByArr(sortBy)
-    return this._compileArray(format, lodash.orderBy(withStats, orderBy[0], orderBy[1]))
+    return this._compileArray(filename, lodash.orderBy(withStats, orderBy[0], orderBy[1]))
   }
 
   evalVariables(code, originalScrollCode, absolutePath) {
@@ -791,8 +794,7 @@ import footer.scroll
       if (!files.length) files.push(permalink.replace(".html", ".tsv"))
       const sortBy = node.get("sortBy")
       files.forEach(link => {
-        const extension = link.split(".").pop()
-        fileSystem.write(folder + link, file.compileConcepts(extension, sortBy))
+        fileSystem.write(folder + link, file.compileConcepts(link, sortBy))
         this.log(`💾 Wrote concepts in ${file.filename} to ${link}`)
       })
     })
@@ -803,8 +805,7 @@ import footer.scroll
       if (!files.length) files.push(permalink.replace(".html", ".tsv"))
       const sortBy = node.get("sortBy")
       files.forEach(link => {
-        const extension = link.split(".").pop()
-        fileSystem.write(folder + link, file.compileMeasures(extension, sortBy))
+        fileSystem.write(folder + link, file.compileMeasures(link, sortBy))
         this.log(`💾 Wrote measures in ${file.filename} to ${link}`)
       })
     })
