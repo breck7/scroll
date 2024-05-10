@@ -214,7 +214,7 @@ class ScrollFile {
     }
 
     // PASS 3: READ AND REPLACE VARIABLES. PARSE AND REMOVE VARIABLE DEFINITIONS THEN REPLACE REFERENCES.
-    const afterVariablePass = this.evalVariables(afterImportPass, originalScrollCode)
+    const afterVariablePass = this.evalVariables(afterImportPass, originalScrollCode, this.filePath)
 
     // PASS 4: READ WITH STD COMPILER OR CUSTOM COMPILER.
     this.afterVariablePass = afterVariablePass
@@ -319,7 +319,7 @@ class ScrollFile {
     return this._compileArray(format, lodash.orderBy(withStats, orderBy[0], orderBy[1]))
   }
 
-  evalVariables(code, originalScrollCode) {
+  evalVariables(code, originalScrollCode, absolutePath) {
     const regex = /^replace/gm
     if (!regex.test(code)) return code
     const tree = new TreeNode(code) // todo: this can be faster. a more lightweight tree class?
