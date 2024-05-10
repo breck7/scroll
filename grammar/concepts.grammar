@@ -10,7 +10,7 @@ loadConceptsParser
    const path = require("path")
    const {file} = this.parent
    const folder = path.join(file.folderPath, this.getWord(1))
-   const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(fullPath => Disk.read(fullPath)).join("\n\n").replace(/import .+/g, "")
+   const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(fullPath => Disk.read(fullPath) + `\nfilename ${path.basename(fullPath)}\n`).join("\n\n").replace(/import .+/g, "")
     this.parent.concat(ONE_BIG_FILE)
    //console.log(ONE_BIG_FILE)
    return ""

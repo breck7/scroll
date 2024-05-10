@@ -67,6 +67,17 @@ idParser
  extends abstractStringMeasureParser
  int sortIndex 0
 
+filenameParser
+ // Added by the loadConcepts keyword
+ description What is the name of the file holding this concept?
+ extends abstractStringMeasureParser
+ boolean isComputed true
+ int sortIndex 1
+ javascript
+  computeValue(concept, measureName, parsedProgram) {
+    return concept.get("filename") || parsedProgram.file.filename
+  }
+
 // Numeric Measures
 abstractNumericMeasureParser
  string typeForCsvDocs number
