@@ -40,7 +40,7 @@ abstractMeasureParser
     return this.content ?? ""
   }
   get measureName() {
-    return this.definition.cruxPathAsColumnName
+    return this.getFirstWordPath().replace(/ /g, "_")
   }
 
 // String Measures
