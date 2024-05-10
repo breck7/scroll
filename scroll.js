@@ -300,15 +300,23 @@ class ScrollFile {
     return tree.toString()
   }
 
+  makeOrderByArr(str) {
+    const part1 = str.split(" ")
+    const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
+    return [part1.map(col => col.replace(/^\-/, "")), part2]
+  }
+
   compileConcepts(format = "csv", sortBy = "") {
     if (!sortBy) return this._compileArray(format, this.concepts)
-    return this._compileArray(format, lodash.sortBy(this.concepts, sortBy))
+    const orderBy = this.makeOrderByArr(sortBy)
+    return this._compileArray(format, lodash.orderBy(this.concepts, orderBy[0], orderBy[1]))
   }
 
   compileMeasures(format = "csv", sortBy = "") {
     const withStats = addMeasureStats(this.concepts, this.measures)
     if (!sortBy) return this._compileArray(format, withStats)
-    return this._compileArray(format, lodash.sortBy(withStats, sortBy))
+    const orderBy = this.makeOrderByArr(sortBy)
+    return this._compileArray(format, lodash.orderBy(withStats, orderBy[0], orderBy[1]))
   }
 
   evalVariables(code, originalScrollCode) {

@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 85.6.0 5/10/2024
+- 🎉 `sortBy` can now sort on multiple columns and handle asc/desc
+
 # 85.5.0 5/10/2024
 - 🎉 `writeConcepts` and `writeMeasures` can now take multiple filenames in one line and also include a `sortBy` condition.
 
