@@ -63,8 +63,10 @@ abstractUrlMeasureParser
 
 // Required ID measure which denotes a concept
 idParser
- description Each concept is required to have an id.
+ description What is the ID of this concept?
  extends abstractStringMeasureParser
+ int sortIndex 0
+ type string
 
 // Numeric Measures
 abstractNumericMeasureParser

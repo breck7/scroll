@@ -118,7 +118,6 @@ const parseMeasures = parsedProgram => {
       IsComputed: node.isComputed
     }
   })
-  measures.unshift({ Name: scrollKeywords.conceptDelimiter, Values: 0, Coverage: 0, Question: "What is the ID of this concept?", Example: "", Type: "string", Source: "", SortIndex: 0, IsComputed: false })
   return lodash.sortBy(measures, "SortIndex")
 }
 

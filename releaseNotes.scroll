@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 85.2.1 5/10/2024
+- 🏥 fixed bug where `id` measure was appearing twice
+
 # 85.2.0 5/10/2024
 - 🏥 fixed bug with nested measure names.
 - 🎉 some slight enhancements to computed measures
