@@ -144,26 +144,26 @@ const addMeasureStats = (concepts, measures) => {
 // note that this is currently global, assuming there wont be
 // name conflicts in computed measures in a single scroll
 const measureFnCache = {}
-const computeMeasure = (parsedProgram, measureName, concept) => {
+const computeMeasure = (parsedProgram, measureName, concept, concepts) => {
   if (!measureFnCache[measureName]) {
     // a bit hacky but works??
     const node = parsedProgram.appendLine(measureName)
     measureFnCache[measureName] = node.computeValue
     node.destroy()
   }
-  return measureFnCache[measureName](concept, measureName, parsedProgram)
+  return measureFnCache[measureName](concept, measureName, parsedProgram, concepts)
 }
 
 const parseConcepts = (parsedProgram, measures) => {
-  return parsedProgram
-    .split(scrollKeywords.conceptDelimiter)
+  const concepts = parsedProgram.split(scrollKeywords.conceptDelimiter)
+  return concepts
     .map((concept, index) => {
       if (!index) return false
       const row = {}
       measures.forEach(measure => {
         const measureName = measure.Name
         if (!measure.IsComputed) row[measureName] = concept.getNode(measureName.replace(/_/g, " "))?.measureValue ?? ""
-        else row[measureName] = computeMeasure(parsedProgram, measureName, concept)
+        else row[measureName] = computeMeasure(parsedProgram, measureName, concept, concepts)
       })
       return row
     })

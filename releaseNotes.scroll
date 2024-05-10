@@ -4,6 +4,10 @@ title Scroll Release Notes
 
 thinColumns
 
+# 85.2.0 5/10/2024
+- 🏥 fixed bug with nested measure names.
+- 🎉 some slight enhancements to computed measures
+
 # 85.1.0 5/09/2024
 - 🎉 added support for nested measures. The underscore "_" character is used for column names for nested measures for the broadest compatibility with other data science tools
 

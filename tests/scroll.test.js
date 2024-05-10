@@ -194,7 +194,6 @@ permalink posts.csv`)
   // Act/Assert
   const { html } = page
   areEqual(html.startsWith("date,title,permalink,"), true)
-  console.log(html)
 }
 
 testTree.initCommand = async areEqual => {
