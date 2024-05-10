@@ -1,8 +1,8 @@
 date 4/21/2024
 groups All
-writeConcepts planets.csv
-writeConcepts planets.json
-writeConcepts planets.tsv
+writeConcepts planets.csv planets.json planets.tsv
+writeMeasures planetMeasures.tsv
+ sortBy -Values
 
 import header.scroll
 keyboardNav

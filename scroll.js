@@ -300,12 +300,15 @@ class ScrollFile {
     return tree.toString()
   }
 
-  compileConcepts(format = "csv") {
-    return this._compileArray(format, this.concepts)
+  compileConcepts(format = "csv", sortBy = "") {
+    if (!sortBy) return this._compileArray(format, this.concepts)
+    return this._compileArray(format, lodash.sortBy(this.concepts, sortBy))
   }
 
-  compileMeasures(format = "csv") {
-    return this._compileArray(format, addMeasureStats(this.concepts, this.measures))
+  compileMeasures(format = "csv", sortBy = "") {
+    const withStats = addMeasureStats(this.concepts, this.measures)
+    if (!sortBy) return this._compileArray(format, withStats)
+    return this._compileArray(format, lodash.sortBy(withStats, sortBy))
   }
 
   evalVariables(code, originalScrollCode) {
@@ -776,20 +779,26 @@ import footer.scroll
     if (!file.has(scrollKeywords.writeConcepts)) return
     const { permalink } = file
     file.scrollProgram.findNodes(scrollKeywords.writeConcepts).forEach(node => {
-      const link = node.getWord(1) || permalink.replace(".html", ".tsv")
-
-      const extension = link.split(".").pop()
-      fileSystem.write(folder + link, file.compileConcepts(extension))
-      this.log(`💾 Wrote concepts in ${file.filename} to ${link}`)
+      const files = node.getWordsFrom(1)
+      if (!files.length) files.push(permalink.replace(".html", ".tsv"))
+      const sortBy = node.get("sortBy")
+      files.forEach(link => {
+        const extension = link.split(".").pop()
+        fileSystem.write(folder + link, file.compileConcepts(extension, sortBy))
+        this.log(`💾 Wrote concepts in ${file.filename} to ${link}`)
+      })
     })
 
     if (!file.has(scrollKeywords.writeMeasures)) return
     file.scrollProgram.findNodes(scrollKeywords.writeMeasures).forEach(node => {
-      const link = node.getWord(1) || permalink.replace(".html", ".tsv")
-
-      const extension = link.split(".").pop()
-      fileSystem.write(folder + link, file.compileMeasures(extension))
-      this.log(`💾 Wrote measures in ${file.filename} to ${link}`)
+      const files = node.getWordsFrom(1)
+      if (!files.length) files.push(permalink.replace(".html", ".tsv"))
+      const sortBy = node.get("sortBy")
+      files.forEach(link => {
+        const extension = link.split(".").pop()
+        fileSystem.write(folder + link, file.compileMeasures(extension, sortBy))
+        this.log(`💾 Wrote measures in ${file.filename} to ${link}`)
+      })
     })
   }
 

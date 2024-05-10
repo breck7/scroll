@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 85.5.0 5/10/2024
+- 🎉 `writeConcepts` and `writeMeasures` can now take multiple filenames in one line and also include a `sortBy` condition.
+
 # 85.4.0 5/10/2024
 - 🎉 Scroll now auto-adds a "filename" measure as to which file the concept appears in.
 
