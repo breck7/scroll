@@ -4,6 +4,11 @@ title Scroll Release Notes
 
 thinColumns
 
+# 86.0.0 5/12/2024
+- 🎉 added a v1 version of a markdown style of doing quotes `>` (with aftertext support)!
+- 🎨 made the View Source links have same style as other Scroll chrome, and removed those links in short snippet renders (never get needed there--only on the actual page)
+- ⚠️ BREAKING: if you have any lines starting with `> `, those will now be parsed by the quickQuoteParser
+
 # 85.9.0 5/12/2024
 - 🎉 added `minutes` to read (assuming 200 words/minute) to `printSearch` and `printCsv` exports
 - 🎉 you can now pass groups to `sitemap` for making sitemaps specific to certain folders/groups

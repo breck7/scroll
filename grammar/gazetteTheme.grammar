@@ -160,13 +160,12 @@ gazetteCssParser
   comment Subtle "Article Source" link
   .scrollViewSource
    text-align center
-   font-size .8rem
-   margin 0
-   margin-top .4rem
-   line-height 1.4rem
-   margin-bottom 1rem
+   font-family Verdana
+   font-weight 100
    a
-    color #000
+    color rgba(204,204,204,.5)
+    &:hover
+     color #333
   
   .scrollContinueReadingLink
    display block

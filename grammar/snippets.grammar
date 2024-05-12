@@ -30,7 +30,7 @@ snippetsParser
         .join(joinChar)
         .trim() +
       `<a class="scrollContinueReadingLink" href="${linkRelativeToCompileTarget}">Continue reading...</a>`
-    return html + file.viewSourceHtml
+    return html
   }
   compile() {
    const file = this.parent.file
