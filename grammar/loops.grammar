@@ -1,3 +1,14 @@
+abstractPostLoopParser
+ description Do something with all posts. Takes an optional list of folder/group names.
+ extends abstractScrollParser
+ cruxFromId
+ cells keywordCell
+ catchAllCellType groupNameWithOptionalFolderCell
+ javascript
+  get files() {
+   return this.root.file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
+  }
+
 loopParser
  extends abstractAftertextParser
  cells keywordCell
@@ -56,6 +67,7 @@ loopLinesParser
   get items() {
    return this.map(node => node.asString)
   }
+
 loopWordsParser
  crux words
  extends abstractItemsProviderParser
@@ -65,6 +77,7 @@ loopWordsParser
   get items() {
    return this.getWordsFrom(1)
   }
+
 loopGroupsParser
  crux groups
  extends abstractItemsProviderParser

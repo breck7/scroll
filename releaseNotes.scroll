@@ -4,6 +4,11 @@ title Scroll Release Notes
 
 thinColumns
 
+# 85.9.0 5/12/2024
+- 🎉 added `minutes` to read (assuming 200 words/minute) to `printSearch` and `printCsv` exports
+- 🎉 you can now pass groups to `sitemap` for making sitemaps specific to certain folders/groups
+- 🎉 for `printFeed`, `snippets`, `fullSnippets` providing groups is now optional
+
 # 85.8.0 5/10/2024
 - 🎉 measures and concepts can now also be written as Javascript for explore pages.
 

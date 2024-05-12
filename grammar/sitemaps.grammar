@@ -1,9 +1,7 @@
 // https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#text
 printSiteMapParser
- description Prints out a plain text sitemap for a folder.
- extends abstractScrollParser
- cruxFromId
- cells keywordCell
+ extends abstractPostLoopParser
+ description Prints out a plain text sitemap.
  example
   baseUrl http://test.com
   printSiteMap
@@ -11,5 +9,5 @@ printSiteMapParser
   compile() {
    const file = this.root.file
    const { baseUrl } = file
-   return file.allHtmlFiles.map(file => baseUrl + file.permalink).join("\n")
+   return this.files.map(file => baseUrl + file.file.permalink).join("\n")
   }
