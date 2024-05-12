@@ -33,6 +33,7 @@ belowAsCodeParser
 belowAsCodeUntilParser
  description Same as belowAsCode, except you can provide a search string to find the line where printing should stop.
  extends belowAsCodeParser
+ catchAllCellType anyCell
  javascript
   get howMany() {
     let howMany = 1

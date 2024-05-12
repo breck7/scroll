@@ -20,7 +20,7 @@ endSnippet
 In this demo, I extend Scroll by adding support for Markdown, Textile, and BBCode. I want to demonstrate how easy it is to compose many languages into one using TreeNotationLinked, which is due to what you might call the Indented or Off-side Heredoc pattern.
  https://en.wikipedia.org/wiki/Markdown Markdown
  https://en.wikipedia.org/wiki/Textile_(markup_language) Textile
- https://en.wikipedia.org/wiki/BBCode BBCDoe
+ https://en.wikipedia.org/wiki/BBCode BBCode
 
 My implementation is still _researchy_—GrammarLinked still needs a lot of work—but my main point here is to demo how _simple and powerful indented heredocs are_. They allow you to compose unlimited languages in one file in a clean and scalable way. You don't need escaping. I think this is a very helpful pattern you can use in your own languages and code.
 

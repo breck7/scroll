@@ -13,6 +13,7 @@ datelineParser
    if (!day) return false
    return [{ index: 0, string: `<span class="scrollDateline">${day} — </span>` }]
   }
+  matchWholeLine = true
   get day() {
    let day = this.content || this.root.get("date")
    if (!day) return ""

@@ -82,6 +82,16 @@ testTree.test = async areEqual => {
   areEqual(result.includes("0 errors"), true)
 }
 
+testTree.testAllScrollsInThisRepo = async areEqual => {
+  const cli = new ScrollCli()
+  cli.verbose = false
+  const result = await cli.listCommand(path.join(__dirname, ".."))
+  Object.keys(result).forEach(async dir => {
+    const result = await cli.testCommand(dir)
+    areEqual(result.includes("0 errors"), true, `No errors in '${dir}'`)
+  })
+}
+
 testTree.inMemoryFileSystem = areEqual => {
   // You could get all in folders with lodash.unique(Object.keys(this.files).map(filename => path.dirname(filename)))
 

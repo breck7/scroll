@@ -138,6 +138,7 @@ tableSearchParser
 printTableParser
  description Print a tabular table in a page into an HTML table.
  cruxFromId
+ catchAllCellType integerCell
  extends abstractScrollParser
  javascript
    compile() {
