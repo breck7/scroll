@@ -3,23 +3,32 @@ permalink index.html
 import header.scroll
 css html {font-size: var(--base-font-size, 16px);}
 
-title 📜 Scroll is a Language for Bloggers
+title 📜 Scroll is a language for scientists of all ages
 
-# A curated collection of tools for thoughts
+# Refine, share and collaborate on ideas
 
 <br>
 thinColumns 2
 
 ? What is Scroll?
-Scroll is a language for bloggers.
+Scroll is a language for scientists of all ages.
 
-Scroll also comes with a command line app that builds static blogs and websites.
+Scroll includes a command line app that builds static blogs, websites, CSVs, text files, and more.
 
-? Can you show me a sample blog?
+? What is Scroll used for?
+
+### Blogs
 image blog/screenshot.png
  link https://breckyunits.com/
  caption The screenshot above is from a blog powered by Scroll.
   https://breckyunits.com/ a blog powered by Scroll
+
+### Knowledge Bases
+Scroll powers PLDB, a knowledge base with over 100 contributors who have added over 100,000 cells of structured data and thousands of pages.
+ https://pldb.io PLDB
+
+### Static Sites
+This site you are reading now is powered by Scroll.
 
 ? Can I try Scroll in the browser?
 Yes. Here is a web demo.
