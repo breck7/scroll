@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "86.1.0",
+  "version": "86.1.1",
   "description": "A language for scientists of all ages. A curated collection of tools for refining and sharing thoughts.",
   "main": "scroll.js",
   "engines": {
@@ -28,9 +28,6 @@
     "url": "git+https://github.com/breck7/scroll.git"
   },
   "author": "Breck Yunits",
-  "bugs": {
-    "url": "https://github.com/breck7/scroll/issues"
-  },
   "prettier": {
     "parser": "babel",
     "useTabs": false,
@@ -41,7 +38,7 @@
     "arrowParens": "avoid",
     "quoteProps": "as-needed"
   },
-  "homepage": "https://github.com/breck7/scroll#readme",
+  "homepage": "https://scroll.pub",
   "dependencies": {
     "dayjs": "^1.11.7",
     "image-size": "^1.0.2",
