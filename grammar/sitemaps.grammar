@@ -9,5 +9,5 @@ printSiteMapParser
   compile() {
    const file = this.root.file
    const { baseUrl } = file
-   return this.files.map(file => baseUrl + file.file.permalink).join("\n")
+   return this.files.map(file => baseUrl + file.relativePath + file.file.permalink).join("\n")
   }

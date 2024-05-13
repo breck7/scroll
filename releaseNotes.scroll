@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 86.0.2 5/12/2024
+- 🏥 add relative paths to sitemaps if needed
+
 # 86.0.1 5/12/2024
 - 🏥 improved test coverage
 
