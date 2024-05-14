@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 87.0.0 5/14/2024
+- ⚠️ BREAKING: added stricter conventions for `measureNames`. Restrict them from containing "_", which we use to combine nested measures.
+
 # 86.0.2 5/12/2024
 - 🏥 add relative paths to sitemaps if needed
 

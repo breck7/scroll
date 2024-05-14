@@ -1,5 +1,7 @@
 measureNameCell
  extends keywordCell
+ // A regex for column names for max compatibility with a broad range of data science tools:
+ regex [a-zA-Z][a-zA-Z0-9]*
 
 writeMeasuresParser
  cruxFromId
