@@ -6,6 +6,9 @@ printTitle
 
 thinColumns
 
+# 89.1.0 5/15/2024
+- 🎉 added ability to override content in `printTitle`
+
 # 89.0.0 5/15/2024
 - 🎉 `printTitle` keyword added for easier templates
 - ⚠️ BREAKING: `title` is now a setter. This regex handles the migration:

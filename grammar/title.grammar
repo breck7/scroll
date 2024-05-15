@@ -1,16 +1,3 @@
-abstractHeaderParser
- extends paragraphParser
- javascript
-  compile(compileSettings) {
-   if (this.isHidden) return ""
-   this.parent.sectionStack.push("</div>")
-   return `<div class="scrollSection">` + super.compile(compileSettings)
-  }
-  compileTextVersion() {
-    const line = super.compileTextVersion()
-    return line + "\n" + "=".repeat(line.length)
-  }
-
 titleParser
  catchAllCellType personNameCell
  description Title of the page for meta tags. Prints nothing by itself. Use "printTitle" to print this title in a big HTML tag.
@@ -23,48 +10,16 @@ printTitleParser
  javascript
   compile(compileSettings) {
    // Hacky, I know.
-   this.setContent(this.parent.get("title"))
+   const {content} = this
+   if (content === undefined)
+    this.setContent(this.parent.get("title"))
    const { permalink } = this.parent.file
    if (!permalink) return super.compile(compileSettings)
    const newLine = this.appendLine(`link ${permalink}`)
    const compiled = super.compile(compileSettings)
    newLine.destroy()
+   this.setContent(content) // Restore it as it was.
    return compiled
   }
   defaultClassName = "scrollTitle"
   tag = "h1"
-
-h1Parser
- description Compiles to an html h1 tag.
- extends abstractHeaderParser
- crux #
- javascript
-  tag = "h1"
-
-h2Parser
- description Compiles to an html h2 tag.
- extends abstractHeaderParser
- crux ##
- javascript
-  tag = "h2"
-
-h3Parser
- description Compiles to an html h3 tag.
- extends abstractHeaderParser
- crux ###
- javascript
-  tag = "h3"
-
-h4Parser
- description Compiles to an html h4 tag.
- extends abstractHeaderParser
- crux ####
- javascript
-  tag = "h4"
-
-h5Parser
- description Compiles to an html h5 tag.
- extends abstractHeaderParser
- crux #####
- javascript
-  tag = "h5"
