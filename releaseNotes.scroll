@@ -4,6 +4,9 @@ title Scroll Release Notes
 
 thinColumns
 
+# 87.0.1 5/15/2024
+- 🏥 fixed off by 1 bug in computed measures
+
 # 87.0.0 5/14/2024
 - ⚠️ BREAKING: added stricter conventions for `measureNames`. Restrict them from containing "_", which we use to combine nested measures.
 

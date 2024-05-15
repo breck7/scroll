@@ -156,18 +156,16 @@ const computeMeasure = (parsedProgram, measureName, concept, concepts) => {
 
 const parseConcepts = (parsedProgram, measures) => {
   const concepts = parsedProgram.split(scrollKeywords.conceptDelimiter)
-  return concepts
-    .map((concept, index) => {
-      if (!index) return false
-      const row = {}
-      measures.forEach(measure => {
-        const measureName = measure.Name
-        if (!measure.IsComputed) row[measureName] = concept.getNode(measureName.replace(/_/g, " "))?.measureValue ?? ""
-        else row[measureName] = computeMeasure(parsedProgram, measureName, concept, concepts)
-      })
-      return row
+  concepts.shift() // Remove the part before "id"
+  return concepts.map(concept => {
+    const row = {}
+    measures.forEach(measure => {
+      const measureName = measure.Name
+      if (!measure.IsComputed) row[measureName] = concept.getNode(measureName.replace(/_/g, " "))?.measureValue ?? ""
+      else row[measureName] = computeMeasure(parsedProgram, measureName, concept, concepts)
     })
-    .filter(i => i)
+    return row
+  })
 }
 
 const arrayToCSV = (data, delimiter = ",") => {
