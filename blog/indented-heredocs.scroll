@@ -6,16 +6,18 @@ replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
 
 import markups.scroll
 import header.scroll
+mediumColumns 1
+
 title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
+
 byLine https://github.com/breck7 Breck Yunits
-thinColumns 4
 
 keyboardNav
 
-ScrollLinked is a new language and static site generator that is mostly written in a new language called GrammarLinked which are both built on a new syntax called TreeNotationLinked.
+* ScrollLinked is a new language and static site generator that is mostly written in a new language called GrammarLinked which are both built on a new syntax called TreeNotationLinked.
  dateline
 
-endSnippet
+***
 
 In this demo, I extend Scroll by adding support for Markdown, Textile, and BBCode. I want to demonstrate how easy it is to compose many languages into one using TreeNotationLinked, which is due to what you might call the Indented or Off-side Heredoc pattern.
  https://en.wikipedia.org/wiki/Markdown Markdown

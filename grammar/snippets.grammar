@@ -18,14 +18,12 @@ snippetsParser
   snippets index
  javascript
   makeSnippet(file, compileSettings) {
-    const {scrollProgram} = file
-    const snippetBreak = scrollProgram.getNode("endSnippet")
-    if (!snippetBreak) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
-    const indexOfBreak = snippetBreak.getIndex()
+    const {scrollProgram, endSnippetIndex} = file
+    if (endSnippetIndex === -1) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
     const linkRelativeToCompileTarget = compileSettings.relativePath + file.permalink
     const joinChar = "\n"
     const html = scrollProgram
-        .map((child, index) => (index >= indexOfBreak ? "" : child.compileEmbeddedVersion ? child.compileEmbeddedVersion(compileSettings) : child.compile(compileSettings)))
+        .map((child, index) => (index >= endSnippetIndex ? "" : child.compileEmbeddedVersion ? child.compileEmbeddedVersion(compileSettings) : child.compile(compileSettings)))
         .filter(i => i)
         .join(joinChar)
         .trim() +

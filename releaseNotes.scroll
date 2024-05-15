@@ -4,6 +4,10 @@ title Scroll Release Notes
 
 thinColumns
 
+# 88.0.0 5/15/2024
+- 🎉 easier snippets! if you have a dinkus anywhere "***|****|---", that will be used as an "endSnippet"
+- ⚠️ BREAKING: (no one should be affected). If you had a post that purposefully had no `endSnippet` and does have a dinkus, it will now generate a snippet rather than using the whole post.
+
 # 87.0.1 5/15/2024
 - 🏥 fixed off by 1 bug in computed measures
 

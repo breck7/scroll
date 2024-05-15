@@ -405,6 +405,16 @@ class ScrollFile {
     return this.scrollProgram.has(scrollKeywords.keyboardNav)
   }
 
+  // Get the line number that the snippet should stop at.
+  get endSnippetIndex() {
+    // First if its hard coded, use that
+    if (this.scrollProgram.has(scrollKeywords.endSnippet)) return this.scrollProgram.getNode(scrollKeywords.endSnippet).getIndex()
+    // Next look for a dinkus
+    const snippetBreak = this.scrollProgram.find(node => node.isDinkus)
+    if (snippetBreak) return snippetBreak.getIndex()
+    return -1
+  }
+
   timeIndex = 0
 
   _nextAndPrevious(arr, index) {

@@ -6,7 +6,7 @@ writeMeasures planetMeasures.tsv
 
 import header.scroll
 keyboardNav
-wideColumns 1
+mediumColumns 1
 title Scroll Datasets: source code for CSVs
 byLine https://breckyunits.com Breck Yunits
 
@@ -21,7 +21,7 @@ The source code for this blog post contains a dataset about the planets and gene
  link planets.tsv TSV
  link planets.json JSON
 
-endSnippet
+***
 
 Scroll Datasets are normal plain text blog posts written in Scroll that also contain measurements of concepts and output that data into formats ready for data visualization and analysis tools.
  https://scroll.pub/ Scroll

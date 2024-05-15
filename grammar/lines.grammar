@@ -1,20 +1,7 @@
-horizontalRuleParser
- crux ---
- description Prints an html <hr> tag
- extends abstractAftertextParser
- javascript
-  compile() {
-   return `<hr>`
-  }
-  compileTextVersion() {
-    return this.getLine()
-  }
-
-dinkusParser
- crux ***
- description Prints a centered *
+abstractDinkusParser
  extends abstractAftertextParser
  string dinkus *
+ boolean isDinkus true
  javascript
   compile() {
    return `<div class="dinkus"><span>${this.dinkus}</span></div>`
@@ -23,7 +10,21 @@ dinkusParser
     return this.getLine()
   }
 
+horizontalRuleParser
+ crux ---
+ description Prints an html <hr> tag
+ extends abstractDinkusParser
+ javascript
+  compile() {
+   return `<hr>`
+  }
+
+dinkusParser
+ crux ***
+ description Prints a centered *
+ extends abstractDinkusParser
+
 endOfPostDinkusParser
- extends dinkusParser
+ extends abstractDinkusParser
  crux ****
  string dinkus ⁂
