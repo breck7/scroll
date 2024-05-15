@@ -4,10 +4,11 @@ replace SOME_DATA
   link bar.html
  - bar
   link bam.html
+title A review of my sink
 
 import header.scroll
 
-title A review of my sink
+printTitle
 
 thinColumns 1
 

@@ -1,6 +1,7 @@
 groups index
+title This is _a_ test
 
 import ../header.scroll
 
-title This is _a_ test
+printTitle
 # This file is in a subfolder

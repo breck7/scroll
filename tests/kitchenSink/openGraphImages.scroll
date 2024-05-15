@@ -1,9 +1,9 @@
+baseUrl https://scroll.pub/
+
 metaTags
 gazetteCss
 
 thinColumns 1
-
-baseUrl https://scroll.pub/
 
 # Not this one
 image ../../blog/datasets.png
@@ -17,5 +17,3 @@ image ../../blog/screenshot.png
 image ../../blog/datasets.png
  caption A caption
  link https://scroll.pub/blog/datasets.html
-
-

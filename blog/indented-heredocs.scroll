@@ -3,12 +3,13 @@ groups All
 replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
 replace ScrollLinked <a href="https://scroll.pub">Scroll</a>
 replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
+title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
 
 import markups.scroll
 import header.scroll
 mediumColumns 1
 
-title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
+printTitle
 
 byLine https://github.com/breck7 Breck Yunits
 

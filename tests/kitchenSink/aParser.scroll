@@ -1,4 +1,3 @@
-
 hiddenMessageParser
  extends paragraphParser
  inScope messageParser

@@ -1,8 +1,9 @@
 date 2022.10.02
 groups All
+title Introducing the Blink Tag
 
 import header.scroll
-title Introducing the Blink Tag
+printTitle
 byLine https://github.com/breck7 Breck Yunits
 
 mediumColumns 1

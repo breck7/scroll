@@ -1,5 +1,7 @@
-import header.scroll
 title Scroll Roadmap
+
+import header.scroll
+printTitle
 
 wideColumns 1
 

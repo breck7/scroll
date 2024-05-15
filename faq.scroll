@@ -1,8 +1,9 @@
 replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
 replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
+title Scroll FAQ
 
 import header.scroll
-title Scroll FAQ
+printTitle
 
 ## A list of Frequently Asked Questions
 
@@ -54,7 +55,7 @@ In Scroll, it's almost as if each line is its own file.
 ? How do I extend Scroll?
 Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a _recipe_ keyword and write a post like this:
 code
- title My Snowball Cookies
+ # My Snowball Cookies
  
  * Bet you can't eat just one!
  

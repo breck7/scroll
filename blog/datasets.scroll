@@ -1,5 +1,6 @@
 date 4/21/2024
 groups All
+title Scroll Datasets: source code for CSVs
 writeConcepts planets.csv planets.json planets.tsv
 writeMeasures planetMeasures.tsv
  sortBy -Values
@@ -7,7 +8,7 @@ writeMeasures planetMeasures.tsv
 import header.scroll
 keyboardNav
 mediumColumns 1
-title Scroll Datasets: source code for CSVs
+printTitle
 byLine https://breckyunits.com Breck Yunits
 
 image datasets.png

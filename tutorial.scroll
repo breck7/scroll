@@ -1,10 +1,11 @@
 replace DOMAIN scroll.pub
+title Scroll Tutorial
 
 import header.scroll
 
 wideColumns 1
 
-title Scroll Tutorial
+printTitle
 
 ## Edit this in the Scroll Web Editor
  https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll
@@ -37,9 +38,8 @@ Let's start with the most common node, the `paragraph` node. You can think of th
 aboveAsCode
 
 ## 2. Headers
-There are a few types of headers in scroll. Let's show the 3 main ones and what they generate:
-belowAsCode 3
-title This is a title
+Scroll has headers like markdown:
+belowAsCode 2
 # This is a section header
 ## This is a subsection header
 
@@ -189,5 +189,4 @@ endColumns
 
 import footer.scroll
 // Need to set the title again to override the above usage of that.
-title Scroll Tutorial
- hidden
+printTitle

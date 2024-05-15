@@ -1,7 +1,5 @@
 date 1/11/2019
 groups index all
-replaceNodejs
- module.exports = {DIRNAME: __dirname}
 replace NUM_SINKS 283
 replace TABLE
  pipeTable
@@ -11,10 +9,13 @@ replace TABLE
 replaceJs SUM 1+1
 replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
 replaceJs TODAYS_DATE Date()
+replaceNodejs
+ module.exports = {DIRNAME: __dirname}
+title Top Sinks
 
 import header.scroll
 
-title Top Sinks
+printTitle
 
 byLine https://breckyunits.com Breck Yunits
 

@@ -1,9 +1,10 @@
 date 4/29/2024
 groups All
+title Scroll now generates text files
 
 import header.scroll
 keyboardNav
-title Scroll now generates text files
+printTitle
 
 byLine https://breckyunits.com/ Breck Yunits
 

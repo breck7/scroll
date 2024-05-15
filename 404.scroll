@@ -1,7 +1,8 @@
 permalink 404.html
+title Page not found
 
 import header.scroll
-title Page not found
+printTitle
 thinColumns 1
 
 Sorry, the url you requested was not found.

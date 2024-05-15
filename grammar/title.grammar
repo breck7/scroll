@@ -12,12 +12,18 @@ abstractHeaderParser
   }
 
 titleParser
- description Title of the page for meta tags and also compiles to an html h1 tag.
+ catchAllCellType personNameCell
+ description Title of the page for meta tags. Prints nothing by itself. Use "printTitle" to print this title in a big HTML tag.
+ extends abstractTopLevelSingleMetaParser
+
+printTitleParser
+ description Print the page title.
  extends abstractHeaderParser
- crux title
+ cruxFromId
  javascript
   compile(compileSettings) {
    // Hacky, I know.
+   this.setContent(this.parent.get("title"))
    const { permalink } = this.parent.file
    if (!permalink) return super.compile(compileSettings)
    const newLine = this.appendLine(`link ${permalink}`)

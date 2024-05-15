@@ -172,11 +172,11 @@ testTree.aBlankPage = areEqual => {
   areEqual(page.html, ``)
 
   // Arrange
-  const withTitle = new ScrollFile(`permalink blank.html
-title Hello world
+  const testHidden = new ScrollFile(`permalink blank.html
+# Hello world
  hidden`)
   // Act/Assert
-  areEqual(withTitle.html, `<!DOCTYPE html><html lang="en"></html>`)
+  areEqual(testHidden.html, `<!DOCTYPE html><html lang="en"></html>`)
 }
 
 testTree.rss = areEqual => {

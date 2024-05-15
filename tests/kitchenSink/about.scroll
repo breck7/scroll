@@ -1,9 +1,10 @@
 groups all
 replace KEY_MESSAGE Public domain products are strictly superior to equivalent non-public domain alternatives by a significant margin on three dimensions: trust, speed, and cost to build.
+title About the Kitchen Sink Blog
 
 import header.scroll
 
-title About the Kitchen Sink Blog
+printTitle
 
 This blog is for testing purposes—to exercise/test all the features of Scroll.
 

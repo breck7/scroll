@@ -1,6 +1,8 @@
+title Search the Official Scroll Blog
+
 import header.scroll
 
-title Search the Official Scroll Blog
+printTitle
 
 wideColumns 2
 printSearchTable All

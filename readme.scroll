@@ -1,9 +1,10 @@
 permalink index.html
+title 📜 Scroll is a language for scientists of all ages
 
 import header.scroll
 css html {font-size: var(--base-font-size, 16px);}
 
-title 📜 Scroll is a language for scientists of all ages
+printTitle
 
 # Refine, share and collaborate on ideas
 

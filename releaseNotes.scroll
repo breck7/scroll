@@ -1,8 +1,16 @@
-import header.scroll
 title Scroll Release Notes
+
+import header.scroll
+printTitle
 ## A list of what has changed in Scroll releases.
 
 thinColumns
+
+# 89.0.0 5/15/2024
+- 🎉 `printTitle` keyword added for easier templates
+- ⚠️ BREAKING: `title` is now a setter. This regex handles the migration:
+ - `^title ` `printTitle\ntitle `
+  - Then (optionally) run "scroll format" or "scroll list | scroll format" to format which will automove your titles up top.
 
 # 88.0.0 5/15/2024
 - 🎉 easier snippets! if you have a dinkus anywhere "***|****|---", that will be used as an "endSnippet"
@@ -135,7 +143,6 @@ thinColumns
 
 expander Click me
 Anything in the section will show up here. A blank line ends a section.
-
 
 # 83.0.0 5/03/2024
 - 🎉 all tables now print in plain text outputs
@@ -591,7 +598,7 @@ aboveAsCode 2
 - 🎉 `snippets` nodes can now accept multiple groups and also groups can be in different folders. Syntax is `[folderPath]/[groupName]` For example:
 
 scrollCode
- title The Long Beach Pub
+ # The Long Beach Pub
  snippets 2023/index stories/index 2022/index
 
 # 56.0.1 2/7/2023

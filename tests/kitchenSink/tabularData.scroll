@@ -1,9 +1,10 @@
 groups index
+title Tabular data test
+writeText
 
 import header.scroll
 
-title Tabular data test
-writeText
+printTitle
 
 wideColumns 1
 
@@ -23,8 +24,6 @@ Index	Name	Diameter	Height	Covered	5	10	15	20	25	30	35	40	45	50	55
 name	score
 joe	2
 printTable
-
-
 
 # Print table using index
 printTable 1

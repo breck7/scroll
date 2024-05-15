@@ -485,7 +485,7 @@ class ScrollFile {
     if (description) return description
 
     for (let node of program.getTopDownArrayIterator()) {
-      if (node.constructor.name !== "titleParser" && node.doesExtend("paragraphParser")) return Utils.stripHtml(node.compile()).replace(/\n/g, " ").replace(/\"/g, "'").substr(0, 300)
+      if (node.constructor.name !== "printTitleParser" && node.doesExtend("paragraphParser")) return Utils.stripHtml(node.compile()).replace(/\n/g, " ").replace(/\"/g, "'").substr(0, 300)
     }
     return ""
   }
@@ -700,9 +700,10 @@ git https://github.com/breck7/scroll
 `,
       "helloWorld.scroll": `${scrollKeywords.date} ${dayjs().format(standardDateFormat)}
 groups All
+${scrollKeywords.title} Hello world
 
 import header.scroll
-${scrollKeywords.title} Hello world
+printTitle
 
 thinColumns 1
 
@@ -712,9 +713,10 @@ endColumns
 import footer.scroll
 `,
       "index.scroll": `description My thoughts about life and the world.
+${scrollKeywords.title} My Blog
 
 import header.scroll
-title My Blog
+printTitle
 snippets All
 
 import footer.scroll
