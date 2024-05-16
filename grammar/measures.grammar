@@ -73,17 +73,17 @@ idParser
  int sortIndex 0
  boolean isRequired true
  javascript
-  get concept() {
-    return this.parent.file.getConceptById(this.content)
-  }
   getErrors() {
     const errors = super.getErrors()
-    const {concept} = this
-    this.parent.file.measures.filter(measure => measure.IsRequired).forEach(measure => {
-      if (concept[measure.Name] === "") {
-      // todo: make AbstractTreeError class exported by Grammar to allow Parsers to define their own error types.
-        errors.push({toObject: () => {return { message: `Concept "${this.content}" is missing required measure "${measure.Name}".`}}})
-      }
+    let requiredMeasureNames = this.parent.file.measures.filter(measure => measure.IsRequired).map(measure => measure.Name).filter(name => name !== "id")
+    if (!requiredMeasureNames.length) return errors
+    let next = this.next
+    while (requiredMeasureNames.length && next.firstWord !== "id" && next.getIndex() !== 0) {
+      requiredMeasureNames = requiredMeasureNames.filter(i => i !== next.firstWord)
+      next = next.next
+    }
+    requiredMeasureNames.forEach(name => {
+      errors.push({toObject: () => {return { message: `Concept "${this.content}" is missing required measure "${name}".`}}})
     })
     return errors
   }

@@ -6,6 +6,10 @@ printTitle
 
 thinColumns
 
+# 89.2.1 5/16/2024
+- 🏥 fixed required measurements when computeds are involved
+- 🎉 print folder name when running scroll test
+
 # 89.2.0 5/16/2024
 - 🎉 added support for required measurements
 

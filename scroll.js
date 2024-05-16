@@ -259,15 +259,6 @@ class ScrollFile {
     return this._concepts
   }
 
-  _conceptCache
-  getConceptById(id) {
-    if (!this._conceptCache) {
-      this._conceptCache = {}
-      this.concepts.forEach(concept => this._conceptCache[concept.id] = concept)
-    }
-    return this._conceptCache[id]
-  }
-
   _measures
   get measures() {
     if (this._measures) return this._measures
