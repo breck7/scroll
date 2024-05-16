@@ -44,8 +44,9 @@ code
  
  # Measures (aka Header, aka Columns, aka Schema)
  
- // id Every concept needs an id
- 
+ idParser
+  // Every concept needs an "id".
+  extends abstractIdParser
  moonsParser
   extends abstractIntegerParser
  
@@ -166,7 +167,8 @@ tableSearch
 ## Extended Measures Example
 belowAsCodeUntil // end measures
 
-// id
+idParser
+ extends abstractIdParser
 
 diameterParser
  extends abstractIntegerMeasureParser

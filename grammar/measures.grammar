@@ -67,7 +67,8 @@ abstractUrlMeasureParser
  extends abstractWordMeasureParser
 
 // Required ID measure which denotes a concept
-idParser
+abstractIdParser
+ crux id
  description What is the ID of this concept?
  extends abstractStringMeasureParser
  int sortIndex 0
@@ -88,7 +89,7 @@ idParser
     return errors
   }
 
-filenameParser
+abstractFilenameParser
  // Added by the loadConcepts keyword
  description What is the name of the file holding this concept?
  extends abstractStringMeasureParser

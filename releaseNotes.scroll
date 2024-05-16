@@ -6,6 +6,15 @@ printTitle
 
 thinColumns
 
+# 90.0.0 5/16/2024
+- ⚠️ BREAKING: `idParser` and `filenameParser` no longer ship in default grammar. This will allow for useful future dataset features. Instead, add them yourself if you are using Concepts like this:
+
+code
+ idParser
+  extends abstractIdParser
+ filenameParser
+  extends abstractFilenameParser
+
 # 89.2.1 5/16/2024
 - 🏥 fixed required measurements when computeds are involved
 - 🎉 print folder name when running scroll test
