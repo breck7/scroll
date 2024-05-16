@@ -71,6 +71,22 @@ idParser
  description What is the ID of this concept?
  extends abstractStringMeasureParser
  int sortIndex 0
+ boolean isRequired true
+ javascript
+  get concept() {
+    return this.parent.file.getConceptById(this.content)
+  }
+  getErrors() {
+    const errors = super.getErrors()
+    const {concept} = this
+    this.parent.file.measures.filter(measure => measure.IsRequired).forEach(measure => {
+      if (concept[measure.Name] === "") {
+      // todo: make AbstractTreeError class exported by Grammar to allow Parsers to define their own error types.
+        errors.push({toObject: () => {return { message: `Concept "${this.content}" is missing required measure "${measure.Name}".`}}})
+      }
+    })
+    return errors
+  }
 
 filenameParser
  // Added by the loadConcepts keyword

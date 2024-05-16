@@ -6,6 +6,9 @@ printTitle
 
 thinColumns
 
+# 89.2.0 5/16/2024
+- 🎉 added support for required measurements
+
 # 89.1.2 5/16/2024
 - 🏥 loadConcepts should only load Scroll files containing a concept (as determined by having an "id ").
 

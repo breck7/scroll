@@ -183,6 +183,7 @@ yearsToOrbitSunParser
 moonsParser
  extends abstractIntegerMeasureParser
  description How many moons does the planet have?
+ boolean isRequired true
 
 akaParser
  extends abstractStringMeasureParser

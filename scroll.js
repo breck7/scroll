@@ -116,7 +116,8 @@ const parseMeasures = parsedProgram => {
       Source: node.sourceDomain,
       //Definition: parsedProgram.root.file.filename + ":" + node.lineNumber
       SortIndex: node.sortIndex,
-      IsComputed: node.isComputed
+      IsComputed: node.isComputed,
+      IsRequired: node.isRequired
     }
   })
   return lodash.sortBy(measures, "SortIndex")
@@ -155,6 +156,10 @@ const computeMeasure = (parsedProgram, measureName, concept, concepts) => {
 }
 
 const parseConcepts = (parsedProgram, measures) => {
+  // Todo: might be a perf/memory/simplicity win to have a "segment" method on Jtree, where you could
+  // virtually split a tree into multiple segments, and then query on those segments.
+  // So we would "segment" on "id ", and then not need to create a bunch of new objects, and the original
+  // already parsed lines could then learn about/access to their respective segments.
   const concepts = parsedProgram.split(scrollKeywords.conceptDelimiter)
   concepts.shift() // Remove the part before "id"
   return concepts.map(concept => {
@@ -252,6 +257,15 @@ class ScrollFile {
     if (this._concepts) return this._concepts
     this._concepts = parseConcepts(this.scrollProgram, this.measures)
     return this._concepts
+  }
+
+  _conceptCache
+  getConceptById(id) {
+    if (!this._conceptCache) {
+      this._conceptCache = {}
+      this.concepts.forEach(concept => this._conceptCache[concept.id] = concept)
+    }
+    return this._conceptCache[id]
   }
 
   _measures
