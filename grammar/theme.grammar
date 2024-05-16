@@ -1,12 +1,12 @@
-tagsParser
+themeTagsParser
  // Todo: there may be a bug with having scoped parsers in abstract classes not being available to child classes.
  cells keywordCell booleanCell
- cruxFromId
+ crux tags
 
 abstractThemeCssParser
  description Extend this to create a Scroll CSS theme.
  extends abstractScrollParser
- inScope tagsParser
+ inScope themeTagsParser
  cruxFromId
  catchAllCellType stringCell
  string scrollStyles
