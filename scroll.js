@@ -775,7 +775,7 @@ import footer.scroll
     const { grammarErrors, scrollErrors } = this.getErrorsInFolder(folder)
     const grammarMessage = grammarErrors.length ? new TreeNode(grammarErrors).toFormattedTable(200) + "\n" : ""
     if (grammarMessage) this.log(grammarMessage)
-    const message = scrollErrors.length ? new TreeNode(scrollErrors).toFormattedTable(100) : "0 errors"
+    const message = scrollErrors.length ? new TreeNode(scrollErrors).toFormattedTable(100) : `0 errors in "${cwd}"`
     return this.log(message)
   }
 
