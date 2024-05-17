@@ -89,13 +89,16 @@ const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 // todo: groups is currently matching partial substrings
 const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && file.groups.includes(groupName))
 
-const parseMeasures = parsedProgram => {
+const measureCache = new Map()
+const parseMeasures = parser => {
+  if (measureCache.get(parser))
+    return measureCache.get(parser)
   // Generate a fake program with one of every of the available keywords. Then parse it. Then we can easily access the meta data on the parsers
-  const dummyProgram = new parsedProgram.constructor(
-    parsedProgram.definition
-      .map(node => {
-        return node.getLine().replace("Parser", "")
-      })
+  const dummyProgram = new parser(
+    parser.cachedHandGrammarProgramRoot // is there a better method name than this?
+      .map(node => node.getLine())
+      .filter(line => line.endsWith("Parser"))
+      .map(line => line.replace("Parser", ""))
       .join("\n")
   )
   dummyProgram.filter(node => !node.isMeasure).forEach(node => node.destroy())
@@ -120,7 +123,8 @@ const parseMeasures = parsedProgram => {
       IsRequired: node.isRequired
     }
   })
-  return lodash.sortBy(measures, "SortIndex")
+  measureCache.set(parser, lodash.sortBy(measures, "SortIndex"))
+  return measureCache.get(parser)
 }
 
 const addMeasureStats = (concepts, measures) => {
@@ -262,7 +266,7 @@ class ScrollFile {
   _measures
   get measures() {
     if (this._measures) return this._measures
-    this._measures = parseMeasures(this.scrollProgram)
+    this._measures = parseMeasures(this.parser)
     return this._measures
   }
 
