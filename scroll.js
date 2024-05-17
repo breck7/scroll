@@ -766,12 +766,26 @@ import footer.scroll
   }
 
   testCommand(cwd) {
+    const start = Date.now()
     const folder = this.resolvePath(cwd)
     const { grammarErrors, scrollErrors } = this.getErrorsInFolder(folder)
-    const grammarMessage = grammarErrors.length ? new TreeNode(grammarErrors).toFormattedTable(200) + "\n" : ""
-    if (grammarMessage) this.log(grammarMessage)
-    const message = scrollErrors.length ? new TreeNode(scrollErrors).toFormattedTable(100) : `0 errors in "${cwd}"`
-    return this.log(message)
+    
+    const seconds = (Date.now() - start) / 1000
+
+    if (grammarErrors.length) {
+      this.log(``)
+      this.log(`❌ ${grammarErrors.length} grammar errors in "${cwd}"`)
+      this.log(new TreeNode(grammarErrors).toFormattedTable(200))
+      this.log(``)
+    }
+    if (scrollErrors.length) {
+      this.log(``)
+      this.log(`❌ ${scrollErrors.length} errors in "${cwd}"`)
+      this.log(new TreeNode(scrollErrors).toFormattedTable(100))
+      this.log(``)
+    }
+    if (!grammarErrors.length && !scrollErrors.length)
+      return this.log(`✅ 0 errors in "${cwd}". Tests took ${seconds} seconds.`)
   }
 
   formatCommand(cwd) {
