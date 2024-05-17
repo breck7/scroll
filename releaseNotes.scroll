@@ -6,6 +6,9 @@ printTitle
 
 thinColumns
 
+# 90.1.0 5/17/2024
+- 🎉 2.5x faster test running thanks to adding cacheing to measure parser
+
 # 90.0.0 5/16/2024
 - ⚠️ BREAKING: `idParser` and `filenameParser` no longer ship in default grammar. This will allow for useful future dataset features. Instead, add them yourself if you are using Concepts like this:
 
