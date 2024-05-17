@@ -6,6 +6,9 @@ printTitle
 
 thinColumns
 
+# 90.1.1 5/17/2024
+- 🏥 added test and fixed bug with `printTitle` in text files
+
 # 90.1.0 5/17/2024
 - 🎉 2.5x faster test running thanks to adding cacheing to measure parser
 

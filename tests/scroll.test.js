@@ -159,10 +159,12 @@ testTree.cli = async areEqual => {
 testTree.standalonePage = areEqual => {
   // Arrange
   const page = new ScrollFile(`title A standalone page
+printTitle
 * Blue sky`)
   // Act/Assert
-  const { html } = page
+  const { html, asText } = page
   areEqual(html.includes("Blue sky"), true)
+  areEqual(asText.includes("A standalone page"), true)
 }
 
 testTree.aBlankPage = areEqual => {
