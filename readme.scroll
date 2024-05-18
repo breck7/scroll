@@ -15,6 +15,10 @@ thinColumns 2
 Scroll is a language for scientists of all ages.
 
 Scroll includes a command line app that builds static blogs, websites, CSVs, text files, and more.
+ link blog/textFiles.html text files
+ link blog/scrollsets.html CSVs
+ link blog/index.html static blogs
+ link index.html websites
 
 ? What is Scroll used for?
 
@@ -30,6 +34,7 @@ Scroll powers PLDB, a knowledge base with over 100 contributors who have added o
 
 ### Static Sites
 This site you are reading is powered by Scroll.
+ link index.html This site
 
 ? Can I try Scroll in the browser?
 Yes. Here is a web demo.
@@ -37,6 +42,7 @@ Yes. Here is a web demo.
 
 ? What makes Scroll different?
 Scroll has an unusually simple syntax, an extensive set of features needed by researchers, bloggers, knowledge bases and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
+ link blog/scrollsets.html knowledge bases
 
 ? How do I install Scroll?
 Scroll is an npm package. Install with:

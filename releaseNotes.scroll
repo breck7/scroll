@@ -6,6 +6,9 @@ printTitle
 
 thinColumns
 
+# 90.3.0 5/18/2024
+- 🎉 renamed `Scroll Datasets` to `ScrollSets`.
+
 # 90.2.3 5/18/2024
 - 🏥 `Coverage` in Measurements should round down.
 

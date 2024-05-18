@@ -6,7 +6,7 @@ gazetteCss
 thinColumns 1
 
 # Not this one
-image ../../blog/datasets.png
+image ../../blog/scrollsets.png
  link index.html
 
 # The image below should be the og image
@@ -14,6 +14,6 @@ image ../../blog/screenshot.png
  openGraph
 
 # Not this one
-image ../../blog/datasets.png
+image ../../blog/scrollsets.png
  caption A caption
- link https://scroll.pub/blog/datasets.html
+ link https://scroll.pub/blog/scrollsets.html

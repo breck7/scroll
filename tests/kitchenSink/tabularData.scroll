@@ -31,7 +31,7 @@ printTable 0
 
 # Dropdown sections
 
-expander Full Dataset
+expander Full Table
 printTable
 Rows	LogLinear	Quadratic	Before	After
 1000	9966	1000000	36000	15000

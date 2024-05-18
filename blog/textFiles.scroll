@@ -10,8 +10,11 @@ byLine https://breckyunits.com/ Breck Yunits
 
 thinColumns 1
 
-Scroll is a minimial (but extensible) language for generating HTML files, with the main use case being for web blogs. However, recently I've been needing to make readable text versions of blog posts for a few use cases. I was doing that by hand, but now it is built in to Scroll.
+Scroll is a minimal (but extensible) language for generating HTML files and CSVs, with the main use cases being blogs and knowledge bases.
  dateline
+ link scrollsets.html knowledge bases
+
+However, recently I've been needing to make readable text versions of blog posts for a few use cases. I was doing that by hand, but now it is built in to Scroll.
 
 To use it, just add a single line to your posts: `writeText`. You can even put that line into your `header.scroll` or `footer.scroll` to have it apply to your whole blog.
 
