@@ -1,5 +1,4 @@
 helpfulNotFoundParser
- cruxFromId
  extends abstractScrollWithRequirementsParser
  string copyFromExternal helpfulNotFound.js
  string requireOnce

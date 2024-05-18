@@ -88,7 +88,6 @@ tabTableParser
  string delimiter \t
 
 tableSearchParser
- cruxFromId
  extends abstractScrollWithRequirementsParser
  string copyFromExternal jquery-3.7.1.min.js dataTables.dataTables.min.css dataTables.min.js
  string requireOnce

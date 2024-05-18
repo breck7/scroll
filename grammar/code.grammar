@@ -21,7 +21,6 @@ codeWithLanguageParser
  pattern ^[a-zA-Z0-9_]+Code$
 
 copyButtonsParser
- cruxFromId
  extends abstractScrollWithRequirementsParser
  description Make code snippets copyable.
  javascript
