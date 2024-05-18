@@ -91,8 +91,7 @@ const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && 
 
 const measureCache = new Map()
 const parseMeasures = parser => {
-  if (measureCache.get(parser))
-    return measureCache.get(parser)
+  if (measureCache.get(parser)) return measureCache.get(parser)
   // Generate a fake program with one of every of the available keywords. Then parse it. Then we can easily access the meta data on the parsers
   const dummyProgram = new parser(
     parser.cachedHandGrammarProgramRoot // is there a better method name than this?
@@ -769,7 +768,7 @@ import footer.scroll
     const start = Date.now()
     const folder = this.resolvePath(cwd)
     const { grammarErrors, scrollErrors } = this.getErrorsInFolder(folder)
-    
+
     const seconds = (Date.now() - start) / 1000
 
     if (grammarErrors.length) {
@@ -784,8 +783,7 @@ import footer.scroll
       this.log(new TreeNode(scrollErrors).toFormattedTable(100))
       this.log(``)
     }
-    if (!grammarErrors.length && !scrollErrors.length)
-      return this.log(`✅ 0 errors in "${cwd}". Tests took ${seconds} seconds.`)
+    if (!grammarErrors.length && !scrollErrors.length) return this.log(`✅ 0 errors in "${cwd}". Tests took ${seconds} seconds.`)
   }
 
   formatCommand(cwd) {
