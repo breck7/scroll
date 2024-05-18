@@ -140,7 +140,7 @@ const addMeasureStats = (concepts, measures) => {
         Type = true
       }
     })
-    measure.Coverage = Math.round((100 * measure.Values) / concepts.length) + "%"
+    measure.Coverage = Math.floor((100 * measure.Values) / concepts.length) + "%"
     return measure
   })
 }

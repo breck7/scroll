@@ -6,6 +6,9 @@ printTitle
 
 thinColumns
 
+# 90.2.3 5/18/2024
+- 🏥 `Coverage` in Measurements should round down.
+
 # 90.2.2 5/18/2024
 - 🏥 fixed Grammar method name conflict with measures. Now they should be `isMeasureRequired`.
 

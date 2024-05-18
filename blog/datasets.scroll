@@ -164,6 +164,9 @@ Below is the dataset embedded in this Scroll file.
 printConcepts
 tableSearch
 
+# Measurements of the measures
+printMeasures
+
 ## Extended Measures Example
 belowAsCodeUntil // end measures
 
