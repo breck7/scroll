@@ -72,11 +72,11 @@ abstractIdParser
  description What is the ID of this concept?
  extends abstractStringMeasureParser
  int sortIndex 0
- boolean isRequired true
+ boolean isMeasureRequired true
  javascript
   getErrors() {
     const errors = super.getErrors()
-    let requiredMeasureNames = this.parent.file.measures.filter(measure => measure.IsRequired).map(measure => measure.Name).filter(name => name !== "id")
+    let requiredMeasureNames = this.parent.file.measures.filter(measure => measure.isMeasureRequired).map(measure => measure.Name).filter(name => name !== "id")
     if (!requiredMeasureNames.length) return errors
     let next = this.next
     while (requiredMeasureNames.length && next.firstWord !== "id" && next.getIndex() !== 0) {

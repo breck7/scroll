@@ -119,7 +119,7 @@ const parseMeasures = parser => {
       //Definition: parsedProgram.root.file.filename + ":" + node.lineNumber
       SortIndex: node.sortIndex,
       IsComputed: node.isComputed,
-      IsRequired: node.isRequired
+      IsRequired: node.isMeasureRequired
     }
   })
   measureCache.set(parser, lodash.sortBy(measures, "SortIndex"))

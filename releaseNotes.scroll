@@ -6,6 +6,9 @@ printTitle
 
 thinColumns
 
+# 90.2.2 5/18/2024
+- 🏥 fixed Grammar method name conflict with measures. Now they should be `isMeasureRequired`.
+
 # 90.2.1 5/18/2024
 - 🏥 fixed `metaTags` from breaking try.scroll.pub
 - 🏥 got `slideshow` working on try.scroll.pub
