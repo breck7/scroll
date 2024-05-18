@@ -805,12 +805,16 @@ import footer.scroll
     return this
   }
 
+  _keywordsRequiringExternals(parser) {
+    // todo: could be cleaned up a bit
+    if (!parser.keywordsRequiringExternals) parser.keywordsRequiringExternals = parser.cachedHandGrammarProgramRoot.filter(node => node.copyFromExternal).map(node => node.getLine().replace("Parser", ""))
+    return parser.keywordsRequiringExternals
+  }
+
   _copyExternalFiles(file, folder, fileSystem, externalFilesCopied) {
     // If this file uses a parser that has external requirements,
     // copy those from external folder into the destination folder.
-    // Right now this is hard coded. Probably will suffice as it's
-    // only necessary at the moment for commonly distributed parsers.
-    const keywordsRequiringExternals = ["katex", "map", "tableSearch", "helpfulNotFound", "slideshow"]
+    const keywordsRequiringExternals = this._keywordsRequiringExternals(file.parser)
     keywordsRequiringExternals.forEach(word => {
       if (externalFilesCopied[word]) return
       if (file.has(word)) {
