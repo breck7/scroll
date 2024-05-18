@@ -6,6 +6,10 @@ printTitle
 
 thinColumns
 
+# 90.2.0 5/18/2024
+- 🎉 added `slideshow` keyword
+- 🎉 grammar extensions can now use "copyFromExternal"
+
 # 90.1.1 5/17/2024
 - 🏥 added test and fixed bug with `printTitle` in text files
 

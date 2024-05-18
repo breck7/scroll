@@ -14,31 +14,18 @@ scrollNodePerf.cpuprofile
 
 # Dump import examples here
 tests/importExamples/
-tests/kitchenSink/style.css
-tests/kitchenSink/posts.csv
-tests/kitchenSink/prompt.txt
-
-blog/planets.csv
-blog/planets.tsv
-blog/planets.json
 
 # Do not check in files built by Scroll
 *.html
-feed.xml
+*.xml
 *.txt
 *.csv
-planetMeasures.tsv
-
+*.json
+*.tsv
 # Do not check in external assets copied by Scroll
-blog/dataTables.dataTables.min.css
-blog/dataTables.min.js
-blog/jquery-3.7.1.min.js
-katex.min.css
-katex.min.js
-helpfulNotFound.js
+*.css
+*.js
 # We need to reinclude the below 2 files to get them in node_modules folder.
 !external/katex.min.css
 !external/katex.min.js
 !external/helpfulNotFound.js
-tests/kitchenSink/leaflet.css
-tests/kitchenSink/leaflet.js
