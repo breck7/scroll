@@ -13,7 +13,7 @@ metaTagsParser
   compile() {
    const { file } = this.parent
    const { title, description, openGraphImage, SCROLL_VERSION, canonicalLink } = file
-   const rssFeedUrl = file.get("rssFeedUrl")
+   const rssFeedUrl = this.parent.get("rssFeedUrl")
    let rssTag = ""
    if (rssFeedUrl) {
     rssTag = `link
