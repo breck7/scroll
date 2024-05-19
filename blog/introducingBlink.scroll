@@ -5,6 +5,7 @@ title Introducing the Blink Tag
 import header.scroll
 printTitle
 byLine https://github.com/breck7 Breck Yunits
+printDate
 
 mediumColumns 1
 
