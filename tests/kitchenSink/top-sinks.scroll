@@ -1,3 +1,4 @@
+author https://breckyunits.com Breck Yunits
 date 1/11/2019
 groups index all
 replace NUM_SINKS 283
@@ -17,7 +18,7 @@ import header.scroll
 
 printTitle
 
-byLine https://breckyunits.com Breck Yunits
+printAuthor
 
 keyboardNav
 

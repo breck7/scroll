@@ -1,3 +1,4 @@
+author https://github.com/breck7 Breck Yunits
 date 2021.08.23
 groups All
 replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
@@ -10,8 +11,7 @@ import header.scroll
 mediumColumns 1
 
 printTitle
-
-byLine https://github.com/breck7 Breck Yunits
+printAuthor
 
 keyboardNav
 

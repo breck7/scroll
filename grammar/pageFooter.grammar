@@ -56,4 +56,5 @@ pageFooterParser
 
 gazetteFooterParser
  extends pageFooterParser
+ boolean isDeprecated true
  description DEPRECATED! Use "pageFooter" instead.

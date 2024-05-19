@@ -6,6 +6,10 @@ printTitle
 
 thinColumns
 
+# 91.0.0 5/19/2024
+- 🎉 `printAuthor` keyword prints the author defined by `author`. `byLine` has been deprecated--replace with `printAuthor`.
+- ⚠️ BREAKING: `author` keyword now takes a URL.
+
 # 90.5.0 5/19/2024
 - 🎉 added `printDate` keyword
 

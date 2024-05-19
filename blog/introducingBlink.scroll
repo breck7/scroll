@@ -1,10 +1,11 @@
+author https://github.com/breck7 Breck Yunits
 date 2022.10.02
 groups All
 title Introducing the Blink Tag
 
 import header.scroll
 printTitle
-byLine https://github.com/breck7 Breck Yunits
+printAuthor
 printDate
 
 mediumColumns 1

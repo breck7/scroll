@@ -1,3 +1,4 @@
+author https://breckyunits.com Breck Yunits
 date 4/21/2024
 groups All
 title ScrollSets: source code for CSVs
@@ -9,7 +10,7 @@ import header.scroll
 keyboardNav
 mediumColumns 1
 printTitle
-byLine https://breckyunits.com Breck Yunits
+printAuthor
 
 image scrollsets.png
  caption More examples of ScrollSets from sets.scroll.pub.

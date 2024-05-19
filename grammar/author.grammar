@@ -1,27 +1,37 @@
-byLineParser
+printAuthorParser
  description Prints a byline with the author's name and optionally a link to them.
  extends abstractScrollParser
  cruxFromId
- cells keywordCell urlCell
- catchAllCellType personNameCell
+ // todo: we need pattern matching added to Grammar to support having no params or a url and personNameCell
+ cells keywordCell
+ catchAllCellType anyCell
  example
   // With Link:
-  byLine https://breckyunits.com Breck Yunits
+  printAuthor https://breckyunits.com Breck Yunits
   // No link:
-  byLine  Breck Yunits
+  printAuthor  Breck Yunits
  javascript
   compile() {
-   const link = this.getWord(1)
-   return `<div class="scrollByLine">by <a ${link ? `href="${link}"` : ""}>${this.name}</a></div>`
+   const {link, name} = this
+   return `<div class="scrollByLine">by <a ${link ? `href="${link}"` : ""}>${name}</a></div>`
+  }
+  get link() {
+    return this.getWord(1) || this.parent.getNode("author")?.getWord(1)
   }
   get name() {
-    return this.getWordsFrom(2).join(" ") || this.parent.get("author")
+    return this.getWordsFrom(2).join(" ") || this.parent.getNode("author")?.getWordsFrom(2).join(" ")
   }
   compileTextVersion() {
     return `by ${this.name}`
   }
 
+byLineParser
+ extends printAuthorParser
+ boolean isDeprecated true
+ description DEPRECATED! Use "printAuthor" instead.
+
 authorParser
+ cells keywordCell urlCell
  catchAllCellType personNameCell
  description Set the author(s) for a post. Prints nothing by itself, but is printed with the title in text mode and in various metadata outputs.
  extends abstractTopLevelSingleMetaParser
