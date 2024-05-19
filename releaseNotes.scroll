@@ -6,6 +6,9 @@ printTitle
 
 thinColumns
 
+# 90.4.1 5/19/2024
+- 🏥 `helpfulNotFound` now assumes the script can be found at the root of the domain.
+
 # 90.4.0 5/19/2024
 - 🎉 helpful 404 can now take multiple sitemaps as a parameter
 

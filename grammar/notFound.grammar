@@ -5,5 +5,5 @@ helpfulNotFoundParser
  description Add a helpful not found element to the page.
  javascript
   compileInstance() {
-   return `<style>#helpfulNotFound{margin: 100px 0;}</style><h1 id="helpfulNotFound"></h1><script defer src="helpfulNotFound.js"></script><script>document.addEventListener("DOMContentLoaded", () => new NotFoundApp('${this.content}'))</script>`
+   return `<style>#helpfulNotFound{margin: 100px 0;}</style><h1 id="helpfulNotFound"></h1><script defer src="/helpfulNotFound.js"></script><script>document.addEventListener("DOMContentLoaded", () => new NotFoundApp('${this.content}'))</script>`
   }
