@@ -15,7 +15,6 @@ jobs:
           rm .gitignore
           npm install .
           ./scroll.js build
-          cp blog/favicon.ico .
           cd blog
           echo "Installing packages for markups demo in blog."
           mkdir node_modules

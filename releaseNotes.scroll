@@ -6,6 +6,9 @@ printTitle
 
 thinColumns
 
+# 90.4.0 5/19/2024
+- 🎉 helpful 404 can now take multiple sitemaps as a parameter
+
 # 90.3.0 5/18/2024
 - 🎉 renamed `Scroll Datasets` to `ScrollSets`.
 
