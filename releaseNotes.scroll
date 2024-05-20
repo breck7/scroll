@@ -6,6 +6,10 @@ printTitle
 
 thinColumns
 
+# 92.0.0 5/20/2024
+- 🎉 simplified ScrollSets by removing the filename "magic". When putting a concept into a file, make the `id` the filename (without the extension). Have the id be a simple one word url friendly string. If you want a pretty title, add a `name` measure. Everything much simpler this way.
+- ⚠️ BREAKING: (no one should be affected)
+
 # 91.0.0 5/19/2024
 - 🎉 `printAuthor` keyword prints the author defined by `author`. `byLine` has been deprecated--replace with `printAuthor`.
 - ⚠️ BREAKING: `author` keyword now takes a URL.
