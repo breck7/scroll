@@ -30,7 +30,7 @@ abstractMeasureParser
  cells measureNameCell
  cruxFromId
  boolean isMeasure true
- int sortIndex 1000
+ float sortIndex 1000
  boolean isComputed false
  string typeForCsvDocs unspecified
  extends abstractScrollParser
@@ -71,7 +71,7 @@ abstractIdParser
  crux id
  description What is the ID of this concept?
  extends abstractStringMeasureParser
- int sortIndex 0
+ float sortIndex 0
  boolean isMeasureRequired true
  javascript
   getErrors() {
