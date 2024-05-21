@@ -126,6 +126,20 @@ const parseMeasures = parser => {
   return measureCache.get(parser)
 }
 
+const getConcepts = parsed => {
+  const concepts = []
+  let currentConcept
+  parsed.forEach(node => {
+    if (node.firstWord === scrollKeywords.conceptDelimiter) {
+      if (currentConcept) concepts.push(currentConcept)
+      currentConcept = []
+    }
+    if (node.isMeasure) currentConcept.push(node)
+  })
+  if (currentConcept) concepts.push(currentConcept)
+  return concepts
+}
+
 const addMeasureStats = (concepts, measures) => {
   return measures.map(measure => {
     let Type = false
@@ -273,22 +287,56 @@ class ScrollFile {
     return this.scrollProgram.filter(node => node.isTabularData && node.isFirst)
   }
 
+  _formatConcepts(parsed) {
+    // does a destructive sort in place on the parsed program
+    if (!parsed.has(scrollKeywords.conceptDelimiter)) return false
+    const concepts = getConcepts(parsed)
+
+    concepts.forEach(concept => {
+      let currentSection
+      const newCode = lodash
+        .sortBy(concept, ["sortIndex"])
+        .map(node => {
+          let newLines = ""
+          const section = node.sortIndex.toString().split(".")[0]
+          if (section !== currentSection) {
+            currentSection = section
+            newLines = "\n"
+          }
+          return newLines + node.toString()
+        })
+        .join("\n")
+
+      concept.forEach((node, index) => (index ? node.destroy() : ""))
+      concept[0].replaceNode(() => newCode)
+    })
+  }
+
   get formatted() {
+    // Todo: think this through and create the best long term strategy. Perhaps sortIndex float is a universal property on Grammar.
+    /* Current layout:
+[importOnly?]
+[topMatter*]
+
+[measurements*]
+[content*] */
+
     let formatted = this.originalScrollCode
     const parsed = new this.parser(formatted)
     let topMatter = []
     let importOnly = ""
-    parsed.forEach(node => {
-      if (node.isTopMatter) {
+    parsed
+      .filter(node => node.isTopMatter)
+      .forEach(node => {
         if (node.getLine() === "importOnly") {
           importOnly = node.toString() + "\n" // Put importOnly first, if present
           return node.destroy()
         }
         topMatter.push(node.toString())
         node.destroy()
-      }
-    })
+      })
 
+    this._formatConcepts(parsed)
     let topMatterThenContent = importOnly + topMatter.sort().join("\n").trim() + "\n\n" + parsed.toString().trim()
 
     return (

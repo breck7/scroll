@@ -194,6 +194,7 @@ moonsParser
  extends abstractIntegerMeasureParser
  description How many moons does the planet have?
  boolean isMeasureRequired true
+ float sortIndex 1.1
 
 akaParser
  extends abstractStringMeasureParser
@@ -218,25 +219,25 @@ wikipediaParser
 belowAsCodeUntil // end concepts
 
 id Mars
+moons 2
+ // Til Mars has 2 moons!
 diameter 6794
 surfaceGravity 4
 yearsToOrbitSun 1.881
-moons 2
- // Til Mars has 2 moons!
 
 id Jupiter
-diameter 142984
-surfaceGravity 25
-yearsToOrbitSun 11.86
 moons 63
  // The moons of Jupiter have their own Wikipedia Page
   https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
+diameter 142984
+surfaceGravity 25
+yearsToOrbitSun 11.86
 
 id Earth
+moons 1
 diameter 12756
 surfaceGravity 10
 yearsToOrbitSun 1
-moons 1
 aka Pale Blue Dot
 hasLife true
 wikipedia https://en.wikipedia.org/wiki/Earth
@@ -244,34 +245,34 @@ age 4500000000
  // Note: It was only during the 19th century that geologists realized Earth's age was at least many millions of years.
 
 id Mercury
+moons 0
 diameter 4879
 surfaceGravity 4
 yearsToOrbitSun 0.241
-moons 0
 
 id Saturn
+moons 64
 diameter 120536
 surfaceGravity 9
 yearsToOrbitSun 29.46
-moons 64
 
 id Uranus
+moons 27
 diameter 51118
 surfaceGravity 8
 yearsToOrbitSun 84.01
-moons 27
 
 id Venus
+moons 0
 diameter 12104
 surfaceGravity 9
 yearsToOrbitSun 0.615
-moons 0
 
 id Neptune
+moons 14
 diameter 49572
 surfaceGravity 11
 yearsToOrbitSun 164.79
-moons 14
 
 // end concepts
 

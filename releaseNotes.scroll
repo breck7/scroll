@@ -6,9 +6,13 @@ printTitle
 
 thinColumns
 
+# 93.0.0 5/21/2024
+- 🎉 `scroll format` command now also prettifies concepts and measurements in ScrollSets. If a measurement's `sortIndex` jumps to a new integer (for example, 1.9 to 2.1), a newline will be inserted before it.
+- ⚠️ BREAKING: (no one should be affected) the default `sortIndex` is now 1.9, and the sort index of `id` is 1.0. Update `sortIndex` accordingly.
+
 # 92.0.0 5/20/2024
 - 🎉 simplified ScrollSets by removing the filename "magic". When putting a concept into a file, make the `id` the filename (without the extension). Have the id be a simple one word url friendly string. If you want a pretty title, add a `name` measure. Everything much simpler this way.
-- ⚠️ BREAKING: (no one should be affected)
+- ⚠️ BREAKING: (no one should be affected) remove any spaghetti filename code.
 
 # 91.0.0 5/19/2024
 - 🎉 `printAuthor` keyword prints the author defined by `author`. `byLine` has been deprecated--replace with `printAuthor`.

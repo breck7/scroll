@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "92.0.0",
+  "version": "93.0.0",
   "description": "A language for scientists of all ages. A curated collection of tools for refining and sharing thoughts.",
   "main": "scroll.js",
   "engines": {
@@ -9,6 +9,7 @@
   "scripts": {
     "build": "scroll list | scroll build",
     "coverage": "tap tests/scroll.test.js",
+    "format": "scroll list | scroll format",
     "open": "open index.html",
     "debug": "node --inspect tests/scroll.test.js;",
     "jtreeBeta": "npm install ~/jtree",
