@@ -126,17 +126,41 @@ const parseMeasures = parser => {
   return measureCache.get(parser)
 }
 
+class Concept {
+  constructor(measurements) {
+    this.measurements = measurements
+    this.values = {}
+    measurements.forEach(measurement => (this.values[measurement.measureName] = measurement.measureValue))
+  }
+
+  getValue(measureName) {
+    return this.values[measureName]
+  }
+
+  get id() {
+    return this.values.id
+  }
+
+  getNode(singleLevelPath) {
+    if (!this.values[singleLevelPath]) return undefined
+    return this.measurements.find(node => node.firstWord === singleLevelPath)
+  }
+}
+
 const getConcepts = parsed => {
   const concepts = []
   let currentConcept
   parsed.forEach(node => {
     if (node.firstWord === scrollKeywords.conceptDelimiter) {
-      if (currentConcept) concepts.push(currentConcept)
+      if (currentConcept) concepts.push(new Concept(currentConcept))
       currentConcept = []
     }
-    if (node.isMeasure) currentConcept.push(node)
+    if (node.isMeasure) {
+      if (!currentConcept) console.log("***" + node.toString() + "***")
+      currentConcept.push(node)
+    }
   })
-  if (currentConcept) concepts.push(currentConcept)
+  if (currentConcept) concepts.push(new Concept(currentConcept))
   return concepts
 }
 
@@ -165,25 +189,20 @@ const measureFnCache = {}
 const computeMeasure = (parsedProgram, measureName, concept, concepts) => {
   if (!measureFnCache[measureName]) {
     // a bit hacky but works??
-    const node = parsedProgram.appendLine(measureName)
-    measureFnCache[measureName] = node.computeValue
-    node.destroy()
+    const measureNode = parsedProgram.appendLine(measureName)
+    measureFnCache[measureName] = measureNode.computeValue
+    measureNode.destroy()
   }
   return measureFnCache[measureName](concept, measureName, parsedProgram, concepts)
 }
 
 const parseConcepts = (parsedProgram, measures) => {
-  // Todo: might be a perf/memory/simplicity win to have a "segment" method on Jtree, where you could
-  // virtually split a tree into multiple segments, and then query on those segments.
-  // So we would "segment" on "id ", and then not need to create a bunch of new objects, and the original
-  // already parsed lines could then learn about/access to their respective segments.
-  const concepts = parsedProgram.split(scrollKeywords.conceptDelimiter)
-  concepts.shift() // Remove the part before "id"
+  const concepts = getConcepts(parsedProgram)
   return concepts.map(concept => {
     const row = {}
     measures.forEach(measure => {
       const measureName = measure.Name
-      if (!measure.IsComputed) row[measureName] = concept.getNode(measureName.replace(/_/g, " "))?.measureValue ?? ""
+      if (!measure.IsComputed) row[measureName] = concept.getValue(measureName) ?? ""
       else row[measureName] = computeMeasure(parsedProgram, measureName, concept, concepts)
     })
     return row
@@ -295,20 +314,20 @@ class ScrollFile {
     concepts.forEach(concept => {
       let currentSection
       const newCode = lodash
-        .sortBy(concept, ["sortIndex"])
-        .map(node => {
+        .sortBy(concept.measurements, ["sortIndex"])
+        .map(measurement => {
           let newLines = ""
-          const section = node.sortIndex.toString().split(".")[0]
+          const section = measurement.sortIndex.toString().split(".")[0]
           if (section !== currentSection) {
             currentSection = section
             newLines = "\n"
           }
-          return newLines + node.toString()
+          return newLines + measurement.toString()
         })
         .join("\n")
 
-      concept.forEach((node, index) => (index ? node.destroy() : ""))
-      concept[0].replaceNode(() => newCode)
+      concept.forEach((measurement, index) => (index ? measurement.destroy() : "")) // destroy all except id
+      concept[0].replaceNode(() => newCode) // replace id with the formatted concept
     })
   }
 
