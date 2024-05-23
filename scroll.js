@@ -82,6 +82,7 @@ class ScrollFileSystem extends TreeFileSystem {
   }
 }
 
+const removeBlanks = data => data.map(obj => Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== "")))
 const escapeCommas = str => (typeof str === "string" && str.includes(",") ? `"${str}"` : str)
 const defaultScrollParser = new TreeFileSystem().getParser(Disk.getFiles(path.join(__dirname, "grammar")).filter(file => file.endsWith(GRAMMAR_EXTENSION)))
 const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
@@ -351,8 +352,8 @@ class ScrollFile {
   _compileArray(filename, arr) {
     const parts = filename.split(".")
     const format = parts.pop()
-    if (format === "json") return JSON.stringify(arr, null, 2)
-    if (format === "js") return `const ${parts[0]} = ` + JSON.stringify(arr, null, 2)
+    if (format === "json") return JSON.stringify(removeBlanks(arr), null, 2)
+    if (format === "js") return `const ${parts[0]} = ` + JSON.stringify(removeBlanks(arr), null, 2)
     if (format === "csv") return arrayToCSV(arr)
     if (format === "tsv") return arrayToCSV(arr, "\t")
     if (format === "tree") return tree.toString()

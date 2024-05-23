@@ -6,6 +6,9 @@ printTitle
 
 thinColumns
 
+# 93.2.0 5/23/2024
+- 🎉 `writeConcepts` and `writeMeasures` now strips blank values when generating JSON and/or JS
+
 # 93.1.0 5/23/2024
 - 🎉 `tableSearch` now will save the sort order to the url
 - 🏥 fixed bug where updates to externals would not get copied
