@@ -89,46 +89,14 @@ tabTableParser
 
 tableSearchParser
  extends abstractScrollWithRequirementsParser
- string copyFromExternal jquery-3.7.1.min.js dataTables.dataTables.min.css dataTables.min.js
+ string copyFromExternal jquery-3.7.1.min.js dataTables.dataTables.min.css dataTables.min.js tableSearch.js
  string requireOnce
   <script defer src="jquery-3.7.1.min.js"></script>
   <style>.dt-search{font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";}</style>
   <link rel="stylesheet" href="dataTables.dataTables.min.css" />
   <script defer src="dataTables.min.js"></script>
-  <script defer>
-   document.addEventListener("DOMContentLoaded", function () {
-     const getSearch = () => {
-       const hashParams = window.location.hash
-         .substr(1)
-         .split("&")
-         .reduce(function (p, e) {
-           var a = e.split("=")
-           p[decodeURIComponent(a[0])] = decodeURIComponent(a[1])
-           return p
-         }, {})
-       return hashParams.q || ""
-     }
-     const dataTable = jQuery("table").DataTable({
-       order: [],
-       paging: false,
-       stateSave: true,
-       stateSaveCallback: function (settings, data) {
-         if (data.search.search)
-          window.location.hash = "q=" + encodeURIComponent(data.search.search)
-         else
-          window.location.hash = ""
-       },
-       // Set the search input to the initial value extracted from the URL
-       search: { search: getSearch() },
-       stateLoadCallback: function (settings) {
-         return { search: { search: getSearch() } }
-       }
-     })
-     // Listen for hash changes to update the DataTable search
-     window.addEventListener("hashchange", () => dataTable.search(getSearch()).draw(false))
-   })
-  </script>
- description Add table search to all tables on the page.
+  <script defer src="tableSearch.js"></script>
+ description Add table search and sort to all tables on the page.
  javascript
   compileInstance() {
    return ""

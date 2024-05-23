@@ -870,10 +870,8 @@ import footer.scroll
         const externalFiles = node.copyFromExternal.split(" ")
         externalFiles.forEach(name => {
           const newPath = path.join(folder, name)
-          if (!Disk.exists(newPath)) {
-            fileSystem.write(newPath, Disk.read(path.join(__dirname, "external", name)))
-            this.log(`💾 Wrote external file needed by ${file.filename} to ${name}`)
-          }
+          fileSystem.write(newPath, Disk.read(path.join(__dirname, "external", name)))
+          this.log(`💾 Wrote external file needed by ${file.filename} to ${name}`)
         })
         externalFilesCopied[word] = true
       }
