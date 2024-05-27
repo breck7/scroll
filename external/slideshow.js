@@ -55,6 +55,7 @@ class SlideShow {
       event.preventDefault()
       that.page = parseInt(jQuery(this).attr("href").replace("#", ""))
       that.renderAll()
+      window.location.hash = "#" + that.page
     })
   }
 
