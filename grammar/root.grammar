@@ -7,20 +7,24 @@ abstractScrollParser
   compileTextVersion() {
     return ""
   }
+  getHtmlRequirements(compileSettings) {
+    const {requireOnce} = this
+    if (!requireOnce)
+      return ""
+    const set = compileSettings?.alreadyRequired || this.root.alreadyRequired
+    if (set.has(requireOnce))
+      return ""
+    
+    set.add(requireOnce)
+    return requireOnce + "\n\n"
+  }
 
 abstractScrollWithRequirementsParser
  extends abstractScrollParser
  cruxFromId
  javascript
   compile(compileSettings) {
-    const {requireOnce} = this
-    const set = compileSettings?.alreadyRequired || this.root.alreadyRequired
-    let requireSnippet = ""
-    if (!set.has(requireOnce)) {
-      set.add(requireOnce)
-      requireSnippet = requireOnce + "\n\n"
-    }
-    return requireSnippet + this.compileInstance()
+    return this.getHtmlRequirements(compileSettings) + this.compileInstance()
   }
 
 abstractTopLevelSingleMetaParser

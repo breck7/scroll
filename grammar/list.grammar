@@ -21,6 +21,16 @@ listAftertextParser
   tag = "li"
   listType = "ul"
 
+abstractCustomListItemParser
+ extends listAftertextParser
+ javascript
+  get requireOnce() {
+    return `<style>.${this.constructor.name} li::marker {content: "${this.firstWord} ";}</style>`
+  }
+  get attributes() {
+    return `class="${this.constructor.name}"`
+  }
+
 orderedListAftertextParser
  extends listAftertextParser
  description A list item.
