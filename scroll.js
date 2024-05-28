@@ -678,7 +678,7 @@ class ScrollFile {
 class ScrollCli {
   CommandFnDecoratorSuffix = "Command"
 
-  executeUsersInstructionsFromShell(args = [], userIsPipingInput = fs.fstatSync(0).isFIFO()) {
+  executeUsersInstructionsFromShell(args = [], userIsPipingInput = process.platform !== "win32" && fs.fstatSync(0).isFIFO()) {
     const command = args[0] // Note: we don't take any parameters on purpose. Simpler UX.
     const commandName = `${command}${this.CommandFnDecoratorSuffix}`
     if (this[commandName]) return userIsPipingInput ? this._runCommandOnPipedStdIn(commandName) : this[commandName](process.cwd())
