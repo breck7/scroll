@@ -626,7 +626,8 @@ class ScrollFile {
       // Don't add html tags to XML/RSS/CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
       // <1% of use case so might be good enough.
       const wrapWithHtmlTags = permalink.endsWith(".html") || permalink.endsWith(".htm")
-      this._compiledStandalonePage = wrapWithHtmlTags ? `<!DOCTYPE html>\n<html lang="${this.lang}">\n${content}\n</html>` : content
+      const bodyTag = this.scrollProgram.has("metaTags") ? "" : "<body>\n"
+      this._compiledStandalonePage = wrapWithHtmlTags ? `<!DOCTYPE html>\n<html lang="${this.lang}">\n${bodyTag}${content}\n</body>\n</html>` : content
     }
     return this._compiledStandalonePage
   }

@@ -178,7 +178,7 @@ testTree.aBlankPage = areEqual => {
 # Hello world
  hidden`)
   // Act/Assert
-  areEqual(testHidden.html, `<!DOCTYPE html>\n<html lang="en">\n\n</html>`)
+  areEqual(testHidden.html, `<!DOCTYPE html>\n<html lang="en">\n<body>\n\n</body>\n</html>`)
 }
 
 testTree.rss = areEqual => {

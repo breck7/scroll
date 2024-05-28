@@ -23,6 +23,9 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 93.6.0 5/28/2024
+🎉 clean up generated html (add a <body> tag).
+
 📦 93.5.0 5/27/2024
 🎉 clean up generated html (add a <head> tag, for instance).
 

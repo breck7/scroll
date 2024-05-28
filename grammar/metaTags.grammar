@@ -17,6 +17,7 @@ metaTagsParser
    let rssTag = ""
    if (rssFeedUrl)
     rssTag = `<link rel="alternate" type="application/rss+xml" title="${title}" href="${rssFeedUrl}">`
+   // todo: cleanup the head/body stuff.
    return `<head>
    <meta charset="utf-8">
    <title>${title}</title>
@@ -31,7 +32,8 @@ metaTagsParser
    <meta property="og:image" content="${openGraphImage}">
    ${rssTag}
    <meta name="twitter:card" content="summary_large_image">
-  </head>`
+  </head>
+  <body>`
   }
 
 htmlLangParser
