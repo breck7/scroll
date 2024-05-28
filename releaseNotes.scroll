@@ -23,6 +23,9 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 93.6.1 5/28/2024
+🏥 upgrade JTree to try and get Scroll working on Windows
+
 📦 93.6.0 5/28/2024
 🎉 clean up generated html (add a <body> tag).
 

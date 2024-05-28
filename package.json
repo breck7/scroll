@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "93.6.0",
+  "version": "93.6.1",
   "description": "A language for scientists of all ages. A curated collection of tools for refining and sharing thoughts.",
   "main": "scroll.js",
   "engines": {
@@ -43,7 +43,7 @@
   "dependencies": {
     "dayjs": "^1.11.7",
     "image-size": "^1.0.2",
-    "jtree": "^77.0.0",
+    "jtree": "^77.1.1",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5"
   },
