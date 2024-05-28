@@ -93,7 +93,7 @@ tableSearchParser
  string requireOnce
   <script defer src="jquery-3.7.1.min.js"></script>
   <style>.dt-search{font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";}</style>
-  <link rel="stylesheet" href="dataTables.dataTables.min.css" />
+  <link rel="stylesheet" href="dataTables.dataTables.min.css">
   <script defer src="dataTables.min.js"></script>
   <script defer src="tableSearch.js"></script>
  description Add table search and sort to all tables on the page.

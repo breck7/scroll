@@ -36,7 +36,7 @@ mapParser
  description Uses LeafletJs
  string copyFromExternal leaflet.css leaflet.js
  string requireOnce
-  <link rel="stylesheet" href="leaflet.css" />
+  <link rel="stylesheet" href="leaflet.css">
   <script src="leaflet.js"></script>
  javascript
   compileInstance() {

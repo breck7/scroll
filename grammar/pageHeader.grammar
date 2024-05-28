@@ -35,15 +35,15 @@ pageHeaderParser
    const { SVGS, linkToPrevious, linkToNext } = file
    let previousButton = ""
    if (linkToPrevious)
-    previousButton = `a <
+    previousButton = `a &lt;
     style left:.1875rem;
     href ${linkToPrevious}`
    let nextButton = ""
    if (linkToNext)
-    nextButton = `a >
+    nextButton = `a &gt;
     style right:.1875rem;
     href ${linkToNext}`
-   return `<style>${this.css}</style>` + file.compileStumpCode(`div
+   return `<style>\n${this.css}\n</style>` + file.compileStumpCode(`div
    class pageHeader doNotPrint
    ${previousButton}
    a ${SVGS.home}

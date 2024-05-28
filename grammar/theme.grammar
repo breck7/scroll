@@ -76,7 +76,7 @@ abstractThemeCssParser
     return !(this.get("tags") === "false")
   }
   compile() {
-   return this.useTags ? `<style>${this.css}</style>` : this.css
+   return this.useTags ? `<style>\n${this.css}\n</style>` : this.css
   }
   compileEmbeddedVersion() {
    return ""
