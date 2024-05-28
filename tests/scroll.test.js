@@ -253,7 +253,10 @@ testTree.kitchenSink = async areEqual => {
     console.log(err)
   }
 
-  shell(`rm -f ${kitchenSinkFolder}/*.html`)
+  // Cleanup:
+  fs.readdirSync(kitchenSinkFolder)
+    .filter(file => path.extname(file) === ".html")
+    .forEach(file => fs.unlinkSync(path.join(kitchenSinkFolder, file)))
 }
 
 if (module && !module.parent) TestRacer.testSingleFile(__filename, testTree)
