@@ -55,6 +55,8 @@ abstractAftertextParser
   }
   tag = "p"
   get className() {
+   if (this.get("classes"))
+     return this.get("classes")
    const classLine = this.getNode("class")
    if (classLine && classLine.applyToParentElement) return classLine.content
    return this.defaultClassName
@@ -311,10 +313,19 @@ classMarkupParser
    return [`class="${this.className}"`]
   }
   get matchWholeLine() {
-    return this.getWordsFrom(2).length === 0
+    return this.applyToParentElement
   }
   get pattern() {
    return this.matchWholeLine ? this.parent.content : this.getWordsFrom(2).join(" ")
+  }
+
+classesMarkupParser
+ extends classMarkupParser
+ crux classes
+ javascript
+  applyToParentElement = true
+  get className() {
+   return this.content
   }
 
 strikethroughParser

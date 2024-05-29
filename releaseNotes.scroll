@@ -23,6 +23,9 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 93.7.0 5/29/2024
+🎉 added `classes` keyword
+
 📦 93.6.2 5/28/2024
 🏥 more Windows fixes
 
