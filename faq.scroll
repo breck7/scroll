@@ -343,6 +343,10 @@ Scroll and Web Components are similar in that both empower users to define their
 For that we use BrowserStack.
  https://browserstack.com BrowserStack
 
+? Is there a subreddit to discuss Scroll?
+Yes.
+ https://www.reddit.com/r/ScrollLang/
+
 ? How many compiler passes are there in the language?
 Each Scroll file is currently passed over 4 times during compilation to HTML and/or text.
 1. The full file is read.
