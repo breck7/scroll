@@ -1,5 +1,5 @@
-replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
-replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
+replace GrammarLinked <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Grammar</a>
+replace ScrollNotationLinked <a href="https://notation.scroll.pub">Scroll Notation</a>
 title Scroll FAQ
 
 import header.scroll
@@ -32,7 +32,7 @@ You can stick to the basics or define new keywords (by writing "parsers") to ext
 
 Your parsers can be simple or as complex as any programming language, and a simple indent is all you need to make sure your parser won't interfere with other parsers.
 
-Parsers in Scroll are written in a language called GrammarLinked, and both Grammar and Scroll are built on the syntax called TreeNotationLinked.
+Parsers in Scroll are written in a language called GrammarLinked, and both Grammar and Scroll are built on the syntax called ScrollNotationLinked.
 
 ? How does Scroll improve over the latest incarnations of Markdown?
 Scroll evolved based on the theory that instead of a fixed language for blogging it is better to have an ever evolving ecosystem of keywords, so that your symbolic tools can grow along with your mental tools.
@@ -158,8 +158,8 @@ Scroll articles are written as Scroll files with the file extension scroll. The 
 
 ? What language is Scroll written in?
 Scroll is mostly written in GrammarLinked. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a couple of other Tree Languages. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
- https://jtree.treenotation.org/designer/#standard%20hakon Hakon
- https://jtree.treenotation.org/designer/#standard%20stump stump
+ https://sdk.scroll.pub/designer/#standard%20hakon Hakon
+ https://sdk.scroll.pub/designer/#standard%20stump stump
 TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.
 
 ? How does versioning of articles work?

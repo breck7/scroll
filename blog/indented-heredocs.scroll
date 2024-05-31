@@ -1,9 +1,9 @@
 author https://github.com/breck7 Breck Yunits
 date 2021.08.23
 groups All
-replace GrammarLinked <a href="https://jtree.treenotation.org/designer/#standard%20grammar">Grammar</a>
+replace GrammarLinked <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Grammar</a>
 replace ScrollLinked <a href="https://scroll.pub">Scroll</a>
-replace TreeNotationLinked <a href="https://treenotation.org">Tree Notation</a>
+replace ScrollNotationLinked <a href="https://notation.scroll.pub">Scroll Notation</a>
 title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
 
 import markups.scroll
@@ -15,12 +15,12 @@ printAuthor
 
 keyboardNav
 
-* ScrollLinked is a new language and static site generator that is mostly written in a new language called GrammarLinked which are both built on a new syntax called TreeNotationLinked.
+* ScrollLinked is a new language and static site generator that is mostly written in a new language called GrammarLinked which are both built on a new syntax called ScrollNotationLinked.
  dateline
 
 ***
 
-In this demo, I extend Scroll by adding support for Markdown, Textile, and BBCode. I want to demonstrate how easy it is to compose many languages into one using TreeNotationLinked, which is due to what you might call the Indented or Off-side Heredoc pattern.
+In this demo, I extend Scroll by adding support for Markdown, Textile, and BBCode. I want to demonstrate how easy it is to compose many languages into one using ScrollNotationLinked, which is due to what you might call the Indented or Off-side Heredoc pattern.
  https://en.wikipedia.org/wiki/Markdown Markdown
  https://en.wikipedia.org/wiki/Textile_(markup_language) Textile
  https://en.wikipedia.org/wiki/BBCode BBCode
@@ -86,7 +86,7 @@ More extensive examples are pasted below. Source is here.
 
 # Summary
 
-A simple but largely accurate description of TreeNotationLinked is that it is just indented or off-side HereDocs. Or in colloquial academic speak _The Off-Side Rule is all you need_. Most people learn of the off-side rule via Python. Imagine if your whole language was just the off-side rule. That's basically Tree Notation. But my code is not the important thing—the important thing is this pattern. Try it yourself—I bet you will love it.
+A simple but largely accurate description of ScrollNotationLinked is that it is just indented or off-side HereDocs. Or in colloquial academic speak _The Off-Side Rule is all you need_. Most people learn of the off-side rule via Python. Imagine if your whole language was just the off-side rule. That's basically Scroll Notation. But my code is not the important thing—the important thing is this pattern. Try it yourself—I bet you will love it.
  https://en.wikipedia.org/wiki/Off-side_rule Off-Side Rule
  https://en.wikipedia.org/wiki/Here_document HereDocs
 

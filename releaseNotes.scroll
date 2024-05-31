@@ -23,6 +23,10 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 94.0.0 5/31/2024
+🎉 jtree is now the "ScrollSDK" and "Tree Notation" is now "Scroll Notation"
+⚠️ BREAKING: (only advanced users affected), if you wrote custom Scroll Parsers, you may need to find/replace `jtree` with `scrollsdk`
+
 📦 93.7.1 5/30/2024
 🏥 katex should print contents in txt compilation
 

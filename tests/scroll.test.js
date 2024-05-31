@@ -4,9 +4,9 @@ const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
 const { ScrollCli, ScrollFile, DefaultScrollParser, ScrollFileSystem } = require("../scroll.js")
-const { Disk } = require("jtree/products/Disk.node.js")
-const { TestRacer } = require("jtree/products/TestRacer.js")
-const grammarParser = require("jtree/products/grammar.nodejs.js")
+const { Disk } = require("scrollsdk/products/Disk.node.js")
+const { TestRacer } = require("scrollsdk/products/TestRacer.js")
+const grammarParser = require("scrollsdk/products/grammar.nodejs.js")
 const shell = require("child_process").execSync
 
 const testTree = {}
@@ -42,13 +42,13 @@ testTree.paragraphParser = areEqual => {
 
 testTree.linkOnly = areEqual => {
   // Arrange
-  const program = new DefaultScrollParser(`* https://treenotation.org`)
+  const program = new DefaultScrollParser(`* https://notation.scroll.pub`)
 
   // Act
   program.compile()
   const result = program.compile()
 
-  areEqual(result, `<p class="scrollParagraph"><a href="https://treenotation.org" target="_blank">https://treenotation.org</a></p>`)
+  areEqual(result, `<p class="scrollParagraph"><a href="https://notation.scroll.pub" target="_blank">https://notation.scroll.pub</a></p>`)
 }
 
 testTree.endSnippet = areEqual => {

@@ -6,7 +6,7 @@ loadConceptsParser
  javascript
   compile() {
    // A little hacky
-   const { Disk } = require("jtree/products/Disk.node.js")
+   const { Disk } = require("scrollsdk/products/Disk.node.js")
    const path = require("path")
    const {file} = this.parent
    const folder = path.join(file.folderPath, this.getWord(1))

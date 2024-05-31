@@ -34,7 +34,7 @@ floatCell
 percentCell
  highlightScope constant.numeric.float
  extends stringCell
- // todo: this currently extends from stringCell b/c jtree needs to be fixed. seems like if extending from number then the hard coded number typescript regex takes precedence over a custom regex
+ // todo: this currently extends from stringCell b/c scrollsdk needs to be fixed. seems like if extending from number then the hard coded number typescript regex takes precedence over a custom regex
 countCell
  extends integerCell
 yearCell

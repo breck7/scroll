@@ -75,7 +75,7 @@ scrollParser
   }
   get hakonParser() {
     if (this.isNodeJs())
-      return require("jtree/products/hakon.nodejs.js")
+      return require("scrollsdk/products/hakon.nodejs.js")
     return hakonParser
   }
   alreadyRequired = new Set()

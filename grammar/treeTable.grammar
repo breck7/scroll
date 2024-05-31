@@ -35,7 +35,7 @@ treeRowParser
   }
 
 treeTableParser
- description A table of data written in Tree Notation form. Useful when a column contains a text blob.
+ description A table of data written in Scroll Notation form. Useful when a column contains a text blob.
  extends abstractTableParser
  catchAllParser treeRowParser
  javascript

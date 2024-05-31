@@ -7,12 +7,12 @@ const fs = require("fs")
 const lodash = require("lodash")
 const dayjs = require("dayjs")
 
-// Tree Notation Includes
-const { TreeNode } = require("jtree/products/TreeNode.js")
-const { Disk } = require("jtree/products/Disk.node.js")
-const { Utils } = require("jtree/products/Utils.js")
-const { TreeFileSystem } = require("jtree/products/TreeFileSystem.js")
-const stumpParser = require("jtree/products/stump.nodejs.js")
+// Scroll Notation Includes
+const { TreeNode } = require("scrollsdk/products/TreeNode.js")
+const { Disk } = require("scrollsdk/products/Disk.node.js")
+const { Utils } = require("scrollsdk/products/Utils.js")
+const { TreeFileSystem } = require("scrollsdk/products/TreeFileSystem.js")
+const stumpParser = require("scrollsdk/products/stump.nodejs.js")
 const packageJson = require("./package.json")
 
 // Constants
@@ -174,8 +174,8 @@ const computeMeasure = (parsedProgram, measureName, concept, concepts) => {
 }
 
 const parseConcepts = (parsedProgram, measures) => {
-  // Todo: might be a perf/memory/simplicity win to have a "segment" method on Jtree, where you could
-  // virtually split a tree into multiple segments, and then query on those segments.
+  // Todo: might be a perf/memory/simplicity win to have a "segment" method in ScrollSDK, where you could
+  // virtually split a ScrollNode into multiple segments, and then query on those segments.
   // So we would "segment" on "id ", and then not need to create a bunch of new objects, and the original
   // already parsed lines could then learn about/access to their respective segments.
   const concepts = parsedProgram.split(scrollKeywords.conceptDelimiter)
@@ -343,7 +343,7 @@ class ScrollFile {
     return (
       topMatterThenContent
         .trim() // Remove leading whitespace
-        .replace(/(\S.*?)[  \t]*$/gm, "$1") // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic tree notation)
+        .replace(/(\S.*?)[  \t]*$/gm, "$1") // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic scroll notation)
         .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
         .replace(/\n+$/, "") + "\n"
     ) // End Scroll files in a newline character POSIX style for better working with tools like git
