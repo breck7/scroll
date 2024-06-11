@@ -1,5 +1,5 @@
 importOnly
-homeLink ../index.html
+homeUrl ../index.html
 writeText
 
 import settings.scroll

@@ -102,3 +102,21 @@ scrollParser
   code
    // You can add code as well.
    print("Hello world")
+
+abstractFileSettingParser
+ extends abstractTopLevelSingleMetaParser
+ cells keywordCell
+ javascript
+  compile() {
+   return ""
+  }
+
+abstractUrlSettingParser
+ extends abstractFileSettingParser
+ cells keywordCell urlCell
+ cruxFromId
+
+abstractSiteStringSettingParser
+ extends abstractFileSettingParser
+ catchAllCellType stringCell
+ cruxFromId

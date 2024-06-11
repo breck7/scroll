@@ -23,6 +23,11 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 95.0.0 6/11/2024
+🎉 added `downloadUrl` keyword.
+⚠️ BREAKING: `canonicalLink` is now `canonicalUrl`.
+⚠️ BREAKING: `homeLink` is now `homeUrl`.
+
 📦 94.0.1 6/1/2024
 🏥 make slideshow start after the first dinkus
 
@@ -586,10 +591,10 @@ This was a big internal refactor to remove the outdated concept of `ScrollFolder
 🏥 if something goes wrong in a nodejs block, be sure to clean up the temporary file
 
 📦 62.5.0 3/23/2023
-🎉 New keyword `canonicalLink` if you need to include query strings in canonical link.
+🎉 New keyword `canonicalUrl` if you need to include query strings in canonical link.
 
 code
- canonicalLink https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
+ canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
 
 📦 62.4.0 3/23/2023
 🏥 SEO fix: metaTags now sets canonical link

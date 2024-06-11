@@ -48,7 +48,7 @@ pageHeaderParser
    ${previousButton}
    a ${SVGS.home}
     style text-align:left;left:1.5625rem;
-    href ${file.get("homeLink") || "index.html"}
+    href ${file.get("homeUrl") || "index.html"}
    a ${SVGS.git}
     style text-align:right;right: 1.5625rem;
     href ${file.git}

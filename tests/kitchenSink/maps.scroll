@@ -1,4 +1,4 @@
-canonicalLink https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
+canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
 
 import header.scroll
 

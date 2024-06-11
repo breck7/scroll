@@ -45,6 +45,8 @@ pageFooterParser
    class pageFooter doNotPrint
    a ${SVGS.email}
     href mailto:${file.email}
+   a ${SVGS.download}
+    href ${file.downloadUrl}
    a ${SVGS.git}
     href ${file.git}
    a Built with Scroll v${SCROLL_VERSION}
