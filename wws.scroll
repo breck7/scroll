@@ -7,10 +7,6 @@ writeMeasures wwsMeasures.tsv
 
 mediumColumns 1
 
-Art. Courage. Freedom. Intelligence. Laughter. Love. Science. Truth.
-
-These are the words that guide The World Wide Scroll (WWS).
-
 # Download
 Download the World Wide Scroll as:
 
@@ -112,6 +108,13 @@ registered 6/12/2024
 expires 6/12/2025
 
 import stripeBuyButton.scroll
+
+# Values
+Art. Courage. Freedom. Intelligence. Laughter. Love. Science. Truth.
+
+These are the words that guide The World Wide Scroll (WWS).
+
+****
 
 endColumns
 
