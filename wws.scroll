@@ -103,6 +103,14 @@ www https://pldb.io
 registered 6/12/2024
 expires 6/12/2025
 
+id cancerdb
+owner Breck Yunits
+ email breck7@gmail.com
+source https://github.com/breck7/CancerDB
+www https://cancerdb.com
+registered 6/12/2024
+expires 6/12/2025
+
 import stripeBuyButton.scroll
 
 endColumns
