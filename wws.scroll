@@ -7,8 +7,17 @@ writeMeasures wwsMeasures.tsv
 
 mediumColumns 1
 
+# What is the World Wide Scroll (WWS)?
+The WWS is like the World Wide Web, except:
+- *Offline.* You download entire sites and browse completely offline locally, rather than fetching one page at a time.
+- *Pristine.* No ads, no paywalls, no trackers, no cookies, no copyright.
+- *Human.* Instead of domains the WWS has folders owned by humans, not AIs or corporations.
+- *Trustworthy.* Source code behind every page.
+- *Intelligent.* Built from the ground up in a simple, expandable language.
+ https://scroll.pub simple, expandable language
+
 # Download
-Download the World Wide Scroll as:
+Download the list of folders in the World Wide Scroll as:
 
 * CSV | TSV | JSON
  link wws.csv CSV
