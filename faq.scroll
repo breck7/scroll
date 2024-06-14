@@ -214,12 +214,12 @@ code
        - name: Deploy 🚀
          uses: JamesIves/github-pages-deploy-action@4.1.4
          with:
-           branch: scroll-output # The branch the action should deploy to.
+           branch: wws # The branch the action should deploy to.
            folder: .
-Commit and push. Now go to your GitHub Repo and then Settings, then Pages, and select the scroll-output branch as the Source for the pages. Click save. Your built site should be live.
+Commit and push. Now go to your GitHub Repo and then Settings, then Pages, and select the wws branch as the Source for the pages. Click save. Your built site should be live.
  code Settings
  code Pages
- code scroll-output
+ code wws
 
 ? How do I setup a custom 404 page with GitHub pages?
 Check out the `404.scroll` file in this folder.
