@@ -24,6 +24,8 @@ The World Wide Scroll beta is live!
 
 You can now register your own folder in the World Wide Scroll for $10 per year.
 
+Funds pay for the development of the Scroll language.
+
 Fine Print
 ==========
 - A purchase entitles you to choose one unique unclaimed alpha-numeric id in the World Wide Scroll for one year, and to make updates to the properties of that folder, as defined in this file.
