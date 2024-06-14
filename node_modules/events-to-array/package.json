@@ -1,0 +1,33 @@
+{
+  "name": "events-to-array",
+  "version": "2.0.3",
+  "description": "Put a bunch of emitted events in an array, for testing.",
+  "main": "index.js",
+  "files": [
+    "index.d.ts",
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "tap": "^16.3.0"
+  },
+  "scripts": {
+    "test": "tap",
+    "preversion": "npm test",
+    "postversion": "npm publish",
+    "prepublishOnly": "git push origin --follow-tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isaacs/events-to-array"
+  },
+  "author": "Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isaacs/events-to-array/issues"
+  },
+  "homepage": "https://github.com/isaacs/events-to-array"
+}

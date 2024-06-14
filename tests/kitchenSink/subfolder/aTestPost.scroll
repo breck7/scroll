@@ -1,0 +1,7 @@
+groups index
+title This is _a_ test
+
+import ../header.scroll
+
+printTitle
+# This file is in a subfolder

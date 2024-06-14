@@ -1,0 +1,29 @@
+author https://breckyunits.com Breck Yunits
+date 4/29/2024
+groups All
+title Scroll now generates text files
+
+import header.scroll
+keyboardNav
+printTitle
+
+printAuthor
+
+thinColumns 1
+
+Scroll is a minimal (but extensible) language for generating HTML files and CSVs, with the main use cases being blogs and knowledge bases.
+ dateline
+ link scrollsets.html knowledge bases
+
+However, recently I've been needing to make readable text versions of blog posts for a few use cases. I was doing that by hand, but now it is built in to Scroll.
+
+To use it, just add a single line to your posts: `writeText`. You can even put that line into your `header.scroll` or `footer.scroll` to have it apply to your whole blog.
+
+Now you have another way to read, review, and share your thoughts!
+
+View text
+ link textFiles.txt
+
+****
+
+import footer.scroll

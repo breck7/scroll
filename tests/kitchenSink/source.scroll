@@ -1,0 +1,13 @@
+permalink prompt.txt
+
+import settings.scroll
+// Demonstrates a technique for building a big prompt to give to an LLM.
+
+plainText
+ Instructions:
+ Below are the files in a blog. I want you to read them, and then perform the following tasks, and give me your results in the format of a git patch so I can easily apply your changes on my local computer and commit them.
+ 
+ Tasks:
+ 
+ The Files:
+printSource index

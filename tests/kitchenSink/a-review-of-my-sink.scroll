@@ -1,0 +1,38 @@
+groups index all
+replace SOME_DATA
+ - foo
+  link bar.html
+ - bar
+  link bam.html
+title A review of my sink
+
+import header.scroll
+
+printTitle
+
+thinColumns 1
+
+I have been using my sink for one year, and this is what I have learned.
+
+endSnippet
+
+I have learned that a sink is a sink.
+
+## My favorite things about sinks
+
+- They can hold water
+- You can put things in them
+
+- This should be in a new list
+
+youTube https://www.youtube.com/watch?v=hKkC1V86Frg
+ caption This is not a sink.
+
+keyboardNav
+
+- days old
+ dayjs Math.floor(dayjs().diff(dayjs("1984.2.26"), "day", true))
+
+SOME_DATA
+
+endColumns

@@ -1,0 +1,55 @@
+The World Wide Scroll
+=====================
+
+What is the World Wide Scroll (WWS)?
+====================================
+The WWS is like the World Wide Web, except:
+- *Offline.* You download entire sites and browse completely offline locally, rather than fetching one page at a time.
+- *Pristine.* No ads, no paywalls, no trackers, no cookies, no copyright.
+- *Human.* Instead of domains the WWS has folders owned by humans, not AIs or corporations.
+- *Trustworthy.* Source code behind every page.
+- *Intelligent.* Built from the ground up in a simple, expandable language.
+ https://scroll.pub
+
+Download
+========
+Download the list of folders in the World Wide Scroll as:
+
+CSV | TSV | JSON
+ https://scroll.pub/wws.csv
+ https://scroll.pub/wws.tsv
+ https://scroll.pub/wws.json
+
+Register a Folder
+=================
+The World Wide Scroll beta is live!
+
+You can now register your own folder in the World Wide Scroll for $10 per year.
+
+Fine Print
+==========
+- A purchase entitles you to choose one unique unclaimed alpha-numeric id in the World Wide Scroll for one year, and to make updates to the properties of that folder, as defined in this file.
+- All updates are subject to approval by the World Wide Scroll editors.
+- WWS Folders can only be reserved by individuals.
+- The WWS is for high quality, non-anonymous content.
+ - You must use your real name and a real email address when registering a folder.
+  - This information will be publicly visible in this file (`wws.scroll`).
+- You can pay for multiple years.
+- Limit 5 folders per person.
+ - The WWS discourages name squatting and content not edited by humans.
+ - If you maintain high quality folders and hit the limit, you can request a higher limit.
+- Changes to your folder information may be communicated to the WWS team via email and/or using future self-service software.
+
+Values
+======
+Art. Courage. Freedom. Intelligence. Laughter. Love. Science. Truth.
+
+These are the words that guide The World Wide Scroll (WWS).
+
+****
+
+The World Wide Scroll
+=====================
+
+Folders
+=======

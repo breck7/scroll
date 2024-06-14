@@ -1,0 +1,44 @@
+groups index
+title Tabular data test
+writeText
+
+import header.scroll
+
+printTitle
+
+wideColumns 1
+
+A test of pasting raw TSV data at the root level in a scroll document.
+
+endSnippet
+
+printTable
+Index	Name	Diameter	Height	Covered	5	10	15	20	25	30	35	40	45	50	55
+1	Thermos	3	7.25	TRUE	149.9	147	144.6	141.2	138.2	137.1	134	132.8	131.1	129.3	127.2
+2	Yeti Covered	4	3.8	TRUE	146.6	141	136.7	132.5	129	125.6	123.4	121.6	118.5	117.6	115.7
+3	Yeti	4	3.8	FALSE	135.5	118.9	107.9	100.5	94.6	90.8	87.6	85.4	82.9	81.3	79.7
+4	SF	4	4.5	FALSE	128.8	113.9	102.5	95.9	90.5	86.3	83.6	81.6	79.8	78.2	76.6
+5	Aruba	3	3.75	FALSE	130.8	114.6	104.9	98.9	92.3	87.6	85.4	82.9	81.1	80.2	78
+
+## Putting print table after a table:
+name	score
+joe	2
+printTable
+
+# Print table using index
+printTable 1
+printTable 0
+
+# Dropdown sections
+
+expander Full Table
+printTable
+Rows	LogLinear	Quadratic	Before	After
+1000	9966	1000000	36000	15000
+2000	21932	4000000	53000	29000
+10000	132877	100000000	258000	32000
+20000	285754	400000000	1236000	52000
+100000	1660964	10000000000	23122000	125000
+200000	3521928	40000000000	113886000	324000
+
+* This should not print as a table, even though it has a 2 tabs( 	 and `	`), because it is in an explicit paragraph node.

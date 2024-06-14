@@ -1,0 +1,62 @@
+[
+  {
+    "id": "Mars",
+    "moons": 2,
+    "diameter": 6794,
+    "surfaceGravity": 4,
+    "yearsToOrbitSun": 1.881
+  },
+  {
+    "id": "Jupiter",
+    "moons": 63,
+    "diameter": 142984,
+    "surfaceGravity": 25,
+    "yearsToOrbitSun": 11.86
+  },
+  {
+    "id": "Earth",
+    "moons": 1,
+    "wikipedia": "https://en.wikipedia.org/wiki/Earth",
+    "aka": "Pale Blue Dot",
+    "diameter": 12756,
+    "surfaceGravity": 10,
+    "age": 4500000000,
+    "yearsToOrbitSun": 1,
+    "hasLife": true
+  },
+  {
+    "id": "Mercury",
+    "moons": 0,
+    "diameter": 4879,
+    "surfaceGravity": 4,
+    "yearsToOrbitSun": 0.241
+  },
+  {
+    "id": "Saturn",
+    "moons": 64,
+    "diameter": 120536,
+    "surfaceGravity": 9,
+    "yearsToOrbitSun": 29.46
+  },
+  {
+    "id": "Uranus",
+    "moons": 27,
+    "diameter": 51118,
+    "surfaceGravity": 8,
+    "yearsToOrbitSun": 84.01
+  },
+  {
+    "id": "Venus",
+    "moons": 0,
+    "diameter": 12104,
+    "surfaceGravity": 9,
+    "yearsToOrbitSun": 0.615
+  },
+  {
+    "id": "Neptune",
+    "moons": 14,
+    "diameter": 49572,
+    "surfaceGravity": 11,
+    "yearsToOrbitSun": 164.79
+  }
+]

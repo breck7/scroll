@@ -1,0 +1,5 @@
+permalink style.css
+
+comment Demonstrates how to dump the default scroll style if you don't want it to be inlined on every page.
+gazetteCss
+ tags false

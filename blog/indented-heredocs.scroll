@@ -1,0 +1,213 @@
+author https://github.com/breck7 Breck Yunits
+date 2021.08.23
+groups All
+replace GrammarLinked <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Grammar</a>
+replace ScrollLinked <a href="https://scroll.pub">Scroll</a>
+replace ScrollNotationLinked <a href="https://notation.scroll.pub">Scroll Notation</a>
+title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
+
+import markups.scroll
+import header.scroll
+mediumColumns 1
+
+printTitle
+printAuthor
+
+keyboardNav
+
+* ScrollLinked is a new language and static site generator that is mostly written in a new language called GrammarLinked which are both built on a new syntax called ScrollNotationLinked.
+ dateline
+
+***
+
+In this demo, I extend Scroll by adding support for Markdown, Textile, and BBCode. I want to demonstrate how easy it is to compose many languages into one using ScrollNotationLinked, which is due to what you might call the Indented or Off-side Heredoc pattern.
+ https://en.wikipedia.org/wiki/Markdown Markdown
+ https://en.wikipedia.org/wiki/Textile_(markup_language) Textile
+ https://en.wikipedia.org/wiki/BBCode BBCode
+
+My implementation is still _researchy_—GrammarLinked still needs a lot of work—but my main point here is to demo how _simple and powerful indented heredocs are_. They allow you to compose unlimited languages in one file in a clean and scalable way. You don't need escaping. I think this is a very helpful pattern you can use in your own languages and code.
+
+# Traditional Heredocs
+
+Traditional heredocs use start and end delimiters, like these examples from Ruby and Python and Markdown:
+
+rubyCode
+ # Heredoc in Ruby
+ puts <<GROCERY_LIST
+ Grocery list
+ ----
+ 1. Salad mix.
+ 2. Strawberries
+ GROCERY_LIST
+
+pythonCode
+ # Heredoc in Python
+ print("""
+ Customer: Not much of a cheese shop is it?
+ Shopkeeper: Finest in the district , sir.
+ """)
+
+markdownCode
+ ```javascript
+ // A heredoc/code block in Markdown
+ console.log(123)
+ ```
+
+# Indented Heredocs
+
+In contrast here is the indented/off-side heredoc pattern in Scroll.
+
+# The Demo
+The code below:
+
+scrollCode
+ markdown
+  ### Markdown is best
+ 
+ textile
+  *No!* _textile is best_
+ 
+ bbCode
+  [u]bbCode rules![/u]
+
+Emits this:
+
+markdown
+ ### Markdown is best
+
+textile
+ *No!* _textile is best_
+
+bbCode
+ [u]bbCode rules![/u]
+
+More extensive examples are pasted below. Source is here.
+ https://github.com/breck7/scroll/blob/main/blog/indented-heredocs.scroll here
+
+# Summary
+
+A simple but largely accurate description of ScrollNotationLinked is that it is just indented or off-side HereDocs. Or in colloquial academic speak _The Off-Side Rule is all you need_. Most people learn of the off-side rule via Python. Imagine if your whole language was just the off-side rule. That's basically Scroll Notation. But my code is not the important thing—the important thing is this pattern. Try it yourself—I bet you will love it.
+ https://en.wikipedia.org/wiki/Off-side_rule Off-Side Rule
+ https://en.wikipedia.org/wiki/Here_document HereDocs
+
+# Extended Examples
+
+## Markdown
+belowAsCode
+markdown
+ Marked - Markdown Parser
+ ========================
+ 
+ [Marked] lets you convert [Markdown] into HTML.  Markdown is a simple text format whose goal is to be very easy to read and write, even when not converted to HTML.  This demo page will let you type anything you like and see how it gets converted.  Live.  No more waiting around.
+ 
+ How To Use The Demo
+ -------------------
+ 
+ 1. Type in stuff on the left.
+ 2. See the live updates on the right.
+ 
+ That's it.  Pretty simple.  There's also a drop-down option in the upper right to switch between various views:
+ 
+ - **Preview:**  A live display of the generated HTML as it would render in a browser.
+ - **HTML Source:**  The generated HTML before your browser makes it pretty.
+ - **Lexer Data:**  What [marked] uses internally, in case you like gory stuff like this.
+ - **Quick Reference:**  A brief run-down of how to format things using markdown.
+ 
+ Why Markdown?
+ -------------
+ 
+ It's easy.  It's not overly bloated, unlike HTML.  Also, as the creator of [markdown] says,
+ 
+ > The overriding design goal for Markdown's
+ > formatting syntax is to make it as readable
+ > as possible. The idea is that a
+ > Markdown-formatted document should be
+ > publishable as-is, as plain text, without
+ > looking like it's been marked up with tags
+ > or formatting instructions.
+ 
+ Ready to start writing?  Either start changing stuff on the left or
+ [clear everything](/demo/?text=) with a simple click.
+ 
+ [Marked]: https://github.com/markedjs/marked/
+ [Markdown]: http://daringfireball.net/projects/markdown/
+
+## Textile
+belowAsCode
+textile
+ h1. level 1 heading
+ 
+ h2. level 2 heading
+ 
+ h3. level 3 heading
+ 
+ h4. level 4 heading
+ 
+ bq. this is blockquoted text
+ 
+ fn1. footnote 1
+ 
+ fn2. footnote 2
+ 
+ This text refernces a footnote[1]
+ 
+ # numbered list item 1
+ # numbered list item 2
+ 
+ * bulleted list first item
+ * bulleted list second item
+ 
+ _emphasis_
+ *strong*
+ ??citation??
+ -deleted text-
+ +inserted text+
+ ^superscript^
+ ~subscript~
+ %span%
+ 
+ p(class). paragraph with a classname
+ 
+ p(#id). paragraph with an ID
+ 
+ p{color:red}. paragrah with a CSS style
+ 
+ p[fr]. paragraphe en français
+ 
+ p<. left aligned paragraph
+ 
+ p>. right aligned paragraph
+ 
+ p=. centered aligned paragraph
+ 
+ p<>. justified text paragraph
+ 
+ |_. head |_. table |_. row |
+ | a | table | row 1 |
+ | a | table | row 2 |
+ 
+ "linktext":url
+ 
+ !imageurl!
+ 
+ ABBR(Abbreviation)
+
+## BBCode
+belowAsCode
+bbCode
+ [b]bolded text[/b]
+ [i]italicized text[/i]
+ [u]underlined text[/u]
+ [url]https://en.wikipedia.org[/url]
+ [url=https://en.wikipedia.org]English Wikipedia[/url]
+ [img]https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png[/img]
+ [quote]quoted text[/quote]
+ [code]monospaced text[/code]
+ [list]
+  [*]Entry A
+  [*]Entry B
+ [/list]
+
+endColumns
+
+import footer.scroll

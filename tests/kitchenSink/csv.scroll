@@ -1,0 +1,5 @@
+permalink posts.csv
+
+import settings.scroll
+
+printCsv index

@@ -1,0 +1,46 @@
+author https://breckyunits.com Breck Yunits
+date 1/11/2019
+groups index all
+replace NUM_SINKS 283
+replace TABLE
+ pipeTable
+  sinkManufacturer|country
+  Blue|USA
+  Red|Canada
+replaceJs SUM 1+1
+replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
+replaceJs TODAYS_DATE Date()
+replaceNodejs
+ module.exports = {DIRNAME: __dirname}
+title Top Sinks
+
+import header.scroll
+
+printTitle
+
+printAuthor
+
+keyboardNav
+
+goodMorning
+goodMorning
+goodMorning
+
+dashboard
+ NUM_SINKS in database
+ $0 budget
+ 3 countries
+
+TABLE
+TABLE
+TABLE
+
+Today is TODAYS_DATE
+
+1+1 = SUM
+
+THE_DAY was a great day
+
+There are NUM_SINKS in my list.
+
+This file is in dir: DIRNAME

@@ -1,0 +1,30 @@
+title Scroll Roadmap
+
+import header.scroll
+printTitle
+
+wideColumns 1
+
+A list of what is ahead for Scroll. Scroll is written in Grammar, so will also benefit from the planned improvements in the Grammar Roadmap.
+ https://sdk.scroll.pub/langs/grammar/ Grammar Roadmap
+
+endColumns
+
+thinColumns 2
+
+# Official Language Spec
+- A Spec defining the core of Scroll in enough detail so someone could build a new implementation in any host language.
+ https://en.wikipedia.org/wiki/Programming_language_specification Spec
+
+# Typeset Output: Scroll → TeX → PDF
+- It should be easy to use Scroll to generate not only HTML files but also nice PDFs likely using TeX as an intermediate representation
+
+# Browser Version: scroll.browser.js
+- https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support extending the Grammar so people can use the full power of Scroll completely in the client.
+
+# Potential Switching to Imperative Paradigm
+- Scroll is currently mostly declarative, with a few imperative keywords. However, it may be a better design to make it explicitly imperative. Though that might make it worse, sending it in the direction of a computer/scripting language, rather than the direction trying to be closer to the true language of thought. For now it remains declarative.
+
+endColumns
+
+import footer.scroll

@@ -1,0 +1,4 @@
+baseUrl https://scroll.pub/blog/
+permalink sitemap.txt
+
+printSiteMap

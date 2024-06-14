@@ -1,0 +1,89 @@
+📜 Scroll is a language for scientists of all ages
+==================================================
+
+Refine, share and collaborate on ideas
+======================================
+
+> The World Wide Scroll beta is live! Buy your folder now
+ https://scroll.pub/wws.html
+
+What is Scroll?
+===============
+Scroll is a language for scientists of all ages.
+
+Scroll includes a command line app that builds static blogs, websites, CSVs, text files, and more.
+ https://scroll.pub/blog/textFiles.html
+ https://scroll.pub/blog/scrollsets.html
+ https://scroll.pub/blog/index.html
+ https://scroll.pub/index.html
+
+What is Scroll used for?
+========================
+
+Blogs
+=====
+[Image Omitted]
+ https://breckyunits.com/
+ The screenshot above is from a blog powered by Scroll.
+  https://breckyunits.com/
+
+Knowledge Bases
+===============
+Scroll powers PLDB, a knowledge base with over 100 contributors who have added over 100,000 cells of structured data and thousands of pages.
+ https://pldb.io
+
+Static Sites
+============
+This site you are reading is powered by Scroll.
+ https://scroll.pub/index.html
+
+Can I try Scroll in the browser?
+================================
+Yes. Here is a web demo.
+ https://try.scroll.pub/
+
+What makes Scroll different?
+============================
+Scroll has an unusually simple syntax called Scroll Notation, an extensive set of features needed by researchers, bloggers, knowledge bases and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
+ https://scroll.pub/blog/scrollsets.html
+ https://notation.scroll.pub
+
+How do I install Scroll?
+========================
+Scroll is an npm package. Install with:
+ https://www.npmjs.com/package/scroll-cli
+npm install -g scroll-cli
+
+How do I install the developer version?
+=======================================
+git clone https://github.com/breck7/scroll.git
+cd scroll
+npm install -g .
+npm test
+
+Is Scroll open source?
+======================
+Yes. Breck's Lab publishes Scroll to the public domain.
+ https://breckyunits.com/lab.html
+
+The source code is hosted on GitHub.
+ https://github.com/breck7/scroll
+
+Where are the docs?
+===================
+- FAQ
+ https://scroll.pub/faq.html
+- Tutorial
+ https://scroll.pub/tutorial.html
+- Blog
+ https://scroll.pub/blog/index.html
+- Release Notes
+ https://scroll.pub/releaseNotes.html
+
+Can I write Scroll Parsers in my browser?
+=========================================
+Yes. You can use Scroll Designer to write Scroll Parsers in your browser without downloading anything.
+ https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.grammar
+
+Did the latest version of Scroll pass the automated tests?
+==========================================================

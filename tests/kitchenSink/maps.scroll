@@ -1,0 +1,13 @@
+canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
+
+import header.scroll
+
+map
+ lat 37.8
+ long -96
+ zoom 4
+ point
+  title St. Jude Children's Research Hospital
+  description 262 Danny Thomas Pl, Memphis, TN 38105
+  lat 35.1554637
+  long -90.0307277

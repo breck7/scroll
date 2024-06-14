@@ -1,0 +1,6 @@
+title The Official Scroll Blog
+
+import header.scroll
+printTitle
+fullSnippets All
+import footer.scroll

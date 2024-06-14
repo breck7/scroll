@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<rss version="2.0">
+<channel>
+ <title></title>
+ <link>https://scroll.pub/tests/kitchenSink/</link>
+ <description>Kitchen sink test site.</description>
+ <lastBuildDate>Fri, 14 Jun 2024 16:22:11 +0000</lastBuildDate>
+ <language>en-us</language>
+ <item>
+  <title>Top Sinks</title>
+  <link>https://scroll.pub/tests/kitchenSink/top-sinks.html</link>
+  <pubDate>Fri, 11 Jan 2019 00:00:00 +0000</pubDate>
+ </item>
+ <item>
+  <title>A review of my sink</title>
+  <link>https://scroll.pub/tests/kitchenSink/a-review-of-my-sink.html</link>
+  <pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
+ </item>
+ <item>
+  <title>Tabular data test</title>
+  <link>https://scroll.pub/tests/kitchenSink/tabularData.html</link>
+  <pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
+ </item>
+</channel>
+</rss>

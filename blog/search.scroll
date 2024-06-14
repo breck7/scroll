@@ -1,0 +1,11 @@
+title Search the Official Scroll Blog
+
+import header.scroll
+
+printTitle
+
+wideColumns 2
+printSearchTable All
+tableSearch
+
+import footer.scroll

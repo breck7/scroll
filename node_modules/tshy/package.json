@@ -1,0 +1,86 @@
+{
+  "name": "tshy",
+  "version": "1.15.1",
+  "description": "TypeScript HYbridizer - Hybrid (CommonJS/ESM) TypeScript node package builder",
+  "author": "Isaac Z. Schlueter <i@izs.me> (https://izs.me)",
+  "license": "BlueOak-1.0.0",
+  "type": "module",
+  "bin": "./dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "chokidar": "^3.6.0",
+    "foreground-child": "^3.1.1",
+    "minimatch": "^9.0.4",
+    "mkdirp": "^3.0.1",
+    "polite-json": "^4.0.1",
+    "resolve-import": "^1.4.5",
+    "rimraf": "^5.0.1",
+    "sync-content": "^1.0.2",
+    "typescript": "^5.4.5",
+    "walk-up-path": "^3.0.1"
+  },
+  "scripts": {
+    "postversion": "npm publish",
+    "prepublishOnly": "git push origin --follow-tags",
+    "prepare": "tsc -p .tshy/esm.json && bash scripts/fixup.sh",
+    "pretest": "npm run prepare",
+    "presnap": "npm run prepare",
+    "format": "prettier --write . --ignore-path ./.prettierignore --cache",
+    "typedoc": "typedoc",
+    "test": "tap",
+    "snap": "tap"
+  },
+  "tap": {
+    "coverage-map": "map.js"
+  },
+  "engines": {
+    "node": "16 >=16.17 || 18 >=18.15.0 || >=20.6.1"
+  },
+  "repository": "https://github.com/isaacs/tshy",
+  "keywords": [
+    "typescript",
+    "tsc",
+    "hybrid",
+    "esm",
+    "commonjs",
+    "build"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "prettier": "^2.8.8",
+    "tap": "^19.2.1",
+    "typedoc": "^0.25.13"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 70,
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "bracketSameLine": true,
+    "arrowParens": "avoid",
+    "endOfLine": "lf"
+  },
+  "tshy": {
+    "dialects": [
+      "esm"
+    ],
+    "exports": {
+      "./package.json": "./package.json",
+      ".": "./src/index.ts"
+    }
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      }
+    }
+  }
+}
