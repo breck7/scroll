@@ -11,14 +11,12 @@ The WWS is like the World Wide Web, except:
 - *Intelligent.* Built from the ground up in a simple, expandable language.
  https://scroll.pub
 
-Download
-========
-Download the list of folders in the World Wide Scroll as:
-
-CSV | TSV | JSON
- https://scroll.pub/wws.csv
- https://scroll.pub/wws.tsv
- https://scroll.pub/wws.json
+Try now
+=======
+npm install -g scroll-cli
+wws init
+wws fetch
+wws open
 
 Register a Folder
 =================
@@ -48,8 +46,14 @@ These are the words that guide The World Wide Scroll (WWS).
 
 ****
 
-The World Wide Scroll
-=====================
+Download
+========
+Download the list of folders in the World Wide Scroll as:
+
+CSV | TSV | JSON
+ https://scroll.pub/wws.csv
+ https://scroll.pub/wws.tsv
+ https://scroll.pub/wws.json
 
 Folders
 =======
