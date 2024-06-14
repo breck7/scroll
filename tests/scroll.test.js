@@ -125,7 +125,7 @@ testTree.file = areEqual => {
   areEqual(releaseNotesFile.permalink, "releaseNotes.html")
   areEqual(releaseNotesFile.html.includes("Scroll the language is now called"), true)
   areEqual(releaseNotesFile.description, "A list of what has changed in Scroll releases.", "Meta description auto-generated if not specified.")
-  areEqual(files[4].permalink, "index.html")
+  areEqual(files[4].permalink, "roadmap.html")
 }
 
 testTree.ensureNoErrorsInGrammar = areEqual => {

@@ -3,6 +3,10 @@ Scroll Release Notes
 A list of what has changed in Scroll releases.
 ==============================================
 
+95.1.0 6/14/2024
+================
+🎉 added `wws` command line app.
+
 95.0.0 6/11/2024
 ================
 🎉 added `downloadUrl` keyword.
