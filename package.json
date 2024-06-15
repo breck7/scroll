@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "95.1.0",
+  "version": "95.1.1",
   "description": "A language for scientists of all ages. A curated collection of tools for refining and sharing thoughts.",
   "main": "scroll.js",
   "engines": {
@@ -23,7 +23,8 @@
   "files": [
     "scroll.js",
     "grammar/",
-    "external/"
+    "external/",
+    "wws.scroll"
   ],
   "repository": {
     "type": "git",
