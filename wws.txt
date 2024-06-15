@@ -22,19 +22,19 @@ Register a Folder
 =================
 The World Wide Scroll beta is live!
 
-You can now register your own folder in the World Wide Scroll for $10 per year.
+You can now buy a folder in the World Wide Scroll for $100 for 10 years.
 
 Funds pay for the development of the Scroll language.
 
 Fine Print
 ==========
-- A purchase entitles you to choose one unique unclaimed alpha-numeric id in the World Wide Scroll for one year, and to make updates to the properties of that folder, as defined in this file.
+- A purchase entitles you to choose one unique unclaimed alpha-numeric id in the World Wide Scroll for ten years, and to make updates to the properties of that folder, as defined in this file.
+ - At any time you may change your folder name to a different unclaimed alpha-numeric id.
 - All updates are subject to approval by the World Wide Scroll editors.
 - WWS Folders can only be reserved by individuals.
 - The WWS is for high quality, non-anonymous content.
  - You must use your real name and a real email address when registering a folder.
   - This information will be publicly visible in this file (`wws.scroll`).
-- You can pay for multiple years.
 - Limit 5 folders per person.
  - The WWS discourages name squatting and content not edited by humans.
  - If you maintain high quality folders and hit the limit, you can request a higher limit.
@@ -42,7 +42,7 @@ Fine Print
 
 Values
 ======
-Art. Courage. Freedom. Intelligence. Laughter. Love. Science. Truth.
+Art. Calmness. Courage. Freedom. Intelligence. Laughter. Love. Science. Truth.
 
 These are the words that guide The World Wide Scroll (WWS).
 

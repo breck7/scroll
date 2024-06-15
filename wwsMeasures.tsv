@@ -5,4 +5,4 @@ source	8	200%	What is the URL to the source code for this folder?	https://github
 owner	8	200%	What is the real name of the owner of this folder?	Breck Yunits	string		1.1	false	
 owner_email	8	200%	What is the email address of the owner of this folder?	breck7@gmail.com	string		1.11	false	
 registered	8	200%	On what day was this folder name first registered?	6/12/2024	string		1.3	false	
-expires	8	200%	On what day does this registration expire?	6/12/2025	string		1.4	false	
+expires	8	200%	On what day does this registration expire?	6/12/2034	string		1.4	false	

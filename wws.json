@@ -6,7 +6,7 @@
     "owner": "Breck Yunits",
     "owner_email": "breck7@gmail.com",
     "registered": "6/12/2024",
-    "expires": "6/12/2025"
+    "expires": "6/12/2034"
   },
   {
     "id": "breck",
@@ -15,7 +15,7 @@
     "owner": "Breck Yunits",
     "owner_email": "breck7@gmail.com",
     "registered": "6/12/2024",
-    "expires": "6/12/2025"
+    "expires": "6/12/2034"
   },
   {
     "id": "pldb",
@@ -24,7 +24,7 @@
     "owner": "Breck Yunits",
     "owner_email": "breck7@gmail.com",
     "registered": "6/12/2024",
-    "expires": "6/12/2025"
+    "expires": "6/12/2034"
   },
   {
     "id": "cancerdb",
@@ -33,6 +33,6 @@
     "owner": "Breck Yunits",
     "owner_email": "breck7@gmail.com",
     "registered": "6/12/2024",
-    "expires": "6/12/2025"
+    "expires": "6/12/2034"
   }
 ]
