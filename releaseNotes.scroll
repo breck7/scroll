@@ -23,6 +23,9 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 95.2.0 6/16/2024
+🎉 added `formatAndSave` method.
+
 📦 95.1.0 6/14/2024
 🎉 added `wws` command line app.
 

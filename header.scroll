@@ -1,9 +1,9 @@
 importOnly
 baseUrl https://scroll.pub/
+downloadUrl https://github.com/breck7/scroll/archive/refs/heads/wws.zip
 email feedback@scroll.pub
 git https://github.com/breck7/scroll
 viewSourceBaseUrl https://github.com/breck7/scroll/blob/main
-downloadUrl https://github.com/breck7/scroll/archive/refs/heads/wws.zip
 
 metaTags
 gazetteCss
