@@ -400,13 +400,13 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
  https://scroll.pub</code>
 <p class="scrollParagraph">You can stick to the basics or define new keywords (by writing "parsers") to extend Scroll to better fit your content and workflows.</p>
 <p class="scrollParagraph">Your parsers can be simple or as complex as any programming language, and a simple indent is all you need to make sure your parser won't interfere with other parsers.</p>
-<p class="scrollParagraph">Parsers in Scroll are written in a mini language called <a href="https://sdk.scroll.pub/designer/#standard%20grammar">ScrollParsers</a> and both Scroll and Parsers are built on the syntax called <a href="https://notation.scroll.pub">Scroll Notation</a>.</p>
+<p class="scrollParagraph">Parsers in Scroll are written in a mini language called <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Parsers</a> and both Scroll and Parsers are built on the syntax called <a href="https://notation.scroll.pub">Scroll Notation</a>.</p>
 <div class="scrollSection"><h4 class="scrollQuestion">How does Scroll improve over the latest incarnations of Markdown?</h4>
 <p class="scrollParagraph">Scroll evolved based on the theory that instead of a fixed language for blogging it is better to have an ever evolving ecosystem of keywords, so that your symbolic tools can grow along with your mental tools.</p>
 </div>
 <p class="scrollParagraph">Thus, Scroll is designed to be easy to extend.</p>
 <p class="scrollParagraph">You can see this in the Scroll source code.</p>
-<p class="scrollParagraph">Scroll is a collection of ScrollParsers written in <a href="https://sdk.scroll.pub/designer/#standard%20grammar">ScrollParsers</a>, and there are currently dozens of <code>.parsers</code> files in the base distribution.</p>
+<p class="scrollParagraph">Scroll is a collection of <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Parsers</a> and there are currently dozens of <code>.parsers</code> files in the base distribution.</p>
 <p class="scrollParagraph">Each Parser can define a mini language of its own. You can simply add (or remove) Parsers to generate your own custom dialects to better fit your domains.</p>
 <p class="scrollParagraph">Think of it as one file, many languages.</p>
 <p class="scrollParagraph">Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by making the most of the indent trick (also known as the <a href="https://en.wikipedia.org/wiki/Off-side_rule">off-side rule</a>). Each line gets its own scope. So you can add, remove, and update your mini-languages and their associated blocks without breaking the rest of the documents.</p>
@@ -425,7 +425,7 @@ recipe
  step Add sugar
  step Heat oven to 350 degrees
  step Bake for 10 minutes</code>
-<p class="scrollParagraph">Notice that your post uses the keyword <code>recipe</code>, but Scroll does not have a keyword for that. No problem, just write a recipe parser yourself using <a href="https://sdk.scroll.pub/designer/#standard%20grammar">ScrollParsers</a>, extending your dialect of Scroll:</p>
+<p class="scrollParagraph">Notice that your post uses the keyword <code>recipe</code>, but Scroll does not have a keyword for that. No problem, just write a recipe parser yourself using <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Parsers</a>, extending your dialect of Scroll:</p>
 <code class="scrollCodeBlock">recipeParser
  extends abstractScrollParser
  crux recipe
@@ -439,7 +439,7 @@ recipe
 </div>
 <div class="scrollSection"><h4 class="scrollQuestion">What is the biggest downside to Scroll?</h4>
 <p class="scrollParagraph">Compared to Markdown there is very little tooling and the ecosystem is currently very small.</p>
-<p class="scrollParagraph">Also, although it is simple to write your own parsers in <a href="https://sdk.scroll.pub/designer/#standard%20grammar">ScrollParsers</a> once you know what you're doing, documentation for <a href="https://sdk.scroll.pub/designer/#standard%20grammar">ScrollParsers</a> is still poor and tooling isn't great yet.</p>
+<p class="scrollParagraph">Also, although it is simple to write your own parsers in <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Parsers</a> once you know what you're doing, documentation for <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Parsers</a> is still poor and tooling isn't great yet.</p>
 </div>
 <div class="scrollSection"><h4 class="scrollQuestion">What kind of sites can I use Scroll to build?</h4>
 <p class="scrollParagraph">Scroll is a great solution for blogs and sites of <a href="https://scroll.pub">one page</a>, <a href="https://scroll.pub/blog/">a few pages</a>, <a href="https://breckyunits.com/code/">tens of pages</a>, <a href="https://breckyunits.com/">hundreds of pages</a>, or even <a href="https://pldb.io/">thousands of pages</a>.</p>
@@ -489,7 +489,7 @@ npm install -g .</code>
 <p class="scrollParagraph">Scroll articles are written as Scroll files with the file extension <code>scroll</code>. The current base parsers for Scroll are defined <a href="https://github.com/breck7/scroll/tree/main/parsers">here</a>.</p>
 </div>
 <div class="scrollSection"><h4 class="scrollQuestion">What language is Scroll written in?</h4>
-<p class="scrollParagraph">Scroll is mostly written in <a href="https://sdk.scroll.pub/designer/#standard%20grammar">ScrollParsers</a>. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a couple of other Tree Languages. The CSS for the default theme <em>Gazette</em> is written in <a href="https://sdk.scroll.pub/designer/#standard%20hakon">Hakon</a>. The HTML is written in <a href="https://sdk.scroll.pub/designer/#standard%20stump">stump</a>.</p>
+<p class="scrollParagraph">Scroll is mostly written in <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Parsers</a>. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a couple of other Tree Languages. The CSS for the default theme <em>Gazette</em> is written in <a href="https://sdk.scroll.pub/designer/#standard%20hakon">Hakon</a>. The HTML is written in <a href="https://sdk.scroll.pub/designer/#standard%20stump">stump</a>.</p>
 <p class="scrollParagraph">TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.</p>
 </div>
 <div class="scrollSection"><h4 class="scrollQuestion">How does versioning of articles work?</h4>

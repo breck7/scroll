@@ -29,7 +29,7 @@ A list of what has changed in Scroll releases.
 94.0.0 5/31/2024
 ================
 🎉 jtree is now the "ScrollSDK" and "Tree Notation" is now "Scroll Notation"
-⚠️ BREAKING: (only advanced users affected), if you wrote custom Scroll Parsers, you may need to find/replace `jtree` with `scrollsdk`
+⚠️ BREAKING: (only advanced users affected), if you wrote custom Parsers, you may need to find/replace `jtree` with `scrollsdk`
 
 93.7.1 5/30/2024
 ================

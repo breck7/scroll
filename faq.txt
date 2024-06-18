@@ -29,7 +29,7 @@ You can stick to the basics or define new keywords (by writing "parsers") to ext
 
 Your parsers can be simple or as complex as any programming language, and a simple indent is all you need to make sure your parser won't interfere with other parsers.
 
-Parsers in Scroll are written in a mini language called ScrollParsers and both Scroll and Parsers are built on the syntax called Scroll Notation.
+Parsers in Scroll are written in a mini language called Parsers and both Scroll and Parsers are built on the syntax called Scroll Notation.
 
 How does Scroll improve over the latest incarnations of Markdown?
 =================================================================
@@ -39,7 +39,7 @@ Thus, Scroll is designed to be easy to extend.
 
 You can see this in the Scroll source code.
 
-Scroll is a collection of ScrollParsers written in ScrollParsers, and there are currently dozens of `.parsers` files in the base distribution.
+Scroll is a collection of Parsers and there are currently dozens of `.parsers` files in the base distribution.
 
 Each Parser can define a mini language of its own. You can simply add (or remove) Parsers to generate your own custom dialects to better fit your domains.
 
@@ -65,7 +65,7 @@ recipe
  step Add sugar
  step Heat oven to 350 degrees
  step Bake for 10 minutes
-Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just write a recipe parser yourself using ScrollParsers, extending your dialect of Scroll:
+Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just write a recipe parser yourself using Parsers, extending your dialect of Scroll:
 recipeParser
  extends abstractScrollParser
  crux recipe
@@ -81,7 +81,7 @@ For an extended example of extending Scroll check out this one which adds node t
 What is the biggest downside to Scroll?
 =======================================
 Compared to Markdown there is very little tooling and the ecosystem is currently very small.
-Also, although it is simple to write your own parsers in ScrollParsers once you know what you're doing, documentation for ScrollParsers is still poor and tooling isn't great yet.
+Also, although it is simple to write your own parsers in Parsers once you know what you're doing, documentation for Parsers is still poor and tooling isn't great yet.
 
 What kind of sites can I use Scroll to build?
 =============================================
@@ -157,7 +157,7 @@ Scroll articles are written as Scroll files with the file extension scroll. The 
 
 What language is Scroll written in?
 ===================================
-Scroll is mostly written in ScrollParsers. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a couple of other Tree Languages. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
+Scroll is mostly written in Parsers. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a couple of other Tree Languages. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
  https://sdk.scroll.pub/designer/#standard%20hakon
  https://sdk.scroll.pub/designer/#standard%20stump
 TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.
