@@ -5,8 +5,7 @@ printTitle
 
 wideColumns 1
 
-A list of what is ahead for Scroll. Scroll is written in ScrollParsers, so will also benefit from the planned improvements in the ScrollParsers Roadmap.
- https://sdk.scroll.pub/langs/grammar/ ScrollParsers Roadmap
+# What major improvements are coming next?
 
 endColumns
 
@@ -20,10 +19,17 @@ thinColumns 2
 - It should be easy to use Scroll to generate not only HTML files but also nice PDFs likely using TeX as an intermediate representation
 
 # Browser Version: scroll.browser.js
-- https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support adding Scroll Parsers so people can use the full power of Scroll completely in the client.
+- https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support adding Parsers so people can use the full power of Scroll completely in the client.
 
 # Potential Switching to Imperative Paradigm
 - Scroll is currently mostly declarative, with a few imperative keywords. However, it may be a better design to make it explicitly imperative. Though that might make it worse, sending it in the direction of a computer/scripting language, rather than the direction trying to be closer to the true language of thought. For now it remains declarative.
+
+endColumns
+
+wideColumns 1
+
+In addition to the above, Scroll is written in Parsers and will get all the planned improvements in the Parsers Roadmap as well.
+ https://sdk.scroll.pub/langs/grammar/ Parsers Roadmap
 
 endColumns
 

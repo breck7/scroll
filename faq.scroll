@@ -1,4 +1,4 @@
-replace ScrollParsersLinked <a href="https://sdk.scroll.pub/designer/#standard%20grammar">ScrollParsers</a>
+replace ParsersLinks <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Parsers</a>
 replace ScrollNotationLinked <a href="https://notation.scroll.pub">Scroll Notation</a>
 title Scroll FAQ
 
@@ -32,7 +32,7 @@ You can stick to the basics or define new keywords (by writing "parsers") to ext
 
 Your parsers can be simple or as complex as any programming language, and a simple indent is all you need to make sure your parser won't interfere with other parsers.
 
-Parsers in Scroll are written in a mini language called ScrollParsersLinked and both Scroll and Parsers are built on the syntax called ScrollNotationLinked.
+Parsers in Scroll are written in a mini language called ParsersLinks and both Scroll and Parsers are built on the syntax called ScrollNotationLinked.
 
 ? How does Scroll improve over the latest incarnations of Markdown?
 Scroll evolved based on the theory that instead of a fixed language for blogging it is better to have an ever evolving ecosystem of keywords, so that your symbolic tools can grow along with your mental tools.
@@ -41,7 +41,7 @@ Thus, Scroll is designed to be easy to extend.
 
 You can see this in the Scroll source code.
 
-Scroll is a collection of ScrollParsers written in ScrollParsersLinked, and there are currently dozens of `.parsers` files in the base distribution.
+Scroll is a collection of ParsersLinks and there are currently dozens of `.parsers` files in the base distribution.
 
 Each Parser can define a mini language of its own. You can simply add (or remove) Parsers to generate your own custom dialects to better fit your domains.
 
@@ -67,7 +67,7 @@ code
   step Add sugar
   step Heat oven to 350 degrees
   step Bake for 10 minutes
-Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just write a recipe parser yourself using ScrollParsersLinked, extending your dialect of Scroll:
+Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just write a recipe parser yourself using ParsersLinks, extending your dialect of Scroll:
 code
  recipeParser
   extends abstractScrollParser
@@ -83,7 +83,7 @@ For an extended example of extending Scroll check out this one which adds node t
 
 ? What is the biggest downside to Scroll?
 Compared to Markdown there is very little tooling and the ecosystem is currently very small.
-Also, although it is simple to write your own parsers in ScrollParsersLinked once you know what you're doing, documentation for ScrollParsersLinked is still poor and tooling isn't great yet.
+Also, although it is simple to write your own parsers in ParsersLinks once you know what you're doing, documentation for ParsersLinks is still poor and tooling isn't great yet.
 
 ? What kind of sites can I use Scroll to build?
 Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
@@ -157,7 +157,7 @@ Scroll articles are written as Scroll files with the file extension scroll. The 
  https://github.com/breck7/scroll/tree/main/parsers here
 
 ? What language is Scroll written in?
-Scroll is mostly written in ScrollParsersLinked. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a couple of other Tree Languages. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
+Scroll is mostly written in ParsersLinks. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a couple of other Tree Languages. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
  https://sdk.scroll.pub/designer/#standard%20hakon Hakon
  https://sdk.scroll.pub/designer/#standard%20stump stump
 TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.
