@@ -1,7 +1,7 @@
 date,title,permalink,groups,wordCount,minutes
 04/29/2024,Scroll now generates text files,textFiles.html,All,126,0.6
-04/21/2024,ScrollSets: source code for CSVs,scrollsets.html,All,1111,5.6
+04/21/2024,ScrollSets: source code for CSVs,scrollsets.html,All,1109,5.5
 05/08/2023,Introducing Program Links,programLinks.html,All,528,2.6
 04/13/2023,Counterpoints: A new tool for thought in the Scroll Language,counterpoints.html,All,375,1.9
 10/02/2022,Introducing the Blink Tag,introducingBlink.html,All,160,0.8
-08/23/2021,"The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping",indented-heredocs.html,All,295,1.5
+08/23/2021,"The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping",indented-heredocs.html,All,291,1.5

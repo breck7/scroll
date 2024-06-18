@@ -4,7 +4,7 @@ by Breck Yunits
 
 August 23, 2021
 
-Scroll is a new language and static site generator that is mostly written in a new language called Grammar which are both built on a new syntax called Scroll Notation.
+Scroll is a new language and static site generator that is mostly written in Grammar which are both built on a new syntax called Scroll Notation.
 
 ***
 

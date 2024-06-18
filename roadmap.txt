@@ -1,7 +1,7 @@
 Scroll Roadmap
 ==============
 
-A list of what is ahead for Scroll. Scroll is written in Grammar, so will also benefit from the planned improvements in the Grammar Roadmap.
+A list of what is ahead for Scroll. Scroll is written in ScrollParsers, so will also benefit from the planned improvements in the ScrollParsers Roadmap.
  https://sdk.scroll.pub/langs/grammar/
 
 Official Language Spec
@@ -15,7 +15,7 @@ Typeset Output: Scroll → TeX → PDF
 
 Browser Version: scroll.browser.js
 ==================================
-- https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support extending the Grammar so people can use the full power of Scroll completely in the client.
+- https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support adding Scroll Parsers so people can use the full power of Scroll completely in the client.
 
 Potential Switching to Imperative Paradigm
 ==========================================

@@ -126,11 +126,11 @@ Scroll files can import other Scroll files. Use the `import` keyword followed by
 ---
 
 # Advanced: Custom Themes
-A standard Scroll Theme consists of CSS and may also contain suggested pages and additional Grammar extensions. The default scroll theme is called `Gazette`. The checklist below walks you through creating a complete Scroll Theme like Gazette.
+A standard Scroll Theme consists of CSS and may also contain suggested pages and additional Parser extensions. The default scroll theme is called `Gazette`. The checklist below walks you through creating a complete Scroll Theme like Gazette.
 
-[] Create a `[yourThemeName].grammar` file
+[] Create a `[yourThemeName].parsers` file
 [] Add a `[yourThemeName]CssParser`
- - You can refer to the `gazetteCssParser` in `gazetteTheme.grammar` for an example. Your theme can extend `abstractThemeCssParser` or be its own tag.
+ - You can refer to the `gazetteCssParser` in `gazetteTheme.parsers` for an example. Your theme can extend `abstractThemeCssParser` or be its own tag.
  [] Add CSS. The Gazette theme uses Hakon, a language that compiles to CSS, but you are free to use plain CSS—even in an external file.
   [] Add CSS resets. Like any other normal site you probably want to adjust the base CSS of the browser.
   [] Add any custom styles for any custom keywords you include in your theme. If you don't have any custom keywords you can skip this step.
@@ -157,7 +157,7 @@ Scroll is based on the theory that a language should adapt to the domain, not th
 
 * _Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom keywords_.
 
-You can define your own parsers right in your Scroll documents using `*Parser`. These Parsers are written in the `Grammar` language.
+You can define your own parsers right in your Scroll documents using `*Parser`.
 
 Here is a simple example that extends Scroll by making `p` work the same as `*`:
 
@@ -183,7 +183,7 @@ hiddenMessageParser
 hiddenMessage Click me.
  message Hello world
 
-As you can see, you can define new parsers with a small amount of code. You probably also can see that the Grammar Langauge is powerful but has lots of sharp edges. While the documentation on Grammar evolves, feel free to get in touch for help in adding your own parsers.
+As you can see, you can define new parsers with a small amount of code. You probably also can see that the Parsers code is powerful but has lots of sharp edges. While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
 
 endColumns
 

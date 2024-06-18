@@ -85,7 +85,7 @@ code
  - measures
   - think of these as the column names in a spreadsheet, along with meta information about the column
   - aka "parsers"
-  - measures are defined in the language Grammar and start with a line like `moonsParser`
+  - measures are defined in Parsers that start with a line like `moonsParser`
  - values
   - these are just the values of the measurements
  - measurements
@@ -95,7 +95,7 @@ code
 
 # How to use
 - A concept is like a row in a database. All concepts need an id. When you write `id [conceptId]`, Scroll knows that is the beginning of a new concept.
-- Measure definitions (aka "parsers") must come before the first concept and are written in Grammar, just like any other Scroll extension. Measure parsers need to extend one of the abstract measure parser classes defined in `measures.grammar`.
+- Measure definitions (aka "parsers") must come before the first concept and are written as Parsers, just like any other Scroll Parser. Measure parsers need to extend one of the abstract measure parser classes defined in `measures.scroll`.
  // A schema is a set of measure definitions. You can think of measures as columns. Measure names (currently) can only contain [a-zA-Z0-9_]. They cannot contain spaces or periods (the period is reserved for nested measures).
 - Measurements are then done like this `appeared 2024`
 

@@ -23,6 +23,10 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 96.0.0 6/18/2024
+🎉 Instead of `grammar` it's just `parsers`.
+⚠️ BREAKING: (no one should be affected) files previously ending in `.grammar` now end in `.parsers`.
+
 📦 95.2.0 6/16/2024
 🎉 added `formatAndSave` method.
 

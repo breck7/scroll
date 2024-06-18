@@ -6,7 +6,7 @@ const { TreeNode } = require("../products/TreeNode.js")
 const { HandGrammarProgram } = require("../products/GrammarLanguage.js")
 const grammarParser = require("../products/grammar.nodejs.js")
 const { posix } = require("../products/Path.js")
-const GRAMMAR_EXTENSION = ".grammar"
+const PARSERS_EXTENSION = ".parsers"
 const parserRegex = /^[a-zA-Z0-9_]+Parser/gm
 // A regex to check if a multiline string has a line that starts with "import ".
 const importRegex = /^import /gm
@@ -103,9 +103,11 @@ class TreeFileSystem {
     if (_expandedImportCache[absoluteFilePath]) return _expandedImportCache[absoluteFilePath]
     let code = this.read(absoluteFilePath)
     const isImportOnly = importOnlyRegex.test(code)
-    // Strip any parsers
-    const stripIt = code.includes("// parsersOnly") // temporary perf hack
-    if (stripIt)
+    // Perf hack
+    // If its a parsers file, it will have no content, just parsers (and maybe imports).
+    // The parsers will already have been processed. We can skip them
+    const stripParsers = absoluteFilePath.endsWith(PARSERS_EXTENSION)
+    if (stripParsers)
       code = code
         .split("\n")
         .filter(line => line.startsWith("import "))
@@ -154,13 +156,14 @@ class TreeFileSystem {
   }
   _getOneGrammarParserFromFiles(filePaths, baseGrammarCode) {
     const parserDefinitionRegex = /^[a-zA-Z0-9_]+Parser/
+    const cellDefinitionRegex = /^[a-zA-Z0-9_]+Cell/
     const asOneFile = filePaths
       .map(filePath => {
         const content = this._storage.read(filePath)
-        if (filePath.endsWith(GRAMMAR_EXTENSION)) return content
+        if (filePath.endsWith(PARSERS_EXTENSION)) return content
         // Strip scroll content
         return new TreeNode(content)
-          .filter(node => node.getLine().match(parserDefinitionRegex))
+          .filter(node => node.getLine().match(parserDefinitionRegex) || node.getLine().match(cellDefinitionRegex))
           .map(node => node.asString)
           .join("\n")
       })
