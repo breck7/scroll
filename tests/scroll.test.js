@@ -6,7 +6,7 @@ const path = require("path")
 const { ScrollCli, ScrollFile, DefaultScrollParser, ScrollFileSystem } = require("../scroll.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { TestRacer } = require("scrollsdk/products/TestRacer.js")
-const grammarParser = require("scrollsdk/products/grammar.nodejs.js")
+const parsersParser = require("scrollsdk/products/grammar.nodejs.js")
 const shell = require("child_process").execSync
 
 const testTree = {}
@@ -103,7 +103,7 @@ testTree.inMemoryFileSystem = areEqual => {
 pParser
  extends paragraphParser
  crux p
-p A custom grammar`
+p A custom parser`
   }
   // Act
   const cli = new ScrollCli().silence()
@@ -128,10 +128,10 @@ testTree.file = areEqual => {
   areEqual(files[4].permalink, "roadmap.html")
 }
 
-testTree.ensureNoErrorsInGrammar = areEqual => {
-  const grammarErrors = new grammarParser(new DefaultScrollParser().definition.asString).getAllErrors().map(err => err.toObject())
-  if (grammarErrors.length) console.log(grammarErrors)
-  areEqual(grammarErrors.length, 0, "no errors in scroll standard library grammar")
+testTree.ensureNoErrorsInParser = areEqual => {
+  const parserErrors = new parsersParser(new DefaultScrollParser().definition.asString).getAllErrors().map(err => err.toObject())
+  if (parserErrors.length) console.log(parserErrors)
+  areEqual(parserErrors.length, 0, "no errors in scroll standard library parsers")
 }
 
 testTree.cli = async areEqual => {
@@ -228,9 +228,9 @@ testTree.initCommand = async areEqual => {
     areEqual(pages[0].html.includes("Built with Scroll"), true)
     areEqual(pages.length, 3, "should have 3 pages")
 
-    const { scrollErrors, grammarErrors } = cli.getErrorsInFolder(tempFolder)
+    const { scrollErrors, parserErrors } = cli.getErrorsInFolder(tempFolder)
     areEqual(scrollErrors.length, 0)
-    areEqual(grammarErrors.length, 0)
+    areEqual(parserErrors.length, 0)
   } catch (err) {
     console.log(err)
   }

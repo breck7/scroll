@@ -1,7 +1,7 @@
 author https://github.com/breck7 Breck Yunits
 date 2021.08.23
 groups All
-replace GrammarLinked <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Grammar</a>
+replace ScrollParsersLinked <a href="https://sdk.scroll.pub/designer/#standard%20grammar">Grammar</a>
 replace ScrollLinked <a href="https://scroll.pub">Scroll</a>
 replace ScrollNotationLinked <a href="https://notation.scroll.pub">Scroll Notation</a>
 title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
@@ -15,7 +15,7 @@ printAuthor
 
 keyboardNav
 
-* ScrollLinked is a new language and static site generator that is mostly written in a new language called GrammarLinked which are both built on a new syntax called ScrollNotationLinked.
+* ScrollLinked is a new language and static site generator that is mostly written in ScrollParsersLinked which are both built on a new syntax called ScrollNotationLinked.
  dateline
 
 ***
@@ -25,7 +25,7 @@ In this demo, I extend Scroll by adding support for Markdown, Textile, and BBCod
  https://en.wikipedia.org/wiki/Textile_(markup_language) Textile
  https://en.wikipedia.org/wiki/BBCode BBCode
 
-My implementation is still _researchy_—GrammarLinked still needs a lot of work—but my main point here is to demo how _simple and powerful indented heredocs are_. They allow you to compose unlimited languages in one file in a clean and scalable way. You don't need escaping. I think this is a very helpful pattern you can use in your own languages and code.
+My implementation is still _researchy_—ScrollParsersLinked still needs a lot of work—but my main point here is to demo how _simple and powerful indented heredocs are_. They allow you to compose unlimited languages in one file in a clean and scalable way. You don't need escaping. I think this is a very helpful pattern you can use in your own languages and code.
 
 # Traditional Heredocs
 
