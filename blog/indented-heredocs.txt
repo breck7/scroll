@@ -4,7 +4,7 @@ by Breck Yunits
 
 August 23, 2021
 
-Scroll is a new language and static site generator that is mostly written in Grammar which are both built on a new syntax called Scroll Notation.
+Scroll is a new language and static site generator that is mostly written in Parsers which are both built on a new syntax called Scroll Notation.
 
 ***
 
@@ -13,7 +13,7 @@ In this demo, I extend Scroll by adding support for Markdown, Textile, and BBCod
  https://en.wikipedia.org/wiki/Textile_(markup_language)
  https://en.wikipedia.org/wiki/BBCode
 
-My implementation is still _researchy_—Grammar still needs a lot of work—but my main point here is to demo how _simple and powerful indented heredocs are_. They allow you to compose unlimited languages in one file in a clean and scalable way. You don't need escaping. I think this is a very helpful pattern you can use in your own languages and code.
+My implementation is still _researchy_—Parsers still needs a lot of work—but my main point here is to demo how _simple and powerful indented heredocs are_. They allow you to compose unlimited languages in one file in a clean and scalable way. You don't need escaping. I think this is a very helpful pattern you can use in your own languages and code.
 
 Traditional Heredocs
 ====================

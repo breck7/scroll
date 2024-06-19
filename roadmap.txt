@@ -22,4 +22,4 @@ Potential Switching to Imperative Paradigm
 - Scroll is currently mostly declarative, with a few imperative keywords. However, it may be a better design to make it explicitly imperative. Though that might make it worse, sending it in the direction of a computer/scripting language, rather than the direction trying to be closer to the true language of thought. For now it remains declarative.
 
 In addition to the above, Scroll is written in Parsers and will get all the planned improvements in the Parsers Roadmap as well.
- https://sdk.scroll.pub/langs/grammar/
+ https://sdk.scroll.pub/langs/parsers/

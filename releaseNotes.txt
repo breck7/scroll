@@ -3,6 +3,10 @@ Scroll Release Notes
 A list of what has changed in Scroll releases.
 ==============================================
 
+97.0.0 6/19/2024
+================
+🎉 BREAKING: upgraded scrollSDK to get `grammar` to `parsers` change.
+
 96.0.0 6/18/2024
 ================
 🎉 Instead of `grammar` it's just `parsers`.
