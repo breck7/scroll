@@ -6,7 +6,7 @@ const path = require("path")
 const { ScrollCli, ScrollFile, DefaultScrollParser, ScrollFileSystem } = require("../scroll.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { TestRacer } = require("scrollsdk/products/TestRacer.js")
-const parsersParser = require("scrollsdk/products/grammar.nodejs.js")
+const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
 const shell = require("child_process").execSync
 
 const testTree = {}
