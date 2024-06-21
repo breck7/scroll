@@ -3,6 +3,10 @@ Scroll Release Notes
 A list of what has changed in Scroll releases.
 ==============================================
 
+97.1.1 6/21/2024
+================
+🏥 test fix
+
 97.1.0 6/21/2024
 ================
 🎉 added `sparkline` keyword using beautiful tiny sparkline library by Marius Gundersen.
