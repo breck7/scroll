@@ -23,6 +23,9 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 97.1.1 6/21/2024
+🏥 test fix
+
 📦 97.1.0 6/21/2024
 🎉 added `sparkline` keyword using beautiful tiny sparkline library by Marius Gundersen.
  https://github.com/mariusGundersen/sparkline sparkline library
