@@ -116,6 +116,8 @@
 	"node:sys": [">= 14.18 && < 15", ">= 16"],
 	"test/reporters": ">= 19.9 && < 20.2",
 	"node:test/reporters": [">= 18.17 && < 19", ">= 19.9", ">= 20"],
+	"test/mock_loader": ">= 22.3",
+	"node:test/mock_loader": ">= 22.3",
 	"node:test": [">= 16.17 && < 17", ">= 18"],
 	"timers": true,
 	"node:timers": [">= 14.18 && < 15", ">= 16"],

@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.14.0](https://github.com/inspect-js/is-core-module/compare/v2.13.1...v2.14.0) - 2024-06-20
+
+### Commits
+
+- [Dev Deps] update `@ljharb/eslint-config`, `aud`, `mock-property`, `npmignore`, `tape` [`0e43200`](https://github.com/inspect-js/is-core-module/commit/0e432006d97237cc082d41e6a593e87c81068364)
+- [meta] add missing `engines.node` [`4ea3af8`](https://github.com/inspect-js/is-core-module/commit/4ea3af88891a1d4f96026f0ec0ef08c67cd1bd24)
+- [New] add `test/mock_loader` [`e9fbd29`](https://github.com/inspect-js/is-core-module/commit/e9fbd2951383be070aeffb9ebbf3715237282610)
+- [Deps] update `hasown` [`57f1940`](https://github.com/inspect-js/is-core-module/commit/57f1940947b3e368abdf529232d2f17d88909358)
+
 ## [v2.13.1](https://github.com/inspect-js/is-core-module/compare/v2.13.0...v2.13.1) - 2023-10-20
 
 ### Commits
