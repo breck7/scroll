@@ -390,6 +390,7 @@ class ScrollFile {
   }
 
   evalVariables(code, originalScrollCode, absolutePath) {
+    // note: the 2 variables above are not used in this method, but may be used in user eval code. (todo: cleanup)
     const regex = /^replace/gm
     if (!regex.test(code)) return code
     const tree = new TreeNode(code) // todo: this can be faster. a more lightweight tree class?
