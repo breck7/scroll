@@ -48,6 +48,8 @@ Stamp was jointly created by me and Guillaume Papin. Other tools (listed below) 
 
 ****
 
+[Image Omitted]
+
 Prior Art
 =========
 - Dired
