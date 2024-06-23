@@ -360,7 +360,50 @@ h4.scrollQuestion {
 </div>
 
 <div class="scrollSection"><h1 class="scrollTitle"><a href="full.html">The Official Scroll Blog</a></h1>
-<div class="scrollColumns" style="column-width:35ch;"><div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="textFiles.html">Scroll now generates text files</a></h1>
+<div class="scrollColumns" style="column-width:35ch;"><div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="stamp.html">Stamp: a mini-language for templates</a></h1>
+<div class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></div>
+</div>
+<p class="scrollParagraph"><span class="scrollDateline">June 23, 2024 — </span>Regardless if you specialize in React, Rails, Django, Next, Java, C#, or ObjectiveC, you probably use <em>templates</em> to start new projects.</p>
+<p class="scrollParagraph">Templates generate a handful of files like <code>readme.md</code>, <code>.gitignore</code>, and <code>main</code>.</p>
+<p class="scrollParagraph">They also initialize a handful of directories like <code>src/</code> and <code>tests/</code>.</p>
+<p class="scrollParagraph">What if it was even easier to make, edit and use these templates?</p>
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">Introducing Stamp, a mini-language (only <a href="https://github.com/breck7/scroll/blob/main/parsers/stamp.parsers">60 lines of code</a>, including comments) that makes it as concise as possible to write, edit, share and expand project templates.</p>
+<div class="dinkus"><span>*</span></div>
+<div class="scrollSection"><h1 class="scrollParagraph">How to use</h1>
+</div>
+<ol  start="1."><li >Install Scroll</li></ol>
+<code class="scrollCodeBlock">npm install -g scroll-cli</code>
+<ol  start="2."><li >Create <code>myFirstStamp.scroll</code></li></ol>
+<code class="scrollCodeBlock">stamp
+ .gitignore
+  *.html
+ readme.scroll
+  # My First Stamp
+  &lt;script src="scripts/hello.js">&lt;/script>
+ scripts/
+  hello.js
+   console.log("Hello world")</code>
+<ol  start="3."><li >Run <code>scroll build</code></li></ol>
+<p class="scrollParagraph">Done!</p>
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">Stamp was <a href="https://github.com/breck7/scrollsdk/issues/120">jointly created</a> by me and <a href="https://github.com/Sarcasm">Guillaume Papin</a>. Other tools (listed below) do similar things, but with some slight differences.</p>
+<div class="dinkus"><span>⁂</span></div>
+<div class="scrollSection"><h1 class="scrollParagraph">Prior Art</h1>
+<ul ><li ><a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html">Dired</a></li>
+<li ><a href="https://github.com/thameera/vimv">vimv</a></li>
+<li ><a href="https://github.com/jtvaughan/ptar">ptar</a></li>
+<li ><a href="https://en.wikipedia.org/wiki/Shar">shar</a></li>
+<li ><a href="http://dar.linux.free.fr/">dar</a></li>
+<li ><a href="https://github.com/xyproto/metatar">metatar</a></li>
+<li ><a href="https://pkg.go.dev/golang.org/x/tools@v0.1.0/txtar">txtar</a></li>
+<li ><a href="https://en.wikipedia.org/wiki/List_of_archive_formats">Wikipedia list of archive formats</a></li></ul>
+</div><p class="scrollViewSource">
+ <a href="https://github.com/breck7/scroll/blob/main/blog/stamp.scroll">View source</a>
+</p>
+</div>
+
+<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="textFiles.html">Scroll now generates text files</a></h1>
 </div>
 <div class="scrollByLine">by <a href="https://breckyunits.com">Breck Yunits</a></div>
 <p class="scrollParagraph"><span class="scrollDateline">April 29, 2024 — </span>Scroll is a minimal (but extensible) language for generating HTML files and CSVs, with the main use cases being blogs and <a href="scrollsets.html">knowledge bases</a>.</p>

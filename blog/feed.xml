@@ -4,8 +4,13 @@
  <title></title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Sun, 23 Jun 2024 16:21:03 +0000</lastBuildDate>
+ <lastBuildDate>Sun, 23 Jun 2024 16:53:36 +0000</lastBuildDate>
  <language>en-us</language>
+ <item>
+  <title>Stamp: a mini-language for templates</title>
+  <link>https://scroll.pub/blog/stamp.html</link>
+  <pubDate>Sun, 23 Jun 2024 00:00:00 +0000</pubDate>
+ </item>
  <item>
   <title>Scroll now generates text files</title>
   <link>https://scroll.pub/blog/textFiles.html</link>
