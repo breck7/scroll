@@ -4,12 +4,12 @@ The World Wide Scroll
 What is the World Wide Scroll (WWS)?
 ====================================
 The WWS is like the World Wide Web, except:
+- *Intelligent.* Built not on HTML, but from the ground up in a simple, expandable language, designed for both humans and AIs.
+ https://scroll.pub
 - *Offline.* You download entire sites and browse completely offline locally, rather than fetching one page at a time.
 - *Pristine.* No ads, no paywalls, no trackers, no cookies, no copyright.
-- *Human.* Instead of domains the WWS has folders owned by humans, not AIs or corporations.
+- *Human first.* Instead of anonymous domains the WWS has folders owned by verified humans.
 - *Trustworthy.* Source code behind every page.
-- *Intelligent.* Built from the ground up in a simple, expandable language.
- https://scroll.pub
 
 Try now
 =======
