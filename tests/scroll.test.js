@@ -239,6 +239,7 @@ testTree.initCommand = async areEqual => {
 
 testTree.kitchenSink = async areEqual => {
   const kitchenSinkFolder = path.join(__dirname, "kitchenSink")
+  const stampFolder = path.join(kitchenSinkFolder, "testOutput")
   try {
     // Arrange/act
     const cli = new ScrollCli().silence()
@@ -249,6 +250,8 @@ testTree.kitchenSink = async areEqual => {
     // Assert
     areEqual(groupPage.includes("NUM_SINKS"), false, "var substitution worked")
     areEqual(fs.existsSync(path.join(kitchenSinkFolder, "full.html")), true, "should have full page")
+
+    areEqual(fs.readFileSync(path.join(stampFolder, "scripts", "nested", "hello.js"), "utf8"), `console.log("Hello world")`)
   } catch (err) {
     console.log(err)
   }
@@ -257,6 +260,8 @@ testTree.kitchenSink = async areEqual => {
   fs.readdirSync(kitchenSinkFolder)
     .filter(file => path.extname(file) === ".html")
     .forEach(file => fs.unlinkSync(path.join(kitchenSinkFolder, file)))
+
+  fs.rmSync(stampFolder, { recursive: true })
 }
 
 if (module && !module.parent) TestRacer.testSingleFile(__filename, testTree)

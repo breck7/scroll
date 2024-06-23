@@ -444,6 +444,8 @@ class ScrollFile {
     return new stumpParser(code).compile()
   }
 
+  log(message) {}
+
   get git() {
     return this.get(scrollKeywords.git)
   }
@@ -645,6 +647,10 @@ class ScrollFile {
       this._compiledStandalonePage = wrapWithHtmlTags ? `<!DOCTYPE html>\n<html lang="${this.lang}">\n${bodyTag}${content}\n</body>\n</html>` : content
     }
     return this._compiledStandalonePage
+  }
+
+  build() {
+    this.scrollProgram.forEach(node => (node.build ? node.build() : undefined))
   }
 
   // Without specifying the language hyphenation will not work.
@@ -933,6 +939,7 @@ import footer.scroll
     this.logIndent++
     const pages = filesToBuild.map(file => {
       const { permalink, html } = file
+      file.build()
       fileSystem.write(folder + permalink, html)
       this.log(`💾 Wrote ${file.filename} to ${permalink}`)
 
