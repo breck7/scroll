@@ -23,6 +23,9 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 97.2.0 6/23/2024
+🎉 added `stamp` mini language
+
 📦 97.1.1 6/21/2024
 🏥 test fix
 

@@ -1,0 +1,11 @@
+stamp
+ testOutput/
+  .gitignore
+   *.html
+  readme.scroll
+   # Hello world
+   <script src="scripts/nested/hello.js"></script>
+  scripts/
+   nested/
+    hello.js
+     console.log("Hello world")
