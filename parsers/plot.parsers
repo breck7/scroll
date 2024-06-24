@@ -42,6 +42,8 @@ abstractPlotParser
 
 scatterplotParser
  extends abstractPlotParser
+ // todo: make copyFromExternal work with inheritance
+ string copyFromExternal d3.js plot.js
  javascript
   get marks() {
     let data = this.iris
