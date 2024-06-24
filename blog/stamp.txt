@@ -66,5 +66,7 @@ Prior Art
  https://github.com/xyproto/metatar
 - txtar
  https://pkg.go.dev/golang.org/x/tools@v0.1.0/txtar
+- Archiving files in plain text
+ https://blog.oquijano.net/id/9?lang=en
 - Wikipedia list of archive formats
  https://en.wikipedia.org/wiki/List_of_archive_formats
