@@ -23,6 +23,9 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 97.3.0 6/24/2024
+🎉 added `scatterplot` keyword
+
 📦 97.2.0 6/23/2024
 🎉 added `stamp` mini language
 
