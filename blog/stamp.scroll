@@ -63,6 +63,8 @@ image stamp.jpeg
  // ChatGPT: XKCD style comic. Single pane. A stamp that is generating files and folders
 
 # Prior Art
+- cookiecutter
+ https://github.com/cookiecutter/cookiecutter
 - Dired
  https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html
 - vimv

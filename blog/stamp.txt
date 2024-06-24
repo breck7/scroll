@@ -52,6 +52,8 @@ Stamp was jointly created by me and Guillaume Papin. Other tools (listed below) 
 
 Prior Art
 =========
+- cookiecutter
+ https://github.com/cookiecutter/cookiecutter
 - Dired
  https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html
 - vimv
