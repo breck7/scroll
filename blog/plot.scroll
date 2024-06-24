@@ -1,0 +1,97 @@
+author https://twitter.com/breckyunits Breck Yunits
+date 6/24/2024
+groups All
+title No Code Scatterplots
+
+import header.scroll
+keyboardNav
+printTitle
+printAuthor
+
+mediumColumns 1
+
+I have worked on many data science tools, including Ohayo and Grapher, because I love science and I love the web.
+ dateline
+ https://github.com/breck7/ohayo Ohayo
+ https://github.com/owid/owid-grapher Grapher
+
+So I was excited to read about Observable's new open source library Plot.
+ https://observablehq.com/plot/ Plot
+ https://observablehq.com/ Observable's
+
+***
+
+Today I added Plot to Scroll.
+ link index.html Scroll
+
+You can now make scatterplots using no code.
+ // if that's not no code, I don't know the meaning of no code.
+
+A tutorial is below.
+
+***
+
+# Step 0: Install Scroll Locally or try the Web Version
+ https://try.scroll.pub/ Web Version
+ // web version has limitations
+code
+ npm install -g scroll-cli
+
+***
+
+# Step 1: Generate a scatterplot with 1 word
+belowAsCode
+scatterplot
+
+***
+
+# Step 2: Add a title
+belowAsCode
+scatterplot
+ title The Iris Dataset
+
+***
+
+# Step 3: Add your data
+belowAsCode
+scatterplot
+ title The Simpson Family
+ x age
+ y height
+ data
+  name,age,height
+  Homer,39,183
+  Bart,10,137
+  Lisa,8,120
+
+***
+
+# Step 4: Load your data from disk
+belowAsCode
+scatterplot
+ title The Planets
+ data planets.csv
+ x yearsToOrbitSun
+ y moons
+ radius diameter
+ label id
+
+***
+
+# Step 5: Everything all at once
+belowAsCode
+scatterplot
+ title The Planets in our Solar System
+ data planets.csv
+ subtitle Jupiter and Saturn have a lot of moons. Only 1 planet has life.
+ caption Data from Wikipedia.
+ x yearsToOrbitSun
+ y moons
+ fill diameter
+ radius diameter
+ label id
+ symbol hasLife
+
+****
+
+import footer.scroll
