@@ -1,5 +1,5 @@
-Stamp: a mini-language for templates
-====================================
+Stamp: a mini-language for project templates
+============================================
 by Breck Yunits
 
 June 23, 2024

@@ -1,7 +1,7 @@
 author https://twitter.com/breckyunits Breck Yunits
 date 6/23/2024
 groups All
-title Stamp: a mini-language for templates
+title Stamp: a mini-language for project templates
 
 import header.scroll
 keyboardNav
