@@ -3,6 +3,10 @@ Scroll Release Notes
 A list of what has changed in Scroll releases.
 ==============================================
 
+97.4.0 6/25/2024
+================
+🎉 added `scatterplot` can now take a url as a data source
+
 97.3.1 6/24/2024
 ================
 🏥 bug fix

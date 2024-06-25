@@ -22,11 +22,23 @@ abstractPlotParser
  javascript
   compileInstance() {
    const id = "plot" + this._getUid()
-   return `<div id="${id}"></div><script>document.querySelector("#${id}").append(Plot.plot(${this.plotOptions}))</script>`
+   return `<div id="${id}"></div><script>
+   {
+    let loadChart = async () => {
+    const data = ${this.dataCode}
+    const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
+    document.querySelector("#${id}").append(Plot.plot(${this.plotOptions}))
+    }
+    loadChart()
+    }
+    </script>`
   }
   get marks() {
     // just for testing purposes
     return `Plot.rectY({length: 10000}, Plot.binX({y: "count"}, {x: d3.randomNormal()}))`
+  }
+  get dataCode() {
+    return '[]'
   }
   get plotOptions() {
     return `{
@@ -45,26 +57,33 @@ scatterplotParser
  // todo: make copyFromExternal work with inheritance
  string copyFromExternal d3.js plot.js
  javascript
-  get marks() {
+  get dataCode() {
     let data = this.iris
     const dataset = this.getNode("data")
+    const datasetContent = dataset?.content
+    const isUrl = !!datasetContent?.match(/^https?:/)
     if (dataset?.length)
       data = dataset.childrenToString()
-    else if (dataset?.content) {
-    const { Disk } = require("scrollsdk/products/Disk.node.js")
-    const path = require("path")
-    const {file} = this.parent
-    data = Disk.read(path.join(file.folderPath, dataset.content))
+    else if (datasetContent && !isUrl) {
+      const { Disk } = require("scrollsdk/products/Disk.node.js")
+      const path = require("path")
+      const {file} = this.parent
+      data = Disk.read(path.join(file.folderPath, datasetContent))
     }
-    const header = data.split("\n")[0].split(",")
-    const x = this.get("x") || header[0]
-    const y = this.get("y") || header[1]
+    let dataString = `d3.csvParse(\`${data}\`, d3.autoType)`
+    if (isUrl)
+      dataString = `await d3.${datasetContent.endsWith("tsv") ? "tsv" : "csv"}("${datasetContent}")`
+    return dataString
+  }
+  get marks() {
+    const x = this.get("x")
+    const y = this.get("y")
     const text = this.get("label")
-    return `Plot.dot(d3.csvParse(\`${data}\`, d3.autoType), ${JSON.stringify({
-      x,
-      y,
-      r: this.get("radius"),
-      fill: this.get("fill"),
+    return `Plot.dot(data, {
+      x: get("${x}", 0),
+      y: get("${y}", 1),
+      r: get("${this.get("radius")}"),
+      fill: get("${this.get("fill")}"),
       tip: true,
-      symbol: this.get("symbol")}, undefined, 2)})` + "," + `Plot.text(d3.csvParse(\`${data}\`, d3.autoType), {x: "${x}", y: "${y}", text: "${text}", dy: -6, lineAnchor: "bottom"})`
+      symbol: get("${this.get("symbol")}")} ), Plot.text(data, {x: get("${x}",0), y: get("${y}", 1), text: "${text}", dy: -6, lineAnchor: "bottom"})`
   }
