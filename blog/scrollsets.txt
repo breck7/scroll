@@ -55,7 +55,7 @@ moons 63
  // Note: the moons of Jupiter have their own Wikipedia Page
   https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
 
-writeConcepts demo.csv
+buildConcepts demo.csv
 
 The code above generates an HTML page and `demo.csv` that contains this:
 ========================================================================

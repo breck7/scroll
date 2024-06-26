@@ -95,7 +95,7 @@ The Files:
 /home/runner/work/scroll/scroll/tests/kitchenSink/tabularData.scroll
  groups index
  title Tabular data test
- writeText
+ buildText
  
  import header.scroll
  

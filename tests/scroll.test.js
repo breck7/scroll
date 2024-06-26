@@ -222,11 +222,12 @@ testTree.initCommand = async areEqual => {
     const result = await cli.initCommand(tempFolder)
     areEqual(fs.existsSync(path.join(tempFolder, "header.scroll")), true)
 
-    const pages = cli.buildFilesInFolder(fileSystem, tempFolder)
+    const products = cli.buildFilesInFolder(fileSystem, tempFolder)
 
     // Assert
-    areEqual(pages[0].html.includes("Built with Scroll"), true)
-    areEqual(pages.length, 3, "should have 3 pages")
+    areEqual(Object.values(products)[0].includes("Built with Scroll"), true)
+    areEqual(Object.keys(products).filter(name => name.endsWith(".html")).length, 2, "should have 2 html pages")
+    areEqual(Object.values(products).length, 5, "should have 5 total generated files")
 
     const { scrollErrors, parserErrors } = cli.getErrorsInFolder(tempFolder)
     areEqual(scrollErrors.length, 0)

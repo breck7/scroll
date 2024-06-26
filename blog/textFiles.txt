@@ -10,7 +10,7 @@ Scroll is a minimal (but extensible) language for generating HTML files and CSVs
 
 However, recently I've been needing to make readable text versions of blog posts for a few use cases. I was doing that by hand, but now it is built in to Scroll.
 
-To use it, just add a single line to your posts: `writeText`. You can even put that line into your `header.scroll` or `footer.scroll` to have it apply to your whole blog.
+To use it, just add a single line to your posts: `buildText`. You can even put that line into your `header.scroll` or `footer.scroll` to have it apply to your whole blog.
 
 Now you have another way to read, review, and share your thoughts!
 

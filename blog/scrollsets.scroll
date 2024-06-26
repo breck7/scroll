@@ -2,8 +2,8 @@ author https://breckyunits.com Breck Yunits
 date 4/21/2024
 groups All
 title ScrollSets: source code for CSVs
-writeConcepts planets.csv planets.json planets.tsv
-writeMeasures planetMeasures.tsv
+buildConcepts planets.csv planets.json planets.tsv
+buildMeasures planetMeasures.tsv
  sortBy -Values
 
 import header.scroll
@@ -66,7 +66,7 @@ code
   // Note: the moons of Jupiter have their own Wikipedia Page
    https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
  
- writeConcepts demo.csv
+ buildConcepts demo.csv
  
 
 # The code above generates an HTML page and `demo.csv` that contains this:

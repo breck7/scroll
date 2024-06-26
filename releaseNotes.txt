@@ -3,6 +3,13 @@ Scroll Release Notes
 A list of what has changed in Scroll releases.
 ==============================================
 
+98.0.0 6/26/2024
+================
+⚠️ BREAKING: `writeText` is now `buildText`
+⚠️ BREAKING: `writeConcepts` is now `buildConcepts`
+⚠️ BREAKING: `writeMeasures` is now `buildMeasures`
+⚠️ BREAKING: (no one should be affected), `buildFilesInFolder` now returns an object of all built files.
+
 97.4.0 6/25/2024
 ================
 🎉 added `scatterplot` can now take a url as a data source
