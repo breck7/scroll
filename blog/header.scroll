@@ -1,6 +1,6 @@
 importOnly
 homeUrl ../index.html
-writeText
+buildText
 
 import settings.scroll
 metaTags
