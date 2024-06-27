@@ -139,7 +139,7 @@ Although ScrollSets are designed for a world with LLMs, the design is meant to b
 What were the design goals?
 ===========================
 - Have an LLM do the bulk of the work while humans supervise to remove hallucinations.
-- Can store everything (documentation, schema, all concepts) in 1 clean plain text file or split into many files (using the `import` keyword).
+- Can store everything (documentation, schema, all concepts) in 1 clean plain text file or split into many files (using the `import` parser).
 - The ScrollSet syntax balances _looseness_ useful in creative thinking with the _tightness_ needed by tabular data visualization and analysis tools.
 
 Why are measures and concepts root-level features and not indented?

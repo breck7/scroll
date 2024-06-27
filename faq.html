@@ -398,11 +398,11 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p class="scrollParagraph"><a href="https://scroll.pub">This is a link</a></p>
 <code class="scrollCodeBlock">This is a link
  https://scroll.pub</code>
-<p class="scrollParagraph">You can stick to the basics or define new keywords (by writing "parsers") to extend Scroll to better fit your content and workflows.</p>
+<p class="scrollParagraph">You can stick to the basics or define new parsers to extend Scroll to better fit your content and workflows.</p>
 <p class="scrollParagraph">Your parsers can be simple or as complex as any programming language, and a simple indent is all you need to make sure your parser won't interfere with other parsers.</p>
 <p class="scrollParagraph">Parsers in Scroll are written in a mini language called <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> and both Scroll and Parsers are built on the syntax called <a href="https://notation.scroll.pub">Scroll Notation</a>.</p>
 <div class="scrollSection"><h4 class="scrollQuestion">How does Scroll improve over the latest incarnations of Markdown?</h4>
-<p class="scrollParagraph">Scroll evolved based on the theory that instead of a fixed language for blogging it is better to have an ever evolving ecosystem of keywords, so that your symbolic tools can grow along with your mental tools.</p>
+<p class="scrollParagraph">Scroll evolved based on the theory that instead of a fixed language for blogging it is better to have an ever evolving ecosystem of parsers, so that your symbolic tools can grow along with your mental tools.</p>
 </div>
 <p class="scrollParagraph">Thus, Scroll is designed to be easy to extend.</p>
 <p class="scrollParagraph">You can see this in the Scroll source code.</p>
@@ -412,7 +412,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p class="scrollParagraph">Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by making the most of the indent trick (also known as the <a href="https://en.wikipedia.org/wiki/Off-side_rule">off-side rule</a>). Each line gets its own scope. So you can add, remove, and update your mini-languages and their associated blocks without breaking the rest of the documents.</p>
 <p class="scrollParagraph">In Scroll, it's almost as if each line is its own file.</p>
 <div class="scrollSection"><h4 class="scrollQuestion">How do I extend Scroll?</h4>
-<p class="scrollParagraph">Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a <em>recipe</em> keyword and write a post like this:</p>
+<p class="scrollParagraph">Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a <em>recipe</em> parser and write a post like this:</p>
 <code class="scrollCodeBlock"># My Snowball Cookies
 
 * Bet you can't eat just one!
@@ -425,7 +425,7 @@ recipe
  step Add sugar
  step Heat oven to 350 degrees
  step Bake for 10 minutes</code>
-<p class="scrollParagraph">Notice that your post uses the keyword <code>recipe</code>, but Scroll does not have a keyword for that. No problem, just write a recipe parser yourself using <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a>, extending your dialect of Scroll:</p>
+<p class="scrollParagraph">Notice that your post uses the first word <code>recipe</code>, but Scroll does not have a parser for that. No problem, just write a recipe parser yourself using <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a>, extending your dialect of Scroll:</p>
 <code class="scrollCodeBlock">recipeParser
  extends abstractScrollParser
  crux recipe
@@ -602,7 +602,7 @@ goaccess /var/log/nginx/access.log -o /var/www/html/YOUR_SECRET_REPORT_URL.html 
 <p class="scrollParagraph">Yes! Just create a <code>feed.scroll</code> file like <a href="https://github.com/breck7/scroll/blob/main/blog/feed.scroll">this</a>.</p>
 </div>
 <div class="scrollSection"><h4 class="scrollQuestion">Does Scroll support categories and category pages?</h4>
-<p class="scrollParagraph">Yes! Just add your page to a category by using the <code>groups</code> keyword and then creating a <code>yourGroupName.scroll</code> page for the group. See a demo <a href="https://github.com/breck7/scroll/blob/main/blog/">here</a>.</p>
+<p class="scrollParagraph">Yes! Just add your page to a category by using the <code>groups</code> parser and then creating a <code>yourGroupName.scroll</code> page for the group. See a demo <a href="https://github.com/breck7/scroll/blob/main/blog/">here</a>.</p>
 </div>
 <div class="scrollSection"><h4 class="scrollQuestion">Does Scroll support Open Graph tags for better social media sharing?</h4>
 <p class="scrollParagraph">Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately <a href="https://cards-dev.twitter.com/validator">Twitter</a> doesn't support relative image links so you need to specify <code>baseUrl</code>. For more help check out the debuggers from <a href="https://developers.facebook.com/tools/debug">Facebook</a> and Twitter.</p>
@@ -630,8 +630,8 @@ node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile ~/scroll/scroll.js bui
 node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile --heap-prof --heap-prof-name=scrollNodeMem.heapprofile ~/scroll/scroll.js build
 # Now ➡️ open a new Chrome tab ➡️ open devtools ➡️ click Memory ➡️ click "Load Profile..." ➡️ select your scrollNodeMem.heapprofile</code>
 </div>
-<div class="scrollSection"><h4 class="scrollQuestion">How is a keyword different than a web components?</h4>
-<p class="scrollParagraph">Scroll and Web Components are similar in that both empower users to define their own reusable components. But Scroll is higher level than web components. For example, in addition to easily targeting HTML and web components, Scroll also plays really nicely with version control and 2D editors. Scroll encourages encoding semantic content with as little noise as possible, which creates benefits in many places.</p>
+<div class="scrollSection"><h4 class="scrollQuestion">How is a parser different than a web component?</h4>
+<p class="scrollParagraph">Scroll Parsers and Web Components are similar in that both empower users to define their own reusable components. But Scroll is higher level than web components. For example, in addition to easily targeting HTML and web components, Scroll also plays really nicely with version control and 2D editors. Scroll encourages encoding semantic content with as little noise as possible, which creates benefits in many places.</p>
 </div>
 <div class="scrollSection"><h4 class="scrollQuestion">How do I run cross browser tests?</h4>
 <p class="scrollParagraph">For that we use <a href="https://browserstack.com">BrowserStack</a>.</p>

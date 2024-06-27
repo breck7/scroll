@@ -386,13 +386,13 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </div>
 </div>
 <div class="scrollColumns" style="column-width:35ch;column-count:2;max-width:90ch;">
-<div class="scrollSection"><h2 class="scrollParagraph">Scroll is an extensible alternative to Markdown.</h2>
-<p class="scrollParagraph">Like Markdown, Scroll is a plaintext language that compiles to HTML.</p>
+<div class="scrollSection"><h2 class="scrollParagraph">Scroll started as an extensible alternative to Markdown.</h2>
+<p class="scrollParagraph">Like Markdown, Scroll is a plaintext language that can build HTML (among other things).</p>
 <p class="scrollParagraph">Scroll is minimal to help you reduce your ideas to their essence.</p>
-<p class="scrollParagraph">Scroll is extensible to help you use and build new mini languages to fully develop your ideas.</p>
+<p class="scrollParagraph">You can extend Scroll by adding your own Parsers to build new mini-languages to fully develop your ideas.</p>
 </div>
-<p class="scrollParagraph">Scroll debuted in 2021 and is now on Version 72, approximately 1 release every 2 weeks. There is no official spec yet but creating a spec is on the <a href="roadmap.html">roadmap</a>.</p>
-<p class="scrollParagraph">This Tutorial will walk you through most keywords in Scroll AND teach you how to build your own Scroll keywords.</p>
+<p class="scrollParagraph">Scroll debuted in 2021 and is now on Version 98, approximately 1 major release every 2 weeks. Scroll has no official spec yet but creating a spec is on the <a href="roadmap.html">roadmap</a>.</p>
+<p class="scrollParagraph">This Tutorial will walk you through most parsers in Scroll AND teach you how to build your own Scroll Parsers.</p>
 <hr>
 <div class="scrollSection"><h2 class="scrollParagraph">A Scroll document</h2>
 <p class="scrollParagraph">A Scroll document (or "program") is a <em>list of nodes</em>. Every node is one line and every line is one node.</p>
@@ -401,9 +401,9 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Basic Node Types</h1>
-<div class="scrollSection"><h2 class="scrollParagraph">1. The Paragraph Node</h2>
-<p class="scrollParagraph">Let's start with the most common node, the <code>paragraph</code> node. You can think of this node as similar to a <code>p</code> or <code>div</code> tag in HTML. To use this node you can write out the word <code>paragraph</code>, or use an asterisk <code>*</code>, OR just start any text that does not begin with a keyword.  This paragraph you are reading is written using one of these nodes. The code is:</p>
-<code class="scrollCodeBlock">Let's start with the most common node, the `paragraph` node. You can think of this node as similar to a `p` or `div` tag in HTML. To use this node you can write out the word `paragraph`, or use an asterisk `*`, OR just start any text that does not begin with a keyword.  This paragraph you are reading is written using one of these nodes. The code is:</code>
+<div class="scrollSection"><h2 class="scrollParagraph">1. The Paragraph Parser</h2>
+<p class="scrollParagraph">Let's start with the most common parser, the <code>paragraph</code> parser. You can think of paragraphs as similar to a <code>p</code> or <code>div</code> tag in HTML. To use this parser you can write out the word <code>paragraph</code>, or use an asterisk <code>*</code>, OR just start any text that does not match another parser (the "catch all" parser of a Scroll program is the paragraph parser). This paragraph you are reading was compiled by a paragraph parser. The code is:</p>
+<code class="scrollCodeBlock">Let's start with the most common parser, the `paragraph` parser. You can think of paragraphs as similar to a `p` or `div` tag in HTML. To use this parser you can write out the word `paragraph`, or use an asterisk `*`, OR just start any text that does not match another parser (the "catch all" parser of a Scroll program is the paragraph parser). This paragraph you are reading was compiled by a paragraph parser. The code is:</code>
 </div></div>
 <div class="scrollSection"><h2 class="scrollParagraph">2. Headers</h2>
 <p class="scrollParagraph">Scroll has headers like markdown:</p>
@@ -427,7 +427,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p class="scrollParagraph"><div style="text-indent:0px;"><input type="checkbox"  id="item1"><label for="item1">Finish full tutorial</label></div></p><p class="scrollParagraph"><div style="text-indent:20px;"><input type="checkbox" checked id="item2"><label for="item2">Learn that checklists support nesting</label></div></p>
 </div>
 <div class="scrollSection"><h2 class="scrollParagraph">5. Tables</h2>
-<p class="scrollParagraph">Use the <code>table</code> keyword and include your delimiter for tables:</p>
+<p class="scrollParagraph">Use the <code>table</code> parser and include your delimiter for tables:</p>
 <code class="scrollCodeBlock">table ,
  Name,Rank
  Scroll,#1
@@ -444,7 +444,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </tr></tbody></table>
 </div>
 <div class="scrollSection"><h2 class="scrollParagraph">6. Images</h2>
-<p class="scrollParagraph">To add an image use the <code>image</code> keyword:</p>
+<p class="scrollParagraph">To add an image use the <code>image</code> parser:</p>
 <code class="scrollCodeBlock">image https://scroll.pub/blog/screenshot.png
  caption An image with a caption
 </code>
@@ -458,17 +458,21 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p  id="note1"class="scrollParagraph"><a class="scrollFootNoteUsageLink" href="#noteUsage1">[1]</a> In Hawaiian</p>
 </div>
 <div class="scrollSection"><h2 class="scrollParagraph">8. Dashboard</h2>
-<p class="scrollParagraph">If you are building a dashboard you might want to try the <code>dashboard</code> keyword:</p>
+<p class="scrollParagraph">If you are building a dashboard you might want to try the <code>dashboard</code> parser:</p>
+<code class="scrollCodeBlock">dashboard
+ #1 Lang
+ 2k Users
+ 300 Stars</code>
 <table class="scrollDashboard"><tr><td>#1<span>Lang</span></td>
 <td>2k<span>Users</span></td>
 <td>300<span>Stars</span></td></tr>
 </table>
 </div>
 <div class="scrollSection"><h2 class="scrollParagraph">9. Including HTML and CSS</h2>
-If you need to jump into regular HTML, use the <code>html</code> keyword.
-<code class="scrollCodeBlock">html If you need to jump into regular HTML, use the &lt;code>html&lt;/code> keyword.</code>
+If you need to jump into regular HTML, use the <code>html</code> parser.
+<code class="scrollCodeBlock">html If you need to jump into regular HTML, use the &lt;code>html&lt;/code> parser.</code>
 </div>
-<p class="scrollParagraph">For CSS, use the <code>css</code> keyword:</p>
+<p class="scrollParagraph">For CSS, use the <code>css</code> parser:</p>
 <code class="scrollCodeBlock">css .green {color: green;}
 This text should be green.
  class green</code>
@@ -492,16 +496,16 @@ This text should be green.
 <p class="scrollParagraph"><a href="https://wikipedia.org">A link to Wikipedia</a></p>
 </div>
 <div class="scrollSection"><h2 class="scrollParagraph">Columns</h2>
-<p class="scrollParagraph">You can use the <code>thinColumns [maxNumberOfColumns]</code> keyword to start a columns flow and <code>endColumns</code> to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between lines. Line breaks will clear sections.</p>
+<p class="scrollParagraph">You can use the <code>thinColumns [maxNumberOfColumns]</code> parser to start a columns flow and <code>endColumns</code> to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between lines. Line breaks will clear sections.</p>
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Advanced</h1>
 <div class="scrollSection"><h2 class="scrollParagraph">Variables</h2>
-<p class="scrollParagraph">Use the <code>replace</code> keyword to define variables. Variables definitions are parsed and removed on the first compiler pass.</p>
+<p class="scrollParagraph">Use the <code>replace</code> parser to define variables. Variables definitions are parsed and removed on the first compiler pass.</p>
 <p class="scrollParagraph">Our domain is: <strong>scroll.pub</strong></p>
 </div></div>
 <div class="scrollSection"><h2 class="scrollParagraph">Import statements</h2>
-<p class="scrollParagraph">Scroll files can import other Scroll files. Use the <code>import</code> keyword followed by the path to the file, such as: <code>import header.scroll</code></p>
+<p class="scrollParagraph">Scroll files can import other Scroll files. Use the <code>import</code> parser followed by the path to the file, such as: <code>import header.scroll</code></p>
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Advanced: Custom Themes</h1>
@@ -510,10 +514,10 @@ This text should be green.
 <p class="scrollParagraph"><div style="text-indent:0px;"><input type="checkbox"  id="item3"><label for="item3">Create a <code>[yourThemeName].parsers</code> file</label></div></p>
 <p class="scrollParagraph"><div style="text-indent:0px;"><input type="checkbox"  id="item4"><label for="item4">Add a <code>[yourThemeName]CssParser</code></label></div></p><ul ><li >You can refer to the <code>gazetteCssParser</code> in <code>gazetteTheme.parsers</code> for an example. Your theme can extend <code>abstractThemeCssParser</code> or be its own tag.</li></ul>
 <p class="scrollParagraph"><div style="text-indent:20px;"><input type="checkbox"  id="item5"><label for="item5">Add CSS. The Gazette theme uses Hakon, a language that compiles to CSS, but you are free to use plain CSS—even in an external file.</label></div></p><p class="scrollParagraph"><div style="text-indent:40px;"><input type="checkbox"  id="item6"><label for="item6">Add CSS resets. Like any other normal site you probably want to adjust the base CSS of the browser.</label></div></p>
-<p class="scrollParagraph"><div style="text-indent:40px;"><input type="checkbox"  id="item7"><label for="item7">Add any custom styles for any custom keywords you include in your theme. If you don't have any custom keywords you can skip this step.</label></div></p>
-<p class="scrollParagraph"><div style="text-indent:40px;"><input type="checkbox"  id="item8"><label for="item8">Add CSS for the standard Scroll keywords. You probably want to customize the styles of Scroll keywords like <code>*</code> and <code>#</code>. There is not currently an exhaustive list or consistent pattern to these class names. See the Gazette theme for reference.</label></div></p>
+<p class="scrollParagraph"><div style="text-indent:40px;"><input type="checkbox"  id="item7"><label for="item7">Add any custom styles for any custom parsers you include in your theme. If you don't have any custom parsers you can skip this step.</label></div></p>
+<p class="scrollParagraph"><div style="text-indent:40px;"><input type="checkbox"  id="item8"><label for="item8">Add CSS for the standard Scroll parsers. You probably want to customize the styles of Scroll parsers like <code>*</code> and <code>#</code>. There is not currently an exhaustive list or consistent pattern to these class names. See the Gazette theme for reference.</label></div></p>
 <div class="scrollSection"><h2 class="scrollParagraph">Using Custom Themes</h2>
-<p class="scrollParagraph">By default Scroll emits HTML with no theming. To use any theme—including the default <code>Gazette</code> theme—the user simply uses the keywords provided by the theme, such as <code>gazetteCss</code>.</p>
+<p class="scrollParagraph">By default Scroll emits HTML with no theming. To use any theme—including the default <code>Gazette</code> theme—the user simply uses the parsers provided by the theme, such as <code>gazetteCss</code>.</p>
 </div>
 <div class="scrollSection"><h2 class="scrollParagraph">Examples</h2>
 <div class="scrollSection"><h2 class="scrollParagraph">A page using no theme:</h2>
@@ -528,7 +532,7 @@ pageFooter</code>
 <div class="scrollSection"><h1 class="scrollParagraph">Expert: Adding your own parsers</h1>
 <p class="scrollParagraph">Scroll is based on the theory that a language should adapt to the domain, not the other way around. So Scroll has extendibility built-in.</p>
 </div>
-<p class="scrollParagraph"><em>Note: Custom Parsers are currently only supported using the <code>npm</code> package. The web editor does <strong>not</strong> currently support custom keywords</em>.</p>
+<p class="scrollParagraph"><em>Note: Custom Parsers are currently only supported using the <code>npm</code> package. The web editor does <strong>not</strong> currently support custom parsers</em>.</p>
 <p class="scrollParagraph">You can define your own parsers right in your Scroll documents using <code>*Parser</code>.</p>
 <p class="scrollParagraph">Here is a simple example that extends Scroll by making <code>p</code> work the same as <code>*</code>:</p>
 <code class="scrollCodeBlock">pParser
@@ -596,7 +600,5 @@ hiddenMessage Click me.
   else if (event.key === "ArrowRight")
     getLinks()[1].click()
  });</script></div>
-<div class="scrollSection"><h1 class="scrollTitle"><a href="tutorial.html">Scroll Tutorial</a></h1>
-</div>
 </body>
 </html>

@@ -408,7 +408,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <li >bug fix</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">97.3.0 6/24/2024</h1>
-<ul class="newFeatureParser"><li >added <code>scatterplot</code> keyword</li></ul>
+<ul class="newFeatureParser"><li >added <code>scatterplot</code> parser</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">97.2.0 6/23/2024</h1>
 <ul class="newFeatureParser"><li >added <code>stamp</code> mini language</li></ul>
@@ -417,7 +417,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <ul class="bugFixParser"><li >test fix</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">97.1.0 6/21/2024</h1>
-<ul class="newFeatureParser"><li >added <code>sparkline</code> keyword using beautiful tiny <a href="https://github.com/mariusGundersen/sparkline">sparkline library</a> by <a href="https://mariusgundersen.net/">Marius Gundersen</a>.</li></ul>
+<ul class="newFeatureParser"><li >added <code>sparkline</code> parser using beautiful tiny <a href="https://github.com/mariusGundersen/sparkline">sparkline library</a> by <a href="https://mariusgundersen.net/">Marius Gundersen</a>.</li></ul>
 </div>
 <code class="scrollCodeBlock">sparkline 5 7 27 87 300 17 10 5</code>
 <script src="sparkline.js"></script>
@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <ul class="newFeatureParser"><li >added <code>wws</code> command line app.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">95.0.0 6/11/2024</h1>
-<ul class="newFeatureParser"><li >added <code>downloadUrl</code> keyword.</li></ul>
+<ul class="newFeatureParser"><li >added <code>downloadUrl</code> parser.</li></ul>
 <ul class="breakingChangeParser"><li >BREAKING: <code>canonicalLink</code> is now <code>canonicalUrl</code>.</li>
 <li >BREAKING: <code>homeLink</code> is now <code>homeUrl</code>.</li></ul>
 </div>
@@ -452,7 +452,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <ul class="bugFixParser"><li >katex should print contents in txt compilation</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">93.7.0 5/29/2024</h1>
-<ul class="newFeatureParser"><li >added <code>classes</code> keyword</li></ul>
+<ul class="newFeatureParser"><li >added <code>classes</code> parser</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">93.6.2 5/28/2024</h1>
 <ul class="bugFixParser"><li >more Windows fixes</li></ul>
@@ -490,11 +490,11 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <ul class="breakingChangeParser"><li >BREAKING: (no one should be affected) remove any spaghetti filename code.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">91.0.0 5/19/2024</h1>
-<ul class="newFeatureParser"><li ><code>printAuthor</code> keyword prints the author defined by <code>author</code>. <code>byLine</code> has been deprecated--replace with <code>printAuthor</code>.</li></ul>
-<ul class="breakingChangeParser"><li >BREAKING: <code>author</code> keyword now takes a URL.</li></ul>
+<ul class="newFeatureParser"><li ><code>printAuthor</code> parser prints the author defined by <code>author</code>. <code>byLine</code> has been deprecated--replace with <code>printAuthor</code>.</li></ul>
+<ul class="breakingChangeParser"><li >BREAKING: <code>author</code> parser now takes a URL.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">90.5.0 5/19/2024</h1>
-<ul class="newFeatureParser"><li >added <code>printDate</code> keyword</li></ul>
+<ul class="newFeatureParser"><li >added <code>printDate</code> parser</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">90.4.1 5/19/2024</h1>
 <ul class="bugFixParser"><li ><code>helpfulNotFound</code> now assumes the script can be found at the root of the domain.</li></ul>
@@ -516,7 +516,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <li >got <code>slideshow</code> working on try.scroll.pub</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">90.2.0 5/18/2024</h1>
-<ul class="newFeatureParser"><li >added <code>slideshow</code> keyword</li>
+<ul class="newFeatureParser"><li >added <code>slideshow</code> parser</li>
 <li >grammar extensions can now use "copyFromExternal"</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">90.1.1 5/17/2024</h1>
@@ -549,7 +549,7 @@ filenameParser
 <ul class="newFeatureParser"><li >added ability to override content in <code>printTitle</code></li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">89.0.0 5/15/2024</h1>
-<ul class="newFeatureParser"><li ><code>printTitle</code> keyword added for easier templates</li></ul>
+<ul class="newFeatureParser"><li ><code>printTitle</code> parser added for easier templates</li></ul>
 <ul class="breakingChangeParser"><li >BREAKING: <code>title</code> is now a setter. This regex handles the migration:</li><ul ><li ><code>^title </code> <code>printTitle\ntitle </code></li><ul ><li >Then (optionally) run "scroll format" or "scroll list | scroll format" to format which will automove your titles up top.</li></ul></ul></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">88.0.0 5/15/2024</h1>
@@ -612,8 +612,8 @@ filenameParser
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">85.0.0 5/08/2024</h1>
 <ul class="newFeatureParser"><li >upgraded jtree to get ability for faster compilations</li></ul>
-<ul class="breakingChangeParser"><li >BREAKING: removed <code>replaceDefault</code> keyword. No one should be affected.</li>
-<li >BREAKING: renamed <code>nodejs</code> keyword to `replaceNodejs. Few should be affected.</li></ul>
+<ul class="breakingChangeParser"><li >BREAKING: removed <code>replaceDefault</code> parser. No one should be affected.</li>
+<li >BREAKING: renamed <code>nodejs</code> parser to `replaceNodejs. Few should be affected.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">84.10.1 5/08/2024</h1>
 <ul class="bugFixParser"><li >fix hanging test (infinite loop regression) during build when you have just 1 file.</li></ul>
@@ -631,7 +631,7 @@ filenameParser
 <ul class="newFeatureParser"><li ><code>tableSearch</code> now takes a parameter from the url <code>#q=[search]</code>. Updating the searching box also updates url.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">84.7.0 5/07/2024</h1>
-<ul class="newFeatureParser"><li >Added <code>printSearchTable</code> keyword</li></ul>
+<ul class="newFeatureParser"><li >Added <code>printSearchTable</code> parser</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">84.6.0 5/07/2024</h1>
 <ul class="newFeatureParser"><li >Added support for computed measures</li>
@@ -641,11 +641,11 @@ filenameParser
 <ul class="bugFixParser"><li >better error printing with <code>scroll test</code> and fix bug in <code>percentCell</code></li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">84.5.0 5/07/2024</h1>
-<ul class="newFeatureParser"><li >Added <code>writeMeasures</code> and <code>printMeasures</code> keywords</li>
+<ul class="newFeatureParser"><li >Added <code>writeMeasures</code> and <code>printMeasures</code> parsers</li>
 <li >Added <code>abstractPercentageMeasureParser</code></li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">84.4.0 5/06/2024</h1>
-<ul class="newFeatureParser"><li >Added <code>loadConcepts</code> keyword for if you had a dataset split into many files in a folder.</li>
+<ul class="newFeatureParser"><li >Added <code>loadConcepts</code> parser for if you had a dataset split into many files in a folder.</li>
 <li >Added <code>float sortIndex [int]</code> for sorting the measures(columns) in dataset generation. Lower sort indexes come first.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">84.3.0 5/06/2024</h1>
@@ -662,11 +662,11 @@ filenameParser
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">84.0.0 5/04/2024</h1>
 <ul class="newFeatureParser"><li >Datasets (aka "Concept files") version 2! Much simpler.</li>
-<li >Added the <code>id</code> keyword for using datasets.</li>
+<li >Added the <code>id</code> parser for using datasets.</li>
 <li >Removed the <code>[measureName]: </code> syntax introduced in version 77. You no longer have to worry about the annoyance that introduced when writing a paragraph such as "Sidenote: yada yada".</li>
-<li >Added <code>belowAsCodeUntil</code> keyword</li></ul>
+<li >Added <code>belowAsCodeUntil</code> parser</li></ul>
 </div>
-<ul class="breakingChangeParser"><li >BREAKING: removed <code>::</code> keyword. Now concepts are simply identified by the keyword <code>id</code>.</li>
+<ul class="breakingChangeParser"><li >BREAKING: removed <code>::</code> parser. Now concepts are simply identified by the parser <code>id</code>.</li>
 <li >BREAKING: <code>writeDataset</code> is now <code>writeConcepts</code> and <code>printDataset</code> is now <code>printConcepts</code>.</li>
 <li >BREAKING: Removed the <code>[measureName]: </code> syntax introduced in version 77. To use datasets (aka Concept files) now, just extend Scroll parsers like you normally would. See <a href="blog/datasets.html">this blog post for an example</a>.</li></ul>
 <div class="scrollSection"><h1 class="scrollParagraph">83.3.0 5/04/2024</h1>
@@ -675,19 +675,19 @@ filenameParser
 <div class="scrollSection"><h1 class="scrollParagraph">83.2.0 5/04/2024</h1>
 <ul class="newFeatureParser"><li >added <code>link</code> under <code>image</code>. Also added <code>target</code>.</li>
 <li >for posts with multiple images, you can now put <code>openGraph</code> under an <code>image</code> node as an alternative to adding a separate <code>openGraphImage</code> line</li>
-<li >added <code>mediumColumns</code> keyword</li>
-<li >added <code>thinColumns</code> keyword.</li></ul>
+<li >added <code>mediumColumns</code> parser</li>
+<li >added <code>thinColumns</code> parser.</li></ul>
 </div>
 <p class="scrollParagraph">Note: <code>startColumns</code> will eventually be removed. You can now safely switch those to <code>thinColumns</code>.</p>
 <div class="scrollSection"><h1 class="scrollParagraph">83.1.0 5/03/2024</h1>
-<ul class="newFeatureParser"><li >added <code>expander</code> keyword</li></ul>
+<ul class="newFeatureParser"><li >added <code>expander</code> parser</li></ul>
 </div>
 <details><summary >Click me</summary>
 <p class="scrollParagraph">Anything in the section will show up here. A blank line ends a section.</p>
 </details>
 <div class="scrollSection"><h1 class="scrollParagraph">83.0.0 5/03/2024</h1>
 <ul class="newFeatureParser"><li >all tables now print in plain text outputs</li>
-<li >added <code>printTable</code> keyword</li></ul>
+<li >added <code>printTable</code> parser</li></ul>
 <ul class="breakingChangeParser"><li >BREAKING: root level tabular tables no longer produce output. Add a <code>printTable [index]</code> to print any existing tabular tables.</li></ul>
 </div>
 <p class="scrollParagraph"><code>printTable</code> will look for a table to print using this strategy:</p>
@@ -720,9 +720,9 @@ filenameParser
 <li >Tags that print content and comments stay put</li>
 <li >Meta tags are sorted alphabetically with no blank lines in between [In the future, may want to allow customizing this]</li></ul>
 <p class="scrollParagraph">Note that currently the <code>title</code> tag is a meta tag and a tag that prints content. Going to split that up into 2 tags soon.</p>
-<p class="scrollParagraph">Note that if you are doing something like a tutorial and using a <code>belowAsCode</code> where you purposely put a top matter keyword not at the top, it will currently get moved to the top by format. We can probably add a feature like treating meta nodes with <code>// noFormat</code> as if they were content nodes.</p>
+<p class="scrollParagraph">Note that if you are doing something like a tutorial and using a <code>belowAsCode</code> where you purposely put a top matter parser not at the top, it will currently get moved to the top by format. We can probably add a feature like treating meta nodes with <code>// noFormat</code> as if they were content nodes.</p>
 <div class="scrollSection"><h1 class="scrollParagraph">81.2.0 4/30/2024</h1>
-<ul class="newFeatureParser"><li >added <code>related</code> and <code>relatedList</code> keywords</li></ul>
+<ul class="newFeatureParser"><li >added <code>related</code> and <code>relatedList</code> parsers</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">81.1.0 4/29/2024</h1>
 <ul class="newFeatureParser"><li >added <code>plainTextOnly</code> for rare case when you need to include content only for the plain text version.</li></ul>
@@ -737,17 +737,17 @@ filenameParser
 <ul class="bugFixParser"><li >fixed regression in tabular tables printing</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">80.2.0 4/29/2024</h1>
-<ul class="newFeatureParser"><li >added <code>helpfulNotFound</code> keyword for better 404s.</li></ul>
+<ul class="newFeatureParser"><li >added <code>helpfulNotFound</code> parser for better 404s.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">80.1.0 4/29/2024</h1>
 <ul class="newFeatureParser"><li ><code>wordCount</code> in <code>printCsv</code> now measures wordCount in the text version of a post.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">80.0.0 4/29/2024</h1>
-<ul class="newFeatureParser"><li ><a href="blog/textFiles.html">Scroll now generates text files</a>! Added the <code>writeText</code> keyword.</li></ul>
+<ul class="newFeatureParser"><li ><a href="blog/textFiles.html">Scroll now generates text files</a>! Added the <code>writeText</code> parser.</li></ul>
 </div>
 <p class="scrollParagraph">Note: there are likely to be a few rapid releases to refine this.</p>
 <div class="scrollSection"><h1 class="scrollParagraph">79.1.0 4/27/2024</h1>
-<ul class="newFeatureParser"><li >added <code>printSiteMap</code> keyword for text sitemap generation.</li></ul>
+<ul class="newFeatureParser"><li >added <code>printSiteMap</code> parser for text sitemap generation.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">79.0.1 4/27/2024</h1>
 <ul class="bugFixParser"><li >fix npm issue</li></ul>
@@ -782,7 +782,7 @@ filenameParser
 <ul class="newFeatureParser"><li >Simplified datasets further after user tests.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">77.0.0 4/21/2024</h1>
-<ul class="newFeatureParser"><li >Added <a href="blog/datasets.html">Scroll Datasets</a>, which consists of the <code>::</code>, <code>printDataset</code>, <code>writeDataset</code>, and <code>*:</code> and <code>*::</code> keywords.</li></ul>
+<ul class="newFeatureParser"><li >Added <a href="blog/datasets.html">Scroll Datasets</a>, which consists of the <code>::</code>, <code>printDataset</code>, <code>writeDataset</code>, and <code>*:</code> and <code>*::</code> parsers.</li></ul>
 </div>
 <ul class="breakingChangeParser"><li >BREAKING: if you had lines starting with a word then colon, that used the catchall paragraph, such as <code>Sidenote: yada yada.</code>, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs <code>* Sidenote: yada yada.</code>. This regex can help you find any instances: <code>^[^ ]+: .</code></li></ul>
 <div class="scrollSection"><h1 class="scrollParagraph">76.0.0 4/19/2024</h1>
@@ -804,7 +804,7 @@ filenameParser
 <ul class="bugFixParser"><li >fix bug where quick links could not be used inside a footnote definition.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">75.1.0 4/10/2024</h1>
-<ul class="newFeatureParser"><li >Added <code>***</code> keyword to print a <a href="https://en.wikipedia.org/wiki/Dinkus">Dinkus</a></li></ul>
+<ul class="newFeatureParser"><li >Added <code>***</code> parser to print a <a href="https://en.wikipedia.org/wiki/Dinkus">Dinkus</a></li></ul>
 </div>
 <code class="scrollCodeBlock">
 Now I will show an example.
@@ -822,14 +822,14 @@ Above is a dinkus.</code>
 <ul ><li >(Reverted)</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">73.2.0 4/05/2024</h1>
-<ul class="newFeatureParser"><li >added <code>thanksTo</code> keyword</li></ul>
+<ul class="newFeatureParser"><li >added <code>thanksTo</code> parser</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">73.1.0 4/05/2024</h1>
-<ul class="newFeatureParser"><li >added <code>plainText</code> keyword</li>
-<li >added <code>printSource</code> keyword to be able to dump the source code for a group of posts to a plain text file.</li></ul>
+<ul class="newFeatureParser"><li >added <code>plainText</code> parser</li>
+<li >added <code>printSource</code> parser to be able to dump the source code for a group of posts to a plain text file.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">73.0.0 4/03/2024</h1>
-<ul class="newFeatureParser"><li >added <code>printCsv</code> keyword to make it as easy to generate a CSV of a blog as it is to generate an RSS feed</li></ul>
+<ul class="newFeatureParser"><li >added <code>printCsv</code> parser to make it as easy to generate a CSV of a blog as it is to generate an RSS feed</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">72.4.4 2/07/2024</h1>
 <ul class="bugFixParser"><li >do not print "undefined" in tables in rows missing columns</li></ul>
@@ -853,7 +853,7 @@ Above is a dinkus.</code>
 <ul class="bugFixParser"><li >by default katex wraps won't run unless there is a <code>katex</code> node in a file. So any paragraph containing multiple $ will now behave as before katex wraps were added.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">72.2.0 5/31/2023</h1>
-<ul class="newFeatureParser"><li >added <code>wideColumns</code> keyword</li></ul>
+<ul class="newFeatureParser"><li >added <code>wideColumns</code> parser</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">72.1.0 5/26/2023</h1>
 <ul class="bugFixParser"><li >Bold and italics are no longer parsed inside inline code <code>2*4*2</code> or inline <span  class="scrollKatex">\KaTeX</span> <span  class="scrollKatex">X_{2_i}</span>.</li></ul>
@@ -883,7 +883,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <ul class="newFeatureParser"><li >style improvements to lists</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">71.3.0 5/8/2023</h1>
-<ul class="newFeatureParser"><li >added <code>program</code> keyword for Program Links. See <a href="blog/programLinks.html">blog post</a> for details.</li></ul>
+<ul class="newFeatureParser"><li >added <code>program</code> parser for Program Links. See <a href="blog/programLinks.html">blog post</a> for details.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">71.2.0 5/07/2023</h1>
 <ul class="bugFixParser"><li >add <code>&lt;!DOCTYPE html&gt;</code> to improve performance on Google Lighthouse.</li>
@@ -892,7 +892,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">71.1.0 5/07/2023</h1>
 <ul class="bugFixParser"><li >add <code>&lt;html lang&gt;&lt;/html&gt;</code> back as you need that to get proper hyphenation. Added test.</li></ul>
-<ul class="newFeatureParser"><li >added <code>htmlLang</code> keyword for overriding the default lang which is set to "en"</li>
+<ul class="newFeatureParser"><li >added <code>htmlLang</code> parser for overriding the default lang which is set to "en"</li>
 <li >added <code>text-align: justify;</code> on paragraphs to Gazette and Tufte themes.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">71.0.0 5/06/2023</h1>
@@ -902,17 +902,17 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <li >BREAKING: <code>gazetteHeader</code> is now <code>pageHeader</code> and <code>gazetteFooter</code> is now <code>pageFooter</code>. Headers and footers can be independent of themes.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">70.0.0 4/29/2023</h1>
-<ul class="newFeatureParser"><li >Paragraphs no longer need to start with '* '. All non-blank lines that don't start with a defined keyword are now treated as a paragraph. The catch-all is no longer an error. It is recommended to start all paragraphs with a capital letter, as in the future it may become the standard that keywords start with a lowercase or symbol, and you will avoid any future keyword collisions.</li><ul ><li >Thanks to zoeartemis for the feedback.</li>
+<ul class="newFeatureParser"><li >Paragraphs no longer need to start with '* '. All non-blank lines that don't start with a defined parser are now treated as a paragraph. The catch-all is no longer an error. It is recommended to start all paragraphs with a capital letter, as in the future it may become the standard that parsers start with a lowercase or symbol, and you will avoid any future parser collisions.</li><ul ><li >Thanks to zoeartemis for the feedback.</li>
 <li >No changes are needed but you can update your files with the find/replace combo: <code>\n\* </code> <code>\n</code>.</li><ul ><li >You may want to use the case sensitive <code>\n\* [a-z]</code> search first to find any paragraphs that start with a lowercase letter.</li>
 <li >You also want to be careful of any lines that would now start with <code>&lt;!</code>, as they will be parsed as HTML nodes.</li></ul></ul></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">69.3.0 4/26/2023</h1>
-<ul class="newFeatureParser"><li >Add <code>katex</code> keyword. <a href="https://katex.org/">KaTeX</a>: "The fastest math typesetting library for the web."</li></ul>
+<ul class="newFeatureParser"><li >Add <code>katex</code> parser. <a href="https://katex.org/">KaTeX</a>: "The fastest math typesetting library for the web."</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">69.2.0 4/18/2023</h1>
-<ul class="newFeatureParser"><li >added the <code>tag</code> keyword to thought nodes so you can change the compiled html tag (needed in rare circumstances)</li>
-<li >added the <code>thought</code> keyword and standardized vocab to calling the thought node the main node that most nodes extend.</li>
-<li >added the <code>style</code> keyword to provide inline html styles to a thought node.</li></ul>
+<ul class="newFeatureParser"><li >added the <code>tag</code> parser to thought nodes so you can change the compiled html tag (needed in rare circumstances)</li>
+<li >added the <code>thought</code> parser and standardized vocab to calling the thought node the main node that most nodes extend.</li>
+<li >added the <code>style</code> parser to provide inline html styles to a thought node.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">69.1.4 4/13/2023</h1>
 <ul class="bugFixParser"><li >get tfs fixes in jtree</li></ul>
@@ -945,7 +945,7 @@ gazetteCss
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">67.0.0 4/2/2023</h1>
 <p class="scrollParagraph">This is <em>The Theme Release</em>.</p>
-<ul class="newFeatureParser"><li >Introduce the idea of keywords for theming scrolls.</li></ul>
+<ul class="newFeatureParser"><li >Introduce the idea of parsers for theming scrolls.</li></ul>
 <ul class="breakingChangeParser"><li >BREAKING: <code>author</code> node is now <code>byLine</code>. <code>author</code> is kept for now but updating is recommended.</li>
 <li >BREAKING: <code>scrollCssTag</code> is gone. use <code>gazetteTheme</code> for previous behavior. <code>scrollCss</code> is gone, use <code>gazetteTheme noTag</code>.</li>
 <li >BREAKING: SCROLL_CSS has been removed. <code>gazetteTheme</code> now contains that CSS code.</li>
@@ -982,17 +982,17 @@ gazetteCss
 <ul class="bugFixParser"><li >if something goes wrong in a nodejs block, be sure to clean up the temporary file</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">62.5.0 3/23/2023</h1>
-<ul class="newFeatureParser"><li >New keyword <code>canonicalUrl</code> if you need to include query strings in canonical link.</li></ul>
+<ul class="newFeatureParser"><li >New parser <code>canonicalUrl</code> if you need to include query strings in canonical link.</li></ul>
 </div>
 <code class="scrollCodeBlock">canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true</code>
 <div class="scrollSection"><h1 class="scrollParagraph">62.4.0 3/23/2023</h1>
 <ul class="bugFixParser"><li >SEO fix: metaTags now sets canonical link</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">62.3.0 3/22/2023</h1>
-<ul class="newFeatureParser"><li >New keyword <code>map</code> using <a href="https://leafletjs.com/">LeafletJS</a></li></ul>
+<ul class="newFeatureParser"><li >New parser <code>map</code> using <a href="https://leafletjs.com/">LeafletJS</a></li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">62.2.0 3/15/2023</h1>
-<ul class="newFeatureParser"><li >Added <code>copyButtons</code> keyword. Use that to give code blocks a copy-to-clipboard button on hover.</li></ul>
+<ul class="newFeatureParser"><li >Added <code>copyButtons</code> parser. Use that to give code blocks a copy-to-clipboard button on hover.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">62.1.0 3/13/2023</h1>
 <ul class="newFeatureParser"><li >Added <code>nodejs</code> node for including small node.js scripts inside a Scroll file, similar to a PHP snippet. <?php ?>. The snippet is written to disk and then require is used to run it. Exports variables are then replaced throughout the script.</li></ul>
@@ -1015,7 +1015,7 @@ gazetteCss
 &lt;hr></code>
 <ul class="breakingChangeParser"><li >BREAKING: (no one should be affected). The default <em>catch all</em> node will still report as an error but will now behave as if it's a paragraph (<code>*</code>) node.</li></ul>
 <div class="scrollSection"><h1 class="scrollParagraph">59.6.0 3/10/2023</h1>
-<ul class="newFeatureParser"><li >Added Horizontal line keyword: <code>---</code></li></ul>
+<ul class="newFeatureParser"><li >Added Horizontal line parser: <code>---</code></li></ul>
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">59.5.0 3/9/2023</h1>
@@ -1035,7 +1035,7 @@ gazetteCss
 <ul class="newFeatureParser"><li ><code>scroll init</code> now creates a <code>.gitignore</code> file and also runs <code>git init</code>.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">59.0.0 3/3/2023</h1>
-<ul class="newFeatureParser"><li ><code>image</code> keyword now supports <code>class</code> and <code>id</code> tags</li>
+<ul class="newFeatureParser"><li ><code>image</code> parser now supports <code>class</code> and <code>id</code> tags</li>
 <li ><code>class</code> tag with just a class will now apply to the whole parent element and not insert a span</li></ul>
 <ul class="bugFixParser"><li >fix so image tag works in try.scroll.pub</li></ul>
 </div>
@@ -1098,7 +1098,7 @@ gazetteCss
 css .blueOneLiner { color: blue;}</code>
 </div>
 <ul class="newFeatureParser"><li ><code>title</code> nodes are now proper aftertext nodes and can use all features of aftertext</li>
-<li >the <code>hidden</code> keyword can now be used on any aftertext node</li></ul>
+<li >the <code>hidden</code> parser can now be used on any aftertext node</li></ul>
 <ul class="bugFixParser"><li >if there is no <code>permalink</code> on a file the <code>title</code> node won't output an a tag</li></ul>
 <ul class="breakingChangeParser"><li >BREAKING: (no one should be affected). If you had put markup directives in your title tags, such as <strong>bolds</strong>, those will now actually be evaluated.</li>
 <li >BREAKING: <code>title</code> blocks now start a section like <code>#</code> and <code>##</code>, so you may need to add an empty line to end the section, for example if you previously had a <code>startColumns</code> right after the title tag.</li></ul>
@@ -1131,7 +1131,7 @@ snippets 2023/index stories/index 2022/index</code>
 <ul class="bugFixParser"><li >fix spurious <code>table</code> grammar error message</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">55.4.0 1/30/2023</h1>
-<ul class="newFeatureParser"><li >added <code>table</code> keyword which supports custom delimiters:</li></ul>
+<ul class="newFeatureParser"><li >added <code>table</code> parser which supports custom delimiters:</li></ul>
 </div>
 <table class="scrollTable"><thead><tr><th>name</th>
 
@@ -1160,7 +1160,7 @@ snippets 2023/index stories/index 2022/index</code>
 <ul class="bugFixParser"><li >upgrade jtree</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">55.1.0 1/20/2023</h1>
-<ul class="newFeatureParser"><li >added <code>replaceJs</code> keyword.</li></ul>
+<ul class="newFeatureParser"><li >added <code>replaceJs</code> parser.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">55.0.1 1/19/2023</h1>
 <ul class="bugFixParser"><li >fix bug where variables were replacing themselves, leading to possible errors.</li></ul>
@@ -1187,7 +1187,7 @@ snippets 2023/index stories/index 2022/index</code>
 <ul class="newFeatureParser"><li ><code>youTube</code> nodes can now have captions.</li></ul>
 <ul class="bugFixParser"><li >fix: non-embed <code>youTube</code> links are converted to proper embed links to fix CORS issues.</li></ul>
 <ul class="breakingChangeParser"><li >BREAKING: ~no one should be affected. <code>scrollImageComponent</code> CSS class changed to <code>scrollCaptionedComponent</code>. If you were overwriting the previous class may need to update.</li>
-<li >BREAKING: <code>note</code> keyword under <code>link</code> nodes has been renamed to <code>title</code> and instead of it being a block just the line is used. This is to better reflect what it does. See example above.</li></ul>
+<li >BREAKING: <code>note</code> parser under <code>link</code> nodes has been renamed to <code>title</code> and instead of it being a block just the line is used. This is to better reflect what it does. See example above.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">53.0.2 1/18/2023</h1>
 <ul class="bugFixParser"><li >fix: <code>youTube</code> definition was missing a cell type for url.</li></ul>
@@ -1229,14 +1229,14 @@ snippets 2023/index stories/index 2022/index</code>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">50.0.0 1/4/2023</h1>
 <ul class="newFeatureParser"><li >made footnotes compile faster</li></ul>
-<ul class="breakingChangeParser"><li >BREAKING: simplified footnotes by removing <code>notes</code> keyword. Referencing a footnote is done the same way but now footnotes just print immediately like you'd expect.</li></ul>
+<ul class="breakingChangeParser"><li >BREAKING: simplified footnotes by removing <code>notes</code> parser. Referencing a footnote is done the same way but now footnotes just print immediately like you'd expect.</li></ul>
 </div>
 <code class="scrollCodeBlock">For example^exampleFootnote</code>
 <p class="scrollParagraph">For example<a href="#note1" class="scrollNoteLink" id="noteUsage1"><sup>[1]</sup></a></p>
 <p  id="note1"class="scrollParagraph"><a class="scrollFootNoteUsageLink" href="#noteUsage1">[1]</a> This is an example footnote.</p>
 <code class="scrollCodeBlock">^exampleFootnote This is an example footnote.</code>
 <div class="scrollSection"><h1 class="scrollParagraph">49.1.0 1/4/2023</h1>
-<ul class="newFeatureParser"><li >add <code>viewSource</code> keyword.</li></ul>
+<ul class="newFeatureParser"><li >add <code>viewSource</code> parser.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">49.0.0 1/4/2023</h1>
 <ul class="breakingChangeParser"><li >BREAKING: renamed <code>footnote</code> and <code>caveat</code> directives to <code>hoverNote</code> to avoid confusion with footnotes.</li>
@@ -1244,7 +1244,7 @@ snippets 2023/index stories/index 2022/index</code>
 <ul class="bugFixParser"><li >general code cleanup and refactor by splitting big grammar files into separate files.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">48.3.0 1/2/2023</h1>
-<ul class="newFeatureParser"><li >added <code>youTube</code> keyword for embedding youTube videos with proper responsive sizing.</li></ul>
+<ul class="newFeatureParser"><li >added <code>youTube</code> parser for embedding youTube videos with proper responsive sizing.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">48.2.0 1/2/2023</h1>
 <ul class="newFeatureParser"><li >simplify default theme by removing ornamental borders</li></ul>
@@ -1256,8 +1256,8 @@ snippets 2023/index stories/index 2022/index</code>
 <div class="scrollSection"><h1 class="scrollParagraph">48.0.0 1/1/2023</h1>
 <p class="scrollParagraph">This release simplifies and removes things from the default install.</p>
 </div>
-<ul class="breakingChangeParser"><li >BREAKING: the <code>github</code> keyword is now <code>git</code> to make it clearer what it does. The git SVG is now used in the default theme.</li>
-<li >BREAKING: removed <code>twitter</code> keyword and removed the Twitter link from default theme.</li>
+<ul class="breakingChangeParser"><li >BREAKING: the <code>github</code> parser is now <code>git</code> to make it clearer what it does. The git SVG is now used in the default theme.</li>
+<li >BREAKING: removed <code>twitter</code> parser and removed the Twitter link from default theme.</li>
 <li >BREAKING: <code>SVGS</code> is no longer exported.</li></ul>
 <ul class="newFeatureParser"><li >Minor style fix of header and switched email SVG with a nice svg from <a href="http://laurareen.com" target="_blank">http://laurareen.com</a></li></ul>
 <div class="scrollSection"><h1 class="scrollParagraph">47.4.0 12/30/2022</h1>
@@ -1279,17 +1279,17 @@ snippets 2023/index stories/index 2022/index</code>
 <ul class="bugFixParser"><li >init fixes</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">47.1.0 11/29/2022</h1>
-<ul class="newFeatureParser"><li >you can now specify number of max columns in <code>startColumns</code> keyword</li></ul>
+<ul class="newFeatureParser"><li >you can now specify number of max columns in <code>startColumns</code> parser</li></ul>
 <ul class="bugFixParser"><li >fixed body padding regression</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">47.0.0 11/28/2022</h1>
 <p class="scrollParagraph">This is a major breaking refactor. Scroll now generates flat html. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out.</p>
 </div>
-<ul class="breakingChangeParser"><li >BREAKING: removed automatic meta tag generation. You now need to explicitly add a <code>metaTags</code> keyword.</li>
+<ul class="breakingChangeParser"><li >BREAKING: removed automatic meta tag generation. You now need to explicitly add a <code>metaTags</code> parser.</li>
 <li >BREAKING: removed <code><!doctype></code>, <code><html></code>, <code><head></code>, and <code><body></code> tags. Unnecessary. Modern browsers don't need them. HTML never should have had head/body split.</li>
 <li >BREAKING: removed <code>SCROLL_CSS</code> export.</li></ul>
 <div class="scrollSection"><h1 class="scrollParagraph">46.2.0 11/27/2022</h1>
-<ul class="bugFixParser"><li ><code>stump</code> keyword works now</li></ul>
+<ul class="bugFixParser"><li ><code>stump</code> parser works now</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">46.1.0 11/27/2022</h1>
 <ul class="bugFixParser"><li ><code>scrollCss</code> works now</li></ul>
@@ -1300,7 +1300,7 @@ snippets 2023/index stories/index 2022/index</code>
 <ul class="breakingChangeParser"><li >BREAKING: removed <code>maxColumns</code> and <code>columnWidth</code> and <code>template</code></li>
 <li >BREAKING: headers and footers are not provided by default. You now must explicitly include them with <code>scrollHeader</code> and <code>scrollFooter</code>. The previous behavior of <code>scrollHeader</code> and <code>scrollFooter</code> has been removed.</li>
 <li >BREAKING: columns are not provided by default. You now need to wrap your content in <code>startColumns</code> and <code>endColumns</code>.</li>
-<li >BREAKING: CSS is not included by default. You need to use the snippet keyword <code>scrollCssTag</code>. The previous behavior of <code>scrollCss</code> has been removed. Also <code>printScrollCss</code> is now <code>scrollCss</code>.</li></ul>
+<li >BREAKING: CSS is not included by default. You need to use the snippet parser <code>scrollCssTag</code>. The previous behavior of <code>scrollCss</code> has been removed. Also <code>printScrollCss</code> is now <code>scrollCss</code>.</li></ul>
 <div class="scrollSection"><h1 class="scrollParagraph">45.0.0 11/24/2022</h1>
 <ul class="newFeatureParser"><li >a whole new way to do footnotes/end notes.</li></ul>
 </div>
@@ -1316,11 +1316,11 @@ snippets 2023/index stories/index 2022/index</code>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">44.0.0 11/24/2022</h1>
 <p class="scrollParagraph">This is the <code>title</code> simplification refactor release.</p>
-<ul class="newFeatureParser"><li >new: <code>description</code> keyword for use in open graph description generation.</li>
-<li >new: optional <code>hidden</code> keyword on <code>title</code> nodes for setting <code>title</code> without printing it.</li></ul>
+<ul class="newFeatureParser"><li >new: <code>description</code> parser for use in open graph description generation.</li>
+<li >new: optional <code>hidden</code> parser on <code>title</code> nodes for setting <code>title</code> without printing it.</li></ul>
 <ul class="breakingChangeParser"><li >BREAKING: Group pages no longer have a <code>title</code> in their HTML by default. Must set manually.</li>
-<li >BREAKING: Removed <code>siteTitle</code> and <code>siteDescription</code> keywords. Those concepts no longer make sense after the introduction of <code>groups</code> concept. Generally if you rename <code>siteTitle</code> to <code>title</code> and <code>siteDescription</code> to <code>description</code> it should work well.</li>
-<li >BREAKING: Removed <code>htmlTitle</code> keyword.</li></ul>
+<li >BREAKING: Removed <code>siteTitle</code> and <code>siteDescription</code> parsers. Those concepts no longer make sense after the introduction of <code>groups</code> concept. Generally if you rename <code>siteTitle</code> to <code>title</code> and <code>siteDescription</code> to <code>description</code> it should work well.</li>
+<li >BREAKING: Removed <code>htmlTitle</code> parser.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">43.1.1 2022.11.22</h1>
 <ul class="bugFixParser"><li >fix aftertext bug where <code>http</code> quick links were not matching.</li></ul>
@@ -1346,7 +1346,7 @@ replace # $1 $4.$2.$3</code>
 <div class="scrollSection"><h1 class="scrollParagraph">40.0.0 2022.11.05</h1>
 <ul class="breakingChangeParser"><li >BREAKING: (no one should be affected) <code>caption</code> now extends the thought (<code>*</code>) node.</li></ul>
 </div>
-<figure class="scrollCaptionedFigure"><a href="blog/screenshot.png" target="_blank"  ><img src="blog/screenshot.png" width="720" height="450" loading="lazy"></a><figcaption><p class="scrollParagraph">You can now use all aftertext directives like <strong>bold</strong> in caption nodes. Note: in the future we may just remove the keyword <code>caption</code> and you can just use <code>*</code> directly.</p></figcaption></figure>
+<figure class="scrollCaptionedFigure"><a href="blog/screenshot.png" target="_blank"  ><img src="blog/screenshot.png" width="720" height="450" loading="lazy"></a><figcaption><p class="scrollParagraph">You can now use all aftertext directives like <strong>bold</strong> in caption nodes. Note: in the future we may just remove the parser <code>caption</code> and you can just use <code>*</code> directly.</p></figcaption></figure>
 <div class="scrollSection"><h1 class="scrollParagraph">39.0.0 2022.11.03</h1>
 <ul class="breakingChangeParser"><li >BREAKING: <code>scroll init</code> no longer creates a <code>feed.xml</code> file by default. You can easily add an XML feed manually with the 2 steps below:</li></ul>
 </div>
@@ -1384,9 +1384,9 @@ rssFeedUrl feed.xml</code>
 <li >BREAKING: Removed support for 🔗 links. Regex [search replace] to upgrade: <code> ([^ ]+)🔗([^ ]+)</code> <code> <a href="https://<span  class="scrollKatex">2"></span>1</a></code></li></ul>
 </div>
 <p class="scrollParagraph">The goal of this release is to simplify and speed up Scroll by removing legacy features.</p>
-<p class="scrollParagraph">This is a major release that removes a bunch of the original keywords in favor of the newer more advanced aftertext nodes.</p>
+<p class="scrollParagraph">This is a major release that removes a bunch of the original parsers in favor of the newer more advanced aftertext nodes.</p>
 <p class="scrollParagraph">If you don't want to upgrade at this time, it's very easy to just add the removed grammar definitions from this commit into your existing scrolls using the normal extension pattern.</p>
-<p class="scrollParagraph">You can also easily alias the newer aftertext node types with the original keywords above if you'd prefer.</p>
+<p class="scrollParagraph">You can also easily alias the newer aftertext node types with the original parsers above if you'd prefer.</p>
 <div class="scrollSection"><h1 class="scrollParagraph">36.1.0 2022.10.27</h1>
 <ul class="newFeatureParser"><li >Now you can leave the "pattern" part blank in link node in aftertext to make the whole line a link.</li></ul>
 <ul class="bugFixParser"><li >Adjust estimateLines hueristics</li></ul>
@@ -1440,7 +1440,7 @@ rssFeedUrl feed.xml</code>
 <ul class="newFeatureParser"><li >improved 'where' command to scan pwd and skip node_modules folders. much faster and simpler.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">31.5.0 2022.9.9</h1>
-<ul class="newFeatureParser"><li >new keywords: <code>?</code>, <code>#</code> and <code>##</code></li></ul>
+<ul class="newFeatureParser"><li >new parsers: <code>?</code>, <code>#</code> and <code>##</code></li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">A Header</h1>
 </div>
@@ -1452,7 +1452,7 @@ rssFeedUrl feed.xml</code>
 <ul class="bugFixParser"><li >and that is why you always run the tests.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">31.4.0 2022.9.3</h1>
-<ul class="newFeatureParser"><li >New keywords: <code>*</code>, <code>footnote</code>, and <code>readingList</code></li></ul>
+<ul class="newFeatureParser"><li >New parsers: <code>*</code>, <code>footnote</code>, and <code>readingList</code></li></ul>
 </div>
 <p class="scrollParagraph">This is a <em>thought</em>. It's like a condensed form of aftertext with <strong>bold</strong> and <em>italics</em> and <code>code</code> turned on by default.</p>
 <code class="scrollCodeBlock">* This is a _thought_. It's like a condensed form of aftertext with *bold* and _italics_ and `code` turned on by default.
@@ -1479,7 +1479,7 @@ rssFeedUrl feed.xml</code>
 <ul class="bugFixParser"><li >fixed broken links bug if using keyboard nav without groups</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">31.0.0 2022.8.31</h1>
-<ul class="breakingChangeParser"><li >BREAKING: upgraded to jtree 56. This is not likely to break anyone. However, if you are extending Scroll with your own nodeTypes you will need to make sure that your abstract nodes (and <strong>only</strong> your abstract nodes) have an id that begins with <code>abstract</code>. You can then remove all occurrences of the keyword <code>abstract</code> from your grammar node definitions.</li></ul>
+<ul class="breakingChangeParser"><li >BREAKING: upgraded to jtree 56. This is not likely to break anyone. However, if you are extending Scroll with your own nodeTypes you will need to make sure that your abstract nodes (and <strong>only</strong> your abstract nodes) have an id that begins with <code>abstract</code>. You can then remove all occurrences of the parser <code>abstract</code> from your grammar node definitions.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">30.1.1 2022.8.30</h1>
 <ul class="newFeatureParser"><li >Improve header message thanks to dg's feedback</li></ul>
@@ -1515,13 +1515,13 @@ rssFeedUrl feed.xml</code>
 </div>
 <div class="scrollSection"><h2 class="scrollParagraph">From 3 file types to 1</h2>
 </div>
-<p class="scrollParagraph"><code>scroll.settings</code> and <code>*.grammar</code> files are gone. Everything is now done with <code>.scroll</code> files, and now every keyword is documented and usable on try.scroll.com and type checked.</p>
+<p class="scrollParagraph"><code>scroll.settings</code> and <code>*.grammar</code> files are gone. Everything is now done with <code>.scroll</code> files, and now every parser is documented and usable on try.scroll.com and type checked.</p>
 <div class="scrollSection"><h2 class="scrollParagraph">Imports and variables</h2>
 </div>
 <p class="scrollParagraph">Use <code>import [filepath]</code> to import one file into another. Use <code>replace</code> and <code>replaceDefault</code> for variables.</p>
 <div class="scrollSection"><h2 class="scrollParagraph">Add your own Grammar extensions directly in your Scroll files</h2>
 </div>
-<p class="scrollParagraph">Define new nodeTypes or create your own aliases on a per file basis. Use the import keyword and build your own collection of common reusable node types for your project(s).</p>
+<p class="scrollParagraph">Define new nodeTypes or create your own aliases on a per file basis. Use the import parser and build your own collection of common reusable node types for your project(s).</p>
 <div class="scrollSection"><h2 class="scrollParagraph">Unlimited Groups and Group Pages</h2>
 </div>
 <p class="scrollParagraph">Add files to one or more groups and then customize how each group page prints. No more magic or implicit creation of collection pages.</p>
@@ -1623,7 +1623,7 @@ print "Hello world"</pre></td>
 <ul class="bugFixParser"><li >fixed broken links in feed.xml</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">25.2.0 2022.6.22</h1>
-<ul class="newFeatureParser"><li >added <code>htmlTitle</code> and <code>sourceLink</code> keywords so an article can override the defaults</li></ul>
+<ul class="newFeatureParser"><li >added <code>htmlTitle</code> and <code>sourceLink</code> parsers so an article can override the defaults</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">25.1.0 2022.6.19</h1>
 <ul class="newFeatureParser"><li >if scroll has an rss feed add a <link> tag to built pages</li></ul>
@@ -1643,7 +1643,7 @@ print "Hello world"</pre></td>
 <ul class="newFeatureParser"><li >add param to specify index/snippets page when using programmatically</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">24.6.0 2022.6.10</h1>
-<ul class="newFeatureParser"><li >added <code>wrap</code> keyword for advanced custom wraps in aftertext.</li></ul>
+<ul class="newFeatureParser"><li >added <code>wrap</code> parser for advanced custom wraps in aftertext.</li></ul>
 </div>
 <p class="scrollParagraph">Some <em>simple</em> and <b<strong>advanced</b</strong> usages. An <a href="https://example.com">absolute link</a> and <a href="potato.html">a relative link</a>. Show some <span style="color:green">added text</span> or some <span style="color:red; text-decoration: line-through;">deleted text</span>.</p>
 <code class="scrollCodeBlock">Some !simple! and *advanced* usages. An #absolute link# and @@@a relative link@@@. Show some ++added text++ or some --deleted text--.
@@ -1654,10 +1654,10 @@ print "Hello world"</pre></td>
  wrap ++ span style="color:green"
  wrap -- span style="color:red; text-decoration: line-through;"</code>
 <div class="scrollSection"><h1 class="scrollParagraph">24.5.0 2022.6.10</h1>
-<ul class="newFeatureParser"><li >added <code>wrapsOn</code> keyword to aftertext.</li></ul>
+<ul class="newFeatureParser"><li >added <code>wrapsOn</code> parser to aftertext.</li></ul>
 </div>
-<p class="scrollParagraph">Support for traditional <strong>bold</strong>, <code>code</code>, and <em>italics</em> in aftertext with the keyword <code>wrapsOn</code>.</p>
-<code class="scrollCodeBlock">Support for traditional *bold*, `code`, and _italics_ in aftertext with the keyword `wrapsOn`.</code>
+<p class="scrollParagraph">Support for traditional <strong>bold</strong>, <code>code</code>, and <em>italics</em> in aftertext with the parser <code>wrapsOn</code>.</p>
+<code class="scrollCodeBlock">Support for traditional *bold*, `code`, and _italics_ in aftertext with the parser `wrapsOn`.</code>
 <div class="scrollSection"><h1 class="scrollParagraph">24.4.0 2022.6.08</h1>
 <ul class="newFeatureParser"><li >if your scroll has an article(s) with "endSnippet", scroll will create "snippets.html".</li></ul>
 </div>
@@ -1753,7 +1753,7 @@ loremIpsum 20</code>
 <ul class="newFeatureParser"><li >add dateline node to aftertext.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">23.0.0 2021.12.09</h1>
-<ul class="newFeatureParser"><li >add aftertext node type, with bold, italics, underline, link (& quick link), email, code and strikethrough keywords</li>
+<ul class="newFeatureParser"><li >add aftertext node type, with bold, italics, underline, link (& quick link), email, code and strikethrough parsers</li>
 <li >add belowAsCode and aboveAsCode</li>
 <li >split base grammar into files for easier extensibility</li></ul>
 </div>
@@ -1804,7 +1804,7 @@ loremIpsum 20</code>
 </div>
 <div class="scrollSection"><h4 class="scrollQuestion">Why the new <code>question</code> nodes?</h4>
 </div>
-<p class="scrollParagraph">Question and answer structures are literally older than the Socratic Method. Such a common semantic pattern deserves it's own keywords.</p>
+<p class="scrollParagraph">Question and answer structures are literally older than the Socratic Method. Such a common semantic pattern deserves it's own parsers.</p>
 <div class="scrollSection"><h4 class="scrollQuestion">How do I migrate from title# nodes?</h4>
 </div>
 <p class="scrollParagraph">The below regex may help.</p>

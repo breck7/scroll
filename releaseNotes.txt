@@ -20,7 +20,7 @@ A list of what has changed in Scroll releases.
 
 97.3.0 6/24/2024
 ================
-🎉 added `scatterplot` keyword
+🎉 added `scatterplot` parser
 
 97.2.0 6/23/2024
 ================
@@ -32,7 +32,7 @@ A list of what has changed in Scroll releases.
 
 97.1.0 6/21/2024
 ================
-🎉 added `sparkline` keyword using beautiful tiny sparkline library by Marius Gundersen.
+🎉 added `sparkline` parser using beautiful tiny sparkline library by Marius Gundersen.
  https://github.com/mariusGundersen/sparkline
  https://mariusgundersen.net/
 
@@ -55,7 +55,7 @@ A list of what has changed in Scroll releases.
 
 95.0.0 6/11/2024
 ================
-🎉 added `downloadUrl` keyword.
+🎉 added `downloadUrl` parser.
 ⚠️ BREAKING: `canonicalLink` is now `canonicalUrl`.
 ⚠️ BREAKING: `homeLink` is now `homeUrl`.
 
@@ -74,7 +74,7 @@ A list of what has changed in Scroll releases.
 
 93.7.0 5/29/2024
 ================
-🎉 added `classes` keyword
+🎉 added `classes` parser
 
 93.6.2 5/28/2024
 ================
@@ -123,12 +123,12 @@ A list of what has changed in Scroll releases.
 
 91.0.0 5/19/2024
 ================
-🎉 `printAuthor` keyword prints the author defined by `author`. `byLine` has been deprecated--replace with `printAuthor`.
-⚠️ BREAKING: `author` keyword now takes a URL.
+🎉 `printAuthor` parser prints the author defined by `author`. `byLine` has been deprecated--replace with `printAuthor`.
+⚠️ BREAKING: `author` parser now takes a URL.
 
 90.5.0 5/19/2024
 ================
-🎉 added `printDate` keyword
+🎉 added `printDate` parser
 
 90.4.1 5/19/2024
 ================
@@ -157,7 +157,7 @@ A list of what has changed in Scroll releases.
 
 90.2.0 5/18/2024
 ================
-🎉 added `slideshow` keyword
+🎉 added `slideshow` parser
 🎉 grammar extensions can now use "copyFromExternal"
 
 90.1.1 5/17/2024
@@ -200,7 +200,7 @@ filenameParser
 
 89.0.0 5/15/2024
 ================
-🎉 `printTitle` keyword added for easier templates
+🎉 `printTitle` parser added for easier templates
 ⚠️ BREAKING: `title` is now a setter. This regex handles the migration:
  - `^title ` `printTitle\ntitle `
   - Then (optionally) run "scroll format" or "scroll list | scroll format" to format which will automove your titles up top.
@@ -278,8 +278,8 @@ filenameParser
 85.0.0 5/08/2024
 ================
 🎉 upgraded jtree to get ability for faster compilations
-⚠️ BREAKING: removed `replaceDefault` keyword. No one should be affected.
-⚠️ BREAKING: renamed `nodejs` keyword to `replaceNodejs. Few should be affected.
+⚠️ BREAKING: removed `replaceDefault` parser. No one should be affected.
+⚠️ BREAKING: renamed `nodejs` parser to `replaceNodejs. Few should be affected.
 
 84.10.1 5/08/2024
 =================
@@ -303,7 +303,7 @@ filenameParser
 
 84.7.0 5/07/2024
 ================
-🎉 Added `printSearchTable` keyword
+🎉 Added `printSearchTable` parser
 
 84.6.0 5/07/2024
 ================
@@ -316,12 +316,12 @@ filenameParser
 
 84.5.0 5/07/2024
 ================
-🎉 Added `writeMeasures` and `printMeasures` keywords
+🎉 Added `writeMeasures` and `printMeasures` parsers
 🎉 Added `abstractPercentageMeasureParser`
 
 84.4.0 5/06/2024
 ================
-🎉 Added `loadConcepts` keyword for if you had a dataset split into many files in a folder.
+🎉 Added `loadConcepts` parser for if you had a dataset split into many files in a folder.
 🎉 Added `float sortIndex [int]` for sorting the measures(columns) in dataset generation. Lower sort indexes come first.
 
 84.3.0 5/06/2024
@@ -342,11 +342,11 @@ filenameParser
 84.0.0 5/04/2024
 ================
 🎉 Datasets (aka "Concept files") version 2! Much simpler.
-🎉 Added the `id` keyword for using datasets.
+🎉 Added the `id` parser for using datasets.
 🎉 Removed the `[measureName]: ` syntax introduced in version 77. You no longer have to worry about the annoyance that introduced when writing a paragraph such as "Sidenote: yada yada".
-🎉 Added `belowAsCodeUntil` keyword
+🎉 Added `belowAsCodeUntil` parser
 
-⚠️ BREAKING: removed `::` keyword. Now concepts are simply identified by the keyword `id`.
+⚠️ BREAKING: removed `::` parser. Now concepts are simply identified by the parser `id`.
 ⚠️ BREAKING: `writeDataset` is now `writeConcepts` and `printDataset` is now `printConcepts`.
 ⚠️ BREAKING: Removed the `[measureName]: ` syntax introduced in version 77. To use datasets (aka Concept files) now, just extend Scroll parsers like you normally would. See this blog post for an example.
  https://scroll.pub/blog/datasets.html
@@ -359,14 +359,14 @@ filenameParser
 ================
 🎉 added `link` under `image`. Also added `target`.
 🎉 for posts with multiple images, you can now put `openGraph` under an `image` node as an alternative to adding a separate `openGraphImage` line
-🎉 added `mediumColumns` keyword
-🎉 added `thinColumns` keyword.
+🎉 added `mediumColumns` parser
+🎉 added `thinColumns` parser.
 
 Note: `startColumns` will eventually be removed. You can now safely switch those to `thinColumns`.
 
 83.1.0 5/03/2024
 ================
-🎉 added `expander` keyword
+🎉 added `expander` parser
 
 Click me
 Anything in the section will show up here. A blank line ends a section.
@@ -374,7 +374,7 @@ Anything in the section will show up here. A blank line ends a section.
 83.0.0 5/03/2024
 ================
 🎉 all tables now print in plain text outputs
-🎉 added `printTable` keyword
+🎉 added `printTable` parser
 ⚠️ BREAKING: root level tabular tables no longer produce output. Add a `printTable [index]` to print any existing tabular tables.
 
 `printTable` will look for a table to print using this strategy:
@@ -414,11 +414,11 @@ The current formatting conventions are:
 - Meta tags are sorted alphabetically with no blank lines in between [In the future, may want to allow customizing this]
 
 Note that currently the `title` tag is a meta tag and a tag that prints content. Going to split that up into 2 tags soon.
-Note that if you are doing something like a tutorial and using a `belowAsCode` where you purposely put a top matter keyword not at the top, it will currently get moved to the top by format. We can probably add a feature like treating meta nodes with `// noFormat` as if they were content nodes.
+Note that if you are doing something like a tutorial and using a `belowAsCode` where you purposely put a top matter parser not at the top, it will currently get moved to the top by format. We can probably add a feature like treating meta nodes with `// noFormat` as if they were content nodes.
 
 81.2.0 4/30/2024
 ================
-🎉 added `related` and `relatedList` keywords
+🎉 added `related` and `relatedList` parsers
 
 81.1.0 4/29/2024
 ================
@@ -438,7 +438,7 @@ Note that if you are doing something like a tutorial and using a `belowAsCode` w
 
 80.2.0 4/29/2024
 ================
-🎉 added `helpfulNotFound` keyword for better 404s.
+🎉 added `helpfulNotFound` parser for better 404s.
 
 80.1.0 4/29/2024
 ================
@@ -446,14 +446,14 @@ Note that if you are doing something like a tutorial and using a `belowAsCode` w
 
 80.0.0 4/29/2024
 ================
-🎉 Scroll now generates text files! Added the `writeText` keyword.
+🎉 Scroll now generates text files! Added the `writeText` parser.
  https://scroll.pub/blog/textFiles.html
 
 Note: there are likely to be a few rapid releases to refine this.
 
 79.1.0 4/27/2024
 ================
-🎉 added `printSiteMap` keyword for text sitemap generation.
+🎉 added `printSiteMap` parser for text sitemap generation.
 
 79.0.1 4/27/2024
 ================
@@ -501,7 +501,7 @@ Scroll already supported tabular data using `tabTable`, but that made copy/paste
 
 77.0.0 4/21/2024
 ================
-🎉 Added Scroll Datasets, which consists of the `::`, `printDataset`, `writeDataset`, and `*:` and `*::` keywords.
+🎉 Added Scroll Datasets, which consists of the `::`, `printDataset`, `writeDataset`, and `*:` and `*::` parsers.
  https://scroll.pub/blog/datasets.html
 
 ⚠️ BREAKING: if you had lines starting with a word then colon, that used the catchall paragraph, such as `Sidenote: yada yada.`, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs `* Sidenote: yada yada.`. This regex can help you find any instances: `^[^ ]+: .`
@@ -533,7 +533,7 @@ css html {font-size: var(--base-font-size, 8px);}
 
 75.1.0 4/10/2024
 ================
-🎉 Added `***` keyword to print a Dinkus
+🎉 Added `***` parser to print a Dinkus
  https://en.wikipedia.org/wiki/Dinkus
 
 Now I will show an example.
@@ -552,16 +552,16 @@ Above is a dinkus.
 
 73.2.0 4/05/2024
 ================
-🎉 added `thanksTo` keyword
+🎉 added `thanksTo` parser
 
 73.1.0 4/05/2024
 ================
-🎉 added `plainText` keyword
-🎉 added `printSource` keyword to be able to dump the source code for a group of posts to a plain text file.
+🎉 added `plainText` parser
+🎉 added `printSource` parser to be able to dump the source code for a group of posts to a plain text file.
 
 73.0.0 4/03/2024
 ================
-🎉 added `printCsv` keyword to make it as easy to generate a CSV of a blog as it is to generate an RSS feed
+🎉 added `printCsv` parser to make it as easy to generate a CSV of a blog as it is to generate an RSS feed
 
 72.4.4 2/07/2024
 ================
@@ -594,7 +594,7 @@ This paragraph has a dropcap. It can be a useful visual aid for the reader to br
 
 72.2.0 5/31/2023
 ================
-🎉 added `wideColumns` keyword
+🎉 added `wideColumns` parser
 
 72.1.0 5/26/2023
 ================
@@ -617,7 +617,7 @@ This paragraph has a dropcap. It can be a useful visual aid for the reader to br
 
 71.3.0 5/8/2023
 ===============
-🎉 added `program` keyword for Program Links. See blog post for details.
+🎉 added `program` parser for Program Links. See blog post for details.
  https://scroll.pub/blog/programLinks.html
 
 71.2.0 5/07/2023
@@ -629,7 +629,7 @@ This paragraph has a dropcap. It can be a useful visual aid for the reader to br
 71.1.0 5/07/2023
 ================
 🏥 add `&lt;html lang&gt;&lt;/html&gt;` back as you need that to get proper hyphenation. Added test.
-🎉 added `htmlLang` keyword for overriding the default lang which is set to "en"
+🎉 added `htmlLang` parser for overriding the default lang which is set to "en"
 🎉 added `text-align: justify;` on paragraphs to Gazette and Tufte themes.
 
 71.0.0 5/06/2023
@@ -642,7 +642,7 @@ This paragraph has a dropcap. It can be a useful visual aid for the reader to br
 
 70.0.0 4/29/2023
 ================
-🎉 Paragraphs no longer need to start with '* '. All non-blank lines that don't start with a defined keyword are now treated as a paragraph. The catch-all is no longer an error. It is recommended to start all paragraphs with a capital letter, as in the future it may become the standard that keywords start with a lowercase or symbol, and you will avoid any future keyword collisions.
+🎉 Paragraphs no longer need to start with '* '. All non-blank lines that don't start with a defined parser are now treated as a paragraph. The catch-all is no longer an error. It is recommended to start all paragraphs with a capital letter, as in the future it may become the standard that parsers start with a lowercase or symbol, and you will avoid any future parser collisions.
  - Thanks to zoeartemis for the feedback.
  - No changes are needed but you can update your files with the find/replace combo: `\n\* ` `\n`.
   - You may want to use the case sensitive `\n\* [a-z]` search first to find any paragraphs that start with a lowercase letter.
@@ -650,14 +650,14 @@ This paragraph has a dropcap. It can be a useful visual aid for the reader to br
 
 69.3.0 4/26/2023
 ================
-🎉 Add `katex` keyword. KaTeX: "The fastest math typesetting library for the web."
+🎉 Add `katex` parser. KaTeX: "The fastest math typesetting library for the web."
  https://katex.org/
 
 69.2.0 4/18/2023
 ================
-🎉 added the `tag` keyword to thought nodes so you can change the compiled html tag (needed in rare circumstances)
-🎉 added the `thought` keyword and standardized vocab to calling the thought node the main node that most nodes extend.
-🎉 added the `style` keyword to provide inline html styles to a thought node.
+🎉 added the `tag` parser to thought nodes so you can change the compiled html tag (needed in rare circumstances)
+🎉 added the `thought` parser and standardized vocab to calling the thought node the main node that most nodes extend.
+🎉 added the `style` parser to provide inline html styles to a thought node.
 
 69.1.4 4/13/2023
 ================
@@ -698,7 +698,7 @@ Maintenance release. Update packages and remove unused package and specify requi
 67.0.0 4/2/2023
 ===============
 This is _The Theme Release_.
-🎉 Introduce the idea of keywords for theming scrolls.
+🎉 Introduce the idea of parsers for theming scrolls.
 ⚠️ BREAKING: `author` node is now `byLine`. `author` is kept for now but updating is recommended.
 ⚠️ BREAKING: `scrollCssTag` is gone. use `gazetteTheme` for previous behavior. `scrollCss` is gone, use `gazetteTheme noTag`.
 ⚠️ BREAKING: SCROLL_CSS has been removed. `gazetteTheme` now contains that CSS code.
@@ -746,7 +746,7 @@ This was a big internal refactor to remove the outdated concept of `ScrollFolder
 
 62.5.0 3/23/2023
 ================
-🎉 New keyword `canonicalUrl` if you need to include query strings in canonical link.
+🎉 New parser `canonicalUrl` if you need to include query strings in canonical link.
 
 canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
 
@@ -756,12 +756,12 @@ canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
 
 62.3.0 3/22/2023
 ================
-🎉 New keyword `map` using LeafletJS
+🎉 New parser `map` using LeafletJS
  https://leafletjs.com/
 
 62.2.0 3/15/2023
 ================
-🎉 Added `copyButtons` keyword. Use that to give code blocks a copy-to-clipboard button on hover.
+🎉 Added `copyButtons` parser. Use that to give code blocks a copy-to-clipboard button on hover.
 
 62.1.0 3/13/2023
 ================
@@ -789,7 +789,7 @@ canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
 
 59.6.0 3/10/2023
 ================
-🎉 Added Horizontal line keyword: `---`
+🎉 Added Horizontal line parser: `---`
 
 ---
 
@@ -816,7 +816,7 @@ canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
 
 59.0.0 3/3/2023
 ===============
-🎉 `image` keyword now supports `class` and `id` tags
+🎉 `image` parser now supports `class` and `id` tags
 🎉 `class` tag with just a class will now apply to the whole parent element and not insert a span
 🏥 fix so image tag works in try.scroll.pub
 
@@ -890,7 +890,7 @@ Scroll now has checklists!
 🎉 added support for `css` one liners
 
 🎉 `title` nodes are now proper aftertext nodes and can use all features of aftertext
-🎉 the `hidden` keyword can now be used on any aftertext node
+🎉 the `hidden` parser can now be used on any aftertext node
 🏥 if there is no `permalink` on a file the `title` node won't output an a tag
 ⚠️ BREAKING: (no one should be affected). If you had put markup directives in your title tags, such as *bolds*, those will now actually be evaluated.
 ⚠️ BREAKING: `title` blocks now start a section like `#` and `##`, so you may need to add an empty line to end the section, for example if you previously had a `startColumns` right after the title tag.
@@ -929,7 +929,7 @@ snippets 2023/index stories/index 2022/index
 
 55.4.0 1/30/2023
 ================
-🎉 added `table` keyword which supports custom delimiters:
+🎉 added `table` parser which supports custom delimiters:
 
 name&&score
 kaia&&400
@@ -947,7 +947,7 @@ This whole text will be blue.
 
 55.1.0 1/20/2023
 ================
-🎉 added `replaceJs` keyword.
+🎉 added `replaceJs` parser.
 
 55.0.1 1/19/2023
 ================
@@ -980,7 +980,7 @@ html
 🎉 `youTube` nodes can now have captions.
 🏥 fix: non-embed `youTube` links are converted to proper embed links to fix CORS issues.
 ⚠️ BREAKING: ~no one should be affected. `scrollImageComponent` CSS class changed to `scrollCaptionedComponent`. If you were overwriting the previous class may need to update.
-⚠️ BREAKING: `note` keyword under `link` nodes has been renamed to `title` and instead of it being a block just the line is used. This is to better reflect what it does. See example above.
+⚠️ BREAKING: `note` parser under `link` nodes has been renamed to `title` and instead of it being a block just the line is used. This is to better reflect what it does. See example above.
 
 53.0.2 1/18/2023
 ================
@@ -1032,7 +1032,7 @@ html
 50.0.0 1/4/2023
 ===============
 🎉 made footnotes compile faster
-⚠️ BREAKING: simplified footnotes by removing `notes` keyword. Referencing a footnote is done the same way but now footnotes just print immediately like you'd expect.
+⚠️ BREAKING: simplified footnotes by removing `notes` parser. Referencing a footnote is done the same way but now footnotes just print immediately like you'd expect.
 
 For example^exampleFootnote
 
@@ -1040,7 +1040,7 @@ For example^exampleFootnote
 
 49.1.0 1/4/2023
 ===============
-🎉 add `viewSource` keyword.
+🎉 add `viewSource` parser.
 
 49.0.0 1/4/2023
 ===============
@@ -1050,7 +1050,7 @@ For example^exampleFootnote
 
 48.3.0 1/2/2023
 ===============
-🎉 added `youTube` keyword for embedding youTube videos with proper responsive sizing.
+🎉 added `youTube` parser for embedding youTube videos with proper responsive sizing.
 
 48.2.0 1/2/2023
 ===============
@@ -1065,8 +1065,8 @@ For example^exampleFootnote
 ===============
 This release simplifies and removes things from the default install.
 
-⚠️ BREAKING: the `github` keyword is now `git` to make it clearer what it does. The git SVG is now used in the default theme.
-⚠️ BREAKING: removed `twitter` keyword and removed the Twitter link from default theme.
+⚠️ BREAKING: the `github` parser is now `git` to make it clearer what it does. The git SVG is now used in the default theme.
+⚠️ BREAKING: removed `twitter` parser and removed the Twitter link from default theme.
 ⚠️ BREAKING: `SVGS` is no longer exported.
 🎉 Minor style fix of header and switched email SVG with a nice svg from http://laurareen.com
 
@@ -1096,20 +1096,20 @@ This release simplifies and removes things from the default install.
 
 47.1.0 11/29/2022
 =================
-🎉 you can now specify number of max columns in `startColumns` keyword
+🎉 you can now specify number of max columns in `startColumns` parser
 🏥 fixed body padding regression
 
 47.0.0 11/28/2022
 =================
 This is a major breaking refactor. Scroll now generates flat html. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out.
 
-⚠️ BREAKING: removed automatic meta tag generation. You now need to explicitly add a `metaTags` keyword.
+⚠️ BREAKING: removed automatic meta tag generation. You now need to explicitly add a `metaTags` parser.
 ⚠️ BREAKING: removed ``, ``, ``, and `` tags. Unnecessary. Modern browsers don't need them. HTML never should have had head/body split.
 ⚠️ BREAKING: removed `SCROLL_CSS` export.
 
 46.2.0 11/27/2022
 =================
-🏥 `stump` keyword works now
+🏥 `stump` parser works now
 
 46.1.0 11/27/2022
 =================
@@ -1122,7 +1122,7 @@ This is a major breaking refactor. *All the implicit imports are gone*. Everythi
 ⚠️ BREAKING: removed `maxColumns` and `columnWidth` and `template`
 ⚠️ BREAKING: headers and footers are not provided by default. You now must explicitly include them with `scrollHeader` and `scrollFooter`. The previous behavior of `scrollHeader` and `scrollFooter` has been removed.
 ⚠️ BREAKING: columns are not provided by default. You now need to wrap your content in `startColumns` and `endColumns`.
-⚠️ BREAKING: CSS is not included by default. You need to use the snippet keyword `scrollCssTag`. The previous behavior of `scrollCss` has been removed. Also `printScrollCss` is now `scrollCss`.
+⚠️ BREAKING: CSS is not included by default. You need to use the snippet parser `scrollCssTag`. The previous behavior of `scrollCss` has been removed. Also `printScrollCss` is now `scrollCss`.
 
 45.0.0 11/24/2022
 =================
@@ -1149,11 +1149,11 @@ Notes
 44.0.0 11/24/2022
 =================
 This is the `title` simplification refactor release.
-🎉 new: `description` keyword for use in open graph description generation.
-🎉 new: optional `hidden` keyword on `title` nodes for setting `title` without printing it.
+🎉 new: `description` parser for use in open graph description generation.
+🎉 new: optional `hidden` parser on `title` nodes for setting `title` without printing it.
 ⚠️ BREAKING: Group pages no longer have a `title` in their HTML by default. Must set manually.
-⚠️ BREAKING: Removed `siteTitle` and `siteDescription` keywords. Those concepts no longer make sense after the introduction of `groups` concept. Generally if you rename `siteTitle` to `title` and `siteDescription` to `description` it should work well.
-⚠️ BREAKING: Removed `htmlTitle` keyword.
+⚠️ BREAKING: Removed `siteTitle` and `siteDescription` parsers. Those concepts no longer make sense after the introduction of `groups` concept. Generally if you rename `siteTitle` to `title` and `siteDescription` to `description` it should work well.
+⚠️ BREAKING: Removed `htmlTitle` parser.
 
 43.1.1 2022.11.22
 =================
@@ -1188,7 +1188,7 @@ replace # $1 $4.$2.$3
 ⚠️ BREAKING: (no one should be affected) `caption` now extends the thought (`*`) node.
 
 [Image Omitted]
- You can now use all aftertext directives like *bold* in caption nodes. Note: in the future we may just remove the keyword `caption` and you can just use `*` directly.
+ You can now use all aftertext directives like *bold* in caption nodes. Note: in the future we may just remove the parser `caption` and you can just use `*` directly.
 
 39.0.0 2022.11.03
 =================
@@ -1236,9 +1236,9 @@ rssFeedUrl feed.xml
 ⚠️ BREAKING: Removed support for 🔗 links. Regex [search replace] to upgrade: ` ([^ ]+)🔗([^ ]+)` ` $1`
 
 The goal of this release is to simplify and speed up Scroll by removing legacy features.
-This is a major release that removes a bunch of the original keywords in favor of the newer more advanced aftertext nodes.
+This is a major release that removes a bunch of the original parsers in favor of the newer more advanced aftertext nodes.
 If you don't want to upgrade at this time, it's very easy to just add the removed grammar definitions from this commit into your existing scrolls using the normal extension pattern.
-You can also easily alias the newer aftertext node types with the original keywords above if you'd prefer.
+You can also easily alias the newer aftertext node types with the original parsers above if you'd prefer.
 
 36.1.0 2022.10.27
 =================
@@ -1309,7 +1309,7 @@ You can also easily alias the newer aftertext node types with the original keywo
 
 31.5.0 2022.9.9
 ===============
-🎉 new keywords: `?`, `#` and `##`
+🎉 new parsers: `?`, `#` and `##`
 
 A Header
 ========
@@ -1326,7 +1326,7 @@ Have you thought of the most important question?
 
 31.4.0 2022.9.3
 ===============
-🎉 New keywords: `*`, `footnote`, and `readingList`
+🎉 New parsers: `*`, `footnote`, and `readingList`
 
 This is a _thought_. It's like a condensed form of aftertext with *bold* and _italics_ and `code` turned on by default.
 
@@ -1349,7 +1349,7 @@ Projects I'm very actively working on:
 
 31.0.0 2022.8.31
 ================
-⚠️ BREAKING: upgraded to jtree 56. This is not likely to break anyone. However, if you are extending Scroll with your own nodeTypes you will need to make sure that your abstract nodes (and *only* your abstract nodes) have an id that begins with `abstract`. You can then remove all occurrences of the keyword `abstract` from your grammar node definitions.
+⚠️ BREAKING: upgraded to jtree 56. This is not likely to break anyone. However, if you are extending Scroll with your own nodeTypes you will need to make sure that your abstract nodes (and *only* your abstract nodes) have an id that begins with `abstract`. You can then remove all occurrences of the parser `abstract` from your grammar node definitions.
 
 30.1.1 2022.8.30
 ================
@@ -1396,7 +1396,7 @@ This is a *major* update that radically simplifies Scroll and adds significant n
 From 3 file types to 1
 ======================
 
-`scroll.settings` and `*.grammar` files are gone. Everything is now done with `.scroll` files, and now every keyword is documented and usable on try.scroll.com and type checked.
+`scroll.settings` and `*.grammar` files are gone. Everything is now done with `.scroll` files, and now every parser is documented and usable on try.scroll.com and type checked.
 
 Imports and variables
 =====================
@@ -1406,7 +1406,7 @@ Use `import [filepath]` to import one file into another. Use `replace` and `repl
 Add your own Grammar extensions directly in your Scroll files
 =============================================================
 
-Define new nodeTypes or create your own aliases on a per file basis. Use the import keyword and build your own collection of common reusable node types for your project(s).
+Define new nodeTypes or create your own aliases on a per file basis. Use the import parser and build your own collection of common reusable node types for your project(s).
 
 Unlimited Groups and Group Pages
 ================================
@@ -1523,7 +1523,7 @@ row
 
 25.2.0 2022.6.22
 ================
-🎉 added `htmlTitle` and `sourceLink` keywords so an article can override the defaults
+🎉 added `htmlTitle` and `sourceLink` parsers so an article can override the defaults
 
 25.1.0 2022.6.19
 ================
@@ -1549,15 +1549,15 @@ row
 
 24.6.0 2022.6.10
 ================
-🎉 added `wrap` keyword for advanced custom wraps in aftertext.
+🎉 added `wrap` parser for advanced custom wraps in aftertext.
 
 Some !simple! and *advanced* usages. An #absolute link# and @@@a relative link@@@. Show some ++added text++ or some --deleted text--.
 
 24.5.0 2022.6.10
 ================
-🎉 added `wrapsOn` keyword to aftertext.
+🎉 added `wrapsOn` parser to aftertext.
 
-Support for traditional *bold*, `code`, and _italics_ in aftertext with the keyword `wrapsOn`.
+Support for traditional *bold*, `code`, and _italics_ in aftertext with the parser `wrapsOn`.
 
 24.4.0 2022.6.08
 ================
@@ -1651,7 +1651,7 @@ How much wood can a woodchuck chuck if a woodchuck could chuck wood?
 
 23.0.0 2021.12.09
 =================
-🎉 add aftertext node type, with bold, italics, underline, link (& quick link), email, code and strikethrough keywords
+🎉 add aftertext node type, with bold, italics, underline, link (& quick link), email, code and strikethrough parsers
 🎉 add belowAsCode and aboveAsCode
 🎉 split base grammar into files for easier extensibility
 
@@ -1712,7 +1712,7 @@ You write some text. After your text, you add your markup instructions with sele
 Why the new `question` nodes?
 =============================
 
-Question and answer structures are literally older than the Socratic Method. Such a common semantic pattern deserves it's own keywords.
+Question and answer structures are literally older than the Socratic Method. Such a common semantic pattern deserves it's own parsers.
 
 How do I migrate from title# nodes?
 ===================================

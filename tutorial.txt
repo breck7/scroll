@@ -5,16 +5,16 @@ Edit this in the Scroll Web Editor
  https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll
 ======================================================================================================================
 
-Scroll is an extensible alternative to Markdown.
-================================================
-Like Markdown, Scroll is a plaintext language that compiles to HTML.
+Scroll started as an extensible alternative to Markdown.
+========================================================
+Like Markdown, Scroll is a plaintext language that can build HTML (among other things).
 Scroll is minimal to help you reduce your ideas to their essence.
-Scroll is extensible to help you use and build new mini languages to fully develop your ideas.
+You can extend Scroll by adding your own Parsers to build new mini-languages to fully develop your ideas.
 
-Scroll debuted in 2021 and is now on Version 72, approximately 1 release every 2 weeks. There is no official spec yet but creating a spec is on the roadmap.
+Scroll debuted in 2021 and is now on Version 98, approximately 1 major release every 2 weeks. Scroll has no official spec yet but creating a spec is on the roadmap.
  https://scroll.pub/roadmap.html
 
-This Tutorial will walk you through most keywords in Scroll AND teach you how to build your own Scroll keywords.
+This Tutorial will walk you through most parsers in Scroll AND teach you how to build your own Scroll Parsers.
 
 ---
 
@@ -28,9 +28,9 @@ If you master the indent trick, you master Scroll. But we're getting ahead of ou
 
 Basic Node Types
 ================
-1. The Paragraph Node
-=====================
-Let's start with the most common node, the `paragraph` node. You can think of this node as similar to a `p` or `div` tag in HTML. To use this node you can write out the word `paragraph`, or use an asterisk `*`, OR just start any text that does not begin with a keyword.  This paragraph you are reading is written using one of these nodes. The code is:
+1. The Paragraph Parser
+=======================
+Let's start with the most common parser, the `paragraph` parser. You can think of paragraphs as similar to a `p` or `div` tag in HTML. To use this parser you can write out the word `paragraph`, or use an asterisk `*`, OR just start any text that does not match another parser (the "catch all" parser of a Scroll program is the paragraph parser). This paragraph you are reading was compiled by a paragraph parser. The code is:
 
 2. Headers
 ==========
@@ -54,14 +54,14 @@ Below is the code for a checklist and its rendered version:
 
 5. Tables
 =========
-Use the `table` keyword and include your delimiter for tables:
+Use the `table` parser and include your delimiter for tables:
 Name,Rank
 Scroll,#1
 Markdown,#2
 
 6. Images
 =========
-To add an image use the `image` keyword:
+To add an image use the `image` parser:
 [Image Omitted]
  An image with a caption
 
@@ -73,7 +73,7 @@ Pau means done^pau
 
 8. Dashboard
 ============
-If you are building a dashboard you might want to try the `dashboard` keyword:
+If you are building a dashboard you might want to try the `dashboard` parser:
 #1 Lang
 2k Users
 300 Stars
@@ -81,7 +81,7 @@ If you are building a dashboard you might want to try the `dashboard` keyword:
 9. Including HTML and CSS
 =========================
 
-For CSS, use the `css` keyword:
+For CSS, use the `css` parser:
 This text should be green.
 
 ---
@@ -104,7 +104,7 @@ A link to Wikipedia
 
 Columns
 =======
-You can use the `thinColumns [maxNumberOfColumns]` keyword to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between lines. Line breaks will clear sections.
+You can use the `thinColumns [maxNumberOfColumns]` parser to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between lines. Line breaks will clear sections.
 
 ---
 
@@ -112,12 +112,12 @@ Advanced
 ========
 Variables
 =========
-Use the `replace` keyword to define variables. Variables definitions are parsed and removed on the first compiler pass.
+Use the `replace` parser to define variables. Variables definitions are parsed and removed on the first compiler pass.
 Our domain is: *scroll.pub*
 
 Import statements
 =================
-Scroll files can import other Scroll files. Use the `import` keyword followed by the path to the file, such as: `import header.scroll`
+Scroll files can import other Scroll files. Use the `import` parser followed by the path to the file, such as: `import header.scroll`
 
 ---
 
@@ -130,12 +130,12 @@ A standard Scroll Theme consists of CSS and may also contain suggested pages and
  - You can refer to the `gazetteCssParser` in `gazetteTheme.parsers` for an example. Your theme can extend `abstractThemeCssParser` or be its own tag.
  [] Add CSS. The Gazette theme uses Hakon, a language that compiles to CSS, but you are free to use plain CSS—even in an external file.
   [] Add CSS resets. Like any other normal site you probably want to adjust the base CSS of the browser.
-  [] Add any custom styles for any custom keywords you include in your theme. If you don't have any custom keywords you can skip this step.
-  [] Add CSS for the standard Scroll keywords. You probably want to customize the styles of Scroll keywords like `*` and `#`. There is not currently an exhaustive list or consistent pattern to these class names. See the Gazette theme for reference.
+  [] Add any custom styles for any custom parsers you include in your theme. If you don't have any custom parsers you can skip this step.
+  [] Add CSS for the standard Scroll parsers. You probably want to customize the styles of Scroll parsers like `*` and `#`. There is not currently an exhaustive list or consistent pattern to these class names. See the Gazette theme for reference.
 
 Using Custom Themes
 ===================
-By default Scroll emits HTML with no theming. To use any theme—including the default `Gazette` theme—the user simply uses the keywords provided by the theme, such as `gazetteCss`.
+By default Scroll emits HTML with no theming. To use any theme—including the default `Gazette` theme—the user simply uses the parsers provided by the theme, such as `gazetteCss`.
 
 Examples
 ========
@@ -155,7 +155,7 @@ Expert: Adding your own parsers
 ===============================
 Scroll is based on the theory that a language should adapt to the domain, not the other way around. So Scroll has extendibility built-in.
 
-_Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom keywords_.
+_Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom parsers_.
 
 You can define your own parsers right in your Scroll documents using `*Parser`.
 
@@ -167,6 +167,3 @@ Let's now make a `hiddenMessage` Parser that alerts a message when clicked:
 Click me.
 
 As you can see, you can define new parsers with a small amount of code. You probably also can see that the Parsers code is powerful but has lots of sharp edges. While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
-
-Scroll Tutorial
-===============

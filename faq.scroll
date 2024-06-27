@@ -28,14 +28,14 @@ This is a link
  https://scroll.pub
 aboveAsCode
 
-You can stick to the basics or define new keywords (by writing "parsers") to extend Scroll to better fit your content and workflows.
+You can stick to the basics or define new parsers to extend Scroll to better fit your content and workflows.
 
 Your parsers can be simple or as complex as any programming language, and a simple indent is all you need to make sure your parser won't interfere with other parsers.
 
 Parsers in Scroll are written in a mini language called ParsersLinks and both Scroll and Parsers are built on the syntax called ScrollNotationLinked.
 
 ? How does Scroll improve over the latest incarnations of Markdown?
-Scroll evolved based on the theory that instead of a fixed language for blogging it is better to have an ever evolving ecosystem of keywords, so that your symbolic tools can grow along with your mental tools.
+Scroll evolved based on the theory that instead of a fixed language for blogging it is better to have an ever evolving ecosystem of parsers, so that your symbolic tools can grow along with your mental tools.
 
 Thus, Scroll is designed to be easy to extend.
 
@@ -53,7 +53,7 @@ Altering traditional languages in this fashion would lead to chaos, but Scroll d
 In Scroll, it's almost as if each line is its own file.
 
 ? How do I extend Scroll?
-Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a _recipe_ keyword and write a post like this:
+Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a _recipe_ parser and write a post like this:
 code
  # My Snowball Cookies
  
@@ -67,7 +67,7 @@ code
   step Add sugar
   step Heat oven to 350 degrees
   step Bake for 10 minutes
-Notice that your post uses the keyword `recipe`, but Scroll does not have a keyword for that. No problem, just write a recipe parser yourself using ParsersLinks, extending your dialect of Scroll:
+Notice that your post uses the first word `recipe`, but Scroll does not have a parser for that. No problem, just write a recipe parser yourself using ParsersLinks, extending your dialect of Scroll:
 code
  recipeParser
   extends abstractScrollParser
@@ -301,7 +301,7 @@ Yes! Just create a `feed.scroll` file like this.
  https://github.com/breck7/scroll/blob/main/blog/feed.scroll this
 
 ? Does Scroll support categories and category pages?
-Yes! Just add your page to a category by using the `groups` keyword and then creating a `yourGroupName.scroll` page for the group. See a demo here.
+Yes! Just add your page to a category by using the `groups` parser and then creating a `yourGroupName.scroll` page for the group. See a demo here.
  https://github.com/breck7/scroll/blob/main/blog/ here
 
 ? Does Scroll support Open Graph tags for better social media sharing?
@@ -336,8 +336,8 @@ code
  node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile --heap-prof --heap-prof-name=scrollNodeMem.heapprofile ~/scroll/scroll.js build
  # Now ➡️ open a new Chrome tab ➡️ open devtools ➡️ click Memory ➡️ click "Load Profile..." ➡️ select your scrollNodeMem.heapprofile
 
-? How is a keyword different than a web components?
-Scroll and Web Components are similar in that both empower users to define their own reusable components. But Scroll is higher level than web components. For example, in addition to easily targeting HTML and web components, Scroll also plays really nicely with version control and 2D editors. Scroll encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
+? How is a parser different than a web component?
+Scroll Parsers and Web Components are similar in that both empower users to define their own reusable components. But Scroll is higher level than web components. For example, in addition to easily targeting HTML and web components, Scroll also plays really nicely with version control and 2D editors. Scroll encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
 
 ? How do I run cross browser tests?
 For that we use BrowserStack.
