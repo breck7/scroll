@@ -23,6 +23,11 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 98.0.1 6/29/2024
+🏥 fix bug #115 in `wws`. Thank you Nick Noble!
+ https://github.com/breck7/scroll/issues/115 bug #115
+ https://github.com/nickisnoble Nick Noble
+
 📦 98.0.0 6/26/2024
 ⚠️ BREAKING: `writeText` is now `buildText`
 ⚠️ BREAKING: `writeConcepts` is now `buildConcepts`
