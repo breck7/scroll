@@ -93,9 +93,9 @@ The Files:
  endColumns
  
 /home/runner/work/scroll/scroll/tests/kitchenSink/tabularData.scroll
+ buildText
  groups index
  title Tabular data test
- buildText
  
  import header.scroll
  

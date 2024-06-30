@@ -3,6 +3,10 @@ Scroll Release Notes
 A list of what has changed in Scroll releases.
 ==============================================
 
+99.0.0 6/30/2024
+================
+⚠️ BREAKING: I moved `wws` to its own repo
+
 98.0.2 6/30/2024
 ================
 🏥 another missing file in package fix

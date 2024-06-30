@@ -1,6 +1,6 @@
+buildText
 groups index
 title Tabular data test
-buildText
 
 import header.scroll
 
