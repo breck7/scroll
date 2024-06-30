@@ -3,6 +3,10 @@ Scroll Release Notes
 A list of what has changed in Scroll releases.
 ==============================================
 
+98.0.2 6/30/2024
+================
+🏥 another missing file in package fix
+
 98.0.1 6/29/2024
 ================
 🏥 fix bug #115 in `wws`. Thank you Nick Noble!
