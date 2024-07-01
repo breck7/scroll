@@ -3,6 +3,10 @@ Scroll Release Notes
 A list of what has changed in Scroll releases.
 ==============================================
 
+99.1.0 7/01/2024
+================
+🎉 added `limit` parser to snippets
+
 99.0.0 6/30/2024
 ================
 ⚠️ BREAKING: I moved `wws` to its own repo
