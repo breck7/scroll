@@ -23,6 +23,9 @@ releaseParser
  crux 📦
  extends h1Parser
 
+📦 99.1.0 7/01/2024
+🎉 added `limit` parser to snippets
+
 📦 99.0.0 6/30/2024
 ⚠️ BREAKING: I moved `wws` to its own repo
 

@@ -30,20 +30,19 @@ snippetsParser
       `<a class="scrollContinueReadingLink" href="${linkRelativeToCompileTarget}">Continue reading...</a>`
     return html
   }
+  get files() {
+   return this.parent.file.getFilesInGroupsForEmbedding(this.getWordsFrom(1), this.has("limit") ? parseInt(this.get("limit")) : undefined)
+  }
   compile() {
-   const file = this.parent.file
-   const files = file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
    const alreadyRequired = this.root.alreadyRequired
-   const snippets = files.map(file => {
+   const snippets = this.files.map(file => {
     const compileSettings = {relativePath: file.relativePath, alreadyRequired }
     return `<div class="scrollSnippetContainer">${this.makeSnippet(file.file, compileSettings)}</div>`
     }).join("\n\n")
    return `<div class="scrollColumns" style="column-width:35ch;">${snippets}</div>`
   }
   compileTextVersion() {
-   const file = this.parent.file
-   const files = file.getFilesInGroupsForEmbedding(this.getWordsFrom(1))
-   return files.map(file =>  {
+   return this.files.map(file =>  {
     const title = file.file.title
     const ruler = "=".repeat(title.length)
     // Note: I tried to print the description here but the description generating code needs work.

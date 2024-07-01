@@ -604,20 +604,23 @@ class ScrollFile {
     return getGroup(this.primaryGroupName, this.allScrollFiles)
   }
 
-  getFilesInGroupsForEmbedding(groupNames) {
+  getFilesInGroupsForEmbedding(groupNames, limit) {
     if (!groupNames || !groupNames.length)
       return this.allHtmlFiles
         .filter(file => file !== this) // avoid infinite loops. todo: think this through better.
         .map(file => {
           return { file, relativePath: "" }
         })
+        .slice(0, limit)
     let arr = []
     groupNames.forEach(name => {
       if (!name.includes("/"))
         return (arr = arr.concat(
-          getGroup(name, this.allScrollFiles).map(file => {
-            return { file, relativePath: "" }
-          })
+          getGroup(name, this.allScrollFiles)
+            .map(file => {
+              return { file, relativePath: "" }
+            })
+            .slice(0, limit)
         ))
       const parts = name.split("/")
       const group = parts.pop()
@@ -628,7 +631,7 @@ class ScrollFile {
         return { file, relativePath: relativePath + "/" }
       })
 
-      arr = arr.concat(filtered)
+      arr = arr.concat(filtered.slice(0, limit))
     })
 
     return lodash.sortBy(arr, file => file.file.timestamp).reverse()
