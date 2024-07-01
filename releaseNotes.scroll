@@ -6,6 +6,14 @@ printTitle
 buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
 buildMeasures releaseNotesMeasures.tsv
 
+thinColumns 1
+Download as CSV | TSV | JSON
+ link releaseNotes.csv CSV
+ link releaseNotes.tsv TSV
+ link releaseNotes.json JSON
+endColumns
+<br>
+
 import changes.parsers
 
 thinColumns
