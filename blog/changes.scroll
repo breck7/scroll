@@ -1,0 +1,102 @@
+author https://twitter.com/breckyunits Breck Yunits
+date 7/01/2024
+groups All
+title Changes: A Mini-Language for Change Logs
+
+import header.scroll
+keyboardNav
+printTitle
+printAuthor
+
+thinColumns 1
+image changes.jpeg
+ // ChatGPT
+endColumns
+
+mediumColumns 1
+
+Regardless of what languages you write your programs in, you probably maintain files like _changeLog.txt_ or _releaseNotes.txt_.
+ dateline
+
+Change logs are very helpful for:
+
+- informing your users of new features and bug fixes
+- providing detailed technical information to your development team (and open source contributors)
+- periodical data analysis for strategic project planning - how fast are we shipping new features? fixing bugs? breaking things?
+
+What if there was 1 language that let you do all 3 things at once?
+
+***
+
+Introducing Changes, a mini-language (only 70 lines of code, including comments) that makes it as concise as possible to write, read and analyze change logs.
+ https://github.com/breck7/scroll/blob/main/changes.parsers 70 lines of code
+
+Changes generates a pretty HTML file for your end users; allows for including unlimited detailed technical information for your developers; and generates summary statistics as TSV, CSV, and JSON for your project managers.
+
+***
+
+There's almost nothing to learn (the code is self explanatory).
+
+In fact, it's almost guaranteed that using Changes you will need to write less (we've taken every unnecessary character out).
+
+***
+
+# Example
+
+We use Changes for the Scroll Release Notes.
+ link ../releaseNotes.html Scroll Release Notes
+
+Be sure to check out the source code that generates that HTML.
+ https://github.com/breck7/scroll/blob/main/releaseNotes.scroll check out the source code
+
+***
+
+# How to use
+
+1. Install Scroll
+code
+ npm install -g scroll-cli
+
+2. Create a file names something like `releaseNotes.scroll` with this content:
+code
+ title My Release Notes
+ printTitle
+ buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
+ // You can import the changes parsers or just copy/paste the 70 lines into your own file.
+ import [pathToScroll]/changes.parser
+ 
+ thinColumns
+ 
+ 📦 0.1.1 7/1/2024
+ 🏥 fixed bug in command line app
+ 
+ 📦 0.1.0 7/1/2024
+ 🎉 added command line app
+ 
+ endColumns
+
+3. Run `scroll build`
+
+Done! You should now see a `releaseNotes.html` file as well as a TSV, CSV, and JSON file.
+
+***
+
+What do you think? Anything that should be added/removed/improved?
+
+****
+
+endColumns
+
+thinColumns 1
+
+# Related
+- Changelog
+ https://en.wikipedia.org/wiki/Changelog
+- Release Notes
+ https://en.wikipedia.org/wiki/Release_notes
+- Major Version Numbers are Not Sacred
+ https://tom.preston-werner.com/2022/05/23/major-version-numbers-are-not-sacred
+- What can we learn from programming language version numbers?
+ https://breckyunits.com/versionNumbers.html
+
+import footer.scroll

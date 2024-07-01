@@ -38,7 +38,6 @@ const scrollKeywords = {
   buildConcepts: "buildConcepts",
   buildMeasures: "buildMeasures",
   buildText: "buildText",
-  conceptDelimiter: "id",
   import: "import",
   importOnly: "importOnly",
   baseUrl: "baseUrl",
@@ -104,17 +103,19 @@ const parseMeasures = parser => {
   // Generate a fake program with one of every of the available parsers. Then parse it. Then we can easily access the meta data on the parsers
   const dummyProgram = new parser(
     parser.cachedHandParsersProgramRoot // is there a better method name than this?
-      .map(node => node.getLine())
-      .filter(line => line.endsWith("Parser"))
+      .filter(node => node.getLine().endsWith("Parser"))
+      .map(node => node.get("crux") || node.getLine())
       .map(line => line.replace("Parser", ""))
       .join("\n")
   )
+  // Delete any nodes that are not measures
   dummyProgram.filter(node => !node.isMeasure).forEach(node => node.destroy())
-
   dummyProgram.forEach(node => {
     // add nested measures
     Object.keys(node.definition.firstWordMapWithDefinitions).forEach(key => node.appendLine(key))
   })
+  // Delete any nested nodes that are not measures
+  dummyProgram.topDownArray.filter(node => !node.isMeasure).forEach(node => node.destroy())
 
   const measures = dummyProgram.topDownArray.map(node => {
     return {
@@ -128,7 +129,9 @@ const parseMeasures = parser => {
       //Definition: parsedProgram.root.file.filename + ":" + node.lineNumber
       SortIndex: node.sortIndex,
       IsComputed: node.isComputed,
-      IsRequired: node.isMeasureRequired
+      IsRequired: node.isMeasureRequired,
+      IsConceptDelimiter: node.isConceptDelimiter,
+      Crux: node.definition.get("crux")
     }
   })
   measureCache.set(parser, lodash.sortBy(measures, "SortIndex"))
@@ -139,11 +142,11 @@ const getConcepts = parsed => {
   const concepts = []
   let currentConcept
   parsed.forEach(node => {
-    if (node.firstWord === scrollKeywords.conceptDelimiter) {
+    if (node.isConceptDelimiter) {
       if (currentConcept) concepts.push(currentConcept)
       currentConcept = []
     }
-    if (node.isMeasure) currentConcept.push(node)
+    if (currentConcept && node.isMeasure) currentConcept.push(node)
   })
   if (currentConcept) concepts.push(currentConcept)
   return concepts
@@ -186,13 +189,16 @@ const parseConcepts = (parsedProgram, measures) => {
   // virtually split a ScrollNode into multiple segments, and then query on those segments.
   // So we would "segment" on "id ", and then not need to create a bunch of new objects, and the original
   // already parsed lines could then learn about/access to their respective segments.
-  const concepts = parsedProgram.split(scrollKeywords.conceptDelimiter)
+  const conceptDelimiter = measures.filter(measure => measure.IsConceptDelimiter)[0]
+  if (!conceptDelimiter) return []
+  const concepts = parsedProgram.split(conceptDelimiter.Crux || conceptDelimiter.Name)
   concepts.shift() // Remove the part before "id"
   return concepts.map(concept => {
     const row = {}
     measures.forEach(measure => {
       const measureName = measure.Name
-      if (!measure.IsComputed) row[measureName] = concept.getNode(measureName.replace(/_/g, " "))?.measureValue ?? ""
+      const measureKey = measure.Crux || measureName.replace(/_/g, " ")
+      if (!measure.IsComputed) row[measureName] = concept.getNode(measureKey)?.measureValue ?? ""
       else row[measureName] = computeMeasure(parsedProgram, measureName, concept, concepts)
     })
     return row
@@ -305,10 +311,10 @@ class ScrollFile {
   }
 
   _formatConcepts(parsed) {
-    // does a destructive sort in place on the parsed program
-    if (!parsed.has(scrollKeywords.conceptDelimiter)) return false
     const concepts = getConcepts(parsed)
+    if (!concepts.length) return false
 
+    // does a destructive sort in place on the parsed program
     concepts.forEach(concept => {
       let currentSection
       const newCode = lodash
