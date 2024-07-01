@@ -1,5 +1,10 @@
 The Official Scroll Blog
 ========================
+Changes: A Mini-Language for Change Logs
+========================================
+07/01/2024
+https://scroll.pub/blog/changes.html
+
 No Code Scatterplots
 ====================
 06/24/2024

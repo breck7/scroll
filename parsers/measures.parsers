@@ -73,6 +73,7 @@ abstractIdParser
  extends abstractStringMeasureParser
  float sortIndex 1
  boolean isMeasureRequired true
+ boolean isConceptDelimiter true
  javascript
   getErrors() {
     const errors = super.getErrors()

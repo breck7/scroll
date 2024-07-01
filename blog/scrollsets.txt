@@ -39,7 +39,7 @@ Documentation, column definitions, rows and *any notes/markup/content* can go in
 # Measures (aka Header, aka Columns, aka Schema)
 
 idParser
- // Every concept needs an "id".
+ // Every concept needs an "id" (or other concept delimiter)
  extends abstractIdParser
 moonsParser
  extends abstractIntegerParser
@@ -84,7 +84,7 @@ Overview:
 
 How to use
 ==========
-- A concept is like a row in a database. All concepts need an id. When you write `id [conceptId]`, Scroll knows that is the beginning of a new concept.
+- A concept is like a row in a database. All concepts need an id (or other concept delimiter). When you write `id [conceptId]`, Scroll knows that is the beginning of a new concept.
 - Measure definitions (aka "parsers") must come before the first concept and are written as Parsers, just like any other Scroll Parser. Measure parsers need to extend one of the abstract measure parser classes defined in `measures.scroll`.
 - Measurements are then done like this `appeared 2024`
 
