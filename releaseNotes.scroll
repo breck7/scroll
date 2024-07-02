@@ -18,6 +18,11 @@ import changes.parsers
 
 thinColumns
 
+📦 100.0.0 7/02/2024
+🎉 if not present, `date` is now derived from file creation time
+🎉 if not present, `title` is now computed by un-camelcasing the filename
+⚠️ BREAKING: (no one should be affected) date and title are now computed automatically so if you had a file missing those previously on purpose (for some reason), they will now actually have those.
+
 📦 99.2.0 7/01/2024
 🎉 added changes.parsers
 🎉 Scrollsets now supports defining concept delimiters other than `id`

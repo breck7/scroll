@@ -4,54 +4,6 @@ Below are the files in a blog. I want you to read them, and then perform the fol
 Tasks:
 
 The Files:
-/home/runner/work/scroll/scroll/tests/kitchenSink/top-sinks.scroll
- author https://breckyunits.com Breck Yunits
- date 1/11/2019
- groups index all
- replace NUM_SINKS 283
- replace TABLE
-  pipeTable
-   sinkManufacturer|country
-   Blue|USA
-   Red|Canada
- replaceJs SUM 1+1
- replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
- replaceJs TODAYS_DATE Date()
- replaceNodejs
-  module.exports = {DIRNAME: __dirname}
- title Top Sinks
- 
- import header.scroll
- 
- printTitle
- 
- printAuthor
- 
- keyboardNav
- 
- goodMorning
- goodMorning
- goodMorning
- 
- dashboard
-  NUM_SINKS in database
-  $0 budget
-  3 countries
- 
- TABLE
- TABLE
- TABLE
- 
- Today is TODAYS_DATE
- 
- 1+1 = SUM
- 
- THE_DAY was a great day
- 
- There are NUM_SINKS in my list.
- 
- This file is in dir: DIRNAME
- 
 /home/runner/work/scroll/scroll/tests/kitchenSink/a-review-of-my-sink.scroll
  groups index all
  replace SOME_DATA
@@ -137,3 +89,51 @@ The Files:
  200000	3521928	40000000000	113886000	324000
  
  * This should not print as a table, even though it has a 2 tabs( 	 and `	`), because it is in an explicit paragraph node.
+ 
+/home/runner/work/scroll/scroll/tests/kitchenSink/top-sinks.scroll
+ author https://breckyunits.com Breck Yunits
+ date 1/11/2019
+ groups index all
+ replace NUM_SINKS 283
+ replace TABLE
+  pipeTable
+   sinkManufacturer|country
+   Blue|USA
+   Red|Canada
+ replaceJs SUM 1+1
+ replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
+ replaceJs TODAYS_DATE Date()
+ replaceNodejs
+  module.exports = {DIRNAME: __dirname}
+ title Top Sinks
+ 
+ import header.scroll
+ 
+ printTitle
+ 
+ printAuthor
+ 
+ keyboardNav
+ 
+ goodMorning
+ goodMorning
+ goodMorning
+ 
+ dashboard
+  NUM_SINKS in database
+  $0 budget
+  3 countries
+ 
+ TABLE
+ TABLE
+ TABLE
+ 
+ Today is TODAYS_DATE
+ 
+ 1+1 = SUM
+ 
+ THE_DAY was a great day
+ 
+ There are NUM_SINKS in my list.
+ 
+ This file is in dir: DIRNAME

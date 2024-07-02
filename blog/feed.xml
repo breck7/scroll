@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <rss version="2.0">
 <channel>
- <title></title>
+ <title>Feed</title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Mon, 01 Jul 2024 15:14:41 +0000</lastBuildDate>
+ <lastBuildDate>Tue, 02 Jul 2024 16:20:07 +0000</lastBuildDate>
  <language>en-us</language>
  <item>
   <title>Changes: A Mini-Language for Change Logs</title>
