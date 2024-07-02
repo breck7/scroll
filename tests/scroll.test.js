@@ -247,10 +247,13 @@ testTree.kitchenSink = async areEqual => {
     const fileSystem = new ScrollFileSystem()
     cli.buildFilesInFolder(fileSystem, kitchenSinkFolder)
     const groupPage = Disk.read(path.join(kitchenSinkFolder, "all.html"))
+    const autoPage = Disk.read(path.join(kitchenSinkFolder, "autoTitle.html"))
 
     // Assert
     areEqual(groupPage.includes("NUM_SINKS"), false, "var substitution worked")
     areEqual(fs.existsSync(path.join(kitchenSinkFolder, "full.html")), true, "should have full page")
+    areEqual(autoPage.includes("2024"), true, "should have year 2024")
+    areEqual(autoPage.includes("Auto Title"), true, "should have un camel cased title")
 
     areEqual(fs.readFileSync(path.join(stampFolder, "scripts", "nested", "hello.js"), "utf8"), `console.log("Hello world")`)
   } catch (err) {
