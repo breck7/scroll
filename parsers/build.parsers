@@ -1,0 +1,11 @@
+abstractBuildParser
+ extends abstractScrollParser
+ cruxFromId
+ cells keywordCell
+ catchAllCellType filePathCell
+ inScope slashCommentParser
+ javascript
+  isTopMatter = true
+  compile() {
+   return ""
+  }

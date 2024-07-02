@@ -1,4 +1,4 @@
 baseUrl https://scroll.pub/
-permalink sitemap.txt
+buildTxt sitemap.txt
 
 printSiteMap

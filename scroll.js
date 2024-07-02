@@ -37,7 +37,9 @@ const scrollKeywords = {
   replaceNodejs: "replaceNodejs",
   buildConcepts: "buildConcepts",
   buildMeasures: "buildMeasures",
-  buildText: "buildText",
+  buildTxt: "buildTxt",
+  buildHtml: "buildHtml",
+  buildRss: "buildRss",
   import: "import",
   importOnly: "importOnly",
   baseUrl: "baseUrl",
@@ -96,7 +98,7 @@ const defaultScrollParser = new TreeFileSystem().getParser(Disk.getFiles(path.jo
 const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 
 // todo: groups is currently matching partial substrings
-const getGroup = (groupName, files) => files.filter(file => file.shouldBuild && file.groups.includes(groupName))
+const getGroup = (groupName, files) => files.filter(file => file.buildsHtml && file.groups.includes(groupName))
 
 const measureCache = new Map()
 const parseMeasures = parser => {
@@ -244,8 +246,7 @@ class ScrollFile {
     let parser = DefaultScrollParser
     if (absoluteFilePath) {
       const assembledFile = fileSystem.assembleFile(absoluteFilePath, defaultScrollParser.parsersCode)
-      // Do not build a file marked 'importOnly'
-      this.shouldBuild = !assembledFile.isImportOnly
+      this.importOnly = assembledFile.isImportOnly
       afterImportPass = assembledFile.afterImportPass
       if (assembledFile.parser) parser = assembledFile.parser
     }
@@ -284,13 +285,18 @@ class ScrollFile {
   }
 
   toSearchTsvRow(relativePath = "") {
-    const text = this.asText.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
+    const text = this.asTxt.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
     return [this.title, relativePath + this.permalink, text, this.date, this.wordCount, this.minutes].join("\t")
   }
 
   // todo: clean up this naming pattern and add a parser instead of special casing 404.html
   get allHtmlFiles() {
-    return this.allScrollFiles.filter(file => file.shouldBuild && (file.permalink.endsWith(".html") || file.permalink.endsWith(".htm")) && file.permalink !== "404.html")
+    return this.allScrollFiles.filter(file.buildsHtml && file.permalink !== "404.html")
+  }
+
+  get buildsHtml() {
+    const { permalink } = this
+    return !this.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
   }
 
   _concepts
@@ -352,7 +358,7 @@ class ScrollFile {
     parsed
       .filter(node => node.isTopMatter)
       .forEach(node => {
-        if (node.getLine() === "importOnly") {
+        if (node.getLine() === scrollKeywords.importOnly) {
           importOnly = node.toString() + "\n" // Put importOnly first, if present
           return node.destroy()
         }
@@ -450,7 +456,7 @@ class ScrollFile {
 
   SVGS = SVGS
   SCROLL_VERSION = SCROLL_VERSION
-  shouldBuild = true
+  importOnly = false
   filePath = ""
 
   compileStumpCode(code) {
@@ -481,7 +487,7 @@ class ScrollFile {
   }
 
   get wordCount() {
-    return this.asText.match(/\b\w+\b/g).length
+    return this.asTxt.match(/\b\w+\b/g).length
   }
 
   get minutes() {
@@ -515,7 +521,7 @@ class ScrollFile {
 
   // keyboard nav is always in the same folder. does not currently support cross folder
   isInKeyboardNavGroup(file) {
-    return file.shouldBuild && file.hasKeyboardNav && file.groups.includes(this.primaryGroupName)
+    return file.buildsHtml && file.hasKeyboardNav && file.groups.includes(this.primaryGroupName)
   }
 
   get linkToPrevious() {
@@ -655,17 +661,21 @@ class ScrollFile {
   }
 
   _compiledStandalonePage = ""
-  get html() {
+  get asHtml() {
     if (!this._compiledStandalonePage) {
-      const { permalink } = this
+      const { permalink, buildsHtml } = this
       const content = this.scrollProgram.compile().trim()
       // Don't add html tags to XML/RSS/CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
       // <1% of use case so might be good enough.
-      const wrapWithHtmlTags = permalink.endsWith(".html") || permalink.endsWith(".htm")
+      const wrapWithHtmlTags = buildsHtml
       const bodyTag = this.scrollProgram.has("metaTags") ? "" : "<body>\n"
       this._compiledStandalonePage = wrapWithHtmlTags ? `<!DOCTYPE html>\n<html lang="${this.lang}">\n${bodyTag}${content}\n</body>\n</html>` : content
     }
     return this._compiledStandalonePage
+  }
+
+  get asRss() {
+    return this.asHtml
   }
 
   build() {
@@ -690,7 +700,7 @@ class ScrollFile {
     return CSV_FIELDS.map(field => escapeCommas(this[field]))
   }
 
-  get asText() {
+  get asTxt() {
     return (
       this.scrollProgram
         .map(node => {
@@ -775,24 +785,21 @@ class ScrollCli {
 *.txt
 feed.xml`,
       "header.scroll": `importOnly
-
 import settings.scroll
 metaTags
 gazetteCss
 pageHeader
+buildTxt
+buildHtml
 `,
       "feed.scroll": `permalink feed.xml
 
 import settings.scroll
 printFeed All
 `,
-      "footer.scroll": `importOnly
-buildText
-
-pageFooter
+      "footer.scroll": `pageFooter
 `,
-      "settings.scroll": `importOnly
-baseUrl https://scroll.pub/
+      "settings.scroll": `baseUrl https://scroll.pub/
 email feedback@scroll.pub
 git https://github.com/breck7/scroll
 `,
@@ -941,41 +948,44 @@ import footer.scroll
     })
   }
 
-  _buildText(file, folder, fileSystem) {
-    // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
-    if (!file.has(scrollKeywords.buildText)) return
+  _buildFileType(file, folder, fileSystem, extension) {
+    const capitalized = lodash.capitalize(extension)
+    const buildKeyword = "build" + capitalized
+    if (!file.has(buildKeyword)) return
     const { permalink } = file
-    file.scrollProgram.findNodes(scrollKeywords.buildText).forEach(node => {
-      const link = node.getWord(1) || permalink.replace(".html", ".txt")
-      fileSystem.writeProduct(path.join(folder, link), file.asText)
-      this.log(`💾 Wrote ${file.filename} to text file ${link}`)
+    const outputFiles = file.get(buildKeyword)?.split(" ") || [""]
+    outputFiles.forEach(name => {
+      const link = name || permalink.replace(".html", "." + extension)
+      fileSystem.writeProduct(path.join(folder, link), file["as" + capitalized])
+      this.log(`💾 Built ${link} from ${file.filename}`)
     })
-  }
-
-  _buildHtml(file, folder, fileSystem) {
-    const { permalink, html } = file
-    file.build()
-    fileSystem.writeProduct(path.join(folder, permalink), html)
-    this._copyExternalFiles(file, folder, fileSystem)
-    this.log(`💾 Wrote ${file.filename} to ${permalink}`)
   }
 
   buildFilesInFolder(fileSystem, folder = "/") {
     folder = Utils.ensureFolderEndsInSlash(folder)
     const start = Date.now()
     const files = fileSystem.getScrollFilesInFolder(folder)
-    const filesToBuild = files.filter(file => file.shouldBuild)
-    this.log(`Building ${filesToBuild.length} files from ${files.length} ${SCROLL_FILE_EXTENSION} files found in '${folder}'\n`)
+    this.log(`Found ${files.length} scroll files in '${folder}'\n`)
     this.logIndent++
-    filesToBuild.forEach(file => {
-      this._buildHtml(file, folder, fileSystem)
-      this._buildConceptsAndMeasures(file, folder, fileSystem)
-      this._buildText(file, folder, fileSystem)
-    })
+    files
+      .filter(file => !file.importOnly)
+      .forEach(file => {
+        if (file.has(scrollKeywords.buildHtml)) this._copyExternalFiles(file, folder, fileSystem)
+        this._buildFileType(file, folder, fileSystem, "html")
+        this._buildFileType(file, folder, fileSystem, "rss")
+        this._buildFileType(file, folder, fileSystem, "txt")
+        this._buildConceptsAndMeasures(file, folder, fileSystem)
+      })
     const seconds = (Date.now() - start) / 1000
     this.logIndent--
     this.log(``)
-    this.log(`⌛️ Processed ${filesToBuild.length} files in ${seconds} seconds. ${lodash.round(filesToBuild.length / seconds)} files per second\n`)
+    const outputExtensions = Object.keys(fileSystem.productCache).map(filename => filename.split(".").pop())
+    const buildStats = lodash.map(lodash.orderBy(lodash.toPairs(lodash.countBy(outputExtensions)), 1, "desc"), ([extension, count]) => ({ extension, count }))
+    this.log(
+      `⌛️ Read ${files.length} scroll files and built ${Object.keys(fileSystem.productCache).length} files (${buildStats.map(i => i.extension + ":" + i.count).join(" ")}) in ${seconds} seconds. ${lodash.round(
+        files.length / seconds
+      )} files per second\n`
+    )
 
     return fileSystem.productCache
   }

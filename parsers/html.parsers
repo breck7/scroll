@@ -1,3 +1,7 @@
+buildHtmlParser
+ description Compile a post to html and save to disk.
+ extends abstractBuildParser
+
 htmlAnyCell
  extends stringCell
 

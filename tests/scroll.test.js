@@ -103,7 +103,8 @@ testTree.inMemoryFileSystem = areEqual => {
 pParser
  extends paragraphParser
  crux p
-p A custom parser`
+p A custom parser
+buildHtml`
   }
   // Act
   const cli = new ScrollCli().silence()
@@ -162,9 +163,9 @@ testTree.standalonePage = areEqual => {
 printTitle
 * Blue sky`)
   // Act/Assert
-  const { html, asText } = page
-  areEqual(html.includes("Blue sky"), true)
-  areEqual(asText.includes("A standalone page"), true)
+  const { asHtml, asTxt } = page
+  areEqual(asHtml.includes("Blue sky"), true)
+  areEqual(asTxt.includes("A standalone page"), true)
 }
 
 testTree.aBlankPage = areEqual => {
@@ -184,10 +185,10 @@ testTree.aBlankPage = areEqual => {
 testTree.rss = areEqual => {
   // Arrange
   const page = new ScrollFile(`printFeed index
-permalink feed.rss`)
+buildRss`)
   // Act/Assert
-  const { html } = page
-  areEqual(html.startsWith("<?xml "), true)
+  const { asHtml } = page
+  areEqual(asHtml.startsWith("<?xml "), true)
 }
 
 testTree.baseUrl = areEqual => {
@@ -196,8 +197,8 @@ testTree.baseUrl = areEqual => {
 metaTags
 image blog/screenshot.png`)
   // Act/Assert
-  const { html } = page
-  areEqual(html.includes("http://test.com/blog/screenshot.png"), true)
+  const { asHtml } = page
+  areEqual(asHtml.includes("http://test.com/blog/screenshot.png"), true)
 }
 
 testTree.csv = areEqual => {
@@ -205,8 +206,8 @@ testTree.csv = areEqual => {
   const page = new ScrollFile(`printCsv index
 permalink posts.csv`)
   // Act/Assert
-  const { html } = page
-  areEqual(html.startsWith("date,title,permalink,"), true)
+  const { asHtml } = page
+  areEqual(asHtml.startsWith("date,title,permalink,"), true)
 }
 
 testTree.initCommand = async areEqual => {
