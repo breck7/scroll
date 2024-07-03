@@ -5,6 +5,10 @@ homeUrl ../index.html
 
 import settings.scroll
 metaTags
-gazetteCss
+stumpNoSnippet
+ link
+  rel stylesheet
+  type text/css
+  href ../gazette.css
 pageHeader
 copyButtons
