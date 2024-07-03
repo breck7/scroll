@@ -47,7 +47,6 @@
     "image-size": "^1.0.2",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "scroll-cli": "^99.2.0",
     "scrollsdk": "^80.1.1"
   },
   "devDependencies": {
