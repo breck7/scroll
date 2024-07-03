@@ -660,22 +660,22 @@ class ScrollFile {
   href ${this.viewSourceUrl}`)
   }
 
-  _compiledStandalonePage = ""
+  _compiledHtml = ""
   get asHtml() {
-    if (!this._compiledStandalonePage) {
+    if (!this._compiledHtml) {
       const { permalink, buildsHtml } = this
       const content = this.scrollProgram.compile().trim()
-      // Don't add html tags to XML/RSS/CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
+      // Don't add html tags to CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
       // <1% of use case so might be good enough.
       const wrapWithHtmlTags = buildsHtml
       const bodyTag = this.scrollProgram.has("metaTags") ? "" : "<body>\n"
-      this._compiledStandalonePage = wrapWithHtmlTags ? `<!DOCTYPE html>\n<html lang="${this.lang}">\n${bodyTag}${content}\n</body>\n</html>` : content
+      this._compiledHtml = wrapWithHtmlTags ? `<!DOCTYPE html>\n<html lang="${this.lang}">\n${bodyTag}${content}\n</body>\n</html>` : content
     }
-    return this._compiledStandalonePage
+    return this._compiledHtml
   }
 
   get asRss() {
-    return this.asHtml
+    return this.scrollProgram.compile().trim()
   }
 
   build() {
@@ -792,7 +792,7 @@ pageHeader
 buildTxt
 buildHtml
 `,
-      "feed.scroll": `permalink feed.xml
+      "feed.scroll": `buildRss feed.xml
 
 import settings.scroll
 printFeed All
@@ -822,7 +822,7 @@ ${scrollKeywords.title} My Blog
 
 import header.scroll
 printTitle
-snippets All
+printSnippets All
 
 import footer.scroll
 `

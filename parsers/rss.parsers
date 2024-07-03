@@ -12,7 +12,7 @@ printFeedParser
  example
   printFeed index
   printFeed cars/index
-  permalink feed.xml
+  buildRss feed.xml
  javascript
   compile() {
    const dayjs = require("dayjs")
@@ -30,4 +30,7 @@ printFeedParser
   ${files.map(file => file.toRss()).join("\n")}
   </channel>
   </rss>`
+  }
+  compileTextVersion() {
+    return this.compile()
   }
