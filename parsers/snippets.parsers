@@ -41,7 +41,7 @@ printSnippetsParser
     }).join("\n\n")
    return `<div class="scrollColumns" style="column-width:35ch;">${snippets}</div>`
   }
-  compileTextVersion() {
+  compileTxt() {
    return this.files.map(file =>  {
     const title = file.file.title
     const ruler = "=".repeat(title.length)

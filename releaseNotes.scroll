@@ -18,6 +18,10 @@ import changes.parsers
 
 thinColumns
 
+📦 101.2.0 7/03/2024
+🎉 added `buildCss` parser
+🏥 fix css text regression
+
 📦 101.0.1 7/03/2024
 🏥 fix sitemap regression
 
@@ -39,7 +43,7 @@ code
 Do this:
 
 code
- buildTxt style.css
+ buildCss style.css
  gazetteCss
 
 📦 100.0.0 7/02/2024
@@ -1291,9 +1295,7 @@ code
 
 code
  comment Put this in a file named style.scroll
- buildHtml style.css
- settings
-  noTemplate
+ buildCss style.css
  gazetteCSS
 
 📦 27.1.1 2022.8.24

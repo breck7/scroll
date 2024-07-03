@@ -678,6 +678,14 @@ class ScrollFile {
     return this.scrollProgram.compile().trim()
   }
 
+  get asCss() {
+    return this.scrollProgram.topDownArray
+      .filter(node => node.compileCss)
+      .map(node => node.compileCss())
+      .join()
+      .trim()
+  }
+
   build() {
     this.scrollProgram.forEach(node => (node.build ? node.build() : undefined))
   }
@@ -704,7 +712,7 @@ class ScrollFile {
     return (
       this.scrollProgram
         .map(node => {
-          const text = node.compileTextVersion ? node.compileTextVersion() : ""
+          const text = node.compileTxt ? node.compileTxt() : ""
           if (text) return text + "\n"
           if (!node.getLine().length) return "\n"
           return ""
@@ -974,6 +982,7 @@ import footer.scroll
         if (file.has(scrollKeywords.buildHtml)) this._copyExternalFiles(file, folder, fileSystem)
         this._buildFileType(file, folder, fileSystem, "html")
         this._buildFileType(file, folder, fileSystem, "rss")
+        this._buildFileType(file, folder, fileSystem, "css")
         this._buildFileType(file, folder, fileSystem, "txt")
         this._buildConceptsAndMeasures(file, folder, fileSystem)
       })
