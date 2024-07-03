@@ -1,6 +1,6 @@
 import header.scroll
 
-snippets index subfolder/index
+printSnippets index subfolder/index
 
 endColumns
 

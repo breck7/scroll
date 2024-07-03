@@ -1,4 +1,4 @@
-permalink posts.csv
+buildTxt posts.csv
 
 import settings.scroll
 printCsv All

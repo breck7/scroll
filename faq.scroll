@@ -226,8 +226,6 @@ Check out the `404.scroll` file in this folder.
 
 GitHub has instructions but is really is as simple as this:
  https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site instructions
-scrollCode
- permalink 404.html
 
 ? How do I check for broken links?
 Scroll does not check for broken links. For that, try linkinator.

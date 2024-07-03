@@ -1,5 +1,3 @@
-importOnly
-
 markupLineParser
  catchAllCellType anyCell
  catchAllParser markupLineParser

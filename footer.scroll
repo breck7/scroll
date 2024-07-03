@@ -1,8 +1,8 @@
 importOnly
- // Note that this file is for content posts/pages. Pages like the 404 don't want buildText or keyboardNav.
-buildText
- // Write the post to text
-
-pageFooter
+buildHtml
+buildTxt
+ // Note that this file is for content posts/pages. Pages like the 404 don't want buildTxt or keyboardNav.
 
 keyboardNav
+
+pageFooter

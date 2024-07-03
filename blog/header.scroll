@@ -1,8 +1,10 @@
 importOnly
-buildText
+buildTxt
+buildHtml
 homeUrl ../index.html
 
 import settings.scroll
 metaTags
 gazetteCss
 pageHeader
+copyButtons
