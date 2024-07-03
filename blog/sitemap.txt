@@ -1,12 +1,1 @@
-https://scroll.pub/blog/search.html
-https://scroll.pub/blog/index.html
-https://scroll.pub/blog/full.html
-https://scroll.pub/blog/changes.html
-https://scroll.pub/blog/plot.html
-https://scroll.pub/blog/stamp.html
-https://scroll.pub/blog/textFiles.html
-https://scroll.pub/blog/scrollsets.html
-https://scroll.pub/blog/programLinks.html
-https://scroll.pub/blog/counterpoints.html
-https://scroll.pub/blog/introducingBlink.html
-https://scroll.pub/blog/indented-heredocs.html
+

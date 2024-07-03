@@ -1,7 +1,6 @@
-buildTextParser
- cruxFromId
- description Compile a post to text rather than html and save to disk.
- extends abstractCommandParser
+buildTxtParser
+ description Compile a post to text and save to disk.
+ extends abstractBuildCommandParser
 
 plainTextParser
  description Use for plain text one liners and/or blocks of plain text. Will print in all output formats.

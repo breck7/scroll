@@ -4,17 +4,17 @@
  <title>Feed</title>
  <link>https://scroll.pub/tests/kitchenSink/</link>
  <description>Kitchen sink test site.</description>
- <lastBuildDate>Tue, 02 Jul 2024 16:20:08 +0000</lastBuildDate>
+ <lastBuildDate>Wed, 03 Jul 2024 10:01:39 +0000</lastBuildDate>
  <language>en-us</language>
  <item>
   <title>A review of my sink</title>
   <link>https://scroll.pub/tests/kitchenSink/a-review-of-my-sink.html</link>
-  <pubDate>Tue, 02 Jul 2024 16:19:46 +0000</pubDate>
+  <pubDate>Wed, 03 Jul 2024 10:01:23 +0000</pubDate>
  </item>
  <item>
   <title>Tabular data test</title>
   <link>https://scroll.pub/tests/kitchenSink/tabularData.html</link>
-  <pubDate>Tue, 02 Jul 2024 16:19:46 +0000</pubDate>
+  <pubDate>Wed, 03 Jul 2024 10:01:23 +0000</pubDate>
  </item>
  <item>
   <title>Top Sinks</title>

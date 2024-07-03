@@ -40,17 +40,6 @@ abstractTopLevelSingleMetaParser
    return ""
   }
 
-abstractCommandParser
- extends abstractScrollParser
- cruxFromId
- cells keywordCell
- inScope slashCommentParser
- javascript
-  isTopMatter = true
-  compile() {
-   return ""
-  }
-
 scrollParser
  extensions scroll
  description Scroll is a language for scientists of all ages. Refine, share and collaborate on ideas.

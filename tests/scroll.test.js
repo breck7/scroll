@@ -103,7 +103,8 @@ testTree.inMemoryFileSystem = areEqual => {
 pParser
  extends paragraphParser
  crux p
-p A custom parser`
+p A custom parser
+buildHtml`
   }
   // Act
   const cli = new ScrollCli().silence()
@@ -123,7 +124,7 @@ testTree.file = areEqual => {
   const releaseNotesFile = files.find(file => file.permalink === "releaseNotes.html")
 
   areEqual(releaseNotesFile.permalink, "releaseNotes.html")
-  areEqual(releaseNotesFile.html.includes("Scroll the language is now called"), true)
+  areEqual(releaseNotesFile.asHtml.includes("Scroll the language is now called"), true)
   areEqual(releaseNotesFile.description, "A list of what has changed in Scroll releases.", "Meta description auto-generated if not specified.")
   areEqual(files[4].permalink.endsWith(".html"), true)
 }
@@ -162,32 +163,32 @@ testTree.standalonePage = areEqual => {
 printTitle
 * Blue sky`)
   // Act/Assert
-  const { html, asText } = page
-  areEqual(html.includes("Blue sky"), true)
-  areEqual(asText.includes("A standalone page"), true)
+  const { asHtml, asTxt } = page
+  areEqual(asHtml.includes("Blue sky"), true)
+  areEqual(asTxt.includes("A standalone page"), true)
 }
 
 testTree.aBlankPage = areEqual => {
   // Arrange
   const page = new ScrollFile(``)
   // Act/Assert
-  areEqual(page.html, ``)
+  areEqual(page.asHtml, ``)
 
   // Arrange
   const testHidden = new ScrollFile(`permalink blank.html
 # Hello world
  hidden`)
   // Act/Assert
-  areEqual(testHidden.html, `<!DOCTYPE html>\n<html lang="en">\n<body>\n\n</body>\n</html>`)
+  areEqual(testHidden.asHtml, `<!DOCTYPE html>\n<html lang="en">\n<body>\n\n</body>\n</html>`)
 }
 
 testTree.rss = areEqual => {
   // Arrange
   const page = new ScrollFile(`printFeed index
-permalink feed.rss`)
+buildRss`)
   // Act/Assert
-  const { html } = page
-  areEqual(html.startsWith("<?xml "), true)
+  const { asHtml } = page
+  areEqual(asHtml.startsWith("<?xml "), true)
 }
 
 testTree.baseUrl = areEqual => {
@@ -196,8 +197,8 @@ testTree.baseUrl = areEqual => {
 metaTags
 image blog/screenshot.png`)
   // Act/Assert
-  const { html } = page
-  areEqual(html.includes("http://test.com/blog/screenshot.png"), true)
+  const { asHtml } = page
+  areEqual(asHtml.includes("http://test.com/blog/screenshot.png"), true)
 }
 
 testTree.csv = areEqual => {
@@ -205,8 +206,8 @@ testTree.csv = areEqual => {
   const page = new ScrollFile(`printCsv index
 permalink posts.csv`)
   // Act/Assert
-  const { html } = page
-  areEqual(html.startsWith("date,title,permalink,"), true)
+  const { asHtml } = page
+  areEqual(asHtml.startsWith("date,title,permalink,"), true)
 }
 
 testTree.initCommand = async areEqual => {

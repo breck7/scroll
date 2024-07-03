@@ -1,4 +1,4 @@
-permalink prompt.txt
+buildTxt prompt.txt
 
 import settings.scroll
 // Demonstrates a technique for building a big prompt to give to an LLM.

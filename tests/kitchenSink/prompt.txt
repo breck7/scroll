@@ -45,7 +45,7 @@ The Files:
  endColumns
  
 /home/runner/work/scroll/scroll/tests/kitchenSink/tabularData.scroll
- buildText
+ buildTxt
  groups index
  title Tabular data test
  
