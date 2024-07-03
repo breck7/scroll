@@ -1,6 +1,6 @@
 buildRssParser
  description Compile a folder to RSS and save to disk.
- extends abstractBuildParser
+ extends abstractBuildCommandParser
 
 rssFeedUrlParser
  description URL for RSS feed, if any.

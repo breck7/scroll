@@ -18,6 +18,16 @@ import changes.parsers
 
 thinColumns
 
+📦 101.0.0 7/03/2024
+This is a major breaking release meant to simplify and standardize a lot of the core Scroll concepts.
+🎉 added `buildHtml` parser
+🎉 added `buildRss` parser
+🎉 you no longer need to write `importOnly` on a file if the file uses no buildCommandParsers.
+⚠️ BREAKING: `snippets` => `printSnippets`
+⚠️ BREAKING: `fullSnippets` => `printFullSnippets`
+⚠️ BREAKING: `buildText` => `buildTxt`
+⚠️ BREAKING: `scroll build` will no longer write anything by default. You now need to explicitly include 1 or more buildCommands in your files, such as `buildHtml` or `buildTxt`.
+
 📦 100.0.0 7/02/2024
 🎉 if not present, `date` is now derived from file creation time
 🎉 if not present, `title` is now computed by un-camelcasing the filename

@@ -1,6 +1,6 @@
 buildTxtParser
  description Compile a post to text and save to disk.
- extends abstractBuildParser
+ extends abstractBuildCommandParser
 
 plainTextParser
  description Use for plain text one liners and/or blocks of plain text. Will print in all output formats.

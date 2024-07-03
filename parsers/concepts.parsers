@@ -32,7 +32,7 @@ printConceptsParser
 buildConceptsParser
  cruxFromId
  description Compiles concepts to a delimited file and write to disk.
- extends abstractBuildParser
+ extends abstractBuildCommandParser
  sortByParser
   cruxFromId
   cells keywordCell anyCell
