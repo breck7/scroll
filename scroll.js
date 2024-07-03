@@ -291,7 +291,7 @@ class ScrollFile {
 
   // todo: clean up this naming pattern and add a parser instead of special casing 404.html
   get allHtmlFiles() {
-    return this.allScrollFiles.filter(file.buildsHtml && file.permalink !== "404.html")
+    return this.allScrollFiles.filter(file => file.buildsHtml && file.permalink !== "404.html")
   }
 
   get buildsHtml() {
