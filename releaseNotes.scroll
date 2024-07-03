@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 101.0.1 7/03/2024
+🏥 fix sitemap regression
+
 📦 101.0.0 7/03/2024
 This is a major breaking release meant to simplify and standardize a lot of the core Scroll concepts.
 🎉 added `buildHtml` parser
