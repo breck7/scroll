@@ -10,9 +10,9 @@ plainTextParser
  catchAllCellType stringCell
  javascript
   compile() {
-   return this.compileTextVersion()
+   return this.compileTxt()
   }
-  compileTextVersion() {
+  compileTxt() {
     return `${this.content ?? ""}${this.childrenToString()}`
   }
 

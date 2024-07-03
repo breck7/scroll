@@ -15,7 +15,7 @@ htmlParser
   compile() {
    return `${this.content ?? ""}${this.childrenToString()}`
   }
-  compileTextVersion() {
+  compileTxt() {
     return ""
   }
 

@@ -31,6 +31,6 @@ printFeedParser
   </channel>
   </rss>`
   }
-  compileTextVersion() {
+  compileTxt() {
     return this.compile()
   }

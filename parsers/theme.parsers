@@ -70,7 +70,10 @@ abstractThemeCssParser
   compile() {
    return `<style>\n${this.css}\n</style>`
   }
-  compileTextVersion() {
+  compileTxt() {
+    return ""
+  }
+  compileCss() {
     return this.css
   }
   compileEmbeddedVersion() {
