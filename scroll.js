@@ -915,7 +915,7 @@ import footer.scroll
         externalFiles.forEach(name => {
           const newPath = path.join(folder, name)
           fileSystem.writeProduct(newPath, Disk.read(path.join(__dirname, "external", name)))
-          this.log(`💾 Wrote external file needed by ${file.filename} to ${name}`)
+          this.log(`💾 Copied external file needed by ${file.filename} to ${name}`)
         })
         externalFilesCopied[folder][word] = true
       }
@@ -932,7 +932,7 @@ import footer.scroll
       const sortBy = node.get("sortBy")
       files.forEach(link => {
         fileSystem.writeProduct(path.join(folder, link), file.compileConcepts(link, sortBy))
-        this.log(`💾 Wrote concepts in ${file.filename} to ${link}`)
+        this.log(`💾 Built concepts in ${file.filename} to ${link}`)
       })
     })
 
@@ -943,7 +943,7 @@ import footer.scroll
       const sortBy = node.get("sortBy")
       files.forEach(link => {
         fileSystem.writeProduct(path.join(folder, link), file.compileMeasures(link, sortBy))
-        this.log(`💾 Wrote measures in ${file.filename} to ${link}`)
+        this.log(`💾 Built measures in ${file.filename} to ${link}`)
       })
     })
   }
@@ -970,6 +970,7 @@ import footer.scroll
     files
       .filter(file => !file.importOnly)
       .forEach(file => {
+        file.build()
         if (file.has(scrollKeywords.buildHtml)) this._copyExternalFiles(file, folder, fileSystem)
         this._buildFileType(file, folder, fileSystem, "html")
         this._buildFileType(file, folder, fileSystem, "rss")
@@ -982,7 +983,7 @@ import footer.scroll
     const outputExtensions = Object.keys(fileSystem.productCache).map(filename => filename.split(".").pop())
     const buildStats = lodash.map(lodash.orderBy(lodash.toPairs(lodash.countBy(outputExtensions)), 1, "desc"), ([extension, count]) => ({ extension, count }))
     this.log(
-      `⌛️ Read ${files.length} scroll files and built ${Object.keys(fileSystem.productCache).length} files (${buildStats.map(i => i.extension + ":" + i.count).join(" ")}) in ${seconds} seconds. ${lodash.round(
+      `⌛️ Read ${files.length} scroll files and wrote ${Object.keys(fileSystem.productCache).length} files (${buildStats.map(i => i.extension + ":" + i.count).join(" ")}) in ${seconds} seconds. ${lodash.round(
         files.length / seconds
       )} files per second\n`
     )

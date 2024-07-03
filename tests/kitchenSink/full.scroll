@@ -1,3 +1,4 @@
 import settings.scroll
 
 printFullSnippets index
+buildHtml

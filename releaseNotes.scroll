@@ -1267,10 +1267,10 @@ code
 
 code
  comment Put this in a file named style.scroll
- permalink style.css
+ buildHtml style.css
  settings
   noTemplate
- printScrollCSS
+ gazetteCSS
 
 📦 27.1.1 2022.8.24
 🏥 only activate keyboard shortcuts if no element has focus
