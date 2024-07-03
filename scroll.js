@@ -674,6 +674,30 @@ class ScrollFile {
     return this._compiledHtml
   }
 
+  get asTxt() {
+    return (
+      this.scrollProgram
+        .map(node => {
+          const text = node.compileTxt ? node.compileTxt() : ""
+          if (text) return text + "\n"
+          if (!node.getLine().length) return "\n"
+          return ""
+        })
+        .join("")
+        .replace(/<[^>]*>/g, "")
+        .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
+        .trim() + "\n" // Always end in a newline, Posix style
+    )
+  }
+
+  get asJs() {
+    return this.scrollProgram.topDownArray
+      .filter(node => node.compileJs)
+      .map(node => node.compileJs())
+      .join("\n")
+      .trim()
+  }
+
   get asRss() {
     return this.scrollProgram.compile().trim()
   }
@@ -682,7 +706,7 @@ class ScrollFile {
     return this.scrollProgram.topDownArray
       .filter(node => node.compileCss)
       .map(node => node.compileCss())
-      .join()
+      .join("\n")
       .trim()
   }
 
@@ -708,21 +732,6 @@ class ScrollFile {
     return CSV_FIELDS.map(field => escapeCommas(this[field]))
   }
 
-  get asTxt() {
-    return (
-      this.scrollProgram
-        .map(node => {
-          const text = node.compileTxt ? node.compileTxt() : ""
-          if (text) return text + "\n"
-          if (!node.getLine().length) return "\n"
-          return ""
-        })
-        .join("")
-        .replace(/<[^>]*>/g, "")
-        .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
-        .trim() + "\n" // Always end in a newline, Posix style
-    )
-  }
   toRss() {
     const { title, canonicalUrl } = this
     return ` <item>
@@ -983,6 +992,7 @@ import footer.scroll
         this._buildFileType(file, folder, fileSystem, "html")
         this._buildFileType(file, folder, fileSystem, "rss")
         this._buildFileType(file, folder, fileSystem, "css")
+        this._buildFileType(file, folder, fileSystem, "js")
         this._buildFileType(file, folder, fileSystem, "txt")
         this._buildConceptsAndMeasures(file, folder, fileSystem)
       })
