@@ -1,0 +1,8 @@
+buildJs script.js
+buildHtml
+script console.log("Hello world")
+script
+ const message = `A
+ multiline message
+ `
+ console.log(message)

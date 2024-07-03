@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 101.3.0 7/03/2024
+🎉 added `buildJs` and `script` parsers
+
 📦 101.2.0 7/03/2024
 🎉 added `buildCss` parser
 🏥 fix css text regression

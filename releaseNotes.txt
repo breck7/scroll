@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+101.3.0 7/03/2024
+=================
+🎉 added `buildJs` and `script` parsers
+
 101.2.0 7/03/2024
 =================
 🎉 added `buildCss` parser

@@ -4,6 +4,7 @@ https://scroll.pub/stampTest.html
 https://scroll.pub/source.html
 https://scroll.pub/slideshowDemo.html
 https://scroll.pub/settings.html
+https://scroll.pub/script.html
 https://scroll.pub/relativeSnippets.html
 https://scroll.pub/redirectTest.html
 https://scroll.pub/openGraphImages.html
