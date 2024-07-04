@@ -898,6 +898,8 @@ import footer.scroll
       this.log(``)
     }
     if (!parserErrors.length && !scrollErrors.length) return this.log(`✅ 0 errors in "${cwd}". Tests took ${seconds} seconds.`)
+    console.error(parserErrors, scrollErrors)
+    return `${parserErrors.length + scrollErrors.length} Errors`
   }
 
   formatCommand(cwd) {
