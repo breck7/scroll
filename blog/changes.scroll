@@ -49,6 +49,19 @@ We use Changes for the Scroll Release Notes.
 Be sure to check out the source code that generates that HTML.
  https://github.com/breck7/scroll/blob/main/releaseNotes.scroll check out the source code
 
+*New Features*
+data ../releaseNotes.tsv
+ sparkline newFeatures
+  color green
+*Breaking Changes*
+data ../releaseNotes.tsv
+ sparkline breakingChanges
+  color orange
+*Bug fixes*
+data ../releaseNotes.tsv
+ sparkline bugFixes
+  color red
+sparkline 123 123
 ***
 
 # How to use

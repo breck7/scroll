@@ -1,0 +1,28 @@
+abstractDataFlowParser
+ extends abstractScrollWithRequirementsParser
+
+dataParser
+ description Load a data table.
+ inScope abstractDataFlowParser
+ extends abstractDataFlowParser
+ string copyFromExternal d3.js
+ string requireOnce
+  <script src="d3.js"></script>
+ example
+  data data.json
+   sparkline score
+ catchAllCellType anyCell
+ javascript
+  compileInstance(compileSettings) {
+   return (
+    this.map(node => node.compile(compileSettings))
+     .join("\n")
+     .trim()
+   )
+  }
+  get dataTable() {
+    return []
+  }
+  getColumnVector(columnName) {
+    return []
+  }

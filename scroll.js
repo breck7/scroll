@@ -926,6 +926,7 @@ import footer.scroll
     if (!externalFilesCopied[folder]) externalFilesCopied[folder] = {}
     parserWordsRequiringExternals.forEach(word => {
       if (externalFilesCopied[folder][word]) return
+      // need to recurse a bit now
       if (file.has(word)) {
         const node = file.scrollProgram.getNode(word)
         const externalFiles = node.copyFromExternal.split(" ")

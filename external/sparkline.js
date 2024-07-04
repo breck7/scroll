@@ -208,3 +208,14 @@
 
   return Sparkline
 })
+
+const loadSparkline = async settings => {
+  let { data, source } = settings
+  if (source) {
+    const column = data
+    data = await d3[source.endsWith("tsv") ? "tsv" : "csv"](source, d3.autoType)
+    data = data.map(row => row[column])
+  }
+
+  new Sparkline(document.getElementById(settings.id), { ...settings, tooltip: (value, index) => settings.start + index + ": " + value }).draw(data)
+}

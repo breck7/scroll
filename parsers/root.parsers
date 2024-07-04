@@ -24,7 +24,7 @@ abstractScrollWithRequirementsParser
  cruxFromId
  javascript
   compile(compileSettings) {
-    return this.getHtmlRequirements(compileSettings) + this.compileInstance()
+    return this.getHtmlRequirements(compileSettings) + this.compileInstance(compileSettings)
   }
 
 abstractTopLevelSingleMetaParser
