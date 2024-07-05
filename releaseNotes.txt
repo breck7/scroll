@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+101.4.0 7/04/2024
+=================
+🎉 renamed `descriptionParser` to `openGraphParser` and `titleParser` to `pageTitleParser` to free up those names for userparserland.
+
 101.3.0 7/03/2024
 =================
 🎉 added `buildJs` and `script` parsers
