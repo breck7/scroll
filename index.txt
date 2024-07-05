@@ -7,6 +7,11 @@ Refine, share and collaborate on ideas
 > The World Wide Scroll beta is live! Buy your folder now
  https://wws.scroll.pub
 
+Where can I try it?
+===================
+Here.
+ http://sand.scroll.pub/
+
 What is Scroll?
 ===============
 Scroll is a language for scientists of all ages.
@@ -39,7 +44,10 @@ This site you are reading is powered by Scroll.
 
 Can I try Scroll in the browser?
 ================================
-Yes. Here is a web demo.
+Yes. Launch a new Scroll site here.
+ http://sand.scroll.pub/
+
+Or try the Scroll editor with autocomplete and highlighting.
  https://try.scroll.pub/
 
 What makes Scroll different?
@@ -48,8 +56,13 @@ Scroll has an unusually simple syntax called Scroll Notation, an extensive set o
  https://scroll.pub/blog/scrollsets.html
  https://notation.scroll.pub
 
-How do I install Scroll?
-========================
+How do I try Scroll without installing?
+=======================================
+Here.
+ http://sand.scroll.pub/
+
+How do I install Scroll on my machine?
+======================================
 Scroll is an npm package. Install with:
  https://www.npmjs.com/package/scroll-cli
 npm install -g scroll-cli
