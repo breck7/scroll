@@ -18,6 +18,11 @@ import changes.parsers
 
 thinColumns
 
+
+📦 102.0.0 7/06/2024
+🎉 changed `relatedParser` to `relatedScrollFilesParser` to free up `relatedParser` for userland.
+⚠️ BREAKING: renamed `relatedList` to `printRelatedList`
+
 📦 101.6.0 7/06/2024
 🎉 added `sortBy` to `printConcepts` parser
 
