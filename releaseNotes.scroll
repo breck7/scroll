@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 101.6.0 7/06/2024
+🎉 added `sortBy` to `printConcepts` parser
+
 📦 101.5.0 7/05/2024
 🎉 `scroll init` generates a smaller site
 
