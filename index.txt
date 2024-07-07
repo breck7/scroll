@@ -10,7 +10,7 @@ Refine, share and collaborate on ideas
 Where can I try it?
 ===================
 Here.
- http://sand.scroll.pub/
+ http://hub.scroll.pub/
 
 What is Scroll?
 ===============
@@ -45,7 +45,7 @@ This site you are reading is powered by Scroll.
 Can I try Scroll in the browser?
 ================================
 Yes. Launch a new Scroll site here.
- http://sand.scroll.pub/
+ http://hub.scroll.pub/
 
 Or try the Scroll editor with autocomplete and highlighting.
  https://try.scroll.pub/
@@ -59,7 +59,7 @@ Scroll has an unusually simple syntax called Scroll Notation, an extensive set o
 How do I try Scroll without installing?
 =======================================
 Here.
- http://sand.scroll.pub/
+ http://hub.scroll.pub/
 
 How do I install Scroll on my machine?
 ======================================
