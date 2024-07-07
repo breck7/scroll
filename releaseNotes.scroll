@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 102.1.0 7/07/2024
+🎉 integrate feedback from h4l to make tables expand on click
+ https://www.reddit.com/r/programming/comments/1dwvezp/comment/lc0ytu6/ feedback from h4l
 
 📦 102.0.0 7/06/2024
 🎉 changed `relatedParser` to `relatedScrollFilesParser` to free up `relatedParser` for userland.
