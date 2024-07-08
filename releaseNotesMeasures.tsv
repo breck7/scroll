@@ -1,6 +1,6 @@
 Name	Values	Coverage	Question	Example	Type	Source	SortIndex	IsComputed	IsRequired	IsConceptDelimiter	Crux
-version	368	100%	What is the semantic version number?	102.2.1	string		1		true	true	📦
-releaseDate	368	100%		7/08/2024	string		1.1	true	true		
-bugFixes	368	100%	How many bug fixes in this release?	1	number		1.2	true			
-newFeatures	368	100%	How many new features in this release?	0	number		1.2	true			
-breakingChanges	368	100%	How many breaking changes in this release?	0	number		1.2	true			
+version	369	100%	What is the semantic version number?	102.2.2	string		1		true	true	📦
+releaseDate	369	100%		7/08/2024	string		1.1	true	true		
+bugFixes	369	100%	How many bug fixes in this release?	1	number		1.2	true			
+newFeatures	369	100%	How many new features in this release?	0	number		1.2	true			
+breakingChanges	369	100%	How many breaking changes in this release?	0	number		1.2	true			

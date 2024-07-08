@@ -1,7 +1,5 @@
 Name	Values	Coverage	Question	Example	Type	Source	SortIndex	IsComputed	IsRequired	IsConceptDelimiter	Crux
 id	8	100%	What is the ID of this concept?	Mars	string		1	false	true	true	
-id	8	100%	What is the ID of this concept?	Mars	string		1	false	true	true	
-id	8	100%	What is the ID of this concept?	Mars	string		1	false	true	true	
 moons	8	100%	How many moons does the planet have?	2	number		1.1	false	true		
 diameter	8	100%	What is the diameter of the planet?	6794	number		1.9	false			
 surfaceGravity	8	100%	What is the surface gravity of the planet?	4	number		1.9	false			

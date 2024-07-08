@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 102.2.2 7/08/2024
+🏥 measureStats fix
+
 📦 102.2.1 7/08/2024
 🏥 `loadConcepts` fix
 
