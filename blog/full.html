@@ -123,19 +123,23 @@ endColumns</code>
 </p>
 </div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="plot.html">No Code Scatterplots</a></h1>
+<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="plot.html">Write "scatterplot" to get a scatterplot</a></h1>
 <div class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></div>
 </div>
-<p class="scrollParagraph"><span class="scrollDateline">June 24, 2024 — </span>I have worked on many data science tools, including <a href="https://github.com/breck7/ohayo">Ohayo</a> and <a href="https://github.com/owid/owid-grapher">Grapher</a>, because I love science and I love the web.</p>
-<p class="scrollParagraph">So I was excited to read about <a href="https://observablehq.com/">Observable's</a> new open source library <a href="https://observablehq.com/plot/">Plot</a>.</p>
+<p class="scrollParagraph"><span class="scrollDateline">June 24, 2024 — </span>I <em>engineered on</em> many innovative data science tools, including <a href="https://github.com/owid/owid-grapher">Grapher</a> and <a href="https://github.com/breck7/ohayo">Ohayo</a><a href="#note1" class="scrollNoteLink" id="noteUsage1"><sup>[1]</sup></a>.</p>
+<p class="scrollParagraph">So I was excited to see <a href="https://observablehq.com/">Observable</a> launch something new: <a href="https://observablehq.com/plot/">Plot</a>.</p>
 <div class="dinkus"><span>*</span></div>
-<p class="scrollParagraph">Today I added Plot to <a href="index.html">Scroll</a>.</p>
-<p class="scrollParagraph">You can now make scatterplots using no code.</p>
-<p class="scrollParagraph">A tutorial is below.</p>
+<p class="scrollParagraph">Plot is already great on its own. It handles many of the hard parts of data vis, and it's <a href="https://github.com/observablehq/plot">open source</a>, so we can help them fix the parts that are still a little rough.</p>
+<p class="scrollParagraph">But I found a way to take Plot to the next level: I combined it with <a href="../index.html">Scroll</a>.</p>
+<p class="scrollParagraph">The Plot/Scroll integration is early, but I can already tell it will evolve into a <em>very useful</em> data science tool.</p>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 0: Install Scroll Locally or try the <a href="https://try.scroll.pub/">Web Version</a></h1>
-<code class="scrollCodeBlock">npm install -g scroll-cli</code>
+<div class="scrollSection"><h1 class="scrollParagraph">A Scatterplot with one word</h1>
 </div>
+<p class="scrollParagraph">You can now make scatterplots with one word.</p>
+<p class="scrollParagraph">Simply by writing the word <code>scatterplot</code> in a Scroll document, you get a scatterplot.</p>
+<p class="scrollParagraph">Obviously you want to add a few more words (2 more to add your own data, unless you are only interested in <a href="https://www.reddit.com/r/datascience/comments/19d1k19/does_anyone_know_of_any_good_titanic_datasets/">stock datasets</a>), but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).</p>
+<p class="scrollParagraph">But enough talk, let's see some code. A tutorial is below.</p>
+<p class="scrollParagraph">To follow along, create a new website in 1 second using <a href="http://hub.scroll.pub">ScrollHub</a> or install Scroll locally with <code>npm install -g scroll-cli</code>.</p>
 <div class="dinkus"><span>*</span></div>
 <div class="scrollSection"><h1 class="scrollParagraph">Step 1: Generate a scatterplot with 1 word</h1>
 <code class="scrollCodeBlock">scatterplot</code>
@@ -217,7 +221,7 @@ endColumns</code>
   </script>
 </div>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 3: Add your data</h1>
+<div class="scrollSection"><h1 class="scrollParagraph">Step 3: Add your own data</h1>
 <code class="scrollCodeBlock">scatterplot
  title The Simpson Family
  x age
@@ -256,7 +260,7 @@ Lisa,8,120`, d3.autoType)
   </script>
 </div>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 4: Load your data from disk</h1>
+<div class="scrollSection"><h1 class="scrollParagraph">Step 4: Now add your own data from a file</h1>
 <code class="scrollCodeBlock">scatterplot
  title The Planets
  data planets.csv
@@ -298,11 +302,11 @@ Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
   </script>
 </div>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 5: Everything all at once</h1>
+<div class="scrollSection"><h1 class="scrollParagraph">Step 5: Everything everywhere all at once</h1>
 <code class="scrollCodeBlock">scatterplot
  title The Planets in our Solar System
  data planets.csv
- subtitle Jupiter and Saturn have a lot of moons. Only 1 planet has life.
+ subtitle Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.
  caption Data from Wikipedia.
  x yearsToOrbitSun
  y moons
@@ -325,7 +329,7 @@ Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
   document.querySelector("#plot6").append(Plot.plot({
     title: "The Planets in our Solar System",
-    subtitle: "Jupiter and Saturn have a lot of moons. Only 1 planet has life.",
+    subtitle: "Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.",
     caption: "Data from Wikipedia.",
     symbol: {legend: true},
     color: {legend: true},
@@ -343,7 +347,11 @@ Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
   }
   </script>
 </div>
-<div class="dinkus"><span>⁂</span></div><p class="scrollViewSource">
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">That's it (for now)!</p>
+<p class="scrollParagraph">If you like where this is headed, <a href="https://github.com/breck7/scroll">give us a star on GitHub</a>.</p>
+<div class="dinkus"><span>⁂</span></div>
+<p  id="note1"class="scrollParagraph"><a class="scrollFootNoteUsageLink" href="#noteUsage1">[1]</a> The difference between programming and engineering? It takes programming to make a program that works. It takes engineering to make a program that <em>barely</em> works.</p><p class="scrollViewSource">
  <a href="https://github.com/breck7/scroll/blob/main/blog/plot.scroll">View source</a>
 </p>
 </div>

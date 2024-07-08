@@ -5,8 +5,8 @@ Changes: A Mini-Language for Change Logs
 07/01/2024
 https://scroll.pub/blog/changes.html
 
-No Code Scatterplots
-====================
+Write "scatterplot" to get a scatterplot
+========================================
 06/24/2024
 https://scroll.pub/blog/plot.html
 

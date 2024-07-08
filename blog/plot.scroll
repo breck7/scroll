@@ -1,7 +1,7 @@
 author https://twitter.com/breckyunits Breck Yunits
 date 6/24/2024
 groups All
-title No Code Scatterplots
+title Write "scatterplot" to get a scatterplot
 
 import header.scroll
 keyboardNav
@@ -10,32 +10,41 @@ printAuthor
 
 mediumColumns 1
 
-I have worked on many data science tools, including Ohayo and Grapher, because I love science and I love the web.
+I _engineered on_ many innovative data science tools, including Grapher and Ohayo^engineering.
  dateline
  https://github.com/breck7/ohayo Ohayo
  https://github.com/owid/owid-grapher Grapher
 
-So I was excited to read about Observable's new open source library Plot.
+So I was excited to see Observable launch something new: Plot.
  https://observablehq.com/plot/ Plot
- https://observablehq.com/ Observable's
+ https://observablehq.com/ Observable
 
 ***
 
-Today I added Plot to Scroll.
- link index.html Scroll
+Plot is already great on its own. It handles many of the hard parts of data vis, and it's open source, so we can help them fix the parts that are still a little rough.
+ https://github.com/observablehq/plot open source
 
-You can now make scatterplots using no code.
+But I found a way to take Plot to the next level: I combined it with Scroll.
+ link ../index.html Scroll
+
+The Plot/Scroll integration is early, but I can already tell it will evolve into a _very useful_ data science tool.
+
+***
+
+# A Scatterplot with one word
+
+You can now make scatterplots with one word.
  // if that's not no code, I don't know the meaning of no code.
 
-A tutorial is below.
+Simply by writing the word `scatterplot` in a Scroll document, you get a scatterplot.
 
-***
+Obviously you want to add a few more words (2 more to add your own data, unless you are only interested in stock datasets), but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).
+ https://www.reddit.com/r/datascience/comments/19d1k19/does_anyone_know_of_any_good_titanic_datasets/ stock datasets
 
-# Step 0: Install Scroll Locally or try the Web Version
- https://try.scroll.pub/ Web Version
- // web version has limitations
-code
- npm install -g scroll-cli
+But enough talk, let's see some code. A tutorial is below.
+
+To follow along, create a new website in 1 second using ScrollHub or install Scroll locally with `npm install -g scroll-cli`.
+ http://hub.scroll.pub ScrollHub
 
 ***
 
@@ -52,7 +61,7 @@ scatterplot
 
 ***
 
-# Step 3: Add your data
+# Step 3: Add your own data
 belowAsCode
 scatterplot
  title The Simpson Family
@@ -66,7 +75,7 @@ scatterplot
 
 ***
 
-# Step 4: Load your data from disk
+# Step 4: Now add your own data from a file
 belowAsCode
 scatterplot
  title The Planets
@@ -78,12 +87,12 @@ scatterplot
 
 ***
 
-# Step 5: Everything all at once
+# Step 5: Everything everywhere all at once
 belowAsCode
 scatterplot
  title The Planets in our Solar System
  data planets.csv
- subtitle Jupiter and Saturn have a lot of moons. Only 1 planet has life.
+ subtitle Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.
  caption Data from Wikipedia.
  x yearsToOrbitSun
  y moons
@@ -92,6 +101,15 @@ scatterplot
  label id
  symbol hasLife
 
+***
+
+That's it (for now)!
+
+If you like where this is headed, give us a star on GitHub.
+ https://github.com/breck7/scroll give us a star on GitHub
+
 ****
+
+^engineering The difference between programming and engineering? It takes programming to make a program that works. It takes engineering to make a program that _barely_ works.
 
 import footer.scroll
