@@ -1,5 +1,5 @@
-Write "scatterplot" to get a scatterplot
-========================================
+Write scatterplot to get a scatterplot
+======================================
 by Breck Yunits
 
 June 24, 2024

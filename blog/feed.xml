@@ -4,7 +4,7 @@
  <title>Feed</title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Mon, 08 Jul 2024 18:39:03 +0000</lastBuildDate>
+ <lastBuildDate>Mon, 08 Jul 2024 18:41:35 +0000</lastBuildDate>
  <language>en-us</language>
  <item>
   <title>Changes: A Mini-Language for Change Logs</title>
@@ -12,7 +12,7 @@
   <pubDate>Mon, 01 Jul 2024 00:00:00 +0000</pubDate>
  </item>
  <item>
-  <title>Write "scatterplot" to get a scatterplot</title>
+  <title>Write scatterplot to get a scatterplot</title>
   <link>https://scroll.pub/blog/plot.html</link>
   <pubDate>Mon, 24 Jun 2024 00:00:00 +0000</pubDate>
  </item>
