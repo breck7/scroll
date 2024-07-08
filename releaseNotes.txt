@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+102.2.0 7/08/2024
+=================
+🎉 build scrollsets first and so the outputs can be used to build html files
+
 102.1.0 7/07/2024
 =================
 🎉 integrate feedback from h4l to make tables expand on click

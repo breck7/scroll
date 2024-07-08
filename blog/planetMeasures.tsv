@@ -1,12 +1,12 @@
 Name	Values	Coverage	Question	Example	Type	Source	SortIndex	IsComputed	IsRequired	IsConceptDelimiter	Crux
-id	24	300%	What is the ID of this concept?	Mars	string		1	false	true	true	
-id	24	300%	What is the ID of this concept?	Mars	string		1	false	true	true	
-id	24	300%	What is the ID of this concept?	Mars	string		1	false	true	true	
-moons	24	300%	How many moons does the planet have?	2	number		1.1	false	true		
-diameter	24	300%	What is the diameter of the planet?	6794	number		1.9	false			
-surfaceGravity	24	300%	What is the surface gravity of the planet?	4	number		1.9	false			
-yearsToOrbitSun	24	300%	How many Earth years does it take for the planet to orbit the Sun?	1.881	number		1.9	false			
-hasLife	24	300%	Does this planet have life?	false	boolean		1.9	false			
-wikipedia	3	37%	URL to the Wikipedia page.	https://en.wikipedia.org/wiki/Earth	string		1.9	false			
-aka	3	37%	What are the alternative names for the planet?	Pale Blue Dot	string		1.9	false			
-age	3	37%	How old is this planet?	4500000000	number		1.9	false			
+id	8	100%	What is the ID of this concept?	Mars	string		1	false	true	true	
+id	8	100%	What is the ID of this concept?	Mars	string		1	false	true	true	
+id	8	100%	What is the ID of this concept?	Mars	string		1	false	true	true	
+moons	8	100%	How many moons does the planet have?	2	number		1.1	false	true		
+diameter	8	100%	What is the diameter of the planet?	6794	number		1.9	false			
+surfaceGravity	8	100%	What is the surface gravity of the planet?	4	number		1.9	false			
+yearsToOrbitSun	8	100%	How many Earth years does it take for the planet to orbit the Sun?	1.881	number		1.9	false			
+hasLife	8	100%	Does this planet have life?	false	boolean		1.9	false			
+wikipedia	1	12%	URL to the Wikipedia page.	https://en.wikipedia.org/wiki/Earth	string		1.9	false			
+aka	1	12%	What are the alternative names for the planet?	Pale Blue Dot	string		1.9	false			
+age	1	12%	How old is this planet?	4500000000	number		1.9	false			
