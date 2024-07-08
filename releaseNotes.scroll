@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 102.3.0 7/08/2024
+🎉 add support for TSVs to scatterplot
+
 📦 102.2.2 7/08/2024
 🏥 measureStats fix
 

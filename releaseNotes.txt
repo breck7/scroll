@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+102.3.0 7/08/2024
+=================
+🎉 add support for TSVs to scatterplot
+
 102.2.2 7/08/2024
 =================
 🏥 measureStats fix
