@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 102.2.1 7/08/2024
+🏥 `loadConcepts` fix
+
 📦 102.2.0 7/08/2024
 🎉 build scrollsets first and so the outputs can be used to build html files
 
