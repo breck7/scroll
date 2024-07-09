@@ -4,6 +4,7 @@ https://scroll.pub/blog/index.html
 https://scroll.pub/blog/full.html
 https://scroll.pub/blog/feed.html
 https://scroll.pub/blog/csv.html
+https://scroll.pub/blog/csvToScrollSet.html
 https://scroll.pub/blog/changes.html
 https://scroll.pub/blog/plot.html
 https://scroll.pub/blog/stamp.html

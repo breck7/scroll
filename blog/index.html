@@ -65,8 +65,19 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </script>
 
 
+<style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
 <div class="scrollSection"><h1 class="scrollTitle"><a href="index.html">The Official Scroll Blog</a></h1>
-<div class="scrollColumns" style="column-width:35ch;"><div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="changes.html">Changes: A Mini-Language for Change Logs</a></h1>
+<div class="scrollColumns" style="column-width:35ch;"><div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="csvToScrollSet.html">Convert CSVs to ScrollSets</a></h1>
+<div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
+</div>
+<p class="scrollParagraph"><span class="scrollDateline">July 9, 2024 — </span><a href="https://breckyunits.com/scrollsets.html">ScrollSets</a> are <em>very</em> useful once you get going. But starting from scratch could be a bit tedious.</p>
+<p class="scrollParagraph">Not anymore!</p>
+<p class="scrollParagraph">Just drop your CSV or TSV into the textarea below to generate a ScrollSet.</p>
+<p class="scrollParagraph">(P.S. <a href="https://sets.scroll.pub/">using LLMs with ScrollSets </a>is another great way to get started)</p><a class="scrollContinueReadingLink" href="csvToScrollSet.html">Continue reading...</a></div>
+
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="changes.html">Changes: A Mini-Language for Change Logs</a></h1>
 <div class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></div>
 </div>
 <figure class="scrollCaptionedFigure"><a href="changes.jpeg" target="_blank"  ><img src="changes.jpeg" width="1024" height="1024" loading="lazy"></a></figure>
@@ -77,13 +88,15 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <li >periodical data analysis for strategic project planning - how fast are we shipping new features? fixing bugs? breaking things?</li></ul>
 <p class="scrollParagraph">What if there was 1 language that let you do all 3 things at once?</p><a class="scrollContinueReadingLink" href="changes.html">Continue reading...</a></div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="plot.html">Write scatterplot to get a scatterplot</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="plot.html">Write scatterplot to get a scatterplot</a></h1>
 <div class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></div>
 </div>
 <p class="scrollParagraph"><span class="scrollDateline">June 24, 2024 — </span>I <em>engineered on</em> many innovative data science tools, including <a href="https://github.com/owid/owid-grapher">Grapher</a> and <a href="https://github.com/breck7/ohayo">Ohayo</a><a href="#note1" class="scrollNoteLink" id="noteUsage1"><sup>[1]</sup></a>.</p>
 <p class="scrollParagraph">So I was excited to see <a href="https://observablehq.com/">Observable</a> launch something new: <a href="https://observablehq.com/plot/">Plot</a>.</p><a class="scrollContinueReadingLink" href="plot.html">Continue reading...</a></div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="stamp.html">Stamp: a mini-language for project templates</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="stamp.html">Stamp: a mini-language for project templates</a></h1>
 <div class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></div>
 </div>
 <p class="scrollParagraph"><span class="scrollDateline">June 23, 2024 — </span>Regardless if you specialize in React, Rails, Django, Next, Java, C#, or ObjectiveC, you probably use <em>templates</em> to start new projects.</p>
@@ -91,7 +104,8 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p class="scrollParagraph">They also initialize a handful of directories like <code>src/</code> and <code>tests/</code>.</p>
 <p class="scrollParagraph">What if it was even easier to make, edit and use these templates?</p><a class="scrollContinueReadingLink" href="stamp.html">Continue reading...</a></div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="textFiles.html">Scroll now generates text files</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="textFiles.html">Scroll now generates text files</a></h1>
 </div>
 <div class="scrollByLine">by <a href="https://breckyunits.com">Breck Yunits</a></div>
 <p class="scrollParagraph"><span class="scrollDateline">April 29, 2024 — </span>Scroll is a minimal (but extensible) language for generating HTML files and CSVs, with the main use cases being blogs and <a href="scrollsets.html">knowledge bases</a>.</p>
@@ -100,28 +114,32 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p class="scrollParagraph">Now you have another way to read, review, and share your thoughts!</p>
 <p class="scrollParagraph"><a href="textFiles.txt">View text</a></p><a class="scrollContinueReadingLink" href="textFiles.html">Continue reading...</a></div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="scrollsets.html">ScrollSets: source code for CSVs</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="scrollsets.html">ScrollSets: source code for CSVs</a></h1>
 <div class="scrollByLine">by <a href="https://breckyunits.com">Breck Yunits</a></div>
 </div>
 <figure class="scrollCaptionedFigure"><a href="scrollsets.png" target="_blank"  ><img src="scrollsets.png" width="2730" height="1488" loading="lazy"></a><figcaption><p class="scrollParagraph">More examples of ScrollSets from <a href="https://sets.scroll.pub/">sets.scroll.pub</a>.</p></figcaption></figure>
 <p class="scrollParagraph"><span class="scrollDateline">April 21, 2024 — </span>The <a href="scrollsets.scroll">source code for this blog post</a> contains a ScrollSet about the planets and generates this HTML file as well as a <a href="planets.csv">CSV</a>, a <a href="planets.tsv">TSV</a>, and a <a href="planets.json">JSON</a> file. This page demonstrates <strong>ScrollSets</strong>.</p>
 <p class="scrollParagraph">ScrollSets are useful for small single day projects and large multi-year projects with thousands of concepts like <a href="https://pldb.io">PLDB</a> (a Programming Language Database).</p><a class="scrollContinueReadingLink" href="scrollsets.html">Continue reading...</a></div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="programLinks.html">Introducing Program Links</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="programLinks.html">Introducing Program Links</a></h1>
 <div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
 </div>
 <p class="scrollParagraph"><span class="scrollDateline">May 8, 2023 — </span>Some web apps are designed to load <em>entire programs</em> from a link. But if a program contain certain characters, such as <em>newlines</em>, those links won't work as-is. To create working links you have to run them through <code>encodeURIComponent</code>.</p>
 <p class="scrollParagraph">If you are creating blog content by hand this is annoying. To update a program link you have to keep a copy of the program, update that, then run <code>encodeURIComponent</code>, then paste the result into your post.</p>
 <p class="scrollParagraph">Today's release of Scroll includes a small new addition that solves this problem. You can call them "Multline Links" or "Program Links".</p><a class="scrollContinueReadingLink" href="programLinks.html">Continue reading...</a></div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="counterpoints.html">Counterpoints: A new tool for thought in the Scroll Language</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="counterpoints.html">Counterpoints: A new tool for thought in the Scroll Language</a></h1>
 <div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">Improve your writing by welcoming counterarguments</h1>
 </div>
 <p class="scrollParagraph"><span class="scrollDateline">April 13, 2023 — </span>There's a tiny new symbol in <a href="https://scroll.pub/">Scroll</a> today: <code>!</code>. The exclamation mark stands for <strong>Counterpoint</strong>. "Counters" aim to help writers strengthen their ideas by encouraging the integration of counterarguments throughout their essays. You can write your own counters or invite counters from friends, LLMs or Internet commenters.</p><a class="scrollContinueReadingLink" href="counterpoints.html">Continue reading...</a></div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="introducingBlink.html">Introducing the Blink Tag</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="introducingBlink.html">Introducing the Blink Tag</a></h1>
 <div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
 <div style="text-align: center;" class="scrollDateline">October 2, 2022</div>
 </div>
@@ -135,7 +153,8 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
   </script>
 <p class="scrollParagraph">I am really happy with the current state of Scroll and so grateful for the many people who have helped us get it to this point. That being said, I had a feeling we were missing something important.</p><a class="scrollContinueReadingLink" href="introducingBlink.html">Continue reading...</a></div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="indented-heredocs.html">The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="indented-heredocs.html">The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping</a></h1>
 <div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
 </div>
 <p class="scrollParagraph"><span class="scrollDateline">August 23, 2021 — </span><a href="https://scroll.pub">Scroll</a> is a new language and static site generator that is mostly written in <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> which are both built on a new syntax called <a href="https://notation.scroll.pub">Scroll Notation</a>.</p><a class="scrollContinueReadingLink" href="indented-heredocs.html">Continue reading...</a></div></div>

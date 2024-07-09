@@ -4,8 +4,13 @@
  <title>Feed</title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Mon, 08 Jul 2024 18:41:35 +0000</lastBuildDate>
+ <lastBuildDate>Tue, 09 Jul 2024 11:02:50 +0000</lastBuildDate>
  <language>en-us</language>
+ <item>
+  <title>Convert CSVs to ScrollSets</title>
+  <link>https://scroll.pub/blog/csvToScrollSet.html</link>
+  <pubDate>Tue, 09 Jul 2024 00:00:00 +0000</pubDate>
+ </item>
  <item>
   <title>Changes: A Mini-Language for Change Logs</title>
   <link>https://scroll.pub/blog/changes.html</link>

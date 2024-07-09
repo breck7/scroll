@@ -1,0 +1,23 @@
+Convert CSVs to ScrollSets
+==========================
+by Breck Yunits
+
+July 9, 2024
+
+ScrollSets are _very_ useful once you get going. But starting from scratch could be a bit tedious.
+ https://breckyunits.com/scrollsets.html
+
+Not anymore!
+
+Just drop your CSV or TSV into the textarea below to generate a ScrollSet.
+
+(P.S. using LLMs with ScrollSets is another great way to get started)
+ https://sets.scroll.pub/
+
+***
+
+Your Data:
+==========
+
+ScrollSet:
+==========

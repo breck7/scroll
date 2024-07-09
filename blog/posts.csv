@@ -1,4 +1,5 @@
 date,title,permalink,groups,wordCount,minutes
+07/09/2024,Convert CSVs to ScrollSets,csvToScrollSet.html,All,68,0.3
 07/01/2024,Changes: A Mini-Language for Change Logs,changes.html,All,394,2.0
 06/24/2024,Write scatterplot to get a scatterplot,plot.html,All,365,1.8
 06/23/2024,Stamp: a mini-language for project templates,stamp.html,All,264,1.3

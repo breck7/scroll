@@ -65,8 +65,42 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </script>
 
 
+<style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
 <div class="scrollSection"><h1 class="scrollTitle"><a href="full.html">The Official Scroll Blog</a></h1>
-<div class="scrollColumns" style="column-width:35ch;"><div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="changes.html">Changes: A Mini-Language for Change Logs</a></h1>
+<div class="scrollColumns" style="column-width:35ch;"><div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="csvToScrollSet.html">Convert CSVs to ScrollSets</a></h1>
+<div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
+</div>
+<p class="scrollParagraph"><span class="scrollDateline">July 9, 2024 — </span><a href="https://breckyunits.com/scrollsets.html">ScrollSets</a> are <em>very</em> useful once you get going. But starting from scratch could be a bit tedious.</p>
+<p class="scrollParagraph">Not anymore!</p>
+<p class="scrollParagraph">Just drop your CSV or TSV into the textarea below to generate a ScrollSet.</p>
+<p class="scrollParagraph">(P.S. <a href="https://sets.scroll.pub/">using LLMs with ScrollSets </a>is another great way to get started)</p>
+<div class="dinkus"><span>*</span></div>
+<script src="scrollSetMaker.js"></script>
+<div class="scrollSection"><h1 class="scrollParagraph">Your Data:</h1>
+<textarea style="width: 100%" id="content" rows="15" oninput="updateScrollSet()"></textarea><br>
+<label for="delimiter">Delimiter:</label>
+<input id="delimiter" value="," style="width: 30px;"/>
+</div>
+<div class="scrollSection"><h1 class="scrollParagraph">ScrollSet:</h1>
+<pre id="scrollset"></pre>
+</div>
+<script>function updateScrollSet() {
+    const delimiter = document.getElementById('delimiter').value;
+    const content = document.getElementById('content').value;
+    const scrollsetData = convertToScrollset(content, delimiter);
+    document.getElementById('scrollset').textContent = scrollsetData;
+}
+document.getElementById('content').value = "id,year\nHawaii,1959"
+updateScrollSet()
+document.getElementById('delimiter').addEventListener('input', updateScrollSet);
+</script><p class="scrollViewSource">
+ <a href="https://github.com/breck7/scroll/blob/main/blog/csvToScrollSet.scroll">View source</a>
+</p>
+</div>
+
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="changes.html">Changes: A Mini-Language for Change Logs</a></h1>
 <div class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></div>
 </div>
 <figure class="scrollCaptionedFigure"><a href="changes.jpeg" target="_blank"  ><img src="changes.jpeg" width="1024" height="1024" loading="lazy"></a></figure>
@@ -123,7 +157,8 @@ endColumns</code>
 </p>
 </div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="plot.html">Write scatterplot to get a scatterplot</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="plot.html">Write scatterplot to get a scatterplot</a></h1>
 <div class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></div>
 </div>
 <p class="scrollParagraph"><span class="scrollDateline">June 24, 2024 — </span>I <em>engineered on</em> many innovative data science tools, including <a href="https://github.com/owid/owid-grapher">Grapher</a> and <a href="https://github.com/breck7/ohayo">Ohayo</a><a href="#note1" class="scrollNoteLink" id="noteUsage1"><sup>[1]</sup></a>.</p>
@@ -356,7 +391,8 @@ Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
 </p>
 </div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="stamp.html">Stamp: a mini-language for project templates</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="stamp.html">Stamp: a mini-language for project templates</a></h1>
 <div class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></div>
 </div>
 <p class="scrollParagraph"><span class="scrollDateline">June 23, 2024 — </span>Regardless if you specialize in React, Rails, Django, Next, Java, C#, or ObjectiveC, you probably use <em>templates</em> to start new projects.</p>
@@ -402,7 +438,8 @@ Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
 </p>
 </div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="textFiles.html">Scroll now generates text files</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="textFiles.html">Scroll now generates text files</a></h1>
 </div>
 <div class="scrollByLine">by <a href="https://breckyunits.com">Breck Yunits</a></div>
 <p class="scrollParagraph"><span class="scrollDateline">April 29, 2024 — </span>Scroll is a minimal (but extensible) language for generating HTML files and CSVs, with the main use cases being blogs and <a href="scrollsets.html">knowledge bases</a>.</p>
@@ -415,7 +452,8 @@ Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
 </p>
 </div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="scrollsets.html">ScrollSets: source code for CSVs</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="scrollsets.html">ScrollSets: source code for CSVs</a></h1>
 <div class="scrollByLine">by <a href="https://breckyunits.com">Breck Yunits</a></div>
 </div>
 <figure class="scrollCaptionedFigure"><a href="scrollsets.png" target="_blank"  ><img src="scrollsets.png" width="2730" height="1488" loading="lazy"></a><figcaption><p class="scrollParagraph">More examples of ScrollSets from <a href="https://sets.scroll.pub/">sets.scroll.pub</a>.</p></figcaption></figure>
@@ -906,7 +944,8 @@ hasLife false
 </p>
 </div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="programLinks.html">Introducing Program Links</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="programLinks.html">Introducing Program Links</a></h1>
 <div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
 </div>
 <p class="scrollParagraph"><span class="scrollDateline">May 8, 2023 — </span>Some web apps are designed to load <em>entire programs</em> from a link. But if a program contain certain characters, such as <em>newlines</em>, those links won't work as-is. To create working links you have to run them through <code>encodeURIComponent</code>.</p>
@@ -929,7 +968,8 @@ hasLife false
 </p>
 </div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="counterpoints.html">Counterpoints: A new tool for thought in the Scroll Language</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="counterpoints.html">Counterpoints: A new tool for thought in the Scroll Language</a></h1>
 <div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">Improve your writing by welcoming counterarguments</h1>
@@ -958,7 +998,8 @@ hasLife false
 </p>
 </div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="introducingBlink.html">Introducing the Blink Tag</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="introducingBlink.html">Introducing the Blink Tag</a></h1>
 <div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
 <div style="text-align: center;" class="scrollDateline">October 2, 2022</div>
 </div>
@@ -996,7 +1037,8 @@ hasLife false
 </p>
 </div>
 
-<div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="indented-heredocs.html">The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping</a></h1>
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="indented-heredocs.html">The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping</a></h1>
 <div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
 </div>
 <p class="scrollParagraph"><span class="scrollDateline">August 23, 2021 — </span><a href="https://scroll.pub">Scroll</a> is a new language and static site generator that is mostly written in <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> which are both built on a new syntax called <a href="https://notation.scroll.pub">Scroll Notation</a>.</p>

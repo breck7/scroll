@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </script>
 
 
+<style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
 <div class="scrollSection"><h1 class="scrollTitle"><a href="search.html">Search the Official Scroll Blog</a></h1>
 </div>
 <div class="scrollColumns" style="column-width:90ch;column-count:2;max-width:200ch;">
@@ -79,7 +80,13 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 
 <th>minutes</th>
 </tr></thead>
- <tbody><tr><td><a href="changes.html">Changes: A Mini-Language for Change Logs</a></td>
+ <tbody><tr><td><a href="csvToScrollSet.html">Convert CSVs to ScrollSets</a></td>
+<td>Convert CSVs to ScrollSets ========================== by Breck Yunits  July 9, 2024  ScrollSets are _very_ useful once you get going. But starting from scratch could be a bit tedious.  https://breckyunits.com/scrollsets.html  Not anymore!  Just drop your CSV or TSV into the textarea below to generate a ScrollSet.  (P.S. using LLMs with ScrollSets is another great way to get started)  https://sets.scroll.pub/  ***  Your Data: ==========  ScrollSet: ========== </td>
+<td>07/09/2024</td>
+<td>68</td>
+<td>0.3</td>
+</tr>
+<tr><td><a href="changes.html">Changes: A Mini-Language for Change Logs</a></td>
 <td>Changes: A Mini-Language for Change Logs ======================================== by Breck Yunits  [Image Omitted]  July 1, 2024  Regardless of what languages you write your programs in, you probably maintain files like _changeLog.txt_ or _releaseNotes.txt_.  Change logs are very helpful for:  - informing your users of new features and bug fixes - providing detailed technical information to your development team (and open source contributors) - periodical data analysis for strategic project planning - how fast are we shipping new features? fixing bugs? breaking things?  What if there was 1 language that let you do all 3 things at once?  ***  Introducing Changes, a mini-language (only 70 lines of code, including comments) that makes it as concise as possible to write, read and analyze change logs.  https://github.com/breck7/scroll/blob/main/changes.parsers  Changes generates a pretty HTML file for your end users; allows for including unlimited detailed technical information for your developers; and generates summary statistics as TSV, CSV, and JSON for your project managers.  ***  There's almost nothing to learn (the code is self explanatory).  In fact, it's almost guaranteed that using Changes you will need to write less (we've taken every unnecessary character out).  ***  Example =======  We use Changes for the Scroll Release Notes.  https://scroll.pub/blog/../releaseNotes.html  Be sure to check out the source code that generates that HTML.  https://github.com/breck7/scroll/blob/main/releaseNotes.scroll  ***  How to use ==========  1. Install Scroll npm install -g scroll-cli  2. Create a file names something like `releaseNotes.scroll` with this content: title My Release Notes printTitle buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv // You can import the changes parsers or just copy/paste the 70 lines into your own file. import [pathToScroll]/changes.parser  thinColumns  📦 0.1.1 7/1/2024 🏥 fixed bug in command line app  📦 0.1.0 7/1/2024 🎉 added command line app  endColumns  3. Run `scroll build`  Done! You should now see a `releaseNotes.html` file as well as a TSV, CSV, and JSON file.  ***  What do you think? Anything that should be added/removed/improved?  ****  Related ======= - Changelog  https://en.wikipedia.org/wiki/Changelog - Release Notes  https://en.wikipedia.org/wiki/Release_notes - Major Version Numbers are Not Sacred  https://tom.preston-werner.com/2022/05/23/major-version-numbers-are-not-sacred - What can we learn from programming language version numbers?  https://breckyunits.com/versionNumbers.html </td>
 <td>07/01/2024</td>
 <td>394</td>
