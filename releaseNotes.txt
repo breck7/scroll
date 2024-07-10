@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+103.0.0 7/10/2024
+=================
+⚠️ BREAKING: shortened `strikethrough` parser to `strike`
+
 102.3.0 7/08/2024
 =================
 🎉 add support for TSVs to scatterplot

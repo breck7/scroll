@@ -18,7 +18,7 @@ testTree.compileAftertext = areEqual => {
  link home.com new
  bold brave new
  underline new world
- strikethrough wor`,
+ strike wor`,
       expected: `<p class="scrollParagraph">Hello <b>brave <u><a href="home.com">new</a></b> <s>wor</s>ld</u></p>`
     }
   ]
