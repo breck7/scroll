@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 105.1.0 7/11/2024
+🎉 added `printViewSourceBadge` parser
+
 📦 105.0.0 7/11/2024
 ⚠️ BREAKING: removed the `git` parser. No longer needed now that we use deep link to all source pages.
 ⚠️ BREAKING: renamed `viewSource` to `printViewSource` to clarify that it prints an HTML element.
