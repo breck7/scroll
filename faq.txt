@@ -196,7 +196,7 @@ What's an easy way to have GitHub run Scroll and build my HTML files automatical
 ===================================================================================
 Go to your project folder and create the file below:
 mkdir -p .github/workflows
-touch .github/workflows/buildAndDeployScroll.yaml
+touch .github/workflows/wws.yaml
 Then open that file and paste in this code:
 # Adapted from https://github.com/JamesIves/github-pages-deploy-action
 name: Build and Deploy Scroll
