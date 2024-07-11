@@ -809,21 +809,16 @@ class ScrollCli {
 *.txt
 feed.xml`,
       "header.scroll": `importOnly
-import settings.scroll
 metaTags
 buildTxt
 buildHtml
 gazetteCss
 pageHeader
 printTitle`,
-      "feed.scroll": `import settings.scroll
-buildRss feed.xml
+      "feed.scroll": `buildRss feed.xml
 printFeed All`,
       "footer.scroll": `importOnly
 pageFooter`,
-      "settings.scroll": `baseUrl https://scroll.pub/
-email feedback@scroll.pub
-git https://github.com/breck7/scroll`,
       "helloWorld.scroll": `groups All
 import header.scroll
 

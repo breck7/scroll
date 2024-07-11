@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+103.0.2 7/11/2024
+=================
+🏥 `pageHeader` and `pageFooter` parsers will now only emit icons for git, downloadUrl, and email if those items are set
+
 103.0.1 7/11/2024
 =================
 🏥 code div fix in slideshows

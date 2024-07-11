@@ -35,6 +35,12 @@ pageFooterParser
    const file = this.parent.file
    const { SVGS, SCROLL_VERSION, viewSourceUrl } = file
    const closeContainerTag = "</div>"
+   const emailLink = file.email ? `a ${SVGS.email}
+    href mailto:${file.email}` : ""
+   const downloadLink = file.downloadUrl ? `a ${SVGS.download}
+    href ${file.downloadUrl}` : ""
+   const gitLink = file.git ? `a ${SVGS.git}
+    href ${file.git}` : ""
    return (
     closeContainerTag + `<style>${this.css}</style>` +
     file.compileStumpCode(`p
@@ -43,12 +49,9 @@ pageFooterParser
     href ${viewSourceUrl}
   div
    class pageFooter doNotPrint
-   a ${SVGS.email}
-    href mailto:${file.email}
-   a ${SVGS.download}
-    href ${file.downloadUrl}
-   a ${SVGS.git}
-    href ${file.git}
+   ${emailLink}
+   ${downloadLink}
+   ${gitLink}
    a Built with Scroll v${SCROLL_VERSION}
     href https://scroll.pub
     class pageFooterScrollLink
