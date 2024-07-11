@@ -12,8 +12,7 @@ package-lock.json
 scrollBrowserPerf.html
 scrollNodePerf.cpuprofile
 
-# Dump import examples here
-tests/importExamples/
+# Don't check in test outputs
 tests/kitchenSink/testOutput/
 
 # Do not check in files built by Scroll
