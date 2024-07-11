@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 104.0.0 7/11/2024
+⚠️ BREAKING: the git icons now point to the viewSource url, not to a master git repo page. This should make it easier to go to the specific source file of interest.
+
 📦 103.0.2 7/11/2024
 🏥 `pageHeader` and `pageFooter` parsers will now only emit icons for git, downloadUrl, and email if those items are set
 
