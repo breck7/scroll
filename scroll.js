@@ -46,7 +46,6 @@ const scrollKeywords = {
   viewSourceBaseUrl: "viewSourceBaseUrl",
   openGraphImage: "openGraphImage",
   openGraph: "openGraph",
-  git: "git",
   email: "email",
   rssFeedUrl: "rssFeedUrl"
 }
@@ -471,10 +470,6 @@ class ScrollFile {
   }
 
   log(message) {}
-
-  get git() {
-    return this.get(scrollKeywords.git)
-  }
 
   get email() {
     return this.get(scrollKeywords.email)
