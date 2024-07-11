@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+103.0.1 7/11/2024
+=================
+🏥 code div fix in slideshows
+
 103.0.0 7/10/2024
 =================
 ⚠️ BREAKING: shortened `strikethrough` parser to `strike`
