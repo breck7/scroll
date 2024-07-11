@@ -190,7 +190,7 @@ code
 Go to your project folder and create the file below:
 code
  mkdir -p .github/workflows
- touch .github/workflows/buildAndDeployScroll.yaml
+ touch .github/workflows/wws.yaml
 Then open that file and paste in this code:
 code
  # Adapted from https://github.com/JamesIves/github-pages-deploy-action
