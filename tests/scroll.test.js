@@ -11,6 +11,12 @@ const shell = require("child_process").execSync
 
 const testTree = {}
 
+const kitchenSinkFolder = path.join(__dirname, "kitchenSink")
+const stampFolder = path.join(kitchenSinkFolder, "testOutput")
+
+// cleanup in case it was built earlier:
+if (Disk.exists(stampFolder)) fs.rmSync(stampFolder, { recursive: true })
+
 testTree.compileAftertext = areEqual => {
   const tests = [
     {
@@ -240,8 +246,6 @@ testTree.initCommand = async areEqual => {
 }
 
 testTree.kitchenSink = async areEqual => {
-  const kitchenSinkFolder = path.join(__dirname, "kitchenSink")
-  const stampFolder = path.join(kitchenSinkFolder, "testOutput")
   try {
     // Arrange/act
     const cli = new ScrollCli().silence()

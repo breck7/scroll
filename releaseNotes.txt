@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+105.1.0 7/11/2024
+=================
+🎉 added `printViewSourceBadge` parser
+
 105.0.0 7/11/2024
 =================
 ⚠️ BREAKING: removed the `git` parser. No longer needed now that we use deep link to all source pages.
