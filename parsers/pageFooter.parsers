@@ -15,14 +15,14 @@ pageFooterParser
     &:hover
      fill #333
   .pageFooterScrollLink
-   display block
    font-family Verdana
    font-weight 100
    margin .5em
-   color rgba(204,204,204,.5)
-   &:hover
-    color #333
-    text-decoration none
+   a
+    color rgba(204,204,204,.5)
+    &:hover
+     color #333
+     text-decoration none
  javascript
   compileEmbeddedVersion() {
    return ""
@@ -39,23 +39,22 @@ pageFooterParser
     href mailto:${file.email}` : ""
    const downloadLink = file.downloadUrl ? `a ${SVGS.download}
     href ${file.downloadUrl}` : ""
-   const gitLink = file.git ? `a ${SVGS.git}
-    href ${file.git}` : ""
+   const gitLink = file.viewSourceUrl ? `a ${SVGS.git}
+    title View Source
+    href ${file.viewSourceUrl}` : ""
    return (
     closeContainerTag + `<style>${this.css}</style>` +
     file.compileStumpCode(`p
    class scrollViewSource doNotPrint
-   a View source
-    href ${viewSourceUrl}
   div
    class pageFooter doNotPrint
    ${emailLink}
    ${downloadLink}
    ${gitLink}
-   a Built with Scroll v${SCROLL_VERSION}
-    href https://scroll.pub
+   div
     class pageFooterScrollLink
-    style display:block; margin: .5em;`)
+    a Built with Scroll v${SCROLL_VERSION}
+     href https://scroll.pub`)
    )
   }
 
