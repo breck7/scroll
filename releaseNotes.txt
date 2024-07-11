@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+105.0.0 7/11/2024
+=================
+⚠️ BREAKING: removed the `git` parser. No longer needed now that we use deep link to all source pages.
+⚠️ BREAKING: renamed `viewSource` to `printViewSource` to clarify that it prints an HTML element.
+
 104.0.0 7/11/2024
 =================
 ⚠️ BREAKING: the git icons now point to the viewSource url, not to a master git repo page. This should make it easier to go to the specific source file of interest.

@@ -1,0 +1,19 @@
+title Download Scroll.pub
+
+import header.scroll
+printTitle
+
+thinColumns 1
+
+The best way to download this site is via the WWS:
+ https://wws.scroll.pub WWS
+
+code
+ wws fetch scroll
+
+You can also download it as a zip file.
+ https://github.com/breck7/scroll/archive/refs/heads/wws.zip zip file
+
+endColumns
+
+import footer.scroll
