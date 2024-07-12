@@ -1,0 +1,92 @@
+author https://breckyunits.com Breck Yunits
+date 7/12/2024
+groups All
+title How I Designed Helpful 404's and Stopped Worrying about Broken Links
+
+import header.scroll
+keyboardNav
+printTitle
+printAuthor
+mediumColumns 1
+
+_Woohoo!_
+ dateline
+
+Your blog is on top of Reddit!
+
+_OH NO._
+
+There's a typo in your url. 🤦
+
+*What do you do?*
+
+***
+
+You try to calm yourself down.
+
+_Almost no one looks at the url and the content of the article is what's important and the traffic is coming_
+
+But then you think _all I can see is that i before e after c!_
+
+But then you think _is that *really* a rule_ and _maybe that's how it's spelled in London?_
+
+***
+
+You can't help yourself.
+
+It's an affront to your craftsmanship to not correct the bad filename.
+
+You know you can so easily rename the file but then existing links will break and so you'll have to add redirects but that means more files to maintain or god forbid that would require adding a server and you just love your static blog and it's almost 2pm and you have to leave and pick up the kids from school what do you do!?!!
+
+Or do you just break the links and going forward everyone will have the proper URL but everyone who clicks the old links will see an unhelpful 404 and you reflect on how great this thing that Tim Berners-Lee gave to the world is and how could you litter his creation with unhelpful 404s?
+
+***
+
+If the story above resonates with you, the bad news is you may suffer from Broken Link Phobia. Luckily, there is now a cure.
+
+***
+
+# Introducing: Helpful 404's - never worry about broken links again!
+
+Scroll now comes with a way to generate a very helpful 404 page so your visitors will get redirected to the right place even if the URL they clicked is off by a few characters.
+
+The best part? It works entirely client side on static sites.
+
+# How to use
+
+*Step 1* Create a `sitemap.scroll` page like this:
+
+code
+ buildTxt sitemap.txt
+ baseUrl https://scroll.pub/
+ printSiteMap
+
+*Step 2* Create a `404.scroll` page like this:
+code
+ buildHtml
+ Sorry, the url you requested was not found.
+ helpfulNotFound sitemap.txt
+
+That's it! The `helpfulNotFound` parser in Scroll will add Javascript to the 404 page that fetches all the urls found in the sitemap and shows the user the closest match. As a bonus, you also get a `sitemap.txt` file great for Google SEO and other uses.
+
+See it in action here by clicking on this intentionally broken link:
+ https://scroll.pub/blog/helpful_404s.html intentionally broken link
+
+***
+
+I've been using Helpful 404s on all my sites for the past couple of months and it's been delightful.
+
+I no longer spend any time worrying about making improvements to URLS.
+
+I just do it and I know that users following old links will still have a good experience.
+
+***
+
+If you like stuff like Helpful 404's, there's _a lot_ more like that in Scroll, which is public domain and open source.
+
+Try it today, and if you like what we are doing please consider bringing your site to the World Wide Scroll!
+ https://wws.scroll.pub World Wide Scroll
+
+****
+
+import footer.scroll
