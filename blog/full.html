@@ -68,6 +68,56 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
 <div class="scrollSection"><h1 class="scrollTitle"><a href="full.html">The Official Scroll Blog</a></h1>
 <div class="scrollColumns" style="column-width:35ch;"><div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="helpful404s.html">How I Designed Helpful 404's and Stopped Worrying about Broken Links</a></h1>
+<div class="scrollByLine">by <a href="https://breckyunits.com">Breck Yunits</a></div>
+</div>
+<p class="scrollParagraph"><span class="scrollDateline">July 12, 2024 — </span><em>Woohoo!</em></p>
+<p class="scrollParagraph">Your blog is on top of Reddit!</p>
+<p class="scrollParagraph"><em>OH NO.</em></p>
+<p class="scrollParagraph">There's a typo in your url. 🤦</p>
+<p class="scrollParagraph"><strong>What do you do?</strong></p>
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">You try to calm yourself down.</p>
+<p class="scrollParagraph"><em>Almost no one looks at the url and the content of the article is what's important and the traffic is coming</em></p>
+<p class="scrollParagraph">But then you think <em>all I can see is that i before e after c!</em></p>
+<p class="scrollParagraph">But then you think <em>is that <strong>really</strong> a rule</em> and <em>maybe that's how it's spelled in London?</em></p>
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">You can't help yourself.</p>
+<p class="scrollParagraph">It's an affront to your craftsmanship to not correct the bad filename.</p>
+<p class="scrollParagraph">You know you can so easily rename the file but then existing links will break and so you'll have to add redirects but that means more files to maintain or god forbid that would require adding a server and you just love your static blog and it's almost 2pm and you have to leave and pick up the kids from school what do you do!?!!</p>
+<p class="scrollParagraph">Or do you just break the links and going forward everyone will have the proper URL but everyone who clicks the old links will see an unhelpful 404 and you reflect on how great this thing that Tim Berners-Lee gave to the world is and how could you litter his creation with unhelpful 404s?</p>
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">If the story above resonates with you, the bad news is you may suffer from Broken Link Phobia. Luckily, there is now a cure.</p>
+<div class="dinkus"><span>*</span></div>
+<div class="scrollSection"><h1 class="scrollParagraph">Introducing: Helpful 404's - never worry about broken links again!</h1>
+</div>
+<p class="scrollParagraph">Scroll now comes with a way to generate a very helpful 404 page so your visitors will get redirected to the right place even if the URL they clicked is off by a few characters.</p>
+<p class="scrollParagraph">The best part? It works entirely client side on static sites.</p>
+<div class="scrollSection"><h1 class="scrollParagraph">How to use</h1>
+</div>
+<p class="scrollParagraph"><strong>Step 1</strong> Create a <code>sitemap.scroll</code> page like this:</p>
+<code class="scrollCodeBlock">buildTxt sitemap.txt
+baseUrl https://scroll.pub/
+printSiteMap</code>
+<p class="scrollParagraph"><strong>Step 2</strong> Create a <code>404.scroll</code> page like this:</p>
+<code class="scrollCodeBlock">buildHtml
+Sorry, the url you requested was not found.
+helpfulNotFound sitemap.txt</code>
+<p class="scrollParagraph">That's it! The <code>helpfulNotFound</code> parser in Scroll will add Javascript to the 404 page that fetches all the urls found in the sitemap and shows the user the closest match. As a bonus, you also get a <code>sitemap.txt</code> file great for Google SEO and other uses.</p>
+<p class="scrollParagraph">See it in action here by clicking on this <a href="https://scroll.pub/blog/helpful_404s.html">intentionally broken link</a>:</p>
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">I've been using Helpful 404s on all my sites for the past couple of months and it's been delightful.</p>
+<p class="scrollParagraph">I no longer spend any time worrying about making improvements to URLS.</p>
+<p class="scrollParagraph">I just do it and I know that users following old links will still have a good experience.</p>
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">If you like stuff like Helpful 404's, there's <em>a lot</em> more like that in Scroll, which is public domain and open source.</p>
+<p class="scrollParagraph">Try it today, and if you like what we are doing please consider bringing your site to the <a href="https://wws.scroll.pub">World Wide Scroll</a>!</p>
+<div class="dinkus"><span>⁂</span></div><p class="scrollViewSource">
+ <a href="https://github.com/breck7/scroll/blob/main/blog/helpful404s.scroll">View source</a>
+</p>
+</div>
+
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
 <div class="scrollSection"><h1 class="scrollTitle"><a href="csvToScrollSet.html">Convert CSVs to ScrollSets</a></h1>
 <div class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></div>
 </div>
