@@ -25,11 +25,6 @@ printAuthorParser
     return `by ${this.name}`
   }
 
-byLineParser
- extends printAuthorParser
- boolean isDeprecated true
- description DEPRECATED! Use "printAuthor" instead.
-
 authorParser
  cells keywordCell urlCell
  catchAllCellType personNameCell
