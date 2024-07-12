@@ -23,6 +23,7 @@ paragraphParser
 quickParagraphParser
  crux *
  extends paragraphParser
+ description A shorter alias for "paragraph".
  example
   * I had a _new_ idea.
 

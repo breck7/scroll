@@ -28,6 +28,7 @@ datelineParser
 
 printDateParser
  extends abstractScrollParser
+ description Prints the date set in the file. If not present computes the date from the file's ctime.
  cruxFromId
  cells keywordCell
  javascript

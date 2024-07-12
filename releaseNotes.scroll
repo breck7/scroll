@@ -18,6 +18,10 @@ import changes.parsers
 
 thinColumns
 
+📦 106.0.0 7/11/2024
+🎉 added missing documentation for better autocomplete
+⚠️ BREAKING: removed deprecated parsers: `startColumns`, `gazetteHeader`, `gazetteFooter`, `byLine`
+
 📦 105.1.0 7/11/2024
 🎉 added `printViewSourceBadge` parser
 
