@@ -1,6 +1,8 @@
 title Page not found
 
 import header.scroll
+downloadUrl /download.html
+ // Make this one absolute since this 404 page may run in any subfolder
 printTitle
 thinColumns 1
 
