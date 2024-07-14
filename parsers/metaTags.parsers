@@ -2,6 +2,11 @@ canonicalUrlParser
  description Canonical URL for SEO. If undefined Scroll generates this from the baseUrl and permalink.
  extends abstractUrlSettingParser
 
+abstractPrintMetaParser
+ extends abstractScrollParser
+ cruxFromId
+
+
 metaTagsParser
  cruxFromId
  extends abstractScrollParser

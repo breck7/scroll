@@ -27,10 +27,8 @@ datelineParser
   }
 
 printDateParser
- extends abstractScrollParser
+ extends abstractPrintMetaParser
  description Prints the date set in the file. If not present computes the date from the file's ctime.
- cruxFromId
- cells commandWordCell
  javascript
   compile() {
    return `<div style="text-align: center;" class="scrollDateline">${this.day}</div>`
