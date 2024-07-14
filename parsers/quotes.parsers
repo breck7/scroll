@@ -17,7 +17,7 @@ quoteParser
 
 quickQuoteParser
  crux >
- extends indentableParagraphParser
+ extends abstractIndentableParagraphParser
  description A quote.
  javascript
   defaultClassName = "scrollQuote"
