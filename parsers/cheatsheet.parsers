@@ -1,0 +1,19 @@
+printCheatSheetParser
+ description Prints a cheat sheet for all parsers in the current parser.
+ extends abstractScrollParser
+ cruxFromId
+ javascript
+  get sampleProgram() {
+    const clone = this.root.clone()
+    clone.setChildren("")
+    const words = clone.getAutocompleteResultsAt(0,0).matches.map(a => a.text)
+    words.sort()
+    clone.setChildren(words.join("\n"))
+    return clone
+  }
+  compile() {
+   return this.sampleProgram.map(node => node.toString()).join("<br>")
+  }
+  compileTxt() {
+   return this.sampleProgram.toString()
+  }
