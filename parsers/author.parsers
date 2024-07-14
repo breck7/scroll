@@ -1,9 +1,7 @@
 printAuthorParser
  description Prints a byline with the author's name and optionally a link to them.
- extends abstractScrollParser
- cruxFromId
+ extends abstractPrintMetaParser
  // todo: we need pattern matching added to sdk to support having no params or a url and personNameCell
- cells commandWordCell
  catchAllCellType anyCell
  example
   // With Link:

@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 107.1.0 7/14/2024
+🎉 add `printCheatSheet` parser v0.1.0
+
 📦 107.0.0 7/14/2024
 🎉 correct syntax highlighting for the different kinds of Parsers.
 🎉 removed some parsers from appearing in autocomplete
