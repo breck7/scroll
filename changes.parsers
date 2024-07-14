@@ -2,7 +2,7 @@
 
 versionParser
  crux 📦
- cells keywordCell semanticVersionCell dateCell
+ cells commandWordCell semanticVersionCell dateCell
  description What is the semantic version number?
  extends h1Parser
  // Todo: mixins in Parsers would make this easier.

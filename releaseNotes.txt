@@ -8,6 +8,15 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+107.0.0 7/14/2024
+=================
+🎉 correct syntax highlighting for the different kinds of Parsers.
+🎉 removed some parsers from appearing in autocomplete
+🏥 blink works for any colors now.
+⚠️ BREAKING: If you have written your own parsers `keywordCell` has been replaced by `commandWordCell`. You can do a simple find/replace or just add:
+keywordCell
+ extends commandWordCell
+
 106.0.1 7/13/2024
 =================
 🏥 fix bug where running `scroll build` through passed in SSH command was hanging
