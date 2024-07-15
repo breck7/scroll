@@ -21,11 +21,13 @@ horizontalRuleParser
 
 dinkusParser
  crux ***
- description A centered *
+ description A dinkus. Breaks section.
+ boolean isPopular true
  extends abstractDinkusParser
 
 endOfPostDinkusParser
  extends abstractDinkusParser
- description A centered ⁂.
+ description End of post dinkus.
+ boolean isPopular true
  crux ****
  string dinkus ⁂

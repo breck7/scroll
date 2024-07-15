@@ -1,5 +1,6 @@
 printAuthorParser
  description Prints author byline.
+ boolean isPopular true
  extends abstractPrintMetaParser
  // todo: we need pattern matching added to sdk to support having no params or a url and personNameCell
  catchAllCellType anyCell
@@ -26,5 +27,6 @@ printAuthorParser
 authorParser
  cells metaCommandWordCell urlCell
  catchAllCellType personNameCell
+ boolean isPopular true
  description Set author URL and author name.
  extends abstractTopLevelSingleMetaParser

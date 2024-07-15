@@ -30,6 +30,7 @@ printRelatedListParser
 relatedScrollFilesParser
  extends abstractTopLevelSingleMetaParser
  catchAllCellType permalinkCell
+ boolean isPopular true
  crux related
  description Set related files.
  example

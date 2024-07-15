@@ -20,4 +20,5 @@ commentParser
 slashCommentParser
  extends commentParser
  crux //
+ boolean isPopular true
  description A comment. Prints nothing.

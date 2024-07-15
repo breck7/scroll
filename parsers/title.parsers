@@ -3,10 +3,12 @@ pageTitleParser
  crux title
  description Set title.
  extends abstractTopLevelSingleMetaParser
+ boolean isPopular true
 
 printTitleParser
  description Print title.
  extends abstractHeaderParser
+ boolean isPopular true
  cruxFromId
  javascript
   compile(compileSettings) {
