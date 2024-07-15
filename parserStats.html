@@ -245,11 +245,20 @@ h4.scrollQuestion {
 .scrollTable tr:nth-child(even) {
   background: rgba(224,224,224,.6);
 }
+.scrollTable pre {
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+}
 .scrollTable.expandedTable {
   table-layout: unset;
   background: white;
   position: relative;
   z-index: 10;
+  overflow: unset;
+}
+.scrollTable.expandedTable pre {
+  white-space: unset;
   overflow: unset;
 }
 .scrollTable.expandedTable td,.scrollTable.expandedTable th {
@@ -363,7 +372,7 @@ h4.scrollQuestion {
 <td>9</td>
 </tr>
 <tr><td>blankLineParser</td>
-<td>740</td>
+<td>741</td>
 </tr>
 <tr><td>baseUrlParser</td>
 <td>10</td>
@@ -510,13 +519,13 @@ h4.scrollQuestion {
 <td>9</td>
 </tr>
 <tr><td>versionParser</td>
-<td>383</td>
+<td>384</td>
+</tr>
+<tr><td>newFeatureParser</td>
+<td>287</td>
 </tr>
 <tr><td>breakingChangeParser</td>
 <td>144</td>
-</tr>
-<tr><td>newFeatureParser</td>
-<td>286</td>
 </tr>
 <tr><td>bugFixParser</td>
 <td>163</td>
