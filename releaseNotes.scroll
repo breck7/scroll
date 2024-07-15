@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 108.1.0 7/15/2024
+🎉 table style improvements
+
 📦 108.0.0 7/15/2024
 ⚠️ BREAKING: (no one should be affected) Renamed `printCheatSheet` to `printLeetSheet`
 
