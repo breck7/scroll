@@ -1,5 +1,5 @@
 importParser
- description Import one file into another.
+ description Import a file.
  cruxFromId
  cells preBuildCommandWordCell
  extends abstractScrollParser
@@ -12,7 +12,8 @@ importParser
   import header.scroll
 
 importOnlyParser
- description Mark a file as not one to build. This line will be not be imported into the importing file.
+ // This line will be not be imported into the importing file.
+ description Don't build this file.
  cruxFromId
  cells preBuildCommandWordCell
  extends abstractTopLevelSingleMetaParser

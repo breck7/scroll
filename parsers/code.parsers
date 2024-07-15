@@ -22,7 +22,7 @@ codeWithLanguageParser
 
 copyButtonsParser
  extends abstractScrollWithRequirementsParser
- description Make code snippets copyable.
+ description Copy code widget.
  javascript
   compileInstance() {
    return ""

@@ -12,7 +12,7 @@ abstractDinkusParser
 
 horizontalRuleParser
  crux ---
- description Prints an html <hr> tag
+ description A horizontal rule.
  extends abstractDinkusParser
  javascript
   compile() {
@@ -21,11 +21,11 @@ horizontalRuleParser
 
 dinkusParser
  crux ***
- description Prints a centered *
+ description A centered *
  extends abstractDinkusParser
 
 endOfPostDinkusParser
  extends abstractDinkusParser
- description Prints a centered ⁂.
+ description A centered ⁂.
  crux ****
  string dinkus ⁂

@@ -1,6 +1,6 @@
 dateParser
  catchAllCellType dateCell
- description Date this file was first published.
+ description Set published date.
  extends abstractTopLevelSingleMetaParser
 
 datelineParser
@@ -28,7 +28,8 @@ datelineParser
 
 printDateParser
  extends abstractPrintMetaParser
- description Prints the date set in the file. If not present computes the date from the file's ctime.
+ // If not present computes the date from the file's ctime.
+ description Print published date.
  javascript
   compile() {
    return `<div style="text-align: center;" class="scrollDateline">${this.day}</div>`

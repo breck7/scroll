@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+107.2.0 7/14/2024
+=================
+🎉 docs: clearer, more conscise descriptions of 7 words or less on every parser.
+🎉 docs: `printCheatSheet` now prints descriptions.
+
 107.1.0 7/14/2024
 =================
 🎉 add `printCheatSheet` parser v0.1.0

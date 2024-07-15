@@ -2,7 +2,7 @@ commentLineParser
  catchAllCellType commentCell
 
 abstractCommentParser
- description Comments do not appear in the compiled HTML.
+ description Prints nothing.
  catchAllCellType commentCell
  cells commentCell
  extends abstractScrollParser
@@ -20,3 +20,4 @@ commentParser
 slashCommentParser
  extends commentParser
  crux //
+ description A comment. Prints nothing.

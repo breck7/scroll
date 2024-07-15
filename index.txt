@@ -84,6 +84,8 @@ The source code is hosted on GitHub.
 
 Where are the docs?
 ===================
+- CheatSheet
+ https://scroll.pub/cheatsheet.html
 - FAQ
  https://scroll.pub/faq.html
 - Tutorial
