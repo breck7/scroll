@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+108.0.0 7/15/2024
+=================
+⚠️ BREAKING: (no one should be affected) Renamed `printCheatSheet` to `printLeetSheet`
+
 107.3.0 7/14/2024
 =================
 🎉 added `printUsageStats` parser.

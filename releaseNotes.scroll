@@ -18,6 +18,9 @@ import changes.parsers
 
 thinColumns
 
+📦 108.0.0 7/15/2024
+⚠️ BREAKING: (no one should be affected) Renamed `printCheatSheet` to `printLeetSheet`
+
 📦 107.3.0 7/14/2024
 🎉 added `printUsageStats` parser.
 🎉 docs: bolded commonly used parsers in cheat sheet.

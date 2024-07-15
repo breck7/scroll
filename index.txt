@@ -15,8 +15,8 @@ ScrollHub or try.scroll.pub.
 
 Where are the docs?
 ===================
-- 1-page cheat sheet
- https://scroll.pub/cheatsheet.html
+- Leet sheet
+ https://scroll.pub/leetsheet.html
 - Official Blog
  https://scroll.pub/blog/index.html
 - Release Notes

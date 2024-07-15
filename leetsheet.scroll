@@ -1,4 +1,4 @@
-title Scroll CheatSheet
+title Scroll LeetSheet
 
 import header.scroll
 printTitle
@@ -10,7 +10,7 @@ Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of 
 
 thinColumns 4
 
-printCheatSheet
+printLeetSheet
 
 endColumns
 

@@ -1,5 +1,5 @@
-Scroll CheatSheet
-=================
+Scroll LeetSheet
+================
 
 Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of *parsers*, which you can create. The standard parsers are below.
 
@@ -76,12 +76,12 @@ pipeTable - A table from |SV data.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
 printAuthor - Prints author byline.
-printCheatSheet - Print Scroll parser cheat sheet.
 printConcepts - Print concepts to HTML table.
 printCsv - Print group metadata to CSV.
 printDate - Print published date.
 printFeed - Print group to RSS.
 printFullSnippets - Print full pages in group(s).
+printLeetSheet - Print Scroll parser leet sheet.
 printMeasures - Print measure stats to HTML table.
 printRelatedList - Print links to related posts.
 printSearchTable - Prints files to HTML table.

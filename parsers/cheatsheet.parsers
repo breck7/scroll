@@ -20,8 +20,8 @@ printUsageStatsParser
     return this.stats
   }
 
-printCheatSheetParser
- description Print Scroll parser cheat sheet.
+printLeetSheetParser
+ description Print Scroll parser leet sheet.
  extends abstractScrollParser
  cruxFromId
  javascript
@@ -42,8 +42,8 @@ printCheatSheetParser
     return docs
   }
   compile() {
-   const css = `#scrollCheatSheet {color: grey;} #scrollCheatSheet a {color: #3498db; }`
-   return `<style>${css}</style><div id="scrollCheatSheet">` + this.parserDocs.map(obj => `<div><a>${obj.isPopular ? "<b>" : ""}${obj.id}</a> ${obj.description}${obj.isPopular ? "</b>" : ""}</div>`).join("\n") + "</div>"
+   const css = `#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }`
+   return `<style>${css}</style><div id="scrollLeetSheet">` + this.parserDocs.map(obj => `<div><a>${obj.isPopular ? "<b>" : ""}${obj.id}</a> ${obj.description}${obj.isPopular ? "</b>" : ""}</div>`).join("\n") + "</div>"
   }
   compileTxt() {
    return this.parserDocs.map(obj => `${obj.id} - ${obj.description}`).join("\n")
