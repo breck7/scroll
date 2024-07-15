@@ -1,6 +1,8 @@
 Scroll CheatSheet
 =================
 
+Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of Parsers. The included Parsers are below.
+
 !
 #
 ##

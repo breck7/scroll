@@ -3,7 +3,12 @@ title Scroll CheatSheet
 import header.scroll
 printTitle
 
-thinColumns
+<center style="color: grey; padding-bottom: 20px;">
+Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of Parsers. The included Parsers are below.
+</center>
+
+
+thinColumns 4
 
 printCheatSheet
 

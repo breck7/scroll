@@ -92,6 +92,8 @@ Where are the docs?
  https://scroll.pub/tutorial.html
 - Blog
  https://scroll.pub/blog/index.html
+- Roadmap
+ https://scroll.pub/roadmap.html
 - Release Notes
  https://scroll.pub/releaseNotes.html
 
