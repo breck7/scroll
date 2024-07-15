@@ -4,7 +4,7 @@ import header.scroll
 printTitle
 
 <center style="color: grey; padding-bottom: 20px;">
-Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of Parsers. The included Parsers are below.
+Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of *parsers*, which you can create. The included parsers are below.
 </center>
 
 
@@ -13,5 +13,9 @@ thinColumns 4
 printCheatSheet
 
 endColumns
+
+<center style="color: grey; padding-bottom: 20px;">
+Commonly used parsers are <b>bolded</b>.
+</center>
 
 import footer.scroll

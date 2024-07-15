@@ -4,6 +4,7 @@ https://scroll.pub/tutorial.html
 https://scroll.pub/roadmap.html
 https://scroll.pub/releaseNotes.html
 https://scroll.pub/index.html
+https://scroll.pub/parserStats.html
 https://scroll.pub/header.html
 https://scroll.pub/gazette.html
 https://scroll.pub/faq.html

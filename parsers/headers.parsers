@@ -15,6 +15,7 @@ h1Parser
  description An html h1 tag.
  extends abstractHeaderParser
  crux #
+ boolean isPopular true
  javascript
   tag = "h1"
 
@@ -22,6 +23,7 @@ h2Parser
  description An html h2 tag.
  extends abstractHeaderParser
  crux ##
+ boolean isPopular true
  javascript
   tag = "h2"
 

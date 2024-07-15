@@ -6,6 +6,7 @@ codeParser
  description A code block.
  catchAllParser lineOfCodeParser
  extends abstractScrollParser
+ boolean isPopular true
  javascript
   compile() {
    return `<code class="scrollCodeBlock">${this.childrenToString().replace(/\</g, "&lt;")}</code>`

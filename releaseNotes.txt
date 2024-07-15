@@ -8,6 +8,13 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+107.3.0 7/14/2024
+=================
+🎉 added `printUsageStats` parser.
+🎉 docs: bolded commonly used parsers in cheat sheet.
+🎉 docs: other cheat sheet improvements.
+🎉 docs: `printCheatSheet` now prints good txt only docs too.
+
 107.2.0 7/14/2024
 =================
 🎉 docs: clearer, more conscise descriptions of 7 words or less on every parser.

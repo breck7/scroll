@@ -1,0 +1,12 @@
+buildHtml
+gazetteCss
+
+title Statistics on Parser Usage
+
+thinColumns 1
+
+printUsageStats
+tableSearch
+
+endColumns
+

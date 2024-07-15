@@ -1,6 +1,7 @@
 importParser
  description Import a file.
  cruxFromId
+ boolean isPopular true
  cells preBuildCommandWordCell
  extends abstractScrollParser
  catchAllCellType filePathCell

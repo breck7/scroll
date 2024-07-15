@@ -1,119 +1,125 @@
 Scroll CheatSheet
 =================
 
-Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of Parsers. The included Parsers are below.
+Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of *parsers*, which you can create. The included parsers are below.
 
-!
-#
-##
-###
-####
-#####
-*
-***
-****
--
----
-//
->
-?
-[]
-[x]
-aboveAsCode
-author
-baseUrl
-belowAsCode
-belowAsCodeUntil
-blink
-buildConcepts
-buildCss
-buildHtml
-buildJs
-buildMeasures
-buildRss
-buildTxt
-canonicalUrl
-caption
-chat
-code
-commaTable
-comment
-copyButtons
-css
-dashboard
-date
-description
-downloadUrl
-email
-endColumns
-endSnippet
-expander
-gazetteCss
-groups
-helpfulNotFound
-homeUrl
-html
-htmlLang
-image
-import
-importOnly
-katex
-keyboardNav
-loadConcepts
-loop
-loremIpsum
-map
-mediumColumns
-metaTags
-openGraphImage
-pageFooter
-pageHeader
-permalink
-pipeTable
-plainText
-plainTextOnly
-printAuthor
-printCheatSheet
-printConcepts
-printCsv
-printDate
-printFeed
-printFullSnippets
-printMeasures
-printRelatedList
-printSearchTable
-printSiteMap
-printSnippets
-printSource
-printTable
-printTitle
-printViewSource
-printViewSourceBadge
-quote
-readingList
-redirectTo
-related
-replace
-replaceJs
-replaceNodejs
-rssFeedUrl
-scatterplot
-script
-slideshow
-spaceTable
-sparkline
-stamp
-stump
-stumpNoSnippet
-tabTable
-table
-tableSearch
-thanksTo
-thinColumns
-title
-treeTable
-tufteCss
-viewSourceBaseUrl
-viewSourceUrl
-wideColumns
-youTube
+- - A list item.
+--- - A horizontal rule.
+! - A counterpoint. Prints nothing.
+? - A question.
+[] - A task todo.
+[x] - A completed task.
+* - A paragraph.
+*** - A dinkus. Breaks section.
+**** - End of post dinkus.
+// - A comment. Prints nothing.
+# - An html h1 tag.
+## - An html h2 tag.
+### - An html h3 tag.
+#### - An html h4 tag.
+##### - An html h5 tag.
+> - A quote.
+aboveAsCode - Print code above.
+author - Set author URL and author name.
+baseUrl - Required for RSS and OpenGraph.
+belowAsCode - Print code below.
+belowAsCodeUntil - Print code above until match.
+blankLineParser - Print nothing. Break section.
+blink - Just for fun.
+buildConcepts - Write concepts to csv+ files.
+buildCss - Compile to CSS file.
+buildHtml - Compile to HTML file.
+buildJs - Compile to JS file.
+buildMeasures - Write measures to csv+ files.
+buildRss - Write RSS file.
+buildTxt - Compile to TXT file.
+canonicalUrl - Override canonical URL.
+caption - An image caption.
+catchAllParagraph - A paragraph.
+chat - A faux text chat conversation.
+code - A code block.
+commaTable - A table from CSV data.
+comment - Prints nothing.
+copyButtons - Copy code widget.
+css - A style tag.
+dashboard - Key stats in large font.
+date - Set published date.
+description - Override Open Graph Description.
+downloadUrl - Set link to Download Page.
+email - Set email address for site contact.
+endColumns - End columns.
+endSnippet - Cut for snippet here.
+expander - An collapsible HTML details tag.
+gazetteCss - Default Scroll theme CSS.
+groups - Set groups.
+helpfulNotFound - Helpful not found widget.
+homeUrl - Override home link.
+html - HTML one liners or blocks.
+htmlInlineParser - Inline HTML.
+htmlLang - Override HTML lang attribute.
+image - An img tag.
+import - Import a file.
+importOnly - Don't build this file.
+katex - KaTex widget for typeset math.
+keyboardNav - Make left and right navigate files.
+loadConcepts - Import all concepts in a folder.
+loop - Iterate over files+ to make HTML.
+loremIpsum - Generate dummy text.
+map - Map widget.
+mediumColumns - Medium width columns.
+metaTags - Print meta tags including title.
+openGraphImage - Override Open Graph Image.
+pageFooter - HTML footer.
+pageHeader - HTML footer.
+permalink - Override output filename.
+pipeTable - A table from |SV data.
+plainText - Plain text oneliner or block.
+plainTextOnly - Only print for buildTxt.
+printAuthor - Prints author byline.
+printCheatSheet - Print Scroll parser cheat sheet.
+printConcepts - Print concepts to HTML table.
+printCsv - Print group metadata to CSV.
+printDate - Print published date.
+printFeed - Print group to RSS.
+printFullSnippets - Print full pages in group(s).
+printMeasures - Print measure stats to HTML table.
+printRelatedList - Print links to related posts.
+printSearchTable - Prints files to HTML table.
+printSiteMap - Print text sitemap.
+printSnippets - Prints snippets in group(s).
+printSource - Print source for files in group(s).
+printTable - Print table from tabular data.
+printTitle - Print title.
+printUsageStats - Print parser usage stats in folder.
+printViewSource - Print "View source" link.
+printViewSourceBadge - Print badge top right.
+quote - A quote.
+readingList - Link list with titles and authors.
+redirectTo - HTML redirect tag.
+related - Set related files.
+replace - Replace this with that.
+replaceJs - Replace this with evaled JS.
+replaceNodejs - Replace this with evaled Node.JS.
+rssFeedUrl - Set RSS feed URL.
+scatterplot - Scatterplot Widget.
+script - Print script tag.
+slideshow - Slideshow widget. *** delimits slides.
+spaceTable - A table. Last column is catchall.
+sparkline - Sparkline widget.
+stamp - Expand project template to disk.
+stump - Compile Stump to HTML.
+stumpNoSnippet - Compile Stump unless snippet.
+table - A table from a custom delimiter.
+tableSearch - Table search and sort widget.
+tabTable - A table from TSV data.
+thanksTo - Acknowledge reviewers. Prints nothing.
+thinColumns - Thin columns.
+title - Set title.
+treeTable - Table from Scroll Notation data.
+tufteCss - Theme from Tufte CSS.
+viewSourceBaseUrl - Override source link baseUrl.
+viewSourceUrl - Override source link.
+wideColumns - Wide columns.
+youTube - A YouTube video widget.
+
+Commonly used parsers are bolded.

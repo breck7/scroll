@@ -1,35 +1,35 @@
 📜 Scroll is a language for scientists of all ages
 ==================================================
 
-Refine, share and collaborate on ideas
-======================================
+Evolve and publish your most intelligent ideas
+==============================================
 
 > The World Wide Scroll beta is live! Buy your folder now
  https://wws.scroll.pub
 
-Where can I try it?
-===================
-Here.
+Where can I try without installing?
+===================================
+ScrollHub or try.scroll.pub.
  http://hub.scroll.pub/
+ https://try.scroll.pub/
 
-What is Scroll?
-===============
-Scroll is a language for scientists of all ages.
-
-Scroll includes a command line app that builds static blogs, websites, CSVs, text files, and more.
- https://scroll.pub/blog/textFiles.html
- https://scroll.pub/blog/scrollsets.html
+Where are the docs?
+===================
+- 1-page cheat sheet
+ https://scroll.pub/cheatsheet.html
+- Official Blog
  https://scroll.pub/blog/index.html
- https://scroll.pub/index.html
+- Release Notes
+ https://scroll.pub/releaseNotes.html
 
-What is Scroll used for?
-========================
+What can I build with Scroll?
+=============================
 
 Blogs
 =====
 [Image Omitted]
  https://breckyunits.com/
- The screenshot above is from a blog powered by Scroll.
+ This screenshot is from a blog powered by Scroll.
   https://breckyunits.com/
 
 Knowledge Bases
@@ -42,29 +42,23 @@ Static Sites
 This site you are reading is powered by Scroll.
  https://scroll.pub/index.html
 
-Can I try Scroll in the browser?
-================================
-Yes. Launch a new Scroll site here.
- http://hub.scroll.pub/
-
-Or try the Scroll editor with autocomplete and highlighting.
- https://try.scroll.pub/
-
 What makes Scroll different?
 ============================
-Scroll has an unusually simple syntax called Scroll Notation, an extensive set of features needed by researchers, bloggers, knowledge bases and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
+Scroll has an unusually simple syntax called Scroll Notation, an extensive set of parsers and commands needed by researchers, bloggers, knowledge bases and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
+
+What is the Scroll command line app?
+====================================
+The command line app builds static blogs, websites, CSVs, text files, and more.
+ https://scroll.pub/blog/textFiles.html
  https://scroll.pub/blog/scrollsets.html
- https://notation.scroll.pub
+ https://scroll.pub/blog/index.html
+ https://scroll.pub/index.html
 
-How do I try Scroll without installing?
-=======================================
-Here.
- http://hub.scroll.pub/
-
-How do I install Scroll on my machine?
+How do I install the command line app?
 ======================================
-Scroll is an npm package. Install with:
- https://www.npmjs.com/package/scroll-cli
+Scroll currently requires Node.js.
+ https://nodejs.org/
+After Node.js is installed, install Scroll with:
 npm install -g scroll-cli
 
 How do I install the developer version?
@@ -82,25 +76,19 @@ Yes. Breck's Lab publishes Scroll to the public domain.
 The source code is hosted on GitHub.
  https://github.com/breck7/scroll
 
-Where are the docs?
-===================
-- CheatSheet
- https://scroll.pub/cheatsheet.html
+Can I write Parsers in my browser?
+==================================
+Yes. You can use Scroll Designer to write Parsers in your browser.
+ https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers
+
+Any more docs?
+==============
 - FAQ
  https://scroll.pub/faq.html
 - Tutorial
  https://scroll.pub/tutorial.html
-- Blog
- https://scroll.pub/blog/index.html
 - Roadmap
  https://scroll.pub/roadmap.html
-- Release Notes
- https://scroll.pub/releaseNotes.html
-
-Can I write Parsers in my browser?
-==================================
-Yes. You can use Scroll Designer to write Parsers in your browser without downloading anything.
- https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers
 
 Did the latest version of Scroll pass the automated tests?
 ==========================================================

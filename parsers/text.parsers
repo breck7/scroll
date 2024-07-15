@@ -1,6 +1,7 @@
 buildTxtParser
  description Compile to TXT file.
  extends abstractBuildCommandParser
+ boolean isPopular true
 
 plainTextParser
  description Plain text oneliner or block.
