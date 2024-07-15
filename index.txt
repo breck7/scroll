@@ -58,7 +58,8 @@ How do I install the command line app?
 ======================================
 Scroll currently requires Node.js.
  https://nodejs.org/
-After Node.js is installed, install Scroll with:
+After Node.js is installed, install the npm package with:
+ https://www.npmjs.com/package/scroll-cli
 npm install -g scroll-cli
 
 How do I install the developer version?

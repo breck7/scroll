@@ -60,7 +60,8 @@ The command line app builds static blogs, websites, CSVs, text files, and more.
 ? How do I install the command line app?
 Scroll currently requires Node.js.
  https://nodejs.org/ Node.js
-After Node.js is installed, install Scroll with:
+After Node.js is installed, install the npm package with:
+ https://www.npmjs.com/package/scroll-cli npm package
 code
  npm install -g scroll-cli
 
