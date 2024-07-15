@@ -1,5 +1,5 @@
 printAuthorParser
- description Prints a byline with the author's name and optionally a link to them.
+ description Prints author byline.
  extends abstractPrintMetaParser
  // todo: we need pattern matching added to sdk to support having no params or a url and personNameCell
  catchAllCellType anyCell
@@ -26,5 +26,5 @@ printAuthorParser
 authorParser
  cells metaCommandWordCell urlCell
  catchAllCellType personNameCell
- description Set the author name of a document along with a URL to link to them. URL comes first. Prints nothing by itself, but is printed with the title in text mode and in various metadata outputs.
+ description Set author URL and author name.
  extends abstractTopLevelSingleMetaParser

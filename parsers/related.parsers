@@ -1,5 +1,5 @@
 printRelatedListParser
- description Prints a list of related posts with years.
+ description Print links to related posts.
  extends abstractPrintMetaParser
  javascript
   compile() {
@@ -31,7 +31,7 @@ relatedScrollFilesParser
  extends abstractTopLevelSingleMetaParser
  catchAllCellType permalinkCell
  crux related
- description Set any related posts. Prints nothing by itself.
+ description Set related files.
  example
   ...
   That's all I have to say about hiking.

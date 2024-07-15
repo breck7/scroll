@@ -1,5 +1,5 @@
 printCheatSheetParser
- description Prints a cheat sheet for all parsers in the current parser.
+ description Print Scroll parser cheat sheet.
  extends abstractScrollParser
  cruxFromId
  javascript
@@ -12,7 +12,11 @@ printCheatSheetParser
     return clone
   }
   compile() {
-   return this.sampleProgram.map(node => node.toString()).join("<br>")
+   const css = `#scrollCheatSheet {color: grey;} #scrollCheatSheet a {color: #3498db; }`
+   return this.sampleProgram.map(node => {
+   const description = node.definition.description
+   return `<style>${css}</style><div id="scrollCheatSheet"><a>${node.toString()}</a> ${description || "ERRRRRRRR"}</div>`
+   }).join("\n")
   }
   compileTxt() {
    return this.sampleProgram.toString()

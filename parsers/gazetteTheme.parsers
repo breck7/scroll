@@ -1,5 +1,5 @@
 gazetteCssParser
- description The default Scroll theme.
+ description Default Scroll theme CSS.
  extends abstractThemeCssParser
  javascript
   get css() {

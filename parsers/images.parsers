@@ -1,5 +1,5 @@
 captionAftertextParser
- description An optional caption to accompany the resource.
+ description An image caption.
  crux caption
  extends paragraphParser
 
