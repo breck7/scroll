@@ -1,6 +1,7 @@
 importOnly
+buildHtml
+
 import settings.scroll
 metaTags
 gazetteCss
 pageHeader
-buildHtml

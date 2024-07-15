@@ -36,6 +36,7 @@ buildTxt - Compile to TXT file.
 canonicalUrl - Override canonical URL.
 caption - An image caption.
 catchAllParagraph - A paragraph.
+center - A centered paragraph.
 chat - A faux text chat conversation.
 code - A code block.
 commaTable - A table from CSV data.
