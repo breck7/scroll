@@ -14,7 +14,7 @@ Download as CSV | TSV | JSON
 endColumns
 <br>
 
-import changes.parsers
+import microlangs/changes.parsers
 
 thinColumns
 
