@@ -1,5 +1,5 @@
-Changes: A Mini-Language for Change Logs
-========================================
+Changes: A Microlang for Change Logs
+====================================
 by Breck Yunits
 
 [Image Omitted]
@@ -18,8 +18,8 @@ What if there was 1 language that let you do all 3 things at once?
 
 ***
 
-Introducing Changes, a mini-language (only 70 lines of code, including comments) that makes it as concise as possible to write, read and analyze change logs.
- https://github.com/breck7/scroll/blob/main/changes.parsers
+Introducing Changes, a microlang (only 70 lines of code, including comments) that makes it as concise as possible to write, read and analyze change logs.
+ https://github.com/breck7/scroll/blob/main/microlangs/changes.parsers
 
 Changes generates a pretty HTML file for your end users; allows for including unlimited detailed technical information for your developers; and generates summary statistics as TSV, CSV, and JSON for your project managers.
 
@@ -53,7 +53,7 @@ title My Release Notes
 printTitle
 buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
 // You can import the changes parsers or just copy/paste the 70 lines into your own file.
-import [pathToScroll]/changes.parser
+import [pathToScroll]/microlangs/changes.parser
 
 thinColumns
 

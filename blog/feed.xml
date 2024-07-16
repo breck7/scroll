@@ -4,7 +4,7 @@
  <title>Feed</title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Mon, 15 Jul 2024 23:45:24 +0000</lastBuildDate>
+ <lastBuildDate>Tue, 16 Jul 2024 17:51:55 +0000</lastBuildDate>
  <language>en-us</language>
  <item>
   <title>How I Designed Helpful 404's and Stopped Worrying about Broken Links</title>
@@ -17,7 +17,7 @@
   <pubDate>Tue, 09 Jul 2024 00:00:00 +0000</pubDate>
  </item>
  <item>
-  <title>Changes: A Mini-Language for Change Logs</title>
+  <title>Changes: A Microlang for Change Logs</title>
   <link>https://scroll.pub/blog/changes.html</link>
   <pubDate>Mon, 01 Jul 2024 00:00:00 +0000</pubDate>
  </item>
@@ -27,7 +27,7 @@
   <pubDate>Mon, 24 Jun 2024 00:00:00 +0000</pubDate>
  </item>
  <item>
-  <title>Stamp: a mini-language for project templates</title>
+  <title>Stamp: a microlang for project templates</title>
   <link>https://scroll.pub/blog/stamp.html</link>
   <pubDate>Sun, 23 Jun 2024 00:00:00 +0000</pubDate>
  </item>

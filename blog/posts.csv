@@ -1,9 +1,9 @@
 date,title,permalink,groups,wordCount,minutes
 07/12/2024,How I Designed Helpful 404's and Stopped Worrying about Broken Links,helpful404s.html,All,532,2.7
 07/09/2024,Convert CSVs to ScrollSets,csvToScrollSet.html,All,68,0.3
-07/01/2024,Changes: A Mini-Language for Change Logs,changes.html,All,394,2.0
+07/01/2024,Changes: A Microlang for Change Logs,changes.html,All,394,2.0
 06/24/2024,Write scatterplot to get a scatterplot,plot.html,All,365,1.8
-06/23/2024,Stamp: a mini-language for project templates,stamp.html,All,264,1.3
+06/23/2024,Stamp: a microlang for project templates,stamp.html,All,262,1.3
 04/29/2024,Scroll now generates text files,textFiles.html,All,126,0.6
 04/21/2024,ScrollSets: source code for CSVs,scrollsets.html,All,1117,5.6
 05/08/2023,Introducing Program Links,programLinks.html,All,528,2.6

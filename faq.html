@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p class="scrollParagraph">Scroll is a collection of <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> and there are currently dozens of <code>.parsers</code> files in the base distribution.</p>
 <p class="scrollParagraph">Each Parser can define a mini language of its own. You can simply add (or remove) Parsers to generate your own custom dialects to better fit your domains.</p>
 <p class="scrollParagraph">Think of it as one file, many languages.</p>
-<p class="scrollParagraph">Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by making the most of the indent trick (also known as the <a href="https://en.wikipedia.org/wiki/Off-side_rule">off-side rule</a>). Each line gets its own scope. So you can add, remove, and update your mini-languages and their associated blocks without breaking the rest of the documents.</p>
+<p class="scrollParagraph">Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by making the most of the indent trick (also known as the <a href="https://en.wikipedia.org/wiki/Off-side_rule">off-side rule</a>). Each line gets its own scope. So you can add, remove, and update your microlanguages and their associated blocks without breaking the rest of the documents.</p>
 <p class="scrollParagraph">In Scroll, it's almost as if each line is its own file.</p>
 <div class="scrollSection"><h4 class="scrollQuestion">How do I extend Scroll?</h4>
 <p class="scrollParagraph">Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a <em>recipe</em> parser and write a post like this:</p>
@@ -124,7 +124,7 @@ recipe
     const addYourSpecialMagic = ""
     return `&lt;div>${addYourSpecialMagic}&lt;/div>`
   }</code>
-<p class="scrollParagraph">Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.</p>
+<p class="scrollParagraph">Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine microlanguages in a simple and non-conflicting way. What you do with those languages is up to you.</p>
 <p class="scrollParagraph">For an extended example of extending Scroll check out this <a href="https://scroll.pub/blog/indented-heredocs.html">one</a> which adds node types for Markdown, Textile, and BBCode.</p>
 </div>
 <div class="scrollSection"><h4 class="scrollQuestion">What is the biggest downside to Scroll?</h4>

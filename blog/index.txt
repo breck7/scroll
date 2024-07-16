@@ -10,8 +10,8 @@ Convert CSVs to ScrollSets
 07/09/2024
 https://scroll.pub/blog/csvToScrollSet.html
 
-Changes: A Mini-Language for Change Logs
-========================================
+Changes: A Microlang for Change Logs
+====================================
 07/01/2024
 https://scroll.pub/blog/changes.html
 
@@ -20,8 +20,8 @@ Write scatterplot to get a scatterplot
 06/24/2024
 https://scroll.pub/blog/plot.html
 
-Stamp: a mini-language for project templates
-============================================
+Stamp: a microlang for project templates
+========================================
 06/23/2024
 https://scroll.pub/blog/stamp.html
 

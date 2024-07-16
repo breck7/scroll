@@ -9,7 +9,7 @@ Scroll started as an extensible alternative to Markdown.
 ========================================================
 Like Markdown, Scroll is a plaintext language that can build HTML (among other things).
 Scroll is minimal to help you reduce your ideas to their essence.
-You can extend Scroll by adding your own Parsers to build new mini-languages to fully develop your ideas.
+You can extend Scroll by adding your own Parsers to build new microlanguages to fully develop your ideas.
 
 Scroll debuted in 2021 and is now on Version 98, approximately 1 major release every 2 weeks. Scroll has no official spec yet but creating a spec is on the roadmap.
  https://scroll.pub/roadmap.html
