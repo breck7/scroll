@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+108.3.1 7/16/2024
+=================
+🏥 include microlangs in npm package
+
 108.3.0 7/16/2024
 =================
 🎉 added `contacts` microlang.

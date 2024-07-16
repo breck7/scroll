@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 108.3.1 7/16/2024
+🏥 include microlangs in npm package
+
 📦 108.3.0 7/16/2024
 🎉 added `contacts` microlang.
 🎉 changed gazetteCss link color to be subtler
