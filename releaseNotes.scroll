@@ -18,6 +18,11 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 108.3.0 7/16/2024
+🎉 added `contacts` microlang.
+🎉 changed gazetteCss link color to be subtler
+🎉 added `microlangs` folder
+
 📦 108.2.0 7/15/2024
 🎉 added `center` parser! first blink, now center!
 

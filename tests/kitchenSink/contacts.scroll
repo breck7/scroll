@@ -1,0 +1,20 @@
+import ../../microlangs/contacts.parsers
+title My Contacts
+buildConcepts contacts.csv contacts.json contacts.tsv
+buildHtml
+gazetteCss
+mediumColumns 1
+printTitle
+printConcepts
+tableSearch
+
+👤 Jack Doe
+phone +1 (555) 123-4567
+email john.doe@example.com
+birthday 2/23/84
+notes Daughter - Samantha.
+
+👤 Jill Smith
+phone +1 (555) 123-4562
+email jill@gmail.com
+birthday 1/23/80
