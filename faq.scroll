@@ -47,7 +47,7 @@ Each Parser can define a mini language of its own. You can simply add (or remove
 
 Think of it as one file, many languages.
 
-Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by making the most of the indent trick (also known as the off-side rule). Each line gets its own scope. So you can add, remove, and update your mini-languages and their associated blocks without breaking the rest of the documents.
+Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by making the most of the indent trick (also known as the off-side rule). Each line gets its own scope. So you can add, remove, and update your microlanguages and their associated blocks without breaking the rest of the documents.
  https://en.wikipedia.org/wiki/Off-side_rule off-side rule
 
 In Scroll, it's almost as if each line is its own file.
@@ -77,7 +77,7 @@ code
      const addYourSpecialMagic = ""
      return `<div>${addYourSpecialMagic}</div>`
    }
-Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine mini-languages in a simple and non-conflicting way. What you do with those languages is up to you.
+Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine microlanguages in a simple and non-conflicting way. What you do with those languages is up to you.
 For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
  https://scroll.pub/blog/indented-heredocs.html one
 

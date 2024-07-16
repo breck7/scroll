@@ -1,7 +1,7 @@
 author https://twitter.com/breckyunits Breck Yunits
 date 7/01/2024
 groups All
-title Changes: A Mini-Language for Change Logs
+title Changes: A Microlang for Change Logs
 
 import header.scroll
 keyboardNav
@@ -28,7 +28,7 @@ What if there was 1 language that let you do all 3 things at once?
 
 ***
 
-Introducing Changes, a mini-language (only 70 lines of code, including comments) that makes it as concise as possible to write, read and analyze change logs.
+Introducing Changes, a microlang (only 70 lines of code, including comments) that makes it as concise as possible to write, read and analyze change logs.
  https://github.com/breck7/scroll/blob/main/microlangs/changes.parsers 70 lines of code
 
 Changes generates a pretty HTML file for your end users; allows for including unlimited detailed technical information for your developers; and generates summary statistics as TSV, CSV, and JSON for your project managers.
