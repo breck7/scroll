@@ -5,6 +5,7 @@ https://scroll.pub/blog/gazette.html
 https://scroll.pub/blog/full.html
 https://scroll.pub/blog/feed.html
 https://scroll.pub/blog/csv.html
+https://scroll.pub/blog/contacts.html
 https://scroll.pub/blog/helpful404s.html
 https://scroll.pub/blog/csvToScrollSet.html
 https://scroll.pub/blog/changes.html

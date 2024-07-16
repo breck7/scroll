@@ -1,0 +1,86 @@
+author https://twitter.com/breckyunits Breck Yunits
+date 7/16/2024
+groups All
+title Contacts: A Microlang for Managing Contacts
+
+import header.scroll
+keyboardNav
+printTitle
+printAuthor
+
+mediumColumns 1
+
+Imagine a single plain text file named `contacts.scroll` where you stored the contact info for your family, friends, and colleagues, and you could track changes with git, compile it to a beautiful PDF or HTML page with search and sort, and it would also compile to CSV and/or JSON for import into iPhone, Android, Gmail, Outlook, et cetera?
+ dateline
+
+Also imagine that this tool is free, open source, and public domain.
+
+***
+
+Introducing *Contacts*, a microlanguage (currently 23 lines of code, including comments) that makes it as concise as possible to add, prune, display, print and export your contacts.
+ https://github.com/breck7/scroll/blob/main/microlangs/contacts.parser 23 lines of code
+
+***
+
+There's almost nothing to learn (the code is self-explanatory).
+
+In fact, it's almost guaranteed that using Contacts you will need to write less (we've taken every unnecessary character out).
+
+***
+
+# Example
+
+code
+ 👤 Jack Doe
+ phone +1 (555) 123-4567
+ email john.doe@example.com
+ birthday 2/23/84
+ notes Daughter - Samantha.
+ 
+ 👤 Jill Smith
+ phone +1 (555) 123-4562
+ email jill@gmail.com
+ birthday 1/23/80
+
+***
+
+# How to use
+
+1. Create a file named something like `contacts.scroll` with this content:
+code
+ // You can import the file, or just copy/paste the 21 lines of code here.
+ import [pathToScroll]/microlangs/contacts.parser
+ title My Contacts
+ buildConcepts contacts.csv contacts.json contacts.tsv
+ buildHtml
+ gazetteCss
+ mediumColumns 1
+ printTitle
+ printConcepts
+ tableSearch
+ 
+ 👤 Jack Doe
+ phone +1 (555) 123-4567
+ email john.doe@example.com
+ birthday 2/23/84
+ notes Daughter - Samantha.
+ 
+ 👤 Jill Smith
+ phone +1 (555) 123-4562
+ email jill@gmail.com
+ birthday 1/23/80
+
+2. Run `scroll build`
+
+Done! You should now see a contacts.html file for display and printing as well as TSV, CSV, and JSON files.
+ link ../tests/kitchenSink/contacts.html contacts.html
+
+***
+
+What do you think? Anything that should be added/removed/improved?
+
+****
+
+endColumns
+
+import footer.scroll

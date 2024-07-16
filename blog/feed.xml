@@ -4,8 +4,13 @@
  <title>Feed</title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Tue, 16 Jul 2024 17:51:55 +0000</lastBuildDate>
+ <lastBuildDate>Tue, 16 Jul 2024 18:23:39 +0000</lastBuildDate>
  <language>en-us</language>
+ <item>
+  <title>Contacts: A Microlang for Managing Contacts</title>
+  <link>https://scroll.pub/blog/contacts.html</link>
+  <pubDate>Tue, 16 Jul 2024 00:00:00 +0000</pubDate>
+ </item>
  <item>
   <title>How I Designed Helpful 404's and Stopped Worrying about Broken Links</title>
   <link>https://scroll.pub/blog/helpful404s.html</link>
