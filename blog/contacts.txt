@@ -11,7 +11,7 @@ Also imagine that this tool is free, open source, and public domain.
 ***
 
 Introducing *Contacts*, a microlanguage (currently 23 lines of code, including comments) that makes it as concise as possible to add, prune, display, print and export your contacts.
- https://github.com/breck7/scroll/blob/main/microlangs/contacts.parser
+ https://github.com/breck7/scroll/blob/main/microlangs/contacts.parsers
 
 ***
 
