@@ -1,4 +1,5 @@
-author https://breckyunits.com Breck Yunits
+authors Breck Yunits
+ https://breckyunits.com Breck Yunits
 buildConcepts planets.csv planets.json planets.tsv
 buildMeasures planetMeasures.tsv
  sortBy -Values
