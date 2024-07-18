@@ -1,6 +1,7 @@
 How I Designed Helpful 404's and Stopped Worrying about Broken Links
 ====================================================================
 by Breck Yunits
+ https://breckyunits.com
 
 July 12, 2024
 

@@ -1,6 +1,7 @@
 Stamp: a microlang for project templates
 ========================================
 by Breck Yunits
+ https://twitter.com/breckyunits
 
 June 23, 2024
 

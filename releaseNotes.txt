@@ -8,6 +8,19 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+109.0.0 7/18/2024
+=================
+🎉 `printCsv` now exports `authors` as well
+🎉 added `authors` parser to support multiple authors
+🎉 `authors` now can use all aftertext features
+⚠️ BREAKING: `printAuthor` is now `printAuthors`
+⚠️ BREAKING: `author` is now `authors`.
+
+To update from `author` to `authors`, you can use this regex find/replace:
+
+Find: ^author ([^ ]+) (.*)
+Replace: authors $2\n $1 $2
+
 108.3.1 7/16/2024
 =================
 🏥 include microlangs in npm package

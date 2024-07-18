@@ -1,6 +1,7 @@
 Convert CSVs to ScrollSets
 ==========================
 by Breck Yunits
+ https://github.com/breck7
 
 July 9, 2024
 

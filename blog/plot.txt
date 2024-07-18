@@ -1,6 +1,7 @@
 Write scatterplot to get a scatterplot
 ======================================
 by Breck Yunits
+ https://twitter.com/breckyunits
 
 June 24, 2024
 

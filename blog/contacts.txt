@@ -1,6 +1,7 @@
 Contacts: A Microlang for Managing Contacts
 ===========================================
 by Breck Yunits
+ https://twitter.com/breckyunits
 
 July 16, 2024
 

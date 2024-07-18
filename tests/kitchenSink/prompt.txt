@@ -91,7 +91,8 @@ The Files:
  * This should not print as a table, even though it has a 2 tabs( 	 and `	`), because it is in an explicit paragraph node.
  
 /home/runner/work/scroll/scroll/tests/kitchenSink/top-sinks.scroll
- author https://breckyunits.com Breck Yunits
+ authors Breck Yunits
+  https://breckyunits.com Breck Yunits
  date 1/11/2019
  groups index all
  replace NUM_SINKS 283
@@ -111,7 +112,7 @@ The Files:
  
  printTitle
  
- printAuthor
+ printAuthors
  
  keyboardNav
  

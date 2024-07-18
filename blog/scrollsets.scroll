@@ -1,4 +1,5 @@
-author https://breckyunits.com Breck Yunits
+authors Breck Yunits
+ https://breckyunits.com Breck Yunits
 buildConcepts planets.csv planets.json planets.tsv
 buildMeasures planetMeasures.tsv
  sortBy -Values
@@ -10,7 +11,7 @@ import header.scroll
 keyboardNav
 mediumColumns 1
 printTitle
-printAuthor
+printAuthors
 
 image scrollsets.png
  caption More examples of ScrollSets from sets.scroll.pub.

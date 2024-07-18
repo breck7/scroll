@@ -1,11 +1,12 @@
-author https://github.com/breck7 Breck Yunits
+authors Breck Yunits
+ https://github.com/breck7 Breck Yunits
 date 7/09/2024
 groups All
 title Convert CSVs to ScrollSets
 
 import header.scroll
 printTitle
-printAuthor
+printAuthors
 keyboardNav
 copyButtons
 

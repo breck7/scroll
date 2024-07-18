@@ -20,7 +20,7 @@ Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of 
 ##### - An html h5 tag.
 > - A quote.
 aboveAsCode - Print code above.
-author - Set author URL and author name.
+authors - Set author(s) name(s).
 baseUrl - Required for RSS and OpenGraph.
 belowAsCode - Print code below.
 belowAsCodeUntil - Print code above until match.
@@ -76,7 +76,7 @@ permalink - Override output filename.
 pipeTable - A table from |SV data.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
-printAuthor - Prints author byline.
+printAuthors - Prints author(s) byline.
 printConcepts - Print concepts to HTML table.
 printCsv - Print group metadata to CSV.
 printDate - Print published date.

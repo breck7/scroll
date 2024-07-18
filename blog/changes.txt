@@ -1,6 +1,7 @@
 Changes: A Microlang for Change Logs
 ====================================
 by Breck Yunits
+ https://twitter.com/breckyunits
 
 [Image Omitted]
 

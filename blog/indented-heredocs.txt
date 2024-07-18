@@ -1,6 +1,7 @@
 The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
 ==========================================================================================
 by Breck Yunits
+ https://github.com/breck7
 
 August 23, 2021
 
