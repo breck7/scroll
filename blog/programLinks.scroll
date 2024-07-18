@@ -6,7 +6,7 @@ title Introducing Program Links
 
 import header.scroll
 printTitle
-printAuthor
+printAuthors
 
 keyboardNav
 copyButtons

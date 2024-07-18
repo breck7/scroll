@@ -8,7 +8,7 @@ openGraphImage scatterplot.png
 import header.scroll
 keyboardNav
 printTitle
-printAuthor
+printAuthors
 
 mediumColumns 1
 

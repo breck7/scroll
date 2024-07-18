@@ -6,7 +6,7 @@ title Introducing the Blink Tag
 
 import header.scroll
 printTitle
-printAuthor
+printAuthors
 printDate
 
 mediumColumns 1

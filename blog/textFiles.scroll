@@ -8,7 +8,7 @@ import header.scroll
 keyboardNav
 printTitle
 
-printAuthor
+printAuthors
 
 thinColumns 1
 

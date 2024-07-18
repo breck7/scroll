@@ -6,7 +6,7 @@ title Convert CSVs to ScrollSets
 
 import header.scroll
 printTitle
-printAuthor
+printAuthors
 keyboardNav
 copyButtons
 

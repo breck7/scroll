@@ -7,7 +7,7 @@ title Contacts: A Microlang for Managing Contacts
 import header.scroll
 keyboardNav
 printTitle
-printAuthor
+printAuthors
 
 mediumColumns 1
 

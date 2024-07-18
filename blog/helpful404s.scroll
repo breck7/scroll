@@ -7,7 +7,7 @@ title How I Designed Helpful 404's and Stopped Worrying about Broken Links
 import header.scroll
 keyboardNav
 printTitle
-printAuthor
+printAuthors
 mediumColumns 1
 
 _Woohoo!_

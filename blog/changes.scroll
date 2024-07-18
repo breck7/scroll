@@ -7,7 +7,7 @@ title Changes: A Microlang for Change Logs
 import header.scroll
 keyboardNav
 printTitle
-printAuthor
+printAuthors
 
 thinColumns 1
 image changes.jpeg

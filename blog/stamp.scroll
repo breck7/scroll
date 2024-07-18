@@ -7,7 +7,7 @@ title Stamp: a microlang for project templates
 import header.scroll
 keyboardNav
 printTitle
-printAuthor
+printAuthors
 
 mediumColumns 1
 

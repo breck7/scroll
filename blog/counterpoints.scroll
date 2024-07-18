@@ -6,7 +6,7 @@ title Counterpoints: A new tool for thought in the Scroll Language
 
 import header.scroll
 printTitle
-printAuthor
+printAuthors
 keyboardNav
 copyButtons
 
