@@ -213,6 +213,7 @@ wrapsOnParser
       return wraps.filter(wrap => this.content.includes(wrap.name))
     return wraps
   }
+  matchWholeLine = true
   getMatches(text) {
    const exclusives = []
    return this.wraps.map(wrap => this.runPattern(text, wrap, exclusives)).filter(i => i).flat()

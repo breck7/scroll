@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 109.0.2 7/19/2024
+🏥 fixed incorrect error report.
+
 📦 109.0.1 7/19/2024
 🏥 fix cell syntax highlighting in `wrapsOn`. You can write `wrapsOn none` to disable all wraps.
 
