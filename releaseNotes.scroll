@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 109.0.1 7/19/2024
+🏥 fix cell syntax highlighting in `wrapsOn`. You can write `wrapsOn none` to disable all wraps.
+
 📦 109.0.0 7/18/2024
 🎉 `printCsv` now exports `authors` as well
 🎉 added `authors` parser to support multiple authors
