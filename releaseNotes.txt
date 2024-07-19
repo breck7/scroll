@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+109.1.0 7/19/2024
+=================
+🎉 added support for `height` and `width` to images
+🎉 added support for `float` to images
+
 109.0.2 7/19/2024
 =================
 🏥 fixed incorrect error report.
