@@ -4,7 +4,7 @@ import header.scroll
 printTitle
 
 <center style="color: grey; padding-bottom: 20px;">
-The Scroll LeetSheet is for the common language. *Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers.
+*Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers.
  link leetsheet.html Scroll LeetSheet
 </center>
 
@@ -16,6 +16,11 @@ endColumns
 
 <center style="color: grey; padding-bottom: 20px;">
 Commonly used parsers are <b>bolded</b>.
+Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Scroll LeetSheet
+ https://sdk.scroll.pub/designer/index.html Parser Designer
+ https://sdk.scroll.pub/sandbox/index.html Scroll Notation Sandbox
+ https://reddit.com/r/WorldWideScroll r/WorldWideScroll
+ link leetsheet.html Scroll LeetSheet
 </center>
 
 import footer.scroll

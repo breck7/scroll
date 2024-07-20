@@ -1,7 +1,7 @@
 Parsers LeetSheet
 =================
 
-The Scroll LeetSheet is for the common language. *Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers.
+*Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers.
  https://scroll.pub/leetsheet.html
 
 _extendsJsClass - Deprecated
@@ -41,3 +41,8 @@ uniqueLine - If present and there are more than 1 of these lines on the parent, 
 version - Version number of your language. Generally used on parsers marked root.
 
 Commonly used parsers are bolded.
+Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Scroll LeetSheet
+ https://sdk.scroll.pub/designer/index.html
+ https://sdk.scroll.pub/sandbox/index.html
+ https://reddit.com/r/WorldWideScroll
+ https://scroll.pub/leetsheet.html

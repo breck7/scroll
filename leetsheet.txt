@@ -125,3 +125,8 @@ wideColumns - Wide columns.
 youTube - A YouTube video widget.
 
 Commonly used parsers are bolded.
+Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
+ http://hub.scroll.pub
+ https://try.scroll.pub
+ https://reddit.com/r/WorldWideScroll
+ https://scroll.pub/parserLeetsheet.html
