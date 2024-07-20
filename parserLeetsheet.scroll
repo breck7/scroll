@@ -5,7 +5,6 @@ printTitle
 
 <center style="color: grey; padding-bottom: 20px;">
 *Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers.
- link leetsheet.html Scroll LeetSheet
 </center>
 
 thinColumns 4
