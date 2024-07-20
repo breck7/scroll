@@ -8,6 +8,17 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+109.3.0 7/20/2024
+=================
+🎉 easily apply styling to a whole paragraph using aftertext.
+
+Demo:
+
+Hello world
+This is italicized
+Make this code
+Strikethrough this whole line.
+
 109.2.0 7/19/2024
 =================
 🎉 add `printAdvancedLeetSheet` after feedback in r/WorldWideScroll

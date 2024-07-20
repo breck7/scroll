@@ -1,5 +1,12 @@
 [
   {
+    "version": "109.3.0",
+    "releaseDate": "7/20/2024",
+    "bugFixes": 0,
+    "newFeatures": 1,
+    "breakingChanges": 0
+  },
+  {
     "version": "109.2.0",
     "releaseDate": "7/19/2024",
     "bugFixes": 0,

@@ -8,6 +8,7 @@ https://scroll.pub/script.html
 https://scroll.pub/relativeSnippets.html
 https://scroll.pub/redirectTest.html
 https://scroll.pub/openGraphImages.html
+https://scroll.pub/markups.html
 https://scroll.pub/maps.html
 https://scroll.pub/lists.html
 https://scroll.pub/index.html

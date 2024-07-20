@@ -18,6 +18,21 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 109.3.0 7/20/2024
+🎉 easily apply styling to a whole paragraph using aftertext.
+
+Demo:
+
+belowAsCode
+Hello world
+ bold
+This is italicized
+ italics
+Make this code
+ code
+Strikethrough this whole line.
+ strike
+
 📦 109.2.0 7/19/2024
 🎉 add `printAdvancedLeetSheet` after feedback in r/WorldWideScroll
  https://www.reddit.com/r/WorldWideScroll/comments/1e77m6p/writing_parsers/ r/WorldWideScroll
