@@ -16,6 +16,11 @@ endColumns
 
 <center style="color: grey; padding-bottom: 20px;">
 Commonly used parsers are <b>bolded</b>.
+Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
+ http://hub.scroll.pub ScrollHub
+ https://try.scroll.pub Try Scroll
+ https://reddit.com/r/WorldWideScroll r/WorldWideScroll
+ link parserLeetsheet.html Parsers LeetSheet
 </center>
 
 import footer.scroll
