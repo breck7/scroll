@@ -76,6 +76,7 @@ permalink - Override output filename.
 pipeTable - A table from |SV data.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
+printAdvancedLeetSheet - Print Parsers leet sheet.
 printAuthors - Prints author(s) byline.
 printConcepts - Print concepts to HTML table.
 printCsv - Print group metadata to CSV.

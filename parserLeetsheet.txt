@@ -1,0 +1,43 @@
+Parsers LeetSheet
+=================
+
+The Scroll LeetSheet is for the common language. *Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers.
+ https://scroll.pub/leetsheet.html
+
+_extendsJsClass - Deprecated
+_rootParserJsHeader - Deprecated
+// - A comment.
+baseParser - In rare cases with untyped content you can use a blobParser, for now, to skip parsing for performance gains. The base errorParser will report errors when parsed. Use that if you don't want to implement your own error parser.
+boolean - Assign a constant to a parser which will be available in the compiled parser classes.
+catchAllCellType - Aka 'listCellType'. Use this when the value in a key/value pair is a list. If there are extra words in the node's line, parse these words as this type. Often used with `listDelimiterParser`.
+catchAllParser - If a parser is not found in the inScope list, instantiate this type of node instead.
+cellParser - prefix/postfix/omnifix parsing strategy. If missing, defaults to prefix.
+cells - Describes the word type of each word in the line.
+childrenKey - Advanced keyword to help with serialization/deserialization of blobs. If present will serialize the node to an object and set a property with this key and the value set to the node's children.
+compiler - 
+compilesTo - Optionally specify a file extension that will be used when compiling your language to a file. Generally used on parsers marked root.
+contentKey - Advanced keyword to help with isomorphic JSON serialization/deserialization. If present will serialize the node to an object and set a property with this key and the value set to the node's content.
+crux - Use this property for prefix languages where the first word is the keyword.
+cruxFromId - Include this to derive the crux word from the node type id, for example 'fooParser' would have crux of 'foo'.
+description - 
+example - Provide a one line description and then a snippet of example code.
+extends - parser definitions can extend others.
+extensions - File extensions of your language. Generally used for parsers marked "root". Sometimes your language might have multiple extensions. If you don't add this, the root node's parserId will be used as the default file extension.
+float - Assign a constant to a parser which will be available in the compiled parser classes.
+frequency - 
+inScope - A list of possible child parsers for a node.
+int - Assign a constant to a parser which will be available in the compiled parser classes.
+javascript - Provide raw javascript code that will be inserted into a node type's class.
+listDelimiter - If present will serialize the content of the node to an array of strings split on the provided delimiter.
+pattern - If present, this regex will be used to determine the parser instead of the cruxParser.
+required - If present, the parent node will have an error if one of these nodes is not provided.
+root - Mark a parser as root if it is the root of your programming language. The parserId will be the name of your language. The parserId will also serve as the default file extension, if you don't specify another. If more than 1 parser is marked as "root", the last one wins.
+single - If present and there are more than 1 of these nodes on the parent, an error will be present. Can be overridden by a child class by setting to false.
+sortTemplate - A one liner for describing how the content of the node should be sorted. Put a blank cell to insert a line break between sections.
+string - Assign a constant to a parser which will be available in the compiled parser classes.
+tags - 
+uniqueFirstWord - For catch all parsers or pattern nodes, use this to indicate the first words should be unique.
+uniqueLine - If present and there are more than 1 of these lines on the parent, an error will be present. Can be overridden by a child class by setting to false.
+version - Version number of your language. Generally used on parsers marked root.
+
+Commonly used parsers are bolded.

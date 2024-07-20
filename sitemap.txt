@@ -5,6 +5,7 @@ https://scroll.pub/roadmap.html
 https://scroll.pub/releaseNotes.html
 https://scroll.pub/index.html
 https://scroll.pub/parserStats.html
+https://scroll.pub/parserLeetsheet.html
 https://scroll.pub/leetsheet.html
 https://scroll.pub/header.html
 https://scroll.pub/gazette.html

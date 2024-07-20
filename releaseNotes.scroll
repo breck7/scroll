@@ -18,6 +18,10 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 109.2.0 7/19/2024
+🎉 add `printAdvancedLeetSheet` after feedback in r/WorldWideScroll
+ https://www.reddit.com/r/WorldWideScroll/comments/1e77m6p/writing_parsers/ r/WorldWideScroll
+
 📦 109.1.0 7/19/2024
 🎉 added support for `height` and `width` to images
 🎉 added support for `float` to images

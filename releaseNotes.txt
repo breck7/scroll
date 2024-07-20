@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv
  https://scroll.pub/releaseNotes.json
 
+109.2.0 7/19/2024
+=================
+🎉 add `printAdvancedLeetSheet` after feedback in r/WorldWideScroll
+ https://www.reddit.com/r/WorldWideScroll/comments/1e77m6p/writing_parsers/
+
 109.1.0 7/19/2024
 =================
 🎉 added support for `height` and `width` to images
