@@ -69,15 +69,9 @@ cd scroll
 npm install -g .
 npm test
 
-How how I run the CLI?
- scroll build
- scroll delete
- scroll format
- scroll help
- scroll init
- scroll list
- scroll test
-======================================================================================================================
+How do I run the CLI?
+=====================
+scroll help
 
 Is Scroll open source?
 ======================
