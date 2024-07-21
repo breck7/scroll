@@ -1,7 +1,7 @@
 buildHtml
-gazetteCss
-
 title Statistics on Parser Usage
+
+gazetteCss
 
 thinColumns 1
 
@@ -9,4 +9,3 @@ printUsageStats
 tableSearch
 
 endColumns
-

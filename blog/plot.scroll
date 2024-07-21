@@ -2,8 +2,8 @@ authors Breck Yunits
  https://twitter.com/breckyunits Breck Yunits
 date 6/24/2024
 groups All
-title Write scatterplot to get a scatterplot
 openGraphImage scatterplot.png
+title Write scatterplot to get a scatterplot
 
 import header.scroll
 keyboardNav

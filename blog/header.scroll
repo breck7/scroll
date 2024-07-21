@@ -1,6 +1,6 @@
 importOnly
-buildTxt
 buildHtml
+buildTxt
 homeUrl ../index.html
 
 import settings.scroll
