@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 109.4.0 7/21/2024
+🎉 `printAdvancedLeetSheet` now also prints cell parser docs
+
 📦 109.3.0 7/20/2024
 🎉 easily apply styling to a whole paragraph using aftertext.
 
