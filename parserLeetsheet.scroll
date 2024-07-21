@@ -15,10 +15,11 @@ endColumns
 
 <center style="color: grey; padding-bottom: 20px;">
 Commonly used parsers are <b>bolded</b>.
-Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Scroll LeetSheet
+Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Release Notes & Roadmap · Scroll LeetSheet
  https://sdk.scroll.pub/designer/index.html Parser Designer
  https://sdk.scroll.pub/sandbox/index.html Scroll Notation Sandbox
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
+ https://sdk.scroll.pub/langs/parsers/ Release Notes & Roadmap
  link leetsheet.html Scroll LeetSheet
 </center>
 

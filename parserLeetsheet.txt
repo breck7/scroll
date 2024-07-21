@@ -40,8 +40,9 @@ uniqueLine - If present and there are more than 1 of these lines on the parent, 
 version - Version number of your language. Generally used on parsers marked root.
 
 Commonly used parsers are bolded.
-Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Scroll LeetSheet
+Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Release Notes & Roadmap · Scroll LeetSheet
  https://sdk.scroll.pub/designer/index.html
  https://sdk.scroll.pub/sandbox/index.html
  https://reddit.com/r/WorldWideScroll
+ https://sdk.scroll.pub/langs/parsers/
  https://scroll.pub/leetsheet.html
