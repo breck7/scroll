@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 109.5.0 7/21/2024
+🎉 added `codeWithHeader` parser
+
 📦 109.4.0 7/21/2024
 🎉 `printAdvancedLeetSheet` now also prints cell parser docs
 
