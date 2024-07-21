@@ -1,10 +1,10 @@
+buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
+buildMeasures releaseNotesMeasures.tsv
 title Scroll Release Notes
 
 import header.scroll
 printTitle
 ## A list of what has changed in Scroll releases.
-buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
-buildMeasures releaseNotesMeasures.tsv
 
 thinColumns 1
 Download as CSV | TSV | JSON
@@ -17,6 +17,12 @@ endColumns
 import microlangs/changes.parsers
 
 thinColumns
+
+📦 109.5.0 7/21/2024
+🎉 added `codeWithHeader` parser
+🎉 added `center` aftertext markup parser
+🎉 txt versions of aftertext links now includes the pattern
+🎉 added `printFormatLinks` parser
 
 📦 109.4.0 7/21/2024
 🎉 `printAdvancedLeetSheet` now also prints cell parser docs

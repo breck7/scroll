@@ -1,7 +1,7 @@
 Contacts: A Microlang for Managing Contacts
 ===========================================
 by Breck Yunits
- https://twitter.com/breckyunits
+ https://twitter.com/breckyunits Breck Yunits
 
 July 16, 2024
 
@@ -12,7 +12,7 @@ Also imagine that this tool is free, open source, and public domain.
 ***
 
 Introducing *Contacts*, a microlanguage (currently 23 lines of code, including comments) that makes it as concise as possible to add, prune, display, print and export your contacts.
- https://github.com/breck7/scroll/blob/main/microlangs/contacts.parsers
+ https://github.com/breck7/scroll/blob/main/microlangs/contacts.parsers 23 lines of code
 
 ***
 
@@ -67,7 +67,7 @@ birthday 1/23/80
 2. Run `scroll build`
 
 Done! You should now see a contacts.html file for display and printing as well as TSV, CSV, and JSON files.
- https://scroll.pub/blog/../tests/kitchenSink/contacts.html
+ https://scroll.pub/blog/../tests/kitchenSink/contacts.html contacts.html
 
 ***
 
@@ -83,6 +83,6 @@ What do you think? Anything that should be added/removed/improved?
 Notes
 =====
 1. The idea for Contacts was sparked by this tweet from Tyler Tringas.
- https://x.com/tylertringas/status/1813239718957461528
+ https://x.com/tylertringas/status/1813239718957461528 this tweet from Tyler Tringas
 
 ****

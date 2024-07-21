@@ -1,27 +1,27 @@
 ScrollSets: source code for CSVs
 ================================
 by Breck Yunits
- https://breckyunits.com
+ https://breckyunits.com Breck Yunits
 
 [Image Omitted]
  More examples of ScrollSets from sets.scroll.pub.
-  https://sets.scroll.pub/
+  https://sets.scroll.pub/ sets.scroll.pub
 
 April 21, 2024
 
 The source code for this blog post contains a ScrollSet about the planets and generates this HTML file as well as a CSV, a TSV, and a JSON file. This page demonstrates *ScrollSets*.
- https://scroll.pub/blog/scrollsets.scroll
- https://scroll.pub/blog/planets.csv
- https://scroll.pub/blog/planets.tsv
- https://scroll.pub/blog/planets.json
+ https://scroll.pub/blog/scrollsets.scroll source code for this blog post
+ https://scroll.pub/blog/planets.csv CSV
+ https://scroll.pub/blog/planets.tsv TSV
+ https://scroll.pub/blog/planets.json JSON
 
 ScrollSets are useful for small single day projects and large multi-year projects with thousands of concepts like PLDB (a Programming Language Database).
- https://pldb.io
+ https://pldb.io PLDB
 
 ***
 
 ScrollSets are normal plain text files written in Scroll that also contain measurements of concepts and output that data into formats ready for data visualization and analysis tools.
- https://scroll.pub/
+ https://scroll.pub/ Scroll
 
 ScrollSets are line oriented but represent a table(s). You might call them _deconstructed csvs_ or _deconstructed spreadsheets_.
 
@@ -100,8 +100,8 @@ However, it's important to also have simple, lower tech, timeless tools and Scro
 Can't you do this same thing with YAML and/or Markdown?
 =======================================================
 Yes! You can easily achieve the same thing as LLMs & ScrollSets using LLMs & YAML, or LLMs & YAML & Markdown.
- https://yaml.org/
- https://github.github.com/gfm/
+ https://yaml.org/ YAML
+ https://github.github.com/gfm/ Markdown
 
 For YAML, just put your documentation and schema in YAML comments up top and then have a tiny script to read that YAML and dump CSV/TSV/JSON or whatever. YAML gives you loads of data structures to use and is widely supported in many languages. But generating HTML from the same file would require more work.
 
@@ -130,10 +130,10 @@ What are the advanced features?
 What is the origin of ScrollSets?
 =================================
 LLM dataset generation is a _major_ breakthrough in datasets. ScrollSets are, at best, a minor improvement. They are designed to work alongside LLMs to help solve the Dataset Needed problem.
- https://breckyunits.com/dataset-needed.html
+ https://breckyunits.com/dataset-needed.html Dataset Needed
 
 ScrollSets evolved out of TrueBase. ScrollSets have eliminated the need for the TrueBase software (and existing TrueBase sites should be migrated to ScrollSets), but were informed by the TrueBase build experience.
- https://truebase.treenotation.org
+ https://truebase.treenotation.org TrueBase
 
 Although ScrollSets are designed for a world with LLMs, the design is meant to be useful without them as well, and would also have been mildly useful 30 years ago.
 

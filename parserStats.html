@@ -56,6 +56,21 @@ summary {
   border-radius: 0;
   position: relative;
 }
+.codeWithHeader {
+  break-inside: avoid-column;
+  margin: 10px 0;
+}
+.codeHeader {
+  font-size: 80%;
+  text-align: center;
+  background: rgba(224, 224, 224, 0.4);
+  border: 1px solid rgba(204, 204, 204, 0.8);
+  border-bottom: 0;
+  margin-bottom: -7px;
+  padding: 4px 2px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
 .scrollCodeBlock:hover .scrollCopyButton {
   opacity: .5;
 }
@@ -357,23 +372,23 @@ h4.scrollQuestion {
 
 <th>uses</th>
 </tr></thead>
- <tbody><tr><td>redirectToParser</td>
-<td>1</td>
+ <tbody><tr><td>buildHtmlParser</td>
+<td>12</td>
 </tr>
 <tr><td>permalinkParser</td>
 <td>2</td>
 </tr>
-<tr><td>buildHtmlParser</td>
-<td>12</td>
+<tr><td>blankLineParser</td>
+<td>771</td>
+</tr>
+<tr><td>redirectToParser</td>
+<td>1</td>
 </tr>
 <tr><td>catchAllParagraphParser</td>
 <td>208</td>
 </tr>
 <tr><td>pageTitleParser</td>
 <td>10</td>
-</tr>
-<tr><td>blankLineParser</td>
-<td>768</td>
 </tr>
 <tr><td>baseUrlParser</td>
 <td>11</td>
@@ -520,10 +535,10 @@ h4.scrollQuestion {
 <td>13</td>
 </tr>
 <tr><td>versionParser</td>
-<td>394</td>
+<td>395</td>
 </tr>
 <tr><td>newFeatureParser</td>
-<td>299</td>
+<td>303</td>
 </tr>
 <tr><td>boldParser</td>
 <td>1</td>

@@ -1,7 +1,7 @@
 How I Designed Helpful 404's and Stopped Worrying about Broken Links
 ====================================================================
 by Breck Yunits
- https://breckyunits.com
+ https://breckyunits.com Breck Yunits
 
 July 12, 2024
 
@@ -65,7 +65,7 @@ helpfulNotFound sitemap.txt
 That's it! The `helpfulNotFound` parser in Scroll will add Javascript to the 404 page that fetches all the urls found in the sitemap and shows the user the closest match. As a bonus, you also get a `sitemap.txt` file great for Google SEO and other uses.
 
 See it in action here by clicking on this intentionally broken link:
- https://scroll.pub/blog/helpful_404s.html
+ https://scroll.pub/blog/helpful_404s.html intentionally broken link
 
 ***
 
@@ -80,6 +80,6 @@ I just do it and I know that users following old links will still have a good ex
 If you like stuff like Helpful 404's, there's _a lot_ more like that in Scroll, which is public domain and open source.
 
 Try it today, and if you like what we are doing please consider bringing your site to the World Wide Scroll!
- https://wws.scroll.pub
+ https://wws.scroll.pub World Wide Scroll
 
 ****

@@ -1,8 +1,9 @@
+buildHtml
+downloadUrl /download.html
+ // Make this one absolute since this 404 page may run in any subfolder
 title Page not found
 
 import header.scroll
-downloadUrl /download.html
- // Make this one absolute since this 404 page may run in any subfolder
 printTitle
 thinColumns 1
 
@@ -14,4 +15,3 @@ If you think there's a bug on our site, please email feedback@scroll.pub or open
  https://github.com/breck7/scroll/issues open an issue
 
 pageFooter
-buildHtml

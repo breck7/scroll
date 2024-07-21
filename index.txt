@@ -5,22 +5,22 @@ Evolve and publish your most intelligent ideas
 ==============================================
 
 > The World Wide Scroll beta is live! Buy your folder now
- https://wws.scroll.pub
+ https://wws.scroll.pub Buy your folder now
 
 Where can I try without installing?
 ===================================
 ScrollHub or try.scroll.pub.
- http://hub.scroll.pub/
- https://try.scroll.pub/
+ http://hub.scroll.pub/ ScrollHub
+ https://try.scroll.pub/ try.scroll.pub
 
 Where are the docs?
 ===================
 - Leet sheet
- https://scroll.pub/leetsheet.html
+ https://scroll.pub/leetsheet.html Leet sheet
 - Official Blog
- https://scroll.pub/blog/index.html
+ https://scroll.pub/blog/index.html Official Blog
 - Release Notes
- https://scroll.pub/releaseNotes.html
+ https://scroll.pub/releaseNotes.html Release Notes
 
 What can I build with Scroll?
 =============================
@@ -28,19 +28,19 @@ What can I build with Scroll?
 Blogs
 =====
 [Image Omitted]
- https://breckyunits.com/
+ https://breckyunits.com/ undefined
  This screenshot is from a blog powered by Scroll.
-  https://breckyunits.com/
+  https://breckyunits.com/ a blog powered by Scroll
 
 Knowledge Bases
 ===============
 Scroll powers PLDB, a knowledge base with over 100 contributors who have added over 100,000 cells of structured data and thousands of pages.
- https://pldb.io
+ https://pldb.io PLDB
 
 Static Sites
 ============
 This site you are reading is powered by Scroll.
- https://scroll.pub/index.html
+ https://scroll.pub/index.html This site
 
 What makes Scroll different?
 ============================
@@ -49,17 +49,17 @@ Scroll has an unusually simple syntax called Scroll Notation, an extensive set o
 What is the Scroll command line app?
 ====================================
 The command line app builds static blogs, websites, CSVs, text files, and more.
- https://scroll.pub/blog/textFiles.html
- https://scroll.pub/blog/scrollsets.html
- https://scroll.pub/blog/index.html
- https://scroll.pub/index.html
+ https://scroll.pub/blog/textFiles.html text files
+ https://scroll.pub/blog/scrollsets.html CSVs
+ https://scroll.pub/blog/index.html static blogs
+ https://scroll.pub/index.html websites
 
 How do I install the command line app?
 ======================================
 Scroll currently requires Node.js.
- https://nodejs.org/
+ https://nodejs.org/ Node.js
 After Node.js is installed, install the npm package with:
- https://www.npmjs.com/package/scroll-cli
+ https://www.npmjs.com/package/scroll-cli npm package
 npm install -g scroll-cli
 
 How do I install the developer version?
@@ -72,24 +72,24 @@ npm test
 Is Scroll open source?
 ======================
 Yes. Breck's Lab publishes Scroll to the public domain.
- https://breckyunits.com/lab.html
+ https://breckyunits.com/lab.html Breck's Lab
 
 The source code is hosted on GitHub.
- https://github.com/breck7/scroll
+ https://github.com/breck7/scroll source code
 
 Can I write Parsers in my browser?
 ==================================
 Yes. You can use Scroll Designer to write Parsers in your browser.
- https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers
+ https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers Scroll Designer
 
 Any more docs?
 ==============
 - FAQ
- https://scroll.pub/faq.html
+ https://scroll.pub/faq.html FAQ
 - Tutorial
- https://scroll.pub/tutorial.html
+ https://scroll.pub/tutorial.html Tutorial
 - Roadmap
- https://scroll.pub/roadmap.html
+ https://scroll.pub/roadmap.html Roadmap
 
 Did the latest version of Scroll pass the automated tests?
 ==========================================================

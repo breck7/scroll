@@ -7,7 +7,7 @@ What major improvements are coming next?
 Official Language Spec
 ======================
 - A Spec defining the core of Scroll in enough detail so someone could build a new implementation in any host language.
- https://en.wikipedia.org/wiki/Programming_language_specification
+ https://en.wikipedia.org/wiki/Programming_language_specification Spec
 
 Build Typeset PDFs Output: Scroll → TeX → PDF. Also ePubs.
 ==========================================================
@@ -22,4 +22,4 @@ Integrate Table Dataflow of Ohayo into Scroll
 - Since Scroll's target users are scientists, and scientists do a lot of data work, we should integrate the dataflow pattern in Ohayo (https://github.com/breck7/ohayo) into Scroll parsers.
 
 In addition to the above, Scroll is written in Parsers and will get all the planned improvements in the Parsers Roadmap as well.
- https://sdk.scroll.pub/langs/parsers/
+ https://sdk.scroll.pub/langs/parsers/ Parsers Roadmap

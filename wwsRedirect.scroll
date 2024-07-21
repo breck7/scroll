@@ -1,3 +1,4 @@
-redirectTo https://wws.scroll.pub
-permalink wws.html
 buildHtml
+permalink wws.html
+
+redirectTo https://wws.scroll.pub

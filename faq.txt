@@ -9,7 +9,7 @@ Have a question not answered here? Email feedback@scroll.pub.
 Is there an official blog for the project?
 ==========================================
 Yes.
- https://scroll.pub/blog/
+ https://scroll.pub/blog/ Yes
 
 Who is Scroll for?
 ==================
@@ -18,12 +18,12 @@ Scroll is built for bloggers who appreciate writing, minimal, well designed tool
 What makes Scroll different?
 ============================
 Scroll is different than other static site generators because it is also *an extendible language*.
- https://staticsitegenerators.net
+ https://staticsitegenerators.net other static site generators
 
 The basics of Scroll are even simpler than Markdown. For example, you can make a whole paragraph a link like this:
 
 This is a link
- https://scroll.pub
+ https://scroll.pub This is a link
 
 You can stick to the basics or define new parsers to extend Scroll to better fit your content and workflows.
 
@@ -46,7 +46,7 @@ Each Parser can define a mini language of its own. You can simply add (or remove
 Think of it as one file, many languages.
 
 Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by making the most of the indent trick (also known as the off-side rule). Each line gets its own scope. So you can add, remove, and update your microlanguages and their associated blocks without breaking the rest of the documents.
- https://en.wikipedia.org/wiki/Off-side_rule
+ https://en.wikipedia.org/wiki/Off-side_rule off-side rule
 
 In Scroll, it's almost as if each line is its own file.
 
@@ -76,7 +76,7 @@ recipeParser
   }
 Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine microlanguages in a simple and non-conflicting way. What you do with those languages is up to you.
 For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
- https://scroll.pub/blog/indented-heredocs.html
+ https://scroll.pub/blog/indented-heredocs.html one
 
 What is the biggest downside to Scroll?
 =======================================
@@ -86,20 +86,20 @@ Also, although it is simple to write your own parsers in Parsers once you know w
 What kind of sites can I use Scroll to build?
 =============================================
 Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
- https://scroll.pub
- https://scroll.pub/blog/
- https://breckyunits.com/code/
- https://breckyunits.com/
- https://pldb.io/
+ https://scroll.pub one page
+ https://scroll.pub/blog/ a few pages
+ https://breckyunits.com/code/ tens of pages
+ https://breckyunits.com/ hundreds of pages
+ https://pldb.io/ thousands of pages
 
 How do I get Scroll?
 ====================
 Scroll is a language and command line app you install on your local machine. Scroll requires basic familiarity with the command line and NodeJs >=16. If you do not have NodeJs, Mac/Linux users can install NodeJs with #n# and Windows users can install NodeJs with Scoop.
- https://nodejs.org
- https://scoop.sh/
+ https://nodejs.org NodeJs
+ https://scoop.sh/ Scoop
 If you would like to use Scroll but aren't familiar with the command line, please open an issue and we may be able to help.
 Once you have NodeJs installed you can install from GitHub or npm. Scroll is scroll-cli on npm.
- https://www.npmjs.com/package/scroll-cli
+ https://www.npmjs.com/package/scroll-cli scroll-cli
 You can install from GitHub:
 git clone https://github.com/breck7/scroll
 cd scroll
@@ -108,7 +108,7 @@ Or you can install Scroll with npm by typing:
 npm install -g scroll-cli --production
 
 One way to try the Scroll command line app without installing is with GitPod.
- https://gitpod.io/#https://github.com/breck7/scroll
+ https://gitpod.io/#https://github.com/breck7/scroll GitPod
 
 How do I use Scroll?
 ====================
@@ -118,16 +118,16 @@ scroll help
 Where do I get help?
 ====================
 Post an issue in this GitHub or email us.
- https://scroll.pub/feedback@scroll.pub
+ https://scroll.pub/feedback@scroll.pub us
 
 What are some example sites using Scroll?
 =========================================
 Scroll currently powers blog and sites of one page, a few pages, tens of pages, hundreds of pages, and even thousands of pages.
- https://scroll.pub
- https://scroll.pub/blog/
- https://breckyunits.com/code/
- https://breckyunits.com/
- https://pldb.io/
+ https://scroll.pub one page
+ https://scroll.pub/blog/ a few pages
+ https://breckyunits.com/code/ tens of pages
+ https://breckyunits.com/ hundreds of pages
+ https://pldb.io/ thousands of pages
 
 What does a typical project folder look like?
 =============================================
@@ -153,13 +153,13 @@ Have a drafts folder next to your published scroll. For example:
 What file formats does Scroll use?
 ==================================
 Scroll articles are written as Scroll files with the file extension scroll. The current base parsers for Scroll are defined here.
- https://github.com/breck7/scroll/tree/main/parsers
+ https://github.com/breck7/scroll/tree/main/parsers here
 
 What language is Scroll written in?
 ===================================
 Scroll is mostly written in Parsers. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a couple of other Tree Languages. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
- https://sdk.scroll.pub/designer/#standard%20hakon
- https://sdk.scroll.pub/designer/#standard%20stump
+ https://sdk.scroll.pub/designer/#standard%20hakon Hakon
+ https://sdk.scroll.pub/designer/#standard%20stump stump
 TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.
 
 How does versioning of articles work?
@@ -173,7 +173,7 @@ Yes! Scroll is also 100% focused on helping people build internal or *public dom
 Why does the default theme have a single page layout?
 =====================================================
 The default Scroll theme is designed to make it easier for syntopic reading. Being able to scan the page like a newspaper. This allows you to read at a higher level—to "get in the author's head"—compared to reading one article at a time from beginning to end.
- https://fs.blog/how-to-read-a-book
+ https://fs.blog/how-to-read-a-book syntopic reading
 And if anyone prefers to read a scroll in a different way—they can! Scroll is for public domain sites. People are free to arrange the symbols any way they wish.
 
 Will you make design decisions for non-public domain sites?
@@ -228,31 +228,31 @@ How do I setup a custom 404 page with GitHub pages?
 Check out the `404.scroll` file in this folder.
 
 GitHub has instructions but is really is as simple as this:
- https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site
+ https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site instructions
 
 How do I check for broken links?
 ================================
 Scroll does not check for broken links. For that, try linkinator.
- https://github.com/JustinBeckwith/linkinator
+ https://github.com/JustinBeckwith/linkinator linkinator
 # npm install -g linkinator
 linkinator https://scroll.pub > brokenLinks.txt
 
 How do I check browser performance?
 ===================================
 Scroll does not have browser perf tools built in. For that, try lighthouse.
- https://github.com/GoogleChrome/lighthouse
+ https://github.com/GoogleChrome/lighthouse lighthouse
 # npm install -g lighthouse
 lighthouse https://scroll.pub --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
 
 Where should I host my site?
 ============================
 Any web server works. You can even host your scroll for free using GitHub Pages, just like this site.
- https://pages.github.com
+ https://pages.github.com GitHub Pages
 
 How do I use Scroll with a custom domain?
 =========================================
 Just buy a domain and point it to your web server or web host (such as GitHub Pages). Google Domains is where this domain is registered and is a great service.
- https://domains.google
+ https://domains.google Google Domains
 
 How can I deploy my site?
 =========================
@@ -261,7 +261,7 @@ If you have your own web server try rsync. Here's a bash one liner:
 # swap "/var/www/html" with the path to your website's location on your web server
 rsync -vr /[path/to/your/site]/* [yourdomain.com]:/var/www/html
 Add a section like the one below to your ~.ssh/config to save your username and correct key pair.
- https://unix.stackexchange.com/questions/494483/specifying-an-identityfile-with-ssh
+ https://unix.stackexchange.com/questions/494483/specifying-an-identityfile-with-ssh section
 Host example.com
   User yourUserName
   IdentityFile ~/.ssh/example_id_rsa
@@ -270,12 +270,12 @@ Host example.com
 Does Scroll compile to plain text as well as HTML?
 ==================================================
 Yes! Support for plain text outputs as added in April, 2024.
- https://scroll.pub/blog/textFiles.html
+ https://scroll.pub/blog/textFiles.html Yes! Support for plain text outputs as added in April, 2024.
 
 How can I output my Scroll to an EPUB file?
 ===========================================
 Pandoc is one way to do it. If you are on a Mac and have Homebrew installed:
- https://brew.sh
+ https://brew.sh Homebrew
 brew install pandoc
 pandoc index.html -o book.epub
 
@@ -293,25 +293,25 @@ How can I track web traffic?
 Scroll emits HTML with zero Javascript and does not have any tracking or cookies. You can easily add your own tracking tag if you want.
 
 If you are self hosting using a web server like Nginx you might have some access logs on your server. The one liner below uses GoAccess to summarize recent Nginx access logs.
- https://goaccess.io
+ https://goaccess.io GoAccess
 # apt-get install goaccess
 goaccess /var/log/nginx/access.log -o /var/www/html/YOUR_SECRET_REPORT_URL.html --log-format=COMBINED --real-time-html --ws-url=wss://YOURDOMAIN.com
 
 Does Scroll support RSS?
 ========================
 Yes! Just create a `feed.scroll` file like this.
- https://github.com/breck7/scroll/blob/main/blog/feed.scroll
+ https://github.com/breck7/scroll/blob/main/blog/feed.scroll this
 
 Does Scroll support categories and category pages?
 ==================================================
 Yes! Just add your page to a category by using the `groups` parser and then creating a `yourGroupName.scroll` page for the group. See a demo here.
- https://github.com/breck7/scroll/blob/main/blog/
+ https://github.com/breck7/scroll/blob/main/blog/ here
 
 Does Scroll support Open Graph tags for better social media sharing?
 ====================================================================
 Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl`. For more help check out the debuggers from Facebook and Twitter.
- https://developers.facebook.com/tools/debug
- https://cards-dev.twitter.com/validator
+ https://developers.facebook.com/tools/debug Facebook
+ https://cards-dev.twitter.com/validator Twitter
 
 Does Scroll support themes and templates?
 =========================================
@@ -320,13 +320,13 @@ Yes! Scroll includes a simple API for changing the style of your site. This is a
 How can I build a scroll from a Twitter account?
 ================================================
 Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets JSON into scroll files. Or to experiment faster use this tool to grab some tweets as a TSV.
- https://www.vicinitas.io/free-tools/download-user-tweets
+ https://www.vicinitas.io/free-tools/download-user-tweets tool
 
 What were some alternatives considered?
 =======================================
 There was no publishing software that reads and writes Scroll yet so building Scroll was necessary. Jekyll and Brecksblog were the two biggest inspirations.
- https://jekyllrb.com
- https://github.com/breck7/brecksblog
+ https://jekyllrb.com Jekyll
+ https://github.com/breck7/brecksblog Brecksblog
 
 Contributing to Scroll development
 ==================================
@@ -352,12 +352,12 @@ Scroll Parsers and Web Components are similar in that both empower users to defi
 How do I run cross browser tests?
 =================================
 For that we use BrowserStack.
- https://browserstack.com
+ https://browserstack.com BrowserStack
 
 Is there a subreddit to discuss Scroll?
 =======================================
 Yes.
- https://www.reddit.com/r/ScrollLang/
+ https://www.reddit.com/r/ScrollLang/ Yes.
 
 How many compiler passes are there in the language?
 ===================================================

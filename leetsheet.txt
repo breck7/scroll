@@ -39,6 +39,7 @@ catchAllParagraph - A paragraph.
 center - A centered paragraph.
 chat - A faux text chat conversation.
 code - A code block.
+codeWithHeader - A code block.
 commaTable - A table from CSV data.
 comment - Prints nothing.
 copyButtons - Copy code widget.
@@ -82,6 +83,7 @@ printConcepts - Print concepts to HTML table.
 printCsv - Print group metadata to CSV.
 printDate - Print published date.
 printFeed - Print group to RSS.
+printFormatLinks - Prints links to other formats.
 printFullSnippets - Print full pages in group(s).
 printLeetSheet - Print Scroll parser leet sheet.
 printMeasures - Print measure stats to HTML table.
@@ -126,7 +128,7 @@ youTube - A YouTube video widget.
 
 Commonly used parsers are bolded.
 Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
- http://hub.scroll.pub
- https://try.scroll.pub
- https://reddit.com/r/WorldWideScroll
- https://scroll.pub/parserLeetsheet.html
+ http://hub.scroll.pub ScrollHub
+ https://try.scroll.pub Try Scroll
+ https://reddit.com/r/WorldWideScroll r/WorldWideScroll
+ https://scroll.pub/parserLeetsheet.html Parsers LeetSheet

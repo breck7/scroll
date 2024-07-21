@@ -2,7 +2,8 @@ authors Breck Yunits
  https://breckyunits.com Breck Yunits
 date 4/29/2024
 groups All
-title Scroll now generates text files
+openGraphImage textFiles.png
+title Scroll builds text files
 
 import header.scroll
 keyboardNav
@@ -10,20 +11,46 @@ printTitle
 
 printAuthors
 
-thinColumns 1
+mediumColumns 1
 
-Scroll is a minimal (but extensible) language for generating HTML files and CSVs, with the main use cases being blogs and knowledge bases.
+printFormatLinks
+
+Scroll is a new language for building HTML and CSV files that powers blogs, websites and knowledge bases.
  dateline
  link scrollsets.html knowledge bases
+ link ../index.html Scroll
 
-However, recently I've been needing to make readable text versions of blog posts for a few use cases. I was doing that by hand, but now it is built in to Scroll.
+***
 
-To use it, just add a single line to your posts: `buildTxt`. You can even put that line into your `header.scroll` or `footer.scroll` to have it apply to your whole blog.
+I often need plain text outputs in addition to HTML files.
 
-Now you have another way to read, review, and share your thoughts!
+I used to make those plain text versions copying and pasting text by hand.
 
-View text
- link textFiles.txt
+Now Scroll has plain text output built-in.
+
+***
+
+? How do I tell Scroll to build plain text files?
+
+Add a single line: `buildTxt`
+
+codeWithHeader example.scroll
+ buildTxt
+ Hello world.
+
+`scroll build` will create `example.txt`. Done!
+
+***
+
+You may want to put `buildTxt` into `header.scroll` or `footer.scroll` to build text files for many pages at once.
+
+***
+
+I've *loved* this new feature in Scroll.
+
+Plain text is a *timeless* way to read, review, and share your thoughts!
+
+Hope you enjoy it as much as I have!
 
 ****
 

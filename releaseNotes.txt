@@ -4,9 +4,16 @@ A list of what has changed in Scroll releases.
 ==============================================
 
 Download as CSV | TSV | JSON
- https://scroll.pub/releaseNotes.csv
- https://scroll.pub/releaseNotes.tsv
- https://scroll.pub/releaseNotes.json
+ https://scroll.pub/releaseNotes.csv CSV
+ https://scroll.pub/releaseNotes.tsv TSV
+ https://scroll.pub/releaseNotes.json JSON
+
+109.5.0 7/21/2024
+=================
+🎉 added `codeWithHeader` parser
+🎉 added `center` aftertext markup parser
+🎉 txt versions of aftertext links now includes the pattern
+🎉 added `printFormatLinks` parser
 
 109.4.0 7/21/2024
 =================
@@ -26,7 +33,7 @@ Strikethrough this whole line.
 109.2.0 7/19/2024
 =================
 🎉 add `printAdvancedLeetSheet` after feedback in r/WorldWideScroll
- https://www.reddit.com/r/WorldWideScroll/comments/1e77m6p/writing_parsers/
+ https://www.reddit.com/r/WorldWideScroll/comments/1e77m6p/writing_parsers/ r/WorldWideScroll
 
 109.1.0 7/19/2024
 =================
@@ -154,7 +161,7 @@ keywordCell
 102.1.0 7/07/2024
 =================
 🎉 integrate feedback from h4l to make tables expand on click
- https://www.reddit.com/r/programming/comments/1dwvezp/comment/lc0ytu6/
+ https://www.reddit.com/r/programming/comments/1dwvezp/comment/lc0ytu6/ feedback from h4l
 
 102.0.0 7/06/2024
 =================
@@ -232,8 +239,8 @@ gazetteCss
 98.0.1 6/29/2024
 ================
 🏥 fix bug #115 in `wws`. Thank you Nick Noble!
- https://github.com/breck7/scroll/issues/115
- https://github.com/nickisnoble
+ https://github.com/breck7/scroll/issues/115 bug #115
+ https://github.com/nickisnoble Nick Noble
 
 98.0.0 6/26/2024
 ================
@@ -265,8 +272,8 @@ gazetteCss
 97.1.0 6/21/2024
 ================
 🎉 added `sparkline` parser using beautiful tiny sparkline library by Marius Gundersen.
- https://github.com/mariusGundersen/sparkline
- https://mariusgundersen.net/
+ https://github.com/mariusGundersen/sparkline sparkline library
+ https://mariusgundersen.net/ Marius Gundersen
 
 97.0.0 6/19/2024
 ================
@@ -581,7 +588,7 @@ filenameParser
 ⚠️ BREAKING: removed `::` parser. Now concepts are simply identified by the parser `id`.
 ⚠️ BREAKING: `writeDataset` is now `writeConcepts` and `printDataset` is now `printConcepts`.
 ⚠️ BREAKING: Removed the `[measureName]: ` syntax introduced in version 77. To use datasets (aka Concept files) now, just extend Scroll parsers like you normally would. See this blog post for an example.
- https://scroll.pub/blog/datasets.html
+ https://scroll.pub/blog/datasets.html this blog post for an example
 
 83.3.0 5/04/2024
 ================
@@ -679,7 +686,7 @@ Note that if you are doing something like a tutorial and using a `belowAsCode` w
 80.0.0 4/29/2024
 ================
 🎉 Scroll now generates text files! Added the `writeText` parser.
- https://scroll.pub/blog/textFiles.html
+ https://scroll.pub/blog/textFiles.html Scroll now generates text files
 
 Note: there are likely to be a few rapid releases to refine this.
 
@@ -734,7 +741,7 @@ Scroll already supported tabular data using `tabTable`, but that made copy/paste
 77.0.0 4/21/2024
 ================
 🎉 Added Scroll Datasets, which consists of the `::`, `printDataset`, `writeDataset`, and `*:` and `*::` parsers.
- https://scroll.pub/blog/datasets.html
+ https://scroll.pub/blog/datasets.html Scroll Datasets
 
 ⚠️ BREAKING: if you had lines starting with a word then colon, that used the catchall paragraph, such as `Sidenote: yada yada.`, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs `* Sidenote: yada yada.`. This regex can help you find any instances: `^[^ ]+: .`
 
@@ -766,7 +773,7 @@ css html {font-size: var(--base-font-size, 8px);}
 75.1.0 4/10/2024
 ================
 🎉 Added `***` parser to print a Dinkus
- https://en.wikipedia.org/wiki/Dinkus
+ https://en.wikipedia.org/wiki/Dinkus Dinkus
 
 Now I will show an example.
 
@@ -817,7 +824,7 @@ Above is a dinkus.
 🎉 tweaked default styling of images and captions
 
 This paragraph has a dropcap. It can be a useful visual aid for the reader to break up sections. You can read more about dropcaps on Wikipedia.
- https://en.wikipedia.org/wiki/Initial
+ https://en.wikipedia.org/wiki/Initial dropcaps on Wikipedia
 
 72.3.0 6/13/2023
 ================
@@ -850,7 +857,7 @@ This paragraph has a dropcap. It can be a useful visual aid for the reader to br
 71.3.0 5/8/2023
 ===============
 🎉 added `program` parser for Program Links. See blog post for details.
- https://scroll.pub/blog/programLinks.html
+ https://scroll.pub/blog/programLinks.html blog post
 
 71.2.0 5/07/2023
 ================
@@ -883,7 +890,7 @@ This paragraph has a dropcap. It can be a useful visual aid for the reader to br
 69.3.0 4/26/2023
 ================
 🎉 Add `katex` parser. KaTeX: "The fastest math typesetting library for the web."
- https://katex.org/
+ https://katex.org/ KaTeX
 
 69.2.0 4/18/2023
 ================
@@ -989,7 +996,7 @@ canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
 62.3.0 3/22/2023
 ================
 🎉 New parser `map` using LeafletJS
- https://leafletjs.com/
+ https://leafletjs.com/ LeafletJS
 
 62.2.0 3/15/2023
 ================
@@ -1208,7 +1215,7 @@ html
 54.0.0 1/19/2023
 ================
 🎉 `link` nodes can now have `target`. This link will open in blank tab.
- https://scroll.pub
+ https://scroll.pub This link
 🎉 `youTube` nodes can now have captions.
 🏥 fix: non-embed `youTube` links are converted to proper embed links to fix CORS issues.
 ⚠️ BREAKING: ~no one should be affected. `scrollImageComponent` CSS class changed to `scrollCaptionedComponent`. If you were overwriting the previous class may need to update.
@@ -1364,7 +1371,7 @@ Footnotes example
 =================
 
 Brockton is a city in Massachusetts^state. It was incorporated in 1881^inc.
- https://en.wikipedia.org/wiki/Brockton,_Massachusetts
+ https://en.wikipedia.org/wiki/Brockton,_Massachusetts Brockton
 
 Notes
 =====
@@ -1372,7 +1379,7 @@ Notes
 ^state: A state in the United States.
 
 ^inc: Incorporated as a city in 1881, but as a town in 1821. Wikipedia.
- https://en.wikipedia.org/wiki/Brockton,_Massachusetts
+ https://en.wikipedia.org/wiki/Brockton,_Massachusetts Wikipedia
 
 44.0.1 11/24/2022
 =================
@@ -1812,7 +1819,7 @@ Link Quote Example
 ==================
 
 This report showed the treatment had a big impact.
- https://example.com/report
+ https://example.com/report This report
 
 24.2.0 2022.1.18
 ================
@@ -1873,7 +1880,7 @@ Can you show an example of the new advanced aftertext features?
 ===============================================================
 
 How much wood can a woodchuck chuck if a woodchuck could chuck wood?
- https://en.wikipedia.org/wiki/Groundhog
+ https://en.wikipedia.org/wiki/Groundhog woodchuck
 
 23.1.0 2021.12.21
 =================

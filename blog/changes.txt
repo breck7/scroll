@@ -1,7 +1,7 @@
 Changes: A Microlang for Change Logs
 ====================================
 by Breck Yunits
- https://twitter.com/breckyunits
+ https://twitter.com/breckyunits Breck Yunits
 
 [Image Omitted]
 
@@ -20,7 +20,7 @@ What if there was 1 language that let you do all 3 things at once?
 ***
 
 Introducing Changes, a microlang (only 70 lines of code, including comments) that makes it as concise as possible to write, read and analyze change logs.
- https://github.com/breck7/scroll/blob/main/microlangs/changes.parsers
+ https://github.com/breck7/scroll/blob/main/microlangs/changes.parsers 70 lines of code
 
 Changes generates a pretty HTML file for your end users; allows for including unlimited detailed technical information for your developers; and generates summary statistics as TSV, CSV, and JSON for your project managers.
 
@@ -36,10 +36,10 @@ Example
 =======
 
 We use Changes for the Scroll Release Notes.
- https://scroll.pub/blog/../releaseNotes.html
+ https://scroll.pub/blog/../releaseNotes.html Scroll Release Notes
 
 Be sure to check out the source code that generates that HTML.
- https://github.com/breck7/scroll/blob/main/releaseNotes.scroll
+ https://github.com/breck7/scroll/blob/main/releaseNotes.scroll check out the source code
 
 ***
 
@@ -79,10 +79,10 @@ What do you think? Anything that should be added/removed/improved?
 Related
 =======
 - Changelog
- https://en.wikipedia.org/wiki/Changelog
+ https://en.wikipedia.org/wiki/Changelog Changelog
 - Release Notes
- https://en.wikipedia.org/wiki/Release_notes
+ https://en.wikipedia.org/wiki/Release_notes Release Notes
 - Major Version Numbers are Not Sacred
- https://tom.preston-werner.com/2022/05/23/major-version-numbers-are-not-sacred
+ https://tom.preston-werner.com/2022/05/23/major-version-numbers-are-not-sacred Major Version Numbers are Not Sacred
 - What can we learn from programming language version numbers?
- https://breckyunits.com/versionNumbers.html
+ https://breckyunits.com/versionNumbers.html What can we learn from programming language version numbers?

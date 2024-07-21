@@ -1,7 +1,7 @@
 Counterpoints: A new tool for thought in the Scroll Language
 ============================================================
 by Breck Yunits
- https://github.com/breck7
+ https://github.com/breck7 Breck Yunits
 
 Improve your writing by welcoming counterarguments
 ==================================================
@@ -9,7 +9,7 @@ Improve your writing by welcoming counterarguments
 April 13, 2023
 
 There's a tiny new symbol in Scroll today: `!`. The exclamation mark stands for *Counterpoint*. "Counters" aim to help writers strengthen their ideas by encouraging the integration of counterarguments throughout their essays. You can write your own counters or invite counters from friends, LLMs or Internet commenters.
- https://scroll.pub/
+ https://scroll.pub/ Scroll
 
 ***
 

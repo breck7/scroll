@@ -30,8 +30,8 @@ Stamp: a microlang for project templates
 06/23/2024
 https://scroll.pub/blog/stamp.html
 
-Scroll now generates text files
-===============================
+Scroll builds text files
+========================
 04/29/2024
 https://scroll.pub/blog/textFiles.html
 

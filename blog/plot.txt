@@ -1,25 +1,25 @@
 Write scatterplot to get a scatterplot
 ======================================
 by Breck Yunits
- https://twitter.com/breckyunits
+ https://twitter.com/breckyunits Breck Yunits
 
 June 24, 2024
 
 I _engineered on_ many innovative data science tools, including Grapher and Ohayo^engineering.
- https://github.com/breck7/ohayo
- https://github.com/owid/owid-grapher
+ https://github.com/breck7/ohayo Ohayo
+ https://github.com/owid/owid-grapher Grapher
 
 So I was excited to see Observable launch something new: Plot.
- https://observablehq.com/plot/
- https://observablehq.com/
+ https://observablehq.com/plot/ Plot
+ https://observablehq.com/ Observable
 
 ***
 
 Plot is already great on its own. It handles many of the hard parts of data vis, and it's open source, so we can help them fix the parts that are still a little rough.
- https://github.com/observablehq/plot
+ https://github.com/observablehq/plot open source
 
 But I found a way to take Plot to the next level: I combined it with Scroll.
- https://scroll.pub/blog/../index.html
+ https://scroll.pub/blog/../index.html Scroll
 
 The Plot/Scroll integration is early, but I can already tell it will evolve into a _very useful_ data science tool.
 
@@ -33,12 +33,12 @@ You can now make scatterplots with one word.
 Simply by writing the word `scatterplot` in a Scroll document, you get a scatterplot.
 
 Obviously you want to add a few more words (2 more to add your own data, unless you are only interested in stock datasets), but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).
- https://www.reddit.com/r/datascience/comments/19d1k19/does_anyone_know_of_any_good_titanic_datasets/
+ https://www.reddit.com/r/datascience/comments/19d1k19/does_anyone_know_of_any_good_titanic_datasets/ stock datasets
 
 But enough talk, let's see some code. A tutorial is below.
 
 To follow along, create a new website in 1 second using ScrollHub or install Scroll locally with `npm install -g scroll-cli`.
- http://hub.scroll.pub
+ http://hub.scroll.pub ScrollHub
 
 ***
 
@@ -70,7 +70,7 @@ Step 5: Everything everywhere all at once
 That's it (for now)!
 
 If you like where this is headed, give us a star on GitHub.
- https://github.com/breck7/scroll
+ https://github.com/breck7/scroll give us a star on GitHub
 
 ****
 

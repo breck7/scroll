@@ -1,7 +1,7 @@
 Introducing the Blink Tag
 =========================
 by Breck Yunits
- https://github.com/breck7
+ https://github.com/breck7 Breck Yunits
 October 2, 2022
 
 October 2, 2022
@@ -21,6 +21,6 @@ blink This blinks
 Advertisers have known for ages that human eyes evolved to respond fast to motion. Now, using my new invention, the `blink` tag, you can bring this innovation from advertising to your products and websites.
 
 *The blink tag, available now in Scroll 34.1.0*
- https://scroll.pub/
+ https://scroll.pub/ Scroll 34.1.0
 
 _Note: please don't use this. It's a joke_
