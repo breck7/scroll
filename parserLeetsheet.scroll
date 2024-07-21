@@ -4,7 +4,7 @@ import header.scroll
 printTitle
 
 <center style="color: grey; padding-bottom: 20px;">
-*Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers.
+*Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers. Parsers files end in *.parsers*.
 </center>
 
 thinColumns 4

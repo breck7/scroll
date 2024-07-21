@@ -1,7 +1,7 @@
 Scroll LeetSheet
 ================
 
-Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of *parsers*, which you can create. The standard parsers are below.
+Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of *parsers*, which you can create. The standard parsers are below. Scroll files end in *.scroll*.
 
 - - A list item.
 --- - A horizontal rule.

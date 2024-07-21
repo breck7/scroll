@@ -1,7 +1,7 @@
 Parsers LeetSheet
 =================
 
-*Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers.
+*Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers. Parsers files end in *.parsers*.
 
 _extendsJsClass - Deprecated
 _rootParserJsHeader - Deprecated
