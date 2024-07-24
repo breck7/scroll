@@ -18,6 +18,13 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 110.0.0 7/24/2024
+🎉 `printRelated` now just takes a tag. No need to add a `related` line on each post.
+⚠️ BREAKING: `groups` is now `tags`.
+⚠️ BREAKING: removed `related` parser. Now just use tags.
+⚠️ BREAKING: `printRelatedList` is now just `printRelated`.
+
+
 📦 109.5.0 7/21/2024
 🎉 added `codeWithHeader` parser
 🎉 added `center` aftertext markup parser
@@ -1067,7 +1074,7 @@ belowAsCode
 html <b>here is some html</b>
 
 📦 52.1.1 1/12/2023
-🏥 fix: getGroup was including files marked with `importOnly`
+🏥 fix: getFilesWithTag was including files marked with `importOnly`
 
 📦 52.1.0 1/12/2023
 🏥 Upgrade JTree.
@@ -1404,9 +1411,9 @@ Use `import [filepath]` to import one file into another. Use `replace` and `repl
 
 Define new nodeTypes or create your own aliases on a per file basis. Use the import parser and build your own collection of common reusable node types for your project(s).
 
-## Unlimited Groups and Group Pages
+## Unlimited Tags and Tag Pages
 
-Add files to one or more groups and then customize how each group page prints. No more magic or implicit creation of collection pages.
+Add files to one or more tags and then customize how each tag page prints. No more magic or implicit creation of collection pages.
 
 ## Multiple Compiler Passes
 

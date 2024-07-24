@@ -7,21 +7,21 @@ endColumns
 ---
 
 loop
- groups index subfolder/index
+ tags index subfolder/index
  join ·
  javascript `${item.file.title}`
 
 ---
 
 loop
- groups index subfolder/index
+ tags index subfolder/index
  join ..
  javascript index
 
 ---
 
 loop
- groups index subfolder/index
+ tags index subfolder/index
  join <br>
  javascript `<a href="${item.relativePath + item.file.permalink}">${item.file.title}</a>`
 

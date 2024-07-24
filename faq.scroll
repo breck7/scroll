@@ -298,9 +298,9 @@ code
 Yes! Just create a `feed.scroll` file like this.
  https://github.com/breck7/scroll/blob/main/blog/feed.scroll this
 
-? Does Scroll support categories and category pages?
-Yes! Just add your page to a category by using the `groups` parser and then creating a `yourGroupName.scroll` page for the group. See a demo here.
- https://github.com/breck7/scroll/blob/main/blog/ here
+? Does Scroll support tags?
+Yes! Add tags to a post using the `tags` parser. Then create a `yourTagName.scroll` file to create a category page for that tag. See a demo here.
+ https://github.com/breck7/scroll/blob/main/blog/index.scroll here
 
 ? Does Scroll support Open Graph tags for better social media sharing?
 Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl`. For more help check out the debuggers from Facebook and Twitter.
