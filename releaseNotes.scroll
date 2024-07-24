@@ -19,11 +19,10 @@ import microlangs/changes.parsers
 thinColumns
 
 📦 110.0.0 7/24/2024
-🎉 `printRelated` now just takes a tag. No need to add a `related` line on each post.
+🎉 `printRelated` now has support for tags! No need to add a `related` line on each post.
 ⚠️ BREAKING: `groups` is now `tags`.
-⚠️ BREAKING: removed `related` parser. Now just use tags.
 ⚠️ BREAKING: `printRelatedList` is now just `printRelated`.
-
+⚠️ BREAKING: removed `related` parser. Now just use tags. Apply tags liberally.
 
 📦 109.5.0 7/21/2024
 🎉 added `codeWithHeader` parser
