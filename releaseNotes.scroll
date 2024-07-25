@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 110.1.0 7/25/2024
+🎉 captions now have the same width as their images
+
 📦 110.0.0 7/24/2024
 🎉 `printRelated` now has support for tags! No need to add a `related` line on each post.
 ⚠️ BREAKING: `groups` is now `tags`.
