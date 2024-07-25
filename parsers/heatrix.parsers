@@ -1,0 +1,37 @@
+heatrixCatchAllParser
+ // todo Fill this out
+ catchAllCellType anyCell
+
+heatrixParser
+ cruxFromId
+ catchAllParser heatrixCatchAllParser
+ description A heatmap matrix data visualization.
+ extends abstractScrollWithRequirementsParser
+ string copyFromExternal heatrix.js
+ example
+  heatrix
+   table
+    %w40 %h40 %fs10
+      Day Commits
+      0 12
+      1 324
+      2 343
+      3 3
+      4 4343
+      5 321343
+   scale
+    #ebedf0 0
+    #c7e9c0 100
+    #a1d99b 400
+    #74c476 1600
+    #41ab5d 6400
+    #238b45 32000
+    #005a32 128000
+ javascript
+  compile() {
+    return `new Heatrix(\`${this.childrenToString().trim()}\`).html`
+  }
+ javascript
+  compile() {
+   return `<script defer src="heatrix.js"></script><div class="slideshowNav"></div>`
+  }
