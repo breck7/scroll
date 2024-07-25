@@ -302,10 +302,10 @@ Does Scroll support RSS?
 Yes! Just create a `feed.scroll` file like this.
  https://github.com/breck7/scroll/blob/main/blog/feed.scroll this
 
-Does Scroll support categories and category pages?
-==================================================
-Yes! Just add your page to a category by using the `groups` parser and then creating a `yourGroupName.scroll` page for the group. See a demo here.
- https://github.com/breck7/scroll/blob/main/blog/ here
+Does Scroll support tags?
+=========================
+Yes! Add tags to a post using the `tags` parser. Then create a `yourTagName.scroll` file to create a category page for that tag. See a demo here.
+ https://github.com/breck7/scroll/blob/main/blog/index.scroll here
 
 Does Scroll support Open Graph tags for better social media sharing?
 ====================================================================
@@ -357,7 +357,7 @@ For that we use BrowserStack.
 Is there a subreddit to discuss Scroll?
 =======================================
 Yes.
- https://www.reddit.com/r/ScrollLang/ Yes.
+ https://www.reddit.com/r/WorldWideScroll/ Yes.
 
 How many compiler passes are there in the language?
 ===================================================
@@ -366,6 +366,12 @@ Each Scroll file is currently passed over 4 times during compilation to HTML and
 2. All `import` statements are replaced with the contents of the imported file.
 3. All variable `replace` statements are executed and applied to the current file.
 4. Finally, an extended Scroll parser is constructed if needed (if any new parser definitions appear in the document), and then is used to parse the resulting file for compilation.
+
+Is there a chart showing all the layers of Scroll?
+==================================================
+[Image Omitted]
+ Made with nomnoml
+  https://t.co/Fggo87gUr1 Made with nomnoml
 
 Other
 =====

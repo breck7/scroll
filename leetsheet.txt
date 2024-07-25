@@ -53,7 +53,6 @@ endColumns - End columns.
 endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
 gazetteCss - Default Scroll theme CSS.
-groups - Set groups.
 helpfulNotFound - Helpful not found widget.
 homeUrl - Override home link.
 html - HTML one liners or blocks.
@@ -87,7 +86,7 @@ printFormatLinks - Prints links to other formats.
 printFullSnippets - Print full pages in group(s).
 printLeetSheet - Print Scroll parser leet sheet.
 printMeasures - Print measure stats to HTML table.
-printRelatedList - Print links to related posts.
+printRelated - Print links to related posts.
 printSearchTable - Prints files to HTML table.
 printSiteMap - Print text sitemap.
 printSnippets - Prints snippets in group(s).
@@ -100,7 +99,6 @@ printViewSourceBadge - Print badge top right.
 quote - A quote.
 readingList - Link list with titles and authors.
 redirectTo - HTML redirect tag.
-related - Set related files.
 replace - Replace this with that.
 replaceJs - Replace this with evaled JS.
 replaceNodejs - Replace this with evaled Node.JS.
@@ -116,6 +114,7 @@ stumpNoSnippet - Compile Stump unless snippet.
 table - A table from a custom delimiter.
 tableSearch - Table search and sort widget.
 tabTable - A table from TSV data.
+tags - Set tags.
 thanksTo - Acknowledge reviewers. Prints nothing.
 thinColumns - Thin columns.
 title - Set title.

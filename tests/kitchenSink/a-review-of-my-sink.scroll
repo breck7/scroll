@@ -1,4 +1,4 @@
-groups index all
+tags index all
 replace SOME_DATA
  - foo
   link bar.html

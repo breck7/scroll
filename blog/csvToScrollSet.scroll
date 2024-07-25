@@ -1,7 +1,7 @@
 authors Breck Yunits
  https://github.com/breck7 Breck Yunits
 date 7/09/2024
-groups All
+tags All ScrollSets
 title Convert CSVs to ScrollSets
 
 import header.scroll
@@ -50,6 +50,11 @@ mediumColumns 1
  document.getElementById('delimiter').addEventListener('input', updateScrollSet);
 </script>
 
+# Related
+printRelated ScrollSets
+
 endColumns
+
+
 
 import footer.scroll

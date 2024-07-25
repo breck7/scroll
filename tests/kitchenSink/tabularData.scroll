@@ -1,5 +1,5 @@
 buildTxt
-groups index
+tags index
 title Tabular data test
 
 import header.scroll

@@ -8,6 +8,13 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+110.0.0 7/24/2024
+=================
+🎉 `printRelated` now has support for tags! No need to add a `related` line on each post.
+⚠️ BREAKING: `groups` is now `tags`.
+⚠️ BREAKING: `printRelatedList` is now just `printRelated`.
+⚠️ BREAKING: removed `related` parser. Now just use tags. Apply tags liberally.
+
 109.5.0 7/21/2024
 =================
 🎉 added `codeWithHeader` parser
@@ -1243,7 +1250,7 @@ html
 
 52.1.1 1/12/2023
 ================
-🏥 fix: getGroup was including files marked with `importOnly`
+🏥 fix: getFilesWithTag was including files marked with `importOnly`
 
 52.1.0 1/12/2023
 ================
@@ -1647,10 +1654,10 @@ Add your own Grammar extensions directly in your Scroll files
 
 Define new nodeTypes or create your own aliases on a per file basis. Use the import parser and build your own collection of common reusable node types for your project(s).
 
-Unlimited Groups and Group Pages
-================================
+Unlimited Tags and Tag Pages
+============================
 
-Add files to one or more groups and then customize how each group page prints. No more magic or implicit creation of collection pages.
+Add files to one or more tags and then customize how each tag page prints. No more magic or implicit creation of collection pages.
 
 Multiple Compiler Passes
 ========================

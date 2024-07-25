@@ -5,7 +5,7 @@ Tasks:
 
 The Files:
 /home/runner/work/scroll/scroll/tests/kitchenSink/a-review-of-my-sink.scroll
- groups index all
+ tags index all
  replace SOME_DATA
   - foo
    link bar.html
@@ -46,7 +46,7 @@ The Files:
  
 /home/runner/work/scroll/scroll/tests/kitchenSink/tabularData.scroll
  buildTxt
- groups index
+ tags index
  title Tabular data test
  
  import header.scroll
@@ -94,7 +94,7 @@ The Files:
  authors Breck Yunits
   https://breckyunits.com Breck Yunits
  date 1/11/2019
- groups index all
+ tags index all
  replace NUM_SINKS 283
  replace TABLE
   pipeTable

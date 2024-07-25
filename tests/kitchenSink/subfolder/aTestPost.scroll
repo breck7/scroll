@@ -1,4 +1,4 @@
-groups index
+tags index
 title This is _a_ test
 
 import ../header.scroll

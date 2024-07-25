@@ -171,3 +171,10 @@ Extended Measures Example
 
 Extended Concepts Example
 =========================
+
+Related
+=======
+Convert CSVs to ScrollSets
+==========================
+07/09/2024
+https://scroll.pub/blog/csvToScrollSet.html
