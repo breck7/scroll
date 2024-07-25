@@ -343,7 +343,7 @@ For that we use BrowserStack.
 
 ? Is there a subreddit to discuss Scroll?
 Yes.
- https://www.reddit.com/r/ScrollLang/
+ https://www.reddit.com/r/WorldWideScroll/
 
 ? How many compiler passes are there in the language?
 Each Scroll file is currently passed over 4 times during compilation to HTML and/or text.
@@ -351,6 +351,11 @@ Each Scroll file is currently passed over 4 times during compilation to HTML and
 2. All `import` statements are replaced with the contents of the imported file.
 3. All variable `replace` statements are executed and applied to the current file.
 4. Finally, an extended Scroll parser is constructed if needed (if any new parser definitions appear in the document), and then is used to parse the resulting file for compilation.
+
+? Is there a chart showing all the layers of Scroll?
+image evolutionOfScroll.png
+ caption Made with nomnoml
+  https://t.co/Fggo87gUr1
 
 # Other
 ? Why the name Scroll?
