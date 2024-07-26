@@ -129,7 +129,6 @@ heatrixParser
   }
   </style>`
       const firstRow = this.table[0]
-      console.log(firstRow)
       return (
         `<div class="heatrixContainer" id="heatrix${this.uid}">${style}` +
         this.table
@@ -141,7 +140,7 @@ heatrixParser
                 if (!columnIndex) return ""
                 const columnStyle = firstRow[columnIndex]?.style || {}
                 let { value, label, style } = cell
-                if (label === "0") label = "~"
+                if (label === "0") label = "0"
                 const extendedStyle = Object.assign(
                   {},
                   rowStyle,
