@@ -18,6 +18,11 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 111.1.0 7/26/2024
+🎉 `heatrix` now supports using custom labels even for numeric cells.
+🏥 always include a 0 value in `heatrix`
+ // not sure if this is correct design.
+
 📦 111.0.0 7/26/2024
 🎉 redesigned `heatrix`.
 ⚠️ BREAKING: (no one should be affected). `heatrix` is now `heatrixAdvanced`. `heatrix` is the simplest fast version now. 

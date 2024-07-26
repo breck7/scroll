@@ -39,6 +39,13 @@ heatrix
  400 700
 aboveAsCode
 
+## Add labels:
+heatrix
+ 38'Canada
+ 333'USA
+ 127'Mexico
+aboveAsCode
+
 ## Use numbers as labels:
 heatrix
  '2021 '2017
