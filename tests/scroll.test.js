@@ -213,7 +213,7 @@ testTree.csv = areEqual => {
 permalink posts.csv`)
   // Act/Assert
   const { asHtml } = page
-  areEqual(asHtml.startsWith("date,title,permalink,"), true)
+  areEqual(asHtml.startsWith("date,year,title,permalink,"), true)
 }
 
 testTree.initCommand = async areEqual => {
