@@ -18,6 +18,10 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 111.0.0 7/26/2024
+🎉 redesigned `heatrix`.
+⚠️ BREAKING: (no one should be affected). `heatrix` is now `heatrixAdvanced`. `heatrix` is the simplest fast version now. 
+
 📦 110.3.0 7/25/2024
 🎉 print 0's in `heatrix`
 🏥 remove stray console.log

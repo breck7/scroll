@@ -1,13 +1,30 @@
-# Posts
+buildHtml
+
+# Basic test
 heatrix
+ 1 2 8 100 50 40 20 10 0
+
+# Multiple rows
+heatrix
+ 0 0 0 1 4 2
+ 2 4 234 43 43
+ 23 34 43
+
+# Test Links
+heatrix
+ Scroll;https://scroll.pub PLDB;https://pldb.io
+ 400 700
+
+# Test Size and Number escaping and custom colors
+heatrixAdvanced
  table
    
-  %h10;%w30 @2007 @2008 @2009 @2010 @2011 @2012 @2013 @2014 @2015 @2016 @2017 @2018 @2019 @2020 @2021 @2022 @2023 @2024
-  %h30;%w30; 4 11 23 37 3 14 12 0 0 0 5 1 2 11 15 10 12 56
+  h10;w30 '2007 '2008 '2009 '2010 '2011 '2012 '2013 '2014 '2015 '2016 '2017 '2018 '2019 '2020 '2021 '2022 '2023 '2024
+  h30;w30; 4 11 23 37 3 14 12 0 0 0 5 1 2 11 15 10 12 56
  scale
   #ebedf0 0
   #c7e9c0 1
   #a1d99b 5
   #74c476 10
   #41ab5d 25
-  #005a32 50
+  blue 50
