@@ -18,6 +18,10 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 110.2.0 7/25/2024
+🎉 `printCsv` now includes `year` column
+🎉 added `heatrix` parser
+
 📦 110.1.0 7/25/2024
 🎉 captions now have the same width as their images
 
