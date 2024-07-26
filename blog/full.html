@@ -68,6 +68,74 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
 <div class="scrollSection"><h1 class="scrollTitle"><a href="full.html">The Official Scroll Blog</a></h1>
 <div class="scrollColumns" style="column-width:35ch;"><div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
+<div class="scrollSection"><h1 class="scrollTitle"><a href="heatrix.html">Heatrix: Heat Maps + Matrix Visualizations</a></h1>
+<p class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></p>
+</div>
+<p class="scrollParagraph"><span class="scrollDateline">July 26, 2024 — </span>Do you also love those GitHub Activity Charts and want to make your own but don't know what they are called or what library to use and your work is busy and you have kids and sorry I'll call you back someone is crying?</p>
+<p class="scrollParagraph">Introducing <a href="../index.html">Scroll's</a> newest parser: <code>heatrix</code>!</p>
+<p class="scrollParagraph"><code>heatrix</code> let's you craft custom heatmap visualizations quickly.</p>
+<div class="scrollSection"><h1 class="scrollParagraph">Heat Map + Matrix = Heatrix</h1>
+<figure class="scrollCaptionedFigure" style="width:800px; margin: auto;"><a href="heatrix.gif" target="_blank"  ><img src="heatrix.gif" width="800" height="346" loading="lazy"></a><figcaption><p class="scrollParagraph"><a href="https://try.scroll.pub/#scroll%0A%20heatrix%0A%20%208%206%207%205%0A%20%2030%209">Source code</a>. Gif made with <a href="https://cleanshot.com/">CleanShotX</a>.</p></figcaption></figure>
+</div>
+<div class="dinkus"><span>*</span></div>
+<div class="scrollSection"><h1 class="scrollParagraph">Not just a library, it's a microlanguage!</h1>
+</div>
+<p class="scrollParagraph"><code>heatrix</code> is a microlang that let's you customize your visualizations using "directives":</p>
+<div class="scrollSection"><h2 class="scrollParagraph">Adjust the height/width of individual cells, columns, or rows:</h2>
+<div class="heatrixContainer" id="heatrix0"><style>    .heatrixContainer {      margin: auto;    }.heatrixRow {white-space: nowrap;}#heatrix0 .heatrixCell {  font-family: arial;  border-radius: 2px;  border: 1px solid transparent;  display: inline-block;  margin: 1px;  text-align: center;  vertical-align: middle;  overflow: hidden;  text-overflow: ellipsis;}.heatrixCell a {  color: black;}#heatrix0 .heatrixCell{ width: 40px; height: 40px; font-size: 10px; line-height: 40px;}</style><div class="heatrixRow heatrixRow1"><div class="heatrixCell heatrixColumn1" style="height:20px;line-height:20px;"><a title="Scroll" >Scroll</a></div><div class="heatrixCell heatrixColumn2" style="height:20px;line-height:20px;"><a title="PLDB" >PLDB</a></div></div><div class="heatrixRow heatrixRow2"><div class="heatrixCell heatrixColumn1 valueCell" style="background-color:#ebedf0;"><a title="400" >400</a></div><div class="heatrixCell heatrixColumn2 valueCell" style="background-color:#74c476;"><a title="700" >700</a></div></div></div>
+<code class="scrollCodeBlock">heatrix
+ h20;Scroll h20;PLDB
+ 400 700</code>
+</div>
+<div class="scrollSection"><h2 class="scrollParagraph">Add links:</h2>
+<div class="heatrixContainer" id="heatrix0"><style>    .heatrixContainer {      margin: auto;    }.heatrixRow {white-space: nowrap;}#heatrix0 .heatrixCell {  font-family: arial;  border-radius: 2px;  border: 1px solid transparent;  display: inline-block;  margin: 1px;  text-align: center;  vertical-align: middle;  overflow: hidden;  text-overflow: ellipsis;}.heatrixCell a {  color: black;}#heatrix0 .heatrixCell{ width: 40px; height: 40px; font-size: 10px; line-height: 40px;}</style><div class="heatrixRow heatrixRow1"><div class="heatrixCell heatrixColumn1" style="height:20px;line-height:20px;"><a title="Scroll"  href="https://scroll.pub">Scroll</a></div><div class="heatrixCell heatrixColumn2" style="height:20px;line-height:20px;"><a title="PLDB"  href="https://pldb.io">PLDB</a></div></div><div class="heatrixRow heatrixRow2"><div class="heatrixCell heatrixColumn1 valueCell" style="background-color:#ebedf0;"><a title="400" >400</a></div><div class="heatrixCell heatrixColumn2 valueCell" style="background-color:#74c476;"><a title="700" >700</a></div></div></div>
+<code class="scrollCodeBlock">heatrix
+ h20;Scroll;https://scroll.pub h20;PLDB;https://pldb.io
+ 400 700</code>
+</div>
+<div class="scrollSection"><h2 class="scrollParagraph">Use numbers as labels:</h2>
+<div class="heatrixContainer" id="heatrix0"><style>    .heatrixContainer {      margin: auto;    }.heatrixRow {white-space: nowrap;}#heatrix0 .heatrixCell {  font-family: arial;  border-radius: 2px;  border: 1px solid transparent;  display: inline-block;  margin: 1px;  text-align: center;  vertical-align: middle;  overflow: hidden;  text-overflow: ellipsis;}.heatrixCell a {  color: black;}#heatrix0 .heatrixCell{ width: 40px; height: 40px; font-size: 10px; line-height: 40px;}</style><div class="heatrixRow heatrixRow1"><div class="heatrixCell heatrixColumn1" style=""><a title="2021" >2021</a></div><div class="heatrixCell heatrixColumn2" style=""><a title="2017" >2017</a></div></div><div class="heatrixRow heatrixRow2"><div class="heatrixCell heatrixColumn1 valueCell" style="background-color:#ebedf0;"><a title="400" >400</a></div><div class="heatrixCell heatrixColumn2 valueCell" style="background-color:#74c476;"><a title="700" >700</a></div></div></div>
+<code class="scrollCodeBlock">heatrix
+ '2021 '2017
+ 400 700</code>
+</div>
+<div class="scrollSection"><h2 class="scrollParagraph">Use your own custom color palettes and set your own thresholds:</h2>
+<div class="heatrixContainer" id="heatrix0"><style>    .heatrixContainer {      margin: auto;    }.heatrixRow {white-space: nowrap;}#heatrix0 .heatrixCell {  font-family: arial;  border-radius: 2px;  border: 1px solid transparent;  display: inline-block;  margin: 1px;  text-align: center;  vertical-align: middle;  overflow: hidden;  text-overflow: ellipsis;}.heatrixCell a {  color: black;}#heatrix0 .heatrixCell{ width: 40px; height: 40px; font-size: 10px; line-height: 40px;}</style><div class="heatrixRow heatrixRow1"><div class="heatrixCell heatrixColumn1" style="width:30px;height:10px;line-height:10px;"><a title="2015" >2015</a></div><div class="heatrixCell heatrixColumn2" style="width:30px;height:10px;line-height:10px;"><a title="2016" >2016</a></div><div class="heatrixCell heatrixColumn3" style="width:30px;height:10px;line-height:10px;"><a title="2017" >2017</a></div><div class="heatrixCell heatrixColumn4" style="width:30px;height:10px;line-height:10px;"><a title="2018" >2018</a></div><div class="heatrixCell heatrixColumn5" style="width:30px;height:10px;line-height:10px;"><a title="2019" >2019</a></div><div class="heatrixCell heatrixColumn6" style="width:30px;height:10px;line-height:10px;"><a title="2020" >2020</a></div><div class="heatrixCell heatrixColumn7" style="width:30px;height:10px;line-height:10px;"><a title="2021" >2021</a></div><div class="heatrixCell heatrixColumn8" style="width:30px;height:10px;line-height:10px;"><a title="2022" >2022</a></div><div class="heatrixCell heatrixColumn9" style="width:30px;height:10px;line-height:10px;"><a title="2023" >2023</a></div><div class="heatrixCell heatrixColumn10" style="width:30px;height:10px;line-height:10px;"><a title="2024" >2024</a></div></div><div class="heatrixRow heatrixRow2"><div class="heatrixCell heatrixColumn1" style="width:30px;height:30px;line-height:30px;background-color:#ffebee;"><a title="0" >0</a></div><div class="heatrixCell heatrixColumn2" style="width:30px;height:30px;line-height:30px;background-color:#ffebee;"><a title="0" >0</a></div><div class="heatrixCell heatrixColumn3 valueCell" style="width:30px;height:30px;line-height:30px;background-color:#ef9a9a;"><a title="5" >5</a></div><div class="heatrixCell heatrixColumn4 valueCell" style="width:30px;height:30px;line-height:30px;background-color:#ffcdd2;"><a title="1" >1</a></div><div class="heatrixCell heatrixColumn5 valueCell" style="width:30px;height:30px;line-height:30px;background-color:#ef9a9a;"><a title="2" >2</a></div><div class="heatrixCell heatrixColumn6 valueCell" style="width:30px;height:30px;line-height:30px;background-color:#ef5350;"><a title="11" >11</a></div><div class="heatrixCell heatrixColumn7 valueCell" style="width:30px;height:30px;line-height:30px;background-color:#ef5350;"><a title="15" >15</a></div><div class="heatrixCell heatrixColumn8 valueCell" style="width:30px;height:30px;line-height:30px;background-color:#e57373;"><a title="10" >10</a></div><div class="heatrixCell heatrixColumn9 valueCell" style="width:30px;height:30px;line-height:30px;background-color:#ef5350;"><a title="12" >12</a></div><div class="heatrixCell heatrixColumn10 valueCell" style="width:30px;height:30px;line-height:30px;background-color:#b71c1c;"><a title="56" >56</a></div></div></div>
+<code class="scrollCodeBlock">heatrixAdvanced
+ table
+   
+  h10;w30 '2015 '2016 '2017 '2018 '2019 '2020 '2021 '2022 '2023 '2024
+  h30;w30; 0 0 5 1 2 11 15 10 12 56
+ scale
+  #ffebee 0
+  #ffcdd2 1
+  #ef9a9a 5
+  #e57373 10
+  #ef5350 25
+  #b71c1c 50</code>
+</div>
+<div class="dinkus"><span>*</span></div>
+<div class="scrollSection"><h1 class="scrollParagraph">Like Heatrix? There's more where that came from!</h1>
+</div>
+<div class="scrollSection"><h2 class="scrollParagraph">Join the World Wide Scroll Beta today!</h2>
+</div>
+<p class="scrollParagraph">If you like <code>heatrix</code> and want to see more stuff like this, but a folder on the <a href="https://wws.scroll.pub/">World Wide Scroll beta</a> and good things will come your way:</p>
+<br><br>
+<center>
+<script async src="https://js.stripe.com/v3/buy-button.js">
+</script>
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
+<stripe-buy-button buy-button-id="buy_btn_1PRkerJktJxKl0r5U4j5gV9E"
+ publishable-key="pk_live_51IQx1tJktJxKl0r5YOhZM9Th6S8zhR2DXlUlJFIuLSrgzu3nfkKTx96ym19ihYYIeEnf3daa1TCPgDt0To2qt4Qk00TzjPmP9c"
+></stripe-buy-button>
+</center>
+<br><br>
+<div class="dinkus"><span>⁂</span></div><p class="scrollViewSource">
+ <a href="https://github.com/breck7/scroll/blob/main/blog/heatrix.scroll">View source</a>
+</p>
+</div>
+
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}</style>
 <div class="scrollSection"><h1 class="scrollTitle"><a href="contacts.html">Contacts: A Microlang for Managing Contacts</a></h1>
 <p class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></p>
 </div>
