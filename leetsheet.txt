@@ -54,6 +54,7 @@ endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
 gazetteCss - Default Scroll theme CSS.
 heatrix - A heatmap matrix data visualization.
+heatrixAdvanced - Advanced heatrix.
 helpfulNotFound - Helpful not found widget.
 homeUrl - Override home link.
 html - HTML one liners or blocks.
