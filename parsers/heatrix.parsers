@@ -69,6 +69,7 @@ heatrixAdvancedParser
       const buildScale = (table) => {
         const numbers = table.split("\n").map(line => line.split(" ")).flat().filter(word => !isDirective(word)).map(word => parseFloat(word)).filter(number => !isNaN(number))
         const colors = ['#ebedf0', '#c7e9c0', '#a1d99b', '#74c476', '#41ab5d', '#238b45', '#005a32'];
+        numbers.unshift(0)
         return generateColorBinningString(numbers, colors);
       }
       const table = tree.getNode("table").childrenToString()
@@ -99,14 +100,12 @@ heatrixAdvancedParser
           .trimEnd()
           .split(" ")
           .map((cell) => {
-            const words = cell.split(directiveDelimiter).filter((word) => !isDirective(word))
+            const words = cell.split(directiveDelimiter).filter((word) => !isDirective(word)).join("")
             const directivesInThisCell = cell
               .split(directiveDelimiter)
               .filter(isDirective)
-            const value = parseFloat(words[0])
-            let label = ""
-            if (words[0])
-              label = words.join(" ").replace(/^\'/, "") // If you want a number as a string prefix with a single '
+            const value = parseFloat(words)
+            const label = words.includes("'") ? words.split("'")[1] : words
             const alignment = directivesInThisCell.includes("right")
               ? "right"
               : directivesInThisCell.includes("left")
@@ -180,7 +179,6 @@ heatrixAdvancedParser
                 if (!columnIndex) return ""
                 const columnStyle = firstRow[columnIndex]?.style || {}
                 let { value, label, style, link } = cell
-                if (label === "0") label = "0"
                 const extendedStyle = Object.assign(
                   {},
                   rowStyle,

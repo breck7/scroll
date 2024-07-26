@@ -36,6 +36,9 @@ Adjust the height/width of individual cells, columns, or rows:
 Add links:
 ==========
 
+Add labels:
+===========
+
 Use numbers as labels:
 ======================
 
