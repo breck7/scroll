@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+110.3.0 7/25/2024
+=================
+🎉 print 0's in `heatrix`
+🏥 remove stray console.log
+
 110.2.0 7/25/2024
 =================
 🎉 `printCsv` now includes `year` column
