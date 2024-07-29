@@ -3,9 +3,13 @@ Heatrix: Heat Maps + Matrix Visualizations
 by Breck Yunits
  https://twitter.com/breckyunits Breck Yunits
 
-July 27, 2024
+[Image Omitted]
+ A heatrix on CancerDB.
+  https://cancerdb.com/blog/cancer-heatmaps.html A heatrix on CancerDB.
 
-Do you also love those GitHub Activity Charts and want to make your own but don't know what they are called or what library to use and your work is busy and you have kids and sorry I'll call you back someone is crying?
+July 29, 2024
+
+Do you love those GitHub Activity Charts and want to make your own but don't know what they are called or what library to use and your work is busy and you have kids and sorry I'll call you back someone is crying?
 
 Introducing Scroll's newest parser: `heatrix`!
  https://scroll.pub/blog/../index.html Scroll's
@@ -15,7 +19,7 @@ Try Now | Watch Video
  https://www.youtube.com/watch?v=ycF3k63qn1Y Watch Video
 =========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
-`heatrix` let's you craft custom heatmap visualizations quickly.
+`heatrix` let's you craft custom heatmap visualizations with the fewest keystrokes possible.
 
 Heat Map + Matrix = Heatrix
 ===========================

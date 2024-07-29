@@ -222,6 +222,74 @@ class JSONStream extends Minipass {
   static parse (path, map) {
     return new JSONStream({path, map})
   }
+
+  static stringify (opts) {
+    return new JSONStreamStringify(opts)
+  }
+  static get JSONStreamStringify () {
+    return JSONStreamStringify
+  }
+
+  static stringifyObject (opts) {
+    return new JSONStreamStringifyObject(opts)
+  }
+  static get JSONStreamStringifyObject () {
+    return JSONStreamStringifyObject
+  }
+}
+
+const _wroteData = Symbol('wroteData')
+const _stringify = Symbol('stringify')
+class JSONStreamStringify extends Minipass {
+  constructor (opts = {}) {
+    super(opts)
+    const {
+      op = '[\n',
+      sep = '\n,\n',
+      cl = '\n]\n',
+      indent = 0,
+      reviver = null,
+    } = opts
+    Object.assign(this, { op, sep, cl, indent, reviver, [_wroteData]: false })
+  }
+
+  write (obj) {
+    super.write(this[_wroteData] ? this.sep : this.op)
+    this[_wroteData] = true
+    try {
+      return super.write(this[_stringify](obj))
+    } catch (er) {
+      this.emit('error', er)
+    }
+  }
+
+  [_stringify] (obj) {
+    return JSON.stringify(obj, this.reviver, this.indent)
+  }
+
+  end (obj) {
+    if (obj)
+      this.write(obj)
+    if (!this[_wroteData])
+      super.write(this.op)
+
+    super.write(this.cl)
+    return super.end()
+  }
+}
+
+class JSONStreamStringifyObject extends JSONStreamStringify {
+  constructor (opts = {}) {
+    const {
+      op = '{\n',
+      sep = '\n,\n',
+      cl = '\n}\n',
+    } = opts
+    super({ ...opts, op, sep, cl })
+  }
+  [_stringify] ([key, value]) {
+    return `${JSON.stringify(key)}: ${super[_stringify](value)}`
+  }
 }
 
 module.exports = JSONStream
