@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+111.2.0 7/29/2024
+=================
+🎉 added `testStrict` parser to allow disabling catch all paragraph on a per file basis.
+
 111.1.0 7/26/2024
 =================
 🎉 `heatrix` now supports using custom labels even for numeric cells.

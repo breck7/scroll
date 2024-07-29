@@ -5,7 +5,6 @@ import header.scroll
 css html {font-size: var(--base-font-size, 16px);}
 
 printTitle
-
 # Evolve and publish your most intelligent ideas
 
 <br>

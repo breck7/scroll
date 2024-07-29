@@ -117,6 +117,7 @@ table - A table from a custom delimiter.
 tableSearch - Table search and sort widget.
 tabTable - A table from TSV data.
 tags - Set tags.
+testStrict - Make catchAllParagraphParser = error.
 thanksTo - Acknowledge reviewers. Prints nothing.
 thinColumns - Thin columns.
 title - Set title.
