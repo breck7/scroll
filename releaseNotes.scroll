@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 111.5.0 7/29/2024
+🎉 added `buildFiles` to CLI class
+
 📦 111.4.0 7/29/2024
 🎉 added `printExpandedSource` and `printOriginalSource` parsers
 
