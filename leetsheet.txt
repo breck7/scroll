@@ -83,11 +83,13 @@ printAuthors - Prints author(s) byline.
 printConcepts - Print concepts to HTML table.
 printCsv - Print group metadata to CSV.
 printDate - Print published date.
+printExpandedSource - Print source after imports and variable expansion.
 printFeed - Print group to RSS.
 printFormatLinks - Prints links to other formats.
 printFullSnippets - Print full pages in group(s).
 printLeetSheet - Print Scroll parser leet sheet.
 printMeasures - Print measure stats to HTML table.
+printOriginalSource - Print source before imports and variable expansion.
 printRelated - Print links to related posts.
 printSearchTable - Prints files to HTML table.
 printSiteMap - Print text sitemap.

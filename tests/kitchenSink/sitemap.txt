@@ -15,6 +15,7 @@ https://scroll.pub/index.html
 https://scroll.pub/heatrix.html
 https://scroll.pub/full.html
 https://scroll.pub/feed.html
+https://scroll.pub/debugging.html
 https://scroll.pub/csv.html
 https://scroll.pub/contacts.html
 https://scroll.pub/center.html

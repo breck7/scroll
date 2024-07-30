@@ -138,3 +138,5 @@ The Files:
  There are NUM_SINKS in my list.
  
  This file is in dir: DIRNAME
+ 
+ thinColumns 2
