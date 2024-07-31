@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<div class="scrollSection"><h1 class="scrollTitle"><a href="debugging.html">283</a></h1>
-</div>
-<p class="scrollParagraph">Sum is 2</p>
 <style>
 figure {
   margin: 0;
@@ -370,36 +367,98 @@ h4.scrollQuestion {
 }
 
 </style>
-<code class="scrollCodeBlock">buildHtml
-
-replace TITLE 283
-replaceJs SUM 1+1
+<div class="scrollSection"><h1 class="scrollTitle"><a href="debugging.html">Debug tools tests</a></h1>
+</div>
+<p class="scrollParagraph">The sum of 1+1 is 2</p>
+<code class="scrollCodeBlock">Pass 1 - codeAtStart
+========
+buildHtml
+gazetteCss
 title TITLE
+replace TITLE Debug tools tests
+replaceJs SUM 1+1
+
 printTitle
 
-Sum is SUM
+The sum of 1+1 is SUM
 
+printSourceStack
+
+
+import footer.scroll
+
+
+
+Pass 2 - codeAfterImportPass
+========
+buildHtml
 gazetteCss
+title TITLE
+replace TITLE Debug tools tests
+replaceJs SUM 1+1
 
-printOriginalSource
-
----
-
-printExpandedSource</code>
-<hr>
-<code class="scrollCodeBlock">buildHtml
-
-title 283
 printTitle
 
-Sum is 2
+The sum of 1+1 is SUM
 
+printSourceStack
+
+
+pageFooter
+
+
+
+
+
+Pass 3 - codeAfterMacroPass
+========
+buildHtml
 gazetteCss
+title Debug tools tests
 
-printOriginalSource
+printTitle
 
----
+The sum of 1+1 is 2
 
-printExpandedSource</code>
+printSourceStack
+
+
+pageFooter
+
+
+</code>
+</div><style>.pageFooter {
+  margin-top: 8px;
+  padding-top: 8px;
+  text-align: center;
+}
+.pageFooter svg {
+  width: 30px;
+  height: 30px;
+  fill: rgba(204,204,204, .5);
+  padding: 0 7px;
+}
+.pageFooter svg:hover {
+  fill: #333;
+}
+.pageFooterScrollLink {
+  font-family: Verdana;
+  font-weight: 100;
+  margin: .5em;
+}
+.pageFooterScrollLink a {
+  color: rgba(204,204,204,.5);
+}
+.pageFooterScrollLink a:hover {
+  color: #333;
+  text-decoration: none;
+}
+</style><p class="scrollViewSource doNotPrint"></p>
+<div class="pageFooter doNotPrint">
+ <a title="View Source" href="debugging.scroll"><svg xmlns="http://www.w3.org/2000/svg" width="92pt" height="92pt" viewBox="0 0 92 92"><path d="M90.156 41.965 50.036 1.848a5.913 5.913 0 0 0-8.368 0l-8.332 8.332 10.566 10.566a7.03 7.03 0 0 1 7.23 1.684 7.043 7.043 0 0 1 1.673 7.277l10.183 10.184a7.026 7.026 0 0 1 7.278 1.672 7.04 7.04 0 0 1 0 9.957 7.045 7.045 0 0 1-9.961 0 7.038 7.038 0 0 1-1.532-7.66l-9.5-9.497V59.36a7.04 7.04 0 0 1 1.86 11.29 7.04 7.04 0 0 1-9.957 0 7.04 7.04 0 0 1 0-9.958 7.034 7.034 0 0 1 2.308-1.539V33.926a7.001 7.001 0 0 1-2.308-1.535 7.049 7.049 0 0 1-1.516-7.7L29.242 14.273 1.734 41.777a5.918 5.918 0 0 0 0 8.371L41.855 90.27a5.92 5.92 0 0 0 8.368 0l39.933-39.934a5.925 5.925 0 0 0 0-8.371"/></svg></a>
+ <div class="pageFooterScrollLink">
+  <a href="https://scroll.pub">Built with Scroll v112.0.0</a>
+</div>
+</div>
 </body>
 </html>

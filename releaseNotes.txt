@@ -8,6 +8,12 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+112.0.0 7/31/2024
+=================
+🎉 added `printSourceStack` parser to provide a clean way to view source code at each step in compilation.
+⚠️ BREAKING: removed `readingList` parser. Aftertext is a better choice.
+⚠️ BREAKING: merged `printExpandedSource` and `printOriginalSource` into `printSourceStack`
+
 111.5.0 7/29/2024
 =================
 🎉 added `buildFiles` to CLI class
@@ -1615,10 +1621,6 @@ Have you thought of the most important question?
 🎉 New parsers: `*`, `footnote`, and `readingList`
 
 This is a _thought_. It's like a condensed form of aftertext with *bold* and _italics_ and `code` turned on by default.
-
-Reading lists
-=============
-Projects I'm very actively working on:
 
 31.3.0 2022.9.3
 ===============

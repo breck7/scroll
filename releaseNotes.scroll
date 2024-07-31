@@ -18,6 +18,11 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 112.0.0 7/31/2024
+🎉 added `printSourceStack` parser to provide a clean way to view source code at each step in compilation.
+⚠️ BREAKING: removed `readingList` parser. Aftertext is a better choice.
+⚠️ BREAKING: merged `printExpandedSource` and `printOriginalSource` into `printSourceStack`
+
 📦 111.5.0 7/29/2024
 🎉 added `buildFiles` to CLI class
 
@@ -1374,15 +1379,6 @@ aboveAsCode
 * This is a _thought_. It's like a condensed form of aftertext with *bold* and _italics_ and `code` turned on by default.
  hoverNote default
   And it supports hover notes!
-aboveAsCode
-
-# Reading lists
-Projects I'm very actively working on:
-
-readingList
- https://pldb.io PLDB.io
- https://scroll.pub Scroll
- https://breckyunits.com A Blog by Breck Yunits
 aboveAsCode
 
 📦 31.3.0 2022.9.3

@@ -2,7 +2,7 @@ The Official Scroll Blog
 ========================
 Heatrix: Heat Maps + Matrix Visualizations
 ==========================================
-07/30/2024
+07/31/2024
 https://scroll.pub/blog/heatrix.html
 
 Contacts: A Microlang for Managing Contacts

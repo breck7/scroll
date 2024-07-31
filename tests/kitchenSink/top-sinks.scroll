@@ -1,7 +1,6 @@
 authors Breck Yunits
  https://breckyunits.com Breck Yunits
 date 1/11/2019
-tags index all
 replace NUM_SINKS 283
 replace TABLE
  pipeTable
@@ -13,6 +12,7 @@ replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
 replaceJs TODAYS_DATE Date()
 replaceNodejs
  module.exports = {DIRNAME: __dirname}
+tags index all
 title Top Sinks
 
 import header.scroll
