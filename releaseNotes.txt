@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+112.1.1 7/31/2024
+=================
+🏥 counters fix
+
 112.1.0 7/31/2024
 =================
 🎉 added `counters` parser.
