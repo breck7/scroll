@@ -7,9 +7,12 @@ scrollCounterParser
   compile() {
    const content = this.content
    const words = content.split(" ")
+   console.log(words)
    const perSecond = parseFloat(words.shift()) // get number
+   console.log(perSecond)
+   const increment = perSecond/10
    const id = this._getUid()
-   this.setLine(`* <span id="counter${id}" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter${id}'); el.title = parseFloat(el.title) + (${perSecond/10}); el.textContent = Math.ceil(parseFloat(el.title)).toLocaleString()}, 100)</script> ` + words.join(" "))
+   this.setLine(`* <span id="counter${id}" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter${id}'); el.title = parseFloat(el.title) + ${increment}; el.textContent = Math.ceil(parseFloat(el.title)).toLocaleString()}, 100)</script> ` + words.join(" "))
    const html = super.compile()
    this.setLine(content)
    return html
