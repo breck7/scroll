@@ -43,6 +43,7 @@ codeWithHeader - A code block.
 commaTable - A table from CSV data.
 comment - Prints nothing.
 copyButtons - Copy code widget.
+counter - Just for fun.
 css - A style tag.
 dashboard - Key stats in large font.
 date - Set published date.

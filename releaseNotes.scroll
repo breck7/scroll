@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 112.1.0 7/31/2024
+🎉 added `counters` parser.
+
 📦 112.0.0 7/31/2024
 🎉 added `printSourceStack` parser to provide a clean way to view source code at each step in compilation.
 ⚠️ BREAKING: removed `readingList` parser. Aftertext is a better choice.

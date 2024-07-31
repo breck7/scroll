@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+112.1.0 7/31/2024
+=================
+🎉 added `counters` parser.
+
 112.0.0 7/31/2024
 =================
 🎉 added `printSourceStack` parser to provide a clean way to view source code at each step in compilation.

@@ -1,0 +1,42 @@
+Build Your Own Counters
+=======================
+by Breck Yunits
+ https://twitter.com/breckyunits Breck Yunits
+
+July 31, 2024
+
+I like collections of interesting numbers, such as BioNumbers. Animated counters provide a useful perspective when pondering large numbers. I wanted to make it as easy as possible for anyone to create these counters.
+ https://bionumbers.hms.harvard.edu/Search.aspx?task=searchbypop BioNumbers
+
+So, today I added a new parser to Scroll: *counter*.
+
+***
+
+Try now
+ https://try.scroll.pub/#scroll%0A%20%23%20World%20Population%0A%20counter%204.5%20Babies%20Born%0A%20counter%201.7%20Human%20Deaths%0A%20counter%208123456789%20heart%20beats%0A%20%0A%20%23%20In%20Your%20Body%0A%20counter%203112123%20Red%20Blood%20Cells%20Made%0A%20counter%203812123%20Cells%20Made%0A%20counter%202123456789123456789123%20ATP%20molecules%20made%0A%20%0A%20%23%20World%20Economy%0A%20counter%202.5%20Cars%20Made%0A%20counter%203523123%20Emails%20Sent%0A%20counter%2059321%20YouTubes%20Watched Try now
+============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+***
+
+Since you loaded this page...
+=============================
+
+World Population
+================
+Babies Born
+Human Deaths
+heart beats
+
+In Your Body
+============
+Red Blood Cells Made
+Cells Made
+ATP molecules made
+
+World Economy
+=============
+Cars Made
+Emails Sent
+YouTubes Watched
+
+****
