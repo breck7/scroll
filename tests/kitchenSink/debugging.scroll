@@ -1,16 +1,14 @@
 buildHtml
-
-replace TITLE 283
-replaceJs SUM 1+1
+gazetteCss
 title TITLE
+replace TITLE Debug tools tests
+replaceJs SUM 1+1
+
 printTitle
 
-Sum is SUM
+The sum of 1+1 is SUM
 
-gazetteCss
+printSourceStack
 
-printOriginalSource
 
----
-
-printExpandedSource
+import footer.scroll
