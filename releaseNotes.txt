@@ -8,6 +8,15 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+113.0.0 8/1/2024
+================
+🎉 added `inlineMarkups` parser. Thanks to eugenesvk for the idea.
+ https://github.com/eugenesvk eugenesvk
+ https://github.com/breck7/scroll/issues/122 idea
+🎉 `printSourceStack` now prints [Unchanged] if the source was not changed during a compiler step.
+⚠️ BREAKING: `wrapsOn` is now `inlineMarkupsOn`
+⚠️ BREAKING: `wrap` is now `inlineMarkup`
+
 112.1.2 7/31/2024
 =================
 🏥 counters fix

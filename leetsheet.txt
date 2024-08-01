@@ -64,6 +64,7 @@ htmlLang - Override HTML lang attribute.
 image - An img tag.
 import - Import a file.
 importOnly - Don't build this file.
+inlineMarkups - Set global inline markups.
 katex - KaTex widget for typeset math.
 keyboardNav - Make left and right navigate files.
 loadConcepts - Import all concepts in a folder.
