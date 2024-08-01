@@ -1,0 +1,19 @@
+buildHtml
+
+thinColumns 1
+
+gazetteCss
+
+# Custom Inline Markups Test
+
+belowAsCode 3
+inlineMarkups
+ *
+  // disable bold
+ _ u
+  // override underline
+ ~~~ marquee
+  // Add marquee!
+
+*This* should not be bold. ~~~This should be a marquee.~~~ And _this_ should be underlined.
+

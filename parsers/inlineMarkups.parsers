@@ -2,6 +2,17 @@ inlineMarkupNameCell
  description Options to turn on some inline markups.
  enum bold italics code katex none
 
+inlineMarkupsParser
+ description Set global inline markups.
+ extends abstractTopLevelSingleMetaParser
+ cruxFromId
+ example
+  inlineMarkups
+   * 
+    // Disable * for bold
+   _ u
+    // Make _ underline
+
 inlineMarkupsOnParser
  cruxFromId
  description Enable these inline markups only.
@@ -15,12 +26,22 @@ inlineMarkupsOnParser
    return true
   }
   get markups() {
-    const markups = [{delimiter: "`", tag: "code", exclusive: true, name: "code"},{delimiter: "*", tag: "strong", name: "bold"}, {delimiter: "_", tag: "em", name: "italics"}]
+    const {root} = this
+    let markups = [{delimiter: "`", tag: "code", exclusive: true, name: "code"},{delimiter: "*", tag: "strong", name: "bold"}, {delimiter: "_", tag: "em", name: "italics"}]
     // only add katex markup if the root doc has katex.
-    if (this.root.has("katex"))
+    if (root.has("katex"))
       markups.unshift({delimiter: "$", tag: "span", attributes: ' class="scrollKatex"', exclusive: true, name: "katex"})
     if (this.content)
       return markups.filter(markup => this.content.includes(markup.name))
+    if (root.has("inlineMarkups")) {
+      root.getNode("inlineMarkups").forEach(markup => {
+        const delimiter = markup.getWord(0)
+        const tag = markup.getWord(1)
+        markups = markups.filter(mu => mu.delimiter !== delimiter) // Remove any overridden markups
+        if (tag)
+          markups.push({delimiter, tag})
+      })
+    }
     return markups
   }
   matchWholeLine = true
