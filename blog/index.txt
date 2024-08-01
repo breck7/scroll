@@ -2,12 +2,12 @@ The Official Scroll Blog
 ========================
 Build Your Own Counters
 =======================
-07/31/2024
+08/01/2024
 https://scroll.pub/blog/counters.html
 
 Heatrix: Heat Maps + Matrix Visualizations
 ==========================================
-07/31/2024
+08/01/2024
 https://scroll.pub/blog/heatrix.html
 
 Contacts: A Microlang for Managing Contacts

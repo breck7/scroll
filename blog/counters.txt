@@ -3,7 +3,7 @@ Build Your Own Counters
 by Breck Yunits
  https://twitter.com/breckyunits Breck Yunits
 
-July 31, 2024
+August 1, 2024
 
 I like collections of interesting numbers, such as BioNumbers. Animated counters provide a useful perspective when pondering large numbers. I wanted to make it as easy as possible for anyone to create these counters.
  https://bionumbers.hms.harvard.edu/Search.aspx?task=searchbypop BioNumbers
@@ -23,20 +23,20 @@ Since you loaded this page...
 
 World Population
 ================
-Babies Born
-Human Deaths
-heart beats
+4.5 Babies Born
+1.7 Human Deaths
+8123456789 heart beats
 
 In Your Body
 ============
-Red Blood Cells Made
-Cells Made
-ATP molecules made
+3112123 Red Blood Cells Made
+3812123 Cells Made
+2123456789123456789123 ATP molecules made
 
 World Economy
 =============
-Cars Made
-Emails Sent
-YouTubes Watched
+2.5 Cars Made
+3523123 Emails Sent
+59321 YouTubes Watched
 
 ****
