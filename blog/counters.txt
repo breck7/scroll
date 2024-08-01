@@ -1,5 +1,5 @@
-Build Your Own Counters
-=======================
+Build Your Own Counters With 3 Words
+====================================
 by Breck Yunits
  https://twitter.com/breckyunits Breck Yunits
 
@@ -9,6 +9,8 @@ I like collections of interesting numbers, such as BioNumbers. Animated counters
  https://bionumbers.hms.harvard.edu/Search.aspx?task=searchbypop BioNumbers
 
 So, today I added a new parser to Scroll: *counter*.
+
+counter 1.1 Heartbeats
 
 ***
 

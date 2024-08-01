@@ -1,7 +1,7 @@
 The Official Scroll Blog
 ========================
-Build Your Own Counters
-=======================
+Build Your Own Counters With 3 Words
+====================================
 08/01/2024
 https://scroll.pub/blog/counters.html
 
