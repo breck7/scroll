@@ -18,6 +18,14 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 113.0.0 8/1/2024
+🎉 added `inlineMarkups` parser. Thanks to eugenesvk for the idea.
+ https://github.com/eugenesvk eugenesvk
+ https://github.com/breck7/scroll/issues/122 idea
+🎉 `printSourceStack` now prints [Unchanged] if the source was not changed during a compiler step.
+⚠️ BREAKING: `wrapsOn` is now `inlineMarkupsOn`
+⚠️ BREAKING: `wrap` is now `inlineMarkup`
+
 📦 112.1.2 7/31/2024
 🏥 counters fix
 
@@ -1568,12 +1576,12 @@ treeTable
 🎉 added `wrap` parser for advanced custom wraps in aftertext.
 
 Some !simple! and *advanced* usages. An #absolute link# and @@@a relative link@@@. Show some ++added text++ or some --deleted text--.
- wrap ! em
- wrap * b
- wrap # https://example.com
- wrap @@@ a href="potato.html"
- wrap ++ span style="color:green"
- wrap -- span style="color:red; text-decoration: line-through;"
+ inlineMarkup ! em
+ inlineMarkup * b
+ inlineMarkup # https://example.com
+ inlineMarkup @@@ a href="potato.html"
+ inlineMarkup ++ span style="color:green"
+ inlineMarkup -- span style="color:red; text-decoration: line-through;"
 aboveAsCode
 
 📦 24.5.0 2022.6.10
