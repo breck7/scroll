@@ -3,7 +3,7 @@ Build Your Own Counters With 3 Words
 by Breck Yunits
  https://twitter.com/breckyunits Breck Yunits
 
-August 1, 2024
+August 2, 2024
 
 I like collections of interesting numbers, such as BioNumbers. Animated counters provide a useful perspective when pondering large numbers. I wanted to make it as easy as possible for anyone to create these counters.
  https://bionumbers.hms.harvard.edu/Search.aspx?task=searchbypop BioNumbers
@@ -15,8 +15,8 @@ counter 1.1 Heartbeats
 ***
 
 Try now
- https://try.scroll.pub/#scroll%0A%20%23%20World%20Population%0A%20counter%204.5%20Babies%20Born%0A%20counter%201.7%20Human%20Deaths%0A%20counter%208123456789%20heart%20beats%0A%20%0A%20%23%20In%20Your%20Body%0A%20counter%203112123%20Red%20Blood%20Cells%20Made%0A%20counter%203812123%20Cells%20Made%0A%20counter%202123456789123456789123%20ATP%20molecules%20made%0A%20%0A%20%23%20World%20Economy%0A%20counter%202.5%20Cars%20Made%0A%20counter%203523123%20Emails%20Sent%0A%20counter%2059321%20YouTubes%20Watched Try now
-============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+ https://try.scroll.pub/#scroll%0A%20gazetteCss%0A%20%0A%20%23%20Show%20HN%3A%20Make%20a%20counter%20with%203%20words%0A%20%0A%20New%20in%20Scroll%20v112.1.0.%20Read%20more.%0A%20%20https%3A%2F%2Fscroll.pub%2Fblog%2Fcounters.html%20Read%20more.%0A%20%0A%20code%0A%20%20counter%20%5BRate%2FSecond%5D%20%5BDescription%5D%0A%20%0A%20%23%20Since%20you%20loaded%20this%20page...%0A%20%0A%20thinColumns%0A%20%0A%20%23%23%20World%20Population%0A%20counter%204.5%20Babies%20Born%0A%20%20https%3A%2F%2Fourworldindata.org%2Fbirths-and-deaths%0A%20counter%201.7%20Human%20Deaths%0A%20%20https%3A%2F%2Fourworldindata.org%2Fbirths-and-deaths%0A%20counter%208123456789%20heart%20beats%0A%20%20https%3A%2F%2Fourworldindata.org%2Fgrapher%2Fpopulation%0A%20%0A%20%23%23%20In%20Your%20Body%0A%20counter%203112123%20Red%20Blood%20Cells%20Made%0A%20%20https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fbooks%2FNBK2263%2F%0A%20counter%203812123%20Cells%20Made%0A%20%20https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fbooks%2FNBK2263%2F%0A%20counter%202123456789123456789123%20ATP%20molecules%20made%0A%20%20https%3A%2F%2Fbio.libretexts.org%2FBookshelves%2FHuman_Biology%2FHuman_Biology_(Wakim_and_Grewal)%2F05%253A_Cells%2F5.09%253A_Cellular_Respiration%0A%20%0A%20%23%23%20In%20Your%20Brain%0A%20counter%201.2e12%20Action%20Potentials%20Fired%0A%20%20https%3A%2F%2Fwww.khanacademy.org%2Ftest-prep%2Fmcat%2Forgan-systems%2Fneural-synapses%2Fa%2Fsignal-propagation-the-movement-of-signals-between-neurons%0A%20counter%203.64e18%20Ketones%20Consumed%20(Ketosis)%0A%20%20https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fpmc%2Farticles%2FPMC7699472%2F%0A%20counter%204.64e18%20Glucose%20Molecules%20Consumed%0A%20%20https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fpmc%2Farticles%2FPMC3900881%2F%0A%20%0A%20%23%23%20World%20Economy%0A%20counter%202.5%20Cars%20Made%0A%20%20https%3A%2F%2Fwww.statista.com%2Fstatistics%2F262747%2Fworldwide-automobile-production-since-2000%2F%0A%20counter%2026012%20Cups%20of%20Coffee%20Consumed%0A%20%20https%3A%2F%2Fwww.rgare.com%2Fknowledge-center%2Farticle%2Fcoffee-consumption-how-much-is-too-much-and-how-little-is-not-enough%0A%20counter%2059321%20YouTubes%20Watched%0A%20%20https%3A%2F%2Fthesocialshepherd.com%2Fblog%2Fyoutube-statistics%0A%20%0A%20%23%23%20Flight%0A%20counter%200.00008%20Objects%20Launched%20into%20Space%0A%20%20https%3A%2F%2Fourworldindata.org%2Fgrapher%2Fyearly-number-of-objects-launched-into-outer-space%0A%20counter%200.00004%20Planes%20Built%0A%20%20https%3A%2F%2Fwww.ibisworld.com%2Fglobal%2Fmarket-research-reports%2Fglobal-commercial-aircraft-manufacturing-industry%2F%0A%20counter%201.17%20Planes%20Landed%0A%20%20https%3A%2F%2Fwww.faa.gov%2Fair_traffic%2Fby_the_numbers%0A%20%0A%20%23%23%20Animals%0A%20counter%200.00004%20Blue%20Whales%20Born%0A%20%20https%3A%2F%2Fwww.marinemammalcenter.org%2Fanimal-care%2Flearn-about-marine-mammals%2Fcetaceans%2Fblue-whale%0A%20counter%200.001%20Elephants%20Born%0A%20%20https%3A%2F%2Felephantconservation.org%2Fabout-elephants%2F25-things-to-know%2F%0A%20counter%203.1e10%20Ants%20Born%0A%20%20https%3A%2F%2Fprivateexterminator.com%2Fare-all-the-ants-as-heavy-as-all-the-humans%0A%20 Try now
+==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
 ***
 
@@ -26,19 +26,55 @@ Since you loaded this page...
 World Population
 ================
 4.5 Babies Born
+ https://ourworldindata.org/births-and-deaths 4.5 Babies Born
 1.7 Human Deaths
+ https://ourworldindata.org/births-and-deaths 1.7 Human Deaths
 8123456789 heart beats
+ https://ourworldindata.org/grapher/population 8123456789 heart beats
 
 In Your Body
 ============
 3112123 Red Blood Cells Made
+ https://www.ncbi.nlm.nih.gov/books/NBK2263/ 3112123 Red Blood Cells Made
 3812123 Cells Made
+ https://www.ncbi.nlm.nih.gov/books/NBK2263/ 3812123 Cells Made
 2123456789123456789123 ATP molecules made
+ https://bio.libretexts.org/Bookshelves/Human_Biology/Human_Biology_(Wakim_and_Grewal)/05%3A_Cells/5.09%3A_Cellular_Respiration 2123456789123456789123 ATP molecules made
+
+In Your Brain
+=============
+1.2e12 Action Potentials Fired
+ https://www.khanacademy.org/test-prep/mcat/organ-systems/neural-synapses/a/signal-propagation-the-movement-of-signals-between-neurons 1.2e12 Action Potentials Fired
+3.64e18 Ketones Consumed (Ketosis)
+ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7699472/ 3.64e18 Ketones Consumed (Ketosis)
+4.64e18 Glucose Molecules Consumed
+ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3900881/ 4.64e18 Glucose Molecules Consumed
 
 World Economy
 =============
 2.5 Cars Made
-3523123 Emails Sent
+ https://www.statista.com/statistics/262747/worldwide-automobile-production-since-2000/ 2.5 Cars Made
+26012 Cups of Coffee Consumed
+ https://www.rgare.com/knowledge-center/article/coffee-consumption-how-much-is-too-much-and-how-little-is-not-enough 26012 Cups of Coffee Consumed
 59321 YouTubes Watched
+ https://thesocialshepherd.com/blog/youtube-statistics 59321 YouTubes Watched
+
+Flight
+======
+0.00008 Objects Launched into Space
+ https://ourworldindata.org/grapher/yearly-number-of-objects-launched-into-outer-space 0.00008 Objects Launched into Space
+0.00004 Planes Built
+ https://www.ibisworld.com/global/market-research-reports/global-commercial-aircraft-manufacturing-industry/ 0.00004 Planes Built
+1.17 Planes Landed
+ https://www.faa.gov/air_traffic/by_the_numbers 1.17 Planes Landed
+
+Animals
+=======
+0.00004 Blue Whales Born
+ https://www.marinemammalcenter.org/animal-care/learn-about-marine-mammals/cetaceans/blue-whale 0.00004 Blue Whales Born
+0.001 Elephants Born
+ https://elephantconservation.org/about-elephants/25-things-to-know/ 0.001 Elephants Born
+3.1e10 Ants Born
+ https://privateexterminator.com/are-all-the-ants-as-heavy-as-all-the-humans 3.1e10 Ants Born
 
 ****
