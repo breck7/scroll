@@ -77,4 +77,13 @@ Animals
 3.1e10 Ants Born
  https://privateexterminator.com/are-all-the-ants-as-heavy-as-all-the-humans 3.1e10 Ants Born
 
+Computer Chips
+==============
+66.7 CPUS made by Intel
+ https://www.intel.com/content/www/us/en/architecture-and-technology/global-manufacturing.html 66.7 CPUS made by Intel
+6234556543 Transistors made by Nvidia
+ https://nvidianews.nvidia.com/news/nvidia-announces-hopper-architecture-the-next-generation-of-accelerated-computing 6234556543 Transistors made by Nvidia
+61234556543 Transistors made by Intel
+ https://www.intel.com/content/www/us/en/history/museum-transistors-to-transformations-brochure.html 61234556543 Transistors made by Intel
+
 ****

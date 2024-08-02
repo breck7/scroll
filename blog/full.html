@@ -110,6 +110,11 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p class="scrollParagraph"><a href="https://elephantconservation.org/about-elephants/25-things-to-know/"><span id="counter18" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter18'); el.title = parseFloat(el.title) + 0.0001; el.textContent = Math.ceil(parseFloat(el.title)).toLocaleString()}, 100)</script> Elephants Born</a></p>
 <p class="scrollParagraph"><a href="https://privateexterminator.com/are-all-the-ants-as-heavy-as-all-the-humans"><span id="counter19" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter19'); el.title = parseFloat(el.title) + 3100000000; el.textContent = Math.ceil(parseFloat(el.title)).toLocaleString()}, 100)</script> Ants Born</a></p>
 </div>
+<div class="scrollSection"><h1 class="scrollParagraph">Computer Chips</h1>
+<p class="scrollParagraph"><a href="https://www.intel.com/content/www/us/en/architecture-and-technology/global-manufacturing.html"><span id="counter20" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter20'); el.title = parseFloat(el.title) + 6.67; el.textContent = Math.ceil(parseFloat(el.title)).toLocaleString()}, 100)</script> CPUS made by Intel</a></p>
+<p class="scrollParagraph"><a href="https://nvidianews.nvidia.com/news/nvidia-announces-hopper-architecture-the-next-generation-of-accelerated-computing"><span id="counter21" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter21'); el.title = parseFloat(el.title) + 623455654.3; el.textContent = Math.ceil(parseFloat(el.title)).toLocaleString()}, 100)</script> Transistors made by Nvidia</a></p>
+<p class="scrollParagraph"><a href="https://www.intel.com/content/www/us/en/history/museum-transistors-to-transformations-brochure.html"><span id="counter22" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter22'); el.title = parseFloat(el.title) + 6123455654.3; el.textContent = Math.ceil(parseFloat(el.title)).toLocaleString()}, 100)</script> Transistors made by Intel</a></p>
+</div>
 <div class="dinkus"><span>⁂</span></div><p class="scrollViewSource">
  <a href="https://github.com/breck7/scroll/blob/main/blog/counters.scroll">View source</a>
 </p>
@@ -424,7 +429,7 @@ endColumns</code>
 <script src="d3.js"></script>
 <script src="plot.js"></script>
 
-<div id="plot20"></div><script>
+<div id="plot23"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -439,7 +444,7 @@ endColumns</code>
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot20").append(Plot.plot({
+  document.querySelector("#plot23").append(Plot.plot({
     title: "",
     subtitle: "",
     caption: "",
@@ -463,7 +468,7 @@ endColumns</code>
 <div class="scrollSection"><h1 class="scrollParagraph">Step 2: Add a title</h1>
 <code class="scrollCodeBlock">scatterplot
  title The Iris Dataset</code>
-<div id="plot21"></div><script>
+<div id="plot24"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -478,7 +483,7 @@ endColumns</code>
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot21").append(Plot.plot({
+  document.querySelector("#plot24").append(Plot.plot({
     title: "The Iris Dataset",
     subtitle: "",
     caption: "",
@@ -509,7 +514,7 @@ endColumns</code>
   Homer,39,183
   Bart,10,137
   Lisa,8,120</code>
-<div id="plot22"></div><script>
+<div id="plot25"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`name,age,height
@@ -517,7 +522,7 @@ Homer,39,183
 Bart,10,137
 Lisa,8,120`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot22").append(Plot.plot({
+  document.querySelector("#plot25").append(Plot.plot({
     title: "The Simpson Family",
     subtitle: "",
     caption: "",
@@ -546,7 +551,7 @@ Lisa,8,120`, d3.autoType)
  y moons
  radius diameter
  label id</code>
-<div id="plot23"></div><script>
+<div id="plot26"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
@@ -559,7 +564,7 @@ Uranus,27,,,51118,8,,84.01,false
 Venus,0,,,12104,9,,0.615,false
 Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot23").append(Plot.plot({
+  document.querySelector("#plot26").append(Plot.plot({
     title: "The Planets",
     subtitle: "",
     caption: "",
@@ -592,7 +597,7 @@ Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
  radius diameter
  label id
  symbol hasLife</code>
-<div id="plot24"></div><script>
+<div id="plot27"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
@@ -605,7 +610,7 @@ Uranus,27,,,51118,8,,84.01,false
 Venus,0,,,12104,9,,0.615,false
 Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot24").append(Plot.plot({
+  document.querySelector("#plot27").append(Plot.plot({
     title: "The Planets in our Solar System",
     subtitle: "Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.",
     caption: "Data from Wikipedia.",
@@ -825,7 +830,7 @@ concept
 <div class="scrollSection"><h1 class="scrollParagraph">Extended Example: a Planets ScrollSet</h1>
 </div>
 <p class="scrollParagraph">Below is the ScrollSet embedded in this Scroll file.</p>
-<table id="table25" class="scrollTable">
+<table id="table28" class="scrollTable">
  <thead><tr><th>id</th>
 
 <th>moons</th>
@@ -926,7 +931,7 @@ concept
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table25').addEventListener('click', e => {
+ document.querySelector('#table28').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -939,7 +944,7 @@ concept
 
 
 <div class="scrollSection"><h1 class="scrollParagraph">Measurements of the measures</h1>
-<table id="table26" class="scrollTable">
+<table id="table29" class="scrollTable">
  <thead><tr><th>Name</th>
 
 <th>Values</th>
@@ -1083,7 +1088,7 @@ concept
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table26').addEventListener('click', e => {
+ document.querySelector('#table29').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
