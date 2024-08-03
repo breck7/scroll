@@ -58,10 +58,12 @@ belowAsCode 2
 ## 5. Tables
 Use the `table` parser and include your delimiter for tables:
 belowAsCode
-table ,
- Name,Rank
- Scroll,#1
- Markdown,#2
+table
+ delimiter ,
+ data
+  Name,Rank
+  Scroll,#1
+  Markdown,#2
 
 ## 6. Images
 To add an image use the `image` parser:

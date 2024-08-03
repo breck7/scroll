@@ -68,9 +68,12 @@ testTree.endSnippet = areEqual => {
 testTree.tableWithLinks = areEqual => {
   const tests = [
     {
-      text: `commaTable
- name,nameLink
- Wikipedia,https://wikipedia.org`,
+      text: `table
+ delimiter ,
+ printTable
+ data
+  name,nameLink
+  Wikipedia,https://wikipedia.org`,
       contains: `<a href="https://wikipedia.org">`
     }
   ]

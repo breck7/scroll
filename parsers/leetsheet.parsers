@@ -11,7 +11,9 @@ printUsageStatsParser
   }
   compile() {
     // A hacky but simple way to do this for now.
-   const node = this.appendSibling("table  ", this.stats)
+   const node = this.appendSibling("table")
+   node.appendLine("delimiter  ")
+   node.setChildren(this.stats)
    const html = node.compile()
    node.destroy()
    return html

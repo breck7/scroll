@@ -3,10 +3,13 @@ authors Breck Yunits
 date 1/11/2019
 replace NUM_SINKS 283
 replace TABLE
- pipeTable
-  sinkManufacturer|country
-  Blue|USA
-  Red|Canada
+ table
+  delimiter |
+  printTable
+  data
+   sinkManufacturer|country
+   Blue|USA
+   Red|Canada
 replaceJs SUM 1+1
 replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
 replaceJs TODAYS_DATE Date()
