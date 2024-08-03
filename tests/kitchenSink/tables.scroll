@@ -33,9 +33,8 @@ table
 ---
 
 # Visualizations from CSV
-table posts.csv
+table contacts.csv
  printTable
- sparkline wordCount
 
 ****
 

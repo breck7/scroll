@@ -984,7 +984,7 @@ import footer.scroll`
       .filter(file => !file.importOnly)
       .forEach(file => {
         file.build() // Run any build steps
-        this._buildConceptsAndMeasures(file, folder, fileSystem)
+        this._buildConceptsAndMeasures(file, folder, fileSystem) // todo: call this buildDelimited?
       })
     files
       .filter(file => !file.importOnly)
