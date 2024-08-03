@@ -18,6 +18,11 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 114.0.0 8/2/2024
+🎉 `inlineMarkups` now supports setting attributes and tags
+🏥 upgrade scrollsdk to get exponential notation numbers fix
+⚠️ BREAKING: (no one should be affected). Removed short form of link inline markup. Just use `a href="url"` instead.
+
 📦 113.0.0 8/1/2024
 🎉 added `inlineMarkups` parser. Thanks to eugenesvk for the idea.
  https://github.com/eugenesvk eugenesvk
@@ -1578,7 +1583,7 @@ treeTable
 Some !simple! and *advanced* usages. An #absolute link# and @@@a relative link@@@. Show some ++added text++ or some --deleted text--.
  inlineMarkup ! em
  inlineMarkup * b
- inlineMarkup # https://example.com
+ inlineMarkup # a href="https://example.com"
  inlineMarkup @@@ a href="potato.html"
  inlineMarkup ++ span style="color:green"
  inlineMarkup -- span style="color:red; text-decoration: line-through;"

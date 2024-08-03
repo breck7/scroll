@@ -8,6 +8,12 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+114.0.0 8/2/2024
+================
+🎉 `inlineMarkups` now supports setting attributes and tags
+🏥 upgrade scrollsdk to get exponential notation numbers fix
+⚠️ BREAKING: (no one should be affected). Removed short form of link inline markup. Just use `a href="url"` instead.
+
 113.0.0 8/1/2024
 ================
 🎉 added `inlineMarkups` parser. Thanks to eugenesvk for the idea.
