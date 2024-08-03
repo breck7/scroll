@@ -369,7 +369,7 @@ h4.scrollQuestion {
 </style>
 <div class="scrollColumns" style="column-width:65ch;column-count:1;max-width:65ch;">
 <div class="scrollSection"><h1 class="scrollTitle"><a href="contacts.html">My Contacts</a></h1>
-<table id="table15" class="scrollTable">
+<table id="table13" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>email</th>
@@ -394,7 +394,7 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table15').addEventListener('click', e => {
+ document.querySelector('#table13').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });

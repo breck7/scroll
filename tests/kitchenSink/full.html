@@ -20,8 +20,8 @@
 
 <div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="tabularData.html">Tabular data test</a></h1>
 </div>
-<p class="scrollParagraph">A test of pasting raw TSV data at the root level in a scroll document.</p>
-<table id="table10" class="scrollTable">
+<p class="scrollParagraph">A test of TSV data</p>
+<table id="table1" class="scrollTable">
  <thead><tr><th>Index</th>
 
 <th>Name</th>
@@ -54,12 +54,7 @@
 
 <th>55</th>
 </tr></thead>
- <tbody><tr><td>1</td>
-<td>Thermos</td>
-<td>3</td>
-<td>7.25</td>
-<td>TRUE</td>
-<td>149.9</td>
+ <tbody><tr><td>149.9</td>
 <td>147</td>
 <td>144.6</td>
 <td>141.2</td>
@@ -70,13 +65,13 @@
 <td>131.1</td>
 <td>129.3</td>
 <td>127.2</td>
-</tr>
-<tr><td>2</td>
-<td>Yeti Covered</td>
-<td>4</td>
-<td>3.8</td>
+<td>1</td>
+<td>Thermos</td>
+<td>3</td>
+<td>7.25</td>
 <td>TRUE</td>
-<td>146.6</td>
+</tr>
+<tr><td>146.6</td>
 <td>141</td>
 <td>136.7</td>
 <td>132.5</td>
@@ -87,13 +82,13 @@
 <td>118.5</td>
 <td>117.6</td>
 <td>115.7</td>
-</tr>
-<tr><td>3</td>
-<td>Yeti</td>
+<td>2</td>
+<td>Yeti Covered</td>
 <td>4</td>
 <td>3.8</td>
-<td>FALSE</td>
-<td>135.5</td>
+<td>TRUE</td>
+</tr>
+<tr><td>135.5</td>
 <td>118.9</td>
 <td>107.9</td>
 <td>100.5</td>
@@ -104,13 +99,13 @@
 <td>82.9</td>
 <td>81.3</td>
 <td>79.7</td>
-</tr>
-<tr><td>4</td>
-<td>SF</td>
+<td>3</td>
+<td>Yeti</td>
 <td>4</td>
-<td>4.5</td>
+<td>3.8</td>
 <td>FALSE</td>
-<td>128.8</td>
+</tr>
+<tr><td>128.8</td>
 <td>113.9</td>
 <td>102.5</td>
 <td>95.9</td>
@@ -121,13 +116,13 @@
 <td>79.8</td>
 <td>78.2</td>
 <td>76.6</td>
-</tr>
-<tr><td>5</td>
-<td>Aruba</td>
-<td>3</td>
-<td>3.75</td>
+<td>4</td>
+<td>SF</td>
+<td>4</td>
+<td>4.5</td>
 <td>FALSE</td>
-<td>130.8</td>
+</tr>
+<tr><td>130.8</td>
 <td>114.6</td>
 <td>104.9</td>
 <td>98.9</td>
@@ -138,16 +133,21 @@
 <td>81.1</td>
 <td>80.2</td>
 <td>78</td>
+<td>5</td>
+<td>Aruba</td>
+<td>3</td>
+<td>3.75</td>
+<td>FALSE</td>
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table10').addEventListener('click', e => {
+ document.querySelector('#table1').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
 <div class="scrollSection"><h2 class="scrollParagraph">Putting print table after a table:</h2>
-<table id="table11" class="scrollTable">
+<table id="table2" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>score</th>
@@ -157,149 +157,7 @@
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table11').addEventListener('click', e => {
-  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
-  e.currentTarget.classList.toggle('expandedTable');
- });
- </script>
-</div>
-<div class="scrollSection"><h1 class="scrollParagraph">Print table using index</h1>
-<table id="table12" class="scrollTable">
- <thead><tr><th>name</th>
-
-<th>score</th>
-</tr></thead>
- <tbody><tr><td>joe</td>
-<td>2</td>
-</tr></tbody>
- </table>
- <script>
- document.querySelector('#table12').addEventListener('click', e => {
-  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
-  e.currentTarget.classList.toggle('expandedTable');
- });
- </script>
-<table id="table13" class="scrollTable">
- <thead><tr><th>Index</th>
-
-<th>Name</th>
-
-<th>Diameter</th>
-
-<th>Height</th>
-
-<th>Covered</th>
-
-<th>5</th>
-
-<th>10</th>
-
-<th>15</th>
-
-<th>20</th>
-
-<th>25</th>
-
-<th>30</th>
-
-<th>35</th>
-
-<th>40</th>
-
-<th>45</th>
-
-<th>50</th>
-
-<th>55</th>
-</tr></thead>
- <tbody><tr><td>1</td>
-<td>Thermos</td>
-<td>3</td>
-<td>7.25</td>
-<td>TRUE</td>
-<td>149.9</td>
-<td>147</td>
-<td>144.6</td>
-<td>141.2</td>
-<td>138.2</td>
-<td>137.1</td>
-<td>134</td>
-<td>132.8</td>
-<td>131.1</td>
-<td>129.3</td>
-<td>127.2</td>
-</tr>
-<tr><td>2</td>
-<td>Yeti Covered</td>
-<td>4</td>
-<td>3.8</td>
-<td>TRUE</td>
-<td>146.6</td>
-<td>141</td>
-<td>136.7</td>
-<td>132.5</td>
-<td>129</td>
-<td>125.6</td>
-<td>123.4</td>
-<td>121.6</td>
-<td>118.5</td>
-<td>117.6</td>
-<td>115.7</td>
-</tr>
-<tr><td>3</td>
-<td>Yeti</td>
-<td>4</td>
-<td>3.8</td>
-<td>FALSE</td>
-<td>135.5</td>
-<td>118.9</td>
-<td>107.9</td>
-<td>100.5</td>
-<td>94.6</td>
-<td>90.8</td>
-<td>87.6</td>
-<td>85.4</td>
-<td>82.9</td>
-<td>81.3</td>
-<td>79.7</td>
-</tr>
-<tr><td>4</td>
-<td>SF</td>
-<td>4</td>
-<td>4.5</td>
-<td>FALSE</td>
-<td>128.8</td>
-<td>113.9</td>
-<td>102.5</td>
-<td>95.9</td>
-<td>90.5</td>
-<td>86.3</td>
-<td>83.6</td>
-<td>81.6</td>
-<td>79.8</td>
-<td>78.2</td>
-<td>76.6</td>
-</tr>
-<tr><td>5</td>
-<td>Aruba</td>
-<td>3</td>
-<td>3.75</td>
-<td>FALSE</td>
-<td>130.8</td>
-<td>114.6</td>
-<td>104.9</td>
-<td>98.9</td>
-<td>92.3</td>
-<td>87.6</td>
-<td>85.4</td>
-<td>82.9</td>
-<td>81.1</td>
-<td>80.2</td>
-<td>78</td>
-</tr></tbody>
- </table>
- <script>
- document.querySelector('#table13').addEventListener('click', e => {
+ document.querySelector('#table2').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -308,7 +166,7 @@
 <div class="scrollSection"><h1 class="scrollParagraph">Dropdown sections</h1>
 </div>
 <details><summary >Full Table</summary>
-<table id="table14" class="scrollTable">
+<table id="table3" class="scrollTable">
  <thead><tr><th>Rows</th>
 
 <th>LogLinear</th>
@@ -357,13 +215,12 @@
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table14').addEventListener('click', e => {
+ document.querySelector('#table3').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-</details>
-<p class="scrollParagraph">This should not print as a table, even though it has a 2 tabs( 	 and <code>	</code>), because it is in an explicit paragraph node.</p><p class="scrollViewSource">
+</details><p class="scrollViewSource">
  <a href="https://github.com/breck7/scroll/blob/main/tests/kitchenSink/tabularData.scroll">View source</a>
 </p>
 </div>
@@ -378,7 +235,7 @@ Good morning
 <td>$0<span>budget</span></td>
 <td>3<span>countries</span></td></tr>
 </table>
-<table id="table6" class="scrollTable">
+<table id="table9" class="scrollTable">
  <thead><tr><th>sinkManufacturer</th>
 
 <th>country</th>
@@ -391,12 +248,12 @@ Good morning
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table6').addEventListener('click', e => {
+ document.querySelector('#table9').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<table id="table7" class="scrollTable">
+<table id="table10" class="scrollTable">
  <thead><tr><th>sinkManufacturer</th>
 
 <th>country</th>
@@ -409,12 +266,12 @@ Good morning
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table7').addEventListener('click', e => {
+ document.querySelector('#table10').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<table id="table8" class="scrollTable">
+<table id="table11" class="scrollTable">
  <thead><tr><th>sinkManufacturer</th>
 
 <th>country</th>
@@ -427,12 +284,12 @@ Good morning
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table8').addEventListener('click', e => {
+ document.querySelector('#table11').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<p class="scrollParagraph">Today is Sat Aug 03 2024 04:01:06 GMT+0000 (Coordinated Universal Time)</p>
+<p class="scrollParagraph">Today is Sat Aug 03 2024 21:12:17 GMT+0000 (Coordinated Universal Time)</p>
 <p class="scrollParagraph">1+1 = 2</p>
 <p class="scrollParagraph">January 11, 2019 was a great day</p>
 <p class="scrollParagraph">There are 283 in my list.</p>

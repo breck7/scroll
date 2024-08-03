@@ -55,9 +55,6 @@ Below is the code for a checklist and its rendered version:
 5. Tables
 =========
 Use the `table` parser and include your delimiter for tables:
-Name,Rank
-Scroll,#1
-Markdown,#2
 
 6. Images
 =========

@@ -1,5 +1,26 @@
 [
   {
+    "version": "115.0.2",
+    "releaseDate": "8/3/2024",
+    "bugFixes": 1,
+    "newFeatures": 0,
+    "breakingChanges": 0
+  },
+  {
+    "version": "115.0.1",
+    "releaseDate": "8/3/2024",
+    "bugFixes": 1,
+    "newFeatures": 0,
+    "breakingChanges": 0
+  },
+  {
+    "version": "115.0.0",
+    "releaseDate": "8/3/2024",
+    "bugFixes": 0,
+    "newFeatures": 2,
+    "breakingChanges": 8
+  },
+  {
     "version": "114.0.0",
     "releaseDate": "8/2/2024",
     "bugFixes": 1,

@@ -18,6 +18,33 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 115.0.2 8/3/2024
+🏥 more regression fixes.
+
+📦 115.0.1 8/3/2024
+🏥 fix table regression.
+
+📦 115.0.0 8/3/2024
+🎉 `table [filename].[json|tsv|csv]` to load and print a table from disk
+🎉 `sparkline` now can take a table as input:
+code
+ table posts.csv
+  sparkline wordCount
+⚠️ BREAKING: removed support for root level TSV. Not useful enough. Convert any root TSV to a standard table.
+⚠️ BREAKING: removed `printTable` at root level. Now works nested under table
+⚠️ BREAKING: removed `spaceTable`. See below to migrate.
+⚠️ BREAKING: removed `tabTable`. See below to migrate.
+⚠️ BREAKING: removed `treeTable`. See below to migrate.
+⚠️ BREAKING: removed `commaTable`. See below to migrate.
+⚠️ BREAKING: removed `pipeTable`. See below to migrate.
+⚠️ BREAKING: `table` now takes delimiter and data parsers. Usage:
+table
+ delimiter ,
+ printTable
+ data
+  name,score
+  Kape,35
+
 📦 114.0.0 8/2/2024
 🎉 `inlineMarkups` now supports setting attributes and tags
 🏥 upgrade scrollsdk to get exponential notation numbers fix
@@ -1056,10 +1083,12 @@ belowAsCode 3
 📦 55.4.0 1/30/2023
 🎉 added `table` parser which supports custom delimiters:
 
-table &&
- name&&score
- kaia&&400
- pemma&&100
+table
+ delimiter &&
+ data
+  name&&score
+  kaia&&400
+  pemma&&100
 aboveAsCode
 
 📦 55.3.0 1/29/2023
@@ -1543,16 +1572,19 @@ code
 🎉 added `treeTable`
 
 belowAsCode
-treeTable
- row
-  name Javascript
-  example
-   console.log("Hello world")
- row
-  name Python
-  example
-   # A code block
-   print "Hello world"
+table
+ delimiter tree
+ printTable
+ data
+  row
+   name Javascript
+   example
+    console.log("Hello world")
+  row
+   name Python
+   example
+    # A code block
+    print "Hello world"
 
 📦 25.2.1 2022.7.01
 🏥 fixed broken links in feed.xml
@@ -1653,9 +1685,12 @@ code
 ⚠️ if you have tables with a column ending in "Link" beware the new behavior
 
 belowAsCode
-pipeTable
- name|nameLink
- Wikipedia|https://wikipedia.org
+table
+ delimiter |
+ printTable
+ data
+  name|nameLink
+  Wikipedia|https://wikipedia.org
 
 ⚠️ the first paragraph of an article no longer prints a dateline. Use aftertext instead. See example below.
 
@@ -1819,9 +1854,12 @@ code
 📦 17.1.0 2021.05.25
 🎉 pipeTable
 
-pipeTable
- what|why
- PipeTable|Because it's awesome!
+table
+ delimiter |
+ printTable
+ data
+  what|why
+  PipeTable|Because it's awesome!
 
 📦 17.0.0 2021.05.25
 🎉 tabTable and commaTable

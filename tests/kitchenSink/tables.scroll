@@ -1,0 +1,41 @@
+buildHtml
+buildTxt
+gazetteCss
+
+thinColumns 1
+
+# Simple sparkline with inline data
+sparkline 5 7 27 87 300 17 10 5
+
+---
+
+# Sparkline from table
+table
+ delimiter ,
+ ? Whats in table?
+ printTable
+ ? Show a sparkline?
+ sparkline
+ ? How about a heatrix?
+ heatrix
+ ? What if we add a filter?
+ where score > 4
+  heatrix
+  ? Whats left in table?
+  printTable
+ data
+  score
+  1
+  5
+  432
+  3
+
+---
+
+# Visualizations from CSV
+table contacts.csv
+ printTable
+
+****
+
+

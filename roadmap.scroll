@@ -21,9 +21,6 @@ thinColumns 2
 # Browser Version: scroll.browser.js
 - https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support adding Parsers so people can use the full power of Scroll completely in the client.
 
-# Integrate Table Dataflow of Ohayo into Scroll
-- Since Scroll's target users are scientists, and scientists do a lot of data work, we should integrate the dataflow pattern in Ohayo (https://github.com/breck7/ohayo) into Scroll parsers.
-
 endColumns
 
 wideColumns 1

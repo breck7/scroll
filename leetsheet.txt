@@ -40,7 +40,6 @@ center - A centered paragraph.
 chat - A faux text chat conversation.
 code - A code block.
 codeWithHeader - A code block.
-commaTable - A table from CSV data.
 comment - Prints nothing.
 copyButtons - Copy code widget.
 counter - Just for fun.
@@ -77,7 +76,6 @@ openGraphImage - Override Open Graph Image.
 pageFooter - HTML footer.
 pageHeader - HTML footer.
 permalink - Override output filename.
-pipeTable - A table from |SV data.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
 printAdvancedLeetSheet - Print Parsers leet sheet.
@@ -96,7 +94,7 @@ printSiteMap - Print text sitemap.
 printSnippets - Prints snippets in group(s).
 printSource - Print source for files in group(s).
 printSourceStack - Print source from each step of compilation.
-printTable - Print table from tabular data.
+printTable - 
 printTitle - Print title.
 printUsageStats - Print parser usage stats in folder.
 printViewSource - Print "View source" link.
@@ -110,20 +108,17 @@ rssFeedUrl - Set RSS feed URL.
 scatterplot - Scatterplot Widget.
 script - Print script tag.
 slideshow - Slideshow widget. *** delimits slides.
-spaceTable - A table. Last column is catchall.
 sparkline - Sparkline widget.
 stamp - Expand project template to disk.
 stump - Compile Stump to HTML.
 stumpNoSnippet - Compile Stump unless snippet.
-table - A table from a custom delimiter.
+table - A table.
 tableSearch - Table search and sort widget.
-tabTable - A table from TSV data.
 tags - Set tags.
 testStrict - Make catchAllParagraphParser = error.
 thanksTo - Acknowledge reviewers. Prints nothing.
 thinColumns - Thin columns.
 title - Set title.
-treeTable - Table from Scroll Notation data.
 tufteCss - Theme from Tufte CSS.
 viewSourceBaseUrl - Override source link baseUrl.
 viewSourceUrl - Override source link.

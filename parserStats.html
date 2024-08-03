@@ -368,7 +368,7 @@ h4.scrollQuestion {
 
 </style>
 <div class="scrollColumns" style="column-width:35ch;column-count:1;max-width:35ch;">
-<table id="table19" class="scrollTable">
+<table id="table18" class="scrollTable">
  <thead><tr><th>parserId</th>
 
 <th>uses</th>
@@ -380,7 +380,7 @@ h4.scrollQuestion {
 <td>2</td>
 </tr>
 <tr><td>blankLineParser</td>
-<td>783</td>
+<td>785</td>
 </tr>
 <tr><td>redirectToParser</td>
 <td>1</td>
@@ -446,7 +446,7 @@ h4.scrollQuestion {
 <td>7</td>
 </tr>
 <tr><td>h1Parser</td>
-<td>15</td>
+<td>14</td>
 </tr>
 <tr><td>aboveAsCodeParser</td>
 <td>18</td>
@@ -455,7 +455,7 @@ h4.scrollQuestion {
 <td>24</td>
 </tr>
 <tr><td>listAftertextParser</td>
-<td>46</td>
+<td>45</td>
 </tr>
 <tr><td>checklistTodoParser</td>
 <td>8</td>
@@ -463,11 +463,17 @@ h4.scrollQuestion {
 <tr><td>checklistDoneParser</td>
 <td>3</td>
 </tr>
-<tr><td>tableParser</td>
-<td>2</td>
+<tr><td>scrollTableParser</td>
+<td>7</td>
 </tr>
-<tr><td>rowParser</td>
-<td>13</td>
+<tr><td>scrollTableDelimiterParser</td>
+<td>7</td>
+</tr>
+<tr><td>scrollTableDataParser</td>
+<td>7</td>
+</tr>
+<tr><td>BlobParser</td>
+<td>32</td>
 </tr>
 <tr><td>imageParser</td>
 <td>5</td>
@@ -478,8 +484,11 @@ h4.scrollQuestion {
 <tr><td>footnoteDefinitionParser</td>
 <td>4</td>
 </tr>
-<tr><td>dashboardParser</td>
+<tr><td>scrollDashboardParser</td>
 <td>1</td>
+</tr>
+<tr><td>lineOfCodeParser</td>
+<td>168</td>
 </tr>
 <tr><td>htmlParser</td>
 <td>2</td>
@@ -488,16 +497,10 @@ h4.scrollQuestion {
 <td>5</td>
 </tr>
 <tr><td>codeParser</td>
-<td>41</td>
-</tr>
-<tr><td>lineOfCodeParser</td>
-<td>163</td>
+<td>42</td>
 </tr>
 <tr><td>scrollParserDefinitionParser</td>
 <td>3</td>
-</tr>
-<tr><td>BlobParser</td>
-<td>11</td>
 </tr>
 <tr><td>pParser</td>
 <td>1</td>
@@ -536,16 +539,19 @@ h4.scrollQuestion {
 <td>13</td>
 </tr>
 <tr><td>versionParser</td>
-<td>411</td>
-</tr>
-<tr><td>newFeatureParser</td>
-<td>319</td>
+<td>414</td>
 </tr>
 <tr><td>bugFixParser</td>
-<td>171</td>
+<td>173</td>
+</tr>
+<tr><td>newFeatureParser</td>
+<td>321</td>
 </tr>
 <tr><td>breakingChangeParser</td>
-<td>155</td>
+<td>163</td>
+</tr>
+<tr><td>printTableParser</td>
+<td>5</td>
 </tr>
 <tr><td>boldParser</td>
 <td>1</td>
@@ -601,7 +607,7 @@ h4.scrollQuestion {
 <tr><td>linkTitleParser</td>
 <td>2</td>
 </tr>
-<tr><td>questionAftertextParser</td>
+<tr><td>scrollQuestionParser</td>
 <td>67</td>
 </tr>
 <tr><td>hoverNoteParser</td>
@@ -610,23 +616,8 @@ h4.scrollQuestion {
 <tr><td>lineOfTextParser</td>
 <td>3</td>
 </tr>
-<tr><td>treeTableParser</td>
-<td>1</td>
-</tr>
-<tr><td>treeRowParser</td>
-<td>2</td>
-</tr>
-<tr><td>treeRowColumnParser</td>
-<td>4</td>
-</tr>
-<tr><td>treeRowContentParser</td>
-<td>3</td>
-</tr>
 <tr><td>inlineMarkupParser</td>
 <td>7</td>
-</tr>
-<tr><td>pipeTableParser</td>
-<td>2</td>
 </tr>
 <tr><td>datelineParser</td>
 <td>1</td>
@@ -672,7 +663,7 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table19').addEventListener('click', e => {
+ document.querySelector('#table18').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });

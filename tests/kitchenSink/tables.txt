@@ -1,0 +1,38 @@
+Simple sparkline with inline data
+=================================
+
+---
+
+Sparkline from table
+====================
+Whats in table?
+===============
+score
+1
+5
+432
+3
+Show a sparkline?
+=================
+
+How about a heatrix?
+====================
+
+What if we add a filter?
+========================
+
+Whats left in table?
+====================
+score
+5
+432
+
+---
+
+Visualizations from CSV
+=======================
+name,email,phone,birthday,notes
+Jack Doe,john.doe@example.com,+1 (555) 123-4567,2/23/84,Daughter - Samantha.
+Jill Smith,jill@gmail.com,+1 (555) 123-4562,1/23/80,
+
+****
