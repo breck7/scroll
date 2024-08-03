@@ -29,7 +29,8 @@ printConceptsParser
    const node = this.appendSibling("table")
     node.appendLine("delimiter 	")
     node.appendLine("printTable")
-    node.setChildren(this.parent.file.compileConcepts("concepts.tsv", this.get("sortBy")))
+    const dataNode = node.appendLine("data")
+    dataNode.setChildren(this.parent.file.compileConcepts("concepts.tsv", this.get("sortBy")))
    const html = node.compile()
    node.destroy()
    return html

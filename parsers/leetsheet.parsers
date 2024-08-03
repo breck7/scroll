@@ -14,7 +14,8 @@ printUsageStatsParser
    const node = this.appendSibling("table")
    node.appendLine("delimiter  ")
    node.appendLine("printTable")
-   node.setChildren(this.stats)
+   const dataNode = node.appendLine("data")
+    dataNode.setChildren(this.stats)
    const html = node.compile()
    node.destroy()
    return html

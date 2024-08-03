@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 115.0.2 8/3/2024
+🏥 more regression fixes.
+
 📦 115.0.1 8/3/2024
 🏥 fix table regression.
 
