@@ -11,7 +11,7 @@ printSearchTableParser
    const data = files.map(file => file.file.toSearchTsvRow(file.relativePath)).join("\n")
    // A hacky but simple way to do this for now.
      const node = this.appendSibling("table")
-    node.appendLine("delimiter \t")
+    node.appendLine("delimiter 	")
     node.appendLine("printTable")
     node.setChildren("title titleLink text date wordCount minutes".replace(/ /g, "\t") + "\n" + data)
    const html = node.compile()

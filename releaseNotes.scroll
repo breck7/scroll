@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 115.0.1 8/3/2024
+🏥 fix table regression.
+
 📦 115.0.0 8/3/2024
 🎉 `table [filename].[json|tsv|csv]` to load and print a table from disk
 🎉 `sparkline` now can take a table as input:
