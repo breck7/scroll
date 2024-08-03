@@ -13,7 +13,7 @@ A test of TSV data
 endSnippet
 
 table
- delimiter  
+ delimiter 	
  printTable
  data
   Index	Name	Diameter	Height	Covered	5	10	15	20	25	30	35	40	45	50	55
@@ -25,7 +25,7 @@ table
 
 ## Putting print table after a table:
 table
- delimiter  
+ delimiter 	
  data
   name	score
   joe	2
@@ -35,7 +35,7 @@ table
 
 expander Full Table
 table
- delimiter  
+ delimiter 	
  printTable
  data
   Rows	LogLinear	Quadratic	Before	After
