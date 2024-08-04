@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+115.2.0 8/3/2024
+================
+🏥 fix extra space in related snippets
+
 115.1.0 8/3/2024
 ================
 🏥 more regression fixes.
