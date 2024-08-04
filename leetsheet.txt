@@ -91,7 +91,7 @@ printMeasures - Print measure stats to HTML table.
 printRelated - Print links to related posts.
 printSearchTable - Prints files to HTML table.
 printSiteMap - Print text sitemap.
-printSnippets - Prints snippets in group(s).
+printSnippets - Prints snippets matching tag(s).
 printSource - Print source for files in group(s).
 printSourceStack - Print source from each step of compilation.
 printTable - 

@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 115.1.0 8/3/2024
+🏥 more regression fixes.
+
 📦 115.0.2 8/3/2024
 🏥 more regression fixes.
 
@@ -44,6 +47,8 @@ table
  data
   name,score
   Kape,35
+Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|pipeTable|table )
+
 
 📦 114.0.0 8/2/2024
 🎉 `inlineMarkups` now supports setting attributes and tags

@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+115.1.0 8/3/2024
+================
+🏥 more regression fixes.
+
 115.0.2 8/3/2024
 ================
 🏥 more regression fixes.
@@ -32,6 +36,7 @@ table posts.csv
 ⚠️ BREAKING: `table` now takes delimiter and data parsers. Usage:
 name,score
 Kape,35
+Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|pipeTable|table )
 
 114.0.0 8/2/2024
 ================
