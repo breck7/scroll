@@ -103,14 +103,14 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p class="scrollParagraph">The best part? It works entirely client side on static sites.</p>
 <div class="scrollSection"><h1 class="scrollParagraph">How to use</h1>
 </div>
-<p class="scrollParagraph"><strong>Step 1</strong> Create a <code>sitemap.scroll</code> page like this:</p>
-<code class="scrollCodeBlock">buildTxt sitemap.txt
+<p class="scrollParagraph"><strong>Step 1</strong> Create a sitemap:</p>
+<div class="codeWithHeader"><div class="codeHeader">sitemap.scroll</div><code class="scrollCodeBlock">buildTxt sitemap.txt
 baseUrl https://scroll.pub/
-printSiteMap</code>
-<p class="scrollParagraph"><strong>Step 2</strong> Create a <code>404.scroll</code> page like this:</p>
-<code class="scrollCodeBlock">buildHtml
+printSiteMap</code></div>
+<p class="scrollParagraph"><strong>Step 2</strong> Create a 404 page:</p>
+<div class="codeWithHeader"><div class="codeHeader">404.scroll</div><code class="scrollCodeBlock">buildHtml
 Sorry, the url you requested was not found.
-helpfulNotFound sitemap.txt</code>
+helpfulNotFound sitemap.txt</code></div>
 <p class="scrollParagraph">That's it! The <code>helpfulNotFound</code> parser in Scroll will add Javascript to the 404 page that fetches all the urls found in the sitemap and shows the user the closest match. As a bonus, you also get a <code>sitemap.txt</code> file great for Google SEO and other uses.</p>
 <p class="scrollParagraph">See it in action here by clicking on this <a href="https://scroll.pub/blog/helpful_404s.html">intentionally broken link</a>:</p>
 <div class="dinkus"><span>*</span></div>

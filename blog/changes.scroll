@@ -58,8 +58,8 @@ Be sure to check out the source code that generates that HTML.
 code
  npm install -g scroll-cli
 
-2. Create a file names something like `releaseNotes.scroll` with this content:
-code
+2. Create a release notes file:
+codeWithHeader releaseNotes.scroll
  title My Release Notes
  printTitle
  buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv

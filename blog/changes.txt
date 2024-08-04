@@ -49,7 +49,7 @@ How to use
 1. Install Scroll
 npm install -g scroll-cli
 
-2. Create a file names something like `releaseNotes.scroll` with this content:
+2. Create a release notes file:
 title My Release Notes
 printTitle
 buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv

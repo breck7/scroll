@@ -79,22 +79,70 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
   else if (event.key === "ArrowRight")
     getLinks()[1].click()
  });</script></div>
-<div class="scrollColumns" style="column-width:35ch;column-count:1;max-width:35ch;">
-<p class="scrollParagraph"><span class="scrollDateline">May 8, 2023 — </span>Some web apps are designed to load <em>entire programs</em> from a link. But if a program contain certain characters, such as <em>newlines</em>, those links won't work as-is. To create working links you have to run them through <code>encodeURIComponent</code>.</p>
-<p class="scrollParagraph">If you are creating blog content by hand this is annoying. To update a program link you have to keep a copy of the program, update that, then run <code>encodeURIComponent</code>, then paste the result into your post.</p>
+<div class="scrollColumns" style="column-width:65ch;column-count:1;max-width:65ch;">
+<p class="scrollParagraph"><span class="scrollDateline">May 8, 2023 — </span>Some web apps are designed to load <em>entire programs</em> from a link.</p>
+<p class="scrollParagraph">But if a program contain certain characters, such as <em>newlines</em>, those links won't work as-is.</p>
+<p class="scrollParagraph">To create working links you have to run them through <code>encodeURIComponent</code>.</p>
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">If you are creating blog content by hand this is annoying.</p>
+<p class="scrollParagraph">To update a program link you have to keep a copy of the program, update that, then run <code>encodeURIComponent</code>, then paste the result into your post.</p>
 <p class="scrollParagraph">Today's release of Scroll includes a small new addition that solves this problem. You can call them "Multline Links" or "Program Links".</p>
 <div class="dinkus"><span>*</span></div>
 <div class="scrollSection"><h2 class="scrollParagraph">Here are two examples</h2>
 </div>
-<p class="scrollParagraph">Let's start with a small example. <a href="https://github.com/breck7/scroll/blob/main/blog/programLinks.scroll">View the source</a> of this page to see the code used to generate the program links.</p>
 <p class="scrollParagraph">Here is a <a href="https://try.scroll.pub/#scroll%0A%20%23%20Testing%20Program%20Links%0A%20It%20worked!%0A%20%20style%20color%3Agreen%3B%20font-size%3A%20100px%3B">program link</a> to the Scroll web app.</p>
+<code class="scrollCodeBlock">Here is a program link to the Scroll web app.
+ link https://try.scroll.pub/# program link
+  program
+   scroll
+    # Testing Program Links
+    It worked!
+     style color:green; font-size: 100px;</code>
 <p class="scrollParagraph">If you click that link you should see "It worked!" in big green text.</p>
+<div class="dinkus"><span>*</span></div>
 <p class="scrollParagraph">Now let's show a complex real world example. The link below contains a 28 line program pasted verbatim from the Ohayo data science studio.</p>
-<p class="scrollParagraph"><a href="https://ohayo.computer?filename=test.ohayo&data=doc.title%20Discovery%20of%20the%20Elements%0Adoc.subtitle%20What%20is%20the%20growth%20in%20known%20elements%20over%20time%3F%0Asamples.periodicTable%0A%20hidden%0A%20fill.missing%20Year%201000%0A%20%20hidden%0A%20%20columns.keep%20Element%20Year%0A%20%20%20hidden%0A%20%20%20rows.sortBy%20Year%0A%20%20%20%20hidden%0A%20%20group.by%20Year%0A%20%20%20hidden%0A%20%20%20rows.sortBy%20Year%0A%20%20%20%20hidden%0A%20%20%20%20rows.runningTotal%20count%0A%20%20%20%20%20hidden%0A%20%20%20%20%20vega.bar%20Number%20of%20Elements%20Found%20Each%20Year%0A%20%20%20%20%20%20xColumn%20Year%0A%20%20%20%20%20%20yColumn%20count%0A%20%20%20%20%20vega.line%20Cumulative%20Number%20of%20Elements%0A%20%20%20%20%20%20xColumn%20Year%0A%20%20%20%20%20%20yColumn%20total%0A%20vega.scatter%20Year%20of%20Discovery%20by%20Atomic%20Number%0A%20%20xColumn%20Year%0A%20%20yColumn%20AtomicNumber%0A%20tables.basic%0A%20%20rowDisplayLimit%20200%0Adoc.categories%20chemistry">Discovery of the Elements</a></p>
-<p class="scrollParagraph">If you click that link you should see a few data visualizations generated from that program. If you view the source of this page you can see the unaltered program source. Edit the source and the link will update accordingly. Scroll handles the <code>encodeURIComponent</code>.</p>
+<details><summary >See code</summary>
+<code class="scrollCodeBlock">
+Discovery of the Elements
+ link https://ohayo.breckyunits.com?filename=test.ohayo&data=
+  program
+   doc.title Discovery of the Elements
+   doc.subtitle What is the growth in known elements over time?
+   samples.periodicTable
+    hidden
+    fill.missing Year 1000
+     hidden
+     columns.keep Element Year
+      hidden
+      rows.sortBy Year
+       hidden
+     group.by Year
+      hidden
+      rows.sortBy Year
+       hidden
+       rows.runningTotal count
+        hidden
+        vega.bar Number of Elements Found Each Year
+         xColumn Year
+         yColumn count
+        vega.line Cumulative Number of Elements
+         xColumn Year
+         yColumn total
+    vega.scatter Year of Discovery by Atomic Number
+     xColumn Year
+     yColumn AtomicNumber
+    tables.basic
+     rowDisplayLimit 200
+   doc.categories chemistry</code>
+</details>
+<p class="scrollParagraph"><a href="https://ohayo.breckyunits.com?filename=test.ohayo&data=doc.title%20Discovery%20of%20the%20Elements%0Adoc.subtitle%20What%20is%20the%20growth%20in%20known%20elements%20over%20time%3F%0Asamples.periodicTable%0A%20hidden%0A%20fill.missing%20Year%201000%0A%20%20hidden%0A%20%20columns.keep%20Element%20Year%0A%20%20%20hidden%0A%20%20%20rows.sortBy%20Year%0A%20%20%20%20hidden%0A%20%20group.by%20Year%0A%20%20%20hidden%0A%20%20%20rows.sortBy%20Year%0A%20%20%20%20hidden%0A%20%20%20%20rows.runningTotal%20count%0A%20%20%20%20%20hidden%0A%20%20%20%20%20vega.bar%20Number%20of%20Elements%20Found%20Each%20Year%0A%20%20%20%20%20%20xColumn%20Year%0A%20%20%20%20%20%20yColumn%20count%0A%20%20%20%20%20vega.line%20Cumulative%20Number%20of%20Elements%0A%20%20%20%20%20%20xColumn%20Year%0A%20%20%20%20%20%20yColumn%20total%0A%20vega.scatter%20Year%20of%20Discovery%20by%20Atomic%20Number%0A%20%20xColumn%20Year%0A%20%20yColumn%20AtomicNumber%0A%20tables.basic%0A%20%20rowDisplayLimit%20200%0Adoc.categories%20chemistry">Discovery of the Elements</a></p>
+<p class="scrollParagraph">If you click that link you should see a few data visualizations generated from that program.</p>
+<p class="scrollParagraph">Edit the source and the link will update accordingly. Scroll handles the <code>encodeURIComponent</code>.</p>
+<div class="dinkus"><span>*</span></div>
 <div class="scrollSection"><h1 class="scrollParagraph">Why not use HTML directly?</h1>
-<p class="scrollParagraph">Modern browsers do their best to make URLs well-formed and you will notice that they auto encode certain characters like <a href="https://www.google.com/search?q=Spaces are encoded">spaces</a>. But by the HTML spec newlines are not a <a href="https://url.spec.whatwg.org/#url-code-points">URL code point</a> and generally are <a href="https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace">stripped and collapsed</a>.</p>
+<p class="scrollParagraph">Modern browsers do their best to make URLs well-formed and you will notice that they auto encode certain characters like <a href="https://www.google.com/search?q=Spaces are encoded">spaces</a>.</p>
 </div>
+<p class="scrollParagraph">But by the HTML spec newlines are not a <a href="https://url.spec.whatwg.org/#url-code-points">URL code point</a> and generally are <a href="https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace">stripped and collapsed</a>.</p>
 <p class="scrollParagraph">Program Links in Scroll handle encoding newlines and any other special characters so you can focus on your content and not the encoding.</p>
 </div>
 </div><style>.pageFooter {

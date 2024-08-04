@@ -55,15 +55,14 @@ The best part? It works entirely client side on static sites.
 
 # How to use
 
-*Step 1* Create a `sitemap.scroll` page like this:
-
-code
+*Step 1* Create a sitemap:
+codeWithHeader sitemap.scroll
  buildTxt sitemap.txt
  baseUrl https://scroll.pub/
  printSiteMap
 
-*Step 2* Create a `404.scroll` page like this:
-code
+*Step 2* Create a 404 page:
+codeWithHeader 404.scroll
  buildHtml
  Sorry, the url you requested was not found.
  helpfulNotFound sitemap.txt

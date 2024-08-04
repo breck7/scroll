@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <li >Add unlimited citations (or none) to <strong>every</strong> measurement.</li></ul>
 <div class="scrollSection"><h1 class="scrollParagraph">Quick Code Example:</h1>
 </div>
-<code class="scrollCodeBlock">
+<div class="codeWithHeader"><div class="codeHeader">planets.scroll</div><code class="scrollCodeBlock">
 This ScrollSets has 2 measures (columns) and 2 concepts (rows).
 
 Documentation, column definitions, rows and *any notes/markup/content* can go in the same file.
@@ -117,12 +117,12 @@ moons 63
   https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
 
 buildConcepts demo.csv
-</code>
-<div class="scrollSection"><h1 class="scrollParagraph">The code above generates an HTML page and <code>demo.csv</code> that contains this:</h1>
+</code></div>
+<div class="scrollSection"><h1 class="scrollParagraph">The code above generates an HTML page and this:</h1>
 </div>
-<code class="scrollCodeBlock">id,moons
+<div class="codeWithHeader"><div class="codeHeader">demo.csv</div><code class="scrollCodeBlock">id,moons
 mars,2
-jupiter,63</code>
+jupiter,63</code></div>
 <div class="scrollSection"><h1 class="scrollParagraph">Overview:</h1>
 <ul ><li >ScrollSets are built from 4 atomic elements:</li><ul ><li >concepts</li><ul ><li >think of rows in a spreadsheet</li>
 <li >denoted by a line starting with <code>id </code></li>
@@ -192,7 +192,7 @@ concept
 <div class="scrollSection"><h1 class="scrollParagraph">Extended Example: a Planets ScrollSet</h1>
 </div>
 <p class="scrollParagraph">Below is the ScrollSet embedded in this Scroll file.</p>
-<table id="table30" class="scrollTable">
+<table id="table29" class="scrollTable">
  <thead><tr><th>id</th>
 
 <th>moons</th>
@@ -293,7 +293,7 @@ concept
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table30').addEventListener('click', e => {
+ document.querySelector('#table29').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -306,7 +306,7 @@ concept
 
 
 <div class="scrollSection"><h1 class="scrollParagraph">Measurements of the measures</h1>
-<table id="table31" class="scrollTable">
+<table id="table30" class="scrollTable">
  <thead><tr><th>Name</th>
 
 <th>Values</th>
@@ -450,7 +450,7 @@ concept
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table31').addEventListener('click', e => {
+ document.querySelector('#table30').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });

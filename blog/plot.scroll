@@ -33,15 +33,12 @@ The Plot/Scroll integration is early, but I can already tell it will evolve into
 
 ***
 
-# A Scatterplot with one word
+# A Scatterplot with three words
 
-You can now make scatterplots with one word.
+You can now make scatterplots with three words.
  // if that's not no code, I don't know the meaning of no code.
 
-Simply by writing the word `scatterplot` in a Scroll document, you get a scatterplot.
-
-Obviously you want to add a few more words (2 more to add your own data, unless you are only interested in stock datasets), but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).
- https://www.reddit.com/r/datascience/comments/19d1k19/does_anyone_know_of_any_good_titanic_datasets/ stock datasets
+Obviously you want to add a few more words, but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).
 
 But enough talk, let's see some code. A tutorial is below.
 
@@ -50,58 +47,50 @@ To follow along, create a new website in 1 second using ScrollHub or install Scr
 
 ***
 
-# Step 1: Generate a scatterplot with 1 word
+# Step 1: Generate a scatterplot with 3 words
 belowAsCode
-scatterplot
+table planets.csv
+ scatterplot
 
 ***
 
 # Step 2: Add a title
 belowAsCode
-scatterplot
- title The Iris Dataset
+table planets.csv
+ scatterplot
+  title The Planets
 
 ***
 
-# Step 3: Add your own data
+# Step 3: Add inline data
 belowAsCode
-scatterplot
- title The Simpson Family
- x age
- y height
+table
+ scatterplot
+  title The Simpson Family
+  x age
+  y height
+  label name
  data
-  name,age,height
-  Homer,39,183
-  Bart,10,137
-  Lisa,8,120
+  name age height
+  Homer 39 183
+  Bart 10 137
+  Lisa 8 120
 
 ***
 
-# Step 4: Now add your own data from a file
+# Step 4: Everything everywhere all at once
 belowAsCode
-scatterplot
- title The Planets
- data planets.csv
- x yearsToOrbitSun
- y moons
- radius diameter
- label id
-
-***
-
-# Step 5: Everything everywhere all at once
-belowAsCode
-scatterplot
- title The Planets in our Solar System
- data planets.csv
- subtitle Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.
- caption Data from Wikipedia.
- x yearsToOrbitSun
- y moons
- fill diameter
- radius diameter
- label id
- symbol hasLife
+table planets.csv
+ scatterplot
+  title The Planets in our Solar System
+  subtitle Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.
+  caption Data from Wikipedia.
+  x yearsToOrbitSun
+  y moons
+  fill diameter
+  radius diameter
+  label id
+  symbol hasLife
 
 ***
 

@@ -87,33 +87,31 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p class="scrollParagraph">But I found a way to take Plot to the next level: I combined it with <a href="../index.html">Scroll</a>.</p>
 <p class="scrollParagraph">The Plot/Scroll integration is early, but I can already tell it will evolve into a <em>very useful</em> data science tool.</p>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">A Scatterplot with one word</h1>
+<div class="scrollSection"><h1 class="scrollParagraph">A Scatterplot with three words</h1>
 </div>
-<p class="scrollParagraph">You can now make scatterplots with one word.</p>
-<p class="scrollParagraph">Simply by writing the word <code>scatterplot</code> in a Scroll document, you get a scatterplot.</p>
-<p class="scrollParagraph">Obviously you want to add a few more words (2 more to add your own data, unless you are only interested in <a href="https://www.reddit.com/r/datascience/comments/19d1k19/does_anyone_know_of_any_good_titanic_datasets/">stock datasets</a>), but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).</p>
+<p class="scrollParagraph">You can now make scatterplots with three words.</p>
+<p class="scrollParagraph">Obviously you want to add a few more words, but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).</p>
 <p class="scrollParagraph">But enough talk, let's see some code. A tutorial is below.</p>
 <p class="scrollParagraph">To follow along, create a new website in 1 second using <a href="http://hub.scroll.pub">ScrollHub</a> or install Scroll locally with <code>npm install -g scroll-cli</code>.</p>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 1: Generate a scatterplot with 1 word</h1>
-<code class="scrollCodeBlock">scatterplot</code>
+<div class="scrollSection"><h1 class="scrollParagraph">Step 1: Generate a scatterplot with 3 words</h1>
+<code class="scrollCodeBlock">table planets.csv
+ scatterplot</code>
 <script src="d3.js"></script>
 <script src="plot.js"></script>
 
 <div id="plot23"></div><script>
  {
   let loadChart = async () => {
-  const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
-6.1,3,4.9,1.8,virginica
-5.6,2.7,4.2,1.3,versicolor
-5.6,2.8,4.9,2,virginica
-6.2,2.8,4.8,1.8,virginica
-7.7,3.8,6.7,2.2,virginica
-5.3,3.7,1.5,0.2,setosa
-6.2,3.4,5.4,2.3,virginica
-4.9,2.5,4.5,1.7,virginica
-5.1,3.5,1.4,0.2,setosa
-5,3.4,1.5,0.2,setosa`, d3.autoType)
+  const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
+Mars,2,null,null,6794,4,null,1.881,false
+Jupiter,63,null,null,142984,25,null,11.86,false
+Earth,1,https://en.wikipedia.org/wiki/Earth,Pale Blue Dot,12756,10,4500000000,1,true
+Mercury,0,null,null,4879,4,null,0.241,false
+Saturn,64,null,null,120536,9,null,29.46,false
+Uranus,27,null,null,51118,8,null,84.01,false
+Venus,0,null,null,12104,9,null,0.615,false
+Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
   document.querySelector("#plot23").append(Plot.plot({
     title: "",
@@ -137,25 +135,24 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </div>
 <div class="dinkus"><span>*</span></div>
 <div class="scrollSection"><h1 class="scrollParagraph">Step 2: Add a title</h1>
-<code class="scrollCodeBlock">scatterplot
- title The Iris Dataset</code>
+<code class="scrollCodeBlock">table planets.csv
+ scatterplot
+  title The Planets</code>
 <div id="plot24"></div><script>
  {
   let loadChart = async () => {
-  const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
-6.1,3,4.9,1.8,virginica
-5.6,2.7,4.2,1.3,versicolor
-5.6,2.8,4.9,2,virginica
-6.2,2.8,4.8,1.8,virginica
-7.7,3.8,6.7,2.2,virginica
-5.3,3.7,1.5,0.2,setosa
-6.2,3.4,5.4,2.3,virginica
-4.9,2.5,4.5,1.7,virginica
-5.1,3.5,1.4,0.2,setosa
-5,3.4,1.5,0.2,setosa`, d3.autoType)
+  const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
+Mars,2,null,null,6794,4,null,1.881,false
+Jupiter,63,null,null,142984,25,null,11.86,false
+Earth,1,https://en.wikipedia.org/wiki/Earth,Pale Blue Dot,12756,10,4500000000,1,true
+Mercury,0,null,null,4879,4,null,0.241,false
+Saturn,64,null,null,120536,9,null,29.46,false
+Uranus,27,null,null,51118,8,null,84.01,false
+Venus,0,null,null,12104,9,null,0.615,false
+Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
   document.querySelector("#plot24").append(Plot.plot({
-    title: "The Iris Dataset",
+    title: "The Planets",
     subtitle: "",
     caption: "",
     symbol: {legend: false},
@@ -175,16 +172,18 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
   </script>
 </div>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 3: Add your own data</h1>
-<code class="scrollCodeBlock">scatterplot
- title The Simpson Family
- x age
- y height
+<div class="scrollSection"><h1 class="scrollParagraph">Step 3: Add inline data</h1>
+<code class="scrollCodeBlock">table
+ scatterplot
+  title The Simpson Family
+  x age
+  y height
+  label name
  data
-  name,age,height
-  Homer,39,183
-  Bart,10,137
-  Lisa,8,120</code>
+  name age height
+  Homer 39 183
+  Bart 10 137
+  Lisa 8 120</code>
 <div id="plot25"></div><script>
  {
   let loadChart = async () => {
@@ -206,7 +205,7 @@ Lisa,8,120`, d3.autoType)
     r: get("undefined"),
     fill: get("undefined"),
     tip: true,
-    symbol: get("undefined")} ), Plot.text(data, {x: get("age",0), y: get("height", 1), text: "undefined", dy: -6, lineAnchor: "bottom"})],
+    symbol: get("undefined")} ), Plot.text(data, {x: get("age",0), y: get("height", 1), text: "name", dy: -6, lineAnchor: "bottom"})],
   }))
   }
   loadChart()
@@ -214,74 +213,32 @@ Lisa,8,120`, d3.autoType)
   </script>
 </div>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 4: Now add your own data from a file</h1>
-<code class="scrollCodeBlock">scatterplot
- title The Planets
- data planets.csv
- x yearsToOrbitSun
- y moons
- radius diameter
- label id</code>
+<div class="scrollSection"><h1 class="scrollParagraph">Step 4: Everything everywhere all at once</h1>
+<code class="scrollCodeBlock">table planets.csv
+ scatterplot
+  title The Planets in our Solar System
+  subtitle Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.
+  caption Data from Wikipedia.
+  x yearsToOrbitSun
+  y moons
+  fill diameter
+  radius diameter
+  label id
+  symbol hasLife</code>
 <div id="plot26"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
-Mars,2,,,6794,4,,1.881,false
-Jupiter,63,,,142984,25,,11.86,false
+Mars,2,null,null,6794,4,null,1.881,false
+Jupiter,63,null,null,142984,25,null,11.86,false
 Earth,1,https://en.wikipedia.org/wiki/Earth,Pale Blue Dot,12756,10,4500000000,1,true
-Mercury,0,,,4879,4,,0.241,false
-Saturn,64,,,120536,9,,29.46,false
-Uranus,27,,,51118,8,,84.01,false
-Venus,0,,,12104,9,,0.615,false
-Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
+Mercury,0,null,null,4879,4,null,0.241,false
+Saturn,64,null,null,120536,9,null,29.46,false
+Uranus,27,null,null,51118,8,null,84.01,false
+Venus,0,null,null,12104,9,null,0.615,false
+Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
   document.querySelector("#plot26").append(Plot.plot({
-    title: "The Planets",
-    subtitle: "",
-    caption: "",
-    symbol: {legend: false},
-    color: {legend: false},
-    grid: true,
-    marks: [Plot.dot(data, {
-    x: get("yearsToOrbitSun", 0),
-    y: get("moons", 1),
-    r: get("diameter"),
-    fill: get("undefined"),
-    tip: true,
-    symbol: get("undefined")} ), Plot.text(data, {x: get("yearsToOrbitSun",0), y: get("moons", 1), text: "id", dy: -6, lineAnchor: "bottom"})],
-  }))
-  }
-  loadChart()
-  }
-  </script>
-</div>
-<div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 5: Everything everywhere all at once</h1>
-<code class="scrollCodeBlock">scatterplot
- title The Planets in our Solar System
- data planets.csv
- subtitle Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.
- caption Data from Wikipedia.
- x yearsToOrbitSun
- y moons
- fill diameter
- radius diameter
- label id
- symbol hasLife</code>
-<div id="plot27"></div><script>
- {
-  let loadChart = async () => {
-  const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
-Mars,2,,,6794,4,,1.881,false
-Jupiter,63,,,142984,25,,11.86,false
-Earth,1,https://en.wikipedia.org/wiki/Earth,Pale Blue Dot,12756,10,4500000000,1,true
-Mercury,0,,,4879,4,,0.241,false
-Saturn,64,,,120536,9,,29.46,false
-Uranus,27,,,51118,8,,84.01,false
-Venus,0,,,12104,9,,0.615,false
-Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
-  const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot27").append(Plot.plot({
     title: "The Planets in our Solar System",
     subtitle: "Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.",
     caption: "Data from Wikipedia.",

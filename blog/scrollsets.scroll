@@ -42,7 +42,7 @@ ScrollSets are line oriented but represent a table(s). You might call them _deco
 
 # Quick Code Example:
 
-code
+codeWithHeader planets.scroll
  
  This ScrollSets has 2 measures (columns) and 2 concepts (rows).
  
@@ -70,9 +70,9 @@ code
  buildConcepts demo.csv
  
 
-# The code above generates an HTML page and `demo.csv` that contains this:
+# The code above generates an HTML page and this:
 
-code
+codeWithHeader demo.csv
  id,moons
  mars,2
  jupiter,63

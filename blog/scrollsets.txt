@@ -58,8 +58,8 @@ moons 63
 
 buildConcepts demo.csv
 
-The code above generates an HTML page and `demo.csv` that contains this:
-========================================================================
+The code above generates an HTML page and this:
+===============================================
 
 id,moons
 mars,2

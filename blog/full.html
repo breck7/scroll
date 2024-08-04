@@ -290,14 +290,14 @@ birthday 1/23/80</code>
 <p class="scrollParagraph">The best part? It works entirely client side on static sites.</p>
 <div class="scrollSection"><h1 class="scrollParagraph">How to use</h1>
 </div>
-<p class="scrollParagraph"><strong>Step 1</strong> Create a <code>sitemap.scroll</code> page like this:</p>
-<code class="scrollCodeBlock">buildTxt sitemap.txt
+<p class="scrollParagraph"><strong>Step 1</strong> Create a sitemap:</p>
+<div class="codeWithHeader"><div class="codeHeader">sitemap.scroll</div><code class="scrollCodeBlock">buildTxt sitemap.txt
 baseUrl https://scroll.pub/
-printSiteMap</code>
-<p class="scrollParagraph"><strong>Step 2</strong> Create a <code>404.scroll</code> page like this:</p>
-<code class="scrollCodeBlock">buildHtml
+printSiteMap</code></div>
+<p class="scrollParagraph"><strong>Step 2</strong> Create a 404 page:</p>
+<div class="codeWithHeader"><div class="codeHeader">404.scroll</div><code class="scrollCodeBlock">buildHtml
 Sorry, the url you requested was not found.
-helpfulNotFound sitemap.txt</code>
+helpfulNotFound sitemap.txt</code></div>
 <p class="scrollParagraph">That's it! The <code>helpfulNotFound</code> parser in Scroll will add Javascript to the 404 page that fetches all the urls found in the sitemap and shows the user the closest match. As a bonus, you also get a <code>sitemap.txt</code> file great for Google SEO and other uses.</p>
 <p class="scrollParagraph">See it in action here by clicking on this <a href="https://scroll.pub/blog/helpful_404s.html">intentionally broken link</a>:</p>
 <div class="dinkus"><span>*</span></div>
@@ -374,8 +374,8 @@ document.getElementById('delimiter').addEventListener('input', updateScrollSet);
 </div>
 <ol  start="1."><li >Install Scroll</li></ol>
 <code class="scrollCodeBlock">npm install -g scroll-cli</code>
-<ol  start="2."><li >Create a file names something like <code>releaseNotes.scroll</code> with this content:</li></ol>
-<code class="scrollCodeBlock">title My Release Notes
+<ol  start="2."><li >Create a release notes file:</li></ol>
+<div class="codeWithHeader"><div class="codeHeader">releaseNotes.scroll</div><code class="scrollCodeBlock">title My Release Notes
 printTitle
 buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
 // You can import the changes parsers or just copy/paste the 70 lines into your own file.
@@ -389,7 +389,7 @@ thinColumns
 📦 0.1.0 7/1/2024
 🎉 added command line app
 
-endColumns</code>
+endColumns</code></div>
 <ol  start="3."><li >Run <code>scroll build</code></li></ol>
 <p class="scrollParagraph">Done! You should now see a <code>releaseNotes.html</code> file as well as a TSV, CSV, and JSON file.</p>
 <div class="dinkus"><span>*</span></div>
@@ -416,33 +416,31 @@ endColumns</code>
 <p class="scrollParagraph">But I found a way to take Plot to the next level: I combined it with <a href="../index.html">Scroll</a>.</p>
 <p class="scrollParagraph">The Plot/Scroll integration is early, but I can already tell it will evolve into a <em>very useful</em> data science tool.</p>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">A Scatterplot with one word</h1>
+<div class="scrollSection"><h1 class="scrollParagraph">A Scatterplot with three words</h1>
 </div>
-<p class="scrollParagraph">You can now make scatterplots with one word.</p>
-<p class="scrollParagraph">Simply by writing the word <code>scatterplot</code> in a Scroll document, you get a scatterplot.</p>
-<p class="scrollParagraph">Obviously you want to add a few more words (2 more to add your own data, unless you are only interested in <a href="https://www.reddit.com/r/datascience/comments/19d1k19/does_anyone_know_of_any_good_titanic_datasets/">stock datasets</a>), but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).</p>
+<p class="scrollParagraph">You can now make scatterplots with three words.</p>
+<p class="scrollParagraph">Obviously you want to add a few more words, but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).</p>
 <p class="scrollParagraph">But enough talk, let's see some code. A tutorial is below.</p>
 <p class="scrollParagraph">To follow along, create a new website in 1 second using <a href="http://hub.scroll.pub">ScrollHub</a> or install Scroll locally with <code>npm install -g scroll-cli</code>.</p>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 1: Generate a scatterplot with 1 word</h1>
-<code class="scrollCodeBlock">scatterplot</code>
+<div class="scrollSection"><h1 class="scrollParagraph">Step 1: Generate a scatterplot with 3 words</h1>
+<code class="scrollCodeBlock">table planets.csv
+ scatterplot</code>
 <script src="d3.js"></script>
 <script src="plot.js"></script>
 
 <div id="plot23"></div><script>
  {
   let loadChart = async () => {
-  const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
-6.1,3,4.9,1.8,virginica
-5.6,2.7,4.2,1.3,versicolor
-5.6,2.8,4.9,2,virginica
-6.2,2.8,4.8,1.8,virginica
-7.7,3.8,6.7,2.2,virginica
-5.3,3.7,1.5,0.2,setosa
-6.2,3.4,5.4,2.3,virginica
-4.9,2.5,4.5,1.7,virginica
-5.1,3.5,1.4,0.2,setosa
-5,3.4,1.5,0.2,setosa`, d3.autoType)
+  const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
+Mars,2,null,null,6794,4,null,1.881,false
+Jupiter,63,null,null,142984,25,null,11.86,false
+Earth,1,https://en.wikipedia.org/wiki/Earth,Pale Blue Dot,12756,10,4500000000,1,true
+Mercury,0,null,null,4879,4,null,0.241,false
+Saturn,64,null,null,120536,9,null,29.46,false
+Uranus,27,null,null,51118,8,null,84.01,false
+Venus,0,null,null,12104,9,null,0.615,false
+Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
   document.querySelector("#plot23").append(Plot.plot({
     title: "",
@@ -466,25 +464,24 @@ endColumns</code>
 </div>
 <div class="dinkus"><span>*</span></div>
 <div class="scrollSection"><h1 class="scrollParagraph">Step 2: Add a title</h1>
-<code class="scrollCodeBlock">scatterplot
- title The Iris Dataset</code>
+<code class="scrollCodeBlock">table planets.csv
+ scatterplot
+  title The Planets</code>
 <div id="plot24"></div><script>
  {
   let loadChart = async () => {
-  const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
-6.1,3,4.9,1.8,virginica
-5.6,2.7,4.2,1.3,versicolor
-5.6,2.8,4.9,2,virginica
-6.2,2.8,4.8,1.8,virginica
-7.7,3.8,6.7,2.2,virginica
-5.3,3.7,1.5,0.2,setosa
-6.2,3.4,5.4,2.3,virginica
-4.9,2.5,4.5,1.7,virginica
-5.1,3.5,1.4,0.2,setosa
-5,3.4,1.5,0.2,setosa`, d3.autoType)
+  const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
+Mars,2,null,null,6794,4,null,1.881,false
+Jupiter,63,null,null,142984,25,null,11.86,false
+Earth,1,https://en.wikipedia.org/wiki/Earth,Pale Blue Dot,12756,10,4500000000,1,true
+Mercury,0,null,null,4879,4,null,0.241,false
+Saturn,64,null,null,120536,9,null,29.46,false
+Uranus,27,null,null,51118,8,null,84.01,false
+Venus,0,null,null,12104,9,null,0.615,false
+Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
   document.querySelector("#plot24").append(Plot.plot({
-    title: "The Iris Dataset",
+    title: "The Planets",
     subtitle: "",
     caption: "",
     symbol: {legend: false},
@@ -504,16 +501,18 @@ endColumns</code>
   </script>
 </div>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 3: Add your own data</h1>
-<code class="scrollCodeBlock">scatterplot
- title The Simpson Family
- x age
- y height
+<div class="scrollSection"><h1 class="scrollParagraph">Step 3: Add inline data</h1>
+<code class="scrollCodeBlock">table
+ scatterplot
+  title The Simpson Family
+  x age
+  y height
+  label name
  data
-  name,age,height
-  Homer,39,183
-  Bart,10,137
-  Lisa,8,120</code>
+  name age height
+  Homer 39 183
+  Bart 10 137
+  Lisa 8 120</code>
 <div id="plot25"></div><script>
  {
   let loadChart = async () => {
@@ -535,7 +534,7 @@ Lisa,8,120`, d3.autoType)
     r: get("undefined"),
     fill: get("undefined"),
     tip: true,
-    symbol: get("undefined")} ), Plot.text(data, {x: get("age",0), y: get("height", 1), text: "undefined", dy: -6, lineAnchor: "bottom"})],
+    symbol: get("undefined")} ), Plot.text(data, {x: get("age",0), y: get("height", 1), text: "name", dy: -6, lineAnchor: "bottom"})],
   }))
   }
   loadChart()
@@ -543,74 +542,32 @@ Lisa,8,120`, d3.autoType)
   </script>
 </div>
 <div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 4: Now add your own data from a file</h1>
-<code class="scrollCodeBlock">scatterplot
- title The Planets
- data planets.csv
- x yearsToOrbitSun
- y moons
- radius diameter
- label id</code>
+<div class="scrollSection"><h1 class="scrollParagraph">Step 4: Everything everywhere all at once</h1>
+<code class="scrollCodeBlock">table planets.csv
+ scatterplot
+  title The Planets in our Solar System
+  subtitle Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.
+  caption Data from Wikipedia.
+  x yearsToOrbitSun
+  y moons
+  fill diameter
+  radius diameter
+  label id
+  symbol hasLife</code>
 <div id="plot26"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
-Mars,2,,,6794,4,,1.881,false
-Jupiter,63,,,142984,25,,11.86,false
+Mars,2,null,null,6794,4,null,1.881,false
+Jupiter,63,null,null,142984,25,null,11.86,false
 Earth,1,https://en.wikipedia.org/wiki/Earth,Pale Blue Dot,12756,10,4500000000,1,true
-Mercury,0,,,4879,4,,0.241,false
-Saturn,64,,,120536,9,,29.46,false
-Uranus,27,,,51118,8,,84.01,false
-Venus,0,,,12104,9,,0.615,false
-Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
+Mercury,0,null,null,4879,4,null,0.241,false
+Saturn,64,null,null,120536,9,null,29.46,false
+Uranus,27,null,null,51118,8,null,84.01,false
+Venus,0,null,null,12104,9,null,0.615,false
+Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
   document.querySelector("#plot26").append(Plot.plot({
-    title: "The Planets",
-    subtitle: "",
-    caption: "",
-    symbol: {legend: false},
-    color: {legend: false},
-    grid: true,
-    marks: [Plot.dot(data, {
-    x: get("yearsToOrbitSun", 0),
-    y: get("moons", 1),
-    r: get("diameter"),
-    fill: get("undefined"),
-    tip: true,
-    symbol: get("undefined")} ), Plot.text(data, {x: get("yearsToOrbitSun",0), y: get("moons", 1), text: "id", dy: -6, lineAnchor: "bottom"})],
-  }))
-  }
-  loadChart()
-  }
-  </script>
-</div>
-<div class="dinkus"><span>*</span></div>
-<div class="scrollSection"><h1 class="scrollParagraph">Step 5: Everything everywhere all at once</h1>
-<code class="scrollCodeBlock">scatterplot
- title The Planets in our Solar System
- data planets.csv
- subtitle Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.
- caption Data from Wikipedia.
- x yearsToOrbitSun
- y moons
- fill diameter
- radius diameter
- label id
- symbol hasLife</code>
-<div id="plot27"></div><script>
- {
-  let loadChart = async () => {
-  const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
-Mars,2,,,6794,4,,1.881,false
-Jupiter,63,,,142984,25,,11.86,false
-Earth,1,https://en.wikipedia.org/wiki/Earth,Pale Blue Dot,12756,10,4500000000,1,true
-Mercury,0,,,4879,4,,0.241,false
-Saturn,64,,,120536,9,,29.46,false
-Uranus,27,,,51118,8,,84.01,false
-Venus,0,,,12104,9,,0.615,false
-Neptune,14,,,49572,11,,164.79,false`, d3.autoType)
-  const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot27").append(Plot.plot({
     title: "The Planets in our Solar System",
     subtitle: "Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.",
     caption: "Data from Wikipedia.",
@@ -730,7 +687,7 @@ Hello world.</code></div>
 <li >Add unlimited citations (or none) to <strong>every</strong> measurement.</li></ul>
 <div class="scrollSection"><h1 class="scrollParagraph">Quick Code Example:</h1>
 </div>
-<code class="scrollCodeBlock">
+<div class="codeWithHeader"><div class="codeHeader">planets.scroll</div><code class="scrollCodeBlock">
 This ScrollSets has 2 measures (columns) and 2 concepts (rows).
 
 Documentation, column definitions, rows and *any notes/markup/content* can go in the same file.
@@ -755,12 +712,12 @@ moons 63
   https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
 
 buildConcepts demo.csv
-</code>
-<div class="scrollSection"><h1 class="scrollParagraph">The code above generates an HTML page and <code>demo.csv</code> that contains this:</h1>
+</code></div>
+<div class="scrollSection"><h1 class="scrollParagraph">The code above generates an HTML page and this:</h1>
 </div>
-<code class="scrollCodeBlock">id,moons
+<div class="codeWithHeader"><div class="codeHeader">demo.csv</div><code class="scrollCodeBlock">id,moons
 mars,2
-jupiter,63</code>
+jupiter,63</code></div>
 <div class="scrollSection"><h1 class="scrollParagraph">Overview:</h1>
 <ul ><li >ScrollSets are built from 4 atomic elements:</li><ul ><li >concepts</li><ul ><li >think of rows in a spreadsheet</li>
 <li >denoted by a line starting with <code>id </code></li>
@@ -830,7 +787,7 @@ concept
 <div class="scrollSection"><h1 class="scrollParagraph">Extended Example: a Planets ScrollSet</h1>
 </div>
 <p class="scrollParagraph">Below is the ScrollSet embedded in this Scroll file.</p>
-<table id="table28" class="scrollTable">
+<table id="table27" class="scrollTable">
  <thead><tr><th>id</th>
 
 <th>moons</th>
@@ -931,7 +888,7 @@ concept
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table28').addEventListener('click', e => {
+ document.querySelector('#table27').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -944,7 +901,7 @@ concept
 
 
 <div class="scrollSection"><h1 class="scrollParagraph">Measurements of the measures</h1>
-<table id="table29" class="scrollTable">
+<table id="table28" class="scrollTable">
  <thead><tr><th>Name</th>
 
 <th>Values</th>
@@ -1088,7 +1045,7 @@ concept
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table29').addEventListener('click', e => {
+ document.querySelector('#table28').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -1213,21 +1170,69 @@ hasLife false
 <div class="scrollSection"><h1 class="scrollTitle"><a href="programLinks.html">Introducing Program Links</a></h1>
 <p class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></p>
 </div>
-<p class="scrollParagraph"><span class="scrollDateline">May 8, 2023 — </span>Some web apps are designed to load <em>entire programs</em> from a link. But if a program contain certain characters, such as <em>newlines</em>, those links won't work as-is. To create working links you have to run them through <code>encodeURIComponent</code>.</p>
-<p class="scrollParagraph">If you are creating blog content by hand this is annoying. To update a program link you have to keep a copy of the program, update that, then run <code>encodeURIComponent</code>, then paste the result into your post.</p>
+<p class="scrollParagraph"><span class="scrollDateline">May 8, 2023 — </span>Some web apps are designed to load <em>entire programs</em> from a link.</p>
+<p class="scrollParagraph">But if a program contain certain characters, such as <em>newlines</em>, those links won't work as-is.</p>
+<p class="scrollParagraph">To create working links you have to run them through <code>encodeURIComponent</code>.</p>
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">If you are creating blog content by hand this is annoying.</p>
+<p class="scrollParagraph">To update a program link you have to keep a copy of the program, update that, then run <code>encodeURIComponent</code>, then paste the result into your post.</p>
 <p class="scrollParagraph">Today's release of Scroll includes a small new addition that solves this problem. You can call them "Multline Links" or "Program Links".</p>
 <div class="dinkus"><span>*</span></div>
 <div class="scrollSection"><h2 class="scrollParagraph">Here are two examples</h2>
 </div>
-<p class="scrollParagraph">Let's start with a small example. <a href="https://github.com/breck7/scroll/blob/main/blog/programLinks.scroll">View the source</a> of this page to see the code used to generate the program links.</p>
 <p class="scrollParagraph">Here is a <a href="https://try.scroll.pub/#scroll%0A%20%23%20Testing%20Program%20Links%0A%20It%20worked!%0A%20%20style%20color%3Agreen%3B%20font-size%3A%20100px%3B">program link</a> to the Scroll web app.</p>
+<code class="scrollCodeBlock">Here is a program link to the Scroll web app.
+ link https://try.scroll.pub/# program link
+  program
+   scroll
+    # Testing Program Links
+    It worked!
+     style color:green; font-size: 100px;</code>
 <p class="scrollParagraph">If you click that link you should see "It worked!" in big green text.</p>
+<div class="dinkus"><span>*</span></div>
 <p class="scrollParagraph">Now let's show a complex real world example. The link below contains a 28 line program pasted verbatim from the Ohayo data science studio.</p>
-<p class="scrollParagraph"><a href="https://ohayo.computer?filename=test.ohayo&data=doc.title%20Discovery%20of%20the%20Elements%0Adoc.subtitle%20What%20is%20the%20growth%20in%20known%20elements%20over%20time%3F%0Asamples.periodicTable%0A%20hidden%0A%20fill.missing%20Year%201000%0A%20%20hidden%0A%20%20columns.keep%20Element%20Year%0A%20%20%20hidden%0A%20%20%20rows.sortBy%20Year%0A%20%20%20%20hidden%0A%20%20group.by%20Year%0A%20%20%20hidden%0A%20%20%20rows.sortBy%20Year%0A%20%20%20%20hidden%0A%20%20%20%20rows.runningTotal%20count%0A%20%20%20%20%20hidden%0A%20%20%20%20%20vega.bar%20Number%20of%20Elements%20Found%20Each%20Year%0A%20%20%20%20%20%20xColumn%20Year%0A%20%20%20%20%20%20yColumn%20count%0A%20%20%20%20%20vega.line%20Cumulative%20Number%20of%20Elements%0A%20%20%20%20%20%20xColumn%20Year%0A%20%20%20%20%20%20yColumn%20total%0A%20vega.scatter%20Year%20of%20Discovery%20by%20Atomic%20Number%0A%20%20xColumn%20Year%0A%20%20yColumn%20AtomicNumber%0A%20tables.basic%0A%20%20rowDisplayLimit%20200%0Adoc.categories%20chemistry">Discovery of the Elements</a></p>
-<p class="scrollParagraph">If you click that link you should see a few data visualizations generated from that program. If you view the source of this page you can see the unaltered program source. Edit the source and the link will update accordingly. Scroll handles the <code>encodeURIComponent</code>.</p>
+<details><summary >See code</summary>
+<code class="scrollCodeBlock">
+Discovery of the Elements
+ link https://ohayo.breckyunits.com?filename=test.ohayo&data=
+  program
+   doc.title Discovery of the Elements
+   doc.subtitle What is the growth in known elements over time?
+   samples.periodicTable
+    hidden
+    fill.missing Year 1000
+     hidden
+     columns.keep Element Year
+      hidden
+      rows.sortBy Year
+       hidden
+     group.by Year
+      hidden
+      rows.sortBy Year
+       hidden
+       rows.runningTotal count
+        hidden
+        vega.bar Number of Elements Found Each Year
+         xColumn Year
+         yColumn count
+        vega.line Cumulative Number of Elements
+         xColumn Year
+         yColumn total
+    vega.scatter Year of Discovery by Atomic Number
+     xColumn Year
+     yColumn AtomicNumber
+    tables.basic
+     rowDisplayLimit 200
+   doc.categories chemistry</code>
+</details>
+<p class="scrollParagraph"><a href="https://ohayo.breckyunits.com?filename=test.ohayo&data=doc.title%20Discovery%20of%20the%20Elements%0Adoc.subtitle%20What%20is%20the%20growth%20in%20known%20elements%20over%20time%3F%0Asamples.periodicTable%0A%20hidden%0A%20fill.missing%20Year%201000%0A%20%20hidden%0A%20%20columns.keep%20Element%20Year%0A%20%20%20hidden%0A%20%20%20rows.sortBy%20Year%0A%20%20%20%20hidden%0A%20%20group.by%20Year%0A%20%20%20hidden%0A%20%20%20rows.sortBy%20Year%0A%20%20%20%20hidden%0A%20%20%20%20rows.runningTotal%20count%0A%20%20%20%20%20hidden%0A%20%20%20%20%20vega.bar%20Number%20of%20Elements%20Found%20Each%20Year%0A%20%20%20%20%20%20xColumn%20Year%0A%20%20%20%20%20%20yColumn%20count%0A%20%20%20%20%20vega.line%20Cumulative%20Number%20of%20Elements%0A%20%20%20%20%20%20xColumn%20Year%0A%20%20%20%20%20%20yColumn%20total%0A%20vega.scatter%20Year%20of%20Discovery%20by%20Atomic%20Number%0A%20%20xColumn%20Year%0A%20%20yColumn%20AtomicNumber%0A%20tables.basic%0A%20%20rowDisplayLimit%20200%0Adoc.categories%20chemistry">Discovery of the Elements</a></p>
+<p class="scrollParagraph">If you click that link you should see a few data visualizations generated from that program.</p>
+<p class="scrollParagraph">Edit the source and the link will update accordingly. Scroll handles the <code>encodeURIComponent</code>.</p>
+<div class="dinkus"><span>*</span></div>
 <div class="scrollSection"><h1 class="scrollParagraph">Why not use HTML directly?</h1>
-<p class="scrollParagraph">Modern browsers do their best to make URLs well-formed and you will notice that they auto encode certain characters like <a href="https://www.google.com/search?q=Spaces are encoded">spaces</a>. But by the HTML spec newlines are not a <a href="https://url.spec.whatwg.org/#url-code-points">URL code point</a> and generally are <a href="https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace">stripped and collapsed</a>.</p>
+<p class="scrollParagraph">Modern browsers do their best to make URLs well-formed and you will notice that they auto encode certain characters like <a href="https://www.google.com/search?q=Spaces are encoded">spaces</a>.</p>
 </div>
+<p class="scrollParagraph">But by the HTML spec newlines are not a <a href="https://url.spec.whatwg.org/#url-code-points">URL code point</a> and generally are <a href="https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace">stripped and collapsed</a>.</p>
 <p class="scrollParagraph">Program Links in Scroll handle encoding newlines and any other special characters so you can focus on your content and not the encoding.</p><p class="scrollViewSource">
  <a href="https://github.com/breck7/scroll/blob/main/blog/programLinks.scroll">View source</a>
 </p>
@@ -1239,7 +1244,10 @@ hasLife false
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">Improve your writing by welcoming counterarguments</h1>
 </div>
-<p class="scrollParagraph"><span class="scrollDateline">April 13, 2023 — </span>There's a tiny new symbol in <a href="https://scroll.pub/">Scroll</a> today: <code>!</code>. The exclamation mark stands for <strong>Counterpoint</strong>. "Counters" aim to help writers strengthen their ideas by encouraging the integration of counterarguments throughout their essays. You can write your own counters or invite counters from friends, LLMs or Internet commenters.</p>
+<p class="scrollParagraph"><span class="scrollDateline">April 13, 2023 — </span>There's a tiny new symbol in <a href="https://scroll.pub/">Scroll</a> today: <code>!</code>.</p>
+<p class="scrollParagraph">The exclamation mark stands for <strong>Counterpoint</strong>.</p>
+<p class="scrollParagraph">"Counters" aim to help writers strengthen their ideas by encouraging the integration of counterarguments throughout their essays.</p>
+<p class="scrollParagraph">You can write your own counters or invite counters from friends, LLMs or Internet commenters.</p>
 <div class="dinkus"><span>*</span></div>
 <p class="scrollParagraph">Counterpoints are easy to use: just start a line with <code>!</code>. For example:</p>
 <code class="scrollCodeBlock">Humans will eventually establish colonies on Mars.
@@ -1248,17 +1256,33 @@ hasLife false
 <code class="scrollCodeBlock">Humans will eventually establish colonies on Mars.
  ! But we haven't colonized the Arctic, 1,000x easier
   - Colonizing Mars is 10,000x more valuable</code>
+<div class="dinkus"><span>*</span></div>
 <div class="scrollSection"><h2 class="scrollParagraph">The Benefits of Countering</h2>
-<p class="scrollParagraph">When we have a lot of terms for a thing, it's usually a hint that it's a valuable thing. And we have a lot of terms for countering. "Steel manning", "red teaming", "playing devil's advocate", to name a few. Countering is a helpful habit that helps clarify your thoughts, understand and empathize with other perspectives, fix logical blunders, hone your pitch, and improve at truth-seeking. Counterpoints in Scroll are in a sense just a reminder to frequently use these techniques.</p>
+<p class="scrollParagraph">When we have a lot of terms for a thing, it's usually a hint that it's a valuable thing. And we have a lot of terms for countering. To name a few:</p>
 </div>
+<ul ><li >"Steel manning"</li>
+<li >"red teaming"</li>
+<li >"playing devil's advocate"</li></ul>
+<p class="scrollParagraph">Countering is a helpful habit that helps clarify your thoughts, understand and empathize with other perspectives, fix logical blunders, hone your pitch, and improve at truth-seeking.</p>
+<p class="scrollParagraph">Counterpoints in Scroll are in a sense just a reminder to frequently use these techniques.</p>
+<div class="dinkus"><span>*</span></div>
 <div class="scrollSection"><h2 class="scrollParagraph">The Downsides of Countering</h2>
-<p class="scrollParagraph">Addressing every plausible counter in your main thread can be difficult if not impossible. It can make your writing too verbose and lose reader interest. Counters in Scroll give you a place to record every scattered counter as it comes to you. You can then choose which are important enough to address in your main argument and relegate the rest to the source code (for the very avid reader).</p>
+<p class="scrollParagraph">Addressing every plausible counter in your main thread can be difficult if not impossible.</p>
 </div>
+<p class="scrollParagraph">It can make your writing too verbose and lose reader interest.</p>
+<p class="scrollParagraph">Counters in Scroll give you a place to record every scattered counter as it comes to you.</p>
+<p class="scrollParagraph">You can then choose which are important enough to address in your main argument and relegate the rest to the source code (for the very avid reader).</p>
+<div class="dinkus"><span>*</span></div>
 <div class="scrollSection"><h2 class="scrollParagraph">Implementation</h2>
-<p class="scrollParagraph">Counterpoints do not currently appear in the compiled HTML. Instead you only see them during write time. For now, they are just an alternate syntax for comments. But though they perform no new function, like traffic lines, sometimes form is function.</p>
+<p class="scrollParagraph">Counterpoints do not currently appear in the compiled HTML.</p>
 </div>
+<p class="scrollParagraph">Instead you only see them during write time.</p>
+<p class="scrollParagraph">For now, they are just an alternate syntax for comments.</p>
+<p class="scrollParagraph">But though they perform no new function, like traffic lines, sometimes form is function.</p>
 <p class="scrollParagraph">That being said, there are potentially interesting directions this could go in the future, and it would be interesting to hear ideas of what people would like in a v2.</p>
-<p class="scrollParagraph">Keep writing, keep thinking!</p><p class="scrollViewSource">
+<div class="dinkus"><span>*</span></div>
+<p class="scrollParagraph">Keep writing, keep thinking!</p>
+<div class="dinkus"><span>⁂</span></div><p class="scrollViewSource">
  <a href="https://github.com/breck7/scroll/blob/main/blog/counterpoints.scroll">View source</a>
 </p>
 </div>
@@ -1269,16 +1293,16 @@ hasLife false
 <div style="text-align: center;" class="scrollDateline">October 2, 2022</div>
 </div>
 <span class="scrollBlink"><p class="scrollParagraph"><span class="scrollDateline">October 2, 2022 — </span><strong>Scroll's new blink tag lets you call attention to something important</strong></p></span>
-  <script>setInterval(()=>{ Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden") }, 2000)</script>
+  <script>setInterval(()=>{ Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden") }, 500)</script>
 <p class="scrollParagraph">I am really happy with the current state of Scroll and so grateful for the many people who have helped us get it to this point. That being said, I had a feeling we were missing something important.</p>
 <div class="dinkus"><span>*</span></div>
 <span class="scrollBlink"><p class="scrollParagraph"><strong>So I invented something simple and completely novel</strong></p></span>
-  <script>setInterval(()=>{ Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden") }, 2000)</script>
+  <script>setInterval(()=>{ Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden") }, 500)</script>
 <p class="scrollParagraph">Introducing the <code>blink</code> tag. When you have something important to say and you want to interupt people's lives, use the <code>blink</code> tag. It's as easy as this:</p>
 <code class="scrollCodeBlock">blink This blinks</code>
 <p class="scrollParagraph">Advertisers have known for ages that human eyes evolved to respond fast to motion. Now, using my new invention, the <code>blink</code> tag, you can bring this innovation from advertising to your products and websites.</p>
 <span class="scrollBlink"><p class="scrollParagraph"><strong>The blink tag, available now in <a href="https://scroll.pub/">Scroll 34.1.0</a></strong></p></span>
-  <script>setInterval(()=>{ Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden") }, 2000)</script>
+  <script>setInterval(()=>{ Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden") }, 500)</script>
 <p class="scrollParagraph"><em>Note: please don't use this. It's a joke</em></p><p class="scrollViewSource">
  <a href="https://github.com/breck7/scroll/blob/main/blog/introducingBlink.scroll">View source</a>
 </p>

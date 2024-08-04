@@ -25,15 +25,12 @@ The Plot/Scroll integration is early, but I can already tell it will evolve into
 
 ***
 
-A Scatterplot with one word
-===========================
+A Scatterplot with three words
+==============================
 
-You can now make scatterplots with one word.
+You can now make scatterplots with three words.
 
-Simply by writing the word `scatterplot` in a Scroll document, you get a scatterplot.
-
-Obviously you want to add a few more words (2 more to add your own data, unless you are only interested in stock datasets), but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).
- https://www.reddit.com/r/datascience/comments/19d1k19/does_anyone_know_of_any_good_titanic_datasets/ stock datasets
+Obviously you want to add a few more words, but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).
 
 But enough talk, let's see some code. A tutorial is below.
 
@@ -42,8 +39,8 @@ To follow along, create a new website in 1 second using ScrollHub or install Scr
 
 ***
 
-Step 1: Generate a scatterplot with 1 word
-==========================================
+Step 1: Generate a scatterplot with 3 words
+===========================================
 
 ***
 
@@ -52,17 +49,12 @@ Step 2: Add a title
 
 ***
 
-Step 3: Add your own data
-=========================
+Step 3: Add inline data
+=======================
 
 ***
 
-Step 4: Now add your own data from a file
-=========================================
-
-***
-
-Step 5: Everything everywhere all at once
+Step 4: Everything everywhere all at once
 =========================================
 
 ***

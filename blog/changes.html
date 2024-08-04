@@ -105,8 +105,8 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </div>
 <ol  start="1."><li >Install Scroll</li></ol>
 <code class="scrollCodeBlock">npm install -g scroll-cli</code>
-<ol  start="2."><li >Create a file names something like <code>releaseNotes.scroll</code> with this content:</li></ol>
-<code class="scrollCodeBlock">title My Release Notes
+<ol  start="2."><li >Create a release notes file:</li></ol>
+<div class="codeWithHeader"><div class="codeHeader">releaseNotes.scroll</div><code class="scrollCodeBlock">title My Release Notes
 printTitle
 buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
 // You can import the changes parsers or just copy/paste the 70 lines into your own file.
@@ -120,7 +120,7 @@ thinColumns
 📦 0.1.0 7/1/2024
 🎉 added command line app
 
-endColumns</code>
+endColumns</code></div>
 <ol  start="3."><li >Run <code>scroll build</code></li></ol>
 <p class="scrollParagraph">Done! You should now see a <code>releaseNotes.html</code> file as well as a TSV, CSV, and JSON file.</p>
 <div class="dinkus"><span>*</span></div>
