@@ -99,8 +99,8 @@ scrollTableParser
   get visualizations() {
     return this.topDownArray.filter(node => node.isTableVisualization || node.isHeader)
   }
-  compile() {
-   return this.visualizations.map(node => node.compile())
+  compile(compileSettings) {
+   return this.visualizations.map(node => node.compile(compileSettings))
      .join("\n")
      .trim()
   }
