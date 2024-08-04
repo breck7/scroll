@@ -4,8 +4,8 @@ abstractTableTransformParser
   get coreTable() {
     return this.parent.coreTable
   }
-  get columns() {
-    return this.parent.columns
+  get columnNames() {
+    return this.parent.columnNames
   }
 
 abstractTableVisualizationParser
@@ -20,13 +20,13 @@ printTableParser
    return this.columns.filter(col => !col.isLink).map(column => `<th>${column.name}</th>\n`)
   }
   get columnNames() {
-   return this.parent.columns
+   return this.parent.columnNames
   }
   get columns() {
-   const cols = this.columnNames
-   return cols.map((name, index) => {
+   const {columnNames} = this
+   return columnNames.map((name, index) => {
     const isLink = name.endsWith("Link")
-    const linkIndex = cols.indexOf(name + "Link")
+    const linkIndex = columnNames.indexOf(name + "Link")
     return {
      name,
      isLink,
@@ -36,7 +36,7 @@ printTableParser
   }
   toRow(row) {
     const {columns} = this
-    const words = Object.values(row)
+    const words = columns.map(col => row[col.name])
    let str = ""
    let column = 0
    const columnCount = columns.length
@@ -153,14 +153,14 @@ scrollTableParser
       const d3lib = typeof d3 === "undefined" ? require('d3') : d3
       this._coreTable = d3lib.dsvFormat(delimiter).parse(delimitedData, d3lib.autoType)
     }
-    this._columns = this._coreTable.columns
+    this._columnNames = this._coreTable.columns
     delete this._coreTable.columns
     return this._coreTable
   }
-  get columns() {
+  get columnNames() {
     // init coreTable to set columns
     const coreTable = this.coreTable
-    return this._columns
+    return this._columnNames
   }
 
 scrollWhereParser

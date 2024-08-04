@@ -265,6 +265,18 @@ class ScrollFile {
     this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.filename.replace(SCROLL_FILE_EXTENSION, "") + ".html" : "")
   }
 
+  // todo: speed this up and do a proper release. also could add more metrics like this.
+  get lastCommitTime() {
+    if (this._lastCommitTime === undefined) {
+      try {
+        this._lastCommitTime = require("child_process").execSync(`git log -1 --format="%at" -- "${this.filePath}"`).toString().trim()
+      } catch (err) {
+        this._lastCommitTime = 0
+      }
+    }
+    return this._lastCommitTime
+  }
+
   formatAndSave() {
     const { codeAtStart, formatted } = this
 
