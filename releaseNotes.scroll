@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 116.0.0 8/3/2024
+⚠️ BREAKING: `scatterplot` now gets data from `table`.
+
 📦 115.2.0 8/3/2024
 🏥 fix extra space in related snippets
 
