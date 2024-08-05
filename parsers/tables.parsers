@@ -1,4 +1,5 @@
 abstractTableTransformParser
+ cells commandWordCell
  inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser
  javascript
   get coreTable() {
@@ -165,7 +166,7 @@ scrollTableParser
 
 scrollWhereParser
  extends abstractTableTransformParser
- description Each row must meet a certain condition
+ description Filter rows by condition.
  crux where
  cells commandWordCell columnNameCell comparisonCell numberCell
  example
@@ -195,6 +196,102 @@ scrollWhereParser
       else if (operator === "notEmpty") return !(cell === "" || cell === undefined)
     }
    return coreTable.filter(filterFn)
+  }
+
+scrollSelectParser
+ catchAllCellType columnNameCell
+ extends abstractTableTransformParser
+ description Drop all columns except these.
+ example
+  tables
+   data
+    name,year,count
+    index,2022,2
+    about,2023,4
+   select name year
+    printTable
+ crux select
+ javascript
+  get coreTable() {
+   const {coreTable} = this.parent
+   const {columnNames} = this
+   if (!columnNames.length) return coreTable
+   return coreTable.map(row => Object.fromEntries(columnNames.map(colName => [colName, row[colName]])))
+  }
+  get columnNames() {
+    return this.getWordsFrom(1)
+  }
+
+scrollReverseParser
+ extends abstractTableTransformParser
+ description Reverse rows.
+ crux reverse
+ javascript
+  get coreTable() {
+   return this.parent.coreTable.slice().reverse()
+  }
+
+orderByParser
+ extends abstractTableTransformParser
+ description Sort rows by column(s).
+ catchAllCellType columnNameCell
+ crux orderBy
+ javascript
+  get coreTable() {
+    const makeLodashOrderByParams = str => {
+    const part1 = str.split(" ")
+    const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
+    return [part1.map(col => col.replace(/^\-/, "")), part2]
+   }
+   const orderBy = makeLodashOrderByParams(this.content)
+   return this.lodash.orderBy(this.parent.coreTable.slice(), orderBy[0], orderBy[1])
+  }
+  get lodash() {
+    return this.isNodeJs() ? require("lodash") : lodash
+  }
+
+scrollRenameParser
+ catchAllCellType columnNameCell
+ extends abstractTableTransformParser
+ description Rename columns.
+ example
+  tables
+   data
+    name,year,count
+    index,2022,2
+   rename name Name year Year
+    printTable
+ crux rename
+ javascript
+  get coreTable() {
+   const {coreTable} = this.parent
+   const {renameMap} = this
+   if (!Object.keys(renameMap).length) return coreTable
+   return coreTable.map(row => {
+      const newRow = {}
+      Object.keys(row).forEach(key => {
+        const name = renameMap[key] || key
+        newRow[name] = row[key]
+      })
+      return newRow
+   })
+  }
+  get renameMap() {
+    const map = {}
+    const pairs = this.getWordsFrom(1)
+    let oldName
+    while (oldName = pairs.shift()) {
+      map[oldName] = pairs.shift()
+    }
+    return map
+  }
+  _renamed
+  get columnNames() {
+   if (this._renamed)
+     return this._renamed
+    const {renameMap} = this
+    this._renamed = this.parent.columnNames.map(name => renameMap[name] || name )
+    return this._renamed
   }
 
 tableSearchParser

@@ -35,4 +35,32 @@ name,email,phone,birthday,notes
 Jack Doe,john.doe@example.com,+1 (555) 123-4567,2/23/84,Daughter - Samantha.
 Jill Smith,jill@gmail.com,+1 (555) 123-4562,1/23/80,
 
+---
+
+Transforms
+==========
+name types score
+HTML 142 212
+Markdown 192 2
+Scroll 174 2
+rST 142 21
+name,types,score
+HTML,142,212
+rST,142,21
+Markdown,192,2
+Scroll,174,2
+types,n,s
+142,HTML,212
+192,Markdown,2
+174,Scroll,2
+142,rST,21
+types,name,score
+142,HTML,212
+192,Markdown,2
+174,Scroll,2
+142,rST,21
+name
+HTML
+rST
+
 ****

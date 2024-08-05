@@ -36,6 +36,27 @@ table
 table contacts.csv
  printTable
 
+---
+
+# Transforms
+table
+ printTable
+ orderBy -score -types
+  printTable
+ data
+  name types score
+  HTML 142 212
+  Markdown 192 2
+  Scroll 174 2
+  rST 142 21
+ select types name score
+  rename name n score s
+   printTable
+  printTable
+  where score > 2
+   select name
+    printTable
+
 ****
 
 

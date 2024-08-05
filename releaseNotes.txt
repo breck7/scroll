@@ -8,6 +8,15 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+117.0.0 8/5/2024
+================
+🎉 tables: added `select` parser
+🎉 tables: added `orderBy` parser
+🎉 tables: added `rename` parser
+🎉 tables: added `reverse` parser
+🎉 added `fetch` parser
+⚠️ BREAKING: (no one should be affected) Scroll now requires NodeJS >= 18.0.0.
+
 116.0.0 8/3/2024
 ================
 ⚠️ BREAKING: `scatterplot` now gets data from `table`.

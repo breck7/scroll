@@ -52,6 +52,7 @@ email - Set email address for site contact.
 endColumns - End columns.
 endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
+fetch - Download URL to disk.
 gazetteCss - Default Scroll theme CSS.
 heatrix - A heatmap matrix data visualization.
 heatrixAdvanced - Advanced heatrix.
