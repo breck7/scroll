@@ -1,4 +1,5 @@
 abstractTableTransformParser
+ cells commandWordCell
  inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser
  javascript
   get coreTable() {
@@ -228,6 +229,25 @@ scrollReverseParser
  javascript
   get coreTable() {
    return this.parent.coreTable.slice().reverse()
+  }
+
+orderByParser
+ extends abstractTableTransformParser
+ description Sort rows by column(s).
+ catchAllCellType columnNameCell
+ crux orderBy
+ javascript
+  get coreTable() {
+    const makeLodashOrderByParams = str => {
+    const part1 = str.split(" ")
+    const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
+    return [part1.map(col => col.replace(/^\-/, "")), part2]
+   }
+   const orderBy = makeLodashOrderByParams(this.content)
+   return this.lodash.orderBy(this.parent.coreTable.slice(), orderBy[0], orderBy[1])
+  }
+  get lodash() {
+    return this.isNodeJs() ? require("lodash") : lodash
   }
 
 scrollRenameParser
