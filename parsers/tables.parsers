@@ -168,7 +168,7 @@ scrollWhereParser
  extends abstractTableTransformParser
  description Filter rows by condition.
  crux where
- cells commandWordCell columnNameCell comparisonCell numberCell
+ cells commandWordCell columnNameCell comparisonCell wordCell
  example
   table iris.csv
    where Species = setosa
