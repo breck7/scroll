@@ -1,10 +1,10 @@
 {
   "name": "scroll-cli",
-  "version": "116.0.0",
+  "version": "117.0.0",
   "description": "A language for scientists of all ages. A curated collection of tools for refining and sharing thoughts.",
   "main": "scroll.js",
   "engines": {
-    "node": ">=16.0"
+    "node": ">=18.0"
   },
   "scripts": {
     "build": "scroll list | scroll build",

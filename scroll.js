@@ -727,8 +727,8 @@ class ScrollFile {
       .trim()
   }
 
-  build() {
-    this.scrollProgram.forEach(node => (node.build ? node.build() : undefined))
+  async build() {
+    await Promise.all(this.scrollProgram.filter(node => node.build).map(async node => node.build()))
   }
 
   // Without specifying the language hyphenation will not work.

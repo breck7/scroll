@@ -18,6 +18,12 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 117.0.0 8/3/2024
+🎉 added `fetch` parser
+🎉 added `select` parser
+⚠️ BREAKING: (no one should be affected) Scroll now requires NodeJS >= 18.0.0.
+
+
 📦 116.0.0 8/3/2024
 ⚠️ BREAKING: `scatterplot` now gets data from `table`.
 

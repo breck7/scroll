@@ -1,0 +1,2 @@
+// Don't actually run this test regularly. But here's how to use fetch.
+ fetch https://breckyunits.com/posts.csv brecksPosts.csv
