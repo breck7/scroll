@@ -221,6 +221,50 @@ scrollSelectParser
     return this.getWordsFrom(1)
   }
 
+scrollRenameParser
+ catchAllCellType columnNameCell
+ extends abstractTableTransformParser
+ description Rename columns.
+ example
+  tables
+   data
+    name,year,count
+    index,2022,2
+   rename name Name year Year
+    printTable
+ crux rename
+ javascript
+  get coreTable() {
+   const {coreTable} = this.parent
+   const {renameMap} = this
+   if (!Object.keys(renameMap).length) return coreTable
+   return coreTable.map(row => {
+      const newRow = {}
+      Object.keys(row).forEach(key => {
+        const name = renameMap[key] || key
+        newRow[name] = row[key]
+      })
+      return newRow
+   })
+  }
+  get renameMap() {
+    const map = {}
+    const pairs = this.getWordsFrom(1)
+    let oldName
+    while (oldName = pairs.shift()) {
+      map[oldName] = pairs.shift()
+    }
+    return map
+  }
+  _renamed
+  get columnNames() {
+   if (this._renamed)
+     return this._renamed
+    const {renameMap} = this
+    this._renamed = this.parent.columnNames.map(name => renameMap[name] || name )
+    return this._renamed
+  }
+
 tableSearchParser
  extends abstractScrollWithRequirementsParser
  string copyFromExternal jquery-3.7.1.min.js dataTables.dataTables.min.css dataTables.min.js tableSearch.js
