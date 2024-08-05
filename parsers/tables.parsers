@@ -165,7 +165,7 @@ scrollTableParser
 
 scrollWhereParser
  extends abstractTableTransformParser
- description Each row must meet a certain condition
+ description Filter rows by condition.
  crux where
  cells commandWordCell columnNameCell comparisonCell numberCell
  example
@@ -195,6 +195,30 @@ scrollWhereParser
       else if (operator === "notEmpty") return !(cell === "" || cell === undefined)
     }
    return coreTable.filter(filterFn)
+  }
+
+scrollSelectParser
+ catchAllCellType columnNameCell
+ extends abstractTableTransformParser
+ description Drop all columns except these.
+ example
+  tables
+   data
+    name,year,count
+    index,2022,2
+    about,2023,4
+   select name year
+    printTable
+ crux select
+ javascript
+  get coreTable() {
+   const {coreTable} = this.parent
+   const {columnNames} = this
+   if (!columnNames.length) return coreTable
+   return coreTable.map(row => Object.fromEntries(columnNames.map(colName => [colName, row[colName]])))
+  }
+  get columnNames() {
+    return this.getWordsFrom(1)
   }
 
 tableSearchParser
