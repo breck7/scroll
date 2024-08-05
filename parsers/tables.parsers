@@ -221,6 +221,15 @@ scrollSelectParser
     return this.getWordsFrom(1)
   }
 
+scrollReverseParser
+ extends abstractTableTransformParser
+ description Reverse rows.
+ crux reverse
+ javascript
+  get coreTable() {
+   return this.parent.coreTable.slice().reverse()
+  }
+
 scrollRenameParser
  catchAllCellType columnNameCell
  extends abstractTableTransformParser
