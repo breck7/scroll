@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 118.1.0 8/6/2024
+🎉 `tableSearch` now adds copy and CSV buttons.
+
 📦 118.0.0 8/6/2024
 🎉 tables: added delimiter autodetection
 🎉 tables: added columnName autocomplete

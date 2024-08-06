@@ -349,11 +349,11 @@ scrollRenameParser
 
 tableSearchParser
  extends abstractScrollWithRequirementsParser
- string copyFromExternal jquery-3.7.1.min.js dataTables.dataTables.min.css dataTables.min.js tableSearch.js
+ string copyFromExternal jquery-3.7.1.min.js dataTables.css dataTables.min.js tableSearch.js
  string requireOnce
   <script defer src="jquery-3.7.1.min.js"></script>
   <style>.dt-search{font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";}</style>
-  <link rel="stylesheet" href="dataTables.dataTables.min.css">
+  <link rel="stylesheet" href="dataTables.css">
   <script defer src="dataTables.min.js"></script>
   <script defer src="tableSearch.js"></script>
  // adds to all tables on page
