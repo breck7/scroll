@@ -1353,4 +1353,13 @@ html.dark div.dt-button-collection {
   box-shadow: 3px 4px 10px 1px rgba(0, 0, 0, 0.8);
 }
 
-
+/* Style overrides */
+div.dt-buttons > .dt-button,
+div.dt-buttons > div.dt-button-split .dt-button {
+  padding: 0.2em 0.4em;
+  margin-bottom: 0.1em;
+  font-size: 0.8em;
+}
+.dt-search label {
+  opacity: 0;
+}

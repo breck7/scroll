@@ -118,6 +118,11 @@ class TableSearchApp {
       layout: {
         topStart: {
           buttons: ["copy", "csv"]
+        },
+        topEnd: {
+          search: {
+            placeholder: "Search"
+          }
         }
       },
       // Set the search input to the initial value extracted from the URL
