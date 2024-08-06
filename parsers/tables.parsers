@@ -167,12 +167,16 @@ scrollTableParser
   get filename() {
     return this.content
   }
-  get fileContent() {
-    const {filename} = this
-    const { Disk } = require("scrollsdk/products/Disk.node.js")
+  get fileFromDisk() {
     const path = require("path")
-    const {file} = this.parent
-    return Disk.read(path.join(file.folderPath, filename))
+    const fs = require("fs")
+    return fs.readFileSync(path.join(this.parent.file.folderPath, this.filename), "utf8")
+  }
+  get fileFromLocalStorage() {
+    return localStorage.getItem(this.filename) || ""
+  }
+  get fileContent() {
+    return this.isNodeJs() ? this.fileFromDisk : this.fileFromLocalStorage
   }
   get delimitedData() {
     // json csv tsv
