@@ -11,15 +11,13 @@ endColumns
 
 thinColumns 2
 
-# Official Language Spec
-- A Spec defining the core of Scroll in enough detail so someone could build a new implementation in any host language.
- https://en.wikipedia.org/wiki/Programming_language_specification Spec
+# The Scroll Language: A Book
+A book describing all the key ideas in Scroll with sections for beginner, intermediate, and advanced users.
 
-# Build Typeset PDFs Output: Scroll → TeX → PDF. Also ePubs.
-- It should be easy to use Scroll to generate not only HTML files but also nice ePubs and PDFs (likely using TeX as an intermediate representation)
+# Make Books with Scroll: Scroll → ePub|PDF|TeX|MOBI.
 
-# Browser Version: scroll.browser.js
-- https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support adding Parsers so people can use the full power of Scroll completely in the client.
+# Robust Browser Version: scroll.browser.js
+https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support adding Parsers so people can use the full power of Scroll completely in the client.
 
 endColumns
 
