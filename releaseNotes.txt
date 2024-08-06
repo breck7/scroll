@@ -8,6 +8,22 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+118.2.2 8/6/2024
+================
+🏥 fix mac file name lower case issue
+
+118.2.1 8/6/2024
+================
+🏥 fix mac file name lower case issue
+
+118.2.0 8/6/2024
+================
+🎉 more concise `tableSearch` styling
+
+118.1.0 8/6/2024
+================
+🎉 `tableSearch` now adds copy and CSV buttons.
+
 118.0.0 8/6/2024
 ================
 🎉 tables: added delimiter autodetection

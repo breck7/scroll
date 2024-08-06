@@ -1,5 +1,33 @@
 [
   {
+    "version": "118.2.2",
+    "releaseDate": "8/6/2024",
+    "bugFixes": 1,
+    "newFeatures": 0,
+    "breakingChanges": 0
+  },
+  {
+    "version": "118.2.1",
+    "releaseDate": "8/6/2024",
+    "bugFixes": 1,
+    "newFeatures": 0,
+    "breakingChanges": 0
+  },
+  {
+    "version": "118.2.0",
+    "releaseDate": "8/6/2024",
+    "bugFixes": 0,
+    "newFeatures": 1,
+    "breakingChanges": 0
+  },
+  {
+    "version": "118.1.0",
+    "releaseDate": "8/6/2024",
+    "bugFixes": 0,
+    "newFeatures": 1,
+    "breakingChanges": 0
+  },
+  {
     "version": "118.0.0",
     "releaseDate": "8/6/2024",
     "bugFixes": 0,
