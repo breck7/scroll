@@ -23,7 +23,7 @@ abstractMarkupLangParser
       return (this.importName ? compiler[this.importName] : compiler) || (str => str)
     } catch (err) {
       console.error(`❌ ${this.firstWord} skipped. Try "npm install -g ${this.packageName}"`)
-      return str => str
+      return class Compiler { parse(str) { return str} }
     }
   }
   get globalPath() {
