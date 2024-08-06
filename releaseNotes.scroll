@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 117.1.0 8/5/2024
+🎉 tables: added `groupBy` parser for "pivot tables"
+
 📦 117.0.1 8/5/2024
 🏥 fix highlight bug in where parser
 
