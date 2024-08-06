@@ -286,7 +286,41 @@ scrollTransposeParser
    return transpose(this.parent.coreTable)
   }
 
-orderByParser
+scrollImputeParser
+ extends abstractTableTransformParser
+ description Impute missing values of a columm.
+ cells commandWordCell columnNameCell
+ crux impute
+ javascript
+  get coreTable() {
+   const {lodash, columnName} = this
+   const sorted = lodash.orderBy(this.parent.coreTable.slice(), columnName)
+   // ascending
+   const imputed = []
+   let lastInserted = sorted[0][columnName]
+   sorted.forEach(row => {
+    const measuredTime = row[columnName]
+    while (measuredTime > lastInserted + 1) {
+      lastInserted++
+      // synthesize rows
+      const imputedRow = {}
+      imputedRow[columnName] = lastInserted
+      imputedRow.count = 0
+      imputed.push(imputedRow)
+    }
+    lastInserted = measuredTime
+    imputed.push(row)
+   })
+   return imputed
+  }
+  get columnName() {
+    return this.getWord(1)
+  }
+  get lodash() {
+    return this.isNodeJs() ? require("lodash") : lodash
+  }
+
+scrollOrderByParser
  extends abstractTableTransformParser
  description Sort rows by column(s).
  catchAllCellType columnNameCell
