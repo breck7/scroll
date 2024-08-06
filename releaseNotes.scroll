@@ -21,6 +21,7 @@ thinColumns
 📦 118.3.0 8/6/2024
 🎉 `fetch` now writes to localStorage in browser environment.
 🎉 `table` now can read from localStorage in browser environment.
+🏥 handle empty values in `groupBy` parser
 
 📦 118.2.2 8/6/2024
 🏥 fix mac file name lower case issue
