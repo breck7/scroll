@@ -8,10 +8,41 @@ abstractTableTransformParser
   get columnNames() {
     return this.parent.columnNames
   }
+  getRunTimeEnumOptions(cell) {
+   if (cell.cellTypeId === "columnNameCell")
+      return this.parent.columnNames
+   return super.getRunTimeEnumOptions(cell)
+  }
+  getRunTimeEnumOptionsForValidation(cell) {
+    if (cell.cellTypeId === "columnNameCell")
+      return this.parent.columnNames.concat(this.parent.columnNames.map(c => "-" + c)) // Add reverse names
+   return super.getRunTimeEnumOptions(cell)
+  }
+
+abstractColumnNameParser
+ cells commandWordCell columnNameCell
+ javascript
+  getRunTimeEnumOptions(cell) {
+   if (cell.cellTypeId === "columnNameCell")
+      return this.parent.columnNames
+   return super.getRunTimeEnumOptions(cell)
+  }
+
+scrollXParser
+ crux x
+ extends abstractColumnNameParser
+
+scrollYParser
+ crux y
+ extends abstractColumnNameParser
 
 abstractTableVisualizationParser
  extends abstractScrollWithRequirementsParser
  boolean isTableVisualization true
+ javascript
+  get columnNames() {
+    return this.parent.columnNames
+  }
 
 printTableParser
  cruxFromId
@@ -112,7 +143,7 @@ scrollTableParser
   }
   get delimiter() {
     const {filename} = this
-    let delimiter = " " // space is default delimiter if not specified
+    let delimiter = ""
     if (filename) {
       const extension = filename.split(".").pop()
       if (extension === "json") delimiter = "json"
@@ -122,6 +153,15 @@ scrollTableParser
     }
     if (this.get("delimiter"))
       delimiter = this.get("delimiter")
+    else {
+      const header = this.delimitedData.split("\n")[0]
+      if (header.includes("\t"))
+        delimiter = "\t"
+      else if (header.includes(","))
+       delimiter = ","
+      else
+       delimiter = " "
+    }
     return delimiter
   }
   get filename() {
@@ -231,6 +271,17 @@ scrollReverseParser
    return this.parent.coreTable.slice().reverse()
   }
 
+scrollTransposeParser
+ extends abstractTableTransformParser
+ description Tranpose table.
+ crux transpose
+ javascript
+  get coreTable() {
+   // todo: we need to switch to column based coreTable, instead of row based
+   const transpose = arr => Object.keys(arr[0]).map(key => [key, ...arr.map(row => row[key])]);
+   return transpose(this.parent.coreTable)
+  }
+
 orderByParser
  extends abstractTableTransformParser
  description Sort rows by column(s).
@@ -251,7 +302,9 @@ orderByParser
   }
 
 scrollRenameParser
- catchAllCellType columnNameCell
+ // todo: add support in Parsers for tuple catch alls
+  catchAllCellType columnNameCell wordCell
+ catchAllCellType wordCell
  extends abstractTableTransformParser
  description Rename columns.
  example

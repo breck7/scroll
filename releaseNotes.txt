@@ -8,6 +8,14 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+118.0.0 8/6/2024
+================
+🎉 tables: added delimiter autodetection
+🎉 tables: added columnName autocomplete
+🎉 tables: added `transpose` parser
+🎉 scatterplot: added x, y, and other autocompletes
+⚠️ BREAKING: `sparkline [columnName]` is now `sparkline\n y [columnName]`
+
 117.1.0 8/5/2024
 ================
 🎉 tables: added `groupBy` parser for "pivot tables"
@@ -50,7 +58,8 @@ Download as CSV | TSV | JSON
 🎉 `table [filename].[json|tsv|csv]` to load and print a table from disk
 🎉 `sparkline` now can take a table as input:
 table posts.csv
- sparkline wordCount
+ sparkline
+  y wordCount
 ⚠️ BREAKING: removed support for root level TSV. Not useful enough. Convert any root TSV to a standard table.
 ⚠️ BREAKING: removed `printTable` at root level. Now works nested under table
 ⚠️ BREAKING: removed `spaceTable`. See below to migrate.
