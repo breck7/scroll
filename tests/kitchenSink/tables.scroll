@@ -57,6 +57,21 @@ table
    select name
     printTable
 
+---
+
+# Impute
+
+table
+ impute year
+  printTable
+  sparkline
+   y count
+ data
+  year,count
+  1900,10
+  2000,122
+  2020,23
+
 ****
 
 

@@ -18,6 +18,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 118.4.0 8/6/2024
+🎉 add `impute` parser
+
 📦 118.3.0 8/6/2024
 🎉 `fetch` now writes to localStorage in browser environment.
 🎉 `table` now can read from localStorage in browser environment.

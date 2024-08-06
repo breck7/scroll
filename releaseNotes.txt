@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+118.4.0 8/6/2024
+================
+🎉 add `impute` parser
+
 118.3.0 8/6/2024
 ================
 🎉 `fetch` now writes to localStorage in browser environment.
