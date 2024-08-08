@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+118.5.0 8/8/2024
+================
+🎉 make `image` parser easier to extend
+
 118.4.0 8/6/2024
 ================
 🎉 add `impute` parser

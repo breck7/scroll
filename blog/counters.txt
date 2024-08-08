@@ -3,7 +3,7 @@ Build Your Own Counters With 3 Words
 by Breck Yunits
  https://twitter.com/breckyunits Breck Yunits
 
-August 6, 2024
+August 8, 2024
 
 I like collections of interesting numbers, such as BioNumbers. Animated counters provide a useful perspective when pondering large numbers. I wanted to make it as easy as possible for anyone to create these counters.
  https://bionumbers.hms.harvard.edu/Search.aspx?task=searchbypop BioNumbers

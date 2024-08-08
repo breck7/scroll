@@ -7,7 +7,7 @@ by Breck Yunits
  A heatrix on CancerDB.
   https://cancerdb.com/blog/cancer-heatmaps.html A heatrix on CancerDB.
 
-August 6, 2024
+August 8, 2024
 
 Do you love those GitHub Activity Charts and want to make your own but don't know what they are called or what library to use and your work is busy and you have kids and sorry I'll call you back someone is crying?
 
