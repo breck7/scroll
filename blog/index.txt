@@ -10,6 +10,11 @@ Heatrix: Heat Maps + Matrix Visualizations
 08/09/2024
 https://scroll.pub/blog/heatrix.html
 
+Tables: a microlang for data science
+====================================
+08/09/2024
+https://scroll.pub/blog/tables.html
+
 Contacts: A Microlang for Managing Contacts
 ===========================================
 07/16/2024
