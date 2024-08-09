@@ -11,12 +11,19 @@ Download as CSV | TSV | JSON
  link releaseNotes.csv CSV
  link releaseNotes.tsv TSV
  link releaseNotes.json JSON
+
+import ciBadges.scroll
+
 endColumns
 <br>
 
 import microlangs/changes.parsers
 
 thinColumns
+
+📦 118.6.0 8/9/2024
+🎉 added `button` parser
+🎉 added `dinkus` parser
 
 📦 118.5.0 8/8/2024
 🎉 make `image` parser easier to extend
