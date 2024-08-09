@@ -11,7 +11,7 @@ But if a program contain certain characters, such as _newlines_, those links won
 
 To create working links you have to run them through `encodeURIComponent`.
 
-***
+*
 
 If you are creating blog content by hand this is annoying.
 
@@ -19,7 +19,7 @@ To update a program link you have to keep a copy of the program, update that, th
 
 Today's release of Scroll includes a small new addition that solves this problem. You can call them "Multline Links" or "Program Links".
 
-***
+*
 
 Here are two examples
 =====================
@@ -29,7 +29,7 @@ Here is a program link to the Scroll web app.
 
 If you click that link you should see "It worked!" in big green text.
 
-***
+*
 
 Now let's show a complex real world example. The link below contains a 28 line program pasted verbatim from the Ohayo data science studio.
 
@@ -42,7 +42,7 @@ If you click that link you should see a few data visualizations generated from t
 
 Edit the source and the link will update accordingly. Scroll handles the `encodeURIComponent`.
 
-***
+*
 
 Why not use HTML directly?
 ==========================

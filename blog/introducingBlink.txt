@@ -10,7 +10,7 @@ October 2, 2022
 
 I am really happy with the current state of Scroll and so grateful for the many people who have helped us get it to this point. That being said, I had a feeling we were missing something important.
 
-***
+*
 
 *So I invented something simple and completely novel*
 

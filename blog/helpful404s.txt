@@ -15,7 +15,7 @@ There's a typo in your url. 🤦
 
 *What do you do?*
 
-***
+*
 
 You try to calm yourself down.
 
@@ -25,7 +25,7 @@ But then you think _all I can see is that i before e after c!_
 
 But then you think _is that *really* a rule_ and _maybe that's how it's spelled in London?_
 
-***
+*
 
 You can't help yourself.
 
@@ -35,11 +35,11 @@ You know you can so easily rename the file but then existing links will break an
 
 Or do you just break the links and going forward everyone will have the proper URL but everyone who clicks the old links will see an unhelpful 404 and you reflect on how great this thing that Tim Berners-Lee gave to the world is and how could you litter his creation with unhelpful 404s?
 
-***
+*
 
 If the story above resonates with you, the bad news is you may suffer from Broken Link Phobia. Luckily, there is now a cure.
 
-***
+*
 
 Introducing: Helpful 404's - never worry about broken links again!
 ==================================================================
@@ -66,7 +66,7 @@ That's it! The `helpfulNotFound` parser in Scroll will add Javascript to the 404
 See it in action here by clicking on this intentionally broken link:
  https://scroll.pub/blog/helpful_404s.html intentionally broken link
 
-***
+*
 
 I've been using Helpful 404s on all my sites for the past couple of months and it's been delightful.
 
@@ -74,11 +74,11 @@ I no longer spend any time worrying about making improvements to URLS.
 
 I just do it and I know that users following old links will still have a good experience.
 
-***
+*
 
 If you like stuff like Helpful 404's, there's _a lot_ more like that in Scroll, which is public domain and open source.
 
 Try it today, and if you like what we are doing please consider bringing your site to the World Wide Scroll!
  https://wws.scroll.pub World Wide Scroll
 
-****
+⁂

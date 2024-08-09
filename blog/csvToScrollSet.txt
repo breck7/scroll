@@ -15,7 +15,7 @@ Just drop your CSV or TSV into the textarea below to generate a ScrollSet.
 (P.S. using LLMs with ScrollSets is another great way to get started)
  https://sets.scroll.pub/ using LLMs with ScrollSets
 
-***
+*
 
 Your Data:
 ==========

@@ -13,12 +13,12 @@ They also initialize a handful of directories like `src/` and `tests/`.
 
 What if it was even easier to make, edit and use these templates?
 
-***
+*
 
 Introducing Stamp, a microlang (only 60 lines of code, including comments) that makes it as concise as possible to write, edit, share and expand project templates.
  https://github.com/breck7/scroll/blob/main/parsers/stamp.parsers 60 lines of code
 
-***
+*
 
 How to use
 ==========
@@ -41,13 +41,13 @@ stamp
 
 Done!
 
-***
+*
 
 Stamp was jointly created by me and Guillaume Papin. Other tools (listed below) do similar things, but with some slight differences.
  https://github.com/Sarcasm Guillaume Papin
  https://github.com/breck7/scrollsdk/issues/120 jointly created
 
-****
+⁂
 
 [Image Omitted]
 

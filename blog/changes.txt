@@ -17,20 +17,20 @@ Change logs are very helpful for:
 
 What if there was 1 language that let you do all 3 things at once?
 
-***
+*
 
 Introducing Changes, a microlang (only 70 lines of code, including comments) that makes it as concise as possible to write, read and analyze change logs.
  https://github.com/breck7/scroll/blob/main/microlangs/changes.parsers 70 lines of code
 
 Changes generates a pretty HTML file for your end users; allows for including unlimited detailed technical information for your developers; and generates summary statistics as TSV, CSV, and JSON for your project managers.
 
-***
+*
 
 There's almost nothing to learn (the code is self explanatory).
 
 In fact, it's almost guaranteed that using Changes you will need to write less (we've taken every unnecessary character out).
 
-***
+*
 
 Example
 =======
@@ -41,7 +41,7 @@ We use Changes for the Scroll Release Notes.
 Be sure to check out the source code that generates that HTML.
  https://github.com/breck7/scroll/blob/main/releaseNotes.scroll check out the source code
 
-***
+*
 
 How to use
 ==========
@@ -70,11 +70,11 @@ endColumns
 
 Done! You should now see a `releaseNotes.html` file as well as a TSV, CSV, and JSON file.
 
-***
+*
 
 What do you think? Anything that should be added/removed/improved?
 
-****
+⁂
 
 Related
 =======

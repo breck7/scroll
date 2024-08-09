@@ -33,6 +33,7 @@ buildJs - Compile to JS file.
 buildMeasures - Write measures to csv+ files.
 buildRss - Write RSS file.
 buildTxt - Compile to TXT file.
+button - A button.
 canonicalUrl - Override canonical URL.
 caption - An image caption.
 catchAllParagraph - A paragraph.
@@ -47,6 +48,7 @@ css - A style tag.
 dashboard - Key stats in large font.
 date - Set published date.
 description - Override Open Graph Description.
+dinkus - A custom dinkus.
 downloadUrl - Set link to Download Page.
 email - Set email address for site contact.
 endColumns - End columns.

@@ -7,7 +7,7 @@ by Breck Yunits
  A heatrix on CancerDB.
   https://cancerdb.com/blog/cancer-heatmaps.html A heatrix on CancerDB.
 
-August 8, 2024
+August 9, 2024
 
 Do you love those GitHub Activity Charts and want to make your own but don't know what they are called or what library to use and your work is busy and you have kids and sorry I'll call you back someone is crying?
 
@@ -28,7 +28,7 @@ Heat Map + Matrix = Heatrix
   https://try.scroll.pub/#scroll%0A%20heatrix%0A%20%208%206%207%205%0A%20%2030%209 Source code
   https://cleanshot.com/ CleanShotX
 
-***
+*
 
 Not just a library, it's a microlanguage!
 =========================================
@@ -50,7 +50,7 @@ Use numbers as labels:
 Use your own custom color palettes and set your own thresholds:
 ===============================================================
 
-***
+*
 
 Like Heatrix? There's more where that came from!
 ================================================
@@ -61,4 +61,4 @@ Join the World Wide Scroll Beta today!
 If you like `heatrix` and want to see more stuff like this, but a folder on the World Wide Scroll beta and good things will come your way:
  https://wws.scroll.pub/ World Wide Scroll beta
 
-****
+⁂

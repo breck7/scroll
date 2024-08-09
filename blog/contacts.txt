@@ -9,18 +9,18 @@ Imagine a single plain text file named `contacts.scroll` where you stored the co
 
 Also imagine that this tool is free, open source, and public domain.
 
-***
+*
 
 Introducing *Contacts*, a microlanguage (currently 23 lines of code, including comments) that makes it as concise as possible to add, prune, display, print and export your contacts.
  https://github.com/breck7/scroll/blob/main/microlangs/contacts.parsers 23 lines of code
 
-***
+*
 
 There's almost nothing to learn (the code is self-explanatory).
 
 In fact, it's almost guaranteed that using Contacts you will need to write less (we've taken every unnecessary character out).
 
-***
+*
 
 Example
 =======
@@ -36,7 +36,7 @@ phone +1 (555) 123-4562
 email jill@gmail.com
 birthday 1/23/80
 
-***
+*
 
 How to use
 ==========
@@ -69,20 +69,20 @@ birthday 1/23/80
 Done! You should now see a contacts.html file for display and printing as well as TSV, CSV, and JSON files.
  https://scroll.pub/blog/../tests/kitchenSink/contacts.html contacts.html
 
-***
+*
 
 [Image Omitted]
  Contacts is interoperable with pen and paper.
 
-***
+*
 
 What do you think? Anything that should be added/removed/improved?
 
-***
+*
 
 Notes
 =====
 1. The idea for Contacts was sparked by this tweet from Tyler Tringas.
  https://x.com/tylertringas/status/1813239718957461528 this tweet from Tyler Tringas
 
-****
+⁂

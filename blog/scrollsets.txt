@@ -18,7 +18,7 @@ The source code for this blog post contains a ScrollSet about the planets and ge
 ScrollSets are useful for small single day projects and large multi-year projects with thousands of concepts like PLDB (a Programming Language Database).
  https://pldb.io PLDB
 
-***
+*
 
 ScrollSets are normal plain text files written in Scroll that also contain measurements of concepts and output that data into formats ready for data visualization and analysis tools.
  https://scroll.pub/ Scroll

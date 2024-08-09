@@ -13,7 +13,7 @@ So I was excited to see Observable launch something new: Plot.
  https://observablehq.com/plot/ Plot
  https://observablehq.com/ Observable
 
-***
+*
 
 Plot is already great on its own. It handles many of the hard parts of data vis, and it's open source, so we can help them fix the parts that are still a little rough.
  https://github.com/observablehq/plot open source
@@ -23,7 +23,7 @@ But I found a way to take Plot to the next level: I combined it with Scroll.
 
 The Plot/Scroll integration is early, but I can already tell it will evolve into a _very useful_ data science tool.
 
-***
+*
 
 A Scatterplot with three words
 ==============================
@@ -37,33 +37,33 @@ But enough talk, let's see some code. A tutorial is below.
 To follow along, create a new website in 1 second using ScrollHub or install Scroll locally with `npm install -g scroll-cli`.
  http://hub.scroll.pub ScrollHub
 
-***
+*
 
 Step 1: Generate a scatterplot with 3 words
 ===========================================
 
-***
+*
 
 Step 2: Add a title
 ===================
 
-***
+*
 
 Step 3: Add inline data
 =======================
 
-***
+*
 
 Step 4: Everything everywhere all at once
 =========================================
 
-***
+*
 
 That's it (for now)!
 
 If you like where this is headed, give us a star on GitHub.
  https://github.com/breck7/scroll give us a star on GitHub
 
-****
+⁂
 
 ^engineering: The difference between programming and engineering? It takes programming to make a program that works. It takes engineering to make a program that _barely_ works.

@@ -7,7 +7,7 @@ August 23, 2021
 
 Scroll is a new language and static site generator that is mostly written in Parsers which are both built on a new syntax called Scroll Notation.
 
-***
+*
 
 In this demo, I extend Scroll by adding support for Markdown, Textile, and BBCode. I want to demonstrate how easy it is to compose many languages into one using Scroll Notation, which is due to what you might call the Indented or Off-side Heredoc pattern.
  https://en.wikipedia.org/wiki/Markdown Markdown

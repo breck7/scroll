@@ -17,7 +17,7 @@ The exclamation mark stands for *Counterpoint*.
 
 You can write your own counters or invite counters from friends, LLMs or Internet commenters.
 
-***
+*
 
 Counterpoints are easy to use: just start a line with `!`. For example:
 
@@ -30,7 +30,7 @@ Humans will eventually establish colonies on Mars.
  ! But we haven't colonized the Arctic, 1,000x easier
   - Colonizing Mars is 10,000x more valuable
 
-***
+*
 
 The Benefits of Countering
 ==========================
@@ -44,7 +44,7 @@ Countering is a helpful habit that helps clarify your thoughts, understand and e
 
 Counterpoints in Scroll are in a sense just a reminder to frequently use these techniques.
 
-***
+*
 
 The Downsides of Countering
 ===========================
@@ -56,7 +56,7 @@ Counters in Scroll give you a place to record every scattered counter as it come
 
 You can then choose which are important enough to address in your main argument and relegate the rest to the source code (for the very avid reader).
 
-***
+*
 
 Implementation
 ==============
@@ -70,8 +70,8 @@ But though they perform no new function, like traffic lines, sometimes form is f
 
 That being said, there are potentially interesting directions this could go in the future, and it would be interesting to hear ideas of what people would like in a v2.
 
-***
+*
 
 Keep writing, keep thinking!
 
-****
+⁂
