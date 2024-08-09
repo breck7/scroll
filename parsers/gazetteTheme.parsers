@@ -35,6 +35,8 @@ gazetteCssParser
    display inline-block
    border 0
    cursor pointer
+   a
+    color white
    &:hover
     background-color rgb(10,92,202,0.9)
    &:active

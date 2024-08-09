@@ -1,0 +1,50 @@
+authors Breck Yunits
+ https://twitter.com/breckyunits Breck Yunits
+date 8/09/2024
+tags All
+title Tables: a microlang for data science
+
+import header.scroll
+keyboardNav
+printTitle
+printAuthors
+
+mediumColumns 1
+
+Tables, aka spreadsheets, are arguably the most important _visual_ thought tool.
+ dateline
+
+But no one has designed the perfect _textual_ language for manipulating them.
+
+Until now.
+
+endSnippet
+
+# Say hello to Tables
+
+youTube https://www.youtube.com/watch?v=lO8blNtYYBA
+
+<br>
+<center>
+button Try now
+ https://try.scroll.pub/#scroll%0A%20gazetteCss%0A%20%0A%20fetch%20https%3A%2F%2Fohayo.breckyunits.com%2Fohayo%2Fpackages%2Fsamples%2Fpresidents.csv%0A%20fetch%20https%3A%2F%2Fohayo.breckyunits.com%2Fohayo%2Fpackages%2Fsamples%2Fperiodic-table.csv%0A%20%0A%20expander%20Presidents%0A%20table%20presidents.csv%0A%20%20groupBy%20Party%0A%20%20%20orderBy%20-count%0A%20%20%20%20printTable%0A%20%20scatterplot%0A%20%20%20x%20number%0A%20%20%20y%20Party%0A%20%20%20fill%20Party%0A%20%0A%20expander%20Elements%0A%20table%20periodic-table.csv%0A%20%20scatterplot%0A%20%20%20x%20Year%0A%20%20%20y%20AtomicNumber%0A%20%20%20fill%20Radioactive%0A%20%20%20symbol%20Metal
+</center>
+
+****
+
+# Acknowledgements
+
+Tables evolved over the past decade primarily by:
+
+- just doing what Hadley Wickham did in dplyr
+ https://dplyr.tidyverse.org/ dplyr
+ https://hadley.nz/ Hadley Wickham
+- using Mike Bostock's d3 under the hood
+ https://bost.ocks.org/mike/ Mike Bostock
+ https://d3js.org/ d3
+- reading all of Jeffrey Heer's papers
+ https://homes.cs.washington.edu/~jheer/ Jeffrey Heer
+- thinking about what would be the best tool for Max Roser and Hannah Ritchie.
+ https://ourworldindata.org/ Max Roser and Hannah Ritchie
+
+import footer.scroll

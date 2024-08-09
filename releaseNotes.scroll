@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 118.6.1 8/9/2024
+🏥 button link color fix
+
 📦 118.6.0 8/9/2024
 🎉 added `button` parser
 🎉 added `dinkus` parser
