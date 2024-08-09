@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+118.6.2 8/9/2024
+================
+🏥 don't trigger keyboard shortcuts if someone is trying to use keyboard back button shortcut. Thanks to Ben Atkin for the bug report!
+ https://github.com/benatkin Ben Atkin
+
 118.6.1 8/9/2024
 ================
 🏥 button link color fix
