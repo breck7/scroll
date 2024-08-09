@@ -1,6 +1,8 @@
 title Heatrix: Heat Maps + Matrix Visualizations
 import breckHeader.scroll
 
+date 7/28/2024
+
 mediumColumns 1
 
 image cancerHeatrix.jpg

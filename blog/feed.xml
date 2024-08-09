@@ -4,22 +4,22 @@
  <title>Feed</title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Fri, 09 Aug 2024 21:35:43 +0000</lastBuildDate>
+ <lastBuildDate>Fri, 09 Aug 2024 21:39:22 +0000</lastBuildDate>
  <language>en-us</language>
- <item>
-  <title>Build Your Own Counters With 3 Words</title>
-  <link>https://scroll.pub/blog/counters.html</link>
-  <pubDate>Fri, 09 Aug 2024 21:35:26 +0000</pubDate>
- </item>
- <item>
-  <title>Heatrix: Heat Maps + Matrix Visualizations</title>
-  <link>https://scroll.pub/blog/heatrix.html</link>
-  <pubDate>Fri, 09 Aug 2024 21:35:26 +0000</pubDate>
- </item>
  <item>
   <title>Tables: a microlang for data science</title>
   <link>https://scroll.pub/blog/tables.html</link>
   <pubDate>Fri, 09 Aug 2024 00:00:00 +0000</pubDate>
+ </item>
+ <item>
+  <title>Build Your Own Counters With 3 Words</title>
+  <link>https://scroll.pub/blog/counters.html</link>
+  <pubDate>Fri, 02 Aug 2024 00:00:00 +0000</pubDate>
+ </item>
+ <item>
+  <title>Heatrix: Heat Maps + Matrix Visualizations</title>
+  <link>https://scroll.pub/blog/heatrix.html</link>
+  <pubDate>Sun, 28 Jul 2024 00:00:00 +0000</pubDate>
  </item>
  <item>
   <title>Contacts: A Microlang for Managing Contacts</title>
