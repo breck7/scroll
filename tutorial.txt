@@ -4,6 +4,9 @@ Scroll Tutorial
 Edit this file on try.scroll.pub
  https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll Edit this file on try.scroll.pub
 
+Video walkthrough of this tutorial.
+ https://www.youtube.com/watch?v=IE3lHAmMqC4 Video walkthrough of this tutorial.
+
 What is Scroll?
 ===============
 
