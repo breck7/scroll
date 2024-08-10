@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <li >BREAKING: removed <code>commaTable</code>. See below to migrate.</li>
 <li >BREAKING: removed <code>pipeTable</code>. See below to migrate.</li>
 <li >BREAKING: <code>table</code> now takes delimiter and data parsers. Usage:</li></ul>
-<table id="table9" class="scrollTable">
+<table id="table10" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>score</th>
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table9').addEventListener('click', e => {
+ document.querySelector('#table10').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -473,7 +473,7 @@ gazetteCss</code>
 <code class="scrollCodeBlock">sparkline 5 7 27 87 300 17 10 5</code>
 <script src="sparkline.js"></script>
 
-<span id="spark10"></span><script>new Sparkline(document.getElementById("spark10"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([5,7,27,87,300,17,10,5])</script>
+<span id="spark11"></span><script>new Sparkline(document.getElementById("spark11"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([5,7,27,87,300,17,10,5])</script>
 <div class="scrollSection"><h1 class="scrollParagraph">97.0.0 6/19/2024</h1>
 <ul class="newFeatureParser"><li >BREAKING: upgraded scrollSDK to get <code>grammar</code> to <code>parsers</code> change.</li></ul>
 </div>
@@ -924,7 +924,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 ))
 </script>
 
-<div class="scrollKatex" id="11"></div>
+<div class="scrollKatex" id="12"></div>
 <div class="scrollSection"><h1 class="scrollParagraph">71.5.0 5/19/2023</h1>
 <ul class="newFeatureParser"><li >added support for extra newlines between items in ordered lists</li>
 <li >added support for custom footnote labels and move footnote link to end with new style</li>
@@ -1108,8 +1108,8 @@ gazetteCss
 </div>
 <div class="scrollSection"><h2 class="scrollParagraph">Scroll now has checklists!</h2>
 </div>
-<p class="scrollParagraph"><div style="text-indent:0px;"><input type="checkbox" checked id="item12"><label for="item12">Support checklists</label></div></p><p class="scrollParagraph"><div style="text-indent:20px;"><input type="checkbox" checked id="item13"><label for="item13">Make them indentable</label></div></p>
-<p class="scrollParagraph"><div style="text-indent:0px;"><input type="checkbox"  id="item14"><label for="item14">Solve world peace</label></div></p>
+<p class="scrollParagraph"><div style="text-indent:0px;"><input type="checkbox" checked id="item13"><label for="item13">Support checklists</label></div></p><p class="scrollParagraph"><div style="text-indent:20px;"><input type="checkbox" checked id="item14"><label for="item14">Make them indentable</label></div></p>
+<p class="scrollParagraph"><div style="text-indent:0px;"><input type="checkbox"  id="item15"><label for="item15">Solve world peace</label></div></p>
 <ul ><li >Regular Lists are also now indentable</li><ul ><li >This is a child</li><ul ><li >And this is a grandchild</li></ul></ul></ul>
 <div class="scrollSection"><h1 class="scrollParagraph">58.2.3 2/22/2023</h1>
 <ul class="bugFixParser"><li >Windows fix</li></ul>
@@ -1642,7 +1642,7 @@ gazetteCSS</code>
    example
     # A code block
     print "Hello world"</code>
-<table id="table15" class="scrollTable">
+<table id="table16" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>example</th>
@@ -1658,7 +1658,7 @@ print "Hello world"</td>
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table15').addEventListener('click', e => {
+ document.querySelector('#table16').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -1760,14 +1760,14 @@ loremIpsum 20</code>
  data
   name|nameLink
   Wikipedia|https://wikipedia.org</code>
-<table id="table16" class="scrollTable">
+<table id="table17" class="scrollTable">
  <thead><tr><th>name</th>
 </tr></thead>
  <tbody><tr><td><a href="https://wikipedia.org">Wikipedia</a></td>
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table16').addEventListener('click', e => {
+ document.querySelector('#table17').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -1925,7 +1925,7 @@ Find ^title\d (.+)
 <div class="scrollSection"><h1 class="scrollParagraph">17.1.0 2021.05.25</h1>
 <ul class="newFeatureParser"><li >pipeTable</li></ul>
 </div>
-<table id="table17" class="scrollTable">
+<table id="table18" class="scrollTable">
  <thead><tr><th>what</th>
 
 <th>why</th>
@@ -1935,7 +1935,7 @@ Find ^title\d (.+)
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table17').addEventListener('click', e => {
+ document.querySelector('#table18').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });

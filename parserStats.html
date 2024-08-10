@@ -386,7 +386,7 @@ h4.scrollQuestion {
 
 </style>
 <div class="scrollColumns" style="column-width:35ch;column-count:1;max-width:35ch;">
-<table id="table18" class="scrollTable">
+<table id="table19" class="scrollTable">
  <thead><tr><th>parserId</th>
 
 <th>uses</th>
@@ -398,13 +398,13 @@ h4.scrollQuestion {
 <td>2</td>
 </tr>
 <tr><td>blankLineParser</td>
-<td>807</td>
+<td>826</td>
 </tr>
 <tr><td>redirectToParser</td>
 <td>1</td>
 </tr>
 <tr><td>catchAllParagraphParser</td>
-<td>216</td>
+<td>228</td>
 </tr>
 <tr><td>pageTitleParser</td>
 <td>10</td>
@@ -437,7 +437,7 @@ h4.scrollQuestion {
 <td>10</td>
 </tr>
 <tr><td>cssParser</td>
-<td>15</td>
+<td>16</td>
 </tr>
 <tr><td>wideColumnsParser</td>
 <td>1</td>
@@ -445,23 +445,38 @@ h4.scrollQuestion {
 <tr><td>printTitleParser</td>
 <td>9</td>
 </tr>
-<tr><td>h2Parser</td>
-<td>40</td>
+<tr><td>htmlInlineParser</td>
+<td>22</td>
+</tr>
+<tr><td>afterTextCenterParser</td>
+<td>5</td>
 </tr>
 <tr><td>quickLinkParser</td>
-<td>85</td>
+<td>86</td>
+</tr>
+<tr><td>classMarkupParser</td>
+<td>8</td>
 </tr>
 <tr><td>endColumnsParser</td>
 <td>11</td>
 </tr>
-<tr><td>thinColumnsParser</td>
-<td>9</td>
+<tr><td>mediumColumnsParser</td>
+<td>3</td>
 </tr>
-<tr><td>linkParser</td>
-<td>24</td>
+<tr><td>scrollQuestionParser</td>
+<td>64</td>
 </tr>
 <tr><td>horizontalRuleParser</td>
 <td>7</td>
+</tr>
+<tr><td>h2Parser</td>
+<td>39</td>
+</tr>
+<tr><td>codeParser</td>
+<td>44</td>
+</tr>
+<tr><td>lineOfCodeParser</td>
+<td>172</td>
 </tr>
 <tr><td>h1Parser</td>
 <td>11</td>
@@ -470,7 +485,7 @@ h4.scrollQuestion {
 <td>18</td>
 </tr>
 <tr><td>belowAsCodeParser</td>
-<td>24</td>
+<td>25</td>
 </tr>
 <tr><td>listAftertextParser</td>
 <td>38</td>
@@ -484,8 +499,8 @@ h4.scrollQuestion {
 <tr><td>scrollTableParser</td>
 <td>7</td>
 </tr>
-<tr><td>scrollTableDelimiterParser</td>
-<td>7</td>
+<tr><td>printTableParser</td>
+<td>6</td>
 </tr>
 <tr><td>scrollTableDataParser</td>
 <td>7</td>
@@ -505,17 +520,8 @@ h4.scrollQuestion {
 <tr><td>scrollDashboardParser</td>
 <td>1</td>
 </tr>
-<tr><td>lineOfCodeParser</td>
-<td>169</td>
-</tr>
 <tr><td>htmlParser</td>
 <td>2</td>
-</tr>
-<tr><td>classMarkupParser</td>
-<td>7</td>
-</tr>
-<tr><td>codeParser</td>
-<td>42</td>
 </tr>
 <tr><td>scrollParserDefinitionParser</td>
 <td>3</td>
@@ -547,9 +553,6 @@ h4.scrollQuestion {
 <tr><td>printSiteMapParser</td>
 <td>1</td>
 </tr>
-<tr><td>mediumColumnsParser</td>
-<td>2</td>
-</tr>
 <tr><td>scrollDinkusParser</td>
 <td>5</td>
 </tr>
@@ -562,8 +565,11 @@ h4.scrollQuestion {
 <tr><td>buildMeasuresParser</td>
 <td>1</td>
 </tr>
-<tr><td>htmlInlineParser</td>
-<td>20</td>
+<tr><td>thinColumnsParser</td>
+<td>8</td>
+</tr>
+<tr><td>linkParser</td>
+<td>23</td>
 </tr>
 <tr><td>versionParser</td>
 <td>432</td>
@@ -577,8 +583,8 @@ h4.scrollQuestion {
 <tr><td>breakingChangeParser</td>
 <td>166</td>
 </tr>
-<tr><td>printTableParser</td>
-<td>5</td>
+<tr><td>scrollTableDelimiterParser</td>
+<td>6</td>
 </tr>
 <tr><td>boldParser</td>
 <td>1</td>
@@ -631,9 +637,6 @@ h4.scrollQuestion {
 <tr><td>linkTitleParser</td>
 <td>2</td>
 </tr>
-<tr><td>scrollQuestionParser</td>
-<td>63</td>
-</tr>
 <tr><td>hoverNoteParser</td>
 <td>2</td>
 </tr>
@@ -657,9 +660,6 @@ h4.scrollQuestion {
 </tr>
 <tr><td>chatLineParser</td>
 <td>2</td>
-</tr>
-<tr><td>afterTextCenterParser</td>
-<td>4</td>
 </tr>
 <tr><td>gazetteCssParser</td>
 <td>2</td>
@@ -690,7 +690,7 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table18').addEventListener('click', e => {
+ document.querySelector('#table19').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
