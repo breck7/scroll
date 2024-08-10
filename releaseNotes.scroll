@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 118.6.3 8/10/2024
+🏥 `label` should show up in scatterplot autocomplete
+
 📦 118.6.2 8/9/2024
 🏥 don't trigger keyboard shortcuts if someone is trying to use keyboard back button shortcut. Thanks to Ben Atkin for the bug report!
  https://github.com/benatkin Ben Atkin
