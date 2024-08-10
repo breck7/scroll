@@ -7,10 +7,11 @@ try.scroll.pub &nbsp;&nbsp; ScrollHub
  http://hub.scroll.pub/ ScrollHub
  https://try.scroll.pub/ try.scroll.pub
 
-Leet sheet · Blog · FAQ
+Leet sheet · Blog · FAQ · Tutorial
  https://scroll.pub/leetsheet.html Leet sheet
  https://scroll.pub/blog/index.html Blog
  https://scroll.pub/faq.html FAQ
+ https://scroll.pub/tutorial.html Tutorial
 
 Videos · Subreddit
  https://www.youtube.com/@breckyunits Videos
