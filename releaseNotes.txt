@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+118.7.0 8/11/2024
+=================
+🎉 added v0.1.0 of `nickelbackIpsum` parser. Idea from gigamick.
+ https://news.ycombinator.com/user?id=gigamick gigamick
+
 118.6.3 8/10/2024
 =================
 🏥 `label` should show up in scatterplot autocomplete
