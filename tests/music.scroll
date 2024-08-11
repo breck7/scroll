@@ -1,0 +1,6 @@
+buildHtml
+music sipOfCoffee.m4a
+
+# With loop
+music sipOfCoffee.m4a
+ loop

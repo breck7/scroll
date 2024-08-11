@@ -67,7 +67,7 @@ birthday 1/23/80
 2. Run `scroll build`
 
 Done! You should now see a contacts.html file for display and printing as well as TSV, CSV, and JSON files.
- https://scroll.pub/blog/../tests/kitchenSink/contacts.html contacts.html
+ https://scroll.pub/blog/../tests/contacts.html contacts.html
 
 *
 

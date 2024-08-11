@@ -2,7 +2,7 @@ buildConcepts contacts.csv contacts.json contacts.tsv
 buildHtml
 title My Contacts
 
-import ../../microlangs/contacts.parsers
+import ../microlangs/contacts.parsers
 gazetteCss
 mediumColumns 1
 printTitle

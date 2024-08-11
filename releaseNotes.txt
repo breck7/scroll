@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+118.8.0 8/11/2024
+=================
+🎉 added `music` parser for playing songs, podcasts, sounds, et cetera.
+
 118.7.0 8/11/2024
 =================
 🎉 added v0.1.0 of `nickelbackIpsum` parser. Idea from gigamick.
@@ -1184,7 +1188,7 @@ This was a big internal refactor to remove the outdated concept of `ScrollFolder
 ================
 🎉 New parser `canonicalUrl` if you need to include query strings in canonical link.
 
-canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
+canonicalUrl https://scroll.pub/tests/maps.html?canonLinkTest=true
 
 62.4.0 3/23/2023
 ================

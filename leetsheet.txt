@@ -75,6 +75,7 @@ loremIpsum - Generate dummy text.
 map - Map widget.
 mediumColumns - Medium width columns.
 metaTags - Print meta tags including title.
+music - Play sound files.
 nickelbackIpsum - Generate dummy text.
 openGraphImage - Override Open Graph Image.
 pageFooter - HTML footer.

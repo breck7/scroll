@@ -4,7 +4,7 @@ Below are the files in a blog. I want you to read them, and then perform the fol
 Tasks:
 
 The Files:
-/home/runner/work/scroll/scroll/tests/kitchenSink/a-review-of-my-sink.scroll
+/home/runner/work/scroll/scroll/tests/a-review-of-my-sink.scroll
  replace SOME_DATA
   - foo
    link bar.html
@@ -44,7 +44,7 @@ The Files:
  
  endColumns
  
-/home/runner/work/scroll/scroll/tests/kitchenSink/tabularData.scroll
+/home/runner/work/scroll/scroll/tests/tabularData.scroll
  buildTxt
  tags index
  title Tabular data test
@@ -94,7 +94,7 @@ The Files:
    200000	3521928	40000000000	113886000	324000
    
  
-/home/runner/work/scroll/scroll/tests/kitchenSink/top-sinks.scroll
+/home/runner/work/scroll/scroll/tests/top-sinks.scroll
  authors Breck Yunits
   https://breckyunits.com Breck Yunits
  date 1/11/2019

@@ -21,6 +21,12 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 118.8.0 8/11/2024
+🎉 added `music` parser for playing songs, podcasts, sounds, et cetera.
+belowAsCode
+music tests/sipOfCoffee.m4a
+ loop
+
 📦 118.7.0 8/11/2024
 🎉 added v0.1.0 of `nickelbackIpsum` parser. Idea from gigamick.
  https://news.ycombinator.com/user?id=gigamick gigamick
@@ -998,7 +1004,7 @@ This was a big internal refactor to remove the outdated concept of `ScrollFolder
 🎉 New parser `canonicalUrl` if you need to include query strings in canonical link.
 
 code
- canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
+ canonicalUrl https://scroll.pub/tests/maps.html?canonLinkTest=true
 
 📦 62.4.0 3/23/2023
 🏥 SEO fix: metaTags now sets canonical link

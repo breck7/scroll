@@ -1,0 +1,23 @@
+scrollSoundParser
+ extends paragraphParser
+ crux music
+ description Play sound files.
+ loopParser
+  cruxFromId
+  cells commandWordCell
+ autoplayParser
+  cruxFromId
+  cells commandWordCell
+ javascript
+  compileTxt() {
+    // todo: ascii spectrogram?
+    return ""
+  }
+  get filename() {
+    return this.getWord(1)
+  }
+  compile() {
+    const loop = this.has("loop") ? "loop" : ""
+    const autoplay = this.has("autoplay") ? "autoplay" : ""
+    return `<audio controls ${loop} ${autoplay}><source src="${this.filename}" type="audio/mpeg">Your browser does not support the audio element.</audio>`
+  }
