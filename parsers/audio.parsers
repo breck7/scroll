@@ -1,0 +1,16 @@
+scrollAudioParser
+ // todo: should this be called music? sound? podcast?
+ extends paragraphParser
+ crux audio
+ description Play audio files.
+ javascript
+  compileTxt() {
+    // todo: ascii spectrogram?
+    return ""
+  }
+  get filename() {
+    return this.getWord(1)
+  }
+  compile() {
+    return `<audio controls><source src="${this.filename}" type="audio/mpeg">Your browser does not support the audio element.</audio>`
+  }

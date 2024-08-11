@@ -74,7 +74,7 @@ code
 2. Run `scroll build`
 
 Done! You should now see a contacts.html file for display and printing as well as TSV, CSV, and JSON files.
- link ../tests/kitchenSink/contacts.html contacts.html
+ link ../tests/contacts.html contacts.html
 
 ***
 

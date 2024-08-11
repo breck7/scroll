@@ -11,8 +11,8 @@ const shell = require("child_process").execSync
 
 const testTree = {}
 
-const kitchenSinkFolder = path.join(__dirname, "kitchenSink")
-const stampFolder = path.join(kitchenSinkFolder, "testOutput")
+const testsFolder = path.join(__dirname)
+const stampFolder = path.join(testsFolder, "testOutput")
 
 // cleanup in case it was built earlier:
 if (Disk.exists(stampFolder)) fs.rmSync(stampFolder, { recursive: true })
@@ -248,19 +248,19 @@ testTree.initCommand = async areEqual => {
   fs.rmSync(tempFolder, { recursive: true })
 }
 
-testTree.kitchenSink = async areEqual => {
+testTree.hodgePodge = async areEqual => {
   try {
     // Arrange/act
     const cli = new ScrollCli().silence()
     const fileSystem = new ScrollFileSystem()
-    cli.buildFilesInFolder(fileSystem, kitchenSinkFolder)
-    const groupPage = Disk.read(path.join(kitchenSinkFolder, "all.html"))
-    const autoPage = Disk.read(path.join(kitchenSinkFolder, "autoTitle.html"))
-    const sitemap = Disk.read(path.join(kitchenSinkFolder, "sitemap.txt"))
+    cli.buildFilesInFolder(fileSystem, testsFolder)
+    const groupPage = Disk.read(path.join(testsFolder, "all.html"))
+    const autoPage = Disk.read(path.join(testsFolder, "autoTitle.html"))
+    const sitemap = Disk.read(path.join(testsFolder, "sitemap.txt"))
 
     // Assert
     areEqual(groupPage.includes("NUM_SINKS"), false, "var substitution worked")
-    areEqual(fs.existsSync(path.join(kitchenSinkFolder, "full.html")), true, "should have full page")
+    areEqual(fs.existsSync(path.join(testsFolder, "full.html")), true, "should have full page")
     areEqual(autoPage.includes("2024"), true, "should have year 2024")
     areEqual(autoPage.includes("Auto Title"), true, "should have un camel cased title")
     areEqual(sitemap.includes("full.html"), true, "should have a sitemap")
@@ -271,9 +271,9 @@ testTree.kitchenSink = async areEqual => {
   }
 
   // Cleanup:
-  fs.readdirSync(kitchenSinkFolder)
+  fs.readdirSync(testsFolder)
     .filter(file => path.extname(file) === ".html")
-    .forEach(file => fs.unlinkSync(path.join(kitchenSinkFolder, file)))
+    .forEach(file => fs.unlinkSync(path.join(testsFolder, file)))
 
   fs.rmSync(stampFolder, { recursive: true })
 }

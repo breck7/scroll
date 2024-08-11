@@ -998,7 +998,7 @@ This was a big internal refactor to remove the outdated concept of `ScrollFolder
 🎉 New parser `canonicalUrl` if you need to include query strings in canonical link.
 
 code
- canonicalUrl https://scroll.pub/tests/kitchenSink/maps.html?canonLinkTest=true
+ canonicalUrl https://scroll.pub/tests/maps.html?canonLinkTest=true
 
 📦 62.4.0 3/23/2023
 🏥 SEO fix: metaTags now sets canonical link

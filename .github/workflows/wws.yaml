@@ -22,7 +22,7 @@ jobs:
           echo "Building blog."
           ../scroll.js build
           cd ..
-          cd tests/kitchenSink
+          cd tests
           ../../scroll.js build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4

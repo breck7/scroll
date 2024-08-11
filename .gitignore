@@ -13,7 +13,7 @@ scrollBrowserPerf.html
 scrollNodePerf.cpuprofile
 
 # Don't check in test outputs
-tests/kitchenSink/testOutput/
+tests/testOutput/
 
 # Do not check in files built by Scroll
 *.html
