@@ -23,7 +23,7 @@ jobs:
           ../scroll.js build
           cd ..
           cd tests
-          ../../scroll.js build
+          ../scroll.js build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
