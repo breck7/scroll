@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+118.9.0 8/11/2024
+=================
+🎉 added `video` parser.
+
 118.8.0 8/11/2024
 =================
 🎉 added `music` parser for playing songs, podcasts, sounds, et cetera.

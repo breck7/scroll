@@ -1,0 +1,7 @@
+buildHtml
+video spirit.mp4
+
+# With loop
+video spirit.mp4
+ loop
+ autoplay

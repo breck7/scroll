@@ -17,7 +17,7 @@ Videos · Subreddit
  https://www.youtube.com/@breckyunits Videos
  https://www.reddit.com/r/WorldWideScroll/ Subreddit
 
-NPM Package · Release Notes · Parser Designer
- https://www.npmjs.com/package/scroll-cli NPM Package
+npm package · Release Notes · Parser Designer
+ https://www.npmjs.com/package/scroll-cli npm package
  https://scroll.pub/releaseNotes.html Release Notes
  https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers Parser Designer

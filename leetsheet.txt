@@ -125,6 +125,7 @@ thanksTo - Acknowledge reviewers. Prints nothing.
 thinColumns - Thin columns.
 title - Set title.
 tufteCss - Theme from Tufte CSS.
+video - Play video files.
 viewSourceBaseUrl - Override source link baseUrl.
 viewSourceUrl - Override source link.
 wideColumns - Wide columns.
