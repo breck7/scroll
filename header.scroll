@@ -10,5 +10,6 @@ stumpNoSnippet
   type text/css
   href gazette.css
 pageHeader
+leftRightButtons
 copyButtons
 css html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 14px);}
