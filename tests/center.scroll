@@ -3,3 +3,9 @@ buildHtml
 center Hello world
 
 center Hello *world*
+
+
+center
+This should be centered
+
+This should not be centered.

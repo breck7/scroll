@@ -5,4 +5,8 @@ buildTxt
 
 keyboardNav
 
-pageFooter
+center
+emailButton
+wwsButton
+viewSourceButton
+scrollVersionLink

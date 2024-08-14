@@ -74,3 +74,5 @@ The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with n
 ==========================================================================================
 08/23/2021
 https://scroll.pub/blog/indented-heredocs.html
+
+Built with Scroll v120.0.0

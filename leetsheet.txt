@@ -37,7 +37,7 @@ button - A button.
 canonicalUrl - Override canonical URL.
 caption - An image caption.
 catchAllParagraph - A paragraph.
-center - A centered paragraph.
+center - A centered section.
 chat - A faux text chat conversation.
 code - A code block.
 codeWithHeader - A code block.
@@ -51,6 +51,7 @@ description - Override Open Graph Description.
 dinkus - A custom dinkus.
 downloadUrl - Set link to Download Page.
 email - Set email address for site contact.
+emailButton - Email button.
 endColumns - End columns.
 endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
@@ -79,7 +80,6 @@ metaTags - Print meta tags including title.
 music - Play sound files.
 nickelbackIpsum - Generate dummy text.
 openGraphImage - Override Open Graph Image.
-pageFooter - HTML footer.
 permalink - Override output filename.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
@@ -102,7 +102,6 @@ printSourceStack - Print source from each step of compilation.
 printTable - 
 printTitle - Print title.
 printUsageStats - Print parser usage stats in folder.
-printViewSource - Print "View source" link.
 quote - A quote.
 redirectTo - HTML redirect tag.
 replace - Replace this with that.
@@ -111,6 +110,7 @@ replaceNodejs - Replace this with evaled Node.JS.
 rssFeedUrl - Set RSS feed URL.
 scatterplot - Scatterplot Widget.
 script - Print script tag.
+scrollVersionLink - Prints "Built with Scroll [version]".
 slideshow - Slideshow widget. *** delimits slides.
 sparkline - Sparkline widget.
 stamp - Expand project template to disk.
@@ -127,8 +127,10 @@ tufteCss - Theme from Tufte CSS.
 video - Play video files.
 viewSourceBaseUrl - Override source link baseUrl.
 viewSourceButton - Print badge top right.
+viewSourceLink - Print "View source" link.
 viewSourceUrl - Override source link.
 wideColumns - Wide columns.
+wwsButton - Link to WWS version.
 youTube - A YouTube video widget.
 
 Commonly used parsers are bolded.
@@ -137,3 +139,5 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
  https://try.scroll.pub Try Scroll
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  https://scroll.pub/parserLeetsheet.html Parsers LeetSheet
+
+Built with Scroll v120.0.0

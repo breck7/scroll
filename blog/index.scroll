@@ -3,4 +3,9 @@ title The Official Scroll Blog
 import header.scroll
 printTitle
 printSnippets All
-pageFooter
+
+center
+emailButton
+wwsButton
+viewSourceButton
+scrollVersionLink

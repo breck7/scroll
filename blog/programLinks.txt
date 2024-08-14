@@ -53,3 +53,5 @@ But by the HTML spec newlines are not a URL code point and generally are strippe
  https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace stripped and collapsed
 
 Program Links in Scroll handle encoding newlines and any other special characters so you can focus on your content and not the encoding.
+
+Built with Scroll v120.0.0

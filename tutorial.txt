@@ -196,8 +196,7 @@ A page using a theme:
 gazetteCss
 homeButton
 viewSourceButton
-* This page uses the Gazette theme.
-pageFooter
+This page uses the Gazette theme.
 
 ---
 
@@ -219,3 +218,5 @@ As you can see, you can define new parsers with a small amount of code.
 You probably also can see that the Parsers code is powerful but has lots of sharp edges.
 
 While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
+
+Built with Scroll v120.0.0
