@@ -7,21 +7,13 @@ viewSourceUrlParser
  description Override source link.
  extends abstractTopLevelSingleMetaParser
 
-printViewSourceParser
+viewSourceLinkParser
+ extends abstractTextLinkParser
  description Print "View source" link.
- extends abstractAftertextParser
- cruxFromId
+ string text viewSource
  javascript
-  compileEmbeddedVersion() {
-   return ""
-  }
-  compile() {
-   const file = this.parent.file
-   const { viewSourceUrl } = file
-   return file.compileStumpCode(`p
-   class scrollViewSource doNotPrint
-   a View source
-    href ${viewSourceUrl}`)
+  get link() {
+    return this.parent.file?.viewSourceUrl || ""
   }
 
 viewSourceButtonParser

@@ -4,3 +4,4 @@ import header.scroll
 printTitle
 printSnippets All
 pageFooter
+scrollVersionLink

@@ -14,15 +14,6 @@ pageFooterParser
     padding 0 7px
     &:hover
      fill #333
-  .pageFooterScrollLink
-   font-family Verdana
-   font-weight 100
-   margin .5em
-   a
-    color rgba(204,204,204,.5)
-    &:hover
-     color #333
-     text-decoration none
  javascript
   compileEmbeddedVersion() {
    return ""
@@ -50,10 +41,5 @@ pageFooterParser
    class pageFooter doNotPrint
    ${emailLink}
    ${downloadLink}
-   ${gitLink}
-   div
-    class pageFooterScrollLink
-    a Built with Scroll v${SCROLL_VERSION}
-     href https://scroll.pub`)
-   )
+   ${gitLink}`))
   }

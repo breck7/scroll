@@ -1,0 +1,22 @@
+abstractTextLinkParser
+ extends abstractAftertextParser
+ cruxFromId
+ javascript
+  compileEmbeddedVersion() {
+   return ""
+  }
+  compileTxt() {
+    return this.text
+  }
+  compile() {
+   return `<a href="${this.link}">${this.text}</a>`
+  }
+
+scrollVersionLinkParser
+ extends abstractTextLinkParser
+ string link https://scroll.pub
+ description Prints "Built with Scroll [version]".
+ javascript
+  get text() {
+    return `Built with Scroll v${this.parent.file?.SCROLL_VERSION || ""}`
+  }

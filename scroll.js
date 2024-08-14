@@ -839,7 +839,8 @@ printTitle`,
       "feed.scroll": `buildRss feed.xml
 printFeed All`,
       "footer.scroll": `importOnly
-pageFooter`,
+pageFooter
+scrollVersionLink`,
       "helloWorld.scroll": `tags All
 import header.scroll
 
