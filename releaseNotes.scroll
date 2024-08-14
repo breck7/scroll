@@ -29,8 +29,11 @@ codeWithHeader Find/Replace
   homeButton
   leftRightButtons
   viewSourceButton
-
 ⚠️ BREAKING: `printViewSourceBadge` is now `viewSourceButton`
+⚠️ BREAKING: removed `homeUrl`. Insead do:
+code
+ homeButton
+  link ../someOtherURL.html
 
 📦 118.9.0 8/11/2024
 🎉 added `video` parser.
