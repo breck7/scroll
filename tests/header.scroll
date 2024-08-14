@@ -4,4 +4,6 @@ buildHtml
 import settings.scroll
 metaTags
 gazetteCss
-pageHeader
+viewSourceButton
+homeButton
+leftRightButtons

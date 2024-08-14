@@ -194,7 +194,8 @@ A page using no theme:
 A page using a theme:
 =====================
 gazetteCss
-pageHeader
+homeButton
+viewSourceButton
 * This page uses the Gazette theme.
 pageFooter
 

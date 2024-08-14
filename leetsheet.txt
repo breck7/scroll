@@ -59,7 +59,7 @@ gazetteCss - Default Scroll theme CSS.
 heatrix - A heatmap matrix data visualization.
 heatrixAdvanced - Advanced heatrix.
 helpfulNotFound - Helpful not found widget.
-homeUrl - Override home link.
+homeButton - Home button.
 html - HTML one liners or blocks.
 htmlInlineParser - Inline HTML.
 htmlLang - Override HTML lang attribute.
@@ -69,6 +69,7 @@ importOnly - Don't build this file.
 inlineMarkups - Set global inline markups.
 katex - KaTex widget for typeset math.
 keyboardNav - Make left and right navigate files.
+leftRightButtons - Previous and next nav buttons.
 loadConcepts - Import all concepts in a folder.
 loop - Iterate over files+ to make HTML.
 loremIpsum - Generate dummy text.
@@ -79,7 +80,6 @@ music - Play sound files.
 nickelbackIpsum - Generate dummy text.
 openGraphImage - Override Open Graph Image.
 pageFooter - HTML footer.
-pageHeader - HTML footer.
 permalink - Override output filename.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
@@ -103,7 +103,6 @@ printTable -
 printTitle - Print title.
 printUsageStats - Print parser usage stats in folder.
 printViewSource - Print "View source" link.
-printViewSourceBadge - Print badge top right.
 quote - A quote.
 redirectTo - HTML redirect tag.
 replace - Replace this with that.
@@ -127,6 +126,7 @@ title - Set title.
 tufteCss - Theme from Tufte CSS.
 video - Play video files.
 viewSourceBaseUrl - Override source link baseUrl.
+viewSourceButton - Print badge top right.
 viewSourceUrl - Override source link.
 wideColumns - Wide columns.
 youTube - A YouTube video widget.

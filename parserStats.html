@@ -309,21 +309,6 @@ h4.scrollQuestion {
   margin: .25rem 0;
   text-align: center;
 }
-.scrollViewSourceBadge {
-  text-align: right;
-  position: absolute;
-  display: block;
-  right: 20px;
-  top: 8px;
-}
-.scrollViewSourceBadge svg {
-  width: 24px;
-  height: 24px;
-  fill: rgba(204,204,204,0.8);
-}
-.scrollViewSourceBadge svg:hover {
-  fill: #333;
-}
 .scrollViewSource {
   text-align: center;
   font-family: Verdana;
@@ -398,7 +383,7 @@ h4.scrollQuestion {
 <td>2</td>
 </tr>
 <tr><td>blankLineParser</td>
-<td>836</td>
+<td>837</td>
 </tr>
 <tr><td>redirectToParser</td>
 <td>1</td>
@@ -430,7 +415,13 @@ h4.scrollQuestion {
 <tr><td>stumpContentParser</td>
 <td>40</td>
 </tr>
-<tr><td>pageHeaderParser</td>
+<tr><td>scrollHomeButtonParser</td>
+<td>10</td>
+</tr>
+<tr><td>scrollLeftRightButtonsParser</td>
+<td>10</td>
+</tr>
+<tr><td>viewSourceButtonParser</td>
 <td>10</td>
 </tr>
 <tr><td>copyButtonsParser</td>
@@ -446,7 +437,7 @@ h4.scrollQuestion {
 <td>9</td>
 </tr>
 <tr><td>htmlInlineParser</td>
-<td>22</td>
+<td>21</td>
 </tr>
 <tr><td>afterTextCenterParser</td>
 <td>5</td>
@@ -473,10 +464,10 @@ h4.scrollQuestion {
 <td>39</td>
 </tr>
 <tr><td>codeParser</td>
-<td>44</td>
+<td>45</td>
 </tr>
 <tr><td>lineOfCodeParser</td>
-<td>172</td>
+<td>180</td>
 </tr>
 <tr><td>h1Parser</td>
 <td>12</td>
@@ -572,7 +563,13 @@ h4.scrollQuestion {
 <td>8</td>
 </tr>
 <tr><td>versionParser</td>
-<td>435</td>
+<td>436</td>
+</tr>
+<tr><td>breakingChangeParser</td>
+<td>169</td>
+</tr>
+<tr><td>codeWithHeaderParser</td>
+<td>1</td>
 </tr>
 <tr><td>newFeatureParser</td>
 <td>342</td>
@@ -588,9 +585,6 @@ h4.scrollQuestion {
 </tr>
 <tr><td>bugFixParser</td>
 <td>182</td>
-</tr>
-<tr><td>breakingChangeParser</td>
-<td>166</td>
 </tr>
 <tr><td>scrollTableDelimiterParser</td>
 <td>6</td>
@@ -669,6 +663,9 @@ h4.scrollQuestion {
 </tr>
 <tr><td>chatLineParser</td>
 <td>2</td>
+</tr>
+<tr><td>aftertextStyleParser</td>
+<td>3</td>
 </tr>
 <tr><td>gazetteCssParser</td>
 <td>2</td>

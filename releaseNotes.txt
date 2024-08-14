@@ -8,6 +8,19 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+119.0.0 8/13/2024
+=================
+⚠️ BREAKING: removed `pageHeader`. Split that into 3 simpler parsers. Change `pageHeader` to:
+find ^pageHeader
+replace
+ homeButton
+ leftRightButtons
+ viewSourceButton
+⚠️ BREAKING: `printViewSourceBadge` is now `viewSourceButton`
+⚠️ BREAKING: removed `homeUrl`. Insead do:
+homeButton
+ link ../someOtherURL.html
+
 118.9.0 8/11/2024
 =================
 🎉 added `video` parser.
