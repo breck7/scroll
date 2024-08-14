@@ -206,7 +206,8 @@ code
 ## A page using a theme:
 code
  gazetteCss
- pageHeader
+ homeButton
+ viewSourceButton
  * This page uses the Gazette theme.
  pageFooter
 

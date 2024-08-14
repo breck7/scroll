@@ -24,7 +24,7 @@ printViewSourceParser
     href ${viewSourceUrl}`)
   }
 
-printViewSourceBadgeParser
+viewSourceButtonParser
  description Print badge top right.
  extends abstractAftertextParser
  cruxFromId

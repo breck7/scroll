@@ -21,6 +21,17 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 119.0.0 8/13/2024
+⚠️ BREAKING: removed `pageHeader`. Split that into 3 simpler parsers. Change `pageHeader` to:
+codeWithHeader Find/Replace
+ find ^pageHeader
+ replace
+  homeButton
+  leftRightButtons
+  viewSourceButton
+
+⚠️ BREAKING: `printViewSourceBadge` is now `viewSourceButton`
+
 📦 118.9.0 8/11/2024
 🎉 added `video` parser.
 belowAsCode
