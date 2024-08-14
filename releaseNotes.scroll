@@ -21,7 +21,30 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 120.0.0 8/14/2024
+🎉 added `emailButton` parser.
+🎉 added `scrollVersionLink` parser.
+🎉 added `wwsButton` parser.
+🎉 `center` parser now also creates centered sections:
+
+center
+This should be centered.
+
+⚠️ BREAKING: `printViewSource` is now `viewSourceLink`
+⚠️ BREAKING: `pageFooter` has been split into simpler parsers.
+codeWithHeader Find/Replace
+ find ^pageFooter
+ replace
+  center
+  emailButton
+  wwsButton
+  viewSourceButton
+  scrollVersionLink
+
 📦 119.0.0 8/13/2024
+🎉 added `homeButton` parser.
+🎉 added `leftRightButtons` parser.
+🎉 added `viewSourceButton` parser.
 ⚠️ BREAKING: removed `pageHeader`. Split that into 3 simpler parsers. Change `pageHeader` to:
 codeWithHeader Find/Replace
  find ^pageHeader

@@ -208,8 +208,7 @@ code
  gazetteCss
  homeButton
  viewSourceButton
- * This page uses the Gazette theme.
- pageFooter
+ This page uses the Gazette theme.
 
 ---
 
