@@ -1,7 +1,6 @@
 importOnly
 buildHtml
 buildTxt
-homeUrl ../index.html
 
 import settings.scroll
 metaTags
@@ -10,7 +9,10 @@ stumpNoSnippet
   rel stylesheet
   type text/css
   href ../gazette.css
-pageHeader
+viewSourceButton
+homeButton
+ link ../index.html
+leftRightButtons
 copyButtons
 
 css html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}
