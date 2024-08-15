@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 120.1.0 8/15/2024
+🎉 add clickable examples to leetsheet
+
 📦 120.0.0 8/14/2024
 🎉 added `emailButton` parser.
 🎉 added `scrollVersionLink` parser.

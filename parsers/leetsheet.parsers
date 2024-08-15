@@ -45,13 +45,21 @@ printLeetSheetParser
   sortDocs(docs) {
     return docs.map(node => {
       const {definition} = node
-      const {id, description, isPopular} = definition
-      return {id: definition.cruxIfAny || id, description, isPopular}
+      const {id, description, isPopular, examples} = definition
+      return {id: definition.cruxIfAny || id, description, isPopular, examples}
      }).sort((a, b) => a.id.localeCompare(b.id))
+  }
+  makeLink(examples, crux) {
+    // if (!examples.length) console.log(crux) // find nodes that need docs
+    const example = examples.length ? examples[0].childrenToString() : crux
+    const base = `https://try.scroll.pub/`
+    const tree = new TreeNode()
+    tree.appendLineAndChildren("scroll", "gazetteCss\n" + example)
+    return base + "#" + encodeURIComponent(tree.asString)
   }
   docToHtml(doc) {
    const css = `#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }`
-   return `<style>${css}</style><div id="scrollLeetSheet">` + doc.map(obj => `<div><a>${obj.isPopular ? "<b>" : ""}${obj.id}</a> ${obj.description}${obj.isPopular ? "</b>" : ""}</div>`).join("\n") + "</div>"
+   return `<style>${css}</style><div id="scrollLeetSheet">` + doc.map(obj => `<div><a href="${this.makeLink(obj.examples, obj.id)}">${obj.isPopular ? "<b>" : ""}${obj.id}</a> ${obj.description}${obj.isPopular ? "</b>" : ""}</div>`).join("\n") + "</div>"
   }
   compile() {
     return this.docToHtml(this.sortDocs(this.parsersToDocument))
@@ -66,6 +74,9 @@ printAdvancedLeetSheetParser
  javascript
   compile() {
     return "<p><b>Line Parsers</b> match lines and parse them.</p><br>" + this.docToHtml(this.sortDocs(this.parsersToDocument)) + "<p><b>Cell Parsers</b> parse words in a line.</p><br>" + this.docToHtml(this.sortDocs(this.cellParsersToDocument))
+  }
+  makeLink() {
+    return ""
   }
   get cellParsersToDocument() {
     const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
