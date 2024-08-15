@@ -47,7 +47,7 @@ counter - Just for fun.
 css - A style tag.
 dashboard - Key stats in large font.
 date - Set published date.
-description - Override Open Graph Description.
+description - Meta tag description.
 dinkus - A custom dinkus.
 downloadUrl - Set link to Download Page.
 email - Set email address for site contact.
@@ -140,4 +140,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  https://scroll.pub/parserLeetsheet.html Parsers LeetSheet
 
-Built with Scroll v120.0.0
+Built with Scroll v120.1.0

@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+120.1.0 8/15/2024
+=================
+🎉 add clickable examples to leetsheet
+
 120.0.0 8/14/2024
 =================
 🎉 added `emailButton` parser.
@@ -2429,4 +2433,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v120.0.0
+Built with Scroll v120.1.0
