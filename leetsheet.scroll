@@ -1,11 +1,15 @@
 title Scroll LeetSheet
+buildCsv
 
 import header.scroll
 printTitle
 
-<center style="color: grey; padding-bottom: 20px;">
+css body {color: grey;}
+
+center
 Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of *parsers*, which you can create. The standard parsers are below. Scroll files end in *.scroll*.
-</center>
+
+br
 
 thinColumns 4
 
@@ -13,13 +17,13 @@ printLeetSheet
 
 endColumns
 
-<center style="color: grey; padding-bottom: 20px;">
-Commonly used parsers are <b>bolded</b>.
+center
+Commonly used parsers are *bolded*. CSV version.
+ link leetsheet.csv CSV version
 Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
  http://hub.scroll.pub ScrollHub
  https://try.scroll.pub Try Scroll
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  link parserLeetsheet.html Parsers LeetSheet
-</center>
-
+br
 import footer.scroll
