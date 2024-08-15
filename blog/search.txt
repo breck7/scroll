@@ -1,4 +1,4 @@
 Search the Official Scroll Blog
 ===============================
 
-Built with Scroll v120.1.0
+Built with Scroll v120.2.0

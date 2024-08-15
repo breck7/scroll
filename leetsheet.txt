@@ -26,8 +26,10 @@ belowAsCode - Print code below.
 belowAsCodeUntil - Print code above until match.
 blankLineParser - Print nothing. Break section.
 blink - Just for fun.
+br - A break.
 buildConcepts - Write concepts to csv+ files.
 buildCss - Compile to CSS file.
+buildCsv - Compile to CSV file.
 buildHtml - Compile to HTML file.
 buildJs - Compile to JS file.
 buildMeasures - Write measures to csv+ files.
@@ -83,34 +85,34 @@ openGraphImage - Override Open Graph Image.
 permalink - Override output filename.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
-printAdvancedLeetSheet - Print Parsers leet sheet.
+printAdvancedLeetSheet - Parsers leetsheet.
 printAuthors - Prints author(s) byline.
-printConcepts - Print concepts to HTML table.
+printConcepts - Print concepts.
 printCsv - Print group metadata to CSV.
 printDate - Print published date.
 printFeed - Print group to RSS.
 printFormatLinks - Prints links to other formats.
 printFullSnippets - Print full pages in group(s).
 printLeetSheet - Print Scroll parser leet sheet.
-printMeasures - Print measure stats to HTML table.
+printMeasures - Print measure stats.
 printRelated - Print links to related posts.
 printSearchTable - Prints files to HTML table.
 printSiteMap - Print text sitemap.
 printSnippets - Prints snippets matching tag(s).
 printSource - Print source for files in group(s).
-printSourceStack - Print source from each step of compilation.
-printTable - 
+printSourceStack - Print compilation steps.
+printTable - Print table.
 printTitle - Print title.
-printUsageStats - Print parser usage stats in folder.
+printUsageStats - Parser usage stats for folder.
 quote - A quote.
 redirectTo - HTML redirect tag.
 replace - Replace this with that.
 replaceJs - Replace this with evaled JS.
-replaceNodejs - Replace this with evaled Node.JS.
+replaceNodejs - Replace with evaled Node.JS.
 rssFeedUrl - Set RSS feed URL.
 scatterplot - Scatterplot Widget.
 script - Print script tag.
-scrollVersionLink - Prints "Built with Scroll [version]".
+scrollVersionLink - Print Scroll version.
 slideshow - Slideshow widget. *** delimits slides.
 sparkline - Sparkline widget.
 stamp - Expand project template to disk.
@@ -133,11 +135,12 @@ wideColumns - Wide columns.
 wwsButton - Link to WWS version.
 youTube - A YouTube video widget.
 
-Commonly used parsers are bolded.
+Commonly used parsers are *bolded*. CSV version.
+ https://scroll.pub/leetsheet.csv CSV version
 Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
  http://hub.scroll.pub ScrollHub
  https://try.scroll.pub Try Scroll
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  https://scroll.pub/parserLeetsheet.html Parsers LeetSheet
 
-Built with Scroll v120.1.0
+Built with Scroll v120.2.0

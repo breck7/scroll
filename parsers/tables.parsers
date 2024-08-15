@@ -46,6 +46,7 @@ abstractTableVisualizationParser
 
 printTableParser
  cruxFromId
+ description Print table.
  extends abstractTableVisualizationParser
  javascript
   get tableHeader() {

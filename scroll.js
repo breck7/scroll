@@ -723,6 +723,14 @@ class ScrollFile {
       .trim()
   }
 
+  get asCsv() {
+    return this.scrollProgram.topDownArray
+      .filter(node => node.compileCsv)
+      .map(node => node.compileCsv())
+      .join("\n")
+      .trim()
+  }
+
   async build() {
     await Promise.all(this.scrollProgram.filter(node => node.build).map(async node => node.build()))
   }
@@ -996,6 +1004,7 @@ import footer.scroll`
       .forEach(file => {
         file.build() // Run any build steps
         this._buildConceptsAndMeasures(file, folder, fileSystem) // todo: call this buildDelimited?
+        this._buildFileType(file, folder, fileSystem, "csv")
       })
     files
       .filter(file => !file.importOnly)

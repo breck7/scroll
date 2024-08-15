@@ -39,7 +39,6 @@ uniqueFirstWord - For catch all parsers or pattern nodes, use this to indicate t
 uniqueLine - If present and there are more than 1 of these lines on the parent, an error will be present. Can be overridden by a child class by setting to false.
 version - Version number of your language. Generally used on parsers marked root.
 
-Commonly used parsers are bolded.
 Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Release Notes & Roadmap · Scroll LeetSheet
  https://sdk.scroll.pub/designer/index.html Parser Designer
  https://sdk.scroll.pub/sandbox/index.html Scroll Notation Sandbox
@@ -47,4 +46,4 @@ Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Relea
  https://sdk.scroll.pub/langs/parsers/ Release Notes & Roadmap
  https://scroll.pub/leetsheet.html Scroll LeetSheet
 
-Built with Scroll v120.1.0
+Built with Scroll v120.2.0

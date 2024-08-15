@@ -3,9 +3,12 @@ title Parsers LeetSheet
 import header.scroll
 printTitle
 
-<center style="color: grey; padding-bottom: 20px;">
+css body {color: grey;}
+
+center
 *Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers. Parsers files end in *.parsers*.
-</center>
+
+br
 
 thinColumns 4
 
@@ -13,14 +16,13 @@ printAdvancedLeetSheet
 
 endColumns
 
-<center style="color: grey; padding-bottom: 20px;">
-Commonly used parsers are <b>bolded</b>.
+center
 Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Release Notes & Roadmap · Scroll LeetSheet
  https://sdk.scroll.pub/designer/index.html Parser Designer
  https://sdk.scroll.pub/sandbox/index.html Scroll Notation Sandbox
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  https://sdk.scroll.pub/langs/parsers/ Release Notes & Roadmap
  link leetsheet.html Scroll LeetSheet
-</center>
+br
 
 import footer.scroll
