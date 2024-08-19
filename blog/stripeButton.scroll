@@ -3,15 +3,12 @@ importOnly
 <br><br>
 <center>
 
-<script async
-  src="https://js.stripe.com/v3/buy-button.js">
- </script>
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
 
 <stripe-buy-button
-  buy-button-id="buy_btn_1Pj87XJktJxKl0r5x2fJ5GMp"
-  publishable-key="pk_live_51IQx1tJktJxKl0r5YOhZM9Th6S8zhR2DXlUlJFIuLSrgzu3nfkKTx96ym19ihYYIeEnf3daa1TCPgDt0To2qt4Qk00TzjPmP9c"
- >
- </stripe-buy-button>
+  buy-button-id="buy_btn_1PpYRJJktJxKl0r5IqXEQhSp"
+  publishable-key="pk_live_51IQx1tJktJxKl0r5YOhZM9Th6S8zhR2DXlUlJFIuLSrgzu3nfkKTx96ym19ihYYIeEnf3daa1TCPgDt0To2qt4Qk00TzjPmP9c">
+</stripe-buy-button>
 
 </center>
 <br><br>
