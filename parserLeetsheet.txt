@@ -46,4 +46,4 @@ Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Relea
  https://sdk.scroll.pub/langs/parsers/ Release Notes & Roadmap
  https://scroll.pub/leetsheet.html Scroll LeetSheet
 
-Built with Scroll v120.2.1
+Built with Scroll v121.0.0

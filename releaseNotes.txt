@@ -8,6 +8,13 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+121.0.0 8/19/2024
+=================
+🎉 emailButton, homeButton, downloadButton can now take a link
+⚠️ BREAKING: `wwsButton` is now `downloadButton`
+⚠️ BREAKING: removed `email`. Now do `emailButton [email]`
+⚠️ BREAKING: removed `downloadUrl`. Now do `downloadButton [url]`
+
 120.2.1 8/19/2024
 =================
 🏥 fix indent bug in `printRelated`
@@ -36,7 +43,7 @@ find ^pageFooter
 replace
  center
  emailButton
- wwsButton
+ downloadButton
  viewSourceButton
  scrollVersionLink
 
@@ -2442,4 +2449,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v120.2.1
+Built with Scroll v121.0.0

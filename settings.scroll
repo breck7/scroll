@@ -1,0 +1,10 @@
+baseUrl https://scroll.pub/
+viewSourceBaseUrl https://github.com/breck7/scroll/blob/main
+
+metaTags
+stumpNoSnippet
+ link
+  rel stylesheet
+  type text/css
+  href gazette.css
+css html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 14px);}

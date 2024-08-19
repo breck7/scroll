@@ -54,7 +54,7 @@ css,,A style tag.
 dashboard,,Key stats in large font.
 description,,Meta tag description.
 dinkus,,A custom dinkus.
-downloadUrl,,Set link to Download Page.
+downloadButton,,Link to download/WWS page.
 email,,Set email address for site contact.
 emailButton,,Email button.
 endColumns,,End columns.
@@ -128,5 +128,4 @@ viewSourceButton,,Print badge top right.
 viewSourceLink,,"Print ""View source"" link."
 viewSourceUrl,,Override source link.
 wideColumns,,Wide columns.
-wwsButton,,Link to WWS version.
 youTube,,A YouTube video widget.

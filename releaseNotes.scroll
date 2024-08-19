@@ -21,6 +21,12 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 121.0.0 8/19/2024
+🎉 emailButton, homeButton, downloadButton can now take a link
+⚠️ BREAKING: `wwsButton` is now `downloadButton`
+⚠️ BREAKING: removed `email`. Now do `emailButton [email]`
+⚠️ BREAKING: removed `downloadUrl`. Now do `downloadButton [url]`
+
 📦 120.2.1 8/19/2024
 🏥 fix indent bug in `printRelated`
 
@@ -47,7 +53,7 @@ codeWithHeader Find/Replace
  replace
   center
   emailButton
-  wwsButton
+  downloadButton
   viewSourceButton
   scrollVersionLink
 

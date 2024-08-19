@@ -1,6 +1,4 @@
 baseUrl https://scroll.pub/blog/
 description Official blog for Scroll
-downloadUrl ../download.html
-email feedback@scroll.pub
 rssFeedUrl feed.xml
 viewSourceBaseUrl https://github.com/breck7/scroll/blob/main/blog
