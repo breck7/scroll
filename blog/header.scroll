@@ -10,8 +10,7 @@ stumpNoSnippet
   type text/css
   href ../gazette.css
 viewSourceButton
-homeButton
- link ../index.html
+homeButton ../index.html
 leftRightButtons
 copyButtons
 
