@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 120.2.1 8/19/2024
+🏥 fix indent bug in `printRelated`
+
 📦 120.2.0 8/15/2024
 🎉 added `br` parser
 🎉 added `buildCsv` parser

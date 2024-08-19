@@ -143,4 +143,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  https://scroll.pub/parserLeetsheet.html Parsers LeetSheet
 
-Built with Scroll v120.2.0
+Built with Scroll v120.2.1
