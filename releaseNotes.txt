@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+121.0.1 8/20/2024
+=================
+🏥 web version printTitle fix.
+
 121.0.0 8/19/2024
 =================
 🎉 emailButton, homeButton, downloadButton can now take a link
@@ -2449,4 +2453,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v121.0.0
+Built with Scroll v121.0.1
