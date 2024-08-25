@@ -26,7 +26,7 @@ printUsageStatsParser
 
 // todo: these should not be keywords in stdlib, but should be made through componsition of more reusable parsers in a dataflow style.
 
-printLeetSheetParser
+printScrollLeetSheetParser
  description Print Scroll parser leet sheet.
  extends abstractScrollParser
  cruxFromId
@@ -82,8 +82,9 @@ printLeetSheetParser
     return new TreeNode(this.lodash.sortBy(rows, "isPopular")).asCsv
   }
 
-printAdvancedLeetSheetParser
- extends printLeetSheetParser
+printparsersLeetSheetParser
+ // todo: fix parse bug when word Parser appears in parserId
+ extends printScrollLeetSheetParser
  description Parsers leetsheet.
  javascript
   compile() {

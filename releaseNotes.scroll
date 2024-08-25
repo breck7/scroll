@@ -21,6 +21,11 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 123.0.0 8/25/2024
+🎉 updated ScrollSDK
+⚠️ BREAKING: (no one should be affected). `printLeetSheet` is now `printScrollLeetSheet`
+⚠️ BREAKING: (no one should be affected). `printAvancedLeetSheet` is now `printparsersLeetSheet`
+
 📦 122.0.0 8/25/2024
 🎉 updated ScrollSDK to get `paintParser` which replaces `highlightScopeParser`
 ⚠️ BREAKING: rename `highlightScope` to `paint`
