@@ -13,7 +13,7 @@ br
 
 thinColumns 4
 
-printLeetSheet
+printScrollLeetSheet
 
 endColumns
 

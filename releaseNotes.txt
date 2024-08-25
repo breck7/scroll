@@ -8,6 +8,12 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+123.0.0 8/25/2024
+=================
+🎉 updated ScrollSDK
+⚠️ BREAKING: (no one should be affected). `printLeetSheet` is now `printScrollLeetSheet`
+⚠️ BREAKING: (no one should be affected). `printAvancedLeetSheet` is now `printparsersLeetSheet`
+
 122.0.0 8/25/2024
 =================
 🎉 updated ScrollSDK to get `paintParser` which replaces `highlightScopeParser`
@@ -2458,4 +2464,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v122.0.0
+Built with Scroll v123.0.0

@@ -3,8 +3,6 @@ Parsers LeetSheet
 
 *Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers. Parsers files end in *.parsers*.
 
-_extendsJsClass - Deprecated
-_rootParserJsHeader - Deprecated
 // - A comment.
 baseParser - In rare cases with untyped content you can use a blobParser, for now, to skip parsing for performance gains. The base errorParser will report errors when parsed. Use that if you don't want to implement your own error parser.
 boolean - Assign a constant to a parser which will be available in the compiled parser classes.
@@ -18,7 +16,7 @@ compilesTo - Optionally specify a file extension that will be used when compilin
 contentKey - Advanced keyword to help with isomorphic JSON serialization/deserialization. If present will serialize the node to an object and set a property with this key and the value set to the node's content.
 crux - Attach by matching first word.
 cruxFromId - Derive crux from parserId.
-description - 
+description - Parser description.
 example - Provide a one line description and then a snippet of example code.
 extends - Extend another parser.
 extensions - File extensions of your language. Generally used for parsers marked "root". Sometimes your language might have multiple extensions. If you don't add this, the root node's parserId will be used as the default file extension.
@@ -45,4 +43,4 @@ Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Relea
  https://sdk.scroll.pub/langs/parsers/ Release Notes & Roadmap
  https://scroll.pub/leetsheet.html Scroll LeetSheet
 
-Built with Scroll v122.0.0
+Built with Scroll v123.0.0

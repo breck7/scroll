@@ -85,15 +85,15 @@ openGraphImage,,Override Open Graph Image.
 permalink,,Override output filename.
 plainText,,Plain text oneliner or block.
 plainTextOnly,,Only print for buildTxt.
-printAdvancedLeetSheet,,Parsers leetsheet.
 printConcepts,,Print concepts.
 printCsv,,Print group metadata to CSV.
 printFeed,,Print group to RSS.
 printFormatLinks,,Prints links to other formats.
 printFullSnippets,,Print full pages in group(s).
-printLeetSheet,,Print Scroll parser leet sheet.
 printMeasures,,Print measure stats.
+printparsersLeetSheet,,Parsers leetsheet.
 printRelated,,Print links to related posts.
+printScrollLeetSheet,,Print Scroll parser leet sheet.
 printSearchTable,,Prints files to HTML table.
 printSiteMap,,Print text sitemap.
 printSnippets,,Prints snippets matching tag(s).

@@ -85,7 +85,6 @@ openGraphImage - Override Open Graph Image.
 permalink - Override output filename.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
-printAdvancedLeetSheet - Parsers leetsheet.
 printAuthors - Prints author(s) byline.
 printConcepts - Print concepts.
 printCsv - Print group metadata to CSV.
@@ -93,9 +92,10 @@ printDate - Print published date.
 printFeed - Print group to RSS.
 printFormatLinks - Prints links to other formats.
 printFullSnippets - Print full pages in group(s).
-printLeetSheet - Print Scroll parser leet sheet.
 printMeasures - Print measure stats.
+printparsersLeetSheet - Parsers leetsheet.
 printRelated - Print links to related posts.
+printScrollLeetSheet - Print Scroll parser leet sheet.
 printSearchTable - Prints files to HTML table.
 printSiteMap - Print text sitemap.
 printSnippets - Prints snippets matching tag(s).
@@ -142,4 +142,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  https://scroll.pub/parserLeetsheet.html Parsers LeetSheet
 
-Built with Scroll v122.0.0
+Built with Scroll v123.0.0
