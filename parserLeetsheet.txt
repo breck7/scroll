@@ -9,20 +9,13 @@ baseParser - Set for blobs or errors.
 boolean - A constant.
 catchAllCellType - Use for lists.
 catchAllParser - Attach this to unmatched lines.
-cellParser - Set parsing strategy.
 cells - Set required cellTypes.
-childrenKey - Deprecated. For to/from JSON.
-compiler - For simple compilers.
-compilesTo - File extension for simple compilers.
-contentKey - Deprecated. For to/from JSON.
 crux - Attach by matching first word.
 cruxFromId - Derive crux from parserId.
 description - Parser description.
 example - Set example for docs and tests.
 extends - Extend another parser.
-extensions - File extension for your dialect.
 float - A constant.
-frequency - Parser popularity.
 inScope - Parsers in scope.
 int - A constant.
 javascript - Javascript code for Parser Actions.
@@ -32,9 +25,6 @@ required - Assert is present at least once.
 root - Set root parser.
 single - Assert used once.
 string - A constant.
-tags - Custom metadata.
-uniqueFirstWord - Assert unique first words. For pattern parsers.
-uniqueLine - Assert unique lines. For pattern parsers.
 
 Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Release Notes & Roadmap · Scroll LeetSheet
  https://sdk.scroll.pub/designer/index.html Parser Designer
