@@ -16,27 +16,26 @@ childrenKey - Advanced keyword to help with serialization/deserialization of blo
 compiler - 
 compilesTo - Optionally specify a file extension that will be used when compiling your language to a file. Generally used on parsers marked root.
 contentKey - Advanced keyword to help with isomorphic JSON serialization/deserialization. If present will serialize the node to an object and set a property with this key and the value set to the node's content.
-crux - Use this property for prefix languages where the first word is the keyword.
-cruxFromId - Include this to derive the crux word from the node type id, for example 'fooParser' would have crux of 'foo'.
+crux - Attach by matching first word.
+cruxFromId - Derive crux from parserId.
 description - 
 example - Provide a one line description and then a snippet of example code.
-extends - parser definitions can extend others.
+extends - Extend another parser.
 extensions - File extensions of your language. Generally used for parsers marked "root". Sometimes your language might have multiple extensions. If you don't add this, the root node's parserId will be used as the default file extension.
 float - Assign a constant to a parser which will be available in the compiled parser classes.
 frequency - 
-inScope - A list of possible child parsers for a node.
+inScope - Parsers in scope.
 int - Assign a constant to a parser which will be available in the compiled parser classes.
-javascript - Provide raw javascript code that will be inserted into a node type's class.
-listDelimiter - If present will serialize the content of the node to an array of strings split on the provided delimiter.
-pattern - If present, this regex will be used to determine the parser instead of the cruxParser.
-required - If present, the parent node will have an error if one of these nodes is not provided.
+javascript - Specify javascript code for Parser Actions.
+listDelimiter - Split content by this delimiter.
+pattern - Attach via regex.
+required - Assert is present at least once.
 root - Mark a parser as root if it is the root of your programming language. The parserId will be the name of your language. The parserId will also serve as the default file extension, if you don't specify another. If more than 1 parser is marked as "root", the last one wins.
-single - If present and there are more than 1 of these nodes on the parent, an error will be present. Can be overridden by a child class by setting to false.
-sortTemplate - A one liner for describing how the content of the node should be sorted. Put a blank cell to insert a line break between sections.
+single - Assert used once.
 string - Assign a constant to a parser which will be available in the compiled parser classes.
 tags - 
-uniqueFirstWord - For catch all parsers or pattern nodes, use this to indicate the first words should be unique.
-uniqueLine - If present and there are more than 1 of these lines on the parent, an error will be present. Can be overridden by a child class by setting to false.
+uniqueFirstWord - Assert unique first words. For pattern parsers.
+uniqueLine - Assert unique lines. For pattern parsers.
 version - Version number of your language. Generally used on parsers marked root.
 
 Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Release Notes & Roadmap · Scroll LeetSheet
@@ -46,4 +45,4 @@ Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Relea
  https://sdk.scroll.pub/langs/parsers/ Release Notes & Roadmap
  https://scroll.pub/leetsheet.html Scroll LeetSheet
 
-Built with Scroll v121.0.1
+Built with Scroll v122.0.0
