@@ -6,7 +6,8 @@ printTitle
 css body {color: grey;}
 
 center
-*Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers. Parsers files end in *.parsers*.
+*Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers. Parsers files end in *.parsers*. Book available: Parsers Explained.
+ https://parsers.breckyunits.com/ Parsers Explained
 
 br
 

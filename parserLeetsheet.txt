@@ -1,7 +1,8 @@
 Parsers LeetSheet
 =================
 
-*Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers. Parsers files end in *.parsers*.
+*Parsers* is the advanced language Scroll developers use to extend the Scroll language with new parsers. Parsers files end in *.parsers*. Book available: Parsers Explained.
+ https://parsers.breckyunits.com/ Parsers Explained
 
 // - A comment.
 baseParser - In rare cases with untyped content you can use a blobParser, for now, to skip parsing for performance gains. The base errorParser will report errors when parsed. Use that if you don't want to implement your own error parser.
