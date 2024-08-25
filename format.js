@@ -8,4 +8,4 @@ const folder = path.join(__dirname, "parsers")
 
 Disk.getFullPaths(folder)
   .filter(filePath => filePath.endsWith(".parsers"))
-  .forEach(filePath => ParsersCompiler.formatFileInPlace(filePath, "/Users/breck/scrollsdk/langs/parsers/parsers.parsers")) // todo: get path to node_modules parsers file so this will work on anyones machine
+  .forEach(filePath => ParsersCompiler.formatFileInPlace(filePath, "/Users/breck/sdk/langs/parsers/parsers.parsers")) // todo: get path to node_modules parsers file so this will work on anyones machine
