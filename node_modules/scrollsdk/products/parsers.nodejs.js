@@ -147,7 +147,8 @@ commentCell
 // Line Parsers
 parsersParser
  root
- description Parsers is a language for creating new languages on top of Scroll Notation. By creating a parsers file you get a parser, a type checker, syntax highlighting, autocomplete, a compiler, and virtual machine for executing your new language. Parsers uses both postfix and prefix language features.
+ description A programming language for making languages.
+ // Parsers is a language for creating new languages on top of Scroll Notation. By creating a parsers file you get a parser, a type checker, syntax highlighting, autocomplete, a compiler, and virtual machine for executing your new language. Parsers uses both postfix and prefix language features.
  catchAllParser catchAllErrorParser
  extensions parsers gram
  example A parsers that parses anything:
@@ -156,7 +157,6 @@ parsersParser
    catchAllParser anyParser
   anyParser
    baseParser blobParser
- version 5.0.0
  inScope slashCommentParser blankLineParser cellTypeDefinitionParser parserDefinitionParser
 
 blankLineParser
@@ -200,7 +200,7 @@ joinChildrenWithParser
  cruxFromId
 
 abstractConstantParser
- description Assign a constant to a parser which will be available in the compiled parser classes.
+ description A constant.
  cells propertyKeywordCell
  cruxFromId
 
@@ -232,19 +232,17 @@ abstractParserRuleParser
 compilesToParser
  cells propertyKeywordCell fileExtensionCell
  extends abstractParserRuleParser
- description Optionally specify a file extension that will be used when compiling your language to a file. Generally used on parsers marked root.
+ description File extension for simple compilers.
+ // todo: deprecate?
+ // Optionally specify a file extension that will be used when compiling your language to a file. Generally used on parsers marked root.
  cruxFromId
 
 extensionsParser
  extends abstractParserRuleParser
  catchAllCellType fileExtensionCell
- description File extensions of your language. Generally used for parsers marked "root". Sometimes your language might have multiple extensions. If you don't add this, the root node's parserId will be used as the default file extension.
- cruxFromId
-
-versionParser
- cells propertyKeywordCell semanticVersionCell
- description Version number of your language. Generally used on parsers marked root.
- extends abstractParserRuleParser
+ // todo: deprecate?
+ description File extension for your dialect.
+ // File extensions of your language. Generally used for parsers marked "root". Sometimes your language might have multiple extensions. If you don't add this, the root node's parserId will be used as the default file extension.
  cruxFromId
 
 abstractNonTerminalParserRuleParser
@@ -252,36 +250,41 @@ abstractNonTerminalParserRuleParser
 
 baseParserParser
  cells propertyKeywordCell baseParsersCell
- description In rare cases with untyped content you can use a blobParser, for now, to skip parsing for performance gains. The base errorParser will report errors when parsed. Use that if you don't want to implement your own error parser.
+ description Set for blobs or errors. 
+ // In rare cases with untyped content you can use a blobParser, for now, to skip parsing for performance gains. The base errorParser will report errors when parsed. Use that if you don't want to implement your own error parser.
  extends abstractParserRuleParser
  cruxFromId
 
 catchAllCellTypeParser
  cells propertyKeywordCell cellTypeIdCell
- description Aka 'listCellType'. Use this when the value in a key/value pair is a list. If there are extra words in the node's line, parse these words as this type. Often used with \`listDelimiterParser\`.
+ description Use for lists.
+ // Aka 'listCellType'. Use this when the value in a key/value pair is a list. If there are extra words in the node's line, parse these words as this type. Often used with \`listDelimiterParser\`.
  extends abstractParserRuleParser
  cruxFromId
 
 cellParserParser
  cells propertyKeywordCell cellParserCell
- description prefix/postfix/omnifix parsing strategy. If missing, defaults to prefix.
+ description Set parsing strategy.
+ // prefix/postfix/omnifix parsing strategy. If missing, defaults to prefix.
  extends abstractParserRuleParser
  cruxFromId
 
 catchAllParserParser
- description If a parser is not found in the inScope list, instantiate this type of node instead.
+ description Attach this to unmatched lines.
+ // If a parser is not found in the inScope list, instantiate this type of node instead.
  cells propertyKeywordCell parserIdCell
  extends abstractParserRuleParser
  cruxFromId
 
 cellsParser
  catchAllCellType cellTypeIdCell
- description Describes the word type of each word in the line.
+ description Set required cellTypes.
  extends abstractParserRuleParser
  cruxFromId
 
 compilerParser
  // todo Remove this and its children?
+ description For simple compilers.
  inScope stringTemplateParser catchAllCellDelimiterParser openChildrenParser closeChildrenParser indentCharacterParser joinChildrenWithParser
  extends abstractParserRuleParser
  cruxFromId
@@ -299,7 +302,7 @@ cellTypeDescriptionParser
 
 exampleParser
  // todo Should this just be a "string" constant on nodes?
- description Provide a one line description and then a snippet of example code.
+ description Set example for docs and tests.
  catchAllCellType exampleAnyCell
  catchAllParser catchAllExampleLineParser
  extends abstractParserRuleParser
@@ -314,6 +317,7 @@ extendsParserParser
 
 frequencyParser
  // todo Remove this parser. Switch to conditional frequencies.
+ description Parser popularity.
  cells propertyKeywordCell floatCell
  extends abstractParserRuleParser
  cruxFromId
@@ -326,7 +330,7 @@ inScopeParser
 
 javascriptParser
  // todo Urgently need to get submode syntax highlighting running! (And eventually LSP)
- description Specify javascript code for Parser Actions.
+ description Javascript code for Parser Actions.
  catchAllParser catchAllJavascriptCodeLineParser
  extends abstractParserRuleParser
  javascript
@@ -401,13 +405,15 @@ listDelimiterParser
 
 contentKeyParser
  // todo: deprecate?
- description Advanced keyword to help with isomorphic JSON serialization/deserialization. If present will serialize the node to an object and set a property with this key and the value set to the node's content.
+ description Deprecated. For to/from JSON.
+ // Advanced keyword to help with isomorphic JSON serialization/deserialization. If present will serialize the node to an object and set a property with this key and the value set to the node's content.
  extends abstractParserRuleParser
  cruxFromId
  catchAllCellType stringCell
 childrenKeyParser
  // todo: deprecate?
- description Advanced keyword to help with serialization/deserialization of blobs. If present will serialize the node to an object and set a property with this key and the value set to the node's children.
+ description Deprecated. For to/from JSON.
+ // Advanced keyword to help with serialization/deserialization of blobs. If present will serialize the node to an object and set a property with this key and the value set to the node's children.
  extends abstractParserRuleParser
  cruxFromId
  catchAllCellType stringCell
@@ -415,6 +421,7 @@ childrenKeyParser
 tagsParser
  catchAllCellType tagCell
  extends abstractParserRuleParser
+ description Custom metadata.
  cruxFromId
 
 catchAllErrorParser
@@ -446,7 +453,7 @@ cellTypeDefinitionParser
 
 // Enums
 enumFromCellTypesParser
- description Generate enum options at runtime.
+ description Runtime enum options.
  catchAllCellType cellTypeIdCell
  cells cellPropertyNameCell
  cruxFromId
@@ -481,7 +488,8 @@ paintParser
 
 rootFlagParser
  crux root
- description Mark a parser as root if it is the root of your programming language. The parserId will be the name of your language. The parserId will also serve as the default file extension, if you don't specify another. If more than 1 parser is marked as "root", the last one wins.
+ description Set root parser.
+ // Mark a parser as root if it is the root of your language. The parserId will be the name of your language. The parserId will also serve as the default file extension, if you don't specify another. If more than 1 parser is marked as "root", the last one wins.
  cells propertyKeywordCell
 
 parserDefinitionParser
@@ -629,15 +637,6 @@ extendsCellTypeParser
   class extensionsParser extends abstractParserRuleParser {
     get fileExtensionCell() {
       return this.getWordsFrom(0)
-    }
-  }
-
-  class versionParser extends abstractParserRuleParser {
-    get propertyKeywordCell() {
-      return this.getWord(0)
-    }
-    get semanticVersionCell() {
-      return this.getWord(1)
     }
   }
 
@@ -963,7 +962,6 @@ extendsCellTypeParser
           string: stringParser,
           compilesTo: compilesToParser,
           extensions: extensionsParser,
-          version: versionParser,
           baseParser: baseParserParser,
           catchAllCellType: catchAllCellTypeParser,
           cellParser: cellParserParser,

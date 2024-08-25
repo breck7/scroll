@@ -57,7 +57,6 @@ var ParsersConstants
   // node types
   ParsersConstants["extensions"] = "extensions"
   ParsersConstants["comment"] = "//"
-  ParsersConstants["version"] = "version"
   ParsersConstants["parser"] = "parser"
   ParsersConstants["cellType"] = "cellType"
   ParsersConstants["parsersFileExtension"] = "parsers"
@@ -1400,7 +1399,6 @@ class AbstractParserDefinitionParser extends AbstractExtendibleTreeNode {
       ParsersConstants.catchAllCellType,
       ParsersConstants.cellParser,
       ParsersConstants.extensions,
-      ParsersConstants.version,
       ParsersConstants.tags,
       ParsersConstants.crux,
       ParsersConstants.cruxFromId,
