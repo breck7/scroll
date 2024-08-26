@@ -203,20 +203,25 @@ abstractConstantParser
  description A constant.
  cells propertyKeywordCell
  cruxFromId
+ // todo: make tags inherit
+ tags actPhase
 
 booleanParser
  cells propertyKeywordCell constantIdentifierCell
  catchAllCellType boolCell
  extends abstractConstantParser
+ tags actPhase
 
 floatParser
  cells propertyKeywordCell constantIdentifierCell
  catchAllCellType floatCell
  extends abstractConstantParser
+ tags actPhase
 
 intParser
  cells propertyKeywordCell constantIdentifierCell
  catchAllCellType intCell
+ tags actPhase
  extends abstractConstantParser
 
 stringParser
@@ -224,6 +229,7 @@ stringParser
  catchAllCellType stringCell
  catchAllParser catchAllMultilineStringConstantParser
  extends abstractConstantParser
+ tags actPhase
 
 abstractParserRuleParser
  single
@@ -236,14 +242,15 @@ compilesToParser
  // todo: deprecate?
  // Optionally specify a file extension that will be used when compiling your language to a file. Generally used on parsers marked root.
  cruxFromId
+ tags experimental
 
 extensionsParser
  extends abstractParserRuleParser
  catchAllCellType fileExtensionCell
- // todo: deprecate?
  description File extension for your dialect.
  // File extensions of your language. Generally used for parsers marked "root". Sometimes your language might have multiple extensions. If you don't add this, the root node's parserId will be used as the default file extension.
  cruxFromId
+ tags deprecate
 
 abstractNonTerminalParserRuleParser
  extends abstractParserRuleParser
@@ -254,6 +261,7 @@ baseParserParser
  // In rare cases with untyped content you can use a blobParser, for now, to skip parsing for performance gains. The base errorParser will report errors when parsed. Use that if you don't want to implement your own error parser.
  extends abstractParserRuleParser
  cruxFromId
+ tags analyzePhase
 
 catchAllCellTypeParser
  cells propertyKeywordCell cellTypeIdCell
@@ -261,6 +269,7 @@ catchAllCellTypeParser
  // Aka 'listCellType'. Use this when the value in a key/value pair is a list. If there are extra words in the node's line, parse these words as this type. Often used with \`listDelimiterParser\`.
  extends abstractParserRuleParser
  cruxFromId
+ tags analyzePhase
 
 cellParserParser
  cells propertyKeywordCell cellParserCell
@@ -268,6 +277,7 @@ cellParserParser
  // prefix/postfix/omnifix parsing strategy. If missing, defaults to prefix.
  extends abstractParserRuleParser
  cruxFromId
+ tags experimental analyzePhase
 
 catchAllParserParser
  description Attach this to unmatched lines.
@@ -275,12 +285,14 @@ catchAllParserParser
  cells propertyKeywordCell parserIdCell
  extends abstractParserRuleParser
  cruxFromId
+ tags acquirePhase
 
 cellsParser
  catchAllCellType cellTypeIdCell
  description Set required cellTypes.
  extends abstractParserRuleParser
  cruxFromId
+ tags analyzePhase
 
 compilerParser
  // todo Remove this and its children?
@@ -288,17 +300,20 @@ compilerParser
  inScope stringTemplateParser catchAllCellDelimiterParser openChildrenParser closeChildrenParser indentCharacterParser joinChildrenWithParser
  extends abstractParserRuleParser
  cruxFromId
+ tags experimental
 
 parserDescriptionParser
  description Parser description.
  catchAllCellType stringCell
  extends abstractParserRuleParser
  crux description
+ tags assemblePhase
 
 cellTypeDescriptionParser
  description Cell Type description.
  catchAllCellType stringCell
  crux description
+ tags assemblePhase
 
 exampleParser
  // todo Should this just be a "string" constant on nodes?
@@ -307,32 +322,37 @@ exampleParser
  catchAllParser catchAllExampleLineParser
  extends abstractParserRuleParser
  cruxFromId
+ tags assemblePhase
 
 extendsParserParser
  crux extends
+ tags assemblePhase
  description Extend another parser.
  // todo: add a catchall that is used for mixins
  cells propertyKeywordCell parserIdCell
  extends abstractParserRuleParser
 
-frequencyParser
+popularityParser
  // todo Remove this parser. Switch to conditional frequencies.
  description Parser popularity.
  cells propertyKeywordCell floatCell
  extends abstractParserRuleParser
  cruxFromId
+ tags assemblePhase
 
 inScopeParser
  description Parsers in scope.
  catchAllCellType parserIdCell
  extends abstractParserRuleParser
  cruxFromId
+ tags acquirePhase
 
 javascriptParser
  // todo Urgently need to get submode syntax highlighting running! (And eventually LSP)
  description Javascript code for Parser Actions.
  catchAllParser catchAllJavascriptCodeLineParser
  extends abstractParserRuleParser
+ tags actPhase
  javascript
   format() {
    if (this.isNodeJs()) {
@@ -359,22 +379,26 @@ cruxParser
  cells propertyKeywordCell stringCell
  description Attach by matching first word.
  extends abstractParseRuleParser
+ tags acquirePhase
 
 cruxFromIdParser
  cells propertyKeywordCell
  description Derive crux from parserId.
  // for example 'fooParser' would have crux of 'foo'.
  extends abstractParseRuleParser
+ tags acquirePhase
 
 patternParser
  catchAllCellType regexCell
  description Attach via regex.
  extends abstractParseRuleParser
+ tags acquirePhase
 
 requiredParser
  description Assert is present at least once.
  extends abstractParserRuleParser
  cruxFromId
+ tags analyzePhase
 
 abstractValidationRuleParser
  extends abstractParserRuleParser
@@ -385,31 +409,35 @@ singleParser
  description Assert used once.
  // Can be overridden by a child class by setting to false.
  extends abstractValidationRuleParser
+ tags analyzePhase
 
 uniqueLineParser
  description Assert unique lines. For pattern parsers.
  // Can be overridden by a child class by setting to false.
  extends abstractValidationRuleParser
+ tags analyzePhase
 
 uniqueFirstWordParser
  description Assert unique first words. For pattern parsers.
  // For catch all parsers or pattern nodes, use this to indicate the 
  extends abstractValidationRuleParser
+ tags analyzePhase
 
 listDelimiterParser
  description Split content by this delimiter.
  extends abstractParserRuleParser
  cruxFromId
  catchAllCellType stringCell
+ tags analyzePhase
 
 
 contentKeyParser
- // todo: deprecate?
  description Deprecated. For to/from JSON.
  // Advanced keyword to help with isomorphic JSON serialization/deserialization. If present will serialize the node to an object and set a property with this key and the value set to the node's content.
  extends abstractParserRuleParser
  cruxFromId
  catchAllCellType stringCell
+ tags deprecate
 childrenKeyParser
  // todo: deprecate?
  description Deprecated. For to/from JSON.
@@ -417,12 +445,14 @@ childrenKeyParser
  extends abstractParserRuleParser
  cruxFromId
  catchAllCellType stringCell
+ tags deprecate
 
 tagsParser
  catchAllCellType tagCell
  extends abstractParserRuleParser
  description Custom metadata.
  cruxFromId
+ tags assemblePhase
 
 catchAllErrorParser
  baseParser errorParser
@@ -450,6 +480,7 @@ cellTypeDefinitionParser
  pattern ^[a-zA-Z0-9_]+Cell$
  inScope paintParser regexParser reservedWordsParser enumFromCellTypesParser cellTypeDescriptionParser enumParser slashCommentParser extendsCellTypeParser examplesParser cellMinParser cellMaxParser
  cells cellTypeIdCell
+ tags assemblePhase
 
 // Enums
 enumFromCellTypesParser
@@ -457,12 +488,14 @@ enumFromCellTypesParser
  catchAllCellType cellTypeIdCell
  cells cellPropertyNameCell
  cruxFromId
+ tags analyzePhase
 
 enumParser
  description Set enum options.
  cruxFromId
  catchAllCellType enumOptionCell
  cells cellPropertyNameCell
+ tags analyzePhase
 
 examplesParser
  description Examples for documentation and tests.
@@ -470,27 +503,33 @@ examplesParser
  cruxFromId
  catchAllCellType cellExampleCell
  cells cellPropertyNameCell
+ tags assemblePhase
 
 cellMinParser
  description Specify a min if numeric.
  crux min
  cells cellPropertyNameCell numericCell
+ tags analyzePhase
+
 cellMaxParser
  description Specify a max if numeric.
  crux max
  cells cellPropertyNameCell numericCell
+ tags analyzePhase
 
 paintParser
  cells propertyKeywordCell paintTypeCell
  description Instructor editor how to color these.
  single
  cruxFromId
+ tags analyzePhase
 
 rootFlagParser
  crux root
  description Set root parser.
  // Mark a parser as root if it is the root of your language. The parserId will be the name of your language. The parserId will also serve as the default file extension, if you don't specify another. If more than 1 parser is marked as "root", the last one wins.
  cells propertyKeywordCell
+ tags assemblePhase
 
 parserDefinitionParser
  // todo Add multiple dispatch?
@@ -499,6 +538,7 @@ parserDefinitionParser
  catchAllParser catchAllErrorParser
  inScope rootFlagParser abstractParserRuleParser abstractConstantParser slashCommentParser parserDefinitionParser
  cells parserIdCell
+ tags assemblePhase
 
 regexParser
  catchAllCellType regexCell
@@ -506,6 +546,7 @@ regexParser
  single
  cells cellPropertyNameCell
  cruxFromId
+ tags analyzePhase
 
 reservedWordsParser
  single
@@ -513,6 +554,7 @@ reservedWordsParser
  catchAllCellType reservedWordCell
  cells cellPropertyNameCell
  cruxFromId
+ tags analyzePhase
 
 commentLineParser
  catchAllCellType commentCell
@@ -522,12 +564,14 @@ slashCommentParser
  catchAllCellType commentCell
  crux //
  catchAllParser commentLineParser
+ tags assemblePhase
 
 extendsCellTypeParser
  crux extends
  description Extend another cellType.
  // todo Add mixin support in addition to extends?
  cells propertyKeywordCell cellTypeIdCell
+ tags assemblePhase
  single`)
     get handParsersProgram() {
       return this.constructor.cachedHandParsersProgramRoot
@@ -731,7 +775,7 @@ extendsCellTypeParser
     }
   }
 
-  class frequencyParser extends abstractParserRuleParser {
+  class popularityParser extends abstractParserRuleParser {
     get propertyKeywordCell() {
       return this.getWord(0)
     }
@@ -971,7 +1015,7 @@ extendsCellTypeParser
           description: parserDescriptionParser,
           example: exampleParser,
           extends: extendsParserParser,
-          frequency: frequencyParser,
+          popularity: popularityParser,
           inScope: inScopeParser,
           javascript: javascriptParser,
           crux: cruxParser,

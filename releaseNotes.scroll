@@ -21,6 +21,10 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 123.1.0 8/26/2024
+🎉 updated ScrollSDK
+🎉 better Parsers leetsheet documentation
+
 📦 123.0.0 8/25/2024
 🎉 updated ScrollSDK
 ⚠️ BREAKING: (no one should be affected). `printLeetSheet` is now `printScrollLeetSheet`

@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+123.1.0 8/26/2024
+=================
+🎉 updated ScrollSDK
+🎉 better Parsers leetsheet documentation
+
 123.0.0 8/25/2024
 =================
 🎉 updated ScrollSDK
@@ -2464,4 +2469,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v123.0.0
+Built with Scroll v123.1.0

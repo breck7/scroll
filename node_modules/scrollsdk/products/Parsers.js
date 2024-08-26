@@ -107,7 +107,7 @@ var ParsersConstants
   // develop time
   ParsersConstants["description"] = "description"
   ParsersConstants["example"] = "example"
-  ParsersConstants["frequency"] = "frequency"
+  ParsersConstants["popularity"] = "popularity"
   ParsersConstants["paint"] = "paint"
 })(ParsersConstants || (ParsersConstants = {}))
 class TypedWord extends TreeWord {
@@ -1390,7 +1390,7 @@ class AbstractParserDefinitionParser extends AbstractExtendibleTreeNode {
   createParserCombinator() {
     // todo: some of these should just be on nonRootNodes
     const types = [
-      ParsersConstants.frequency,
+      ParsersConstants.popularity,
       ParsersConstants.inScope,
       ParsersConstants.cells,
       ParsersConstants.extends,
@@ -1564,7 +1564,7 @@ ${properties.join("\n")}
   }
   get topParserDefinitions() {
     const arr = Object.values(this.firstWordMapWithDefinitions)
-    arr.sort(Utils.makeSortByFn(definition => definition.frequency))
+    arr.sort(Utils.makeSortByFn(definition => definition.popularity))
     arr.reverse()
     return arr
   }
@@ -1766,8 +1766,8 @@ ${captures}
   get description() {
     return this._getFromExtended(ParsersConstants.description) || ""
   }
-  get frequency() {
-    const val = this._getFromExtended(ParsersConstants.frequency)
+  get popularity() {
+    const val = this._getFromExtended(ParsersConstants.popularity)
     return val ? parseFloat(val) : 0
   }
   _getExtendedParserId() {
