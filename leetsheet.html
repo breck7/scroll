@@ -185,8 +185,8 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </center>
 <div class="scrollColumns" style="column-width:35ch;column-count:1;max-width:35ch;">
 <details><summary >Parser usage rankings</summary>
-<p class="scrollParagraph">A rough <em>estimate</em> of the usage of different parsers. Not all parsers have stats available yet.</p>
-<table id="table19" class="scrollTable">
+<p class="scrollParagraph">A rough <em>estimate</em> of the parser usage in Scroll. Not all parsers have stats available yet.</p>
+<table id="table20" class="scrollTable">
  <thead><tr><th>id</th>
 
 <th>popularity</th>
@@ -490,7 +490,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table19').addEventListener('click', e => {
+ document.querySelector('#table20').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });

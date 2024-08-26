@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </center>
 <br>
 <div class="scrollColumns" style="column-width:35ch;column-count:4;max-width:200ch;">
-<p><b>Line Parsers</b> match lines and parse them.</p><style>#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }</style><div id="scrollLeetSheet"><div class="undefined"><a href="">//</a> A comment. <span class="note">AssembleTime.</span></div>
+<p><b>Parser Definition Parsers</b> define parsers that acquire, analyze and act on code.</p><style>#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }</style><div id="scrollLeetSheet"><div class="undefined"><a href="">//</a> A comment. <span class="note">AssembleTime.</span></div>
 <div class="undefined"><a href="">baseParser</a> Set for blobs or errors.  <span class="note">AnalyzeTime.</span></div>
 <div class="undefined"><a href="">boolean</a> A constant. <span class="note">ActTime.</span></div>
 <div class="undefined"><a href="">catchAllCellType</a> Use for lists. <span class="note">AnalyzeTime.</span></div>
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <div class="undefined"><a href="">string</a> A constant. <span class="note">ActTime.</span></div>
 <div class="undefined"><a href="">tags</a> Custom metadata. <span class="note">AssembleTime.</span></div>
 <div class="undefined"><a href="">uniqueFirstWord</a> Assert unique first words. For pattern parsers. <span class="note">AnalyzeTime.</span></div>
-<div class="undefined"><a href="">uniqueLine</a> Assert unique lines. For pattern parsers. <span class="note">AnalyzeTime.</span></div></div><p><b>Cell Parsers</b> parse words in a line.</p><style>#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }</style><div id="scrollLeetSheet"><div class="undefined"><a href="">//</a> A comment. <span class="note">AssembleTime.</span></div>
+<div class="undefined"><a href="">uniqueLine</a> Assert unique lines. For pattern parsers. <span class="note">AnalyzeTime.</span></div></div><p><b>Cell Definition Parsers</b> analyze the words in a line.</p><style>#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }</style><div id="scrollLeetSheet"><div class="undefined"><a href="">//</a> A comment. <span class="note">AssembleTime.</span></div>
 <div class="undefined"><a href="">description</a> Cell Type description. <span class="note">AssembleTime.</span></div>
 <div class="undefined"><a href="">enum</a> Set enum options. <span class="note">AnalyzeTime.</span></div>
 <div class="undefined"><a href="">enumFromCellTypes</a> Runtime enum options. <span class="note">AnalyzeTime.</span></div>
@@ -88,6 +88,118 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p class="scrollParagraph">Links - <a href="https://sdk.scroll.pub/designer/index.html">Parser Designer</a> · <a href="https://sdk.scroll.pub/sandbox/index.html">Scroll Notation Sandbox</a> · <a href="https://reddit.com/r/WorldWideScroll">r/WorldWideScroll</a> · <a href="https://sdk.scroll.pub/langs/parsers/">Release Notes & Roadmap</a> · <a href="leetsheet.html">Scroll LeetSheet</a></p>
 <br>
 </center>
+<div class="scrollColumns" style="column-width:35ch;column-count:1;max-width:35ch;">
+<details><summary >Parser usage rankings</summary>
+<p class="scrollParagraph">A rough <em>estimate</em> of parser usage in Parsers.</p>
+<table id="table19" class="scrollTable">
+ <thead><tr><th>count</th>
+
+<th>id</th>
+</tr></thead>
+ <tbody><tr><td>2293</td>
+<td>catchAllJavascriptCodeLineParser</td>
+</tr>
+<tr><td>341</td>
+<td>catchAllMultilineStringConstantParser</td>
+</tr>
+<tr><td>258</td>
+<td>parserDefinitionParser</td>
+</tr>
+<tr><td>212</td>
+<td>extendsParserParser</td>
+</tr>
+<tr><td>184</td>
+<td>parserDescriptionParser</td>
+</tr>
+<tr><td>164</td>
+<td>javascriptParser</td>
+</tr>
+<tr><td>155</td>
+<td>catchAllExampleLineParser</td>
+</tr>
+<tr><td>80</td>
+<td>cruxFromIdParser</td>
+</tr>
+<tr><td>69</td>
+<td>cellsParser</td>
+</tr>
+<tr><td>66</td>
+<td>cruxParser</td>
+</tr>
+<tr><td>66</td>
+<td>catchAllCellTypeParser</td>
+</tr>
+<tr><td>61</td>
+<td>exampleParser</td>
+</tr>
+<tr><td>43</td>
+<td>cellTypeDefinitionParser</td>
+</tr>
+<tr><td>36</td>
+<td>stringParser</td>
+</tr>
+<tr><td>34</td>
+<td>slashCommentParser</td>
+</tr>
+<tr><td>32</td>
+<td>booleanParser</td>
+</tr>
+<tr><td>26</td>
+<td>catchAllParserParser</td>
+</tr>
+<tr><td>25</td>
+<td>paintParser</td>
+</tr>
+<tr><td>21</td>
+<td>inScopeParser</td>
+</tr>
+<tr><td>21</td>
+<td>extendsCellTypeParser</td>
+</tr>
+<tr><td>12</td>
+<td>cellTypeDescriptionParser</td>
+</tr>
+<tr><td>8</td>
+<td>patternParser</td>
+</tr>
+<tr><td>7</td>
+<td>singleParser</td>
+</tr>
+<tr><td>6</td>
+<td>baseParserParser</td>
+</tr>
+<tr><td>4</td>
+<td>enumParser</td>
+</tr>
+<tr><td>3</td>
+<td>regexParser</td>
+</tr>
+<tr><td>3</td>
+<td>commentLineParser</td>
+</tr>
+<tr><td>2</td>
+<td>floatParser</td>
+</tr>
+<tr><td>1</td>
+<td>tagsParser</td>
+</tr>
+<tr><td>1</td>
+<td>rootFlagParser</td>
+</tr>
+<tr><td>1</td>
+<td>extensionsParser</td>
+</tr>
+<tr><td>1</td>
+<td>compilesToParser</td>
+</tr></tbody>
+ </table>
+ <script>
+ document.querySelector('#table19').addEventListener('click', e => {
+  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
+  e.currentTarget.classList.toggle('expandedTable');
+ });
+ </script>
+</details>
 <div class="scrollKeyboardNav" style="display:none;"><a href="index.html">index.html</a> · parserLeetsheet.html · <a href="leetsheet.html">leetsheet.html</a><script>document.addEventListener('keydown', function(event) {
   if (document.activeElement !== document.body) return
   if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return // dont interfere with keyboard back button shortcut

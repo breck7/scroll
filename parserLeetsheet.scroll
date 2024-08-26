@@ -29,4 +29,49 @@ Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Relea
  link leetsheet.html Scroll LeetSheet
 br
 
+// Currently updated by hand.
+ 1. Open Scroll parsers in Parser Designer
+ 2. Copy/paste Scroll parsers into Program side, and switch language side to Parsers
+ 3. In DevTools run: copy(app.program.topDownArray.map(a => a.definition.id).join("\n"))
+ 4. In try.scroll.pub paste data, add header, and use Tables groupBy to get counts.
+thinColumns 1
+expander Parser usage rankings
+A rough _estimate_ of parser usage in Parsers.
+table
+ printTable
+ data
+  count id
+  2293 catchAllJavascriptCodeLineParser
+  341 catchAllMultilineStringConstantParser
+  258 parserDefinitionParser
+  212 extendsParserParser
+  184 parserDescriptionParser
+  164 javascriptParser
+  155 catchAllExampleLineParser
+  80 cruxFromIdParser
+  69 cellsParser
+  66 cruxParser
+  66 catchAllCellTypeParser
+  61 exampleParser
+  43 cellTypeDefinitionParser
+  36 stringParser
+  34 slashCommentParser
+  32 booleanParser
+  26 catchAllParserParser
+  25 paintParser
+  21 inScopeParser
+  21 extendsCellTypeParser
+  12 cellTypeDescriptionParser
+  8 patternParser
+  7 singleParser
+  6 baseParserParser
+  4 enumParser
+  3 regexParser
+  3 commentLineParser
+  2 floatParser
+  1 tagsParser
+  1 rootFlagParser
+  1 extensionsParser
+  1 compilesToParser
+
 import footer.scroll

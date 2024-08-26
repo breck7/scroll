@@ -143,7 +143,7 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
  https://scroll.pub/parserLeetsheet.html Parsers LeetSheet
 
 Parser usage rankings
-A rough _estimate_ of the usage of different parsers. Not all parsers have stats available yet.
+A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 id,popularity
 blankLineParser,30815
 catchAllParagraph,11557
