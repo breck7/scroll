@@ -55,13 +55,13 @@ printScrollLeetSheetParser
   sortDocs(docs) {
     return docs.map(node => {
       const {definition} = node
-      const {id, description, isPopular, examples} = definition
+      const {id, description, isPopular, examples, popularity} = definition
       const tags = definition.get("tags") || ""
       if (tags.includes("deprecate") || tags.includes("experimental"))
         return null
       const category = this.getCategory(tags)
       const note = this.getNote(category)
-      return {id: definition.cruxIfAny || id, description, isPopular, examples, note}
+      return {id: definition.cruxIfAny || id, description, isPopular, examples, note, popularity: Math.ceil(parseFloat(popularity) * 100000)}
      }).filter(i => i).sort((a, b) => a.id.localeCompare(b.id))
   }
   makeLink(examples, crux) {
@@ -93,11 +93,13 @@ printScrollLeetSheetParser
   }
   compileCsv() {
     const rows = this.sortDocs(this.parsersToDocument).map(obj => {
-      const {id, isPopular, description} = obj
+      const {id, isPopular, description, popularity, category} = obj
       return {
         id,
         isPopular,
-        description
+        description,
+        popularity,
+        category
       }
     })
     return new TreeNode(this.lodash.sortBy(rows, "isPopular")).asCsv

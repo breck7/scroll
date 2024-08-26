@@ -26,4 +26,18 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  link parserLeetsheet.html Parsers LeetSheet
 br
+
+
+thinColumns 1
+expander Parser usage rankings
+A rough _estimate_ of the usage of different parsers. Not all parsers have stats available yet.
+table leetsheet.csv
+ select id popularity
+  where popularity > 0
+   orderBy -popularity
+    printTable
+
+endColumns
+tableSearch
+
 import footer.scroll
