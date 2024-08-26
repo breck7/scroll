@@ -7,7 +7,12 @@ printUsageStatsParser
   get stats() {
    const input = this.root.file.allScrollFiles.map(file => file.parserIds.join("\n")).join("\n")
    const result = input.split('\n').reduce((acc, word) => (acc[word] = (acc[word] || 0) + 1, acc), {})
-   return "parserId uses\n" + Object.entries(result).map(([word, count]) => `${word} ${count}`).join('\n')
+   const rows = Object.entries(result).map(([word, count]) => { return {word, count}})
+   const sorted = this.lodash.sortBy(rows, "count").reverse()
+   return "parserId uses\n" + sorted.map(row => `${row.word} ${row.count}`).join('\n')
+  }
+  get lodash() {
+    return this.isNodeJs() ? require("lodash") : lodash
   }
   compile() {
     // A hacky but simple way to do this for now.
@@ -22,6 +27,9 @@ printUsageStatsParser
   }
   compileTxt() {
     return this.stats
+  }
+  compileCsv() {
+    return this.stats.replace(/ /g, ",")
   }
 
 // todo: these should not be keywords in stdlib, but should be made through componsition of more reusable parsers in a dataflow style.
