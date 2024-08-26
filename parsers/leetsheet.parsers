@@ -46,8 +46,13 @@ printScrollLeetSheetParser
     return docs.map(node => {
       const {definition} = node
       const {id, description, isPopular, examples} = definition
-      return {id: definition.cruxIfAny || id, description, isPopular, examples}
-     }).sort((a, b) => a.id.localeCompare(b.id))
+      const tags = definition.get("tags") || ""
+      if (tags.includes("deprecate") || tags.includes("experimental"))
+        return null
+      const category = this.getCategory(tags)
+      const note = this.getNote(category)
+      return {id: definition.cruxIfAny || id, description, isPopular, examples, note}
+     }).filter(i => i).sort((a, b) => a.id.localeCompare(b.id))
   }
   makeLink(examples, crux) {
     // if (!examples.length) console.log(crux) // find nodes that need docs
@@ -59,7 +64,7 @@ printScrollLeetSheetParser
   }
   docToHtml(doc) {
    const css = `#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }`
-   return `<style>${css}</style><div id="scrollLeetSheet">` + doc.map(obj => `<div><a href="${this.makeLink(obj.examples, obj.id)}">${obj.isPopular ? "<b>" : ""}${obj.id}</a> ${obj.description}${obj.isPopular ? "</b>" : ""}</div>`).join("\n") + "</div>"
+   return `<style>${css}</style><div id="scrollLeetSheet">` + doc.map(obj => `<div class="${obj.category}"><a href="${this.makeLink(obj.examples, obj.id)}">${obj.isPopular ? "<b>" : ""}${obj.id}</a> ${obj.description}${obj.isPopular ? "</b>" : ""}${obj.note}</div>`).join("\n") + "</div>"
   }
   compile() {
     return this.docToHtml(this.sortDocs(this.parsersToDocument))
@@ -69,6 +74,12 @@ printScrollLeetSheetParser
   }
   get lodash() {
     return require("lodash")
+  }
+  getCategory(input) {
+    return ""
+  }
+  getNote() {
+    return ""
   }
   compileCsv() {
     const rows = this.sortDocs(this.parsersToDocument).map(obj => {
@@ -93,6 +104,13 @@ printparsersLeetSheetParser
   makeLink() {
     return ""
   }
+  categories = "assemblePhase acquirePhase analyzePhase actPhase".split(" ")
+  getCategory(tags) {
+    return tags.split(" ").filter(w => w.endsWith("Phase"))[0]
+  }
+  getNote(category) {
+    return ` <span class="note">A${category.replace("Phase", "").substr(1)}Time.</span>`
+  }
   get cellParsersToDocument() {
     const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
     const clone = new parsersParser("anyCell\n ").clone()
@@ -108,8 +126,7 @@ printparsersLeetSheetParser
     const parserNode = clone.getNode("latinParser")
     const words = clone.getAutocompleteResultsAt(1,1).matches.map(a => a.text)
     words.sort()
-    const filtered = words.filter(word => !"cellParser childrenKey compiler compilesTo contentKey extensions frequency tags uniqueLine uniqueFirstWord".includes(word)) // filter some rare ones
-    parserNode.setChildren(filtered.join("\n"))
+    parserNode.setChildren(words.join("\n"))
     return parserNode
   }
 
