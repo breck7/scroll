@@ -1,131 +1,131 @@
-id,isPopular,description
-***,true,A dinkus. Breaks section.
-****,true,End of post dinkus.
-//,true,A comment. Prints nothing.
-#,true,An html h1 tag.
-##,true,An html h2 tag.
->,true,A quote.
-authors,true,Set author(s) name(s).
-blankLineParser,true,Print nothing. Break section.
-buildHtml,true,Compile to HTML file.
-buildTxt,true,Compile to TXT file.
-caption,true,An image caption.
-catchAllParagraph,true,A paragraph.
-code,true,A code block.
-date,true,Set published date.
-htmlInlineParser,true,Inline HTML.
-image,true,An img tag.
-import,true,Import a file.
-printAuthors,true,Prints author(s) byline.
-printDate,true,Print published date.
-printTitle,true,Print title.
-title,true,Set title.
--,,A list item.
----,,A horizontal rule.
-!,,A counterpoint. Prints nothing.
-?,,A question.
-[],,A task todo.
-[x],,A completed task.
-*,,A paragraph.
-###,,An html h3 tag.
-####,,An html h4 tag.
-#####,,An html h5 tag.
-aboveAsCode,,Print code above.
-baseUrl,,Required for RSS and OpenGraph.
-belowAsCode,,Print code below.
-belowAsCodeUntil,,Print code above until match.
-blink,,Just for fun.
-br,,A break.
-buildConcepts,,Write concepts to csv+ files.
-buildCss,,Compile to CSS file.
-buildCsv,,Compile to CSV file.
-buildJs,,Compile to JS file.
-buildMeasures,,Write measures to csv+ files.
-buildRss,,Write RSS file.
-button,,A button.
-canonicalUrl,,Override canonical URL.
-center,,A centered section.
-chat,,A faux text chat conversation.
-codeWithHeader,,A code block.
-comment,,Prints nothing.
-copyButtons,,Copy code widget.
-counter,,Just for fun.
-css,,A style tag.
-dashboard,,Key stats in large font.
-description,,Meta tag description.
-dinkus,,A custom dinkus.
-downloadButton,,Link to download/WWS page.
-email,,Set email address for site contact.
-emailButton,,Email button.
-endColumns,,End columns.
-endSnippet,,Cut for snippet here.
-expander,,An collapsible HTML details tag.
-fetch,,Download URL to disk.
-gazetteCss,,Default Scroll theme CSS.
-heatrix,,A heatmap matrix data visualization.
-heatrixAdvanced,,Advanced heatrix.
-helpfulNotFound,,Helpful not found widget.
-homeButton,,Home button.
-html,,HTML one liners or blocks.
-htmlLang,,Override HTML lang attribute.
-importOnly,,Don't build this file.
-inlineMarkups,,Set global inline markups.
-katex,,KaTex widget for typeset math.
-keyboardNav,,Make left and right navigate files.
-leftRightButtons,,Previous and next nav buttons.
-loadConcepts,,Import all concepts in a folder.
-loop,,Iterate over files+ to make HTML.
-loremIpsum,,Generate dummy text.
-map,,Map widget.
-mediumColumns,,Medium width columns.
-metaTags,,Print meta tags including title.
-music,,Play sound files.
-nickelbackIpsum,,Generate dummy text.
-openGraphImage,,Override Open Graph Image.
-permalink,,Override output filename.
-plainText,,Plain text oneliner or block.
-plainTextOnly,,Only print for buildTxt.
-printConcepts,,Print concepts.
-printCsv,,Print group metadata to CSV.
-printFeed,,Print group to RSS.
-printFormatLinks,,Prints links to other formats.
-printFullSnippets,,Print full pages in group(s).
-printMeasures,,Print measure stats.
-printparsersLeetSheet,,Parsers leetsheet.
-printRelated,,Print links to related posts.
-printScrollLeetSheet,,Print Scroll parser leet sheet.
-printSearchTable,,Prints files to HTML table.
-printSiteMap,,Print text sitemap.
-printSnippets,,Prints snippets matching tag(s).
-printSource,,Print source for files in group(s).
-printSourceStack,,Print compilation steps.
-printTable,,Print table.
-printUsageStats,,Parser usage stats for folder.
-quote,,A quote.
-redirectTo,,HTML redirect tag.
-replace,,Replace this with that.
-replaceJs,,Replace this with evaled JS.
-replaceNodejs,,Replace with evaled Node.JS.
-rssFeedUrl,,Set RSS feed URL.
-scatterplot,,Scatterplot Widget.
-script,,Print script tag.
-scrollVersionLink,,Print Scroll version.
-slideshow,,Slideshow widget. *** delimits slides.
-sparkline,,Sparkline widget.
-stamp,,Expand project template to disk.
-stump,,Compile Stump to HTML.
-stumpNoSnippet,,Compile Stump unless snippet.
-table,,A table.
-tableSearch,,Table search and sort widget.
-tags,,Set tags.
-testStrict,,Make catchAllParagraphParser = error.
-thanksTo,,Acknowledge reviewers. Prints nothing.
-thinColumns,,Thin columns.
-tufteCss,,Theme from Tufte CSS.
-video,,Play video files.
-viewSourceBaseUrl,,Override source link baseUrl.
-viewSourceButton,,Print badge top right.
-viewSourceLink,,"Print ""View source"" link."
-viewSourceUrl,,Override source link.
-wideColumns,,Wide columns.
-youTube,,A YouTube video widget.
+id,isPopular,description,popularity,category
+***,true,A dinkus. Breaks section.,1083,
+****,true,End of post dinkus.,574,
+//,true,A comment. Prints nothing.,565,
+#,true,An html h1 tag.,1792,
+##,true,An html h2 tag.,526,
+>,true,A quote.,49,
+authors,true,Set author(s) name(s).,738,
+blankLineParser,true,Print nothing. Break section.,30815,
+buildHtml,true,Compile to HTML file.,765,
+buildTxt,true,Compile to TXT file.,760,
+caption,true,An image caption.,321,
+catchAllParagraph,true,A paragraph.,11557,
+code,true,A code block.,193,
+date,true,Set published date.,668,
+htmlInlineParser,true,Inline HTML.,579,
+image,true,An img tag.,591,
+import,true,Import a file.,0,
+printAuthors,true,Prints author(s) byline.,167,
+printDate,true,Print published date.,44,
+printTitle,true,Print title.,758,
+title,true,Set title.,753,
+-,,A list item.,1433,
+---,,A horizontal rule.,37,
+!,,A counterpoint. Prints nothing.,20,
+?,,A question.,425,
+[],,A task todo.,20,
+[x],,A completed task.,8,
+*,,A paragraph.,189,
+###,,An html h3 tag.,109,
+####,,An html h4 tag.,29,
+#####,,An html h5 tag.,0,
+aboveAsCode,,Print code above.,49,
+baseUrl,,Required for RSS and OpenGraph.,919,
+belowAsCode,,Print code below.,66,
+belowAsCodeUntil,,Print code above until match.,66,
+blink,,Just for fun.,0,
+br,,A break.,10,
+buildConcepts,,Write concepts to csv+ files.,3,
+buildCss,,Compile to CSS file.,5,
+buildCsv,,Compile to CSV file.,10,
+buildJs,,Compile to JS file.,0,
+buildMeasures,,Write measures to csv+ files.,3,
+buildRss,,Write RSS file.,5,
+button,,A button.,0,
+canonicalUrl,,Override canonical URL.,0,
+center,,A centered section.,642,
+chat,,A faux text chat conversation.,37,
+codeWithHeader,,A code block.,17,
+comment,,Prints nothing.,20,
+copyButtons,,Copy code widget.,148,
+counter,,Just for fun.,0,
+css,,A style tag.,722,
+dashboard,,Key stats in large font.,15,
+description,,Meta tag description.,169,
+dinkus,,A custom dinkus.,0,
+downloadButton,,Link to download/WWS page.,630,
+email,,Set email address for site contact.,131,
+emailButton,,Email button.,630,
+endColumns,,End columns.,779,
+endSnippet,,Cut for snippet here.,430,
+expander,,An collapsible HTML details tag.,8,
+fetch,,Download URL to disk.,0,
+gazetteCss,,Default Scroll theme CSS.,138,
+heatrix,,A heatmap matrix data visualization.,0,
+heatrixAdvanced,,Advanced heatrix.,5,
+helpfulNotFound,,Helpful not found widget.,5,
+homeButton,,Home button.,640,
+html,,HTML one liners or blocks.,5,
+htmlLang,,Override HTML lang attribute.,0,
+importOnly,,Don't build this file.,3357,
+inlineMarkups,,Set global inline markups.,3,
+katex,,KaTex widget for typeset math.,160,
+keyboardNav,,Make left and right navigate files.,748,
+leftRightButtons,,Previous and next nav buttons.,635,
+loadConcepts,,Import all concepts in a folder.,0,
+loop,,Iterate over files+ to make HTML.,3,
+loremIpsum,,Generate dummy text.,0,
+map,,Map widget.,0,
+mediumColumns,,Medium width columns.,338,
+metaTags,,Print meta tags including title.,770,
+music,,Play sound files.,3,
+nickelbackIpsum,,Generate dummy text.,0,
+openGraphImage,,Override Open Graph Image.,80,
+permalink,,Override output filename.,27,
+plainText,,Plain text oneliner or block.,0,
+plainTextOnly,,Only print for buildTxt.,8,
+printConcepts,,Print concepts.,0,
+printCsv,,Print group metadata to CSV.,3,
+printFeed,,Print group to RSS.,5,
+printFormatLinks,,Prints links to other formats.,0,
+printFullSnippets,,Print full pages in group(s).,5,
+printMeasures,,Print measure stats.,0,
+printparsersLeetSheet,,Parsers leetsheet.,3,
+printRelated,,Print links to related posts.,119,
+printScrollLeetSheet,,Print Scroll parser leet sheet.,3,
+printSearchTable,,Prints files to HTML table.,3,
+printSiteMap,,Print text sitemap.,8,
+printSnippets,,Prints snippets matching tag(s).,34,
+printSource,,Print source for files in group(s).,3,
+printSourceStack,,Print compilation steps.,0,
+printTable,,Print table.,109,
+printUsageStats,,Parser usage stats for folder.,10,
+quote,,A quote.,148,
+redirectTo,,HTML redirect tag.,8,
+replace,,Replace this with that.,0,
+replaceJs,,Replace this with evaled JS.,0,
+replaceNodejs,,Replace with evaled Node.JS.,0,
+rssFeedUrl,,Set RSS feed URL.,885,
+scatterplot,,Scatterplot Widget.,0,
+script,,Print script tag.,0,
+scrollVersionLink,,Print Scroll version.,630,
+slideshow,,Slideshow widget. *** delimits slides.,0,
+sparkline,,Sparkline widget.,3,
+stamp,,Expand project template to disk.,0,
+stump,,Compile Stump to HTML.,0,
+stumpNoSnippet,,Compile Stump unless snippet.,1018,
+table,,A table.,114,
+tableSearch,,Table search and sort widget.,8,
+tags,,Set tags.,681,
+testStrict,,Make catchAllParagraphParser = error.,0,
+thanksTo,,Acknowledge reviewers. Prints nothing.,0,
+thinColumns,,Thin columns.,369,
+tufteCss,,Theme from Tufte CSS.,3,
+video,,Play video files.,3,
+viewSourceBaseUrl,,Override source link baseUrl.,784,
+viewSourceButton,,Print badge top right.,1397,
+viewSourceLink,,"Print ""View source"" link.",121,
+viewSourceUrl,,Override source link.,0,
+wideColumns,,Wide columns.,39,
+youTube,,A YouTube video widget.,13,

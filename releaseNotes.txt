@@ -8,6 +8,12 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+123.2.0 8/26/2024
+=================
+🎉 added popularity table to leetsheet
+🎉 added popularity numbers to parsers
+🎉 added csv output to `printUsageStats`
+
 123.1.0 8/26/2024
 =================
 🎉 updated ScrollSDK
@@ -2469,4 +2475,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v123.1.0
+Built with Scroll v123.2.0

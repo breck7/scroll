@@ -21,6 +21,11 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 123.2.0 8/26/2024
+🎉 added popularity table to leetsheet
+🎉 added popularity numbers to parsers
+🎉 added csv output to `printUsageStats`
+
 📦 123.1.0 8/26/2024
 🎉 updated ScrollSDK
 🎉 better Parsers leetsheet documentation
