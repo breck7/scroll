@@ -30,6 +30,8 @@ tags - Custom metadata.
 uniqueFirstWord - Assert unique first words. For pattern parsers.
 uniqueLine - Assert unique lines. For pattern parsers.
 
+Parser Phases: Assemble -> Acquire -> Analyze -> Act
+
 Links - Parser Designer · Scroll Notation Sandbox · r/WorldWideScroll · Release Notes & Roadmap · Scroll LeetSheet
  https://sdk.scroll.pub/designer/index.html Parser Designer
  https://sdk.scroll.pub/sandbox/index.html Scroll Notation Sandbox
