@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 123.3.0 8/27/2024
+🎉 ending a column with "Url" in tables will now print the column name linked rather than url
+
 📦 123.2.0 8/26/2024
 🎉 added popularity table to leetsheet
 🎉 added popularity numbers to parsers
