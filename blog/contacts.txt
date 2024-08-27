@@ -50,7 +50,8 @@ buildHtml
 gazetteCss
 mediumColumns 1
 printTitle
-printConcepts
+table
+ printTable
 tableSearch
 
 👤 Jack Doe
@@ -87,4 +88,4 @@ Notes
 
 ⁂
 
-Built with Scroll v123.3.0
+Built with Scroll v124.0.0

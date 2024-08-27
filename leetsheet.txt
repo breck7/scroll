@@ -86,13 +86,11 @@ permalink - Override output filename.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
 printAuthors - Prints author(s) byline.
-printConcepts - Print concepts.
 printCsv - Print group metadata to CSV.
 printDate - Print published date.
 printFeed - Print group to RSS.
 printFormatLinks - Prints links to other formats.
 printFullSnippets - Print full pages in group(s).
-printMeasures - Print measure stats.
 printparsersLeetSheet - Parsers leetsheet.
 printRelated - Print links to related posts.
 printScrollLeetSheet - Print Scroll parser leet sheet.
@@ -245,4 +243,4 @@ sparkline,3
 tufteCss,3
 video,3
 
-Built with Scroll v123.3.0
+Built with Scroll v124.0.0

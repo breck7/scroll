@@ -21,6 +21,22 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 124.0.0 8/27/2024
+⚠️ BREAKING: removed `printMeasures`
+⚠️ BREAKING: removed `printConcepts`
+⚠️ BREAKING: `buildConcepts` and `buildMeasures` now generates `csv` by default instead of `tsv`
+
+Before:
+codeWithHeader contacts.scroll
+ buildConcepts
+ printConcepts
+
+After:
+codeWithHeader contacts.scroll
+ buildConcepts
+ table
+  printTable
+
 📦 123.3.0 8/27/2024
 🎉 ending a column with "Url" in tables will now print the column name linked rather than url
 

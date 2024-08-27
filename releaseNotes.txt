@@ -8,6 +8,21 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+124.0.0 8/27/2024
+=================
+⚠️ BREAKING: removed `printMeasures`
+⚠️ BREAKING: removed `printConcepts`
+⚠️ BREAKING: `buildConcepts` and `buildMeasures` now generates `csv` by default instead of `tsv`
+
+Before:
+buildConcepts
+printConcepts
+
+After:
+buildConcepts
+table
+ printTable
+
 123.3.0 8/27/2024
 =================
 🎉 ending a column with "Url" in tables will now print the column name linked rather than url
@@ -2479,4 +2494,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v123.3.0
+Built with Scroll v124.0.0

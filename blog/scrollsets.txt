@@ -163,8 +163,28 @@ Extended Example: a Planets ScrollSet
 
 Below is the ScrollSet embedded in this Scroll file.
 
+id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
+Mars,2,,,6794,4,,1.881,false
+Jupiter,63,,,142984,25,,11.86,false
+Earth,1,https://en.wikipedia.org/wiki/Earth,Pale Blue Dot,12756,10,4500000000,1,true
+Mercury,0,,,4879,4,,0.241,false
+Saturn,64,,,120536,9,,29.46,false
+Uranus,27,,,51118,8,,84.01,false
+Venus,0,,,12104,9,,0.615,false
+Neptune,14,,,49572,11,,164.79,false
+
 Measurements of the measures
 ============================
+Name	Values	Coverage	Question	Example	Type	Source	SortIndex	IsComputed	IsRequired	IsConceptDelimiter	Crux
+id	8	100%	What is the ID of this concept?	Mars	string		1	false	true	true	
+moons	8	100%	How many moons does the planet have?	2	number		1.1	false	true		
+diameter	8	100%	What is the diameter of the planet?	6794	number		1.9	false			
+surfaceGravity	8	100%	What is the surface gravity of the planet?	4	number		1.9	false			
+yearsToOrbitSun	8	100%	How many Earth years does it take for the planet to orbit the Sun?	1.881	number		1.9	false			
+hasLife	8	100%	Does this planet have life?	false	boolean		1.9	false			
+wikipedia	1	12%	URL to the Wikipedia page.	https://en.wikipedia.org/wiki/Earth	string		1.9	false			
+aka	1	12%	What are the alternative names for the planet?	Pale Blue Dot	string		1.9	false			
+age	1	12%	How old is this planet?	4500000000	number		1.9	false
 
 Extended Measures Example
 =========================
@@ -179,4 +199,4 @@ Convert CSVs to ScrollSets
 07/09/2024
 https://scroll.pub/blog/csvToScrollSet.html
 
-Built with Scroll v123.3.0
+Built with Scroll v124.0.0

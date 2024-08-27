@@ -57,7 +57,8 @@ code
  gazetteCss
  mediumColumns 1
  printTitle
- printConcepts
+ table
+  printTable
  tableSearch
  
  👤 Jack Doe
