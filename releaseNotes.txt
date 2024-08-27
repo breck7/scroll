@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+123.3.0 8/27/2024
+=================
+🎉 ending a column with "Url" in tables will now print the column name linked rather than url
+
 123.2.0 8/26/2024
 =================
 🎉 added popularity table to leetsheet
@@ -2475,4 +2479,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v123.2.0
+Built with Scroll v123.3.0
