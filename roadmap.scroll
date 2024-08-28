@@ -9,18 +9,14 @@ mediumColumns 1
 
 ***
 
-## New Book: The Scroll Language
+## New Book: Parsers Explained
+ https://parsers.breckyunits.com/ Parsers Explained
 A book describing all the key ideas in Scroll with sections for beginner, intermediate, and advanced users.
 
 ***
 
-## Make Books with Scroll
-Scroll should have parsers such as buildEPub|buildPDF|buildTeX|buildMOBI.
-
-***
-
 ## Robust Browser Version: scroll.browser.js
-https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support adding Parsers so people can use the full power of Scroll completely in the client.
+https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support adding Parsers so people can use the full power of Scroll + Parsers completely in the client.
 
 ***
 
