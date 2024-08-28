@@ -159,7 +159,7 @@ Scroll is a great solution for blogs and sites of one page, a few pages, tens of
  https://pldb.io/ thousands of pages
 
 ? How do I get Scroll?
-Scroll is a language and command line app you install on your local machine. Scroll requires basic familiarity with the command line and NodeJs >=16. If you do not have NodeJs, Mac/Linux users can install NodeJs with #n# and Windows users can install NodeJs with Scoop.
+Scroll is a language and command line app you install on your local machine. Scroll requires basic familiarity with the command line and NodeJs >=18. If you do not have NodeJs, Mac/Linux users can install NodeJs with #n# (make sure to install with `--arch arm64` flag for M1s+) and Windows users can install NodeJs with Scoop.
  https://nodejs.org NodeJs
  inlineMarkup # https://github.com/tj/n
  https://scoop.sh/ Scoop

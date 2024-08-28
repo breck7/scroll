@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+124.1.0 8/28/2024
+=================
+🎉 added `buildPdf` parser. Currently requires MacOS + Chrome.
+
 124.0.0 8/27/2024
 =================
 ⚠️ BREAKING: removed `printMeasures`
@@ -2494,4 +2498,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v124.0.0
+Built with Scroll v124.1.0

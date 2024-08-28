@@ -33,6 +33,7 @@ buildCsv - Compile to CSV file.
 buildHtml - Compile to HTML file.
 buildJs - Compile to JS file.
 buildMeasures - Write measures to csv+ files.
+buildPdf - Compile to PDF file.
 buildRss - Write RSS file.
 buildTxt - Compile to TXT file.
 button - A button.
@@ -215,6 +216,7 @@ dashboard,15
 youTube,13
 br,10
 buildCsv,10
+buildPdf,10
 printUsageStats,10
 [x],8
 expander,8
@@ -243,4 +245,4 @@ sparkline,3
 tufteCss,3
 video,3
 
-Built with Scroll v124.0.0
+Built with Scroll v124.1.0
