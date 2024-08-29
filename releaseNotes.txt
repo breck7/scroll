@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+125.0.1 8/29/2024
+=================
+🏥 particles table fix
+
 125.0.0 8/29/2024
 =================
 🎉 upgraded ScrollSDK to 84
@@ -2504,4 +2508,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v125.0.0
+Built with Scroll v125.0.1
