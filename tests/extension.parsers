@@ -1,5 +1,5 @@
 goodMorningParser
- description A test of included custom node types.
+ description A test of included custom parsers
  cruxFromId
  extends abstractScrollParser
  javascript

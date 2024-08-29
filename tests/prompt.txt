@@ -108,7 +108,7 @@ The Files:
     Blue|USA
     Red|Canada
  replaceJs SUM 1+1
- replaceJs THE_DAY dayjs(node.parent.get("date")).format(`MMMM D, YYYY`)
+ replaceJs THE_DAY dayjs(particle.parent.get("date")).format(`MMMM D, YYYY`)
  replaceJs TODAYS_DATE Date()
  replaceNodejs
   module.exports = {DIRNAME: __dirname}

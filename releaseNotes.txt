@@ -8,6 +8,12 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+125.0.0 8/29/2024
+=================
+🎉 upgraded ScrollSDK to 84
+⚠️ BREAKING: ScrollSDK updates require updating any Parsers with new "Particle" nomenclature
+⚠️ BREAKING: `tree` is no longer a table format. Use `particles` instead.
+
 124.1.0 8/28/2024
 =================
 🎉 added `buildPdf` parser. Currently requires MacOS + Chrome.
@@ -1225,7 +1231,7 @@ This paragraph has a dropcap. It can be a useful visual aid for the reader to br
 
 69.0.0 4/9/2023
 ===============
-No one should be affected. This was an internal rewrite to upstream the imports code to `TreeFileSystem` in Jtree. No changes for Scroll users.
+No one should be affected. This was an internal rewrite to upstream the imports code to `ParticleFileSystem` in Jtree. No changes for Scroll users.
 ⚠️ BREAKING: `scrollKeywords` is no longer exported
 ⚠️ BREAKING: `DefaultScrollCompiler` is now `DefaultScrollParser`
 ⚠️ BREAKING: `ScrollDiskFileSystem` and `ScrollInMemoryFileSystem` replaced by `ScrollFileSystem`
@@ -2498,4 +2504,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v124.1.0
+Built with Scroll v125.0.0

@@ -9,7 +9,7 @@ const { TestRacer } = require("scrollsdk/products/TestRacer.js")
 const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
 const shell = require("child_process").execSync
 
-const testTree = {}
+const testParticles = {}
 
 const testsFolder = path.join(__dirname)
 const stampFolder = path.join(testsFolder, "testOutput")
@@ -17,7 +17,7 @@ const stampFolder = path.join(testsFolder, "testOutput")
 // cleanup in case it was built earlier:
 if (Disk.exists(stampFolder)) fs.rmSync(stampFolder, { recursive: true })
 
-testTree.compileAftertext = areEqual => {
+testParticles.compileAftertext = areEqual => {
   const tests = [
     {
       text: `* Hello brave new world
@@ -35,7 +35,7 @@ testTree.compileAftertext = areEqual => {
   })
 }
 
-testTree.paragraphParser = areEqual => {
+testParticles.paragraphParser = areEqual => {
   // Arrange
   const program = new DefaultScrollParser(`* foo`)
 
@@ -46,7 +46,7 @@ testTree.paragraphParser = areEqual => {
   areEqual(result, `<p class="scrollParagraph">foo</p>`)
 }
 
-testTree.linkOnly = areEqual => {
+testParticles.linkOnly = areEqual => {
   // Arrange
   const program = new DefaultScrollParser(`* https://notation.scroll.pub`)
 
@@ -57,7 +57,7 @@ testTree.linkOnly = areEqual => {
   areEqual(result, `<p class="scrollParagraph"><a href="https://notation.scroll.pub" target="_blank">https://notation.scroll.pub</a></p>`)
 }
 
-testTree.endSnippet = areEqual => {
+testParticles.endSnippet = areEqual => {
   // Arrange
   const program = new DefaultScrollParser(`Hi\nendSnippet`)
 
@@ -65,7 +65,7 @@ testTree.endSnippet = areEqual => {
   areEqual(program.compile().includes("endSnippet"), false, "should not print endSnippet")
 }
 
-testTree.tableWithLinks = areEqual => {
+testParticles.tableWithLinks = areEqual => {
   const tests = [
     {
       text: `table
@@ -84,14 +84,14 @@ testTree.tableWithLinks = areEqual => {
   })
 }
 
-testTree.test = async areEqual => {
+testParticles.test = async areEqual => {
   const cli = new ScrollCli()
   cli.verbose = false
   const result = await cli.testCommand()
   areEqual(result.includes("0 errors"), true)
 }
 
-testTree.testAllScrollsInThisRepo = async areEqual => {
+testParticles.testAllScrollsInThisRepo = async areEqual => {
   const cli = new ScrollCli()
   cli.verbose = false
   const result = await cli.listCommand(path.join(__dirname, ".."))
@@ -101,7 +101,7 @@ testTree.testAllScrollsInThisRepo = async areEqual => {
   })
 }
 
-testTree.inMemoryFileSystem = areEqual => {
+testParticles.inMemoryFileSystem = areEqual => {
   // You could get all in folders with lodash.unique(Object.keys(this.files).map(filename => path.dirname(filename)))
 
   // Arrange
@@ -126,7 +126,7 @@ buildHtml`
   areEqual(files["/pages/about.html"].includes(`<html lang="en">`), true, "HTML tag and lang attribute set to ensure hyphenation will work.")
 }
 
-testTree.file = areEqual => {
+testParticles.file = areEqual => {
   const rootFolder = path.join(__dirname, "..")
   const fileSystem = new ScrollFileSystem()
   const files = fileSystem.getScrollFilesInFolder(rootFolder)
@@ -138,13 +138,13 @@ testTree.file = areEqual => {
   areEqual(files[4].permalink.endsWith(".html"), true)
 }
 
-testTree.ensureNoErrorsInParser = areEqual => {
+testParticles.ensureNoErrorsInParser = areEqual => {
   const parserErrors = new parsersParser(new DefaultScrollParser().definition.asString).getAllErrors().map(err => err.toObject())
   if (parserErrors.length) console.log(parserErrors)
   areEqual(parserErrors.length, 0, "no errors in scroll standard library parsers")
 }
 
-testTree.cli = async areEqual => {
+testParticles.cli = async areEqual => {
   const cli = new ScrollCli()
   cli.verbose = false
   // Act/Assert
@@ -166,7 +166,7 @@ testTree.cli = async areEqual => {
   areEqual(JSON.stringify(results).includes("scrollFileCount"), true, "list works")
 }
 
-testTree.standalonePage = areEqual => {
+testParticles.standalonePage = areEqual => {
   // Arrange
   const page = new ScrollFile(`title A standalone page
 printTitle
@@ -177,7 +177,7 @@ printTitle
   areEqual(asTxt.includes("A standalone page"), true)
 }
 
-testTree.aBlankPage = areEqual => {
+testParticles.aBlankPage = areEqual => {
   // Arrange
   const page = new ScrollFile(``)
   // Act/Assert
@@ -191,7 +191,7 @@ testTree.aBlankPage = areEqual => {
   areEqual(testHidden.asHtml, `<!DOCTYPE html>\n<html lang="en">\n<body>\n\n</body>\n</html>`)
 }
 
-testTree.rss = areEqual => {
+testParticles.rss = areEqual => {
   // Arrange
   const page = new ScrollFile(`printFeed index
 buildRss`)
@@ -200,7 +200,7 @@ buildRss`)
   areEqual(asHtml.startsWith("<?xml "), true)
 }
 
-testTree.baseUrl = areEqual => {
+testParticles.baseUrl = areEqual => {
   // Arrange
   const page = new ScrollFile(`baseUrl http://test.com/
 metaTags
@@ -210,7 +210,7 @@ image blog/screenshot.png`)
   areEqual(asHtml.includes("http://test.com/blog/screenshot.png"), true)
 }
 
-testTree.csv = areEqual => {
+testParticles.csv = areEqual => {
   // Arrange
   const page = new ScrollFile(`printCsv index
 permalink posts.csv`)
@@ -219,7 +219,7 @@ permalink posts.csv`)
   areEqual(asHtml.startsWith("date,year,title,permalink,"), true)
 }
 
-testTree.initCommand = async areEqual => {
+testParticles.initCommand = async areEqual => {
   const tempFolder = path.join(__dirname, "tempFolderForTesting")
 
   try {
@@ -248,7 +248,7 @@ testTree.initCommand = async areEqual => {
   fs.rmSync(tempFolder, { recursive: true })
 }
 
-testTree.hodgePodge = async areEqual => {
+testParticles.hodgePodge = async areEqual => {
   try {
     // Arrange/act
     const cli = new ScrollCli().silence()
@@ -278,6 +278,6 @@ testTree.hodgePodge = async areEqual => {
   fs.rmSync(stampFolder, { recursive: true })
 }
 
-if (module && !module.parent) TestRacer.testSingleFile(__filename, testTree)
+if (module && !module.parent) TestRacer.testSingleFile(__filename, testParticles)
 
-module.exports = { testTree }
+module.exports = { testParticles }

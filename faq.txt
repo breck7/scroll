@@ -228,7 +228,7 @@ Scroll articles are written as Scroll files with the file extension scroll. The 
 
 What language is Scroll written in?
 ===================================
-Scroll is mostly written in Parsers. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a couple of other Tree Languages. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
+Scroll is written in Particle Notation, Parsers, and Javascript. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a few other microlangs written in Parsers. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
  https://sdk.scroll.pub/designer/#standard%20hakon Hakon
  https://sdk.scroll.pub/designer/#standard%20stump stump
 TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.
@@ -450,4 +450,4 @@ Why the name Scroll?
 ====================
 The scroll was invented thousands of years ago and scrolls are still useful today. Scroll has been designed with a focus on simplicity and a goal of making something that would have been useful decades ago, with the hope that this will make it useful decades into the future.
 
-Built with Scroll v124.1.0
+Built with Scroll v125.0.0
