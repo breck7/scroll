@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 125.0.1 8/29/2024
+🏥 particles table fix
+
 📦 125.0.0 8/29/2024
 🎉 upgraded ScrollSDK to 84
 ⚠️ BREAKING: ScrollSDK updates require updating any Parsers with new "Particle" nomenclature

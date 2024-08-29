@@ -162,7 +162,7 @@ scrollTableParser
     if (filename) {
       const extension = filename.split(".").pop()
       if (extension === "json") delimiter = "json"
-      if (extension === "particle") delimiter = "particle"
+      if (extension === "particles") delimiter = "particles"
       if (extension === "csv") delimiter = ","
       if (extension === "tsv") delimiter = "\t"
     }
@@ -217,7 +217,7 @@ scrollTableParser
     const {delimiter, delimitedData} = this
     if (delimiter === "json")
        this._coreTable = JSON.parse(delimitedData)
-    else if (delimiter === "particle") {
+    else if (delimiter === "particles") {
        const d3lib = typeof d3 === "undefined" ? require('d3') : d3
        this._coreTable = d3lib.dsvFormat(",").parse(new Particle(delimitedData).asCsv, d3lib.autoType)
     } else {
