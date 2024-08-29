@@ -21,6 +21,11 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 125.0.0 8/29/2024
+🎉 upgraded ScrollSDK to 84
+⚠️ BREAKING: ScrollSDK updates require updating any Parsers with new "Particle" nomenclature
+⚠️ BREAKING: `tree` is no longer a table format. Use `particles` instead.
+
 📦 124.1.0 8/28/2024
 🎉 added `buildPdf` parser. Currently requires MacOS + Chrome.
 
@@ -1044,7 +1049,7 @@ katex
 🎉 Added counters
 
 📦 69.0.0 4/9/2023
-No one should be affected. This was an internal rewrite to upstream the imports code to `TreeFileSystem` in Jtree. No changes for Scroll users.
+No one should be affected. This was an internal rewrite to upstream the imports code to `ParticleFileSystem` in Jtree. No changes for Scroll users.
 ⚠️ BREAKING: `scrollKeywords` is no longer exported
 ⚠️ BREAKING: `DefaultScrollCompiler` is now `DefaultScrollParser`
 ⚠️ BREAKING: `ScrollDiskFileSystem` and `ScrollInMemoryFileSystem` replaced by `ScrollFileSystem`
@@ -1758,7 +1763,7 @@ code
 
 belowAsCode
 table
- delimiter tree
+ delimiter particles
  printTable
  data
   row
