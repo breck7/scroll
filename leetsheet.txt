@@ -135,11 +135,12 @@ youTube - A YouTube video widget.
 
 Commonly used parsers are *bolded*. CSV version.
  https://scroll.pub/leetsheet.csv CSV version
-Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet
+Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Particle Notation LeetSheet
  http://hub.scroll.pub ScrollHub
  https://try.scroll.pub Try Scroll
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  https://scroll.pub/parserLeetsheet.html Parsers LeetSheet
+ https://scroll.pub/particleNotationLeetsheet.html Particle Notation LeetSheet
 
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.

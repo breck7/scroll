@@ -4,8 +4,13 @@
  <title>Feed</title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Thu, 29 Aug 2024 18:01:24 +0000</lastBuildDate>
+ <lastBuildDate>Fri, 30 Aug 2024 15:37:08 +0000</lastBuildDate>
  <language>en-us</language>
+ <item>
+  <title>A New Way to Program (Teddy Talk)</title>
+  <link>https://scroll.pub/blog/teddyTalk.html</link>
+  <pubDate>Fri, 30 Aug 2024 00:00:00 +0000</pubDate>
+ </item>
  <item>
   <title>Tables: a microlang for data science</title>
   <link>https://scroll.pub/blog/tables.html</link>

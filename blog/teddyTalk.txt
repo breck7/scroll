@@ -1,0 +1,107 @@
+A New Way to Program (Teddy Talk)
+=================================
+by Breck Yunits
+ https://twitter.com/breckyunits Breck Yunits
+
+Particle Notation, Scroll, and the Parsers Programming Language
+===============================================================
+
+August 30, 2024
+
+I am very grateful to have the opportunity to give a Teddy Talk about my work.
+
+The outline of the talk is below.
+
+For your convenience I've published 3 versions, a 1 minute, 10 minute, and the full 100 minute versions. The shorter versions are more intelligent.
+
+*
+
+Videos
+======
+
+(Coming shortly)
+
+*
+
+Outline
+=======
+
+1. Is this stuff relevant to you?
+=================================
+
+Whether you are an experienced, aspiring, or casual programmer, yes.
+
+If you are a writer, yes.
+
+If you are a thinker, yes.
+
+If you are a builder, yes.
+
+If you choose to always remain illiterate to keep your brain different than the crowd, then no. (I applaud your brave creative choice and as a scientist I'm curious to see what happens!)
+
+2. What is Particle Notation?
+=============================
+
+One liner: a syntax-free syntax for splitting files into particles (separated by line breaks) which can have words (separated by spaces) and subparticles (indented lines).
+
+Vibe
+ https://notation.scroll.pub Vibe
+
+Playground
+ https://sdk.scroll.pub/sandbox/ Playground
+
+LeetSheet
+ https://scroll.pub/particleNotationLeetsheet.html LeetSheet
+
+[Image Omitted]
+ width 400
+ Each line is a particle. Each dot is a word. Particle Notation lets you easily compare programs and see which one is simpler (less heavy!).
+
+3. What is Scroll?
+==================
+
+One liner: Scroll is a language for scientists of all ages where you write and combine particles (written in Particle Notation) to evolve and publish your most intelligence ideas to HTML, PDFs, CSVs, JSON files, movie files, audio files, slideshows, charts, books, et cetera.
+
+Vibe
+ https://scroll.pub/blog/index.html Vibe
+
+Playground
+ https://try.scroll.pub/ Playground
+
+LeetSheet
+ https://scroll.pub/leetsheet.html LeetSheet
+
+[Image Omitted]
+ width 400
+ Scroll is a collection of Parsers that allow you to evolve and publish your most intelligent ideas.
+
+4. What is Parsers?
+===================
+
+One liner: Parsers is a programming language where programmers write parsers (written in Particle Notation) which consume particles (written in Particle Notation) and also contain logic for translating those particles into actions on computing machines.
+
+Vibe
+ https://github.com/breck7/scroll/tree/main/parsers Vibe
+
+Playground
+ https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers Playground
+
+LeetSheet
+ https://scroll.pub/parserLeetsheet.html LeetSheet
+
+[Image Omitted]
+ width 400
+ Programmers who understand how computing machines work write Parsers to translate particles into executable machine code.
+
+5. How do you get started?
+==========================
+
+ScrollHub
+ http://hub.scroll.pub/ ScrollHub
+
+Subreddit
+ https://www.reddit.com/r/WorldWideScroll/ Subreddit
+
+⁂
+
+Built with Scroll v125.0.1
