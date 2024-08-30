@@ -131,7 +131,7 @@ viewSourceButton - Print badge top right.
 viewSourceLink - Print "View source" link.
 viewSourceUrl - Override source link.
 wideColumns - Wide columns.
-youTube - A YouTube video widget.
+youtube - A YouTube video widget.
 
 Commonly used parsers are *bolded*. CSV version.
  https://scroll.pub/leetsheet.csv CSV version
@@ -214,7 +214,7 @@ permalink,27
 comment,20
 codeWithHeader,17
 dashboard,15
-youTube,13
+youtube,13
 br,10
 buildCsv,10
 buildPdf,10
@@ -246,4 +246,4 @@ sparkline,3
 tufteCss,3
 video,3
 
-Built with Scroll v125.0.1
+Built with Scroll v125.1.0
