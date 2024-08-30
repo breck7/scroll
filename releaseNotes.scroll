@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 125.1.0 8/30/2024
+🎉 switch `youTube` parser to `youtube` (all lowercase). Deprecate old spelling.
+
 📦 125.0.1 8/29/2024
 🏥 particles table fix
 
