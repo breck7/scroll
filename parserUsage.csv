@@ -1,8 +1,8 @@
 parserId,uses
-blankLineParser,886
-versionParser,452
-newFeatureParser,364
-catchAllParagraphParser,239
+blankLineParser,889
+versionParser,453
+newFeatureParser,365
+catchAllParagraphParser,240
 lineOfCodeParser,191
 bugFixParser,185
 breakingChangeParser,182
@@ -14,7 +14,7 @@ codeParser,45
 listAftertextParser,38
 h2Parser,38
 linkParser,30
-belowAsCodeParser,27
+belowAsCodeParser,28
 viewSourceButtonParser,23
 cssParser,21
 scrollCenterParser,18
@@ -42,6 +42,7 @@ printTitleParser,10
 pageTitleParser,10
 codeWithLanguageParser,8
 styleTweakParser,8
+chatLineParser,8
 scrollTableParser,8
 checklistTodoParser,8
 horizontalRuleParser,8
@@ -70,10 +71,10 @@ scrollParserDefinitionParser,3
 checklistDoneParser,3
 mediumColumnsParser,3
 buildCsvParser,2
-chatLineParser,2
 hoverNoteParser,2
 linkTitleParser,2
 scrollMediaLoopParser,2
+chatParser,2
 htmlParser,2
 permalinkParser,2
 helpfulNotFoundParser,1
@@ -87,7 +88,6 @@ scrollSelectParser,1
 printScrollLeetSheetParser,1
 printparsersLeetSheetParser,1
 printUsageStatsParser,1
-chatParser,1
 matchParser,1
 matchAllParser,1
 datelineParser,1
