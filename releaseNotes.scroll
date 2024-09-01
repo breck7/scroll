@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 125.3.0 9/1/2024
+🎉 cleanup docs to switch to term Particle Syntax (aka Particles).
+
 📦 125.2.0 8/31/2024
 🎉 chat parser now supports repeated messages from 1 side via blank lines
 

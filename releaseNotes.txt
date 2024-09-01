@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+125.3.0 9/1/2024
+================
+🎉 cleanup docs to switch to term Particle Syntax (aka Particles).
+
 125.2.0 8/31/2024
 =================
 🎉 chat parser now supports repeated messages from 1 side via blank lines
@@ -2525,4 +2529,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v125.2.0
+Built with Scroll v125.3.0
