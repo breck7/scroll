@@ -1,5 +1,5 @@
 replace ParsersLinks <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a>
-replace ScrollNotationLinked <a href="https://notation.scroll.pub">Scroll Notation</a>
+replace ParticlesLinked <a href="https://notation.scroll.pub">Particles</a>
 title Scroll FAQ
 
 import header.scroll
@@ -41,7 +41,7 @@ This site you are reading is powered by Scroll.
 <div style="clear:both;"></div>
 
 ? What makes Scroll different?
-Scroll has an unusually simple syntax called Scroll Notation, an extensive set of parsers and commands needed by researchers, bloggers, knowledge bases and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
+Scroll has an unusually simple syntax called Particles, an extensive set of parsers and commands needed by researchers, bloggers, knowledge bases and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
 
 ? What is the Scroll command line app?
 The command line app builds static blogs, websites, CSVs, text files, and more.
@@ -97,7 +97,7 @@ You can stick to the basics or define new parsers to extend Scroll to better fit
 
 Your parsers can be simple or as complex as any programming language, and a simple indent is all you need to make sure your parser won't interfere with other parsers.
 
-Parsers in Scroll are written in a mini language called ParsersLinks and both Scroll and Parsers are built on the syntax called ScrollNotationLinked.
+Parsers in Scroll are written in a mini language called ParsersLinks and both Scroll and Parsers are built on the syntax called ParticlesLinked.
 
 ? How does Scroll improve over the latest incarnations of Markdown?
 Scroll evolved based on the theory that instead of a fixed language for blogging it is better to have an ever evolving ecosystem of parsers, so that your symbolic tools can grow along with your mental tools.
