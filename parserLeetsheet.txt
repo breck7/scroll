@@ -32,13 +32,13 @@ uniqueLine - Assert unique lines. For pattern parsers.
 
 Parser Phases: Assemble -> Acquire -> Analyze -> Act
 
-Links - Parser Designer · Particles Sandbox · r/WorldWideScroll · Release Notes & Roadmap · Scroll LeetSheet · ParticleS LeetSheet
+Links - Parser Designer · Particles Sandbox · r/WorldWideScroll · Release Notes & Roadmap · Scroll LeetSheet · Particles LeetSheet
  https://sdk.scroll.pub/designer/index.html Parser Designer
  https://sdk.scroll.pub/sandbox/index.html Particles Sandbox
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  https://sdk.scroll.pub/langs/parsers/ Release Notes & Roadmap
  https://scroll.pub/leetsheet.html Scroll LeetSheet
- https://scroll.pub/particlesLeetsheet.html ParticleS LeetSheet
+ https://scroll.pub/particlesLeetsheet.html Particles LeetSheet
 
 Parser usage rankings
 A rough _estimate_ of parser usage in Parsers.

@@ -1,4 +1,4 @@
-ParticleS LeetSheet
+Particles LeetSheet
 ===================
 
 *Particle Syntax* is a syntax-free syntax for splitting files into particles (separated by line breaks) which can have words (separated by spaces) and subparticles (indented lines).
