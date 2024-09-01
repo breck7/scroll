@@ -48,13 +48,13 @@ testParticles.paragraphParser = areEqual => {
 
 testParticles.linkOnly = areEqual => {
   // Arrange
-  const program = new DefaultScrollParser(`* https://notation.scroll.pub`)
+  const program = new DefaultScrollParser(`* https://particles.scroll.pub`)
 
   // Act
   program.compile()
   const result = program.compile()
 
-  areEqual(result, `<p class="scrollParagraph"><a href="https://notation.scroll.pub" target="_blank">https://notation.scroll.pub</a></p>`)
+  areEqual(result, `<p class="scrollParagraph"><a href="https://particles.scroll.pub" target="_blank">https://particles.scroll.pub</a></p>`)
 }
 
 testParticles.endSnippet = areEqual => {

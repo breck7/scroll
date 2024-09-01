@@ -43,7 +43,7 @@ If you choose to always remain illiterate to keep your brain different than the 
 One liner: a syntax-free syntax for splitting files into particles (separated by line breaks) which can have words (separated by spaces) and subparticles (indented lines).
 
 Vibe
- https://notation.scroll.pub Vibe
+ https://particles.scroll.pub Vibe
 
 Playground
  https://sdk.scroll.pub/sandbox/ Playground
