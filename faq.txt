@@ -380,9 +380,9 @@ Yes! Add tags to a post using the `tags` parser. Then create a `yourTagName.scro
 
 Does Scroll support Open Graph tags for better social media sharing?
 ====================================================================
-Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl`. For more help check out the debuggers from Facebook and Twitter or try LinkPreview.
+Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl`. For more help check out the debuggers from Facebook and X or try LinkPreview.
  https://developers.facebook.com/tools/debug Facebook
- https://cards-dev.twitter.com/validator Twitter
+ https://cards-dev.twitter.com/validator X
  https://linkpreview.xyz/ LinkPreview
 
 Does Scroll support themes and templates?
