@@ -13,7 +13,7 @@ stumpContentParser,48
 codeParser,45
 listAftertextParser,38
 h2Parser,38
-linkParser,30
+linkParser,31
 belowAsCodeParser,28
 viewSourceButtonParser,23
 cssParser,21

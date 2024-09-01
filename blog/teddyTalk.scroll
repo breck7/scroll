@@ -11,7 +11,7 @@ printAuthors
 
 mediumColumns 1
 
-# Particle Notation, Scroll, and the Parsers Programming Language
+# ParticleS, Scroll, and the Parsers Programming Language
 
 I am very grateful to have the opportunity to give a Teddy Talk about my work.
  dateline
@@ -43,7 +43,7 @@ If you are a builder, yes.
 
 If you choose to always remain illiterate to keep your brain different than the crowd, then no. (I applaud your brave creative choice and as a scientist I'm curious to see what happens!)
 
-? 2. What is Particle Notation?
+? 2. What is Particle Syntax (ParticleS)?
 
 One liner: a syntax-free syntax for splitting files into particles (separated by line breaks) which can have words (separated by spaces) and subparticles (indented lines).
 
@@ -54,15 +54,15 @@ Playground
  https://sdk.scroll.pub/sandbox/
 
 LeetSheet
- https://scroll.pub/particleNotationLeetsheet.html
+ https://scroll.pub/particlesLeetsheet.html
 
 image complexity.svg
  width 400
- caption Each line is a particle. Each dot is a word. Particle Notation lets you easily compare programs and see which one is simpler (less heavy!).
+ caption Each line is a particle. Each dot is a word. ParticleS lets you easily compare programs and see which one is simpler (less heavy!).
 
 ? 3. What is Scroll?
 
-One liner: Scroll is a language for scientists of all ages where you write and combine particles (written in Particle Notation) to evolve and publish your most intelligence ideas to HTML, PDFs, CSVs, JSON files, movie files, audio files, slideshows, charts, books, et cetera.
+One liner: Scroll is a language for scientists of all ages where you write and combine particles (written in ParticleS) to evolve and publish your most intelligence ideas to HTML, PDFs, CSVs, JSON files, movie files, audio files, slideshows, charts, books, et cetera.
 
 Vibe
  https://scroll.pub/blog/index.html
@@ -79,7 +79,7 @@ image science.png
 
 ? 4. What is Parsers?
 
-One liner: Parsers is a programming language where programmers write parsers (written in Particle Notation) which consume particles (written in Particle Notation) and also contain logic for translating those particles into actions on computing machines.
+One liner: Parsers is a programming language where programmers write parsers (written in ParticleS) which consume particles (written in ParticleS) and also contain logic for translating those particles into actions on computing machines.
 
 Vibe
  https://github.com/breck7/scroll/tree/main/parsers
