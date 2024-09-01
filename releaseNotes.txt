@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+125.4.0 9/1/2024
+================
+🎉 upgrade ScrollSDK
+
 125.3.0 9/1/2024
 ================
 🎉 cleanup docs to switch to term Particle Syntax (aka Particles).
@@ -2529,4 +2533,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v125.3.0
+Built with Scroll v125.4.0

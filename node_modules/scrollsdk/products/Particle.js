@@ -51,10 +51,10 @@ var WhereOperators
   WhereOperators["empty"] = "empty"
   WhereOperators["notEmpty"] = "notEmpty"
 })(WhereOperators || (WhereOperators = {}))
-var ScrollNotationConstants
-;(function (ScrollNotationConstants) {
-  ScrollNotationConstants["extends"] = "extends"
-})(ScrollNotationConstants || (ScrollNotationConstants = {}))
+var ParticlesConstants
+;(function (ParticlesConstants) {
+  ParticlesConstants["extends"] = "extends"
+})(ParticlesConstants || (ParticlesConstants = {}))
 class ParserCombinator {
   constructor(catchAllParser, firstWordMap = {}, regexTests = undefined) {
     this._catchAllParser = catchAllParser
@@ -2545,7 +2545,7 @@ Particle.iris = `sepal_length,sepal_width,petal_length,petal_width,species
 4.9,2.5,4.5,1.7,virginica
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`
-Particle.getVersion = () => "84.0.0"
+Particle.getVersion = () => "85.0.0"
 class AbstractExtendibleParticle extends Particle {
   _getFromExtended(firstWordPath) {
     const hit = this._getParticleFromExtended(firstWordPath)
@@ -2593,7 +2593,7 @@ class AbstractExtendibleParticle extends Particle {
     return this._cache_ancestorsArray
   }
   get idThatThisExtends() {
-    return this.get(ScrollNotationConstants.extends)
+    return this.get(ParticlesConstants.extends)
   }
   _initAncestorsArrayCache(cannotContainParticles) {
     if (this._cache_ancestorsArray) return undefined
