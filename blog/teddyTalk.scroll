@@ -56,8 +56,9 @@ Playground
 LeetSheet
  https://scroll.pub/particlesLeetsheet.html
 
-image complexity.svg
+image complexity.png
  width 400
+ openGraph
  caption Each line is a particle. Each dot is a word. ParticleS lets you easily compare programs and see which one is simpler (less heavy!).
 
 ? 3. What is Scroll?
