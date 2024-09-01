@@ -1,4 +1,4 @@
-title Particle Notation LeetSheet
+title ParticleS LeetSheet
 
 import header.scroll
 printTitle
@@ -6,7 +6,7 @@ printTitle
 css body {color: grey;}
 
 center
-*Particle Notation* is a syntax-free syntax for splitting files into particles (separated by line breaks) which can have words (separated by spaces) and subparticles (indented lines).
+*Particle Syntax* is a syntax-free syntax for splitting files into particles (separated by line breaks) which can have words (separated by spaces) and subparticles (indented lines).
 
 br
 
@@ -17,6 +17,7 @@ endColumns
 center
 Links - r/WorldWideScroll · Scroll LeetSheet · Parsers LeetSheet
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
+ link leetsheet.html Scroll LeetSheet
  link parserLeetsheet.html Parsers LeetSheet
 br
 
