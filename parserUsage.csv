@@ -6,7 +6,7 @@ catchAllParagraphParser,240
 lineOfCodeParser,191
 bugFixParser,185
 breakingChangeParser,182
-quickLinkParser,91
+quickLinkParser,92
 BlobParser,69
 scrollQuestionParser,64
 stumpContentParser,48
