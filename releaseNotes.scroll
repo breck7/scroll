@@ -569,7 +569,7 @@ sparkline 5 7 27 87 300 17 10 5
 🏥 make slideshow start after the first dinkus
 
 📦 94.0.0 5/31/2024
-🎉 jtree is now the "ScrollSDK" and "Tree Notation" is now "Scroll Notation"
+🎉 jtree is now the "ScrollSDK" and "Tree Notation" is now "Particles"
 ⚠️ BREAKING: (only advanced users affected), if you wrote custom Parsers, you may need to find/replace `jtree` with `scrollsdk`
 
 📦 93.7.1 5/30/2024
