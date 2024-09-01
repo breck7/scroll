@@ -21,6 +21,20 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 125.2.0 8/31/2024
+🎉 chat parser now supports repeated messages from 1 side via blank lines
+
+Example:
+
+belowAsCode
+chat
+ I have some questions
+ 
+ What is your current productivity tool
+ pen and paper
+ Hmm and for project management?
+ pen and paper
+
 📦 125.1.0 8/30/2024
 🎉 switch `youTube` parser to `youtube` (all lowercase). Deprecate old spelling.
 
