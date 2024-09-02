@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+125.5.1 9/2/2024
+================
+🏥 make printCsv work with buildCsv
+
 125.5.0 9/2/2024
 ================
 🎉 heatrix drops first row if after a transpose
@@ -2538,4 +2542,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v125.5.0
+Built with Scroll v125.5.1
