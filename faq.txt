@@ -124,18 +124,33 @@ In Scroll, it's almost as if each line is its own file.
 How do I extend Scroll?
 =======================
 Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a _recipe_ parser and write a post like this:
-# My Snowball Cookies
-
-* Bet you can't eat just one!
+# McCarthy Salad
+ https://www.dorchestercollection.com/the-edit/los-angeles/our-famous-mccarthy-salad-recipe
 
 recipe
- ingredients
-  6 large eggs
-  1/2 cup sugar
- step Beat eggs until foamy
- step Add sugar
- step Heat oven to 350 degrees
- step Bake for 10 minutes
+ ingredients For salad
+  ¼ head iceberg lettuce
+  ½ head romaine lettuce
+  ½ cup diced, grilled free-range chicken
+  ½ cup diced, roasted red beets
+  ¼ cup free-range egg yolk
+  ¼ cup free-range egg white
+  ½ cup finely diced aged cheddar cheese
+  ½ cup applewood-smoked bacon
+  ¼ cup diced tomato
+  ¼ cup diced avocado
+ step Dice ingredients.
+ step Artfully arrange the salad ingredients in a bowl.
+ ingredients For salad dressing
+  1 cup balsamic vinegar
+  1 shallot
+  3 cloves roasted garlic
+  1 teaspoon Dijon mustard
+  Salt and black pepper to season
+  Canola oil
+ step Place the dressing ingredients in a blender and drizzle in the canola oil to emulsify.
+ step Combine and mix salad and dressing!
+ step Enjoy!
 Notice that your post uses the first word `recipe`, but Scroll does not have a parser for that. No problem, just write a recipe parser yourself using Parsers, extending your dialect of Scroll:
 recipeParser
  extends abstractScrollParser

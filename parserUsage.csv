@@ -1,9 +1,9 @@
 parserId,uses
-blankLineParser,891
+blankLineParser,893
 versionParser,455
 newFeatureParser,367
 catchAllParagraphParser,240
-lineOfCodeParser,191
+lineOfCodeParser,206
 bugFixParser,185
 breakingChangeParser,182
 quickLinkParser,92
@@ -11,7 +11,7 @@ BlobParser,69
 scrollQuestionParser,64
 stumpContentParser,48
 codeParser,45
-listAftertextParser,38
+listAftertextParser,43
 h2Parser,38
 linkParser,31
 belowAsCodeParser,28
@@ -54,10 +54,10 @@ printTableParser,7
 scrollBrParser,6
 cssLineParser,6
 aftertextCodeParser,6
+captionAftertextParser,6
+imageParser,6
 afterTextCenterParser,6
 scrollTableDelimiterParser,5
-captionAftertextParser,5
-imageParser,5
 codeWithHeaderParser,4
 scrollDinkusParser,4
 footnoteDefinitionParser,4
