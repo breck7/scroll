@@ -5,6 +5,7 @@ https://scroll.pub/blog/gazette.html
 https://scroll.pub/blog/full.html
 https://scroll.pub/blog/feed.html
 https://scroll.pub/blog/csv.html
+https://scroll.pub/blog/gitOverRss.html
 https://scroll.pub/blog/teddyTalk.html
 https://scroll.pub/blog/tables.html
 https://scroll.pub/blog/counters.html

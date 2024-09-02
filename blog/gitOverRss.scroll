@@ -1,0 +1,42 @@
+authors Breck Yunits
+ https://twitter.com/breckyunits Breck Yunits
+date 9/02/2024
+tags All
+title The Successor to RSS is Git Clone
+
+import header.scroll
+keyboardNav
+printTitle
+printAuthors
+
+mediumColumns 1
+
+Today on HackerNews Kevin Damm had a great idea: put a `&lt;link&gt;` tag on blogs to point to the git Source Code Repository, much as blogs today have `&lt;link&gt;` tags pointing to their RSS feeds.
+ https://news.ycombinator.com/item?id=41427044 great idea
+
+I've added this feature to Scroll and it's live now. If you View Source of this page, you'll see:
+ link ../index.html Scroll
+
+code
+ <link rel="source" type="application/git" title="Source Code Repository" href="https://github.com/breck7/scroll">
+ <link rel="alternate" type="application/rss+xml" title="The Official Scroll Blog" href="feed.xml">
+
+Client applications can start looking for and taking advantage of these tags.
+
+***
+
+# RSS was great, but it's no match for Git Clone
+Git clone solves a million problems.
+
+You get a copy of the entire works of your favorite authors that is blazing fast, works offline, is searchable, transformable, censorship resistant, auditable, more trustworthy, ad free, tracker free, et cetera.
+
+There is no comparison to the old ways of doing things.
+
+***
+
+# What do you think?
+Have you already been doing this? Are there ways we can make it better? Would love to hear your feedback!
+
+****
+
+import footer.scroll
