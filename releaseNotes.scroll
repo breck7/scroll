@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 125.6.0 9/2/2024
+🎉 metaParser now emits link to git tags
+
 📦 125.5.1 9/2/2024
 🏥 make printCsv work with buildCsv
 
