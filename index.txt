@@ -22,4 +22,4 @@ npm package · Release Notes · Parser Designer
  https://scroll.pub/releaseNotes.html Release Notes
  https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers Parser Designer
 
-Built with Scroll v125.4.0
+Built with Scroll v125.5.0

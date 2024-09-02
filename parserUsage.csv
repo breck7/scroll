@@ -1,7 +1,7 @@
 parserId,uses
-blankLineParser,893
-versionParser,455
-newFeatureParser,367
+blankLineParser,894
+versionParser,456
+newFeatureParser,369
 catchAllParagraphParser,240
 lineOfCodeParser,206
 bugFixParser,185
