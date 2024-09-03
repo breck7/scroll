@@ -59,6 +59,7 @@ endColumns - End columns.
 endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
 fetch - Download URL to disk.
+form - Generate input form for ScrollSet.
 gazetteCss - Default Scroll theme CSS.
 heatrix - A heatmap matrix data visualization.
 heatrixAdvanced - Advanced heatrix.
@@ -168,6 +169,7 @@ css,722
 tags,681
 date,668
 center,642
+form,640
 homeButton,640
 leftRightButtons,635
 downloadButton,630
@@ -246,4 +248,4 @@ sparkline,3
 tufteCss,3
 video,3
 
-Built with Scroll v125.6.0
+Built with Scroll v125.7.0
