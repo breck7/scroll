@@ -42,6 +42,7 @@ caption - An image caption.
 catchAllParagraph - A paragraph.
 center - A centered section.
 chat - A faux text chat conversation.
+classicForm - Generate input form for ScrollSet.
 code - A code block.
 codeWithHeader - A code block.
 comment - Prints nothing.
@@ -59,7 +60,6 @@ endColumns - End columns.
 endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
 fetch - Download URL to disk.
-form - Generate input form for ScrollSet.
 gazetteCss - Default Scroll theme CSS.
 heatrix - A heatmap matrix data visualization.
 heatrixAdvanced - Advanced heatrix.
@@ -79,6 +79,7 @@ loadConcepts - Import all concepts in a folder.
 loop - Iterate over files+ to make HTML.
 loremIpsum - Generate dummy text.
 map - Map widget.
+mediumColumn - A medium column section.
 mediumColumns - Medium width columns.
 metaTags - Print meta tags including title.
 music - Play sound files.
@@ -112,6 +113,7 @@ replaceNodejs - Replace with evaled Node.JS.
 rssFeedUrl - Set RSS feed URL.
 scatterplot - Scatterplot Widget.
 script - Print script tag.
+scrollForm - Generate a Scroll Form.
 scrollVersionLink - Print Scroll version.
 slideshow - Slideshow widget. *** delimits slides.
 sparkline - Sparkline widget.
@@ -123,6 +125,7 @@ tableSearch - Table search and sort widget.
 tags - Set tags.
 testStrict - Make catchAllParagraphParser = error.
 thanksTo - Acknowledge reviewers. Prints nothing.
+thinColumn - A thin column section.
 thinColumns - Thin columns.
 title - Set title.
 tufteCss - Theme from Tufte CSS.
@@ -131,6 +134,7 @@ viewSourceBaseUrl - Override source link baseUrl.
 viewSourceButton - Print badge top right.
 viewSourceLink - Print "View source" link.
 viewSourceUrl - Override source link.
+wideColumn - A wide column section.
 wideColumns - Wide columns.
 youtube - A YouTube video widget.
 
@@ -169,8 +173,9 @@ css,722
 tags,681
 date,668
 center,642
-form,640
+classicForm,640
 homeButton,640
+scrollForm,640
 leftRightButtons,635
 downloadButton,630
 emailButton,630
@@ -183,7 +188,10 @@ htmlInlineParser,579
 endSnippet,430
 ?,425
 thinColumns,369
+mediumColumn,338
 mediumColumns,338
+thinColumn,338
+wideColumn,338
 caption,321
 code,193
 *,189
@@ -248,4 +256,4 @@ sparkline,3
 tufteCss,3
 video,3
 
-Built with Scroll v125.8.0
+Built with Scroll v126.0.0

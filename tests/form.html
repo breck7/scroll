@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<div class="scrollSection"><h1 class="scrollParagraph">ScrollSet Form Generator</h1>
+<div class="scrollSection"><h1 class="scrollParagraph">ScrollSet Form Maker</h1>
 <style>
 figure {
   margin: 0;
@@ -373,24 +373,40 @@ a.abstractTextLinkParser:hover {
 </style>
 </div>
 <style>body {font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;}</style>
-<div class="scrollSection"><h3 class="scrollParagraph">Simple: to generate a form, just write "form"</h3>
+<div class="scrollSection"><h3 class="scrollParagraph">Past: to generate a classic form write "classicForm"</h3>
 </div>
-<div class="scrollColumns" style="column-width:65ch;column-count:1;max-width:65ch;">
+</div><div class="scrollColumns" style="column-width:65ch;column-count:1;max-width:65ch;">
 <style> .scrollFormParser {
     font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
   }
-  .scrollFormParser input {
-  padding: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  } .scrollFormParser label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  </style><form class="scrollFormParser" method="get" action=""><div><label for="name" title="Required">Name*:</label><input placeholder="What is your name?" type="text" id="name" name="name" required></div>
+.scrollFormParser input , .scrollFormParser textarea{
+padding: 10px;
+margin-bottom: 10px;
+width: 100%;
+box-sizing: border-box;
+} .scrollFormParser label {
+  display: block;
+  margin-bottom: 5px;
+}
+</style><form class="scrollFormParser" method="get" action=""><div><label for="name" title="Required">Name*:</label><input placeholder="What is your name?" type="text" id="name" name="name" required></div>
 <div><label for="emailAddress" title="">EmailAddress:</label><input placeholder="What is your email address?" type="email" id="emailAddress" name="emailAddress" ></div>
-<div><label for="homepage" title="">Homepage:</label><input placeholder="What is your homepage?" type="url" id="homepage" name="homepage" ></div><button class="scrollButton" type="submit">Submit</button></form>
+<div><label for="homepage" title="">Homepage:</label><input placeholder="What is your homepage?" type="url" id="homepage" name="homepage" ></div>
+<div><label for="biography" title="">Biography:</label><textarea placeholder="What is your bio?" id="biography" name="biography" ></textarea></div><button class="scrollButton" type="submit">Submit</button></form>
+<div class="scrollSection"><h3 class="scrollParagraph">Future: to generate a Scroll Form write "scrollForm"</h3>
 </div>
+</div><div class="scrollColumns" style="column-width:65ch;column-count:1;max-width:65ch;">
+<style> .scrollFormParser {
+    font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
+  }
+.scrollFormParser input , .scrollFormParser textarea{
+padding: 10px;
+margin-bottom: 10px;
+width: 100%;
+box-sizing: border-box;
+} .scrollFormParser label {
+  display: block;
+  margin-bottom: 5px;
+}
+</style><form class="scrollFormParser" method="get" action=""><textarea placeholder="" id="scroll" name="scroll"></textarea><button class="scrollButton" type="submit">Submit</button></form>
 </body>
 </html>
