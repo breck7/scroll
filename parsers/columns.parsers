@@ -13,10 +13,9 @@ thinColumnsParser
   compile() {
    const {columnWidth, columnGap, maxColumns} = this
    const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * columnGap
-   // Starting the columns always first clears the section stack.
-   if (this.singleColumn)
-     this.parent.sectionStack.push("</div>")
-   return this.parent.clearSectionStack() + `<div class="scrollColumns" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
+   const stackContents = this.parent.clearSectionStack() // Starting columns always first clears the section stack.
+   if (this.singleColumn) this.parent.sectionStack.push("</div>") // Single columns are self-closing after section break.
+   return stackContents + `<div class="scrollColumns" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
   }
   get maxColumns() {
     return this.singleColumn ? 1 : parseInt(this.getWord(1) ?? 10)

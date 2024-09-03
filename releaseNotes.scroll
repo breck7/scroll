@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 126.0.1 9/3/2024
+🏥 column stack fix
+
 📦 126.0.0 9/3/2024
 🎉 added `scrollForm` parser
 🎉 added support for `textarea` to ScrollSet forms

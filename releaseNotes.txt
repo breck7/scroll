@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+126.0.1 9/3/2024
+================
+🏥 column stack fix
+
 126.0.0 9/3/2024
 ================
 🎉 added `scrollForm` parser
@@ -2562,4 +2566,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v126.0.0
+Built with Scroll v126.0.1
