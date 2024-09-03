@@ -15,7 +15,7 @@ Download as CSV | TSV | JSON
 import ciBadges.scroll
 
 endColumns
-<br>
+br
 
 import microlangs/changes.parsers
 
