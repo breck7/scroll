@@ -1,12 +1,12 @@
 parserId,uses
-blankLineParser,900
-versionParser,462
-newFeatureParser,376
+blankLineParser,901
+versionParser,463
+newFeatureParser,377
 catchAllParagraphParser,240
 lineOfCodeParser,206
 bugFixParser,187
 breakingChangeParser,183
-quickLinkParser,92
+quickLinkParser,93
 BlobParser,69
 scrollQuestionParser,64
 stumpContentParser,48
@@ -17,13 +17,12 @@ linkParser,31
 belowAsCodeParser,28
 viewSourceButtonParser,23
 cssParser,21
-scrollCenterParser,18
+scrollCenterParser,20
 aboveAsCodeParser,18
 slashCommentParser,15
-htmlInlineParser,13
 baseUrlParser,13
 h1Parser,12
-endColumnsParser,12
+scrollBrParser,12
 homeButtonParser,12
 stumpNoSnippetParser,12
 metaTagsParser,12
@@ -33,6 +32,7 @@ scrollVersionLinkParser,11
 downloadButtonParser,11
 emailButtonParser,11
 buildTxtParser,11
+endColumnsParser,11
 copyButtonsParser,11
 scrollLeftRightButtonsParser,11
 thinColumnsParser,10
@@ -51,7 +51,6 @@ inlineMarkupParser,7
 orderedListAftertextParser,7
 scrollTableDataParser,7
 printTableParser,7
-scrollBrParser,6
 cssLineParser,6
 aftertextCodeParser,6
 captionAftertextParser,6
@@ -67,6 +66,7 @@ lineOfTextParser,3
 expanderParser,3
 quickParagraphParser,3
 italicsParser,3
+htmlInlineParser,3
 scrollParserDefinitionParser,3
 checklistDoneParser,3
 mediumColumnsParser,3
@@ -109,5 +109,5 @@ messageParser,1
 hiddenMessageParser,1
 pParser,1
 scrollDashboardParser,1
-wideColumnsParser,1
+wideColumnParser,1
 redirectToParser,1

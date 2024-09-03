@@ -5,18 +5,15 @@ import header.scroll
 
 css html {font-size: var(--base-font-size, 18px);}
 
-wideColumns 1
-
+wideColumn
 printTitle
-
-<br>
+br
 Edit this file on try.scroll.pub
  center
  https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll
  class scrollButton Edit this file on try.scroll.pub
-<br>
+br
 
-endColumns
 mediumColumns 1
 
 Video walkthrough of this tutorial.
