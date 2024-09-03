@@ -1,14 +1,18 @@
-# ScrollSet Form Generator
+# ScrollSet Form Maker
 buildHtml
 gazetteCss
 
 css body {font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;}
 
-### Simple: to generate a form, just write "form"
+### Past: to generate a classic form write "classicForm"
 
-mediumColumns 1
-form
-endColumns
+mediumColumn
+classicForm
+
+### Future: to generate a Scroll Form write "scrollForm"
+
+mediumColumn
+scrollForm
 
 nameParser
  extends abstractIdParser
@@ -21,3 +25,7 @@ emailAddressParser
 homepageParser
  extends abstractUrlMeasureParser
  description What is your homepage?
+
+biographyParser
+ extends abstractTextareaMeasureParser
+ description What is your bio?
