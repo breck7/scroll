@@ -21,6 +21,10 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 126.1.0 9/3/2024
+🎉 `scrollForm` now implements the One Textarea design pattern. Thanks Alejandro for your help!
+ https://breckyunits.com/oneTextarea.html One Textarea design pattern
+
 📦 126.0.1 9/3/2024
 🏥 column stack fix
 
