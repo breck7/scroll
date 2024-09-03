@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 125.8.0 9/2/2024
+🎉 show * on required form fields
+
 📦 125.7.0 9/2/2024
 🎉 added `form` parser
 
