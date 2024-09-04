@@ -2,24 +2,19 @@ authors Breck Yunits
  https://twitter.com/breckyunits Breck Yunits
 date 8/30/2024
 tags All
-title A New Way to Program (Teddy Talk)
+title A New Way to Program
 
 import header.scroll
 keyboardNav
 printTitle
 printAuthors
+printDate
 
 mediumColumns 1
 
 # Particles, Scroll, and the Parsers Programming Language
 
-I am very grateful to have the opportunity to give a Teddy Talk about my work.
- dateline
-
-The outline of the talk is below.
-
-For your convenience I've published 2 versions: a 10 minute and 100 minute version. The shorter version (below) is more intelligent.
- // but not very intelligent
+I've recorded a 10 minute talk about our recent work which has begun to eat the software world.
 
 ***
 
