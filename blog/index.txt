@@ -5,8 +5,8 @@ The Successor to RSS is Git Clone
 09/02/2024
 https://scroll.pub/blog/gitOverRss.html
 
-A New Way to Program (Teddy Talk)
-=================================
+A New Way to Program
+====================
 08/30/2024
 https://scroll.pub/blog/teddyTalk.html
 
