@@ -35,6 +35,7 @@ scrollImageParser
  description An img tag.
  boolean isPopular true
  extends abstractCaptionedParser
+ int wordIndex 1
  example
   image screenshot.png
    caption A caption.
@@ -69,7 +70,7 @@ scrollImageParser
     return this.dimensions.width
   }
   get filename() {
-    return this.getWord(1)
+    return this.getWord(this.wordIndex)
   }
   getFigureContent(compileSettings) {
    const file = this.root.file
@@ -93,7 +94,4 @@ quickImageParser
  extends scrollImageParser
  cells urlCell
  pattern ^[^\s]+\.(jpg|jpeg|png|gif|webp|svg|bmp)
- javascript
-  get filename() {
-    return this.getWord(0)
-  }
+ int wordIndex 0

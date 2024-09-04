@@ -21,9 +21,29 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 128.0.0 9/4/2024
+🎉 added `quickVideo` parser for including videos.
+🎉 added `quickMusic` parser for including sound files.
+🎉 added `quickTable` parser for including csvs, tsvs, psvs, and ssvs.
+⚠️ BREAKING: (no one should be effected) if you had any catch all lines starting with [filename].[one of the above extensions] will now be caught by one of these quick parsers
+
+### Demos
+
+belowAsCode 3
+tests/sipOfCoffee.m4a
+ loop
+tests/spirit.mp4
+ loop
+pages.csv
+ printTable
+tableSearch
+
 📦 127.0.0 9/4/2024
 🎉 added `quickImage` parser. Add an image with just the filename. quickImageParser detects by filename.
 ⚠️ BREAKING: (no one should be effected) if you had any lines starting with [filename].(png|jpg|et cetera) will be parsed as image.
+
+belowAsCode
+particles.png
 
 📦 126.1.0 9/3/2024
 🎉 `scrollForm` now implements the One Textarea design pattern. Thanks Alejandro for your help!
