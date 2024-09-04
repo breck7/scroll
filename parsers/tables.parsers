@@ -191,7 +191,7 @@ scrollTableParser
     const fs = require("fs")
     const fullPath = path.join(this.parent.file.folderPath, this.filename)
     if (!fs.existsSync(fullPath)) {
-      console.error(`❌ in tables. File "${filePath}" not found. Using empty string`)
+      console.error(`❌ Error in tables. File "${fullPath}" not found. Using empty string`)
       return ""
     }
     return fs.readFileSync(fullPath, "utf8")

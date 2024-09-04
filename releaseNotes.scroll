@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 128.0.1 9/4/2024
+🏥 better handling of circular dependencies with tables
+
 📦 128.0.0 9/4/2024
 🎉 added `quickVideo` parser for including videos.
 🎉 added `quickMusic` parser for including sound files.
