@@ -204,7 +204,7 @@ testParticles.baseUrl = areEqual => {
   // Arrange
   const page = new ScrollFile(`baseUrl http://test.com/
 metaTags
-image blog/screenshot.png`)
+blog/screenshot.png`)
   // Act/Assert
   const { asHtml } = page
   areEqual(asHtml.includes("http://test.com/blog/screenshot.png"), true)

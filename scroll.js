@@ -593,13 +593,13 @@ parsers/errors.parsers`
     const openGraphImage = this.get(scrollKeywords.openGraphImage)
     if (openGraphImage !== undefined) return this.ensureAbsoluteLink(openGraphImage)
 
-    const images = this.scrollProgram.findParticles(scrollKeywords.image)
+    const images = this.scrollProgram.filter(particle => particle.doesExtend("scrollImageParser"))
 
-    const hit = images.find(particle => particle.has(scrollKeywords.openGraph)) || this.scrollProgram.getParticle(scrollKeywords.image)
+    const hit = images.find(particle => particle.has(scrollKeywords.openGraph)) || images[0]
 
     if (!hit) return ""
 
-    return this.ensureAbsoluteLink(hit.content)
+    return this.ensureAbsoluteLink(hit.filename)
   }
 
   // Use the first paragraph for the description
