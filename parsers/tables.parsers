@@ -189,7 +189,12 @@ scrollTableParser
   get fileFromDisk() {
     const path = require("path")
     const fs = require("fs")
-    return fs.readFileSync(path.join(this.parent.file.folderPath, this.filename), "utf8")
+    const fullPath = path.join(this.parent.file.folderPath, this.filename)
+    if (!fs.existsSync(fullPath)) {
+      console.error(`❌ in tables. File "${filePath}" not found. Using empty string`)
+      return ""
+    }
+    return fs.readFileSync(fullPath, "utf8")
   }
   get fileFromLocalStorage() {
     return localStorage.getItem(this.filename) || ""
