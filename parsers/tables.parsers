@@ -14,6 +14,7 @@ abstractTableTransformParser
    return super.getRunTimeEnumOptions(cell)
   }
   getRunTimeEnumOptionsForValidation(cell) {
+    // Note: this will fail if the CSV file hasnt been built yet.
     if (cell.cellTypeId === "columnNameCell")
       return this.parent.columnNames.concat(this.parent.columnNames.map(c => "-" + c)) // Add reverse names
    return super.getRunTimeEnumOptions(cell)
