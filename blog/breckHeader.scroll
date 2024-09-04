@@ -3,7 +3,7 @@ authors Breck Yunits
  https://twitter.com/breckyunits Breck Yunits
 tags All
 
-import header.scroll
+header.scroll
 
 keyboardNav
 printTitle

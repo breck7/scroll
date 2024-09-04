@@ -4,7 +4,7 @@ date 9/02/2024
 tags All
 title The Successor to RSS is Git Clone
 
-import header.scroll
+header.scroll
 keyboardNav
 printTitle
 printAuthors
@@ -39,4 +39,4 @@ Have you already been doing this? Are there ways we can make it better? Would lo
 
 ****
 
-import footer.scroll
+footer.scroll

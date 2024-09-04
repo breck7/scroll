@@ -6,7 +6,7 @@ replace SOME_DATA
 tags index all
 title A review of my sink
 
-import header.scroll
+header.scroll
 
 printTitle
 

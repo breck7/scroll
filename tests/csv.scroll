@@ -1,5 +1,5 @@
 buildTxt posts.csv
 
-import settings.scroll
+settings.scroll
 
 printCsv index

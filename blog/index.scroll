@@ -1,6 +1,6 @@
 title The Official Scroll Blog
 
-import header.scroll
+header.scroll
 printTitle
 printSnippets All
 

@@ -1,7 +1,7 @@
 importOnly
 buildHtml
 
-import settings.scroll
+settings.scroll
 metaTags
 gazetteCss
 viewSourceButton

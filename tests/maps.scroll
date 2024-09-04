@@ -1,6 +1,6 @@
 canonicalUrl https://scroll.pub/tests/maps.html?canonLinkTest=true
 
-import header.scroll
+header.scroll
 
 map
  lat 37.8

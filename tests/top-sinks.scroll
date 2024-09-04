@@ -18,7 +18,7 @@ replaceNodejs
 tags index all
 title Top Sinks
 
-import header.scroll
+header.scroll
 
 printTitle
 

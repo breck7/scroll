@@ -4,7 +4,7 @@ date 7/01/2024
 tags All
 title Changes: A Microlang for Change Logs
 
-import header.scroll
+header.scroll
 keyboardNav
 printTitle
 printAuthors
@@ -64,7 +64,7 @@ codeWithHeader releaseNotes.scroll
  printTitle
  buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
  // You can import the changes parsers or just copy/paste the 70 lines into your own file.
- import [pathToScroll]/microlangs/changes.parser
+ [pathToScroll]/microlangs/changes.parser
  
  thinColumns
  
@@ -100,4 +100,4 @@ thinColumns 1
 - What can we learn from programming language version numbers?
  https://breckyunits.com/versionNumbers.html
 
-import footer.scroll
+footer.scroll

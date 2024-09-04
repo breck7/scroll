@@ -4,7 +4,7 @@ date 5/08/2023
 tags All
 title Introducing Program Links
 
-import header.scroll
+header.scroll
 printTitle
 printAuthors
 
@@ -98,4 +98,4 @@ But by the HTML spec newlines are not a URL code point and generally are strippe
 Program Links in Scroll handle encoding newlines and any other special characters so you can focus on your content and not the encoding.
 
 endColumns
-import footer.scroll
+footer.scroll

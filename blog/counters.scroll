@@ -1,5 +1,5 @@
 title Build Your Own Counters With 3 Words
-import breckHeader.scroll
+breckHeader.scroll
 openGraphImage counters.gif
 date 8/2/2024
 
@@ -90,4 +90,4 @@ endColumns
 
 ****
 
-import footer.scroll
+footer.scroll

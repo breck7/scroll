@@ -4,7 +4,7 @@ date 2022.10.02
 tags All
 title Introducing the Blink Tag
 
-import header.scroll
+header.scroll
 printTitle
 printAuthors
 printDate
@@ -33,4 +33,4 @@ blink *The blink tag, available now in Scroll 34.1.0*
 * _Note: please don't use this. It's a joke_
 
 keyboardNav
-import footer.scroll
+footer.scroll

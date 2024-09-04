@@ -4,7 +4,7 @@ date 8/30/2024
 tags All
 title A New Way to Program
 
-import header.scroll
+header.scroll
 keyboardNav
 printTitle
 printAuthors
@@ -95,4 +95,4 @@ Subreddit
 
 ****
 
-import footer.scroll
+footer.scroll

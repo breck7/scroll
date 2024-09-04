@@ -1,5 +1,5 @@
 buildRss feed.xml
 
-import settings.scroll
+settings.scroll
 
 printFeed index

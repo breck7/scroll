@@ -2,7 +2,7 @@ replace ParsersLinks <a href="https://sdk.scroll.pub/designer/#standard%20parser
 replace ParticlesLinked <a href="https://particles.scroll.pub">Particles</a>
 title Scroll FAQ
 
-import header.scroll
+header.scroll
 printTitle
 
 ## A list of Frequently Asked Questions
@@ -444,4 +444,4 @@ The scroll was invented thousands of years ago and scrolls are still useful toda
 
 endColumns
 
-import footer.scroll
+footer.scroll
