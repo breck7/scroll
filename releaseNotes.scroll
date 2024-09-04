@@ -21,6 +21,9 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 128.0.1 9/4/2024
+🏥 better handling of circular dependencies with tables
+
 📦 128.0.0 9/4/2024
 🎉 added `quickVideo` parser for including videos.
 🎉 added `quickMusic` parser for including sound files.
@@ -34,6 +37,10 @@ tests/sipOfCoffee.m4a
  loop
 tests/spirit.mp4
  loop
+pages.csv
+ printTable
+
+tableSearch
 
 📦 127.0.0 9/4/2024
 🎉 added `quickImage` parser. Add an image with just the filename. quickImageParser detects by filename.

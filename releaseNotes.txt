@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+128.0.1 9/4/2024
+================
+🏥 better handling of circular dependencies with tables
+
 128.0.0 9/4/2024
 ================
 🎉 added `quickVideo` parser for including videos.
@@ -2588,4 +2592,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v128.0.0
+Built with Scroll v128.0.1

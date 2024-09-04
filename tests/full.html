@@ -19,7 +19,7 @@
 <div class="scrollSnippetContainer"><div class="scrollSection"><h1 class="scrollTitle"><a href="tabularData.html">Tabular data test</a></h1>
 </div>
 <p class="scrollParagraph">A test of TSV data</p>
-<table id="table49" class="scrollTable">
+<table id="table50" class="scrollTable">
  <thead><tr><th>Index</th>
 
 <th>Name</th>
@@ -139,13 +139,13 @@
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table49').addEventListener('click', e => {
+ document.querySelector('#table50').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
 <div class="scrollSection"><h2 class="scrollParagraph">Putting print table after a table:</h2>
-<table id="table50" class="scrollTable">
+<table id="table51" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>score</th>
@@ -155,7 +155,7 @@
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table50').addEventListener('click', e => {
+ document.querySelector('#table51').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -164,7 +164,7 @@
 <div class="scrollSection"><h1 class="scrollParagraph">Dropdown sections</h1>
 </div>
 <details><summary >Full Table</summary>
-<table id="table51" class="scrollTable">
+<table id="table52" class="scrollTable">
  <thead><tr><th>Rows</th>
 
 <th>LogLinear</th>
@@ -213,7 +213,7 @@
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table51').addEventListener('click', e => {
+ document.querySelector('#table52').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -231,24 +231,6 @@ Good morning
 <td>$0<span>budget</span></td>
 <td>3<span>countries</span></td></tr>
 </table>
-<table id="table64" class="scrollTable">
- <thead><tr><th>sinkManufacturer</th>
-
-<th>country</th>
-</tr></thead>
- <tbody><tr><td>Blue</td>
-<td>USA</td>
-</tr>
-<tr><td>Red</td>
-<td>Canada</td>
-</tr></tbody>
- </table>
- <script>
- document.querySelector('#table64').addEventListener('click', e => {
-  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
-  e.currentTarget.classList.toggle('expandedTable');
- });
- </script>
 <table id="table65" class="scrollTable">
  <thead><tr><th>sinkManufacturer</th>
 
@@ -285,7 +267,25 @@ Good morning
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<p class="scrollParagraph">Today is Wed Sep 04 2024 16:09:55 GMT+0000 (Coordinated Universal Time)</p>
+<table id="table67" class="scrollTable">
+ <thead><tr><th>sinkManufacturer</th>
+
+<th>country</th>
+</tr></thead>
+ <tbody><tr><td>Blue</td>
+<td>USA</td>
+</tr>
+<tr><td>Red</td>
+<td>Canada</td>
+</tr></tbody>
+ </table>
+ <script>
+ document.querySelector('#table67').addEventListener('click', e => {
+  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
+  e.currentTarget.classList.toggle('expandedTable');
+ });
+ </script>
+<p class="scrollParagraph">Today is Wed Sep 04 2024 17:44:09 GMT+0000 (Coordinated Universal Time)</p>
 <p class="scrollParagraph">1+1 = 2</p>
 <p class="scrollParagraph">January 11, 2019 was a great day</p>
 <p class="scrollParagraph">There are 283 in my list.</p>
