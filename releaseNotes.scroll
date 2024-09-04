@@ -29,11 +29,15 @@ thinColumns
 
 ### Demos
 
-belowAsCode 2
+belowAsCode 3
 tests/sipOfCoffee.m4a
  loop
 tests/spirit.mp4
  loop
+pages.csv
+ printTable
+
+tableSearch
 
 📦 127.0.0 9/4/2024
 🎉 added `quickImage` parser. Add an image with just the filename. quickImageParser detects by filename.
