@@ -33,9 +33,9 @@ The Plot/Scroll integration is early, but I can already tell it will evolve into
 
 ***
 
-# A Scatterplot with three words
+# A Scatterplot with 2 words
 
-You can now make scatterplots with three words.
+You can now make scatterplots with 2 words.
  // if that's not no code, I don't know the meaning of no code.
 
 Obviously you want to add a few more words, but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).
@@ -47,16 +47,16 @@ To follow along, create a new website in 1 second using ScrollHub or install Scr
 
 ***
 
-# Step 1: Generate a scatterplot with 3 words
+# Step 1: Generate a scatterplot with 2 words
 belowAsCode
-table planets.csv
+planets.csv
  scatterplot
 
 ***
 
 # Step 2: Add a title
 belowAsCode
-table planets.csv
+planets.csv
  scatterplot
   title The Planets
 
@@ -80,7 +80,7 @@ table
 
 # Step 4: Everything everywhere all at once
 belowAsCode
-table planets.csv
+planets.csv
  scatterplot
   title The Planets in our Solar System
   subtitle Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.

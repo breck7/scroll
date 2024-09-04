@@ -8,10 +8,22 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+128.0.0 9/4/2024
+================
+🎉 added `quickVideo` parser for including videos.
+🎉 added `quickMusic` parser for including sound files.
+🎉 added `quickTable` parser for including csvs, tsvs, psvs, and ssvs.
+⚠️ BREAKING: (no one should be effected) if you had any catch all lines starting with [filename].[one of the above extensions] will now be caught by one of these quick parsers
+
+Demos
+=====
+
 127.0.0 9/4/2024
 ================
 🎉 added `quickImage` parser. Add an image with just the filename. quickImageParser detects by filename.
 ⚠️ BREAKING: (no one should be effected) if you had any lines starting with [filename].(png|jpg|et cetera) will be parsed as image.
+
+[Image Omitted]
 
 126.1.0 9/3/2024
 ================
@@ -2576,4 +2588,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v127.0.0
+Built with Scroll v128.0.0

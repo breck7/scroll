@@ -25,10 +25,10 @@ The Plot/Scroll integration is early, but I can already tell it will evolve into
 
 *
 
-A Scatterplot with three words
-==============================
+A Scatterplot with 2 words
+==========================
 
-You can now make scatterplots with three words.
+You can now make scatterplots with 2 words.
 
 Obviously you want to add a few more words, but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).
 
@@ -39,7 +39,7 @@ To follow along, create a new website in 1 second using ScrollHub or install Scr
 
 *
 
-Step 1: Generate a scatterplot with 3 words
+Step 1: Generate a scatterplot with 2 words
 ===========================================
 
 *
@@ -68,4 +68,4 @@ If you like where this is headed, give us a star on GitHub.
 
 ^engineering: The difference between programming and engineering? It takes programming to make a program that works. It takes engineering to make a program that _barely_ works.
 
-Built with Scroll v127.0.0
+Built with Scroll v128.0.0

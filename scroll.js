@@ -521,7 +521,7 @@ parsers/errors.parsers`
   }
 
   get wordCount() {
-    return this.asTxt.match(/\b\w+\b/g).length
+    return this.asTxt.match(/\b\w+\b/g)?.length || 0
   }
 
   get minutes() {
@@ -654,6 +654,7 @@ parsers/errors.parsers`
   }
 
   getFilesWithTagsForEmbedding(tags, limit) {
+    if (typeof tags === "string") tags = tags.split(" ")
     if (!tags || !tags.length)
       return this.allHtmlFiles
         .filter(file => file !== this) // avoid infinite loops. todo: think this through better.
@@ -1012,8 +1013,13 @@ import footer.scroll`
     const outputFiles = file.get(buildKeyword)?.split(" ") || [""]
     outputFiles.forEach(name => {
       const link = name || permalink.replace(".html", "." + extension)
-      fileSystem.writeProduct(path.join(folder, link), file["as" + capitalized])
-      this.log(`💾 Built ${link} from ${file.filename}`)
+      try {
+        fileSystem.writeProduct(path.join(folder, link), file["as" + capitalized])
+        this.log(`💾 Built ${link} from ${file.filename}`)
+      } catch (err) {
+        console.error(`Error while building '${file.filePath}' with extension '${extension}'`)
+        throw err
+      }
     })
   }
 
