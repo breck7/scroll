@@ -46,7 +46,7 @@ Playground
 LeetSheet
  https://scroll.pub/particlesLeetsheet.html
 
-image complexity.png
+complexity.png
  width 400
  openGraph
  caption Each line is a particle. Each dot is a word. Particles lets you easily compare programs and see which one is simpler (less heavy!).
@@ -64,7 +64,7 @@ Playground
 LeetSheet
  https://scroll.pub/leetsheet.html
 
-image science.png
+science.png
  width 400
  caption Scroll is a collection of Parsers that allow you to evolve and publish your most intelligent ideas.
 
@@ -81,7 +81,7 @@ Playground
 LeetSheet
  https://scroll.pub/parserLeetsheet.html
 
-image machines.svg
+machines.svg
  width 400
  caption Programmers who understand how computing machines work write Parsers to translate particles into executable machine code.
 

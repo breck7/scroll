@@ -5,7 +5,7 @@ date 7/28/2024
 
 mediumColumns 1
 
-image cancerHeatrix.jpg
+cancerHeatrix.jpg
  caption A heatrix on CancerDB.
   https://cancerdb.com/blog/cancer-heatmaps.html
 
@@ -22,7 +22,7 @@ Introducing Scroll's newest parser: `heatrix`!
 `heatrix` let's you craft custom heatmap visualizations with the fewest keystrokes possible.
 
 # Heat Map + Matrix = Heatrix
-image heatrix.gif
+heatrix.gif
  caption Source code. Gif made with CleanShotX.
   https://try.scroll.pub/#scroll%0A%20heatrix%0A%20%208%206%207%205%0A%20%2030%209 Source code
   https://cleanshot.com/ CleanShotX

@@ -23,7 +23,7 @@ Have a question not answered here? Email feedback@scroll.pub.
 Scroll powers an ever increasing number of blogs like this one.
  link blog/index.html this one
 
-image blog/screenshot.png
+blog/screenshot.png
  width 200
  float right
  link https://breckyunits.com/
@@ -434,7 +434,7 @@ Each Scroll file is currently passed over 4 times during compilation to HTML and
 4. Finally, an extended Scroll parser is constructed if needed (if any new parser definitions appear in the document), and then is used to parse the resulting file for compilation.
 
 ? Is there a chart showing all the layers of Scroll?
-image evolutionOfScroll.png
+evolutionOfScroll.png
  caption Made with nomnoml
   https://t.co/Fggo87gUr1
 

@@ -114,7 +114,7 @@ table
 ## 6. Images
 To add an image use the `image` parser:
 belowAsCode 2
-image https://scroll.pub/blog/screenshot.png
+https://scroll.pub/blog/screenshot.png
  caption An image with a caption
 
 ## 7. Footnotes

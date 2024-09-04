@@ -21,6 +21,10 @@ import microlangs/changes.parsers
 
 thinColumns
 
+📦 127.0.0 9/4/2024
+🎉 added `quickImage` parser. Add an image with just the filename. quickImageParser detects by filename.
+⚠️ BREAKING: (no one should be effected) if you had any lines starting with [filename].(png|jpg|et cetera) will be parsed as image.
+
 📦 126.1.0 9/3/2024
 🎉 `scrollForm` now implements the One Textarea design pattern. Thanks Alejandro for your help!
  https://breckyunits.com/oneTextarea.html One Textarea design pattern
@@ -1558,7 +1562,7 @@ regexCode
 📦 40.0.0 2022.11.05
 ⚠️ BREAKING: (no one should be affected) `caption` now extends the thought (`*`) node.
 
-image blog/screenshot.png
+blog/screenshot.png
  caption You can now use all aftertext directives like *bold* in caption nodes. Note: in the future we may just remove the parser `caption` and you can just use `*` directly.
 
 📦 39.0.0 2022.11.03
@@ -1991,7 +1995,7 @@ aboveAsCode
 📦 22.4.0 2021.11.25
 🎉 add basic caption support to images
 
-image blog/screenshot.png
+blog/screenshot.png
  caption This is a caption
 aboveAsCode
 
