@@ -14,15 +14,12 @@ jobs:
         run: |
           rm .gitignore
           npm install .
-          ./scroll.js build
+          node ./scroll.js list | node ./scroll.js build
           cd blog
           echo "Installing packages for markups demo in blog."
           mkdir node_modules
           npm install marked textile-js ya-bbcode
           echo "Building blog."
-          ../scroll.js build
-          cd ..
-          cd tests
           ../scroll.js build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
