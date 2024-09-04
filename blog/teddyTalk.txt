@@ -7,12 +7,8 @@ August 30, 2024
 Particles, Scroll, and the Parsers Programming Language
 =======================================================
 
-I've recorded a 10 minute talk about our recent work which has begun to eat the software world.
-
-*
-
-Videos
-======
+I've recorded a 10 minute video about our recent work which has begun to eat the software world.
+ https://www.youtube.com/embed/YcnWSNGEHvI?si=p_vOxpt9lusNKgli&t=75s 10 minute video
 
 *
 
