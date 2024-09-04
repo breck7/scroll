@@ -2,7 +2,7 @@ buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
 buildMeasures releaseNotesMeasures.tsv
 title Scroll Release Notes
 
-import header.scroll
+header.scroll
 printTitle
 ## A list of what has changed in Scroll releases.
 
@@ -12,14 +12,18 @@ Download as CSV | TSV | JSON
  link releaseNotes.tsv TSV
  link releaseNotes.json JSON
 
-import ciBadges.scroll
+ciBadges.scroll
 
 endColumns
 br
 
-import microlangs/changes.parsers
+microlangs/changes.parsers
 
 thinColumns
+
+📦 129.0.0 9/4/2024
+🎉 added `quickImport` parser for imports.
+⚠️ BREAKING: (no one should be effected) if you had any lines that were just [filename].(scroll|parser), those will now be parsed as imports
 
 📦 128.0.1 9/4/2024
 🏥 better handling of circular dependencies with tables
@@ -1594,7 +1598,7 @@ blog/screenshot.png
 
 code
  comment Add the content below to feed.scroll
- import settings.scroll
+ settings.scroll
  permalink feed.xml
  template blank
  printFeed index
@@ -1757,7 +1761,7 @@ This is a *major* update that radically simplifies Scroll and adds significant n
 
 ## Imports and variables
 
-Use `import [filepath]` to import one file into another. Use `replace` and `replaceDefault` for variables.
+Use `[filepath]` to import one scroll file into another. Use `replace` and `replaceDefault` for variables.
 
 ## Add your own Grammar extensions directly in your Scroll files
 
@@ -1776,7 +1780,7 @@ The new language features (imports, grammar nodes, and variables) required a cha
 ⚠️ BREAKING: The `git` setting is renamed to `viewSourceBaseUrl`
 ⚠️ BREAKING: The `sourceLink` setting is renamed to `viewSourceUrl`
 ⚠️ BREAKING: removed `skipIndexPage`. Instead you now opt-in to group pages like this: `groups index.html`
-⚠️ BREAKING: removed `scroll.settings` concept. Use `import settings.scroll` now.
+⚠️ BREAKING: removed `scroll.settings` concept. Use `settings.scroll` now.
 ⚠️ BREAKING: `footer` is now `scrollFooter` and `header` is now `scrollHeader`
 ⚠️ BREAKING: removed `ignoreGrammarFiles`. Custom grammar extensions must now be explicitly imported and/or be in `.scroll` files.
 ⚠️ BREAKING: changed link text from "Article source" to "View source"
@@ -2272,4 +2276,4 @@ chat
 
 endColumns
 
-import footer.scroll
+footer.scroll

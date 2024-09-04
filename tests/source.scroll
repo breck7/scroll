@@ -1,6 +1,6 @@
 buildTxt prompt.txt
 
-import settings.scroll
+settings.scroll
 // Demonstrates a technique for building a big prompt to give to an LLM.
 
 plainText

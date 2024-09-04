@@ -1,5 +1,5 @@
 buildHtml
 
-import settings.scroll
+settings.scroll
 
 printFullSnippets index

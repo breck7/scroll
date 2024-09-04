@@ -43,7 +43,7 @@ How to use
 
 1. Create a file named something like `contacts.scroll` with this content:
 // You can import the file, or just copy/paste the 21 lines of code here.
-import [pathToScroll]/microlangs/contacts.parser
+[pathToScroll]/microlangs/contacts.parser
 title My Contacts
 buildConcepts contacts.csv contacts.json contacts.tsv
 buildHtml
@@ -88,4 +88,4 @@ Notes
 
 ⁂
 
-Built with Scroll v128.0.1
+Built with Scroll v129.0.0

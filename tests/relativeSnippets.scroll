@@ -1,4 +1,4 @@
-import header.scroll
+header.scroll
 
 printSnippets index subfolder/index
 

@@ -2,4 +2,4 @@ baseUrl https://scroll.pub/tests/
 description Kitchen sink test site.
 viewSourceBaseUrl https://github.com/breck7/scroll/blob/main/tests/
 
-import extension.parsers
+extension.parsers

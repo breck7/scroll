@@ -165,7 +165,7 @@ Our domain is: *scroll.pub*
 
 Import statements
 =================
-Scroll files can import other Scroll files. Use the `import` parser followed by the path to the file, such as: `import header.scroll`
+Scroll files can import other Scroll files. Use the `import` parser by just specifyingcthe path to the file, such as: `header.scroll`
 
 ---
 
@@ -218,4 +218,4 @@ You probably also can see that the Parsers code is powerful but has lots of shar
 
 While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
 
-Built with Scroll v128.0.1
+Built with Scroll v129.0.0

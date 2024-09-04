@@ -7,7 +7,7 @@ date 4/21/2024
 tags All ScrollSets
 title ScrollSets: source code for CSVs
 
-import header.scroll
+header.scroll
 keyboardNav
 mediumColumns 1
 printTitle
@@ -289,4 +289,4 @@ hasLife false
 # Related
 printRelated ScrollSets
 
-import footer.scroll
+footer.scroll

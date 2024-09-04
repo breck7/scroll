@@ -1,6 +1,6 @@
 title Download Scroll.pub
 
-import header.scroll
+header.scroll
 printTitle
 
 thinColumns 1
@@ -16,4 +16,4 @@ You can also download it as a zip file.
 
 endColumns
 
-import footer.scroll
+footer.scroll

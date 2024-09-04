@@ -106,9 +106,9 @@ testParticles.inMemoryFileSystem = areEqual => {
 
   // Arrange
   const files = {
-    "/header.scroll": "import settings.scroll",
+    "/header.scroll": "settings.scroll",
     "/settings.scroll": "* This should be imported",
-    "/pages/about.scroll": `import ../header.scroll\ntitle About us
+    "/pages/about.scroll": `../header.scroll\ntitle About us
 pParser
  extends paragraphParser
  crux p

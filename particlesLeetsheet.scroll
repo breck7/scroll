@@ -1,6 +1,6 @@
 title Particles LeetSheet
 
-import header.scroll
+header.scroll
 printTitle
 
 css body {color: grey;}
@@ -30,4 +30,4 @@ Links - r/WorldWideScroll · Scroll LeetSheet · Parsers LeetSheet
  link parserLeetsheet.html Parsers LeetSheet
 br
 
-import footer.scroll
+footer.scroll

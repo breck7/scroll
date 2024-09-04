@@ -4,7 +4,7 @@ date 6/23/2024
 tags All
 title Stamp: a microlang for project templates
 
-import header.scroll
+header.scroll
 keyboardNav
 printTitle
 printAuthors
@@ -85,4 +85,4 @@ stamp.jpeg
 - Wikipedia list of archive formats
  https://en.wikipedia.org/wiki/List_of_archive_formats
 
-import footer.scroll
+footer.scroll

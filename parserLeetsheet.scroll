@@ -1,6 +1,6 @@
 title Parsers LeetSheet
 
-import header.scroll
+header.scroll
 printTitle
 
 css body {color: grey;}
@@ -75,4 +75,4 @@ table
   1 extensionsParser
   1 compilesToParser
 
-import footer.scroll
+footer.scroll

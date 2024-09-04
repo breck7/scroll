@@ -4,7 +4,7 @@ date 8/09/2024
 tags All
 title Tables: a microlang for data science
 
-import header.scroll
+header.scroll
 keyboardNav
 printTitle
 printAuthors
@@ -46,4 +46,4 @@ Tables evolved over the past decade primarily by:
 - thinking about what would be the best tool for Max Roser and Hannah Ritchie.
  https://ourworldindata.org/ Max Roser and Hannah Ritchie
 
-import footer.scroll
+footer.scroll

@@ -4,7 +4,7 @@ date 7/16/2024
 tags All
 title Contacts: A Microlang for Managing Contacts
 
-import header.scroll
+header.scroll
 keyboardNav
 printTitle
 printAuthors
@@ -50,7 +50,7 @@ code
 1. Create a file named something like `contacts.scroll` with this content:
 code
  // You can import the file, or just copy/paste the 21 lines of code here.
- import [pathToScroll]/microlangs/contacts.parser
+ [pathToScroll]/microlangs/contacts.parser
  title My Contacts
  buildConcepts contacts.csv contacts.json contacts.tsv
  buildHtml
@@ -96,4 +96,4 @@ What do you think? Anything that should be added/removed/improved?
 
 endColumns
 
-import footer.scroll
+footer.scroll

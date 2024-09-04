@@ -1,7 +1,7 @@
 title Scroll LeetSheet
 buildCsv
 
-import header.scroll
+header.scroll
 printTitle
 
 css body {color: grey;}
@@ -41,4 +41,4 @@ leetsheet.csv
 endColumns
 tableSearch
 
-import footer.scroll
+footer.scroll

@@ -5,7 +5,7 @@ tags All
 openGraphImage textFiles.png
 title Scroll builds text files
 
-import header.scroll
+header.scroll
 keyboardNav
 printTitle
 
@@ -54,4 +54,4 @@ Hope you enjoy it as much as I have!
 
 ****
 
-import footer.scroll
+footer.scroll

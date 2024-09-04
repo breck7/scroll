@@ -19,6 +19,7 @@ const packageJson = require("./package.json")
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const PARSERS_FILE_EXTENSION = ".parsers"
+const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
 // Todo: how to keep in sync with scroll files?
 const scrollKeywords = {
   title: "title",
@@ -349,7 +350,7 @@ parsers/errors.parsers`
         .join("\n\n")
         .replace("catchAllParser catchAllParagraphParser", "catchAllParser errorParser") + this.scrollProgram.toString()
 
-    code = code.replace(/^importOnly\n/gm, "").replace(/^import .+/gm, "")
+    code = code.replace(/^importOnly\n/gm, "").replace(importParticleRegex, "")
 
     code = new Particle(code)
     code.getParticle("commentParser").appendLine("boolean suggestInAutocomplete false")
@@ -871,17 +872,17 @@ printFeed All`,
 viewSourceButton
 scrollVersionLink`,
       "helloWorld.scroll": `tags All
-import header.scroll
+header.scroll
 
 thinColumns
 This is my first blog post using Scroll.
 endColumns
 ****
-import footer.scroll`,
+footer.scroll`,
       "index.scroll": `title My Blog
-import header.scroll
+header.scroll
 printSnippets All
-import footer.scroll`
+footer.scroll`
     }
 
     this.log(`Initializing scroll in "${cwd}"`)

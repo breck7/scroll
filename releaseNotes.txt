@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+129.0.0 9/4/2024
+================
+🎉 added `quickImport` parser for imports.
+⚠️ BREAKING: (no one should be effected) if you had any lines that were just [filename].(scroll|parser), those will now be parsed as imports
+
 128.0.1 9/4/2024
 ================
 🏥 better handling of circular dependencies with tables
@@ -1833,7 +1838,7 @@ replace # $1 $4.$2.$3
 ⚠️ BREAKING: `scroll init` no longer creates a `feed.xml` file by default. You can easily add an XML feed manually with the 2 steps below:
 
 comment Add the content below to feed.scroll
-import settings.scroll
+settings.scroll
 permalink feed.xml
 template blank
 printFeed index
@@ -2035,7 +2040,7 @@ From 3 file types to 1
 Imports and variables
 =====================
 
-Use `import [filepath]` to import one file into another. Use `replace` and `replaceDefault` for variables.
+Use `[filepath]` to import one scroll file into another. Use `replace` and `replaceDefault` for variables.
 
 Add your own Grammar extensions directly in your Scroll files
 =============================================================
@@ -2058,7 +2063,7 @@ Change list
 ⚠️ BREAKING: The `git` setting is renamed to `viewSourceBaseUrl`
 ⚠️ BREAKING: The `sourceLink` setting is renamed to `viewSourceUrl`
 ⚠️ BREAKING: removed `skipIndexPage`. Instead you now opt-in to group pages like this: `groups index.html`
-⚠️ BREAKING: removed `scroll.settings` concept. Use `import settings.scroll` now.
+⚠️ BREAKING: removed `scroll.settings` concept. Use `settings.scroll` now.
 ⚠️ BREAKING: `footer` is now `scrollFooter` and `header` is now `scrollHeader`
 ⚠️ BREAKING: removed `ignoreGrammarFiles`. Custom grammar extensions must now be explicitly imported and/or be in `.scroll` files.
 ⚠️ BREAKING: changed link text from "Article source" to "View source"
@@ -2592,4 +2597,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v128.0.1
+Built with Scroll v129.0.0

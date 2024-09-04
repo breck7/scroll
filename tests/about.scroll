@@ -2,7 +2,7 @@ replace KEY_MESSAGE Public domain products are strictly superior to equivalent n
 tags all
 title About the Kitchen Sink Blog
 
-import header.scroll
+header.scroll
 
 printTitle
 

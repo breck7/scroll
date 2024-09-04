@@ -1,7 +1,7 @@
 replace DOMAIN scroll.pub
 title Scroll Tutorial
 
-import header.scroll
+header.scroll
 
 css html {font-size: var(--base-font-size, 18px);}
 
@@ -178,7 +178,7 @@ Use the `replace` parser to define macros. Macros definitions are parsed and rem
 Our domain is: *DOMAIN*
 
 ## Import statements
-Scroll files can import other Scroll files. Use the `import` parser followed by the path to the file, such as: `import header.scroll`
+Scroll files can import other Scroll files. Use the `import` parser by just specifyingcthe path to the file, such as: `header.scroll`
 
 ---
 
@@ -246,4 +246,4 @@ While the documentation on Parsers evolves, feel free to get in touch for help i
 
 endColumns
 
-import footer.scroll
+footer.scroll

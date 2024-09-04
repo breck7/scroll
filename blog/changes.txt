@@ -54,7 +54,7 @@ title My Release Notes
 printTitle
 buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
 // You can import the changes parsers or just copy/paste the 70 lines into your own file.
-import [pathToScroll]/microlangs/changes.parser
+[pathToScroll]/microlangs/changes.parser
 
 thinColumns
 
@@ -87,4 +87,4 @@ Related
 - What can we learn from programming language version numbers?
  https://breckyunits.com/versionNumbers.html What can we learn from programming language version numbers?
 
-Built with Scroll v128.0.1
+Built with Scroll v129.0.0

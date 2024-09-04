@@ -1,5 +1,5 @@
 title Heatrix: Heat Maps + Matrix Visualizations
-import breckHeader.scroll
+breckHeader.scroll
 
 date 7/28/2024
 
@@ -87,4 +87,4 @@ If you like `heatrix` and want to see more stuff like this, but a folder on the 
 
 endColumns
 
-import footer.scroll
+footer.scroll

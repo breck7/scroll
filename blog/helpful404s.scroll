@@ -4,7 +4,7 @@ date 7/12/2024
 tags All
 title How I Designed Helpful 404's and Stopped Worrying about Broken Links
 
-import header.scroll
+header.scroll
 keyboardNav
 printTitle
 printAuthors
@@ -89,4 +89,4 @@ Try it today, and if you like what we are doing please consider bringing your si
 
 ****
 
-import footer.scroll
+footer.scroll

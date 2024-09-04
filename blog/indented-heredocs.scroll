@@ -7,8 +7,8 @@ replace ScrollLinked <a href="https://scroll.pub">Scroll</a>
 replace ParticlesLinked <a href="https://particles.scroll.pub">Particles</a>
 title The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
 
-import markups.parsers
-import header.scroll
+markups.parsers
+header.scroll
 mediumColumns 1
 
 printTitle
@@ -211,4 +211,4 @@ bbCode
 
 endColumns
 
-import footer.scroll
+footer.scroll

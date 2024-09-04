@@ -1,6 +1,6 @@
 title Scroll Roadmap
 
-import header.scroll
+header.scroll
 printTitle
 
 mediumColumns 1
@@ -27,4 +27,4 @@ In addition to the above, Scroll is written in Parsers and will get all the plan
 
 endColumns
 
-import footer.scroll
+footer.scroll

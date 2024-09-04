@@ -4,7 +4,7 @@ date 7/09/2024
 tags All ScrollSets
 title Convert CSVs to ScrollSets
 
-import header.scroll
+header.scroll
 printTitle
 printAuthors
 keyboardNav
@@ -57,4 +57,4 @@ endColumns
 
 
 
-import footer.scroll
+footer.scroll

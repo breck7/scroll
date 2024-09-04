@@ -2,7 +2,7 @@ buildTxt
 tags index
 title Tabular data test
 
-import header.scroll
+header.scroll
 
 printTitle
 

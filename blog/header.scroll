@@ -2,7 +2,7 @@ importOnly
 buildHtml
 buildTxt
 
-import settings.scroll
+settings.scroll
 metaTags
 stumpNoSnippet
  link
