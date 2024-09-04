@@ -167,12 +167,12 @@ The flat design was chosen for ergonomic reasons. ScrollSets seem like they migh
 
 Below is the ScrollSet embedded in this Scroll file.
 
-table planets.csv
+planets.csv
  printTable
 tableSearch
 
 # Measurements of the measures
-table planetMeasures.tsv
+planetMeasures.tsv
  printTable
 
 ## Extended Measures Example

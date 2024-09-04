@@ -33,7 +33,7 @@ table
 ---
 
 # Visualizations from CSV
-table contacts.csv
+contacts.csv
  printTable
 
 ---
