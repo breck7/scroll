@@ -7,12 +7,12 @@ css body {font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;}
 ### Past: to generate a classic form write "classicForm"
 
 mediumColumn
-classicForm
+classicForm breck7+classicForm@gmail.com Classic form test
 
 ### Future: to generate a Scroll Form write "scrollForm"
 
 mediumColumn
-scrollForm
+scrollForm breck7+scrollForm@gmail.com Scroll form test
 
 nameParser
  extends abstractIdParser
