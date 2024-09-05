@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+130.1.1 9/5/2024
+================
+🎉 oneTextarea max height
+
 130.1.0 9/5/2024
 ================
 🎉 oneTextarea forms now show a placeholder and example form
@@ -2606,4 +2610,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v130.1.0
+Built with Scroll v130.1.1
