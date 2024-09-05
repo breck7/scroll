@@ -52,13 +52,16 @@ classicFormParser
     }).join("\n")
   }
   compile() {
-    return `${this.script}${this.style}<form onsubmit="sendFormViaEmail(this); return false;" class="scrollFormParser">${this.inputs}<button value="${this.subject}" title="${this.emailDestination}" class="scrollButton" type="submit">Submit via email</button></form>`
+    return `${this.script}${this.style}<form onsubmit="sendFormViaEmail(this); return false;" class="scrollFormParser">${this.inputs}<button value="${this.subject}" title="${this.emailDestination}" class="scrollButton" type="submit">Submit via email</button>${this.footer}</form>`
   }
   get emailDestination() {
     return this.getWord(1)
   }
   get subject() {
     return this.getWordsFrom(2)?.join(" ") || ""
+  }
+  get footer() {
+    return ""
   }
 
 scrollFormParser
@@ -70,10 +73,22 @@ scrollFormParser
   <link rel="stylesheet" href="codeMirror.css">
   <script src="scrollLibs.js"></script>
  javascript
+  get placeholder() {
+    return "See example below..."
+  }
+  get footer() {
+      const example = this.parent.file.measures.filter(measure => !measure.IsComputed).map((measure, index) => {
+      const {Name, Example} = measure
+      let examp = Example.split(" ")
+      examp.shift()
+      return Name + " " + examp.join(" ")
+      }).join("\n")
+    return `<h3>Example form:</h3>
+    <pre>${example}</pre>`
+  }
   get inputs() {
-    const placeholder = ""
     const Name = "scroll"
-    return `<textarea title="oneTextarea" rows="${this.parent.file.measures.length * 2}" placeholder="${placeholder}" id="${Name}" name="${Name}"></textarea>
+    return `<textarea title="oneTextarea" rows="${this.parent.file.measures.length * 2}" placeholder="${this.placeholder}" id="${Name}" name="${Name}"></textarea>
     <script id="${Name}Parsers" type="text/plain">${this.parent.file.parsersBundle}</script>
     <script>{
     let {width, height} = document.getElementById('${Name}').getBoundingClientRect();

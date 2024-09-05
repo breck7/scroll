@@ -21,6 +21,9 @@ microlangs/changes.parsers
 
 thinColumns
 
+📦 130.1.0 9/5/2024
+🎉 oneTextarea forms now show a placeholder and example form
+
 📦 130.0.0 9/4/2024
 🎉 forms now submit via email and generate a nicely formatted email
 ⚠️ BREAKING: (no one should be effected) `classicForm` and `scrollForm` work differently now.
