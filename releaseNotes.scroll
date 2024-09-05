@@ -21,6 +21,10 @@ microlangs/changes.parsers
 
 thinColumns
 
+📦 130.0.0 9/4/2024
+🎉 forms now submit via email and generate a nicely formatted email
+⚠️ BREAKING: (no one should be effected) `classicForm` and `scrollForm` work differently now.
+
 📦 129.0.0 9/4/2024
 🎉 added `quickImport` parser for imports.
 ⚠️ BREAKING: (no one should be effected) if you had any lines that were just [filename].(scroll|parser), those will now be parsed as imports

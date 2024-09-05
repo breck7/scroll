@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+130.0.0 9/4/2024
+================
+🎉 forms now submit via email and generate a nicely formatted email
+⚠️ BREAKING: (no one should be effected) `classicForm` and `scrollForm` work differently now.
+
 129.0.0 9/4/2024
 ================
 🎉 added `quickImport` parser for imports.
@@ -2597,4 +2602,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v129.0.0
+Built with Scroll v130.0.0

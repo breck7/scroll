@@ -376,7 +376,20 @@ a.abstractTextLinkParser:hover {
 <div class="scrollSection"><h3 class="scrollParagraph">Past: to generate a classic form write "classicForm"</h3>
 </div>
 <div class="scrollColumns" style="column-width:65ch;column-count:1;max-width:65ch;">
-<style> .scrollFormParser {
+<script>
+sendFormViaEmail = form => {
+  const mailto = new URL("mailto:")
+  const params = []
+  const { value, title } = form.querySelector('button[type="submit"]')
+  params.push(`subject=${encodeURIComponent(value)}`)
+  params.push(`to=${encodeURIComponent(title)}`)
+  const oneTextarea = form.querySelector('textarea[title="oneTextarea"]')
+  const body = oneTextarea ? codeMirrorInstance.getValue() : Array.from(new FormData(form)).map(([name, value]) => `${name} ${value}`).join("\n")
+  params.push(`body=${encodeURIComponent(body)}`)
+  mailto.search = params.join("&")
+  window.open(mailto.href, '_blank')
+}
+</script><style> .scrollFormParser {
     font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
   }
 .scrollFormParser input , .scrollFormParser textarea{
@@ -388,10 +401,10 @@ box-sizing: border-box;
   display: block;
   margin-bottom: 5px;
 }
-</style><form class="scrollFormParser" method="get" action=""><div><label for="name" title="Required">Name*:</label><input placeholder="What is your name?" type="text" id="name" name="name" required></div>
+</style><form onsubmit="sendFormViaEmail(this); return false;" class="scrollFormParser"><div><label for="name" title="Required">Name*:</label><input placeholder="What is your name?" type="text" id="name" name="name" required></div>
 <div><label for="emailAddress" title="">EmailAddress:</label><input placeholder="What is your email address?" type="email" id="emailAddress" name="emailAddress" ></div>
 <div><label for="homepage" title="">Homepage:</label><input placeholder="What is your homepage?" type="url" id="homepage" name="homepage" ></div>
-<div><label for="biography" title="">Biography:</label><textarea placeholder="What is your bio?" id="biography" name="biography" ></textarea></div><button class="scrollButton" type="submit">Submit</button></form>
+<div><label for="biography" title="">Biography:</label><textarea placeholder="What is your bio?" id="biography" name="biography" ></textarea></div><button value="Classic form test" title="breck7+classicForm@gmail.com" class="scrollButton" type="submit">Submit via email</button></form>
 </div>
 <div class="scrollSection"><h3 class="scrollParagraph">Future: to generate a Scroll Form write "scrollForm"</h3>
 </div>
@@ -399,7 +412,20 @@ box-sizing: border-box;
 <link rel="stylesheet" href="codeMirror.css">
 <script src="scrollLibs.js"></script>
 
-<style> .scrollFormParser {
+<script>
+sendFormViaEmail = form => {
+  const mailto = new URL("mailto:")
+  const params = []
+  const { value, title } = form.querySelector('button[type="submit"]')
+  params.push(`subject=${encodeURIComponent(value)}`)
+  params.push(`to=${encodeURIComponent(title)}`)
+  const oneTextarea = form.querySelector('textarea[title="oneTextarea"]')
+  const body = oneTextarea ? codeMirrorInstance.getValue() : Array.from(new FormData(form)).map(([name, value]) => `${name} ${value}`).join("\n")
+  params.push(`body=${encodeURIComponent(body)}`)
+  mailto.search = params.join("&")
+  window.open(mailto.href, '_blank')
+}
+</script><style> .scrollFormParser {
     font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
   }
 .scrollFormParser input , .scrollFormParser textarea{
@@ -411,7 +437,7 @@ box-sizing: border-box;
   display: block;
   margin-bottom: 5px;
 }
-</style><form class="scrollFormParser" method="get" action=""><textarea rows="8" placeholder="" id="scroll" name="scroll"></textarea>
+</style><form onsubmit="sendFormViaEmail(this); return false;" class="scrollFormParser"><textarea title="oneTextarea" rows="8" placeholder="" id="scroll" name="scroll"></textarea>
   <script id="scrollParsers" type="text/plain">// Basic cell types
 blankCell
 anyCell
@@ -843,12 +869,12 @@ css body {font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;}
 ### Past: to generate a classic form write "classicForm"
 
 mediumColumn
-classicForm
+classicForm breck7+classicForm@gmail.com Classic form test
 
 ### Future: to generate a Scroll Form write "scrollForm"
 
 mediumColumn
-scrollForm
+scrollForm breck7+scrollForm@gmail.com Scroll form test
 
 nameParser
  extends abstractIdParser
@@ -869,11 +895,11 @@ biographyParser
   <script>{
   let {width, height} = document.getElementById('scroll').getBoundingClientRect();
   const scrollParser = new HandParsersProgram(document.getElementById("scrollParsers").textContent).compileAndReturnRootParser()
-  const codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => scrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("scroll"), {
+  codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => scrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("scroll"), {
     lineWrapping: false,
     lineNumbers: false
   })
-  codeMirrorInstance.setSize(width, height) }</script><button class="scrollButton" type="submit">Submit</button></form>
+  codeMirrorInstance.setSize(width, height) }</script><button value="Scroll form test" title="breck7+scrollForm@gmail.com" class="scrollButton" type="submit">Submit via email</button></form>
 </div>
 </body>
 </html>
