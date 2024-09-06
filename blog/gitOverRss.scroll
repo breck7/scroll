@@ -13,6 +13,7 @@ mediumColumns 1
 
 Today on HackerNews Kevin Damm had a great idea: put a `&lt;link&gt;` tag on blogs to point to the git Source Code Repository, much as blogs today have `&lt;link&gt;` tags pointing to their RSS feeds.
  https://news.ycombinator.com/item?id=41427044 great idea
+ dateline
 
 I've added this feature to Scroll and it's live now. If you View Source of this page, you'll see:
  link ../index.html Scroll
