@@ -1,5 +1,6 @@
-📜 Scroll is a language for scientists of all ages
-==================================================
+Scroll is a language for scientists of all ages
+===============================================
+
 Evolve and publish your most intelligent ideas
 ==============================================
 
