@@ -3,6 +3,8 @@ The Successor to RSS is Git Clone
 by Breck Yunits
  https://twitter.com/breckyunits Breck Yunits
 
+September 2, 2024
+
 Today on HackerNews Kevin Damm had a great idea: put a `&lt;link&gt;` tag on blogs to point to the git Source Code Repository, much as blogs today have `&lt;link&gt;` tags pointing to their RSS feeds.
  https://news.ycombinator.com/item?id=41427044 great idea
 
