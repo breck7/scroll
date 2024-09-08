@@ -15,6 +15,7 @@ https://scroll.pub/openGraphImages.html
 https://scroll.pub/music.html
 https://scroll.pub/markups.html
 https://scroll.pub/maps.html
+https://scroll.pub/loops.html
 https://scroll.pub/lists.html
 https://scroll.pub/index.html
 https://scroll.pub/heatrix.html

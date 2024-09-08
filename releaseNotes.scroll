@@ -21,6 +21,10 @@ microlangs/changes.parsers
 
 thinColumns
 
+📦 130.2.0 9/8/2024
+🎉 added `limit` parser to tables
+🎉 `loop` parser can now loop over tables
+
 📦 130.1.1 9/5/2024
 🎉 oneTextarea max height
 
