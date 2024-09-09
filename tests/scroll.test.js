@@ -4,6 +4,7 @@ const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
 const { ScrollCli, ScrollFile, DefaultScrollParser, ScrollFileSystem } = require("../scroll.js")
+const { ScrollSetCLI } = require("../ScrollSetCLI.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { TestRacer } = require("scrollsdk/products/TestRacer.js")
 const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
@@ -217,6 +218,18 @@ permalink posts.csv`)
   // Act/Assert
   const { asHtml } = page
   areEqual(asHtml.startsWith("date,year,title,permalink,"), true)
+}
+
+testParticles.scrollsetCli = areEqual => {
+  // Arrange
+  class PlanetsCli extends ScrollSetCLI {
+    // conceptsFolder = path.join(__dirname, "concepts")
+    // parsersFile = "code/measures.parsers"
+    // scrollSetName = "cancerdb"
+    // compiledConcepts = "./cancerdb.json"
+  }
+  const planetsCli = new PlanetsCli()
+  areEqual(!!planetsCli, true)
 }
 
 testParticles.initCommand = async areEqual => {

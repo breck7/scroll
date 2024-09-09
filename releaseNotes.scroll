@@ -21,6 +21,9 @@ microlangs/changes.parsers
 
 thinColumns
 
+📦 130.3.0 9/9/2024
+🎉 upstream ScrollSetCLI
+
 📦 130.2.1 9/8/2024
 🏥 table loop fixes
 🏥 table json parsing fixes
