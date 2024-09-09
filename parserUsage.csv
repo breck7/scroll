@@ -1,10 +1,10 @@
 parserId,uses
-blankLineParser,915
-versionParser,471
+blankLineParser,916
+versionParser,472
 newFeatureParser,387
 catchAllParagraphParser,240
 lineOfCodeParser,206
-bugFixParser,188
+bugFixParser,190
 breakingChangeParser,187
 quickLinkParser,93
 BlobParser,69
@@ -96,7 +96,7 @@ datelineParser,1
 linkTargetParser,1
 javascriptParser,1
 loopWordsParser,1
-loopParser,1
+scrollLoopParser,1
 katexParser,1
 sparklineParser,1
 aftertextStrikeParser,1

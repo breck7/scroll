@@ -21,6 +21,10 @@ microlangs/changes.parsers
 
 thinColumns
 
+📦 130.2.1 9/8/2024
+🏥 table loop fixes
+🏥 table json parsing fixes
+
 📦 130.2.0 9/8/2024
 🎉 added `limit` parser to tables
 🎉 `loop` parser can now loop over tables
