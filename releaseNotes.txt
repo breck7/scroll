@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+130.3.3 9/10/2024
+=================
+🏥 ScrollSetCLI fix
+
 130.3.2 9/10/2024
 =================
 🏥 make just text clickable in view source links 
@@ -2632,4 +2636,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v130.3.2
+Built with Scroll v130.3.3
