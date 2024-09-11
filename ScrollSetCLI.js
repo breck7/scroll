@@ -116,7 +116,7 @@ parsers/errors.parsers`
       .map(filepath => path.join(__dirname, filepath))
     parserFilenames.push(this.parsersFile)
 
-    parserFilenames
+    const code = parserFilenames
       .map(Disk.read)
       .join("\n\n")
       .replace("catchAllParser catchAllParagraphParser", "catchAllParser errorParser")
