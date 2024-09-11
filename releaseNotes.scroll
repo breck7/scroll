@@ -21,6 +21,9 @@ microlangs/changes.parsers
 
 thinColumns
 
+📦 130.3.3 9/10/2024
+🏥 ScrollSetCLI fix
+
 📦 130.3.2 9/10/2024
 🏥 make just text clickable in view source links 
 
