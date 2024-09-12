@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+130.3.6 9/12/2024
+=================
+🏥 buttons with link should be fully clickable
+
 130.3.5 9/11/2024
 =================
 🏥 ScrollSetCLI fix

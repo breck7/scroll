@@ -21,6 +21,9 @@ microlangs/changes.parsers
 
 thinColumns
 
+📦 130.3.6 9/12/2024
+🏥 buttons with link should be fully clickable
+
 📦 130.3.5 9/11/2024
 🏥 ScrollSetCLI fix
 // todo: is this the right place for this file?
