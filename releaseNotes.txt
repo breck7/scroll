@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+130.3.5 9/11/2024
+=================
+🏥 ScrollSetCLI fix
+
 130.3.4 9/10/2024
 =================
 🏥 ScrollSetCLI fix
@@ -2640,4 +2644,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v130.3.4
+Built with Scroll v130.3.5
