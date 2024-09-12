@@ -21,6 +21,11 @@ microlangs/changes.parsers
 
 thinColumns
 
+📦 130.4.0 9/12/2024
+🎉 add detection of timestamp columns and print them as dates in `printTable`
+🎉 remove "Exported data" from copied text in datatables copy buttons
+ // todo: need to remove this properly from the bundle, including the extra 2 blank lines.
+
 📦 130.3.6 9/12/2024
 🏥 buttons with link should be fully clickable
 

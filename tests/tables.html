@@ -970,6 +970,36 @@ h4.scrollQuestion {
  });
  </script>
 <span id="spark64"></span><script>new Sparkline(document.getElementById("spark64"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23])</script>
+<hr>
+<div class="scrollSection"><h1 class="scrollParagraph">Timestamps</h1>
+</div>
+<table id="table65" class="scrollTable">
+ <thead><tr><th>folder</th>
+
+<th>ctime</th>
+</tr></thead>
+ <tbody><tr><td>adfs</td>
+<td>9/10/2024, 9:56:00 PM</td>
+</tr>
+<tr><td>elmetate</td>
+<td>9/10/2024, 6:38:07 PM</td>
+</tr>
+<tr><td>test43</td>
+<td>9/4/2024, 7:24:28 PM</td>
+</tr>
+<tr><td>emailcollect</td>
+<td>9/3/2024, 9:07:52 PM</td>
+</tr>
+<tr><td>aadsasdfasdf2</td>
+<td>8/29/2024, 6:02:39 PM</td>
+</tr></tbody>
+ </table>
+ <script>
+ document.querySelector('#table65').addEventListener('click', e => {
+  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
+  e.currentTarget.classList.toggle('expandedTable');
+ });
+ </script>
 <div class="dinkus"><span>⁂</span></div>
 </body>
 </html>

@@ -191,4 +191,16 @@ year,count
 2019,0
 2020,23
 
+---
+
+Timestamps
+==========
+
+folder ctime
+adfs 1726005360192
+elmetate 1725993487049
+test43 1725477868243
+emailcollect 1725397672901
+aadsasdfasdf2 1724954559126
+
 ⁂
