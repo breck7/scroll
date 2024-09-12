@@ -223,6 +223,7 @@ permalink posts.csv`)
 testParticles.scrollsetCli = areEqual => {
   // Arrange
   class PlanetsCli extends ScrollSetCLI {
+    // baseFolder = __dirname
     // conceptsFolder = path.join(__dirname, "concepts")
     // parsersFile = "code/measures.parsers"
     // scrollSetName = "cancerdb"
