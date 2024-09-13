@@ -17,6 +17,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 130.4.2 9/13/2024
+🏥 counter should be floor not ceil
+
 📦 130.4.1 9/12/2024
 🎉 support for relative links in Url columns in `printTable`
 🏥 scroll init style fix
