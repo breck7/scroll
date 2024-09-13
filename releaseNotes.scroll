@@ -21,6 +21,9 @@ microlangs/changes.parsers
 
 thinColumns
 
+📦 130.4.1 9/12/2024
+🏥 scroll init style fix
+
 📦 130.4.0 9/12/2024
 🎉 add detection of timestamp columns and print them as dates in `printTable`
 🎉 remove "Exported data" from copied text in datatables copy buttons
