@@ -1,25 +1,25 @@
 buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
 buildMeasures releaseNotesMeasures.tsv
+microlangs/changes.parsers
 title Scroll Release Notes
 
 header.scroll
 printTitle
 ## A list of what has changed in Scroll releases.
 
-thinColumns 1
+thinColumn
 Download as CSV | TSV | JSON
  link releaseNotes.csv CSV
  link releaseNotes.tsv TSV
  link releaseNotes.json JSON
-
 ciBadges.scroll
 
-endColumns
 br
-
-microlangs/changes.parsers
-
 thinColumns
+
+📦 130.4.1 9/12/2024
+🎉 support for relative links in Url columns in `printTable`
+🏥 scroll init style fix
 
 📦 130.4.0 9/12/2024
 🎉 add detection of timestamp columns and print them as dates in `printTable`
