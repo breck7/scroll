@@ -286,7 +286,7 @@ testParticles.hodgePodge = async areEqual => {
 
   // Cleanup:
   fs.readdirSync(testsFolder)
-    .filter(file => path.extname(file) === ".html")
+    .filter(file => path.extname(file) === ".html" && !file.includes("htmlInclude"))
     .forEach(file => fs.unlinkSync(path.join(testsFolder, file)))
 
   fs.rmSync(stampFolder, { recursive: true })
