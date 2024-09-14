@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+130.5.0 9/13/2024
+=================
+🎉 new `assertHtmlEqualsParser` for faster and more intelligent testing
+🏥 fix edge bug in inline markup parsers
+
 130.4.2 9/13/2024
 =================
 🏥 counter should be floor not ceil
@@ -2662,4 +2667,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v130.4.2
+Built with Scroll v130.5.0

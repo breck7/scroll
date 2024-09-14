@@ -17,6 +17,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 130.5.0 9/13/2024
+🎉 new `assertHtmlEqualsParser` for faster and more intelligent testing
+🏥 fix edge bug in inline markup parsers
+
 📦 130.4.2 9/13/2024
 🏥 counter should be floor not ceil
 

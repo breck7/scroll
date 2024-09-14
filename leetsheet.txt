@@ -20,6 +20,7 @@ Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of 
 ##### - An html h5 tag.
 > - A quote.
 aboveAsCode - Print code above.
+assertHtmlEquals - Test above particle's output.
 authors - Set author(s) name(s).
 baseUrl - Required for RSS and OpenGraph.
 belowAsCode - Print code below.
@@ -257,4 +258,4 @@ sparkline,3
 tufteCss,3
 video,3
 
-Built with Scroll v130.4.2
+Built with Scroll v130.5.0

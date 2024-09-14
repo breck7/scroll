@@ -11,3 +11,13 @@ Make this code
 
 Strikethrough this whole line.
  strike
+
+hi *world*
+assertHtmlEquals
+ <p class="scrollParagraph">hi <strong>world</strong></p>
+
+.a.-b-
+ inlineMarkup . A
+ inlineMarkup - B
+assertHtmlEquals
+ <p class="scrollParagraph"><A>a</A><B>b</B></p>

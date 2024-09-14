@@ -18,6 +18,7 @@ https://scroll.pub/maps.html
 https://scroll.pub/loops.html
 https://scroll.pub/lists.html
 https://scroll.pub/index.html
+https://scroll.pub/html.html
 https://scroll.pub/heatrix.html
 https://scroll.pub/full.html
 https://scroll.pub/form.html
@@ -28,6 +29,7 @@ https://scroll.pub/debugging.html
 https://scroll.pub/customMarkups.html
 https://scroll.pub/csv.html
 https://scroll.pub/contacts.html
+https://scroll.pub/comments.html
 https://scroll.pub/center.html
 https://scroll.pub/autoTitle.html
 https://scroll.pub/all.html
