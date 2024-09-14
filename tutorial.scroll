@@ -41,11 +41,11 @@ code
 
 In addition to containing words, each line can have its own document with its own lines using indentation.
 
-When you add a space at the beginning of a line, that line becomes a "child" of the parent line.
+When you add a space at the beginning of a line, that line becomes a "subparticle" of the parent line.
 
 code
  image hello.png
-  caption This line is a child of the line above.
+  caption This line is a subparticle of the line above.
 
 You may have seen this _indent trick_ before in languages like Python.
 
