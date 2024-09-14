@@ -13,7 +13,7 @@ Joined with parsers
  class wordToDot2 with
  class wordToDot2 parsers
  class animationLine
-To steer the world
+To guide the world
 </div>
 
 <link rel="stylesheet" href="animation.css" type="text/css"/>
