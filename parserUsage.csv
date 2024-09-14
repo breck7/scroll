@@ -1,8 +1,8 @@
 parserId,uses
-blankLineParser,924
+blankLineParser,933
 versionParser,483
 newFeatureParser,392
-catchAllParagraphParser,240
+catchAllParagraphParser,248
 lineOfCodeParser,206
 bugFixParser,199
 breakingChangeParser,187
@@ -15,15 +15,16 @@ listAftertextParser,43
 h2Parser,39
 linkParser,31
 belowAsCodeParser,30
+classMarkupParser,25
 viewSourceButtonParser,23
 cssParser,21
 scrollCenterParser,20
 slashCommentParser,18
 aboveAsCodeParser,18
+scrollBrParser,16
 baseUrlParser,13
 buildTxtParser,12
 h1Parser,12
-scrollBrParser,12
 homeButtonParser,12
 stumpNoSnippetParser,12
 metaTagsParser,12
@@ -39,7 +40,7 @@ importOnlyParser,10
 endColumnsParser,10
 pageTitleParser,10
 thinColumnsParser,9
-classMarkupParser,9
+htmlInlineParser,9
 printTitleParser,9
 codeWithLanguageParser,8
 styleTweakParser,8
@@ -67,7 +68,6 @@ lineOfTextParser,3
 expanderParser,3
 quickParagraphParser,3
 italicsParser,3
-htmlInlineParser,3
 scrollParserDefinitionParser,3
 checklistDoneParser,3
 mediumColumnsParser,3

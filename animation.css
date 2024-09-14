@@ -1,0 +1,102 @@
+:root {
+  --font-weight: 300;
+  --text-align: center;
+  --margin-bottom: 30px;
+  --line-height: 2rem;
+  --height: 2rem;
+  --width: 12rem;
+  --dot-width: 4rem;
+  --shrink-color: #3c3b6e;
+  --shrink-color2: #b22234;
+  --translateY: -30px;
+  --color: black;
+}
+
+.animation {
+  font-weight: var(--font-weight);
+  text-align: var(--text-align);
+}
+
+.animation .scrollParagraph {
+  text-align: var(--text-align);
+  margin-bottom: var(--margin-bottom);
+}
+
+.animationLine {
+  font-weight: var(--font-weight);
+  white-space: nowrap;
+  line-height: var(--line-height);
+  height: var(--height);
+  width: var(--width);
+  margin: auto;
+  margin-bottom: var(--margin-bottom);
+}
+
+.wordToDot,
+.wordToDot2 {
+  width: var(--dot-width);
+  height: var(--height);
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.wordToDot {
+  animation: shrinkToDot 15s infinite;
+  border-top-left-radius: var(--dot-width);
+  border-top-right-radius: var(--dot-width);
+}
+
+@keyframes shrinkToDot {
+  0% {
+    color: var(--color);
+    background-color: transparent;
+  }
+  20% {
+    color: var(--color);
+    background-color: transparent;
+  }
+  40% {
+    background-color: var(--shrink-color);
+    color: transparent;
+  }
+  100% {
+    background-color: var(--shrink-color);
+    color: transparent;
+  }
+}
+
+.wordToDot2 {
+  animation: shrinkToDot2 15s forwards infinite;
+  border-bottom-left-radius: var(--dot-width);
+  border-bottom-right-radius: var(--dot-width);
+}
+
+@keyframes shrinkToDot2 {
+  0% {
+    color: var(--color);
+    transform: translateY(0);
+    background-color: transparent;
+  }
+  20% {
+  }
+  40% {
+    transform: translateY(0);
+    color: var(--color);
+    background-color: transparent;
+  }
+  60% {
+    background-color: var(--shrink-color2);
+    color: transparent;
+    transform: translateY(0);
+  }
+  80% {
+    background-color: var(--shrink-color2);
+    color: transparent;
+    transform: translateY(var(--translateY));
+  }
+  100% {
+    background-color: var(--shrink-color2);
+    color: transparent;
+    transform: translateY(var(--translateY));
+  }
+}

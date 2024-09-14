@@ -4,6 +4,11 @@ Scroll is a language for scientists of all ages
 Evolve and publish your most intelligent ideas
 ==============================================
 
+With Scroll your
+Words become particles
+Joined with parsers
+To steer the world
+
 try.scroll.pub &nbsp;&nbsp; ScrollHub
  http://hub.scroll.pub/ ScrollHub
  https://try.scroll.pub/ try.scroll.pub
