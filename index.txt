@@ -9,9 +9,9 @@ Words become particles
 Joined with parsers
 To steer the world
 
-try.scroll.pub &nbsp;&nbsp; ScrollHub
+ScrollHub &nbsp;&nbsp; Try now
  http://hub.scroll.pub/ ScrollHub
- https://try.scroll.pub/ try.scroll.pub
+ https://try.scroll.pub/ Try now
 
 LeetSheet · Blog · FAQ · Tutorial
  https://scroll.pub/leetsheet.html LeetSheet
