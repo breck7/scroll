@@ -29,10 +29,10 @@ title Hello world
 
 In addition to containing words, each line can have its own document with its own lines using indentation.
 
-When you add a space at the beginning of a line, that line becomes a "child" of the parent line.
+When you add a space at the beginning of a line, that line becomes a "subparticle" of the parent line.
 
 image hello.png
- caption This line is a child of the line above.
+ caption This line is a subparticle of the line above.
 
 You may have seen this _indent trick_ before in languages like Python.
 
@@ -218,4 +218,4 @@ You probably also can see that the Parsers code is powerful but has lots of shar
 
 While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
 
-Built with Scroll v131.0.0
+Built with Scroll v132.0.0

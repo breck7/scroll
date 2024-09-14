@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+132.0.0 9/14/2024
+=================
+🎉 Updated ScrollSDK to get new "subparticle" terminology
+⚠️ BREAKING: see ScrollSDK breaking changes
+
 131.0.0 9/14/2024
 =================
 🎉 new parser: `quickCssParser`
@@ -1572,8 +1577,8 @@ Scroll now has checklists!
  [x] Make them indentable
 [] Solve world peace
 - Regular Lists are also now indentable
- - This is a child
-  - And this is a grandchild
+ - This is a subparticle
+  - And this is a subsubparticle
 
 58.2.3 2/22/2023
 ================
@@ -2674,4 +2679,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v131.0.0
+Built with Scroll v132.0.0

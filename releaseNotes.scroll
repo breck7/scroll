@@ -17,6 +17,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 132.0.0 9/14/2024
+🎉 Updated ScrollSDK to get new "subparticle" terminology
+⚠️ BREAKING: see ScrollSDK breaking changes
+
 📦 131.0.0 9/14/2024
 🎉 new parser: `quickCssParser`
 🎉 new parser: `quickIncludeHtmlParser`
@@ -1342,8 +1346,8 @@ code
  [x] Make them indentable
 [] Solve world peace
 - Regular Lists are also now indentable
- - This is a child
-  - And this is a grandchild
+ - This is a subparticle
+  - And this is a subsubparticle
 
 📦 58.2.3 2/22/2023
 🏥 Windows fix

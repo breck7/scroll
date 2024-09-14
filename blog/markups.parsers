@@ -6,7 +6,7 @@ abstractMarkupLangParser
  catchAllParser markupLineParser
  javascript
   compile() {
-   return this.compiler(this.childrenToString())
+   return this.compiler(this.subparticlesToString())
   }
   get compiler() {
     try {
@@ -58,6 +58,6 @@ bbCodeParser
  javascript
   packageName = "ya-bbcode"
   compile() {
-   if (!this.isPackageInstalled(this.packageName)) return this.childrenToString()
-   return new this.compiler().parse(this.childrenToString())
+   if (!this.isPackageInstalled(this.packageName)) return this.subparticlesToString()
+   return new this.compiler().parse(this.subparticlesToString())
   }
