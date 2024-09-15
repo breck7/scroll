@@ -17,6 +17,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 132.0.1 9/14/2024
+🏥 fix unix timestamps in printTable
+
 📦 132.0.0 9/14/2024
 🎉 Updated ScrollSDK to get new "subparticle" terminology
 ⚠️ BREAKING: see ScrollSDK breaking changes
