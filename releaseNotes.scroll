@@ -428,7 +428,7 @@ Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|
 🎉 added `testStrict` parser to allow disabling catch all paragraph on a per file basis.
 
 📦 111.1.0 7/26/2024
-🎉 `heatrix` now supports using custom labels even for numeric cells.
+🎉 `heatrix` now supports using custom labels even for numeric atoms.
 🏥 always include a 0 value in `heatrix`
  // not sure if this is correct design.
 
@@ -460,7 +460,7 @@ Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|
 🎉 added `printFormatLinks` parser
 
 📦 109.4.0 7/21/2024
-🎉 `printAdvancedLeetSheet` now also prints cell parser docs
+🎉 `printAdvancedLeetSheet` now also prints atom parser docs
 
 📦 109.3.0 7/20/2024
 🎉 easily apply styling to a whole paragraph using aftertext.
@@ -489,7 +489,7 @@ Strikethrough this whole line.
 🏥 fixed incorrect error report.
 
 📦 109.0.1 7/19/2024
-🏥 fix cell syntax highlighting in `wrapsOn`. You can write `wrapsOn none` to disable all wraps.
+🏥 fix atom syntax highlighting in `wrapsOn`. You can write `wrapsOn none` to disable all wraps.
 
 📦 109.0.0 7/18/2024
 🎉 `printCsv` now exports `authors` as well
@@ -1359,10 +1359,10 @@ code
 🏥 Bug fix
 
 📦 58.2.1 2/21/2023
-🏥 fix for empty cells
+🏥 fix for empty atoms
 
 📦 58.2.0 2/21/2023
-🎉 table nodes now make cells that are just a link links
+🎉 table nodes now make atoms that are just a link links
 
 📦 58.1.0 2/16/2023
 🎉 added `loop` node type:
@@ -1486,10 +1486,10 @@ aboveAsCode
 ⚠️ BREAKING: `note` parser under `link` nodes has been renamed to `title` and instead of it being a block just the line is used. This is to better reflect what it does. See example above.
 
 📦 53.0.2 1/18/2023
-🏥 fix: `youTube` definition was missing a cell type for url.
+🏥 fix: `youTube` definition was missing a atom type for url.
 
 📦 53.0.1 1/17/2023
-🏥 fix: `redirectTo` definition was missing a cell type for url.
+🏥 fix: `redirectTo` definition was missing a atom type for url.
 
 📦 53.0.0 1/17/2023
 ⚠️ BREAKING: there was undocumented behavior where `*` nodes previously supported multiple lines of text. This now throws an errors. If you need the old behavior you can copy/paste the old node's Grammar code into your project.

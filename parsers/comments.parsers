@@ -4,7 +4,7 @@ commentLineParser
 abstractCommentParser
  description Prints nothing.
  catchAllAtomType commentAtom
- cells commentAtom
+ atoms commentAtom
  extends abstractScrollParser
  baseParser blobParser
  javascript

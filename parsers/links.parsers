@@ -2,20 +2,20 @@ linkifyParser
  description Use this to disable linkify on the text.
  extends abstractAftertextDirectiveParser
  cruxFromId
- cells commandWordAtom booleanAtom
+ atoms commandWordAtom booleanAtom
 
 linkTargetParser
  popularity 0.000024
  extends abstractHtmlAttributeParser
  description If you want to set the target of the link. To "_blank", for example.
  crux target
- cells commandWordAtom anyAtom
+ atoms commandWordAtom anyAtom
 
 linkTitleParser
  popularity 0.000048
  description If you want to set the title of the link.
  crux title
- cells commandWordAtom
+ atoms commandWordAtom
  catchAllAtomType anyAtom
  example
   * This report showed the treatment had a big impact.
@@ -30,12 +30,12 @@ linkParser
  popularity 0.008706
  extends abstractMarkupParser
  description Put the matching text in an <a> tag.
- cells commandWordAtom urlAtom
+ atoms commandWordAtom urlAtom
  inScope linkTitleParser linkTargetParser commentParser
  programParser
   description Anything here will be URI encoded and then appended to the link.
   cruxFromId
-  cells commandWordAtom
+  atoms commandWordAtom
   catchAllParser programLinkParser
   javascript
    get encoded() {
@@ -85,7 +85,7 @@ quickLinkParser
  popularity 0.029228
  pattern ^https?\:
  extends linkParser
- cells urlAtom
+ atoms urlAtom
  javascript
   get link() {
    return this.firstWord

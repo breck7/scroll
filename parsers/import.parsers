@@ -2,7 +2,7 @@ importParser
  description Import a file.
  popularity 0.007524
  cruxFromId
- cells preBuildCommandWordAtom
+ atoms preBuildCommandWordAtom
  extends abstractScrollParser
  catchAllAtomType filePathAtom
  javascript
@@ -17,7 +17,7 @@ quickImportParser
  description Import a Scroll or Parsers file.
  extends abstractScrollParser
  boolean isPopular true
- cells urlAtom
+ atoms urlAtom
  pattern ^[^\s]+\.(scroll|parsers)$
  javascript
   compile() {
@@ -31,7 +31,7 @@ importOnlyParser
  // This line will be not be imported into the importing file.
  description Don't build this file.
  cruxFromId
- cells preBuildCommandWordAtom
+ atoms preBuildCommandWordAtom
  extends abstractTopLevelSingleMetaParser
  javascript
   compile() {
@@ -41,7 +41,7 @@ importOnlyParser
 abstractQuickIncludeParser
  popularity 0.007524
  extends abstractScrollParser
- cells urlAtom
+ atoms urlAtom
  javascript
   get filename() {
     return this.getWord(0)

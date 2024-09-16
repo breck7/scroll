@@ -3,7 +3,7 @@ siteOwnerEmailParser
  description Set email address for site contact.
  extends abstractTopLevelSingleMetaParser
  crux email
- cells metaCommandWordAtom emailAddressAtom
+ atoms metaCommandWordAtom emailAddressAtom
 
 emailButtonParser
  popularity 0.006294

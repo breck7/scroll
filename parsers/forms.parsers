@@ -3,7 +3,7 @@ classicFormParser
  popularity 0.006391
  description Generate input form for ScrollSet.
  extends abstractAftertextParser
- cells commandWordAtom emailAddressAtom
+ atoms commandWordAtom emailAddressAtom
  catchAllAtomType stringAtom
  string script
   <script>

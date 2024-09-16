@@ -8,7 +8,7 @@ quickIncludeHtmlParser
  popularity 0.007524
  description Include an HTML file.
  extends abstractQuickIncludeParser
- cells urlAtom
+ atoms urlAtom
  pattern ^[^\s]+\.(html|htm)$
  javascript
   compile() {
@@ -55,7 +55,7 @@ htmlLineParser
 htmlInlineParser
  popularity 0.005788
  extends abstractHtmlParser
- cells htmlAnyAtom
+ atoms htmlAnyAtom
  pattern ^<
  description Inline HTML.
  boolean isPopular true
