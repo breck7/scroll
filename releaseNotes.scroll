@@ -17,6 +17,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 133.0.1 9/15/2024
+🏥 better error message when eval'ing macros
+
 📦 133.0.0 9/15/2024
 🎉 Updated ScrollSDK to get new "atoms" terminology.
 ⚠️ BREAKING: see ScrollSDK breaking changes
