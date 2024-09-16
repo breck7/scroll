@@ -95,7 +95,7 @@ matchAllParser,1
 datelineParser,1
 linkTargetParser,1
 javascriptParser,1
-loopWordsParser,1
+loopAtomsParser,1
 scrollLoopParser,1
 katexParser,1
 sparklineParser,1

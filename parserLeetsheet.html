@@ -49,12 +49,12 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <br>
 <div class="scrollColumns" style="column-width:35ch;column-count:4;max-width:200ch;">
 <p><b>Parser Definition Parsers</b> define parsers that acquire, analyze and act on code.</p><style>#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }</style><div id="scrollLeetSheet"><div class="undefined"><a href="">//</a> A comment. <span class="note">AssembleTime.</span></div>
+<div class="undefined"><a href="">atoms</a> Set required atomTypes. <span class="note">AnalyzeTime.</span></div>
 <div class="undefined"><a href="">baseParser</a> Set for blobs or errors.  <span class="note">AnalyzeTime.</span></div>
 <div class="undefined"><a href="">boolean</a> A constant. <span class="note">ActTime.</span></div>
-<div class="undefined"><a href="">catchAllCellType</a> Use for lists. <span class="note">AnalyzeTime.</span></div>
+<div class="undefined"><a href="">catchAllAtomType</a> Use for lists. <span class="note">AnalyzeTime.</span></div>
 <div class="undefined"><a href="">catchAllParser</a> Attach this to unmatched lines. <span class="note">AcquireTime.</span></div>
-<div class="undefined"><a href="">cells</a> Set required cellTypes. <span class="note">AnalyzeTime.</span></div>
-<div class="undefined"><a href="">crux</a> Attach by matching first word. <span class="note">AcquireTime.</span></div>
+<div class="undefined"><a href="">crux</a> Attach by matching first atom. <span class="note">AcquireTime.</span></div>
 <div class="undefined"><a href="">cruxFromId</a> Derive crux from parserId. <span class="note">AcquireTime.</span></div>
 <div class="undefined"><a href="">description</a> Parser description. <span class="note">AssembleTime.</span></div>
 <div class="undefined"><a href="">example</a> Set example for docs and tests. <span class="note">AssembleTime.</span></div>
@@ -71,18 +71,18 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <div class="undefined"><a href="">single</a> Assert used once. <span class="note">AnalyzeTime.</span></div>
 <div class="undefined"><a href="">string</a> A constant. <span class="note">ActTime.</span></div>
 <div class="undefined"><a href="">tags</a> Custom metadata. <span class="note">AssembleTime.</span></div>
-<div class="undefined"><a href="">uniqueFirstWord</a> Assert unique first words. For pattern parsers. <span class="note">AnalyzeTime.</span></div>
-<div class="undefined"><a href="">uniqueLine</a> Assert unique lines. For pattern parsers. <span class="note">AnalyzeTime.</span></div></div><p><b>Cell Definition Parsers</b> analyze the words in a line.</p><style>#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }</style><div id="scrollLeetSheet"><div class="undefined"><a href="">//</a> A comment. <span class="note">AssembleTime.</span></div>
-<div class="undefined"><a href="">description</a> Cell Type description. <span class="note">AssembleTime.</span></div>
+<div class="undefined"><a href="">uniqueFirstAtom</a> Assert unique first atoms. For pattern parsers. <span class="note">AnalyzeTime.</span></div>
+<div class="undefined"><a href="">uniqueLine</a> Assert unique lines. For pattern parsers. <span class="note">AnalyzeTime.</span></div></div><p><b>Atom Definition Parsers</b> analyze the atoms in a line.</p><style>#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }</style><div id="scrollLeetSheet"><div class="undefined"><a href="">//</a> A comment. <span class="note">AssembleTime.</span></div>
+<div class="undefined"><a href="">description</a> Atom Type description. <span class="note">AssembleTime.</span></div>
 <div class="undefined"><a href="">enum</a> Set enum options. <span class="note">AnalyzeTime.</span></div>
-<div class="undefined"><a href="">enumFromCellTypes</a> Runtime enum options. <span class="note">AnalyzeTime.</span></div>
+<div class="undefined"><a href="">enumFromAtomTypes</a> Runtime enum options. <span class="note">AnalyzeTime.</span></div>
 <div class="undefined"><a href="">examples</a> Examples for documentation and tests. <span class="note">AssembleTime.</span></div>
-<div class="undefined"><a href="">extends</a> Extend another cellType. <span class="note">AssembleTime.</span></div>
+<div class="undefined"><a href="">extends</a> Extend another atomType. <span class="note">AssembleTime.</span></div>
 <div class="undefined"><a href="">max</a> Specify a max if numeric. <span class="note">AnalyzeTime.</span></div>
 <div class="undefined"><a href="">min</a> Specify a min if numeric. <span class="note">AnalyzeTime.</span></div>
 <div class="undefined"><a href="">paint</a> Instructor editor how to color these. <span class="note">AnalyzeTime.</span></div>
-<div class="undefined"><a href="">regex</a> Words must match this. <span class="note">AnalyzeTime.</span></div>
-<div class="undefined"><a href="">reservedWords</a> Words can't be any of these. <span class="note">AnalyzeTime.</span></div></div>
+<div class="undefined"><a href="">regex</a> Atoms must match this. <span class="note">AnalyzeTime.</span></div>
+<div class="undefined"><a href="">reservedAtoms</a> Atoms can't be any of these. <span class="note">AnalyzeTime.</span></div></div>
 </div>
 <p class="scrollParagraph"><center>Parser Phases: Assemble -> Acquire -> Analyze -> Act</center></p>
 <center><p class="scrollParagraph"></p>
@@ -122,19 +122,19 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <td>cruxFromIdParser</td>
 </tr>
 <tr><td>69</td>
-<td>cellsParser</td>
+<td>atomsParser</td>
 </tr>
 <tr><td>66</td>
 <td>cruxParser</td>
 </tr>
 <tr><td>66</td>
-<td>catchAllCellTypeParser</td>
+<td>catchAllAtomTypeParser</td>
 </tr>
 <tr><td>61</td>
 <td>exampleParser</td>
 </tr>
 <tr><td>43</td>
-<td>cellTypeDefinitionParser</td>
+<td>atomTypeDefinitionParser</td>
 </tr>
 <tr><td>36</td>
 <td>stringParser</td>
@@ -155,10 +155,10 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <td>inScopeParser</td>
 </tr>
 <tr><td>21</td>
-<td>extendsCellTypeParser</td>
+<td>extendsAtomTypeParser</td>
 </tr>
 <tr><td>12</td>
-<td>cellTypeDescriptionParser</td>
+<td>atomTypeDescriptionParser</td>
 </tr>
 <tr><td>8</td>
 <td>patternParser</td>

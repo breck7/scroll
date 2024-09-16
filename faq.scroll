@@ -31,7 +31,7 @@ blog/screenshot.png
   https://breckyunits.com/ a blog powered by Scroll
 
 ### Knowledge Bases
-Scroll powers PLDB, a knowledge base with over 100 contributors who have added over 100,000 cells of structured data and thousands of pages.
+Scroll powers PLDB, a knowledge base with over 100 contributors who have added over 100,000 atoms of structured data and thousands of pages.
  https://pldb.io PLDB
 
 ### Static Sites
@@ -147,7 +147,7 @@ code
   step Place the dressing ingredients in a blender and drizzle in the canola oil to emulsify.
   step Combine and mix salad and dressing!
   step Enjoy!
-Notice that your post uses the first word `recipe`, but Scroll does not have a parser for that. No problem, just write a recipe parser yourself using ParsersLinks, extending your dialect of Scroll:
+Notice that your post uses the first atom `recipe`, but Scroll does not have a parser for that. No problem, just write a recipe parser yourself using ParsersLinks, extending your dialect of Scroll:
 code
  recipeParser
   extends abstractScrollParser

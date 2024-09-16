@@ -32,15 +32,15 @@
   margin-bottom: var(--margin-bottom);
 }
 
-.wordToDot,
-.wordToDot2 {
+.atomToDot,
+.atomToDot2 {
   width: var(--dot-width);
   height: var(--height);
   display: inline-block;
   white-space: nowrap;
 }
 
-.wordToDot {
+.atomToDot {
   animation: shrinkToDot 15s infinite;
   border-top-left-radius: var(--dot-width);
   border-top-right-radius: var(--dot-width);
@@ -65,7 +65,7 @@
   }
 }
 
-.wordToDot2 {
+.atomToDot2 {
   animation: shrinkToDot2 15s forwards infinite;
   border-bottom-left-radius: var(--dot-width);
   border-bottom-right-radius: var(--dot-width);

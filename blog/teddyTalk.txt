@@ -32,7 +32,7 @@ If you choose to always remain illiterate to keep your brain different than the 
 2. What is Particle Syntax (Particles)?
 =======================================
 
-One liner: a syntax-free syntax for splitting files into particles (separated by line breaks) which can have words (separated by spaces) and subparticles (indented lines).
+One liner: a syntax-free syntax for splitting files into particles (separated by line breaks) which can have atoms (separated by spaces) and subparticles (indented lines).
 
 Vibe
  https://particles.scroll.pub Vibe
@@ -45,7 +45,7 @@ LeetSheet
 
 [Image Omitted]
  width 400
- Each line is a particle. Each dot is a word. Particles lets you easily compare programs and see which one is simpler (less heavy!).
+ Each line is a particle. Each dot is a atom. Particles lets you easily compare programs and see which one is simpler (less heavy!).
 
 3. What is Scroll?
 ==================

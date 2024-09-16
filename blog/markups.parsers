@@ -1,5 +1,5 @@
 markupLineParser
- catchAllCellType anyCell
+ catchAllAtomType anyAtom
  catchAllParser markupLineParser
 abstractMarkupLangParser
  extends abstractScrollParser
@@ -22,7 +22,7 @@ abstractMarkupLangParser
       }
       return (this.importName ? compiler[this.importName] : compiler) || (str => str)
     } catch (err) {
-      console.error(`❌ ${this.firstWord} skipped. Try "npm install -g ${this.packageName}"`)
+      console.error(`❌ ${this.firstAtom} skipped. Try "npm install -g ${this.packageName}"`)
       return str => str
     }
   }

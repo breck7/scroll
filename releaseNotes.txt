@@ -22,7 +22,7 @@ Download as CSV | TSV | JSON
 🎉 new parser: `quickCssParser`
 🎉 new parser: `quickIncludeHtmlParser`
 🎉 new parser: `quickScriptParser`
-⚠️ BREAKING: (no one should be affected) if you have a one word line that ends with .js, .css, or .html it will now be consumed by these parsers above.
+⚠️ BREAKING: (no one should be affected) if you have a one atom line that ends with .js, .css, or .html it will now be consumed by these parsers above.
 
 130.5.0 9/13/2024
 =================
@@ -473,7 +473,7 @@ Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|
 
 111.1.0 7/26/2024
 =================
-🎉 `heatrix` now supports using custom labels even for numeric cells.
+🎉 `heatrix` now supports using custom labels even for numeric atoms.
 🏥 always include a 0 value in `heatrix`
 
 111.0.0 7/26/2024
@@ -511,7 +511,7 @@ Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|
 
 109.4.0 7/21/2024
 =================
-🎉 `printAdvancedLeetSheet` now also prints cell parser docs
+🎉 `printAdvancedLeetSheet` now also prints atom parser docs
 
 109.3.0 7/20/2024
 =================
@@ -540,7 +540,7 @@ Strikethrough this whole line.
 
 109.0.1 7/19/2024
 =================
-🏥 fix cell syntax highlighting in `wrapsOn`. You can write `wrapsOn none` to disable all wraps.
+🏥 fix atom syntax highlighting in `wrapsOn`. You can write `wrapsOn none` to disable all wraps.
 
 109.0.0 7/18/2024
 =================
@@ -586,7 +586,7 @@ Replace: authors $2\n $1 $2
 
 107.2.0 7/14/2024
 =================
-🎉 docs: clearer, more conscise descriptions of 7 words or less on every parser.
+🎉 docs: clearer, more conscise descriptions of 7 atoms or less on every parser.
 🎉 docs: `printCheatSheet` now prints descriptions.
 
 107.1.0 7/14/2024
@@ -598,9 +598,9 @@ Replace: authors $2\n $1 $2
 🎉 correct syntax highlighting for the different kinds of Parsers.
 🎉 removed some parsers from appearing in autocomplete
 🏥 blink works for any colors now.
-⚠️ BREAKING: If you have written your own parsers `keywordCell` has been replaced by `commandWordCell`. You can do a simple find/replace or just add:
-keywordCell
- extends commandWordCell
+⚠️ BREAKING: If you have written your own parsers `keywordAtom` has been replaced by `cueAtom`. You can do a simple find/replace or just add:
+keywordAtom
+ extends cueAtom
 
 106.0.1 7/13/2024
 =================
@@ -851,7 +851,7 @@ gazetteCss
 
 92.0.0 5/20/2024
 ================
-🎉 simplified ScrollSets by removing the filename "magic". When putting a concept into a file, make the `id` the filename (without the extension). Have the id be a simple one word url friendly string. If you want a pretty title, add a `name` measure. Everything much simpler this way.
+🎉 simplified ScrollSets by removing the filename "magic". When putting a concept into a file, make the `id` the filename (without the extension). Have the id be a simple one atom url friendly string. If you want a pretty title, add a `name` measure. Everything much simpler this way.
 ⚠️ BREAKING: (no one should be affected) remove any spaghetti filename code.
 
 91.0.0 5/19/2024
@@ -967,7 +967,7 @@ filenameParser
 
 85.9.0 5/12/2024
 ================
-🎉 added `minutes` to read (assuming 200 words/minute) to `printSearch` and `printCsv` exports
+🎉 added `minutes` to read (assuming 200 atoms/minute) to `printSearch` and `printCsv` exports
 🎉 you can now pass groups to `sitemap` for making sitemaps specific to certain folders/groups
 🎉 for `printFeed`, `snippets`, `fullSnippets` providing groups is now optional
 
@@ -1045,7 +1045,7 @@ filenameParser
 
 84.5.1 5/07/2024
 ================
-🏥 better error printing with `scroll test` and fix bug in `percentCell`
+🏥 better error printing with `scroll test` and fix bug in `percentAtom`
 
 84.5.0 5/07/2024
 ================
@@ -1065,7 +1065,7 @@ filenameParser
 ================
 🎉 added `****` as an "end of post dinkus" which prints ⁂
 🎉 tabular tables now support aftertext!
-🏥 allow multiword strings to be used as an `id` in concepts
+🏥 allow multiatom strings to be used as an `id` in concepts
 
 84.1.0 5/04/2024
 ================
@@ -1237,7 +1237,7 @@ Scroll already supported tabular data using `tabTable`, but that made copy/paste
 🎉 Added Scroll Datasets, which consists of the `::`, `printDataset`, `writeDataset`, and `*:` and `*::` parsers.
  https://scroll.pub/blog/datasets.html Scroll Datasets
 
-⚠️ BREAKING: if you had lines starting with a word then colon, that used the catchall paragraph, such as `Sidenote: yada yada.`, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs `* Sidenote: yada yada.`. This regex can help you find any instances: `^[^ ]+: .`
+⚠️ BREAKING: if you had lines starting with a atom then colon, that used the catchall paragraph, such as `Sidenote: yada yada.`, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs `* Sidenote: yada yada.`. This regex can help you find any instances: `^[^ ]+: .`
 
 76.0.0 4/19/2024
 ================
@@ -1594,11 +1594,11 @@ Scroll now has checklists!
 
 58.2.1 2/21/2023
 ================
-🏥 fix for empty cells
+🏥 fix for empty atoms
 
 58.2.0 2/21/2023
 ================
-🎉 table nodes now make cells that are just a link links
+🎉 table nodes now make atoms that are just a link links
 
 58.1.0 2/16/2023
 ================
@@ -1713,11 +1713,11 @@ html
 
 53.0.2 1/18/2023
 ================
-🏥 fix: `youTube` definition was missing a cell type for url.
+🏥 fix: `youTube` definition was missing a atom type for url.
 
 53.0.1 1/17/2023
 ================
-🏥 fix: `redirectTo` definition was missing a cell type for url.
+🏥 fix: `redirectTo` definition was missing a atom type for url.
 
 53.0.0 1/17/2023
 ================
@@ -2025,7 +2025,7 @@ You can also easily alias the newer aftertext node types with the original parse
 
 33.1.0 2022.9.29
 ================
-🎉 remove extraneous words and lines printing in CLI
+🎉 remove extraneous atoms and lines printing in CLI
 
 33.0.0 2022.9.29
 ================
@@ -2061,7 +2061,7 @@ This is a _thought_. It's like a condensed form of aftertext with *bold* and _it
 
 31.3.0 2022.9.3
 ===============
-🏥 Fixed bad regression where only the first word of a replacement line was getting replaced.
+🏥 Fixed bad regression where only the first atom of a replacement line was getting replaced.
 
 31.2.0 2022.9.2
 ===============
@@ -2292,7 +2292,7 @@ Support for traditional *bold*, `code`, and _italics_ in aftertext with the pars
 
 24.3.0 2022.2.16
 ================
-This tiny release adds some ways to include more caveats and context around words and references.
+This tiny release adds some ways to include more caveats and context around atoms and references.
 🎉 added 'caveat' directive to aftertext for adding caveats around parts of text
 🎉 added 'note' directive to aftertext links for providing more context around included links
 
@@ -2592,10 +2592,10 @@ html
 🎉 🔗links in paragraph nodes.
 🎉 skipIndexPage nodeType
 
-How do I use the new single word links?
+How do I use the new single atom links?
 =======================================
 
-For single word links in paragraph nodes only (for now) you can now do:
+For single atom links in paragraph nodes only (for now) you can now do:
 
 paragraph
  This is a link🔗example.com
@@ -2605,12 +2605,12 @@ Below is a regex for migrating existing *.scroll files.
 ([^ ]+)
 $2🔗$1
 
-How do I use the 🔗link tag with multiword links?
+How do I use the 🔗link tag with multiatom links?
 =================================================
 
-The 🔗link tag only supports single word links. Like everything with ScrollScript, you have a number of options if the conventional design doesn't work for you. Your options are:
+The 🔗link tag only supports single atom links. Like everything with ScrollScript, you have a number of options if the conventional design doesn't work for you. Your options are:
 
-- 1. Link just one word. If you need more, perhaps camelCase or snake_case your words together into one concept.
+- 1. Link just one atom. If you need more, perhaps camelCase or snake_case your atoms together into one concept.
 - 2. Repeat the link twice foo 🔗link bar 🔗link
 - 3. Use &lt;a> tags.
 - 4. Extend the ScrollScript grammar for your site.

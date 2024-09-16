@@ -32,14 +32,14 @@ This tutorial will walk you through the basics of using Scroll.
 ## A Scroll document
 A Scroll document (or "program") is a _list of lines_.
 
-Each line can contain content (or "words").
+Each line can contain content (or "atoms").
 
-For example, here is a line containing 3 words:
+For example, here is a line containing 3 atoms:
 
 code
  title Hello world
 
-In addition to containing words, each line can have its own document with its own lines using indentation.
+In addition to containing atoms, each line can have its own document with its own lines using indentation.
 
 When you add a space at the beginning of a line, that line becomes a "subparticle" of the parent line.
 
@@ -78,7 +78,7 @@ Let's start with the most common parser, the `paragraph` parser.
 
 You can think of paragraphs as similar to a `p` or `div` tag in HTML.
 
-To use this parser you can write out the word `paragraph`, or use an asterisk `*`, OR just start any text that does not match another parser (the "catch all" parser of a Scroll program is the paragraph parser).
+To use this parser you can write out the atom `paragraph`, or use an asterisk `*`, OR just start any text that does not match another parser (the "catch all" parser of a Scroll program is the paragraph parser).
 
 This paragraph was compiled by the catch all paragraph parser. The code is:
 aboveAsCode
@@ -226,7 +226,7 @@ Let's now make a `hiddenMessage` Parser that alerts a message when clicked:
 belowAsCode 3
 messageParser
  cruxFromId
- catchAllCellType stringCell
+ catchAllAtomType stringAtom
 hiddenMessageParser
  extends paragraphParser
  inScope messageParser

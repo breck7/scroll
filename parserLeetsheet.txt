@@ -5,12 +5,12 @@ Parsers LeetSheet
  https://parsers.breckyunits.com/ Parsers Explained
 
 // - A comment.
+atoms - Set required atomTypes.
 baseParser - Set for blobs or errors. 
 boolean - A constant.
-catchAllCellType - Use for lists.
+catchAllAtomType - Use for lists.
 catchAllParser - Attach this to unmatched lines.
-cells - Set required cellTypes.
-crux - Attach by matching first word.
+crux - Attach by matching first atom.
 cruxFromId - Derive crux from parserId.
 description - Parser description.
 example - Set example for docs and tests.
@@ -27,7 +27,7 @@ root - Set root parser.
 single - Assert used once.
 string - A constant.
 tags - Custom metadata.
-uniqueFirstWord - Assert unique first words. For pattern parsers.
+uniqueFirstAtom - Assert unique first atoms. For pattern parsers.
 uniqueLine - Assert unique lines. For pattern parsers.
 
 Parser Phases: Assemble -> Acquire -> Analyze -> Act
@@ -51,19 +51,19 @@ count id
 164 javascriptParser
 155 catchAllExampleLineParser
 80 cruxFromIdParser
-69 cellsParser
+69 atomsParser
 66 cruxParser
-66 catchAllCellTypeParser
+66 catchAllAtomTypeParser
 61 exampleParser
-43 cellTypeDefinitionParser
+43 atomTypeDefinitionParser
 36 stringParser
 34 slashCommentParser
 32 booleanParser
 26 catchAllParserParser
 25 paintParser
 21 inScopeParser
-21 extendsCellTypeParser
-12 cellTypeDescriptionParser
+21 extendsAtomTypeParser
+12 atomTypeDescriptionParser
 8 patternParser
 7 singleParser
 6 baseParserParser

@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <ul class="newFeatureParser"><li >new parser: <code>quickCssParser</code></li>
 <li >new parser: <code>quickIncludeHtmlParser</code></li>
 <li >new parser: <code>quickScriptParser</code></li></ul>
-<ul class="breakingChangeParser"><li >BREAKING: (no one should be affected) if you have a one word line that ends with .js, .css, or .html it will now be consumed by these parsers above.</li></ul>
+<ul class="breakingChangeParser"><li >BREAKING: (no one should be affected) if you have a one atom line that ends with .js, .css, or .html it will now be consumed by these parsers above.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">130.5.0 9/13/2024</h1>
 <ul class="newFeatureParser"><li >new <code>assertHtmlEqualsParser</code> for faster and more intelligent testing</li></ul>
@@ -478,7 +478,7 @@ replace
 <ul class="newFeatureParser"><li >added <code>testStrict</code> parser to allow disabling catch all paragraph on a per file basis.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">111.1.0 7/26/2024</h1>
-<ul class="newFeatureParser"><li ><code>heatrix</code> now supports using custom labels even for numeric cells.</li></ul>
+<ul class="newFeatureParser"><li ><code>heatrix</code> now supports using custom labels even for numeric atoms.</li></ul>
 <ul class="bugFixParser"><li >always include a 0 value in <code>heatrix</code></li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">111.0.0 7/26/2024</h1>
@@ -509,7 +509,7 @@ replace
 <li >added <code>printFormatLinks</code> parser</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">109.4.0 7/21/2024</h1>
-<ul class="newFeatureParser"><li ><code>printAdvancedLeetSheet</code> now also prints cell parser docs</li></ul>
+<ul class="newFeatureParser"><li ><code>printAdvancedLeetSheet</code> now also prints atom parser docs</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">109.3.0 7/20/2024</h1>
 <ul class="newFeatureParser"><li >easily apply styling to a whole paragraph using aftertext.</li></ul>
@@ -538,7 +538,7 @@ Strikethrough this whole line.
 <ul class="bugFixParser"><li >fixed incorrect error report.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">109.0.1 7/19/2024</h1>
-<ul class="bugFixParser"><li >fix cell syntax highlighting in <code>wrapsOn</code>. You can write <code>wrapsOn none</code> to disable all wraps.</li></ul>
+<ul class="bugFixParser"><li >fix atom syntax highlighting in <code>wrapsOn</code>. You can write <code>wrapsOn none</code> to disable all wraps.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">109.0.0 7/18/2024</h1>
 <ul class="newFeatureParser"><li ><code>printCsv</code> now exports <code>authors</code> as well</li>
@@ -574,7 +574,7 @@ Strikethrough this whole line.
 <li >docs: <code>printCheatSheet</code> now prints good txt only docs too.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">107.2.0 7/14/2024</h1>
-<ul class="newFeatureParser"><li >docs: clearer, more conscise descriptions of 7 words or less on every parser.</li>
+<ul class="newFeatureParser"><li >docs: clearer, more conscise descriptions of 7 atoms or less on every parser.</li>
 <li >docs: <code>printCheatSheet</code> now prints descriptions.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">107.1.0 7/14/2024</h1>
@@ -584,9 +584,9 @@ Strikethrough this whole line.
 <ul class="newFeatureParser"><li >correct syntax highlighting for the different kinds of Parsers.</li>
 <li >removed some parsers from appearing in autocomplete</li></ul>
 <ul class="bugFixParser"><li >blink works for any colors now.</li></ul>
-<ul class="breakingChangeParser"><li >BREAKING: If you have written your own parsers <code>keywordCell</code> has been replaced by <code>commandWordCell</code>. You can do a simple find/replace or just add:</li></ul>
-<code class="scrollCodeBlock">keywordCell
- extends commandWordCell</code>
+<ul class="breakingChangeParser"><li >BREAKING: If you have written your own parsers <code>keywordAtom</code> has been replaced by <code>cueAtom</code>. You can do a simple find/replace or just add:</li></ul>
+<code class="scrollCodeBlock">keywordAtom
+ extends cueAtom</code>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">106.0.1 7/13/2024</h1>
 <ul class="bugFixParser"><li >fix bug where running <code>scroll build</code> through passed in SSH command was hanging</li></ul>
@@ -781,7 +781,7 @@ gazetteCss</code>
 <ul class="breakingChangeParser"><li >BREAKING: (no one should be affected) the default <code>sortIndex</code> is now 1.9, and the sort index of <code>id</code> is 1.0. Update <code>sortIndex</code> accordingly.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">92.0.0 5/20/2024</h1>
-<ul class="newFeatureParser"><li >simplified ScrollSets by removing the filename "magic". When putting a concept into a file, make the <code>id</code> the filename (without the extension). Have the id be a simple one word url friendly string. If you want a pretty title, add a <code>name</code> measure. Everything much simpler this way.</li></ul>
+<ul class="newFeatureParser"><li >simplified ScrollSets by removing the filename "magic". When putting a concept into a file, make the <code>id</code> the filename (without the extension). Have the id be a simple one atom url friendly string. If you want a pretty title, add a <code>name</code> measure. Everything much simpler this way.</li></ul>
 <ul class="breakingChangeParser"><li >BREAKING: (no one should be affected) remove any spaghetti filename code.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">91.0.0 5/19/2024</h1>
@@ -873,7 +873,7 @@ filenameParser
 <ul class="breakingChangeParser"><li >BREAKING: if you have any lines starting with <code>> </code>, those will now be parsed by the quickQuoteParser</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">85.9.0 5/12/2024</h1>
-<ul class="newFeatureParser"><li >added <code>minutes</code> to read (assuming 200 words/minute) to <code>printSearch</code> and <code>printCsv</code> exports</li>
+<ul class="newFeatureParser"><li >added <code>minutes</code> to read (assuming 200 atoms/minute) to <code>printSearch</code> and <code>printCsv</code> exports</li>
 <li >you can now pass groups to <code>sitemap</code> for making sitemaps specific to certain folders/groups</li>
 <li >for <code>printFeed</code>, <code>snippets</code>, <code>fullSnippets</code> providing groups is now optional</li></ul>
 </div>
@@ -933,7 +933,7 @@ filenameParser
 <li >better measure statistics printing</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">84.5.1 5/07/2024</h1>
-<ul class="bugFixParser"><li >better error printing with <code>scroll test</code> and fix bug in <code>percentCell</code></li></ul>
+<ul class="bugFixParser"><li >better error printing with <code>scroll test</code> and fix bug in <code>percentAtom</code></li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">84.5.0 5/07/2024</h1>
 <ul class="newFeatureParser"><li >Added <code>writeMeasures</code> and <code>printMeasures</code> parsers</li>
@@ -949,7 +949,7 @@ filenameParser
 <div class="scrollSection"><h1 class="scrollParagraph">84.2.0 5/06/2024</h1>
 <ul class="newFeatureParser"><li >added <code>****</code> as an "end of post dinkus" which prints ⁂</li>
 <li >tabular tables now support aftertext!</li></ul>
-<ul class="bugFixParser"><li >allow multiword strings to be used as an <code>id</code> in concepts</li></ul>
+<ul class="bugFixParser"><li >allow multiatom strings to be used as an <code>id</code> in concepts</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">84.1.0 5/04/2024</h1>
 <ul class="newFeatureParser"><li >snippets now export some content in plain text</li>
@@ -1079,7 +1079,7 @@ filenameParser
 <div class="scrollSection"><h1 class="scrollParagraph">77.0.0 4/21/2024</h1>
 <ul class="newFeatureParser"><li >Added <a href="blog/datasets.html">Scroll Datasets</a>, which consists of the <code>::</code>, <code>printDataset</code>, <code>writeDataset</code>, and <code>*:</code> and <code>*::</code> parsers.</li></ul>
 </div>
-<ul class="breakingChangeParser"><li >BREAKING: if you had lines starting with a word then colon, that used the catchall paragraph, such as <code>Sidenote: yada yada.</code>, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs <code>* Sidenote: yada yada.</code>. This regex can help you find any instances: <code>^[^ ]+: .</code></li></ul>
+<ul class="breakingChangeParser"><li >BREAKING: if you had lines starting with a atom then colon, that used the catchall paragraph, such as <code>Sidenote: yada yada.</code>, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs <code>* Sidenote: yada yada.</code>. This regex can help you find any instances: <code>^[^ ]+: .</code></li></ul>
 <div class="scrollSection"><h1 class="scrollParagraph">76.0.0 4/19/2024</h1>
 <ul class="styleTweakParser"><li >try using "rem" in CSS to better support the "zooming out" effect on a blog</li></ul>
 </div>
@@ -1362,16 +1362,16 @@ gazetteCss
 <ul class="bugFixParser"><li >Bug fix</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">58.2.1 2/21/2023</h1>
-<ul class="bugFixParser"><li >fix for empty cells</li></ul>
+<ul class="bugFixParser"><li >fix for empty atoms</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">58.2.0 2/21/2023</h1>
-<ul class="newFeatureParser"><li >table nodes now make cells that are just a link links</li></ul>
+<ul class="newFeatureParser"><li >table nodes now make atoms that are just a link links</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">58.1.0 2/16/2023</h1>
 <ul class="newFeatureParser"><li >added <code>loop</code> node type:</li></ul>
 </div>
 <code class="scrollCodeBlock">loop
- words #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
+ atoms #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
  javascript `&lt;span style="background-color: ${item}; width: 30px; height: 30px; display: inline-block;">&nbsp;&lt;/span>`</code>
 <span style="background-color: #2a2d34ff; width: 30px; height: 30px; display: inline-block;">&nbsp;</span><span style="background-color: #009ddcff; width: 30px; height: 30px; display: inline-block;">&nbsp;</span><span style="background-color: #f26430ff; width: 30px; height: 30px; display: inline-block;">&nbsp;</span><span style="background-color: #6761a8ff; width: 30px; height: 30px; display: inline-block;">&nbsp;</span><span style="background-color: #009b72ff; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>
 <div class="scrollSection"><h1 class="scrollParagraph">58.0.1 2/9/2023</h1>
@@ -1477,10 +1477,10 @@ snippets 2023/index stories/index 2022/index</code>
 <li >BREAKING: <code>note</code> parser under <code>link</code> nodes has been renamed to <code>title</code> and instead of it being a block just the line is used. This is to better reflect what it does. See example above.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">53.0.2 1/18/2023</h1>
-<ul class="bugFixParser"><li >fix: <code>youTube</code> definition was missing a cell type for url.</li></ul>
+<ul class="bugFixParser"><li >fix: <code>youTube</code> definition was missing a atom type for url.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">53.0.1 1/17/2023</h1>
-<ul class="bugFixParser"><li >fix: <code>redirectTo</code> definition was missing a cell type for url.</li></ul>
+<ul class="bugFixParser"><li >fix: <code>redirectTo</code> definition was missing a atom type for url.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">53.0.0 1/17/2023</h1>
 <ul class="breakingChangeParser"><li >BREAKING: there was undocumented behavior where <code>*</code> nodes previously supported multiple lines of text. This now throws an errors. If you need the old behavior you can copy/paste the old node's Grammar code into your project.</li></ul>
@@ -1717,7 +1717,7 @@ rssFeedUrl feed.xml</code>
 <ul class="breakingChangeParser"><li >BREAKING: (no one should be affected) renamed <code>execute</code> method on ScrollCli class to <code>executeUsersInstructionsFromShell</code></li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">33.1.0 2022.9.29</h1>
-<ul class="newFeatureParser"><li >remove extraneous words and lines printing in CLI</li></ul>
+<ul class="newFeatureParser"><li >remove extraneous atoms and lines printing in CLI</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">33.0.0 2022.9.29</h1>
 <ul class="breakingChangeParser"><li >BREAKING: (no one should be affected) removed "migrate" command. was more trouble than it was worth. better to have that as a separate module.</li>
@@ -1746,7 +1746,7 @@ rssFeedUrl feed.xml</code>
  hoverNote default
   And it supports hover notes!</code>
 <div class="scrollSection"><h1 class="scrollParagraph">31.3.0 2022.9.3</h1>
-<ul class="bugFixParser"><li >Fixed bad regression where only the first word of a replacement line was getting replaced.</li></ul>
+<ul class="bugFixParser"><li >Fixed bad regression where only the first atom of a replacement line was getting replaced.</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">31.2.0 2022.9.2</h1>
 <ul class="newFeatureParser"><li >added <code>openGraphImage</code> node</li></ul>
@@ -1953,7 +1953,7 @@ print "Hello world"</td>
 <ul class="bugFixParser"><li >fix bug where images were stuck at 35ch even when the browser sized columns wider</li></ul>
 </div>
 <div class="scrollSection"><h1 class="scrollParagraph">24.3.0 2022.2.16</h1>
-<p class="scrollParagraph">This tiny release adds some ways to include more caveats and context around words and references.</p>
+<p class="scrollParagraph">This tiny release adds some ways to include more caveats and context around atoms and references.</p>
 <ul class="newFeatureParser"><li >added 'caveat' directive to aftertext for adding caveats around parts of text</li>
 <li >added 'note' directive to aftertext links for providing more context around included links</li></ul>
 </div>
@@ -2233,18 +2233,18 @@ Find ^title\d (.+)
 <ul class="newFeatureParser"><li >🔗links in paragraph nodes.</li>
 <li >skipIndexPage nodeType</li></ul>
 </div>
-<div class="scrollSection"><h4 class="scrollQuestion">How do I use the new single word links?</h4>
+<div class="scrollSection"><h4 class="scrollQuestion">How do I use the new single atom links?</h4>
 </div>
-<p class="scrollParagraph">For single word links in paragraph nodes only (for now) you can now do:</p>
+<p class="scrollParagraph">For single atom links in paragraph nodes only (for now) you can now do:</p>
 <code class="scrollCodeBlock">paragraph
  This is a link🔗example.com</code>
 <p class="scrollParagraph">Below is a regex for migrating existing <code>*.scroll</code> files.</p>
 <code class="scrollCodeBlock">&lt;a href="https://([^"]+)">([^ ]+)&lt;/a>
 $2🔗$1</code>
-<div class="scrollSection"><h4 class="scrollQuestion">How do I use the 🔗link tag with multiword links?</h4>
+<div class="scrollSection"><h4 class="scrollQuestion">How do I use the 🔗link tag with multiatom links?</h4>
 </div>
-<p class="scrollParagraph">The 🔗link tag only supports single word links. Like everything with ScrollScript, you have a number of options if the conventional design doesn't work for you. Your options are:</p>
-<ul ><li >1. Link just one word. If you need more, perhaps camelCase or snake_case your words together into one concept.</li>
+<p class="scrollParagraph">The 🔗link tag only supports single atom links. Like everything with ScrollScript, you have a number of options if the conventional design doesn't work for you. Your options are:</p>
+<ul ><li >1. Link just one atom. If you need more, perhaps camelCase or snake_case your atoms together into one concept.</li>
 <li >2. Repeat the link twice <code>foo 🔗link bar 🔗link</code></li>
 <li >3. Use &lt;a> tags.</li>
 <li >4. Extend the ScrollScript grammar for your site.</li></ul>

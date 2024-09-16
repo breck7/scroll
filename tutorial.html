@@ -57,10 +57,10 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <div class="scrollSection"><h2 class="scrollParagraph">A Scroll document</h2>
 <p class="scrollParagraph">A Scroll document (or "program") is a <em>list of lines</em>.</p>
 </div>
-<p class="scrollParagraph">Each line can contain content (or "words").</p>
-<p class="scrollParagraph">For example, here is a line containing 3 words:</p>
+<p class="scrollParagraph">Each line can contain content (or "atoms").</p>
+<p class="scrollParagraph">For example, here is a line containing 3 atoms:</p>
 <code class="scrollCodeBlock">title Hello world</code>
-<p class="scrollParagraph">In addition to containing words, each line can have its own document with its own lines using indentation.</p>
+<p class="scrollParagraph">In addition to containing atoms, each line can have its own document with its own lines using indentation.</p>
 <p class="scrollParagraph">When you add a space at the beginning of a line, that line becomes a "subparticle" of the parent line.</p>
 <code class="scrollCodeBlock">image hello.png
  caption This line is a subparticle of the line above.</code>
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </div></div>
 <p class="scrollParagraph">Let's start with the most common parser, the <code>paragraph</code> parser.</p>
 <p class="scrollParagraph">You can think of paragraphs as similar to a <code>p</code> or <code>div</code> tag in HTML.</p>
-<p class="scrollParagraph">To use this parser you can write out the word <code>paragraph</code>, or use an asterisk <code>*</code>, OR just start any text that does not match another parser (the "catch all" parser of a Scroll program is the paragraph parser).</p>
+<p class="scrollParagraph">To use this parser you can write out the atom <code>paragraph</code>, or use an asterisk <code>*</code>, OR just start any text that does not match another parser (the "catch all" parser of a Scroll program is the paragraph parser).</p>
 <p class="scrollParagraph">This paragraph was compiled by the catch all paragraph parser. The code is:</p>
 <code class="scrollCodeBlock">This paragraph was compiled by the catch all paragraph parser. The code is:</code>
 <div class="scrollSection"><h2 class="scrollParagraph">2. Headers</h2>
@@ -237,7 +237,7 @@ p We can then make paragraphs using `p`.</code>
 <p class="scrollParagraph">Let's now make a <code>hiddenMessage</code> Parser that alerts a message when clicked:</p>
 <code class="scrollCodeBlock">messageParser
  cruxFromId
- catchAllCellType stringCell
+ catchAllAtomType stringAtom
 hiddenMessageParser
  extends paragraphParser
  inScope messageParser
