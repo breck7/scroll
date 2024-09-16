@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+133.0.1 9/15/2024
+=================
+🏥 better error message when eval'ing macros
+
 133.0.0 9/15/2024
 =================
 🎉 Updated ScrollSDK to get new "atoms" terminology.
@@ -2688,4 +2692,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v133.0.0
+Built with Scroll v133.0.1
