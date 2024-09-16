@@ -112,7 +112,7 @@ printparsersLeetSheetParser
  description Parsers leetsheet.
  javascript
   compile() {
-    return "<p><b>Parser Definition Parsers</b> define parsers that acquire, analyze and act on code.</p>" + this.docToHtml(this.sortDocs(this.parsersToDocument)) + "<p><b>Cell Definition Parsers</b> analyze the words in a line.</p>" + this.docToHtml(this.sortDocs(this.cellParsersToDocument))
+    return "<p><b>Parser Definition Parsers</b> define parsers that acquire, analyze and act on code.</p>" + this.docToHtml(this.sortDocs(this.parsersToDocument)) + "<p><b>Atom Definition Parsers</b> analyze the words in a line.</p>" + this.docToHtml(this.sortDocs(this.cellParsersToDocument))
   }
   makeLink() {
     return ""
@@ -126,8 +126,8 @@ printparsersLeetSheetParser
   }
   get cellParsersToDocument() {
     const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
-    const clone = new parsersParser("anyCell\n ").clone()
-    const parserParticle = clone.getParticle("anyCell")
+    const clone = new parsersParser("anyAtom\n ").clone()
+    const parserParticle = clone.getParticle("anyAtom")
     const words = clone.getAutocompleteResultsAt(1,1).matches.map(a => a.text)
     words.sort()
     parserParticle.setSubparticles(words.join("\n"))
@@ -141,7 +141,7 @@ printparsersLeetSheetParser
     words.sort()
     parserParticle.setSubparticles(words.join("\n"))
     clone.appendLine("myParser")
-    clone.appendLine("myCell")
+    clone.appendLine("myAtom")
     return parserParticle
   }
 

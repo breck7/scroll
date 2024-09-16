@@ -1,6 +1,6 @@
 lineOfTextParser
  popularity 0.000289
- catchAllCellType stringCell
+ catchAllAtomType stringAtom
  boolean isTextParser true
 hoverNoteParser
  popularity 0.000265
@@ -8,7 +8,7 @@ hoverNoteParser
  cruxFromId
  extends classMarkupParser
  catchAllParser lineOfTextParser
- cells commandWordCell
+ cells commandWordAtom
  javascript
   get pattern() {
    return this.getWordsFrom(1).join(" ")

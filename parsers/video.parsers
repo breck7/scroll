@@ -7,16 +7,16 @@ scrollVideoParser
  description Play video files.
  widthParser
   cruxFromId
-  cells commandWordCell
+  cells commandWordAtom
  heightParser
   cruxFromId
-  cells commandWordCell
+  cells commandWordAtom
  javascript
   tag = "video"
 
 quickVideoParser
  popularity 0.000024
  extends scrollVideoParser
- cells urlCell
+ cells urlAtom
  pattern ^[^\s]+\.(mp4|webm|avi|mov)
  int wordIndex 0

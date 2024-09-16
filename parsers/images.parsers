@@ -7,7 +7,7 @@ captionAftertextParser
 
 abstractCaptionedParser
  extends abstractScrollParser
- cells commandWordCell urlCell
+ cells commandWordAtom urlAtom
  inScope captionAftertextParser slashCommentParser
  cruxFromId
  javascript
@@ -27,7 +27,7 @@ openGraphParser
  // todo: fix Parsers scope issue so we can move this parser def under scrollImageParser
  description Add this line to make this the open graph image.
  cruxFromId
- cells commandWordCell
+ cells commandWordAtom
 
 scrollImageParser
  crux image
@@ -92,6 +92,6 @@ scrollImageParser
 quickImageParser
  popularity 0.005788
  extends scrollImageParser
- cells urlCell
+ cells urlAtom
  pattern ^[^\s]+\.(jpg|jpeg|png|gif|webp|svg|bmp)
  int wordIndex 0

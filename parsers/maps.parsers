@@ -1,31 +1,31 @@
 abstractPointConfigParser
  // todo: scoped parsers should support abstract types
  cruxFromId
- cells commandWordCell
- catchAllCellType stringCell
+ cells commandWordAtom
+ catchAllAtomType stringAtom
  single
 
 latParser
- cells commandWordCell floatCell
+ cells commandWordAtom floatAtom
  cruxFromId
  single
 longParser
- cells commandWordCell floatCell
+ cells commandWordAtom floatAtom
  cruxFromId
  single
 
 mapParser
  inScope latParser longParser
  zoomParser
-  cells commandWordCell integerCell
+  cells commandWordAtom integerAtom
   cruxFromId
   single
  heightParser
-  cells commandWordCell floatCell
+  cells commandWordAtom floatAtom
   cruxFromId
   single
  pointParser
-  cells commandWordCell
+  cells commandWordAtom
   inScope latParser longParser
   cruxFromId
   titleParser

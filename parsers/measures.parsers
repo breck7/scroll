@@ -1,5 +1,5 @@
-measureNameCell
- extends commandWordCell
+measureNameAtom
+ extends commandWordAtom
  // A regex for column names for max compatibility with a broad range of data science tools:
  regex [a-zA-Z][a-zA-Z0-9]*
 
@@ -10,11 +10,11 @@ buildMeasuresParser
  extends abstractBuildCommandParser
  sortByParser
   cruxFromId
-  cells commandWordCell anyCell
+  cells commandWordAtom anyAtom
 
 // The main measure parser. All measures should extend from this.
 abstractMeasureParser
- cells measureNameCell
+ cells measureNameAtom
  cruxFromId
  boolean isMeasure true
  float sortIndex 1.9
@@ -38,11 +38,11 @@ abstractMeasureParser
 // String Measures
 abstractWordMeasureParser
  description A measure that contains a single word.
- cells measureNameCell wordCell
+ cells measureNameAtom wordAtom
  extends abstractMeasureParser
 
 abstractStringMeasureParser
- catchAllCellType stringCell
+ catchAllAtomType stringAtom
  extends abstractMeasureParser
 
 abstractTextareaMeasureParser
@@ -56,13 +56,13 @@ abstractTextareaMeasureParser
 
 abstractEmailMeasureParser
  string typeForWebForms email
- cells measureNameCell emailAddressCell
+ cells measureNameAtom emailAddressAtom
  extends abstractWordMeasureParser
 
 // URL Parsers
 abstractUrlMeasureParser
  string typeForWebForms url
- cells measureNameCell urlCell
+ cells measureNameAtom urlAtom
  extends abstractWordMeasureParser
 
 // Required ID measure which denotes a concept
@@ -100,15 +100,15 @@ abstractNumericMeasureParser
   }
 
 abstractIntegerMeasureParser
- cells measureNameCell integerCell
+ cells measureNameAtom integerAtom
  extends abstractNumericMeasureParser
 
 abstractFloatMeasureParser
- cells measureNameCell floatCell
+ cells measureNameAtom floatAtom
  extends abstractNumericMeasureParser
 
 abstractPercentageMeasureParser
- cells measureNameCell percentCell
+ cells measureNameAtom percentAtom
  extends abstractNumericMeasureParser
  javascript
   get measureValue() {
@@ -118,12 +118,12 @@ abstractPercentageMeasureParser
 
 // Enum Measures
 abstractEnumMeasureParser
- cells measureNameCell enumCell
+ cells measureNameAtom enumAtom
  extends abstractMeasureParser
 
 // Boolean Measures
 abstractBooleanMeasureParser
- cells measureNameCell booleanCell
+ cells measureNameAtom booleanAtom
  extends abstractMeasureParser
  javascript
   get measureValue() {

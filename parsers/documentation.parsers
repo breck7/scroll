@@ -2,7 +2,7 @@ belowAsCodeParser
  popularity 0.000651
  description Print code below.
  extends abstractScrollParser
- catchAllCellType integerCell
+ catchAllAtomType integerAtom
  cruxFromId
  javascript
   method = "next"
@@ -34,7 +34,7 @@ belowAsCodeParser
 belowAsCodeUntilParser
  description Print code above until match.
  extends belowAsCodeParser
- catchAllCellType anyCell
+ catchAllAtomType anyAtom
  example
   belowAsCode
   counter 1 second

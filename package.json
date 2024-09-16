@@ -50,7 +50,7 @@
     "image-size": "^1.0.2",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "scrollsdk": "^86.0.0"
+    "scrollsdk": "^87.0.0"
   },
   "devDependencies": {
     "tap": "^18.7.2"
