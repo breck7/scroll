@@ -38,7 +38,7 @@ scrollBrParser
  catchAllAtomType integerAtom
  javascript
   compile() {
-   return `<br>`.repeat(parseInt(this.getWord(1) || 1))
+   return `<br>`.repeat(parseInt(this.getAtom(1) || 1))
   }
 
 htmlParser

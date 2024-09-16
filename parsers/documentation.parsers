@@ -26,7 +26,7 @@ belowAsCodeParser
    return `<code class="scrollCodeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
   }
   get howMany() {
-    let howMany = parseInt(this.getWord(1))
+    let howMany = parseInt(this.getAtom(1))
    if (!howMany || isNaN(howMany)) howMany = 1
    return howMany
   }

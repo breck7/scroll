@@ -4,7 +4,7 @@ javascriptAtom
 abstractVariableParser
  extends abstractScrollParser
  catchAllAtomType stringAtom
- atoms preBuildCommandWordAtom
+ atoms preBuildCommandAtom
  cruxFromId
  javascript
   isTopMatter = true

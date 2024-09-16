@@ -2,20 +2,20 @@ linkifyParser
  description Use this to disable linkify on the text.
  extends abstractAftertextDirectiveParser
  cruxFromId
- atoms commandWordAtom booleanAtom
+ atoms cueAtom booleanAtom
 
 linkTargetParser
  popularity 0.000024
  extends abstractHtmlAttributeParser
  description If you want to set the target of the link. To "_blank", for example.
  crux target
- atoms commandWordAtom anyAtom
+ atoms cueAtom anyAtom
 
 linkTitleParser
  popularity 0.000048
  description If you want to set the title of the link.
  crux title
- atoms commandWordAtom
+ atoms cueAtom
  catchAllAtomType anyAtom
  example
   * This report showed the treatment had a big impact.
@@ -30,12 +30,12 @@ linkParser
  popularity 0.008706
  extends abstractMarkupParser
  description Put the matching text in an <a> tag.
- atoms commandWordAtom urlAtom
+ atoms cueAtom urlAtom
  inScope linkTitleParser linkTargetParser commentParser
  programParser
   description Anything here will be URI encoded and then appended to the link.
   cruxFromId
-  atoms commandWordAtom
+  atoms cueAtom
   catchAllParser programLinkParser
   javascript
    get encoded() {
@@ -54,7 +54,7 @@ linkParser
    return baseLink
   }
   get baseLink() {
-   const link = this.getWord(1)
+   const link = this.getAtom(1)
    const isAbsoluteLink = link.includes("://")
    if (isAbsoluteLink) return link
    const relativePath = this.parent.compileSettings?.relativePath || ""
@@ -69,7 +69,7 @@ linkParser
    })
    return attrs
   }
-  patternStartsAtWord = 2
+  patternStartsAtAtom = 2
 
 emailLinkParser
  popularity 0.000048
@@ -88,6 +88,6 @@ quickLinkParser
  atoms urlAtom
  javascript
   get link() {
-   return this.firstWord
+   return this.firstAtom
   }
-  patternStartsAtWord = 1
+  patternStartsAtAtom = 1

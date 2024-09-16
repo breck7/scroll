@@ -8,10 +8,10 @@ hoverNoteParser
  cruxFromId
  extends classMarkupParser
  catchAllParser lineOfTextParser
- atoms commandWordAtom
+ atoms cueAtom
  javascript
   get pattern() {
-   return this.getWordsFrom(1).join(" ")
+   return this.getAtomsFrom(1).join(" ")
   }
   get attributes() {
    return [`class="scrollHoverNote"`, `title="${this.hoverNoteText}"`]

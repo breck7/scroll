@@ -2,7 +2,7 @@ importParser
  description Import a file.
  popularity 0.007524
  cruxFromId
- atoms preBuildCommandWordAtom
+ atoms preBuildCommandAtom
  extends abstractScrollParser
  catchAllAtomType filePathAtom
  javascript
@@ -31,7 +31,7 @@ importOnlyParser
  // This line will be not be imported into the importing file.
  description Don't build this file.
  cruxFromId
- atoms preBuildCommandWordAtom
+ atoms preBuildCommandAtom
  extends abstractTopLevelSingleMetaParser
  javascript
   compile() {
@@ -44,5 +44,5 @@ abstractQuickIncludeParser
  atoms urlAtom
  javascript
   get filename() {
-    return this.getWord(0)
+    return this.getAtom(0)
   }

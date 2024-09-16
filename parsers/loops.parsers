@@ -2,7 +2,7 @@ abstractPostLoopParser
  description Do something with all posts. Takes an optional list of folder/group names.
  extends abstractScrollParser
  cruxFromId
- atoms commandWordAtom
+ atoms cueAtom
  catchAllAtomType tagWithOptionalFolderAtom
  javascript
   get files() {
@@ -12,7 +12,7 @@ abstractPostLoopParser
 scrollLoopParser
  popularity 0.000024
  extends abstractAftertextParser
- atoms commandWordAtom
+ atoms cueAtom
  boolean isTableVisualization true
  description Iterate over files+ to make HTML.
  crux loop
@@ -53,13 +53,13 @@ scrollLoopParser
   teardown() {}
 
 abstractLoopConfigParser
- atoms commandWordAtom
+ atoms cueAtom
  cruxFromId
  catchAllAtomType stringAtom
 
 // Extend this if you want to create a new provider
 abstractItemsProviderParser
- atoms commandWordAtom
+ atoms cueAtom
 
 // Some basic providers:
 loopLinesParser
@@ -74,15 +74,15 @@ loopLinesParser
    return this.map(particle => particle.asString)
   }
 
-loopWordsParser
+loopAtomsParser
  popularity 0.000024
- crux words
+ crux atoms
  extends abstractItemsProviderParser
  catchAllAtomType stringAtom
- description Iterate over the provided words.
+ description Iterate over the provided atoms.
  javascript
   get items() {
-   return this.getWordsFrom(1)
+   return this.getAtomsFrom(1)
   }
 
 loopTagsParser

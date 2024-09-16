@@ -42,5 +42,5 @@ abstractIndentableParagraphParser
    return super.compile() + this.compileSubparticles()
   }
   compileTxt() {
-    return this.getWord(0) + " " + super.compileTxt()
+    return this.getAtom(0) + " " + super.compileTxt()
   }
