@@ -121,9 +121,9 @@ heatrixAdvancedParser
         line
           .trimEnd()
           .split(" ")
-          .map((cell) => {
-            const words = cell.split(directiveDelimiter).filter((word) => !isDirective(word)).join("")
-            const directivesInThisAtom = cell
+          .map((atom) => {
+            const words = atom.split(directiveDelimiter).filter((word) => !isDirective(word)).join("")
+            const directivesInThisAtom = atom
               .split(directiveDelimiter)
               .filter(isDirective)
             const value = parseFloat(words)
@@ -197,10 +197,10 @@ heatrixAdvancedParser
             if (!rowIndex) return ""
             const rowStyle = row[0].style
             return `<div class="heatrixRow heatrixRow${rowIndex}">${row
-              .map((cell, columnIndex) => {
+              .map((atom, columnIndex) => {
                 if (!columnIndex) return ""
                 const columnStyle = firstRow[columnIndex]?.style || {}
-                let { value, label, style, link } = cell
+                let { value, label, style, link } = atom
                 const extendedStyle = Object.assign(
                   {},
                   rowStyle,

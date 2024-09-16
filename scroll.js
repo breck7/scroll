@@ -337,7 +337,7 @@ class ScrollFile {
 
   get parsersBundle() {
     let code =
-      `parsers/cellTypes.parsers
+      `parsers/atomTypes.parsers
 parsers/root.parsers
 parsers/build.parsers
 parsers/comments.parsers

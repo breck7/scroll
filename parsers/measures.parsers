@@ -10,11 +10,11 @@ buildMeasuresParser
  extends abstractBuildCommandParser
  sortByParser
   cruxFromId
-  cells commandWordAtom anyAtom
+  atoms commandWordAtom anyAtom
 
 // The main measure parser. All measures should extend from this.
 abstractMeasureParser
- cells measureNameAtom
+ atoms measureNameAtom
  cruxFromId
  boolean isMeasure true
  float sortIndex 1.9
@@ -38,7 +38,7 @@ abstractMeasureParser
 // String Measures
 abstractWordMeasureParser
  description A measure that contains a single word.
- cells measureNameAtom wordAtom
+ atoms measureNameAtom wordAtom
  extends abstractMeasureParser
 
 abstractStringMeasureParser
@@ -56,13 +56,13 @@ abstractTextareaMeasureParser
 
 abstractEmailMeasureParser
  string typeForWebForms email
- cells measureNameAtom emailAddressAtom
+ atoms measureNameAtom emailAddressAtom
  extends abstractWordMeasureParser
 
 // URL Parsers
 abstractUrlMeasureParser
  string typeForWebForms url
- cells measureNameAtom urlAtom
+ atoms measureNameAtom urlAtom
  extends abstractWordMeasureParser
 
 // Required ID measure which denotes a concept
@@ -100,15 +100,15 @@ abstractNumericMeasureParser
   }
 
 abstractIntegerMeasureParser
- cells measureNameAtom integerAtom
+ atoms measureNameAtom integerAtom
  extends abstractNumericMeasureParser
 
 abstractFloatMeasureParser
- cells measureNameAtom floatAtom
+ atoms measureNameAtom floatAtom
  extends abstractNumericMeasureParser
 
 abstractPercentageMeasureParser
- cells measureNameAtom percentAtom
+ atoms measureNameAtom percentAtom
  extends abstractNumericMeasureParser
  javascript
   get measureValue() {
@@ -118,12 +118,12 @@ abstractPercentageMeasureParser
 
 // Enum Measures
 abstractEnumMeasureParser
- cells measureNameAtom enumAtom
+ atoms measureNameAtom enumAtom
  extends abstractMeasureParser
 
 // Boolean Measures
 abstractBooleanMeasureParser
- cells measureNameAtom booleanAtom
+ atoms measureNameAtom booleanAtom
  extends abstractMeasureParser
  javascript
   get measureValue() {

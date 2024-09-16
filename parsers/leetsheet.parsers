@@ -112,7 +112,7 @@ printparsersLeetSheetParser
  description Parsers leetsheet.
  javascript
   compile() {
-    return "<p><b>Parser Definition Parsers</b> define parsers that acquire, analyze and act on code.</p>" + this.docToHtml(this.sortDocs(this.parsersToDocument)) + "<p><b>Atom Definition Parsers</b> analyze the words in a line.</p>" + this.docToHtml(this.sortDocs(this.cellParsersToDocument))
+    return "<p><b>Parser Definition Parsers</b> define parsers that acquire, analyze and act on code.</p>" + this.docToHtml(this.sortDocs(this.parsersToDocument)) + "<p><b>Atom Definition Parsers</b> analyze the words in a line.</p>" + this.docToHtml(this.sortDocs(this.atomParsersToDocument))
   }
   makeLink() {
     return ""
@@ -124,7 +124,7 @@ printparsersLeetSheetParser
   getNote(category) {
     return ` <span class="note">A${category.replace("Phase", "").substr(1)}Time.</span>`
   }
-  get cellParsersToDocument() {
+  get atomParsersToDocument() {
     const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
     const clone = new parsersParser("anyAtom\n ").clone()
     const parserParticle = clone.getParticle("anyAtom")

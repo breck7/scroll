@@ -80,7 +80,7 @@ inlineMarkupsOnParser
 inlineMarkupParser
  popularity 0.000169
  cruxFromId
- cells commandWordAtom delimiterAtom tagOrUrlAtom
+ atoms commandWordAtom delimiterAtom tagOrUrlAtom
  catchAllAtomType htmlAttributesAtom
  extends inlineMarkupsOnParser
  description Custom inline markup. for

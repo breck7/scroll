@@ -4,7 +4,7 @@ loadConceptsParser
  description Import all concepts in a folder.
  extends abstractBuildCommandParser
  cruxFromId
- cells preBuildCommandWordAtom filePathAtom
+ atoms preBuildCommandWordAtom filePathAtom
  javascript
   build() {
    const { Disk } = require("scrollsdk/products/Disk.node.js")
@@ -27,4 +27,4 @@ buildConceptsParser
  extends abstractBuildCommandParser
  sortByParser
   cruxFromId
-  cells commandWordAtom anyAtom
+  atoms commandWordAtom anyAtom

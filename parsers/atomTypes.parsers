@@ -1,15 +1,15 @@
-// Basic cell types
+// Basic atom types
 blankAtom
 anyAtom
 
-// Enum cell types
+// Enum atom types
 enumAtom
  paint constant.language
 booleanAtom
  enum true false
  extends enumAtom
 
-// String cell types
+// String atom types
 stringAtom
  paint string
 
@@ -25,11 +25,11 @@ semanticVersionAtom
  paint string
  description A 3 part sem version string like 1.2.1
 
-// Date cell types
+// Date atom types
 dateAtom
  paint string
 
-// Numeric cell types
+// Numeric atom types
 numberAtom
  paint constant.numeric
 integerAtom
@@ -47,7 +47,7 @@ countAtom
 yearAtom
  extends integerAtom
 
-// Scroll cell types
+// Scroll atom types
 commandWordAtom
  description A word that indicates a certain parser to use.
  paint keyword
@@ -78,7 +78,7 @@ comparisonAtom
 personNameAtom
  extends stringAtom
 
-// Link cell types
+// Link atom types
 urlAtom
  paint constant.language
 absoluteUrlAtom
@@ -88,7 +88,7 @@ absoluteUrlAtom
 emailAddressAtom
  extends stringAtom
 
-// File system cell types
+// File system atom types
 permalinkAtom
  paint string
  description A string that doesn't contain characters that might interfere with most filesystems. No slashes, for instance.
@@ -96,7 +96,7 @@ permalinkAtom
 filePathAtom
  extends stringAtom
 
-// HTML cell types
+// HTML atom types
 tagOrUrlAtom
  description An HTML tag or a url.
  paint constant.language

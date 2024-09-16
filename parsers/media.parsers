@@ -1,10 +1,10 @@
 scrollMediaLoopParser
  popularity 0.000048
  crux loop
- cells commandWordAtom
+ atoms commandWordAtom
 scrollAutoplayParser
  crux autoplay
- cells commandWordAtom
+ atoms commandWordAtom
 abstractMediaParser
  extends paragraphParser
  inScope scrollMediaLoopParser scrollAutoplayParser

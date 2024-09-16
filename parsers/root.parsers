@@ -1,5 +1,5 @@
 abstractScrollParser
- cells commandWordAtom
+ atoms commandWordAtom
  javascript
   compileEmbeddedVersion(compileSettings) {
    return this.compile(compileSettings)
@@ -40,7 +40,7 @@ abstractTopLevelSingleMetaParser
  extends abstractScrollParser
  inScope slashCommentParser
  cruxFromId
- cells metaCommandWordAtom
+ atoms metaCommandWordAtom
  javascript
   isTopMatter = true
   isSetterParser = true
@@ -114,5 +114,5 @@ scrollParser
 
 abstractUrlSettingParser
  extends abstractTopLevelSingleMetaParser
- cells metaCommandWordAtom urlAtom
+ atoms metaCommandWordAtom urlAtom
  cruxFromId

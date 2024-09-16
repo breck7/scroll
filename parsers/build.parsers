@@ -6,7 +6,7 @@ buildCommandWordAtom
 abstractBuildCommandParser
  extends abstractScrollParser
  cruxFromId
- cells buildCommandWordAtom
+ atoms buildCommandWordAtom
  catchAllAtomType filePathAtom
  inScope slashCommentParser
  javascript

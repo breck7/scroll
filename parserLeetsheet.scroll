@@ -50,11 +50,11 @@ table
   164 javascriptParser
   155 catchAllExampleLineParser
   80 cruxFromIdParser
-  69 cellsParser
+  69 atomsParser
   66 cruxParser
   66 catchAllAtomTypeParser
   61 exampleParser
-  43 cellTypeDefinitionParser
+  43 atomTypeDefinitionParser
   36 stringParser
   34 slashCommentParser
   32 booleanParser
@@ -62,7 +62,7 @@ table
   25 paintParser
   21 inScopeParser
   21 extendsAtomTypeParser
-  12 cellTypeDescriptionParser
+  12 atomTypeDescriptionParser
   8 patternParser
   7 singleParser
   6 baseParserParser

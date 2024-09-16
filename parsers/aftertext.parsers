@@ -80,7 +80,7 @@ abstractAftertextParser
   }
 
 abstractAftertextAttributeParser
- cells commandWordAtom
+ atoms commandWordAtom
  boolean isAttribute true
  javascript
   get divAttributes() {
@@ -91,7 +91,7 @@ abstractAftertextAttributeParser
   }
 
 aftertextTagParser
- cells commandWordAtom htmlTagAtom
+ atoms commandWordAtom htmlTagAtom
  description Override the HTML tag that the compiled particle will use.
  crux tag
  javascript
@@ -100,7 +100,7 @@ aftertextTagParser
   }
 
 abstractAftertextDirectiveParser
- cells commandWordAtom
+ atoms commandWordAtom
  catchAllAtomType stringAtom
  javascript
   isMarkup = true
@@ -174,7 +174,7 @@ abstractMarkupParser
   patternStartsAtWord = 1
 
 abstractMarkupParameterParser
- cells commandWordAtom
+ atoms commandWordAtom
  cruxFromId
 
 matchAllParser
@@ -255,7 +255,7 @@ classMarkupParser
  popularity 0.000772
  description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.
  extends abstractMarkupParser
- cells commandWordAtom classNameAtom
+ atoms commandWordAtom classNameAtom
  crux class
  javascript
   tag = "span"
@@ -294,7 +294,7 @@ aftertextIdParser
  crux id
  description Provide an ID to be output in the generated HTML tag.
  extends abstractAftertextAttributeParser
- cells commandWordAtom htmlIdAtom
+ atoms commandWordAtom htmlIdAtom
  single
 
 aftertextStyleParser
@@ -302,12 +302,12 @@ aftertextStyleParser
  crux style
  description Provide code for the generated HTML tag's "style" attribute.
  extends abstractAftertextAttributeParser
- cells commandWordAtom
+ atoms commandWordAtom
  catchAllAtomType cssAnyAtom
 
 aftertextHiddenParser
  crux hidden
- cells commandWordAtom
+ atoms commandWordAtom
  description Do not compile this particle to HTML.
  extends abstractAftertextAttributeParser
  single

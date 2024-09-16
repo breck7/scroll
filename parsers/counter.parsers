@@ -4,7 +4,7 @@ scrollCounterParser
  crux counter
  example
   counter 4.5 Babies Born
- cells commandWordAtom numberAtom
+ atoms commandWordAtom numberAtom
  javascript
   compile() {
    const line = this.getLine()

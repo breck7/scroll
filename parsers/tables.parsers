@@ -1,5 +1,5 @@
 abstractTableTransformParser
- cells commandWordAtom
+ atoms commandWordAtom
  inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser scrollLoopParser
  javascript
   get coreTable() {
@@ -8,25 +8,25 @@ abstractTableTransformParser
   get columnNames() {
     return this.parent.columnNames
   }
-  getRunTimeEnumOptions(cell) {
-   if (cell.cellTypeId === "columnNameAtom")
+  getRunTimeEnumOptions(atom) {
+   if (atom.atomTypeId === "columnNameAtom")
       return this.parent.columnNames
-   return super.getRunTimeEnumOptions(cell)
+   return super.getRunTimeEnumOptions(atom)
   }
-  getRunTimeEnumOptionsForValidation(cell) {
+  getRunTimeEnumOptionsForValidation(atom) {
     // Note: this will fail if the CSV file hasnt been built yet.
-    if (cell.cellTypeId === "columnNameAtom")
+    if (atom.atomTypeId === "columnNameAtom")
       return this.parent.columnNames.concat(this.parent.columnNames.map(c => "-" + c)) // Add reverse names
-   return super.getRunTimeEnumOptions(cell)
+   return super.getRunTimeEnumOptions(atom)
   }
 
 abstractColumnNameParser
- cells commandWordAtom columnNameAtom
+ atoms commandWordAtom columnNameAtom
  javascript
-  getRunTimeEnumOptions(cell) {
-   if (cell.cellTypeId === "columnNameAtom")
+  getRunTimeEnumOptions(atom) {
+   if (atom.atomTypeId === "columnNameAtom")
       return this.parent.columnNames
-   return super.getRunTimeEnumOptions(cell)
+   return super.getRunTimeEnumOptions(atom)
   }
 
 scrollXParser
@@ -124,7 +124,7 @@ scrollTableDelimiterParser
  popularity 0.001037
  description Set the delimiter.
  crux delimiter
- cells commandWordAtom stringAtom
+ atoms commandWordAtom stringAtom
  javascript
   compile() {
     return ""
@@ -236,7 +236,7 @@ scrollTableParser
 quickTableParser
  popularity 0.000024
  extends scrollTableParser
- cells urlAtom
+ atoms urlAtom
  pattern ^[^\s]+\.(tsv|csv|ssv|psv)
  int wordIndex 0
 
@@ -244,13 +244,13 @@ scrollWhereParser
  extends abstractTableTransformParser
  description Filter rows by condition.
  crux where
- cells commandWordAtom columnNameAtom comparisonAtom wordAtom
+ atoms commandWordAtom columnNameAtom comparisonAtom wordAtom
  example
   table iris.csv
    where Species = setosa
  javascript
   get coreTable() {
-   // todo: use cells here.
+   // todo: use atoms here.
    const columnName = this.getWord(1)
    const operator = this.getWord(2)
    let untypedScalarValue = this.getWord(3)
@@ -258,8 +258,8 @@ scrollWhereParser
    const coreTable = this.parent.coreTable
    if (!columnName || !operator || untypedScalarValue === undefined) return coreTable
     const filterFn = row => {
-      const cell = row[columnName]
-      const typedAtom = cell
+      const atom = row[columnName]
+      const typedAtom = atom
       if (operator === "=") return typedValue === typedAtom
       else if (operator === "!=") return typedValue !== typedAtom
       else if (operator === "includes") return typedAtom !== undefined && typedAtom.includes(typedValue)
@@ -268,8 +268,8 @@ scrollWhereParser
       else if (operator === "<") return typedAtom < typedValue
       else if (operator === ">=") return typedAtom >= typedValue
       else if (operator === "<=") return typedAtom <= typedValue
-      else if (operator === "empty") return cell === "" || cell === undefined
-      else if (operator === "notEmpty") return !(cell === "" || cell === undefined)
+      else if (operator === "empty") return atom === "" || atom === undefined
+      else if (operator === "notEmpty") return !(atom === "" || atom === undefined)
     }
    return coreTable.filter(filterFn)
   }
@@ -311,7 +311,7 @@ scrollLimitParser
  extends abstractTableTransformParser
  description Select a subset.
  crux limit
- cells commandWordAtom integerAtom integerAtom
+ atoms commandWordAtom integerAtom integerAtom
  javascript
   get coreTable() {
    const start = this.getWord(1)
@@ -333,7 +333,7 @@ scrollTransposeParser
 scrollImputeParser
  extends abstractTableTransformParser
  description Impute missing values of a columm.
- cells commandWordAtom columnNameAtom
+ atoms commandWordAtom columnNameAtom
  crux impute
  javascript
   get coreTable() {
