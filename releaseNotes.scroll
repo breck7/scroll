@@ -17,6 +17,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 133.0.0 9/15/2024
+🎉 Updated ScrollSDK to get new "atoms" terminology.
+⚠️ BREAKING: see ScrollSDK breaking changes
+
 📦 132.0.1 9/14/2024
 🏥 fix unix timestamps in printTable
 
