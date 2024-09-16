@@ -27,7 +27,7 @@ heatrixParser
     if (!coreTable)
       return this.subparticlesToString()
     let table = new Particle(coreTable).asSsv
-    if (this.parent.firstWord === "transpose") {
+    if (this.parent.firstAtom === "transpose") {
       // drop first line after transpose
       const lines = table.split("\n")
       lines.shift()
@@ -66,7 +66,7 @@ heatrixAdvancedParser
     static HeatrixId = 0
     uid = Heatrix.HeatrixId++
     constructor(program) {
-      const isDirective = word => /^(f|l|w|h)\d+$/.test(word) || word === "right" || word === "left" || word.startsWith("http://") || word.startsWith("https://") || word.endsWith(".html")
+      const isDirective = atom => /^(f|l|w|h)\d+$/.test(atom) || atom === "right" || atom === "left" || atom.startsWith("http://") || atom.startsWith("https://") || atom.endsWith(".html")
       const particle = new Particle(program)
       this.program = particle
       const generateColorBinningString = (data, colors) => {
@@ -89,7 +89,7 @@ heatrixAdvancedParser
        return result.trim();
       }
       const buildScale = (table) => {
-        const numbers = table.split("\n").map(line => line.split(" ")).flat().filter(word => !isDirective(word)).map(word => parseFloat(word)).filter(number => !isNaN(number))
+        const numbers = table.split("\n").map(line => line.split(" ")).flat().filter(atom => !isDirective(atom)).map(atom => parseFloat(atom)).filter(number => !isNaN(number))
         const colors = ['#ebedf0', '#c7e9c0', '#a1d99b', '#74c476', '#41ab5d', '#238b45', '#005a32'];
         numbers.unshift(0)
         return generateColorBinningString(numbers, colors);
@@ -122,12 +122,12 @@ heatrixAdvancedParser
           .trimEnd()
           .split(" ")
           .map((atom) => {
-            const words = atom.split(directiveDelimiter).filter((word) => !isDirective(word)).join("")
+            const atoms = atom.split(directiveDelimiter).filter((atom) => !isDirective(atom)).join("")
             const directivesInThisAtom = atom
               .split(directiveDelimiter)
               .filter(isDirective)
-            const value = parseFloat(words)
-            const label = words.includes("'") ? words.split("'")[1] : words
+            const value = parseFloat(atoms)
+            const label = atoms.includes("'") ? atoms.split("'")[1] : atoms
             const alignment = directivesInThisAtom.includes("right")
               ? "right"
               : directivesInThisAtom.includes("left")

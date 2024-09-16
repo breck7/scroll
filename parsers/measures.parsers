@@ -1,5 +1,5 @@
 measureNameAtom
- extends commandWordAtom
+ extends cueAtom
  // A regex for column names for max compatibility with a broad range of data science tools:
  regex [a-zA-Z][a-zA-Z0-9]*
 
@@ -10,7 +10,7 @@ buildMeasuresParser
  extends abstractBuildCommandParser
  sortByParser
   cruxFromId
-  atoms commandWordAtom anyAtom
+  atoms cueAtom anyAtom
 
 // The main measure parser. All measures should extend from this.
 abstractMeasureParser
@@ -32,13 +32,13 @@ abstractMeasureParser
     return this.content ?? ""
   }
   get measureName() {
-    return this.getFirstWordPath().replace(/ /g, "_")
+    return this.getFirstAtomPath().replace(/ /g, "_")
   }
 
 // String Measures
-abstractWordMeasureParser
- description A measure that contains a single word.
- atoms measureNameAtom wordAtom
+abstractAtomMeasureParser
+ description A measure that contains a single atom.
+ atoms measureNameAtom atomAtom
  extends abstractMeasureParser
 
 abstractStringMeasureParser
@@ -57,13 +57,13 @@ abstractTextareaMeasureParser
 abstractEmailMeasureParser
  string typeForWebForms email
  atoms measureNameAtom emailAddressAtom
- extends abstractWordMeasureParser
+ extends abstractAtomMeasureParser
 
 // URL Parsers
 abstractUrlMeasureParser
  string typeForWebForms url
  atoms measureNameAtom urlAtom
- extends abstractWordMeasureParser
+ extends abstractAtomMeasureParser
 
 // Required ID measure which denotes a concept
 abstractIdParser
@@ -79,8 +79,8 @@ abstractIdParser
     let requiredMeasureNames = this.parent.file.measures.filter(measure => measure.isMeasureRequired).map(measure => measure.Name).filter(name => name !== "id")
     if (!requiredMeasureNames.length) return errors
     let next = this.next
-    while (requiredMeasureNames.length && next.firstWord !== "id" && next.getIndex() !== 0) {
-      requiredMeasureNames = requiredMeasureNames.filter(i => i !== next.firstWord)
+    while (requiredMeasureNames.length && next.firstAtom !== "id" && next.getIndex() !== 0) {
+      requiredMeasureNames = requiredMeasureNames.filter(i => i !== next.firstAtom)
       next = next.next
     }
     requiredMeasureNames.forEach(name =>

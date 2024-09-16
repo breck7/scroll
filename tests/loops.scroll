@@ -24,13 +24,13 @@ loop
 ---
 
 loop
- words #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
+ atoms #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
  javascript `<span style="background-color: ${item}; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>`
 
 ---
 
 loop
- words #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
+ atoms #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
  limit 2
  javascript `<span style="background-color: ${item}; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>`
 

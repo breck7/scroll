@@ -4,14 +4,14 @@ br 1
 <div class="animation">
 With Scroll your
 Words become particles
- class wordToDot Words
- class wordToDot become
- class wordToDot particles
+ class atomToDot Words
+ class atomToDot become
+ class atomToDot particles
  class animationLine
 Joined with parsers
- class wordToDot2 Joined
- class wordToDot2 with
- class wordToDot2 parsers
+ class atomToDot2 Joined
+ class atomToDot2 with
+ class atomToDot2 parsers
  class animationLine
 To guide the world
 </div>

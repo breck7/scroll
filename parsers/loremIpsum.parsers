@@ -9,7 +9,7 @@ loremIpsumParser
    return this.text.repeat(this.howMany)
   }
   get howMany() {
-    return this.getWord(1) ? parseInt(this.getWord(1)) : 1
+    return this.getAtom(1) ? parseInt(this.getAtom(1)) : 1
   }
 
 nickelbackIpsumParser

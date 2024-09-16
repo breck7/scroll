@@ -1,12 +1,12 @@
-buildCommandWordAtom
- extends commandWordAtom
- description Give build command words their own color.
+buildCommandAtom
+ extends cueAtom
+ description Give build command atoms their own color.
  paint constant
 
 abstractBuildCommandParser
  extends abstractScrollParser
  cruxFromId
- atoms buildCommandWordAtom
+ atoms buildCommandAtom
  catchAllAtomType filePathAtom
  inScope slashCommentParser
  javascript

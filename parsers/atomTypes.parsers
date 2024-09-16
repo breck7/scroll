@@ -13,9 +13,9 @@ booleanAtom
 stringAtom
  paint string
 
-wordAtom
+atomAtom
  paint string
- description A non-empty single word string.
+ description A non-empty single atom string.
  regex .+
 
 columnNameAtom
@@ -48,13 +48,13 @@ yearAtom
  extends integerAtom
 
 // Scroll atom types
-commandWordAtom
- description A word that indicates a certain parser to use.
+cueAtom
+ description A atom that indicates a certain parser to use.
  paint keyword
 
-preBuildCommandWordAtom
- extends commandWordAtom
- description Give build command words their own color.
+preBuildCommandAtom
+ extends cueAtom
+ description Give build command atoms their own color.
  paint constant.character.escape
 
 commentAtom

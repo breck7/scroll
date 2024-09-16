@@ -1,31 +1,31 @@
 abstractPointConfigParser
  // todo: scoped parsers should support abstract types
  cruxFromId
- atoms commandWordAtom
+ atoms cueAtom
  catchAllAtomType stringAtom
  single
 
 latParser
- atoms commandWordAtom floatAtom
+ atoms cueAtom floatAtom
  cruxFromId
  single
 longParser
- atoms commandWordAtom floatAtom
+ atoms cueAtom floatAtom
  cruxFromId
  single
 
 mapParser
  inScope latParser longParser
  zoomParser
-  atoms commandWordAtom integerAtom
+  atoms cueAtom integerAtom
   cruxFromId
   single
  heightParser
-  atoms commandWordAtom floatAtom
+  atoms cueAtom floatAtom
   cruxFromId
   single
  pointParser
-  atoms commandWordAtom
+  atoms cueAtom
   inScope latParser longParser
   cruxFromId
   titleParser

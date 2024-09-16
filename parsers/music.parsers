@@ -15,4 +15,4 @@ quickSoundParser
  extends scrollMusicParser
  atoms urlAtom
  pattern ^[^\s]+\.(mp3|wav|ogg|aac|m4a|flac)
- int wordIndex 0
+ int atomIndex 0

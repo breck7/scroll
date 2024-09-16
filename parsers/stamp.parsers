@@ -52,7 +52,7 @@ stampParser
      hello.js
       console.log("Hello world")
  cruxFromId
- atoms preBuildCommandWordAtom
+ atoms preBuildCommandAtom
  javascript
   build() {
     const dir = this.root.file.folderPath

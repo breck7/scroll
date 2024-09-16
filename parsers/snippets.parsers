@@ -13,7 +13,7 @@ printSnippetsParser
  // todo: why are we extending AT here and not loops? Is it for class/id etc?
  extends abstractAftertextParser
  cruxFromId
- atoms commandWordAtom
+ atoms cueAtom
  catchAllAtomType tagWithOptionalFolderAtom
  description Prints snippets matching tag(s).
  example
