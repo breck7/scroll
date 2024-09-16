@@ -20,7 +20,7 @@ keyboardNavParser
  description Make left and right navigate files.
  extends abstractScrollParser
  cruxFromId
- catchAllCellType urlCell
+ catchAllAtomType urlAtom
  javascript
   compileEmbeddedVersion() {
    return ""

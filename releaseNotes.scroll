@@ -537,10 +537,10 @@ Replace: authors $2\n $1 $2
 🎉 correct syntax highlighting for the different kinds of Parsers.
 🎉 removed some parsers from appearing in autocomplete
 🏥 blink works for any colors now.
-⚠️ BREAKING: If you have written your own parsers `keywordCell` has been replaced by `commandWordCell`. You can do a simple find/replace or just add:
+⚠️ BREAKING: If you have written your own parsers `keywordAtom` has been replaced by `commandWordAtom`. You can do a simple find/replace or just add:
 code
- keywordCell
-  extends commandWordCell
+ keywordAtom
+  extends commandWordAtom
 
 📦 106.0.1 7/13/2024
 🏥 fix bug where running `scroll build` through passed in SSH command was hanging
@@ -895,7 +895,7 @@ code
 🎉 better measure statistics printing
 
 📦 84.5.1 5/07/2024
-🏥 better error printing with `scroll test` and fix bug in `percentCell`
+🏥 better error printing with `scroll test` and fix bug in `percentAtom`
 
 📦 84.5.0 5/07/2024
 🎉 Added `writeMeasures` and `printMeasures` parsers

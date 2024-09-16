@@ -1,4 +1,4 @@
-inlineMarkupNameCell
+inlineMarkupNameAtom
  description Options to turn on some inline markups.
  enum bold italics code katex none
 
@@ -22,7 +22,7 @@ inlineMarkupsOnParser
   Hello *world*!
    inlineMarkupsOn bold
  extends abstractAftertextDirectiveParser
- catchAllCellType inlineMarkupNameCell
+ catchAllAtomType inlineMarkupNameAtom
  javascript
   get shouldMatchAll() {
    return true
@@ -80,8 +80,8 @@ inlineMarkupsOnParser
 inlineMarkupParser
  popularity 0.000169
  cruxFromId
- cells commandWordCell delimiterCell tagOrUrlCell
- catchAllCellType htmlAttributesCell
+ cells commandWordAtom delimiterAtom tagOrUrlAtom
+ catchAllAtomType htmlAttributesAtom
  extends inlineMarkupsOnParser
  description Custom inline markup. for
  example

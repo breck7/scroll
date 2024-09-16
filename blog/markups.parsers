@@ -1,5 +1,5 @@
 markupLineParser
- catchAllCellType anyCell
+ catchAllAtomType anyAtom
  catchAllParser markupLineParser
 abstractMarkupLangParser
  extends abstractScrollParser

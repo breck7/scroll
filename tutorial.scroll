@@ -226,7 +226,7 @@ Let's now make a `hiddenMessage` Parser that alerts a message when clicked:
 belowAsCode 3
 messageParser
  cruxFromId
- catchAllCellType stringCell
+ catchAllAtomType stringAtom
 hiddenMessageParser
  extends paragraphParser
  inScope messageParser

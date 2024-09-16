@@ -80,7 +80,7 @@ abstractAftertextParser
   }
 
 abstractAftertextAttributeParser
- cells commandWordCell
+ cells commandWordAtom
  boolean isAttribute true
  javascript
   get divAttributes() {
@@ -91,7 +91,7 @@ abstractAftertextAttributeParser
   }
 
 aftertextTagParser
- cells commandWordCell htmlTagCell
+ cells commandWordAtom htmlTagAtom
  description Override the HTML tag that the compiled particle will use.
  crux tag
  javascript
@@ -100,8 +100,8 @@ aftertextTagParser
   }
 
 abstractAftertextDirectiveParser
- cells commandWordCell
- catchAllCellType stringCell
+ cells commandWordAtom
+ catchAllAtomType stringAtom
  javascript
   isMarkup = true
   compile() {
@@ -174,7 +174,7 @@ abstractMarkupParser
   patternStartsAtWord = 1
 
 abstractMarkupParameterParser
- cells commandWordCell
+ cells commandWordAtom
  cruxFromId
 
 matchAllParser
@@ -184,7 +184,7 @@ matchAllParser
 
 matchParser
  popularity 0.000048
- catchAllCellType integerCell
+ catchAllAtomType integerAtom
  description Use this to specify which index(es) to match.
  javascript
   get indexes() {
@@ -255,7 +255,7 @@ classMarkupParser
  popularity 0.000772
  description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.
  extends abstractMarkupParser
- cells commandWordCell classNameCell
+ cells commandWordAtom classNameAtom
  crux class
  javascript
   tag = "span"
@@ -294,7 +294,7 @@ aftertextIdParser
  crux id
  description Provide an ID to be output in the generated HTML tag.
  extends abstractAftertextAttributeParser
- cells commandWordCell htmlIdCell
+ cells commandWordAtom htmlIdAtom
  single
 
 aftertextStyleParser
@@ -302,12 +302,12 @@ aftertextStyleParser
  crux style
  description Provide code for the generated HTML tag's "style" attribute.
  extends abstractAftertextAttributeParser
- cells commandWordCell
- catchAllCellType cssAnyCell
+ cells commandWordAtom
+ catchAllAtomType cssAnyAtom
 
 aftertextHiddenParser
  crux hidden
- cells commandWordCell
+ cells commandWordAtom
  description Do not compile this particle to HTML.
  extends abstractAftertextAttributeParser
  single

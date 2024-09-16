@@ -9,8 +9,8 @@ footnoteDefinitionParser
  labelParser
   description If you want to show a custom label for a footnote. Default label is the note definition index.
   cruxFromId
-  cells commandWordCell
-  catchAllCellType stringCell
+  cells commandWordAtom
+  catchAllAtomType stringAtom
  javascript
   get divAttributes() {
    return super.divAttributes + ` id="${this.anchorId}"`

@@ -1,5 +1,5 @@
 scrollGroupByParser
- catchAllCellType columnNameCell
+ catchAllAtomType columnNameAtom
  extends abstractTableTransformParser
  description Combine rows with matching values into groups.
  example

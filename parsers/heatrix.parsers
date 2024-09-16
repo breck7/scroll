@@ -1,7 +1,7 @@
 heatrixCatchAllParser
  popularity 0.000193
  // todo Fill this out
- catchAllCellType stringCell
+ catchAllAtomType stringAtom
 
 heatrixParser
  cruxFromId
@@ -123,22 +123,22 @@ heatrixAdvancedParser
           .split(" ")
           .map((cell) => {
             const words = cell.split(directiveDelimiter).filter((word) => !isDirective(word)).join("")
-            const directivesInThisCell = cell
+            const directivesInThisAtom = cell
               .split(directiveDelimiter)
               .filter(isDirective)
             const value = parseFloat(words)
             const label = words.includes("'") ? words.split("'")[1] : words
-            const alignment = directivesInThisCell.includes("right")
+            const alignment = directivesInThisAtom.includes("right")
               ? "right"
-              : directivesInThisCell.includes("left")
+              : directivesInThisAtom.includes("left")
               ? "left"
               : ""
             const color = colorFunction(value)
-            const width = getSize(directivesInThisCell, "w")
-            const height = getSize(directivesInThisCell, "h")
-            const fontSize = getSize(directivesInThisCell, "f")
-            const lineHeight = getSize(directivesInThisCell, "l") || height
-            const link = directivesInThisCell.filter(i => i.startsWith("http") || i.endsWith(".html"))[0]
+            const width = getSize(directivesInThisAtom, "w")
+            const height = getSize(directivesInThisAtom, "h")
+            const fontSize = getSize(directivesInThisAtom, "f")
+            const lineHeight = getSize(directivesInThisAtom, "l") || height
+            const link = directivesInThisAtom.filter(i => i.startsWith("http") || i.endsWith(".html"))[0]
             const style = {
               "background-color": color,
               width,
@@ -168,7 +168,7 @@ heatrixAdvancedParser
       .heatrixContainer {
         margin: auto;
       }.heatrixRow {white-space: nowrap;}
-  ${cssId} .heatrixCell {
+  ${cssId} .heatrixAtom {
     font-family: arial;
     border-radius: 2px;
     border: 1px solid transparent;
@@ -179,10 +179,10 @@ heatrixAdvancedParser
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .heatrixCell a {
+  .heatrixAtom a {
     color: black;
   }
-  ${cssId} .heatrixCell{
+  ${cssId} .heatrixAtom{
    width: ${defaultWidth};
    height: ${defaultHeight};
    font-size: ${fontSize};
@@ -210,9 +210,9 @@ heatrixAdvancedParser
                 const inlineStyle = Object.keys(extendedStyle)
                   .map((key) => `${key}:${extendedStyle[key]};`)
                   .join("")
-                let valueClass = value ? " valueCell" : ""
+                let valueClass = value ? " valueAtom" : ""
                 const href = link ? ` href="${link}"` : ""
-                return `<div class="heatrixCell heatrixColumn${columnIndex}${valueClass}" style="${inlineStyle}"><a title="${label}" ${href}>${label}</a></div>`
+                return `<div class="heatrixAtom heatrixColumn${columnIndex}${valueClass}" style="${inlineStyle}"><a title="${label}" ${href}>${label}</a></div>`
               })
               .join("")}</div>`
           })

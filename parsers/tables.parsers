@@ -1,5 +1,5 @@
 abstractTableTransformParser
- cells commandWordCell
+ cells commandWordAtom
  inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser scrollLoopParser
  javascript
   get coreTable() {
@@ -9,22 +9,22 @@ abstractTableTransformParser
     return this.parent.columnNames
   }
   getRunTimeEnumOptions(cell) {
-   if (cell.cellTypeId === "columnNameCell")
+   if (cell.cellTypeId === "columnNameAtom")
       return this.parent.columnNames
    return super.getRunTimeEnumOptions(cell)
   }
   getRunTimeEnumOptionsForValidation(cell) {
     // Note: this will fail if the CSV file hasnt been built yet.
-    if (cell.cellTypeId === "columnNameCell")
+    if (cell.cellTypeId === "columnNameAtom")
       return this.parent.columnNames.concat(this.parent.columnNames.map(c => "-" + c)) // Add reverse names
    return super.getRunTimeEnumOptions(cell)
   }
 
 abstractColumnNameParser
- cells commandWordCell columnNameCell
+ cells commandWordAtom columnNameAtom
  javascript
   getRunTimeEnumOptions(cell) {
-   if (cell.cellTypeId === "columnNameCell")
+   if (cell.cellTypeId === "columnNameAtom")
       return this.parent.columnNames
    return super.getRunTimeEnumOptions(cell)
   }
@@ -117,14 +117,14 @@ scrollTableDataParser
  popularity 0.001061
  crux data
  description Table from inline delimited data.
- catchAllCellType anyCell
+ catchAllAtomType anyAtom
  baseParser blobParser
 
 scrollTableDelimiterParser
  popularity 0.001037
  description Set the delimiter.
  crux delimiter
- cells commandWordCell stringCell
+ cells commandWordAtom stringAtom
  javascript
   compile() {
     return ""
@@ -143,7 +143,7 @@ scrollTableParser
     2000,122
     2020,23
  extends abstractScrollParser
- catchAllCellType filePathCell
+ catchAllAtomType filePathAtom
  inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser scrollLoopParser
  int wordIndex 1
  javascript
@@ -236,7 +236,7 @@ scrollTableParser
 quickTableParser
  popularity 0.000024
  extends scrollTableParser
- cells urlCell
+ cells urlAtom
  pattern ^[^\s]+\.(tsv|csv|ssv|psv)
  int wordIndex 0
 
@@ -244,7 +244,7 @@ scrollWhereParser
  extends abstractTableTransformParser
  description Filter rows by condition.
  crux where
- cells commandWordCell columnNameCell comparisonCell wordCell
+ cells commandWordAtom columnNameAtom comparisonAtom wordAtom
  example
   table iris.csv
    where Species = setosa
@@ -259,15 +259,15 @@ scrollWhereParser
    if (!columnName || !operator || untypedScalarValue === undefined) return coreTable
     const filterFn = row => {
       const cell = row[columnName]
-      const typedCell = cell
-      if (operator === "=") return typedValue === typedCell
-      else if (operator === "!=") return typedValue !== typedCell
-      else if (operator === "includes") return typedCell !== undefined && typedCell.includes(typedValue)
-      else if (operator === "doesNotInclude") return typedCell === undefined || !typedCell.includes(typedValue)
-      else if (operator === ">") return typedCell > typedValue
-      else if (operator === "<") return typedCell < typedValue
-      else if (operator === ">=") return typedCell >= typedValue
-      else if (operator === "<=") return typedCell <= typedValue
+      const typedAtom = cell
+      if (operator === "=") return typedValue === typedAtom
+      else if (operator === "!=") return typedValue !== typedAtom
+      else if (operator === "includes") return typedAtom !== undefined && typedAtom.includes(typedValue)
+      else if (operator === "doesNotInclude") return typedAtom === undefined || !typedAtom.includes(typedValue)
+      else if (operator === ">") return typedAtom > typedValue
+      else if (operator === "<") return typedAtom < typedValue
+      else if (operator === ">=") return typedAtom >= typedValue
+      else if (operator === "<=") return typedAtom <= typedValue
       else if (operator === "empty") return cell === "" || cell === undefined
       else if (operator === "notEmpty") return !(cell === "" || cell === undefined)
     }
@@ -275,7 +275,7 @@ scrollWhereParser
   }
 
 scrollSelectParser
- catchAllCellType columnNameCell
+ catchAllAtomType columnNameAtom
  extends abstractTableTransformParser
  description Drop all columns except these.
  example
@@ -311,7 +311,7 @@ scrollLimitParser
  extends abstractTableTransformParser
  description Select a subset.
  crux limit
- cells commandWordCell integerCell integerCell
+ cells commandWordAtom integerAtom integerAtom
  javascript
   get coreTable() {
    const start = this.getWord(1)
@@ -333,7 +333,7 @@ scrollTransposeParser
 scrollImputeParser
  extends abstractTableTransformParser
  description Impute missing values of a columm.
- cells commandWordCell columnNameCell
+ cells commandWordAtom columnNameAtom
  crux impute
  javascript
   get coreTable() {
@@ -367,7 +367,7 @@ scrollImputeParser
 scrollOrderByParser
  extends abstractTableTransformParser
  description Sort rows by column(s).
- catchAllCellType columnNameCell
+ catchAllAtomType columnNameAtom
  crux orderBy
  javascript
   get coreTable() {
@@ -385,8 +385,8 @@ scrollOrderByParser
 
 scrollRenameParser
  // todo: add support in Parsers for tuple catch alls
-  catchAllCellType columnNameCell wordCell
- catchAllCellType wordCell
+  catchAllAtomType columnNameAtom wordAtom
+ catchAllAtomType wordAtom
  extends abstractTableTransformParser
  description Rename columns.
  example
