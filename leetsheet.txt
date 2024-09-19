@@ -48,7 +48,7 @@ code - A code block.
 codeWithHeader - A code block.
 comment - Prints nothing.
 copyButtons - Copy code widget.
-counter - Just for fun.
+counter - Visualize the speed of something.
 css - A style tag.
 dashboard - Key stats in large font.
 date - Set published date.
