@@ -17,6 +17,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 133.1.0 9/21/2024
+🎉 groupBy now supports better reductions including concat and first
+
 📦 133.0.1 9/15/2024
 🏥 better error message when eval'ing macros
 

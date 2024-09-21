@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+133.1.0 9/21/2024
+=================
+🎉 groupBy now supports better reductions including concat and first
+
 133.0.1 9/15/2024
 =================
 🏥 better error message when eval'ing macros
@@ -2692,4 +2696,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v133.0.1
+Built with Scroll v133.1.0
