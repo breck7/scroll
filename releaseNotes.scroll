@@ -17,6 +17,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 133.2.0 9/22/2024
+🎉 added `favIcon` parser
+
 📦 133.1.0 9/21/2024
 🎉 groupBy now supports better reductions including concat and first
 

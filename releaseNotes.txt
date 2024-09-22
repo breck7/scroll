@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+133.2.0 9/22/2024
+=================
+🎉 added `favIcon` parser
+
 133.1.0 9/21/2024
 =================
 🎉 groupBy now supports better reductions including concat and first
@@ -2696,4 +2700,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v133.1.0
+Built with Scroll v133.2.0

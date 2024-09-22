@@ -60,6 +60,7 @@ emailButton - Email button.
 endColumns - End columns.
 endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
+favicon - Favicon file.
 fetch - Download URL to disk.
 gazetteCss - Default Scroll theme CSS.
 heatrix - A heatmap matrix data visualization.
@@ -198,6 +199,7 @@ caption,321
 code,193
 *,189
 description,169
+favicon,169
 printAuthors,167
 katex,160
 copyButtons,148
@@ -258,4 +260,4 @@ sparkline,3
 tufteCss,3
 video,3
 
-Built with Scroll v133.1.0
+Built with Scroll v133.2.0
