@@ -15,5 +15,6 @@ https://scroll.pub/header.html
 https://scroll.pub/gazette.html
 https://scroll.pub/faq.html
 https://scroll.pub/download.html
+https://scroll.pub/cloc.html
 https://scroll.pub/ciBadges.html
 https://scroll.pub/animation.html

@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+133.3.0 9/24/2024
+=================
+🎉 added `cloc` parser
+🎉 you can now use quickHtml in table flows
+
 133.2.0 9/22/2024
 =================
 🎉 added `favIcon` parser
@@ -2700,4 +2705,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v133.2.0
+Built with Scroll v133.3.0

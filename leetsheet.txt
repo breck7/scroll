@@ -44,6 +44,7 @@ catchAllParagraph - A paragraph.
 center - A centered section.
 chat - A faux text chat conversation.
 classicForm - Generate input form for ScrollSet.
+cloc - Output results of cloc as table.
 code - A code block.
 codeWithHeader - A code block.
 comment - Prints nothing.
@@ -122,7 +123,7 @@ sparkline - Sparkline widget.
 stamp - Expand project template to disk.
 stump - Compile Stump to HTML.
 stumpNoSnippet - Compile Stump unless snippet.
-table - A table.
+table - A datatable.
 tableSearch - Table search and sort widget.
 tags - Set tags.
 testStrict - Make catchAllParagraphParser = error.
@@ -196,6 +197,8 @@ mediumColumns,338
 thinColumn,338
 wideColumn,338
 caption,321
+cloc,214
+table,214
 code,193
 *,189
 description,169
@@ -208,7 +211,6 @@ gazetteCss,138
 email,131
 viewSourceLink,121
 printRelated,119
-table,114
 ###,109
 printTable,109
 openGraphImage,80
@@ -260,4 +262,4 @@ sparkline,3
 tufteCss,3
 video,3
 
-Built with Scroll v133.2.0
+Built with Scroll v133.3.0

@@ -376,12 +376,12 @@ h4.scrollQuestion {
 <div class="scrollSection"><h1 class="scrollParagraph">Simple sparkline with inline data</h1>
 <script src="sparkline.js"></script>
 
-<span id="spark53"></span><script>new Sparkline(document.getElementById("spark53"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([5,7,27,87,300,17,10,5])</script>
+<span id="spark54"></span><script>new Sparkline(document.getElementById("spark54"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([5,7,27,87,300,17,10,5])</script>
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Sparkline from table</h1>
 <div class="scrollSection"><h4 class="scrollQuestion">Whats in table?</h4>
-<table id="table54" class="scrollTable">
+<table id="table55" class="scrollTable">
  <thead><tr><th>score</th>
 </tr></thead>
  <tbody><tr><td>1</td>
@@ -394,19 +394,19 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table54').addEventListener('click', e => {
+ document.querySelector('#table55').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
 <div class="scrollSection"><h4 class="scrollQuestion">Show a sparkline?</h4>
-<span id="spark55"></span><script>new Sparkline(document.getElementById("spark55"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([1,5,432,3])</script>
+<span id="spark56"></span><script>new Sparkline(document.getElementById("spark56"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([1,5,432,3])</script>
 <div class="scrollSection"><h4 class="scrollQuestion">How about a heatrix?</h4>
 <div class="heatrixContainer" id="heatrix0"><style>    .heatrixContainer {      margin: auto;    }.heatrixRow {white-space: nowrap;}#heatrix0 .heatrixAtom {  font-family: arial;  border-radius: 2px;  border: 1px solid transparent;  display: inline-block;  margin: 1px;  text-align: center;  vertical-align: middle;  overflow: hidden;  text-overflow: ellipsis;}.heatrixAtom a {  color: black;}#heatrix0 .heatrixAtom{ width: 40px; height: 40px; font-size: 10px; line-height: 40px;}</style><div class="heatrixRow heatrixRow1"><div class="heatrixAtom heatrixColumn1" style=""><a title="score" >score</a></div></div><div class="heatrixRow heatrixRow2"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#c7e9c0;"><a title="1" >1</a></div></div><div class="heatrixRow heatrixRow3"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#41ab5d;"><a title="5" >5</a></div></div><div class="heatrixRow heatrixRow4"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#238b45;"><a title="432" >432</a></div></div><div class="heatrixRow heatrixRow5"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#a1d99b;"><a title="3" >3</a></div></div></div>
 <div class="scrollSection"><h4 class="scrollQuestion">What if we add a filter?</h4>
 <div class="heatrixContainer" id="heatrix0"><style>    .heatrixContainer {      margin: auto;    }.heatrixRow {white-space: nowrap;}#heatrix0 .heatrixAtom {  font-family: arial;  border-radius: 2px;  border: 1px solid transparent;  display: inline-block;  margin: 1px;  text-align: center;  vertical-align: middle;  overflow: hidden;  text-overflow: ellipsis;}.heatrixAtom a {  color: black;}#heatrix0 .heatrixAtom{ width: 40px; height: 40px; font-size: 10px; line-height: 40px;}</style><div class="heatrixRow heatrixRow1"><div class="heatrixAtom heatrixColumn1" style=""><a title="score" >score</a></div></div><div class="heatrixRow heatrixRow2"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#a1d99b;"><a title="5" >5</a></div></div><div class="heatrixRow heatrixRow3"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#41ab5d;"><a title="432" >432</a></div></div></div>
 <div class="scrollSection"><h4 class="scrollQuestion">Whats left in table?</h4>
-<table id="table56" class="scrollTable">
+<table id="table57" class="scrollTable">
  <thead><tr><th>score</th>
 </tr></thead>
  <tbody><tr><td>5</td>
@@ -415,7 +415,7 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table56').addEventListener('click', e => {
+ document.querySelector('#table57').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -423,7 +423,7 @@ h4.scrollQuestion {
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Visualizations from CSV</h1>
-<table id="table57" class="scrollTable">
+<table id="table58" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>email</th>
@@ -448,7 +448,7 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table57').addEventListener('click', e => {
+ document.querySelector('#table58').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -456,36 +456,6 @@ h4.scrollQuestion {
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Transforms</h1>
-<table id="table58" class="scrollTable">
- <thead><tr><th>name</th>
-
-<th>types</th>
-
-<th>score</th>
-</tr></thead>
- <tbody><tr><td>HTML</td>
-<td>142</td>
-<td>212</td>
-</tr>
-<tr><td>Markdown</td>
-<td>192</td>
-<td>2</td>
-</tr>
-<tr><td>Scroll</td>
-<td>174</td>
-<td>2</td>
-</tr>
-<tr><td>rST</td>
-<td>142</td>
-<td>21</td>
-</tr></tbody>
- </table>
- <script>
- document.querySelector('#table58').addEventListener('click', e => {
-  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
-  e.currentTarget.classList.toggle('expandedTable');
- });
- </script>
 <table id="table59" class="scrollTable">
  <thead><tr><th>name</th>
 
@@ -497,6 +467,36 @@ h4.scrollQuestion {
 <td>142</td>
 <td>212</td>
 </tr>
+<tr><td>Markdown</td>
+<td>192</td>
+<td>2</td>
+</tr>
+<tr><td>Scroll</td>
+<td>174</td>
+<td>2</td>
+</tr>
+<tr><td>rST</td>
+<td>142</td>
+<td>21</td>
+</tr></tbody>
+ </table>
+ <script>
+ document.querySelector('#table59').addEventListener('click', e => {
+  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
+  e.currentTarget.classList.toggle('expandedTable');
+ });
+ </script>
+<table id="table60" class="scrollTable">
+ <thead><tr><th>name</th>
+
+<th>types</th>
+
+<th>score</th>
+</tr></thead>
+ <tbody><tr><td>HTML</td>
+<td>142</td>
+<td>212</td>
+</tr>
 <tr><td>rST</td>
 <td>142</td>
 <td>21</td>
@@ -511,36 +511,6 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table59').addEventListener('click', e => {
-  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
-  e.currentTarget.classList.toggle('expandedTable');
- });
- </script>
-<table id="table60" class="scrollTable">
- <thead><tr><th>types</th>
-
-<th>n</th>
-
-<th>s</th>
-</tr></thead>
- <tbody><tr><td>142</td>
-<td>HTML</td>
-<td>212</td>
-</tr>
-<tr><td>192</td>
-<td>Markdown</td>
-<td>2</td>
-</tr>
-<tr><td>174</td>
-<td>Scroll</td>
-<td>2</td>
-</tr>
-<tr><td>142</td>
-<td>rST</td>
-<td>21</td>
-</tr></tbody>
- </table>
- <script>
  document.querySelector('#table60').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
@@ -549,9 +519,9 @@ h4.scrollQuestion {
 <table id="table61" class="scrollTable">
  <thead><tr><th>types</th>
 
-<th>name</th>
+<th>n</th>
 
-<th>score</th>
+<th>s</th>
 </tr></thead>
  <tbody><tr><td>142</td>
 <td>HTML</td>
@@ -577,11 +547,27 @@ h4.scrollQuestion {
  });
  </script>
 <table id="table62" class="scrollTable">
- <thead><tr><th>name</th>
+ <thead><tr><th>types</th>
+
+<th>name</th>
+
+<th>score</th>
 </tr></thead>
- <tbody><tr><td>HTML</td>
+ <tbody><tr><td>142</td>
+<td>HTML</td>
+<td>212</td>
 </tr>
-<tr><td>rST</td>
+<tr><td>192</td>
+<td>Markdown</td>
+<td>2</td>
+</tr>
+<tr><td>174</td>
+<td>Scroll</td>
+<td>2</td>
+</tr>
+<tr><td>142</td>
+<td>rST</td>
+<td>21</td>
 </tr></tbody>
  </table>
  <script>
@@ -590,11 +576,25 @@ h4.scrollQuestion {
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
+<table id="table63" class="scrollTable">
+ <thead><tr><th>name</th>
+</tr></thead>
+ <tbody><tr><td>HTML</td>
+</tr>
+<tr><td>rST</td>
+</tr></tbody>
+ </table>
+ <script>
+ document.querySelector('#table63').addEventListener('click', e => {
+  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
+  e.currentTarget.classList.toggle('expandedTable');
+ });
+ </script>
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Impute</h1>
 </div>
-<table id="table63" class="scrollTable">
+<table id="table64" class="scrollTable">
  <thead><tr><th>year</th>
 
 <th>count</th>
@@ -964,16 +964,16 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table63').addEventListener('click', e => {
+ document.querySelector('#table64').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<span id="spark64"></span><script>new Sparkline(document.getElementById("spark64"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23])</script>
+<span id="spark65"></span><script>new Sparkline(document.getElementById("spark65"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23])</script>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Timestamps</h1>
 </div>
-<table id="table65" class="scrollTable">
+<table id="table66" class="scrollTable">
  <thead><tr><th>folder</th>
 
 <th>ctime</th>
@@ -995,7 +995,7 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table65').addEventListener('click', e => {
+ document.querySelector('#table66').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
