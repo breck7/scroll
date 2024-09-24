@@ -13,6 +13,7 @@ jobs:
       - name: Install and Build
         run: |
           rm .gitignore
+          npm i -g cloc
           npm install .
           cd blog
           echo "Installing packages for markups demo in blog."
