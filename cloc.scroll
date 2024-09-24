@@ -1,0 +1,22 @@
+title Scroll Cloc Stats
+
+header.scroll
+printTitle
+
+tableSearch
+
+mediumColumn
+cloc --exclude-dir=external
+ where language != SUM
+  ## Files
+  select language files
+   transpose
+    heatrix
+  br 2
+  ## Code
+  select language code
+   transpose
+    heatrix
+ printTable
+
+footer.scroll

@@ -17,6 +17,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 133.3.0 9/24/2024
+🎉 added `cloc` parser
+🎉 you can now use quickHtml in table flows
+
 📦 133.2.0 9/22/2024
 🎉 added `favIcon` parser
 
