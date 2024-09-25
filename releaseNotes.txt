@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+133.5.0 9/24/2024
+=================
+🎉 added `compose` parser to tables
+
 133.4.0 9/24/2024
 =================
 🎉 added `quickIncludeJsonParser` parser
@@ -2709,4 +2713,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v133.4.0
+Built with Scroll v133.5.0

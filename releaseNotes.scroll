@@ -17,6 +17,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 133.5.0 9/24/2024
+🎉 added `compose` parser to tables
+
 📦 133.4.0 9/24/2024
 🎉 added `quickIncludeJsonParser` parser
 

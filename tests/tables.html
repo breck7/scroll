@@ -1000,6 +1000,40 @@ h4.scrollQuestion {
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
+<table id="table67" class="scrollTable">
+ <thead><tr><th>folder</th>
+
+<th>ctime</th>
+
+<th>statement</th>
+</tr></thead>
+ <tbody><tr><td>adfs</td>
+<td>9/10/2024, 9:56:00 PM</td>
+<td>The name of the folder is adfs</td>
+</tr>
+<tr><td>elmetate</td>
+<td>9/10/2024, 6:38:07 PM</td>
+<td>The name of the folder is elmetate</td>
+</tr>
+<tr><td>test43</td>
+<td>9/4/2024, 7:24:28 PM</td>
+<td>The name of the folder is test43</td>
+</tr>
+<tr><td>emailcollect</td>
+<td>9/3/2024, 9:07:52 PM</td>
+<td>The name of the folder is emailcollect</td>
+</tr>
+<tr><td>aadsasdfasdf2</td>
+<td>8/29/2024, 6:02:39 PM</td>
+<td>The name of the folder is aadsasdfasdf2</td>
+</tr></tbody>
+ </table>
+ <script>
+ document.querySelector('#table67').addEventListener('click', e => {
+  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
+  e.currentTarget.classList.toggle('expandedTable');
+ });
+ </script>
 <div class="dinkus"><span>⁂</span></div>
 </body>
 </html>
