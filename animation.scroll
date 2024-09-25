@@ -3,8 +3,8 @@ br 1
 
 <div class="animation">
 With Scroll your
-Words become particles
- class atomToDot Words
+Lines become particles
+ class atomToDot Lines
  class atomToDot become
  class atomToDot particles
  class animationLine
@@ -13,7 +13,7 @@ Joined with parsers
  class atomToDot2 with
  class atomToDot2 parsers
  class animationLine
-To guide the world
+To lead the world
 </div>
 
 <link rel="stylesheet" href="animation.css" type="text/css"/>
