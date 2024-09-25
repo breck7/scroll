@@ -17,6 +17,7 @@ https://scroll.pub/markups.html
 https://scroll.pub/maps.html
 https://scroll.pub/loops.html
 https://scroll.pub/lists.html
+https://scroll.pub/json.html
 https://scroll.pub/javascript.html
 https://scroll.pub/index.html
 https://scroll.pub/html.html
