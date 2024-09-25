@@ -319,6 +319,27 @@ scrollReverseParser
    return this.parent.coreTable.slice().reverse()
   }
 
+scrollComposeParser
+ extends abstractTableTransformParser
+ description Add column using format string.
+ crux compose
+ javascript
+  get coreTable() {
+   const {newColumnName} = this
+   const formatString = this.getAtomsFrom(2).join(" ")
+   return this.parent.coreTable.map(row => {
+     const newRow = Object.assign({}, row)
+     newRow[newColumnName] = new Particle(row).evalTemplateString(formatString)
+     return newRow
+   })
+  }
+  get newColumnName() {
+    return this.atoms[1]
+  }
+  get columnNames() {
+    return this.parent.columnNames.concat(this.newColumnName)
+  }
+
 scrollLimitParser
  extends abstractTableTransformParser
  description Select a subset.
