@@ -17,6 +17,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 136.0.0 9/26/2024
+⚠️ BREAKING: (no one should be affected). haml was matching too much. now haml parser requires an #id.
+
 📦 135.0.0 9/26/2024
 🎉 added `tufte` theme
 ⚠️ BREAKING: removed `gazetteCss`. Now use `theme gazette`.
