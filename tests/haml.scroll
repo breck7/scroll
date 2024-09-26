@@ -1,0 +1,17 @@
+buildHtml
+buildTxt
+
+css
+ #green {color: green;}
+ .red {color:red;}
+ .underline {text-decoration: underline;}
+
+h1#green Green
+
+h1.red Red
+
+div.red.underline Red underline
+
+
+div.underline#green Green underline
+

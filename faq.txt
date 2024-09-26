@@ -456,9 +456,6 @@ Each Scroll file is currently passed over 4 times during compilation to HTML and
 
 Is there a chart showing all the layers of Scroll?
 ==================================================
-[Image Omitted]
- Made with nomnoml
-  https://t.co/Fggo87gUr1 Made with nomnoml
 
 Other
 =====
@@ -466,4 +463,4 @@ Why the name Scroll?
 ====================
 The scroll was invented thousands of years ago and scrolls are still useful today. Scroll has been designed with a focus on simplicity and a goal of making something that would have been useful decades ago, with the hope that this will make it useful decades into the future.
 
-Built with Scroll v133.6.0
+Built with Scroll v134.0.0

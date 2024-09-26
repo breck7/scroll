@@ -22,6 +22,7 @@ https://scroll.pub/javascript.html
 https://scroll.pub/index.html
 https://scroll.pub/html.html
 https://scroll.pub/heatrix.html
+https://scroll.pub/haml.html
 https://scroll.pub/full.html
 https://scroll.pub/form.html
 https://scroll.pub/footer.html

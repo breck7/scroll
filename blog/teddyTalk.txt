@@ -43,10 +43,6 @@ Playground
 LeetSheet
  https://scroll.pub/particlesLeetsheet.html LeetSheet
 
-[Image Omitted]
- width 400
- Each line is a particle. Each dot is a atom. Particles lets you easily compare programs and see which one is simpler (less heavy!).
-
 3. What is Scroll?
 ==================
 
@@ -60,10 +56,6 @@ Playground
 
 LeetSheet
  https://scroll.pub/leetsheet.html LeetSheet
-
-[Image Omitted]
- width 400
- Scroll is a collection of Parsers that allow you to evolve and publish your most intelligent ideas.
 
 4. What is Parsers?
 ===================
@@ -79,10 +71,6 @@ Playground
 LeetSheet
  https://scroll.pub/parserLeetsheet.html LeetSheet
 
-[Image Omitted]
- width 400
- Programmers who understand how computing machines work write Parsers to translate particles into executable machine code.
-
 5. How do you get started?
 ==========================
 
@@ -94,4 +82,4 @@ Subreddit
 
 ⁂
 
-Built with Scroll v133.6.0
+Built with Scroll v134.0.0

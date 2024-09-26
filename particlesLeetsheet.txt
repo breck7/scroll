@@ -9,12 +9,9 @@ Particles LeetSheet
 - An indent of +1 space makes a particle a subparticle of the parent line.
 - Particles has no syntax errors; every document is a valid Particles document.
 
-[Image Omitted]
- All of Particle Syntax (Particles) is shown here.
-
 Links - r/WorldWideScroll · Scroll LeetSheet · Parsers LeetSheet
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  https://scroll.pub/leetsheet.html Scroll LeetSheet
  https://scroll.pub/parserLeetsheet.html Parsers LeetSheet
 
-Built with Scroll v133.6.0
+Built with Scroll v134.0.0

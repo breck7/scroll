@@ -3,8 +3,6 @@ Changes: A Microlang for Change Logs
 by Breck Yunits
  https://twitter.com/breckyunits Breck Yunits
 
-[Image Omitted]
-
 July 1, 2024
 
 Regardless of what languages you write your programs in, you probably maintain files like _changeLog.txt_ or _releaseNotes.txt_.
@@ -87,4 +85,4 @@ Related
 - What can we learn from programming language version numbers?
  https://breckyunits.com/versionNumbers.html What can we learn from programming language version numbers?
 
-Built with Scroll v133.6.0
+Built with Scroll v134.0.0

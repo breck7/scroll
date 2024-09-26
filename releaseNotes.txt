@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+134.0.0 9/25/2024
+=================
+🎉 added `haml` quick html tags
+⚠️ BREAKING: (no one should be affected) if you have lines starting with a sequence like tag#id or tag.someClassName, they will now get matched to HAML parser.
+
 133.6.0 9/24/2024
 =================
 🎉 added `links` parser to tables
@@ -151,8 +156,6 @@ Demos
 ================
 🎉 added `quickImage` parser. Add an image with just the filename. quickImageParser detects by filename.
 ⚠️ BREAKING: (no one should be effected) if you had any lines starting with [filename].(png|jpg|et cetera) will be parsed as image.
-
-[Image Omitted]
 
 126.1.0 9/3/2024
 ================
@@ -2717,4 +2720,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v133.6.0
+Built with Scroll v134.0.0

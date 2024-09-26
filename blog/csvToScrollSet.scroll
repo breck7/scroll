@@ -28,7 +28,7 @@ endColumns
 ***
 
 mediumColumns 1
-<script src="scrollSetMaker.js"></script>
+scrollSetMaker.js
 
 # Your Data:
 <textarea style="width: 100%" id="content" rows="15" oninput="updateScrollSet()"></textarea><br>
@@ -36,9 +36,9 @@ mediumColumns 1
 <input id="delimiter" value="," style="width: 30px;"/>
 
 # ScrollSet:
-<pre id="scrollset"></pre>
+pre#scrollset
 
-<script>
+script
  function updateScrollSet() {
      const delimiter = document.getElementById('delimiter').value;
      const content = document.getElementById('content').value;
@@ -48,7 +48,6 @@ mediumColumns 1
  document.getElementById('content').value = "id,year\nHawaii,1959"
  updateScrollSet()
  document.getElementById('delimiter').addEventListener('input', updateScrollSet);
-</script>
 
 # Related
 printRelated ScrollSets

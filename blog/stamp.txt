@@ -49,8 +49,6 @@ Stamp was jointly created by me and Guillaume Papin. Other tools (listed below) 
 
 ⁂
 
-[Image Omitted]
-
 Prior Art
 =========
 - cookiecutter
@@ -74,4 +72,4 @@ Prior Art
 - Wikipedia list of archive formats
  https://en.wikipedia.org/wiki/List_of_archive_formats Wikipedia list of archive formats
 
-Built with Scroll v133.6.0
+Built with Scroll v134.0.0
