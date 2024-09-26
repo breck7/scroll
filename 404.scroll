@@ -1,7 +1,7 @@
 buildHtml
  // Make this one absolute since this 404 page may run in any subfolder
 title Page not found
-
+theme gazette
 settings.scroll
 
 homeButton
