@@ -1,6 +1,6 @@
 br 1
 
-div.animation
+div#theAnimation
 With Scroll your
 Lines become particles
  class atomToDot Lines

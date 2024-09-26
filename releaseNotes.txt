@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+136.0.0 9/26/2024
+=================
+⚠️ BREAKING: (no one should be affected). haml was matching too much. now haml parser requires an #id.
+
 135.0.0 9/26/2024
 =================
 🎉 added `tufte` theme
@@ -167,6 +171,8 @@ Demos
 ================
 🎉 added `quickImage` parser. Add an image with just the filename. quickImageParser detects by filename.
 ⚠️ BREAKING: (no one should be effected) if you had any lines starting with [filename].(png|jpg|et cetera) will be parsed as image.
+
+[Image Omitted]
 
 126.1.0 9/3/2024
 ================
@@ -2731,4 +2737,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v135.0.0
+Built with Scroll v136.0.0

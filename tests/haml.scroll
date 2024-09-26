@@ -8,9 +8,9 @@ css
 
 h1#green Green
 
-h1.red Red
+h1.red#foo Red
 
-div.red.underline Red underline
+div.red.underline#bar Red underline
 
 
 div.underline#green Green underline

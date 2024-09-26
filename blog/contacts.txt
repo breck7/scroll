@@ -72,6 +72,9 @@ Done! You should now see a contacts.html file for display and printing as well a
 
 *
 
+[Image Omitted]
+ Contacts is interoperable with pen and paper.
+
 *
 
 What do you think? Anything that should be added/removed/improved?
@@ -85,4 +88,4 @@ Notes
 
 ⁂
 
-Built with Scroll v135.0.0
+Built with Scroll v136.0.0

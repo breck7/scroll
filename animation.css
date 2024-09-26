@@ -12,12 +12,12 @@
   --color: black;
 }
 
-.animation {
+#theAnimation {
   font-weight: var(--font-weight);
   text-align: var(--text-align);
 }
 
-.animation .scrollParagraph {
+#theAnimation .scrollParagraph {
   text-align: var(--text-align);
   margin-bottom: var(--margin-bottom);
 }

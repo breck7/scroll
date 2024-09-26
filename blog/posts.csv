@@ -1,17 +1,17 @@
 date,year,title,permalink,authors,tags,wordCount,minutes
 09/02/2024,2024,The Successor to RSS is Git Clone,gitOverRss.html,Breck Yunits,All,198,1.0
-08/30/2024,2024,A New Way to Program,teddyTalk.html,Breck Yunits,All,357,1.8
+08/30/2024,2024,A New Way to Program,teddyTalk.html,Breck Yunits,All,426,2.1
 08/09/2024,2024,Tables: a microlang for data science,tables.html,Breck Yunits,All,492,2.5
 08/02/2024,2024,Build Your Own Counters With 3 Words,counters.html,Breck Yunits,All,1026,5.1
-07/28/2024,2024,Heatrix: Heat Maps + Matrix Visualizations,heatrix.html,Breck Yunits,All,419,2.1
-07/16/2024,2024,Contacts: A Microlang for Managing Contacts,contacts.html,Breck Yunits,All,362,1.8
+07/28/2024,2024,Heatrix: Heat Maps + Matrix Visualizations,heatrix.html,Breck Yunits,All,467,2.3
+07/16/2024,2024,Contacts: A Microlang for Managing Contacts,contacts.html,Breck Yunits,All,371,1.9
 07/12/2024,2024,How I Designed Helpful 404's and Stopped Worrying about Broken Links,helpful404s.html,Breck Yunits,All,542,2.7
 07/09/2024,2024,Convert CSVs to ScrollSets,csvToScrollSet.html,Breck Yunits,All ScrollSets,100,0.5
-07/01/2024,2024,Changes: A Microlang for Change Logs,changes.html,Breck Yunits,All,427,2.1
+07/01/2024,2024,Changes: A Microlang for Change Logs,changes.html,Breck Yunits,All,429,2.1
 06/24/2024,2024,Write scatterplot to get a scatterplot,plot.html,Breck Yunits,All,342,1.7
-06/23/2024,2024,Stamp: a microlang for project templates,stamp.html,Breck Yunits,All,298,1.5
+06/23/2024,2024,Stamp: a microlang for project templates,stamp.html,Breck Yunits,All,300,1.5
 04/29/2024,2024,Scroll builds text files,textFiles.html,Breck Yunits,All,173,0.9
-04/21/2024,2024,ScrollSets: source code for CSVs,scrollsets.html,Breck Yunits,All ScrollSets,1374,6.9
+04/21/2024,2024,ScrollSets: source code for CSVs,scrollsets.html,Breck Yunits,All ScrollSets,1391,7.0
 05/08/2023,2023,Introducing Program Links,programLinks.html,Breck Yunits,All,507,2.5
 04/13/2023,2023,Counterpoints: A new tool for thought in the Scroll Language,counterpoints.html,Breck Yunits,All,388,1.9
 10/02/2022,2022,Introducing the Blink Tag,introducingBlink.html,Breck Yunits,All,176,0.9
