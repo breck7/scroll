@@ -1,7 +1,6 @@
 br 1
 
-
-<div class="animation">
+div.animation
 With Scroll your
 Lines become particles
  class atomToDot Lines
@@ -14,8 +13,7 @@ Joined with parsers
  class atomToDot2 parsers
  class animationLine
 To lead the world
-</div>
 
-<link rel="stylesheet" href="animation.css" type="text/css"/>
+animation.css
 
 br 2
