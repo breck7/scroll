@@ -1,5 +1,6 @@
 https://scroll.pub/viewSource.html
 https://scroll.pub/video.html
+https://scroll.pub/tufte.html
 https://scroll.pub/themes.html
 https://scroll.pub/tabularData.html
 https://scroll.pub/tables.html
@@ -10,6 +11,7 @@ https://scroll.pub/slideshowDemo.html
 https://scroll.pub/settings.html
 https://scroll.pub/scrollVersion.html
 https://scroll.pub/script.html
+https://scroll.pub/roboto.html
 https://scroll.pub/relativeSnippets.html
 https://scroll.pub/redirectTest.html
 https://scroll.pub/openGraphImages.html
@@ -24,6 +26,7 @@ https://scroll.pub/index.html
 https://scroll.pub/html.html
 https://scroll.pub/heatrix.html
 https://scroll.pub/haml.html
+https://scroll.pub/gazette.html
 https://scroll.pub/full.html
 https://scroll.pub/form.html
 https://scroll.pub/footer.html
@@ -31,6 +34,7 @@ https://scroll.pub/fetchTest.html
 https://scroll.pub/feed.html
 https://scroll.pub/favicon.html
 https://scroll.pub/debugging.html
+https://scroll.pub/dark.html
 https://scroll.pub/customMarkups.html
 https://scroll.pub/csv.html
 https://scroll.pub/css.html

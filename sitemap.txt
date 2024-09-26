@@ -12,7 +12,6 @@ https://scroll.pub/parserLeetsheet.html
 https://scroll.pub/pages.html
 https://scroll.pub/leetsheet.html
 https://scroll.pub/header.html
-https://scroll.pub/gazette.html
 https://scroll.pub/faq.html
 https://scroll.pub/download.html
 https://scroll.pub/cloc.html

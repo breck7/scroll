@@ -3,7 +3,7 @@ buildHtml
 
 settings.scroll
 metaTags
-gazetteCss
+theme gazette
 viewSourceButton
 homeButton
 leftRightButtons

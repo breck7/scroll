@@ -866,7 +866,7 @@ feed.xml`,
 metaTags
 buildTxt
 buildHtml
-gazetteCss
+theme gazette
 homeButton
 leftRightButtons
 viewSourceButton
@@ -894,7 +894,7 @@ footer.scroll`
     this.log(`Initializing scroll in "${cwd}"`)
     Disk.writeObjectToDisk(cwd, initFolder)
     require("child_process").execSync("git init", { cwd })
-    return this.log(`\n👍 Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
+    return this.log(`\n✅ Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
   }
 
   deleteCommand() {

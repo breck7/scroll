@@ -12,3 +12,10 @@ loremIpsum 1
 
 - A list
 - Item 2
+
+## Code
+
+Inline `code`.
+
+codeWithHeader header
+ A code block

@@ -1,387 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<style>
-figure {
-  margin: 0;
-  padding: 0;
-}
-.dropcap:first-letter {
-  font-size: 3rem;
-  line-height: .9em;
-  margin-right: .125rem;
-  display: block;
-  float: left;
-}
-.dinkus {
-  text-align: center;
-  padding: 1rem;
-}
-.dinkus span {
-  vertical-align: sub;
-}
-details {
-  margin-top: 10px;
-}
-summary {
-  font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";
-  cursor: pointer;
-}
-.scrollCaptionedFigure {
-  display: block;
-  break-inside: avoid;
-  max-width: 100%;
-  text-align: center;
-}
-.scrollCaptionedFigure img {
-  max-width: 100%;
-  height: auto;
-  margin-top: .1875rem;
-}
-.scrollCaptionedFigure figcaption {
-  font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";
-  font-size: .8rem;
-}
-.scrollCaptionedFigure figcaption .scrollParagraph {
-  margin-top: 0;
-}
-.scrollCodeBlock {
-  overflow: auto;
-  font-size: .8rem;
-  hyphens: none;
-  white-space: pre;
-  break-inside: avoid;
-  display: block;
-  margin: .5rem 0;
-  padding: .5rem;
-  border-radius: 0;
-  position: relative;
-}
-.codeWithHeader {
-  break-inside: avoid-column;
-  margin: 10px 0;
-}
-.codeHeader {
-  font-size: 80%;
-  text-align: center;
-  background: rgba(224, 224, 224, 0.4);
-  border: 1px solid rgba(204, 204, 204, 0.8);
-  border-bottom: 0;
-  margin-bottom: -7px;
-  padding: 4px 2px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-.scrollCodeBlock:hover .scrollCopyButton {
-  opacity: .5;
-}
-.scrollCodeBlock:hover .scrollCopyButton:hover {
-  opacity: .8;
-}
-.scrollCodeBlock:hover .scrollCopyButton:active {
-  opacity: 1;
-}
-.scrollCopyButton {
-  position: absolute;
-  top: .125rem;
-  right: .125rem;
-  font-size: .875rem;
-  cursor: pointer;
-  opacity: 0;
-}
-.scrollCopyButton::after {
-  content: "[ ]";
-}
-.scrollCopiedButton::after {
-  content: "[✓]";
-}
-html,body,div,span,p,ol,ul,li,table,figure {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  vertical-align: baseline;
-  border-spacing: 0;
-}
-ol,ul {
-  padding-left: 1rem;
-}
-li {
-  margin-top: .4rem;
-  line-height: 1.4;
-}
-a {
-  text-decoration-color: transparent;
-  color: #36c;
-}
-a:hover {
-  text-decoration-color: initial;
-}
-.scrollButton {
-  background-color: rgba(10,92,202,0.8);
-  border-radius: 6px;
-  color: white;
-  padding: 10px 20px;
-  display: inline-block;
-  border: 0;
-  cursor: pointer;
-}
-.scrollButton a {
-  color: white;
-  text-decoration: none;
-}
-.scrollButton:hover {
-  background-color: rgb(10,92,202,0.9);
-}
-.scrollButton:active {
-  background-color: rgb(10,92,202,1);
-}
-sup,sub {
-  vertical-align: baseline;
-  position: relative;
-  top: -.375rem;
-}
-sub {
-  top: .375rem;
-}
-html {
-  padding: .25rem;
-  background-color: rgb(244,244,244);
-  font-family: Exchange,Georgia,serif;
-  color: #000;
-  font-size: var(--base-font-size, 16px);
-  hyphens: auto;
-}
-p {
-  margin-top: .4rem;
-  line-height: 1.4rem;
-}
-.scrollQuote {
-  break-inside: avoid;
-  display: block;
-  margin: .5rem 0;
-  padding: .5rem;
-  background: rgba(204,204,204,.5);
-  white-space: pre-line;
-  border-left: .5rem solid rgba(204,204,204,.8);
-}
-code {
-  font-size: .9rem;
-  background-color: rgba(204,204,204,.5);
-  padding: .125rem .25rem;
-  border-radius: .25rem;
-}
-.scrollParagraph {
-  text-align: justify;
-}
-center .scrollParagraph {
-  text-align: center;
-}
-.scrollColumns {
-  column-count: auto;
-  column-fill: balance;
-  column-width: 35ch;
-  column-gap: 1.5rem;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  margin: auto;
-}
-.scrollSnippetContainer {
-  padding: 1ch 0;
-  break-inside: avoid;
-  text-align: justify;
-}
-h1,h2,h3,h4 {
-  margin: .625rem 0;
-}
-h1 {
-  font-size: 1.25rem;
-}
-h2 {
-  font-size: 1.125rem;
-}
-h3,h4 {
-  font-size: 1rem;
-}
-h1.scrollTitle {
-  text-align: center;
-  margin: auto;
-  margin-bottom: .15625rem;
-  margin-top: 0;
-  font-size: 1.75rem;
-  max-width: calc(100vw - 2 * (1.5625rem + 1.875rem));
-}
-h1.scrollTitle a {
-  color: #000;
-}
-.scrollDateline {
-  font-style: italic;
-  line-height: 1.4rem;
-  font-size: .75rem;
-}
-.scrollSection {
-  break-inside: avoid;
-}
-.scrollSection h1,.scrollSection h2,.scrollSection h3,.scrollSection h4 {
-  text-align: center;
-}
-h4.scrollQuestion {
-  text-align: left;
-  margin: 1.4rem 0 0 0;
-}
-.scrollSection:first-child h1,.scrollSection:first-child h2,.scrollSection:first-child h3,.scrollSection:first-child h4 {
-  margin-top: 0;
-}
-.scrollSection:first-child h4.scrollQuestion {
-  margin-top: 0;
-}
-.scrollNoteLink {
-  opacity: .4;
-  text-decoration: none;
-}
-.scrollNoteLink:hover {
-  opacity: 1;
-}
-.scrollFootNoteUsageLink {
-  opacity: .7;
-  text-decoration: none;
-}
-.scrollFootNoteUsageLink:hover {
-  opacity: 1;
-}
-.scrollHoverNote {
-  text-decoration: underline dashed 1px rgba(0,0,0,.1);
-  cursor: default;
-}
-.scrollCodeBlock {
-  border-left: .5rem solid rgba(204,204,204,.8);
-}
-.scrollTable {
-  table-layout: fixed;
-  font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";
-  margin: .5rem 0;
-  overflow: hidden;
-  font-size: .8rem;
-  width: 100%;
-  hyphens: none;
-  border: 1px solid rgba(224,224,224,.8);
-}
-.scrollTable td,.scrollTable th {
-  padding: .1875rem;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.scrollTable th {
-  text-transform: capitalize;
-  border-bottom: 2px solid rgba(0,0,0,.6);
-  text-align: left;
-}
-.scrollTable td {
-  cursor: zoom-in;
-}
-.scrollTable tr:nth-child(even) {
-  background: rgba(224,224,224,.6);
-}
-.scrollTable pre {
-  white-space: nowrap;
-  overflow: hidden;
-  margin: 0;
-}
-.scrollTable.expandedTable {
-  table-layout: unset;
-  background: white;
-  position: relative;
-  z-index: 10;
-  overflow: unset;
-}
-.scrollTable.expandedTable pre {
-  white-space: unset;
-  overflow: unset;
-}
-.scrollTable.expandedTable td,.scrollTable.expandedTable th {
-  overflow: unset;
-  white-space: unset;
-}
-.scrollTable.expandedTable td {
-  cursor: zoom-out;
-}
-.scrollByLine {
-  font-size: .875rem;
-  font-style: italic;
-  margin: .25rem 0;
-  text-align: center;
-}
-.abstractTextLinkParser {
-  text-align: center;
-  margin: .5em auto;
-  font-family: Verdana;
-  font-weight: 100;
-}
-.abstractTextLinkParser a {
-  color: rgba(204,204,204,.5);
-}
-.abstractTextLinkParser a:hover {
-  color: #333;
-}
-.scrollContinueReadingLink {
-  display: block;
-  text-align: center;
-}
-.scrollDashboard {
-  width: 100%;
-  font-size: 1.875rem;
-  text-align: center;
-  font-weight: bold;
-  break-inside: avoid;
-  margin-top: .5rem;
-  margin-bottom: .5rem;
-}
-.scrollDashboard td {
-  width: 33.3%;
-  border: 1px solid #e8e8e8;
-}
-.scrollDashboard span {
-  font-size: 1.25rem;
-  display: block;
-}
-.scrollChat span {
-  font-family: Verdana;
-  margin-top: .3125rem;
-  padding: .3125rem 1.25rem;
-  border-radius: .9375rem;
-  display: inline-block;
-}
-.scrollChatLeft span {
-  background: rgba(204,204,204, .5);
-}
-.scrollChatRight span {
-  color: white;
-  background: rgb(0,132,255);
-}
-.scrollYouTubeHolder {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
-}
-.scrollYouTubeEmbed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" href="gazette.css">
 <div class="scrollColumns" style="column-width:35ch;column-count:1;max-width:35ch;">
 <div class="scrollSection"><h1 class="scrollParagraph">Simple sparkline with inline data</h1>
 <script src="sparkline.js"></script>
 
-<span id="spark54"></span><script>new Sparkline(document.getElementById("spark54"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([5,7,27,87,300,17,10,5])</script>
+<span id="spark48"></span><script>new Sparkline(document.getElementById("spark48"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([5,7,27,87,300,17,10,5])</script>
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Sparkline from table</h1>
 <div class="scrollSection"><h4 class="scrollQuestion">Whats in table?</h4>
-<table id="table55" class="scrollTable">
+<table id="table49" class="scrollTable">
  <thead><tr><th>score</th>
 </tr></thead>
  <tbody><tr><td>1</td>
@@ -394,19 +24,19 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table55').addEventListener('click', e => {
+ document.querySelector('#table49').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
 <div class="scrollSection"><h4 class="scrollQuestion">Show a sparkline?</h4>
-<span id="spark56"></span><script>new Sparkline(document.getElementById("spark56"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([1,5,432,3])</script>
+<span id="spark50"></span><script>new Sparkline(document.getElementById("spark50"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([1,5,432,3])</script>
 <div class="scrollSection"><h4 class="scrollQuestion">How about a heatrix?</h4>
 <div class="heatrixContainer" id="heatrix0"><style>    .heatrixContainer {      margin: auto;    }.heatrixRow {white-space: nowrap;}#heatrix0 .heatrixAtom {  font-family: arial;  border-radius: 2px;  border: 1px solid transparent;  display: inline-block;  margin: 1px;  text-align: center;  vertical-align: middle;  overflow: hidden;  text-overflow: ellipsis;}.heatrixAtom a {  color: black;}#heatrix0 .heatrixAtom{ width: 40px; height: 40px; font-size: 10px; line-height: 40px;}</style><div class="heatrixRow heatrixRow1"><div class="heatrixAtom heatrixColumn1" style=""><a title="score" >score</a></div></div><div class="heatrixRow heatrixRow2"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#c7e9c0;"><a title="1" >1</a></div></div><div class="heatrixRow heatrixRow3"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#41ab5d;"><a title="5" >5</a></div></div><div class="heatrixRow heatrixRow4"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#238b45;"><a title="432" >432</a></div></div><div class="heatrixRow heatrixRow5"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#a1d99b;"><a title="3" >3</a></div></div></div>
 <div class="scrollSection"><h4 class="scrollQuestion">What if we add a filter?</h4>
 <div class="heatrixContainer" id="heatrix0"><style>    .heatrixContainer {      margin: auto;    }.heatrixRow {white-space: nowrap;}#heatrix0 .heatrixAtom {  font-family: arial;  border-radius: 2px;  border: 1px solid transparent;  display: inline-block;  margin: 1px;  text-align: center;  vertical-align: middle;  overflow: hidden;  text-overflow: ellipsis;}.heatrixAtom a {  color: black;}#heatrix0 .heatrixAtom{ width: 40px; height: 40px; font-size: 10px; line-height: 40px;}</style><div class="heatrixRow heatrixRow1"><div class="heatrixAtom heatrixColumn1" style=""><a title="score" >score</a></div></div><div class="heatrixRow heatrixRow2"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#a1d99b;"><a title="5" >5</a></div></div><div class="heatrixRow heatrixRow3"><div class="heatrixAtom heatrixColumn1 valueAtom" style="background-color:#41ab5d;"><a title="432" >432</a></div></div></div>
 <div class="scrollSection"><h4 class="scrollQuestion">Whats left in table?</h4>
-<table id="table57" class="scrollTable">
+<table id="table51" class="scrollTable">
  <thead><tr><th>score</th>
 </tr></thead>
  <tbody><tr><td>5</td>
@@ -415,7 +45,7 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table57').addEventListener('click', e => {
+ document.querySelector('#table51').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -423,7 +53,7 @@ h4.scrollQuestion {
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Visualizations from CSV</h1>
-<table id="table58" class="scrollTable">
+<table id="table52" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>email</th>
@@ -448,7 +78,7 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table58').addEventListener('click', e => {
+ document.querySelector('#table52').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -456,7 +86,7 @@ h4.scrollQuestion {
 </div>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Transforms</h1>
-<table id="table59" class="scrollTable">
+<table id="table53" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>types</th>
@@ -481,12 +111,12 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table59').addEventListener('click', e => {
+ document.querySelector('#table53').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<table id="table60" class="scrollTable">
+<table id="table54" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>types</th>
@@ -511,12 +141,12 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table60').addEventListener('click', e => {
+ document.querySelector('#table54').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<table id="table61" class="scrollTable">
+<table id="table55" class="scrollTable">
  <thead><tr><th>types</th>
 
 <th>n</th>
@@ -541,12 +171,12 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table61').addEventListener('click', e => {
+ document.querySelector('#table55').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<table id="table62" class="scrollTable">
+<table id="table56" class="scrollTable">
  <thead><tr><th>types</th>
 
 <th>name</th>
@@ -571,12 +201,12 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table62').addEventListener('click', e => {
+ document.querySelector('#table56').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<table id="table63" class="scrollTable">
+<table id="table57" class="scrollTable">
  <thead><tr><th>name</th>
 </tr></thead>
  <tbody><tr><td>HTML</td>
@@ -585,7 +215,7 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table63').addEventListener('click', e => {
+ document.querySelector('#table57').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
@@ -594,7 +224,7 @@ h4.scrollQuestion {
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Impute</h1>
 </div>
-<table id="table64" class="scrollTable">
+<table id="table58" class="scrollTable">
  <thead><tr><th>year</th>
 
 <th>count</th>
@@ -964,16 +594,16 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table64').addEventListener('click', e => {
+ document.querySelector('#table58').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<span id="spark65"></span><script>new Sparkline(document.getElementById("spark65"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23])</script>
+<span id="spark59"></span><script>new Sparkline(document.getElementById("spark59"), {dotRadius: 0, width: 100, height: 30, lineColor: "black", tooltip: (value,index) => 0 + index + ": " + value}).draw([10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23])</script>
 <hr>
 <div class="scrollSection"><h1 class="scrollParagraph">Timestamps</h1>
 </div>
-<table id="table66" class="scrollTable">
+<table id="table60" class="scrollTable">
  <thead><tr><th>folder</th>
 
 <th>ctime</th>
@@ -995,12 +625,12 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table66').addEventListener('click', e => {
+ document.querySelector('#table60').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });
  </script>
-<table id="table67" class="scrollTable">
+<table id="table61" class="scrollTable">
  <thead><tr><th>folder</th>
 
 <th>ctime</th>
@@ -1029,7 +659,7 @@ h4.scrollQuestion {
 </tr></tbody>
  </table>
  <script>
- document.querySelector('#table67').addEventListener('click', e => {
+ document.querySelector('#table61').addEventListener('click', e => {
   if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
   e.currentTarget.classList.toggle('expandedTable');
  });

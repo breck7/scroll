@@ -1,3 +1,6 @@
 buildHtml
-iframes ./themes/gazette.html ./themes/roboto.html ./themes/dark.html
+# Scroll Themes
+The themes below ship with Scroll. To use type `theme roboto`
+
+iframes ./gazette.html ./roboto.html ./dark.html ./tufte.html
 theme roboto

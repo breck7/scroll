@@ -4,8 +4,8 @@ figure {
 }
 .dropcap:first-letter {
   font-size: 3rem;
-  line-height: .9em;
-  margin-right: .125rem;
+  line-height: 0.9em;
+  margin-right: 0.125rem;
   display: block;
   float: left;
 }
@@ -32,24 +32,24 @@ summary {
 .scrollCaptionedFigure img {
   max-width: 100%;
   height: auto;
-  margin-top: .1875rem;
+  margin-top: 0.1875rem;
 }
 .scrollCaptionedFigure figcaption {
   font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 .scrollCaptionedFigure figcaption .scrollParagraph {
   margin-top: 0;
 }
 .scrollCodeBlock {
   overflow: auto;
-  font-size: .8rem;
+  font-size: 0.8rem;
   hyphens: none;
   white-space: pre;
   break-inside: avoid;
   display: block;
-  margin: .5rem 0;
-  padding: .5rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
   border-radius: 0;
   position: relative;
 }
@@ -69,19 +69,19 @@ summary {
   border-top-right-radius: 3px;
 }
 .scrollCodeBlock:hover .scrollCopyButton {
-  opacity: .5;
+  opacity: 0.5;
 }
 .scrollCodeBlock:hover .scrollCopyButton:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 .scrollCodeBlock:hover .scrollCopyButton:active {
   opacity: 1;
 }
 .scrollCopyButton {
   position: absolute;
-  top: .125rem;
-  right: .125rem;
-  font-size: .875rem;
+  top: 0.125rem;
+  right: 0.125rem;
+  font-size: 0.875rem;
   cursor: pointer;
   opacity: 0;
 }
@@ -91,18 +91,28 @@ summary {
 .scrollCopiedButton::after {
   content: "[✓]";
 }
-html,body,div,span,p,ol,ul,li,table,figure {
+html,
+body,
+div,
+span,
+p,
+ol,
+ul,
+li,
+table,
+figure {
   margin: 0;
   padding: 0;
   border: 0;
   vertical-align: baseline;
   border-spacing: 0;
 }
-ol,ul {
+ol,
+ul {
   padding-left: 1rem;
 }
 li {
-  margin-top: .4rem;
+  margin-top: 0.4rem;
   line-height: 1.4;
 }
 a {
@@ -113,7 +123,7 @@ a:hover {
   text-decoration-color: initial;
 }
 .scrollButton {
-  background-color: rgba(10,92,202,0.8);
+  background-color: rgba(10, 92, 202, 0.8);
   border-radius: 6px;
   color: white;
   padding: 10px 20px;
@@ -126,45 +136,46 @@ a:hover {
   text-decoration: none;
 }
 .scrollButton:hover {
-  background-color: rgb(10,92,202,0.9);
+  background-color: rgb(10, 92, 202, 0.9);
 }
 .scrollButton:active {
-  background-color: rgb(10,92,202,1);
+  background-color: rgb(10, 92, 202, 1);
 }
-sup,sub {
+sup,
+sub {
   vertical-align: baseline;
   position: relative;
-  top: -.375rem;
+  top: -0.375rem;
 }
 sub {
-  top: .375rem;
+  top: 0.375rem;
 }
 html {
-  padding: .25rem;
-  background-color: rgb(244,244,244);
-  font-family: Exchange,Georgia,serif;
+  padding: 0.25rem;
+  background-color: rgb(244, 244, 244);
+  font-family: Exchange, Georgia, serif;
   color: #000;
   font-size: var(--base-font-size, 16px);
   hyphens: auto;
 }
 p {
-  margin-top: .4rem;
+  margin-top: 0.4rem;
   line-height: 1.4rem;
 }
 .scrollQuote {
   break-inside: avoid;
   display: block;
-  margin: .5rem 0;
-  padding: .5rem;
-  background: rgba(204,204,204,.5);
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  background: rgba(204, 204, 204, 0.5);
   white-space: pre-line;
-  border-left: .5rem solid rgba(204,204,204,.8);
+  border-left: 0.5rem solid rgba(204, 204, 204, 0.8);
 }
 code {
-  font-size: .9rem;
-  background-color: rgba(204,204,204,.5);
-  padding: .125rem .25rem;
-  border-radius: .25rem;
+  font-size: 0.9rem;
+  background-color: rgba(204, 204, 204, 0.5);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
 }
 .scrollParagraph {
   text-align: justify;
@@ -186,8 +197,11 @@ center .scrollParagraph {
   break-inside: avoid;
   text-align: justify;
 }
-h1,h2,h3,h4 {
-  margin: .625rem 0;
+h1,
+h2,
+h3,
+h4 {
+  margin: 0.625rem 0;
 }
 h1 {
   font-size: 1.25rem;
@@ -195,13 +209,14 @@ h1 {
 h2 {
   font-size: 1.125rem;
 }
-h3,h4 {
+h3,
+h4 {
   font-size: 1rem;
 }
 h1.scrollTitle {
   text-align: center;
   margin: auto;
-  margin-bottom: .15625rem;
+  margin-bottom: 0.15625rem;
   margin-top: 0;
   font-size: 1.75rem;
   max-width: calc(100vw - 2 * (1.5625rem + 1.875rem));
@@ -212,70 +227,77 @@ h1.scrollTitle a {
 .scrollDateline {
   font-style: italic;
   line-height: 1.4rem;
-  font-size: .75rem;
+  font-size: 0.75rem;
 }
 .scrollSection {
   break-inside: avoid;
 }
-.scrollSection h1,.scrollSection h2,.scrollSection h3,.scrollSection h4 {
+.scrollSection h1,
+.scrollSection h2,
+.scrollSection h3,
+.scrollSection h4 {
   text-align: center;
 }
 h4.scrollQuestion {
   text-align: left;
   margin: 1.4rem 0 0 0;
 }
-.scrollSection:first-child h1,.scrollSection:first-child h2,.scrollSection:first-child h3,.scrollSection:first-child h4 {
+.scrollSection:first-child h1,
+.scrollSection:first-child h2,
+.scrollSection:first-child h3,
+.scrollSection:first-child h4 {
   margin-top: 0;
 }
 .scrollSection:first-child h4.scrollQuestion {
   margin-top: 0;
 }
 .scrollNoteLink {
-  opacity: .4;
+  opacity: 0.4;
   text-decoration: none;
 }
 .scrollNoteLink:hover {
   opacity: 1;
 }
 .scrollFootNoteUsageLink {
-  opacity: .7;
+  opacity: 0.7;
   text-decoration: none;
 }
 .scrollFootNoteUsageLink:hover {
   opacity: 1;
 }
 .scrollHoverNote {
-  text-decoration: underline dashed 1px rgba(0,0,0,.1);
+  text-decoration: underline dashed 1px rgba(0, 0, 0, 0.1);
   cursor: default;
 }
 .scrollCodeBlock {
-  border-left: .5rem solid rgba(204,204,204,.8);
+  border-left: 0.5rem solid rgba(204, 204, 204, 0.8);
 }
 .scrollTable {
   table-layout: fixed;
   font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";
-  margin: .5rem 0;
+  margin: 0.5rem 0;
   overflow: hidden;
-  font-size: .8rem;
+  font-size: 0.8rem;
   width: 100%;
   hyphens: none;
-  border: 1px solid rgba(224,224,224,.8);
+  border: 1px solid rgba(224, 224, 224, 0.8);
 }
-.scrollTable td,.scrollTable th {
-  padding: .1875rem;
+.scrollTable td,
+.scrollTable th {
+  padding: 0.1875rem;
   overflow: hidden;
   white-space: nowrap;
 }
 .scrollTable th {
   text-transform: capitalize;
-  border-bottom: 2px solid rgba(0,0,0,.6);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.6);
   text-align: left;
 }
 .scrollTable td {
   cursor: zoom-in;
 }
 .scrollTable tr:nth-child(even) {
-  background: rgba(224,224,224,.6);
+  background: rgba(224, 224, 224, 0.6);
 }
 .scrollTable pre {
   white-space: nowrap;
@@ -293,7 +315,8 @@ h4.scrollQuestion {
   white-space: unset;
   overflow: unset;
 }
-.scrollTable.expandedTable td,.scrollTable.expandedTable th {
+.scrollTable.expandedTable td,
+.scrollTable.expandedTable th {
   overflow: unset;
   white-space: unset;
 }
@@ -301,19 +324,19 @@ h4.scrollQuestion {
   cursor: zoom-out;
 }
 .scrollByLine {
-  font-size: .875rem;
+  font-size: 0.875rem;
   font-style: italic;
-  margin: .25rem 0;
+  margin: 0.25rem 0;
   text-align: center;
 }
 .abstractTextLinkParser {
   text-align: center;
-  margin: .5em auto;
+  margin: 0.5em auto;
   font-family: Verdana;
   font-weight: 100;
 }
 .abstractTextLinkParser a {
-  color: rgba(204,204,204,.5);
+  color: rgba(204, 204, 204, 0.5);
 }
 .abstractTextLinkParser a:hover {
   color: #333;
@@ -328,8 +351,8 @@ h4.scrollQuestion {
   text-align: center;
   font-weight: bold;
   break-inside: avoid;
-  margin-top: .5rem;
-  margin-bottom: .5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .scrollDashboard td {
   width: 33.3%;
@@ -341,17 +364,17 @@ h4.scrollQuestion {
 }
 .scrollChat span {
   font-family: Verdana;
-  margin-top: .3125rem;
-  padding: .3125rem 1.25rem;
-  border-radius: .9375rem;
+  margin-top: 0.3125rem;
+  padding: 0.3125rem 1.25rem;
+  border-radius: 0.9375rem;
   display: inline-block;
 }
 .scrollChatLeft span {
-  background: rgba(204,204,204, .5);
+  background: rgba(204, 204, 204, 0.5);
 }
 .scrollChatRight span {
   color: white;
-  background: rgb(0,132,255);
+  background: rgb(0, 132, 255);
 }
 .scrollYouTubeHolder {
   position: relative;

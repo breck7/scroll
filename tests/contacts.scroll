@@ -3,7 +3,7 @@ buildHtml
 title My Contacts
 
 ../microlangs/contacts.parsers
-gazetteCss
+theme gazette
 mediumColumns 1
 printTitle
 table

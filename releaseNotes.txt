@@ -8,6 +8,12 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+135.0.0 9/26/2024
+=================
+🎉 added `tufte` theme
+⚠️ BREAKING: removed `gazetteCss`. Now use `theme gazette`.
+⚠️ BREAKING: removed `tufteCss`. Now use `theme tufte`.
+
 134.1.0 9/26/2024
 =================
 🎉 added `theme` parser and 3 themes: roboto, dark, and gazette
@@ -2725,4 +2731,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v134.1.0
+Built with Scroll v135.0.0

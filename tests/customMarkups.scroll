@@ -2,7 +2,7 @@ buildHtml
 
 thinColumns 1
 
-gazetteCss
+theme gazette
 
 # Custom Inline Markups Test
 

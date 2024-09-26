@@ -63,7 +63,6 @@ endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
 favicon - Favicon file.
 fetch - Download URL to disk.
-gazetteCss - Default Scroll theme CSS.
 heatrix - A heatmap matrix data visualization.
 heatrixAdvanced - Advanced heatrix.
 helpfulNotFound - Helpful not found widget.
@@ -133,7 +132,6 @@ theme - A collection of simple themes.
 thinColumn - A thin column section.
 thinColumns - Thin columns.
 title - Set title.
-tufteCss - Theme from Tufte CSS.
 video - Play video files.
 viewSourceBaseUrl - Override source link baseUrl.
 viewSourceButton - Print badge top right.
@@ -210,7 +208,6 @@ printAuthors,167
 katex,160
 copyButtons,148
 quote,148
-gazetteCss,138
 email,131
 viewSourceLink,121
 printRelated,119
@@ -263,7 +260,6 @@ printScrollLeetSheet,3
 printSearchTable,3
 printSource,3
 sparkline,3
-tufteCss,3
 video,3
 
-Built with Scroll v134.1.0
+Built with Scroll v135.0.0

@@ -169,21 +169,9 @@ Scroll files can import other Scroll files. Use the `import` parser by just spec
 
 ---
 
-Advanced: Custom Themes
-=======================
-A standard Scroll Theme consists of CSS and may also contain suggested pages and additional Parser extensions. The default scroll theme is called `Gazette`. The checklist below walks you through creating a complete Scroll Theme like Gazette.
-
-[] Create a `[yourThemeName].parsers` file
-[] Add a `[yourThemeName]CssParser`
- - You can refer to the `gazetteCssParser` in `gazetteTheme.parsers` for an example. Your theme can extend `abstractThemeCssParser` or be its own tag.
- [] Add CSS. The Gazette theme uses Hakon, a language that compiles to CSS, but you are free to use plain CSS—even in an external file.
-  [] Add CSS resets. Like any other normal site you probably want to adjust the base CSS of the browser.
-  [] Add any custom styles for any custom parsers you include in your theme. If you don't have any custom parsers you can skip this step.
-  [] Add CSS for the standard Scroll parsers. You probably want to customize the styles of Scroll parsers like `*` and `#`. There is not currently an exhaustive list or consistent pattern to these class names. See the Gazette theme for reference.
-
-Using Custom Themes
-===================
-By default Scroll emits HTML with no theming. To use any theme—including the default `Gazette` theme—the user simply uses the parsers provided by the theme, such as `gazetteCss`.
+Themes
+======
+Scroll ships with some default themes, which are just CSS files.
 
 Examples
 ========
@@ -192,7 +180,7 @@ A page using no theme:
 # This page has no theme
 A page using a theme:
 =====================
-gazetteCss
+theme gazette
 homeButton
 viewSourceButton
 This page uses the Gazette theme.
@@ -218,4 +206,4 @@ You probably also can see that the Parsers code is powerful but has lots of shar
 
 While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
 
-Built with Scroll v134.1.0
+Built with Scroll v135.0.0

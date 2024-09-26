@@ -33,3 +33,7 @@ iframe {
   padding: 20px;
   display: inline-block;
 }
+code {
+  background: rgba(224, 224, 224);
+  padding: 3px;
+}

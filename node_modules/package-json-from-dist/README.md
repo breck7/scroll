@@ -19,7 +19,7 @@ fashion.
 
 ## Caveats
 
-This *only* works if your code builds into a target folder called
+This _only_ works if your code builds into a target folder called
 `dist`, which is in the root of the package. It also requires
 that you do not have a folder named `node_modules` anywhere
 within your dev environment, or else it'll get the wrong answers
@@ -34,7 +34,10 @@ just put the code right inline, there's not much of it.)
 
 ```js
 // src/index.ts
-import { findPackageJson, loadPackageJson } from 'package-json-from-dist'
+import {
+  findPackageJson,
+  loadPackageJson,
+} from 'package-json-from-dist'
 
 const pj = findPackageJson(import.meta.url)
 console.log(`package.json found at ${pj}`)
@@ -49,7 +52,10 @@ to specify the path that you would expect to find the
 
 ```js
 // src/components/something.ts
-import { findPackageJson, loadPackageJson } from 'package-json-from-dist'
+import {
+  findPackageJson,
+  loadPackageJson,
+} from 'package-json-from-dist'
 
 const pj = findPackageJson(import.meta.url, '../../package.json')
 console.log(`package.json found at ${pj}`)
@@ -63,7 +69,10 @@ When running from CommmonJS, use `__filename` instead of
 
 ```js
 // src/index.cts
-import { findPackageJson, loadPackageJson } from 'package-json-from-dist'
+import {
+  findPackageJson,
+  loadPackageJson,
+} from 'package-json-from-dist'
 
 const pj = findPackageJson(__filename)
 console.log(`package.json found at ${pj}`)
@@ -79,7 +88,10 @@ CommonJS override and some `//@ts-ignore` magic to make it work.
 `src/pkg.ts`:
 
 ```js
-import { findPackageJson, loadPackageJson } from 'package-json-from-dist'
+import {
+  findPackageJson,
+  loadPackageJson,
+} from 'package-json-from-dist'
 //@ts-ignore
 export const pkg = loadPackageJson(import.meta.url)
 //@ts-ignore
@@ -89,7 +101,10 @@ export const pj = findPackageJson(import.meta.url)
 `src/pkg-cjs.cts`:
 
 ```js
-import { findPackageJson, loadPackageJson } from 'package-json-from-dist'
+import {
+  findPackageJson,
+  loadPackageJson,
+} from 'package-json-from-dist'
 export const pkg = loadPackageJson(__filename)
 export const pj = findPackageJson(__filename)
 ```
