@@ -17,6 +17,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 134.1.0 9/26/2024
+🎉 added `theme` parser and 3 themes: roboto, dark, and gazette
+🎉 added `iframes` parser
+
 📦 134.0.0 9/25/2024
 🎉 added `haml` quick html tags
 ⚠️ BREAKING: (no one should be affected) if you have lines starting with a sequence like tag#id or tag.someClassName, they will now get matched to HAML parser.

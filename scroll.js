@@ -103,6 +103,13 @@ const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 // todo: tags is currently matching partial substrings
 const getFilesWithTag = (tag, files) => files.filter(file => file.buildsHtml && file.tags.includes(tag))
 
+// todo: clean this up
+const getCruxAtoms = rootParserProgram =>
+  rootParserProgram
+    .filter(particle => particle.getLine().endsWith("Parser") && !particle.getLine().startsWith("abstract"))
+    .map(particle => particle.get("crux") || particle.getLine())
+    .map(line => line.replace("Parser", ""))
+
 const measureCache = new Map()
 const parseMeasures = parser => {
   if (measureCache.get(parser)) return measureCache.get(parser)
@@ -110,10 +117,7 @@ const parseMeasures = parser => {
   const dummyProgram = new parser(
     Array.from(
       new Set(
-        parser.cachedHandParsersProgramRoot // is there a better method name than this?
-          .filter(particle => particle.getLine().endsWith("Parser") && !particle.getLine().startsWith("abstract"))
-          .map(particle => particle.get("crux") || particle.getLine())
-          .map(line => line.replace("Parser", ""))
+        getCruxAtoms(parser.cachedHandParsersProgramRoot) // is there a better method name than this?
       )
     ).join("\n")
   )
@@ -956,7 +960,7 @@ footer.scroll`
 
   _parserAtomsRequiringExternals(parser) {
     // todo: could be cleaned up a bit
-    if (!parser.parserAtomsRequiringExternals) parser.parserAtomsRequiringExternals = parser.cachedHandParsersProgramRoot.filter(particle => particle.copyFromExternal).map(particle => particle.getLine().replace("Parser", ""))
+    if (!parser.parserAtomsRequiringExternals) parser.parserAtomsRequiringExternals = getCruxAtoms(parser.cachedHandParsersProgramRoot.filter(particle => particle.copyFromExternal))
     return parser.parserAtomsRequiringExternals
   }
 
@@ -969,16 +973,18 @@ footer.scroll`
     if (!externalFilesCopied[folder]) externalFilesCopied[folder] = {}
     parserAtomsRequiringExternals.forEach(atom => {
       if (externalFilesCopied[folder][atom]) return
-      if (file.has(atom)) {
-        const particle = file.scrollProgram.getParticle(atom)
+      if (!file.has(atom)) return
+      file.scrollProgram.findParticles(atom).map(particle => {
         const externalFiles = particle.copyFromExternal.split(" ")
         externalFiles.forEach(name => {
           const newPath = path.join(folder, name)
           fileSystem.writeProduct(newPath, Disk.read(path.join(__dirname, "external", name)))
           this.log(`💾 Copied external file needed by ${file.filename} to ${name}`)
         })
+      })
+      if (atom !== "theme")
+        // todo: generalize when not to cache
         externalFilesCopied[folder][atom] = true
-      }
     })
   }
 
