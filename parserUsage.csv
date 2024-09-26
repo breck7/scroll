@@ -1,5 +1,5 @@
 parserId,uses
-blankLineParser,951
+blankLineParser,950
 versionParser,497
 newFeatureParser,408
 catchAllParagraphParser,249
@@ -86,6 +86,7 @@ htmlParser,2
 checklistTodoParser,2
 permalinkParser,2
 helpfulNotFoundParser,1
+scrollThemeParser,1
 clocParser,1
 mediumColumnParser,1
 emailLinkParser,1
