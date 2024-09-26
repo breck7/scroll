@@ -54,7 +54,7 @@ code
  title My Contacts
  buildConcepts contacts.csv contacts.json contacts.tsv
  buildHtml
- gazetteCss
+ theme gazette
  mediumColumns 1
  printTitle
  table

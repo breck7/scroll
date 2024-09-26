@@ -1,4 +1,4 @@
 buildCss style.css
 
 // Demo of writing style to an external css file if you don't want it to be inlined on every page.
-gazetteCss
+theme gazette

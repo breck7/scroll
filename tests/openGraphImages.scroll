@@ -1,7 +1,7 @@
 baseUrl https://scroll.pub/
 
 metaTags
-gazetteCss
+theme gazette
 
 thinColumns 1
 

@@ -1,5 +1,5 @@
 buildHtml
-gazetteCss
+theme gazette
 title TITLE
 replace TITLE Debug tools tests
 replaceJs SUM 1+1

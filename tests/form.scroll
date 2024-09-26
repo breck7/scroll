@@ -1,6 +1,6 @@
 # ScrollSet Form Maker
 buildHtml
-gazetteCss
+theme gazette
 
 css body {font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;}
 
