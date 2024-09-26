@@ -71,6 +71,7 @@ homeButton - Home button.
 html - HTML one liners or blocks.
 htmlInlineParser - Inline HTML.
 htmlLang - Override HTML lang attribute.
+iframes - An iframe(s).
 image - An img tag.
 import - Import a file.
 importOnly - Don't build this file.
@@ -128,6 +129,7 @@ tableSearch - Table search and sort widget.
 tags - Set tags.
 testStrict - Make catchAllParagraphParser = error.
 thanksTo - Acknowledge reviewers. Prints nothing.
+theme - A collection of simple themes.
 thinColumn - A thin column section.
 thinColumns - Thin columns.
 title - Set title.
@@ -169,6 +171,7 @@ metaTags,770
 buildHtml,765
 buildTxt,760
 printTitle,758
+theme,753
 title,753
 import,753
 keyboardNav,748
@@ -230,6 +233,7 @@ permalink,27
 comment,20
 codeWithHeader,17
 dashboard,15
+iframes,13
 youtube,13
 br,10
 buildCsv,10
@@ -262,4 +266,4 @@ sparkline,3
 tufteCss,3
 video,3
 
-Built with Scroll v134.0.0
+Built with Scroll v134.1.0

@@ -8,6 +8,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+134.1.0 9/26/2024
+=================
+🎉 added `theme` parser and 3 themes: roboto, dark, and gazette
+🎉 added `iframes` parser
+
 134.0.0 9/25/2024
 =================
 🎉 added `haml` quick html tags
@@ -2720,4 +2725,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v134.0.0
+Built with Scroll v134.1.0
