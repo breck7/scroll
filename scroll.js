@@ -703,7 +703,7 @@ parsers/errors.parsers`
   get asHtml() {
     if (!this._compiledHtml) {
       const { permalink, buildsHtml } = this
-      const content = this.scrollProgram.compile().trim()
+      const content = (this.scrollProgram.compile() + this.scrollProgram.clearBodyStack()).trim()
       // Don't add html tags to CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
       // <1% of use case so might be good enough.
       const wrapWithHtmlTags = buildsHtml

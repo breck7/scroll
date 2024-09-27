@@ -10,7 +10,7 @@ printAuthors
 keyboardNav
 copyButtons
 
-mediumColumns 1
+container 60ch
 
 # Improve your writing by welcoming counterarguments
 
@@ -82,5 +82,4 @@ Keep writing, keep thinking!
 
 ****
 
-endColumns
 footer.scroll
