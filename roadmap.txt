@@ -6,9 +6,9 @@ What major improvements are coming next?
 
 *
 
-New Book: Parsers Explained
- https://parsers.breckyunits.com/ Parsers Explained
-===============================================================================
+A New Way to Program: Particles, Parsers, and Scroll Explained
+ https://book.breckyunits.com A New Way to Program: Particles, Parsers, and Scroll Explained
+===========================================================================================================================================================
 A book describing all the key ideas in Scroll with sections for beginner, intermediate, and advanced users.
 
 *
@@ -24,4 +24,4 @@ In addition to the above, Scroll is written in Parsers and will get all the plan
 
 ⁂
 
-Built with Scroll v136.1.0
+Built with Scroll v136.2.0

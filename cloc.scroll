@@ -5,7 +5,7 @@ printTitle
 
 tableSearch
 
-mediumColumn
+container 600px
 cloc --exclude-dir=external
  where language != SUM
   ## Files

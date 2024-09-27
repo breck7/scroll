@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+136.2.0 9/26/2024
+=================
+🎉 added `container` parser
+
 136.1.0 9/26/2024
 =================
 🎉 added `hakon` parser
@@ -2741,4 +2745,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v136.1.0
+Built with Scroll v136.2.0

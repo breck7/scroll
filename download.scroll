@@ -3,7 +3,7 @@ title Download Scroll.pub
 header.scroll
 printTitle
 
-thinColumns 1
+container 40ch
 
 The best way to download this site is via the WWS:
  https://wws.scroll.pub WWS
@@ -13,7 +13,5 @@ code
 
 You can also download it as a zip file.
  https://github.com/breck7/scroll/archive/refs/heads/wws.zip zip file
-
-endColumns
 
 footer.scroll

@@ -3,14 +3,14 @@ title Scroll Roadmap
 header.scroll
 printTitle
 
-mediumColumns 1
+container 60ch
 
 # What major improvements are coming next?
 
 ***
 
-## New Book: Parsers Explained
- https://parsers.breckyunits.com/ Parsers Explained
+## A New Way to Program: Particles, Parsers, and Scroll Explained
+ https://book.breckyunits.com
 A book describing all the key ideas in Scroll with sections for beginner, intermediate, and advanced users.
 
 ***
@@ -24,7 +24,5 @@ In addition to the above, Scroll is written in Parsers and will get all the plan
  https://sdk.scroll.pub/langs/parsers/ Parsers Roadmap
 
 ****
-
-endColumns
 
 footer.scroll

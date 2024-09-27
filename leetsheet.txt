@@ -48,6 +48,7 @@ cloc - Output results of cloc as table.
 code - A code block.
 codeWithHeader - A code block.
 comment - Prints nothing.
+container - A centered HTML div.
 copyButtons - Copy code widget.
 counter - Visualize the speed of something.
 css - A style tag.
@@ -236,6 +237,7 @@ youtube,13
 br,10
 buildCsv,10
 buildPdf,10
+container,10
 printUsageStats,10
 [x],8
 expander,8
@@ -263,4 +265,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v136.1.0
+Built with Scroll v136.2.0

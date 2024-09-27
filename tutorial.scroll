@@ -5,19 +5,13 @@ header.scroll
 
 css html {font-size: var(--base-font-size, 18px);}
 
-wideColumn
+container 800px
+
 printTitle
-br
-Edit this file on try.scroll.pub
- center
- https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll
- class scrollButton Edit this file on try.scroll.pub
-br
-
-mediumColumns 1
-
-Video walkthrough of this tutorial.
- https://www.youtube.com/watch?v=IE3lHAmMqC4
+center
+Video walkthrough of this tutorial | Edit this file on try.scroll.pub
+ https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll Edit this file on try.scroll.pub
+ https://www.youtube.com/watch?v=IE3lHAmMqC4 Video walkthrough of this tutorial
 
 ? What is Scroll?
 
@@ -232,7 +226,5 @@ As you can see, you can define new parsers with a small amount of code.
 You probably also can see that the Parsers code is powerful but has lots of sharp edges.
 
 While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
-
-endColumns
 
 footer.scroll

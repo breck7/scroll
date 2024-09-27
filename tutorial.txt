@@ -1,10 +1,8 @@
 Scroll Tutorial
 ===============
-Edit this file on try.scroll.pub
+Video walkthrough of this tutorial | Edit this file on try.scroll.pub
  https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll Edit this file on try.scroll.pub
-
-Video walkthrough of this tutorial.
- https://www.youtube.com/watch?v=IE3lHAmMqC4 Video walkthrough of this tutorial.
+ https://www.youtube.com/watch?v=IE3lHAmMqC4 Video walkthrough of this tutorial
 
 What is Scroll?
 ===============
@@ -206,4 +204,4 @@ You probably also can see that the Parsers code is powerful but has lots of shar
 
 While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
 
-Built with Scroll v136.1.0
+Built with Scroll v136.2.0
