@@ -17,6 +17,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 136.2.1 9/26/2024
+🏥 container style fix when in snippets
+
 📦 136.2.0 9/26/2024
 🎉 added `container` parser
 

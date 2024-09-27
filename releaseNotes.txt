@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+136.2.1 9/26/2024
+=================
+🏥 container style fix when in snippets
+
 136.2.0 9/26/2024
 =================
 🎉 added `container` parser
@@ -2745,4 +2749,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v136.2.0
+Built with Scroll v136.2.1
