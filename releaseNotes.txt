@@ -8,6 +8,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+136.1.0 9/26/2024
+=================
+🎉 added `hakon` parser
+
 136.0.0 9/26/2024
 =================
 ⚠️ BREAKING: (no one should be affected). haml was matching too much. now haml parser requires an #id.
@@ -2737,4 +2741,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v136.0.0
+Built with Scroll v136.1.0

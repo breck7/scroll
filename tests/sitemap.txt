@@ -5,6 +5,7 @@ https://scroll.pub/themes.html
 https://scroll.pub/tabularData.html
 https://scroll.pub/tables.html
 https://scroll.pub/style.html
+https://scroll.pub/stump.html
 https://scroll.pub/stampTest.html
 https://scroll.pub/source.html
 https://scroll.pub/slideshowDemo.html
@@ -26,6 +27,7 @@ https://scroll.pub/index.html
 https://scroll.pub/html.html
 https://scroll.pub/heatrix.html
 https://scroll.pub/haml.html
+https://scroll.pub/hakon.html
 https://scroll.pub/gazette.html
 https://scroll.pub/full.html
 https://scroll.pub/form.html
