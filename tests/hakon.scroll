@@ -1,0 +1,8 @@
+buildHtml
+
+hakon
+ body
+  background red
+  color green
+
+Red background green text
