@@ -95,6 +95,7 @@ permalink - Override output filename.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
 printAuthors - Prints author(s) byline.
+printColumn - Print one column
 printCsv - Print group metadata to CSV.
 printDate - Print published date.
 printFeed - Print group to RSS.
@@ -259,6 +260,7 @@ buildMeasures,3
 inlineMarkups,3
 loop,3
 music,3
+printColumn,3
 printCsv,3
 printparsersLeetSheet,3
 printScrollLeetSheet,3
@@ -267,4 +269,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v136.5.0
+Built with Scroll v136.6.0

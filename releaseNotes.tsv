@@ -1,4 +1,6 @@
 version	releaseDate	bugFixes	newFeatures	breakingChanges
+136.6.0	9/27/2024	0	0	0
+added	`printColumn`	0	0	0
 136.5.0	9/27/2024	0	1	0
 136.4.1	9/27/2024	1	0	0
 136.4.0	9/27/2024	1	2	0
