@@ -56,6 +56,7 @@ dashboard - Key stats in large font.
 date - Set published date.
 description - Meta tag description.
 dinkus - A custom dinkus.
+disk - Output file into as table.
 downloadButton - Link to download/WWS page.
 email - Set email address for site contact.
 emailButton - Email button.
@@ -201,6 +202,7 @@ thinColumn,338
 wideColumn,338
 caption,321
 cloc,214
+disk,214
 table,214
 code,193
 *,189
@@ -265,4 +267,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v136.4.1
+Built with Scroll v136.5.0

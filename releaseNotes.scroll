@@ -19,6 +19,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 136.5.0 9/27/2024
+🎉 new `disk` parser generates a table from local disk
+
 📦 136.4.1 9/27/2024
 🏥 type fix in table links
 

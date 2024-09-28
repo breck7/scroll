@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+136.5.0 9/27/2024
+=================
+🎉 new `disk` parser generates a table from local disk
+
 136.4.1 9/27/2024
 =================
 🏥 type fix in table links
@@ -2771,4 +2775,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v136.4.1
+Built with Scroll v136.5.0

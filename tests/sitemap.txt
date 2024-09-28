@@ -35,6 +35,7 @@ https://scroll.pub/footer.html
 https://scroll.pub/fetchTest.html
 https://scroll.pub/feed.html
 https://scroll.pub/favicon.html
+https://scroll.pub/disk.html
 https://scroll.pub/debugging.html
 https://scroll.pub/dark.html
 https://scroll.pub/customMarkups.html
