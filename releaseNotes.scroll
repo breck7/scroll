@@ -19,8 +19,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 136.6.0 9/27/2024
+📦 added `printColumn` parser
+
 📦 136.5.0 9/27/2024
-🎉 new `disk` parser generates a table from local disk
+🎉 added `disk` parser which generates a table from local disk contents
 
 📦 136.4.1 9/27/2024
 🏥 type fix in table links
