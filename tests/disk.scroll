@@ -1,0 +1,7 @@
+buildHtml
+title Disk
+theme gazette
+container
+disk
+ printTable
+tableSearch
