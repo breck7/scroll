@@ -117,7 +117,7 @@ class TableSearchApp {
       },
       layout: {
         topStart: {
-          buttons: ["copy", "csv"]
+          buttons: ["copy"]
         },
         topEnd: {
           search: {
