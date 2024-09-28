@@ -19,10 +19,19 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 136.4.1 9/27/2024
+🏥 type fix in table links
+
 📦 136.4.0 9/27/2024
 🎉 new aftertext relative link parser. relative links with 33% fewer words.
 🎉 use quick links in image tags.
 🏥 bug fix where tableSearch was getting applied to non scroll tables such as Dashboards
+
+Find/Replace for shorter relative links:
+code
+ ^ link ([^\s]+)\.html 
+  $1.html 
+
 
 📦 136.3.0 9/27/2024
 🎉 new expand/collapse button on tables and removed confusing zoom in/zoom out
