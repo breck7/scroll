@@ -293,9 +293,6 @@ h4.scrollQuestion {
   border-bottom: 2px solid rgba(0, 0, 0, 0.6);
   text-align: left;
 }
-.scrollTable td {
-  cursor: zoom-in;
-}
 .scrollTable tr:nth-child(even) {
   background: rgba(224, 224, 224, 0.6);
 }
@@ -319,9 +316,6 @@ h4.scrollQuestion {
 .scrollTable.expandedTable th {
   overflow: unset;
   white-space: unset;
-}
-.scrollTable.expandedTable td {
-  cursor: zoom-out;
 }
 .scrollByLine {
   font-size: 0.875rem;

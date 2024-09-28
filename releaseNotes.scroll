@@ -17,6 +17,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 136.3.0 9/27/2024
+🎉 new expand/collapse button on tables and removed confusing zoom in/zoom out
+🎉 copy button on tables now generates just data, no more header/footer cruft
+🎉 removed rarely used csv button on tables in favor of better copy button
+
 📦 136.2.1 9/26/2024
 🏥 container style fix when in snippets
 

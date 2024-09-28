@@ -8,6 +8,12 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
 
+136.3.0 9/27/2024
+=================
+🎉 new expand/collapse button on tables and removed confusing zoom in/zoom out
+🎉 copy button on tables now generates just data, no more header/footer cruft
+🎉 removed rarely used csv button on tables in favor of better copy button
+
 136.2.1 9/26/2024
 =================
 🏥 container style fix when in snippets
@@ -2749,4 +2755,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v136.2.1
+Built with Scroll v136.3.0

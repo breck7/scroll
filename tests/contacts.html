@@ -28,16 +28,10 @@
 <td></td>
 </tr></tbody>
  </table>
- <script>
- document.querySelector('#table66').addEventListener('click', e => {
-  if (window.getSelection().toString() || e.target.closest('a') || !e.target.closest('tbody')) return;
-  e.currentTarget.classList.toggle('expandedTable');
- });
- </script>
 <script defer src="jquery-3.7.1.min.js"></script>
 <style>.dt-search{font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";}</style>
 <link rel="stylesheet" href="datatables.css">
-<script defer src="datatables.min.js"></script>
+<script defer src="datatables.js"></script>
 <script defer src="tableSearch.js"></script>
 
 
