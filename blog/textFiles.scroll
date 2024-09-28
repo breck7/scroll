@@ -17,8 +17,8 @@ printFormatLinks
 
 Scroll is a new language for building HTML and CSV files that powers blogs, websites and knowledge bases.
  dateline
- link scrollsets.html knowledge bases
- link ../index.html Scroll
+ scrollsets.html knowledge bases
+ ../index.html Scroll
 
 ***
 

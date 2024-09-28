@@ -27,7 +27,7 @@ Plot is already great on its own. It handles many of the hard parts of data vis,
  https://github.com/observablehq/plot open source
 
 But I found a way to take Plot to the next level: I combined it with Scroll.
- link ../index.html Scroll
+ ../index.html Scroll
 
 The Plot/Scroll integration is early, but I can already tell it will evolve into a _very useful_ data science tool.
 

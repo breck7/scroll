@@ -13,15 +13,15 @@ Have a question not answered here? Email feedback@scroll.pub.
 
 ? Any more docs?
 - Tutorial
- link tutorial.html
+ tutorial.html
 - Roadmap
- link roadmap.html
+ roadmap.html
 
 ? What can I build with Scroll?
 
 ### Blogs
 Scroll powers an ever increasing number of blogs like this one.
- link blog/index.html this one
+ blog/index.html this one
 
 blog/screenshot.png
  width 200
@@ -36,17 +36,17 @@ Scroll powers PLDB, a knowledge base with over 100 contributors who have added o
 
 ### Static Sites
 This site you are reading is powered by Scroll.
- link index.html This site
+ index.html This site
 
 ? What makes Scroll different?
 Scroll has an unusually simple syntax called Particles, an extensive set of parsers and commands needed by researchers, bloggers, knowledge bases and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
 
 ? What is the Scroll command line app?
 The command line app builds static blogs, websites, CSVs, text files, and more.
- link blog/textFiles.html text files
- link blog/scrollsets.html CSVs
- link blog/index.html static blogs
- link index.html websites
+ blog/textFiles.html text files
+ blog/scrollsets.html CSVs
+ blog/index.html static blogs
+ index.html websites
 
 ? How do I install the command line app?
 Scroll currently requires Node.js.
