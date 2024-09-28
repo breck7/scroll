@@ -12679,7 +12679,6 @@
 /*! DataTables styling integration
  * © SpryMedia Ltd - datatables.net/license
  */
-
 ;(function (factory) {
 	if (typeof define === "function" && define.amd) {
 		// AMD
@@ -12728,7 +12727,6 @@
 /*! Buttons for DataTables 3.1.2
  * © SpryMedia Ltd - datatables.net/license
  */
-
 ;(function (factory) {
 	if (typeof define === "function" && define.amd) {
 		// AMD
@@ -15240,7 +15238,6 @@
 /*! DataTables styling wrapper for Buttons
  * © SpryMedia Ltd - datatables.net/license
  */
-
 ;(function (factory) {
 	if (typeof define === "function" && define.amd) {
 		// AMD
@@ -15294,7 +15291,6 @@
  * Column visibility buttons for Buttons and DataTables.
  * © SpryMedia Ltd - datatables.net/license
  */
-
 ;(function (factory) {
 	if (typeof define === "function" && define.amd) {
 		// AMD
@@ -15544,7 +15540,6 @@
  * FileSaver.js (1.3.3) - MIT license
  * Copyright © 2016 Eli Grey - http://eligrey.com
  */
-
 ;(function (factory) {
 	if (typeof define === "function" && define.amd) {
 		// AMD
@@ -16404,21 +16399,24 @@
 				left: 0
 			})
 
-			if (info.title) {
-				output = info.title + newline + newline + output
-			}
+			// Changes made by Breck.
+			// Do not append stuff to data. Keep it clean.
+			// if (info.title) {
+			// 	output = info.title + newline + newline + output
+			// }
 
-			if (info.messageTop) {
-				output = info.messageTop + newline + newline + output
-			}
+			// if (info.messageTop) {
+			// 	output = info.messageTop + newline + newline + output
+			// }
 
-			if (info.messageBottom) {
-				output = output + newline + newline + info.messageBottom
-			}
+			// if (info.messageBottom) {
+			// 	output = output + newline + newline + info.messageBottom
+			// }
 
-			if (config.customize) {
-				output = config.customize(output, config, dt)
-			}
+			// if (config.customize) {
+			// 	output = config.customize(output, config, dt)
+			// }
+			output = output.trim()
 
 			var textarea = $("<textarea readonly/>").val(output).appendTo(hiddenDiv)
 
@@ -17097,7 +17095,6 @@
 /*! ColReorder 2.0.4
  * © SpryMedia Ltd - datatables.net/license
  */
-
 ;(function (factory) {
 	if (typeof define === "function" && define.amd) {
 		// AMD
@@ -18075,7 +18072,6 @@
 /*! FixedColumns 5.0.2
  * © SpryMedia Ltd - datatables.net/license
  */
-
 ;(function (factory) {
 	if (typeof define === "function" && define.amd) {
 		// AMD
@@ -18585,7 +18581,6 @@
 /*! FixedHeader 4.0.1
  * © SpryMedia Ltd - datatables.net/license
  */
-
 ;(function (factory) {
 	if (typeof define === "function" && define.amd) {
 		// AMD
@@ -19626,7 +19621,6 @@
 /*! SearchBuilder 1.8.0
  * ©SpryMedia Ltd - datatables.net/license/mit
  */
-
 ;(function (factory) {
 	if (typeof define === "function" && define.amd) {
 		// AMD
@@ -23361,7 +23355,6 @@
 /*! DataTables integration for DataTables' SearchBuilder
  * © SpryMedia Ltd - datatables.net/license
  */
-
 ;(function (factory) {
 	if (typeof define === "function" && define.amd) {
 		// AMD
