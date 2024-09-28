@@ -45,7 +45,7 @@ In fact, it's almost guaranteed that using Changes you will need to write less (
 # Example
 
 We use Changes for the Scroll Release Notes.
- link ../releaseNotes.html Scroll Release Notes
+ ../releaseNotes.html Scroll Release Notes
 
 Be sure to check out the source code that generates that HTML.
  https://github.com/breck7/scroll/blob/main/releaseNotes.scroll check out the source code

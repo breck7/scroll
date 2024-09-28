@@ -1,4 +1,5 @@
 baseUrl https://scroll.pub/
+buildHtml
 
 metaTags
 theme gazette
@@ -6,14 +7,14 @@ theme gazette
 thinColumns 1
 
 # Not this one
-../../blog/scrollsets.png
- link index.html
+../blog/scrollsets.png
+ index.html
 
 # The image below should be the og image
-../../blog/screenshot.png
+../blog/screenshot.png
  openGraph
 
 # Not this one
-../../blog/scrollsets.png
+../blog/scrollsets.png
  caption A caption
- link https://scroll.pub/blog/scrollsets.html
+ https://scroll.pub/blog/scrollsets.html

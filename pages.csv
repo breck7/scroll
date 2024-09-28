@@ -6,7 +6,7 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 09/28/2024,2024,Sitemap,sitemap.html,,,95,0.5
 09/28/2024,2024,Settings,settings.html,,,0,0.0
 09/28/2024,2024,Scroll Roadmap,roadmap.html,,,131,0.7
-09/28/2024,2024,Scroll Release Notes,releaseNotes.html,,,13152,65.8
+09/28/2024,2024,Scroll Release Notes,releaseNotes.html,,,13201,66.0
 09/28/2024,2024,Scroll is a language for scientists of all ages,index.html,,,133,0.7
 09/28/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
 09/28/2024,2024,Parser Usage,parserUsage.html,,,244,1.2
@@ -16,5 +16,5 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 09/28/2024,2024,Scroll FAQ,faq.html,,,3257,16.3
 09/28/2024,2024,Download Scroll.pub,download.html,,,49,0.2
 09/28/2024,2024,Scroll Cloc Stats,cloc.html,,,61,0.3
-09/28/2024,2024,Ci Badges,ciBadges.html,,,0,0.0
+09/28/2024,2024,Ci Badges,ciBadges.html,,,12,0.1
 09/28/2024,2024,Animation,animation.html,,,13,0.1

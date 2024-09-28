@@ -7,6 +7,14 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.csv CSV
  https://scroll.pub/releaseNotes.tsv TSV
  https://scroll.pub/releaseNotes.json JSON
+[Image Omitted]
+ https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
+
+136.4.0 9/27/2024
+=================
+🎉 new aftertext relative link parser. relative links with 33% fewer words.
+🎉 use quick links in image tags.
+🏥 bug fix where tableSearch was getting applied to non scroll tables such as Dashboards
 
 136.3.0 9/27/2024
 =================
@@ -2755,4 +2763,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v136.3.0
+Built with Scroll v136.4.0

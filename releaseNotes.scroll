@@ -12,10 +12,17 @@ Download as CSV | TSV | JSON
  link releaseNotes.csv CSV
  link releaseNotes.tsv TSV
  link releaseNotes.json JSON
+br
+center
 ciBadges.scroll
 
 br
 thinColumns
+
+📦 136.4.0 9/27/2024
+🎉 new aftertext relative link parser. relative links with 33% fewer words.
+🎉 use quick links in image tags.
+🏥 bug fix where tableSearch was getting applied to non scroll tables such as Dashboards
 
 📦 136.3.0 9/27/2024
 🎉 new expand/collapse button on tables and removed confusing zoom in/zoom out
@@ -982,7 +989,7 @@ code
 ⚠️ BREAKING: removed `::` parser. Now concepts are simply identified by the parser `id`.
 ⚠️ BREAKING: `writeDataset` is now `writeConcepts` and `printDataset` is now `printConcepts`.
 ⚠️ BREAKING: Removed the `[measureName]: ` syntax introduced in version 77. To use datasets (aka Concept files) now, just extend Scroll parsers like you normally would. See this blog post for an example.
- link blog/datasets.html this blog post for an example
+ blog/datasets.html this blog post for an example
 
 📦 83.3.0 5/04/2024
 🎉 repeating the baseUrl after `openGraphImage` is no longer required. Will be auto-added if not present.
@@ -1066,7 +1073,7 @@ Note that if you are doing something like a tutorial and using a `belowAsCode` w
 
 📦 80.0.0 4/29/2024
 🎉 Scroll now generates text files! Added the `writeText` parser.
- link blog/textFiles.html Scroll now generates text files
+ blog/textFiles.html Scroll now generates text files
 
 * Note: there are likely to be a few rapid releases to refine this.
 
@@ -1110,7 +1117,7 @@ Scroll already supported tabular data using `tabTable`, but that made copy/paste
 
 📦 77.0.0 4/21/2024
 🎉 Added Scroll Datasets, which consists of the `::`, `printDataset`, `writeDataset`, and `*:` and `*::` parsers.
- link blog/datasets.html Scroll Datasets
+ blog/datasets.html Scroll Datasets
 
 ⚠️ BREAKING: if you had lines starting with a atom then colon, that used the catchall paragraph, such as `Sidenote: yada yada.`, those will now be parsed incorrectly as measures. Just explicitly make them paragraphs `* Sidenote: yada yada.`. This regex can help you find any instances: `^[^ ]+: .`
 
@@ -1210,7 +1217,7 @@ katex
 
 📦 71.3.0 5/8/2023
 🎉 added `program` parser for Program Links. See blog post for details.
- link blog/programLinks.html blog post
+ blog/programLinks.html blog post
 
 📦 71.2.0 5/07/2023
 🏥 add `&lt;!DOCTYPE html&gt;` to improve performance on Google Lighthouse.

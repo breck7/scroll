@@ -56,10 +56,10 @@ But we're getting ahead of ourselves, let's start with the basics.
 Every line in a Scroll document matches and is parsed by a Parser.
 
 You can see all the available parsers in the Scroll Leet Sheet.
- link leetsheet.html Scroll Leet Sheet
+ leetsheet.html Scroll Leet Sheet
 
 (Advanced users who want to write their own parsers might want to checkout the Parsers Leet Sheet.)
- link parserLeetsheet.html Parsers Leet Sheet
+ parserLeetsheet.html Parsers Leet Sheet
 
 Let's walk through some of the most common parsers.
 
