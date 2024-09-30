@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+136.8.0 9/30/2024
+=================
+🎉 viewSourceButton can now take a url
+
 136.7.0 9/30/2024
 =================
 🎉 dark theme improvements
@@ -2783,4 +2787,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v136.7.0
+Built with Scroll v136.8.0
