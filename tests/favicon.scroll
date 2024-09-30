@@ -1,3 +1,4 @@
-favicon ../particles.png
-metaTags
 buildHtml
+favicon ../particles.png
+
+metaTags

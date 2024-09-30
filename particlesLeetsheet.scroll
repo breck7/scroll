@@ -12,7 +12,7 @@ br
 
 thinColumns 3
 
-- Every line is a particle and every particle is one line. 
+- Every line is a particle and every particle is one line.
 - Newlines separate particles.
 - The atoms in a particle are separated by a single space.
 - An indent of +1 space makes a particle a subparticle of the parent line.

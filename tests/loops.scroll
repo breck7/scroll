@@ -43,5 +43,3 @@ loop
   rgba( 200, 212, 222, .2)
   rgba( 200, 212, 222, .1)
  javascript `<div style="background-color: ${item};">&nbsp;</div>`
-
- 

@@ -1,7 +1,8 @@
 buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
 buildMeasures releaseNotesMeasures.tsv
-microlangs/changes.parsers
 title Scroll Release Notes
+
+microlangs/changes.parsers
 
 header.scroll
 printTitle
@@ -20,6 +21,7 @@ br
 thinColumns
 
 📦 136.6.0 9/27/2024
+
 📦 added `printColumn` parser
 
 📦 136.5.0 9/27/2024
@@ -35,9 +37,8 @@ thinColumns
 
 Find/Replace for shorter relative links:
 code
- ^ link ([^\s]+)\.html 
-  $1.html 
-
+ ^ link ([^\s]+)\.html
+  $1.html
 
 📦 136.3.0 9/27/2024
 🎉 new expand/collapse button on tables and removed confusing zoom in/zoom out
@@ -138,7 +139,7 @@ code
 🏥 ScrollSetCLI fix
 
 📦 130.3.2 9/10/2024
-🏥 make just text clickable in view source links 
+🏥 make just text clickable in view source links
 
 📦 130.3.1 9/9/2024
 🏥 npm fix
@@ -465,7 +466,6 @@ table
   Kape,35
 Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|pipeTable|table )
 
-
 📦 114.0.0 8/2/2024
 🎉 `inlineMarkups` now supports setting attributes and tags
 🏥 upgrade scrollsdk to get exponential notation numbers fix
@@ -512,7 +512,7 @@ Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|
 
 📦 111.0.0 7/26/2024
 🎉 redesigned `heatrix`.
-⚠️ BREAKING: (no one should be affected). `heatrix` is now `heatrixAdvanced`. `heatrix` is the simplest fast version now. 
+⚠️ BREAKING: (no one should be affected). `heatrix` is now `heatrixAdvanced`. `heatrix` is the simplest fast version now.
 
 📦 110.3.0 7/25/2024
 🎉 print 0's in `heatrix`

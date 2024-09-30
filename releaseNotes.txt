@@ -12,6 +12,7 @@ Download as CSV | TSV | JSON
 
 136.6.0 9/27/2024
 =================
+
 added `printColumn` parser
 ==========================
 
@@ -30,8 +31,8 @@ added `printColumn` parser
 🏥 bug fix where tableSearch was getting applied to non scroll tables such as Dashboards
 
 Find/Replace for shorter relative links:
-^ link ([^\s]+)\.html 
- $1.html 
+^ link ([^\s]+)\.html
+ $1.html
 
 136.3.0 9/27/2024
 =================
@@ -158,7 +159,7 @@ Find/Replace for shorter relative links:
 
 130.3.2 9/10/2024
 =================
-🏥 make just text clickable in view source links 
+🏥 make just text clickable in view source links
 
 130.3.1 9/9/2024
 ================
@@ -576,7 +577,7 @@ Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|
 111.0.0 7/26/2024
 =================
 🎉 redesigned `heatrix`.
-⚠️ BREAKING: (no one should be affected). `heatrix` is now `heatrixAdvanced`. `heatrix` is the simplest fast version now. 
+⚠️ BREAKING: (no one should be affected). `heatrix` is now `heatrixAdvanced`. `heatrix` is the simplest fast version now.
 
 110.3.0 7/25/2024
 =================

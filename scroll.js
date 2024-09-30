@@ -82,10 +82,18 @@ class ScrollFileSystem extends ParticleFileSystem {
 
   folderCache = {}
   getScrollFilesInFolder(folderPath) {
+    return this._getFilesInFolder(folderPath, SCROLL_FILE_EXTENSION)
+  }
+
+  getParserFilesInFolder(folderPath) {
+    return this._getFilesInFolder(folderPath, PARSERS_FILE_EXTENSION)
+  }
+
+  _getFilesInFolder(folderPath, extension) {
     folderPath = Utils.ensureFolderEndsInSlash(folderPath)
     if (this.folderCache[folderPath]) return this.folderCache[folderPath]
     const files = this.list(folderPath)
-      .filter(file => file.endsWith(SCROLL_FILE_EXTENSION))
+      .filter(file => file.endsWith(extension))
       .map(filePath => this.getScrollFile(filePath))
 
     const sorted = lodash.sortBy(files, file => file.timestamp).reverse()
@@ -950,7 +958,9 @@ footer.scroll`
   formatCommand(cwd) {
     const fileSystem = new ScrollFileSystem()
     const folder = this.resolvePath(cwd)
-    fileSystem.getScrollFilesInFolder(folder).forEach(file => (file.formatAndSave() ? this.log(`💾 formatted ${file.filename}`) : ""))
+    const files = fileSystem.getScrollFilesInFolder(folder)
+    // .concat(fileSystem.getParserFilesInFolder(folder)) // todo: should format parser files too.
+    files.forEach(file => (file.formatAndSave() ? this.log(`💾 formatted ${file.filename}`) : ""))
   }
 
   async buildCommand(cwd) {

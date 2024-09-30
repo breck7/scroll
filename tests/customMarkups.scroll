@@ -1,12 +1,4 @@
 buildHtml
-
-thinColumns 1
-
-theme gazette
-
-# Custom Inline Markups Test
-
-belowAsCode 3
 inlineMarkups
  *
   // disable bold
@@ -16,6 +8,14 @@ inlineMarkups
   // Add marquee!
  : a href="http://example.com"
  $ span style="color:green;"
+
+thinColumns 1
+
+theme gazette
+
+# Custom Inline Markups Test
+
+belowAsCode 3
 
 *This* should not be bold. ~~~This should be a marquee.~~~ And _this_ should be underlined. A :link:.
 

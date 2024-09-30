@@ -1,14 +1,14 @@
 buildHtml
-theme gazette
-title TITLE
 replace TITLE Debug tools tests
 replaceJs SUM 1+1
+title TITLE
+
+theme gazette
 
 printTitle
 
 The sum of 1+1 is SUM
 
 printSourceStack
-
 
 footer.scroll

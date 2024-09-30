@@ -9,8 +9,8 @@ Code
 
 files,language,blank,comment,code
 100,Parsers,218,0,4479
-105,Scroll,1555,0,4436
-8,JavaScript,253,132,1400
+105,Scroll,1562,0,4433
+8,JavaScript,255,133,1407
 2,SVG,0,0,226
 2,CSS,8,0,97
 4,YAML,6,3,65
@@ -18,6 +18,6 @@ files,language,blank,comment,code
 1,Text,0,0,8
 1,HTML,0,0,5
 1,Markdown,1,0,5
-225,SUM,2041,135,10778
+225,SUM,2050,136,10782
 
 Built with Scroll v136.6.0
