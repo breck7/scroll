@@ -1,5 +1,6 @@
 authors Breck Yunits
  https://breckyunits.com Breck Yunits
+buildTxt
 date 1/11/2019
 replace NUM_SINKS 283
 replace TABLE
@@ -19,7 +20,6 @@ tags index all
 title Top Sinks
 
 header.scroll
-buildTxt
 
 printTitle
 

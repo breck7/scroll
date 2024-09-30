@@ -1,7 +1,8 @@
-title Build Your Own Counters With 3 Words
-breckHeader.scroll
-openGraphImage counters.gif
 date 8/2/2024
+openGraphImage counters.gif
+title Build Your Own Counters With 3 Words
+
+breckHeader.scroll
 
 mediumColumns 1
 I like collections of interesting numbers, such as BioNumbers. Animated counters provide a useful perspective when pondering large numbers. I wanted to make it as easy as possible for anyone to create these counters.
