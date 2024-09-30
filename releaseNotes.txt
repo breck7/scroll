@@ -10,11 +10,13 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+136.7.0 9/30/2024
+=================
+🎉 dark theme improvements
+
 136.6.0 9/27/2024
 =================
-
-added `printColumn` parser
-==========================
+🎉 added `printColumn` parser
 
 136.5.0 9/27/2024
 =================
@@ -2781,4 +2783,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v136.6.0
+Built with Scroll v136.7.0

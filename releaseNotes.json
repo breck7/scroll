@@ -1,16 +1,16 @@
 [
   {
-    "version": "136.6.0",
-    "releaseDate": "9/27/2024",
+    "version": "136.7.0",
+    "releaseDate": "9/30/2024",
     "bugFixes": 0,
-    "newFeatures": 0,
+    "newFeatures": 1,
     "breakingChanges": 0
   },
   {
-    "version": "added",
-    "releaseDate": "`printColumn`",
+    "version": "136.6.0",
+    "releaseDate": "9/27/2024",
     "bugFixes": 0,
-    "newFeatures": 0,
+    "newFeatures": 1,
     "breakingChanges": 0
   },
   {
