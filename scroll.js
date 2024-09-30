@@ -958,7 +958,8 @@ footer.scroll`
   formatCommand(cwd) {
     const fileSystem = new ScrollFileSystem()
     const folder = this.resolvePath(cwd)
-    const files = fileSystem.getScrollFilesInFolder(folder).concat(fileSystem.getParserFilesInFolder(folder))
+    const files = fileSystem.getScrollFilesInFolder(folder)
+    // .concat(fileSystem.getParserFilesInFolder(folder)) // todo: should format parser files too.
     files.forEach(file => (file.formatAndSave() ? this.log(`💾 formatted ${file.filename}`) : ""))
   }
 
