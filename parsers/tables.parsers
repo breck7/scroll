@@ -388,6 +388,31 @@ scrollLinksParser
     return this.parent.columnNames.filter(name => !linkColumns.includes(name)).concat(this.newColumnName)
   }
 
+scrollTimeagoParser
+ extends abstractTableTransformParser
+ description Add column with timeago.
+ crux when
+ catchAllAtomType columnNameAtom
+ javascript
+  get coreTable() {
+   const {newColumnName, timestampColumn} = this
+   return this.parent.coreTable.map(row => {
+     const newRow = Object.assign({}, row)
+     const { format } = require("timeago.js")
+     newRow[newColumnName] = format(Date.now() - parseFloat(row[timestampColumn]))
+     return newRow
+   })
+  }
+  get newColumnName() {
+    return "when"
+  }
+  get timestampColumn() {
+    return this.atoms[1]
+  }
+  get columnNames() {
+    return this.parent.columnNames.concat(this.newColumnName)
+  }
+
 scrollLimitParser
  extends abstractTableTransformParser
  description Select a subset.
