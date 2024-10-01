@@ -4,8 +4,13 @@
  <title>Feed</title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Tue, 01 Oct 2024 15:06:33 +0000</lastBuildDate>
+ <lastBuildDate>Tue, 01 Oct 2024 17:11:56 +0000</lastBuildDate>
  <language>en-us</language>
+ <item>
+  <title>Web Forms for Geniuses</title>
+  <link>https://scroll.pub/blog/forms.html</link>
+  <pubDate>Tue, 01 Oct 2024 00:00:00 +0000</pubDate>
+ </item>
  <item>
   <title>The Successor to RSS is Git Clone</title>
   <link>https://scroll.pub/blog/gitOverRss.html</link>

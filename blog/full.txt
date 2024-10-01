@@ -1,5 +1,10 @@
 The Official Scroll Blog
 ========================
+Web Forms for Geniuses
+======================
+10/01/2024
+https://scroll.pub/blog/forms.html
+
 The Successor to RSS is Git Clone
 =================================
 09/02/2024
