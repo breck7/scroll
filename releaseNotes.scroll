@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 136.9.0 9/30/2024
+🎉 added `stopwatch` Parser
+
 📦 136.8.0 9/30/2024
 🎉 viewSourceButton can now take a url
 
