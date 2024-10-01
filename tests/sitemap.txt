@@ -6,6 +6,7 @@ https://scroll.pub/tabularData.html
 https://scroll.pub/tables.html
 https://scroll.pub/style.html
 https://scroll.pub/stump.html
+https://scroll.pub/stopwatch.html
 https://scroll.pub/stampTest.html
 https://scroll.pub/source.html
 https://scroll.pub/slideshowDemo.html

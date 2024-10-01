@@ -125,6 +125,7 @@ scrollVersionLink - Print Scroll version.
 slideshow - Slideshow widget. *** delimits slides.
 sparkline - Sparkline widget.
 stamp - Expand project template to disk.
+stopwatch - A stopwatch.
 stump - Compile Stump to HTML.
 stumpNoSnippet - Compile Stump unless snippet.
 table - A datatable.
@@ -269,4 +270,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v136.8.0
+Built with Scroll v136.9.0
