@@ -9,6 +9,7 @@ https://scroll.pub/stump.html
 https://scroll.pub/stopwatch.html
 https://scroll.pub/stampTest.html
 https://scroll.pub/source.html
+https://scroll.pub/snippets.html
 https://scroll.pub/slideshowDemo.html
 https://scroll.pub/settings.html
 https://scroll.pub/scrollVersion.html

@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+136.11.0 10/02/2024
+===================
+🎉 added `printShortSnippetsParser`
+
 136.10.0 10/02/2024
 ===================
 🎉 added `footer` Parser
@@ -2795,4 +2799,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v136.10.0
+Built with Scroll v136.11.0

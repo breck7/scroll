@@ -106,6 +106,7 @@ printparsersLeetSheet - Parsers leetsheet.
 printRelated - Print links to related posts.
 printScrollLeetSheet - Print Scroll parser leet sheet.
 printSearchTable - Prints files to HTML table.
+printShortSnippets - Titles and descriptions in group(s).
 printSiteMap - Print text sitemap.
 printSnippets - Prints snippets matching tag(s).
 printSource - Print source for files in group(s).
@@ -257,6 +258,7 @@ helpfulNotFound,5
 html,5
 printFeed,5
 printFullSnippets,5
+printShortSnippets,5
 buildConcepts,3
 buildMeasures,3
 inlineMarkups,3
@@ -271,4 +273,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v136.10.0
+Built with Scroll v136.11.0
