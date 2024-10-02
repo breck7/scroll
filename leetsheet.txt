@@ -65,6 +65,7 @@ endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
 favicon - Favicon file.
 fetch - Download URL to disk.
+footer - Move section to file footer.
 hakon - Compile Hakon to CSS.
 heatrix - A heatmap matrix data visualization.
 heatrixAdvanced - Advanced heatrix.
@@ -270,4 +271,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v136.9.0
+Built with Scroll v136.10.0

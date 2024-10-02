@@ -35,6 +35,7 @@ const scrollKeywords = {
   replace: "replace",
   replaceJs: "replaceJs",
   replaceNodejs: "replaceNodejs",
+  footer: "footer",
   buildConcepts: "buildConcepts",
   buildMeasures: "buildMeasures",
   buildTxt: "buildTxt",
@@ -469,7 +470,7 @@ parsers/errors.parsers`
 
   evalMacros(code, codeAtStart, absolutePath) {
     // note: the 2 params above are not used in this method, but may be used in user eval code. (todo: cleanup)
-    const regex = /^replace/gm
+    const regex = /^(replace|footer$)/gm
     if (!regex.test(code)) return code
     const particle = new Particle(code) // todo: this can be faster. a more lightweight particle class?
     // Process macros
@@ -499,6 +500,16 @@ parsers/errors.parsers`
         } else macroMap[particle.getAtom(1)] = value
         particle.destroy() // Destroy definitions after eval
       })
+
+    if (particle.has(scrollKeywords.footer)) {
+      const pushes = particle.getParticles(scrollKeywords.footer)
+      const append = pushes.map(push => push.section.join("\n")).join("\n")
+      pushes.forEach(push => {
+        push.section.forEach(particle => particle.destroy())
+        push.destroy()
+      })
+      code = particle.asString + append
+    }
 
     const keys = Object.keys(macroMap)
     if (!keys.length) return code
