@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 136.11.0 10/02/2024
+🎉 added `printShortSnippetsParser`
+
 📦 136.10.0 10/02/2024
 🎉 added `footer` Parser
 
