@@ -640,7 +640,7 @@ parsers/errors.parsers`
 
   get generatedDescription() {
     const firstParagraph = this.scrollProgram.find(particle => particle.isArticleContent)
-    return firstParagraph ? firstParagraph.originalText.substr(0, 100) : ""
+    return firstParagraph ? firstParagraph.originalText.substr(0, 100).replace(/[&"<>']/g, "") : ""
   }
 
   get title() {
