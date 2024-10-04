@@ -2,12 +2,72 @@ canonicalUrl https://scroll.pub/tests/maps.html?canonLinkTest=true
 
 header.scroll
 
-map
- lat 37.8
- long -96
- zoom 4
- point
-  title St. Jude Children's Research Hospital
-  description 262 Danny Thomas Pl, Memphis, TN 38105
-  lat 35.1554637
-  long -90.0307277
+table
+ delimiter particles
+ map
+  lat 37.0854
+  long 15.273
+  zoom 3
+  radius 10
+  color blue
+  fillColor blue
+  fillOpacity 1
+ map
+  lat 37.0854
+  long 15.273
+  zoom 3
+ data
+  point
+   title Euclid
+   description Alexandria, Egypt
+   lat 31.2001
+   long 29.9187
+   radius 20
+   color red
+   fillColor orange
+   fillOpacity 0.8
+  point
+   title Archimedes
+   description Syracuse, Sicily, Italy
+   lat 37.0854
+   long 15.273
+  point
+   title René Descartes
+   description La Haye en Touraine, France
+   lat 47.9635
+   long 0.3383
+  point
+   title Isaac Newton
+   description Woolsthorpe-by-Colsterworth, Lincolnshire, England
+   lat 52.8093
+   long -0.6195
+  point
+   title Carl Friedrich Gauss
+   description Brunswick, Duchy of Brunswick (now Germany)
+   lat 52.2689
+   long 10.5268
+  point
+   title Sofia Kovalevskaya
+   description Moscow, Russia
+   lat 55.7558
+   long 37.6176
+  point
+   title Évariste Galois
+   description Bourg-la-Reine, France
+   lat 48.7747
+   long 2.3174
+  point
+   title Bernhard Riemann
+   description Breselenz, Kingdom of Hanover (now Germany)
+   lat 53.1007
+   long 10.9174
+  point
+   title Emmy Noether
+   description Erlangen, Germany
+   lat 49.5908
+   long 11.0078
+  point
+   title Alan Turing
+   description Maida Vale, London, England
+   lat 51.5266
+   long -0.1832

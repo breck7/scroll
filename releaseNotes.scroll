@@ -20,6 +20,17 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 137.0.0 10/04/2024
+🎉 maps now takes a table
+🎉 maps now supports fullscreen
+🎉 maps now supports custom hover template strings
+🎉 maps now supports color
+🎉 maps now supports fillColor
+🎉 maps now supports radius
+🎉 maps now supports fillOpacity
+🎉 added `compute` table parser
+⚠️ BREAKING: remove "points" parser. maps now takes a table as input.
+
 📦 136.12.0 10/04/2024
 🎉 `table` now accepts urls
 🎉 build now works in web version
