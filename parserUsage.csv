@@ -1,7 +1,7 @@
 parserId,uses
-blankLineParser,980
-versionParser,512
-newFeatureParser,423
+blankLineParser,981
+versionParser,513
+newFeatureParser,425
 catchAllParagraphParser,247
 lineOfCodeParser,208
 bugFixParser,204
@@ -14,7 +14,7 @@ codeParser,46
 listAftertextParser,42
 h2Parser,41
 belowAsCodeParser,30
-quickRelativeLinkParser,25
+quickRelativeLinkParser,26
 viewSourceButtonParser,25
 classMarkupParser,24
 cssParser,22

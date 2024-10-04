@@ -19,13 +19,14 @@ LeetSheet · Blog · FAQ · Tutorial
  https://scroll.pub/faq.html FAQ
  https://scroll.pub/tutorial.html Tutorial
 
-Videos · Subreddit
+Videos · Release Notes · Subreddit
  https://www.youtube.com/@breckyunits Videos
+ https://scroll.pub/releaseNotes.html Release Notes
  https://www.reddit.com/r/WorldWideScroll/ Subreddit
 
-npm package · Release Notes · Parser Designer
+npm package · Tests · Parser Designer
  https://www.npmjs.com/package/scroll-cli npm package
- https://scroll.pub/releaseNotes.html Release Notes
+ https://scroll.pub/tests/index.html Tests
  https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers Parser Designer
 
-Built with Scroll v136.11.1
+Built with Scroll v136.12.0
