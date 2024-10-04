@@ -1,7 +1,7 @@
 header.scroll
 
 container
-# Search Tests
+# Scroll Tests
 printSearchTable
 tableSearch
 
