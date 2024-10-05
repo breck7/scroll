@@ -43,7 +43,8 @@ contacts.csv
 table
  printTable
  orderBy -score -types
-  printTable
+  rank
+   printTable
  data
   name types score
   HTML 142 212
