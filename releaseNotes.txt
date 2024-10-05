@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+137.1.0 10/05/2024
+==================
+🎉 added `rank` parser to tables
+
 137.0.0 10/04/2024
 ==================
 🎉 maps now takes a table
@@ -2820,4 +2824,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v137.0.0
+Built with Scroll v137.1.0

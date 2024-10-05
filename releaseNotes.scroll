@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 137.1.0 10/05/2024
+🎉 added `rank` parser to tables
+
 📦 137.0.0 10/04/2024
 🎉 maps now takes a table
 🎉 maps now supports fullscreen

@@ -349,9 +349,9 @@ scrollComposeParser
   get coreTable() {
    const {newColumnName} = this
    const formatString = this.getAtomsFrom(2).join(" ")
-   return this.parent.coreTable.map(row => {
+   return this.parent.coreTable.map((row, index) => {
      const newRow = Object.assign({}, row)
-     newRow[newColumnName] = this.evaluate(new Particle(row).evalTemplateString(formatString))
+     newRow[newColumnName] = this.evaluate(new Particle(row).evalTemplateString(formatString), index)
      return newRow
    })
   }
@@ -373,6 +373,13 @@ scrollComputeParser
   evaluate(str) {
     return parseFloat(eval(str))
   }
+scrollRankParser
+ extends scrollComposeParser
+ description Add rank column.
+ string newColumnName rank
+ crux rank
+ javascript
+  evaluate(str, index) { return index + 1 }
 
 scrollLinksParser
  extends abstractTableTransformParser

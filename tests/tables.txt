@@ -44,11 +44,11 @@ HTML 142 212
 Markdown 192 2
 Scroll 174 2
 rST 142 21
-name,types,score
-HTML,142,212
-rST,142,21
-Markdown,192,2
-Scroll,174,2
+name,types,score,rank
+HTML,142,212,1
+rST,142,21,2
+Markdown,192,2,3
+Scroll,174,2,4
 types,n,s
 142,HTML,212
 192,Markdown,2
