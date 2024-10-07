@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+137.3.0 10/07/2024
+==================
+🎉 export SimpleCLI
+
 137.2.0 10/06/2024
 ==================
 🎉 added `tiles` parser to maps
@@ -2828,4 +2832,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v137.2.0
+Built with Scroll v137.3.0

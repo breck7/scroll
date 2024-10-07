@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 137.3.0 10/07/2024
+🎉 export SimpleCLI
+
 📦 137.2.0 10/06/2024
 🎉 added `tiles` parser to maps
 
