@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 137.2.0 10/06/2024
+🎉 added `tiles` parser to maps
+
 📦 137.1.0 10/05/2024
 🎉 added `rank` parser to tables
 

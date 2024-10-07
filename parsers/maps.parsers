@@ -1,3 +1,6 @@
+tileOptionAtom
+ enum default light
+
 mapParser
  latParser
   atoms cueAtom floatAtom
@@ -5,6 +8,10 @@ mapParser
   single
  longParser
   atoms cueAtom floatAtom
+  cruxFromId
+  single
+ tilesParser
+  atoms cueAtom tileOptionAtom
   cruxFromId
   single
  zoomParser
@@ -64,10 +71,21 @@ mapParser
     const template = ${JSON.stringify(template)}
     const points = ${JSON.stringify((this.parent.coreTable || []).filter(point => point.lat && point.long), undefined, 2)}
     const map = L.map("map${id}").setView([lat, long], zoomLevel)
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-     attribution: '<a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
-     maxZoom: 18
-    }).addTo(map)
+    const tileOptions = {
+    "default": {
+        baseLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        attribution: '<a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    },
+    light: {
+        baseLayer: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+        attribution: '<a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors <a href="https://carto.com/    attributions">CARTO</a>'
+    },
+    }
+    const {baseLayer, attribution} = tileOptions.${this.get("tiles") || "default"}
+    L.tileLayer(baseLayer, {
+    attribution,
+    maxZoom: 19
+    }).addTo(map);
     points.forEach(point => {
      L.circleMarker([point.lat, point.long], {...template, ...Object.fromEntries(
             Object.entries(point).filter(([key, value]) => value !== null)
