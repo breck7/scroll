@@ -149,7 +149,7 @@ testParticles.cli = async areEqual => {
   const cli = new ScrollCli()
   cli.verbose = false
   // Act/Assert
-  areEqual(cli.helpCommand().includes("help page"), true)
+  areEqual(cli.helpCommand().includes("Available commands"), true)
 
   // Act/Assert
   areEqual(cli.deleteCommand().includes("delete"), true)
@@ -159,7 +159,7 @@ testParticles.cli = async areEqual => {
   areEqual(!!result, true)
 
   // Act/Assert
-  areEqual(cli.executeUsersInstructionsFromShell(["help"], false).includes("help"), true)
+  areEqual(cli.executeUsersInstructionsFromShell(["help"], false).includes("Available commands"), true)
 
   // Act
   const results = cli.findScrollsInDirRecursive(__dirname)
