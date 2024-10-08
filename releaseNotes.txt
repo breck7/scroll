@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+137.4.0 10/08/2024
+==================
+🎉 maps now can request users location
+
 137.3.0 10/07/2024
 ==================
 🎉 export SimpleCLI
@@ -2832,4 +2836,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v137.3.0
+Built with Scroll v137.4.0
