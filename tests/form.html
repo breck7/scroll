@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<div class="scrollSection"><h1 class="scrollParagraph">ScrollSet Form Maker</h1>
+<div class="scrollSection"><h1 id="particle2" class="scrollParagraph">ScrollSet Form Maker</h1>
 <link rel="stylesheet" type="text/css" href="gazette.css">
 </div>
 <style>body {font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;}</style>
-<div class="scrollSection"><h3 class="scrollParagraph">Past: to generate a classic form write "classicForm"</h3>
+<div class="scrollSection"><h3 id="particle7" class="scrollParagraph">Past: to generate a classic form write "classicForm"</h3>
 </div>
 <div class="scrollColumns" style="column-width:65ch;column-count:1;max-width:65ch;">
 <script>
@@ -38,7 +38,7 @@ box-sizing: border-box;
 <div><label for="homepage" title="">Homepage:</label><input placeholder="What is your homepage?" type="url" id="homepage" name="homepage" ></div>
 <div><label for="biography" title="">Biography:</label><textarea placeholder="What is your bio?" id="biography" name="biography" ></textarea></div><button value="Classic form test" title="breck7+classicForm@gmail.com" class="scrollButton" type="submit">Submit via email</button></form>
 </div>
-<div class="scrollSection"><h3 class="scrollParagraph">Future: to generate a Scroll Form write "scrollForm"</h3>
+<div class="scrollSection"><h3 id="particle12" class="scrollParagraph">Future: to generate a Scroll Form write "scrollForm"</h3>
 </div>
 <div class="scrollColumns" style="column-width:65ch;column-count:1;max-width:65ch;">
 <link rel="stylesheet" href="codeMirror.css">
@@ -494,7 +494,7 @@ abstractIdParser
     let requiredMeasureNames = this.parent.file.measures.filter(measure => measure.isMeasureRequired).map(measure => measure.Name).filter(name => name !== "id")
     if (!requiredMeasureNames.length) return errors
     let next = this.next
-    while (requiredMeasureNames.length && next.firstAtom !== "id" && next.getIndex() !== 0) {
+    while (requiredMeasureNames.length && next.firstAtom !== "id" && next.index !== 0) {
       requiredMeasureNames = requiredMeasureNames.filter(i => i !== next.firstAtom)
       next = next.next
     }

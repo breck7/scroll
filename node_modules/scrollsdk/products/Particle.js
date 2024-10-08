@@ -126,7 +126,7 @@ class Particle extends AbstractParticle {
   }
   getOlderSiblings() {
     if (this.isRoot()) return []
-    return this.parent.slice(0, this.getIndex())
+    return this.parent.slice(0, this.index)
   }
   _getClosestOlderSibling() {
     const olderSiblings = this.getOlderSiblings()
@@ -134,7 +134,7 @@ class Particle extends AbstractParticle {
   }
   getYoungerSiblings() {
     if (this.isRoot()) return []
-    return this.parent.slice(this.getIndex() + 1)
+    return this.parent.slice(this.index + 1)
   }
   getSiblings() {
     if (this.isRoot()) return []
@@ -546,10 +546,10 @@ class Particle extends AbstractParticle {
   _getPathVector(relativeTo) {
     if (this.isRoot(relativeTo)) return []
     const path = this.parent._getPathVector(relativeTo)
-    path.push(this.getIndex())
+    path.push(this.index)
     return path
   }
-  getIndex() {
+  get index() {
     return this.parent._indexOfParticle(this)
   }
   isTerminal() {
@@ -1002,10 +1002,10 @@ class Particle extends AbstractParticle {
     return particles
   }
   get isLast() {
-    return this.getIndex() === this.parent.length - 1
+    return this.index === this.parent.length - 1
   }
   get isFirst() {
-    return this.getIndex() === 0
+    return this.index === 0
   }
   getFrom(prefix) {
     const hit = this.filter(particle => particle.getLine().startsWith(prefix))[0]
@@ -1061,7 +1061,7 @@ class Particle extends AbstractParticle {
   }
   get next() {
     if (this.isRoot()) return this
-    const index = this.getIndex()
+    const index = this.index
     const parent = this.parent
     const length = parent.length
     const next = index + 1
@@ -1069,7 +1069,7 @@ class Particle extends AbstractParticle {
   }
   get previous() {
     if (this.isRoot()) return this
-    const index = this.getIndex()
+    const index = this.index
     const parent = this.parent
     const length = parent.length
     const prev = index - 1
@@ -1778,10 +1778,10 @@ class Particle extends AbstractParticle {
     return this
   }
   prependSibling(line, subparticles) {
-    return this.parent.insertLineAndSubparticles(line, subparticles, this.getIndex())
+    return this.parent.insertLineAndSubparticles(line, subparticles, this.index)
   }
   appendSibling(line, subparticles) {
-    return this.parent.insertLineAndSubparticles(line, subparticles, this.getIndex() + 1)
+    return this.parent.insertLineAndSubparticles(line, subparticles, this.index + 1)
   }
   setContentWithSubparticles(text) {
     // todo: deprecate
@@ -1811,7 +1811,7 @@ class Particle extends AbstractParticle {
     return this
   }
   duplicate() {
-    return this.parent._insertLineAndSubparticles(this.getLine(), this.subparticlesToString(), this.getIndex() + 1)
+    return this.parent._insertLineAndSubparticles(this.getLine(), this.subparticlesToString(), this.index + 1)
   }
   trim() {
     // todo: could do this so only the trimmed rows are deleted.
@@ -1969,7 +1969,7 @@ class Particle extends AbstractParticle {
   }
   replaceParticle(fn) {
     const parent = this.parent
-    const index = this.getIndex()
+    const index = this.index
     const newParticles = new Particle(fn(this.toString()))
     const returnedParticles = []
     newParticles.forEach((subparticle, subparticleIndex) => {
@@ -2166,14 +2166,14 @@ class Particle extends AbstractParticle {
   shiftLeft() {
     const grandParent = this._getGrandParent()
     if (!grandParent) return this
-    const parentIndex = this.parent.getIndex()
+    const parentIndex = this.parent.index
     const newParticle = grandParent.insertLineAndSubparticles(this.getLine(), this.length ? this.subparticlesToString() : undefined, parentIndex + 1)
     this.destroy()
     return newParticle
   }
   pasteText(text) {
     const parent = this.parent
-    const index = this.getIndex()
+    const index = this.index
     const newParticles = new Particle(text)
     const firstParticle = newParticles.particleAt(0)
     if (firstParticle) {
@@ -2569,7 +2569,7 @@ Particle.iris = `sepal_length,sepal_width,petal_length,petal_width,species
 4.9,2.5,4.5,1.7,virginica
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`
-Particle.getVersion = () => "87.1.0"
+Particle.getVersion = () => "88.0.0"
 class AbstractExtendibleParticle extends Particle {
   _getFromExtended(firstAtomPath) {
     const hit = this._getParticleFromExtended(firstAtomPath)
