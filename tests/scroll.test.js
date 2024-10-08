@@ -26,7 +26,7 @@ testParticles.compileAftertext = areEqual => {
  bold brave new
  underline new world
  strike wor`,
-      expected: `<p class="scrollParagraph">Hello <b>brave <u><a href="home.com">new</a></b> <s>wor</s>ld</u></p>`
+      expected: `<p id="particle0" class="scrollParagraph">Hello <b>brave <u><a href="home.com">new</a></b> <s>wor</s>ld</u></p>`
     }
   ]
 
@@ -44,7 +44,7 @@ testParticles.paragraphParser = areEqual => {
   program.compile()
   const result = program.compile()
 
-  areEqual(result, `<p class="scrollParagraph">foo</p>`)
+  areEqual(result, `<p id="particle0" class="scrollParagraph">foo</p>`)
 }
 
 testParticles.linkOnly = areEqual => {
@@ -55,7 +55,7 @@ testParticles.linkOnly = areEqual => {
   program.compile()
   const result = program.compile()
 
-  areEqual(result, `<p class="scrollParagraph"><a href="https://particles.scroll.pub" target="_blank">https://particles.scroll.pub</a></p>`)
+  areEqual(result, `<p id="particle0" class="scrollParagraph"><a href="https://particles.scroll.pub" target="_blank">https://particles.scroll.pub</a></p>`)
 }
 
 testParticles.endSnippet = areEqual => {

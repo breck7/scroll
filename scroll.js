@@ -560,10 +560,10 @@ parsers/errors.parsers`
   // Get the line number that the snippet should stop at.
   get endSnippetIndex() {
     // First if its hard coded, use that
-    if (this.scrollProgram.has(scrollKeywords.endSnippet)) return this.scrollProgram.getParticle(scrollKeywords.endSnippet).getIndex()
+    if (this.scrollProgram.has(scrollKeywords.endSnippet)) return this.scrollProgram.getParticle(scrollKeywords.endSnippet).index
     // Next look for a dinkus
     const snippetBreak = this.scrollProgram.find(particle => particle.isDinkus)
-    if (snippetBreak) return snippetBreak.getIndex()
+    if (snippetBreak) return snippetBreak.index
     return -1
   }
 

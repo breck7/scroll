@@ -13,11 +13,13 @@ Strikethrough this whole line.
  strike
 
 hi *world*
+ id foo
 assertHtmlEquals
- <p class="scrollParagraph">hi <strong>world</strong></p>
+ <p id="foo" class="scrollParagraph">hi <strong>world</strong></p>
 
 .a.-b-
  inlineMarkup . A
  inlineMarkup - B
+ id bar
 assertHtmlEquals
- <p class="scrollParagraph"><A>a</A><B>b</B></p>
+ <p id="bar" class="scrollParagraph"><A>a</A><B>b</B></p>

@@ -20,6 +20,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 138.0.0 10/08/2024
+🎉 compiled HTML of all aftertext nodes now deep linkable. Thanks to Hari for the request!
+ https://www.reddit.com/r/WorldWideScroll/comments/1fz7qpm/questions_from_hari/ request
+⚠️ BREAKING: upgraded ScrollSDK so getIndex is now index on Particles
+
 📦 137.4.0 10/08/2024
 🎉 maps now can request users location
 
