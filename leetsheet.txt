@@ -136,6 +136,7 @@ tags - Set tags.
 testStrict - Make catchAllParagraphParser = error.
 thanksTo - Acknowledge reviewers. Prints nothing.
 theme - A collection of simple themes.
+theScrollButton - WWS button.
 thinColumn - A thin column section.
 thinColumns - Thin columns.
 title - Set title.
@@ -192,6 +193,7 @@ leftRightButtons,635
 downloadButton,630
 emailButton,630
 scrollVersionLink,630
+theScrollButton,630
 image,591
 htmlInlineParser,579
 ****,574
@@ -273,4 +275,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v138.1.1
+Built with Scroll v138.2.0
