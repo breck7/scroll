@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+138.1.0 10/08/2024
+==================
+🎉 scroll forms can now post
+
 138.0.0 10/08/2024
 ==================
 🎉 compiled HTML of all aftertext nodes now deep linkable. Thanks to Hari for the request!
@@ -2842,4 +2846,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v138.0.0
+Built with Scroll v138.1.0
