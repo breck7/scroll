@@ -14,7 +14,7 @@ classicForm breck7+classicForm@gmail.com Classic form test
 
 mediumColumn
 scrollForm breck7+scrollForm@gmail.com Scroll form test
-scrollForm post.html Post
+scrollForm insert.htm?line=2 Post
 
 nameParser
  extends abstractIdParser

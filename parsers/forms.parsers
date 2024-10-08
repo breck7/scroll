@@ -53,7 +53,7 @@ classicFormParser
   }
   compile() {
     const {isEmail, formDestination, callToAction, subject} = this
-    return `${this.script}${this.style}<form ${isEmail ? "onsubmit='sendFormViaEmail(this); return false;'" : " method='post' action='${formDestination}'"} class="scrollFormParser">${this.inputs}<button value="${subject}" title="${formDestination}" class="scrollButton" type="submit">${callToAction}</button>${this.footer}</form>`
+    return `${this.script}${this.style}<form ${isEmail ? "onsubmit='sendFormViaEmail(this); return false;'" : ` method='post' action='${formDestination}'`} class="scrollFormParser">${this.inputs}<button value="${subject}" title="${formDestination}" class="scrollButton" type="submit">${callToAction}</button>${this.footer}</form>`
   }
   get callToAction() {
     return (this.isEmail ? "Submit via email" : (this.subject || "Post"))
