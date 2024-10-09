@@ -5,16 +5,23 @@ theme gazette
 
 css body {font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;}
 
+container 600px
+
 ### Past: to generate a classic form write "classicForm"
 
-mediumColumn
+
 classicForm breck7+classicForm@gmail.com Classic form test
 
 ### Future: to generate a Scroll Form write "scrollForm"
 
-mediumColumn
-scrollForm breck7+scrollForm@gmail.com Scroll form test
-scrollForm insert.htm?line=2 Post
+scrollForm insert.htm?line=2 Post Scroll form test
+ placeholder
+  // Placeholder
+  name Bob
+  emailAddress bob@example.com
+ value
+  name Bob
+  emailAddress bob@example.com
 
 nameParser
  extends abstractIdParser
