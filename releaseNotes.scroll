@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 138.4.0 10/09/2024
+🎉 added `placeholder` and `value` parsers to ScrollForms
+
 📦 138.3.0 10/09/2024
 🎉 add `geolocate` parser for better map UX.
 
