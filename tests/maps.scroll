@@ -2,8 +2,9 @@ canonicalUrl https://scroll.pub/tests/maps.html?canonLinkTest=true
 
 header.scroll
 
-# My location
+# Geolocate user
 map
+ geolocate
 
 
 # Custom

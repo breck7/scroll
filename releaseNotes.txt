@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+138.3.0 10/09/2024
+==================
+🎉 add `geolocate` parser for better map UX.
+
 138.2.0 10/08/2024
 ==================
 🎉 add `theScrollButton` parser
@@ -2854,4 +2858,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v138.2.0
+Built with Scroll v138.3.0
