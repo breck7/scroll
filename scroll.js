@@ -985,7 +985,7 @@ footer.scroll`
   }
 
   async buildCommand(cwd) {
-    this.buildFilesInFolder(new ScrollFileSystem(), this.resolvePath(cwd))
+    await this.buildFilesInFolder(new ScrollFileSystem(), this.resolvePath(cwd))
     return this
   }
 
@@ -1063,18 +1063,16 @@ footer.scroll`
     })
   }
 
-  buildFiles(fileSystem, files, folder) {
+  async buildFiles(fileSystem, files, folder) {
     const start = Date.now()
     this.logIndent++
     // Run the build loop twice. The first time we build ScrollSets, in case some of the HTML files
     // will depend on csv/tsv/json/etc
-    files
-      .filter(file => !file.importOnly)
-      .forEach(file => {
-        file.build() // Run any build steps
-        this._buildConceptsAndMeasures(file, folder, fileSystem) // todo: call this buildDelimited?
-        this._buildFileType(file, folder, fileSystem, "csv")
-      })
+    for (const file of files.filter(file => !file.importOnly)) {
+      await file.build() // Run any build steps
+      this._buildConceptsAndMeasures(file, folder, fileSystem) // todo: call this buildDelimited?
+      this._buildFileType(file, folder, fileSystem, "csv")
+    }
     files
       .filter(file => !file.importOnly)
       .forEach(file => {
@@ -1113,11 +1111,12 @@ footer.scroll`
     }
   }
 
-  buildFilesInFolder(fileSystem, folder = "/") {
+  async buildFilesInFolder(fileSystem, folder = "/") {
     folder = Utils.ensureFolderEndsInSlash(folder)
     const files = fileSystem.getScrollFilesInFolder(folder)
     this.log(`Found ${files.length} scroll files in '${folder}'\n`)
-    return this.buildFiles(fileSystem, files, folder)
+    const res = await this.buildFiles(fileSystem, files, folder)
+    return res
   }
 
   listCommand(cwd) {

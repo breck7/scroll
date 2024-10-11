@@ -102,7 +102,7 @@ testParticles.testAllScrollsInThisRepo = async areEqual => {
   })
 }
 
-testParticles.inMemoryFileSystem = areEqual => {
+testParticles.inMemoryFileSystem = async areEqual => {
   // You could get all in folders with lodash.unique(Object.keys(this.files).map(filename => path.dirname(filename)))
 
   // Arrange
@@ -119,8 +119,8 @@ buildHtml`
   // Act
   const cli = new ScrollCli().silence()
   const fileSystem = new ScrollFileSystem(files)
-  cli.buildFilesInFolder(fileSystem, "/")
-  cli.buildFilesInFolder(fileSystem, "/pages/")
+  await cli.buildFilesInFolder(fileSystem, "/")
+  await cli.buildFilesInFolder(fileSystem, "/pages/")
 
   // Assert
   areEqual(files["/pages/about.html"].includes("This should be imported"), true, "In memory file system worked")
@@ -246,7 +246,7 @@ testParticles.initCommand = async areEqual => {
     const result = await cli.initCommand(tempFolder)
     areEqual(fs.existsSync(path.join(tempFolder, "header.scroll")), true, "has header")
 
-    const products = cli.buildFilesInFolder(fileSystem, tempFolder)
+    const products = await cli.buildFilesInFolder(fileSystem, tempFolder)
 
     // Assert
     areEqual(Object.values(products)[1].includes("Built with Scroll"), true, "has message")
@@ -267,7 +267,7 @@ testParticles.hodgePodge = async areEqual => {
     // Arrange/act
     const cli = new ScrollCli().silence()
     const fileSystem = new ScrollFileSystem()
-    cli.buildFilesInFolder(fileSystem, testsFolder)
+    await cli.buildFilesInFolder(fileSystem, testsFolder)
     const groupPage = Disk.read(path.join(testsFolder, "all.html"))
     const autoPage = Disk.read(path.join(testsFolder, "autoTitle.html"))
     const sitemap = Disk.read(path.join(testsFolder, "sitemap.txt"))
