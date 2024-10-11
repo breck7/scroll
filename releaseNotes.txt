@@ -14,6 +14,8 @@ Download as CSV | TSV | JSON
 ==================
 🎉 the quickTable parser now works with JSON files as well.
 ⚠️ BREAKING: to use the JSON Script parser, instead of *.json you now need to use the cue "jsonScript"
+
+Regex find:
 ^[^ ]\.json
 
 138.4.0 10/09/2024
@@ -2868,4 +2870,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v138.4.0
+Built with Scroll v139.0.0
