@@ -22,8 +22,10 @@ thinColumns
 
 📦 139.0.0 10/11/2024
 🎉 the quickTable parser now works with JSON files as well.
- // Thank you to TBD for the report!
+ // Thank you to TD for the report!
 ⚠️ BREAKING: to use the JSON Script parser, instead of *.json you now need to use the cue "jsonScript"
+
+Regex find:
 code
  ^[^ ]\.json
 
