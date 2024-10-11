@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 139.1.0 10/11/2024
+🎉 added qrcode parser
+
 📦 139.0.1 10/11/2024
 🏥 bug fix in quick tables. Thanks TD for the report!
 
