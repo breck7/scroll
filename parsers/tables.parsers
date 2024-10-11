@@ -266,7 +266,7 @@ quickTableParser
  popularity 0.000024
  extends scrollTableParser
  atoms urlAtom
- pattern ^[^\s]+\.(tsv|csv|ssv|psv)
+ pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)
  int atomIndex 0
 
 scrollWhereParser
