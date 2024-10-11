@@ -16,7 +16,7 @@ Download as CSV | TSV | JSON
 ⚠️ BREAKING: to use the JSON Script parser, instead of *.json you now need to use the cue "jsonScript"
 
 Regex find:
-^[^ ]\.json
+^[^\s]+\.json
 
 138.4.0 10/09/2024
 ==================
