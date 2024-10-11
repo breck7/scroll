@@ -19,6 +19,7 @@ const packageJson = require("./package.json")
 const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const PARSERS_FILE_EXTENSION = ".parsers"
+const EXTERNALS_PATH = path.join(__dirname, "external")
 const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
 // Todo: how to keep in sync with scroll files?
 const scrollKeywords = {
@@ -527,6 +528,7 @@ parsers/errors.parsers`
 
   SVGS = SVGS
   SCROLL_VERSION = SCROLL_VERSION
+  EXTERNALS_PATH = EXTERNALS_PATH
   importOnly = false
   filePath = ""
 
@@ -1009,7 +1011,7 @@ footer.scroll`
         const externalFiles = particle.copyFromExternal.split(" ")
         externalFiles.forEach(name => {
           const newPath = path.join(folder, name)
-          fileSystem.writeProduct(newPath, Disk.read(path.join(__dirname, "external", name)))
+          fileSystem.writeProduct(newPath, Disk.read(path.join(EXTERNALS_PATH, name)))
           this.log(`💾 Copied external file needed by ${file.filename} to ${name}`)
         })
       })

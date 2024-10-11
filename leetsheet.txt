@@ -115,6 +115,7 @@ printSourceStack - Print compilation steps.
 printTable - Print table.
 printTitle - Print title.
 printUsageStats - Parser usage stats for folder.
+qrcode - Make a QR code from a link.
 quote - A quote.
 redirectTo - HTML redirect tag.
 replace - Replace this with that.
@@ -277,4 +278,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v139.0.1
+Built with Scroll v139.1.0

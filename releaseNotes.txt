@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+139.1.0 10/11/2024
+==================
+🎉 added qrcode parser
+
 139.0.1 10/11/2024
 ==================
 🏥 bug fix in quick tables. Thanks TD for the report!
@@ -2874,4 +2878,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v139.0.1
+Built with Scroll v139.1.0
