@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 139.0.1 10/11/2024
+🏥 bug fix in quick tables. Thanks TD for the report!
+
 📦 139.0.0 10/11/2024
 🎉 the quickTable parser now works with JSON files as well.
  // Thank you to TD for the report!

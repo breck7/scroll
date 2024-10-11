@@ -288,7 +288,12 @@ scrollParser
     filename = filename || new URL(url).pathname.split('/').pop()
     const fullpath = this.makeFullPath(filename)
     if (require("fs").existsSync(fullpath)) return this.readFile(fullpath)
-    return this.downloadToDisk(url, fullpath)
+    this.log(`🛜 fetching ${url} to ${fullpath} `)
+    await this.downloadToDisk(url, fullpath)
+    return this.readFile(fullpath)
+  }
+  log(message) {
+    console.log(message)
   }
   async fetchBrowser(url) {
     const content = localStorage.getItem(url)
@@ -311,7 +316,7 @@ scrollParser
   readFile(filename) {
     const path = require("path")
     const fs = require("fs")
-    const fullPath = path.join(this.file.folderPath, filename)
+    const fullPath = path.join(this.file.folderPath, filename.replace(this.file.folderPath, ""))
     if (fs.existsSync(fullPath))
       return fs.readFileSync(fullPath, "utf8")
     console.error(`File '${filename}' not found`)
