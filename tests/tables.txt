@@ -214,4 +214,23 @@ aadsasdfasdf2,1724954559126,The name of the folder is aadsasdfasdf2
 Quick Table
 ===========
 
+Quick JSON Table
+================
+
+[
+  {
+    "name": "Jack Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1 (555) 123-4567",
+    "birthday": "2/23/84",
+    "notes": "Daughter - Samantha."
+  },
+  {
+    "name": "Jill Smith",
+    "email": "jill@gmail.com",
+    "phone": "+1 (555) 123-4562",
+    "birthday": "1/23/80"
+  }
+]
+
 ⁂

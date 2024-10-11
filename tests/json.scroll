@@ -1,6 +1,6 @@
 buildHtml
 
-../package.json
+jsonScript ../package.json
 window.package.description says:
 script
  document.write(window.package.description)

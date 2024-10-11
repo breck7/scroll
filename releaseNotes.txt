@@ -10,6 +10,12 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+139.0.0 10/11/2024
+==================
+🎉 the quickTable parser now works with JSON files as well.
+⚠️ BREAKING: to use the JSON Script parser, instead of *.json you now need to use the cue "jsonScript"
+^[^ ]\.json
+
 138.4.0 10/09/2024
 ==================
 🎉 added `placeholder` and `value` parsers to ScrollForms

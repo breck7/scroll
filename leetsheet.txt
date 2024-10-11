@@ -79,6 +79,7 @@ image - An img tag.
 import - Import a file.
 importOnly - Don't build this file.
 inlineMarkups - Set global inline markups.
+jsonScript - Include JSON and assign to window.
 katex - KaTex widget for typeset math.
 keyboardNav - Make left and right navigate files.
 leftRightButtons - Previous and next nav buttons.
@@ -180,6 +181,7 @@ printTitle,758
 theme,753
 title,753
 import,753
+jsonScript,753
 keyboardNav,748
 authors,738
 css,722

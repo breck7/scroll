@@ -97,4 +97,9 @@ table
 posts.csv
  printTable
 
+# Quick JSON Table
+
+contacts.json
+ printTable
+
 ****
