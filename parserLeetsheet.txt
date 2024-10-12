@@ -10,8 +10,8 @@ baseParser - Set for blobs or errors.
 boolean - A constant.
 catchAllAtomType - Use for lists.
 catchAllParser - Attach this to unmatched lines.
-crux - Attach by matching first atom.
-cruxFromId - Derive crux from parserId.
+cue - Attach by matching first atom.
+cueFromId - Derive cue from parserId.
 description - Parser description.
 example - Set example for docs and tests.
 extends - Extend another parser.
@@ -50,9 +50,9 @@ count id
 184 parserDescriptionParser
 164 javascriptParser
 155 catchAllExampleLineParser
-80 cruxFromIdParser
+80 cueFromIdParser
 69 atomsParser
-66 cruxParser
+66 cueParser
 66 catchAllAtomTypeParser
 61 exampleParser
 43 atomTypeDefinitionParser
@@ -76,4 +76,4 @@ count id
 1 extensionsParser
 1 compilesToParser
 
-Built with Scroll v139.1.0
+Built with Scroll v140.0.0

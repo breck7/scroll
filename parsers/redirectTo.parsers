@@ -3,7 +3,7 @@ redirectToParser
  description HTML redirect tag.
  extends abstractScrollParser
  atoms cueAtom urlAtom
- cruxFromId
+ cueFromId
  example
   redirectTo https://scroll.pub/releaseNotes.html
  javascript

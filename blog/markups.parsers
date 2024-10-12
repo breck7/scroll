@@ -40,20 +40,20 @@ abstractMarkupLangParser
   }
 markdownParser
  description If npm package `marked` is installed globally will compile markdown.
- cruxFromId
+ cueFromId
  extends abstractMarkupLangParser
  javascript
   packageName = "marked"
   importName = "marked"
 textileParser
  description If npm package `textile-js` is installed globally will compile textile.
- cruxFromId
+ cueFromId
  extends abstractMarkupLangParser
  javascript
   packageName = "textile-js"
 bbCodeParser
  description If npm package `ya-bbcode` is installed globally will compile BBcode.
- cruxFromId
+ cueFromId
  extends abstractMarkupLangParser
  javascript
   packageName = "ya-bbcode"

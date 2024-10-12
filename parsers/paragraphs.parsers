@@ -4,7 +4,7 @@ paragraphParser
  catchAllAtomType stringAtom
  description A paragraph.
  boolean suggestInAutocomplete false
- cruxFromId
+ cueFromId
  javascript
   compile(compileSettings) {
    if (this.isHidden) return ""
@@ -23,7 +23,7 @@ paragraphParser
 
 quickParagraphParser
  popularity 0.001881
- crux *
+ cue *
  extends paragraphParser
  description A paragraph.
  boolean isArticleContent true

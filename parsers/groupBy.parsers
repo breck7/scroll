@@ -6,7 +6,7 @@ scrollGroupByParser
   tables posts.csv
    groupBy year
     printTable
- crux groupBy
+ cue groupBy
  javascript
   get coreTable() {
     if (this._coreTable) return this._coreTable

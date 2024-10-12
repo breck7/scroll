@@ -1,7 +1,7 @@
 thinColumnsParser
  popularity 0.003690
  extends abstractAftertextParser
- cruxFromId
+ cueFromId
  catchAllAtomType integerAtom
  description Thin columns.
  javascript
@@ -56,7 +56,7 @@ wideColumnParser
 endColumnsParser
  popularity 0.007789
  extends abstractAftertextParser
- cruxFromId
+ cueFromId
  description End columns.
  javascript
   compile() {

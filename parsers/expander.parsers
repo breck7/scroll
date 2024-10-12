@@ -1,6 +1,6 @@
 expanderParser
  popularity 0.000072
- cruxFromId
+ cueFromId
  description An collapsible HTML details tag.
  extends paragraphParser
  example

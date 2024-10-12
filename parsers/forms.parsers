@@ -1,5 +1,5 @@
 classicFormParser
- crux classicForm
+ cue classicForm
  popularity 0.006391
  description Generate input form for ScrollSet.
  extends abstractAftertextParser
@@ -73,16 +73,16 @@ classicFormParser
 
 scrollFormParser
  extends classicFormParser
- crux scrollForm
+ cue scrollForm
  placeholderParser
   atoms cueAtom
   baseParser blobParser
-  cruxFromId
+  cueFromId
   single
  valueParser
   atoms cueAtom
   baseParser blobParser
-  cruxFromId
+  cueFromId
   single
  description Generate a Scroll Form.
  string copyFromExternal codeMirror.css scrollLibs.js

@@ -210,7 +210,7 @@ abstractScrollParser
 
 abstractScrollWithRequirementsParser
  extends abstractScrollParser
- cruxFromId
+ cueFromId
  javascript
   compile(compileSettings) {
     return this.getHtmlRequirements(compileSettings) + this.compileInstance()
@@ -228,7 +228,7 @@ abstractTopLevelSingleMetaParser
  description Use these parsers once per file.
  extends abstractScrollParser
  inScope slashCommentParser
- cruxFromId
+ cueFromId
  atoms metaCommandAtom
  javascript
   isTopMatter = true
@@ -356,7 +356,7 @@ scrollParser
 abstractUrlSettingParser
  extends abstractTopLevelSingleMetaParser
  atoms metaCommandAtom urlAtom
- cruxFromId
+ cueFromId
 
 
 buildCommandAtom
@@ -366,7 +366,7 @@ buildCommandAtom
 
 abstractBuildCommandParser
  extends abstractScrollParser
- cruxFromId
+ cueFromId
  atoms buildCommandAtom
  catchAllAtomType filePathAtom
  inScope slashCommentParser
@@ -394,13 +394,13 @@ abstractCommentParser
 commentParser
  popularity 0.000193
  extends abstractCommentParser
- cruxFromId
+ cueFromId
  boolean suggestInAutocomplete false
 
 slashCommentParser
  popularity 0.005643
  extends commentParser
- crux //
+ cue //
  boolean isPopular true
  description A comment. Prints nothing.
  boolean suggestInAutocomplete false
@@ -424,18 +424,18 @@ measureNameAtom
 
 buildMeasuresParser
  popularity 0.000024
- cruxFromId
+ cueFromId
  description Write measures to csv+ files.
  extends abstractBuildCommandParser
  sortByParser
-  cruxFromId
+  cueFromId
   atoms cueAtom anyAtom
  boolean suggestInAutocomplete false
 
 // The main measure parser. All measures should extend from this.
 abstractMeasureParser
  atoms measureNameAtom
- cruxFromId
+ cueFromId
  boolean isMeasure true
  float sortIndex 1.9
  boolean isComputed false
@@ -487,7 +487,7 @@ abstractUrlMeasureParser
 
 // Required ID measure which denotes a concept
 abstractIdParser
- crux id
+ cue id
  description What is the ID of this concept?
  extends abstractStringMeasureParser
  float sortIndex 1

@@ -78,8 +78,8 @@ var ParsersConstants
   // parse time
   ParsersConstants["extends"] = "extends"
   ParsersConstants["root"] = "root"
-  ParsersConstants["crux"] = "crux"
-  ParsersConstants["cruxFromId"] = "cruxFromId"
+  ParsersConstants["cue"] = "cue"
+  ParsersConstants["cueFromId"] = "cueFromId"
   ParsersConstants["pattern"] = "pattern"
   ParsersConstants["inScope"] = "inScope"
   ParsersConstants["atoms"] = "atoms"
@@ -667,7 +667,7 @@ class AbstractParsersBackedAtom {
     if (enumOptions) return Utils.getRandomString(1, enumOptions.split(" "))
     return this._synthesizeAtom(seed)
   }
-  _getStumpEnumInput(crux) {
+  _getStumpEnumInput(cue) {
     const atomDef = this.atomTypeDefinition
     const enumOptions = atomDef._getFromExtended(ParsersConstants.enum)
     if (!enumOptions) return undefined
@@ -678,16 +678,16 @@ class AbstractParsersBackedAtom {
         .join("\n")
     )
     return `select
- name ${crux}
+ name ${cue}
 ${options.toString(1)}`
   }
-  _toStumpInput(crux) {
+  _toStumpInput(cue) {
     // todo: remove
-    const enumInput = this._getStumpEnumInput(crux)
+    const enumInput = this._getStumpEnumInput(cue)
     if (enumInput) return enumInput
     // todo: cleanup. We shouldn't have these dual atomType classes.
     return `input
- name ${crux}
+ name ${cue}
  placeholder ${this.placeholder}`
   }
   get atomTypeDefinition() {
@@ -728,9 +728,9 @@ class ParsersBitAtom extends AbstractParsersBackedAtom {
 }
 ParsersBitAtom.defaultPaint = "constant.numeric"
 class ParsersNumericAtom extends AbstractParsersBackedAtom {
-  _toStumpInput(crux) {
+  _toStumpInput(cue) {
     return `input
- name ${crux}
+ name ${cue}
  type number
  placeholder ${this.placeholder}
  min ${this.min}
@@ -821,7 +821,7 @@ class ParsersAnyAtom extends AbstractParsersBackedAtom {
 }
 class ParsersKeywordAtom extends ParsersAnyAtom {
   _synthesizeAtom() {
-    return this._parserDefinitionParser.cruxIfAny
+    return this._parserDefinitionParser.cueIfAny
   }
 }
 ParsersKeywordAtom.defaultPaint = "keyword"
@@ -1246,7 +1246,7 @@ class AbstractAtomParser {
   // todo: improve layout (use bold?)
   get lineHints() {
     const catchAllAtomTypeId = this.catchAllAtomTypeId
-    const parserId = this._definition.cruxIfAny || this._definition.id // todo: cleanup
+    const parserId = this._definition.cueIfAny || this._definition.id // todo: cleanup
     return `${parserId}: ${this.getRequiredAtomTypeIds().join(" ")}${catchAllAtomTypeId ? ` ${catchAllAtomTypeId}...` : ""}`
   }
   getRequiredAtomTypeIds() {
@@ -1398,8 +1398,8 @@ class AbstractParserDefinitionParser extends AbstractExtendibleParticle {
       ParsersConstants.atomParser,
       ParsersConstants.extensions,
       ParsersConstants.tags,
-      ParsersConstants.crux,
-      ParsersConstants.cruxFromId,
+      ParsersConstants.cue,
+      ParsersConstants.cueFromId,
       ParsersConstants.listDelimiter,
       ParsersConstants.contentKey,
       ParsersConstants.subparticlesKey,
@@ -1489,8 +1489,8 @@ ${properties.join("\n")}
   _isAbstract() {
     return this.id.startsWith(ParsersConstants.abstractParserPrefix)
   }
-  get cruxIfAny() {
-    return this.get(ParsersConstants.crux) || (this._hasFromExtended(ParsersConstants.cruxFromId) ? this.idWithoutSuffix : undefined)
+  get cueIfAny() {
+    return this.get(ParsersConstants.cue) || (this._hasFromExtended(ParsersConstants.cueFromId) ? this.idWithoutSuffix : undefined)
   }
   get regexMatch() {
     return this.get(ParsersConstants.pattern)
@@ -1550,10 +1550,10 @@ ${properties.join("\n")}
       .forEach(parserId => {
         const def = allProgramParserDefinitionsMap[parserId]
         const regex = def.regexMatch
-        const crux = def.cruxIfAny
+        const cue = def.cueIfAny
         const enumOptions = def.firstAtomEnumOptions
         if (regex) result.regexTests.push({ regex: regex, parser: def.parserIdFromDefinition })
-        else if (crux) result.firstAtomMap[crux] = def
+        else if (cue) result.firstAtomMap[cue] = def
         else if (enumOptions) {
           enumOptions.forEach(option => (result.firstAtomMap[option] = def))
         }
@@ -1702,8 +1702,8 @@ ${properties.join("\n")}
   get sublimeMatchLine() {
     const regexMatch = this.regexMatch
     if (regexMatch) return `'${regexMatch}'`
-    const cruxMatch = this.cruxIfAny
-    if (cruxMatch) return `'^ *${Utils.escapeRegExp(cruxMatch)}(?: |$)'`
+    const cueMatch = this.cueIfAny
+    if (cueMatch) return `'^ *${Utils.escapeRegExp(cueMatch)}(?: |$)'`
     const enumOptions = this.firstAtomEnumOptions
     if (enumOptions) return `'^ *(${Utils.escapeRegExp(enumOptions.join("|"))})(?: |$)'`
   }
@@ -1773,14 +1773,14 @@ ${captures}
     if (ancestorIds.length > 1) return ancestorIds[ancestorIds.length - 2]
   }
   _toStumpString() {
-    const crux = this.cruxIfAny
+    const cue = this.cueIfAny
     const atomArray = this.atomParser.getAtomArray().filter((item, index) => index) // for now this only works for keyword langs
     if (!atomArray.length)
       // todo: remove this! just doing it for now until we refactor getAtomArray to handle catchAlls better.
       return ""
-    const atoms = new Particle(atomArray.map((atom, index) => atom._toStumpInput(crux)).join("\n"))
+    const atoms = new Particle(atomArray.map((atom, index) => atom._toStumpInput(cue)).join("\n"))
     return `div
- label ${crux}
+ label ${cue}
 ${atoms.toString(1)}`
   }
   toStumpString() {
@@ -1792,10 +1792,10 @@ ${atoms.toString(1)}`
   }
   _generateSimulatedLine(seed) {
     // todo: generate simulated data from catch all
-    const crux = this.cruxIfAny
+    const cue = this.cueIfAny
     return this.atomParser
       .getAtomArray()
-      .map((atom, index) => (!index && crux ? crux : atom.synthesizeAtom(seed)))
+      .map((atom, index) => (!index && cue ? cue : atom.synthesizeAtom(seed)))
       .join(" ")
   }
   _shouldSynthesize(def, parserChain) {
@@ -1816,12 +1816,12 @@ ${atoms.toString(1)}`
     })
     return collection
   }
-  get cruxPath() {
-    const parentPath = this.parent.cruxPath
-    return (parentPath ? parentPath + " " : "") + this.cruxIfAny
+  get cuePath() {
+    const parentPath = this.parent.cuePath
+    return (parentPath ? parentPath + " " : "") + this.cueIfAny
   }
-  get cruxPathAsColumnName() {
-    return this.cruxPath.replace(/ /g, "_")
+  get cuePathAsColumnName() {
+    return this.cuePath.replace(/ /g, "_")
   }
   // Get every definition that extends from this one, even ones that are scoped inside other definitions.
   get concreteDescendantDefinitions() {
@@ -1912,7 +1912,7 @@ class HandParsersProgram extends AbstractParserDefinitionParser {
     }
     return this._cache_rootParser
   }
-  get cruxPath() {
+  get cuePath() {
     return ""
   }
   trainModel(programs, rootParser = this.compileAndReturnRootParser()) {
@@ -2302,8 +2302,8 @@ class UnknownParsersProgram extends Particle {
         atomTypeIds.pop()
       }
     }
-    const needsCruxProperty = !firstAtom.endsWith(UnknownParsersProgram._subparticleSuffix + ParsersConstants.parserSuffix) // todo: cleanup
-    if (needsCruxProperty) particleDefParticle.set(ParsersConstants.crux, firstAtom)
+    const needsCueProperty = !firstAtom.endsWith(UnknownParsersProgram._subparticleSuffix + ParsersConstants.parserSuffix) // todo: cleanup
+    if (needsCueProperty) particleDefParticle.set(ParsersConstants.cue, firstAtom)
     if (catchAllAtomType) particleDefParticle.set(ParsersConstants.catchAllAtomType, catchAllAtomType)
     const atomLine = atomTypeIds.slice()
     atomLine.unshift(PreludeAtomTypeIds.keywordAtom)

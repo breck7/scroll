@@ -1,15 +1,15 @@
 scrollVideoParser
  popularity 0.000024
  extends abstractMediaParser
- crux video
+ cue video
  example
   video spirit.mp4
  description Play video files.
  widthParser
-  cruxFromId
+  cueFromId
   atoms cueAtom
  heightParser
-  cruxFromId
+  cueFromId
   atoms cueAtom
  javascript
   tag = "video"

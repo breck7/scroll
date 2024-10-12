@@ -10,7 +10,7 @@ scriptLineParser
 scriptParser
  extends abstractScrollParser
  description Print script tag.
- cruxFromId
+ cueFromId
  catchAllParser scriptLineParser
  catchAllAtomType scriptAnyAtom
  javascript

@@ -5,7 +5,7 @@ quoteLineParser
 
 quoteParser
  popularity 0.001471
- cruxFromId
+ cueFromId
  description A quote.
  catchAllParser quoteLineParser
  extends abstractScrollParser
@@ -19,7 +19,7 @@ quoteParser
 
 quickQuoteParser
  popularity 0.000482
- crux >
+ cue >
  example
   > The only thing we have to fear is fear itself. - FDR
  boolean isPopular true

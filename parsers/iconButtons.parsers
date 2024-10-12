@@ -1,6 +1,6 @@
 abstractIconButtonParser
  extends abstractAftertextParser
- cruxFromId
+ cueFromId
  javascript
   compileEmbeddedVersion() {
    return ""

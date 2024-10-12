@@ -1,4 +1,4 @@
 counterpointParser
  description A counterpoint. Prints nothing.
  extends commentParser
- crux !
+ cue !

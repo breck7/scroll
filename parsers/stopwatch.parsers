@@ -1,7 +1,7 @@
 scrollStopwatchParser
  description A stopwatch.
  extends paragraphParser
- crux stopwatch
+ cue stopwatch
  example
   stopwatch
  atoms cueAtom

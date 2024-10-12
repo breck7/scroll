@@ -5,7 +5,7 @@ testStrictParser
 assertHtmlEqualsParser
  description Test above particle's output.
  extends abstractScrollParser
- cruxFromId
+ cueFromId
  baseParser blobParser
  javascript
   compile() {

@@ -1,7 +1,7 @@
 abstractPostLoopParser
  description Do something with all posts. Takes an optional list of folder/group names.
  extends abstractScrollParser
- cruxFromId
+ cueFromId
  atoms cueAtom
  catchAllAtomType tagWithOptionalFolderAtom
  javascript
@@ -15,7 +15,7 @@ scrollLoopParser
  atoms cueAtom
  boolean isTableVisualization true
  description Iterate over files+ to make HTML.
- crux loop
+ cue loop
  inScope abstractItemsProviderParser
  joinParser
   extends abstractLoopConfigParser
@@ -54,7 +54,7 @@ scrollLoopParser
 
 abstractLoopConfigParser
  atoms cueAtom
- cruxFromId
+ cueFromId
  catchAllAtomType stringAtom
 
 // Extend this if you want to create a new provider
@@ -63,7 +63,7 @@ abstractItemsProviderParser
 
 // Some basic providers:
 loopLinesParser
- crux lines
+ cue lines
  extends abstractItemsProviderParser
  description Iterate over the provided lines.
  catchAllParser loopLineParser
@@ -76,7 +76,7 @@ loopLinesParser
 
 loopAtomsParser
  popularity 0.000024
- crux atoms
+ cue atoms
  extends abstractItemsProviderParser
  catchAllAtomType stringAtom
  description Iterate over the provided atoms.
@@ -86,7 +86,7 @@ loopAtomsParser
   }
 
 loopTagsParser
- crux tags
+ cue tags
  extends abstractItemsProviderParser
  catchAllAtomType tagWithOptionalFolderAtom
  description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[tag]

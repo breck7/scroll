@@ -6,7 +6,7 @@ buildTxtParser
 
 plainTextParser
  description Plain text oneliner or block.
- cruxFromId
+ cueFromId
  extends abstractScrollParser
  catchAllParser plainTextLineParser
  catchAllAtomType stringAtom

@@ -114,10 +114,10 @@ const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 const getFilesWithTag = (tag, files) => files.filter(file => file.buildsHtml && file.tags.includes(tag))
 
 // todo: clean this up
-const getCruxAtoms = rootParserProgram =>
+const getCueAtoms = rootParserProgram =>
   rootParserProgram
     .filter(particle => particle.getLine().endsWith("Parser") && !particle.getLine().startsWith("abstract"))
-    .map(particle => particle.get("crux") || particle.getLine())
+    .map(particle => particle.get("cue") || particle.getLine())
     .map(line => line.replace("Parser", ""))
 
 const measureCache = new Map()
@@ -127,7 +127,7 @@ const parseMeasures = parser => {
   const dummyProgram = new parser(
     Array.from(
       new Set(
-        getCruxAtoms(parser.cachedHandParsersProgramRoot) // is there a better method name than this?
+        getCueAtoms(parser.cachedHandParsersProgramRoot) // is there a better method name than this?
       )
     ).join("\n")
   )
@@ -153,7 +153,7 @@ const parseMeasures = parser => {
       IsComputed: particle.isComputed,
       IsRequired: particle.isMeasureRequired,
       IsConceptDelimiter: particle.isConceptDelimiter,
-      Crux: particle.definition.get("crux")
+      Cue: particle.definition.get("cue")
     }
   })
   measureCache.set(parser, lodash.sortBy(measures, "SortIndex"))
@@ -212,13 +212,13 @@ const parseConcepts = (parsedProgram, measures) => {
   // already parsed lines could then learn about/access to their respective segments.
   const conceptDelimiter = measures.filter(measure => measure.IsConceptDelimiter)[0]
   if (!conceptDelimiter) return []
-  const concepts = parsedProgram.split(conceptDelimiter.Crux || conceptDelimiter.Name)
+  const concepts = parsedProgram.split(conceptDelimiter.Cue || conceptDelimiter.Name)
   concepts.shift() // Remove the part before "id"
   return concepts.map(concept => {
     const row = {}
     measures.forEach(measure => {
       const measureName = measure.Name
-      const measureKey = measure.Crux || measureName.replace(/_/g, " ")
+      const measureKey = measure.Cue || measureName.replace(/_/g, " ")
       if (!measure.IsComputed) row[measureName] = concept.getParticle(measureKey)?.measureValue ?? ""
       else row[measureName] = computeMeasure(parsedProgram, measureName, concept, concepts)
     })
@@ -993,7 +993,7 @@ footer.scroll`
 
   _parserAtomsRequiringExternals(parser) {
     // todo: could be cleaned up a bit
-    if (!parser.parserAtomsRequiringExternals) parser.parserAtomsRequiringExternals = getCruxAtoms(parser.cachedHandParsersProgramRoot.filter(particle => particle.copyFromExternal))
+    if (!parser.parserAtomsRequiringExternals) parser.parserAtomsRequiringExternals = getCueAtoms(parser.cachedHandParsersProgramRoot.filter(particle => particle.copyFromExternal))
     return parser.parserAtomsRequiringExternals
   }
 

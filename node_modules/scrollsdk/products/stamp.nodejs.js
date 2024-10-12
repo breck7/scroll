@@ -180,7 +180,7 @@ stampParser
   }
  inScope hashbangParser folderParser fileParser
 hashbangParser
- crux #!
+ cue #!
  catchAllAtomType commentAtom
  atoms commentAtom
 catchAllAnyLineParser
@@ -190,12 +190,12 @@ catchAllAnyLineParser
 dataParser
  catchAllParser catchAllAnyLineParser
  atoms keywordAtom
- crux data
+ cue data
 errorParser
  baseParser errorParser
 executableParser
  atoms keywordAtom
- crux executable
+ cue executable
 fileParser
  atoms keywordAtom filepathAtom
  javascript
@@ -218,7 +218,7 @@ fileParser
    if (isExecutable) fs.chmodSync(fullPath, "755")
   }
  inScope dataParser executableParser
- crux file
+ cue file
 folderParser
  atoms keywordAtom filepathAtom
  javascript
@@ -234,7 +234,7 @@ folderParser
    const fs = require("fs")
    fs.mkdirSync(path, {recursive: true})
   }
- crux folder`)
+ cue folder`)
     get handParsersProgram() {
       return this.constructor.cachedHandParsersProgramRoot
     }

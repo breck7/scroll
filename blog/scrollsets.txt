@@ -175,7 +175,7 @@ Neptune,14,,,49572,11,,164.79,false
 
 Measurements of the measures
 ============================
-Name	Values	Coverage	Question	Example	Type	Source	SortIndex	IsComputed	IsRequired	IsConceptDelimiter	Crux
+Name	Values	Coverage	Question	Example	Type	Source	SortIndex	IsComputed	IsRequired	IsConceptDelimiter	Cue
 id	8	100%	What is the ID of this concept?	Mars	string		1	false	true	true	
 moons	8	100%	How many moons does the planet have?	2	number		1.1	false	true		
 diameter	8	100%	What is the diameter of the planet?	6794	number		1.9	false			
@@ -199,4 +199,4 @@ Convert CSVs to ScrollSets
 07/09/2024
 https://scroll.pub/blog/csvToScrollSet.html
 
-Built with Scroll v139.1.0
+Built with Scroll v140.0.0

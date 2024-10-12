@@ -1,20 +1,20 @@
 linkifyParser
  description Use this to disable linkify on the text.
  extends abstractAftertextDirectiveParser
- cruxFromId
+ cueFromId
  atoms cueAtom booleanAtom
 
 linkTargetParser
  popularity 0.000024
  extends abstractHtmlAttributeParser
  description If you want to set the target of the link. To "_blank", for example.
- crux target
+ cue target
  atoms cueAtom anyAtom
 
 linkTitleParser
  popularity 0.000048
  description If you want to set the title of the link.
- crux title
+ cue title
  atoms cueAtom
  catchAllAtomType anyAtom
  example
@@ -34,14 +34,14 @@ linkParser
  inScope linkTitleParser linkTargetParser commentParser
  programParser
   description Anything here will be URI encoded and then appended to the link.
-  cruxFromId
+  cueFromId
   atoms cueAtom
   catchAllParser programLinkParser
   javascript
    get encoded() {
     return encodeURIComponent(this.subparticlesToString())
    }
- cruxFromId
+ cueFromId
  javascript
   tag = "a"
   compileTxt() {
@@ -74,7 +74,7 @@ linkParser
 emailLinkParser
  popularity 0.000048
  description A mailto link
- crux email
+ cue email
  extends linkParser
  javascript
   get attributes() {

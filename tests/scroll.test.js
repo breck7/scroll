@@ -112,7 +112,7 @@ testParticles.inMemoryFileSystem = async areEqual => {
     "/pages/about.scroll": `../header.scroll\ntitle About us
 pParser
  extends paragraphParser
- crux p
+ cue p
 p A custom parser
 buildHtml`
   }

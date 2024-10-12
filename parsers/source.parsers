@@ -16,7 +16,7 @@ printSourceStackParser
  // useful for debugging
  description Print compilation steps.
  extends abstractAftertextParser
- cruxFromId
+ cueFromId
  example
   printOriginalSource
  javascript

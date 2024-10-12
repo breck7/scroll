@@ -3,7 +3,7 @@ loadConceptsParser
  // this currently removes any "import" statements.
  description Import all concepts in a folder.
  extends abstractBuildCommandParser
- cruxFromId
+ cueFromId
  atoms preBuildCommandAtom filePathAtom
  javascript
   build() {
@@ -22,9 +22,9 @@ loadConceptsParser
 
 buildConceptsParser
  popularity 0.000024
- cruxFromId
+ cueFromId
  description Write concepts to csv+ files.
  extends abstractBuildCommandParser
  sortByParser
-  cruxFromId
+  cueFromId
   atoms cueAtom anyAtom

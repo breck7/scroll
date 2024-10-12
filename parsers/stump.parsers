@@ -4,7 +4,7 @@ stumpContentParser
  catchAllAtomType anyAtom
 
 stumpParser
- cruxFromId
+ cueFromId
  extends abstractScrollParser
  description Compile Stump to HTML.
  catchAllParser stumpContentParser
@@ -19,7 +19,7 @@ stumpNoSnippetParser
  // todo: make noSnippets an aftertext directive?
  extends stumpParser
  description Compile Stump unless snippet.
- cruxFromId
+ cueFromId
  javascript
   compileEmbeddedVersion() {
    return ""

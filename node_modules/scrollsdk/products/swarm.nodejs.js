@@ -138,7 +138,7 @@ abstractAssertionParser
   }
  atoms assertionKeywordAtom
 assertParagraphIsParser
- crux assertParagraphIs
+ cue assertParagraphIs
  description When your expected value is a multiline string.
  catchAllParser paragraphLineParser
  javascript
@@ -150,7 +150,7 @@ assertParagraphIsParser
   }
  extends abstractAssertionParser
 assertLengthIsParser
- crux assertLengthIs
+ cue assertLengthIs
  description Intake is an array, and checks if the length of array matches expected.
  atoms assertionKeywordAtom intAtom
  javascript
@@ -159,7 +159,7 @@ assertLengthIsParser
   }
  extends abstractAssertionParser
 assertStringExcludesParser
- crux assertStringExcludes
+ cue assertStringExcludes
  description Converts the input to string and ensure the string does NOT contain the provided string
  catchAllAtomType anyAtom
  javascript
@@ -175,7 +175,7 @@ assertStringExcludesParser
   }
  extends abstractAssertionParser
 assertStringIncludesParser
- crux assertStringIncludes
+ cue assertStringIncludes
  catchAllAtomType anyAtom
  description Converts the input to string and see if the string contains the provided string
  javascript
@@ -186,12 +186,12 @@ assertStringIncludesParser
   }
  extends abstractAssertionParser
 assertStringIsParser
- crux assertStringIs
+ cue assertStringIs
  description Intake is anything with a toString method, and compares that to provided expected value.
  catchAllAtomType anyAtom
  extends abstractAssertionParser
 assertTypeIsParser
- crux assertTypeIs
+ cue assertTypeIs
  description Assert result is one of Javascript's 6 typeof types.
  atoms assertionKeywordAtom typeOfOptionAtom
  javascript
@@ -204,14 +204,14 @@ abstractArrangeFlagParser
 arrangeAsyncParser
  description Add this flag in the arrange particle to test async methods.
  extends abstractArrangeFlagParser
- crux async
+ cue async
 arrangeRequireParser
  description Pass in the filename to require for nodejs tests.
- crux require
+ cue require
  atoms keywordAtom filepathAtom
  catchAllAtomType anyAtom
 arrangeStaticParser
- crux static
+ cue static
  description Add this to the arrange particle to import class directly without initiating it for static method testing.
  extends abstractArrangeFlagParser
 abstractTestBlockParser
@@ -249,24 +249,24 @@ abstractTestBlockParser
 testParser
  description Basic test block.
  extends abstractTestBlockParser
- crux test
+ cue test
 testOnlyParser
  description If set, only this test block will be run.
  extends abstractTestBlockParser
  string racerPrefix _
- crux testOnly
+ cue testOnly
 skipTestParser
  description If you want to skip running a test.
  extends abstractTestBlockParser
  string racerPrefix $
- crux skipTest
+ cue skipTest
 hashbangParser
- crux #!
+ cue #!
  description Standard bash hashbang line.
  atoms hashBangKeywordAtom hashBangAtom
  catchAllAtomType hashBangAtom
 arrangeParser
- crux arrange
+ cue arrange
  javascript
   isAsync() {
     return this.has("async")
@@ -307,7 +307,7 @@ withParagraphParser
   executeSync() {}
  catchAllParser paragraphLineParser
  atoms parameterKeywordAtom
- crux withParagraph
+ cue withParagraph
 actParser
  javascript
   getTestBlock() {
@@ -347,7 +347,7 @@ constructWithParagraphParser
  description Pass in a multiline string to setup constructor. #todo: rename
  catchAllParser paragraphLineParser
  atoms keywordAtom
- crux constructWithParagraph
+ cue constructWithParagraph
 errorParser
  baseParser errorParser
 paragraphLineParser
@@ -358,7 +358,7 @@ todoParser
  description Todos let you add notes about what is coming in the future in the source code. They are like comments in other languages except should only be used for todos.
  catchAllAtomType todoAtom
  catchAllParser todoParser
- crux todo
+ cue todo
  atoms todoKeywordAtom`)
     get handParsersProgram() {
       return this.constructor.cachedHandParsersProgramRoot

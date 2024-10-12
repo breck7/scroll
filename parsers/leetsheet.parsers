@@ -1,9 +1,9 @@
 printUsageStatsParser
  popularity 0.000096
- // todo: if we include the atom "Parser" in a crux, bad things seem to happen.
+ // todo: if we include the atom "Parser" in a cue, bad things seem to happen.
  description Parser usage stats for folder.
  extends abstractScrollParser
- cruxFromId
+ cueFromId
  javascript
   get stats() {
    const input = this.root.file.allScrollFiles.map(file => file.parserIds.join("\n")).join("\n")
@@ -39,7 +39,7 @@ printScrollLeetSheetParser
  popularity 0.000024
  description Print Scroll parser leet sheet.
  extends abstractScrollParser
- cruxFromId
+ cueFromId
  javascript
   get parsersToDocument() {
     const clone = this.root.clone()
@@ -61,12 +61,12 @@ printScrollLeetSheetParser
         return null
       const category = this.getCategory(tags)
       const note = this.getNote(category)
-      return {id: definition.cruxIfAny || id, description, isPopular, examples, note, popularity: Math.ceil(parseFloat(popularity) * 100000)}
+      return {id: definition.cueIfAny || id, description, isPopular, examples, note, popularity: Math.ceil(parseFloat(popularity) * 100000)}
      }).filter(i => i).sort((a, b) => a.id.localeCompare(b.id))
   }
-  makeLink(examples, crux) {
-    // if (!examples.length) console.log(crux) // find particles that need docs
-    const example = examples.length ? examples[0].subparticlesToString() : crux
+  makeLink(examples, cue) {
+    // if (!examples.length) console.log(cue) // find particles that need docs
+    const example = examples.length ? examples[0].subparticlesToString() : cue
     const base = `https://try.scroll.pub/`
     const particle = new Particle()
     particle.appendLineAndSubparticles("scroll", "theme gazette\n" + example)

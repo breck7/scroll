@@ -1,17 +1,17 @@
 scrollRadiusParser
- crux radius
+ cue radius
  extends abstractColumnNameParser
 
 scrollSymbolParser
- crux symbol
+ cue symbol
  extends abstractColumnNameParser
 
 scrollFillParser
- crux fill
+ cue fill
  extends abstractColumnNameParser
 
 scrollLabelParser
- crux label
+ cue label
  extends abstractColumnNameParser
 
 abstractPlotParser

@@ -1,7 +1,7 @@
 fetchParser
  description Download URL to disk.
  extends abstractBuildCommandParser
- cruxFromId
+ cueFromId
  atoms preBuildCommandAtom urlAtom
  example
   fetch https://breckyunits.com/posts.csv

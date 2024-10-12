@@ -4,12 +4,12 @@ canonicalUrlParser
 
 abstractPrintMetaParser
  extends abstractScrollParser
- cruxFromId
+ cueFromId
 
 
 metaTagsParser
  popularity 0.007693
- cruxFromId
+ cueFromId
  extends abstractScrollParser
  description Print meta tags including title.
  javascript

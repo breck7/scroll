@@ -16,11 +16,11 @@ abstractCommentParser
 commentParser
  popularity 0.000193
  extends abstractCommentParser
- cruxFromId
+ cueFromId
 
 slashCommentParser
  popularity 0.005643
  extends commentParser
- crux //
+ cue //
  boolean isPopular true
  description A comment. Prints nothing.

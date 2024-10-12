@@ -6,7 +6,7 @@ chatParser
  popularity 0.000362
  description A faux text chat conversation.
  catchAllParser chatLineParser
- cruxFromId
+ cueFromId
  extends abstractScrollParser
  example
   chat

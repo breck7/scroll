@@ -20,7 +20,7 @@ h1Parser
  description An html h1 tag.
  extends abstractHeaderParser
  boolean isArticleContent true
- crux #
+ cue #
  boolean isPopular true
  javascript
   tag = "h1"
@@ -30,7 +30,7 @@ h2Parser
  description An html h2 tag.
  extends abstractHeaderParser
  boolean isArticleContent true
- crux ##
+ cue ##
  boolean isPopular true
  javascript
   tag = "h2"
@@ -40,7 +40,7 @@ h3Parser
  description An html h3 tag.
  extends abstractHeaderParser
  boolean isArticleContent true
- crux ###
+ cue ###
  javascript
   tag = "h3"
 
@@ -48,13 +48,13 @@ h4Parser
  popularity 0.000289
  description An html h4 tag.
  extends abstractHeaderParser
- crux ####
+ cue ####
  javascript
   tag = "h4"
 
 h5Parser
  description An html h5 tag.
  extends abstractHeaderParser
- crux #####
+ cue #####
  javascript
   tag = "h5"

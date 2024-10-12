@@ -4,7 +4,7 @@ hakonContentParser
  catchAllAtomType anyAtom
 
 hakonParser
- cruxFromId
+ cueFromId
  extends abstractScrollParser
  description Compile Hakon to CSS.
  catchAllParser hakonContentParser

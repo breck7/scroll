@@ -5,17 +5,17 @@ measureNameAtom
 
 buildMeasuresParser
  popularity 0.000024
- cruxFromId
+ cueFromId
  description Write measures to csv+ files.
  extends abstractBuildCommandParser
  sortByParser
-  cruxFromId
+  cueFromId
   atoms cueAtom anyAtom
 
 // The main measure parser. All measures should extend from this.
 abstractMeasureParser
  atoms measureNameAtom
- cruxFromId
+ cueFromId
  boolean isMeasure true
  float sortIndex 1.9
  boolean isComputed false
@@ -67,7 +67,7 @@ abstractUrlMeasureParser
 
 // Required ID measure which denotes a concept
 abstractIdParser
- crux id
+ cue id
  description What is the ID of this concept?
  extends abstractStringMeasureParser
  float sortIndex 1

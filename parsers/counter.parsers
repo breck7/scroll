@@ -1,7 +1,7 @@
 scrollCounterParser
  description Visualize the speed of something.
  extends paragraphParser
- crux counter
+ cue counter
  example
   counter 4.5 Babies Born
  atoms cueAtom numberAtom

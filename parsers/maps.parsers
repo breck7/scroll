@@ -4,49 +4,49 @@ tileOptionAtom
 mapParser
  latParser
   atoms cueAtom floatAtom
-  cruxFromId
+  cueFromId
   single
  longParser
   atoms cueAtom floatAtom
-  cruxFromId
+  cueFromId
   single
  tilesParser
   atoms cueAtom tileOptionAtom
-  cruxFromId
+  cueFromId
   single
  zoomParser
   atoms cueAtom integerAtom
-  cruxFromId
+  cueFromId
   single
  geolocateParser
   description Geolocate user.
   atoms cueAtom
-  cruxFromId
+  cueFromId
   single
  radiusParser
   atoms cueAtom floatAtom
-  cruxFromId
+  cueFromId
   single
  fillOpacityParser
   atoms cueAtom floatAtom
-  cruxFromId
+  cueFromId
   single
  fillColorParser
   atoms cueAtom anyAtom
-  cruxFromId
+  cueFromId
   single
  colorParser
   atoms cueAtom anyAtom
-  cruxFromId
+  cueFromId
   single
  heightParser
   atoms cueAtom floatAtom
-  cruxFromId
+  cueFromId
   single
  hoverParser
   atoms cueAtom
   catchAllAtomType anyAtom
-  cruxFromId
+  cueFromId
   single
  extends abstractTableVisualizationParser
  description Map widget.

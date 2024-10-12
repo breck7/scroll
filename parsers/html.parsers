@@ -32,7 +32,7 @@ abstractHtmlParser
 
 scrollBrParser
  popularity 0.000096
- crux br
+ cue br
  description A break.
  extends abstractScrollParser
  catchAllAtomType integerAtom
@@ -46,7 +46,7 @@ htmlParser
  popularity 0.000048
  extends abstractHtmlParser
  description HTML one liners or blocks.
- cruxFromId
+ cueFromId
 
 htmlLineParser
  popularity 0.005209

@@ -49,9 +49,9 @@ table
   184 parserDescriptionParser
   164 javascriptParser
   155 catchAllExampleLineParser
-  80 cruxFromIdParser
+  80 cueFromIdParser
   69 atomsParser
-  66 cruxParser
+  66 cueParser
   66 catchAllAtomTypeParser
   61 exampleParser
   43 atomTypeDefinitionParser

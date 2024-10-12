@@ -2,7 +2,7 @@ endSnippetParser
  popularity 0.004293
  description Cut for snippet here.
  extends abstractScrollParser
- cruxFromId
+ cueFromId
  javascript
   compile() {
    return ""
@@ -12,7 +12,7 @@ printSnippetsParser
  popularity 0.000338
  // todo: why are we extending AT here and not loops? Is it for class/id etc?
  extends abstractAftertextParser
- cruxFromId
+ cueFromId
  atoms cueAtom
  catchAllAtomType tagWithOptionalFolderAtom
  description Prints snippets matching tag(s).
@@ -61,7 +61,7 @@ printSnippetsParser
 printFullSnippetsParser
  popularity 0.000048
  extends printSnippetsParser
- cruxFromId
+ cueFromId
  description Print full pages in group(s).
  javascript
   makeSnippet(file, compileSettings) {
@@ -71,7 +71,7 @@ printFullSnippetsParser
 printShortSnippetsParser
  popularity 0.000048
  extends printSnippetsParser
- cruxFromId
+ cueFromId
  description Titles and descriptions in group(s).
  javascript
   makeSnippet(file, compileSettings) {
@@ -86,7 +86,7 @@ printRelatedParser
  popularity 0.001182
  description Print links to related posts.
  extends printSnippetsParser
- cruxFromId
+ cueFromId
  javascript
   compile() {
    const alreadyRequired = this.root.alreadyRequired
