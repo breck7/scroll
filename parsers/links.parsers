@@ -88,7 +88,7 @@ quickLinkParser
  atoms urlAtom
  javascript
   get link() {
-   return this.firstAtom
+   return this.cue
   }
   patternStartsAtAtom = 1
 
@@ -101,6 +101,6 @@ quickRelativeLinkParser
  atoms urlAtom
  javascript
   get link() {
-   return this.firstAtom
+   return this.cue
   }
   patternStartsAtAtom = 1

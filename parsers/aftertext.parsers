@@ -25,7 +25,7 @@ abstractAftertextParser
    // Skip the replacements if there are no footnotes or the text has none.
    if (!this.root.footnotes.length || !originalText.includes("^")) return originalText
    this.root.footnotes.forEach((note, index) => {
-    const needle = note.firstAtom
+    const needle = note.cue
     const {linkBack} = note
     if (originalText.includes(needle)) originalText = originalText.replace(new RegExp("\\" + needle + "\\b"), `<a href="#${note.htmlId}" class="scrollNoteLink" id="${linkBack}"><sup>${note.label}</sup></a>`)
    })
@@ -88,7 +88,7 @@ abstractAftertextAttributeParser
  boolean isAttribute true
  javascript
   get htmlAttributes() {
-   return `${this.firstAtom}="${this.content}"`
+   return `${this.cue}="${this.content}"`
   }
   compile() {
    return ""

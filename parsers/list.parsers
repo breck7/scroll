@@ -25,7 +25,7 @@ abstractCustomListItemParser
  extends listAftertextParser
  javascript
   get requireOnce() {
-    return `<style>\n.${this.constructor.name} li::marker {content: "${this.firstAtom} ";}\n</style>`
+    return `<style>\n.${this.constructor.name} li::marker {content: "${this.cue} ";}\n</style>`
   }
   get attributes() {
     return `class="${this.constructor.name}"`
