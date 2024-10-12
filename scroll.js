@@ -135,7 +135,7 @@ const parseMeasures = parser => {
   dummyProgram.filter(particle => !particle.isMeasure).forEach(particle => particle.destroy())
   dummyProgram.forEach(particle => {
     // add nested measures
-    Object.keys(particle.definition.firstAtomMapWithDefinitions).forEach(key => particle.appendLine(key))
+    Object.keys(particle.definition.cueMapWithDefinitions).forEach(key => particle.appendLine(key))
   })
   // Delete any nested particles that are not measures
   dummyProgram.topDownArray.filter(particle => !particle.isMeasure).forEach(particle => particle.destroy())
@@ -478,12 +478,12 @@ parsers/errors.parsers`
     const macroMap = {}
     particle
       .filter(particle => {
-        const parserAtom = particle.firstAtom
+        const parserAtom = particle.cue
         return parserAtom === scrollKeywords.replace || parserAtom === scrollKeywords.replaceJs || parserAtom === scrollKeywords.replaceNodejs
       })
       .forEach(particle => {
         let value = particle.length ? particle.subparticlesToString() : particle.getAtomsFrom(2).join(" ")
-        const kind = particle.firstAtom
+        const kind = particle.cue
         if (kind === scrollKeywords.replaceJs) value = eval(value)
         if (kind === scrollKeywords.replaceNodejs) {
           const tempPath = this.filePath + ".js"
@@ -991,23 +991,24 @@ footer.scroll`
     return this
   }
 
-  _parserAtomsRequiringExternals(parser) {
+  _parsersRequiringExternals(parser) {
     // todo: could be cleaned up a bit
-    if (!parser.parserAtomsRequiringExternals) parser.parserAtomsRequiringExternals = getCueAtoms(parser.cachedHandParsersProgramRoot.filter(particle => particle.copyFromExternal))
-    return parser.parserAtomsRequiringExternals
+    if (!parser.parsersRequiringExternals) parser.parsersRequiringExternals = parser.cachedHandParsersProgramRoot.filter(particle => particle.copyFromExternal).map(particle => particle.atoms[0])
+    return parser.parsersRequiringExternals
   }
 
   externalFilesCopied = {}
   _copyExternalFiles(file, folder, fileSystem) {
     // If this file uses a parser that has external requirements,
     // copy those from external folder into the destination folder.
-    const parserAtomsRequiringExternals = this._parserAtomsRequiringExternals(file.parser)
+    const parsersRequiringExternals = this._parsersRequiringExternals(file.parser)
     const { externalFilesCopied } = this
+    const { parserIdIndex } = file.scrollProgram
     if (!externalFilesCopied[folder]) externalFilesCopied[folder] = {}
-    parserAtomsRequiringExternals.forEach(atom => {
-      if (externalFilesCopied[folder][atom]) return
-      if (!file.has(atom)) return
-      file.scrollProgram.findParticles(atom).map(particle => {
+    parsersRequiringExternals.forEach(parserId => {
+      if (externalFilesCopied[folder][parserId]) return
+      if (!parserIdIndex[parserId]) return
+      parserIdIndex[parserId].map(particle => {
         const externalFiles = particle.copyFromExternal.split(" ")
         externalFiles.forEach(name => {
           const newPath = path.join(folder, name)
@@ -1015,9 +1016,9 @@ footer.scroll`
           this.log(`💾 Copied external file needed by ${file.filename} to ${name}`)
         })
       })
-      if (atom !== "theme")
+      if (parserId !== "scrollThemeParser")
         // todo: generalize when not to cache
-        externalFilesCopied[folder][atom] = true
+        externalFilesCopied[folder][parserId] = true
     })
   }
 

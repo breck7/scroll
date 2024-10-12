@@ -27,7 +27,7 @@ root - Set root parser.
 single - Assert used once.
 string - A constant.
 tags - Custom metadata.
-uniqueFirstAtom - Assert unique first atoms. For pattern parsers.
+uniqueCue - Assert unique first atoms. For pattern parsers.
 uniqueLine - Assert unique lines. For pattern parsers.
 
 Parser Phases: Assemble -> Acquire -> Analyze -> Act
@@ -76,4 +76,4 @@ count id
 1 extensionsParser
 1 compilesToParser
 
-Built with Scroll v140.0.0
+Built with Scroll v141.0.0

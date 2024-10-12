@@ -9,7 +9,7 @@
     createParserCombinator() {
       return new Particle.ParserCombinator(
         errorParser,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstAtomMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           blockquote: htmlTagParser,
           colgroup: htmlTagParser,
           datalist: htmlTagParser,
@@ -192,12 +192,12 @@ htmlTagParser
   isHtmlTagParser = true
   getTag() {
    // we need to remove the "Tag" bit to handle the style and title attribute/tag conflict.
-   const firstAtom = this.firstAtom
+   const cue = this.cue
    const map = {
     titleTag: "title",
     styleTag: "style"
    }
-   return map[firstAtom] || firstAtom
+   return map[cue] || cue
   }
   _getHtmlJoinByCharacter() {
    return ""
@@ -219,7 +219,7 @@ htmlTagParser
     var elem = document.createElement(this.getTag())
     elem.setAttribute("stumpUid", this._getUid())
     this.filter(particle => particle.isAttributeParser)
-      .forEach(subparticle => elem.setAttribute(subparticle.firstAtom, subparticle.content))
+      .forEach(subparticle => elem.setAttribute(subparticle.cue, subparticle.content))
     elem.innerHTML = this.has("bern") ? this.getParticle("bern").subparticlesToString() : this._getOneLiner()
     this.filter(particle => particle.isHtmlTagParser)
       .forEach(subparticle => elem.appendChild(subparticle.domElement))
@@ -306,11 +306,11 @@ htmlTagParser
      .includes(line)
    )
   }
-  findStumpParticleByFirstAtom(firstAtom) {
-   return this._findStumpParticlesByBase(firstAtom)[0]
+  findStumpParticleByCue(cue) {
+   return this._findStumpParticlesByBase(cue)[0]
   }
-  _findStumpParticlesByBase(firstAtom) {
-   return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.firstAtom === firstAtom)
+  _findStumpParticlesByBase(cue) {
+   return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.cue === cue)
   }
   hasLine(line) {
    return this.getSubparticles().some(particle => particle.getLine() === line)
@@ -371,7 +371,7 @@ htmlAttributeParser
   }
   getTextContent() {return ""}
   getAttribute() {
-   return \` \${this.firstAtom}="\${this.content}"\`
+   return \` \${this.cue}="\${this.content}"\`
   }
  boolean isAttributeParser true
  boolean isTileAttribute true
@@ -424,7 +424,7 @@ bernParser
     createParserCombinator() {
       return new Particle.ParserCombinator(
         undefined,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstAtomMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           blockquote: htmlTagParser,
           colgroup: htmlTagParser,
           datalist: htmlTagParser,
@@ -725,12 +725,12 @@ bernParser
     isHtmlTagParser = true
     getTag() {
       // we need to remove the "Tag" bit to handle the style and title attribute/tag conflict.
-      const firstAtom = this.firstAtom
+      const cue = this.cue
       const map = {
         titleTag: "title",
         styleTag: "style"
       }
-      return map[firstAtom] || firstAtom
+      return map[cue] || cue
     }
     _getHtmlJoinByCharacter() {
       return ""
@@ -751,7 +751,7 @@ bernParser
     get domElement() {
       var elem = document.createElement(this.getTag())
       elem.setAttribute("stumpUid", this._getUid())
-      this.filter(particle => particle.isAttributeParser).forEach(subparticle => elem.setAttribute(subparticle.firstAtom, subparticle.content))
+      this.filter(particle => particle.isAttributeParser).forEach(subparticle => elem.setAttribute(subparticle.cue, subparticle.content))
       elem.innerHTML = this.has("bern") ? this.getParticle("bern").subparticlesToString() : this._getOneLiner()
       this.filter(particle => particle.isHtmlTagParser).forEach(subparticle => elem.appendChild(subparticle.domElement))
       return elem
@@ -837,11 +837,11 @@ bernParser
           .includes(line)
       )
     }
-    findStumpParticleByFirstAtom(firstAtom) {
-      return this._findStumpParticlesByBase(firstAtom)[0]
+    findStumpParticleByCue(cue) {
+      return this._findStumpParticlesByBase(cue)[0]
     }
-    _findStumpParticlesByBase(firstAtom) {
-      return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.firstAtom === firstAtom)
+    _findStumpParticlesByBase(cue) {
+      return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.cue === cue)
     }
     hasLine(line) {
       return this.getSubparticles().some(particle => particle.getLine() === line)
@@ -917,7 +917,7 @@ bernParser
       return ""
     }
     getAttribute() {
-      return ` ${this.firstAtom}="${this.content}"`
+      return ` ${this.cue}="${this.content}"`
     }
   }
 

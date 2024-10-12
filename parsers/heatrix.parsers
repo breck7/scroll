@@ -27,7 +27,7 @@ heatrixParser
     if (!coreTable)
       return this.subparticlesToString()
     let table = new Particle(coreTable).asSsv
-    if (this.parent.firstAtom === "transpose") {
+    if (this.parent.cue === "transpose") {
       // drop first line after transpose
       const lines = table.split("\n")
       lines.shift()

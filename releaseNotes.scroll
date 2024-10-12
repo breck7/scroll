@@ -20,6 +20,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 141.0.0 10/12/2024
+🎉 updated ScrollSDK
+🏥 bug fix in maps nested under tables. Thanks TD for the report!
+⚠️ BREAKING: `firstAtom` is now `cue` everywhere
+
 📦 140.0.0 10/12/2024
 🎉 updated ScrollSDK
 ⚠️ BREAKING: `crux`, a "temporary" word that lasted years 😀, is now `cue`

@@ -1,11 +1,11 @@
 parserId,uses
-blankLineParser,997
-versionParser,528
-newFeatureParser,446
+blankLineParser,998
+versionParser,529
+newFeatureParser,447
 catchAllParagraphParser,248
 lineOfCodeParser,209
-bugFixParser,205
-breakingChangeParser,198
+bugFixParser,206
+breakingChangeParser,199
 quickLinkParser,96
 BlobParser,69
 scrollQuestionParser,64

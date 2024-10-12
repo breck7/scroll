@@ -10,6 +10,12 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+141.0.0 10/12/2024
+==================
+🎉 updated ScrollSDK
+🏥 bug fix in maps nested under tables. Thanks TD for the report!
+⚠️ BREAKING: `firstAtom` is now `cue` everywhere
+
 140.0.0 10/12/2024
 ==================
 🎉 updated ScrollSDK
@@ -2883,4 +2889,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v140.0.0
+Built with Scroll v141.0.0

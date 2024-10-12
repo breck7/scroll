@@ -9,7 +9,7 @@
     createParserCombinator() {
       return new Particle.ParserCombinator(
         errorParser,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstAtomMapAsObject()), { test: testParser, testOnly: testOnlyParser, skipTest: skipTestParser, "#!": hashbangParser, arrange: arrangeParser }),
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), { test: testParser, testOnly: testOnlyParser, skipTest: skipTestParser, "#!": hashbangParser, arrange: arrangeParser }),
         undefined
       )
     }
@@ -322,7 +322,7 @@ actParser
    return this.getAtomsFrom(1)
   }
   _act(arrangedInstance) {
-   const actionMethodName = this.firstAtom
+   const actionMethodName = this.cue
    const actionMethod = arrangedInstance[actionMethodName]
    if (!actionMethod) throw new Error(\`No method "\${actionMethodName}" on "\${arrangedInstance.constructor.name}"\`)
    if (typeof actionMethod !== "function") return arrangedInstance[actionMethodName] // Property access
@@ -500,7 +500,7 @@ todoParser
 
   class abstractTestBlockParser extends ParserBackedParticle {
     createParserCombinator() {
-      return new Particle.ParserCombinator(actParser, Object.assign(Object.assign({}, super.createParserCombinator()._getFirstAtomMapAsObject()), { arrange: arrangeParser }), undefined)
+      return new Particle.ParserCombinator(actParser, Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), { arrange: arrangeParser }), undefined)
     }
     get keywordAtom() {
       return this.getAtom(0)
@@ -566,7 +566,7 @@ todoParser
     createParserCombinator() {
       return new Particle.ParserCombinator(
         undefined,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstAtomMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           async: arrangeAsyncParser,
           require: arrangeRequireParser,
           static: arrangeStaticParser,
@@ -619,7 +619,7 @@ todoParser
     createParserCombinator() {
       return new Particle.ParserCombinator(
         actParser,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstAtomMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           assertParagraphIs: assertParagraphIsParser,
           assertLengthIs: assertLengthIsParser,
           assertStringExcludes: assertStringExcludesParser,
@@ -649,7 +649,7 @@ todoParser
       return this.getAtomsFrom(1)
     }
     _act(arrangedInstance) {
-      const actionMethodName = this.firstAtom
+      const actionMethodName = this.cue
       const actionMethod = arrangedInstance[actionMethodName]
       if (!actionMethod) throw new Error(`No method "${actionMethodName}" on "${arrangedInstance.constructor.name}"`)
       if (typeof actionMethod !== "function") return arrangedInstance[actionMethodName] // Property access

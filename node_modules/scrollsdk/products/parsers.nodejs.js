@@ -7,7 +7,7 @@
 
   class parsersParser extends ParserBackedParticle {
     createParserCombinator() {
-      return new Particle.ParserCombinator(catchAllErrorParser, Object.assign(Object.assign({}, super.createParserCombinator()._getFirstAtomMapAsObject()), { "//": slashCommentParser }), [
+      return new Particle.ParserCombinator(catchAllErrorParser, Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), { "//": slashCommentParser }), [
         { regex: /^$/, parser: blankLineParser },
         { regex: /^[a-zA-Z0-9_]+Atom$/, parser: atomTypeDefinitionParser },
         { regex: /^[a-zA-Z0-9_]+Parser$/, parser: parserDefinitionParser }
@@ -417,7 +417,7 @@ uniqueLineParser
  extends abstractValidationRuleParser
  tags analyzePhase
 
-uniqueFirstAtomParser
+uniqueCueParser
  description Assert unique first atoms. For pattern parsers.
  // For catch all parsers or pattern particles, use this to indicate the 
  extends abstractValidationRuleParser
@@ -732,7 +732,7 @@ extendsAtomTypeParser
     createParserCombinator() {
       return new Particle.ParserCombinator(
         undefined,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstAtomMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           closeSubparticles: closeSubparticlesParser,
           indentCharacter: indentCharacterParser,
           catchAllAtomDelimiter: catchAllAtomDelimiterParser,
@@ -845,7 +845,7 @@ extendsAtomTypeParser
 
   class uniqueLineParser extends abstractValidationRuleParser {}
 
-  class uniqueFirstAtomParser extends abstractValidationRuleParser {}
+  class uniqueCueParser extends abstractValidationRuleParser {}
 
   class listDelimiterParser extends abstractParserRuleParser {
     get stringAtom() {
@@ -914,7 +914,7 @@ extendsAtomTypeParser
     createParserCombinator() {
       return new Particle.ParserCombinator(
         undefined,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstAtomMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           description: atomTypeDescriptionParser,
           enumFromAtomTypes: enumFromAtomTypesParser,
           enum: enumParser,
@@ -999,7 +999,7 @@ extendsAtomTypeParser
     createParserCombinator() {
       return new Particle.ParserCombinator(
         catchAllErrorParser,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstAtomMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           boolean: booleanParser,
           float: floatParser,
           int: intParser,
@@ -1024,7 +1024,7 @@ extendsAtomTypeParser
           required: requiredParser,
           single: singleParser,
           uniqueLine: uniqueLineParser,
-          uniqueFirstAtom: uniqueFirstAtomParser,
+          uniqueCue: uniqueCueParser,
           listDelimiter: listDelimiterParser,
           contentKey: contentKeyParser,
           subparticlesKey: subparticlesKeyParser,
