@@ -2,7 +2,7 @@ scrollFooterParser
  extends abstractScrollParser
  description Move section to file footer.
  atoms preBuildCommandAtom
- crux footer
+ cue footer
  javascript
   compile() {
    return ""

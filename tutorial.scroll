@@ -202,18 +202,18 @@ Here is a simple example that extends Scroll by making `p` work the same as `*`:
 belowAsCode 2
 pParser
  extends paragraphParser
- crux p
+ cue p
 p We can then make paragraphs using `p`.
 
 Let's now make a `hiddenMessage` Parser that alerts a message when clicked:
 belowAsCode 3
 messageParser
- cruxFromId
+ cueFromId
  catchAllAtomType stringAtom
 hiddenMessageParser
  extends paragraphParser
  inScope messageParser
- cruxFromId
+ cueFromId
  javascript
   compile() {
     return `<span onclick="alert('${this.get('message')}')">${super.compile()}</span>`

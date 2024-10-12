@@ -21,7 +21,7 @@ abstractScrollParser
 
 abstractScrollWithRequirementsParser
  extends abstractScrollParser
- cruxFromId
+ cueFromId
  javascript
   compile(compileSettings) {
     return this.getHtmlRequirements(compileSettings) + this.compileInstance()
@@ -39,7 +39,7 @@ abstractTopLevelSingleMetaParser
  description Use these parsers once per file.
  extends abstractScrollParser
  inScope slashCommentParser
- cruxFromId
+ cueFromId
  atoms metaCommandAtom
  javascript
   isTopMatter = true
@@ -167,4 +167,4 @@ scrollParser
 abstractUrlSettingParser
  extends abstractTopLevelSingleMetaParser
  atoms metaCommandAtom urlAtom
- cruxFromId
+ cueFromId

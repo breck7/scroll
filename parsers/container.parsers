@@ -1,6 +1,6 @@
 scrollContainerParser
  popularity 0.000096
- crux container
+ cue container
  description A centered HTML div.
  catchAllAtomType cssLengthAtom
  extends abstractScrollParser

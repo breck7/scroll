@@ -2,7 +2,7 @@ scrollDashboardParser
  popularity 0.000145
  description Key stats in large font.
  catchAllParser lineOfCodeParser
- crux dashboard
+ cue dashboard
  extends abstractScrollParser
  example
   dashboard

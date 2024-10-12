@@ -1,7 +1,7 @@
 hiddenMessageParser
  extends paragraphParser
  inScope messageParser
- cruxFromId
+ cueFromId
  javascript
   compile() {
     return `<span onclick="alert('${this.get('message')}')">${super.compile()}</span>`

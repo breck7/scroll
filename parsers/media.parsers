@@ -1,9 +1,9 @@
 scrollMediaLoopParser
  popularity 0.000048
- crux loop
+ cue loop
  atoms cueAtom
 scrollAutoplayParser
- crux autoplay
+ cue autoplay
  atoms cueAtom
 abstractMediaParser
  extends paragraphParser

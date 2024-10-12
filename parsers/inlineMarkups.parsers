@@ -6,7 +6,7 @@ inlineMarkupsParser
  popularity 0.000024
  description Set global inline markups.
  extends abstractTopLevelSingleMetaParser
- cruxFromId
+ cueFromId
  example
   inlineMarkups
    * 
@@ -16,7 +16,7 @@ inlineMarkupsParser
 
 inlineMarkupsOnParser
  popularity 0.000024
- cruxFromId
+ cueFromId
  description Enable these inline markups only.
  example
   Hello *world*!
@@ -79,7 +79,7 @@ inlineMarkupsOnParser
 
 inlineMarkupParser
  popularity 0.000169
- cruxFromId
+ cueFromId
  atoms cueAtom delimiterAtom tagOrUrlAtom
  catchAllAtomType htmlAttributesAtom
  extends inlineMarkupsOnParser

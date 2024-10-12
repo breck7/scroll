@@ -1,7 +1,7 @@
 pageTitleParser
  popularity 0.007524
  catchAllAtomType personNameAtom
- crux title
+ cue title
  description Set title.
  example
   title Eureka
@@ -17,7 +17,7 @@ printTitleParser
  example
   title Eureka
   printTitle
- cruxFromId
+ cueFromId
  javascript
   compile(compileSettings) {
    // Hacky, I know.

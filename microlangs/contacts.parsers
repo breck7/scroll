@@ -2,7 +2,7 @@
 // version 0.1.0
 
 personParser
- crux 👤
+ cue 👤
  extends abstractIdParser
  description What is their name?
  string measureName name

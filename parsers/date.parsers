@@ -12,7 +12,7 @@ dateParser
 
 datelineParser
  popularity 0.006005
- cruxFromId
+ cueFromId
  description Gives your paragraph a dateline like "December 15, 2021 — The..."
  extends abstractAftertextDirectiveParser
  javascript

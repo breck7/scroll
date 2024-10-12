@@ -1,6 +1,6 @@
 dayjsParser
  description Advanced directive that evals some Javascript code in an environment including "dayjs".
- cruxFromId
+ cueFromId
  extends abstractAftertextDirectiveParser
  javascript
   getInserts() {

@@ -15,7 +15,7 @@ cssParser
  popularity 0.007211
  extends abstractScrollParser
  description A style tag.
- cruxFromId
+ cueFromId
  catchAllParser cssLineParser
  catchAllAtomType cssAnyAtom
  javascript

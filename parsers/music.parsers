@@ -1,7 +1,7 @@
 scrollMusicParser
  popularity 0.000024
  extends abstractMediaParser
- crux music
+ cue music
  description Play sound files.
  example
   music sipOfCoffee.m4a

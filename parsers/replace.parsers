@@ -5,7 +5,7 @@ abstractVariableParser
  extends abstractScrollParser
  catchAllAtomType stringAtom
  atoms preBuildCommandAtom
- cruxFromId
+ cueFromId
  javascript
   isTopMatter = true
   compile() {

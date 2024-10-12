@@ -1,6 +1,6 @@
 jsonScriptParser
  popularity 0.007524
- cruxFromId
+ cueFromId
  description Include JSON and assign to window.
  extends abstractScrollParser
  atoms cueAtom urlAtom

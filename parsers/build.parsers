@@ -5,7 +5,7 @@ buildCommandAtom
 
 abstractBuildCommandParser
  extends abstractScrollParser
- cruxFromId
+ cueFromId
  atoms buildCommandAtom
  catchAllAtomType filePathAtom
  inScope slashCommentParser

@@ -97,7 +97,7 @@ abstractAftertextAttributeParser
 aftertextTagParser
  atoms cueAtom htmlTagAtom
  description Override the HTML tag that the compiled particle will use.
- crux tag
+ cue tag
  javascript
   compile() {
    return ""
@@ -179,7 +179,7 @@ abstractMarkupParser
 
 abstractMarkupParameterParser
  atoms cueAtom
- cruxFromId
+ cueFromId
 
 matchAllParser
  popularity 0.000024
@@ -203,7 +203,7 @@ matchParser
 
 boldParser
  popularity 0.000096
- cruxFromId
+ cueFromId
  description Bold matching text.
  extends abstractMarkupParser
  javascript
@@ -211,7 +211,7 @@ boldParser
 
 italicsParser
  popularity 0.000241
- cruxFromId
+ cueFromId
  description Italicize matching text.
  extends abstractMarkupParser
  javascript
@@ -220,7 +220,7 @@ italicsParser
 underlineParser
  popularity 0.000024
  description Underline matching text.
- cruxFromId
+ cueFromId
  extends abstractMarkupParser
  javascript
   tag = "u"
@@ -228,7 +228,7 @@ underlineParser
 afterTextCenterParser
  popularity 0.000193
  description Center paragraph.
- crux center
+ cue center
  extends abstractMarkupParser
  javascript
   tag = "center"
@@ -236,7 +236,7 @@ afterTextCenterParser
 aftertextCodeParser
  popularity 0.000145
  description Wrap matching text in code span.
- crux code
+ cue code
  extends abstractMarkupParser
  javascript
   tag = "code"
@@ -244,7 +244,7 @@ aftertextCodeParser
 aftertextStrikeParser
  popularity 0.000048
  description Wrap matching text in s span.
- crux strike
+ cue strike
  extends abstractMarkupParser
  javascript
   tag = "s"
@@ -260,7 +260,7 @@ classMarkupParser
  description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.
  extends abstractMarkupParser
  atoms cueAtom classNameAtom
- crux class
+ cue class
  javascript
   tag = "span"
   get applyToParentElement() {
@@ -286,7 +286,7 @@ classMarkupParser
 
 classesMarkupParser
  extends classMarkupParser
- crux classes
+ cue classes
  javascript
   applyToParentElement = true
   get className() {
@@ -295,7 +295,7 @@ classesMarkupParser
 
 aftertextIdParser
  popularity 0.000145
- crux id
+ cue id
  description Provide an ID to be output in the generated HTML tag.
  extends abstractAftertextAttributeParser
  atoms cueAtom htmlIdAtom
@@ -303,14 +303,14 @@ aftertextIdParser
 
 aftertextStyleParser
  popularity 0.000217
- crux style
+ cue style
  description Provide code for the generated HTML tag's "style" attribute.
  extends abstractAftertextAttributeParser
  atoms cueAtom
  catchAllAtomType cssAnyAtom
 
 aftertextHiddenParser
- crux hidden
+ cue hidden
  atoms cueAtom
  description Do not compile this particle to HTML.
  extends abstractAftertextAttributeParser

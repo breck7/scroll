@@ -149,7 +149,7 @@ Notice that your post uses the first atom `recipe`, but Scroll does not have a p
 code
  recipeParser
   extends abstractScrollParser
-  crux recipe
+  cue recipe
   javascript
    compile() {
      const addYourSpecialMagic = ""

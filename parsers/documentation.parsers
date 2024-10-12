@@ -3,7 +3,7 @@ belowAsCodeParser
  description Print code below.
  extends abstractScrollParser
  catchAllAtomType integerAtom
- cruxFromId
+ cueFromId
  javascript
   method = "next"
   get code() {

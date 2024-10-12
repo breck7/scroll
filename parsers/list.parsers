@@ -4,7 +4,7 @@ listAftertextParser
  example
   - I had a _new_ thought.
  description A list item.
- crux -
+ cue -
  javascript
   defaultClassName = ""
   compile() {

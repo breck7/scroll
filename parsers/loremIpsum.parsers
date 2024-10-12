@@ -1,6 +1,6 @@
 loremIpsumParser
  extends abstractAftertextParser
- cruxFromId
+ cueFromId
  description Generate dummy text.
  catchAllAtomType integerAtom
  javascript

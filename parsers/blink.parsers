@@ -3,7 +3,7 @@ blinkParser
  extends paragraphParser
  example
   blink Carpe diem!
- crux blink
+ cue blink
  javascript
   compile() {
    return `<span class="scrollBlink">${super.compile()}</span>

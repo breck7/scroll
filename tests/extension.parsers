@@ -1,6 +1,6 @@
 goodMorningParser
  description A test of included custom parsers
- cruxFromId
+ cueFromId
  extends abstractScrollParser
  javascript
   compile() {

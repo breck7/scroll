@@ -1,7 +1,7 @@
 importParser
  description Import a file.
  popularity 0.007524
- cruxFromId
+ cueFromId
  atoms preBuildCommandAtom
  extends abstractScrollParser
  catchAllAtomType filePathAtom
@@ -30,7 +30,7 @@ importOnlyParser
  popularity 0.033569
  // This line will be not be imported into the importing file.
  description Don't build this file.
- cruxFromId
+ cueFromId
  atoms preBuildCommandAtom
  extends abstractTopLevelSingleMetaParser
  javascript

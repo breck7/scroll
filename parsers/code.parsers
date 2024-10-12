@@ -19,11 +19,11 @@ codeParser
   compileTxt() {
     return this.subparticlesToString()
   }
- cruxFromId
+ cueFromId
 
 codeWithHeaderParser
  popularity 0.000169
- cruxFromId
+ cueFromId
  catchAllAtomType stringAtom
  extends codeParser
  example

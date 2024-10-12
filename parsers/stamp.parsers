@@ -51,7 +51,7 @@ stampParser
     nested/
      hello.js
       console.log("Hello world")
- cruxFromId
+ cueFromId
  atoms preBuildCommandAtom
  javascript
   build() {

@@ -30,11 +30,11 @@ abstractColumnNameParser
   }
 
 scrollXParser
- crux x
+ cue x
  extends abstractColumnNameParser
 
 scrollYParser
- crux y
+ cue y
  extends abstractColumnNameParser
 
 abstractTableVisualizationParser
@@ -69,7 +69,7 @@ printColumnParser
 
 printTableParser
  popularity 0.001085
- cruxFromId
+ cueFromId
  description Print table.
  extends abstractTableVisualizationParser
  javascript
@@ -131,7 +131,7 @@ printTableParser
 
 scrollTableDataParser
  popularity 0.001061
- crux data
+ cue data
  description Table from inline delimited data.
  catchAllAtomType anyAtom
  baseParser blobParser
@@ -139,7 +139,7 @@ scrollTableDataParser
 scrollTableDelimiterParser
  popularity 0.001037
  description Set the delimiter.
- crux delimiter
+ cue delimiter
  atoms cueAtom stringAtom
  javascript
   compile() {
@@ -177,7 +177,7 @@ abstractDatatableProviderParser
 scrollTableParser
  extends abstractDatatableProviderParser
  popularity 0.002133
- crux table
+ cue table
  example
   table
    printTable
@@ -272,7 +272,7 @@ quickTableParser
 scrollWhereParser
  extends abstractTableTransformParser
  description Filter rows by condition.
- crux where
+ cue where
  atoms cueAtom columnNameAtom comparisonAtom atomAtom
  example
   table iris.csv
@@ -315,7 +315,7 @@ scrollSelectParser
     about,2023,4
    select name year
     printTable
- crux select
+ cue select
  javascript
   get coreTable() {
    const {coreTable} = this.parent
@@ -330,7 +330,7 @@ scrollSelectParser
 scrollReverseParser
  extends abstractTableTransformParser
  description Reverse rows.
- crux reverse
+ cue reverse
  javascript
   get coreTable() {
    return this.parent.coreTable.slice().reverse()
@@ -340,7 +340,7 @@ scrollComposeParser
  extends abstractTableTransformParser
  description Add column using format string.
  catchAllAtomType stringAtom
- crux compose
+ cue compose
  example
   table
    compose My name is {name}
@@ -368,7 +368,7 @@ scrollComputeParser
  extends scrollComposeParser
  description Add column by evaling format string.
  catchAllAtomType stringAtom
- crux compute
+ cue compute
  javascript
   evaluate(str) {
     return parseFloat(eval(str))
@@ -377,14 +377,14 @@ scrollRankParser
  extends scrollComposeParser
  description Add rank column.
  string newColumnName rank
- crux rank
+ cue rank
  javascript
   evaluate(str, index) { return index + 1 }
 
 scrollLinksParser
  extends abstractTableTransformParser
  description Add column with links.
- crux links
+ cue links
  catchAllAtomType columnNameAtom
  javascript
   get coreTable() {
@@ -415,7 +415,7 @@ scrollLinksParser
 scrollLimitParser
  extends abstractTableTransformParser
  description Select a subset.
- crux limit
+ cue limit
  atoms cueAtom integerAtom integerAtom
  javascript
   get coreTable() {
@@ -427,7 +427,7 @@ scrollLimitParser
 scrollTransposeParser
  extends abstractTableTransformParser
  description Tranpose table.
- crux transpose
+ cue transpose
  javascript
   get coreTable() {
    // todo: we need to switch to column based coreTable, instead of row based
@@ -439,7 +439,7 @@ scrollImputeParser
  extends abstractTableTransformParser
  description Impute missing values of a columm.
  atoms cueAtom columnNameAtom
- crux impute
+ cue impute
  javascript
   get coreTable() {
    const {lodash, columnName} = this
@@ -473,7 +473,7 @@ scrollOrderByParser
  extends abstractTableTransformParser
  description Sort rows by column(s).
  catchAllAtomType columnNameAtom
- crux orderBy
+ cue orderBy
  javascript
   get coreTable() {
     const makeLodashOrderByParams = str => {
@@ -501,7 +501,7 @@ scrollRenameParser
     index,2022,2
    rename name Name year Year
     printTable
- crux rename
+ cue rename
  javascript
   get coreTable() {
    const {coreTable} = this.parent

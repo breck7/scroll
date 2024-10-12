@@ -20,6 +20,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 140.0.0 10/12/2024
+🎉 updated ScrollSDK
+⚠️ BREAKING: `crux`, a "temporary" word that lasted years 😀, is now `cue`
+
 📦 139.1.0 10/11/2024
 🎉 added qrcode parser
 

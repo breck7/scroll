@@ -5,7 +5,7 @@ scrollThemeAtom
 scrollThemeParser
  popularity 0.007524
  boolean isPopular true
- crux theme
+ cue theme
  extends abstractScrollParser
  catchAllAtomType scrollThemeAtom
  description A collection of simple themes.

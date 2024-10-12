@@ -1,6 +1,6 @@
 iframesParser
  popularity 0.000121
- cruxFromId
+ cueFromId
  catchAllAtomType urlAtom
  extends abstractScrollParser
  description An iframe(s).
