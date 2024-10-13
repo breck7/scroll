@@ -37,7 +37,7 @@ theScrollButtonParser,11
 keyboardNavParser,11
 importOnlyParser,11
 h1Parser,11
-pageTitleParser,11
+scrollTitleParser,11
 printTitleParser,10
 quickImageParser,9
 printTableParser,9

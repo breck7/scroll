@@ -338,8 +338,21 @@ scrollParser
     await Promise.all(this.filter(particle => particle.build).map(async particle => particle.build()))
   }
   file = {}
+  getFromParserId(parserId) {
+    return this.parserIdIndex[parserId]?.[0].content
+  }
+  get filename() {
+    return this.file.filename || ""
+  }
+  get filenameNoExtension() {
+    return this.filename.replace(".scroll", "")
+  }
+  get titleFromFilename() {
+    const unCamelCase = str => str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, match => match.toUpperCase())
+    return unCamelCase(this.filenameNoExtension)
+  }
   get title() {
-    return this.file.title || this.get("title")
+    return this.getFromParserId("scrollTitleParser") || this.titleFromFilename
   }
   get permalink() {
    return this.get("permalink") || this.file.permalink || ""
