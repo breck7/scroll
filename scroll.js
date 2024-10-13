@@ -56,7 +56,6 @@ const SVGS = {
   git: `<svg xmlns="http://www.w3.org/2000/svg" width="92pt" height="92pt" viewBox="0 0 92 92"><path d="M90.156 41.965 50.036 1.848a5.913 5.913 0 0 0-8.368 0l-8.332 8.332 10.566 10.566a7.03 7.03 0 0 1 7.23 1.684 7.043 7.043 0 0 1 1.673 7.277l10.183 10.184a7.026 7.026 0 0 1 7.278 1.672 7.04 7.04 0 0 1 0 9.957 7.045 7.045 0 0 1-9.961 0 7.038 7.038 0 0 1-1.532-7.66l-9.5-9.497V59.36a7.04 7.04 0 0 1 1.86 11.29 7.04 7.04 0 0 1-9.957 0 7.04 7.04 0 0 1 0-9.958 7.034 7.034 0 0 1 2.308-1.539V33.926a7.001 7.001 0 0 1-2.308-1.535 7.049 7.049 0 0 1-1.516-7.7L29.242 14.273 1.734 41.777a5.918 5.918 0 0 0 0 8.371L41.855 90.27a5.92 5.92 0 0 0 8.368 0l39.933-39.934a5.925 5.925 0 0 0 0-8.371"/></svg>`
 }
 const CSV_FIELDS = ["date", "year", "title", "permalink", "authors", "tags", "wordCount", "minutes"]
-const unCamelCase = str => str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, match => match.toUpperCase())
 
 const makeLodashOrderByParams = str => {
   const part1 = str.split(" ")
@@ -148,7 +147,7 @@ const parseMeasures = parser => {
       Example: particle.definition.getParticle("example")?.subparticlesToString() || "",
       Type: particle.typeForWebForms,
       Source: particle.sourceDomain,
-      //Definition: parsedProgram.root.file.filename + ":" + particle.lineNumber
+      //Definition: parsedProgram.root.filename + ":" + particle.lineNumber
       SortIndex: particle.sortIndex,
       IsComputed: particle.isComputed,
       IsRequired: particle.isMeasureRequired,
@@ -254,7 +253,6 @@ class ScrollFile {
 
     this.filePath = absoluteFilePath
     this.filename = path.basename(this.filePath)
-    this.filenameNoExtension = this.filename.replace(SCROLL_FILE_EXTENSION, "")
     this.folderPath = path.dirname(absoluteFilePath) + "/"
 
     // PASS 1: READ FULL FILE
@@ -281,7 +279,7 @@ class ScrollFile {
 
     this.scrollProgram.setFile(this)
     this.timestamp = dayjs(this.scrollProgram.get(scrollKeywords.date) ?? fileSystem.getCTime(absoluteFilePath) ?? 0).unix()
-    this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.filenameNoExtension + ".html" : "")
+    this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.scrollProgram.filenameNoExtension + ".html" : "")
   }
 
   // todo: speed this up and do a proper release. also could add more metrics like this.
@@ -646,10 +644,7 @@ parsers/errors.parsers`
   }
 
   get title() {
-    const title = this.scrollProgram.get(scrollKeywords.title)
-    if (title) return title
-    else if (this.filename) return unCamelCase(this.filenameNoExtension)
-    return ""
+    return this.scrollProgram.title
   }
 
   get(parserAtom) {
@@ -1102,7 +1097,7 @@ footer.scroll`
   }
 
   buildPdf(file) {
-    const outputFile = file.filenameNoExtension + ".pdf"
+    const outputFile = file.scrollProgram.filenameNoExtension + ".pdf"
     // relevant source code for chrome: https://github.com/chromium/chromium/blob/a56ef4a02086c6c09770446733700312c86f7623/components/headless/command_handler/headless_command_switches.cc#L22
     const command = `/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --headless --disable-gpu --no-pdf-header-footer --default-background-color=00000000 --no-pdf-background --print-to-pdf="${outputFile}" "${file.permalink}"`
     // console.log(`Node.js is running on architecture: ${process.arch}`)
