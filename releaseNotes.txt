@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+141.3.1 10/14/2024
+==================
+⚠️ BREAKING: whoops! major format regression
+
 141.3.0 10/14/2024
 ==================
 🎉 format command should not insert newlines into blank files
@@ -2904,4 +2908,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v141.3.0
+Built with Scroll v141.3.1

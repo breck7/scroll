@@ -238,6 +238,10 @@ testParticles.format = async areEqual => {
   const page = new ScrollFile(``)
   // Act/Assert
   areEqual(page.formatted, "", "format works")
+
+  const page2 = new ScrollFile(`# hi`)
+  // Act/Assert
+  areEqual(page2.formatted, "# hi\n", "format works")
 }
 
 testParticles.initCommand = async areEqual => {
