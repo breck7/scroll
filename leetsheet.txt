@@ -142,6 +142,7 @@ theScrollButton - WWS button.
 thinColumn - A thin column section.
 thinColumns - Thin columns.
 title - Set title.
+toStamp - Print a directory to stamp.
 video - Play video files.
 viewSourceBaseUrl - Override source link baseUrl.
 viewSourceButton - Print badge top right.
@@ -278,4 +279,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v141.0.0
+Built with Scroll v141.1.0

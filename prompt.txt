@@ -1,0 +1,4836 @@
+Below is the source code for all the Scroll Parsers.
+
+After listing all the source code, I will tell you about the new Parser I want you to make.
+
+stamp
+ aftertext.parsers
+  // Related work:
+   CSS is great for text selector ideas: https://www.w3schools.com/cssref/css_selectors.asp
+   Roff has a lot of related markup ideas: https://www.systutorials.com/docs/linux/man/7-groff_man/
+  abstractAftertextParser
+   description Text followed by markup commands.
+   extends abstractScrollParser
+   inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser commentParser
+   javascript
+    get markupInserts() {
+     const { originalTextPostLinkify } = this
+     return this.filter(particle => particle.isMarkup)
+      .map(particle => particle.getInserts(originalTextPostLinkify))
+      .filter(i => i)
+      .flat()
+    }
+    get originalText() {
+     return this.content ?? ""
+    }
+    get originalTextPostLinkify() {
+     const { originalText } = this
+     const shouldLinkify = this.get("linkify") === "false" || originalText.includes(" {
+      const needle = note.cue
+      const {linkBack} = note
+      if (originalText.includes(needle)) originalText = originalText.replace(new RegExp("\\" + needle + "\\b"), `${note.label}`)
+     })
+     return originalText
+    }
+    get text() {
+     const { originalTextPostLinkify, markupInserts } = this
+     let adjustment = 0
+     let newText = originalTextPostLinkify
+     markupInserts.sort((a, b) => {
+       if (a.index !== b.index)
+         return a.index - b.index
+       // If multiple tags start at same index, the tag that closes first should start last. Otherwise HTML breaks.
+       if (b.index === b.endIndex) // unless the endIndex is the same as index
+         return a.endIndex - b.endIndex
+       return b.endIndex - a.endIndex
+     })
+     markupInserts.forEach(insertion => {
+      insertion.index += adjustment
+      const consumeStartCharacters = insertion.consumeStartCharacters ?? 0
+      const consumeEndCharacters = insertion.consumeEndCharacters ?? 0
+      newText = newText.slice(0, insertion.index - consumeEndCharacters) + insertion.string + newText.slice(insertion.index + consumeStartCharacters)
+      adjustment += insertion.string.length - consumeEndCharacters - consumeStartCharacters
+     })
+     return newText
+    }
+    tag = "p"
+    get className() {
+     if (this.get("classes"))
+       return this.get("classes")
+     const classLine = this.getParticle("class")
+     if (classLine && classLine.applyToParentElement) return classLine.content
+     return this.defaultClassName
+    }
+    defaultClassName = "scrollParagraph"
+    get isHidden() {
+      return this.has("hidden")
+    }
+    compile(compileSettings) {
+     if (this.isHidden) return ""
+     this.compileSettings = compileSettings
+     const { className } = this
+     const classAttr = className ? `class="${this.className}"` : ""
+     const tag = this.get("tag") || this.tag
+     if (tag === "none") // Allow no tag for aftertext in tables
+       return this.text
+     const id = this.has("id") ? "" : `id="${this.htmlId}" ` // always add an html id
+     return this.getHtmlRequirements(compileSettings) + `${this.text}`
+    }
+    get htmlAttributes() {
+     const attrs = this.filter(particle => particle.isAttribute)
+     return attrs.length ? attrs.map(particle => particle.htmlAttributes).join(" ") + " " : ""
+    }
+    get htmlId() {
+     return this.get("id") || "particle" + this.index
+    }
+  
+  abstractAftertextAttributeParser
+   atoms cueAtom
+   boolean isAttribute true
+   javascript
+    get htmlAttributes() {
+     return `${this.cue}="${this.content}"`
+    }
+    compile() {
+     return ""
+    }
+  
+  aftertextTagParser
+   atoms cueAtom htmlTagAtom
+   description Override the HTML tag that the compiled particle will use.
+   cue tag
+   javascript
+    compile() {
+     return ""
+    }
+  
+  abstractAftertextDirectiveParser
+   atoms cueAtom
+   catchAllAtomType stringAtom
+   javascript
+    isMarkup = true
+    compile() {
+     return ""
+    }
+    getErrors() {
+      const errors = super.getErrors()
+      if (!this.isMarkup || this.matchWholeLine) return errors
+      const inserts = this.getInserts(this.parent.originalTextPostLinkify)
+      // todo: make AbstractParticleError class exported by sdk to allow Parsers to define their own error types.
+      // todo: also need to be able to map lines back to their line in source (pre-imports)
+      if (!inserts.length)
+       errors.push(this.makeError(`No match found for "${this.getLine()}".`))
+      return errors
+    }
+    get pattern() {
+     return this.getAtomsFrom(1).join(" ")
+    }
+    get shouldMatchAll() {
+     return this.has("matchAll")
+    }
+    getMatches(text) {
+     const { pattern } = this
+     const escapedPattern = pattern.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+     return [...text.matchAll(new RegExp(escapedPattern, "g"))].map(match => {
+      const { index } = match
+      const endIndex = index + pattern.length
+      return [
+       { index, string: ``, endIndex },
+       { index: endIndex, endIndex, string: `` }
+      ]
+     })
+    }
+    getInserts(text) {
+     const matches = this.getMatches(text)
+     if (!matches.length) return false
+     if (this.shouldMatchAll) return matches.flat()
+     const match = this.getParticle("match")
+     if (match)
+      return match.indexes
+       .map(index => matches[index])
+       .filter(i => i)
+       .flat()
+     return matches[0]
+    }
+    get allAttributes() {
+     const attr = this.attributes.join(" ")
+     return attr ? " " + attr : ""
+    }
+    get attributes() {
+     return []
+    }
+    get openTag() {
+     return this.tag
+    }
+    get closeTag() {
+     return this.tag
+    }
+  
+  abstractMarkupParser
+   extends abstractAftertextDirectiveParser
+   inScope abstractMarkupParameterParser
+   javascript
+    get matchWholeLine() {
+      return this.getAtomsFrom(this.patternStartsAtAtom).length === 0
+    }
+    get pattern() {
+     return this.matchWholeLine ? this.parent.originalText : this.getAtomsFrom(this.patternStartsAtAtom).join(" ")
+    }
+    patternStartsAtAtom = 1
+  
+  abstractMarkupParameterParser
+   atoms cueAtom
+   cueFromId
+  
+  matchAllParser
+   popularity 0.000024
+   description Use this to match all occurrences of the text.
+   extends abstractMarkupParameterParser
+  
+  matchParser
+   popularity 0.000048
+   catchAllAtomType integerAtom
+   description Use this to specify which index(es) to match.
+   javascript
+    get indexes() {
+     return this.getAtomsFrom(1).map(num => parseInt(num))
+    }
+   example
+    aftertext
+     hello ello ello
+     bold ello
+      match 0 2
+   extends abstractMarkupParameterParser
+  
+  boldParser
+   popularity 0.000096
+   cueFromId
+   description Bold matching text.
+   extends abstractMarkupParser
+   javascript
+    tag = "b"
+  
+  italicsParser
+   popularity 0.000241
+   cueFromId
+   description Italicize matching text.
+   extends abstractMarkupParser
+   javascript
+    tag = "i"
+  
+  underlineParser
+   popularity 0.000024
+   description Underline matching text.
+   cueFromId
+   extends abstractMarkupParser
+   javascript
+    tag = "u"
+  
+  afterTextCenterParser
+   popularity 0.000193
+   description Center paragraph.
+   cue center
+   extends abstractMarkupParser
+   javascript
+    tag = "center"
+  
+  aftertextCodeParser
+   popularity 0.000145
+   description Wrap matching text in code span.
+   cue code
+   extends abstractMarkupParser
+   javascript
+    tag = "code"
+  
+  aftertextStrikeParser
+   popularity 0.000048
+   description Wrap matching text in s span.
+   cue strike
+   extends abstractMarkupParser
+   javascript
+    tag = "s"
+  
+  abstractHtmlAttributeParser
+   javascript
+    compile() {
+     return ""
+    }
+  
+  classMarkupParser
+   popularity 0.000772
+   description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.
+   extends abstractMarkupParser
+   atoms cueAtom classNameAtom
+   cue class
+   javascript
+    tag = "span"
+    get applyToParentElement() {
+     return this.atoms.length === 2
+    }
+    getInserts(text) {
+     // If no select text is added, set the class on the parent element.
+     if (this.applyToParentElement) return []
+     return super.getInserts(text)
+    }
+    get className() {
+     return this.getAtom(1)
+    }
+    get attributes() {
+     return [`class="${this.className}"`]
+    }
+    get matchWholeLine() {
+      return this.applyToParentElement
+    }
+    get pattern() {
+     return this.matchWholeLine ? this.parent.content : this.getAtomsFrom(2).join(" ")
+    }
+  
+  classesMarkupParser
+   extends classMarkupParser
+   cue classes
+   javascript
+    applyToParentElement = true
+    get className() {
+     return this.content
+    }
+  
+  aftertextIdParser
+   popularity 0.000145
+   cue id
+   description Provide an ID to be output in the generated HTML tag.
+   extends abstractAftertextAttributeParser
+   atoms cueAtom htmlIdAtom
+   single
+  
+  aftertextStyleParser
+   popularity 0.000217
+   cue style
+   description Provide code for the generated HTML tag's "style" attribute.
+   extends abstractAftertextAttributeParser
+   atoms cueAtom
+   catchAllAtomType cssAnyAtom
+  
+  aftertextHiddenParser
+   cue hidden
+   atoms cueAtom
+   description Do not compile this particle to HTML.
+   extends abstractAftertextAttributeParser
+   single
+  
+ atomTypes.parsers
+  // Basic atom types
+  blankAtom
+  anyAtom
+  
+  // Enum atom types
+  enumAtom
+   paint constant.language
+  booleanAtom
+   enum true false
+   extends enumAtom
+  
+  // String atom types
+  stringAtom
+   paint string
+  
+  atomAtom
+   paint string
+   description A non-empty single atom string.
+   regex .+
+  
+  columnNameAtom
+   extends stringAtom
+  
+  semanticVersionAtom
+   paint string
+   description A 3 part sem version string like 1.2.1
+  
+  // Date atom types
+  dateAtom
+   paint string
+  
+  // Numeric atom types
+  numberAtom
+   paint constant.numeric
+  integerAtom
+   extends numberAtom
+   paint constant.numeric.integer
+  floatAtom
+   extends numberAtom
+   paint constant.numeric.float
+  percentAtom
+   paint constant.numeric.float
+   extends stringAtom
+   // todo: this currently extends from stringAtom b/c scrollsdk needs to be fixed. seems like if extending from number then the hard coded number typescript regex takes precedence over a custom regex
+  countAtom
+   extends integerAtom
+  yearAtom
+   extends integerAtom
+  
+  // Scroll atom types
+  cueAtom
+   description A atom that indicates a certain parser to use.
+   paint keyword
+  
+  preBuildCommandAtom
+   extends cueAtom
+   description Give build command atoms their own color.
+   paint constant.character.escape
+  
+  commentAtom
+   paint comment
+  
+  delimiterAtom
+   description String to use as a delimiter.
+   paint string
+  
+  codeAtom
+   paint comment
+  
+  bulletPointAtom
+   description Any token used as a bullet point such as "-" or "1." or ">"
+   paint keyword
+  
+  comparisonAtom
+   enum  = = != includes doesNotInclude empty notEmpty
+   paint constant
+  
+  personNameAtom
+   extends stringAtom
+  
+  // Link atom types
+  urlAtom
+   paint constant.language
+  absoluteUrlAtom
+   paint constant.language
+   regex (ftp|https?)://.+
+  
+  emailAddressAtom
+   extends stringAtom
+  
+  // File system atom types
+  permalinkAtom
+   paint string
+   description A string that doesn't contain characters that might interfere with most filesystems. No slashes, for instance.
+  
+  filePathAtom
+   extends stringAtom
+  
+  // HTML atom types
+  tagOrUrlAtom
+   description An HTML tag or a url.
+   paint constant.language
+  
+  htmlAttributesAtom
+   paint comment
+  
+  htmlTagAtom
+   paint constant.language
+   enum div span p a img ul ol li h1 h2 h3 h4 h5 h6 header nav section article aside main footer input button form label select option textarea table tr td th tbody thead tfoot br hr meta link script style title code
+  
+  classNameAtom
+   paint constant
+  
+  htmlIdAtom
+   extends anyAtom
+  
+ author.parsers
+  printAuthorsParser
+   popularity 0.001664
+   description Prints author(s) byline.
+   boolean isPopular true
+   extends abstractPrintMetaParser
+   // todo: we need pattern matching added to sdk to support having no params or a url and personNameAtom
+   catchAllAtomType anyAtom
+   example
+    authors Breck Yunits
+     https://breckyunits.com
+    printAuthors
+   javascript
+    compile() {
+     return this.parent.getParticle("authors")?.compileHtmlForPrint()
+    }
+    compileTxt() {
+      return this.parent.getParticle("authors")?.compileTxtForPrint()
+    }
+  
+  authorsParser
+   popularity 0.007379
+   // multiple authors delimited by " and "
+   boolean isPopular true
+   extends paragraphParser
+   description Set author(s) name(s).
+   example
+    authors Breck Yunits
+     https://breckyunits.com Breck Yunits
+   // note: once we have mixins in Parsers, lets mixin the below from abstractTopLevelSingleMetaParser
+   atoms metaCommandAtom
+   javascript
+    isTopMatter = true
+    isSetterParser = true
+    compileHtmlForPrint() {
+      // hacky. todo: cleanup
+      const originalContent = this.content
+      this.setContent(`by ${originalContent}`)
+      const html = super.compile()
+      this.setContent(originalContent)
+      return html
+    }
+    compileTxtForPrint() {
+      return 'by ' + super.compileTxt()
+    }
+    compile() {
+     return ""
+    }
+    compileTxt() {
+      return ""
+    }
+    defaultClassName = "scrollByLine"
+ blankLine.parsers
+  blankLineParser
+   popularity 0.308149
+   description Print nothing. Break section.
+   atoms blankAtom
+   boolean isPopular true
+   javascript
+    compile() {
+     return this.parent.clearSectionStack()
+    }
+   pattern ^$
+   tags doNotSynthesize
+ blink.parsers
+  blinkParser
+   description Just for fun.
+   extends paragraphParser
+   example
+    blink Carpe diem!
+   cue blink
+   javascript
+    compile() {
+     return `${super.compile()}
+      setInterval(()=>{ Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden") }, 500)`
+    }
+ build.parsers
+  buildCommandAtom
+   extends cueAtom
+   description Give build command atoms their own color.
+   paint constant
+  
+  abstractBuildCommandParser
+   extends abstractScrollParser
+   cueFromId
+   atoms buildCommandAtom
+   catchAllAtomType filePathAtom
+   inScope slashCommentParser
+   javascript
+    isTopMatter = true
+    compile() {
+     return ""
+    }
+ buttons.parsers
+  scrollButtonParser
+   extends paragraphParser
+   cue button
+   description A button.
+   example
+    button Click me
+   javascript
+    defaultClassName = "scrollButton"
+    tag = "button"
+    get htmlAttributes() {
+      const link = this.getFromParser("linkParser")
+      return super.htmlAttributes + link ? `onclick="window.location='${link.link}'"` : "" // better ideas?
+    }
+    getFromParser(parserId) {
+      return this.find(particle => particle.doesExtend(parserId))
+    }
+ catchAll.parsers
+  catchAllParagraphParser
+   popularity 0.115562
+   description A paragraph.
+   extends paragraphParser
+   boolean suggestInAutocomplete false
+   boolean isPopular true
+   boolean isArticleContent true
+   atoms stringAtom
+   javascript
+    getErrors() {
+      const errors = super.getErrors() || []
+      return this.parent.has("testStrict") ? errors.concat(this.makeError(`catchAllParagraphParser should not have any matches when testing with testStrict.`)) : errors
+    }
+    get originalText() {
+     return this.getLine() || ""
+    }
+ center.parsers
+  scrollCenterParser
+   popularity 0.006415
+   cue center
+   description A centered section.
+   extends paragraphParser
+   example
+    center
+    This paragraph is centered.
+   javascript
+    compile() {
+     this.parent.sectionStack.push("")
+     return `${super.compile()}`
+    }
+    compileTxt() {
+      return this.content
+    }
+ chat.parsers
+  chatLineParser
+   popularity 0.009887
+   catchAllAtomType anyAtom
+   catchAllParser chatLineParser
+  chatParser
+   popularity 0.000362
+   description A faux text chat conversation.
+   catchAllParser chatLineParser
+   cueFromId
+   extends abstractScrollParser
+   example
+    chat
+     Hi
+     👋
+   javascript
+    compile() {
+     return this.map((line, index) => line.asString ? `${line.asString}` : "").join("")
+    }
+    compileTxt() {
+      return this.subparticlesToString()
+    }
+ checklist.parsers
+  checklistTodoParser
+   popularity 0.000193
+   extends abstractIndentableParagraphParser
+   example
+    [] Get milk
+   description A task todo.
+   cue []
+   string checked 
+   javascript
+    get text() {
+     return `` + super.text + ``
+    }
+    get id() {
+     return this.get("id") || "item" + this._getUid()
+    }
+  checklistDoneParser
+   popularity 0.000072
+   extends checklistTodoParser
+   description A completed task.
+   string checked checked
+   cue [x]
+   example
+    [x] get milk
+ cloc.parsers
+  clocParser
+   extends scrollTableParser
+   description Output results of cloc as table.
+   cue cloc
+   string copyFromExternal clocLangs.txt
+   javascript
+    delimiter = ","
+    get delimitedData() {
+     const { execSync } = require("child_process")
+     const results = execSync(this.command).toString().trim()
+     const csv = results.split("\n\n").pop().replace(/,\"github\.com\/AlDanial.+/, "") // cleanup output
+     return csv
+    }
+    get command(){
+     return `cloc --vcs git . --csv --read-lang-def=clocLangs.txt ${this.content || ""}`
+    }
+ code.parsers
+  lineOfCodeParser
+   popularity 0.018665
+   catchAllAtomType codeAtom
+   catchAllParser lineOfCodeParser
+  
+  codeParser
+   popularity 0.001929
+   description A code block.
+   catchAllParser lineOfCodeParser
+   extends abstractScrollParser
+   boolean isPopular true
+   example
+    code
+     two = 1 + 1
+   javascript
+    compile() {
+     return `${this.subparticlesToString().replace(/\`
+    }
+    compileTxt() {
+      return this.subparticlesToString()
+    }
+   cueFromId
+  
+  codeWithHeaderParser
+   popularity 0.000169
+   cueFromId
+   catchAllAtomType stringAtom
+   extends codeParser
+   example
+    codeWithHeader math.py
+     two = 1 + 1
+   javascript
+    compile() {
+     return `${this.content}${super.compile()}`
+    }
+  
+  codeWithLanguageParser
+   popularity 0.000458
+   description Use this to specify the language of the code block, such as csvCode or rustCode.
+   extends codeParser
+   pattern ^[a-zA-Z0-9_]+Code$
+  
+  copyButtonsParser
+   popularity 0.001471
+   extends abstractScrollWithRequirementsParser
+   description Copy code widget.
+   javascript
+    compileInstance() {
+     return ""
+    }
+   string requireOnce
+    
+    document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollCodeBlock").forEach(block =>
+     {
+      if (!navigator.clipboard) return
+      const button = document.createElement("span")
+      button.classList.add("scrollCopyButton")
+      block.appendChild(button)
+      button.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(block.innerText)
+        button.classList.add("scrollCopiedButton")
+      })
+     }
+    ))
+    
+  
+  
+ columns.parsers
+  thinColumnsParser
+   popularity 0.003690
+   extends abstractAftertextParser
+   cueFromId
+   catchAllAtomType integerAtom
+   description Thin columns.
+   javascript
+    compileEmbeddedVersion() {
+     return ""
+    }
+    columnWidth = 35
+    columnGap = 20
+    compile() {
+     const {columnWidth, columnGap, maxColumns} = this
+     const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * columnGap
+     const stackContents = this.parent.clearSectionStack() // Starting columns always first clears the section stack.
+     if (this.singleColumn) this.parent.sectionStack.push("") // Single columns are self-closing after section break.
+     return stackContents + ``
+    }
+    get maxColumns() {
+      return this.singleColumn ? 1 : parseInt(this.getAtom(1) ?? 10)
+    }
+  
+  wideColumnsParser
+   popularity 0.000386
+   extends thinColumnsParser
+   description Wide columns.
+   javascript
+    columnWidth = 90
+  
+  mediumColumnsParser
+   popularity 0.003376
+   extends thinColumnsParser
+   description Medium width columns.
+   javascript
+    columnWidth = 65
+  
+  mediumColumnParser
+   popularity 0.003376
+   extends mediumColumnsParser
+   description A medium column section.
+   boolean singleColumn true
+  
+  thinColumnParser
+   popularity 0.003376
+   extends thinColumnsParser
+   description A thin column section.
+   boolean singleColumn true
+  
+  wideColumnParser
+   popularity 0.003376
+   extends wideColumnsParser
+   description A wide column section.
+   boolean singleColumn true
+  
+  endColumnsParser
+   popularity 0.007789
+   extends abstractAftertextParser
+   cueFromId
+   description End columns.
+   javascript
+    compile() {
+     return ""
+    }
+    compileEmbeddedVersion() {
+     return ""
+    }
+ comments.parsers
+  commentLineParser
+   catchAllAtomType commentAtom
+  
+  abstractCommentParser
+   description Prints nothing.
+   catchAllAtomType commentAtom
+   atoms commentAtom
+   extends abstractScrollParser
+   baseParser blobParser
+   javascript
+    compile() {
+     return ``
+    }
+   catchAllParser commentLineParser
+  
+  commentParser
+   popularity 0.000193
+   extends abstractCommentParser
+   cueFromId
+  
+  slashCommentParser
+   popularity 0.005643
+   extends commentParser
+   cue //
+   boolean isPopular true
+   description A comment. Prints nothing.
+ concepts.parsers
+  loadConceptsParser
+   // todo: clean this up. just add smarter imports with globs?
+   // this currently removes any "import" statements.
+   description Import all concepts in a folder.
+   extends abstractBuildCommandParser
+   cueFromId
+   atoms preBuildCommandAtom filePathAtom
+   javascript
+    build() {
+     const { Disk } = require("scrollsdk/products/Disk.node.js")
+     const path = require("path")
+     const {file} = this.parent
+     const folder = path.join(file.folderPath, this.getAtom(1))
+     const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
+     const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).filter(str => /^id /mg.test(str)).join("\n\n").replace(/import .+/g, "")
+      this.parent.concat(ONE_BIG_FILE)
+     //console.log(ONE_BIG_FILE)
+    }
+    compile() {
+      return ""
+    }
+  
+  buildConceptsParser
+   popularity 0.000024
+   cueFromId
+   description Write concepts to csv+ files.
+   extends abstractBuildCommandParser
+   sortByParser
+    cueFromId
+    atoms cueAtom anyAtom
+ container.parsers
+  scrollContainerParser
+   popularity 0.000096
+   cue container
+   description A centered HTML div.
+   catchAllAtomType cssLengthAtom
+   extends abstractScrollParser
+   boolean isHtml true
+   javascript
+    get maxWidth() {
+      return this.atoms[1] || "1200px"
+    }
+    compileEmbeddedVersion() {
+     return ""
+    }
+    compile() {
+      this.parent.bodyStack.push("")
+     return ``
+    }
+ counter.parsers
+  scrollCounterParser
+   description Visualize the speed of something.
+   extends paragraphParser
+   cue counter
+   example
+    counter 4.5 Babies Born
+   atoms cueAtom numberAtom
+   javascript
+    compile() {
+     const line = this.getLine()
+     const atoms = line.split(" ")
+     atoms.shift() // drop the counter atom
+     const perSecond = parseFloat(atoms.shift()) // get number
+     const increment = perSecond/10
+     const id = this._getUid()
+     this.setLine(`* 0setInterval(()=>{ const el = document.getElementById('counter${id}'); el.title = parseFloat(el.title) + ${increment}; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100) ` + atoms.join(" "))
+     const html = super.compile()
+     this.setLine(line)
+     return html
+    }
+ counterpoint.parsers
+  counterpointParser
+   description A counterpoint. Prints nothing.
+   extends commentParser
+   cue !
+ credits.parsers
+  thanksToParser
+   description Acknowledge reviewers. Prints nothing.
+   extends abstractCommentParser
+   cueFromId
+ css.parsers
+  buildCssParser
+   popularity 0.000048
+   description Compile to CSS file.
+   extends abstractBuildCommandParser
+  
+  cssAnyAtom
+   extends anyAtom
+  cssLengthAtom
+   extends anyAtom
+  cssLineParser
+   popularity 0.002870
+   catchAllAtomType cssAnyAtom
+   catchAllParser cssLineParser
+  cssParser
+   popularity 0.007211
+   extends abstractScrollParser
+   description A style tag.
+   cueFromId
+   catchAllParser cssLineParser
+   catchAllAtomType cssAnyAtom
+   javascript
+    compile() {
+     return `${this.css}`
+    }
+    get css() {
+      return this.content ?? this.subparticlesToString()
+    }
+    compileCss() {
+      return this.css
+    }
+  
+  quickCssParser
+   popularity 0.007524
+   description Make a CSS tag.
+   extends abstractQuickIncludeParser
+   atoms urlAtom
+   pattern ^[^\s]+\.(css)$
+   javascript
+    compile() {
+     return ``
+    }
+ csv.parsers
+  buildCsvParser
+   popularity 0.000096
+   description Compile to CSV file.
+   extends abstractBuildCommandParser
+  
+  printCsvParser
+   popularity 0.000024
+   description Print group metadata to CSV.
+   extends printFeedParser
+   example
+    printCsv index
+    buildTxt posts.csv
+   javascript
+    compile() {
+     const file = this.root.file
+     const files = file.getFilesWithTagsForEmbedding(this.content).map(file => file.file)
+     const header = file.csvFields
+     return `${header.join(",")}\n${files.map(file => file.toCsv()).join("\n")}`
+    }
+    compileCsv() {
+      return this.compile()
+    }
+ dashboard.parsers
+  scrollDashboardParser
+   popularity 0.000145
+   description Key stats in large font.
+   catchAllParser lineOfCodeParser
+   cue dashboard
+   extends abstractScrollParser
+   example
+    dashboard
+     #2 Popularity
+     30 Years Old
+     $456 Revenue
+   javascript
+    get tableBody() {
+     const items = this.topDownArray
+     let str = ""
+     for (let i = 0; i ` + items.map(particle => `${particle.cue}${particle.content}`).join("\n") + `\n`
+    }
+    compile() {
+     return `${this.tableBody}`
+    }
+    compileTxt() {
+      return this.subparticlesToString()
+    }
+ date.parsers
+  dateParser
+   popularity 0.006680
+   catchAllAtomType dateAtom
+   description Set published date.
+   extends abstractTopLevelSingleMetaParser
+   boolean isPopular true
+   example
+    date 1/11/2019
+    printDate
+    Hello world
+     dateline
+  
+  datelineParser
+   popularity 0.006005
+   cueFromId
+   description Gives your paragraph a dateline like "December 15, 2021 — The..."
+   extends abstractAftertextDirectiveParser
+   javascript
+    getInserts() {
+     const {day} = this
+     if (!day) return false
+     return [{ index: 0, string: `${day} — ` }]
+    }
+    matchWholeLine = true
+    get day() {
+     let day = this.content || this.root.get("date") || this.root.file?.date
+     if (!day) return ""
+     try {
+      const dayjs = require("dayjs")
+      return dayjs(day).format(`MMMM D, YYYY`)
+     } catch (err) {
+      console.error(err)
+     }
+     return day || ""
+    }
+  
+  printDateParser
+   popularity 0.000434
+   extends abstractPrintMetaParser
+   // If not present computes the date from the file's ctime.
+   description Print published date.
+   boolean isPopular true
+   javascript
+    compile() {
+     return `${this.day}`
+    }
+    get day() {
+     let day = this.content || this.root.get("date") || this.root.file?.date
+     if (!day) return ""
+     try {
+      const dayjs = require("dayjs")
+      return dayjs(day).format(`MMMM D, YYYY`)
+     } catch (err) {
+      console.error(err)
+     }
+     return day || ""
+    }
+    compileTxt() {
+      return this.day
+    }
+ dayjs.parsers
+  dayjsParser
+   description Advanced directive that evals some Javascript code in an environment including "dayjs".
+   cueFromId
+   extends abstractAftertextDirectiveParser
+   javascript
+    getInserts() {
+     const dayjs = require("dayjs")
+     const days = eval(this.content)
+     const index = this.parent.originalTextPostLinkify.indexOf("days")
+     return [{ index, string: `${days} ` }]
+    }
+ dinkus.parsers
+  abstractDinkusParser
+   extends abstractAftertextParser
+   boolean isDinkus true
+   javascript
+    compile() {
+     return `${this.dinkus}`
+    }
+    defaultClass = "dinkus"
+    compileTxt() {
+      return this.dinkus
+    }
+    get dinkus() {
+      return this.content || this.getLine()
+    }
+  
+  horizontalRuleParser
+   popularity 0.000362
+   cue ---
+   description A horizontal rule.
+   extends abstractDinkusParser
+   javascript
+    compile() {
+     return ``
+    }
+  
+  scrollDinkusParser
+   popularity 0.010828
+   cue ***
+   description A dinkus. Breaks section.
+   boolean isPopular true
+   extends abstractDinkusParser
+   javascript
+    dinkus = "*"
+  
+  customDinkusParser
+   cue dinkus
+   description A custom dinkus.
+   extends abstractDinkusParser
+  
+  endOfPostDinkusParser
+   popularity 0.005740
+   extends abstractDinkusParser
+   description End of post dinkus.
+   boolean isPopular true
+   cue ****
+   javascript
+    dinkus = "⁂"
+ disk.parsers
+  scrollDiskParser
+   extends scrollTableParser
+   description Output file into as table.
+   cue disk
+   javascript
+    delimiter = "json"
+    get delimitedData() {
+     return this.isNodeJs() ? this.delimitedDataNodeJs : ""
+    }
+    get delimitedDataNodeJs() {
+     const fs = require('fs');
+     const path = require('path');
+     const {folderPath} = this.parent.file
+     const folder = this.content ? path.join(folderPath, this.content) : folderPath
+     function getDirectoryContents(dirPath) {
+       const directoryContents = [];
+       const items = fs.readdirSync(dirPath);
+       items.forEach((item) => {
+         const itemPath = path.join(dirPath, item);
+         const stats = fs.statSync(itemPath);
+         directoryContents.push({
+           name: item,
+           type: stats.isDirectory() ? 'directory' : 'file',
+           size: stats.size,
+           lastModified: stats.mtime
+         });
+       });
+       return directoryContents;
+     }
+     return JSON.stringify(getDirectoryContents(folder))
+    }
+ documentation.parsers
+  belowAsCodeParser
+   popularity 0.000651
+   description Print code below.
+   extends abstractScrollParser
+   catchAllAtomType integerAtom
+   cueFromId
+   javascript
+    method = "next"
+    get code() {
+     const { method } = this
+     let code = ""
+     
+     let particles = []
+     let next = this[method]
+     let {howMany} = this
+     while (howMany) {
+      particles.push(next)
+      next = next[method]
+      howMany--
+     }
+     if (this.reverse) particles.reverse()
+     return particles.map(particle => particle.asString).join("\n")
+    }
+    reverse = false
+    compile() {
+     return `${this.code.replace(/\`
+    }
+    get howMany() {
+      let howMany = parseInt(this.getAtom(1))
+     if (!howMany || isNaN(howMany)) howMany = 1
+     return howMany
+    }
+  
+  belowAsCodeUntilParser
+   description Print code above until match.
+   extends belowAsCodeParser
+   catchAllAtomType anyAtom
+   example
+    belowAsCode
+    counter 1 second
+   javascript
+    get howMany() {
+      let howMany = 1
+      const query = this.content
+      let particle = this.next
+      while (particle !== this) {
+        if (particle.getLine().startsWith(query))
+          return howMany
+        particle = particle.next
+        howMany++
+      }
+      return howMany
+    }
+  
+  aboveAsCodeParser
+   popularity 0.000482
+   description Print code above.
+   example
+    counter 1 second
+    aboveAsCode
+   extends belowAsCodeParser
+   javascript
+    method = "previous"
+    reverse = true
+ download.parsers
+  downloadButtonParser
+   popularity 0.006294
+   description Link to download/WWS page.
+   extends abstractIconButtonParser
+   catchAllAtomType urlAtom
+   string style position:relative;
+   string svg 
+   javascript
+    get link() {
+      return this.content
+    }
+ email.parsers
+  siteOwnerEmailParser
+   popularity 0.001302
+   description Set email address for site contact.
+   extends abstractTopLevelSingleMetaParser
+   cue email
+   atoms metaCommandAtom emailAddressAtom
+  
+  emailButtonParser
+   popularity 0.006294
+   description Email button.
+   extends abstractIconButtonParser
+   catchAllAtomType emailAddressAtom
+   // todo: should just be "optionalAtomType"
+   string style position:relative;
+   string svg 
+   javascript
+    get link() {
+      const email = this.content || this.parent.get("email")
+      return email ? `mailto:${email}` : ""
+    }
+ errors.parsers
+  errorParser
+   baseParser errorParser
+ expander.parsers
+  expanderParser
+   popularity 0.000072
+   cueFromId
+   description An collapsible HTML details tag.
+   extends paragraphParser
+   example
+    expander Knock Knock
+    Who's there?
+   javascript
+    compile() {
+     this.parent.sectionStack.push("")
+     return `${super.compile()}`
+    }
+    compileTxt() {
+      return this.content
+    }
+    tag = "summary"
+    defaultClassName = ""
+ favicon.parsers
+  faviconParser
+   popularity 0.001688
+   catchAllAtomType stringAtom
+   cue favicon
+   description Favicon file.
+   example
+    favicon logo.png
+    metatags
+    buildHtml
+   extends abstractTopLevelSingleMetaParser
+ fetch.parsers
+  fetchParser
+   description Download URL to disk.
+   extends abstractBuildCommandParser
+   cueFromId
+   atoms preBuildCommandAtom urlAtom
+   example
+    fetch https://breckyunits.com/posts.csv
+    fetch https://breckyunits.com/posts.csv renamed.csv
+   javascript
+    get url() {
+      return this.getAtom(1)
+    }
+    get filename() {
+      return this.getAtom(2)
+    }
+    async build() {
+     await this.root.fetch(this.url, this.filename)
+    }
+    compile() {
+      return ""
+    }
+ footer.parsers
+  scrollFooterParser
+   extends abstractScrollParser
+   description Move section to file footer.
+   atoms preBuildCommandAtom
+   cue footer
+   javascript
+    compile() {
+     return ""
+    }
+  
+ footnotes.parsers
+  footnoteDefinitionParser
+   popularity 0.001953
+   description A footnote. Can also be used as section notes.
+   extends paragraphParser
+   boolean isFootnote true
+   pattern ^\^.+$
+   // We need to quickLinks back in scope because there is currently a bug in ScrollSDK/parsers where if a parser extending a parent class has a child parser defined, then any regex parsers in the parent class will not be tested unless explicitly included in scope again.
+   inScope quickLinkParser
+   labelParser
+    description If you want to show a custom label for a footnote. Default label is the note definition index.
+    cueFromId
+    atoms cueAtom
+    catchAllAtomType stringAtom
+   javascript
+    get htmlId() {
+     return `note${this.noteDefinitionIndex}`
+    }
+    get label() {
+     // In the future we could allow common practices like author name
+     return this.get("label") || `[${this.noteDefinitionIndex}]`
+    }
+    get linkBack() {
+     return `noteUsage${this.noteDefinitionIndex}`
+    }
+    get text() {
+     return `${this.label} ${super.text}`
+    }
+    get noteDefinitionIndex() {
+     return this.parent.footnotes.indexOf(this) + 1
+    }
+    compileTxt() {
+      return this.getAtom(0) + ": " + super.compileTxt()
+    }
+ forms.parsers
+  classicFormParser
+   cue classicForm
+   popularity 0.006391
+   description Generate input form for ScrollSet.
+   extends abstractAftertextParser
+   atoms cueAtom emailAddressAtom
+   catchAllAtomType stringAtom
+   string script
+    
+    sendFormViaEmail = form => {
+      const mailto = new URL("mailto:")
+      const params = []
+      const { value, title } = form.querySelector('button[type="submit"]')
+      params.push(`subject=${encodeURIComponent(value)}`)
+      params.push(`to=${encodeURIComponent(title)}`)
+      const oneTextarea = form.querySelector('textarea[title="oneTextarea"]')
+      const body = oneTextarea ? codeMirrorInstance.getValue() : Array.from(new FormData(form)).map(([name, value]) => `${name} ${value}`).join("\\n")
+      params.push(`body=${encodeURIComponent(body)}`)
+      mailto.search = params.join("&")
+      window.open(mailto.href, '_blank')
+    }
+    
+   string style
+     .scrollFormParser {
+        font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
+      }
+    .scrollFormParser input , .scrollFormParser textarea{
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    } .scrollFormParser label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+   javascript
+    get inputs() {
+      const {measures} = this.parent.file
+      return measures.filter(measure => !measure.IsComputed).map((measure, index) => {
+        const {Name, Question, IsRequired, Type} = measure
+        const type = Type || "text"
+        const placeholder = Question
+        const ucFirst = Name.substr(0, 1).toUpperCase() + Name.substr(1)
+        // ${index ? "" : "autofocus"}
+        let tag = ""
+        if (Type === "textarea")
+          tag = ``
+        else
+          tag = ``
+        return `${ucFirst}${IsRequired ? "*" : ""}:${tag}`
+      }).join("\n")
+    }
+    compile() {
+      const {isEmail, formDestination, callToAction, subject} = this
+      return `${this.script}${this.style}${this.inputs}${callToAction}${this.footer}`
+    }
+    get callToAction() {
+      return (this.isEmail ? "Submit via email" : (this.subject || "Post"))
+    }
+    get isEmail() {
+      return this.formDestination.includes("@")
+    }
+    get formDestination() {
+      return this.getAtom(1)
+    }
+    get subject() {
+      return this.getAtomsFrom(2)?.join(" ") || ""
+    }
+    get footer() {
+      return ""
+    }
+  
+  scrollFormParser
+   extends classicFormParser
+   cue scrollForm
+   placeholderParser
+    atoms cueAtom
+    baseParser blobParser
+    cueFromId
+    single
+   valueParser
+    atoms cueAtom
+    baseParser blobParser
+    cueFromId
+    single
+   description Generate a Scroll Form.
+   string copyFromExternal codeMirror.css scrollLibs.js
+   string requireOnce
+    
+    
+   javascript
+    get placeholder() {
+      return this.getParticle("placeholder")?.subparticlesToString() || ""
+    }
+    get value() {
+      return this.getParticle("value")?.subparticlesToString() || ""
+    }
+    get footer() {
+      return ""
+    }
+    get inputs() {
+      const Name = "particles"
+      return `
+      ${this.parent.file.parsersBundle}
+      {
+      let {width, height} = document.getElementById('${Name}').getBoundingClientRect();
+      const scrollParser = new HandParsersProgram(document.getElementById("${Name}Parsers").textContent).compileAndReturnRootParser()
+      codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => scrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("${Name}"), {
+        lineWrapping: false,
+        lineNumbers: false
+      })
+      codeMirrorInstance.setSize(width, height);
+      codeMirrorInstance.setValue(\`${this.value}\`); }`
+    }
+    compile(compileSettings) {
+      return this.getHtmlRequirements(compileSettings) + super.compile()
+    }
+  
+ groupBy.parsers
+  scrollGroupByParser
+   catchAllAtomType columnNameAtom
+   extends abstractTableTransformParser
+   description Combine rows with matching values into groups.
+   example
+    tables posts.csv
+     groupBy year
+      printTable
+   cue groupBy
+   javascript
+    get coreTable() {
+      if (this._coreTable) return this._coreTable
+     const groupByColNames = this.getAtomsFrom(1)
+     const {coreTable} = this.parent
+     if (!groupByColNames.length) return coreTable
+     const newCols = this.findParticles("reduce").map(reduceParticle => {
+      return {
+       source: reduceParticle.getAtom(1),
+       reduction: reduceParticle.getAtom(2),
+       name: reduceParticle.getAtom(3) || reduceParticle.getAtomsFrom(1).join("_")
+      }
+     })
+     // Pivot is shorthand for group and reduce?
+     const makePivotTable = (rows, groupByColumnNames, inputColumnNames, newCols) => {
+       const colMap = {}
+       inputColumnNames.forEach((col) => (colMap[col] = true))
+       const groupByCols = groupByColumnNames.filter((col) => colMap[col])
+       return new PivotTable(rows, inputColumnNames.map(c => {return {name: c}}), newCols).getNewRows(groupByCols)
+     }
+     class PivotTable {
+       constructor(rows, inputColumns, outputColumns) {
+         this._columns = {}
+         this._rows = rows
+         inputColumns.forEach((col) => (this._columns[col.name] = col))
+         outputColumns.forEach((col) => (this._columns[col.name] = col))
+       }
+       _getGroups(allRows, groupByColNames) {
+         const rowsInGroups = new Map()
+         allRows.forEach((row) => {
+           const groupKey = groupByColNames.map((col) => row[col]?.toString().replace(/ /g, "") || "").join(" ")
+           if (!rowsInGroups.has(groupKey)) rowsInGroups.set(groupKey, [])
+           rowsInGroups.get(groupKey).push(row)
+         })
+         return rowsInGroups
+       }
+       getNewRows(groupByCols) {
+         // make new particles
+         const rowsInGroups = this._getGroups(this._rows, groupByCols)
+         // Any column in the group should be reused by the children
+         const columns = [
+           {
+             name: "count",
+             type: "number",
+             min: 0,
+           },
+         ]
+         groupByCols.forEach((colName) => columns.push(this._columns[colName]))
+         const colsToReduce = Object.values(this._columns).filter((col) => !!col.reduction)
+         colsToReduce.forEach((col) => columns.push(col))
+         // for each group
+         const rows = []
+         const totalGroups = rowsInGroups.size
+         for (let [groupId, group] of rowsInGroups) {
+           const firstRow = group[0]
+           const newRow = {}
+           groupByCols.forEach((col) =>
+             newRow[col] = firstRow ? firstRow[col] : 0
+           )
+           newRow.count = group.length
+           // todo: add more reductions? count, stddev, median, variance.
+           colsToReduce.forEach((col) => {
+             const sourceColName = col.source
+             const reduction = col.reduction
+             if (reduction === "concat") {
+                newRow[col.name] = group.map((row) => row[sourceColName]).join(" ")
+                return 
+             }
+             if (reduction === "first") {
+                newRow[col.name] = group[0][sourceColName]
+                return 
+             }
+             const values = group.map((row) => row[sourceColName]).filter((val) => typeof val === "number" && !isNaN(val))
+             let reducedValue = firstRow[sourceColName]
+             if (reduction === "sum") reducedValue = values.reduce((prev, current) => prev + current, 0)
+             if (reduction === "max") reducedValue = Math.max(...values)
+             if (reduction === "min") reducedValue = Math.min(...values)
+             if (reduction === "mean") reducedValue = values.reduce((prev, current) => prev + current, 0) / values.length
+             newRow[col.name] = reducedValue
+           })
+           rows.push(newRow)
+         }
+         // todo: add tests. figure out this api better.
+         Object.values(columns).forEach((col) => {
+           // For pivot columns, remove the source and reduction info for now. Treat things as immutable.
+           delete col.source
+           delete col.reduction
+         })
+         return {
+           rows,
+           columns,
+         }
+       }
+     }
+     const pivotTable = makePivotTable(coreTable, groupByColNames, this.parent.columnNames, newCols)
+     this._coreTable = pivotTable.rows
+     this._columnNames = pivotTable.columns.map(col => col.name)
+     return pivotTable.rows
+    }
+    get columnNames() {
+      const {coreTable} = this
+      return this._columnNames || this.parent.columnNames
+    }
+  
+ hakon.parsers
+  // Hakon is a SCSS like lang that compiles to CSS
+  hakonContentParser
+   popularity 0.102322
+   catchAllAtomType anyAtom
+  
+  hakonParser
+   cueFromId
+   extends abstractScrollParser
+   description Compile Hakon to CSS.
+   catchAllParser hakonContentParser
+   javascript
+    compile() {
+     return `${this.css}`
+    }
+    get css() {
+      const {hakonParser} = this.root
+      return new hakonParser(this.subparticlesToString()).compile()
+    }
+    compileCss() {
+      return this.css
+    }
+  
+ haml.parsers
+  hamlParser
+   popularity 0.007524
+   description HTML tag via HAML syntax.
+   extends abstractScrollParser
+   atoms urlAtom
+   catchAllAtomType stringAtom
+   pattern ^[\w\.]+#[\w\.]+ *
+   javascript
+    get tag() {
+      return this.atoms[0].split(/[#\.]/).shift()
+    }
+    get htmlId() {
+      const idMatch = this.atoms[0].match(/#([\w-]+)/)
+      return idMatch ? idMatch[1] : ""
+    }
+    get htmlClasses() {
+      return this.atoms[0].match(/\.([\w-]+)/g)?.map(cls => cls.slice(1)) || [];
+    }
+    compile() {
+     const {htmlId, htmlClasses, content, tag} = this
+     this.parent.sectionStack.push(``)
+     return `${content || ""}`
+    }
+    compileTxt() {
+      return this.content
+    }
+ headers.parsers
+  abstractHeaderParser
+   extends paragraphParser
+   example
+    # Hello world
+   javascript
+    compile(compileSettings) {
+     if (this.isHidden) return ""
+     if (this.parent.sectionStack)
+      this.parent.sectionStack.push("")
+     return `` + super.compile(compileSettings)
+    }
+    compileTxt() {
+      const line = super.compileTxt()
+      return line + "\n" + "=".repeat(line.length)
+    }
+    isHeader = true
+  
+  h1Parser
+   popularity 0.017918
+   description An html h1 tag.
+   extends abstractHeaderParser
+   boolean isArticleContent true
+   cue #
+   boolean isPopular true
+   javascript
+    tag = "h1"
+  
+  h2Parser
+   popularity 0.005257
+   description An html h2 tag.
+   extends abstractHeaderParser
+   boolean isArticleContent true
+   cue ##
+   boolean isPopular true
+   javascript
+    tag = "h2"
+  
+  h3Parser
+   popularity 0.001085
+   description An html h3 tag.
+   extends abstractHeaderParser
+   boolean isArticleContent true
+   cue ###
+   javascript
+    tag = "h3"
+  
+  h4Parser
+   popularity 0.000289
+   description An html h4 tag.
+   extends abstractHeaderParser
+   cue ####
+   javascript
+    tag = "h4"
+  
+  h5Parser
+   description An html h5 tag.
+   extends abstractHeaderParser
+   cue #####
+   javascript
+    tag = "h5"
+ heatrix.parsers
+  heatrixCatchAllParser
+   popularity 0.000193
+   // todo Fill this out
+   catchAllAtomType stringAtom
+  
+  heatrixParser
+   cueFromId
+   example
+    heatrix
+     '2007 '2008 '2009 '2010 '2011 '2012 '2013 '2014 '2015 '2016 '2017 '2018 '2019 '2020 '2021 '2022 '2023 '2024
+     4 11 23 37 3 14 12 0 0 0 5 1 2 11 15 10 12 56
+   description A heatmap matrix data visualization.
+   catchAllParser heatrixCatchAllParser
+   extends abstractTableVisualizationParser
+   javascript
+    compile() {
+     // A hacky but simple way to do this for now.
+     const advanced = new Particle("heatrixAdvanced")
+     advanced.appendLineAndSubparticles("table", "\n " + this.tableData.replace(/\n/g, "\n "))
+     const particle = this.appendSibling("heatrixAdvanced", advanced.subparticlesToString())
+     const html = particle.compile()
+     particle.destroy()
+     return html
+    }
+    get tableData() {
+      const {coreTable} = this.parent
+      if (!coreTable)
+        return this.subparticlesToString()
+      let table = new Particle(coreTable).asSsv
+      if (this.parent.cue === "transpose") {
+        // drop first line after transpose
+        const lines = table.split("\n")
+        lines.shift()
+        table = lines.join("\n")
+      }
+      // detect years and make strings
+      const lines = table.split("\n")
+      const yearLine = / \d{4}(\s+\d{4})+$/
+      if (yearLine.test(lines[0])) {
+        lines[0] = lines[0].replace(/ /g, " '")
+        table = lines.join("\n")
+      }
+      return table
+    }
+  
+  heatrixAdvancedParser
+   popularity 0.000048
+   cueFromId
+   catchAllParser heatrixCatchAllParser
+   extends abstractTableVisualizationParser
+   description Advanced heatrix.
+   example
+    heatrix
+     table
+       
+      %h10; '2007 '2008 '2009
+       12 4 323
+     scale
+      #ebedf0 0
+      #c7e9c0 100
+      #a1d99b 400
+      #74c476 1600
+   javascript
+    compile() {
+    class Heatrix {
+      static HeatrixId = 0
+      uid = Heatrix.HeatrixId++
+      constructor(program) {
+        const isDirective = atom => /^(f|l|w|h)\d+$/.test(atom) || atom === "right" || atom === "left" || atom.startsWith("http://") || atom.startsWith("https://") || atom.endsWith(".html")
+        const particle = new Particle(program)
+        this.program = particle
+        const generateColorBinningString = (data, colors) => {
+         const sortedData = [...data].sort((a, b) => a - b);
+         const n = sortedData.length;
+         const numBins = colors.length;
+         // Calculate the indices for each quantile
+         const indices = [];
+         for (let i = 1; i  Math.round(sortedData[index]));
+         // Generate the string
+         let result = '';
+         colors.forEach((color, index) => {
+           const threshold = index === colors.length - 1 ? thresholds[index - 1] * 2 : thresholds[index];
+           result += `${color} ${threshold}\n`;
+         });
+         return result.trim();
+        }
+        const buildScale = (table) => {
+          const numbers = table.split("\n").map(line => line.split(" ")).flat().filter(atom => !isDirective(atom)).map(atom => parseFloat(atom)).filter(number => !isNaN(number))
+          const colors = ['#ebedf0', '#c7e9c0', '#a1d99b', '#74c476', '#41ab5d', '#238b45', '#005a32'];
+          numbers.unshift(0)
+          return generateColorBinningString(numbers, colors);
+        }
+        const table = particle.getParticle("table").subparticlesToString()
+        const scale = particle.getParticle("scale")?.subparticlesToString() || buildScale(table)
+        const thresholds = []
+        const colors = []
+        scale.split("\n").map((line) => {
+          const parts = line.split(" ")
+          thresholds.push(parseFloat(parts[1]))
+          colors.push(parts[0])
+        })
+        const colorCount = colors.length
+        const colorFunction = (value) => {
+          if (isNaN(value)) return "" // #ebedf0
+          for (let index = 0; index 
+          directives
+            .filter((directive) => directive.startsWith(letter))
+            .map((dir) => dir.replace(letter, "") + "px")[0] ?? ""
+        this.table = table.split("\n").map((line) =>
+          line
+            .trimEnd()
+            .split(" ")
+            .map((atom) => {
+              const atoms = atom.split(directiveDelimiter).filter((atom) => !isDirective(atom)).join("")
+              const directivesInThisAtom = atom
+                .split(directiveDelimiter)
+                .filter(isDirective)
+              const value = parseFloat(atoms)
+              const label = atoms.includes("'") ? atoms.split("'")[1] : atoms
+              const alignment = directivesInThisAtom.includes("right")
+                ? "right"
+                : directivesInThisAtom.includes("left")
+                ? "left"
+                : ""
+              const color = colorFunction(value)
+              const width = getSize(directivesInThisAtom, "w")
+              const height = getSize(directivesInThisAtom, "h")
+              const fontSize = getSize(directivesInThisAtom, "f")
+              const lineHeight = getSize(directivesInThisAtom, "l") || height
+              const link = directivesInThisAtom.filter(i => i.startsWith("http") || i.endsWith(".html"))[0]
+              const style = {
+                "background-color": color,
+                width,
+                height,
+                "font-size": fontSize,
+                "line-height": lineHeight,
+                "text-align": alignment,
+              }
+              Object.keys(style).filter(key => !style[key]).forEach((key) => delete style[key])
+              return {
+                value,
+                label,
+                style,
+                link,
+              }
+            })
+        )
+      }
+      get html() {
+        const { program } = this
+        const cssId = `#heatrix${this.uid}`
+        const defaultWidth = "40px"
+        const defaultHeight = "40px"
+        const fontSize = "10px"
+        const lineHeight = defaultHeight
+        const style = `
+        .heatrixContainer {
+          margin: auto;
+        }.heatrixRow {white-space: nowrap;}
+    ${cssId} .heatrixAtom {
+      font-family: arial;
+      border-radius: 2px;
+      border: 1px solid transparent;
+      display: inline-block;
+      margin: 1px;
+      text-align: center;
+      vertical-align: middle;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .heatrixAtom a {
+      color: black;
+    }
+    ${cssId} .heatrixAtom{
+     width: ${defaultWidth};
+     height: ${defaultHeight};
+     font-size: ${fontSize};
+     line-height: ${lineHeight};
+    }
+    `
+        const firstRow = this.table[0]
+        return (
+          `${style}` +
+          this.table
+            .map((row, rowIndex) => {
+              if (!rowIndex) return ""
+              const rowStyle = row[0].style
+              return `${row
+                .map((atom, columnIndex) => {
+                  if (!columnIndex) return ""
+                  const columnStyle = firstRow[columnIndex]?.style || {}
+                  let { value, label, style, link } = atom
+                  const extendedStyle = Object.assign(
+                    {},
+                    rowStyle,
+                    columnStyle,
+                    style
+                  )
+                  const inlineStyle = Object.keys(extendedStyle)
+                    .map((key) => `${key}:${extendedStyle[key]};`)
+                    .join("")
+                  let valueClass = value ? " valueAtom" : ""
+                  const href = link ? ` href="${link}"` : ""
+                  return `${label}`
+                })
+                .join("")}`
+            })
+            .join("\n") +
+          ""
+        ).replace(/\n/g, "")
+      }
+    }
+      return new Heatrix(this.subparticlesToString().trim()).html
+    }
+  
+ homeButton.parsers
+  homeButtonParser
+   popularity 0.006391
+   description Home button.
+   extends abstractIconButtonParser
+   catchAllAtomType urlAtom
+   string style left:2rem;
+   string svg 
+   javascript
+    get link() {
+      return this.content || this.get("link") || "index.html"
+    }
+ hoverNote.parsers
+  lineOfTextParser
+   popularity 0.000289
+   catchAllAtomType stringAtom
+   boolean isTextParser true
+  hoverNoteParser
+   popularity 0.000265
+   description Add a caveat viewable on hover on matching text. When you want to be sure you've thoroughly addressed obvious concerns but ones that don't warrant to distract from the main argument of the text.
+   cueFromId
+   extends classMarkupParser
+   catchAllParser lineOfTextParser
+   atoms cueAtom
+   javascript
+    get pattern() {
+     return this.getAtomsFrom(1).join(" ")
+    }
+    get attributes() {
+     return [`class="scrollHoverNote"`, `title="${this.hoverNoteText}"`]
+    }
+    get hoverNoteText() {
+     return this.subparticlesToString().replace(/\n/g, " ")
+    }
+ html.parsers
+  buildHtmlParser
+   popularity 0.007645
+   description Compile to HTML file.
+   extends abstractBuildCommandParser
+   boolean isPopular true
+  
+  quickIncludeHtmlParser
+   popularity 0.007524
+   description Include an HTML file.
+   extends abstractQuickIncludeParser
+   atoms urlAtom
+   pattern ^[^\s]+\.(html|htm)$
+   javascript
+    compile() {
+     return this.root.readFile(this.filename)
+    }
+  
+  htmlAnyAtom
+   extends stringAtom
+  
+  abstractHtmlParser
+   extends abstractScrollParser
+   catchAllParser htmlLineParser
+   catchAllAtomType htmlAnyAtom
+   javascript
+    compile() {
+     return `${this.content ?? ""}${this.subparticlesToString()}`
+    }
+    compileTxt() {
+      return ""
+    }
+  
+  scrollBrParser
+   popularity 0.000096
+   cue br
+   description A break.
+   extends abstractScrollParser
+   catchAllAtomType integerAtom
+   boolean isHtml true
+   javascript
+    compile() {
+     return ``.repeat(parseInt(this.getAtom(1) || 1))
+    }
+  
+  htmlParser
+   popularity 0.000048
+   extends abstractHtmlParser
+   description HTML one liners or blocks.
+   cueFromId
+  
+  htmlLineParser
+   popularity 0.005209
+   catchAllAtomType htmlAnyAtom
+   catchAllParser htmlLineParser
+  
+  htmlInlineParser
+   popularity 0.005788
+   extends abstractHtmlParser
+   atoms htmlAnyAtom
+   boolean isHtml true
+   pattern ^.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}${this.svg}`
+    }
+  
+ iframe.parsers
+  iframesParser
+   popularity 0.000121
+   cueFromId
+   catchAllAtomType urlAtom
+   extends abstractScrollParser
+   description An iframe(s).
+   example
+    iframes frame.html
+   javascript
+    compile() {
+     return this.atoms.slice(1).map(url => ``).join("\n")
+    }
+ images.parsers
+  captionAftertextParser
+   popularity 0.003207
+   description An image caption.
+   cue caption
+   extends paragraphParser
+   boolean isPopular true
+  
+  abstractCaptionedParser
+   extends abstractScrollParser
+   atoms cueAtom urlAtom
+   inScope captionAftertextParser slashCommentParser
+   cueFromId
+   javascript
+    compile(compileSettings) {
+     const caption = this.getParticle("caption")
+     const captionFig = caption ? `${caption.compile()}` : ""
+     const {figureWidth} = this
+     const widthStyle = figureWidth ? `width:${figureWidth}px; margin: auto;` : ""
+     const float = this.has("float") ? `margin: 20px; float: ${this.get("float")};` : ""
+     return `${this.getFigureContent(compileSettings)}${captionFig}`
+    }
+    get figureWidth() {
+      return this.get("width")
+    }
+  
+  openGraphParser
+   // todo: fix Parsers scope issue so we can move this parser def under scrollImageParser
+   description Add this line to make this the open graph image.
+   cueFromId
+   atoms cueAtom
+  
+  scrollImageParser
+   cue image
+   popularity 0.005908
+   description An img tag.
+   boolean isPopular true
+   extends abstractCaptionedParser
+   int atomIndex 1
+   example
+    image screenshot.png
+     caption A caption.
+   inScope classMarkupParser aftertextIdParser linkParser linkTargetParser openGraphParser
+   javascript
+    get dimensions() {
+      const width = this.get("width")
+      const height = this.get("height")
+      if (width || height)
+        return {width, height}
+      if (!this.isNodeJs())
+        return {}
+      const src = this.filename
+      // If its a local image, get the dimensions and put them in the HTML
+      // to avoid flicker
+     if (src.startsWith("http:") || src.startsWith("https:")) return {}
+     const file = this.root.file
+      if (this._dimensions)
+        return this._dimensions
+      try {
+       const sizeOf = require("image-size")
+       const path = require("path")
+       const fullImagePath = path.join(file.folderPath, src)
+       this._dimensions = sizeOf(fullImagePath)
+       return this._dimensions
+      } catch (err) {
+       console.error(err)
+      }
+      return {}
+    }
+    get figureWidth() {
+      return this.dimensions.width
+    }
+    get filename() {
+      return this.getAtom(this.atomIndex)
+    }
+    getFigureContent(compileSettings) {
+     const file = this.root.file
+     const linkRelativeToCompileTarget = (compileSettings ? (compileSettings.relativePath ?? "") : "") + this.filename
+     const {width, height} = this.dimensions
+     let dimensionAttributes = width || height  ? `width="${width}" height="${height}" ` : ""
+     // Todo: can we reuse more code from aftertext?
+     const className = this.has("class") ? ` class="${this.get("class")}" ` : ""
+     const id = this.has("id") ? ` id="${this.get("id")}" ` : ""
+     const clickLink = this.find(particle => particle.definition.isOrExtendsAParserInScope(["linkParser"])) || linkRelativeToCompileTarget 
+     const target = this.has("target") ? this.get("target") : (this.has("link") ? "" : "_blank")
+     return ``
+    }
+    compileTxt() {
+      const subparticles = this.filter(particle => particle.compileTxt).map(particle => particle.compileTxt()).filter(i => i).join("\n")
+      return  "[Image Omitted]" + (subparticles ? "\n " + subparticles.replace(/\n/g, "\n ") : "")
+    }
+  
+  quickImageParser
+   popularity 0.005788
+   extends scrollImageParser
+   atoms urlAtom
+   pattern ^[^\s]+\.(jpg|jpeg|png|gif|webp|svg|bmp)
+   int atomIndex 0
+ import.parsers
+  importParser
+   description Import a file.
+   popularity 0.007524
+   cueFromId
+   atoms preBuildCommandAtom
+   extends abstractScrollParser
+   catchAllAtomType filePathAtom
+   javascript
+    compile() {
+     return ""
+    }
+   example
+    import header.scroll
+  
+  quickImportParser
+   popularity 0.007524
+   description Import a Scroll or Parsers file.
+   extends abstractScrollParser
+   boolean isPopular true
+   atoms urlAtom
+   pattern ^[^\s]+\.(scroll|parsers)$
+   javascript
+    compile() {
+     return ""
+    }
+   example
+    header.scroll
+  
+  importOnlyParser
+   popularity 0.033569
+   // This line will be not be imported into the importing file.
+   description Don't build this file.
+   cueFromId
+   atoms preBuildCommandAtom
+   extends abstractTopLevelSingleMetaParser
+   javascript
+    compile() {
+     return ""
+    }
+  
+  abstractQuickIncludeParser
+   popularity 0.007524
+   extends abstractScrollParser
+   atoms urlAtom
+   javascript
+    get filename() {
+      return this.getAtom(0)
+    }
+ inlineMarkups.parsers
+  inlineMarkupNameAtom
+   description Options to turn on some inline markups.
+   enum bold italics code katex none
+  
+  inlineMarkupsParser
+   popularity 0.000024
+   description Set global inline markups.
+   extends abstractTopLevelSingleMetaParser
+   cueFromId
+   example
+    inlineMarkups
+     * 
+      // Disable * for bold
+     _ u
+      // Make _ underline
+  
+  inlineMarkupsOnParser
+   popularity 0.000024
+   cueFromId
+   description Enable these inline markups only.
+   example
+    Hello *world*!
+     inlineMarkupsOn bold
+   extends abstractAftertextDirectiveParser
+   catchAllAtomType inlineMarkupNameAtom
+   javascript
+    get shouldMatchAll() {
+     return true
+    }
+    get markups() {
+      const {root} = this
+      let markups = [{delimiter: "`", tag: "code", exclusive: true, name: "code"},{delimiter: "*", tag: "strong", name: "bold"}, {delimiter: "_", tag: "em", name: "italics"}]
+      // only add katex markup if the root doc has katex.
+      if (root.has("katex"))
+        markups.unshift({delimiter: "$", tag: "span", attributes: ' class="scrollKatex"', exclusive: true, name: "katex"})
+      if (this.content)
+        return markups.filter(markup => this.content.includes(markup.name))
+      if (root.has("inlineMarkups")) {
+        root.getParticle("inlineMarkups").forEach(markup => {
+          const delimiter = markup.getAtom(0)
+          const tag = markup.getAtom(1)
+          // todo: add support for providing custom functions for inline markups?
+          // for example, !2+2! could run eval, or :about: could search a link map.
+          const attributes = markup.getAtomsFrom(2).join(" ")
+          markups = markups.filter(mu => mu.delimiter !== delimiter) // Remove any overridden markups
+          if (tag)
+            markups.push({delimiter, tag, attributes})
+        })
+      }
+      return markups
+    }
+    matchWholeLine = true
+    getMatches(text) {
+     const exclusives = []
+     return this.markups.map(markup => this.applyMarkup(text, markup, exclusives)).filter(i => i).flat()
+    }
+    applyMarkup(text, markup, exclusives = []) {
+     const {delimiter, tag, attributes} = markup
+     const escapedDelimiter = delimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+     const pattern = new RegExp(`${escapedDelimiter}[^${escapedDelimiter}]+${escapedDelimiter}`, "g")
+     const delimiterLength = delimiter.length
+     return [...text.matchAll(pattern)].map(match => {
+      const { index } = match
+      const endIndex = index + match[0].length
+      // I'm too lazy to clean up sdk to write a proper inline markup parser so doing this for now.
+      // The exclusive idea is to not try and apply bold or italic styles inside a TeX or code inline style.
+      // Note that the way this is currently implemented any TeX in an inline code will get rendered, but code
+      // inline of TeX will not. Seems like an okay tradeoff until a proper refactor and cleanup can be done.
+      if (exclusives.some(exclusive => index >= exclusive[0] && index `, endIndex, consumeStartCharacters: delimiterLength },
+       { index: endIndex, endIndex, string: ``, consumeEndCharacters: delimiterLength }
+      ]
+     }).filter(i => i)
+    }
+  
+  inlineMarkupParser
+   popularity 0.000169
+   cueFromId
+   atoms cueAtom delimiterAtom tagOrUrlAtom
+   catchAllAtomType htmlAttributesAtom
+   extends inlineMarkupsOnParser
+   description Custom inline markup. for
+   example
+    @This@ will be in italics.
+     inlineMarkup @ em
+   javascript
+    getMatches(text) {
+     try {
+      const delimiter = this.getAtom(1)
+      const tag = this.getAtom(2)
+      const attributes = this.getAtomsFrom(3).join(" ")
+      return this.applyMarkup(text, {delimiter, tag, attributes})
+     } catch (err) {
+      console.error(err)
+      return []
+     }
+     // Note: doubling up doesn't work because of the consumption characters.
+    }
+ javascript.parsers
+  quickScriptParser
+   popularity 0.007524
+   description Make a Javascript tag.
+   extends abstractQuickIncludeParser
+   atoms urlAtom
+   pattern ^[^\s]+\.(js)$
+   javascript
+    compile() {
+     return ``
+    }
+ json.parsers
+  jsonScriptParser
+   popularity 0.007524
+   cueFromId
+   description Include JSON and assign to window.
+   extends abstractScrollParser
+   atoms cueAtom urlAtom
+   javascript
+    compile() {
+     const varName = this.filename.split("/").pop().replace(".json", "")
+     return `window.${varName} = ${this.root.readFile(this.filename)}`
+    }
+    get filename() {
+       return this.getAtom(1)
+    }
+ katex.parsers
+  // todo: copy the external library to folder so it works offline?
+  katexParser
+   popularity 0.001592
+   extends abstractScrollWithRequirementsParser
+   catchAllAtomType codeAtom
+   catchAllParser lineOfCodeParser
+   example
+    katex
+     \text{E} = \text{T} / \text{A}!
+   description KaTex widget for typeset math.
+   string copyFromExternal katex.min.css katex.min.js
+   string requireOnce
+    
+    
+    
+    document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollKatex").forEach(el =>
+     {
+      katex.render(el.innerText, el, {
+          throwOnError: false
+      });
+     }
+    ))
+    
+   javascript
+    compileInstance() {
+     const id = this._getUid()
+     const content = this.content === undefined ? "" : this.content
+     return `${content + this.subparticlesToString()}`
+    }
+    compileTxt() {
+      return ( this.content ? this.content : "" )+ this.subparticlesToString()
+    }
+ keyboardNav.parsers
+  scrollLeftRightButtonsParser
+   popularity 0.006342
+   cue leftRightButtons
+   description Previous and next nav buttons.
+   extends abstractScrollParser
+   javascript
+    compileEmbeddedVersion() {
+     return ""
+    }
+    compile() {
+      const file = this.parent.file
+      const { linkToPrevious, linkToNext } = file
+      if (!linkToPrevious) return ""
+      const style = `a.keyboardNav {display:block;position:absolute;top:0.25rem; color: rgba(204,204,204,.8); font-size: 1.875rem; line-height: 1.7rem;}a.keyboardNav:hover{color: #333;text-decoration: none;}`
+      return `${style}&lt;&gt;`
+    }
+  
+  keyboardNavParser
+   popularity 0.007476
+   description Make left and right navigate files.
+   extends abstractScrollParser
+   cueFromId
+   catchAllAtomType urlAtom
+   javascript
+    compileEmbeddedVersion() {
+     return ""
+    }
+    compile() {
+     const file = this.root.file
+     const linkToPrevious = this.getAtom(1) ?? file.linkToPrevious
+     const linkToNext = this.getAtom(2) ?? file.linkToNext
+     const script = `document.addEventListener('keydown', function(event) {
+      if (document.activeElement !== document.body) return
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return // dont interfere with keyboard back button shortcut
+      const getLinks = () => document.getElementsByClassName("scrollKeyboardNav")[0].getElementsByTagName("a")
+      if (event.key === "ArrowLeft")
+        getLinks()[0].click()
+      else if (event.key === "ArrowRight")
+        getLinks()[1].click()
+     });`
+     return `${linkToPrevious} · ${file.permalink} · ${linkToNext}${script}`
+    }
+ leetsheet.parsers
+  printUsageStatsParser
+   popularity 0.000096
+   // todo: if we include the atom "Parser" in a cue, bad things seem to happen.
+   description Parser usage stats for folder.
+   extends abstractScrollParser
+   cueFromId
+   javascript
+    get stats() {
+     const input = this.root.file.allScrollFiles.map(file => file.parserIds.join("\n")).join("\n")
+     const result = input.split('\n').reduce((acc, atom) => (acc[atom] = (acc[atom] || 0) + 1, acc), {})
+     const rows = Object.entries(result).map(([atom, count]) => { return {atom, count}})
+     const sorted = this.lodash.sortBy(rows, "count").reverse()
+     return "parserId uses\n" + sorted.map(row => `${row.atom} ${row.count}`).join('\n')
+    }
+    get lodash() {
+      return this.isNodeJs() ? require("lodash") : lodash
+    }
+    compile() {
+      // A hacky but simple way to do this for now.
+     const particle = this.appendSibling("table")
+     particle.appendLine("delimiter  ")
+     particle.appendLine("printTable")
+     const dataParticle = particle.appendLine("data")
+      dataParticle.setSubparticles(this.stats)
+     const html = particle.compile()
+     particle.destroy()
+     return html
+    }
+    compileTxt() {
+      return this.stats
+    }
+    compileCsv() {
+      return this.stats.replace(/ /g, ",")
+    }
+  
+  // todo: these should not be parsers in stdlib, but should be made through componsition of more reusable parsers in a dataflow style.
+  
+  printScrollLeetSheetParser
+   popularity 0.000024
+   description Print Scroll parser leet sheet.
+   extends abstractScrollParser
+   cueFromId
+   javascript
+    get parsersToDocument() {
+      const clone = this.root.clone()
+      clone.setSubparticles("")
+      const atoms = clone.getAutocompleteResultsAt(0,0).matches.map(a => a.text)
+      atoms.push("blankline") // manually add blank line
+      atoms.push("Catch All Paragraph.") // manually add catch all paragraph
+      atoms.push("") // manually add html
+      atoms.sort()
+      clone.setSubparticles(atoms.join("\n").replace(/blankline/, "")) // insert blank line in right spot
+      return clone
+    }
+    sortDocs(docs) {
+      return docs.map(particle => {
+        const {definition} = particle
+        const {id, description, isPopular, examples, popularity} = definition
+        const tags = definition.get("tags") || ""
+        if (tags.includes("deprecate") || tags.includes("experimental"))
+          return null
+        const category = this.getCategory(tags)
+        const note = this.getNote(category)
+        return {id: definition.cueIfAny || id, description, isPopular, examples, note, popularity: Math.ceil(parseFloat(popularity) * 100000)}
+       }).filter(i => i).sort((a, b) => a.id.localeCompare(b.id))
+    }
+    makeLink(examples, cue) {
+      // if (!examples.length) console.log(cue) // find particles that need docs
+      const example = examples.length ? examples[0].subparticlesToString() : cue
+      const base = `https://try.scroll.pub/`
+      const particle = new Particle()
+      particle.appendLineAndSubparticles("scroll", "theme gazette\n" + example)
+      return base + "#" + encodeURIComponent(particle.asString)
+    }
+    docToHtml(doc) {
+     const css = `#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }`
+     return `${css}` + doc.map(obj => `${obj.isPopular ? "" : ""}${obj.id} ${obj.description}${obj.isPopular ? "" : ""}${obj.note}`).join("\n") + ""
+    }
+    compile() {
+      return this.docToHtml(this.sortDocs(this.parsersToDocument))
+    }
+    compileTxt() {
+     return this.sortDocs(this.parsersToDocument).map(obj => `${obj.id} - ${obj.description}`).join("\n")
+    }
+    get lodash() {
+      return require("lodash")
+    }
+    getCategory(input) {
+      return ""
+    }
+    getNote() {
+      return ""
+    }
+    compileCsv() {
+      const rows = this.sortDocs(this.parsersToDocument).map(obj => {
+        const {id, isPopular, description, popularity, category} = obj
+        return {
+          id,
+          isPopular,
+          description,
+          popularity,
+          category
+        }
+      })
+      return new Particle(this.lodash.sortBy(rows, "isPopular")).asCsv
+    }
+  
+  printparsersLeetSheetParser
+   popularity 0.000024
+   // todo: fix parse bug when atom Parser appears in parserId
+   extends printScrollLeetSheetParser
+   description Parsers leetsheet.
+   javascript
+    compile() {
+      return "Parser Definition Parsers define parsers that acquire, analyze and act on code." + this.docToHtml(this.sortDocs(this.parsersToDocument)) + "Atom Definition Parsers analyze the atoms in a line." + this.docToHtml(this.sortDocs(this.atomParsersToDocument))
+    }
+    makeLink() {
+      return ""
+    }
+    categories = "assemblePhase acquirePhase analyzePhase actPhase".split(" ")
+    getCategory(tags) {
+      return tags.split(" ").filter(w => w.endsWith("Phase"))[0]
+    }
+    getNote(category) {
+      return ` A${category.replace("Phase", "").substr(1)}Time.`
+    }
+    get atomParsersToDocument() {
+      const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
+      const clone = new parsersParser("anyAtom\n ").clone()
+      const parserParticle = clone.getParticle("anyAtom")
+      const atoms = clone.getAutocompleteResultsAt(1,1).matches.map(a => a.text)
+      atoms.sort()
+      parserParticle.setSubparticles(atoms.join("\n"))
+      return parserParticle
+    }
+    get parsersToDocument() {
+      const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
+      const clone = new parsersParser("latinParser\n ").clone()
+      const parserParticle = clone.getParticle("latinParser")
+      const atoms = clone.getAutocompleteResultsAt(1,1).matches.map(a => a.text)
+      atoms.sort()
+      parserParticle.setSubparticles(atoms.join("\n"))
+      clone.appendLine("myParser")
+      clone.appendLine("myAtom")
+      return parserParticle
+    }
+  
+  
+ links.parsers
+  linkifyParser
+   description Use this to disable linkify on the text.
+   extends abstractAftertextDirectiveParser
+   cueFromId
+   atoms cueAtom booleanAtom
+  
+  linkTargetParser
+   popularity 0.000024
+   extends abstractHtmlAttributeParser
+   description If you want to set the target of the link. To "_blank", for example.
+   cue target
+   atoms cueAtom anyAtom
+  
+  linkTitleParser
+   popularity 0.000048
+   description If you want to set the title of the link.
+   cue title
+   atoms cueAtom
+   catchAllAtomType anyAtom
+   example
+    * This report showed the treatment had a big impact.
+     https://example.com/report This report.
+      title The average growth in the treatment group was 14.2x higher than the control group.
+  
+  programLinkParser
+   popularity 0.000531
+   catchAllAtomType codeAtom
+  
+  linkParser
+   popularity 0.008706
+   extends abstractMarkupParser
+   description Put the matching text in an  tag.
+   atoms cueAtom urlAtom
+   inScope linkTitleParser linkTargetParser commentParser
+   programParser
+    description Anything here will be URI encoded and then appended to the link.
+    cueFromId
+    atoms cueAtom
+    catchAllParser programLinkParser
+    javascript
+     get encoded() {
+      return encodeURIComponent(this.subparticlesToString())
+     }
+   cueFromId
+   javascript
+    tag = "a"
+    compileTxt() {
+      return this.root.file.ensureAbsoluteLink(this.link) + " " + this.pattern
+    }
+    get link() {
+     const {baseLink} = this
+     if (this.has("program"))
+       return baseLink + this.getParticle("program").encoded
+     return baseLink
+    }
+    get baseLink() {
+     const link = this.getAtom(1)
+     const isAbsoluteLink = link.includes("://")
+     if (isAbsoluteLink) return link
+     const relativePath = this.parent.compileSettings?.relativePath || ""
+     return relativePath + link
+    }
+    get attributes() {
+     const attrs = [`href="${this.link}"`]
+     const options = ["title", "target"]
+     options.forEach(option => {
+      const particle = this.getParticle(option)
+      if (particle) attrs.push(`${option}="${particle.content}"`)
+     })
+     return attrs
+    }
+    patternStartsAtAtom = 2
+  
+  emailLinkParser
+   popularity 0.000048
+   description A mailto link
+   cue email
+   extends linkParser
+   javascript
+    get attributes() {
+     return [`href="mailto:${this.link}"`]
+    }
+  
+  quickLinkParser
+   popularity 0.029228
+   pattern ^https?\:
+   extends linkParser
+   atoms urlAtom
+   javascript
+    get link() {
+     return this.cue
+    }
+    patternStartsAtAtom = 1
+  
+  quickRelativeLinkParser
+   popularity 0.029228
+   description Relative links.
+   // note: only works if relative link ends in .html
+   pattern ^[^\s]+\.(html|htm)
+   extends linkParser
+   atoms urlAtom
+   javascript
+    get link() {
+     return this.cue
+    }
+    patternStartsAtAtom = 1
+  
+ list.parsers
+  listAftertextParser
+   popularity 0.014325
+   extends abstractIndentableParagraphParser
+   example
+    - I had a _new_ thought.
+   description A list item.
+   cue -
+   javascript
+    defaultClassName = ""
+    compile() {
+     const {index, parent} = this
+     const particleClass = this.constructor
+     const isStartOfList = index === 0 || !(parent.particleAt(index - 1) instanceof particleClass)
+     const isEndOfList = parent.length === index + 1 || !(parent.particleAt(index + 1) instanceof particleClass)
+     const { listType } = this
+     return (isStartOfList ? `` : "") + `${super.compile()}` + (isEndOfList ? `` : "")
+    }
+    get attributes() {
+      return ""
+    }
+    tag = "li"
+    listType = "ul"
+  
+  abstractCustomListItemParser
+   extends listAftertextParser
+   javascript
+    get requireOnce() {
+      return `\n.${this.constructor.name} li::marker {content: "${this.cue} ";}\n`
+    }
+    get attributes() {
+      return `class="${this.constructor.name}"`
+    }
+  
+  orderedListAftertextParser
+   popularity 0.004485
+   extends listAftertextParser
+   description A list item.
+   example
+    1. Hello world
+   pattern ^\d+\. 
+   javascript
+    listType = "ol"
+    get attributes() { return ` start="${this.getAtom(0)}"`}
+ loops.parsers
+  abstractPostLoopParser
+   description Do something with all posts. Takes an optional list of folder/group names.
+   extends abstractScrollParser
+   cueFromId
+   atoms cueAtom
+   catchAllAtomType tagWithOptionalFolderAtom
+   javascript
+    get files() {
+     return this.root.file.getFilesWithTagsForEmbedding(this.content)
+    }
+  
+  scrollLoopParser
+   popularity 0.000024
+   extends abstractAftertextParser
+   atoms cueAtom
+   boolean isTableVisualization true
+   description Iterate over files+ to make HTML.
+   cue loop
+   inScope abstractItemsProviderParser
+   joinParser
+    extends abstractLoopConfigParser
+    description HTML to use to join the items.
+   limitParser
+    extends abstractLoopConfigParser
+    description HTML to use to join the items.
+   javascriptParser
+    extends abstractLoopConfigParser
+    description Javascript to execute for each file in the loop.
+   javascript
+    compile() {
+     const code = this.get("javascript")
+     const joinWith = this.get("join") ?? ""
+     try {
+      const limit = this.get("limit")
+      let items = this.items
+      if (limit) items = items.slice(0, parseInt(limit))
+      return items.map((item, index) => eval(code)).join(joinWith)
+     } catch (err) {
+      console.error(err)
+      return ""
+     } finally {
+      this.teardown()
+     }
+    }
+    get items() {
+     const provider = this.getSubparticleInstancesOfParserId("abstractItemsProviderParser")[0]
+     if (provider)
+       return provider.items
+     if (this.parent.coreTable)
+       return this.parent.coreTable
+     return []
+    }
+    teardown() {}
+  
+  abstractLoopConfigParser
+   atoms cueAtom
+   cueFromId
+   catchAllAtomType stringAtom
+  
+  // Extend this if you want to create a new provider
+  abstractItemsProviderParser
+   atoms cueAtom
+  
+  // Some basic providers:
+  loopLinesParser
+   cue lines
+   extends abstractItemsProviderParser
+   description Iterate over the provided lines.
+   catchAllParser loopLineParser
+   loopLineParser
+    catchAllAtomType stringAtom
+   javascript
+    get items() {
+     return this.map(particle => particle.asString)
+    }
+  
+  loopAtomsParser
+   popularity 0.000024
+   cue atoms
+   extends abstractItemsProviderParser
+   catchAllAtomType stringAtom
+   description Iterate over the provided atoms.
+   javascript
+    get items() {
+     return this.getAtomsFrom(1)
+    }
+  
+  loopTagsParser
+   cue tags
+   extends abstractItemsProviderParser
+   catchAllAtomType tagWithOptionalFolderAtom
+   description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[tag]
+   javascript
+    get items() {
+     return this.root.file.getFilesWithTagsForEmbedding(this.content)
+    }
+ loremIpsum.parsers
+  loremIpsumParser
+   extends abstractAftertextParser
+   cueFromId
+   description Generate dummy text.
+   catchAllAtomType integerAtom
+   javascript
+    text = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+    compile() {
+     return this.text.repeat(this.howMany)
+    }
+    get howMany() {
+      return this.getAtom(1) ? parseInt(this.getAtom(1)) : 1
+    }
+  
+  nickelbackIpsumParser
+   extends loremIpsumParser
+   javascript
+    text = `And one day, I’ll be at the door. And lose your wings to fall in love? To the bottom of every bottle. I’m on the ledge of the eighteenth story. Why must the blind always lead the blind?`
+ maps.parsers
+  tileOptionAtom
+   enum default light
+  
+  mapParser
+   latParser
+    atoms cueAtom floatAtom
+    cueFromId
+    single
+   longParser
+    atoms cueAtom floatAtom
+    cueFromId
+    single
+   tilesParser
+    atoms cueAtom tileOptionAtom
+    cueFromId
+    single
+   zoomParser
+    atoms cueAtom integerAtom
+    cueFromId
+    single
+   geolocateParser
+    description Geolocate user.
+    atoms cueAtom
+    cueFromId
+    single
+   radiusParser
+    atoms cueAtom floatAtom
+    cueFromId
+    single
+   fillOpacityParser
+    atoms cueAtom floatAtom
+    cueFromId
+    single
+   fillColorParser
+    atoms cueAtom anyAtom
+    cueFromId
+    single
+   colorParser
+    atoms cueAtom anyAtom
+    cueFromId
+    single
+   heightParser
+    atoms cueAtom floatAtom
+    cueFromId
+    single
+   hoverParser
+    atoms cueAtom
+    catchAllAtomType anyAtom
+    cueFromId
+    single
+   extends abstractTableVisualizationParser
+   description Map widget.
+   string copyFromExternal leaflet.css leaflet.js scrollLibs.js
+   string requireOnce
+    
+    
+    
+   javascript
+    compileInstance() {
+     const height = this.get("height") || 500
+     const id = this._getUid()
+     const obj = this.toObject()
+     const template = {}
+     const style = height !== "full" ? `height: ${height}px;` : `height: 100%; position: fixed; z-index: -1; left: 0; top: 0; width: 100%;`
+     const strs = ["color", "fillColor"]
+     const nums = ["radius", "fillOpacity"]
+      strs.filter(i => obj[i]).forEach(i => template[i] = obj[i])
+      nums.filter(i => obj[i]).forEach(i => template[i] = parseFloat(obj[i]))
+      const mapId = `map${id}`
+     return `
+    
+     {
+        if (!window.maps) window.maps = {}
+         const moveToMyLocation = () => {
+          if (!navigator.geolocation) return
+          navigator.geolocation.getCurrentPosition((position) => {
+              const { latitude, longitude } = position.coords
+              window.maps.${mapId}.setView([latitude, longitude])
+          }, () => {})
+        }
+      const lat = ${this.get("lat") ?? 37.8}
+      const long = ${this.get("long") ?? 4}
+      if (${this.has("geolocate")})
+          moveToMyLocation()
+      const zoomLevel = ${this.get("zoom") ?? 4}
+      const hover = '${this.get("hover") || "{title}{description}"}'
+      const template = ${JSON.stringify(template)}
+      const points = ${JSON.stringify((this.parent.coreTable || []).filter(point => point.lat && point.long), undefined, 2)}
+      window.maps.${mapId} = L.map("map${id}").setView([lat, long], zoomLevel)
+      const map = window.maps.${mapId}
+      const tileOptions = {
+      "default": {
+          baseLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          attribution: 'OpenStreetMap contributors'
+      },
+      light: {
+          baseLayer: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+          attribution: 'OpenStreetMap contributors CARTO'
+      },
+      }
+      const {baseLayer, attribution} = tileOptions.${this.get("tiles") || "default"}
+      L.tileLayer(baseLayer, {
+      attribution,
+      maxZoom: 19
+      }).addTo(map);
+      points.forEach(point => {
+       L.circleMarker([point.lat, point.long], {...template, ...Object.fromEntries(
+              Object.entries(point).filter(([key, value]) => value !== null)
+          )})
+        .addTo(map)
+        .bindPopup(new Particle(point).evalTemplateString(hover))
+      })
+     }
+    `
+    }
+ measures.parsers
+  measureNameAtom
+   extends cueAtom
+   // A regex for column names for max compatibility with a broad range of data science tools:
+   regex [a-zA-Z][a-zA-Z0-9]*
+  
+  buildMeasuresParser
+   popularity 0.000024
+   cueFromId
+   description Write measures to csv+ files.
+   extends abstractBuildCommandParser
+   sortByParser
+    cueFromId
+    atoms cueAtom anyAtom
+  
+  // The main measure parser. All measures should extend from this.
+  abstractMeasureParser
+   atoms measureNameAtom
+   cueFromId
+   boolean isMeasure true
+   float sortIndex 1.9
+   boolean isComputed false
+   string typeForWebForms text
+   extends abstractScrollParser
+   javascript
+    compileEmbeddedVersion() {
+     return ""
+    }
+    compile() {
+     return ""
+    }
+    get measureValue() {
+      return this.content ?? ""
+    }
+    get measureName() {
+      return this.getCuePath().replace(/ /g, "_")
+    }
+  
+  // String Measures
+  abstractAtomMeasureParser
+   description A measure that contains a single atom.
+   atoms measureNameAtom atomAtom
+   extends abstractMeasureParser
+  
+  abstractStringMeasureParser
+   catchAllAtomType stringAtom
+   extends abstractMeasureParser
+  
+  abstractTextareaMeasureParser
+   string typeForWebForms textarea
+   extends abstractMeasureParser
+   baseParser blobParser
+   javascript
+    get measureValue() {
+      return this.subparticlesToString().replace(/\n/g, "\\n")
+    }
+  
+  abstractEmailMeasureParser
+   string typeForWebForms email
+   atoms measureNameAtom emailAddressAtom
+   extends abstractAtomMeasureParser
+  
+  // URL Parsers
+  abstractUrlMeasureParser
+   string typeForWebForms url
+   atoms measureNameAtom urlAtom
+   extends abstractAtomMeasureParser
+  
+  // Required ID measure which denotes a concept
+  abstractIdParser
+   cue id
+   description What is the ID of this concept?
+   extends abstractStringMeasureParser
+   float sortIndex 1
+   boolean isMeasureRequired true
+   boolean isConceptDelimiter true
+   javascript
+    getErrors() {
+      const errors = super.getErrors()
+      let requiredMeasureNames = this.parent.file.measures.filter(measure => measure.isMeasureRequired).map(measure => measure.Name).filter(name => name !== "id")
+      if (!requiredMeasureNames.length) return errors
+      let next = this.next
+      while (requiredMeasureNames.length && next.cue !== "id" && next.index !== 0) {
+        requiredMeasureNames = requiredMeasureNames.filter(i => i !== next.cue)
+        next = next.next
+      }
+      requiredMeasureNames.forEach(name =>
+        errors.push(this.makeError(`Concept "${this.content}" is missing required measure "${name}".`))
+      )
+      return errors
+    }
+  
+  // Numeric Measures
+  abstractNumericMeasureParser
+   string typeForWebForms number
+   extends abstractMeasureParser
+   javascript
+    get measureValue() {
+      const {content} = this
+      return content === undefined ? "" : parseFloat(content)
+    }
+  
+  abstractIntegerMeasureParser
+   atoms measureNameAtom integerAtom
+   extends abstractNumericMeasureParser
+  
+  abstractFloatMeasureParser
+   atoms measureNameAtom floatAtom
+   extends abstractNumericMeasureParser
+  
+  abstractPercentageMeasureParser
+   atoms measureNameAtom percentAtom
+   extends abstractNumericMeasureParser
+   javascript
+    get measureValue() {
+      const {content} = this
+      return content === undefined ? "" : parseFloat(content)
+    }
+  
+  // Enum Measures
+  abstractEnumMeasureParser
+   atoms measureNameAtom enumAtom
+   extends abstractMeasureParser
+  
+  // Boolean Measures
+  abstractBooleanMeasureParser
+   atoms measureNameAtom booleanAtom
+   extends abstractMeasureParser
+   javascript
+    get measureValue() {
+      const {content} = this
+      return content === undefined ? "" : content == "true"
+    }
+  
+ media.parsers
+  scrollMediaLoopParser
+   popularity 0.000048
+   cue loop
+   atoms cueAtom
+  scrollAutoplayParser
+   cue autoplay
+   atoms cueAtom
+  abstractMediaParser
+   extends paragraphParser
+   inScope scrollMediaLoopParser scrollAutoplayParser
+   int atomIndex 1
+   javascript
+    compileTxt() {
+      return ""
+    }
+    get filename() {
+      return this.getAtom(this.atomIndex)
+    }
+    getAsHtmlAttribute(attr) {
+      if (!this.has(attr)) return ""
+      const value = this.get(attr)
+      return value ? `${attr}="${value}"` : attr
+    }
+    getAsHtmlAttributes(list) {
+      return list.map(atom => this.getAsHtmlAttribute(atom)).filter(i => i).join(" ")
+    }
+    compile() {
+      return ``
+    }
+ metaTags.parsers
+  canonicalUrlParser
+   description Override canonical URL.
+   extends abstractUrlSettingParser
+  
+  abstractPrintMetaParser
+   extends abstractScrollParser
+   cueFromId
+  
+  
+  metaTagsParser
+   popularity 0.007693
+   cueFromId
+   extends abstractScrollParser
+   description Print meta tags including title.
+   javascript
+    compileEmbeddedVersion() {
+     return ""
+    }
+    compile() {
+     const { title, description, openGraphImage, SCROLL_VERSION, canonicalUrl, gitRepo } = this.parent.file
+     const rssFeedUrl = this.parent.get("rssFeedUrl")
+     const favicon = this.parent.get("favicon")
+     const faviconTag = favicon ? `` : ""
+     const rssTag = rssFeedUrl ? `` : ""
+     const gitTag = gitRepo ? `` : ""
+     return `
+     
+     ${title}
+     /* This HTML was generated by 📜 Scroll v${SCROLL_VERSION}. https://scroll.pub */
+     @media print {.doNotPrint {display: none !important;}}
+     
+     
+     
+     
+     
+     
+     
+     ${faviconTag}
+     ${gitTag}
+     ${rssTag}
+     
+    
+    `
+    }
+  
+  htmlLangParser
+   atoms metaCommandAtom stringAtom
+   // for the  tag. If not specified will be "en". See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
+   description Override HTML lang attribute.
+   extends abstractTopLevelSingleMetaParser
+ music.parsers
+  scrollMusicParser
+   popularity 0.000024
+   extends abstractMediaParser
+   cue music
+   description Play sound files.
+   example
+    music sipOfCoffee.m4a
+   javascript
+    compile() {
+      return ``
+    }
+  
+  quickSoundParser
+   popularity 0.000024
+   extends scrollMusicParser
+   atoms urlAtom
+   pattern ^[^\s]+\.(mp3|wav|ogg|aac|m4a|flac)
+   int atomIndex 0
+ notFound.parsers
+  helpfulNotFoundParser
+   popularity 0.000048
+   extends abstractScrollWithRequirementsParser
+   catchAllAtomType filePathAtom
+   string copyFromExternal helpfulNotFound.js
+   description Helpful not found widget.
+   javascript
+    compileInstance() {
+     return `#helpfulNotFound{margin: 100px 0;}document.addEventListener("DOMContentLoaded", () => new NotFoundApp('${this.content}'))`
+    }
+  
+ openGraph.parsers
+  openGraphDescriptionParser
+   popularity 0.001688
+   catchAllAtomType stringAtom
+   cue description
+   description Meta tag description.
+   extends abstractTopLevelSingleMetaParser
+  
+  openGraphImageParser
+   popularity 0.000796
+   // https://ogp.me/
+   // If not defined, Scroll will try to generate it's own using the first image tag on your page.
+   description Override Open Graph Image.
+   extends abstractUrlSettingParser
+ paragraphs.parsers
+  paragraphParser
+   // todo Perhaps rewrite this from scratch and move out of aftertext.
+   extends abstractAftertextParser
+   catchAllAtomType stringAtom
+   description A paragraph.
+   boolean suggestInAutocomplete false
+   cueFromId
+   javascript
+    compile(compileSettings) {
+     if (this.isHidden) return ""
+     // Hacky, I know.
+     const newLine = this.has("inlineMarkupsOn") ? undefined : this.appendLine("inlineMarkupsOn")
+     const compiled = super.compile(compileSettings)
+     if (newLine)
+      newLine.destroy()
+     return compiled
+    }
+    compileTxt() {
+      const subparticles = this.filter(particle => particle.compileTxt).map(particle => particle.compileTxt()).filter(i => i).join("\n")
+      const dateline = this.getParticle("dateline")
+      return (dateline ? dateline.day + "\n\n" : "") + (this.originalText || "") + (subparticles ? "\n " + subparticles.replace(/\n/g, "\n ") : "")
+    }
+  
+  quickParagraphParser
+   popularity 0.001881
+   cue *
+   extends paragraphParser
+   description A paragraph.
+   boolean isArticleContent true
+   example
+    * I had a _new_ idea.
+  
+  abstractIndentableParagraphParser
+   extends paragraphParser
+   inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser
+   javascript
+    compileSubparticles() {
+      return this.map(particle => particle.compile())
+       .join("\n")
+       .trim()
+    }
+    compile() {
+     return super.compile() + this.compileSubparticles()
+    }
+    compileTxt() {
+      return this.getAtom(0) + " " + super.compileTxt()
+    }
+ parsersNode.parsers
+  scrollParserDefinitionParser
+   popularity 0.000096
+   extends abstractScrollParser
+   // todo Figure out best pattern for merging Scroll and Parsers?
+   pattern ^[a-zA-Z0-9_]+Parser$
+   description Define your own Parsers.
+   baseParser blobParser
+   javascript
+    compile() {
+     return ""
+    }
+ pdf.parsers
+  buildPdfParser
+   popularity 0.000096
+   description Compile to PDF file.
+   extends abstractBuildCommandParser
+  
+ permalinks.parsers
+  baseUrlParser
+   popularity 0.009188
+   description Required for RSS and OpenGraph.
+   extends abstractUrlSettingParser
+  
+  permalinkParser
+   popularity 0.000265
+   description Override output filename.
+   extends abstractTopLevelSingleMetaParser
+   atoms metaCommandAtom permalinkAtom
+ plot.parsers
+  scrollRadiusParser
+   cue radius
+   extends abstractColumnNameParser
+  
+  scrollSymbolParser
+   cue symbol
+   extends abstractColumnNameParser
+  
+  scrollFillParser
+   cue fill
+   extends abstractColumnNameParser
+  
+  scrollLabelParser
+   cue label
+   extends abstractColumnNameParser
+  
+  abstractPlotParser
+   // Observablehq
+   extends abstractTableVisualizationParser
+   string copyFromExternal d3.js plot.js
+   string requireOnce
+    
+    
+   example
+    plot
+   inScope abstractColumnNameParser
+   javascript
+    compileInstance() {
+     const id = "plot" + this._getUid()
+     return `
+     {
+      let loadChart = async () => {
+      const data = ${this.dataCode}
+      const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
+      document.querySelector("#${id}").append(Plot.plot(${this.plotOptions}))
+      }
+      loadChart()
+      }
+      `
+    }
+    get marks() {
+      // just for testing purposes
+      return `Plot.rectY({length: 10000}, Plot.binX({y: "count"}, {x: d3.randomNormal()}))`
+    }
+    get dataCode() {
+      const {coreTable} = this.parent
+      return `d3.csvParse(\`${new Particle(coreTable).asCsv}\`, d3.autoType)`
+    }
+    get plotOptions() {
+      return `{
+        title: "${this.get("title") || ""}",
+        subtitle: "${this.get("subtitle") || ""}",
+        caption: "${this.get("caption") || ""}",
+        symbol: {legend: ${this.has("symbol")}},
+        color: {legend: ${this.has("fill")}},
+        grid: ${this.get("grid") !== "false"},
+        marks: [${this.marks}],
+      }`
+    }
+  
+  scatterplotParser
+   extends abstractPlotParser
+   description Scatterplot Widget.
+   // todo: make copyFromExternal work with inheritance
+   string copyFromExternal d3.js plot.js
+   javascript
+    get marks() {
+      const x = this.get("x")
+      const y = this.get("y")
+      const text = this.get("label")
+      return `Plot.dot(data, {
+        x: get("${x}", 0),
+        y: get("${y}", 1),
+        r: get("${this.get("radius")}"),
+        fill: get("${this.get("fill")}"),
+        tip: true,
+        symbol: get("${this.get("symbol")}")} ), Plot.text(data, {x: get("${x}",0), y: get("${y}", 1), text: "${text}", dy: -6, lineAnchor: "bottom"})`
+    }
+ qrcode.parsers
+  qrcodeParser
+   extends abstractCaptionedParser
+   description Make a QR code from a link.
+   example
+    qrcode https://scroll.pub
+   javascript
+    getFigureContent() {
+      const url = this.atoms[1]
+      const isNode = this.isNodeJs()
+      if (isNode) {
+        const {EXTERNALS_PATH} = this.root.file
+        const path = require("path")
+        const {qrcodegen, toSvgString} = require(path.join(EXTERNALS_PATH, "qrcodegen.js"))
+        const QRC = qrcodegen.QrCode;
+        const qr0 = QRC.encodeText(url, QRC.Ecc.MEDIUM);
+        const svg = toSvgString(qr0, 4);  // See qrcodegen-input-demo
+        return svg
+      }
+      return `Not yet supported in browser.`
+    }
+ question.parsers
+  scrollQuestionParser
+   popularity 0.004244
+   description A question.
+   extends h4Parser
+   cue ?
+   example
+    ? Why is the sky blue?
+   javascript
+    defaultClassName = "scrollQuestion"
+ quotes.parsers
+  quoteLineParser
+   popularity 0.004172
+   catchAllAtomType anyAtom
+   catchAllParser quoteLineParser
+  
+  quoteParser
+   popularity 0.001471
+   cueFromId
+   description A quote.
+   catchAllParser quoteLineParser
+   extends abstractScrollParser
+   javascript
+    compile() {
+     return `${this.subparticlesToString()}`
+    }
+    compileTxt() {
+      return this.subparticlesToString()
+    }
+  
+  quickQuoteParser
+   popularity 0.000482
+   cue >
+   example
+    > The only thing we have to fear is fear itself. - FDR
+   boolean isPopular true
+   extends abstractIndentableParagraphParser
+   description A quote.
+   javascript
+    defaultClassName = "scrollQuote"
+    tag = "blockquote"
+ redirectTo.parsers
+  redirectToParser
+   popularity 0.000072
+   description HTML redirect tag.
+   extends abstractScrollParser
+   atoms cueAtom urlAtom
+   cueFromId
+   example
+    redirectTo https://scroll.pub/releaseNotes.html
+   javascript
+    compile() {
+     return ``
+    }
+ replace.parsers
+  javascriptAtom
+   extends stringAtom
+  
+  abstractVariableParser
+   extends abstractScrollParser
+   catchAllAtomType stringAtom
+   atoms preBuildCommandAtom
+   cueFromId
+   javascript
+    isTopMatter = true
+    compile() {
+     return ""
+    }
+  
+  replaceParser
+   description Replace this with that.
+   extends abstractVariableParser
+   baseParser blobParser
+   example
+    replace YEAR 2022
+  
+  replaceJsParser
+   description Replace this with evaled JS.
+   extends replaceParser
+   catchAllAtomType javascriptAtom
+   example
+    replaceJs SUM 1+1
+    * 1+1 = SUM
+  
+  replaceNodejsParser
+   description Replace with evaled Node.JS.
+   extends abstractVariableParser
+   catchAllAtomType javascriptAtom
+   baseParser blobParser
+   example
+    replaceNodejs
+     module.exports = {SCORE : 1 + 2}
+    * The score is SCORE
+  
+ root.parsers
+  abstractScrollParser
+   atoms cueAtom
+   javascript
+    compileEmbeddedVersion(compileSettings) {
+     return this.compile(compileSettings)
+    }
+    compileTxt() {
+      return ""
+    }
+    getHtmlRequirements(compileSettings) {
+      const {requireOnce} = this
+      if (!requireOnce)
+        return ""
+      const set = compileSettings?.alreadyRequired || this.root.alreadyRequired
+      if (set.has(requireOnce))
+        return ""
+      
+      set.add(requireOnce)
+      return requireOnce + "\n\n"
+    }
+  
+  abstractScrollWithRequirementsParser
+   extends abstractScrollParser
+   cueFromId
+   javascript
+    compile(compileSettings) {
+      return this.getHtmlRequirements(compileSettings) + this.compileInstance()
+    }
+  
+  metaCommandAtom
+   extends cueAtom
+   description Give meta command atoms their own color.
+   paint constant.numeric
+   // Obviously this is not numeric. But I like the green color for now.
+     We need a better design to replace this "paint" concept
+     https://github.com/breck7/scrollsdk/issues/186
+  
+  abstractTopLevelSingleMetaParser
+   description Use these parsers once per file.
+   extends abstractScrollParser
+   inScope slashCommentParser
+   cueFromId
+   atoms metaCommandAtom
+   javascript
+    isTopMatter = true
+    isSetterParser = true
+    compile() {
+     return ""
+    }
+  
+  scrollParser
+   extensions scroll
+   description Scroll is a language for scientists of all ages. Refine, share and collaborate on ideas.
+   root
+   inScope abstractScrollParser blankLineParser
+   catchAllParser catchAllParagraphParser
+   compilesTo html
+   javascript
+    setFile(file) {
+     this.file = file
+     return this
+    }
+    compile(compileSettings) {
+      this.sectionStack = []
+      return this.map(subparticle => subparticle.compile(compileSettings)).filter(i => i).join("\n") + this.clearSectionStack()
+    }
+    sectionStack = []
+    clearSectionStack() {
+     const result = this.sectionStack.join("")
+     this.sectionStack = []
+     return result
+    }
+    bodyStack = []
+    clearBodyStack() {
+     const result = this.bodyStack.join("")
+     this.bodyStack = []
+     return result
+    }
+    get hakonParser() {
+      if (this.isNodeJs())
+        return require("scrollsdk/products/hakon.nodejs.js")
+      return hakonParser
+    }
+    readSyncFromFileOrUrl(fileOrUrl) {
+      if (!this.isNodeJs()) return localStorage.getItem(fileOrUrl) || ""
+      const isUrl = fileOrUrl.match(/^https?\:[^ ]+$/)
+      if (!isUrl) return this.root.readFile(fileOrUrl)
+      return this.readFile(this.makeFullPath(new URL(fileOrUrl).pathname.split('/').pop()))
+    }
+    async fetch(url, filename) {
+      const isUrl = url.match(/^https?\:[^ ]+$/)
+      if (!isUrl) return
+      return this.isNodeJs() ? this.fetchNode(url, filename) : this.fetchBrowser(url)
+    }
+    makeFullPath(filename) {
+      return require("path").join(this.file.folderPath, filename)
+    }
+    async fetchNode(url, filename) {
+      filename = filename || new URL(url).pathname.split('/').pop()
+      const fullpath = this.makeFullPath(filename)
+      if (require("fs").existsSync(fullpath)) return this.readFile(fullpath)
+      this.log(`🛜 fetching ${url} to ${fullpath} `)
+      await this.downloadToDisk(url, fullpath)
+      return this.readFile(fullpath)
+    }
+    log(message) {
+      console.log(message)
+    }
+    async fetchBrowser(url) {
+      const content = localStorage.getItem(url)
+      if (content) return content
+      return this.downloadToLocalStorage(url)
+    }
+    async downloadToDisk(url, destination) {
+      const { writeFile } = require('fs').promises
+      const response = await fetch(url)
+      const fileBuffer = await response.arrayBuffer()
+      await writeFile(destination, Buffer.from(fileBuffer))
+      return this.readFile(destination)
+    }
+    async downloadToLocalStorage(url) {
+      const response = await fetch(url)
+      const blob = await response.blob()
+      localStorage.setItem(url, await blob.text())
+      return localStorage.getItem(url)
+    }
+    readFile(filename) {
+      const path = require("path")
+      const fs = require("fs")
+      const fullPath = path.join(this.file.folderPath, filename.replace(this.file.folderPath, ""))
+      if (fs.existsSync(fullPath))
+        return fs.readFileSync(fullPath, "utf8")
+      console.error(`File '${filename}' not found`)
+      return ""
+    }
+    alreadyRequired = new Set()
+    compileEmbeddedVersion(compileSettings) {
+     this.sectionStack = []
+     return this.map(subparticle => (subparticle.compileEmbeddedVersion ? subparticle.compileEmbeddedVersion(compileSettings) : subparticle.compile(compileSettings)))
+       .filter(i => i)
+       .join("\n")
+       .trim() + this.clearSectionStack()
+    }
+    get footnotes() {
+     if (this._footnotes === undefined) this._footnotes = this.filter(particle => particle.isFootnote)
+     return this._footnotes
+    }
+    async build() {
+      await Promise.all(this.filter(particle => particle.build).map(async particle => particle.build()))
+    }
+    file = {}
+    getFromParserId(parserId) {
+      return this.parserIdIndex[parserId]?.[0].content
+    }
+    get filename() {
+      return this.file.filename || ""
+    }
+    get filenameNoExtension() {
+      return this.filename.replace(".scroll", "")
+    }
+    get titleFromFilename() {
+      const unCamelCase = str => str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, match => match.toUpperCase())
+      return unCamelCase(this.filenameNoExtension)
+    }
+    get title() {
+      return this.getFromParserId("scrollTitleParser") || this.titleFromFilename
+    }
+    get permalink() {
+     return this.get("permalink") || this.file.permalink || ""
+    }
+   example
+    # Hello world
+    ## This is Scroll
+    * It compiles to HTML.
+    
+    code
+     // You can add code as well.
+     print("Hello world")
+  
+  abstractUrlSettingParser
+   extends abstractTopLevelSingleMetaParser
+   atoms metaCommandAtom urlAtom
+   cueFromId
+  
+ rss.parsers
+  buildRssParser
+   popularity 0.000048
+   description Write RSS file.
+   extends abstractBuildCommandParser
+  
+  rssFeedUrlParser
+   popularity 0.008850
+   description Set RSS feed URL.
+   extends abstractUrlSettingParser
+  
+  printFeedParser
+   popularity 0.000048
+   description Print group to RSS.
+   extends abstractPostLoopParser
+   example
+    printFeed index
+    printFeed cars/index
+    buildRss feed.xml
+   javascript
+    compile() {
+     const dayjs = require("dayjs")
+     const file = this.root.file
+     const files = this.files.map(file => file.file)
+     const { title, baseUrl, description } = file
+     return `
+    
+    
+     ${title}
+     ${baseUrl}
+     ${description}
+     ${dayjs().format("ddd, DD MMM YYYY HH:mm:ss ZZ")}
+     en-us
+    ${files.map(file => file.toRss()).join("\n")}
+    
+    `
+    }
+    compileTxt() {
+      return this.compile()
+    }
+ script.parsers
+  buildJsParser
+   description Compile to JS file.
+   extends abstractBuildCommandParser
+  
+  scriptAnyAtom
+   extends anyAtom
+  scriptLineParser
+   catchAllAtomType scriptAnyAtom
+   catchAllParser scriptLineParser
+  scriptParser
+   extends abstractScrollParser
+   description Print script tag.
+   cueFromId
+   catchAllParser scriptLineParser
+   catchAllAtomType scriptAnyAtom
+   javascript
+    compile() {
+     return `${this.scriptContent}`
+    }
+    get scriptContent() {
+      return this.content ?? this.subparticlesToString()
+    }
+    compileJs() {
+      return this.scriptContent
+    }
+ scrollVersion.parsers
+  scrollVersionLinkParser
+   popularity 0.006294
+   extends abstractTextLinkParser
+   string link https://scroll.pub
+   description Print Scroll version.
+   javascript
+    get text() {
+      return `Built with Scroll v${this.parent.file?.SCROLL_VERSION || ""}`
+    }
+  
+ search.parsers
+  printSearchTableParser
+   popularity 0.000024
+   description Prints files to HTML table.
+   extends abstractPostLoopParser
+   example
+    printSearchTable
+    tableSearch
+   javascript
+    compile() {
+     const file = this.root.file
+     const files = this.files
+     const data = files.map(file => file.file.toSearchTsvRow(file.relativePath)).join("\n")
+     // A hacky but simple way to do this for now.
+       const particle = this.appendSibling("table")
+      particle.appendLine("delimiter 	")
+      particle.appendLine("printTable")
+      const dataParticle = particle.appendLine("data")
+      dataParticle.setSubparticles("title titleLink text date wordCount minutes".replace(/ /g, "\t") + "\n" + data)
+     const html = particle.compile()
+     particle.destroy()
+     return html
+    }
+ sitemaps.parsers
+  // https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#text
+  printSiteMapParser
+   popularity 0.000072
+   extends abstractPostLoopParser
+   description Print text sitemap.
+   example
+    baseUrl http://test.com
+    printSiteMap
+   javascript
+    compile() {
+     const file = this.root.file
+     const { baseUrl } = file
+     return this.files.map(file => baseUrl + file.relativePath + file.file.permalink).join("\n")
+    }
+    compileTxt() {
+      return this.compile()
+    }
+ slideshow.parsers
+  slideshowParser
+   // Left and right arrows navigate.
+   description Slideshow widget. *** delimits slides.
+   extends abstractScrollWithRequirementsParser
+   string copyFromExternal jquery-3.7.1.min.js slideshow.js
+   example
+    slideshow
+    Why did the cow cross the road?
+    ***
+    Because it wanted to go to the MOOOO-vies.
+    ***
+    THE END
+    ****
+   javascript
+    compile() {
+     return `html {font-size: var(--base-font-size, 28px);} body {margin: auto; width: 500px;}.slideshowNav{text-align: center; margin-bottom:20px; font-size: 24px;color: rgba(204,204,204,.8);} a{text-decoration: none; color: rgba(204,204,204,.8);}`
+    }
+ snippets.parsers
+  endSnippetParser
+   popularity 0.004293
+   description Cut for snippet here.
+   extends abstractScrollParser
+   cueFromId
+   javascript
+    compile() {
+     return ""
+    }
+  
+  printSnippetsParser
+   popularity 0.000338
+   // todo: why are we extending AT here and not loops? Is it for class/id etc?
+   extends abstractAftertextParser
+   cueFromId
+   atoms cueAtom
+   catchAllAtomType tagWithOptionalFolderAtom
+   description Prints snippets matching tag(s).
+   example
+    printSnippets index
+   javascript
+    makeSnippet(file, compileSettings) {
+      const {scrollProgram, endSnippetIndex} = file
+      if (endSnippetIndex === -1) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
+      const linkRelativeToCompileTarget = compileSettings.relativePath + file.permalink
+      const joinChar = "\n"
+      const html = scrollProgram
+          .map((subparticle, index) => (index >= endSnippetIndex ? "" : subparticle.compileEmbeddedVersion ? subparticle.compileEmbeddedVersion(compileSettings) : subparticle.compile(compileSettings)))
+          .filter(i => i)
+          .join(joinChar)
+          .trim() +
+        `Continue reading...`
+      return html
+    }
+    get files() {
+     const thisFile = this.parent.file
+     const files = this.parent.file.getFilesWithTagsForEmbedding(this.content, this.has("limit") ? parseInt(this.get("limit")) : undefined).filter(file => file.file !== thisFile)
+     // allow sortBy lastCommit Time
+     if (this.get("sortBy") === "commitTime") {
+       return require("lodash").sortBy(files, file => file.file.lastCommitTime).reverse()
+     }
+     return files
+    }
+    compile() {
+     const alreadyRequired = this.root.alreadyRequired
+     const snippets = this.files.map(file => {
+      const compileSettings = {relativePath: file.relativePath, alreadyRequired }
+      return `${this.makeSnippet(file.file, compileSettings)}`
+      }).join("\n\n")
+     return `${snippets}`
+    }
+    compileTxt() {
+     return this.files.map(file =>  {
+      const title = file.file.title
+      const ruler = "=".repeat(title.length)
+      // Note: I tried to print the description here but the description generating code needs work.
+      return `${title}\n${ruler}\n${file.file.date}\n${file.file.absoluteLink}`
+     }).join("\n\n")
+    }
+  
+  printFullSnippetsParser
+   popularity 0.000048
+   extends printSnippetsParser
+   cueFromId
+   description Print full pages in group(s).
+   javascript
+    makeSnippet(file, compileSettings) {
+     return file.scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
+    }
+  
+  printShortSnippetsParser
+   popularity 0.000048
+   extends printSnippetsParser
+   cueFromId
+   description Titles and descriptions in group(s).
+   javascript
+    makeSnippet(file, compileSettings) {
+     const { title, permalink, description, timestamp } = file
+     return `${title}${description}...${this.dayjs(timestamp * 1000).format(`MMMM D, YYYY`)}`
+    }
+    get dayjs() {
+      return this.isNodeJs() ? require("dayjs") : dayjs
+    }
+  
+  printRelatedParser
+   popularity 0.001182
+   description Print links to related posts.
+   extends printSnippetsParser
+   cueFromId
+   javascript
+    compile() {
+     const alreadyRequired = this.root.alreadyRequired
+     const list = this.files.map(fileWrapper => {
+      const {relativePath, file} = fileWrapper
+      const {title, permalink, year} = file
+      return `- ${title}${year ? " (" + year + ")" : ""}\n link ${relativePath + permalink}`
+      }).join("\n")
+      const items = this.parent.concat(list)
+      const html = items.map(item => item.compile()).join("\n")
+      items.forEach(item => item.destroy())
+     return html
+    }
+ source.parsers
+  printSourceParser
+   popularity 0.000024
+   description Print source for files in group(s).
+   extends printFeedParser
+   example
+    printSource index
+    buildTxt source.txt
+   javascript
+    compile() {
+     const file = this.root.file
+     const files = file.getFilesWithTagsForEmbedding(this.content).map(file => file.file)
+     return `${files.map(file => file.filePath + "\n " + file.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
+    }
+  
+  printSourceStackParser
+   // useful for debugging
+   description Print compilation steps.
+   extends abstractAftertextParser
+   cueFromId
+   example
+    printOriginalSource
+   javascript
+    get sources() {
+      const {file} = this.root
+      const passNames = ["codeAtStart", "codeAfterImportPass", "codeAfterMacroPass"]
+      let lastCode = ""
+      return passNames.map(name => {
+        let code = file[name]
+        if (lastCode === code)
+          code = "[Unchanged]"
+        lastCode = file[name]
+        return {
+        name,
+        code
+      }})
+    }
+    compile() {
+     return `${this.compileTxt().replace(/\`
+    }
+    compileTxt() {
+     return this.sources.map((pass, index) => `Pass ${index + 1} - ${pass.name}\n========\n${pass.code}`).join("\n\n\n")
+    }
+ sparkline.parsers
+  sparklineParser
+   popularity 0.000024
+   description Sparkline widget.
+   extends abstractTableVisualizationParser
+   example
+    sparkline 1 2 3 4 5
+   string copyFromExternal sparkline.js
+   string requireOnce 
+   catchAllAtomType numberAtom
+   // we need pattern matching
+   inScope scrollYParser
+   javascript
+    compileInstance() {
+     const id = "spark" + this._getUid()
+     const {columnValues} = this
+     const start = this.has("start") ? parseInt(this.get("start")) : 0
+     const width = this.get("width") || 100
+     const height = this.get("height") || 30
+     const lineColor = this.get("color") || "black"
+     return `new Sparkline(document.getElementById("${id}"), {dotRadius: 0, width: ${width}, height: ${height}, lineColor: "${lineColor}", tooltip: (value,index) => ${start} + index + ": " + value}).draw(${JSON.stringify(columnValues)})`
+    }
+    get columnValues() {
+      if (this.content)
+        return this.content.split(" ").map(str => parseFloat(str))
+      const {coreTable} = this.parent
+      if (coreTable) {
+        const columnName = this.get("y") || Object.keys(coreTable[0]).find(key => typeof coreTable[0][key] === 'number')
+        return coreTable.map(row => row[columnName])
+      }
+    }
+  
+ stamp.parsers
+  // A joint effort from:
+  // - Breck Yunits https://github.com/breck7
+  // - Guillaume Papin https://github.com/Sarcasm
+  // Origin: https://github.com/breck7/scrollsdk/issues/120
+  
+  stampFileParser
+   catchAllAtomType stringAtom
+   description Create a file.
+   javascript
+    build(parentDir) {
+     const fs = require("fs")
+     const path = require("path")
+     const fullPath = path.join(parentDir, this.getLine())
+     this.root.file.log(`Creating file ${fullPath}`)
+     fs.mkdirSync(path.dirname(fullPath), {recursive: true})
+     const content = this.subparticlesToString()
+     fs.writeFileSync(fullPath, content, "utf8")
+     const isExecutable = content.startsWith("#!")
+     if (isExecutable) fs.chmodSync(fullPath, "755")
+    }
+  
+  stampFolderParser
+   catchAllAtomType stringAtom
+   description Create a folder.
+   inScope stampFolderParser
+   catchAllParser stampFileParser
+   pattern \/$
+   javascript
+    build(parentDir) {
+     const fs = require("fs")
+     const path = require("path")
+     const newPath = path.join(parentDir, this.getLine())
+     this.root.file.log(`Creating folder ${newPath}`)
+     fs.mkdirSync(newPath, {recursive: true})
+     this.forEach(particle => particle.build(newPath))
+    }
+  
+  toStampParser
+   description Print a directory to stamp.
+   extends abstractScrollParser
+   catchAllAtomType filePathAtom
+   cueFromId
+   javascript
+    compileTxt() {
+      return this.makeStamp(this.root.makeFullPath(this.content))
+    }
+    compileHtml() {
+      return `${this.compileTxt()}`
+    }
+    makeStamp(dir) {
+    const fs = require('fs');
+    const path = require('path');
+    const { execSync } = require('child_process');
+    let stamp = 'stamp\n';
+     // Get list of git-tracked files
+    const gitTrackedFiles = new Set(execSync('git ls-files', { cwd: dir, encoding: 'utf-8' })
+      .split('\n')
+      .filter(Boolean))
+    function processDirectory(currentPath, depth) {
+      const items = fs.readdirSync(currentPath);
+      items.forEach(item => {
+        const itemPath = path.join(currentPath, item);
+        const relativePath = path.relative(dir, itemPath);
+        if (!gitTrackedFiles.has(item)) return
+        const stats = fs.statSync(itemPath);
+        const indentation = ' '.repeat(depth);
+        if (stats.isDirectory()) {
+          stamp += `${indentation}${relativePath}/\n`;
+          processDirectory(itemPath, depth + 1);
+        } else if (stats.isFile()) {
+          stamp += `${indentation}${relativePath}\n`;
+          const content = fs.readFileSync(itemPath, 'utf8');
+          stamp += `${indentation} ${content.replace(/\n/g, `\n${indentation} `)}\n`;
+        }
+      });
+    }
+    processDirectory(dir, 1);
+    return stamp.trim();
+    }
+  
+  stampParser
+   description Expand project template to disk.
+   extends abstractScrollParser
+   inScope stampFolderParser
+   catchAllParser stampFileParser
+   example
+    stamp
+     .gitignore
+      *.html
+     readme.scroll
+      # Hello world
+      
+     scripts/
+      nested/
+       hello.js
+        console.log("Hello world")
+   cueFromId
+   atoms preBuildCommandAtom
+   javascript
+    build() {
+      const dir = this.root.file.folderPath
+      this.forEach(particle => particle.build(dir))
+    }
+  
+ stopwatch.parsers
+  scrollStopwatchParser
+   description A stopwatch.
+   extends paragraphParser
+   cue stopwatch
+   example
+    stopwatch
+   atoms cueAtom
+   catchAllAtomType numberAtom
+   javascript
+    compile() {
+     const line = this.getLine()
+     const id = this._getUid()
+     this.setLine(`* 0.0{let startTime = parseFloat(new URLSearchParams(window.location.search).get('start') || 0); document.getElementById('stopwatch${id}').title = startTime; setInterval(()=>{ const el = document.getElementById('stopwatch${id}'); el.title = parseFloat(el.title) + .1; el.textContent = (parseFloat(el.title)).toFixed(1)}, 100)} `)
+     const html = super.compile()
+     this.setLine(line)
+     return html
+    }
+ stump.parsers
+  // Stump is a HAML like lang that compiles to HTML
+  stumpContentParser
+   popularity 0.102322
+   catchAllAtomType anyAtom
+  
+  stumpParser
+   cueFromId
+   extends abstractScrollParser
+   description Compile Stump to HTML.
+   catchAllParser stumpContentParser
+   javascript
+    compile() {
+     const file = this.parent.file
+     return file.compileStumpCode(this.subparticlesToString())
+    }
+  
+  stumpNoSnippetParser
+   popularity 0.010177
+   // todo: make noSnippets an aftertext directive?
+   extends stumpParser
+   description Compile Stump unless snippet.
+   cueFromId
+   javascript
+    compileEmbeddedVersion() {
+     return ""
+    }
+ tables.parsers
+  abstractTableTransformParser
+   atoms cueAtom
+   inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser scrollLoopParser htmlInlineParser scrollBrParser
+   javascript
+    get coreTable() {
+      return this.parent.coreTable
+    }
+    get columnNames() {
+      return this.parent.columnNames
+    }
+    getRunTimeEnumOptions(atom) {
+     if (atom.atomTypeId === "columnNameAtom")
+        return this.parent.columnNames
+     return super.getRunTimeEnumOptions(atom)
+    }
+    getRunTimeEnumOptionsForValidation(atom) {
+      // Note: this will fail if the CSV file hasnt been built yet.
+      if (atom.atomTypeId === "columnNameAtom")
+        return this.parent.columnNames.concat(this.parent.columnNames.map(c => "-" + c)) // Add reverse names
+     return super.getRunTimeEnumOptions(atom)
+    }
+  
+  abstractColumnNameParser
+   atoms cueAtom columnNameAtom
+   javascript
+    getRunTimeEnumOptions(atom) {
+     if (atom.atomTypeId === "columnNameAtom")
+        return this.parent.columnNames
+     return super.getRunTimeEnumOptions(atom)
+    }
+  
+  scrollXParser
+   cue x
+   extends abstractColumnNameParser
+  
+  scrollYParser
+   cue y
+   extends abstractColumnNameParser
+  
+  abstractTableVisualizationParser
+   extends abstractScrollWithRequirementsParser
+   boolean isTableVisualization true
+   javascript
+    get columnNames() {
+      return this.parent.columnNames
+    }
+  
+  printColumnParser
+   popularity 0.000024
+   description Print one column
+   extends abstractTableVisualizationParser
+   example
+    printColumn tags
+   catchAllAtomType columnNameAtom
+   javascript
+    compile() {
+     return this.columnValues.join("\n")
+    }
+    compileTxt() {
+      return this.columnValues.join("\n")
+    }
+    get columnName() {
+      return this.atoms[1]
+    }
+    get columnValues() {
+      return this.parent.coreTable.map(row => row[this.columnName])
+    }
+  
+  
+  printTableParser
+   popularity 0.001085
+   cueFromId
+   description Print table.
+   extends abstractTableVisualizationParser
+   javascript
+    get tableHeader() {
+     return this.columns.filter(col => !col.isLink).map(column => `${column.name}\n`)
+    }
+    get columnNames() {
+     return this.parent.columnNames
+    }
+    get columns() {
+     const {columnNames} = this
+     return columnNames.map((name, index) => {
+      const isLink = name.endsWith("Link")
+      const linkIndex = columnNames.indexOf(name + "Link")
+      return {
+       name,
+       isLink,
+       linkIndex
+      }
+     })
+    }
+    toRow(row) {
+      const {columns} = this
+      const atoms = columns.map(col => row[col.name])
+     let str = ""
+     let column = 0
+     const columnCount = columns.length
+     while (column  -1 && link) tagged = `${text}`
+      else if (col.name.endsWith("Url")) tagged = `${col.name.replace("Url", "")}`
+      else if (isUrl) tagged = `${text}`
+      str += `${tagged}\n`
+     }
+     return str
+    }
+    get tableBody() {
+     return this.parent.coreTable
+      .map(row => `${this.toRow(row)}`)
+      .join("\n")
+    }
+    compile() {
+     return `
+     ${this.tableHeader.join("\n")}
+     ${this.tableBody}
+     `
+    }
+    compileTxt() {
+      return this.parent.delimitedData || new Particle(this.parent.coreTable).asCsv
+    }
+  
+  scrollTableDataParser
+   popularity 0.001061
+   cue data
+   description Table from inline delimited data.
+   catchAllAtomType anyAtom
+   baseParser blobParser
+  
+  scrollTableDelimiterParser
+   popularity 0.001037
+   description Set the delimiter.
+   cue delimiter
+   atoms cueAtom stringAtom
+   javascript
+    compile() {
+      return ""
+    }
+  
+  abstractDatatableProviderParser
+   description A datatable.
+   extends abstractScrollParser
+   inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser scrollLoopParser htmlInlineParser scrollBrParser
+   javascript
+    get visualizations() {
+      return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)
+    }
+    compile(compileSettings) {
+     return this.visualizations.map(particle => particle.compile(compileSettings))
+       .join("\n")
+       .trim()
+    }
+    compileTxt() {
+      return this.visualizations.map(particle => particle.compileTxt())
+       .join("\n")
+       .trim()
+    }
+    _coreTable
+    get coreTable() {
+      if (this._coreTable) return this._coreTable
+      const {delimiter, delimitedData} = this
+      return []
+    }
+    get columnNames() {
+      return []
+    }
+  
+  scrollTableParser
+   extends abstractDatatableProviderParser
+   popularity 0.002133
+   cue table
+   example
+    table
+     printTable
+     data
+      year,count
+      1900,10
+      2000,122
+      2020,23
+   catchAllAtomType filePathAtom
+   int atomIndex 1
+   javascript
+    get delimiter() {
+       const {filename} = this
+       let delimiter = ""
+       if (filename) {
+         const extension = filename.split(".").pop()
+         if (extension === "json") delimiter = "json"
+         if (extension === "particles") delimiter = "particles"
+         if (extension === "csv") delimiter = ","
+         if (extension === "tsv") delimiter = "\t"
+         if (extension === "ssv") delimiter = " "
+         if (extension === "psv") delimiter = "|"
+       }
+       if (this.get("delimiter"))
+         delimiter = this.get("delimiter")
+       else if (!delimiter) {
+         const header = this.delimitedData.split("\n")[0]
+         if (header.includes("\t"))
+           delimiter = "\t"
+         else if (header.includes(","))
+          delimiter = ","
+         else
+          delimiter = " "
+       }
+       return delimiter
+     }
+     get filename() {
+       return this.getAtom(this.atomIndex)
+     }
+     get coreTable() {
+      if (this._coreTable) return this._coreTable
+      const {delimiter, delimitedData} = this
+      if (delimiter === "json") {
+         const rows = JSON.parse(delimitedData)
+         this._columnNames = rows.length ? Object.keys(rows[0]) : []
+         this._coreTable = rows
+         return rows
+      }
+      else if (delimiter === "particles") {
+         const d3lib = typeof d3 === "undefined" ? require('d3') : d3
+         this._coreTable = d3lib.dsvFormat(",").parse(new Particle(delimitedData).asCsv, d3lib.autoType)
+      } else {
+        const d3lib = typeof d3 === "undefined" ? require('d3') : d3
+        this._coreTable = d3lib.dsvFormat(delimiter).parse(delimitedData, d3lib.autoType)
+      }
+      this._columnNames = this._coreTable.columns
+      delete this._coreTable.columns
+      return this._coreTable
+    }
+    get columnNames() {
+      // init coreTable to set columns
+      const coreTable = this.coreTable
+      return this._columnNames
+    }
+    async build() {
+      if (this.filename)
+        await this.root.fetch(this.filename)
+    }
+    get fileContent() {
+      return this.root.readSyncFromFileOrUrl(this.filename)
+    }
+     get delimitedData() {
+       // json csv tsv
+       if (this.filename)
+         return this.fileContent
+       const dataParticle = this.getParticle("data")
+       if (dataParticle)
+         return dataParticle.subparticlesToString()
+       // if not dataparticle and no filename, check [permalink].csv
+       if (this.isNodeJs())
+         return this.root.readFile(this.root.permalink.replace(".html", "") + ".csv")
+       return  ""
+     }
+  
+  quickTableParser
+   popularity 0.000024
+   extends scrollTableParser
+   atoms urlAtom
+   pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)
+   int atomIndex 0
+  
+  scrollWhereParser
+   extends abstractTableTransformParser
+   description Filter rows by condition.
+   cue where
+   atoms cueAtom columnNameAtom comparisonAtom atomAtom
+   example
+    table iris.csv
+     where Species = setosa
+   javascript
+    get coreTable() {
+     // todo: use atoms here.
+     const columnName = this.getAtom(1)
+     const operator = this.getAtom(2)
+     let untypedScalarValue = this.getAtom(3)
+     const typedValue = isNaN(parseFloat(untypedScalarValue)) ? untypedScalarValue : parseFloat(untypedScalarValue)
+     const coreTable = this.parent.coreTable
+     if (!columnName || !operator || untypedScalarValue === undefined) return coreTable
+      const filterFn = row => {
+        const atom = row[columnName]
+        const typedAtom = atom
+        if (operator === "=") return typedValue === typedAtom
+        else if (operator === "!=") return typedValue !== typedAtom
+        else if (operator === "includes") return typedAtom !== undefined && typedAtom.includes(typedValue)
+        else if (operator === "doesNotInclude") return typedAtom === undefined || !typedAtom.includes(typedValue)
+        else if (operator === ">") return typedAtom > typedValue
+        else if (operator === "=") return typedAtom >= typedValue
+        else if (operator === " Object.fromEntries(columnNames.map(colName => [colName, row[colName]])))
+    }
+    get columnNames() {
+      return this.getAtomsFrom(1)
+    }
+  
+  scrollReverseParser
+   extends abstractTableTransformParser
+   description Reverse rows.
+   cue reverse
+   javascript
+    get coreTable() {
+     return this.parent.coreTable.slice().reverse()
+    }
+  
+  scrollComposeParser
+   extends abstractTableTransformParser
+   description Add column using format string.
+   catchAllAtomType stringAtom
+   cue compose
+   example
+    table
+     compose My name is {name}
+      printTable
+   javascript
+    get coreTable() {
+     const {newColumnName} = this
+     const formatString = this.getAtomsFrom(2).join(" ")
+     return this.parent.coreTable.map((row, index) => {
+       const newRow = Object.assign({}, row)
+       newRow[newColumnName] = this.evaluate(new Particle(row).evalTemplateString(formatString), index)
+       return newRow
+     })
+    }
+    evaluate(str) {
+      return str
+    }
+    get newColumnName() {
+      return this.atoms[1]
+    }
+    get columnNames() {
+      return this.parent.columnNames.concat(this.newColumnName)
+    }
+  scrollComputeParser
+   extends scrollComposeParser
+   description Add column by evaling format string.
+   catchAllAtomType stringAtom
+   cue compute
+   javascript
+    evaluate(str) {
+      return parseFloat(eval(str))
+    }
+  scrollRankParser
+   extends scrollComposeParser
+   description Add rank column.
+   string newColumnName rank
+   cue rank
+   javascript
+    evaluate(str, index) { return index + 1 }
+  
+  scrollLinksParser
+   extends abstractTableTransformParser
+   description Add column with links.
+   cue links
+   catchAllAtomType columnNameAtom
+   javascript
+    get coreTable() {
+     const {newColumnName, linkColumns} = this
+     return this.parent.coreTable.map(row => {
+       const newRow = Object.assign({}, row)
+       let newValue = []
+       linkColumns.forEach(name => {
+         const value = newRow[name]
+         delete newRow[name]
+         if (value) newValue.push(`${name}`)
+       })
+       newRow[newColumnName] = newValue.join(" ")
+       return newRow
+     })
+    }
+    get newColumnName() {
+      return "links"
+    }
+    get linkColumns() {
+      return this.getAtomsFrom(1)
+    }
+    get columnNames() {
+      const {linkColumns} = this
+      return this.parent.columnNames.filter(name => !linkColumns.includes(name)).concat(this.newColumnName)
+    }
+  
+  scrollLimitParser
+   extends abstractTableTransformParser
+   description Select a subset.
+   cue limit
+   atoms cueAtom integerAtom integerAtom
+   javascript
+    get coreTable() {
+     const start = this.getAtom(1)
+     const end = this.getAtom(2)
+     return this.parent.coreTable.slice(parseInt(start), parseInt(end))
+    }
+  
+  scrollTransposeParser
+   extends abstractTableTransformParser
+   description Tranpose table.
+   cue transpose
+   javascript
+    get coreTable() {
+     // todo: we need to switch to column based coreTable, instead of row based
+     const transpose = arr => Object.keys(arr[0]).map(key => [key, ...arr.map(row => row[key])]);
+     return transpose(this.parent.coreTable)
+    }
+  
+  scrollImputeParser
+   extends abstractTableTransformParser
+   description Impute missing values of a columm.
+   atoms cueAtom columnNameAtom
+   cue impute
+   javascript
+    get coreTable() {
+     const {lodash, columnName} = this
+     const sorted = lodash.orderBy(this.parent.coreTable.slice(), columnName)
+     // ascending
+     const imputed = []
+     let lastInserted = sorted[0][columnName]
+     sorted.forEach(row => {
+      const measuredTime = row[columnName]
+      while (measuredTime > lastInserted + 1) {
+        lastInserted++
+        // synthesize rows
+        const imputedRow = {}
+        imputedRow[columnName] = lastInserted
+        imputedRow.count = 0
+        imputed.push(imputedRow)
+      }
+      lastInserted = measuredTime
+      imputed.push(row)
+     })
+     return imputed
+    }
+    get columnName() {
+      return this.getAtom(1)
+    }
+    get lodash() {
+      return this.isNodeJs() ? require("lodash") : lodash
+    }
+  
+  scrollOrderByParser
+   extends abstractTableTransformParser
+   description Sort rows by column(s).
+   catchAllAtomType columnNameAtom
+   cue orderBy
+   javascript
+    get coreTable() {
+      const makeLodashOrderByParams = str => {
+      const part1 = str.split(" ")
+      const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
+      return [part1.map(col => col.replace(/^\-/, "")), part2]
+     }
+     const orderBy = makeLodashOrderByParams(this.content)
+     return this.lodash.orderBy(this.parent.coreTable.slice(), orderBy[0], orderBy[1])
+    }
+    get lodash() {
+      return this.isNodeJs() ? require("lodash") : lodash
+    }
+  
+  scrollRenameParser
+   // todo: add support in Parsers for tuple catch alls
+    catchAllAtomType columnNameAtom atomAtom
+   catchAllAtomType atomAtom
+   extends abstractTableTransformParser
+   description Rename columns.
+   example
+    tables
+     data
+      name,year,count
+      index,2022,2
+     rename name Name year Year
+      printTable
+   cue rename
+   javascript
+    get coreTable() {
+     const {coreTable} = this.parent
+     const {renameMap} = this
+     if (!Object.keys(renameMap).length) return coreTable
+     return coreTable.map(row => {
+        const newRow = {}
+        Object.keys(row).forEach(key => {
+          const name = renameMap[key] || key
+          newRow[name] = row[key]
+        })
+        return newRow
+     })
+    }
+    get renameMap() {
+      const map = {}
+      const pairs = this.getAtomsFrom(1)
+      let oldName
+      while (oldName = pairs.shift()) {
+        map[oldName] = pairs.shift()
+      }
+      return map
+    }
+    _renamed
+    get columnNames() {
+     if (this._renamed)
+       return this._renamed
+      const {renameMap} = this
+      this._renamed = this.parent.columnNames.map(name => renameMap[name] || name )
+      return this._renamed
+    }
+  
+  tableSearchParser
+   popularity 0.000072
+   extends abstractScrollWithRequirementsParser
+   string copyFromExternal jquery-3.7.1.min.js datatables.css datatables.js tableSearch.js
+   string requireOnce
+    
+    .dt-search{font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";}
+    
+    
+    
+   // adds to all tables on page
+   description Table search and sort widget.
+   javascript
+    compileInstance() {
+     return ""
+    }
+  
+ tags.parsers
+  tagAtom
+   extends permalinkAtom
+  tagWithOptionalFolderAtom
+   description A group name optionally combined with a folder path. Only used when referencing tags, not in posts.
+   extends stringAtom
+  scrollTagsParser
+   popularity 0.006801
+   cue tags
+   description Set tags.
+   example
+    tags All
+   extends abstractTopLevelSingleMetaParser
+   catchAllAtomType tagAtom
+ test.parsers
+  testStrictParser
+   description Make catchAllParagraphParser = error.
+   extends abstractTopLevelSingleMetaParser
+  
+  assertHtmlEqualsParser
+   description Test above particle's output.
+   extends abstractScrollParser
+   cueFromId
+   baseParser blobParser
+   javascript
+    compile() {
+     return ``
+    }
+    getErrors() {
+      const actual = this._getClosestOlderSibling().compile()
+      const expected = this.subparticlesToString()
+      if (actual === expected)
+      	return []
+      return [this.makeError(`'${actual}' did not match '${expected}'`)]
+    }
+   catchAllParser htmlLineParser
+ text.parsers
+  buildTxtParser
+   popularity 0.007596
+   description Compile to TXT file.
+   extends abstractBuildCommandParser
+   boolean isPopular true
+  
+  plainTextParser
+   description Plain text oneliner or block.
+   cueFromId
+   extends abstractScrollParser
+   catchAllParser plainTextLineParser
+   catchAllAtomType stringAtom
+   javascript
+    compile() {
+     return this.compileTxt()
+    }
+    compileTxt() {
+      return `${this.content ?? ""}${this.subparticlesToString()}`
+    }
+  
+  plainTextOnlyParser
+   popularity 0.000072
+   extends plainTextParser
+   description Only print for buildTxt.
+   javascript
+    compile() {
+     return ""
+    }
+  
+  plainTextLineParser
+   popularity 0.000121
+   catchAllAtomType stringAtom
+   catchAllParser plainTextLineParser
+  
+  printFormatLinksParser
+   description Prints links to other formats.
+   extends abstractPrintMetaParser
+   example
+    printFormatLinks
+   javascript
+    compile() {
+     const permalink = this.root.file.permalink.replace(".html", "")
+     // hacky
+     const particle = this.appendSibling(`HTML | TXT`, `class scrollDateline\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
+     const html = particle.compile()
+     particle.destroy()
+     return html
+    }
+    compileTxt() {
+      const permalink = this.root.file.permalink.replace(".html", "")
+      return `HTML | TXT\n link ${permalink}.html HTML\n link ${permalink}.txt TXT`
+    }
+ textLinks.parsers
+  abstractTextLinkParser
+   extends abstractAftertextParser
+   cueFromId
+   javascript
+    compileEmbeddedVersion() {
+     return ""
+    }
+    compileTxt() {
+      return this.text
+    }
+    compile() {
+     return `${this.text}`
+    }
+  
+ theme.parsers
+  scrollThemeAtom
+   enum roboto gazette dark tufte
+   paint constant
+  
+  scrollThemeParser
+   popularity 0.007524
+   boolean isPopular true
+   cue theme
+   extends abstractScrollParser
+   catchAllAtomType scrollThemeAtom
+   description A collection of simple themes.
+   string copyFromExternal gazette.css
+    // Note this will be replaced at runtime
+   javascript
+    get copyFromExternal() {
+     return this.files.join(" ")
+    }
+    get files() {
+      return this.atoms.slice(1).map(name => `${name}.css`)
+    }
+    compile() {
+     return this.files.map(name => ``).join("\n")
+    }
+  
+ title.parsers
+  scrollTitleParser
+   popularity 0.007524
+   catchAllAtomType personNameAtom
+   cue title
+   description Set title.
+   example
+    title Eureka
+    printTitle
+   extends abstractTopLevelSingleMetaParser
+   boolean isPopular true
+  
+  printTitleParser
+   popularity 0.007572
+   description Print title.
+   extends abstractHeaderParser
+   boolean isPopular true
+   example
+    title Eureka
+    printTitle
+   cueFromId
+   javascript
+    compile(compileSettings) {
+     // Hacky, I know.
+     const {content} = this
+     if (content === undefined)
+      this.setContent(this.root.title)
+     const { permalink } = this.root
+     if (!permalink) {
+      this.setContent(content) // Restore it as it was.
+      return super.compile(compileSettings)
+     }
+     const newLine = this.appendLine(`link ${permalink}`)
+     const compiled = super.compile(compileSettings)
+     newLine.destroy()
+     this.setContent(content) // Restore it as it was.
+     return compiled
+    }
+    get originalText() {
+     return this.content ?? this.root.title ?? ""
+    }
+    defaultClassName = "scrollTitle"
+    tag = "h1"
+  
+ video.parsers
+  scrollVideoParser
+   popularity 0.000024
+   extends abstractMediaParser
+   cue video
+   example
+    video spirit.mp4
+   description Play video files.
+   widthParser
+    cueFromId
+    atoms cueAtom
+   heightParser
+    cueFromId
+    atoms cueAtom
+   javascript
+    tag = "video"
+  
+  quickVideoParser
+   popularity 0.000024
+   extends scrollVideoParser
+   atoms urlAtom
+   pattern ^[^\s]+\.(mp4|webm|avi|mov)
+   int atomIndex 0
+ viewSource.parsers
+  viewSourceBaseUrlParser
+   popularity 0.007838
+   description Override source link baseUrl.
+   extends abstractUrlSettingParser
+  
+  viewSourceUrlParser
+   catchAllAtomType urlAtom
+   description Override source link.
+   extends abstractTopLevelSingleMetaParser
+  
+  viewSourceLinkParser
+   popularity 0.001206
+   extends abstractTextLinkParser
+   description Print "View source" link.
+   string text View source
+   javascript
+    get link() {
+      return this.parent.file?.viewSourceUrl || ""
+    }
+  
+  viewSourceButtonParser
+   popularity 0.013963
+   description Print badge top right.
+   extends abstractIconButtonParser
+   catchAllAtomType urlAtom
+   string svg 
+   javascript
+    get link() {
+      return this.content || this.parent.file?.viewSourceUrl || ""
+    }
+    get style() {
+      return this.parent.findParticles("viewSourceButton")[0] === this ? "right:2rem;": "position:relative;"
+    }
+ wws.parsers
+  theScrollButtonParser
+   popularity 0.006294
+   description WWS button.
+   extends abstractIconButtonParser
+   string style position:relative;
+   string svg 
+   javascript
+    get link() {
+      return "https://wws.scroll.pub"
+    }
+ youTube.parsers
+  youtubeParser
+   popularity 0.000121
+   extends abstractCaptionedParser
+   // Include the YouTube embed URL such as https://www.youtube.com/embed/CYPYZnVQoLg
+   description A YouTube video widget.
+   example
+    youtube https://www.youtube.com/watch?v=lO8blNtYYBA
+   javascript
+    getFigureContent() {
+     const url = this.getAtom(1).replace("youtube.com/watch?v=", "youtube.com/embed/")
+     return ``
+    }
+  youTubeParser
+   extends youtubeParser
+   tags deprecate
+   // Deprecated. You youtube all lowercase.
+
+PLEASE GENERATE A NEW PARSER THAT:

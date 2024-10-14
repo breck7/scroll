@@ -1,0 +1,9 @@
+buildTxt
+Below is the source code for all the Scroll Parsers.
+
+After listing all the source code, I will tell you about the new Parser I want you to make.
+
+toStamp ./parsers/
+
+PLEASE GENERATE A NEW PARSER THAT:
+

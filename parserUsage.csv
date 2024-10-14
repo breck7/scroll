@@ -1,8 +1,8 @@
 parserId,uses
-blankLineParser,998
-versionParser,529
-newFeatureParser,447
-catchAllParagraphParser,248
+blankLineParser,1004
+versionParser,530
+newFeatureParser,449
+catchAllParagraphParser,251
 lineOfCodeParser,209
 bugFixParser,206
 breakingChangeParser,199
@@ -22,8 +22,8 @@ scrollCenterParser,21
 slashCommentParser,20
 aboveAsCodeParser,18
 scrollBrParser,14
+buildTxtParser,14
 baseUrlParser,14
-buildTxtParser,13
 homeButtonParser,13
 stumpNoSnippetParser,13
 metaTagsParser,13
@@ -95,6 +95,7 @@ printScrollLeetSheetParser,1
 printCsvParser,1
 printparsersLeetSheetParser,1
 printUsageStatsParser,1
+toStampParser,1
 mediumColumnsParser,1
 matchParser,1
 matchAllParser,1

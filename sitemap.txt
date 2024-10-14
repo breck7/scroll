@@ -6,6 +6,7 @@ https://scroll.pub/settings.html
 https://scroll.pub/roadmap.html
 https://scroll.pub/releaseNotes.html
 https://scroll.pub/index.html
+https://scroll.pub/prompt.html
 https://scroll.pub/particlesLeetsheet.html
 https://scroll.pub/parserUsage.html
 https://scroll.pub/parserLeetsheet.html

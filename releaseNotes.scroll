@@ -20,6 +20,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 141.1.0 10/14/2024
+🎉 added `toStamp` parser
+🎉 created `prompt.scroll`
+
 📦 141.0.0 10/12/2024
 🎉 updated ScrollSDK
 🏥 bug fix in maps nested under tables. Thanks TD for the report!
