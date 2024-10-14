@@ -20,6 +20,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 141.2.0 10/14/2024
+🎉 `toStamp` supports a single file
+🎉 moved prompt to parsersPrompt
+🎉 added scrollPrompt
+
 📦 141.1.0 10/14/2024
 🎉 added `toStamp` parser
 🎉 created `prompt.scroll`
