@@ -52,10 +52,12 @@ toStampParser
   const path = require('path');
   const { execSync } = require('child_process');
   let stamp = 'stamp\n';
-   // Get list of git-tracked files
-  const gitTrackedFiles = new Set(execSync('git ls-files', { cwd: dir, encoding: 'utf-8' })
-    .split('\n')
-    .filter(Boolean))
+  const handleFile = (indentation, relativePath, itemPath, ) => {
+      stamp += `${indentation}${relativePath}\n`;
+      const content = fs.readFileSync(itemPath, 'utf8');
+      stamp += `${indentation} ${content.replace(/\n/g, `\n${indentation} `)}\n`;
+  }
+  let gitTrackedFiles
   function processDirectory(currentPath, depth) {
     const items = fs.readdirSync(currentPath);
     items.forEach(item => {
@@ -67,14 +69,20 @@ toStampParser
       if (stats.isDirectory()) {
         stamp += `${indentation}${relativePath}/\n`;
         processDirectory(itemPath, depth + 1);
-      } else if (stats.isFile()) {
-        stamp += `${indentation}${relativePath}\n`;
-        const content = fs.readFileSync(itemPath, 'utf8');
-        stamp += `${indentation} ${content.replace(/\n/g, `\n${indentation} `)}\n`;
-      }
+      } else if (stats.isFile())
+        handleFile(indentation, relativePath, itemPath)
     });
   }
-  processDirectory(dir, 1);
+  const stats = fs.statSync(dir);
+  if (stats.isDirectory()) {
+     // Get list of git-tracked files
+    gitTrackedFiles = new Set(execSync('git ls-files', { cwd: dir, encoding: 'utf-8' })
+    .split('\n')
+    .filter(Boolean))
+    processDirectory(dir, 1)
+  }
+  else
+    handleFile(" ", dir, dir)
   return stamp.trim();
   }
 

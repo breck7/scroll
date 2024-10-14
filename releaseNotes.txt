@@ -10,6 +10,12 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+141.2.0 10/14/2024
+==================
+🎉 `toStamp` supports a single file
+🎉 moved prompt to parsersPrompt
+🎉 added scrollPrompt
+
 141.1.0 10/14/2024
 ==================
 🎉 added `toStamp` parser
@@ -2894,4 +2900,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v141.1.0
+Built with Scroll v141.2.0

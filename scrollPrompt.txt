@@ -1,0 +1,238 @@
+Below is the source code for a Scroll Tutorial.
+
+Then I will give you some content. I want you to convert the content into Scroll.
+
+stamp
+ /home/runner/work/scroll/scroll/tutorial.scroll
+  replace DOMAIN scroll.pub
+  title Scroll Tutorial
+  
+  header.scroll
+  
+  css html {font-size: var(--base-font-size, 18px);}
+  
+  container 800px
+  
+  printTitle
+  center
+  Video walkthrough of this tutorial | Edit this file on try.scroll.pub
+   https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll Edit this file on try.scroll.pub
+   https://www.youtube.com/watch?v=IE3lHAmMqC4 Video walkthrough of this tutorial
+  
+  ? What is Scroll?
+  
+  Scroll is a new computer language that evolved from taking one question very seriously: what if you removed every unnecessary stroke from a language? What if you made a language as simple as possible?
+  
+  Scroll is the result of relentlessly pursuing those questions.
+  
+  This tutorial will walk you through the basics of using Scroll.
+  
+  ---
+  
+  ## A Scroll document
+  A Scroll document (or "program") is a _list of lines_.
+  
+  Each line can contain content (or "atoms").
+  
+  For example, here is a line containing 3 atoms:
+  
+  code
+   title Hello world
+  
+  In addition to containing atoms, each line can have its own document with its own lines using indentation.
+  
+  When you add a space at the beginning of a line, that line becomes a "subparticle" of the parent line.
+  
+  code
+   image hello.png
+    caption This line is a subparticle of the line above.
+  
+  You may have seen this _indent trick_ before in languages like Python.
+  
+  But Scroll pushes it to the max.
+  
+  Master the indent trick and master Scroll.
+  
+  But we're getting ahead of ourselves, let's start with the basics.
+  
+  ---
+  
+  # Parsers
+  
+  Every line in a Scroll document matches and is parsed by a Parser.
+  
+  You can see all the available parsers in the Scroll Leet Sheet.
+   leetsheet.html Scroll Leet Sheet
+  
+  (Advanced users who want to write their own parsers might want to checkout the Parsers Leet Sheet.)
+   parserLeetsheet.html Parsers Leet Sheet
+  
+  Let's walk through some of the most common parsers.
+  
+  ---
+  
+  # Basic Lines
+  ## 1. The Paragraph Parser
+  
+  Let's start with the most common parser, the `paragraph` parser.
+  
+  You can think of paragraphs as similar to a `p` or `div` tag in HTML.
+  
+  To use this parser you can write out the atom `paragraph`, or use an asterisk `*`, OR just start any text that does not match another parser (the "catch all" parser of a Scroll program is the paragraph parser).
+  
+  This paragraph was compiled by the catch all paragraph parser. The code is:
+  aboveAsCode
+  
+  ## 2. Headers
+  Scroll has headers like markdown:
+  belowAsCode 2
+  # This is a section header
+  ## This is a subsection header
+  
+  ## 3. Unordered lists
+  Here's how you write unordered lists:
+  belowAsCode 2
+  - Scroll has lists
+   - That can be nested
+  
+  ## 4. Checklists
+  Below is the code for a checklist and its rendered version:
+  belowAsCode 2
+  [] Finish full tutorial
+   [x] Learn that checklists support nesting
+  
+  ## 5. Tables
+  Use the `table` parser to make tables:
+  belowAsCode
+  table
+   printTable
+   data
+    Name,Rank
+    Scroll,#1
+    Markdown,#2
+  
+  ## 6. Images
+  To add an image use the `image` parser:
+  belowAsCode 2
+  https://scroll.pub/blog/screenshot.png
+   caption An image with a caption
+  
+  ## 7. Footnotes
+  You can make footnotes like this:
+  belowAsCode 2
+  Pau means done^pau
+  ^pau In Hawaiian
+  
+  ## 8. Dashboard
+  If you are building a dashboard you might want to try the `dashboard` parser:
+  belowAsCode
+  dashboard
+   #1 Lang
+   2k Users
+   300 Stars
+  
+  ## 9. Including HTML and CSS
+  html If you need to jump into regular HTML, use the `html` parser.
+  aboveAsCode
+  
+  For CSS, use the `css` parser:
+  belowAsCode 2
+  css .green {color: green;}
+  This text should be green.
+   class green
+  
+  ---
+  
+  # Marking Up Text
+  ## Inline markups
+  You can use inline markups similar to Markdown or Textile.
+  belowAsCode
+  Here's how to *bold*, _italicize_, or denote `code`.
+  
+  ## HTML markups
+  You can use also markup text using HTML.
+  belowAsCode
+  Here's how to bold.
+  
+  ## Aftertext
+  Scroll invented something called aftertext, where you put markup after the text.
+   https://breckyunits.com/aftertext.html
+  
+  For example, instead of mixing in the link with the content, you put the link _after the text_ along with the text you want the link to match against. For example:
+  belowAsCode
+  A link to Wikipedia
+   https://wikipedia.org Wikipedia
+  You can also make the whole paragraph a link by not including any text to match against.
+  belowAsCode
+  A link to Wikipedia
+   https://wikipedia.org
+  
+  ## Columns
+  You can use the `thinColumns [maxNumberOfColumns]` parser to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between lines. Line breaks will clear sections.
+  
+  ---
+  
+  # Advanced
+  ## Variables
+  Use the `replace` parser to define macros. Macros definitions are parsed and removed on the first compiler pass.
+  Our domain is: *DOMAIN*
+  
+  ## Import statements
+  Scroll files can import other Scroll files. Use the `import` parser by just specifyingcthe path to the file, such as: `header.scroll`
+  
+  ---
+  
+  ## Themes
+  Scroll ships with some default themes, which are just CSS files.
+  
+  ## Examples
+  ## A page using no theme:
+  code
+   # This page has no theme
+  ## A page using a theme:
+  code
+   theme gazette
+   homeButton
+   viewSourceButton
+   This page uses the Gazette theme.
+  
+  ---
+  
+  # Expert: Adding your own parsers
+  _Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom parsers_.
+  
+  You can define your own parsers right in your Scroll documents using `*Parser`.
+  
+  Here is a simple example that extends Scroll by making `p` work the same as `*`:
+  
+  belowAsCode 2
+  pParser
+   extends paragraphParser
+   cue p
+  p We can then make paragraphs using `p`.
+  
+  Let's now make a `hiddenMessage` Parser that alerts a message when clicked:
+  belowAsCode 3
+  messageParser
+   cueFromId
+   catchAllAtomType stringAtom
+  hiddenMessageParser
+   extends paragraphParser
+   inScope messageParser
+   cueFromId
+   javascript
+    compile() {
+      return `${super.compile()}`
+    }
+  hiddenMessage Click me.
+   message Hello world
+  
+  As you can see, you can define new parsers with a small amount of code.
+  
+  You probably also can see that the Parsers code is powerful but has lots of sharp edges.
+  
+  While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
+  
+  footer.scroll
+
+THE CONTENT TO CONVERT INTO SCROLL:
