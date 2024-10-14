@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 141.3.0 10/14/2024
+🎉 format command should not insert newlines into blank files
+
 📦 141.2.0 10/14/2024
 🎉 `toStamp` supports a single file
 🎉 moved prompt to parsersPrompt

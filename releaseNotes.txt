@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+141.3.0 10/14/2024
+==================
+🎉 format command should not insert newlines into blank files
+
 141.2.0 10/14/2024
 ==================
 🎉 `toStamp` supports a single file
@@ -2900,4 +2904,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v141.2.0
+Built with Scroll v141.3.0

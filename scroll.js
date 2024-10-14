@@ -428,13 +428,13 @@ parsers/errors.parsers`
     this._formatConcepts(parsed)
     let topMatterThenContent = importOnly + topMatter.sort().join("\n").trim() + "\n\n" + parsed.toString().trim()
 
-    return (
-      topMatterThenContent
-        .trim() // Remove leading whitespace
-        .replace(/(\S.*?)[  \t]*$/gm, "$1") // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic particles)
-        .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
-        .replace(/\n+$/, "") + "\n"
-    ) // End Scroll files in a newline character POSIX style for better working with tools like git
+    const trimmed = topMatterThenContent
+      .trim() // Remove leading whitespace
+      .replace(/(\S.*?)[  \t]*$/gm, "$1") // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic particles)
+      .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
+      .replace(/\n+$/, "")
+
+    return !trimmed ? "" : "\n" // End non blank Scroll files in a newline character POSIX style for better working with tools like git
   }
 
   _compileArray(filename, arr) {

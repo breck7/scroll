@@ -54,4 +54,4 @@ But by the HTML spec newlines are not a URL code point and generally are strippe
 
 Program Links in Scroll handle encoding newlines and any other special characters so you can focus on your content and not the encoding.
 
-Built with Scroll v141.2.0
+Built with Scroll v141.3.0
