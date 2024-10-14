@@ -233,6 +233,13 @@ testParticles.scrollsetCli = areEqual => {
   areEqual(!!planetsCli, true)
 }
 
+testParticles.format = async areEqual => {
+  // Arrange
+  const page = new ScrollFile(``)
+  // Act/Assert
+  areEqual(page.formatted, "", "format works")
+}
+
 testParticles.initCommand = async areEqual => {
   const tempFolder = path.join(__dirname, "tempFolderForTesting")
 
