@@ -434,7 +434,7 @@ parsers/errors.parsers`
       .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
       .replace(/\n+$/, "")
 
-    return !trimmed ? "" : "\n" // End non blank Scroll files in a newline character POSIX style for better working with tools like git
+    return trimmed === "" ? trimmed : trimmed + "\n" // End non blank Scroll files in a newline character POSIX style for better working with tools like git
   }
 
   _compileArray(filename, arr) {

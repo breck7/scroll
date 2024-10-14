@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 141.3.1 10/14/2024
+⚠️ BREAKING: whoops! major format regression
+
 📦 141.3.0 10/14/2024
 🎉 format command should not insert newlines into blank files
 
