@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 142.0.1 10/14/2024
+🏥 clone fixes
+
 📦 142.0.0 10/14/2024
 🎉 added new `clone` cli command
 
