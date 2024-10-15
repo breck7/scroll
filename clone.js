@@ -21,8 +21,11 @@ class CloneCli extends SimpleCLI {
       const protocolPrefix = gitUrl.startsWith("http") ? "" : "https://"
       const url = new URL(protocolPrefix + gitUrl)
       const { hostname, pathname } = url
-      let cloneUrl = gitUrl
-      let folderName = pathname.replace(/\.git$/, "")
+      let cloneUrl = protocolPrefix + gitUrl
+      let folderName = pathname
+        .split("/")
+        .pop()
+        .replace(/\.git$/, "")
       if (pathname.length < 2) {
         // Allow cloning of domains like: clone capitaldb.togger.com
         folderName = hostname

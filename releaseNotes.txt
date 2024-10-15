@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+142.0.1 10/14/2024
+==================
+🏥 clone fixes
+
 142.0.0 10/14/2024
 ==================
 🎉 added new `clone` cli command
@@ -2912,4 +2916,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v142.0.0
+Built with Scroll v142.0.1
