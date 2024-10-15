@@ -4,8 +4,8 @@ versionParser,535
 newFeatureParser,454
 catchAllParagraphParser,255
 lineOfCodeParser,209
-bugFixParser,207
-breakingChangeParser,200
+bugFixParser,208
+breakingChangeParser,199
 quickLinkParser,96
 BlobParser,69
 scrollQuestionParser,64

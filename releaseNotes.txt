@@ -20,7 +20,7 @@ Download as CSV | TSV | JSON
 
 141.3.1 10/14/2024
 ==================
-⚠️ BREAKING: whoops! major format regression
+🏥 whoops! major format regression
 
 141.3.0 10/14/2024
 ==================
