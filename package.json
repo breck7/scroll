@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "141.3.1",
+  "version": "142.0.0",
   "description": "A language for scientists of all ages. A curated collection of tools for refining and sharing thoughts.",
   "main": "scroll.js",
   "engines": {
@@ -16,7 +16,8 @@
     "test": "node tests/scroll.test.js"
   },
   "bin": {
-    "scroll": "./scroll.js"
+    "scroll": "./scroll.js",
+    "clone": "./clone.js"
   },
   "files": [
     "scroll.js",
