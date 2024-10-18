@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 142.1.0 10/18/2024
+🎉 added new `post` parser to buttons
+
 📦 142.0.2 10/16/2024
 🏥 clone fix
 
