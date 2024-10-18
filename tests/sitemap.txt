@@ -50,6 +50,7 @@ https://scroll.pub/contacts.html
 https://scroll.pub/comments.html
 https://scroll.pub/cloc.html
 https://scroll.pub/center.html
+https://scroll.pub/buttons.html
 https://scroll.pub/autoTitle.html
 https://scroll.pub/all.html
 https://scroll.pub/about.html

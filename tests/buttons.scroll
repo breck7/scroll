@@ -1,0 +1,11 @@
+buildHtml
+
+theme gazette
+
+button A link
+ https://scroll.pub
+
+button A Post
+ link https://hub.scroll.pub/echo.htm
+ post
+  hello world
