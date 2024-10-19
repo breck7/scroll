@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 142.2.0 10/18/2024
+🎉 added `inlineCss` and `inlineJs` parsers
+
 📦 142.1.0 10/18/2024
 🎉 added new `post` parser to buttons
 

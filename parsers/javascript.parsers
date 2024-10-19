@@ -8,3 +8,17 @@ quickScriptParser
   compile() {
    return `<script src="${this.filename}"></script>`
   }
+
+inlineJsParser
+ description Inline JS from files.
+ popularity 0.007211
+ extends abstractScrollParser
+ cueFromId
+ catchAllAtomType filePathAtom
+ javascript
+  compile() {
+   return `<script>/* ${this.content} */\n${this.contents}</script>`
+  }
+  get contents() {
+    return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join(";\n\n")
+  }
