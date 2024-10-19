@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 143.0.0 10/19/2024
+⚠️ BREAKING: "viewSource" is now "edit" globally
+
 📦 142.3.0 10/19/2024
 🎉 command line output cleanup
 

@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+143.0.0 10/19/2024
+==================
+⚠️ BREAKING: "viewSource" is now "edit" globally
+
 142.3.0 10/19/2024
 ==================
 🎉 command line output cleanup
@@ -2932,4 +2936,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v142.3.0
+Built with Scroll v143.0.0

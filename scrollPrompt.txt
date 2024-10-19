@@ -193,7 +193,7 @@ stamp
   code
    theme gazette
    homeButton
-   viewSourceButton
+   editButton
    This page uses the Gazette theme.
   
   ---

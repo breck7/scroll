@@ -1,0 +1,6 @@
+buildHtml
+editUrl http://example.com
+
+editLink
+editButton
+theme gazette

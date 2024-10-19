@@ -4,6 +4,6 @@ buildHtml
 settings.scroll
 metaTags
 theme gazette
-viewSourceButton
+editButton
 homeButton
 leftRightButtons

@@ -1230,6 +1230,41 @@ stamp
     get link() {
       return this.content
     }
+ edit.parsers
+  editBaseUrlParser
+   popularity 0.007838
+   description Override edit link baseUrl.
+   extends abstractUrlSettingParser
+  
+  editUrlParser
+   catchAllAtomType urlAtom
+   description Override edit link.
+   extends abstractTopLevelSingleMetaParser
+  
+  editLinkParser
+   popularity 0.001206
+   extends abstractTextLinkParser
+   description Print "Edit" link.
+   string text Edit
+   javascript
+    get link() {
+      return this.parent.file?.editUrl || ""
+    }
+  
+  editButtonParser
+   popularity 0.013963
+   description Print badge top right.
+   extends abstractIconButtonParser
+   catchAllAtomType urlAtom
+   // SVG from https://github.com/32pixelsCo/zest-icons
+   string svg 
+   javascript
+    get link() {
+      return this.content || this.parent.file?.editUrl || ""
+    }
+    get style() {
+      return this.parent.findParticles("editButton")[0] === this ? "right:2rem;": "position:relative;"
+    }
  email.parsers
   siteOwnerEmailParser
    popularity 0.001302
@@ -3793,7 +3828,7 @@ stamp
    javascript
     makeSnippet(file, compileSettings) {
       const {scrollProgram, endSnippetIndex} = file
-      if (endSnippetIndex === -1) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
+      if (endSnippetIndex === -1) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.editHtml
       const linkRelativeToCompileTarget = compileSettings.relativePath + file.permalink
       const joinChar = "\n"
       const html = scrollProgram
@@ -3837,7 +3872,7 @@ stamp
    description Print full pages in group(s).
    javascript
     makeSnippet(file, compileSettings) {
-     return file.scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
+     return file.scrollProgram.compileEmbeddedVersion(compileSettings) + file.editHtml
     }
   
   printShortSnippetsParser
@@ -4819,40 +4854,6 @@ stamp
    atoms urlAtom
    pattern ^[^\s]+\.(mp4|webm|avi|mov)
    int atomIndex 0
- viewSource.parsers
-  viewSourceBaseUrlParser
-   popularity 0.007838
-   description Override source link baseUrl.
-   extends abstractUrlSettingParser
-  
-  viewSourceUrlParser
-   catchAllAtomType urlAtom
-   description Override source link.
-   extends abstractTopLevelSingleMetaParser
-  
-  viewSourceLinkParser
-   popularity 0.001206
-   extends abstractTextLinkParser
-   description Print "View source" link.
-   string text View source
-   javascript
-    get link() {
-      return this.parent.file?.viewSourceUrl || ""
-    }
-  
-  viewSourceButtonParser
-   popularity 0.013963
-   description Print badge top right.
-   extends abstractIconButtonParser
-   catchAllAtomType urlAtom
-   string svg 
-   javascript
-    get link() {
-      return this.content || this.parent.file?.viewSourceUrl || ""
-    }
-    get style() {
-      return this.parent.findParticles("viewSourceButton")[0] === this ? "right:2rem;": "position:relative;"
-    }
  wws.parsers
   theScrollButtonParser
    popularity 0.006294

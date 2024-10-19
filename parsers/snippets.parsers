@@ -21,7 +21,7 @@ printSnippetsParser
  javascript
   makeSnippet(file, compileSettings) {
     const {scrollProgram, endSnippetIndex} = file
-    if (endSnippetIndex === -1) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
+    if (endSnippetIndex === -1) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.editHtml
     const linkRelativeToCompileTarget = compileSettings.relativePath + file.permalink
     const joinChar = "\n"
     const html = scrollProgram
@@ -65,7 +65,7 @@ printFullSnippetsParser
  description Print full pages in group(s).
  javascript
   makeSnippet(file, compileSettings) {
-   return file.scrollProgram.compileEmbeddedVersion(compileSettings) + file.viewSourceHtml
+   return file.scrollProgram.compileEmbeddedVersion(compileSettings) + file.editHtml
   }
 
 printShortSnippetsParser

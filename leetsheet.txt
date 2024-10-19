@@ -58,6 +58,10 @@ description - Meta tag description.
 dinkus - A custom dinkus.
 disk - Output file into as table.
 downloadButton - Link to download/WWS page.
+editBaseUrl - Override edit link baseUrl.
+editButton - Print badge top right.
+editLink - Print "Edit" link.
+editUrl - Override edit link.
 email - Set email address for site contact.
 emailButton - Email button.
 endColumns - End columns.
@@ -146,10 +150,6 @@ thinColumns - Thin columns.
 title - Set title.
 toStamp - Print a directory to stamp.
 video - Play video files.
-viewSourceBaseUrl - Override source link baseUrl.
-viewSourceButton - Print badge top right.
-viewSourceLink - Print "View source" link.
-viewSourceUrl - Override source link.
 wideColumn - A wide column section.
 wideColumns - Wide columns.
 youtube - A YouTube video widget.
@@ -171,12 +171,12 @@ catchAllParagraph,11557
 importOnly,3357
 #,1792
 -,1433
-viewSourceButton,1397
+editButton,1397
 ***,1083
 stumpNoSnippet,1018
 baseUrl,919
 rssFeedUrl,885
-viewSourceBaseUrl,784
+editBaseUrl,784
 endColumns,779
 metaTags,770
 buildHtml,765
@@ -227,7 +227,7 @@ katex,160
 copyButtons,148
 quote,148
 email,131
-viewSourceLink,121
+editLink,121
 printRelated,119
 ###,109
 printTable,109
@@ -283,4 +283,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v142.3.0
+Built with Scroll v143.0.0
