@@ -925,6 +925,23 @@ stamp
       return this.css
     }
   
+  inlineCssParser
+   description Inline CSS from files.
+   popularity 0.007211
+   extends abstractScrollParser
+   cueFromId
+   catchAllAtomType filePathAtom
+   javascript
+    compile() {
+     return `/* ${this.content} */\n${this.css}`
+    }
+    get css() {
+      return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join("\n\n")
+    }
+    compileCss() {
+      return this.css
+    }
+  
   quickCssParser
    popularity 0.007524
    description Make a CSS tag.
@@ -935,6 +952,7 @@ stamp
     compile() {
      return ``
     }
+  
  csv.parsers
   buildCsvParser
    popularity 0.000096
@@ -2260,6 +2278,20 @@ stamp
    javascript
     compile() {
      return ``
+    }
+  
+  inlineJsParser
+   description Inline JS from files.
+   popularity 0.007211
+   extends abstractScrollParser
+   cueFromId
+   catchAllAtomType filePathAtom
+   javascript
+    compile() {
+     return `/* ${this.content} */\n${this.contents}`
+    }
+    get contents() {
+      return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join(";\n\n")
     }
  json.parsers
   jsonScriptParser

@@ -78,6 +78,8 @@ iframes - An iframe(s).
 image - An img tag.
 import - Import a file.
 importOnly - Don't build this file.
+inlineCss - Inline CSS from files.
+inlineJs - Inline JS from files.
 inlineMarkups - Set global inline markups.
 jsonScript - Include JSON and assign to window.
 katex - KaTex widget for typeset math.
@@ -187,6 +189,8 @@ jsonScript,753
 keyboardNav,748
 authors,738
 css,722
+inlineCss,722
+inlineJs,722
 tags,681
 date,668
 center,642
@@ -279,4 +283,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v142.1.0
+Built with Scroll v142.2.0

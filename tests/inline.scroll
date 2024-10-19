@@ -1,0 +1,7 @@
+buildHtml
+
+inlineCss dark.css gazette.css
+
+inlineJs javascript.js javascript.js
+
+Hello world
