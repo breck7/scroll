@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 142.3.0 10/19/2024
+🎉 command line output cleanup
+
 📦 142.2.0 10/18/2024
 🎉 added `inlineCss` and `inlineJs` parsers
 

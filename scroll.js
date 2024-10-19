@@ -838,14 +838,16 @@ class SimpleCLI {
     process.stdin.on("readable", function () {
       pipedData += this.read() // todo: what's the lambda way to do this?
     })
-    process.stdin.on("end", () => {
+    process.stdin.on("end", async () => {
       const folders = pipedData
         .trim()
         .split("\n")
         .map(line => line.trim())
         .filter(line => fs.existsSync(line))
 
-      folders.forEach(line => this[commandName](line))
+      for (const line of folders) {
+        await this[commandName](line)
+      }
 
       if (folders.length === 0)
         // Hacky to make sure this at least does something in all environments.
@@ -861,10 +863,8 @@ class SimpleCLI {
 
   verbose = true
 
-  logIndent = 0
   log(message) {
-    const indent = "    ".repeat(this.logIndent)
-    if (this.verbose) console.log(indent + message)
+    if (this.verbose) console.log(message)
     return message
   }
 
@@ -1063,7 +1063,6 @@ footer.scroll`
 
   async buildFiles(fileSystem, files, folder) {
     const start = Date.now()
-    this.logIndent++
     // Run the build loop twice. The first time we build ScrollSets, in case some of the HTML files
     // will depend on csv/tsv/json/etc
     for (const file of files.filter(file => !file.importOnly)) {
@@ -1083,7 +1082,6 @@ footer.scroll`
         if (file.has(scrollKeywords.buildPdf)) this.buildPdf(file)
       })
     const seconds = (Date.now() - start) / 1000
-    this.logIndent--
     this.log(``)
     const outputExtensions = Object.keys(fileSystem.productCache).map(filename => filename.split(".").pop())
     const buildStats = lodash.map(lodash.orderBy(lodash.toPairs(lodash.countBy(outputExtensions)), 1, "desc"), ([extension, count]) => ({ extension, count }))
