@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+142.3.0 10/19/2024
+==================
+🎉 command line output cleanup
+
 142.2.0 10/18/2024
 ==================
 🎉 added `inlineCss` and `inlineJs` parsers
@@ -2928,4 +2932,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v142.2.0
+Built with Scroll v142.3.0
