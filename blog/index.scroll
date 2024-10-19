@@ -7,5 +7,5 @@ printSnippets All
 center
 emailButton feedback@scroll.pub
 downloadButton ../download.html
-viewSourceButton
+editButton
 scrollVersionLink

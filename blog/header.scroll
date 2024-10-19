@@ -9,7 +9,7 @@ stumpNoSnippet
   rel stylesheet
   type text/css
   href ../gazette.css
-viewSourceButton
+editButton
 homeButton ../index.html
 leftRightButtons
 copyButtons

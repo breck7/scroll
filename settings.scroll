@@ -1,5 +1,5 @@
 baseUrl https://scroll.pub/
-viewSourceBaseUrl https://github.com/breck7/scroll/blob/main
+editBaseUrl https://github.com/breck7/scroll/blob/main
 
 metaTags
 stumpNoSnippet

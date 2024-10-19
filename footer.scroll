@@ -8,5 +8,5 @@ keyboardNav
 center
 theScrollButton
 emailButton feedback@scroll.pub
-viewSourceButton
+editButton
 scrollVersionLink
