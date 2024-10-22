@@ -11,7 +11,7 @@ printAuthors
 
 mediumColumns 1
 
-If you want to make web forms the retarded way, there are many other places to read how to do that.
+If you want to make web forms the inefficient way, there are many other places to read how to do that.
  dateline
 
 If you want to learn how geniuses are doing web forms, read on.
@@ -20,7 +20,7 @@ If you want to learn how geniuses are doing web forms, read on.
 
 # One Field at a Time is Retarded
 
-Building forms for one-field-at-a-time data entry is retarded.
+Building forms for one-field-at-a-time data entry is inefficient.
 
 People can't copy/paste your forms. E-receipts are a pain. Auto-form fill works poorly.
 
