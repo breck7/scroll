@@ -21,10 +21,9 @@ const SCROLL_FILE_EXTENSION = ".scroll"
 const PARSERS_FILE_EXTENSION = ".parsers"
 const EXTERNALS_PATH = path.join(__dirname, "external")
 const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
-// Todo: how to keep in sync with scroll files?
+
+// todo: all of these should be in parsers
 const scrollKeywords = {
-  permalink: "permalink",
-  endSnippet: "endSnippet",
   replace: "replace",
   replaceJs: "replaceJs",
   replaceNodejs: "replaceNodejs",
@@ -43,6 +42,11 @@ const makeLodashOrderByParams = str => {
   const part1 = str.split(" ")
   const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
   return [part1.map(col => col.replace(/^\-/, "")), part2]
+}
+
+class FileInterface {
+  EXTERNALS_PATH
+  SCROLL_VERSION
 }
 
 class ScrollFileSystem extends ParticleFileSystem {
@@ -290,11 +294,6 @@ class ScrollFile {
     return this.fileSystem.getScrollFilesInFolder(this.folderPath)
   }
 
-  // todo: clean up this naming pattern and add a parser instead of special casing 404.html
-  get allHtmlFiles() {
-    return this.allScrollFiles.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.permalink !== "404.html")
-  }
-
   _concepts
   get concepts() {
     if (this._concepts) return this._concepts
@@ -332,10 +331,6 @@ parsers/errors.parsers`
     code.getParticle("buildMeasuresParser").appendLine("boolean suggestInAutocomplete false")
 
     return code.toString()
-  }
-
-  get tables() {
-    return this.scrollProgram.filter(particle => particle.isTabularData && particle.isFirst)
   }
 
   _formatConcepts(parsed) {
@@ -507,34 +502,31 @@ parsers/errors.parsers`
   }
 
   // keyboard nav is always in the same folder. does not currently support cross folder
-  includeFileInKeyboardNav(scrollProgram) {
-    return scrollProgram.buildsHtml && hasKeyboardNav && scrollProgram.tags.includes(this.primaryTag)
+  includeFileInKeyboardNav(file) {
+    const { scrollProgram } = file
+    return scrollProgram.buildsHtml && scrollProgram.hasKeyboardNav && scrollProgram.tags.includes(this.scrollProgram.primaryTag)
   }
 
   get linkToPrevious() {
-    if (!this.hasKeyboardNav)
+    if (!this.scrollProgram.hasKeyboardNav)
       // Dont provide link to next unless keyboard nav is on
       return undefined
     let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).previous
-    while (!this.includeFileInKeyboardNav(file.scrollProgram)) {
+    while (!this.includeFileInKeyboardNav(file)) {
       file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).previous
     }
-    return file.permalink
+    return file.scrollProgram.permalink
   }
 
   get linkToNext() {
-    if (!this.hasKeyboardNav)
+    if (!this.scrollProgram.hasKeyboardNav)
       // Dont provide link to next unless keyboard nav is on
       return undefined
     let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).next
-    while (!this.includeFileInKeyboardNav(file.scrollProgram)) {
+    while (!this.includeFileInKeyboardNav(file)) {
       file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).next
     }
-    return file.permalink
-  }
-
-  get title() {
-    return this.scrollProgram.title
+    return file.scrollProgram.permalink
   }
 
   get(parserAtom) {
@@ -545,7 +537,12 @@ parsers/errors.parsers`
     return this.scrollProgram.has(parserAtom)
   }
 
-  getFilesWithTagsForEmbedding(tags, limit) {
+  // todo: clean up this naming pattern and add a parser instead of special casing 404.html
+  get allHtmlFiles() {
+    return this.allScrollFiles.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.permalink !== "404.html")
+  }
+
+  getFilesByTags(tags, limit) {
     if (typeof tags === "string") tags = tags.split(" ")
     if (!tags || !tags.length)
       return this.allHtmlFiles
@@ -796,7 +793,7 @@ footer.scroll`
   _buildConceptsAndMeasures(file, folder, fileSystem) {
     // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
     if (!file.has(scrollKeywords.buildConcepts)) return
-    const { permalink } = file
+    const { permalink } = file.scrollProgram
     file.scrollProgram.findParticles(scrollKeywords.buildConcepts).forEach(particle => {
       const files = particle.getAtomsFrom(1)
       if (!files.length) files.push(permalink.replace(".html", ".csv"))

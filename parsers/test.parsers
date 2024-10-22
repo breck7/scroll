@@ -2,7 +2,7 @@ testStrictParser
  description Make catchAllParagraphParser = error.
  extends abstractTopLevelSingleMetaParser
 
-assertHtmlEqualsParser
+abstractAssertionParser
  description Test above particle's output.
  extends abstractScrollParser
  cueFromId
@@ -14,8 +14,36 @@ assertHtmlEqualsParser
   getErrors() {
     const actual = this._getClosestOlderSibling().compile()
     const expected = this.subparticlesToString()
-    if (actual === expected)
-    	return []
-    return [this.makeError(`'${actual}' did not match '${expected}'`)]
+    if (this.areEqual(actual, expected))
+      return []
+    return [this.makeError(`'${actual}' did not ${this.kind} '${expected}'`)]
   }
  catchAllParser htmlLineParser
+
+assertHtmlEqualsParser
+ extends abstractAssertionParser
+ string kind equal
+ javascript
+  areEqual(actual, expected) {
+    return actual === expected
+  }
+  // todo: why are we having to super here?
+  getErrors() { return super.getErrors()}
+
+assertHtmlIncludesParser
+ extends abstractAssertionParser
+ string kind include
+ javascript
+  areEqual(actual, expected) {
+    return actual.includes(expected)
+  }
+  getErrors() { return super.getErrors()}
+
+assertHtmlExcludesParser
+ extends abstractAssertionParser
+ string kind exclude
+ javascript
+  areEqual(actual, expected) {
+    return !actual.includes(expected)
+  }
+  getErrors() { return super.getErrors()}

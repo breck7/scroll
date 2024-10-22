@@ -173,6 +173,15 @@ scrollParser
   get editHtml() {
     return `<a href="${this.editUrl}" class="abstractTextLinkParser">Edit</a>`
   }
+  get externalsPath() {
+    return this.file.EXTERNALS_PATH
+  }
+  get allScrollFiles() {
+    return this.file.allScrollFiles || []
+  }
+  getFilesByTags(tags) {
+    return this.file.getFilesByTags ? this.file.getFilesByTags(tags) : []
+  }
   get endSnippetIndex() {
     // Get the line number that the snippet should stop at.
     // First if its hard coded, use that
