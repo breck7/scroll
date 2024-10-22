@@ -10,6 +10,11 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+144.0.0 10/22/2024
+==================
+🎉 big refactor to make more of Scroll work entirely in browser
+⚠️ BREAKING: (no user breaking changes). Changes for ScrollFile API users: some methods have moved to scrollProgram.
+
 143.0.0 10/19/2024
 ==================
 ⚠️ BREAKING: "viewSource" is now "edit" globally
@@ -2936,4 +2941,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v143.0.0
+Built with Scroll v144.0.0
