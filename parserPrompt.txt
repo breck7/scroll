@@ -824,8 +824,7 @@ stamp
     build() {
      const { Disk } = require("scrollsdk/products/Disk.node.js")
      const path = require("path")
-     const {file} = this.parent
-     const folder = path.join(file.folderPath, this.getAtom(1))
+     const folder = path.join(this.root.folderPath, this.getAtom(1))
      const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
      const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).filter(str => /^id /mg.test(str)).join("\n\n").replace(/import .+/g, "")
       this.parent.concat(ONE_BIG_FILE)
@@ -968,10 +967,11 @@ stamp
     buildTxt posts.csv
    javascript
     compile() {
-     const file = this.root.file
-     const files = file.getFilesWithTagsForEmbedding(this.content).map(file => file.file)
-     const header = file.csvFields
-     return `${header.join(",")}\n${files.map(file => file.toCsv()).join("\n")}`
+     const escapeCommas = str => (typeof str === "string" && str.includes(",") ? `"${str}"` : str)
+     const scrollPrograms = this.root.getFilesByTags(this.content).map(file => file.file.scrollProgram)
+     const CSV_FIELDS = ["date", "year", "title", "permalink", "authors", "tags", "wordCount", "minutes"]
+     const header = CSV_FIELDS
+     return `${header.join(",")}\n${scrollPrograms.map(program => CSV_FIELDS.map(field => escapeCommas(program[field]))).join("\n")}`
     }
     compileCsv() {
       return this.compile()
@@ -1026,15 +1026,9 @@ stamp
     }
     matchWholeLine = true
     get day() {
-     let day = this.content || this.root.get("date") || this.root.file?.date
+     let day = this.content || this.root.date
      if (!day) return ""
-     try {
-      const dayjs = require("dayjs")
-      return dayjs(day).format(`MMMM D, YYYY`)
-     } catch (err) {
-      console.error(err)
-     }
-     return day || ""
+     return this.root.dayjs(day).format(`MMMM D, YYYY`)
     }
   
   printDateParser
@@ -1048,15 +1042,9 @@ stamp
      return `${this.day}`
     }
     get day() {
-     let day = this.content || this.root.get("date") || this.root.file?.date
+     let day = this.content || this.root.date
      if (!day) return ""
-     try {
-      const dayjs = require("dayjs")
-      return dayjs(day).format(`MMMM D, YYYY`)
-     } catch (err) {
-      console.error(err)
-     }
-     return day || ""
+     return this.root.dayjs(day).format(`MMMM D, YYYY`)
     }
     compileTxt() {
       return this.day
@@ -1068,7 +1056,7 @@ stamp
    extends abstractAftertextDirectiveParser
    javascript
     getInserts() {
-     const dayjs = require("dayjs")
+     const dayjs = this.root.dayjs
      const days = eval(this.content)
      const index = this.parent.originalTextPostLinkify.indexOf("days")
      return [{ index, string: `${days} ` }]
@@ -1134,7 +1122,7 @@ stamp
     get delimitedDataNodeJs() {
      const fs = require('fs');
      const path = require('path');
-     const {folderPath} = this.parent.file
+     const {folderPath} = this.root
      const folder = this.content ? path.join(folderPath, this.content) : folderPath
      function getDirectoryContents(dirPath) {
        const directoryContents = [];
@@ -1248,7 +1236,7 @@ stamp
    string text Edit
    javascript
     get link() {
-      return this.parent.file?.editUrl || ""
+      return this.root.editUrl || ""
     }
   
   editButtonParser
@@ -1260,7 +1248,7 @@ stamp
    string svg 
    javascript
     get link() {
-      return this.content || this.parent.file?.editUrl || ""
+      return this.content || this.root.editUrl || ""
     }
     get style() {
       return this.parent.findParticles("editButton")[0] === this ? "right:2rem;": "position:relative;"
@@ -2113,13 +2101,12 @@ stamp
       // If its a local image, get the dimensions and put them in the HTML
       // to avoid flicker
      if (src.startsWith("http:") || src.startsWith("https:")) return {}
-     const file = this.root.file
       if (this._dimensions)
         return this._dimensions
       try {
        const sizeOf = require("image-size")
        const path = require("path")
-       const fullImagePath = path.join(file.folderPath, src)
+       const fullImagePath = path.join(this.root.folderPath, src)
        this._dimensions = sizeOf(fullImagePath)
        return this._dimensions
       } catch (err) {
@@ -2134,7 +2121,6 @@ stamp
       return this.getAtom(this.atomIndex)
     }
     getFigureContent(compileSettings) {
-     const file = this.root.file
      const linkRelativeToCompileTarget = (compileSettings ? (compileSettings.relativePath ?? "") : "") + this.filename
      const {width, height} = this.dimensions
      let dimensionAttributes = width || height  ? `width="${width}" height="${height}" ` : ""
@@ -2405,9 +2391,9 @@ stamp
      return ""
     }
     compile() {
-     const file = this.root.file
-     const linkToPrevious = this.getAtom(1) ?? file.linkToPrevious
-     const linkToNext = this.getAtom(2) ?? file.linkToNext
+     const {root} = this.root
+     const linkToPrevious = this.getAtom(1) ?? root.linkToPrevious
+     const linkToNext = this.getAtom(2) ?? root.linkToNext
      const script = `document.addEventListener('keydown', function(event) {
       if (document.activeElement !== document.body) return
       if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return // dont interfere with keyboard back button shortcut
@@ -2417,7 +2403,7 @@ stamp
       else if (event.key === "ArrowRight")
         getLinks()[1].click()
      });`
-     return `${linkToPrevious} · ${file.permalink} · ${linkToNext}${script}`
+     return `${linkToPrevious} · ${root.permalink} · ${linkToNext}${script}`
     }
  leetsheet.parsers
   printUsageStatsParser
@@ -2428,7 +2414,7 @@ stamp
    cueFromId
    javascript
     get stats() {
-     const input = this.root.file.allScrollFiles.map(file => file.parserIds.join("\n")).join("\n")
+     const input = this.root.allScrollFiles.map(file => file.scrollProgram).map(program => program.parserIds.join("\n")).join("\n")
      const result = input.split('\n').reduce((acc, atom) => (acc[atom] = (acc[atom] || 0) + 1, acc), {})
      const rows = Object.entries(result).map(([atom, count]) => { return {atom, count}})
      const sorted = this.lodash.sortBy(rows, "count").reverse()
@@ -2616,7 +2602,7 @@ stamp
    javascript
     tag = "a"
     compileTxt() {
-      return this.root.file.ensureAbsoluteLink(this.link) + " " + this.pattern
+      return this.root.ensureAbsoluteLink(this.link) + " " + this.pattern
     }
     get link() {
      const {baseLink} = this
@@ -2729,7 +2715,7 @@ stamp
    catchAllAtomType tagWithOptionalFolderAtom
    javascript
     get files() {
-     return this.root.file.getFilesWithTagsForEmbedding(this.content)
+     return this.root.getFilesByTags(this.content)
     }
   
   scrollLoopParser
@@ -2815,7 +2801,7 @@ stamp
    description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[tag]
    javascript
     get items() {
-     return this.root.file.getFilesWithTagsForEmbedding(this.content)
+     return this.root.getFilesByTags(this.content)
     }
  loremIpsum.parsers
   loremIpsumParser
@@ -3136,16 +3122,17 @@ stamp
      return ""
     }
     compile() {
-     const { title, description, openGraphImage, SCROLL_VERSION, canonicalUrl, gitRepo } = this.parent.file
-     const rssFeedUrl = this.parent.get("rssFeedUrl")
-     const favicon = this.parent.get("favicon")
+     const {root} = this
+     const { title, description, canonicalUrl, gitRepo, scrollVersion, openGraphImage } = root
+     const rssFeedUrl = root.get("rssFeedUrl")
+     const favicon = root.get("favicon")
      const faviconTag = favicon ? `` : ""
      const rssTag = rssFeedUrl ? `` : ""
      const gitTag = gitRepo ? `` : ""
      return `
      
      ${title}
-     /* This HTML was generated by 📜 Scroll v${SCROLL_VERSION}. https://scroll.pub */
+     /* This HTML was generated by 📜 Scroll v${scrollVersion}. https://scroll.pub */
      @media print {.doNotPrint {display: none !important;}}
      
      
@@ -3379,9 +3366,9 @@ stamp
       const url = this.atoms[1]
       const isNode = this.isNodeJs()
       if (isNode) {
-        const {EXTERNALS_PATH} = this.root.file
+        const {externalsPath} = this.root
         const path = require("path")
-        const {qrcodegen, toSvgString} = require(path.join(EXTERNALS_PATH, "qrcodegen.js"))
+        const {qrcodegen, toSvgString} = require(path.join(externalsPath, "qrcodegen.js"))
         const QRC = qrcodegen.QrCode;
         const qr0 = QRC.encodeText(url, QRC.Ecc.MEDIUM);
         const svg = toSvgString(qr0, 4);  // See qrcodegen-input-demo
@@ -3579,7 +3566,16 @@ stamp
       return this.isNodeJs() ? this.fetchNode(url, filename) : this.fetchBrowser(url)
     }
     makeFullPath(filename) {
-      return require("path").join(this.file.folderPath, filename)
+      return require("path").join(this.folderPath, filename)
+    }
+    get date() {
+      return this.get("date") || this.file.date
+    }
+    get linkToPrevious() {
+      return this.file.linkToPrevious
+    }
+    get linkToNext() {
+      return this.file.linkToNext
     }
     async fetchNode(url, filename) {
       filename = filename || new URL(url).pathname.split('/').pop()
@@ -3590,7 +3586,7 @@ stamp
       return this.readFile(fullpath)
     }
     log(message) {
-      console.log(message)
+     // console.log(message)
     }
     async fetchBrowser(url) {
       const content = localStorage.getItem(url)
@@ -3613,7 +3609,7 @@ stamp
     readFile(filename) {
       const path = require("path")
       const fs = require("fs")
-      const fullPath = path.join(this.file.folderPath, filename.replace(this.file.folderPath, ""))
+      const fullPath = path.join(this.folderPath, filename.replace(this.folderPath, ""))
       if (fs.existsSync(fullPath))
         return fs.readFileSync(fullPath, "utf8")
       console.error(`File '${filename}' not found`)
@@ -3638,11 +3634,97 @@ stamp
     getFromParserId(parserId) {
       return this.parserIdIndex[parserId]?.[0].content
     }
+    get folderPath() {
+      return this.file.folderPath
+    }
     get filename() {
       return this.file.filename || ""
     }
+    get hasKeyboardNav() {
+      return this.has("keyboardNav")
+    }
+    get editHtml() {
+      return `Edit`
+    }
+    get externalsPath() {
+      return this.file.EXTERNALS_PATH
+    }
+    get allScrollFiles() {
+      return this.file.allScrollFiles || []
+    }
+    getFilesByTags(tags) {
+      return this.file.getFilesByTags ? this.file.getFilesByTags(tags) : []
+    }
+    get endSnippetIndex() {
+      // Get the line number that the snippet should stop at.
+      // First if its hard coded, use that
+      if (this.has("endSnippet")) return this.getParticle("endSnippet").index
+      // Next look for a dinkus
+      const snippetBreak = this.find(particle => particle.isDinkus)
+      if (snippetBreak) return snippetBreak.index
+      return -1
+    }
+    get parserIds() {
+      return this.topDownArray.map(particle => particle.definition.id)
+    }
+    get tags() {
+      return this.get("tags") || ""
+    }
+    get primaryTag() {
+      return this.tags.split(" ")[0]
+    }
     get filenameNoExtension() {
       return this.filename.replace(".scroll", "")
+    }
+    // todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
+    // BaseUrl must be provided for RSS Feeds and OpenGraph tags to work
+    get baseUrl() {
+      const baseUrl = (this.get("baseUrl") || "").replace(/\/$/, "")
+      return baseUrl + "/"
+    }
+    get canonicalUrl() {
+      return this.get("canonicalUrl") || this.baseUrl + this.permalink
+    }
+    get openGraphImage() {
+      const openGraphImage = this.get("openGraphImage")
+      if (openGraphImage !== undefined) return this.ensureAbsoluteLink(openGraphImage)
+      const images = this.filter(particle => particle.doesExtend("scrollImageParser"))
+      const hit = images.find(particle => particle.has("openGraph")) || images[0]
+      if (!hit) return ""
+      return this.ensureAbsoluteLink(hit.filename)
+    }
+    get absoluteLink() {
+      return this.ensureAbsoluteLink(this.permalink)
+    }
+    ensureAbsoluteLink(link) {
+      if (link.includes("://")) return link
+      return this.baseUrl + link.replace(/^\//, "")
+    }
+    get editUrl() {
+      const editUrl = this.get("editUrl")
+      if (editUrl) return editUrl
+      const editBaseUrl = this.get("editBaseUrl")
+      return (editBaseUrl ? editBaseUrl.replace(/\/$/, "") + "/" : "") + this.filename
+    }
+    get gitRepo() {
+      // given https://github.com/breck7/breckyunits.com/blob/main/four-tips-to-improve-communication.scroll
+      // return https://github.com/breck7/breckyunits.com
+      return this.editUrl.split("/").slice(0, 5).join("/")
+    }
+    get scrollVersion() {
+      return this.file.SCROLL_VERSION
+    }
+    // Use the first paragraph for the description
+    // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
+    // would speed up a lot.
+    get description() {
+      const description = this.getFromParserId("openGraphDescriptionParser")
+      if (description) return description
+      return this.generatedDescription
+    }
+    get generatedDescription() {
+      const firstParagraph = this.find(particle => particle.isArticleContent)
+      return firstParagraph ? firstParagraph.originalText.substr(0, 100).replace(/[&"']/g, "") : ""
     }
     get titleFromFilename() {
       const unCamelCase = str => str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, match => match.toUpperCase())
@@ -3652,7 +3734,87 @@ stamp
       return this.getFromParserId("scrollTitleParser") || this.titleFromFilename
     }
     get permalink() {
-     return this.get("permalink") || this.file.permalink || ""
+     return this.get("permalink") || (this.filename ? this.filenameNoExtension + ".html" : "")
+    }
+    get asTxt() {
+      return (
+        this.map(particle => {
+            const text = particle.compileTxt ? particle.compileTxt() : ""
+            if (text) return text + "\n"
+            if (!particle.getLine().length) return "\n"
+            return ""
+          })
+          .join("")
+          .replace(/]*>/g, "")
+          .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
+          .trim() + "\n" // Always end in a newline, Posix style
+      )
+    }
+    toSearchTsvRow(relativePath = "") {
+      const text = this.asTxt.replace(/(\t|\n)/g, " ").replace(/ particle.compileJs)
+        .map(particle => particle.compileJs())
+        .join("\n")
+        .trim()
+    }
+    get asRss() {
+      return this.compile().trim()
+    }
+    get asCss() {
+      return this.topDownArray
+        .filter(particle => particle.compileCss)
+        .map(particle => particle.compileCss())
+        .join("\n")
+        .trim()
+    }
+    get asCsv() {
+      return this.topDownArray
+        .filter(particle => particle.compileCsv)
+        .map(particle => particle.compileCsv())
+        .join("\n")
+        .trim()
+    }
+    get buildsHtml() {
+      const { permalink } = this
+      return !this.file?.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
+    }
+    // Without specifying the language hyphenation will not work.
+    get lang() {
+      return this.get("htmlLang") || "en"
+    }
+    _compiledHtml = ""
+    get asHtml() {
+      if (!this._compiledHtml) {
+        const { permalink, buildsHtml } = this
+        const content = (this.compile() + this.clearBodyStack()).trim()
+        // Don't add html tags to CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
+        // \n"
+        this._compiledHtml = wrapWithHtmlTags ? `\n\n${bodyTag}${content}\n\n` : content
+      }
+      return this._compiledHtml
+    }
+    get wordCount() {
+      return this.asTxt.match(/\b\w+\b/g)?.length || 0
+    }
+    get minutes() {
+      return (this.wordCount / 200).toFixed(1)
+    }
+    get date() {
+      const date = this.get("date") || (this.file.timestamp ? this.file.timestamp * 1000 : 0) || 0
+      return this.dayjs(date).format(`MM/DD/YYYY`)
+    }
+    get year() {
+      return this.dayjs(this.date).format(`YYYY`)
+    }
+    get dayjs() {
+      return this.isNodeJs() ? require("dayjs") : dayjs
+    }
+    toRss() {
+      const { title, canonicalUrl } = this
+      return ` 
+    ${title}
+    ${canonicalUrl}
+    ${this.dayjs(this.timestamp * 1000).format("ddd, DD MMM YYYY HH:mm:ss ZZ")}
+    `
     }
    example
     # Hello world
@@ -3689,10 +3851,9 @@ stamp
     buildRss feed.xml
    javascript
     compile() {
-     const dayjs = require("dayjs")
-     const file = this.root.file
-     const files = this.files.map(file => file.file)
-     const { title, baseUrl, description } = file
+     const {dayjs} = this.root
+     const scrollPrograms = this.files.map(file => file.file.scrollProgram)
+     const { title, baseUrl, description } = this.root
      return `
     
     
@@ -3701,7 +3862,7 @@ stamp
      ${description}
      ${dayjs().format("ddd, DD MMM YYYY HH:mm:ss ZZ")}
      en-us
-    ${files.map(file => file.toRss()).join("\n")}
+    ${scrollPrograms.map(program => program.toRss()).join("\n")}
     
     `
     }
@@ -3755,9 +3916,8 @@ stamp
     tableSearch
    javascript
     compile() {
-     const file = this.root.file
      const files = this.files
-     const data = files.map(file => file.file.toSearchTsvRow(file.relativePath)).join("\n")
+     const data = files.map(file => file.file.scrollProgram.toSearchTsvRow(file.relativePath)).join("\n")
      // A hacky but simple way to do this for now.
        const particle = this.appendSibling("table")
       particle.appendLine("delimiter 	")
@@ -3779,9 +3939,8 @@ stamp
     printSiteMap
    javascript
     compile() {
-     const file = this.root.file
-     const { baseUrl } = file
-     return this.files.map(file => baseUrl + file.relativePath + file.file.permalink).join("\n")
+     const { baseUrl } = this.root
+     return this.files.map(file => baseUrl + file.relativePath + file.file.scrollProgram.permalink).join("\n")
     }
     compileTxt() {
       return this.compile()
@@ -3826,10 +3985,10 @@ stamp
    example
     printSnippets index
    javascript
-    makeSnippet(file, compileSettings) {
-      const {scrollProgram, endSnippetIndex} = file
-      if (endSnippetIndex === -1) return scrollProgram.compileEmbeddedVersion(compileSettings) + file.editHtml
-      const linkRelativeToCompileTarget = compileSettings.relativePath + file.permalink
+    makeSnippet(scrollProgram, compileSettings) {
+      const {endSnippetIndex} = scrollProgram
+      if (endSnippetIndex === -1) return scrollProgram.compileEmbeddedVersion(compileSettings) + scrollProgram.editHtml
+      const linkRelativeToCompileTarget = compileSettings.relativePath + scrollProgram.permalink
       const joinChar = "\n"
       const html = scrollProgram
           .map((subparticle, index) => (index >= endSnippetIndex ? "" : subparticle.compileEmbeddedVersion ? subparticle.compileEmbeddedVersion(compileSettings) : subparticle.compile(compileSettings)))
@@ -3841,7 +4000,7 @@ stamp
     }
     get files() {
      const thisFile = this.parent.file
-     const files = this.parent.file.getFilesWithTagsForEmbedding(this.content, this.has("limit") ? parseInt(this.get("limit")) : undefined).filter(file => file.file !== thisFile)
+     const files = this.root.getFilesByTags(this.content, this.has("limit") ? parseInt(this.get("limit")) : undefined).filter(file => file.file !== thisFile)
      // allow sortBy lastCommit Time
      if (this.get("sortBy") === "commitTime") {
        return require("lodash").sortBy(files, file => file.file.lastCommitTime).reverse()
@@ -3852,16 +4011,17 @@ stamp
      const alreadyRequired = this.root.alreadyRequired
      const snippets = this.files.map(file => {
       const compileSettings = {relativePath: file.relativePath, alreadyRequired }
-      return `${this.makeSnippet(file.file, compileSettings)}`
+      return `${this.makeSnippet(file.file.scrollProgram, compileSettings)}`
       }).join("\n\n")
      return `${snippets}`
     }
     compileTxt() {
      return this.files.map(file =>  {
-      const title = file.file.title
+      const {scrollProgram} = file.file
+      const {title, date, absoluteLink} = scrollProgram
       const ruler = "=".repeat(title.length)
       // Note: I tried to print the description here but the description generating code needs work.
-      return `${title}\n${ruler}\n${file.file.date}\n${file.file.absoluteLink}`
+      return `${title}\n${ruler}\n${date}\n${absoluteLink}`
      }).join("\n\n")
     }
   
@@ -3871,8 +4031,8 @@ stamp
    cueFromId
    description Print full pages in group(s).
    javascript
-    makeSnippet(file, compileSettings) {
-     return file.scrollProgram.compileEmbeddedVersion(compileSettings) + file.editHtml
+    makeSnippet(scrollProgram, compileSettings) {
+     return scrollProgram.compileEmbeddedVersion(compileSettings) + scrollProgram.editHtml
     }
   
   printShortSnippetsParser
@@ -3881,12 +4041,9 @@ stamp
    cueFromId
    description Titles and descriptions in group(s).
    javascript
-    makeSnippet(file, compileSettings) {
-     const { title, permalink, description, timestamp } = file
-     return `${title}${description}...${this.dayjs(timestamp * 1000).format(`MMMM D, YYYY`)}`
-    }
-    get dayjs() {
-      return this.isNodeJs() ? require("dayjs") : dayjs
+    makeSnippet(scrollProgram, compileSettings) {
+     const { title, permalink, description, timestamp } = scrollProgram
+     return `${title}${description}...${this.root.dayjs(timestamp * 1000).format(`MMMM D, YYYY`)}`
     }
   
   printRelatedParser
@@ -3899,7 +4056,7 @@ stamp
      const alreadyRequired = this.root.alreadyRequired
      const list = this.files.map(fileWrapper => {
       const {relativePath, file} = fileWrapper
-      const {title, permalink, year} = file
+      const {title, permalink, year} = file.scrollProgram
       return `- ${title}${year ? " (" + year + ")" : ""}\n link ${relativePath + permalink}`
       }).join("\n")
       const items = this.parent.concat(list)
@@ -3917,8 +4074,7 @@ stamp
     buildTxt source.txt
    javascript
     compile() {
-     const file = this.root.file
-     const files = file.getFilesWithTagsForEmbedding(this.content).map(file => file.file)
+     const files = this.root.getFilesByTags(this.content).map(file => file.file)
      return `${files.map(file => file.filePath + "\n " + file.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
     }
   
@@ -3996,7 +4152,7 @@ stamp
      const fs = require("fs")
      const path = require("path")
      const fullPath = path.join(parentDir, this.getLine())
-     this.root.file.log(`Creating file ${fullPath}`)
+     this.root.log(`Creating file ${fullPath}`)
      fs.mkdirSync(path.dirname(fullPath), {recursive: true})
      const content = this.subparticlesToString()
      fs.writeFileSync(fullPath, content, "utf8")
@@ -4015,7 +4171,7 @@ stamp
      const fs = require("fs")
      const path = require("path")
      const newPath = path.join(parentDir, this.getLine())
-     this.root.file.log(`Creating folder ${newPath}`)
+     this.root.log(`Creating folder ${newPath}`)
      fs.mkdirSync(newPath, {recursive: true})
      this.forEach(particle => particle.build(newPath))
     }
@@ -4091,7 +4247,7 @@ stamp
    atoms preBuildCommandAtom
    javascript
     build() {
-      const dir = this.root.file.folderPath
+      const dir = this.root.folderPath
       this.forEach(particle => particle.build(dir))
     }
   
@@ -4126,8 +4282,7 @@ stamp
    catchAllParser stumpContentParser
    javascript
     compile() {
-     const file = this.parent.file
-     return file.compileStumpCode(this.subparticlesToString())
+     return this.parent.file.compileStumpCode(this.subparticlesToString())
     }
   
   stumpNoSnippetParser
@@ -4677,7 +4832,7 @@ stamp
    description Make catchAllParagraphParser = error.
    extends abstractTopLevelSingleMetaParser
   
-  assertHtmlEqualsParser
+  abstractAssertionParser
    description Test above particle's output.
    extends abstractScrollParser
    cueFromId
@@ -4689,11 +4844,39 @@ stamp
     getErrors() {
       const actual = this._getClosestOlderSibling().compile()
       const expected = this.subparticlesToString()
-      if (actual === expected)
-      	return []
-      return [this.makeError(`'${actual}' did not match '${expected}'`)]
+      if (this.areEqual(actual, expected))
+        return []
+      return [this.makeError(`'${actual}' did not ${this.kind} '${expected}'`)]
     }
    catchAllParser htmlLineParser
+  
+  assertHtmlEqualsParser
+   extends abstractAssertionParser
+   string kind equal
+   javascript
+    areEqual(actual, expected) {
+      return actual === expected
+    }
+    // todo: why are we having to super here?
+    getErrors() { return super.getErrors()}
+  
+  assertHtmlIncludesParser
+   extends abstractAssertionParser
+   string kind include
+   javascript
+    areEqual(actual, expected) {
+      return actual.includes(expected)
+    }
+    getErrors() { return super.getErrors()}
+  
+  assertHtmlExcludesParser
+   extends abstractAssertionParser
+   string kind exclude
+   javascript
+    areEqual(actual, expected) {
+      return !actual.includes(expected)
+    }
+    getErrors() { return super.getErrors()}
  text.parsers
   buildTxtParser
    popularity 0.007596
@@ -4736,7 +4919,7 @@ stamp
     printFormatLinks
    javascript
     compile() {
-     const permalink = this.root.file.permalink.replace(".html", "")
+     const permalink = this.root.permalink.replace(".html", "")
      // hacky
      const particle = this.appendSibling(`HTML | TXT`, `class scrollDateline\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
      const html = particle.compile()
@@ -4744,7 +4927,7 @@ stamp
      return html
     }
     compileTxt() {
-      const permalink = this.root.file.permalink.replace(".html", "")
+      const permalink = this.root.permalink.replace(".html", "")
       return `HTML | TXT\n link ${permalink}.html HTML\n link ${permalink}.txt TXT`
     }
  textLinks.parsers

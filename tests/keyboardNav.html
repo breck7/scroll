@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div class="scrollKeyboardNav" style="display:none;"><a href="top-sinks.html">top-sinks.html</a> · keyboardNav.html · <a href="a-review-of-my-sink.html">a-review-of-my-sink.html</a><script>document.addEventListener('keydown', function(event) {
+  if (document.activeElement !== document.body) return
+  if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return // dont interfere with keyboard back button shortcut
+  const getLinks = () => document.getElementsByClassName("scrollKeyboardNav")[0].getElementsByTagName("a")
+  if (event.key === "ArrowLeft")
+    getLinks()[0].click()
+  else if (event.key === "ArrowRight")
+    getLinks()[1].click()
+ });</script></div>
+</body>
+</html>

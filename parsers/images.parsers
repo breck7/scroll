@@ -52,13 +52,12 @@ scrollImageParser
     // If its a local image, get the dimensions and put them in the HTML
     // to avoid flicker
    if (src.startsWith("http:") || src.startsWith("https:")) return {}
-   const file = this.root.file
     if (this._dimensions)
       return this._dimensions
     try {
      const sizeOf = require("image-size")
      const path = require("path")
-     const fullImagePath = path.join(file.folderPath, src)
+     const fullImagePath = path.join(this.root.folderPath, src)
      this._dimensions = sizeOf(fullImagePath)
      return this._dimensions
     } catch (err) {
@@ -73,7 +72,6 @@ scrollImageParser
     return this.getAtom(this.atomIndex)
   }
   getFigureContent(compileSettings) {
-   const file = this.root.file
    const linkRelativeToCompileTarget = (compileSettings ? (compileSettings.relativePath ?? "") : "") + this.filename
    const {width, height} = this.dimensions
    let dimensionAttributes = width || height  ? `width="${width}" height="${height}" ` : ""

@@ -11,7 +11,7 @@ stampFileParser
    const fs = require("fs")
    const path = require("path")
    const fullPath = path.join(parentDir, this.getLine())
-   this.root.file.log(`Creating file ${fullPath}`)
+   this.root.log(`Creating file ${fullPath}`)
    fs.mkdirSync(path.dirname(fullPath), {recursive: true})
    const content = this.subparticlesToString()
    fs.writeFileSync(fullPath, content, "utf8")
@@ -30,7 +30,7 @@ stampFolderParser
    const fs = require("fs")
    const path = require("path")
    const newPath = path.join(parentDir, this.getLine())
-   this.root.file.log(`Creating folder ${newPath}`)
+   this.root.log(`Creating folder ${newPath}`)
    fs.mkdirSync(newPath, {recursive: true})
    this.forEach(particle => particle.build(newPath))
   }
@@ -106,6 +106,6 @@ stampParser
  atoms preBuildCommandAtom
  javascript
   build() {
-    const dir = this.root.file.folderPath
+    const dir = this.root.folderPath
     this.forEach(particle => particle.build(dir))
   }

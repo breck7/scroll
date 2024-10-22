@@ -21,18 +21,9 @@ const SCROLL_FILE_EXTENSION = ".scroll"
 const PARSERS_FILE_EXTENSION = ".parsers"
 const EXTERNALS_PATH = path.join(__dirname, "external")
 const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
-// Todo: how to keep in sync with scroll files?
+
+// todo: all of these should be in parsers
 const scrollKeywords = {
-  title: "title",
-  description: "description",
-  editUrl: "editUrl",
-  permalink: "permalink",
-  canonicalUrl: "canonicalUrl",
-  image: "image",
-  date: "date",
-  endSnippet: "endSnippet",
-  tags: "tags",
-  keyboardNav: "keyboardNav",
   replace: "replace",
   replaceJs: "replaceJs",
   replaceNodejs: "replaceNodejs",
@@ -44,20 +35,18 @@ const scrollKeywords = {
   buildPdf: "buildPdf",
   buildRss: "buildRss",
   import: "import",
-  importOnly: "importOnly",
-  baseUrl: "baseUrl",
-  editBaseUrl: "editBaseUrl",
-  openGraphImage: "openGraphImage",
-  openGraph: "openGraph",
-  email: "email",
-  rssFeedUrl: "rssFeedUrl"
+  importOnly: "importOnly"
 }
-const CSV_FIELDS = ["date", "year", "title", "permalink", "authors", "tags", "wordCount", "minutes"]
 
 const makeLodashOrderByParams = str => {
   const part1 = str.split(" ")
   const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
   return [part1.map(col => col.replace(/^\-/, "")), part2]
+}
+
+class FileInterface {
+  EXTERNALS_PATH
+  SCROLL_VERSION
 }
 
 class ScrollFileSystem extends ParticleFileSystem {
@@ -102,12 +91,11 @@ class ScrollFileSystem extends ParticleFileSystem {
 }
 
 const removeBlanks = data => data.map(obj => Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== "")))
-const escapeCommas = str => (typeof str === "string" && str.includes(",") ? `"${str}"` : str)
 const defaultScrollParser = new ParticleFileSystem().getParser(Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION)))
 const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 
 // todo: tags is currently matching partial substrings
-const getFilesWithTag = (tag, files) => files.filter(file => file.buildsHtml && file.tags.includes(tag))
+const getFilesWithTag = (tag, files) => files.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.tags.includes(tag))
 
 // todo: clean this up
 const getCueAtoms = rootParserProgram =>
@@ -274,9 +262,8 @@ class ScrollFile {
     this.parser = parser
     this.scrollProgram = new parser(codeAfterMacroPass)
 
+    this.timestamp = dayjs(this.scrollProgram.get("date") ?? this.fileSystem.getCTime(this.filePath) ?? 0).unix()
     this.scrollProgram.setFile(this)
-    this.timestamp = dayjs(this.scrollProgram.get(scrollKeywords.date) ?? fileSystem.getCTime(absoluteFilePath) ?? 0).unix()
-    this.permalink = this.scrollProgram.get(scrollKeywords.permalink) || (this.filename ? this.scrollProgram.filenameNoExtension + ".html" : "")
   }
 
   // todo: speed this up and do a proper release. also could add more metrics like this.
@@ -299,35 +286,12 @@ class ScrollFile {
     return true
   }
 
-  get absoluteLink() {
-    return this.ensureAbsoluteLink(this.permalink)
-  }
-
   getFileFromId(id) {
     return this.fileSystem.getScrollFile(path.join(this.folderPath, id + ".scroll"))
   }
 
   get allScrollFiles() {
     return this.fileSystem.getScrollFilesInFolder(this.folderPath)
-  }
-
-  toSearchTsvRow(relativePath = "") {
-    const text = this.asTxt.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
-    return [this.title, relativePath + this.permalink, text, this.date, this.wordCount, this.minutes].join("\t")
-  }
-
-  // todo: clean up this naming pattern and add a parser instead of special casing 404.html
-  get allHtmlFiles() {
-    return this.allScrollFiles.filter(file => file.buildsHtml && file.permalink !== "404.html")
-  }
-
-  get buildsHtml() {
-    const { permalink } = this
-    return !this.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
-  }
-
-  get parserIds() {
-    return this.scrollProgram.topDownArray.map(particle => particle.definition.id)
   }
 
   _concepts
@@ -367,10 +331,6 @@ parsers/errors.parsers`
     code.getParticle("buildMeasuresParser").appendLine("boolean suggestInAutocomplete false")
 
     return code.toString()
-  }
-
-  get tables() {
-    return this.scrollProgram.filter(particle => particle.isTabularData && particle.isFirst)
   }
 
   _formatConcepts(parsed) {
@@ -530,39 +490,6 @@ parsers/errors.parsers`
     return new stumpParser(code).compile()
   }
 
-  log(message) {}
-
-  get date() {
-    const date = this.get(scrollKeywords.date) || this.timestamp * 1000 || 0
-    return dayjs(date).format(`MM/DD/YYYY`)
-  }
-
-  get year() {
-    return dayjs(this.date).format(`YYYY`)
-  }
-
-  get wordCount() {
-    return this.asTxt.match(/\b\w+\b/g)?.length || 0
-  }
-
-  get minutes() {
-    return (this.wordCount / 200).toFixed(1)
-  }
-
-  get hasKeyboardNav() {
-    return this.scrollProgram.has(scrollKeywords.keyboardNav)
-  }
-
-  // Get the line number that the snippet should stop at.
-  get endSnippetIndex() {
-    // First if its hard coded, use that
-    if (this.scrollProgram.has(scrollKeywords.endSnippet)) return this.scrollProgram.getParticle(scrollKeywords.endSnippet).index
-    // Next look for a dinkus
-    const snippetBreak = this.scrollProgram.find(particle => particle.isDinkus)
-    if (snippetBreak) return snippetBreak.index
-    return -1
-  }
-
   timeIndex = 0
 
   _nextAndPrevious(arr, index) {
@@ -576,71 +503,30 @@ parsers/errors.parsers`
 
   // keyboard nav is always in the same folder. does not currently support cross folder
   includeFileInKeyboardNav(file) {
-    return file.buildsHtml && file.hasKeyboardNav && file.tags.includes(this.primaryTag)
+    const { scrollProgram } = file
+    return scrollProgram.buildsHtml && scrollProgram.hasKeyboardNav && scrollProgram.tags.includes(this.scrollProgram.primaryTag)
   }
 
   get linkToPrevious() {
-    if (!this.hasKeyboardNav)
+    if (!this.scrollProgram.hasKeyboardNav)
       // Dont provide link to next unless keyboard nav is on
       return undefined
     let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).previous
     while (!this.includeFileInKeyboardNav(file)) {
       file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).previous
     }
-    return file.permalink
+    return file.scrollProgram.permalink
   }
 
   get linkToNext() {
-    if (!this.hasKeyboardNav)
+    if (!this.scrollProgram.hasKeyboardNav)
       // Dont provide link to next unless keyboard nav is on
       return undefined
     let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).next
     while (!this.includeFileInKeyboardNav(file)) {
       file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).next
     }
-    return file.permalink
-  }
-
-  get canonicalUrl() {
-    return this.get(scrollKeywords.canonicalUrl) || this.baseUrl + this.permalink
-  }
-
-  ensureAbsoluteLink(link) {
-    if (link.includes("://")) return link
-    return this.baseUrl + link.replace(/^\//, "")
-  }
-
-  get openGraphImage() {
-    const openGraphImage = this.get(scrollKeywords.openGraphImage)
-    if (openGraphImage !== undefined) return this.ensureAbsoluteLink(openGraphImage)
-
-    const images = this.scrollProgram.filter(particle => particle.doesExtend("scrollImageParser"))
-
-    const hit = images.find(particle => particle.has(scrollKeywords.openGraph)) || images[0]
-
-    if (!hit) return ""
-
-    return this.ensureAbsoluteLink(hit.filename)
-  }
-
-  // Use the first paragraph for the description
-  // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
-  // would speed up a lot.
-  get description() {
-    const program = this.scrollProgram
-    const description = program.get(scrollKeywords.description)
-    if (description) return description
-
-    return this.generatedDescription
-  }
-
-  get generatedDescription() {
-    const firstParagraph = this.scrollProgram.find(particle => particle.isArticleContent)
-    return firstParagraph ? firstParagraph.originalText.substr(0, 100).replace(/[&"<>']/g, "") : ""
-  }
-
-  get title() {
-    return this.scrollProgram.title
+    return file.scrollProgram.permalink
   }
 
   get(parserAtom) {
@@ -651,29 +537,12 @@ parsers/errors.parsers`
     return this.scrollProgram.has(parserAtom)
   }
 
-  get editUrl() {
-    const editUrl = this.get(scrollKeywords.editUrl)
-    if (editUrl) return editUrl
-
-    const editBaseUrl = this.get(scrollKeywords.editBaseUrl)
-    return (editBaseUrl ? editBaseUrl.replace(/\/$/, "") + "/" : "") + this.filename
+  // todo: clean up this naming pattern and add a parser instead of special casing 404.html
+  get allHtmlFiles() {
+    return this.allScrollFiles.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.permalink !== "404.html")
   }
 
-  get gitRepo() {
-    // given https://github.com/breck7/breckyunits.com/blob/main/four-tips-to-improve-communication.scroll
-    // return https://github.com/breck7/breckyunits.com
-    return this.editUrl.split("/").slice(0, 5).join("/")
-  }
-
-  get tags() {
-    return this.scrollProgram.get(scrollKeywords.tags) || ""
-  }
-
-  get primaryTag() {
-    return this.tags.split(" ")[0]
-  }
-
-  getFilesWithTagsForEmbedding(tags, limit) {
+  getFilesByTags(tags, limit) {
     if (typeof tags === "string") tags = tags.split(" ")
     if (!tags || !tags.length)
       return this.allHtmlFiles
@@ -707,103 +576,11 @@ parsers/errors.parsers`
     return lodash.sortBy(arr, file => file.file.timestamp).reverse()
   }
 
-  get editHtml() {
-    return this.compileStumpCode(`a Edit
- class abstractTextLinkParser
- href ${this.editUrl}`)
-  }
-
-  _compiledHtml = ""
-  get asHtml() {
-    if (!this._compiledHtml) {
-      const { permalink, buildsHtml } = this
-      const content = (this.scrollProgram.compile() + this.scrollProgram.clearBodyStack()).trim()
-      // Don't add html tags to CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
-      // <1% of use case so might be good enough.
-      const wrapWithHtmlTags = buildsHtml
-      const bodyTag = this.scrollProgram.has("metaTags") ? "" : "<body>\n"
-      this._compiledHtml = wrapWithHtmlTags ? `<!DOCTYPE html>\n<html lang="${this.lang}">\n${bodyTag}${content}\n</body>\n</html>` : content
-    }
-    return this._compiledHtml
-  }
-
-  get asTxt() {
-    return (
-      this.scrollProgram
-        .map(particle => {
-          const text = particle.compileTxt ? particle.compileTxt() : ""
-          if (text) return text + "\n"
-          if (!particle.getLine().length) return "\n"
-          return ""
-        })
-        .join("")
-        .replace(/<[^>]*>/g, "")
-        .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
-        .trim() + "\n" // Always end in a newline, Posix style
-    )
-  }
-
-  get asJs() {
-    return this.scrollProgram.topDownArray
-      .filter(particle => particle.compileJs)
-      .map(particle => particle.compileJs())
-      .join("\n")
-      .trim()
-  }
-
   get authors() {
     return this.scrollProgram.get("authors")
   }
-
-  get asRss() {
-    return this.scrollProgram.compile().trim()
-  }
-
-  get asCss() {
-    return this.scrollProgram.topDownArray
-      .filter(particle => particle.compileCss)
-      .map(particle => particle.compileCss())
-      .join("\n")
-      .trim()
-  }
-
-  get asCsv() {
-    return this.scrollProgram.topDownArray
-      .filter(particle => particle.compileCsv)
-      .map(particle => particle.compileCsv())
-      .join("\n")
-      .trim()
-  }
-
   async build() {
     return this.scrollProgram.build()
-  }
-
-  // Without specifying the language hyphenation will not work.
-  get lang() {
-    return this.get("htmlLang") || "en"
-  }
-
-  // todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
-  // BaseUrl must be provided for RSS Feeds and OpenGraph tags to work
-  // maybe wwwBaseUrl?
-  get baseUrl() {
-    return (this.scrollProgram.get(scrollKeywords.baseUrl) ?? "").replace(/\/$/, "") + "/"
-  }
-
-  csvFields = CSV_FIELDS
-
-  toCsv() {
-    return CSV_FIELDS.map(field => escapeCommas(this[field]))
-  }
-
-  toRss() {
-    const { title, canonicalUrl } = this
-    return ` <item>
-  <title>${title}</title>
-  <link>${canonicalUrl}</link>
-  <pubDate>${dayjs(this.timestamp * 1000).format("ddd, DD MMM YYYY HH:mm:ss ZZ")}</pubDate>
- </item>`
   }
 }
 
@@ -1016,7 +793,7 @@ footer.scroll`
   _buildConceptsAndMeasures(file, folder, fileSystem) {
     // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
     if (!file.has(scrollKeywords.buildConcepts)) return
-    const { permalink } = file
+    const { permalink } = file.scrollProgram
     file.scrollProgram.findParticles(scrollKeywords.buildConcepts).forEach(particle => {
       const files = particle.getAtomsFrom(1)
       if (!files.length) files.push(permalink.replace(".html", ".csv"))
@@ -1043,12 +820,12 @@ footer.scroll`
     const capitalized = lodash.capitalize(extension)
     const buildKeyword = "build" + capitalized
     if (!file.has(buildKeyword)) return
-    const { permalink } = file
+    const { permalink } = file.scrollProgram
     const outputFiles = file.get(buildKeyword)?.split(" ") || [""]
     outputFiles.forEach(name => {
       const link = name || permalink.replace(".html", "." + extension)
       try {
-        fileSystem.writeProduct(path.join(folder, link), file["as" + capitalized])
+        fileSystem.writeProduct(path.join(folder, link), file.scrollProgram["as" + capitalized])
         this.log(`💾 Built ${link} from ${file.filename}`)
       } catch (err) {
         console.error(`Error while building '${file.filePath}' with extension '${extension}'`)
@@ -1093,7 +870,7 @@ footer.scroll`
   buildPdf(file) {
     const outputFile = file.scrollProgram.filenameNoExtension + ".pdf"
     // relevant source code for chrome: https://github.com/chromium/chromium/blob/a56ef4a02086c6c09770446733700312c86f7623/components/headless/command_handler/headless_command_switches.cc#L22
-    const command = `/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --headless --disable-gpu --no-pdf-header-footer --default-background-color=00000000 --no-pdf-background --print-to-pdf="${outputFile}" "${file.permalink}"`
+    const command = `/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --headless --disable-gpu --no-pdf-header-footer --default-background-color=00000000 --no-pdf-background --print-to-pdf="${outputFile}" "${file.scrollProgram.permalink}"`
     // console.log(`Node.js is running on architecture: ${process.arch}`)
     try {
       const output = require("child_process").execSync(command, { stdio: "ignore" })

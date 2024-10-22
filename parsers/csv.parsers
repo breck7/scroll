@@ -12,10 +12,11 @@ printCsvParser
   buildTxt posts.csv
  javascript
   compile() {
-   const file = this.root.file
-   const files = file.getFilesWithTagsForEmbedding(this.content).map(file => file.file)
-   const header = file.csvFields
-   return `${header.join(",")}\n${files.map(file => file.toCsv()).join("\n")}`
+   const escapeCommas = str => (typeof str === "string" && str.includes(",") ? `"${str}"` : str)
+   const scrollPrograms = this.root.getFilesByTags(this.content).map(file => file.file.scrollProgram)
+   const CSV_FIELDS = ["date", "year", "title", "permalink", "authors", "tags", "wordCount", "minutes"]
+   const header = CSV_FIELDS
+   return `${header.join(",")}\n${scrollPrograms.map(program => CSV_FIELDS.map(field => escapeCommas(program[field]))).join("\n")}`
   }
   compileCsv() {
     return this.compile()

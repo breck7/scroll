@@ -7,9 +7,8 @@ printSearchTableParser
   tableSearch
  javascript
   compile() {
-   const file = this.root.file
    const files = this.files
-   const data = files.map(file => file.file.toSearchTsvRow(file.relativePath)).join("\n")
+   const data = files.map(file => file.file.scrollProgram.toSearchTsvRow(file.relativePath)).join("\n")
    // A hacky but simple way to do this for now.
      const particle = this.appendSibling("table")
     particle.appendLine("delimiter 	")

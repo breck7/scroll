@@ -21,6 +21,8 @@ Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of 
 > - A quote.
 aboveAsCode - Print code above.
 assertHtmlEquals - Test above particle's output.
+assertHtmlExcludes - Test above particle's output.
+assertHtmlIncludes - Test above particle's output.
 authors - Set author(s) name(s).
 baseUrl - Required for RSS and OpenGraph.
 belowAsCode - Print code below.

@@ -39,7 +39,7 @@ printFormatLinksParser
   printFormatLinks
  javascript
   compile() {
-   const permalink = this.root.file.permalink.replace(".html", "")
+   const permalink = this.root.permalink.replace(".html", "")
    // hacky
    const particle = this.appendSibling(`HTML | TXT`, `class scrollDateline\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
    const html = particle.compile()
@@ -47,6 +47,6 @@ printFormatLinksParser
    return html
   }
   compileTxt() {
-    const permalink = this.root.file.permalink.replace(".html", "")
+    const permalink = this.root.permalink.replace(".html", "")
     return `HTML | TXT\n link ${permalink}.html HTML\n link ${permalink}.txt TXT`
   }

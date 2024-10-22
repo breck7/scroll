@@ -7,8 +7,7 @@ printSourceParser
   buildTxt source.txt
  javascript
   compile() {
-   const file = this.root.file
-   const files = file.getFilesWithTagsForEmbedding(this.content).map(file => file.file)
+   const files = this.root.getFilesByTags(this.content).map(file => file.file)
    return `${files.map(file => file.filePath + "\n " + file.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
   }
 

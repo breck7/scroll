@@ -45,7 +45,7 @@ linkParser
  javascript
   tag = "a"
   compileTxt() {
-    return this.root.file.ensureAbsoluteLink(this.link) + " " + this.pattern
+    return this.root.ensureAbsoluteLink(this.link) + " " + this.pattern
   }
   get link() {
    const {baseLink} = this
