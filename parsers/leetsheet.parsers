@@ -6,7 +6,7 @@ printUsageStatsParser
  cueFromId
  javascript
   get stats() {
-   const input = this.root.file.allScrollFiles.map(file => file.parserIds.join("\n")).join("\n")
+   const input = this.root.file.allScrollFiles.map(file => file.scrollProgram).map(program => program.parserIds.join("\n")).join("\n")
    const result = input.split('\n').reduce((acc, atom) => (acc[atom] = (acc[atom] || 0) + 1, acc), {})
    const rows = Object.entries(result).map(([atom, count]) => { return {atom, count}})
    const sorted = this.lodash.sortBy(rows, "count").reverse()

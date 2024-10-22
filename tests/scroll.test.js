@@ -131,12 +131,12 @@ testParticles.file = areEqual => {
   const rootFolder = path.join(__dirname, "..")
   const fileSystem = new ScrollFileSystem()
   const files = fileSystem.getScrollFilesInFolder(rootFolder)
-  const releaseNotesFile = files.find(file => file.permalink === "releaseNotes.html")
+  const releaseNotesFile = files.find(file => file.scrollProgram.permalink === "releaseNotes.html").scrollProgram
 
   areEqual(releaseNotesFile.permalink, "releaseNotes.html")
   areEqual(releaseNotesFile.asHtml.includes("Scroll the language is now called"), true)
   areEqual(releaseNotesFile.description, "A list of what has changed in Scroll releases.", "Meta description auto-generated if not specified.")
-  areEqual(files[4].permalink.endsWith(".html"), true)
+  areEqual(files[4].scrollProgram.permalink.endsWith(".html"), true)
 }
 
 testParticles.ensureNoErrorsInParser = areEqual => {
@@ -173,7 +173,7 @@ testParticles.standalonePage = areEqual => {
 printTitle
 * Blue sky`)
   // Act/Assert
-  const { asHtml, asTxt } = page
+  const { asHtml, asTxt } = page.scrollProgram
   areEqual(asHtml.includes("Blue sky"), true)
   areEqual(asTxt.includes("A standalone page"), true)
 }
@@ -182,14 +182,14 @@ testParticles.aBlankPage = areEqual => {
   // Arrange
   const page = new ScrollFile(``)
   // Act/Assert
-  areEqual(page.asHtml, ``)
+  areEqual(page.scrollProgram.asHtml, ``)
 
   // Arrange
   const testHidden = new ScrollFile(`permalink blank.html
 # Hello world
  hidden`)
   // Act/Assert
-  areEqual(testHidden.asHtml, `<!DOCTYPE html>\n<html lang="en">\n<body>\n\n</body>\n</html>`)
+  areEqual(testHidden.scrollProgram.asHtml, `<!DOCTYPE html>\n<html lang="en">\n<body>\n\n</body>\n</html>`)
 }
 
 testParticles.rss = areEqual => {
@@ -197,7 +197,7 @@ testParticles.rss = areEqual => {
   const page = new ScrollFile(`printFeed index
 buildRss`)
   // Act/Assert
-  const { asHtml } = page
+  const { asHtml } = page.scrollProgram
   areEqual(asHtml.startsWith("<?xml "), true)
 }
 
@@ -207,7 +207,7 @@ testParticles.baseUrl = areEqual => {
 metaTags
 blog/screenshot.png`)
   // Act/Assert
-  const { asHtml } = page
+  const { asHtml } = page.scrollProgram
   areEqual(asHtml.includes("http://test.com/blog/screenshot.png"), true)
 }
 
@@ -216,7 +216,8 @@ testParticles.csv = areEqual => {
   const page = new ScrollFile(`printCsv index
 permalink posts.csv`)
   // Act/Assert
-  const { asHtml } = page
+  const { asHtml } = page.scrollProgram
+  console.log(asHtml)
   areEqual(asHtml.startsWith("date,year,title,permalink,"), true)
 }
 
