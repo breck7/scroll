@@ -111,9 +111,7 @@ printDate - Print published date.
 printFeed - Print group to RSS.
 printFormatLinks - Prints links to other formats.
 printFullSnippets - Print full pages in group(s).
-printparsersLeetSheet - Parsers leetsheet.
 printRelated - Print links to related posts.
-printScrollLeetSheet - Print Scroll parser leet sheet.
 printSearchTable - Prints files to HTML table.
 printShortSnippets - Titles and descriptions in group(s).
 printSiteMap - Print text sitemap.
@@ -278,8 +276,6 @@ loop,3
 music,3
 printColumn,3
 printCsv,3
-printparsersLeetSheet,3
-printScrollLeetSheet,3
 printSearchTable,3
 printSource,3
 sparkline,3

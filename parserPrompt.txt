@@ -2447,6 +2447,7 @@ stamp
    popularity 0.000024
    description Print Scroll parser leet sheet.
    extends abstractScrollParser
+   tags experimental
    cueFromId
    javascript
     get parsersToDocument() {
@@ -2517,6 +2518,7 @@ stamp
    popularity 0.000024
    // todo: fix parse bug when atom Parser appears in parserId
    extends printScrollLeetSheetParser
+   tags experimental
    description Parsers leetsheet.
    javascript
     compile() {
