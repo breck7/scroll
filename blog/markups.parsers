@@ -11,11 +11,10 @@ abstractMarkupLangParser
   get compiler() {
     try {
       let compiler
-      const file = this.root.file
       const path = require("path")
       try {
         // Scan the local folder for the module
-        compiler = require(path.join(file.folderPath, "node_modules", this.packageName))
+        compiler = require(path.join(this.root.folderPath, "node_modules", this.packageName))
       } catch (err) {
         // Fallback to global
         compiler = require(path.join(this.globalPath, this.packageName))

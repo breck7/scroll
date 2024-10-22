@@ -10,7 +10,7 @@ scrollDiskParser
   get delimitedDataNodeJs() {
    const fs = require('fs');
    const path = require('path');
-   const {folderPath} = this.parent.file
+   const {folderPath} = this.root
    const folder = this.content ? path.join(folderPath, this.content) : folderPath
    function getDirectoryContents(dirPath) {
      const directoryContents = [];

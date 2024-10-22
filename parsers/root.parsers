@@ -93,7 +93,16 @@ scrollParser
     return this.isNodeJs() ? this.fetchNode(url, filename) : this.fetchBrowser(url)
   }
   makeFullPath(filename) {
-    return require("path").join(this.file.folderPath, filename)
+    return require("path").join(this.folderPath, filename)
+  }
+  get date() {
+    return this.get("date") || this.file.date
+  }
+  get linkToPrevious() {
+    return this.file.linkToPrevious
+  }
+  get linkToNext() {
+    return this.file.linkToNext
   }
   async fetchNode(url, filename) {
     filename = filename || new URL(url).pathname.split('/').pop()
@@ -104,7 +113,7 @@ scrollParser
     return this.readFile(fullpath)
   }
   log(message) {
-    console.log(message)
+   // console.log(message)
   }
   async fetchBrowser(url) {
     const content = localStorage.getItem(url)
@@ -127,7 +136,7 @@ scrollParser
   readFile(filename) {
     const path = require("path")
     const fs = require("fs")
-    const fullPath = path.join(this.file.folderPath, filename.replace(this.file.folderPath, ""))
+    const fullPath = path.join(this.folderPath, filename.replace(this.folderPath, ""))
     if (fs.existsSync(fullPath))
       return fs.readFileSync(fullPath, "utf8")
     console.error(`File '${filename}' not found`)
@@ -152,11 +161,88 @@ scrollParser
   getFromParserId(parserId) {
     return this.parserIdIndex[parserId]?.[0].content
   }
+  get folderPath() {
+    return this.file.folderPath
+  }
   get filename() {
     return this.file.filename || ""
   }
+  get hasKeyboardNav() {
+    return this.has("keyboardNav")
+  }
+  get editHtml() {
+    return `<a href="${this.editUrl}" class="abstractTextLinkParser">Edit</a>`
+  }
+  get endSnippetIndex() {
+    // Get the line number that the snippet should stop at.
+    // First if its hard coded, use that
+    if (this.has("endSnippet")) return this.getParticle("endSnippet").index
+    // Next look for a dinkus
+    const snippetBreak = this.find(particle => particle.isDinkus)
+    if (snippetBreak) return snippetBreak.index
+    return -1
+  }
+  get parserIds() {
+    return this.topDownArray.map(particle => particle.definition.id)
+  }
+  get tags() {
+    return this.get("tags") || ""
+  }
+  get primaryTag() {
+    return this.tags.split(" ")[0]
+  }
   get filenameNoExtension() {
     return this.filename.replace(".scroll", "")
+  }
+  // todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
+  // BaseUrl must be provided for RSS Feeds and OpenGraph tags to work
+  get baseUrl() {
+    const baseUrl = (this.get("baseUrl") || "").replace(/\/$/, "")
+    return baseUrl + "/"
+  }
+  get canonicalUrl() {
+    return this.get("canonicalUrl") || this.baseUrl + this.permalink
+  }
+  get openGraphImage() {
+    const openGraphImage = this.get("openGraphImage")
+    if (openGraphImage !== undefined) return this.ensureAbsoluteLink(openGraphImage)
+    const images = this.filter(particle => particle.doesExtend("scrollImageParser"))
+    const hit = images.find(particle => particle.has("openGraph")) || images[0]
+    if (!hit) return ""
+    return this.ensureAbsoluteLink(hit.filename)
+  }
+  get absoluteLink() {
+    return this.ensureAbsoluteLink(this.permalink)
+  }
+  ensureAbsoluteLink(link) {
+    if (link.includes("://")) return link
+    return this.baseUrl + link.replace(/^\//, "")
+  }
+  get editUrl() {
+    const editUrl = this.get("editUrl")
+    if (editUrl) return editUrl
+    const editBaseUrl = this.get("editBaseUrl")
+    return (editBaseUrl ? editBaseUrl.replace(/\/$/, "") + "/" : "") + this.filename
+  }
+  get gitRepo() {
+    // given https://github.com/breck7/breckyunits.com/blob/main/four-tips-to-improve-communication.scroll
+    // return https://github.com/breck7/breckyunits.com
+    return this.editUrl.split("/").slice(0, 5).join("/")
+  }
+  get scrollVersion() {
+    return this.file.SCROLL_VERSION
+  }
+  // Use the first paragraph for the description
+  // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
+  // would speed up a lot.
+  get description() {
+    const description = this.getFromParserId("openGraphDescriptionParser")
+    if (description) return description
+    return this.generatedDescription
+  }
+  get generatedDescription() {
+    const firstParagraph = this.find(particle => particle.isArticleContent)
+    return firstParagraph ? firstParagraph.originalText.substr(0, 100).replace(/[&"<>']/g, "") : ""
   }
   get titleFromFilename() {
     const unCamelCase = str => str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, match => match.toUpperCase())
@@ -166,7 +252,94 @@ scrollParser
     return this.getFromParserId("scrollTitleParser") || this.titleFromFilename
   }
   get permalink() {
-   return this.get("permalink") || this.file.permalink || ""
+   return this.get("permalink") || (this.filename ? this.filenameNoExtension + ".html" : "")
+  }
+  get asTxt() {
+    return (
+      this.map(particle => {
+          const text = particle.compileTxt ? particle.compileTxt() : ""
+          if (text) return text + "\n"
+          if (!particle.getLine().length) return "\n"
+          return ""
+        })
+        .join("")
+        .replace(/<[^>]*>/g, "")
+        .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
+        .trim() + "\n" // Always end in a newline, Posix style
+    )
+  }
+  toSearchTsvRow(relativePath = "") {
+    const text = this.asTxt.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
+    return [this.title, relativePath + this.permalink, text, this.date, this.wordCount, this.minutes].join("\t")
+  }
+  get asJs() {
+    return this.topDownArray
+      .filter(particle => particle.compileJs)
+      .map(particle => particle.compileJs())
+      .join("\n")
+      .trim()
+  }
+  get asRss() {
+    return this.compile().trim()
+  }
+  get asCss() {
+    return this.topDownArray
+      .filter(particle => particle.compileCss)
+      .map(particle => particle.compileCss())
+      .join("\n")
+      .trim()
+  }
+  get asCsv() {
+    return this.topDownArray
+      .filter(particle => particle.compileCsv)
+      .map(particle => particle.compileCsv())
+      .join("\n")
+      .trim()
+  }
+  get buildsHtml() {
+    const { permalink } = this
+    return !this.file?.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
+  }
+  // Without specifying the language hyphenation will not work.
+  get lang() {
+    return this.get("htmlLang") || "en"
+  }
+  _compiledHtml = ""
+  get asHtml() {
+    if (!this._compiledHtml) {
+      const { permalink, buildsHtml } = this
+      const content = (this.compile() + this.clearBodyStack()).trim()
+      // Don't add html tags to CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
+      // <1% of use case so might be good enough.
+      const wrapWithHtmlTags = buildsHtml
+      const bodyTag = this.has("metaTags") ? "" : "<body>\n"
+      this._compiledHtml = wrapWithHtmlTags ? `<!DOCTYPE html>\n<html lang="${this.lang}">\n${bodyTag}${content}\n</body>\n</html>` : content
+    }
+    return this._compiledHtml
+  }
+  get wordCount() {
+    return this.asTxt.match(/\b\w+\b/g)?.length || 0
+  }
+  get minutes() {
+    return (this.wordCount / 200).toFixed(1)
+  }
+  get date() {
+    const date = this.get("date") || (this.file.timestamp ? this.file.timestamp * 1000 : 0) || 0
+    return this.dayjs(date).format(`MM/DD/YYYY`)
+  }
+  get year() {
+    return this.dayjs(this.date).format(`YYYY`)
+  }
+  get dayjs() {
+    return this.isNodeJs() ? require("dayjs") : dayjs
+  }
+  toRss() {
+    const { title, canonicalUrl } = this
+    return ` <item>
+  <title>${title}</title>
+  <link>${canonicalUrl}</link>
+  <pubDate>${this.dayjs(this.timestamp * 1000).format("ddd, DD MMM YYYY HH:mm:ss ZZ")}</pubDate>
+  </item>`
   }
  example
   # Hello world

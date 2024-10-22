@@ -23,15 +23,9 @@ datelineParser
   }
   matchWholeLine = true
   get day() {
-   let day = this.content || this.root.get("date") || this.root.file?.date
+   let day = this.content || this.root.date
    if (!day) return ""
-   try {
-    const dayjs = require("dayjs")
-    return dayjs(day).format(`MMMM D, YYYY`)
-   } catch (err) {
-    console.error(err)
-   }
-   return day || ""
+   return this.root.dayjs(day).format(`MMMM D, YYYY`)
   }
 
 printDateParser
@@ -45,15 +39,9 @@ printDateParser
    return `<div style="text-align: center;" class="scrollDateline">${this.day}</div>`
   }
   get day() {
-   let day = this.content || this.root.get("date") || this.root.file?.date
+   let day = this.content || this.root.date
    if (!day) return ""
-   try {
-    const dayjs = require("dayjs")
-    return dayjs(day).format(`MMMM D, YYYY`)
-   } catch (err) {
-    console.error(err)
-   }
-   return day || ""
+   return this.root.dayjs(day).format(`MMMM D, YYYY`)
   }
   compileTxt() {
     return this.day

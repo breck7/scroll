@@ -26,9 +26,9 @@ keyboardNavParser
    return ""
   }
   compile() {
-   const file = this.root.file
-   const linkToPrevious = this.getAtom(1) ?? file.linkToPrevious
-   const linkToNext = this.getAtom(2) ?? file.linkToNext
+   const {root} = this.root
+   const linkToPrevious = this.getAtom(1) ?? root.linkToPrevious
+   const linkToNext = this.getAtom(2) ?? root.linkToNext
    const script = `<script>document.addEventListener('keydown', function(event) {
     if (document.activeElement !== document.body) return
     if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return // dont interfere with keyboard back button shortcut
@@ -38,5 +38,5 @@ keyboardNavParser
     else if (event.key === "ArrowRight")
       getLinks()[1].click()
    });</script>`
-   return `<div class="scrollKeyboardNav" style="display:none;"><a href="${linkToPrevious}">${linkToPrevious}</a> · ${file.permalink} · <a href="${linkToNext}">${linkToNext}</a>${script}</div>`
+   return `<div class="scrollKeyboardNav" style="display:none;"><a href="${linkToPrevious}">${linkToPrevious}</a> · ${root.permalink} · <a href="${linkToNext}">${linkToNext}</a>${script}</div>`
   }
