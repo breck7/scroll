@@ -20,6 +20,12 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 145.0.0 10/23/2024
+🎉 added onclickParser
+🎉 added scrollEvalParser
+🎉 started refactoring CSS code to make theming easier
+⚠️ BREAKING: if using `--base-font-size` rename to `--scrollBaseFontSize`
+
 📦 144.0.0 10/22/2024
 🎉 big refactor to make more of Scroll work entirely in browser
 ⚠️ BREAKING: (no user breaking changes). Changes for ScrollFile API users: some methods have moved to scrollProgram.
@@ -1270,7 +1276,7 @@ Scroll already supported tabular data using `tabTable`, but that made copy/paste
 The code below added to a page will create the zoom out effect:
 
 code
- css html {font-size: var(--base-font-size, 8px);}
+ css html {font-size: var(--scrollBaseFontSize, 8px);}
 
 ⚠️ BREAKING: There might be some slight style breaks related to this change.
 

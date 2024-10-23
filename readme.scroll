@@ -2,7 +2,6 @@ permalink index.html
 title Scroll is a language for scientists of all ages
 
 header.scroll
-css html {font-size: var(--base-font-size, 18px); font-weight: 400;}
 
 # Scroll is a language for scientists of all ages
  style font-weight: 300; font-size: 200%;
@@ -10,6 +9,8 @@ css html {font-size: var(--base-font-size, 18px); font-weight: 400;}
 
 ## Publish and evolve your most intelligent ideas
  style font-weight: 300;
+
+css :root { --scrollBaseFontSize: 18px !important; }
 
 br
 mediumColumns 1

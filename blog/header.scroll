@@ -14,4 +14,4 @@ homeButton ../index.html
 leftRightButtons
 copyButtons
 
-css html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--base-font-size, 16px);}
+css html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--scrollBaseFontSize, 16px);}
