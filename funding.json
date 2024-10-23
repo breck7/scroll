@@ -28,7 +28,7 @@
         "channels": [{
             "guid": "breck-paypal",
             "type": "other",
-            "address": "breck7@gmail.com",
+            "address": "breck7@gmail.com"
         }],
         "plans": [{
             "guid": "paypal",
