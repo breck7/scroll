@@ -16,10 +16,10 @@
         "name": "The Scroll",
         "description": "The Scroll is a successor to the web that is public domain, intelligent, and works offline. It uses Git instead of HTTP, Scroll instead of HTML, ScrollSets instead of databases, and ScrollHub instead of GitHub. Made possible by breakthroughs including the PPS stack (Particles, Parsers, and Scroll) and novel mathematical equations. The project aims to provide a pristine copy of civilization's knowledge in everyone's pocket by 2030.",
         "webpageUrl": {
-            "url": "https://wws.scroll.pub/"
+            "url": "https://scroll.pub/"
         },
         "repositoryUrl": {
-            "url": "https://github.com/breck7/scroll"
+            "url": "https://scroll.pub/"
         },
         "licenses": ["spdx:CC0-1.0"],
         "tags": ["information-systems", "knowledge-management", "public-domain", "offline-first", "git-based"]
@@ -34,9 +34,9 @@
             "guid": "paypal",
             "status": "active",
             "name": "Quarterly funding plan",
-            "amount": 25000,
+            "amount": 8000,
             "currency": "USD",
-            "frequency": "quarterly",
+            "frequency": "monthly",
             "channels": ["breck-paypal"]
         }],
         "history": [{
