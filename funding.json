@@ -2,7 +2,7 @@
     "version": "v1.0.0",
     "entity": {
         "type": "individual",
-        "role": "founder",
+        "role": "owner",
         "name": "The Scroll",
         "email": "breck7@gmail.com",
         "phone": "1-415-937-1984",
