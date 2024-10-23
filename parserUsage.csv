@@ -1,11 +1,11 @@
 parserId,uses
-blankLineParser,1021
-versionParser,541
-newFeatureParser,458
+blankLineParser,1011
+versionParser,542
+newFeatureParser,461
 catchAllParagraphParser,255
 bugFixParser,209
 lineOfCodeParser,209
-breakingChangeParser,201
+breakingChangeParser,202
 quickLinkParser,96
 BlobParser,69
 scrollQuestionParser,64
@@ -17,7 +17,6 @@ belowAsCodeParser,30
 quickRelativeLinkParser,26
 editButtonParser,25
 classMarkupParser,24
-cssParser,22
 scrollCenterParser,21
 slashCommentParser,20
 aboveAsCodeParser,18
@@ -25,6 +24,7 @@ buildTxtParser,15
 scrollBrParser,14
 baseUrlParser,14
 homeButtonParser,13
+inlineCssParser,13
 stumpNoSnippetParser,13
 metaTagsParser,13
 editBaseUrlParser,13
@@ -46,6 +46,7 @@ styleTweakParser,8
 chatLineParser,8
 thinColumnsParser,8
 linkParser,8
+cssParser,8
 horizontalRuleParser,8
 endColumnsParser,7
 inlineMarkupParser,7

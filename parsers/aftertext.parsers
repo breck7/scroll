@@ -304,10 +304,16 @@ aftertextIdParser
 aftertextStyleParser
  popularity 0.000217
  cue style
- description Provide code for the generated HTML tag's "style" attribute.
+ description Set HTML style attribute.
  extends abstractAftertextAttributeParser
- atoms cueAtom
  catchAllAtomType cssAnyAtom
+
+aftertextOnclickParser
+ popularity 0.000217
+ cue onclick
+ description Set HTML onclick attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType anyAtom
 
 aftertextHiddenParser
  cue hidden

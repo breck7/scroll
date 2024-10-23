@@ -10,6 +10,13 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+145.0.0 10/23/2024
+==================
+🎉 added onclickParser
+🎉 added scrollEvalParser
+🎉 started refactoring CSS code to make theming easier
+⚠️ BREAKING: if using `--base-font-size` rename to `--scrollBaseFontSize`
+
 144.0.0 10/22/2024
 ==================
 🎉 big refactor to make more of Scroll work entirely in browser
@@ -1503,7 +1510,7 @@ Scroll already supported tabular data using `tabTable`, but that made copy/paste
 
 The code below added to a page will create the zoom out effect:
 
-css html {font-size: var(--base-font-size, 8px);}
+css html {font-size: var(--scrollBaseFontSize, 8px);}
 
 ⚠️ BREAKING: There might be some slight style breaks related to this change.
 
@@ -2941,4 +2948,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v144.0.0
+Built with Scroll v145.0.0

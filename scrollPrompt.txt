@@ -9,8 +9,6 @@ stamp
   
   header.scroll
   
-  css html {font-size: var(--base-font-size, 18px);}
-  
   container 800px
   
   printTitle

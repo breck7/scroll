@@ -5,9 +5,9 @@ Publish and evolve your most intelligent ideas
 ==============================================
 
 With Scroll your
-Lines become particles
-United with parsers
-To lead the world
+Words become atoms
+Absorbed by parsers
+To guide the world
 
 ScrollHub &nbsp;&nbsp; Try now
  http://hub.scroll.pub/ ScrollHub
@@ -33,4 +33,4 @@ scroll prompt · parser prompt
  https://scroll.pub/scrollPrompt.txt scroll prompt
  https://scroll.pub/parserPrompt.txt parser prompt
 
-Built with Scroll v144.0.0
+Built with Scroll v145.0.0

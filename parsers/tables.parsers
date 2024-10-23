@@ -373,6 +373,14 @@ scrollComputeParser
   evaluate(str) {
     return parseFloat(eval(str))
   }
+scrollEvalParser
+ extends scrollComputeParser
+ description Add column by evaling format string.
+ cue eval
+ javascript
+  evaluate(str) {
+    return eval(str)
+  }
 scrollRankParser
  extends scrollComposeParser
  description Add rank column.

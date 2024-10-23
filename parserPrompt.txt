@@ -304,10 +304,16 @@ stamp
   aftertextStyleParser
    popularity 0.000217
    cue style
-   description Provide code for the generated HTML tag's "style" attribute.
+   description Set HTML style attribute.
    extends abstractAftertextAttributeParser
-   atoms cueAtom
    catchAllAtomType cssAnyAtom
+  
+  aftertextOnclickParser
+   popularity 0.000217
+   cue onclick
+   description Set HTML onclick attribute.
+   extends abstractAftertextAttributeParser
+   catchAllAtomType anyAtom
   
   aftertextHiddenParser
    cue hidden
@@ -3963,7 +3969,7 @@ stamp
     ****
    javascript
     compile() {
-     return `html {font-size: var(--base-font-size, 28px);} body {margin: auto; width: 500px;}.slideshowNav{text-align: center; margin-bottom:20px; font-size: 24px;color: rgba(204,204,204,.8);} a{text-decoration: none; color: rgba(204,204,204,.8);}`
+     return `html {font-size: var(--scrollBaseFontSize, 28px);} body {margin: auto; width: 500px;}.slideshowNav{text-align: center; margin-bottom:20px; font-size: 24px;color: rgba(204,204,204,.8);} a{text-decoration: none; color: rgba(204,204,204,.8);}`
     }
  snippets.parsers
   endSnippetParser
@@ -4636,6 +4642,14 @@ stamp
    javascript
     evaluate(str) {
       return parseFloat(eval(str))
+    }
+  scrollEvalParser
+   extends scrollComputeParser
+   description Add column by evaling format string.
+   cue eval
+   javascript
+    evaluate(str) {
+      return eval(str)
     }
   scrollRankParser
    extends scrollComposeParser
