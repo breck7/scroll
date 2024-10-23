@@ -1,0 +1,50 @@
+{
+    "version": "v1.0.0",
+    "entity": {
+        "type": "individual",
+        "role": "founder",
+        "name": "The Scroll",
+        "email": "breck7@gmail.com",
+        "phone": "1-415-937-1984",
+        "description": "Building a successor to the web that is public domain, intelligent, and works offline.",
+        "webpageUrl": {
+            "url": "https://scroll.pub/"
+        }
+    },
+    "projects": [{
+        "guid": "the-scroll",
+        "name": "The Scroll",
+        "description": "The Scroll is a successor to the web that is public domain, intelligent, and works offline. It uses Git instead of HTTP, Scroll instead of HTML, ScrollSets instead of databases, and ScrollHub instead of GitHub. Made possible by breakthroughs including the PPS stack (Particles, Parsers, and Scroll) and novel mathematical equations. The project aims to provide a pristine copy of civilization's knowledge in everyone's pocket by 2030.",
+        "webpageUrl": {
+            "url": "https://wws.scroll.pub/"
+        },
+        "repositoryUrl": {
+            "url": "https://github.com/breck7/scroll"
+        },
+        "licenses": ["spdx:CC0-1.0"],
+        "tags": ["information-systems", "knowledge-management", "public-domain", "offline-first", "git-based"]
+    }],
+    "funding": {
+        "channels": [{
+            "guid": "breck-paypal",
+            "type": "other",
+            "address": "breck7@gmail.com",
+        }],
+        "plans": [{
+            "guid": "paypal",
+            "status": "active",
+            "name": "Quarterly funding plan",
+            "amount": 25000,
+            "currency": "USD",
+            "frequency": "quarterly",
+            "channels": ["breck-paypal"]
+        }],
+        "history": [{
+            "year": 2024,
+            "income": 1000,
+            "expenses": 100000,
+            "currency": "USD",
+            "description": "Founder personally funded R&D with >$1M prior to this round. Current revenue stream includes root name sales at $100 for 10-year registration."
+        }]
+    }
+}
