@@ -16,24 +16,26 @@ const packageJson = require("./package.json")
 class CloneCli extends SimpleCLI {
   welcomeMessage = `\n👯 WELCOME TO CLONE`
 
-  async cloneCommand(cwd, urls) {
-    for (const gitUrl of urls) {
+  clone(cwd, gitUrl, folderName) {
+    return new Promise((resolve, reject) => {
       const protocolPrefix = gitUrl.startsWith("http") ? "" : "https://"
       const url = new URL(protocolPrefix + gitUrl)
       const { hostname, pathname } = url
-      let cloneUrl = protocolPrefix + gitUrl
-      let folderName = pathname
-        .split("/")
-        .pop()
-        .replace(/\.git$/, "")
-      if (pathname.length < 2) {
-        // Allow cloning of domains like: clone capitaldb.togger.com
-        folderName = hostname
-        cloneUrl = url + hostname
+
+      if (!folderName) {
+        folderName = pathname
+          .split("/")
+          .pop()
+          .replace(/\.git$/, "")
+        if (pathname.length < 2) folderName = hostname
       }
+
+      // Allow cloning of domains like: clone capitaldb.togger.com
+      let cloneUrl = protocolPrefix + gitUrl
+      if (pathname.length < 2) cloneUrl = url + hostname
       cloneUrl = cloneUrl.replace(/\.git$/, "") + ".git"
-      const cloneCommand = `git clone ${cloneUrl} ${folderName}`
-      console.log(`Running: ${cloneCommand}`)
+
+      console.log(`Running: git clone ${cloneUrl} ${folderName}`)
 
       const cloneProcess = spawn("git", ["clone", cloneUrl, folderName], { cwd })
 
@@ -45,15 +47,30 @@ class CloneCli extends SimpleCLI {
         process.stderr.write(data.toString())
       })
 
+      cloneProcess.on("error", error => {
+        reject(error)
+      })
+
       cloneProcess.on("close", async code => {
         if (code === 0) {
           console.log(`Cloned successfully into ${folderName}`)
-          const scrollCli = new ScrollCli()
-          await scrollCli.buildCommand(path.join(cwd, folderName))
+          try {
+            const scrollCli = new ScrollCli()
+            await scrollCli.buildCommand(path.join(cwd, folderName))
+            resolve()
+          } catch (error) {
+            reject(error)
+          }
         } else {
-          console.error(`git clone failed with code ${code}`)
+          reject(new Error(`git clone failed with code ${code}`))
         }
       })
+    })
+  }
+
+  async cloneCommand(cwd, urls) {
+    for (const gitUrl of urls) {
+      await this.clone(cwd, gitUrl)
     }
   }
 }
