@@ -33,7 +33,7 @@ You can use this TODAY!
 =======================
 
 This now ships in Scroll. Here is a test form. You can also see it in use in many of our products.
- https://scroll.pub/blog/../tests/form.html a test form
+ https://scroll.pub/blog/../tests/forms.html a test form
 
 Because this is new technology, it is not for those that need spoon feeding. Believe it or not, making web forms also used to be complicated.
 
