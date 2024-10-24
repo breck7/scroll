@@ -26,12 +26,11 @@ class CloneCli extends SimpleCLI {
         .split("/")
         .pop()
         .replace(/\.git$/, "")
-      if (pathname.length < 2) {
-        // Allow cloning of domains like: clone capitaldb.togger.com
-        folderName = hostname
-        cloneUrl = url + hostname
-      }
+      if (pathname.length < 2) folderName = hostname
     }
+    // Allow cloning of domains like: clone capitaldb.togger.com
+    if (pathname.length < 2) cloneUrl = url + hostname
+
     cloneUrl = cloneUrl.replace(/\.git$/, "") + ".git"
     const cloneCommand = `git clone ${cloneUrl} ${folderName}`
     console.log(`Running: ${cloneCommand}`)
