@@ -1644,10 +1644,10 @@ stamp
    extends abstractScrollParser
    atoms urlAtom
    catchAllAtomType stringAtom
-   pattern ^[\w\.]+#[\w\.]+ *
+   pattern ^%?[\w\.]+#[\w\.]+ *
    javascript
     get tag() {
-      return this.atoms[0].split(/[#\.]/).shift()
+      return this.atoms[0].split(/[#\.]/).shift().replace("%", "")
     }
     get htmlId() {
       const idMatch = this.atoms[0].match(/#([\w-]+)/)
@@ -1658,12 +1658,17 @@ stamp
     }
     compile() {
      const {htmlId, htmlClasses, content, tag} = this
-     this.parent.sectionStack.push(``)
+     this.parent.sectionStack.unshift(``)
+     const attrs = [htmlId ? ' id="' + htmlId + '"' : "", htmlClasses.length ? ' class="' + htmlClasses.join(" ") + '"' : ""].join(" ").trim()
      return `${content || ""}`
     }
     compileTxt() {
       return this.content
     }
+  hamlTagParser
+   // Match plain tags like %h1
+   extends hamlParser
+   pattern ^%[^#]+$
  headers.parsers
   abstractHeaderParser
    extends paragraphParser
@@ -3547,7 +3552,7 @@ stamp
     }
     sectionStack = []
     clearSectionStack() {
-     const result = this.sectionStack.join("")
+     const result = this.sectionStack.join("\n")
      this.sectionStack = []
      return result
     }

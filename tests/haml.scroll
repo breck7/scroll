@@ -13,3 +13,12 @@ h1.red#foo Red
 div.red.underline#bar Red underline
 
 div.underline#green Green underline
+
+%div plain tag
+
+%header
+%nav
+%ul
+- About
+- Home
+

@@ -66,7 +66,7 @@ scrollParser
   }
   sectionStack = []
   clearSectionStack() {
-   const result = this.sectionStack.join("")
+   const result = this.sectionStack.join("\n")
    this.sectionStack = []
    return result
   }
