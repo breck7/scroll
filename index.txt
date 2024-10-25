@@ -5,8 +5,8 @@ Publish and evolve your most intelligent ideas
 ==============================================
 
 With Scroll your
-Words become atoms
-Absorbed by parsers
+Words become Atoms
+Consumed by Parsers
 To guide the world
 
 ScrollHub &nbsp;&nbsp; Try now
@@ -33,4 +33,4 @@ scroll prompt · parser prompt
  https://scroll.pub/scrollPrompt.txt scroll prompt
  https://scroll.pub/parserPrompt.txt parser prompt
 
-Built with Scroll v145.2.0
+Built with Scroll v145.3.0

@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+145.3.0 10/24/2024
+==================
+🎉 added nav styling
+
 145.2.0 10/24/2024
 ==================
 🎉 add HAML parser for plain tags
@@ -2964,4 +2968,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v145.2.0
+Built with Scroll v145.3.0
