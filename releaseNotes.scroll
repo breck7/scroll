@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 145.4.0 10/25/2024
+🎉 added startsWith and endsWith atoms to where parser
+
 📦 145.3.0 10/24/2024
 🎉 added nav styling
 
