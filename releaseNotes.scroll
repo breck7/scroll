@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 145.2.0 10/24/2024
+🎉 add HAML parser for plain tags
+
 📦 145.1.2 10/23/2024
 🏥 clone fixes
 
