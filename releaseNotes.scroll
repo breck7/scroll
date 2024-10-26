@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 145.5.0 10/25/2024
+🎉 new internal build API to support single file building
+
 📦 145.4.0 10/25/2024
 🎉 added startsWith and endsWith atoms to where parser
 
