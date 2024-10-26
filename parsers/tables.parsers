@@ -288,7 +288,7 @@ scrollWhereParser
    if (!columnName || !operator || untypedScalarValue === undefined) return coreTable
     const filterFn = row => {
       const atom = row[columnName]
-      const typedAtom = atom
+      const typedAtom = atom === null ? undefined : atom // convert nulls to undefined
       if (operator === "=") return typedValue === typedAtom
       else if (operator === "!=") return typedValue !== typedAtom
       else if (operator === "includes") return typedAtom !== undefined && typedAtom.includes(typedValue)
