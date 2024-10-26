@@ -103,3 +103,18 @@ contacts.json
  printTable
 
 ****
+
+---
+
+# Where tests
+
+table
+ where year startsWith 20
+  printTable
+ where year endsWith 20
+  printTable
+ data
+  year,count
+  1900,10
+  2000,122
+  2020,23

@@ -266,6 +266,13 @@ class ScrollFile {
     this.scrollProgram.setFile(this)
   }
 
+  get parsersRequiringExternals() {
+    const { parser } = this
+    // todo: could be cleaned up a bit
+    if (!parser.parsersRequiringExternals) parser.parsersRequiringExternals = parser.cachedHandParsersProgramRoot.filter(particle => particle.copyFromExternal).map(particle => particle.atoms[0])
+    return parser.parsersRequiringExternals
+  }
+
   // todo: speed this up and do a proper release. also could add more metrics like this.
   get lastCommitTime() {
     if (this._lastCommitTime === undefined) {
@@ -284,6 +291,115 @@ class ScrollFile {
     if (codeAtStart === formatted) return false
     this.fileSystem.write(this.filePath, formatted)
     return true
+  }
+
+  _buildFileType(extension) {
+    const { fileSystem, scrollProgram, folderPath, filename, filePath } = this
+    const capitalized = lodash.capitalize(extension)
+    const buildKeyword = "build" + capitalized
+    if (!this.has(buildKeyword)) return
+    const { permalink } = scrollProgram
+    const outputFiles = this.get(buildKeyword)?.split(" ") || [""]
+    outputFiles.forEach(name => {
+      const link = name || permalink.replace(".html", "." + extension)
+      try {
+        fileSystem.writeProduct(path.join(folderPath, link), scrollProgram["as" + capitalized])
+        this.log(`💾 Built ${link} from ${filename}`)
+      } catch (err) {
+        console.error(`Error while building '${filePath}' with extension '${extension}'`)
+        throw err
+      }
+    })
+  }
+
+  _copyExternalFiles(externalFilesCopied = {}) {
+    // If this file uses a parser that has external requirements,
+    // copy those from external folder into the destination folder.
+    const { parsersRequiringExternals, scrollProgram, folderPath, fileSystem, filename } = this
+    const { parserIdIndex } = scrollProgram
+    if (!externalFilesCopied[folderPath]) externalFilesCopied[folderPath] = {}
+    parsersRequiringExternals.forEach(parserId => {
+      if (externalFilesCopied[folderPath][parserId]) return
+      if (!parserIdIndex[parserId]) return
+      parserIdIndex[parserId].map(particle => {
+        const externalFiles = particle.copyFromExternal.split(" ")
+        externalFiles.forEach(name => {
+          const newPath = path.join(folderPath, name)
+          fileSystem.writeProduct(newPath, Disk.read(path.join(EXTERNALS_PATH, name)))
+          this.log(`💾 Copied external file needed by ${filename} to ${name}`)
+        })
+      })
+      if (parserId !== "scrollThemeParser")
+        // todo: generalize when not to cache
+        externalFilesCopied[folderPath][parserId] = true
+    })
+  }
+
+  log(message) {
+    if (this.logger) this.logger.log(message)
+  }
+
+  // todo: cleanup
+  async buildOne() {
+    await this.build() // Run any build steps
+    this._buildConceptsAndMeasures() // todo: call this buildDelimited?
+    this._buildFileType("csv")
+  }
+
+  async buildAll() {
+    await this.buildOne()
+    this.buildTwo()
+  }
+
+  buildTwo(externalFilesCopied = {}) {
+    if (this.has(scrollKeywords.buildHtml)) this._copyExternalFiles(externalFilesCopied)
+    this._buildFileType("js")
+    this._buildFileType("txt")
+    this._buildFileType("html")
+    this._buildFileType("rss")
+    this._buildFileType("css")
+    if (this.has(scrollKeywords.buildPdf)) this.buildPdf()
+  }
+
+  buildPdf() {
+    const { scrollProgram, filename } = this
+    const outputFile = scrollProgram.filenameNoExtension + ".pdf"
+    // relevant source code for chrome: https://github.com/chromium/chromium/blob/a56ef4a02086c6c09770446733700312c86f7623/components/headless/command_handler/headless_command_switches.cc#L22
+    const command = `/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --headless --disable-gpu --no-pdf-header-footer --default-background-color=00000000 --no-pdf-background --print-to-pdf="${outputFile}" "${scrollProgram.permalink}"`
+    // console.log(`Node.js is running on architecture: ${process.arch}`)
+    try {
+      const output = require("child_process").execSync(command, { stdio: "ignore" })
+      this.log(`💾 Built ${outputFile} from ${filename}`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  _buildConceptsAndMeasures() {
+    const { fileSystem, folderPath, scrollProgram, filename } = this
+    // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
+    if (!this.has(scrollKeywords.buildConcepts)) return
+    const { permalink } = scrollProgram
+    scrollProgram.findParticles(scrollKeywords.buildConcepts).forEach(particle => {
+      const files = particle.getAtomsFrom(1)
+      if (!files.length) files.push(permalink.replace(".html", ".csv"))
+      const sortBy = particle.get("sortBy")
+      files.forEach(link => {
+        fileSystem.writeProduct(path.join(folderPath, link), this.compileConcepts(link, sortBy))
+        this.log(`💾 Built concepts in ${filename} to ${link}`)
+      })
+    })
+
+    if (!this.has(scrollKeywords.buildMeasures)) return
+    scrollProgram.findParticles(scrollKeywords.buildMeasures).forEach(particle => {
+      const files = particle.getAtomsFrom(1)
+      if (!files.length) files.push(permalink.replace(".html", ".csv"))
+      const sortBy = particle.get("sortBy")
+      files.forEach(link => {
+        fileSystem.writeProduct(path.join(folderPath, link), this.compileMeasures(link, sortBy))
+        this.log(`💾 Built measures in ${filename} to ${link}`)
+      })
+    })
   }
 
   getFileFromId(id) {
@@ -759,101 +875,17 @@ footer.scroll`
     return this
   }
 
-  _parsersRequiringExternals(parser) {
-    // todo: could be cleaned up a bit
-    if (!parser.parsersRequiringExternals) parser.parsersRequiringExternals = parser.cachedHandParsersProgramRoot.filter(particle => particle.copyFromExternal).map(particle => particle.atoms[0])
-    return parser.parsersRequiringExternals
-  }
-
-  externalFilesCopied = {}
-  _copyExternalFiles(file, folder, fileSystem) {
-    // If this file uses a parser that has external requirements,
-    // copy those from external folder into the destination folder.
-    const parsersRequiringExternals = this._parsersRequiringExternals(file.parser)
-    const { externalFilesCopied } = this
-    const { parserIdIndex } = file.scrollProgram
-    if (!externalFilesCopied[folder]) externalFilesCopied[folder] = {}
-    parsersRequiringExternals.forEach(parserId => {
-      if (externalFilesCopied[folder][parserId]) return
-      if (!parserIdIndex[parserId]) return
-      parserIdIndex[parserId].map(particle => {
-        const externalFiles = particle.copyFromExternal.split(" ")
-        externalFiles.forEach(name => {
-          const newPath = path.join(folder, name)
-          fileSystem.writeProduct(newPath, Disk.read(path.join(EXTERNALS_PATH, name)))
-          this.log(`💾 Copied external file needed by ${file.filename} to ${name}`)
-        })
-      })
-      if (parserId !== "scrollThemeParser")
-        // todo: generalize when not to cache
-        externalFilesCopied[folder][parserId] = true
-    })
-  }
-
-  _buildConceptsAndMeasures(file, folder, fileSystem) {
-    // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
-    if (!file.has(scrollKeywords.buildConcepts)) return
-    const { permalink } = file.scrollProgram
-    file.scrollProgram.findParticles(scrollKeywords.buildConcepts).forEach(particle => {
-      const files = particle.getAtomsFrom(1)
-      if (!files.length) files.push(permalink.replace(".html", ".csv"))
-      const sortBy = particle.get("sortBy")
-      files.forEach(link => {
-        fileSystem.writeProduct(path.join(folder, link), file.compileConcepts(link, sortBy))
-        this.log(`💾 Built concepts in ${file.filename} to ${link}`)
-      })
-    })
-
-    if (!file.has(scrollKeywords.buildMeasures)) return
-    file.scrollProgram.findParticles(scrollKeywords.buildMeasures).forEach(particle => {
-      const files = particle.getAtomsFrom(1)
-      if (!files.length) files.push(permalink.replace(".html", ".csv"))
-      const sortBy = particle.get("sortBy")
-      files.forEach(link => {
-        fileSystem.writeProduct(path.join(folder, link), file.compileMeasures(link, sortBy))
-        this.log(`💾 Built measures in ${file.filename} to ${link}`)
-      })
-    })
-  }
-
-  _buildFileType(file, folder, fileSystem, extension) {
-    const capitalized = lodash.capitalize(extension)
-    const buildKeyword = "build" + capitalized
-    if (!file.has(buildKeyword)) return
-    const { permalink } = file.scrollProgram
-    const outputFiles = file.get(buildKeyword)?.split(" ") || [""]
-    outputFiles.forEach(name => {
-      const link = name || permalink.replace(".html", "." + extension)
-      try {
-        fileSystem.writeProduct(path.join(folder, link), file.scrollProgram["as" + capitalized])
-        this.log(`💾 Built ${link} from ${file.filename}`)
-      } catch (err) {
-        console.error(`Error while building '${file.filePath}' with extension '${extension}'`)
-        throw err
-      }
-    })
-  }
-
   async buildFiles(fileSystem, files, folder) {
     const start = Date.now()
     // Run the build loop twice. The first time we build ScrollSets, in case some of the HTML files
     // will depend on csv/tsv/json/etc
-    for (const file of files.filter(file => !file.importOnly)) {
-      await file.build() // Run any build steps
-      this._buildConceptsAndMeasures(file, folder, fileSystem) // todo: call this buildDelimited?
-      this._buildFileType(file, folder, fileSystem, "csv")
+    const toBuild = files.filter(file => !file.importOnly)
+    const externalFilesCopied = {}
+    for (const file of toBuild) {
+      file.logger = this
+      await file.buildOne()
     }
-    files
-      .filter(file => !file.importOnly)
-      .forEach(file => {
-        if (file.has(scrollKeywords.buildHtml)) this._copyExternalFiles(file, folder, fileSystem)
-        this._buildFileType(file, folder, fileSystem, "js")
-        this._buildFileType(file, folder, fileSystem, "txt")
-        this._buildFileType(file, folder, fileSystem, "html")
-        this._buildFileType(file, folder, fileSystem, "rss")
-        this._buildFileType(file, folder, fileSystem, "css")
-        if (file.has(scrollKeywords.buildPdf)) this.buildPdf(file)
-      })
+    toBuild.forEach(file => file.buildTwo(externalFilesCopied))
     const seconds = (Date.now() - start) / 1000
     this.log(``)
     const outputExtensions = Object.keys(fileSystem.productCache).map(filename => filename.split(".").pop())
@@ -865,19 +897,6 @@ footer.scroll`
     )
 
     return fileSystem.productCache
-  }
-
-  buildPdf(file) {
-    const outputFile = file.scrollProgram.filenameNoExtension + ".pdf"
-    // relevant source code for chrome: https://github.com/chromium/chromium/blob/a56ef4a02086c6c09770446733700312c86f7623/components/headless/command_handler/headless_command_switches.cc#L22
-    const command = `/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --headless --disable-gpu --no-pdf-header-footer --default-background-color=00000000 --no-pdf-background --print-to-pdf="${outputFile}" "${file.scrollProgram.permalink}"`
-    // console.log(`Node.js is running on architecture: ${process.arch}`)
-    try {
-      const output = require("child_process").execSync(command, { stdio: "ignore" })
-      this.log(`💾 Built ${outputFile} from ${file.filename}`)
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async buildFilesInFolder(fileSystem, folder = "/") {

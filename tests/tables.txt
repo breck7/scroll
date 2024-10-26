@@ -234,3 +234,14 @@ Quick JSON Table
 ]
 
 ⁂
+
+---
+
+Where tests
+===========
+
+year,count
+2000,122
+2020,23
+year,count
+2020,23

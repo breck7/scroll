@@ -397,7 +397,7 @@ stamp
    paint keyword
   
   comparisonAtom
-   enum  = = != includes doesNotInclude empty notEmpty
+   enum  = = != includes doesNotInclude empty notEmpty startsWith endsWith
    paint constant
   
   personNameAtom
@@ -4593,6 +4593,8 @@ stamp
         if (operator === "=") return typedValue === typedAtom
         else if (operator === "!=") return typedValue !== typedAtom
         else if (operator === "includes") return typedAtom !== undefined && typedAtom.includes(typedValue)
+        else if (operator === "startsWith") return typedAtom !== undefined && typedAtom.toString().startsWith(typedValue)
+        else if (operator === "endsWith") return typedAtom !== undefined && typedAtom.toString().endsWith(typedValue)
         else if (operator === "doesNotInclude") return typedAtom === undefined || !typedAtom.includes(typedValue)
         else if (operator === ">") return typedAtom > typedValue
         else if (operator === "=") return typedAtom >= typedValue

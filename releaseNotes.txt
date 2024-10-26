@@ -10,6 +10,14 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+145.5.0 10/25/2024
+==================
+🎉 new internal build API to support single file building
+
+145.4.0 10/25/2024
+==================
+🎉 added startsWith and endsWith atoms to where parser
+
 145.3.0 10/24/2024
 ==================
 🎉 added nav styling
@@ -2968,4 +2976,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v145.3.0
+Built with Scroll v145.5.0
