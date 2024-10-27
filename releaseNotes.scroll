@@ -20,6 +20,12 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 145.6.0 10/27/2024
+🎉 added magic `last[Verbed]` columns to tables which now renders a "how long ago" value
+
+📦 145.5.1 10/26/2024
+🏥 table fix for missing values
+
 📦 145.5.0 10/25/2024
 🎉 new internal build API to support single file building
 

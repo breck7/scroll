@@ -10,6 +10,14 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+145.6.0 10/27/2024
+==================
+🎉 added magic `last[Verbed]` columns to tables which now renders a "how long ago" value
+
+145.5.1 10/26/2024
+==================
+🏥 table fix for missing values
+
 145.5.0 10/25/2024
 ==================
 🎉 new internal build API to support single file building
@@ -2976,4 +2984,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v145.5.0
+Built with Scroll v145.6.0

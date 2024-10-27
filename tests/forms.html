@@ -529,7 +529,11 @@ scrollParser
     return this.dayjs(this.date).format(`YYYY`)
   }
   get dayjs() {
-    return this.isNodeJs() ? require("dayjs") : dayjs
+    if (!this.isNodeJs()) return dayjs
+    const lib = require("dayjs")
+    const relativeTime = require("dayjs/plugin/relativeTime")
+    lib.extend(relativeTime)
+    return lib
   }
   toRss() {
     const { title, canonicalUrl } = this
