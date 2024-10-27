@@ -123,9 +123,10 @@ class TableSearchApp {
         render: (data, type) => {
           if (type === "display") {
             // Parse the date and return relative time
-            const date = dayjs(data)
+            const timestamp = /^\d+$/.test(data) ? (String(data).length < 9 ? parseInt(data) * 1000 : parseInt(data)) : data
+            const date = dayjs(timestamp)
             if (date.isValid()) {
-              return date.fromNow()
+              return `<span title="${date.toLocaleString()}">${date.fromNow()}</span>`
             }
           }
           // Return original data for sorting/filtering
