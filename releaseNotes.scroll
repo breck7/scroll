@@ -20,6 +20,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 145.7.0 10/27/2024
+🎉 improved how long ago magic column to handle timestamps better and also show original date on hover
+
 📦 145.6.0 10/27/2024
 🎉 added magic `last[Verbed]` columns to tables which now renders a "how long ago" value
 

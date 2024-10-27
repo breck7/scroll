@@ -10,6 +10,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+145.7.0 10/27/2024
+==================
+🎉 improved how long ago magic column to handle timestamps better and also show original date on hover
+
 145.6.0 10/27/2024
 ==================
 🎉 added magic `last[Verbed]` columns to tables which now renders a "how long ago" value
@@ -2984,4 +2988,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v145.6.0
+Built with Scroll v145.7.0
