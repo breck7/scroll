@@ -91,6 +91,7 @@ jsonScript - Include JSON and assign to window.
 katex - KaTex widget for typeset math.
 keyboardNav - Make left and right navigate files.
 leftRightButtons - Previous and next nav buttons.
+linkTitle - Text for links.
 loadConcepts - Import all concepts in a folder.
 loop - Iterate over files+ to make HTML.
 loremIpsum - Generate dummy text.
@@ -99,6 +100,7 @@ mediumColumn - A medium column section.
 mediumColumns - Medium width columns.
 metaTags - Print meta tags including title.
 music - Play sound files.
+nav - Titles and links in group(s).
 nickelbackIpsum - Generate dummy text.
 openGraphImage - Override Open Graph Image.
 permalink - Override output filename.
@@ -186,6 +188,7 @@ theme,753
 title,753
 import,753
 jsonScript,753
+linkTitle,753
 keyboardNav,748
 authors,738
 css,722
@@ -266,6 +269,7 @@ buildRss,5
 heatrixAdvanced,5
 helpfulNotFound,5
 html,5
+nav,5
 printFeed,5
 printFullSnippets,5
 printShortSnippets,5
@@ -281,4 +285,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v145.7.0
+Built with Scroll v145.8.0

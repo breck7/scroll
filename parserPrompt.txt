@@ -3186,6 +3186,19 @@ stamp
    atoms urlAtom
    pattern ^[^\s]+\.(mp3|wav|ogg|aac|m4a|flac)
    int atomIndex 0
+ nav.parsers
+  scrollNavParser
+   popularity 0.000048
+   extends printSnippetsParser
+   cue nav
+   description Titles and links in group(s).
+   javascript
+    compile() {
+      return `` + this.root.getFilesByTags(this.content).map(file => {
+          const { linkTitle, permalink } = file.file.scrollProgram
+          return `${linkTitle}` 
+      }).join(this.get("join") || " ") + ``
+    }
  notFound.parsers
   helpfulNotFoundParser
    popularity 0.000048
@@ -3745,6 +3758,9 @@ stamp
     }
     get title() {
       return this.getFromParserId("scrollTitleParser") || this.titleFromFilename
+    }
+    get linkTitle() {
+      return this.getFromParserId("scrollLinkTitleParser") || this.title
     }
     get permalink() {
      return this.get("permalink") || (this.filename ? this.filenameNoExtension + ".html" : "")
@@ -5001,7 +5017,7 @@ stamp
  title.parsers
   scrollTitleParser
    popularity 0.007524
-   catchAllAtomType personNameAtom
+   catchAllAtomType anyAtom
    cue title
    description Set title.
    example
@@ -5009,6 +5025,16 @@ stamp
     printTitle
    extends abstractTopLevelSingleMetaParser
    boolean isPopular true
+  
+  scrollLinkTitleParser
+   popularity 0.007524
+   catchAllAtomType anyAtom
+   cue linkTitle
+   description Text for links.
+   example
+    title My blog - Eureka
+    linkTitle Eureka
+   extends abstractTopLevelSingleMetaParser
   
   printTitleParser
    popularity 0.007572

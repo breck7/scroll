@@ -7,11 +7,15 @@ stamp
   replace DOMAIN scroll.pub
   title Scroll Tutorial
   
+  linkTitle Tutorial
+  tags main
+  
   header.scroll
   
   container 800px
   
   printTitle
+  nav.scroll
   center
   Video walkthrough of this tutorial | Edit this file on try.scroll.pub
    https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll Edit this file on try.scroll.pub

@@ -260,6 +260,9 @@ scrollParser
   get title() {
     return this.getFromParserId("scrollTitleParser") || this.titleFromFilename
   }
+  get linkTitle() {
+    return this.getFromParserId("scrollLinkTitleParser") || this.title
+  }
   get permalink() {
    return this.get("permalink") || (this.filename ? this.filenameNoExtension + ".html" : "")
   }

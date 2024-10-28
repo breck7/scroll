@@ -12,6 +12,7 @@ https://scroll.pub/parserUsage.html
 https://scroll.pub/parserPrompt.html
 https://scroll.pub/parserLeetsheet.html
 https://scroll.pub/pages.html
+https://scroll.pub/nav.html
 https://scroll.pub/leetsheet.html
 https://scroll.pub/header.html
 https://scroll.pub/faq.html

@@ -1,7 +1,10 @@
 title Scroll Roadmap
+linkTitle Roadmap
+tags main
 
 header.scroll
 printTitle
+nav.scroll
 
 container 60ch
 

@@ -1,11 +1,14 @@
 buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
 buildMeasures releaseNotesMeasures.tsv
 title Scroll Release Notes
+linkTitle Release Notes
+tags main
 
 microlangs/changes.parsers
 
 header.scroll
 printTitle
+nav.scroll
 ## A list of what has changed in Scroll releases.
 
 thinColumn
@@ -19,6 +22,10 @@ ciBadges.scroll
 
 br
 thinColumns
+
+📦 145.8.0 10/27/2024
+🎉 added `scrollNavParser` 
+🎉 added `scrollLinkTitleParser`
 
 📦 145.7.0 10/27/2024
 🎉 improved how long ago magic column to handle timestamps better and also show original date on hover

@@ -1,9 +1,12 @@
 replace ParsersLinks <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a>
 replace ParticlesLinked <a href="https://particles.scroll.pub">Particles</a>
 title Scroll FAQ
+linkTitle FAQ
+tags main
 
 header.scroll
 printTitle
+nav.scroll
 
 ## A list of Frequently Asked Questions
 
