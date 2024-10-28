@@ -1,0 +1,235 @@
+authors Breck Yunits
+ https://twitter.com/breckyunits Breck Yunits
+date 10/28/2024
+tags All
+title Scroll in 50 Questions
+replace MOTTO Scroll is a language for those who believe that what they cannot build with as few pieces as possible they do not understand.
+
+header.scroll
+keyboardNav
+printTitle
+printAuthors
+printDate
+
+mediumColumns 1
+
+? What is Scroll?
+
+MOTTO
+
+endSnippet
+
+? What is Scroll?
+
+Scroll is a symbolic language.
+
+? What is a symbolic language.
+
+A language you write with symbols.
+
+? What is a symbol?
+
+A symbol is a mark repeated to correlate to a pattern in nature.
+
+? What is a mark?
+
+A mark is a discoloration of a surface.
+
+? What is a symbolic language?
+
+A symbolic language is a collection of symbols and symbol sequences that can be used to trigger the same electrical phenomena in the brain of an observer that seeing that pattern occur in nature would trigger.
+
+? How do I use a symbolic language?
+
+By writing documents.
+
+? What is a document?
+
+It is a collection of marks on a surface.
+
+? What is Particle Syntax?
+
+It is the syntax that Scroll uses.
+
+? What is a syntax?
+
+It is a set of rules for how to break up a document into symbols.
+
+? What is a digital document?
+
+It is a file.
+
+? What is a file?
+
+It is a digital representation of a document as a series of bits.
+
+? What is a bit?
+
+A bit is a persistent location in space that has 2 states: a 1 or 0; a true or false; an on or off; a black or white; a hot or cold; a high or low.
+
+? What is a character?
+
+A character is a 2D mark that maps to a unique fixed length bit sequence.
+
+? What is a character encoding?
+
+A map of bit sequences to characters.
+
+? What character encoding does Scroll use?
+
+UTF8. For now.
+
+? What is a word?
+
+A word is a list of characters delimited by a word delimiter sequence.
+
+? What is an atom?
+
+An atom is another word for word in the Scroll language.
+
+? What is a line?
+
+A line is a sequence of atoms in the Scroll language delimited by a newline sequence.
+
+? What is a Particle?
+
+A particle in Scroll refers to an object that contains both atoms and a collection of particles referred to as the particle's subparticles.
+
+? Are all particles also subparticles of a higher particle?
+
+Yes.
+
+? What is a Parser?
+
+A Parser is a particle that consumes certain other particles to perform transformations.
+
+? What transformations can a Parser perform?
+
+A Parser can perform a variety of transformations but the most common are to:
+- compile one particle in one language to another language.
+- format a particle into a standardized format
+- check a particle for errors
+- evalute the instructions in a particle and return the results
+- execute commands contained in the particle
+
+? What is the syntax of Scroll?
+
+The syntax of Scrolls is Particle Syntax, or just Particles for short.
+
+? What does Particle Syntax do?
+
+Partilces tells you how to divide a binary sequence into parts.
+
+? What are the components of Particle Syntax?
+
+- A sequence of binary bits is converted into characters using UTF8
+- Atoms are sequences of characters separated by a single space.
+- Particles are a sequence of atoms separated by a newline.
+- Subparticles are indicated by a single indented space.
+
+? How do I make a subparticle?
+
+- Just indent a particle by 1 space more than its parent particle.
+ - For example, because I started this line with one space more than the line above, this line is a subparticle of that line.
+  - And then this line, starting with 2 spaces, is a subparticle of the line above it.
+ - But this line is a subparticle of the line above that starts with "Just"
+
+? Can I use the Particles, Parsers, and Scroll concepts to design 2D or 3D languages that don't use computers at all?
+
+Yes. But generally when we talk about PPS we are talking about the form designed for binary and computers.
+
+? What is Parsers?
+
+Parsers is a symbolic language where one defines Particles that can consume other Particles. It is a language for making other languages.
+
+? What is Scroll?
+
+Scroll is a language made out of Parsers.
+
+? What is the purpose of the Parsers language?
+
+The purpose of the Parsers Language is to make Scroll.
+
+? What is the purpose of Scroll?
+
+The purpose of Scroll is to help humans communicate with humans and machines.
+
+? How does one use Scroll to communicate?
+
+By writing Scroll documents (aka Scroll Programs) to create things.
+
+? What kinds of things is Scroll currently best at creating?
+
+Blogs, websites, web pages, charts, animations, data science reports, ebooks, web forms, maps, that sort of thing.
+
+? Why use Scroll and not just write HTML directly?
+
+Scroll helps you better understand what you are writing about and anything HTML can make Scroll can make in fewer symbols.
+
+MOTTO
+
+? What is ScrollHub?
+
+ScrollHub is a super server for creating and publishing websites instantly using Scroll.
+
+? What is a cue?
+
+Cue refers to the first atom in a particle.
+
+? What is the significance of the cue?
+
+When communicating you want to communicate the most important information first, so the cue is often the most important information.
+
+? What is the cue used for?
+
+Most parsers use the cue to determine whether they should consume a particle or not.
+
+? Can parsers use other ways to match against particles?
+
+Yes.
+
+? What's another commmon way for parsers to match particles?
+
+Regular expressions.
+
+? Can I build Scroll using only Particles and Parsers and no other languages?
+
+Currently no.
+
+Parsers does not have enough functionality yet to be able to write parsers that provide everything Scroll needs.
+
+? What other language do I currently need?
+
+The primary implementation of Parsers currently is half Parsers, half Javascript.
+
+? How does Parsers parser Scroll?
+
+The Parsers program is parsed and compiled by a Javascript implementation of Parsers which generates a Parser and compiler for Scroll programs.
+
+? Do I need to master Javascript to use Parsers?
+
+If you've mastered Javascript then using Parsers should be easy once you get the hang of it.
+
+? Does Parsers have inheritance?
+
+Yes.
+
+? Does Particle Syntax have types?
+
+No.
+
+? Does Parsers have types?
+
+Yes. Parsers has atom types.
+
+? Is Scroll like Lisp?
+
+Scroll and Parsers implement many of the best ideas from Lisp, and leave out a lot of bad ideas (like the parens).
+
+? Is Scroll designed for humans or AIs?
+
+Both.
+
+****
+
+footer.scroll
