@@ -2,7 +2,6 @@ buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
 buildMeasures releaseNotesMeasures.tsv
 title Scroll Release Notes
 linkTitle Release Notes
-tags main
 
 microlangs/changes.parsers
 
