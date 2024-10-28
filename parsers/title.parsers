@@ -1,6 +1,6 @@
 scrollTitleParser
  popularity 0.007524
- catchAllAtomType personNameAtom
+ catchAllAtomType anyAtom
  cue title
  description Set title.
  example
@@ -8,6 +8,16 @@ scrollTitleParser
   printTitle
  extends abstractTopLevelSingleMetaParser
  boolean isPopular true
+
+scrollLinkTitleParser
+ popularity 0.007524
+ catchAllAtomType anyAtom
+ cue linkTitle
+ description Text for links.
+ example
+  title My blog - Eureka
+  linkTitle Eureka
+ extends abstractTopLevelSingleMetaParser
 
 printTitleParser
  popularity 0.007572
