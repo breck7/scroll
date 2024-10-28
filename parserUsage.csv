@@ -20,6 +20,7 @@ editButtonParser,25
 classMarkupParser,24
 slashCommentParser,20
 aboveAsCodeParser,18
+importOnlyParser,16
 buildTxtParser,15
 scrollBrParser,14
 baseUrlParser,14
@@ -35,7 +36,6 @@ copyButtonsParser,12
 scrollLeftRightButtonsParser,12
 theScrollButtonParser,11
 keyboardNavParser,11
-importOnlyParser,11
 h1Parser,11
 scrollTitleParser,11
 printTitleParser,10
@@ -60,13 +60,13 @@ aftertextCodeParser,6
 captionAftertextParser,6
 scrollTableDelimiterParser,5
 scrollNavParser,5
+scrollTagsParser,5
 codeWithHeaderParser,4
 scrollMediaLoopParser,4
 h3Parser,4
 scrollDinkusParser,4
 footnoteDefinitionParser,4
 scrollContainerParser,4
-scrollTagsParser,4
 scrollLinkTitleParser,4
 scrollSelectParser,3
 lineOfTextParser,3
