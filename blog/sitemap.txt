@@ -4,6 +4,7 @@ https://scroll.pub/blog/index.html
 https://scroll.pub/blog/full.html
 https://scroll.pub/blog/feed.html
 https://scroll.pub/blog/csv.html
+https://scroll.pub/blog/scrollInQuestions.html
 https://scroll.pub/blog/forms.html
 https://scroll.pub/blog/gitOverRss.html
 https://scroll.pub/blog/teddyTalk.html
