@@ -16,7 +16,7 @@ quickIncludeHtmlParser
   }
 
 htmlAnyAtom
- extends stringAtom
+ extends codeAtom
 
 abstractHtmlParser
  extends abstractScrollParser

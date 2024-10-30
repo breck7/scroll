@@ -301,6 +301,13 @@ scrollParser
       .join("\n")
       .trim()
   }
+  get asParsers() {
+    return this.topDownArray
+      .filter(particle => particle.compileParsers)
+      .map((particle, index) => particle.compileParsers(index))
+      .join("\n\n")
+      .trim()
+  }
   get asCsv() {
     return this.topDownArray
       .filter(particle => particle.compileCsv)

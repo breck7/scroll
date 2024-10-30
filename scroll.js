@@ -102,7 +102,7 @@ const getCueAtoms = rootParserProgram =>
   rootParserProgram
     .filter(particle => particle.getLine().endsWith("Parser") && !particle.getLine().startsWith("abstract"))
     .map(particle => particle.get("cue") || particle.getLine())
-    .map(line => line.replace("Parser", ""))
+    .map(line => line.replace(/Parser$/, ""))
 
 const measureCache = new Map()
 const parseMeasures = parser => {
@@ -342,6 +342,7 @@ class ScrollFile {
   // todo: cleanup
   async buildOne() {
     await this.build() // Run any build steps
+    this._buildFileType("parsers")
     this._buildConceptsAndMeasures() // todo: call this buildDelimited?
     this._buildFileType("csv")
   }

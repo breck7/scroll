@@ -19,7 +19,10 @@ belowAsCodeParser
     howMany--
    }
    if (this.reverse) particles.reverse()
-   return particles.map(particle => particle.asString).join("\n")
+   return particles.map(particle => this.mapFn(particle)).join("\n")
+  }
+  mapFn(particle) {
+    return particle.asString
   }
   reverse = false
   compile() {

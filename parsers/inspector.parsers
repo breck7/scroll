@@ -1,0 +1,14 @@
+inspectBelowParser
+ description Inspect particle below.
+ extends belowAsCodeParser
+ javascript
+  mapFn(particle) {
+    return particle.toString() + "\n" + [particle.constructor.name, particle.lineAtomTypes].join("\n")
+  }
+
+inspectAboveParser
+ description Inspect particle above.
+ extends inspectBelowParser
+ javascript
+  method = "previous"
+  reverse = true

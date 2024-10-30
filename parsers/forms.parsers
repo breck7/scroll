@@ -3,7 +3,7 @@ classicFormParser
  popularity 0.006391
  description Generate input form for ScrollSet.
  extends abstractAftertextParser
- atoms cueAtom emailAddressAtom
+ atoms cueAtom
  catchAllAtomType stringAtom
  string script
   <script>
@@ -62,7 +62,7 @@ classicFormParser
     return this.formDestination.includes("@")
   }
   get formDestination() {
-    return this.getAtom(1)
+    return this.getAtom(1) || ""
   }
   get subject() {
     return this.getAtomsFrom(2)?.join(" ") || ""
