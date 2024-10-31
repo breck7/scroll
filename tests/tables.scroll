@@ -82,6 +82,8 @@ table
  printTable
  compose statement The name of the folder is {folder}
   printTable
+  printColumn folder
+   join  · 
  data
   folder ctime
   adfs 1726005360192

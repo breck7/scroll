@@ -54,10 +54,13 @@ printColumnParser
  catchAllAtomType columnNameAtom
  javascript
   compile() {
-   return this.columnValues.join("\n")
+   return this.columnValues.join(this.join)
   }
   compileTxt() {
-    return this.columnValues.join("\n")
+    return this.columnValues.join(this.join)
+  }
+  get join() {
+    return this.get("join") || "\n"
   }
   get columnName() {
     return this.atoms[1]

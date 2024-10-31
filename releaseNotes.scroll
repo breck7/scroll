@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 145.11.0 10/31/2024
+🎉 add `join` parser to printColumn
+
 📦 145.10.0 10/30/2024
 🎉 much improved inspector parsers
 
