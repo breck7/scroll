@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 145.11.1 11/01/2024
+🎉 remove carriage returns ('\r') when running scroll format
+
 📦 145.11.0 10/31/2024
 🎉 add `join` parser to printColumn
 

@@ -484,7 +484,7 @@ parsers/errors.parsers`
 [measurements*]
 [content*] */
 
-    let formatted = this.codeAtStart
+    let formatted = this.codeAtStart.replace(/\r/g, "") // remove all carriage returns if there are any
     const parsed = new this.parser(formatted)
     let topMatter = []
     let importOnly = ""
