@@ -71,6 +71,7 @@ scrollImageParser
   get filename() {
     return this.getAtom(this.atomIndex)
   }
+  get dependencies() { return [this.filename]}
   getFigureContent(compileSettings) {
    const linkRelativeToCompileTarget = (compileSettings ? (compileSettings.relativePath ?? "") : "") + this.filename
    const {width, height} = this.dimensions

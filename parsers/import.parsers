@@ -43,6 +43,7 @@ abstractQuickIncludeParser
  extends abstractScrollParser
  atoms urlAtom
  javascript
+  get dependencies() { return [this.filename]}
   get filename() {
     return this.getAtom(0)
   }

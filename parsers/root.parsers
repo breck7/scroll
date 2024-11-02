@@ -308,6 +308,11 @@ scrollParser
       .join("\n\n")
       .trim()
   }
+  get dependencies() {
+      const dependencies = this.file.dependencies?.slice() || []
+      const files = this.topDownArray.filter(particle => particle.dependencies).map(particle => particle.dependencies).flat()
+      return dependencies.concat(files)
+  }
   get asCsv() {
     return this.topDownArray
       .filter(particle => particle.compileCsv)

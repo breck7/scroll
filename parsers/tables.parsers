@@ -271,6 +271,8 @@ quickTableParser
  atoms urlAtom
  pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)
  int atomIndex 0
+ javascript
+  get dependencies() { return [this.cue]}
 
 scrollWhereParser
  extends abstractTableTransformParser
