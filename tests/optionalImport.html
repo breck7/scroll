@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<code class="scrollCodeBlock">Pass 1 - codeAtStart
+========
+buildHtml
+settings.scroll
+// todo: the below optional line should be in the importer code.
+// optional
+env.scroll
+printSourceStack
+
+
+Pass 2 - codeAfterImportPass
+========
+buildHtml
+imported settings.scroll
+ exists true
+baseUrl https://scroll.pub/tests/
+description Kitchen sink test site.
+editBaseUrl https://github.com/breck7/scroll/blob/main/tests/
+
+imported extension.parsers
+ exists true
+
+
+// todo: the below optional line should be in the importer code.
+// optional
+imported env.scroll
+ exists false
+
+printSourceStack
+
+
+Pass 3 - codeAfterMacroPass
+========
+[Unchanged]</code>
+</body>
+</html>

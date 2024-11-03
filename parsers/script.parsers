@@ -3,7 +3,7 @@ buildJsParser
  extends abstractBuildCommandParser
 
 scriptAnyAtom
- extends anyAtom
+ extends codeAtom
 scriptLineParser
  catchAllAtomType scriptAnyAtom
  catchAllParser scriptLineParser

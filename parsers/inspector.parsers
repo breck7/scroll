@@ -1,0 +1,21 @@
+inspectBelowParser
+ description Inspect particle below.
+ extends belowAsCodeParser
+ string copyFromExternal inspector.css
+ javascript
+  get code() {
+    const mapFn = particle => {
+    const atomTypes = particle.lineAtomTypes.split(" ")
+    return `<div class="inspectorParticle"><span class="inspectorParticleId">${particle.constructor.name}</span>${particle.atoms.map((atom, index) => `<span class="inspectorAtom">${atom}<span class="inspectorAtomType">${atomTypes[index]}</span></span>`).join(" ")}${(particle.length ? `<br><div class="inspectorSubparticles">` + particle.map(mapFn).join("<br>") + `</div>` : "")}</div>`}
+   return this.selectedParticles.map(mapFn).join("<br>")
+  }
+  compile() {
+   return `<link rel="stylesheet" href="inspector.css">` + this.code
+  }
+
+inspectAboveParser
+ description Inspect particle above.
+ extends inspectBelowParser
+ javascript
+  method = "previous"
+  reverse = true

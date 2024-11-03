@@ -4,7 +4,7 @@ buildCssParser
  extends abstractBuildCommandParser
 
 cssAnyAtom
- extends anyAtom
+ extends codeAtom
 cssLengthAtom
  extends anyAtom
 cssLineParser

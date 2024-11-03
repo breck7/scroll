@@ -22,6 +22,37 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 146.0.0 11/02/2024
+🎉 upgrade ScrollSDK to get "imported" functionality.
+🎉 added importedParser
+🎉 added support for optional imports using a temporary parser. Long term implementation coming soon.
+⚠️ BREAKING: (no one should be affected) import particles are now replaced by "imported" particles
+
+📦 145.12.0 11/02/2024
+🎉 assertion parsers can now be chained and will test the output of previous non-assertion parser
+🎉 added dependenciesParser
+
+📦 145.11.1 11/01/2024
+🎉 remove carriage returns ('\r') when running scroll format
+
+📦 145.11.0 10/31/2024
+🎉 add `join` parser to printColumn
+
+📦 145.10.0 10/30/2024
+🎉 much improved inspector parsers
+
+📦 145.9.0 10/30/2024
+🎉 added `buildParsersParser` 
+🎉 added `scrollDefParser`
+🎉 added `inspectBelowParser`
+🎉 added `inspectAboveParser`
+🏥 atom highlight fixes for css and html
+🏥 allow scrollForms gracefully handle zero params
+
+This version starts introduces "Defs", a new short hand way to create forms/parsers/scrollsets.
+
+Expect Def parsers to evolve quickly.
+
 📦 145.8.0 10/27/2024
 🎉 added `scrollNavParser` 
 🎉 added `scrollLinkTitleParser`

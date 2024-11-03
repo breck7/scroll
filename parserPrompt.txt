@@ -322,6 +322,57 @@ stamp
    extends abstractAftertextAttributeParser
    single
   
+ assertions.parsers
+  abstractAssertionParser
+   description Test above particle's output.
+   extends abstractScrollParser
+   cueFromId
+   javascript
+    compile() {
+     return ``
+    }
+    get particleToTest() {
+      // If the previous particle is also an assertion particle, use the one before that.
+      return this.previous.particleToTest ? this.previous.particleToTest : this.previous
+    }
+    getErrors() {
+      const actual = this.particleToTest.compile()
+      const expected = this.subparticlesToString()
+      const errors = super.getErrors()
+      if (this.areEqual(actual, expected))
+        return errors
+      return errors.concat(this.makeError(`'${actual}' did not ${this.kind} '${expected}'`))
+    }
+   catchAllParser htmlLineParser
+  
+  assertHtmlEqualsParser
+   extends abstractAssertionParser
+   string kind equal
+   javascript
+    areEqual(actual, expected) {
+      return actual === expected
+    }
+    // todo: why are we having to super here?
+    getErrors() { return super.getErrors()}
+  
+  assertHtmlIncludesParser
+   extends abstractAssertionParser
+   string kind include
+   javascript
+    areEqual(actual, expected) {
+      return actual.includes(expected)
+    }
+    getErrors() { return super.getErrors()}
+  
+  assertHtmlExcludesParser
+   extends abstractAssertionParser
+   string kind exclude
+   javascript
+    areEqual(actual, expected) {
+      return !actual.includes(expected)
+    }
+    getErrors() { return super.getErrors()}
+  
  atomTypes.parsers
   // Basic atom types
   blankAtom
@@ -575,6 +626,11 @@ stamp
     get originalText() {
      return this.getLine() || ""
     }
+  
+  testStrictParser
+   description Make catchAllParagraphParser = error.
+   extends abstractTopLevelSingleMetaParser
+  
  center.parsers
   scrollCenterParser
    popularity 0.006415
@@ -814,7 +870,7 @@ stamp
   
   slashCommentParser
    popularity 0.005643
-   extends commentParser
+   extends abstractCommentParser
    cue //
    boolean isPopular true
    description A comment. Prints nothing.
@@ -905,7 +961,7 @@ stamp
    extends abstractBuildCommandParser
   
   cssAnyAtom
-   extends anyAtom
+   extends codeAtom
   cssLengthAtom
    extends anyAtom
   cssLineParser
@@ -1067,6 +1123,45 @@ stamp
      const index = this.parent.originalTextPostLinkify.indexOf("days")
      return [{ index, string: `${days} ` }]
     }
+ defs.parsers
+  scrollDefParser
+   popularity 0.004244
+   description Parser short form.
+   pattern ^[a-zA-Z0-9_]+Def
+   extends abstractScrollParser
+   catchAllAtomType stringAtom
+   example
+    urlDef What is the URL?
+   javascript
+    compileParsers(index) {
+     const idStuff = index ? "" : `boolean isMeasure true
+     boolean isMeasureRequired true
+     boolean isConceptDelimiter true`
+      const description = this.content
+      const cue = this.cue.replace("Def", "")
+      const sortIndex = 1 + index/10
+      return `${cue}DefParser
+     cue ${cue}
+     extends abstractStringMeasureParser
+     description ${description}
+     float sortIndex ${sortIndex}
+     ${idStuff}`.trim()
+    }
+  
+  buildParsersParser
+   popularity 0.000096
+   description Compile to Parsers file.
+   extends abstractBuildCommandParser
+ dependencies.parsers
+  scrollDependenciesParser
+   extends scrollTableParser
+   description Get files this file depends on.
+   cue dependencies
+   javascript
+    delimiter = ","
+    get delimitedData() {
+     return `file\n` + this.root.dependencies.join("\n")
+    }
  dinkus.parsers
   abstractDinkusParser
    extends abstractAftertextParser
@@ -1156,10 +1251,9 @@ stamp
    cueFromId
    javascript
     method = "next"
-    get code() {
-     const { method } = this
+    get selectedParticles() {
+      const { method } = this
      let code = ""
-     
      let particles = []
      let next = this[method]
      let {howMany} = this
@@ -1169,7 +1263,10 @@ stamp
       howMany--
      }
      if (this.reverse) particles.reverse()
-     return particles.map(particle => particle.asString).join("\n")
+     return particles
+    }
+    get code() {
+     return this.selectedParticles.map(particle => particle.asString).join("\n")
     }
     reverse = false
     compile() {
@@ -1386,7 +1483,7 @@ stamp
    popularity 0.006391
    description Generate input form for ScrollSet.
    extends abstractAftertextParser
-   atoms cueAtom emailAddressAtom
+   atoms cueAtom
    catchAllAtomType stringAtom
    string script
     
@@ -1445,7 +1542,7 @@ stamp
       return this.formDestination.includes("@")
     }
     get formDestination() {
-      return this.getAtom(1)
+      return this.getAtom(1) || ""
     }
     get subject() {
       return this.getAtomsFrom(2)?.join(" ") || ""
@@ -1999,7 +2096,7 @@ stamp
     }
   
   htmlAnyAtom
-   extends stringAtom
+   extends codeAtom
   
   abstractHtmlParser
    extends abstractScrollParser
@@ -2131,6 +2228,7 @@ stamp
     get filename() {
       return this.getAtom(this.atomIndex)
     }
+    get dependencies() { return [this.filename]}
     getFigureContent(compileSettings) {
      const linkRelativeToCompileTarget = (compileSettings ? (compileSettings.relativePath ?? "") : "") + this.filename
      const {width, height} = this.dimensions
@@ -2168,6 +2266,23 @@ stamp
    example
     import header.scroll
   
+  importedParser
+   description Inserted at import pass.
+   boolean suggestInAutocomplete false
+   cueFromId
+   atoms preBuildCommandAtom
+   extends abstractScrollParser
+   catchAllAtomType filePathAtom
+   javascript
+    compile() {
+     return ""
+    }
+    getErrors() {
+      if (this.get("exists") === "false" && this.previous.getLine() !== "// optional")
+        return [this.makeError(`File '${this.atoms[1]}' does not exist.`)]
+      return []
+    }
+  
   quickImportParser
    popularity 0.007524
    description Import a Scroll or Parsers file.
@@ -2199,6 +2314,7 @@ stamp
    extends abstractScrollParser
    atoms urlAtom
    javascript
+    get dependencies() { return [this.filename]}
     get filename() {
       return this.getAtom(0)
     }
@@ -2300,6 +2416,28 @@ stamp
      }
      // Note: doubling up doesn't work because of the consumption characters.
     }
+ inspector.parsers
+  inspectBelowParser
+   description Inspect particle below.
+   extends belowAsCodeParser
+   string copyFromExternal inspector.css
+   javascript
+    get code() {
+      const mapFn = particle => {
+      const atomTypes = particle.lineAtomTypes.split(" ")
+      return `${particle.constructor.name}${particle.atoms.map((atom, index) => `${atom}${atomTypes[index]}`).join(" ")}${(particle.length ? `` + particle.map(mapFn).join("") + `` : "")}`}
+     return this.selectedParticles.map(mapFn).join("")
+    }
+    compile() {
+     return `` + this.code
+    }
+  
+  inspectAboveParser
+   description Inspect particle above.
+   extends inspectBelowParser
+   javascript
+    method = "previous"
+    reverse = true
  javascript.parsers
   quickScriptParser
    popularity 0.007524
@@ -2732,6 +2870,7 @@ stamp
     }
   
   scrollLoopParser
+   // Todo: deprecate loops in favor of tables.
    popularity 0.000024
    extends abstractAftertextParser
    atoms cueAtom
@@ -3795,6 +3934,18 @@ stamp
         .join("\n")
         .trim()
     }
+    get asParsers() {
+      return this.topDownArray
+        .filter(particle => particle.compileParsers)
+        .map((particle, index) => particle.compileParsers(index))
+        .join("\n\n")
+        .trim()
+    }
+    get dependencies() {
+        const dependencies = this.file.dependencies?.slice() || []
+        const files = this.topDownArray.filter(particle => particle.dependencies).map(particle => particle.dependencies).flat()
+        return dependencies.concat(files)
+    }
     get asCsv() {
       return this.topDownArray
         .filter(particle => particle.compileCsv)
@@ -3908,7 +4059,7 @@ stamp
    extends abstractBuildCommandParser
   
   scriptAnyAtom
-   extends anyAtom
+   extends codeAtom
   scriptLineParser
    catchAllAtomType scriptAnyAtom
    catchAllParser scriptLineParser
@@ -4385,10 +4536,13 @@ stamp
    catchAllAtomType columnNameAtom
    javascript
     compile() {
-     return this.columnValues.join("\n")
+     return this.columnValues.join(this.join)
     }
     compileTxt() {
-      return this.columnValues.join("\n")
+      return this.columnValues.join(this.join)
+    }
+    get join() {
+      return this.get("join") || "\n"
     }
     get columnName() {
       return this.atoms[1]
@@ -4589,6 +4743,8 @@ stamp
    atoms urlAtom
    pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)
    int atomIndex 0
+   javascript
+    get dependencies() { return [this.cue]}
   
   scrollWhereParser
    extends abstractTableTransformParser
@@ -4871,56 +5027,6 @@ stamp
     tags All
    extends abstractTopLevelSingleMetaParser
    catchAllAtomType tagAtom
- test.parsers
-  testStrictParser
-   description Make catchAllParagraphParser = error.
-   extends abstractTopLevelSingleMetaParser
-  
-  abstractAssertionParser
-   description Test above particle's output.
-   extends abstractScrollParser
-   cueFromId
-   baseParser blobParser
-   javascript
-    compile() {
-     return ``
-    }
-    getErrors() {
-      const actual = this._getClosestOlderSibling().compile()
-      const expected = this.subparticlesToString()
-      if (this.areEqual(actual, expected))
-        return []
-      return [this.makeError(`'${actual}' did not ${this.kind} '${expected}'`)]
-    }
-   catchAllParser htmlLineParser
-  
-  assertHtmlEqualsParser
-   extends abstractAssertionParser
-   string kind equal
-   javascript
-    areEqual(actual, expected) {
-      return actual === expected
-    }
-    // todo: why are we having to super here?
-    getErrors() { return super.getErrors()}
-  
-  assertHtmlIncludesParser
-   extends abstractAssertionParser
-   string kind include
-   javascript
-    areEqual(actual, expected) {
-      return actual.includes(expected)
-    }
-    getErrors() { return super.getErrors()}
-  
-  assertHtmlExcludesParser
-   extends abstractAssertionParser
-   string kind exclude
-   javascript
-    areEqual(actual, expected) {
-      return !actual.includes(expected)
-    }
-    getErrors() { return super.getErrors()}
  text.parsers
   buildTxtParser
    popularity 0.007596

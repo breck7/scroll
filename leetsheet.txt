@@ -36,6 +36,7 @@ buildCsv - Compile to CSV file.
 buildHtml - Compile to HTML file.
 buildJs - Compile to JS file.
 buildMeasures - Write measures to csv+ files.
+buildParsers - Compile to Parsers file.
 buildPdf - Compile to PDF file.
 buildRss - Write RSS file.
 buildTxt - Compile to TXT file.
@@ -56,6 +57,7 @@ counter - Visualize the speed of something.
 css - A style tag.
 dashboard - Key stats in large font.
 date - Set published date.
+dependencies - Get files this file depends on.
 description - Meta tag description.
 dinkus - A custom dinkus.
 disk - Output file into as table.
@@ -87,6 +89,8 @@ importOnly - Don't build this file.
 inlineCss - Inline CSS from files.
 inlineJs - Inline JS from files.
 inlineMarkups - Set global inline markups.
+inspectAbove - Inspect particle above.
+inspectBelow - Inspect particle below.
 jsonScript - Include JSON and assign to window.
 katex - KaTex widget for typeset math.
 keyboardNav - Make left and right navigate files.
@@ -219,6 +223,7 @@ thinColumn,338
 wideColumn,338
 caption,321
 cloc,214
+dependencies,214
 disk,214
 table,214
 code,193
@@ -237,6 +242,8 @@ printTable,109
 openGraphImage,80
 belowAsCode,66
 belowAsCodeUntil,66
+inspectAbove,66
+inspectBelow,66
 >,49
 aboveAsCode,49
 printDate,44
@@ -255,6 +262,7 @@ iframes,13
 youtube,13
 br,10
 buildCsv,10
+buildParsers,10
 buildPdf,10
 container,10
 printUsageStats,10
@@ -285,4 +293,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v145.8.0
+Built with Scroll v146.0.0

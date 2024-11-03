@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<p id="particle4" class="scrollParagraph">This example shows the use of Scroll Defs to create forms even faster than writing Parsers.</p>
+<div style="width: 100%; box-sizing: border-box; max-width: 1200px; margin: 0 auto;" class="scrollContainerParser">
+<link rel="stylesheet" type="text/css" href="gazette.css">
+<link rel="stylesheet" href="codeMirror.css">
+<script src="scrollLibs.js"></script>
+
+<script>
+sendFormViaEmail = form => {
+  const mailto = new URL("mailto:")
+  const params = []
+  const { value, title } = form.querySelector('button[type="submit"]')
+  params.push(`subject=${encodeURIComponent(value)}`)
+  params.push(`to=${encodeURIComponent(title)}`)
+  const oneTextarea = form.querySelector('textarea[title="oneTextarea"]')
+  const body = oneTextarea ? codeMirrorInstance.getValue() : Array.from(new FormData(form)).map(([name, value]) => `${name} ${value}`).join("\n")
+  params.push(`body=${encodeURIComponent(body)}`)
+  mailto.search = params.join("&")
+  window.open(mailto.href, '_blank')
+}
+</script><style> .scrollFormParser {
+    font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
+  }
+.scrollFormParser input , .scrollFormParser textarea{
+padding: 10px;
+margin-bottom: 10px;
+width: 100%;
+box-sizing: border-box;
+} .scrollFormParser label {
+  display: block;
+  margin-bottom: 5px;
+}
+</style><form  method='post' action='' class="scrollFormParser"><textarea title="oneTextarea" rows="0" placeholder="" id="particles" name="particles"></textarea>
+  <script id="particlesParsers" type="text/plain">// Basic atom types
+blankAtom
+anyAtom
+
+// Enum atom types
+enumAtom
+ paint constant.language
+booleanAtom
+ enum true false
+ extends enumAtom
+
+// String atom types
+stringAtom
+ paint string
+
+atomAtom
+ paint string
+ description A non-empty single atom string.
+ regex .+
+
+columnNameAtom
+ extends stringAtom
+
+semanticVersionAtom
+ paint string
+ description A 3 part sem version string like 1.2.1
+
+// Date atom types
+dateAtom
+ paint string
+
+// Numeric atom types
+numberAtom
+ paint constant.numeric
+integerAtom
+ extends numberAtom
+ paint constant.numeric.integer
+floatAtom
+ extends numberAtom
+ paint constant.numeric.float
+percentAtom
+ paint constant.numeric.float
+ extends stringAtom
+ // todo: this currently extends from stringAtom b/c scrollsdk needs to be fixed. seems like if extending from number then the hard coded number typescript regex takes precedence over a custom regex
+countAtom
+ extends integerAtom
+yearAtom
+ extends integerAtom
+
+// Scroll atom types
+cueAtom
+ description A atom that indicates a certain parser to use.
+ paint keyword
+
+preBuildCommandAtom
+ extends cueAtom
+ description Give build command atoms their own color.
+ paint constant.character.escape
+
+commentAtom
+ paint comment
+
+delimiterAtom
+ description String to use as a delimiter.
+ paint string
+
+codeAtom
+ paint comment
+
+bulletPointAtom
+ description Any token used as a bullet point such as "-" or "1." or ">"
+ paint keyword
+
+comparisonAtom
+ enum < > <= >= = != includes doesNotInclude empty notEmpty startsWith endsWith
+ paint constant
+
+personNameAtom
+ extends stringAtom
+
+// Link atom types
+urlAtom
+ paint constant.language
+absoluteUrlAtom
+ paint constant.language
+ regex (ftp|https?)://.+
+
+emailAddressAtom
+ extends stringAtom
+
+// File system atom types
+permalinkAtom
+ paint string
+ description A string that doesn't contain characters that might interfere with most filesystems. No slashes, for instance.
+
+filePathAtom
+ extends stringAtom
+
+// HTML atom types
+tagOrUrlAtom
+ description An HTML tag or a url.
+ paint constant.language
+
+htmlAttributesAtom
+ paint comment
+
+htmlTagAtom
+ paint constant.language
+ enum div span p a img ul ol li h1 h2 h3 h4 h5 h6 header nav section article aside main footer input button form label select option textarea table tr td th tbody thead tfoot br hr meta link script style title code
+
+classNameAtom
+ paint constant
+
+htmlIdAtom
+ extends anyAtom
+
+
+abstractScrollParser
+ atoms cueAtom
+ javascript
+  compileEmbeddedVersion(compileSettings) {
+   return this.compile(compileSettings)
+  }
+  compileTxt() {
+    return ""
+  }
+  getHtmlRequirements(compileSettings) {
+    const {requireOnce} = this
+    if (!requireOnce)
+      return ""
+    const set = compileSettings?.alreadyRequired || this.root.alreadyRequired
+    if (set.has(requireOnce))
+      return ""
+    
+    set.add(requireOnce)
+    return requireOnce + "\n\n"
+  }
+
+abstractScrollWithRequirementsParser
+ extends abstractScrollParser
+ cueFromId
+ javascript
+  compile(compileSettings) {
+    return this.getHtmlRequirements(compileSettings) + this.compileInstance()
+  }
+
+metaCommandAtom
+ extends cueAtom
+ description Give meta command atoms their own color.
+ paint constant.numeric
+ // Obviously this is not numeric. But I like the green color for now.
+   We need a better design to replace this "paint" concept
+   https://github.com/breck7/scrollsdk/issues/186
+
+abstractTopLevelSingleMetaParser
+ description Use these parsers once per file.
+ extends abstractScrollParser
+ inScope slashCommentParser
+ cueFromId
+ atoms metaCommandAtom
+ javascript
+  isTopMatter = true
+  isSetterParser = true
+  compile() {
+   return ""
+  }
+
+scrollParser
+ extensions scroll
+ description Scroll is a language for scientists of all ages. Refine, share and collaborate on ideas.
+ root
+ inScope abstractScrollParser blankLineParser
+ catchAllParser errorParser
+ compilesTo html
+ javascript
+  setFile(file) {
+   this.file = file
+   return this
+  }
+  compile(compileSettings) {
+    this.sectionStack = []
+    return this.map(subparticle => subparticle.compile(compileSettings)).filter(i => i).join("\n") + this.clearSectionStack()
+  }
+  sectionStack = []
+  clearSectionStack() {
+   const result = this.sectionStack.join("\n")
+   this.sectionStack = []
+   return result
+  }
+  bodyStack = []
+  clearBodyStack() {
+   const result = this.bodyStack.join("")
+   this.bodyStack = []
+   return result
+  }
+  get hakonParser() {
+    if (this.isNodeJs())
+      return require("scrollsdk/products/hakon.nodejs.js")
+    return hakonParser
+  }
+  readSyncFromFileOrUrl(fileOrUrl) {
+    if (!this.isNodeJs()) return localStorage.getItem(fileOrUrl) || ""
+    const isUrl = fileOrUrl.match(/^https?\:[^ ]+$/)
+    if (!isUrl) return this.root.readFile(fileOrUrl)
+    return this.readFile(this.makeFullPath(new URL(fileOrUrl).pathname.split('/').pop()))
+  }
+  async fetch(url, filename) {
+    const isUrl = url.match(/^https?\:[^ ]+$/)
+    if (!isUrl) return
+    return this.isNodeJs() ? this.fetchNode(url, filename) : this.fetchBrowser(url)
+  }
+  makeFullPath(filename) {
+    return require("path").join(this.folderPath, filename)
+  }
+  get date() {
+    return this.get("date") || this.file.date
+  }
+  get linkToPrevious() {
+    return this.file.linkToPrevious
+  }
+  get linkToNext() {
+    return this.file.linkToNext
+  }
+  async fetchNode(url, filename) {
+    filename = filename || new URL(url).pathname.split('/').pop()
+    const fullpath = this.makeFullPath(filename)
+    if (require("fs").existsSync(fullpath)) return this.readFile(fullpath)
+    this.log(`🛜 fetching ${url} to ${fullpath} `)
+    await this.downloadToDisk(url, fullpath)
+    return this.readFile(fullpath)
+  }
+  log(message) {
+   // console.log(message)
+  }
+  async fetchBrowser(url) {
+    const content = localStorage.getItem(url)
+    if (content) return content
+    return this.downloadToLocalStorage(url)
+  }
+  async downloadToDisk(url, destination) {
+    const { writeFile } = require('fs').promises
+    const response = await fetch(url)
+    const fileBuffer = await response.arrayBuffer()
+    await writeFile(destination, Buffer.from(fileBuffer))
+    return this.readFile(destination)
+  }
+  async downloadToLocalStorage(url) {
+    const response = await fetch(url)
+    const blob = await response.blob()
+    localStorage.setItem(url, await blob.text())
+    return localStorage.getItem(url)
+  }
+  readFile(filename) {
+    const path = require("path")
+    const fs = require("fs")
+    const fullPath = path.join(this.folderPath, filename.replace(this.folderPath, ""))
+    if (fs.existsSync(fullPath))
+      return fs.readFileSync(fullPath, "utf8")
+    console.error(`File '${filename}' not found`)
+    return ""
+  }
+  alreadyRequired = new Set()
+  compileEmbeddedVersion(compileSettings) {
+   this.sectionStack = []
+   return this.map(subparticle => (subparticle.compileEmbeddedVersion ? subparticle.compileEmbeddedVersion(compileSettings) : subparticle.compile(compileSettings)))
+     .filter(i => i)
+     .join("\n")
+     .trim() + this.clearSectionStack()
+  }
+  get footnotes() {
+   if (this._footnotes === undefined) this._footnotes = this.filter(particle => particle.isFootnote)
+   return this._footnotes
+  }
+  async build() {
+    await Promise.all(this.filter(particle => particle.build).map(async particle => particle.build()))
+  }
+  file = {}
+  getFromParserId(parserId) {
+    return this.parserIdIndex[parserId]?.[0].content
+  }
+  get folderPath() {
+    return this.file.folderPath
+  }
+  get filename() {
+    return this.file.filename || ""
+  }
+  get hasKeyboardNav() {
+    return this.has("keyboardNav")
+  }
+  get editHtml() {
+    return `<a href="${this.editUrl}" class="abstractTextLinkParser">Edit</a>`
+  }
+  get externalsPath() {
+    return this.file.EXTERNALS_PATH
+  }
+  get allScrollFiles() {
+    return this.file.allScrollFiles || []
+  }
+  getFilesByTags(tags) {
+    return this.file.getFilesByTags ? this.file.getFilesByTags(tags) : []
+  }
+  get endSnippetIndex() {
+    // Get the line number that the snippet should stop at.
+    // First if its hard coded, use that
+    if (this.has("endSnippet")) return this.getParticle("endSnippet").index
+    // Next look for a dinkus
+    const snippetBreak = this.find(particle => particle.isDinkus)
+    if (snippetBreak) return snippetBreak.index
+    return -1
+  }
+  get parserIds() {
+    return this.topDownArray.map(particle => particle.definition.id)
+  }
+  get tags() {
+    return this.get("tags") || ""
+  }
+  get primaryTag() {
+    return this.tags.split(" ")[0]
+  }
+  get filenameNoExtension() {
+    return this.filename.replace(".scroll", "")
+  }
+  // todo: rename publishedUrl? Or something to indicate that this is only for stuff on the web (not localhost)
+  // BaseUrl must be provided for RSS Feeds and OpenGraph tags to work
+  get baseUrl() {
+    const baseUrl = (this.get("baseUrl") || "").replace(/\/$/, "")
+    return baseUrl + "/"
+  }
+  get canonicalUrl() {
+    return this.get("canonicalUrl") || this.baseUrl + this.permalink
+  }
+  get openGraphImage() {
+    const openGraphImage = this.get("openGraphImage")
+    if (openGraphImage !== undefined) return this.ensureAbsoluteLink(openGraphImage)
+    const images = this.filter(particle => particle.doesExtend("scrollImageParser"))
+    const hit = images.find(particle => particle.has("openGraph")) || images[0]
+    if (!hit) return ""
+    return this.ensureAbsoluteLink(hit.filename)
+  }
+  get absoluteLink() {
+    return this.ensureAbsoluteLink(this.permalink)
+  }
+  ensureAbsoluteLink(link) {
+    if (link.includes("://")) return link
+    return this.baseUrl + link.replace(/^\//, "")
+  }
+  get editUrl() {
+    const editUrl = this.get("editUrl")
+    if (editUrl) return editUrl
+    const editBaseUrl = this.get("editBaseUrl")
+    return (editBaseUrl ? editBaseUrl.replace(/\/$/, "") + "/" : "") + this.filename
+  }
+  get gitRepo() {
+    // given https://github.com/breck7/breckyunits.com/blob/main/four-tips-to-improve-communication.scroll
+    // return https://github.com/breck7/breckyunits.com
+    return this.editUrl.split("/").slice(0, 5).join("/")
+  }
+  get scrollVersion() {
+    return this.file.SCROLL_VERSION
+  }
+  // Use the first paragraph for the description
+  // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
+  // would speed up a lot.
+  get description() {
+    const description = this.getFromParserId("openGraphDescriptionParser")
+    if (description) return description
+    return this.generatedDescription
+  }
+  get generatedDescription() {
+    const firstParagraph = this.find(particle => particle.isArticleContent)
+    return firstParagraph ? firstParagraph.originalText.substr(0, 100).replace(/[&"<>']/g, "") : ""
+  }
+  get titleFromFilename() {
+    const unCamelCase = str => str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, match => match.toUpperCase())
+    return unCamelCase(this.filenameNoExtension)
+  }
+  get title() {
+    return this.getFromParserId("scrollTitleParser") || this.titleFromFilename
+  }
+  get linkTitle() {
+    return this.getFromParserId("scrollLinkTitleParser") || this.title
+  }
+  get permalink() {
+   return this.get("permalink") || (this.filename ? this.filenameNoExtension + ".html" : "")
+  }
+  get asTxt() {
+    return (
+      this.map(particle => {
+          const text = particle.compileTxt ? particle.compileTxt() : ""
+          if (text) return text + "\n"
+          if (!particle.getLine().length) return "\n"
+          return ""
+        })
+        .join("")
+        .replace(/<[^>]*>/g, "")
+        .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
+        .trim() + "\n" // Always end in a newline, Posix style
+    )
+  }
+  toSearchTsvRow(relativePath = "") {
+    const text = this.asTxt.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
+    return [this.title, relativePath + this.permalink, text, this.date, this.wordCount, this.minutes].join("\t")
+  }
+  get asJs() {
+    return this.topDownArray
+      .filter(particle => particle.compileJs)
+      .map(particle => particle.compileJs())
+      .join("\n")
+      .trim()
+  }
+  get asRss() {
+    return this.compile().trim()
+  }
+  get asCss() {
+    return this.topDownArray
+      .filter(particle => particle.compileCss)
+      .map(particle => particle.compileCss())
+      .join("\n")
+      .trim()
+  }
+  get asParsers() {
+    return this.topDownArray
+      .filter(particle => particle.compileParsers)
+      .map((particle, index) => particle.compileParsers(index))
+      .join("\n\n")
+      .trim()
+  }
+  get dependencies() {
+      const dependencies = this.file.dependencies?.slice() || []
+      const files = this.topDownArray.filter(particle => particle.dependencies).map(particle => particle.dependencies).flat()
+      return dependencies.concat(files)
+  }
+  get asCsv() {
+    return this.topDownArray
+      .filter(particle => particle.compileCsv)
+      .map(particle => particle.compileCsv())
+      .join("\n")
+      .trim()
+  }
+  get buildsHtml() {
+    const { permalink } = this
+    return !this.file?.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
+  }
+  // Without specifying the language hyphenation will not work.
+  get lang() {
+    return this.get("htmlLang") || "en"
+  }
+  _compiledHtml = ""
+  get asHtml() {
+    if (!this._compiledHtml) {
+      const { permalink, buildsHtml } = this
+      const content = (this.compile() + this.clearBodyStack()).trim()
+      // Don't add html tags to CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
+      // <1% of use case so might be good enough.
+      const wrapWithHtmlTags = buildsHtml
+      const bodyTag = this.has("metaTags") ? "" : "<body>\n"
+      this._compiledHtml = wrapWithHtmlTags ? `<!DOCTYPE html>\n<html lang="${this.lang}">\n${bodyTag}${content}\n</body>\n</html>` : content
+    }
+    return this._compiledHtml
+  }
+  get wordCount() {
+    return this.asTxt.match(/\b\w+\b/g)?.length || 0
+  }
+  get minutes() {
+    return (this.wordCount / 200).toFixed(1)
+  }
+  get date() {
+    const date = this.get("date") || (this.file.timestamp ? this.file.timestamp * 1000 : 0) || 0
+    return this.dayjs(date).format(`MM/DD/YYYY`)
+  }
+  get year() {
+    return this.dayjs(this.date).format(`YYYY`)
+  }
+  get dayjs() {
+    if (!this.isNodeJs()) return dayjs
+    const lib = require("dayjs")
+    const relativeTime = require("dayjs/plugin/relativeTime")
+    lib.extend(relativeTime)
+    return lib
+  }
+  toRss() {
+    const { title, canonicalUrl } = this
+    return ` <item>
+  <title>${title}</title>
+  <link>${canonicalUrl}</link>
+  <pubDate>${this.dayjs(this.timestamp * 1000).format("ddd, DD MMM YYYY HH:mm:ss ZZ")}</pubDate>
+  </item>`
+  }
+ example
+  # Hello world
+  ## This is Scroll
+  * It compiles to HTML.
+  
+  code
+   // You can add code as well.
+   print("Hello world")
+
+abstractUrlSettingParser
+ extends abstractTopLevelSingleMetaParser
+ atoms metaCommandAtom urlAtom
+ cueFromId
+
+
+buildCommandAtom
+ extends cueAtom
+ description Give build command atoms their own color.
+ paint constant
+
+abstractBuildCommandParser
+ extends abstractScrollParser
+ cueFromId
+ atoms buildCommandAtom
+ catchAllAtomType filePathAtom
+ inScope slashCommentParser
+ javascript
+  isTopMatter = true
+  compile() {
+   return ""
+  }
+
+commentLineParser
+ catchAllAtomType commentAtom
+
+abstractCommentParser
+ description Prints nothing.
+ catchAllAtomType commentAtom
+ atoms commentAtom
+ extends abstractScrollParser
+ baseParser blobParser
+ javascript
+  compile() {
+   return ``
+  }
+ catchAllParser commentLineParser
+
+commentParser
+ popularity 0.000193
+ extends abstractCommentParser
+ cueFromId
+ boolean suggestInAutocomplete false
+
+slashCommentParser
+ popularity 0.005643
+ extends abstractCommentParser
+ cue //
+ boolean isPopular true
+ description A comment. Prints nothing.
+ boolean suggestInAutocomplete false
+
+blankLineParser
+ popularity 0.308149
+ description Print nothing. Break section.
+ atoms blankAtom
+ boolean isPopular true
+ javascript
+  compile() {
+   return this.parent.clearSectionStack()
+  }
+ pattern ^$
+ tags doNotSynthesize
+
+measureNameAtom
+ extends cueAtom
+ // A regex for column names for max compatibility with a broad range of data science tools:
+ regex [a-zA-Z][a-zA-Z0-9]*
+
+buildMeasuresParser
+ popularity 0.000024
+ cueFromId
+ description Write measures to csv+ files.
+ extends abstractBuildCommandParser
+ sortByParser
+  cueFromId
+  atoms cueAtom anyAtom
+ boolean suggestInAutocomplete false
+
+// The main measure parser. All measures should extend from this.
+abstractMeasureParser
+ atoms measureNameAtom
+ cueFromId
+ boolean isMeasure true
+ float sortIndex 1.9
+ boolean isComputed false
+ string typeForWebForms text
+ extends abstractScrollParser
+ javascript
+  compileEmbeddedVersion() {
+   return ""
+  }
+  compile() {
+   return ""
+  }
+  get measureValue() {
+    return this.content ?? ""
+  }
+  get measureName() {
+    return this.getCuePath().replace(/ /g, "_")
+  }
+
+// String Measures
+abstractAtomMeasureParser
+ description A measure that contains a single atom.
+ atoms measureNameAtom atomAtom
+ extends abstractMeasureParser
+
+abstractStringMeasureParser
+ catchAllAtomType stringAtom
+ extends abstractMeasureParser
+
+abstractTextareaMeasureParser
+ string typeForWebForms textarea
+ extends abstractMeasureParser
+ baseParser blobParser
+ javascript
+  get measureValue() {
+    return this.subparticlesToString().replace(/\n/g, "\\n")
+  }
+
+abstractEmailMeasureParser
+ string typeForWebForms email
+ atoms measureNameAtom emailAddressAtom
+ extends abstractAtomMeasureParser
+
+// URL Parsers
+abstractUrlMeasureParser
+ string typeForWebForms url
+ atoms measureNameAtom urlAtom
+ extends abstractAtomMeasureParser
+
+// Required ID measure which denotes a concept
+abstractIdParser
+ cue id
+ description What is the ID of this concept?
+ extends abstractStringMeasureParser
+ float sortIndex 1
+ boolean isMeasureRequired true
+ boolean isConceptDelimiter true
+ javascript
+  getErrors() {
+    const errors = super.getErrors()
+    let requiredMeasureNames = this.parent.file.measures.filter(measure => measure.isMeasureRequired).map(measure => measure.Name).filter(name => name !== "id")
+    if (!requiredMeasureNames.length) return errors
+    let next = this.next
+    while (requiredMeasureNames.length && next.cue !== "id" && next.index !== 0) {
+      requiredMeasureNames = requiredMeasureNames.filter(i => i !== next.cue)
+      next = next.next
+    }
+    requiredMeasureNames.forEach(name =>
+      errors.push(this.makeError(`Concept "${this.content}" is missing required measure "${name}".`))
+    )
+    return errors
+  }
+
+// Numeric Measures
+abstractNumericMeasureParser
+ string typeForWebForms number
+ extends abstractMeasureParser
+ javascript
+  get measureValue() {
+    const {content} = this
+    return content === undefined ? "" : parseFloat(content)
+  }
+
+abstractIntegerMeasureParser
+ atoms measureNameAtom integerAtom
+ extends abstractNumericMeasureParser
+
+abstractFloatMeasureParser
+ atoms measureNameAtom floatAtom
+ extends abstractNumericMeasureParser
+
+abstractPercentageMeasureParser
+ atoms measureNameAtom percentAtom
+ extends abstractNumericMeasureParser
+ javascript
+  get measureValue() {
+    const {content} = this
+    return content === undefined ? "" : parseFloat(content)
+  }
+
+// Enum Measures
+abstractEnumMeasureParser
+ atoms measureNameAtom enumAtom
+ extends abstractMeasureParser
+
+// Boolean Measures
+abstractBooleanMeasureParser
+ atoms measureNameAtom booleanAtom
+ extends abstractMeasureParser
+ javascript
+  get measureValue() {
+    const {content} = this
+    return content === undefined ? "" : content == "true"
+  }
+
+
+errorParser
+ baseParser errorParserbuildHtml
+imported defs.parsers
+ exists false
+
+
+This example shows the use of Scroll Defs to create forms even faster than writing Parsers.
+
+container
+
+theme gazette
+scrollForm
+
+classicForm
+</script>
+  <script>{
+  let {width, height} = document.getElementById('particles').getBoundingClientRect();
+  const scrollParser = new HandParsersProgram(document.getElementById("particlesParsers").textContent).compileAndReturnRootParser()
+  codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => scrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("particles"), {
+    lineWrapping: false,
+    lineNumbers: false
+  })
+  codeMirrorInstance.setSize(width, height);
+  codeMirrorInstance.setValue(``); }</script><button value="" title="" class="scrollButton" type="submit">Post</button></form>
+<script>
+sendFormViaEmail = form => {
+  const mailto = new URL("mailto:")
+  const params = []
+  const { value, title } = form.querySelector('button[type="submit"]')
+  params.push(`subject=${encodeURIComponent(value)}`)
+  params.push(`to=${encodeURIComponent(title)}`)
+  const oneTextarea = form.querySelector('textarea[title="oneTextarea"]')
+  const body = oneTextarea ? codeMirrorInstance.getValue() : Array.from(new FormData(form)).map(([name, value]) => `${name} ${value}`).join("\n")
+  params.push(`body=${encodeURIComponent(body)}`)
+  mailto.search = params.join("&")
+  window.open(mailto.href, '_blank')
+}
+</script><style> .scrollFormParser {
+    font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
+  }
+.scrollFormParser input , .scrollFormParser textarea{
+padding: 10px;
+margin-bottom: 10px;
+width: 100%;
+box-sizing: border-box;
+} .scrollFormParser label {
+  display: block;
+  margin-bottom: 5px;
+}
+</style><form  method='post' action='' class="scrollFormParser"><button value="" title="" class="scrollButton" type="submit">Post</button></form></div>
+</body>
+</html>

@@ -6,10 +6,9 @@ belowAsCodeParser
  cueFromId
  javascript
   method = "next"
-  get code() {
-   const { method } = this
+  get selectedParticles() {
+    const { method } = this
    let code = ""
-   
    let particles = []
    let next = this[method]
    let {howMany} = this
@@ -19,7 +18,10 @@ belowAsCodeParser
     howMany--
    }
    if (this.reverse) particles.reverse()
-   return particles.map(particle => particle.asString).join("\n")
+   return particles
+  }
+  get code() {
+   return this.selectedParticles.map(particle => particle.asString).join("\n")
   }
   reverse = false
   compile() {

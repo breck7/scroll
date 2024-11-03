@@ -12,6 +12,23 @@ importParser
  example
   import header.scroll
 
+importedParser
+ description Inserted at import pass.
+ boolean suggestInAutocomplete false
+ cueFromId
+ atoms preBuildCommandAtom
+ extends abstractScrollParser
+ catchAllAtomType filePathAtom
+ javascript
+  compile() {
+   return ""
+  }
+  getErrors() {
+    if (this.get("exists") === "false" && this.previous.getLine() !== "// optional")
+      return [this.makeError(`File '${this.atoms[1]}' does not exist.`)]
+    return []
+  }
+
 quickImportParser
  popularity 0.007524
  description Import a Scroll or Parsers file.
@@ -43,6 +60,7 @@ abstractQuickIncludeParser
  extends abstractScrollParser
  atoms urlAtom
  javascript
+  get dependencies() { return [this.filename]}
   get filename() {
     return this.getAtom(0)
   }

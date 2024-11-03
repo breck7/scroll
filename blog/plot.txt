@@ -29,6 +29,7 @@ A Scatterplot with 2 words
 ==========================
 
 You can now make scatterplots with 2 words.
+ // if that's not no code, I don't know the meaning of no code.
 
 Obviously you want to add a few more words, but I don't think I'm exaggerating when I say that this is the simplest way to generate a scatterplot now and forever will be (until the day when we have mind-reading machines that can generate a scatterplot with zero words).
 
@@ -68,4 +69,4 @@ If you like where this is headed, give us a star on GitHub.
 
 ^engineering: The difference between programming and engineering? It takes programming to make a program that works. It takes engineering to make a program that _barely_ works.
 
-Built with Scroll v145.8.0
+Built with Scroll v146.0.0

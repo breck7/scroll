@@ -14,3 +14,7 @@ catchAllParagraphParser
   get originalText() {
    return this.getLine() || ""
   }
+
+testStrictParser
+ description Make catchAllParagraphParser = error.
+ extends abstractTopLevelSingleMetaParser

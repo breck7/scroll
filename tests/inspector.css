@@ -1,0 +1,40 @@
+.inspectorParticle {
+  font-family: arial;
+  white-space: nowrap;
+  font-size: 18px;
+  background: rgba(0, 119, 182, 0.7);
+  display: inline-block;
+  padding: 5px;
+  padding-top: 1.5em;
+  position: relative;
+  min-width: 20ch;
+  border: 3px solid rgb(0, 119, 182);
+}
+.inspectorSubparticles {
+  margin-left: 5px;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.05);
+}
+.inspectorAtom {
+  background: #fcbf49;
+  position: relative;
+  display: inline-block;
+  padding: 1.5em 10px 0.5em 10px;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 15ch;
+}
+.inspectorAtomType,
+.inspectorParticleId {
+  position: absolute;
+  text-align: center;
+  left: 0;
+  top: 2px;
+  right: 0;
+  color: green;
+}
+.inspectorParticleId {
+  color: white;
+}

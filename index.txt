@@ -13,15 +13,16 @@ ScrollHub &nbsp;&nbsp; Try now
  http://hub.scroll.pub/ ScrollHub
  https://try.scroll.pub/ Try now
 
-LeetSheet · Blog · FAQ · Tutorial
+LeetSheet · Blog · Release Notes · FAQ · Tutorial
  https://scroll.pub/leetsheet.html LeetSheet
  https://scroll.pub/blog/index.html Blog
  https://scroll.pub/faq.html FAQ
+ https://scroll.pub/releaseNotes.html Release Notes
  https://scroll.pub/tutorial.html Tutorial
 
-Videos · Release Notes · Subreddit
+Videos · GitHub · Subreddit
  https://www.youtube.com/@breckyunits Videos
- https://scroll.pub/releaseNotes.html Release Notes
+ https://github.com/breck7/scroll GitHub
  https://www.reddit.com/r/WorldWideScroll/ Subreddit
 
 npm package · Tests · Parser Designer
@@ -33,4 +34,4 @@ scroll prompt · parser prompt
  https://scroll.pub/scrollPrompt.txt scroll prompt
  https://scroll.pub/parserPrompt.txt parser prompt
 
-Built with Scroll v145.8.0
+Built with Scroll v146.0.0

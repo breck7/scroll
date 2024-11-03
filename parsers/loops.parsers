@@ -10,6 +10,7 @@ abstractPostLoopParser
   }
 
 scrollLoopParser
+ // Todo: deprecate loops in favor of tables.
  popularity 0.000024
  extends abstractAftertextParser
  atoms cueAtom

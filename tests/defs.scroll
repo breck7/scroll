@@ -1,0 +1,13 @@
+buildParsers
+
+urlDef URL to the creation being tried?
+
+creationDef What is the title of the creation?
+
+tryDef URL to the builder test video?
+
+rankDef What is the current rank?
+
+dateDef When did they try?
+
+tryerDef Name of the tryer?

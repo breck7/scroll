@@ -2,17 +2,17 @@ Scroll Release Notes
 ====================
 Scroll FAQ
 ==========
-10/28/2024
+11/03/2024
 https://scroll.pub/faq.html
 
 Scroll Roadmap
 ==============
-10/28/2024
+11/03/2024
 https://scroll.pub/roadmap.html
 
 Scroll Tutorial
 ===============
-10/28/2024
+11/03/2024
 https://scroll.pub/tutorial.html
 A list of what has changed in Scroll releases.
 ==============================================
@@ -23,6 +23,43 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.json JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
+
+146.0.0 11/02/2024
+==================
+🎉 upgrade ScrollSDK to get "imported" functionality.
+🎉 added importedParser
+🎉 added support for optional imports using a temporary parser. Long term implementation coming soon.
+⚠️ BREAKING: (no one should be affected) import particles are now replaced by "imported" particles
+
+145.12.0 11/02/2024
+===================
+🎉 assertion parsers can now be chained and will test the output of previous non-assertion parser
+🎉 added dependenciesParser
+
+145.11.1 11/01/2024
+===================
+🎉 remove carriage returns ('\r') when running scroll format
+
+145.11.0 10/31/2024
+===================
+🎉 add `join` parser to printColumn
+
+145.10.0 10/30/2024
+===================
+🎉 much improved inspector parsers
+
+145.9.0 10/30/2024
+==================
+🎉 added `buildParsersParser` 
+🎉 added `scrollDefParser`
+🎉 added `inspectBelowParser`
+🎉 added `inspectAboveParser`
+🏥 atom highlight fixes for css and html
+🏥 allow scrollForms gracefully handle zero params
+
+This version starts introduces "Defs", a new short hand way to create forms/parsers/scrollsets.
+
+Expect Def parsers to evolve quickly.
 
 145.8.0 10/27/2024
 ==================
@@ -150,6 +187,7 @@ Download as CSV | TSV | JSON
 139.0.0 10/11/2024
 ==================
 🎉 the quickTable parser now works with JSON files as well.
+ // Thank you to TD for the report!
 ⚠️ BREAKING: to use the JSON Script parser, instead of *.json you now need to use the cue "jsonScript"
 
 Regex find:
@@ -366,6 +404,7 @@ Find/Replace for shorter relative links:
 =================
 🎉 add detection of timestamp columns and print them as dates in `printTable`
 🎉 remove "Exported data" from copied text in datatables copy buttons
+ // todo: need to remove this properly from the bundle, including the extra 2 blank lines.
 
 130.3.6 9/12/2024
 =================
@@ -799,6 +838,7 @@ Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|
 =================
 🎉 `heatrix` now supports using custom labels even for numeric atoms.
 🏥 always include a 0 value in `heatrix`
+ // not sure if this is correct design.
 
 111.0.0 7/26/2024
 =================
@@ -3007,4 +3047,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v145.8.0
+Built with Scroll v146.0.0

@@ -20,7 +20,7 @@ commentParser
 
 slashCommentParser
  popularity 0.005643
- extends commentParser
+ extends abstractCommentParser
  cue //
  boolean isPopular true
  description A comment. Prints nothing.
