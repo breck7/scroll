@@ -252,6 +252,7 @@ class ScrollFile {
       codeAfterImportPass = assembledFile.afterImportPass
       if (assembledFile.parser) parser = assembledFile.parser
       this.dependencies = assembledFile.importFilePaths
+      this.assembledFile = assembledFile
     }
     this.codeAfterImportPass = codeAfterImportPass
 

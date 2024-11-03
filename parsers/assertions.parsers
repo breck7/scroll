@@ -1,7 +1,3 @@
-testStrictParser
- description Make catchAllParagraphParser = error.
- extends abstractTopLevelSingleMetaParser
-
 abstractAssertionParser
  description Test above particle's output.
  extends abstractScrollParser

@@ -22,6 +22,12 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 146.0.0 11/02/2024
+🎉 upgrade ScrollSDK to get "imported" functionality.
+🎉 added importedParser
+🎉 added support for optional imports using a temporary parser. Long term implementation coming soon.
+⚠️ BREAKING: (no one should be affected) import particles are now replaced by "imported" particles
+
 📦 145.12.0 11/02/2024
 🎉 assertion parsers can now be chained and will test the output of previous non-assertion parser
 🎉 added dependenciesParser
