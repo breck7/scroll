@@ -24,18 +24,19 @@ ScrollHub &nbsp;&nbsp; Try now
  https://try.scroll.pub/ Try now
  class scrollButton Try now
 
-LeetSheet · Blog · FAQ · Tutorial
+LeetSheet · Blog · Release Notes · FAQ · Tutorial
  center
  leetsheet.html LeetSheet
  blog/index.html Blog
  faq.html FAQ
+ releaseNotes.html Release Notes
  tutorial.html Tutorial
  style margin:15px; margin-top: 40px;
 
-Videos · Release Notes · Subreddit
+Videos · GitHub · Subreddit
  center
  https://www.youtube.com/@breckyunits Videos
- releaseNotes.html Release Notes
+ https://github.com/breck7/scroll GitHub
  https://www.reddit.com/r/WorldWideScroll/ Subreddit
  style margin:15px;
 
