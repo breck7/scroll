@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 146.1.0 11/05/2024
+🎉 added `background` parser
+
 📦 146.0.0 11/02/2024
 🎉 upgrade ScrollSDK to get "imported" functionality.
 🎉 added importedParser
