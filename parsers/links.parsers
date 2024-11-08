@@ -31,7 +31,7 @@ linkParser
  extends abstractMarkupParser
  description Put the matching text in an <a> tag.
  atoms cueAtom urlAtom
- inScope linkTitleParser linkTargetParser commentParser
+ inScope linkTitleParser linkTargetParser abstractCommentParser
  programParser
   description Anything here will be URI encoded and then appended to the link.
   cueFromId

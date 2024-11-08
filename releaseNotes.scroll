@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 146.2.0 11/07/2024
+🎉 more comment support across parsers
+
 📦 146.1.0 11/05/2024
 🎉 added `background` parser
 
