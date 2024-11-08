@@ -22,3 +22,32 @@ inlineJsParser
   get contents() {
     return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join(";\n\n")
   }
+  compileJs() {
+    return this.contents
+  }
+
+buildJsParser
+ description Compile to JS file.
+ extends abstractBuildCommandParser
+
+scriptAnyAtom
+ extends codeAtom
+scriptLineParser
+ catchAllAtomType scriptAnyAtom
+ catchAllParser scriptLineParser
+scriptParser
+ extends abstractScrollParser
+ description Print script tag.
+ cueFromId
+ catchAllParser scriptLineParser
+ catchAllAtomType scriptAnyAtom
+ javascript
+  compile() {
+   return `<script>${this.scriptContent}</script>`
+  }
+  get scriptContent() {
+    return this.content ?? this.subparticlesToString()
+  }
+  compileJs() {
+    return this.scriptContent
+  }
