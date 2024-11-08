@@ -1,8 +1,8 @@
 parserId,uses
-blankLineParser,1031
-versionParser,559
-newFeatureParser,482
-catchAllParagraphParser,315
+blankLineParser,1033
+versionParser,561
+newFeatureParser,484
+catchAllParagraphParser,312
 bugFixParser,214
 lineOfCodeParser,209
 breakingChangeParser,203
@@ -19,8 +19,8 @@ quickRelativeLinkParser,26
 scrollCenterParser,26
 editButtonParser,25
 classMarkupParser,24
+slashCommentParser,20
 aboveAsCodeParser,18
-slashCommentParser,17
 importOnlyParser,16
 buildTxtParser,15
 scrollBrParser,14

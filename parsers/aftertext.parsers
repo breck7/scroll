@@ -4,7 +4,7 @@
 abstractAftertextParser
  description Text followed by markup commands.
  extends abstractScrollParser
- inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser commentParser
+ inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser abstractCommentParser
  javascript
   get markupInserts() {
    const { originalTextPostLinkify } = this

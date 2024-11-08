@@ -10,7 +10,7 @@ stamp
   abstractAftertextParser
    description Text followed by markup commands.
    extends abstractScrollParser
-   inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser commentParser
+   inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser abstractCommentParser
    javascript
     get markupInserts() {
      const { originalTextPostLinkify } = this
@@ -946,12 +946,12 @@ stamp
     }
  counterpoint.parsers
   counterpointParser
-   description A counterpoint. Prints nothing.
+   description Counterpoint comment. Prints nothing.
    extends commentParser
    cue !
  credits.parsers
   thanksToParser
-   description Acknowledge reviewers. Prints nothing.
+   description Acknowledgements comment. Prints nothing.
    extends abstractCommentParser
    cueFromId
  css.parsers
@@ -1001,6 +1001,17 @@ stamp
     }
     compileCss() {
       return this.css
+    }
+  
+  scrollBackgroundColorParser
+   description Quickly set CSS background.
+   popularity 0.007211
+   extends abstractScrollParser
+   cue background
+   catchAllAtomType cssAnyAtom
+   javascript
+    compile() {
+     return `html, body { background: ${this.content};}`
     }
   
   quickCssParser
@@ -2739,7 +2750,7 @@ stamp
    extends abstractMarkupParser
    description Put the matching text in an  tag.
    atoms cueAtom urlAtom
-   inScope linkTitleParser linkTargetParser commentParser
+   inScope linkTitleParser linkTargetParser abstractCommentParser
    programParser
     description Anything here will be URI encoded and then appended to the link.
     cueFromId

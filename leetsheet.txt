@@ -5,7 +5,7 @@ Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of 
 
 - - A list item.
 --- - A horizontal rule.
-! - A counterpoint. Prints nothing.
+! - Counterpoint comment. Prints nothing.
 ? - A question.
 [] - A task todo.
 [x] - A completed task.
@@ -24,6 +24,7 @@ assertHtmlEquals - Test above particle's output.
 assertHtmlExcludes - Test above particle's output.
 assertHtmlIncludes - Test above particle's output.
 authors - Set author(s) name(s).
+background - Quickly set CSS background.
 baseUrl - Required for RSS and OpenGraph.
 belowAsCode - Print code below.
 belowAsCodeUntil - Print code above until match.
@@ -148,7 +149,7 @@ table - A datatable.
 tableSearch - Table search and sort widget.
 tags - Set tags.
 testStrict - Make catchAllParagraphParser = error.
-thanksTo - Acknowledge reviewers. Prints nothing.
+thanksTo - Acknowledgements comment. Prints nothing.
 theme - A collection of simple themes.
 theScrollButton - WWS button.
 thinColumn - A thin column section.
@@ -195,6 +196,7 @@ jsonScript,753
 linkTitle,753
 keyboardNav,748
 authors,738
+background,722
 css,722
 inlineCss,722
 inlineJs,722
@@ -293,4 +295,4 @@ printSource,3
 sparkline,3
 video,3
 
-Built with Scroll v146.0.0
+Built with Scroll v146.2.0

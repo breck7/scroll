@@ -2,17 +2,17 @@ Scroll Release Notes
 ====================
 Scroll FAQ
 ==========
-11/03/2024
+11/08/2024
 https://scroll.pub/faq.html
 
 Scroll Roadmap
 ==============
-11/03/2024
+11/08/2024
 https://scroll.pub/roadmap.html
 
 Scroll Tutorial
 ===============
-11/03/2024
+11/08/2024
 https://scroll.pub/tutorial.html
 A list of what has changed in Scroll releases.
 ==============================================
@@ -23,6 +23,14 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.json JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
+
+146.2.0 11/07/2024
+==================
+🎉 more comment support across parsers
+
+146.1.0 11/05/2024
+==================
+🎉 added `background` parser
 
 146.0.0 11/02/2024
 ==================
@@ -187,7 +195,6 @@ Expect Def parsers to evolve quickly.
 139.0.0 10/11/2024
 ==================
 🎉 the quickTable parser now works with JSON files as well.
- // Thank you to TD for the report!
 ⚠️ BREAKING: to use the JSON Script parser, instead of *.json you now need to use the cue "jsonScript"
 
 Regex find:
@@ -404,7 +411,6 @@ Find/Replace for shorter relative links:
 =================
 🎉 add detection of timestamp columns and print them as dates in `printTable`
 🎉 remove "Exported data" from copied text in datatables copy buttons
- // todo: need to remove this properly from the bundle, including the extra 2 blank lines.
 
 130.3.6 9/12/2024
 =================
@@ -838,7 +844,6 @@ Regex to find all breaks: ^(printTable|spaceTable|tabTable|treeTable|commaTable|
 =================
 🎉 `heatrix` now supports using custom labels even for numeric atoms.
 🏥 always include a 0 value in `heatrix`
- // not sure if this is correct design.
 
 111.0.0 7/26/2024
 =================
@@ -3047,4 +3052,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v146.0.0
+Built with Scroll v146.2.0
