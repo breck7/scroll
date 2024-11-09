@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 146.4.0 11/09/2024
+🎉 when using maps, geolocate now adds an icon to current location
+
 📦 146.3.0 11/08/2024
 🎉 inlineJs now concats without script tag when paired with buildJs
 
