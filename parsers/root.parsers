@@ -92,8 +92,11 @@ scrollParser
     if (!isUrl) return
     return this.isNodeJs() ? this.fetchNode(url, filename) : this.fetchBrowser(url)
   }
+  get path() {
+    return require("path")
+  }
   makeFullPath(filename) {
-    return require("path").join(this.folderPath, filename)
+    return this.path.join(this.folderPath, filename)
   }
   get date() {
     return this.get("date") || this.file.date
@@ -134,7 +137,7 @@ scrollParser
     return localStorage.getItem(url)
   }
   readFile(filename) {
-    const path = require("path")
+    const {path} = this
     const fs = require("fs")
     const fullPath = path.join(this.folderPath, filename.replace(this.folderPath, ""))
     if (fs.existsSync(fullPath))

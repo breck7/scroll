@@ -2,17 +2,17 @@ Scroll Release Notes
 ====================
 Scroll FAQ
 ==========
-11/08/2024
+11/10/2024
 https://scroll.pub/faq.html
 
 Scroll Roadmap
 ==============
-11/08/2024
+11/10/2024
 https://scroll.pub/roadmap.html
 
 Scroll Tutorial
 ===============
-11/08/2024
+11/10/2024
 https://scroll.pub/tutorial.html
 A list of what has changed in Scroll releases.
 ==============================================
@@ -23,6 +23,23 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.json JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
+
+147.0.0 11/09/2024
+==================
+🎉 added `quickRunScriptParser` to run python, php, ruby, perl, and sh scripts and include output in compiled output
+ - Thanks to TBD for the idea
+  https://x.com/tbdr TBD
+  https://x.com/tbdr/status/1855391565373641140 idea
+🏥 match less in quick tables
+⚠️ BREAKING: (no one should be affected) if you have a line that is just a filename like *.(py|rb|sh|php|pl), it will now attempt to run that script
+
+146.4.0 11/09/2024
+==================
+🎉 when using maps, geolocate now adds an icon to current location
+
+146.3.0 11/08/2024
+==================
+🎉 inlineJs now concats without script tag when paired with buildJs
 
 146.2.0 11/07/2024
 ==================
@@ -3052,4 +3069,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v146.2.0
+Built with Scroll v147.0.0

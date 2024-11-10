@@ -76,12 +76,19 @@ mapParser
         navigator.geolocation.getCurrentPosition((position) => {
             const { latitude, longitude } = position.coords
             window.maps.${mapId}.setView([latitude, longitude])
+            L.circleMarker([latitude, longitude], {
+                fillOpacity: 0.8,
+                radius: 20,
+                weight: 4
+            })
+            .addTo(window.maps.${mapId})
         }, () => {})
       }
     const lat = ${this.get("lat") ?? 37.8}
     const long = ${this.get("long") ?? 4}
-    if (${this.has("geolocate")})
+    if (${this.has("geolocate")}){
         moveToMyLocation()
+    }
     const zoomLevel = ${this.get("zoom") ?? 4}
     const hover = '${this.get("hover") || "<b>{title}</b><br>{description}"}'
     const template = ${JSON.stringify(template)}

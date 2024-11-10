@@ -2474,6 +2474,35 @@ stamp
     get contents() {
       return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join(";\n\n")
     }
+    compileJs() {
+      return this.contents
+    }
+  
+  buildJsParser
+   description Compile to JS file.
+   extends abstractBuildCommandParser
+  
+  scriptAnyAtom
+   extends codeAtom
+  scriptLineParser
+   catchAllAtomType scriptAnyAtom
+   catchAllParser scriptLineParser
+  scriptParser
+   extends abstractScrollParser
+   description Print script tag.
+   cueFromId
+   catchAllParser scriptLineParser
+   catchAllAtomType scriptAnyAtom
+   javascript
+    compile() {
+     return `${this.scriptContent}`
+    }
+    get scriptContent() {
+      return this.content ?? this.subparticlesToString()
+    }
+    compileJs() {
+      return this.scriptContent
+    }
  json.parsers
   jsonScriptParser
    popularity 0.007524
@@ -3064,12 +3093,19 @@ stamp
           navigator.geolocation.getCurrentPosition((position) => {
               const { latitude, longitude } = position.coords
               window.maps.${mapId}.setView([latitude, longitude])
+              L.circleMarker([latitude, longitude], {
+                  fillOpacity: 0.8,
+                  radius: 20,
+                  weight: 4
+              })
+              .addTo(window.maps.${mapId})
           }, () => {})
         }
       const lat = ${this.get("lat") ?? 37.8}
       const long = ${this.get("long") ?? 4}
-      if (${this.has("geolocate")})
+      if (${this.has("geolocate")}){
           moveToMyLocation()
+      }
       const zoomLevel = ${this.get("zoom") ?? 4}
       const hover = '${this.get("hover") || "{title}{description}"}'
       const template = ${JSON.stringify(template)}
@@ -3741,8 +3777,11 @@ stamp
       if (!isUrl) return
       return this.isNodeJs() ? this.fetchNode(url, filename) : this.fetchBrowser(url)
     }
+    get path() {
+      return require("path")
+    }
     makeFullPath(filename) {
-      return require("path").join(this.folderPath, filename)
+      return this.path.join(this.folderPath, filename)
     }
     get date() {
       return this.get("date") || this.file.date
@@ -3783,7 +3822,7 @@ stamp
       return localStorage.getItem(url)
     }
     readFile(filename) {
-      const path = require("path")
+      const {path} = this
       const fs = require("fs")
       const fullPath = path.join(this.folderPath, filename.replace(this.folderPath, ""))
       if (fs.existsSync(fullPath))
@@ -4064,32 +4103,54 @@ stamp
     compileTxt() {
       return this.compile()
     }
- script.parsers
-  buildJsParser
-   description Compile to JS file.
-   extends abstractBuildCommandParser
-  
-  scriptAnyAtom
-   extends codeAtom
-  scriptLineParser
-   catchAllAtomType scriptAnyAtom
-   catchAllParser scriptLineParser
-  scriptParser
+ run.parsers
+  runScriptParser
+   popularity 0.000024
+   description Run script and dump stdout.
    extends abstractScrollParser
-   description Print script tag.
-   cueFromId
-   catchAllParser scriptLineParser
-   catchAllAtomType scriptAnyAtom
+   atoms cueAtom urlAtom
+   cue run
+   int filenameIndex 1
    javascript
+    get dependencies() { return [this.filename]}
+    results = "Not yet run"
+    async build() {
+      if (!this.filename) return
+      await this.root.fetch(this.filename)
+      // todo: make async
+      const { execSync } = require("child_process")
+      this.results = execSync(this.command)
+    }
+    get command() {
+      const path = this.root.path
+      const {filename }= this
+      const fullPath = this.root.makeFullPath(filename)
+      const ext = path.extname(filename).slice(1)
+      const interpreterMap = {
+        php: "php",
+        py: "python3",
+        rb: "ruby",
+        pl: "perl",
+        sh: "sh"
+      }
+      return [interpreterMap[ext], fullPath].join(" ")
+    }
     compile() {
-     return `${this.scriptContent}`
+      return this.compileTxt()
     }
-    get scriptContent() {
-      return this.content ?? this.subparticlesToString()
+    get filename() {
+      return this.getAtom(this.filenameIndex)
     }
-    compileJs() {
-      return this.scriptContent
+    compileTxt() {
+      return this.results.toString().trim()
     }
+  
+  quickRunScriptParser
+   extends runScriptParser
+   atoms urlAtom
+   pattern ^[^\s]+\.(py|pl|sh|rb|php)[^\s]*$
+   int filenameIndex 0
+  
  scrollVersion.parsers
   scrollVersionLinkParser
    popularity 0.006294
@@ -4752,7 +4813,7 @@ stamp
    popularity 0.000024
    extends scrollTableParser
    atoms urlAtom
-   pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)
+   pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)[^\s]*$
    int atomIndex 0
    javascript
     get dependencies() { return [this.cue]}

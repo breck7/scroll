@@ -269,7 +269,7 @@ quickTableParser
  popularity 0.000024
  extends scrollTableParser
  atoms urlAtom
- pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)
+ pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)[^\s]*$
  int atomIndex 0
  javascript
   get dependencies() { return [this.cue]}

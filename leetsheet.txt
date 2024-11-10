@@ -135,6 +135,7 @@ replace - Replace this with that.
 replaceJs - Replace this with evaled JS.
 replaceNodejs - Replace with evaled Node.JS.
 rssFeedUrl - Set RSS feed URL.
+run - Run script and dump stdout.
 scatterplot - Scatterplot Widget.
 script - Print script tag.
 scrollForm - Generate a Scroll Form.
@@ -292,7 +293,8 @@ printColumn,3
 printCsv,3
 printSearchTable,3
 printSource,3
+run,3
 sparkline,3
 video,3
 
-Built with Scroll v146.2.0
+Built with Scroll v147.0.0
