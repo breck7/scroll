@@ -274,6 +274,19 @@ quickTableParser
  javascript
   get dependencies() { return [this.cue]}
 
+scrollIrisParser
+ extends scrollTableParser
+ description Iris dataset from R.A. Fisher.
+ cue iris
+ example
+  iris
+   printTable
+   scatter
+    x SepalLength
+    y SepalWidth
+ javascript
+  delimitedData = this.constructor.iris
+
 scrollWhereParser
  extends abstractTableTransformParser
  description Filter rows by condition.
@@ -437,6 +450,26 @@ scrollLimitParser
    const start = this.getAtom(1)
    const end = this.getAtom(2)
    return this.parent.coreTable.slice(parseInt(start), parseInt(end))
+  }
+
+scrollShuffleParser
+ extends abstractTableTransformParser
+ description Randomly reorder rows.
+ cue shuffle
+ example
+  table data.csv
+   shuffle
+    printTable
+ javascript
+  get coreTable() {
+   // Create a copy of the table to avoid modifying original
+   const rows = this.parent.coreTable.slice()
+   // Fisher-Yates shuffle algorithm
+   for (let i = rows.length - 1; i > 0; i--) {
+     const j = Math.floor(Math.random() * (i + 1))
+     ;[rows[i], rows[j]] = [rows[j], rows[i]]
+   }
+   return rows
   }
 
 scrollTransposeParser

@@ -31,6 +31,7 @@ https://scroll.pub/lists.html
 https://scroll.pub/keyboardNav.html
 https://scroll.pub/json.html
 https://scroll.pub/javascript.html
+https://scroll.pub/iris.html
 https://scroll.pub/inspector.html
 https://scroll.pub/inline.html
 https://scroll.pub/index.html

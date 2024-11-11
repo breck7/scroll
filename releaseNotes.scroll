@@ -22,6 +22,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 147.1.0 11/11/2024
+🎉 added `shuffle` parser
+🎉 added `iris` parser for easier quick testing/demoing of scroll tables
+
 📦 147.0.0 11/09/2024
 🎉 added `quickRunScriptParser` to run python, php, ruby, perl, and sh scripts and include output in compiled output
  - Thanks to TBD for the idea

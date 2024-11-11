@@ -2,17 +2,17 @@ Scroll Release Notes
 ====================
 Scroll FAQ
 ==========
-11/10/2024
+11/11/2024
 https://scroll.pub/faq.html
 
 Scroll Roadmap
 ==============
-11/10/2024
+11/11/2024
 https://scroll.pub/roadmap.html
 
 Scroll Tutorial
 ===============
-11/10/2024
+11/11/2024
 https://scroll.pub/tutorial.html
 A list of what has changed in Scroll releases.
 ==============================================
@@ -23,6 +23,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.json JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
+
+147.1.0 11/11/2024
+==================
+🎉 added `shuffle` parser
+🎉 added `iris` parser for easier quick testing/demoing of scroll tables
 
 147.0.0 11/09/2024
 ==================
@@ -3069,4 +3074,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v147.0.0
+Built with Scroll v147.1.0

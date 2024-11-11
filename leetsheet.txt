@@ -92,6 +92,7 @@ inlineJs - Inline JS from files.
 inlineMarkups - Set global inline markups.
 inspectAbove - Inspect particle above.
 inspectBelow - Inspect particle below.
+iris - Iris dataset from R.A. Fisher.
 jsonScript - Include JSON and assign to window.
 katex - KaTex widget for typeset math.
 keyboardNav - Make left and right navigate files.
@@ -228,6 +229,7 @@ caption,321
 cloc,214
 dependencies,214
 disk,214
+iris,214
 table,214
 code,193
 *,189
@@ -297,4 +299,4 @@ run,3
 sparkline,3
 video,3
 
-Built with Scroll v147.0.0
+Built with Scroll v147.1.0
