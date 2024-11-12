@@ -12,7 +12,7 @@
 - [Getting Started](#getting-started)
 - [Documentation & Resources](#documentation--resources)
 - [Community & Support](#community--support)
-- [Public Domain](#publicDomain)
+- [Public Domain](#public-domain)
 
 ## Features
 
@@ -29,17 +29,17 @@
 
 ## Documentation & Resources
 
-- **[Tutorial](tutorial.html)** - A step-by-step guide for beginners.
-- **[FAQ](faq.html)** - Frequently Asked Questions.
-- **[Release Notes](releaseNotes.html)** - Detailed changelogs of all updates.
-- **[LeetSheet](leetsheet.html)** - Essential commands and syntax.
+- **[Tutorial](https://scroll.pub/tutorial.html)** - A step-by-step guide for beginners.
+- **[FAQ](https://scroll.pub/faq.html)** - Frequently Asked Questions.
+- **[Release Notes](https://scroll.pub/releaseNotes.html)** - Detailed changelogs of all updates.
+- **[LeetSheet](https://scroll.pub/leetsheet.html)** - Essential commands and syntax.
 - **GitHub Repository**: [Scroll on GitHub](https://github.com/breck7/scroll)
 
 ## Community & Support
 
 - **[YouTube Channel](https://www.youtube.com/@breckyunits)** - Watch tutorials and updates.
 - **[Reddit Community](https://www.reddit.com/r/WorldWideScroll/)** - Engage with the Scroll community.
-- **[Blog](blog/index.html)** - Read articles and insights on Scroll usage.
+- **[Blog](https://scroll.pub/blog/index.html)** - Read articles and insights on Scroll usage.
 
 ## Public Domain
 
