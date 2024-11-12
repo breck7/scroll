@@ -61,6 +61,7 @@ scroll prompt · parser prompt
 endColumns
 
 footer.scroll
+
 ```
 ```releaseNotes.scroll
 buildConcepts releaseNotes.csv releaseNotes.json releaseNotes.tsv
@@ -87,6 +88,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 148.2.0 11/12/2024
+🎉 created `bindTo` parsers property which tells particles to stick with next/previous when formatting
+🎉 created `allowTrailingWhitespace` parser property to allow particles to allow trailing whitespace when formatting
+
 📦 148.1.0 11/12/2024
 🎉 added `codeFromFile` parser
 🎉 buildTxt + code parsers now output code surrounded by backticks
@@ -102,7 +107,7 @@ thinColumns
 🎉 added `buildJson` parser
 🎉 added `posts` parser for iterating over posts as a table
 🎉 added `postsMeta` parser for iterating over post metadata as a table
-🎉 added `assertBuildIncludes` 
+🎉 added `assertBuildIncludes`
 🎉 `printTable` combined with `buildTsv/Csv/Json` will now save the table to disk.
 ⚠️ BREAKING: removed `loop`. `tables` can do everything loops could, much better.
 ⚠️ BREAKING: removed `printCsv` parser
@@ -157,7 +162,7 @@ code
 🎉 much improved inspector parsers
 
 📦 145.9.0 10/30/2024
-🎉 added `buildParsersParser` 
+🎉 added `buildParsersParser`
 🎉 added `scrollDefParser`
 🎉 added `inspectBelowParser`
 🎉 added `inspectAboveParser`
@@ -169,7 +174,7 @@ This version starts introduces "Defs", a new short hand way to create forms/pars
 Expect Def parsers to evolve quickly.
 
 📦 145.8.0 10/27/2024
-🎉 added `scrollNavParser` 
+🎉 added `scrollNavParser`
 🎉 added `scrollLinkTitleParser`
 
 📦 145.7.0 10/27/2024
@@ -3188,7 +3193,6 @@ footer.scroll
 ```tutorial.scroll
 replace DOMAIN scroll.pub
 title Scroll Tutorial
-
 linkTitle Tutorial
 
 header.scroll

@@ -1,6 +1,7 @@
 abstractAssertionParser
  description Test above particle's output.
  extends abstractScrollParser
+ string bindTo previous
  cueFromId
  javascript
   compile() {

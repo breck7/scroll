@@ -14,6 +14,7 @@ Scroll Tutorial
 ===============
 11/12/2024
 https://scroll.pub/tutorial.html
+
 A list of what has changed in Scroll releases.
 ==============================================
 
@@ -23,6 +24,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.json JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
+
+148.2.0 11/12/2024
+==================
+🎉 created `bindTo` parsers property which tells particles to stick with next/previous when formatting
+🎉 created `allowTrailingWhitespace` parser property to allow particles to allow trailing whitespace when formatting
 
 148.1.0 11/12/2024
 ==================
@@ -42,7 +48,7 @@ Download as CSV | TSV | JSON
 🎉 added `buildJson` parser
 🎉 added `posts` parser for iterating over posts as a table
 🎉 added `postsMeta` parser for iterating over post metadata as a table
-🎉 added `assertBuildIncludes` 
+🎉 added `assertBuildIncludes`
 🎉 `printTable` combined with `buildTsv/Csv/Json` will now save the table to disk.
 ⚠️ BREAKING: removed `loop`. `tables` can do everything loops could, much better.
 ⚠️ BREAKING: removed `printCsv` parser
@@ -110,7 +116,7 @@ tableSearch
 
 145.9.0 10/30/2024
 ==================
-🎉 added `buildParsersParser` 
+🎉 added `buildParsersParser`
 🎉 added `scrollDefParser`
 🎉 added `inspectBelowParser`
 🎉 added `inspectAboveParser`
@@ -123,7 +129,7 @@ Expect Def parsers to evolve quickly.
 
 145.8.0 10/27/2024
 ==================
-🎉 added `scrollNavParser` 
+🎉 added `scrollNavParser`
 🎉 added `scrollLinkTitleParser`
 
 145.7.0 10/27/2024
@@ -547,12 +553,12 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 11/12/2024,2024,Settings,settings.html,,,0,0
 11/12/2024,2024,Scroll Prompt,scrollPrompt.html,,,1026,5.1
 11/12/2024,2024,Scroll Roadmap,roadmap.html,,main,162,0.8
-11/12/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14412,72.1
-11/12/2024,2024,Readme Prompt,readmePrompt.html,,,19182,95.9
+11/12/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14445,72.2
+11/12/2024,2024,Readme Prompt,readmePrompt.html,,,19215,96.1
 11/12/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
 11/12/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-11/12/2024,2024,Parser Usage,parserUsage.html,,,254,1.3
-11/12/2024,2024,Parser Prompt,parserPrompt.html,,,15156,75.8
+11/12/2024,2024,Parser Usage,parserUsage.html,,,256,1.3
+11/12/2024,2024,Parser Prompt,parserPrompt.html,,,15189,75.9
 11/12/2024,2024,Parsers LeetSheet,parserLeetsheet.html,,,299,1.5
 11/12/2024,2024,Scroll LeetSheet,leetsheet.html,,,872,4.4
 11/12/2024,2024,Header,header.html,,,0,0
@@ -3194,4 +3200,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v148.1.0
+Built with Scroll v148.2.0
