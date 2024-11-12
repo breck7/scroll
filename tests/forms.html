@@ -530,6 +530,91 @@ scrollParser
     lib.extend(relativeTime)
     return lib
   }
+  get lodash() {
+    return this.isNodeJs() ? require("lodash") : lodash
+  }
+  getConcepts(parsed) {
+    const concepts = []
+    let currentConcept
+    parsed.forEach(particle => {
+      if (particle.isConceptDelimiter) {
+        if (currentConcept) concepts.push(currentConcept)
+        currentConcept = []
+      }
+      if (currentConcept && particle.isMeasure) currentConcept.push(particle)
+    })
+    if (currentConcept) concepts.push(currentConcept)
+    return concepts
+  }
+  _formatConcepts(parsed) {
+    const concepts = this.getConcepts(parsed)
+    if (!concepts.length) return false
+    const {lodash} = this
+    // does a destructive sort in place on the parsed program
+    concepts.forEach(concept => {
+      let currentSection
+      const newCode = lodash
+        .sortBy(concept, ["sortIndex"])
+        .map(particle => {
+          let newLines = ""
+          const section = particle.sortIndex.toString().split(".")[0]
+          if (section !== currentSection) {
+            currentSection = section
+            newLines = "\n"
+          }
+          return newLines + particle.toString()
+        })
+        .join("\n")
+      concept.forEach((particle, index) => (index ? particle.destroy() : ""))
+      concept[0].replaceParticle(() => newCode)
+    })
+  }
+  getFormatted(codeAtStart = this.toString()) {
+    let formatted = codeAtStart.replace(/\r/g, "") // remove all carriage returns if there are any
+    const parsed = new this.constructor(formatted)
+    parsed.topDownArray.forEach(subparticle => {
+      subparticle.format()
+      const original = subparticle.getLine()
+      const trimmed = original.replace(/(\S.*?)[  \t]*$/gm, "$1")
+      // Trim trailing whitespace unless parser allows it
+      if (original !== trimmed && !subparticle.allowTrailingWhitespace) subparticle.setLine(trimmed)
+    })
+    this._formatConcepts(parsed)
+    let importOnlys = []
+    let topMatter = []
+    let allElse = []
+    // Create any bindings
+    parsed.forEach(particle => {
+      if (particle.bindTo === "next") particle.binding = particle.next
+      if (particle.bindTo === "previous") particle.binding = particle.previous
+    })
+    parsed.forEach(particle => {
+      if (particle.getLine() === "importOnly") importOnlys.push(particle)
+      else if (particle.isTopMatter) topMatter.push(particle)
+      else allElse.push(particle)
+    })
+    const combined = importOnlys.concat(topMatter, allElse)
+    // Move any bound particles
+    combined
+      .filter(particle => particle.bindTo)
+      .forEach(particle => {
+        // First remove the particle from its current position
+        const originalIndex = combined.indexOf(particle)
+        combined.splice(originalIndex, 1)
+        // Then insert it at the new position
+        // We need to find the binding index again after removal
+        const bindingIndex = combined.indexOf(particle.binding)
+        if (particle.bindTo === "next") combined.splice(bindingIndex, 0, particle)
+        else combined.splice(bindingIndex + 1, 0, particle)
+      })
+    const trimmed = combined
+      .map(particle => particle.toString())
+      .join("\n")
+      .replace(/^\n*/, "") // Remove leading newlines
+      .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
+      .replace(/\n+$/, "")
+    return trimmed === "" ? trimmed : trimmed + "\n" // End non blank Scroll files in a newline character POSIX style for better working with tools like git
+  }
   toRss() {
     const { title, canonicalUrl } = this
     return ` <item>

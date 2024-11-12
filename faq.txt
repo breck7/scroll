@@ -286,6 +286,16 @@ How does versioning of articles work?
 =====================================
 Scroll is designed for git. A single article is stored as a single file tracked by git.
 
+When I run `scroll format` in what order are particles sorted?
+==============================================================
+The rough order is:
+```
+[importOnly?]
+[topMatter*]
+[measurements*]
+[everythingElse*]
+```
+
 Is Scroll public domain?
 ========================
 Yes! Scroll is also 100% focused on helping people build internal or *public domain sites* and everything is designed with that assumption.
@@ -526,4 +536,4 @@ Why the name Scroll?
 ====================
 The scroll was invented thousands of years ago and scrolls are still useful today. Scroll has been designed with a focus on simplicity and a goal of making something that would have been useful decades ago, with the hope that this will make it useful decades into the future.
 
-Built with Scroll v148.2.0
+Built with Scroll v148.3.0

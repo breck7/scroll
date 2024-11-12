@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 148.3.0 11/12/2024
+🎉 moved format code to root parser for use in browser
+
 📦 148.2.0 11/12/2024
 🎉 created `bindTo` parsers property which tells particles to stick with next/previous when formatting
 🎉 created `allowTrailingWhitespace` parser property to allow particles to allow trailing whitespace when formatting

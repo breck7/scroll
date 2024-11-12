@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 148.3.0 11/12/2024
+🎉 moved format code to root parser for use in browser
+
 📦 148.2.0 11/12/2024
 🎉 created `bindTo` parsers property which tells particles to stick with next/previous when formatting
 🎉 created `allowTrailingWhitespace` parser property to allow particles to allow trailing whitespace when formatting
@@ -2987,6 +2990,14 @@ TypeScript is not used in the Scroll repo and because the Javascript is only ~1k
 
 ? How does versioning of articles work?
 Scroll is designed for git. A single article is stored as a single file tracked by git.
+
+? When I run `scroll format` in what order are particles sorted?
+The rough order is:
+code
+ [importOnly?]
+ [topMatter*]
+ [measurements*]
+ [everythingElse*]
 
 ? Is Scroll public domain?
 Yes! Scroll is also 100% focused on helping people build internal or *public domain sites* and everything is designed with that assumption.

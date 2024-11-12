@@ -511,8 +511,8 @@ scrollImputeParser
  cue impute
  javascript
   get coreTable() {
-   const {lodash, columnName} = this
-   const sorted = lodash.orderBy(this.parent.coreTable.slice(), columnName)
+   const {columnName} = this
+   const sorted = this.root.lodash.orderBy(this.parent.coreTable.slice(), columnName)
    // ascending
    const imputed = []
    let lastInserted = sorted[0][columnName]
@@ -534,9 +534,6 @@ scrollImputeParser
   get columnName() {
     return this.getAtom(1)
   }
-  get lodash() {
-    return this.isNodeJs() ? require("lodash") : lodash
-  }
 
 scrollOrderByParser
  extends abstractTableTransformParser
@@ -551,10 +548,7 @@ scrollOrderByParser
     return [part1.map(col => col.replace(/^\-/, "")), part2]
    }
    const orderBy = makeLodashOrderByParams(this.content)
-   return this.lodash.orderBy(this.parent.coreTable.slice(), orderBy[0], orderBy[1])
-  }
-  get lodash() {
-    return this.isNodeJs() ? require("lodash") : lodash
+   return this.root.lodash.orderBy(this.parent.coreTable.slice(), orderBy[0], orderBy[1])
   }
 
 scrollRenameParser
