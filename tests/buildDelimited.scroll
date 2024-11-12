@@ -1,0 +1,12 @@
+buildCsv
+assertBuildIncludes
+ virginica
+buildTsv
+buildJson
+buildTxt
+buildHtml
+tableSearch
+theme gazette
+iris
+ where species = virginica
+  printTable

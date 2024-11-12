@@ -458,6 +458,18 @@ scrollParser
   get permalink() {
    return this.get("permalink") || (this.filename ? this.filenameNoExtension + ".html" : "")
   }
+  compileTo(extensionCapitalized) {
+    if (extensionCapitalized === "Txt")
+      return this.asTxt
+    if (extensionCapitalized === "Html")
+      return this.asHtml
+    const methodName = "compile" + extensionCapitalized
+    return this.topDownArray
+      .filter(particle => particle[methodName])
+      .map((particle, index) => particle[methodName](index))
+      .join("\n")
+      .trim()
+  }
   get asTxt() {
     return (
       this.map(particle => {
@@ -472,45 +484,10 @@ scrollParser
         .trim() + "\n" // Always end in a newline, Posix style
     )
   }
-  toSearchTsvRow(relativePath = "") {
-    const text = this.asTxt.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
-    return [this.title, relativePath + this.permalink, text, this.date, this.wordCount, this.minutes].join("\t")
-  }
-  get asJs() {
-    return this.topDownArray
-      .filter(particle => particle.compileJs)
-      .map(particle => particle.compileJs())
-      .join("\n")
-      .trim()
-  }
-  get asRss() {
-    return this.compile().trim()
-  }
-  get asCss() {
-    return this.topDownArray
-      .filter(particle => particle.compileCss)
-      .map(particle => particle.compileCss())
-      .join("\n")
-      .trim()
-  }
-  get asParsers() {
-    return this.topDownArray
-      .filter(particle => particle.compileParsers)
-      .map((particle, index) => particle.compileParsers(index))
-      .join("\n\n")
-      .trim()
-  }
   get dependencies() {
       const dependencies = this.file.dependencies?.slice() || []
       const files = this.topDownArray.filter(particle => particle.dependencies).map(particle => particle.dependencies).flat()
       return dependencies.concat(files)
-  }
-  get asCsv() {
-    return this.topDownArray
-      .filter(particle => particle.compileCsv)
-      .map(particle => particle.compileCsv())
-      .join("\n")
-      .trim()
   }
   get buildsHtml() {
     const { permalink } = this
@@ -591,6 +568,11 @@ abstractBuildCommandParser
   isTopMatter = true
   compile() {
    return ""
+  }
+  buildOutput() {
+    // todo: move build steps into root.parsers
+    const extension = this.cue.replace("build", "")
+    return this.root.compileTo(extension)
   }
 
 commentLineParser

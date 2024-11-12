@@ -4,143 +4,23 @@ Below are the files in a blog. I want you to read them, and then perform the fol
 Tasks:
 
 The Files:
-/home/runner/work/scroll/scroll/tests/a-review-of-my-sink.scroll
- replace SOME_DATA
-  - foo
-   link bar.html
-  - bar
-   link bam.html
- tags index all
- title A review of my sink
+
+ Source
+ https://scroll.pub/tests/
+ Kitchen sink test site.
+ Tue, 12 Nov 2024 03:06:52 +0000
+ en-us
  
- header.scroll
+A review of my sink
+https://scroll.pub/tests/a-review-of-my-sink.html
+Invalid Date
+
  
- printTitle
+Tabular data test
+https://scroll.pub/tests/tabularData.html
+Invalid Date
+
  
- thinColumns 1
- 
- I have been using my sink for one year, and this is what I have learned.
- 
- endSnippet
- 
- I have learned that a sink is a sink.
- 
- ## My favorite things about sinks
- 
- - They can hold water
- - You can put things in them
- 
- - This should be in a new list
- 
- youtube https://www.youtube.com/watch?v=hKkC1V86Frg
-  caption This is not a sink.
- 
- keyboardNav
- 
- - days old
-  dayjs Math.floor(dayjs().diff(dayjs("1984.2.26"), "day", true))
- 
- SOME_DATA
- 
- endColumns
- 
-/home/runner/work/scroll/scroll/tests/tabularData.scroll
- buildTxt
- tags index
- title Tabular data test
- 
- header.scroll
- 
- printTitle
- 
- wideColumns 1
- 
- A test of TSV data
- 
- endSnippet
- 
- table
-  printTable
-  data
-   Index	Name	Diameter	Height	Covered	5	10	15	20	25	30	35	40	45	50	55
-   1	Thermos	3	7.25	TRUE	149.9	147	144.6	141.2	138.2	137.1	134	132.8	131.1	129.3	127.2
-   2	Yeti Covered	4	3.8	TRUE	146.6	141	136.7	132.5	129	125.6	123.4	121.6	118.5	117.6	115.7
-   3	Yeti	4	3.8	FALSE	135.5	118.9	107.9	100.5	94.6	90.8	87.6	85.4	82.9	81.3	79.7
-   4	SF	4	4.5	FALSE	128.8	113.9	102.5	95.9	90.5	86.3	83.6	81.6	79.8	78.2	76.6
-   5	Aruba	3	3.75	FALSE	130.8	114.6	104.9	98.9	92.3	87.6	85.4	82.9	81.1	80.2	78
- 
- ## Putting print table after a table:
- table
-  data
-   name	score
-   joe	2
-  printTable
- 
- # Dropdown sections
- 
- expander Full Table
- table
-  printTable
-  data
-   Rows	LogLinear	Quadratic	Before	After
-   1000	9966	1000000	36000	15000
-   2000	21932	4000000	53000	29000
-   10000	132877	100000000	258000	32000
-   20000	285754	400000000	1236000	52000
-   100000	1660964	10000000000	23122000	125000
-   200000	3521928	40000000000	113886000	324000
- 
-/home/runner/work/scroll/scroll/tests/top-sinks.scroll
- authors Breck Yunits
-  https://breckyunits.com Breck Yunits
- buildTxt
- date 1/11/2019
- replace NUM_SINKS 283
- replace TABLE
-  table
-   delimiter |
-   printTable
-   data
-    sinkManufacturer|country
-    Blue|USA
-    Red|Canada
- replaceJs SUM 1+1
- replaceJs THE_DAY dayjs(particle.parent.get("date")).format(`MMMM D, YYYY`)
- replaceJs TODAYS_DATE Date()
- replaceNodejs
-  module.exports = {DIRNAME: __dirname}
- tags index all
- title Top Sinks
- 
- header.scroll
- 
- printTitle
- 
- printAuthors
- 
- keyboardNav
- 
- goodMorning
- goodMorning
- goodMorning
- 
- dashboard
-  NUM_SINKS in database
-  $0 budget
-  3 countries
- 
- TABLE
- TABLE
- TABLE
- 
- Today is TODAYS_DATE
- 
- 1+1 = SUM
- 
- THE_DAY was a great day
- 
- There are NUM_SINKS in my list.
- 
- This file is in dir: DIRNAME
- 
- thinColumns 2
+Top Sinks
+https://scroll.pub/tests/top-sinks.html
+Invalid Date

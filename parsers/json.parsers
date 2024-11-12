@@ -1,3 +1,8 @@
+buildJsonParser
+ popularity 0.000096
+ description Compile to JSON file.
+ extends abstractBuildCommandParser
+
 jsonScriptParser
  popularity 0.007524
  cueFromId

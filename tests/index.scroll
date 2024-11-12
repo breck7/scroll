@@ -2,7 +2,8 @@ header.scroll
 
 container
 # Scroll Tests
-printSearchTable
+posts
+ printTable
 tableSearch
 
 scrollVersionLink

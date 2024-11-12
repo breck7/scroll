@@ -1,6 +1,6 @@
 Name	Values	Coverage	Question	Example	Type	Source	SortIndex	IsComputed	IsRequired	IsConceptDelimiter	Cue
-version	565	100%	What is the semantic version number?	147.1.0	string		1		true	true	📦
-releaseDate	565	100%		11/11/2024	string		1.1	true	true		
-bugFixes	565	100%	How many bug fixes in this release?	0	number		1.2	true			
-newFeatures	565	100%	How many new features in this release?	2	number		1.2	true			
-breakingChanges	565	100%	How many breaking changes in this release?	0	number		1.2	true			
+version	566	100%	What is the semantic version number?	148.0.0	string		1		true	true	📦
+releaseDate	566	100%		11/11/2024	string		1.1	true	true		
+bugFixes	566	100%	How many bug fixes in this release?	0	number		1.2	true			
+newFeatures	566	100%	How many new features in this release?	6	number		1.2	true			
+breakingChanges	566	100%	How many breaking changes in this release?	3	number		1.2	true			

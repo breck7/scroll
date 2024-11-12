@@ -1,4 +1,6 @@
-buildRss feed.xml
+buildRss
+assertBuildIncludes
+ <?xml
 
 settings.scroll
 

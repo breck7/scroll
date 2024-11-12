@@ -1,6 +1,6 @@
 abstractTableTransformParser
  atoms cueAtom
- inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser scrollLoopParser htmlInlineParser scrollBrParser
+ inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser
  javascript
   get coreTable() {
     return this.parent.coreTable
@@ -82,6 +82,15 @@ printTableParser
   get columnNames() {
    return this.parent.columnNames
   }
+  compileJson() {
+    return JSON.stringify(this.coreTable, undefined, 2)
+  }
+  compileCsv() {
+     return new Particle(this.coreTable).asCsv
+  }
+  compileTsv() {
+     return new Particle(this.coreTable).asTsv
+  }
   get columns() {
    const {columnNames} = this
    return columnNames.map((name, index) => {
@@ -117,8 +126,11 @@ printTableParser
    }
    return str
   }
+  get coreTable() {
+    return this.parent.coreTable
+  }
   get tableBody() {
-   return this.parent.coreTable
+   return this.coreTable
     .map(row => `<tr>${this.toRow(row)}</tr>`)
     .join("\n")
   }
@@ -129,7 +141,7 @@ printTableParser
    </table>`
   }
   compileTxt() {
-    return this.parent.delimitedData || new Particle(this.parent.coreTable).asCsv
+    return this.parent.delimitedData || new Particle(this.coreTable).asCsv
   }
 
 scrollTableDataParser
@@ -152,7 +164,7 @@ scrollTableDelimiterParser
 abstractDatatableProviderParser
  description A datatable.
  extends abstractScrollParser
- inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser scrollLoopParser htmlInlineParser scrollBrParser
+ inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser
  javascript
   get visualizations() {
     return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)
@@ -447,8 +459,12 @@ scrollLimitParser
  atoms cueAtom integerAtom integerAtom
  javascript
   get coreTable() {
-   const start = this.getAtom(1)
-   const end = this.getAtom(2)
+   let start = this.getAtom(1)
+   let end = this.getAtom(2)
+   if (end === undefined) {
+     end = start
+     start = 0
+   }
    return this.parent.coreTable.slice(parseInt(start), parseInt(end))
   }
 

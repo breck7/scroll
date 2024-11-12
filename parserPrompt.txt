@@ -335,8 +335,9 @@ stamp
       // If the previous particle is also an assertion particle, use the one before that.
       return this.previous.particleToTest ? this.previous.particleToTest : this.previous
     }
+    get actual() {return this.particleToTest.compile()}
     getErrors() {
-      const actual = this.particleToTest.compile()
+      const {actual} = this
       const expected = this.subparticlesToString()
       const errors = super.getErrors()
       if (this.areEqual(actual, expected))
@@ -353,6 +354,16 @@ stamp
       return actual === expected
     }
     // todo: why are we having to super here?
+    getErrors() { return super.getErrors()}
+  
+  assertBuildIncludesParser
+   extends abstractAssertionParser
+   string kind include
+   javascript
+    areEqual(actual, expected) {
+      return actual.includes(expected)
+    }
+    get actual() { return this.particleToTest.buildOutput()}
     getErrors() { return super.getErrors()}
   
   assertHtmlIncludesParser
@@ -582,6 +593,11 @@ stamp
     isTopMatter = true
     compile() {
      return ""
+    }
+    buildOutput() {
+      // todo: move build steps into root.parsers
+      const extension = this.cue.replace("build", "")
+      return this.root.compileTo(extension)
     }
  buttons.parsers
   scrollButtonParser
@@ -1025,30 +1041,6 @@ stamp
      return ``
     }
   
- csv.parsers
-  buildCsvParser
-   popularity 0.000096
-   description Compile to CSV file.
-   extends abstractBuildCommandParser
-  
-  printCsvParser
-   popularity 0.000024
-   description Print group metadata to CSV.
-   extends printFeedParser
-   example
-    printCsv index
-    buildTxt posts.csv
-   javascript
-    compile() {
-     const escapeCommas = str => (typeof str === "string" && str.includes(",") ? `"${str}"` : str)
-     const scrollPrograms = this.root.getFilesByTags(this.content).map(file => file.file.scrollProgram)
-     const CSV_FIELDS = ["date", "year", "title", "permalink", "authors", "tags", "wordCount", "minutes"]
-     const header = CSV_FIELDS
-     return `${header.join(",")}\n${scrollPrograms.map(program => CSV_FIELDS.map(field => escapeCommas(program[field]))).join("\n")}`
-    }
-    compileCsv() {
-      return this.compile()
-    }
  dashboard.parsers
   scrollDashboardParser
    popularity 0.000145
@@ -1163,6 +1155,17 @@ stamp
    popularity 0.000096
    description Compile to Parsers file.
    extends abstractBuildCommandParser
+ delimited.parsers
+  buildCsvParser
+   popularity 0.000096
+   description Compile to CSV file.
+   extends abstractBuildCommandParser
+  
+  buildTsvParser
+   popularity 0.000096
+   description Compile to TSV file.
+   extends abstractBuildCommandParser
+  
  dependencies.parsers
   scrollDependenciesParser
    extends scrollTableParser
@@ -2504,6 +2507,11 @@ stamp
       return this.scriptContent
     }
  json.parsers
+  buildJsonParser
+   popularity 0.000096
+   description Compile to JSON file.
+   extends abstractBuildCommandParser
+  
   jsonScriptParser
    popularity 0.007524
    cueFromId
@@ -2897,104 +2905,6 @@ stamp
    javascript
     listType = "ol"
     get attributes() { return ` start="${this.getAtom(0)}"`}
- loops.parsers
-  abstractPostLoopParser
-   description Do something with all posts. Takes an optional list of folder/group names.
-   extends abstractScrollParser
-   cueFromId
-   atoms cueAtom
-   catchAllAtomType tagWithOptionalFolderAtom
-   javascript
-    get files() {
-     return this.root.getFilesByTags(this.content)
-    }
-  
-  scrollLoopParser
-   // Todo: deprecate loops in favor of tables.
-   popularity 0.000024
-   extends abstractAftertextParser
-   atoms cueAtom
-   boolean isTableVisualization true
-   description Iterate over files+ to make HTML.
-   cue loop
-   inScope abstractItemsProviderParser
-   joinParser
-    extends abstractLoopConfigParser
-    description HTML to use to join the items.
-   limitParser
-    extends abstractLoopConfigParser
-    description HTML to use to join the items.
-   javascriptParser
-    extends abstractLoopConfigParser
-    description Javascript to execute for each file in the loop.
-   javascript
-    compile() {
-     const code = this.get("javascript")
-     const joinWith = this.get("join") ?? ""
-     try {
-      const limit = this.get("limit")
-      let items = this.items
-      if (limit) items = items.slice(0, parseInt(limit))
-      return items.map((item, index) => eval(code)).join(joinWith)
-     } catch (err) {
-      console.error(err)
-      return ""
-     } finally {
-      this.teardown()
-     }
-    }
-    get items() {
-     const provider = this.getSubparticleInstancesOfParserId("abstractItemsProviderParser")[0]
-     if (provider)
-       return provider.items
-     if (this.parent.coreTable)
-       return this.parent.coreTable
-     return []
-    }
-    teardown() {}
-  
-  abstractLoopConfigParser
-   atoms cueAtom
-   cueFromId
-   catchAllAtomType stringAtom
-  
-  // Extend this if you want to create a new provider
-  abstractItemsProviderParser
-   atoms cueAtom
-  
-  // Some basic providers:
-  loopLinesParser
-   cue lines
-   extends abstractItemsProviderParser
-   description Iterate over the provided lines.
-   catchAllParser loopLineParser
-   loopLineParser
-    catchAllAtomType stringAtom
-   javascript
-    get items() {
-     return this.map(particle => particle.asString)
-    }
-  
-  loopAtomsParser
-   popularity 0.000024
-   cue atoms
-   extends abstractItemsProviderParser
-   catchAllAtomType stringAtom
-   description Iterate over the provided atoms.
-   javascript
-    get items() {
-     return this.getAtomsFrom(1)
-    }
-  
-  loopTagsParser
-   cue tags
-   extends abstractItemsProviderParser
-   catchAllAtomType tagWithOptionalFolderAtom
-   description Set this to iterate over scroll files in a folder. Provide both the folder and group name like this: [folder]/[tag]
-   javascript
-    get items() {
-     return this.root.getFilesByTags(this.content)
-    }
  loremIpsum.parsers
   loremIpsumParser
    extends abstractAftertextParser
@@ -3567,52 +3477,27 @@ stamp
         tip: true,
         symbol: get("${this.get("symbol")}")} ), Plot.text(data, {x: get("${x}",0), y: get("${y}", 1), text: "${text}", dy: -6, lineAnchor: "bottom"})`
     }
- qrcode.parsers
-  qrcodeParser
-   extends abstractCaptionedParser
-   description Make a QR code from a link.
-   example
-    qrcode https://scroll.pub
-   javascript
-    getFigureContent() {
-      const url = this.atoms[1]
-      const isNode = this.isNodeJs()
-      if (isNode) {
-        const {externalsPath} = this.root
-        const path = require("path")
-        const {qrcodegen, toSvgString} = require(path.join(externalsPath, "qrcodegen.js"))
-        const QRC = qrcodegen.QrCode;
-        const qr0 = QRC.encodeText(url, QRC.Ecc.MEDIUM);
-        const svg = toSvgString(qr0, 4);  // See qrcodegen-input-demo
-        return svg
-      }
-      return `Not yet supported in browser.`
-    }
- question.parsers
-  scrollQuestionParser
-   popularity 0.004244
-   description A question.
-   extends h4Parser
-   cue ?
-   example
-    ? Why is the sky blue?
-   javascript
-    defaultClassName = "scrollQuestion"
- quotes.parsers
-  quoteLineParser
-   popularity 0.004172
-   catchAllAtomType anyAtom
-   catchAllParser quoteLineParser
-  
-  quoteParser
-   popularity 0.001471
+ posts.parsers
+  abstractPostsParser
+   description Load posts as table.
+   extends abstractDatatableProviderParser
    cueFromId
-   description A quote.
-   catchAllParser quoteLineParser
-   extends abstractScrollParser
+   atoms cueAtom
+   catchAllAtomType tagWithOptionalFolderAtom
    javascript
-    compile() {
-     return `${this.subparticlesToString()}`
+    get files() {
+     return this.root.getFilesByTags(this.content)
+    }
+    get coreTable() {
+      if (this._coreTable) return this._coreTable
+      this._coreTable = this.files.map(file => this.postToRow(file))
+      return this._coreTable
+    }
+    postToRow(file) {
+      const {relativePath} = file
+      const {scrollProgram} = file.file
+      const {title, permalink, asTxt, date, wordCount, minutes} = scrollProgram
+      const text = asTxt.replace(/(\t|\n)/g, " ").replace(/${this.subparticlesToString()}`
     }
     compileTxt() {
       return this.subparticlesToString()
@@ -3954,6 +3839,18 @@ stamp
     get permalink() {
      return this.get("permalink") || (this.filename ? this.filenameNoExtension + ".html" : "")
     }
+    compileTo(extensionCapitalized) {
+      if (extensionCapitalized === "Txt")
+        return this.asTxt
+      if (extensionCapitalized === "Html")
+        return this.asHtml
+      const methodName = "compile" + extensionCapitalized
+      return this.topDownArray
+        .filter(particle => particle[methodName])
+        .map((particle, index) => particle[methodName](index))
+        .join("\n")
+        .trim()
+    }
     get asTxt() {
       return (
         this.map(particle => {
@@ -3968,40 +3865,10 @@ stamp
           .trim() + "\n" // Always end in a newline, Posix style
       )
     }
-    toSearchTsvRow(relativePath = "") {
-      const text = this.asTxt.replace(/(\t|\n)/g, " ").replace(/ particle.compileJs)
-        .map(particle => particle.compileJs())
-        .join("\n")
-        .trim()
-    }
-    get asRss() {
-      return this.compile().trim()
-    }
-    get asCss() {
-      return this.topDownArray
-        .filter(particle => particle.compileCss)
-        .map(particle => particle.compileCss())
-        .join("\n")
-        .trim()
-    }
-    get asParsers() {
-      return this.topDownArray
-        .filter(particle => particle.compileParsers)
-        .map((particle, index) => particle.compileParsers(index))
-        .join("\n\n")
-        .trim()
-    }
     get dependencies() {
         const dependencies = this.file.dependencies?.slice() || []
         const files = this.topDownArray.filter(particle => particle.dependencies).map(particle => particle.dependencies).flat()
         return dependencies.concat(files)
-    }
-    get asCsv() {
-      return this.topDownArray
-        .filter(particle => particle.compileCsv)
-        .map(particle => particle.compileCsv())
-        .join("\n")
-        .trim()
     }
     get buildsHtml() {
       const { permalink } = this
@@ -4078,13 +3945,13 @@ stamp
   printFeedParser
    popularity 0.000048
    description Print group to RSS.
-   extends abstractPostLoopParser
+   extends abstractPostsParser
    example
     printFeed index
     printFeed cars/index
-    buildRss feed.xml
+    buildRss
    javascript
-    compile() {
+    compileRss() {
      const {dayjs} = this.root
      const scrollPrograms = this.files.map(file => file.file.scrollProgram)
      const { title, baseUrl, description } = this.root
@@ -4101,7 +3968,7 @@ stamp
     `
     }
     compileTxt() {
-      return this.compile()
+      return this.compileRss()
     }
  run.parsers
   runScriptParser
@@ -4162,33 +4029,11 @@ stamp
       return `Built with Scroll v${this.parent.file?.SCROLL_VERSION || ""}`
     }
   
- search.parsers
-  printSearchTableParser
-   popularity 0.000024
-   description Prints files to HTML table.
-   extends abstractPostLoopParser
-   example
-    printSearchTable
-    tableSearch
-   javascript
-    compile() {
-     const files = this.files
-     const data = files.map(file => file.file.scrollProgram.toSearchTsvRow(file.relativePath)).join("\n")
-     // A hacky but simple way to do this for now.
-       const particle = this.appendSibling("table")
-      particle.appendLine("delimiter 	")
-      particle.appendLine("printTable")
-      const dataParticle = particle.appendLine("data")
-      dataParticle.setSubparticles("title titleLink text date wordCount minutes".replace(/ /g, "\t") + "\n" + data)
-     const html = particle.compile()
-     particle.destroy()
-     return html
-    }
  sitemaps.parsers
   // https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#text
   printSiteMapParser
    popularity 0.000072
-   extends abstractPostLoopParser
+   extends abstractPostsParser
    description Print text sitemap.
    example
     baseUrl http://test.com
@@ -4554,7 +4399,7 @@ stamp
  tables.parsers
   abstractTableTransformParser
    atoms cueAtom
-   inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser scrollLoopParser htmlInlineParser scrollBrParser
+   inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser
    javascript
     get coreTable() {
       return this.parent.coreTable
@@ -4636,6 +4481,15 @@ stamp
     get columnNames() {
      return this.parent.columnNames
     }
+    compileJson() {
+      return JSON.stringify(this.coreTable, undefined, 2)
+    }
+    compileCsv() {
+       return new Particle(this.coreTable).asCsv
+    }
+    compileTsv() {
+       return new Particle(this.coreTable).asTsv
+    }
     get columns() {
      const {columnNames} = this
      return columnNames.map((name, index) => {
@@ -4661,8 +4515,11 @@ stamp
      }
      return str
     }
+    get coreTable() {
+      return this.parent.coreTable
+    }
     get tableBody() {
-     return this.parent.coreTable
+     return this.coreTable
       .map(row => `${this.toRow(row)}`)
       .join("\n")
     }
@@ -4673,7 +4530,7 @@ stamp
      `
     }
     compileTxt() {
-      return this.parent.delimitedData || new Particle(this.parent.coreTable).asCsv
+      return this.parent.delimitedData || new Particle(this.coreTable).asCsv
     }
   
   scrollTableDataParser
@@ -4696,7 +4553,7 @@ stamp
   abstractDatatableProviderParser
    description A datatable.
    extends abstractScrollParser
-   inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser scrollLoopParser htmlInlineParser scrollBrParser
+   inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser
    javascript
     get visualizations() {
       return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)
@@ -4965,8 +4822,12 @@ stamp
    atoms cueAtom integerAtom integerAtom
    javascript
     get coreTable() {
-     const start = this.getAtom(1)
-     const end = this.getAtom(2)
+     let start = this.getAtom(1)
+     let end = this.getAtom(2)
+     if (end === undefined) {
+       end = start
+       start = 0
+     }
      return this.parent.coreTable.slice(parseInt(start), parseInt(end))
     }
   

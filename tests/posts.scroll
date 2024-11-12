@@ -1,0 +1,38 @@
+header.scroll
+
+---
+
+posts index subfolder/index
+ printColumn title
+  join ·
+
+---
+
+posts index subfolder/index
+ rank
+  printColumn rank
+   join ..
+
+---
+
+posts index subfolder/index
+ compose link <a href="{titleLink}">{title}</a>
+  printColumn link
+   join <br>
+
+---
+
+table
+ data
+  color
+  #2a2d34ff
+  #009ddcff
+  #f26430ff
+  #6761a8ff
+  #009b72ff
+ compose span <span style="background-color: {color}; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>
+  printColumn span
+   join </>
+  limit 0 2
+   printColumn span
+    join </>

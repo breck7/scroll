@@ -1,0 +1,227 @@
+[
+  {
+    "date": "11/12/2024",
+    "year": "2024",
+    "title": "Sitemap",
+    "permalink": "sitemap.html",
+    "tags": "",
+    "wordCount": 151,
+    "minutes": "0.8"
+  },
+  {
+    "date": "11/12/2024",
+    "year": "2024",
+    "title": "Settings",
+    "permalink": "settings.html",
+    "tags": "",
+    "wordCount": 0,
+    "minutes": "0.0"
+  },
+  {
+    "date": "11/12/2024",
+    "year": "2024",
+    "title": "Search the Official Scroll Blog",
+    "permalink": "search.html",
+    "tags": "",
+    "wordCount": 9151,
+    "minutes": "45.8"
+  },
+  {
+    "date": "11/12/2024",
+    "year": "2024",
+    "title": "The Official Scroll Blog",
+    "permalink": "index.html",
+    "tags": "",
+    "wordCount": 301,
+    "minutes": "1.5"
+  },
+  {
+    "date": "11/12/2024",
+    "year": "2024",
+    "title": "The Official Scroll Blog",
+    "permalink": "full.html",
+    "tags": "",
+    "wordCount": 301,
+    "minutes": "1.5"
+  },
+  {
+    "date": "11/12/2024",
+    "year": "2024",
+    "title": "Feed",
+    "permalink": "feed.html",
+    "tags": "",
+    "wordCount": 291,
+    "minutes": "1.5"
+  },
+  {
+    "date": "10/28/2024",
+    "year": "2024",
+    "title": "Scroll in 50 Questions",
+    "permalink": "scrollInQuestions.html",
+    "tags": "All",
+    "wordCount": 1080,
+    "minutes": "5.4"
+  },
+  {
+    "date": "10/01/2024",
+    "year": "2024",
+    "title": "Web Forms for Geniuses",
+    "permalink": "forms.html",
+    "tags": "All",
+    "wordCount": 369,
+    "minutes": "1.8"
+  },
+  {
+    "date": "09/02/2024",
+    "year": "2024",
+    "title": "The Successor to RSS is Git Clone",
+    "permalink": "gitOverRss.html",
+    "tags": "All",
+    "wordCount": 224,
+    "minutes": "1.1"
+  },
+  {
+    "date": "08/30/2024",
+    "year": "2024",
+    "title": "A New Way to Program",
+    "permalink": "teddyTalk.html",
+    "tags": "All",
+    "wordCount": 426,
+    "minutes": "2.1"
+  },
+  {
+    "date": "08/09/2024",
+    "year": "2024",
+    "title": "Tables: a microlang for data science",
+    "permalink": "tables.html",
+    "tags": "All",
+    "wordCount": 479,
+    "minutes": "2.4"
+  },
+  {
+    "date": "08/02/2024",
+    "year": "2024",
+    "title": "Build Your Own Counters With 3 Words",
+    "permalink": "counters.html",
+    "tags": "All",
+    "wordCount": 1026,
+    "minutes": "5.1"
+  },
+  {
+    "date": "07/28/2024",
+    "year": "2024",
+    "title": "Heatrix: Heat Maps + Matrix Visualizations",
+    "permalink": "heatrix.html",
+    "tags": "All",
+    "wordCount": 467,
+    "minutes": "2.3"
+  },
+  {
+    "date": "07/16/2024",
+    "year": "2024",
+    "title": "Contacts: A Microlang for Managing Contacts",
+    "permalink": "contacts.html",
+    "tags": "All",
+    "wordCount": 371,
+    "minutes": "1.9"
+  },
+  {
+    "date": "07/12/2024",
+    "year": "2024",
+    "title": "How I Designed Helpful 404's and Stopped Worrying about Broken Links",
+    "permalink": "helpful404s.html",
+    "tags": "All",
+    "wordCount": 542,
+    "minutes": "2.7"
+  },
+  {
+    "date": "07/09/2024",
+    "year": "2024",
+    "title": "Convert CSVs to ScrollSets",
+    "permalink": "csvToScrollSet.html",
+    "tags": "All ScrollSets",
+    "wordCount": 100,
+    "minutes": "0.5"
+  },
+  {
+    "date": "07/01/2024",
+    "year": "2024",
+    "title": "Changes: A Microlang for Change Logs",
+    "permalink": "changes.html",
+    "tags": "All",
+    "wordCount": 429,
+    "minutes": "2.1"
+  },
+  {
+    "date": "06/24/2024",
+    "year": "2024",
+    "title": "Write scatterplot to get a scatterplot",
+    "permalink": "plot.html",
+    "tags": "All",
+    "wordCount": 342,
+    "minutes": "1.7"
+  },
+  {
+    "date": "06/23/2024",
+    "year": "2024",
+    "title": "Stamp: a microlang for project templates",
+    "permalink": "stamp.html",
+    "tags": "All",
+    "wordCount": 300,
+    "minutes": "1.5"
+  },
+  {
+    "date": "04/29/2024",
+    "year": "2024",
+    "title": "Scroll builds text files",
+    "permalink": "textFiles.html",
+    "tags": "All",
+    "wordCount": 173,
+    "minutes": "0.9"
+  },
+  {
+    "date": "04/21/2024",
+    "year": "2024",
+    "title": "ScrollSets: source code for CSVs",
+    "permalink": "scrollsets.html",
+    "tags": "All ScrollSets",
+    "wordCount": 1157,
+    "minutes": "5.8"
+  },
+  {
+    "date": "05/08/2023",
+    "year": "2023",
+    "title": "Introducing Program Links",
+    "permalink": "programLinks.html",
+    "tags": "All",
+    "wordCount": 507,
+    "minutes": "2.5"
+  },
+  {
+    "date": "04/13/2023",
+    "year": "2023",
+    "title": "Counterpoints: A new tool for thought in the Scroll Language",
+    "permalink": "counterpoints.html",
+    "tags": "All",
+    "wordCount": 388,
+    "minutes": "1.9"
+  },
+  {
+    "date": "10/02/2022",
+    "year": "2022",
+    "title": "Introducing the Blink Tag",
+    "permalink": "introducingBlink.html",
+    "tags": "All",
+    "wordCount": 176,
+    "minutes": "0.9"
+  },
+  {
+    "date": "08/23/2021",
+    "year": "2021",
+    "title": "The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping",
+    "permalink": "indented-heredocs.html",
+    "tags": "All",
+    "wordCount": 306,
+    "minutes": "1.5"
+  }
+]

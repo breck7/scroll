@@ -20,6 +20,7 @@ Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of 
 ##### - An html h5 tag.
 > - A quote.
 aboveAsCode - Print code above.
+assertBuildIncludes - Test above particle's output.
 assertHtmlEquals - Test above particle's output.
 assertHtmlExcludes - Test above particle's output.
 assertHtmlIncludes - Test above particle's output.
@@ -36,10 +37,12 @@ buildCss - Compile to CSS file.
 buildCsv - Compile to CSV file.
 buildHtml - Compile to HTML file.
 buildJs - Compile to JS file.
+buildJson - Compile to JSON file.
 buildMeasures - Write measures to csv+ files.
 buildParsers - Compile to Parsers file.
 buildPdf - Compile to PDF file.
 buildRss - Write RSS file.
+buildTsv - Compile to TSV file.
 buildTxt - Compile to TXT file.
 button - A button.
 canonicalUrl - Override canonical URL.
@@ -99,7 +102,6 @@ keyboardNav - Make left and right navigate files.
 leftRightButtons - Previous and next nav buttons.
 linkTitle - Text for links.
 loadConcepts - Import all concepts in a folder.
-loop - Iterate over files+ to make HTML.
 loremIpsum - Generate dummy text.
 map - Map widget.
 mediumColumn - A medium column section.
@@ -112,15 +114,15 @@ openGraphImage - Override Open Graph Image.
 permalink - Override output filename.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
+posts - Posts as table.
+postsMeta - Post meta as table.
 printAuthors - Prints author(s) byline.
 printColumn - Print one column
-printCsv - Print group metadata to CSV.
 printDate - Print published date.
 printFeed - Print group to RSS.
 printFormatLinks - Prints links to other formats.
 printFullSnippets - Print full pages in group(s).
 printRelated - Print links to related posts.
-printSearchTable - Prints files to HTML table.
 printShortSnippets - Titles and descriptions in group(s).
 printSiteMap - Print text sitemap.
 printSnippets - Prints snippets matching tag(s).
@@ -174,129 +176,5 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
-id,popularity
-blankLineParser,30815
-catchAllParagraph,11557
-importOnly,3357
-#,1792
--,1433
-editButton,1397
-***,1083
-stumpNoSnippet,1018
-baseUrl,919
-rssFeedUrl,885
-editBaseUrl,784
-endColumns,779
-metaTags,770
-buildHtml,765
-buildTxt,760
-printTitle,758
-theme,753
-title,753
-import,753
-jsonScript,753
-linkTitle,753
-keyboardNav,748
-authors,738
-background,722
-css,722
-inlineCss,722
-inlineJs,722
-tags,681
-date,668
-center,642
-classicForm,640
-homeButton,640
-scrollForm,640
-leftRightButtons,635
-downloadButton,630
-emailButton,630
-scrollVersionLink,630
-theScrollButton,630
-image,591
-htmlInlineParser,579
-****,574
-//,565
-##,526
-endSnippet,430
-?,425
-thinColumns,369
-mediumColumn,338
-mediumColumns,338
-thinColumn,338
-wideColumn,338
-caption,321
-cloc,214
-dependencies,214
-disk,214
-iris,214
-table,214
-code,193
-*,189
-description,169
-favicon,169
-printAuthors,167
-katex,160
-copyButtons,148
-quote,148
-email,131
-editLink,121
-printRelated,119
-###,109
-printTable,109
-openGraphImage,80
-belowAsCode,66
-belowAsCodeUntil,66
-inspectAbove,66
-inspectBelow,66
->,49
-aboveAsCode,49
-printDate,44
-wideColumns,39
----,37
-chat,37
-printSnippets,34
-####,29
-permalink,27
-!,20
-[],20
-comment,20
-codeWithHeader,17
-dashboard,15
-iframes,13
-youtube,13
-br,10
-buildCsv,10
-buildParsers,10
-buildPdf,10
-container,10
-printUsageStats,10
-[x],8
-expander,8
-plainTextOnly,8
-printSiteMap,8
-redirectTo,8
-tableSearch,8
-buildCss,5
-buildRss,5
-heatrixAdvanced,5
-helpfulNotFound,5
-html,5
-nav,5
-printFeed,5
-printFullSnippets,5
-printShortSnippets,5
-buildConcepts,3
-buildMeasures,3
-inlineMarkups,3
-loop,3
-music,3
-printColumn,3
-printCsv,3
-printSearchTable,3
-printSource,3
-run,3
-sparkline,3
-video,3
 
-Built with Scroll v147.1.0
+Built with Scroll v148.0.0

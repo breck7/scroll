@@ -1,0 +1,44 @@
+[
+  {
+    "sepal_length": 6.1,
+    "sepal_width": 3,
+    "petal_length": 4.9,
+    "petal_width": 1.8,
+    "species": "virginica"
+  },
+  {
+    "sepal_length": 5.6,
+    "sepal_width": 2.8,
+    "petal_length": 4.9,
+    "petal_width": 2,
+    "species": "virginica"
+  },
+  {
+    "sepal_length": 6.2,
+    "sepal_width": 2.8,
+    "petal_length": 4.8,
+    "petal_width": 1.8,
+    "species": "virginica"
+  },
+  {
+    "sepal_length": 7.7,
+    "sepal_width": 3.8,
+    "petal_length": 6.7,
+    "petal_width": 2.2,
+    "species": "virginica"
+  },
+  {
+    "sepal_length": 6.2,
+    "sepal_width": 3.4,
+    "petal_length": 5.4,
+    "petal_width": 2.3,
+    "species": "virginica"
+  },
+  {
+    "sepal_length": 4.9,
+    "sepal_width": 2.5,
+    "petal_length": 4.5,
+    "petal_width": 1.7,
+    "species": "virginica"
+  }
+]
