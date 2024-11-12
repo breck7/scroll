@@ -14,9 +14,12 @@ codeParser
    two = 1 + 1
  javascript
   compile() {
-   return `<code class="scrollCodeBlock">${this.subparticlesToString().replace(/\</g, "&lt;")}</code>`
+   return `<code class="scrollCodeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
   }
   compileTxt() {
+    return "```\n" + this.code + "\n```"
+  }
+  get code() {
     return this.subparticlesToString()
   }
  cueFromId
@@ -32,6 +35,21 @@ codeWithHeaderParser
  javascript
   compile() {
    return `<div class="codeWithHeader"><div class="codeHeader">${this.content}</div>${super.compile()}</div>`
+  }
+  compileTxt() {
+    return "```" + this.content + "\n" + this.code + "\n```"
+  }
+
+codeFromFileParser
+ popularity 0.000169
+ cueFromId
+ atoms cueAtom urlAtom
+ extends codeWithHeaderParser
+ example
+  codeFromFile math.py
+ javascript
+  get code() {
+    return this.root.readSyncFromFileOrUrl(this.content)
   }
 
 codeWithLanguageParser
