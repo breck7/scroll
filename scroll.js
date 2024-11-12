@@ -623,10 +623,6 @@ parsers/errors.parsers`
 
     return lodash.sortBy(arr, file => file.file.timestamp).reverse()
   }
-
-  get authors() {
-    return this.scrollProgram.get("authors")
-  }
   async build() {
     return this.scrollProgram.build()
   }
