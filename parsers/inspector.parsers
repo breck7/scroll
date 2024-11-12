@@ -16,6 +16,7 @@ inspectBelowParser
 inspectAboveParser
  description Inspect particle above.
  extends inspectBelowParser
+ string bindTo previous
  javascript
   method = "previous"
   reverse = true

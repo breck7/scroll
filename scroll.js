@@ -492,25 +492,43 @@ parsers/errors.parsers`
       subparticle.format()
       const original = subparticle.getLine()
       const trimmed = original.replace(/(\S.*?)[  \t]*$/gm, "$1")
-      if (original !== trimmed && !subparticle.allowTrailingWhitespace) subparticle.setLine(trimmed) // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic particles)
+      // Trim trailing whitespace unless parser allows it
+      if (original !== trimmed && !subparticle.allowTrailingWhitespace) subparticle.setLine(trimmed)
     })
+    this._formatConcepts(parsed)
+    let importOnlys = []
     let topMatter = []
-    let importOnly = ""
-    parsed
-      .filter(particle => particle.isTopMatter)
+    let allElse = []
+    // Create any bindings
+    parsed.forEach(particle => {
+      if (particle.bindTo === "next") particle.binding = particle.next
+      if (particle.bindTo === "previous") particle.binding = particle.previous
+    })
+    parsed.forEach(particle => {
+      if (particle.getLine() === scrollKeywords.importOnly) importOnlys.push(particle)
+      else if (particle.isTopMatter) topMatter.push(particle)
+      else allElse.push(particle)
+    })
+
+    const combined = importOnlys.concat(topMatter, allElse)
+    // Move any bound particles
+    combined
+      .filter(particle => particle.bindTo)
       .forEach(particle => {
-        if (particle.getLine() === scrollKeywords.importOnly) {
-          importOnly = particle.toString() + "\n" // Put importOnly first, if present
-          return particle.destroy()
-        }
-        topMatter.push(particle.toString())
-        particle.destroy()
+        // First remove the particle from its current position
+        const originalIndex = combined.indexOf(particle)
+        combined.splice(originalIndex, 1)
+
+        // Then insert it at the new position
+        // We need to find the binding index again after removal
+        const bindingIndex = combined.indexOf(particle.binding)
+        if (particle.bindTo === "next") combined.splice(bindingIndex, 0, particle)
+        else combined.splice(bindingIndex + 1, 0, particle)
       })
 
-    this._formatConcepts(parsed)
-    let topMatterThenContent = importOnly + topMatter.sort().join("\n").replace(/\n*$/, "") + "\n\n" + parsed.toString().replace(/\n*$/, "")
-
-    const trimmed = topMatterThenContent
+    const trimmed = combined
+      .map(particle => particle.toString())
+      .join("\n")
       .replace(/^\n*/, "") // Remove leading newlines
       .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
       .replace(/\n+$/, "")

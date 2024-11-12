@@ -6,4 +6,3 @@ After listing all the source code, I will tell you about the new Parser I want y
 toStamp ./parsers/
 
 PLEASE GENERATE A NEW PARSER THAT:
-
