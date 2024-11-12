@@ -2280,12 +2280,13 @@ stamp
    example
     import header.scroll
   
-  importedParser
+  scrollImportedParser
    description Inserted at import pass.
    boolean suggestInAutocomplete false
-   cueFromId
+   cue imported
    atoms preBuildCommandAtom
    extends abstractScrollParser
+   baseParser blobParser
    catchAllAtomType filePathAtom
    javascript
     compile() {

@@ -56,3 +56,4 @@ scroll prompt · parser prompt
 endColumns
 
 footer.scroll
+buildHtml readme.md
