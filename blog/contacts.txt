@@ -25,6 +25,7 @@ In fact, it's almost guaranteed that using Contacts you will need to write less 
 Example
 =======
 
+```
 👤 Jack Doe
 phone +1 (555) 123-4567
 email john.doe@example.com
@@ -35,6 +36,7 @@ notes Daughter - Samantha.
 phone +1 (555) 123-4562
 email jill@gmail.com
 birthday 1/23/80
+```
 
 *
 
@@ -42,6 +44,7 @@ How to use
 ==========
 
 1. Create a file named something like `contacts.scroll` with this content:
+```
 // You can import the file, or just copy/paste the 21 lines of code here.
 [pathToScroll]/microlangs/contacts.parser
 title My Contacts
@@ -64,6 +67,7 @@ notes Daughter - Samantha.
 phone +1 (555) 123-4562
 email jill@gmail.com
 birthday 1/23/80
+```
 
 2. Run `scroll build`
 
@@ -88,4 +92,4 @@ Notes
 
 ⁂
 
-Built with Scroll v148.0.0
+Built with Scroll v148.1.0

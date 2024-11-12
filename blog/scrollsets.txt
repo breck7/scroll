@@ -33,6 +33,8 @@ ScrollSets are line oriented but represent a table(s). You might call them _deco
 Quick Code Example:
 ===================
 
+```planets.scroll
+
 This ScrollSets has 2 measures (columns) and 2 concepts (rows).
 
 Documentation, column definitions, rows and *any notes/markup/content* can go in the same file.
@@ -58,12 +60,16 @@ moons 63
 
 buildConcepts demo.csv
 
+```
+
 The code above generates an HTML page and this:
 ===============================================
 
+```demo.csv
 id,moons
 mars,2
 jupiter,63
+```
 
 Overview:
 =========
@@ -146,6 +152,7 @@ What were the design goals?
 Why are measures and concepts root-level features and not indented?
 ===================================================================
 The normal way to implement this in Scroll would be something like:
+```
 measures
  id string
  moons int
@@ -155,6 +162,7 @@ concept
 concept
  id jupiter
  moons 63
+```
 
 The flat design was chosen for ergonomic reasons. ScrollSets seem like they might be useful enough to be worth breaking from Scroll convention a bit. Like all things in Scroll, ScrollSets are an experiment, and maybe this design will evolve.
 
@@ -199,4 +207,4 @@ Convert CSVs to ScrollSets
 07/09/2024
 https://scroll.pub/blog/csvToScrollSet.html
 
-Built with Scroll v148.0.0
+Built with Scroll v148.1.0

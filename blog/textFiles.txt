@@ -29,8 +29,10 @@ How do I tell Scroll to build plain text files?
 
 Add a single line: `buildTxt`
 
+```example.scroll
 buildTxt
 Hello world.
+```
 
 `scroll build` will create `example.txt`. Done!
 
@@ -48,4 +50,4 @@ Hope you enjoy it as much as I have!
 
 ⁂
 
-Built with Scroll v148.0.0
+Built with Scroll v148.1.0

@@ -4,9 +4,11 @@ Download Scroll.pub
 The best way to download this site is via the WWS:
  https://wws.scroll.pub WWS
 
+```
 wws fetch scroll
+```
 
 You can also download it as a zip file.
  https://github.com/breck7/scroll/archive/refs/heads/wws.zip zip file
 
-Built with Scroll v148.0.0
+Built with Scroll v148.1.0

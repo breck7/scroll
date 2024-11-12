@@ -22,6 +22,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 148.1.0 11/12/2024
+🎉 added `codeFromFile` parser
+🎉 buildTxt + code parsers now output code surrounded by backticks
+
 📦 148.0.0 11/11/2024
 
 ## 🚨 MAJOR RELEASE

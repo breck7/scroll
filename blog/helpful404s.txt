@@ -52,14 +52,18 @@ How to use
 ==========
 
 *Step 1* Create a sitemap:
+```sitemap.scroll
 buildTxt sitemap.txt
 baseUrl https://scroll.pub/
 printSiteMap
+```
 
 *Step 2* Create a 404 page:
+```404.scroll
 buildHtml
 Sorry, the url you requested was not found.
 helpfulNotFound sitemap.txt
+```
 
 That's it! The `helpfulNotFound` parser in Scroll will add Javascript to the 404 page that fetches all the urls found in the sitemap and shows the user the closest match. As a bonus, you also get a `sitemap.txt` file great for Google SEO and other uses.
 
@@ -83,4 +87,4 @@ Try it today, and if you like what we are doing please consider bringing your si
 
 ⁂
 
-Built with Scroll v148.0.0
+Built with Scroll v148.1.0

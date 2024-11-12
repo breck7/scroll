@@ -21,14 +21,18 @@ You can write your own counters or invite counters from friends, LLMs or Interne
 
 Counterpoints are easy to use: just start a line with `!`. For example:
 
+```
 Humans will eventually establish colonies on Mars.
  ! But we haven't colonized the Arctic, 1,000x easier
+```
 
 You can go as deep as you want in countering your own counters!
 
+```
 Humans will eventually establish colonies on Mars.
  ! But we haven't colonized the Arctic, 1,000x easier
   - Colonizing Mars is 10,000x more valuable
+```
 
 *
 
@@ -76,4 +80,4 @@ Keep writing, keep thinking!
 
 ⁂
 
-Built with Scroll v148.0.0
+Built with Scroll v148.1.0

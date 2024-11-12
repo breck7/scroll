@@ -11,6 +11,10 @@ Today on HackerNews Kevin Damm had a great idea: put a `&lt;link&gt;` tag on blo
 I've added this feature to Scroll and it's live now. If you View Source of this page, you'll see:
  https://scroll.pub/blog/../index.html Scroll
 
+```
+
+```
+
 Client applications can start looking for and taking advantage of these tags.
 
 *
@@ -37,4 +41,4 @@ Notes
 vladimyr on bluesky dug up a couple of cool examples of prior art.
  https://bsky.app/profile/vladimyr.bsky.social/post/3l3anievhnm2t vladimyr on bluesky
 
-Built with Scroll v148.0.0
+Built with Scroll v148.1.0

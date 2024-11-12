@@ -37,14 +37,18 @@ Each line can contain content (or "atoms").
 
 For example, here is a line containing 3 atoms:
 
+```
 title Hello world
+```
 
 In addition to containing atoms, each line can have its own document with its own lines using indentation.
 
 When you add a space at the beginning of a line, that line becomes a "subparticle" of the parent line.
 
+```
 image hello.png
  caption This line is a subparticle of the line above.
+```
 
 You may have seen this _indent trick_ before in languages like Python.
 
@@ -189,13 +193,17 @@ Examples
 ========
 A page using no theme:
 ======================
+```
 # This page has no theme
+```
 A page using a theme:
 =====================
+```
 theme gazette
 homeButton
 editButton
 This page uses the Gazette theme.
+```
 
 ---
 
@@ -218,4 +226,4 @@ You probably also can see that the Parsers code is powerful but has lots of shar
 
 While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
 
-Built with Scroll v148.0.0
+Built with Scroll v148.1.0

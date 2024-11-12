@@ -744,9 +744,12 @@ stamp
      two = 1 + 1
    javascript
     compile() {
-     return `${this.subparticlesToString().replace(/\`
+     return `${this.code.replace(/\`
     }
     compileTxt() {
+      return "```\n" + this.code + "\n```"
+    }
+    get code() {
       return this.subparticlesToString()
     }
    cueFromId
@@ -762,6 +765,21 @@ stamp
    javascript
     compile() {
      return `${this.content}${super.compile()}`
+    }
+    compileTxt() {
+      return "```" + this.content + "\n" + this.code + "\n```"
+    }
+  
+  codeFromFileParser
+   popularity 0.000169
+   cueFromId
+   atoms cueAtom urlAtom
+   extends codeWithHeaderParser
+   example
+    codeFromFile math.py
+   javascript
+    get code() {
+      return this.root.readSyncFromFileOrUrl(this.content)
     }
   
   codeWithLanguageParser

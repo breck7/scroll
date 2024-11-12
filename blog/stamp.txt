@@ -24,9 +24,12 @@ How to use
 ==========
 
 1. Install Scroll
+```
 npm install -g scroll-cli
+```
 
 2. Create `myFirstStamp.scroll`
+```
 stamp
  .gitignore
   *.html
@@ -36,6 +39,7 @@ stamp
  scripts/
   hello.js
    console.log("Hello world")
+```
 
 3. Run `scroll build`
 
@@ -74,4 +78,4 @@ Prior Art
 - Wikipedia list of archive formats
  https://en.wikipedia.org/wiki/List_of_archive_formats Wikipedia list of archive formats
 
-Built with Scroll v148.0.0
+Built with Scroll v148.1.0

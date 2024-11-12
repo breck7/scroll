@@ -21,6 +21,7 @@ Traditional Heredocs
 
 Traditional heredocs use start and end delimiters, like these examples from Ruby and Python and Markdown:
 
+```
 # Heredoc in Ruby
 puts Particles is that it is just indented or off-side HereDocs. Or in colloquial academic speak _The Off-Side Rule is all you need_. Most people learn of the off-side rule via Python. Imagine if your whole language was just the off-side rule. That's basically Particles. But my code is not the important thing—the important thing is this pattern. Try it yourself—I bet you will love it.
  https://en.wikipedia.org/wiki/Off-side_rule Off-Side Rule
@@ -38,4 +39,4 @@ Textile
 BBCode
 ======
 
-Built with Scroll v148.0.0
+Built with Scroll v148.1.0

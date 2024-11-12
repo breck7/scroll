@@ -23,7 +23,7 @@
     "title": "Search the Official Scroll Blog",
     "permalink": "search.html",
     "tags": "",
-    "wordCount": 9151,
+    "wordCount": 9163,
     "minutes": 45.8
   },
   {
@@ -131,7 +131,7 @@
     "title": "How I Designed Helpful 404's and Stopped Worrying about Broken Links",
     "permalink": "helpful404s.html",
     "tags": "All",
-    "wordCount": 542,
+    "wordCount": 546,
     "minutes": 2.7
   },
   {
@@ -149,8 +149,8 @@
     "title": "Changes: A Microlang for Change Logs",
     "permalink": "changes.html",
     "tags": "All",
-    "wordCount": 429,
-    "minutes": 2.1
+    "wordCount": 431,
+    "minutes": 2.2
   },
   {
     "date": "06/24/2024",
@@ -176,7 +176,7 @@
     "title": "Scroll builds text files",
     "permalink": "textFiles.html",
     "tags": "All",
-    "wordCount": 173,
+    "wordCount": 175,
     "minutes": 0.9
   },
   {
@@ -185,7 +185,7 @@
     "title": "ScrollSets: source code for CSVs",
     "permalink": "scrollsets.html",
     "tags": "All ScrollSets",
-    "wordCount": 1157,
+    "wordCount": 1161,
     "minutes": 5.8
   },
   {
