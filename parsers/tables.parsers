@@ -52,6 +52,9 @@ printColumnParser
  example
   printColumn tags
  catchAllAtomType columnNameAtom
+ joinParser
+  boolean allowTrailingWhitespace true
+  cueFromId
  javascript
   compile() {
    return this.columnValues.join(this.join)

@@ -53,6 +53,7 @@
     "scrollsdk": "^93.0.0"
   },
   "devDependencies": {
+    "prettier": "^2.8.8",
     "tap": "^18.7.2"
   }
 }

@@ -488,6 +488,12 @@ parsers/errors.parsers`
 
     let formatted = this.codeAtStart.replace(/\r/g, "") // remove all carriage returns if there are any
     const parsed = new this.parser(formatted)
+    parsed.topDownArray.forEach(subparticle => {
+      subparticle.format()
+      const original = subparticle.getLine()
+      const trimmed = original.replace(/(\S.*?)[  \t]*$/gm, "$1")
+      if (original !== trimmed && !subparticle.allowTrailingWhitespace) subparticle.setLine(trimmed) // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic particles)
+    })
     let topMatter = []
     let importOnly = ""
     parsed
@@ -502,11 +508,10 @@ parsers/errors.parsers`
       })
 
     this._formatConcepts(parsed)
-    let topMatterThenContent = importOnly + topMatter.sort().join("\n").trim() + "\n\n" + parsed.toString().trim()
+    let topMatterThenContent = importOnly + topMatter.sort().join("\n").replace(/\n*$/, "") + "\n\n" + parsed.toString().replace(/\n*$/, "")
 
     const trimmed = topMatterThenContent
-      .trim() // Remove leading whitespace
-      .replace(/(\S.*?)[  \t]*$/gm, "$1") // Trim trailing whitespace, except for lines that are *all* whitespace (in which case the whitespace may be semantic particles)
+      .replace(/^\n*/, "") // Remove leading newlines
       .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
       .replace(/\n+$/, "")
 
