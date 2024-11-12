@@ -514,14 +514,14 @@ scrollParser
     return this.asTxt.match(/\b\w+\b/g)?.length || 0
   }
   get minutes() {
-    return (this.wordCount / 200).toFixed(1)
+    return parseFloat((this.wordCount / 200).toFixed(1))
   }
   get date() {
     const date = this.get("date") || (this.file.timestamp ? this.file.timestamp * 1000 : 0) || 0
     return this.dayjs(date).format(`MM/DD/YYYY`)
   }
   get year() {
-    return this.dayjs(this.date).format(`YYYY`)
+    return parseInt(this.dayjs(this.date).format(`YYYY`))
   }
   get dayjs() {
     if (!this.isNodeJs()) return dayjs
