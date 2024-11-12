@@ -9,11 +9,8 @@ printUsageStatsParser
    const input = this.root.allScrollFiles.map(file => file.scrollProgram).map(program => program.parserIds.join("\n")).join("\n")
    const result = input.split('\n').reduce((acc, atom) => (acc[atom] = (acc[atom] || 0) + 1, acc), {})
    const rows = Object.entries(result).map(([atom, count]) => { return {atom, count}})
-   const sorted = this.lodash.sortBy(rows, "count").reverse()
+   const sorted = this.root.lodash.sortBy(rows, "count").reverse()
    return "parserId uses\n" + sorted.map(row => `${row.atom} ${row.count}`).join('\n')
-  }
-  get lodash() {
-    return this.isNodeJs() ? require("lodash") : lodash
   }
   compile() {
     // A hacky but simple way to do this for now.
@@ -83,9 +80,6 @@ printScrollLeetSheetParser
   compileTxt() {
    return this.sortDocs(this.parsersToDocument).map(obj => `${obj.id} - ${obj.description}`).join("\n")
   }
-  get lodash() {
-    return require("lodash")
-  }
   getCategory(input) {
     return ""
   }
@@ -103,7 +97,7 @@ printScrollLeetSheetParser
         category
       }
     })
-    return new Particle(this.lodash.sortBy(rows, "isPopular")).asCsv
+    return new Particle(this.root.lodash.sortBy(rows, "isPopular")).asCsv
   }
 
 printparsersLeetSheetParser
