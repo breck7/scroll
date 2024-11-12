@@ -6,6 +6,8 @@ scrollNavParser
  joinParser
   boolean allowTrailingWhitespace true
   cueFromId
+  atoms cueAtom
+  catchAllAtomType stringAtom
  javascript
   compile() {
     return `<nav class="scrollNavParser">` + this.root.getFilesByTags(this.content).map(file => {

@@ -55,6 +55,8 @@ printColumnParser
  joinParser
   boolean allowTrailingWhitespace true
   cueFromId
+  atoms cueAtom
+  catchAllAtomType stringAtom
  javascript
   compile() {
    return this.columnValues.join(this.join)
