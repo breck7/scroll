@@ -192,15 +192,6 @@ testParticles.aBlankPage = areEqual => {
   areEqual(testHidden.scrollProgram.asHtml, `<!DOCTYPE html>\n<html lang="en">\n<body>\n\n</body>\n</html>`)
 }
 
-testParticles.rss = areEqual => {
-  // Arrange
-  const page = new ScrollFile(`printFeed index
-buildRss`)
-  // Act/Assert
-  const { asHtml } = page.scrollProgram
-  areEqual(asHtml.startsWith("<?xml "), true)
-}
-
 testParticles.baseUrl = areEqual => {
   // Arrange
   const page = new ScrollFile(`baseUrl http://test.com/
@@ -209,16 +200,6 @@ blog/screenshot.png`)
   // Act/Assert
   const { asHtml } = page.scrollProgram
   areEqual(asHtml.includes("http://test.com/blog/screenshot.png"), true)
-}
-
-testParticles.csv = areEqual => {
-  // Arrange
-  const page = new ScrollFile(`printCsv index
-permalink posts.csv`)
-  // Act/Assert
-  const { asHtml } = page.scrollProgram
-  console.log(asHtml)
-  areEqual(asHtml.startsWith("date,year,title,permalink,"), true)
 }
 
 testParticles.scrollsetCli = areEqual => {

@@ -14,3 +14,8 @@ abstractBuildCommandParser
   compile() {
    return ""
   }
+  buildOutput() {
+    // todo: move build steps into root.parsers
+    const extension = this.cue.replace("build", "")
+    return this.root.compileTo(extension)
+  }

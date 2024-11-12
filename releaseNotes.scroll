@@ -22,6 +22,28 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 148.0.0 11/11/2024
+
+## 🚨 MAJOR RELEASE
+- Vastly improved data science capabilities!
+- Major cleanup of Scroll to remove loops concept. Tables is all we need.
+- Major cleanup toward running Scroll fully in browser
+
+🎉 added `buildTsv` parser
+🎉 added `buildJson` parser
+🎉 added `posts` parser for iterating over posts as a table
+🎉 added `postsMeta` parser for iterating over post metadata as a table
+🎉 added `assertBuildIncludes` 
+🎉 `printTable` combined with `buildTsv/Csv/Json` will now save the table to disk.
+⚠️ BREAKING: removed `loop`. `tables` can do everything loops could, much better.
+⚠️ BREAKING: removed `printCsv` parser
+⚠️ BREAKING: removed `printSearchTable` parser. Can now be done with:
+
+code
+ posts All
+  printTable
+ tableSearch
+
 📦 147.1.0 11/11/2024
 🎉 added `shuffle` parser
 🎉 added `iris` parser for easier quick testing/demoing of scroll tables

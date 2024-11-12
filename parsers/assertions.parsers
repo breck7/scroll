@@ -10,8 +10,9 @@ abstractAssertionParser
     // If the previous particle is also an assertion particle, use the one before that.
     return this.previous.particleToTest ? this.previous.particleToTest : this.previous
   }
+  get actual() {return this.particleToTest.compile()}
   getErrors() {
-    const actual = this.particleToTest.compile()
+    const {actual} = this
     const expected = this.subparticlesToString()
     const errors = super.getErrors()
     if (this.areEqual(actual, expected))
@@ -28,6 +29,16 @@ assertHtmlEqualsParser
     return actual === expected
   }
   // todo: why are we having to super here?
+  getErrors() { return super.getErrors()}
+
+assertBuildIncludesParser
+ extends abstractAssertionParser
+ string kind include
+ javascript
+  areEqual(actual, expected) {
+    return actual.includes(expected)
+  }
+  get actual() { return this.particleToTest.buildOutput()}
   getErrors() { return super.getErrors()}
 
 assertHtmlIncludesParser

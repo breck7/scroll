@@ -30,10 +30,8 @@ const scrollKeywords = {
   footer: "footer",
   buildConcepts: "buildConcepts",
   buildMeasures: "buildMeasures",
-  buildTxt: "buildTxt",
   buildHtml: "buildHtml",
   buildPdf: "buildPdf",
-  buildRss: "buildRss",
   import: "import",
   importOnly: "importOnly"
 }
@@ -305,7 +303,7 @@ class ScrollFile {
     outputFiles.forEach(name => {
       const link = name || permalink.replace(".html", "." + extension)
       try {
-        fileSystem.writeProduct(path.join(folderPath, link), scrollProgram["as" + capitalized])
+        fileSystem.writeProduct(path.join(folderPath, link), scrollProgram.compileTo(capitalized))
         this.log(`💾 Built ${link} from ${filename}`)
       } catch (err) {
         console.error(`Error while building '${filePath}' with extension '${extension}'`)
@@ -347,6 +345,8 @@ class ScrollFile {
     this._buildFileType("parsers")
     this._buildConceptsAndMeasures() // todo: call this buildDelimited?
     this._buildFileType("csv")
+    this._buildFileType("tsv")
+    this._buildFileType("json")
   }
 
   async buildAll() {
@@ -794,7 +794,7 @@ homeButton
 leftRightButtons
 editButton
 printTitle`,
-      "feed.scroll": `buildRss feed.xml
+      "feed.scroll": `buildRss
 printFeed All`,
       "footer.scroll": `importOnly
 center

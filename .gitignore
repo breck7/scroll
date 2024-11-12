@@ -19,6 +19,7 @@ tests/defs.parsers
 # Do not check in files built by Scroll
 *.html
 *.xml
+*.rss
 *.txt
 *.csv
 *.json

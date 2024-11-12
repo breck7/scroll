@@ -1,0 +1,54 @@
+abstractPostsParser
+ description Load posts as table.
+ extends abstractDatatableProviderParser
+ cueFromId
+ atoms cueAtom
+ catchAllAtomType tagWithOptionalFolderAtom
+ javascript
+  get files() {
+   return this.root.getFilesByTags(this.content)
+  }
+  get coreTable() {
+    if (this._coreTable) return this._coreTable
+    this._coreTable = this.files.map(file => this.postToRow(file))
+    return this._coreTable
+  }
+  postToRow(file) {
+    const {relativePath} = file
+    const {scrollProgram} = file.file
+    const {title, permalink, asTxt, date, wordCount, minutes} = scrollProgram
+    const text = asTxt.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
+    return {
+      title, titleLink: relativePath + permalink, text, date, wordCount, minutes
+    }
+  }
+  columnNames = "title titleLink text date wordCount minutes".split(" ")
+
+scrollPostsParser
+ popularity 0.000024
+ cue posts
+ description Posts as table.
+ extends abstractPostsParser
+ example
+  // Print a search table:
+  posts
+   printTable
+  tableSearch
+  // Dump a CSV of blog:
+  buildHtml
+  buildCsv
+  buildJson
+
+scrollPostsMetaParser
+ popularity 0.000024
+ cue postsMeta
+ description Post meta as table.
+ extends abstractPostsParser
+ javascript
+  columnNames = ["date", "year", "title", "permalink", "authors", "tags", "wordCount", "minutes"]
+  postToRow(file) {
+    const {date, year, title, permalink, authors, tags, wordCount, minutes} = file.file.scrollProgram
+    return {
+      date, year, title, permalink, authors, tags, wordCount, minutes
+    }
+  }

@@ -1,0 +1,5 @@
+buildCsv
+assertBuildIncludes
+ date,year,title,permalink
+postsMeta index
+ printTable

@@ -11,13 +11,13 @@ rssFeedUrlParser
 printFeedParser
  popularity 0.000048
  description Print group to RSS.
- extends abstractPostLoopParser
+ extends abstractPostsParser
  example
   printFeed index
   printFeed cars/index
-  buildRss feed.xml
+  buildRss
  javascript
-  compile() {
+  compileRss() {
    const {dayjs} = this.root
    const scrollPrograms = this.files.map(file => file.file.scrollProgram)
    const { title, baseUrl, description } = this.root
@@ -34,5 +34,5 @@ printFeedParser
   </rss>`
   }
   compileTxt() {
-    return this.compile()
+    return this.compileRss()
   }
