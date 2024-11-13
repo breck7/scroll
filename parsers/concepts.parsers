@@ -1,3 +1,19 @@
+scrollConceptsParser
+ description Load concepts as table.
+ extends abstractDatatableProviderParser
+ cue concepts
+ atoms cueAtom
+ example
+  concepts
+   printTable
+ javascript
+  get coreTable() {
+    return this.root.concepts
+  }
+  get columnNames() {
+    return this.root.measures.map(col => col.Name)
+  }
+
 loadConceptsParser
  // todo: clean this up. just add smarter imports with globs?
  // this currently removes any "import" statements.
