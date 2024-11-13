@@ -2,17 +2,17 @@ Scroll Release Notes
 ====================
 Scroll FAQ
 ==========
-11/12/2024
+11/13/2024
 https://scroll.pub/faq.html
 
 Scroll Roadmap
 ==============
-11/12/2024
+11/13/2024
 https://scroll.pub/roadmap.html
 
 Scroll Tutorial
 ===============
-11/12/2024
+11/13/2024
 https://scroll.pub/tutorial.html
 
 A list of what has changed in Scroll releases.
@@ -24,6 +24,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.json JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
+
+148.3.1 11/12/2024
+==================
+🏥 fix author bug in postsMeta
 
 148.3.0 11/12/2024
 ==================
@@ -549,28 +553,28 @@ Demos
 =====
 
 date,year,title,permalink,authors,tags,wordCount,minutes
-11/12/2024,2024,Wws Redirect,wws.html,,,0,0
-11/12/2024,2024,Wws,wws.html,,,35,0.2
-11/12/2024,2024,Scroll Tutorial,tutorial.html,,main,949,4.7
-11/12/2024,2024,Top Buttons,topButtons.html,,,0,0
-11/12/2024,2024,Sitemap,sitemap.html,,,110,0.6
-11/12/2024,2024,Settings,settings.html,,,0,0
-11/12/2024,2024,Scroll Prompt,scrollPrompt.html,,,1026,5.1
-11/12/2024,2024,Scroll Roadmap,roadmap.html,,main,162,0.8
-11/12/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14461,72.3
-11/12/2024,2024,Readme Prompt,readmePrompt.html,,,19251,96.3
-11/12/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
-11/12/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-11/12/2024,2024,Parser Usage,parserUsage.html,,,256,1.3
-11/12/2024,2024,Parser Prompt,parserPrompt.html,,,15509,77.5
-11/12/2024,2024,Parsers LeetSheet,parserLeetsheet.html,,,299,1.5
-11/12/2024,2024,Scroll LeetSheet,leetsheet.html,,,872,4.4
-11/12/2024,2024,Header,header.html,,,0,0
-11/12/2024,2024,Scroll FAQ,faq.html,,main,3307,16.5
-11/12/2024,2024,Download Scroll.pub,download.html,,,49,0.2
-11/12/2024,2024,Scroll Cloc Stats,cloc.html,,,66,0.3
-11/12/2024,2024,Ci Badges,ciBadges.html,,,12,0.1
-11/12/2024,2024,Animation,animation.html,,,13,0.1
+11/13/2024,2024,Wws Redirect,wws.html,,,0,0
+11/13/2024,2024,Wws,wws.html,,,35,0.2
+11/13/2024,2024,Scroll Tutorial,tutorial.html,,main,949,4.7
+11/13/2024,2024,Top Buttons,topButtons.html,,,0,0
+11/13/2024,2024,Sitemap,sitemap.html,,,110,0.6
+11/13/2024,2024,Settings,settings.html,,,0,0
+11/13/2024,2024,Scroll Prompt,scrollPrompt.html,,,1026,5.1
+11/13/2024,2024,Scroll Roadmap,roadmap.html,,main,162,0.8
+11/13/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14472,72.4
+11/13/2024,2024,Readme Prompt,readmePrompt.html,,,19262,96.3
+11/13/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
+11/13/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
+11/13/2024,2024,Parser Usage,parserUsage.html,,,256,1.3
+11/13/2024,2024,Parser Prompt,parserPrompt.html,,,15515,77.6
+11/13/2024,2024,Parsers LeetSheet,parserLeetsheet.html,,,299,1.5
+11/13/2024,2024,Scroll LeetSheet,leetsheet.html,,,872,4.4
+11/13/2024,2024,Header,header.html,,,0,0
+11/13/2024,2024,Scroll FAQ,faq.html,,main,3307,16.5
+11/13/2024,2024,Download Scroll.pub,download.html,,,49,0.2
+11/13/2024,2024,Scroll Cloc Stats,cloc.html,,,66,0.3
+11/13/2024,2024,Ci Badges,ciBadges.html,,,12,0.1
+11/13/2024,2024,Animation,animation.html,,,13,0.1
 
 127.0.0 9/4/2024
 ================
@@ -2383,28 +2387,28 @@ This is the `title` simplification refactor release.
 ⚠️ BREAKING: Removed `siteTitle` and `siteDescription` parsers. Those concepts no longer make sense after the introduction of `groups` concept. Generally if you rename `siteTitle` to `title` and `siteDescription` to `description` it should work well.
 ⚠️ BREAKING: Removed `htmlTitle` parser.
 
-43.1.1 2022.11.22
+43.1.1 11/22/2022
 =================
 🏥 fix aftertext bug where `http` quick links were not matching.
 
-43.1.0 2022.11.14
+43.1.0 11/14/2022
 =================
 🎉 new: new `SVGS` export when using as a library.
 
-43.0.1 2022.11.14
+43.0.1 11/14/2022
 =================
 🏥 list element (`- some item`) compiler was generating an extra `p` tag.
 
-43.0.0 2022.11.12
+43.0.0 11/12/2022
 =================
 🎉 New: Linkify! Links like https://breckyunits.com and email addresses like feedback@scroll.pub are now compiled to HTML `a` tags automatically. Note: if an `a` tag is detected in the node Linkify will be DISABLED for that node.
 ⚠️ BREAKING: (no one should be affected) slim chance linkify may insert links where you previously did not want them.
 
-42.0.0 2022.11.09
+42.0.0 11/09/2022
 =================
 ⚠️ BREAKING: `scroll check` is now `scroll test`
 
-41.0.0 2022.11.08
+41.0.0 11/08/2022
 =================
 ⚠️ BREAKING: switched from date format of MM-DD-YYYY to YYYY.MM.DD
 
@@ -2413,14 +2417,14 @@ search ^# (\d+\.\d+\.\d+) (\d+)\-(\d+)\-(\d+)
 replace # $1 $4.$2.$3
 ```
 
-40.0.0 2022.11.05
+40.0.0 11/05/2022
 =================
 ⚠️ BREAKING: (no one should be affected) `caption` now extends the thought (`*`) node.
 
 [Image Omitted]
  You can now use all aftertext directives like *bold* in caption nodes. Note: in the future we may just remove the parser `caption` and you can just use `*` directly.
 
-39.0.0 2022.11.03
+39.0.0 11/03/2022
 =================
 ⚠️ BREAKING: `scroll init` no longer creates a `feed.xml` file by default. You can easily add an XML feed manually with the 2 steps below:
 
@@ -2437,27 +2441,27 @@ comment Add the line below to your posts and/or settings import file.
 rssFeedUrl feed.xml
 ```
 
-38.2.0 2022.11.01
+38.2.0 11/01/2022
 =================
 🎉 new dayjs aftertext directive.
 
-38.1.0 2022.11.01
+38.1.0 11/01/2022
 =================
 🏥 fix group page not having a header.
 
-38.0.0 2022.10.31
+38.0.0 10/31/2022
 =================
 🎉 add left and right buttons to default theme.
 
-37.1.1 2022.10.28
+37.1.1 10/28/2022
 =================
 🏥 Fixed bad table regression where table content was not printing
 
-37.1.0 2022.10.28
+37.1.0 10/28/2022
 =================
 🎉 Documentation improvement
 
-37.0.0 2022.10.28
+37.0.0 10/28/2022
 =================
 ⚠️ BREAKING: Removed the original `aftertext` node in favor of `*` nodes. Regex [search replace] to upgrade: `^aftertext\n ` `* `
 ⚠️ BREAKING: Removed basic `paragraph` node. Regex [search replace] to upgrade: `^paragraph\n ` `* `
@@ -2474,74 +2478,74 @@ This is a major release that removes a bunch of the original parsers in favor of
 If you don't want to upgrade at this time, it's very easy to just add the removed grammar definitions from this commit into your existing scrolls using the normal extension pattern.
 You can also easily alias the newer aftertext node types with the original parsers above if you'd prefer.
 
-36.1.0 2022.10.27
+36.1.0 10/27/2022
 =================
 🎉 Now you can leave the "pattern" part blank in link node in aftertext to make the whole line a link.
 🏥 Adjust estimateLines hueristics
 
-36.0.1 2022.10.24
+36.0.1 10/24/2022
 =================
 🏥 Fix home icon
 
-36.0.0 2022.10.22
+36.0.0 10/22/2022
 =================
 ⚠️ BREAKING: simpler CSS and header
 
-35.1.2 2022.10.12
+35.1.2 10/12/2022
 =================
 🏥 cleanup previous commit
 
-35.1.1 2022.10.12
+35.1.1 10/12/2022
 =================
 🏥 fix duplicated text in `*` nodes bug
 
-35.1.0 2022.10.05
+35.1.0 10/05/2022
 =================
 🎉 Added new better way to do lists.
 
-35.0.0 2022.10.04
+35.0.0 10/04/2022
 =================
 ⚠️ BREAKING: (no one should be affected) changed return value of api method `findScrollsInDirRecursive`.
 
-34.2.0 2022.10.03
+34.2.0 10/03/2022
 =================
 🎉 add `redirectTo` tag
 
-34.1.0 2022.10.02
+34.1.0 10/02/2022
 =================
 🎉 had an idea for a new type of text tag that blinks
 
-34.0.3 2022.9.30
+34.0.3 9/30/2022
 ================
 🏥 Fix github workflow building.
 
-34.0.2 2022.9.30
+34.0.2 9/30/2022
 ================
 🏥 !
 
-34.0.1 2022.9.30
+34.0.1 9/30/2022
 ================
 🏥 test fix
 
-34.0.0 2022.9.30
+34.0.0 9/30/2022
 ================
 🎉 add support for recursive building and checking using pipes! `scroll list | scroll build`
 ⚠️ BREAKING: (no one should be affected) renamed `execute` method on ScrollCli class to `executeUsersInstructionsFromShell`
 
-33.1.0 2022.9.29
+33.1.0 9/29/2022
 ================
 🎉 remove extraneous atoms and lines printing in CLI
 
-33.0.0 2022.9.29
+33.0.0 9/29/2022
 ================
 ⚠️ BREAKING: (no one should be affected) removed "migrate" command. was more trouble than it was worth. better to have that as a separate module.
 ⚠️ BREAKING: (no one should be affected) `where` command is now `list`
 
-32.0.0 2022.9.27
+32.0.0 9/27/2022
 ================
 🎉 improved 'where' command to scan pwd and skip node_modules folders. much faster and simpler.
 
-31.5.0 2022.9.9
+31.5.0 9/9/2022
 ===============
 🎉 new parsers: `?`, `#` and `##`
 
@@ -2554,72 +2558,72 @@ A Subheader
 Have you thought of the most important question?
 ================================================
 
-31.4.1 2022.9.3
+31.4.1 9/3/2022
 ===============
 🏥 and that is why you always run the tests.
 
-31.4.0 2022.9.3
+31.4.0 9/3/2022
 ===============
 🎉 New parsers: `*`, `footnote`, and `readingList`
 
 This is a _thought_. It's like a condensed form of aftertext with *bold* and _italics_ and `code` turned on by default.
 
-31.3.0 2022.9.3
+31.3.0 9/3/2022
 ===============
 🏥 Fixed bad regression where only the first atom of a replacement line was getting replaced.
 
-31.2.0 2022.9.2
+31.2.0 9/2/2022
 ===============
 🎉 added `openGraphImage` node
 
-31.1.0 2022.9.1
+31.1.0 9/1/2022
 ===============
 🎉 `replace` now supports multiline strings
 🏥 fixed broken links bug if using keyboard nav without groups
 
-31.0.0 2022.8.31
+31.0.0 8/31/2022
 ================
 ⚠️ BREAKING: upgraded to jtree 56. This is not likely to break anyone. However, if you are extending Scroll with your own nodeTypes you will need to make sure that your abstract nodes (and *only* your abstract nodes) have an id that begins with `abstract`. You can then remove all occurrences of the parser `abstract` from your grammar node definitions.
 
-30.1.1 2022.8.30
+30.1.1 8/30/2022
 ================
 🎉 Improve header message thanks to dg's feedback
 
-30.1.0 2022.8.29
+30.1.0 8/29/2022
 ================
 🎉 Perf: ~2x as fast as v30.1
 
-30.0.0 2022.8.29
+30.0.0 8/29/2022
 ================
 🎉 Perf: ~2x as fast as v29
 ⚠️ BREAKING: If using `getFullyExpandedFile(str)` replace with `getFullyExpandedFile(str).code`
 ⚠️ BREAKING: If using any ScrollFile programatically, a few undocumented getters may have changed.
 
-29.0.0 2022.8.28
+29.0.0 8/28/2022
 ================
 ⚠️ BREAKING: if using programatically instead of ScrollPage use ScrollFile
 
-28.3.2 2022.8.27
+28.3.2 8/27/2022
 ================
 🏥 fixed bug with open graph image tags
 
-28.3.1 2022.8.27
+28.3.1 8/27/2022
 ================
 🏥 fixed minor grammar typo and added test
 
-28.3.0 2022.8.27
+28.3.0 8/27/2022
 ================
 🎉 added `author` and `kpiTable` node types
 
-28.2.0 2022.8.26
+28.2.0 8/26/2022
 ================
 🏥 export getFullyExpandedFile
 
-28.1.0 2022.8.26
+28.1.0 8/26/2022
 ================
 🏥 imports can now be recursive
 
-28.0.0 2022.8.26
+28.0.0 8/26/2022
 ================
 This is a *major* update that radically simplifies Scroll and adds significant new capabilities.
 
@@ -2685,57 +2689,57 @@ buildCss style.css
 gazetteCSS
 ```
 
-27.1.1 2022.8.24
+27.1.1 8/24/2022
 ================
 🏥 only activate keyboard shortcuts if no element has focus
 
-27.1.0 2022.8.24
+27.1.0 8/24/2022
 ================
 🎉 added new cli command: `scroll where`
 
-27.0.1 2022.8.23
+27.0.1 8/23/2022
 ================
 🏥 mutability fix
 
-27.0.0 2022.8.23
+27.0.0 8/23/2022
 ================
 🎉 added `keyboardNav` node
 ⚠️ BREAKING: all `permalink` lines in `.scroll` files need `.html`. Run `scroll migrate` to find and update automatically.
 
-26.1.0 2022.8.23
+26.1.0 8/23/2022
 ================
 🎉 export SCROLL_CSS for tryscroll app
 ⚠️ now calling the language ScrollScript instead of Scrolldown
 
-26.0.0 2022.8.23
+26.0.0 8/23/2022
 ================
 ⚠️ (potentially) breaking: scrolldown.grammar is no longer built/checked in and SCROLLDOWN_GRAMMAR_FILENAME no longer exported.
 
-25.6.0 2022.8.19
+25.6.0 8/19/2022
 ================
 🎉 simpler API for programmatic usage: `new ScrollPage('title Hello world')`
 
-25.5.1 2022.7.22
+25.5.1 7/22/2022
 ================
 🏥 minor grammar fix
 
-25.5.0 2022.7.22
+25.5.0 7/22/2022
 ================
 🏥 path fixes for Windows thanks to @celtic-coder
 
-25.4.0 2022.7.14
+25.4.0 7/14/2022
 ================
 🎉 50% faster builds
 
-25.3.2 2022.7.14
+25.3.2 7/14/2022
 ================
 🎉 added cacheing for 40% faster builds
 
-25.3.1 2022.7.14
+25.3.1 7/14/2022
 ================
 🏥 fixed links in treeTable
 
-25.3.0 2022.7.14
+25.3.0 7/14/2022
 ================
 🎉 added `treeTable`
 
@@ -2749,57 +2753,57 @@ row
   # A code block
   print "Hello world"
 
-25.2.1 2022.7.01
+25.2.1 7/01/2022
 ================
 🏥 fixed broken links in feed.xml
 
-25.2.0 2022.6.22
+25.2.0 6/22/2022
 ================
 🎉 added `htmlTitle` and `sourceLink` parsers so an article can override the defaults
 
-25.1.0 2022.6.19
+25.1.0 6/19/2022
 ================
 🎉 if scroll has an rss feed add a  tag to built pages
 
-25.0.0 2022.6.15
+25.0.0 6/15/2022
 ================
 ⚠️ on single article pages, the header will now span across all columns.
 
-24.9.0 2022.6.15
+24.9.0 6/15/2022
 ================
 🎉 added "css" setting. Set `css split` to write CSS to `scroll.css` instead of inline, or `css none` to not generate CSS.
 🏥 removed extra blank lines in snippets.html generation
 
-24.8.0 2022.6.15
+24.8.0 6/15/2022
 ================
 🎉 if "baseUrl" is set building will also generate an RSS "feed.xml"
 
-24.7.0 2022.6.13
+24.7.0 6/13/2022
 ================
 🏥 fix when using Scroll programmatically image sizeOf check will use correct folder
 🎉 add param to specify index/snippets page when using programmatically
 
-24.6.0 2022.6.10
+24.6.0 6/10/2022
 ================
 🎉 added `wrap` parser for advanced custom wraps in aftertext.
 
 Some !simple! and *advanced* usages. An #absolute link# and @@@a relative link@@@. Show some ++added text++ or some --deleted text--.
 
-24.5.0 2022.6.10
+24.5.0 6/10/2022
 ================
 🎉 added `wrapsOn` parser to aftertext.
 
 Support for traditional *bold*, `code`, and _italics_ in aftertext with the parser `wrapsOn`.
 
-24.4.0 2022.6.08
+24.4.0 6/08/2022
 ================
 🎉 if your scroll has an article(s) with "endSnippet", scroll will create "snippets.html".
 
-24.3.1 2022.5.25
+24.3.1 5/25/2022
 ================
 🏥 fix bug where images were stuck at 35ch even when the browser sized columns wider
 
-24.3.0 2022.2.16
+24.3.0 2/16/2022
 ================
 This tiny release adds some ways to include more caveats and context around atoms and references.
 🎉 added 'caveat' directive to aftertext for adding caveats around parts of text
@@ -2816,7 +2820,7 @@ Link Quote Example
 This report showed the treatment had a big impact.
  https://example.com/report This report
 
-24.2.0 2022.1.18
+24.2.0 1/18/2022
 ================
 🎉 added 'id' directive to aftertext for adding ids to paragraphs 
 🎉 added 'loremIpsum' nodeType to help in testing and exploring
@@ -2837,17 +2841,17 @@ aftertext
 loremIpsum 20
 ```
 
-24.1.1 2022.1.13
+24.1.1 1/13/2022
 ================
 🏥 fix bug where migrator was not replacing 🔗 links in paragraphs when upgrading to aftertext
 🏥 fix typo in release notes
 
-24.1.0 2022.1.13
+24.1.0 1/13/2022
 ================
 🎉 added migrate command to automate migrations when there are breaking changes
 🎨 added background color and styling to inline code elements in default theme
 
-24.0.0 2022.1.11
+24.0.0 1/11/2022
 ================
 🎉 if a table has a column name ending in "Link", that will be used to link the matching column. See example below.
 ⚠️ if you have tables with a column ending in "Link" beware the new behavior
@@ -2865,7 +2869,7 @@ A truck transporting llamas collided into a pajama factory late last night.
 
 To migrate and keep your existing datelines use the command scroll migrate.
 
-23.2.0 2021.12.22
+23.2.0 12/22/2021
 =================
 🎉 add "matchAll" and "match" support to aftertext for more advanced matching options
 🎉 add "class" markup directive to aftertext
@@ -2879,11 +2883,11 @@ Can you show an example of the new advanced aftertext features?
 How much wood can a woodchuck chuck if a woodchuck could chuck wood?
  https://en.wikipedia.org/wiki/Groundhog woodchuck
 
-23.1.0 2021.12.21
+23.1.0 12/21/2021
 =================
 🎉 add dateline node to aftertext.
 
-23.0.0 2021.12.09
+23.0.0 12/09/2021
 =================
 🎉 add aftertext node type, with bold, italics, underline, link (& quick link), email, code and strikethrough parsers
 🎉 add belowAsCode and aboveAsCode
@@ -2894,49 +2898,49 @@ Can you show an example of aftertext?
 
 You write some text. After your text, you add your markup instructions with selectors to select the text to markup, one command per line. For example, this paragraph is written in Aftertext and the source code looks like:
 
-22.4.0 2021.11.25
+22.4.0 11/25/2021
 =================
 🎉 add basic caption support to images
 
 [Image Omitted]
  This is a caption
 
-22.3.0 2021.08.23
+22.3.0 08/23/2021
 =================
 🎉 columnWidth to set a custom column width per article or folder
 🎉 maxColumns can be set globally in settings
 
-22.2.0 2021.08.23
+22.2.0 08/23/2021
 =================
 🎉 integrated design feedback into default theme for better readability
 
-22.1.0 2021.07.23
+22.1.0 07/23/2021
 =================
 🏥 you can now ignore custom grammar files in a dir with ignoreGrammarFiles
 
-22.0.0 2021.07.09
+22.0.0 07/09/2021
 =================
 🎉 scroll.settings file is now optional and you can use scroll to build a single page.
 🎉 you can now set 'header' and/or 'footer' on articles.
 
-21.4.0 2021.07.08
+21.4.0 07/08/2021
 =================
 🎉 you can now set 'maxColumns' on articles.
 
-21.3.0 2021.07.07
+21.3.0 07/07/2021
 =================
 🎉 if all articles have 'skipIndexPage', 'index.html' will not be built
 
-21.2.0 2021.07.06
+21.2.0 07/06/2021
 =================
 ⚠️ internal CSS changes
 
-21.0.0 2021.06.21
+21.0.0 06/21/2021
 =================
 🎉 built in support for custom grammars!
 ⚠️ internal nodejs API changes: Article is no longer exported and ScrollBuilder is now ScrollFolder
 
-20.0.0 2021.06.21
+20.0.0 06/21/2021
 =================
 🎉 new question nodetype. Simply compiles to an h4 for now but more semantic this way.
 🎉 new section nodetype. Simply compiles to an h3 for now but more semantic this way.
@@ -2960,126 +2964,126 @@ Find ^title\d (.+)
  ReplaceWith section $1
 ```
 
-19.3.1 2021.06.20
+19.3.1 06/20/2021
 =================
 🎉 show the version in footer
 🏥 fix title in single pages without a title
 
-19.3.0 2021.06.20
+19.3.0 06/20/2021
 =================
 🏥 fix bug where readme.scroll could be overwritten by init
 
-19.2.0 2021.06.17
+19.2.0 06/17/2021
 =================
 🎉 improved styling for tables
 
-19.1.0 2021.06.17
+19.1.0 06/17/2021
 =================
 🏥 fix bug with http links
 🏥 simpler article padding and changed scroll title to h2 from h1
 
-19.0.0 2021.06.17
+19.0.0 06/17/2021
 =================
 🎉 ability to override header and footer
 
-18.4.0 2021.06.17
+18.4.0 06/17/2021
 =================
 🏥 improved alignment of images
 
-18.3.0 2021.06.16
+18.3.0 06/16/2021
 =================
 🎉 og meta tags for social media sharing
 
-18.2.0 2021.06.16
+18.2.0 06/16/2021
 =================
 🏥 title now links to "index.html". less magic and works much better locally
 
-18.1.1 2021.06.16
+18.1.1 06/16/2021
 =================
 🏥 fix regression where 2 columns on mobile were not downsizing to 1
 
-18.1.0 2021.06.16
+18.1.0 06/16/2021
 =================
 🎉 short articles now are put into 1 or 2 columns
 
-18.0.0 2021.06.15
+18.0.0 06/15/2021
 =================
 🎉 build is now ~46% faster
 🏥 refactored html generation in preparation for easier extending and theming
 
-17.5.0 2021.06.05
+17.5.0 06/05/2021
 =================
 🏥 fixed numerous bugs in importing RSS feeds and added examples
 
-17.4.0 2021.06.04
+17.4.0 06/04/2021
 =================
 🎉 typography adjustments
 🏥 fixed overlapping social icons up top on mobile. just keep git link
 
-17.3.0 2021.06.03
+17.3.0 06/03/2021
 =================
 🎉 images now link to the full size image
 
-17.2.2 2021.06.02
+17.2.2 06/02/2021
 =================
 🏥 fixed safari-only bug not painting overflowing code blocks on single pages
 
-17.2.1 2021.05.25
+17.2.1 05/25/2021
 =================
 🏥 fixed bug where sequential links were not getting parsed
 
-17.2.0 2021.05.25
+17.2.0 05/25/2021
 =================
 🏥 tables can now break on single pages for higher information density
 
-17.1.0 2021.05.25
+17.1.0 05/25/2021
 =================
 🎉 pipeTable
 
 what|why
 PipeTable|Because it's awesome!
 
-17.0.0 2021.05.25
+17.0.0 05/25/2021
 =================
 🎉 tabTable and commaTable
 ⚠️ table is now spaceTable
 🏥 do not crash if an empty row in a table
 
-16.2.0 2021.05.24
+16.2.0 05/24/2021
 =================
 🏥 do not crash if an image is not found
 
-16.1.0 2021.05.24
+16.1.0 05/24/2021
 =================
 🎉 building a site is now ~2.4x faster 🏎
 
-16.0.0 2021.05.22
+16.0.0 05/22/2021
 =================
 ⚠️ rename scrollSettings.map to scroll.settings
 
-15.0.0 2021.05.21
+15.0.0 05/21/2021
 =================
 🎉 Scroll will detect and emit image sizes during build to reduce layout shifts.
 
-14.3.0 2021.05.21
+14.3.0 05/21/2021
 =================
 🏥 Scroll is now somewhat usable as an NPM module.
 
-14.2.0 2021.05.20
+14.2.0 05/20/2021
 =================
 🏥 added html head meta viewport tag for better mobile experience.
 
-14.1.0 2021.05.20
+14.1.0 05/20/2021
 =================
 🏥 added doctype tag
 🏥 added html head meta description tag
 
-14.0.0 2021.05.19
+14.0.0 05/19/2021
 =================
 ⚠️ removed links nodeType
 ⚠️ fixed bug where sometimes permalinks were still using title and not filename
 
-13.3.0 2021.05.18
+13.3.0 05/18/2021
 =================
 🎉 html and image node types
 
@@ -3096,15 +3100,15 @@ html
  anything goes here
 ```
 
-13.2.0 2021.05.18
+13.2.0 05/18/2021
 =================
 🎉 Added scroll check command
 
-13.1.0 2021.05.18
+13.1.0 05/18/2021
 =================
 🎉 🔗links in lists as well as paragraphs
 
-13.0.0 2021.05.17
+13.0.0 05/17/2021
 =================
 🎉 🔗links in paragraph nodes.
 🎉 skipIndexPage nodeType
@@ -3140,26 +3144,26 @@ Can I not include a page in the index page?
 ===========================================
 Now you can! Sometimes you just want to publish an independent page without including it in the index. To do that, just add `skipIndexPage`.
 
-12.1.0 2021.05.14
+12.1.0 05/14/2021
 =================
 🎉 chat nodeType
 
 You can now do dialogues
 Cool!
 
-12.0.0 2021.05.12
+12.0.0 05/12/2021
 =================
 ⚠️ scroll create is now scroll init
 ⚠️ Removed export command
 🏥 removed example.com folder. Less code and now flat.
 
-11.0.0 2021.05.11
+11.0.0 05/11/2021
 =================
 🎉 list, orderedList, and links node types
 🎉 codeWithLanguageNode
 🏥 HTML escaped in code blocks
 
-10.0.0 2021.05.10
+10.0.0 05/10/2021
 =================
 🎉 table nodeType for SSVs with linkify
 🎉 Better docs in ScrollScript grammar
@@ -3168,40 +3172,40 @@ Cool!
 🏥 Windows return character fix
 🏥 multiline support in subheader nodeTypes
 
-9.0.0 2021.05.05
+9.0.0 05/05/2021
 ================
 🎉 ScrollScript now has a quote nodeType.
 🏥 Code block format bug fixes.
 🏥 Styling improvements
 
-8.0.0 2021.04.10
+8.0.0 04/10/2021
 ================
 🎉 Scroll now just builds files. No web server needed.
 
-7.0.0 2021.04.03
+7.0.0 04/03/2021
 ================
 ⚠️ Scroll the language is now called Scrolldown (thanks FB!).
 🏥 Bug fixes.
 🎉 Better perf.
 
-6.0.0 2021.03.08
+6.0.0 03/08/2021
 ================
 🎉 By popular request, Scroll now also publishes each article to its own page.
 🎉 Fewer links. Do less. KISS.
 🎉 Better perf.
 🎉 "permalink" nodeType
 
-5.0.0 2021.02.28
+5.0.0 02/28/2021
 ================
 🎉 Changed name of everything from dumbdown to Scroll per user feedback
 ⚠️ File extension of articles needs to be "scroll" and not "dd" now.
 
-4.2.0 2021.02.22
+4.2.0 02/22/2021
 ================
 🏥 Fixed paragraph parsing and rendering
 
-4.1.0 2021.02.22
+4.1.0 02/22/2021
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v148.3.0
+Built with Scroll v148.3.1

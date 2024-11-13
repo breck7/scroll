@@ -1,5 +1,12 @@
 [
   {
+    "version": "148.3.1",
+    "releaseDate": "11/12/2024",
+    "bugFixes": 1,
+    "newFeatures": 0,
+    "breakingChanges": 0
+  },
+  {
     "version": "148.3.0",
     "releaseDate": "11/12/2024",
     "bugFixes": 0,
@@ -3067,917 +3074,917 @@
   },
   {
     "version": "43.1.1",
-    "releaseDate": "2022.11.22",
+    "releaseDate": "11/22/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "43.1.0",
-    "releaseDate": "2022.11.14",
+    "releaseDate": "11/14/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "43.0.1",
-    "releaseDate": "2022.11.14",
+    "releaseDate": "11/14/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "43.0.0",
-    "releaseDate": "2022.11.12",
+    "releaseDate": "11/12/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 1
   },
   {
     "version": "42.0.0",
-    "releaseDate": "2022.11.09",
+    "releaseDate": "11/09/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "41.0.0",
-    "releaseDate": "2022.11.08",
+    "releaseDate": "11/08/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "40.0.0",
-    "releaseDate": "2022.11.05",
+    "releaseDate": "11/05/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "39.0.0",
-    "releaseDate": "2022.11.03",
+    "releaseDate": "11/03/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "38.2.0",
-    "releaseDate": "2022.11.01",
+    "releaseDate": "11/01/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "38.1.0",
-    "releaseDate": "2022.11.01",
+    "releaseDate": "11/01/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "38.0.0",
-    "releaseDate": "2022.10.31",
+    "releaseDate": "10/31/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "37.1.1",
-    "releaseDate": "2022.10.28",
+    "releaseDate": "10/28/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "37.1.0",
-    "releaseDate": "2022.10.28",
+    "releaseDate": "10/28/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "37.0.0",
-    "releaseDate": "2022.10.28",
+    "releaseDate": "10/28/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 9
   },
   {
     "version": "36.1.0",
-    "releaseDate": "2022.10.27",
+    "releaseDate": "10/27/2022",
     "bugFixes": 1,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "36.0.1",
-    "releaseDate": "2022.10.24",
+    "releaseDate": "10/24/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "36.0.0",
-    "releaseDate": "2022.10.22",
+    "releaseDate": "10/22/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "35.1.2",
-    "releaseDate": "2022.10.12",
+    "releaseDate": "10/12/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "35.1.1",
-    "releaseDate": "2022.10.12",
+    "releaseDate": "10/12/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "35.1.0",
-    "releaseDate": "2022.10.05",
+    "releaseDate": "10/05/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "35.0.0",
-    "releaseDate": "2022.10.04",
+    "releaseDate": "10/04/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "34.2.0",
-    "releaseDate": "2022.10.03",
+    "releaseDate": "10/03/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "34.1.0",
-    "releaseDate": "2022.10.02",
+    "releaseDate": "10/02/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "34.0.3",
-    "releaseDate": "2022.9.30",
+    "releaseDate": "9/30/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "34.0.2",
-    "releaseDate": "2022.9.30",
+    "releaseDate": "9/30/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "34.0.1",
-    "releaseDate": "2022.9.30",
+    "releaseDate": "9/30/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "34.0.0",
-    "releaseDate": "2022.9.30",
+    "releaseDate": "9/30/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 1
   },
   {
     "version": "33.1.0",
-    "releaseDate": "2022.9.29",
+    "releaseDate": "9/29/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "33.0.0",
-    "releaseDate": "2022.9.29",
+    "releaseDate": "9/29/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 2
   },
   {
     "version": "32.0.0",
-    "releaseDate": "2022.9.27",
+    "releaseDate": "9/27/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "31.5.0",
-    "releaseDate": "2022.9.9",
+    "releaseDate": "9/9/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "31.4.1",
-    "releaseDate": "2022.9.3",
+    "releaseDate": "9/3/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "31.4.0",
-    "releaseDate": "2022.9.3",
+    "releaseDate": "9/3/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "31.3.0",
-    "releaseDate": "2022.9.3",
+    "releaseDate": "9/3/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "31.2.0",
-    "releaseDate": "2022.9.2",
+    "releaseDate": "9/2/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "31.1.0",
-    "releaseDate": "2022.9.1",
+    "releaseDate": "9/1/2022",
     "bugFixes": 1,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "31.0.0",
-    "releaseDate": "2022.8.31",
+    "releaseDate": "8/31/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "30.1.1",
-    "releaseDate": "2022.8.30",
+    "releaseDate": "8/30/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "30.1.0",
-    "releaseDate": "2022.8.29",
+    "releaseDate": "8/29/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "30.0.0",
-    "releaseDate": "2022.8.29",
+    "releaseDate": "8/29/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 2
   },
   {
     "version": "29.0.0",
-    "releaseDate": "2022.8.28",
+    "releaseDate": "8/28/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "28.3.2",
-    "releaseDate": "2022.8.27",
+    "releaseDate": "8/27/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "28.3.1",
-    "releaseDate": "2022.8.27",
+    "releaseDate": "8/27/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "28.3.0",
-    "releaseDate": "2022.8.27",
+    "releaseDate": "8/27/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "28.2.0",
-    "releaseDate": "2022.8.26",
+    "releaseDate": "8/26/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "28.1.0",
-    "releaseDate": "2022.8.26",
+    "releaseDate": "8/26/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "28.0.0",
-    "releaseDate": "2022.8.26",
+    "releaseDate": "8/26/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 12
   },
   {
     "version": "27.1.1",
-    "releaseDate": "2022.8.24",
+    "releaseDate": "8/24/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "27.1.0",
-    "releaseDate": "2022.8.24",
+    "releaseDate": "8/24/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "27.0.1",
-    "releaseDate": "2022.8.23",
+    "releaseDate": "8/23/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "27.0.0",
-    "releaseDate": "2022.8.23",
+    "releaseDate": "8/23/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 1
   },
   {
     "version": "26.1.0",
-    "releaseDate": "2022.8.23",
+    "releaseDate": "8/23/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 1
   },
   {
     "version": "26.0.0",
-    "releaseDate": "2022.8.23",
+    "releaseDate": "8/23/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "25.6.0",
-    "releaseDate": "2022.8.19",
+    "releaseDate": "8/19/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "25.5.1",
-    "releaseDate": "2022.7.22",
+    "releaseDate": "7/22/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "25.5.0",
-    "releaseDate": "2022.7.22",
+    "releaseDate": "7/22/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "25.4.0",
-    "releaseDate": "2022.7.14",
+    "releaseDate": "7/14/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "25.3.2",
-    "releaseDate": "2022.7.14",
+    "releaseDate": "7/14/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "25.3.1",
-    "releaseDate": "2022.7.14",
+    "releaseDate": "7/14/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "25.3.0",
-    "releaseDate": "2022.7.14",
+    "releaseDate": "7/14/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "25.2.1",
-    "releaseDate": "2022.7.01",
+    "releaseDate": "7/01/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "25.2.0",
-    "releaseDate": "2022.6.22",
+    "releaseDate": "6/22/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "25.1.0",
-    "releaseDate": "2022.6.19",
+    "releaseDate": "6/19/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "25.0.0",
-    "releaseDate": "2022.6.15",
+    "releaseDate": "6/15/2022",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "24.9.0",
-    "releaseDate": "2022.6.15",
+    "releaseDate": "6/15/2022",
     "bugFixes": 1,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "24.8.0",
-    "releaseDate": "2022.6.15",
+    "releaseDate": "6/15/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "24.7.0",
-    "releaseDate": "2022.6.13",
+    "releaseDate": "6/13/2022",
     "bugFixes": 1,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "24.6.0",
-    "releaseDate": "2022.6.10",
+    "releaseDate": "6/10/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "24.5.0",
-    "releaseDate": "2022.6.10",
+    "releaseDate": "6/10/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "24.4.0",
-    "releaseDate": "2022.6.08",
+    "releaseDate": "6/08/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "24.3.1",
-    "releaseDate": "2022.5.25",
+    "releaseDate": "5/25/2022",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "24.3.0",
-    "releaseDate": "2022.2.16",
+    "releaseDate": "2/16/2022",
     "bugFixes": 0,
     "newFeatures": 2,
     "breakingChanges": 0
   },
   {
     "version": "24.2.0",
-    "releaseDate": "2022.1.18",
+    "releaseDate": "1/18/2022",
     "bugFixes": 0,
     "newFeatures": 2,
     "breakingChanges": 0
   },
   {
     "version": "24.1.1",
-    "releaseDate": "2022.1.13",
+    "releaseDate": "1/13/2022",
     "bugFixes": 2,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "24.1.0",
-    "releaseDate": "2022.1.13",
+    "releaseDate": "1/13/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "24.0.0",
-    "releaseDate": "2022.1.11",
+    "releaseDate": "1/11/2022",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 2
   },
   {
     "version": "23.2.0",
-    "releaseDate": "2021.12.22",
+    "releaseDate": "12/22/2021",
     "bugFixes": 2,
     "newFeatures": 3,
     "breakingChanges": 0
   },
   {
     "version": "23.1.0",
-    "releaseDate": "2021.12.21",
+    "releaseDate": "12/21/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "23.0.0",
-    "releaseDate": "2021.12.09",
+    "releaseDate": "12/09/2021",
     "bugFixes": 0,
     "newFeatures": 3,
     "breakingChanges": 0
   },
   {
     "version": "22.4.0",
-    "releaseDate": "2021.11.25",
+    "releaseDate": "11/25/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "22.3.0",
-    "releaseDate": "2021.08.23",
+    "releaseDate": "08/23/2021",
     "bugFixes": 0,
     "newFeatures": 2,
     "breakingChanges": 0
   },
   {
     "version": "22.2.0",
-    "releaseDate": "2021.08.23",
+    "releaseDate": "08/23/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "22.1.0",
-    "releaseDate": "2021.07.23",
+    "releaseDate": "07/23/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "22.0.0",
-    "releaseDate": "2021.07.09",
+    "releaseDate": "07/09/2021",
     "bugFixes": 0,
     "newFeatures": 2,
     "breakingChanges": 0
   },
   {
     "version": "21.4.0",
-    "releaseDate": "2021.07.08",
+    "releaseDate": "07/08/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "21.3.0",
-    "releaseDate": "2021.07.07",
+    "releaseDate": "07/07/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "21.2.0",
-    "releaseDate": "2021.07.06",
+    "releaseDate": "07/06/2021",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "21.0.0",
-    "releaseDate": "2021.06.21",
+    "releaseDate": "06/21/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 1
   },
   {
     "version": "20.0.0",
-    "releaseDate": "2021.06.21",
+    "releaseDate": "06/21/2021",
     "bugFixes": 0,
     "newFeatures": 3,
     "breakingChanges": 1
   },
   {
     "version": "19.3.1",
-    "releaseDate": "2021.06.20",
+    "releaseDate": "06/20/2021",
     "bugFixes": 1,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "19.3.0",
-    "releaseDate": "2021.06.20",
+    "releaseDate": "06/20/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "19.2.0",
-    "releaseDate": "2021.06.17",
+    "releaseDate": "06/17/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "19.1.0",
-    "releaseDate": "2021.06.17",
+    "releaseDate": "06/17/2021",
     "bugFixes": 2,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "19.0.0",
-    "releaseDate": "2021.06.17",
+    "releaseDate": "06/17/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "18.4.0",
-    "releaseDate": "2021.06.17",
+    "releaseDate": "06/17/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "18.3.0",
-    "releaseDate": "2021.06.16",
+    "releaseDate": "06/16/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "18.2.0",
-    "releaseDate": "2021.06.16",
+    "releaseDate": "06/16/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "18.1.1",
-    "releaseDate": "2021.06.16",
+    "releaseDate": "06/16/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "18.1.0",
-    "releaseDate": "2021.06.16",
+    "releaseDate": "06/16/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "18.0.0",
-    "releaseDate": "2021.06.15",
+    "releaseDate": "06/15/2021",
     "bugFixes": 1,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "17.5.0",
-    "releaseDate": "2021.06.05",
+    "releaseDate": "06/05/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "17.4.0",
-    "releaseDate": "2021.06.04",
+    "releaseDate": "06/04/2021",
     "bugFixes": 1,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "17.3.0",
-    "releaseDate": "2021.06.03",
+    "releaseDate": "06/03/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "17.2.2",
-    "releaseDate": "2021.06.02",
+    "releaseDate": "06/02/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "17.2.1",
-    "releaseDate": "2021.05.25",
+    "releaseDate": "05/25/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "17.2.0",
-    "releaseDate": "2021.05.25",
+    "releaseDate": "05/25/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "17.1.0",
-    "releaseDate": "2021.05.25",
+    "releaseDate": "05/25/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "17.0.0",
-    "releaseDate": "2021.05.25",
+    "releaseDate": "05/25/2021",
     "bugFixes": 1,
     "newFeatures": 1,
     "breakingChanges": 1
   },
   {
     "version": "16.2.0",
-    "releaseDate": "2021.05.24",
+    "releaseDate": "05/24/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "16.1.0",
-    "releaseDate": "2021.05.24",
+    "releaseDate": "05/24/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "16.0.0",
-    "releaseDate": "2021.05.22",
+    "releaseDate": "05/22/2021",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 1
   },
   {
     "version": "15.0.0",
-    "releaseDate": "2021.05.21",
+    "releaseDate": "05/21/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "14.3.0",
-    "releaseDate": "2021.05.21",
+    "releaseDate": "05/21/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "14.2.0",
-    "releaseDate": "2021.05.20",
+    "releaseDate": "05/20/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "14.1.0",
-    "releaseDate": "2021.05.20",
+    "releaseDate": "05/20/2021",
     "bugFixes": 2,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "14.0.0",
-    "releaseDate": "2021.05.19",
+    "releaseDate": "05/19/2021",
     "bugFixes": 0,
     "newFeatures": 0,
     "breakingChanges": 2
   },
   {
     "version": "13.3.0",
-    "releaseDate": "2021.05.18",
+    "releaseDate": "05/18/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "13.2.0",
-    "releaseDate": "2021.05.18",
+    "releaseDate": "05/18/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "13.1.0",
-    "releaseDate": "2021.05.18",
+    "releaseDate": "05/18/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "13.0.0",
-    "releaseDate": "2021.05.17",
+    "releaseDate": "05/17/2021",
     "bugFixes": 0,
     "newFeatures": 2,
     "breakingChanges": 0
   },
   {
     "version": "12.1.0",
-    "releaseDate": "2021.05.14",
+    "releaseDate": "05/14/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "12.0.0",
-    "releaseDate": "2021.05.12",
+    "releaseDate": "05/12/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 2
   },
   {
     "version": "11.0.0",
-    "releaseDate": "2021.05.11",
+    "releaseDate": "05/11/2021",
     "bugFixes": 1,
     "newFeatures": 2,
     "breakingChanges": 0
   },
   {
     "version": "10.0.0",
-    "releaseDate": "2021.05.10",
+    "releaseDate": "05/10/2021",
     "bugFixes": 2,
     "newFeatures": 2,
     "breakingChanges": 2
   },
   {
     "version": "9.0.0",
-    "releaseDate": "2021.05.05",
+    "releaseDate": "05/05/2021",
     "bugFixes": 2,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "8.0.0",
-    "releaseDate": "2021.04.10",
+    "releaseDate": "04/10/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0
   },
   {
     "version": "7.0.0",
-    "releaseDate": "2021.04.03",
+    "releaseDate": "04/03/2021",
     "bugFixes": 1,
     "newFeatures": 1,
     "breakingChanges": 1
   },
   {
     "version": "6.0.0",
-    "releaseDate": "2021.03.08",
+    "releaseDate": "03/08/2021",
     "bugFixes": 0,
     "newFeatures": 4,
     "breakingChanges": 0
   },
   {
     "version": "5.0.0",
-    "releaseDate": "2021.02.28",
+    "releaseDate": "02/28/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 1
   },
   {
     "version": "4.2.0",
-    "releaseDate": "2021.02.22",
+    "releaseDate": "02/22/2021",
     "bugFixes": 1,
     "newFeatures": 0,
     "breakingChanges": 0
   },
   {
     "version": "4.1.0",
-    "releaseDate": "2021.02.22",
+    "releaseDate": "02/22/2021",
     "bugFixes": 0,
     "newFeatures": 1,
     "breakingChanges": 0

@@ -1,6 +1,6 @@
 [
   {
-    "date": "11/12/2024",
+    "date": "11/13/2024",
     "year": 2024,
     "title": "Sitemap",
     "permalink": "sitemap.html",
@@ -9,7 +9,7 @@
     "minutes": 0.8
   },
   {
-    "date": "11/12/2024",
+    "date": "11/13/2024",
     "year": 2024,
     "title": "Settings",
     "permalink": "settings.html",
@@ -18,7 +18,7 @@
     "minutes": 0
   },
   {
-    "date": "11/12/2024",
+    "date": "11/13/2024",
     "year": 2024,
     "title": "Search the Official Scroll Blog",
     "permalink": "search.html",
@@ -27,7 +27,7 @@
     "minutes": 45.8
   },
   {
-    "date": "11/12/2024",
+    "date": "11/13/2024",
     "year": 2024,
     "title": "The Official Scroll Blog",
     "permalink": "index.html",
@@ -36,7 +36,7 @@
     "minutes": 1.5
   },
   {
-    "date": "11/12/2024",
+    "date": "11/13/2024",
     "year": 2024,
     "title": "The Official Scroll Blog",
     "permalink": "full.html",
@@ -45,7 +45,7 @@
     "minutes": 1.5
   },
   {
-    "date": "11/12/2024",
+    "date": "11/13/2024",
     "year": 2024,
     "title": "Feed",
     "permalink": "feed.html",
@@ -58,6 +58,7 @@
     "year": 2024,
     "title": "Scroll in 50 Questions",
     "permalink": "scrollInQuestions.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 1080,
     "minutes": 5.4
@@ -67,6 +68,7 @@
     "year": 2024,
     "title": "Web Forms for Geniuses",
     "permalink": "forms.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 369,
     "minutes": 1.8
@@ -76,6 +78,7 @@
     "year": 2024,
     "title": "The Successor to RSS is Git Clone",
     "permalink": "gitOverRss.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 224,
     "minutes": 1.1
@@ -85,6 +88,7 @@
     "year": 2024,
     "title": "A New Way to Program",
     "permalink": "teddyTalk.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 426,
     "minutes": 2.1
@@ -94,6 +98,7 @@
     "year": 2024,
     "title": "Tables: a microlang for data science",
     "permalink": "tables.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 479,
     "minutes": 2.4
@@ -103,6 +108,7 @@
     "year": 2024,
     "title": "Build Your Own Counters With 3 Words",
     "permalink": "counters.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 1026,
     "minutes": 5.1
@@ -112,6 +118,7 @@
     "year": 2024,
     "title": "Heatrix: Heat Maps + Matrix Visualizations",
     "permalink": "heatrix.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 467,
     "minutes": 2.3
@@ -121,6 +128,7 @@
     "year": 2024,
     "title": "Contacts: A Microlang for Managing Contacts",
     "permalink": "contacts.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 371,
     "minutes": 1.9
@@ -130,6 +138,7 @@
     "year": 2024,
     "title": "How I Designed Helpful 404's and Stopped Worrying about Broken Links",
     "permalink": "helpful404s.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 546,
     "minutes": 2.7
@@ -139,6 +148,7 @@
     "year": 2024,
     "title": "Convert CSVs to ScrollSets",
     "permalink": "csvToScrollSet.html",
+    "authors": "Breck Yunits",
     "tags": "All ScrollSets",
     "wordCount": 100,
     "minutes": 0.5
@@ -148,6 +158,7 @@
     "year": 2024,
     "title": "Changes: A Microlang for Change Logs",
     "permalink": "changes.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 431,
     "minutes": 2.2
@@ -157,6 +168,7 @@
     "year": 2024,
     "title": "Write scatterplot to get a scatterplot",
     "permalink": "plot.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 342,
     "minutes": 1.7
@@ -166,6 +178,7 @@
     "year": 2024,
     "title": "Stamp: a microlang for project templates",
     "permalink": "stamp.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 300,
     "minutes": 1.5
@@ -175,6 +188,7 @@
     "year": 2024,
     "title": "Scroll builds text files",
     "permalink": "textFiles.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 175,
     "minutes": 0.9
@@ -184,6 +198,7 @@
     "year": 2024,
     "title": "ScrollSets: source code for CSVs",
     "permalink": "scrollsets.html",
+    "authors": "Breck Yunits",
     "tags": "All ScrollSets",
     "wordCount": 1161,
     "minutes": 5.8
@@ -193,6 +208,7 @@
     "year": 2023,
     "title": "Introducing Program Links",
     "permalink": "programLinks.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 507,
     "minutes": 2.5
@@ -202,6 +218,7 @@
     "year": 2023,
     "title": "Counterpoints: A new tool for thought in the Scroll Language",
     "permalink": "counterpoints.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 388,
     "minutes": 1.9
@@ -211,6 +228,7 @@
     "year": 2022,
     "title": "Introducing the Blink Tag",
     "permalink": "introducingBlink.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 176,
     "minutes": 0.9
@@ -220,6 +238,7 @@
     "year": 2021,
     "title": "The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping",
     "permalink": "indented-heredocs.html",
+    "authors": "Breck Yunits",
     "tags": "All",
     "wordCount": 306,
     "minutes": 1.5

@@ -3750,6 +3750,9 @@ stamp
      if (this._footnotes === undefined) this._footnotes = this.filter(particle => particle.isFootnote)
      return this._footnotes
     }
+    get authors() {
+      return this.get("authors")
+    }
     async build() {
       await Promise.all(this.filter(particle => particle.build).map(async particle => particle.build()))
     }

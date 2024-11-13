@@ -31,9 +31,7 @@ const scrollKeywords = {
   buildConcepts: "buildConcepts",
   buildMeasures: "buildMeasures",
   buildHtml: "buildHtml",
-  buildPdf: "buildPdf",
-  import: "import",
-  importOnly: "importOnly"
+  buildPdf: "buildPdf"
 }
 
 const makeLodashOrderByParams = str => {
@@ -273,7 +271,6 @@ class ScrollFile {
 
   formatAndSave() {
     const { codeAtStart, formatted } = this
-
     if (codeAtStart === formatted) return false
     this.fileSystem.write(this.filePath, formatted)
     return true
@@ -622,10 +619,6 @@ parsers/errors.parsers`
     })
 
     return lodash.sortBy(arr, file => file.file.timestamp).reverse()
-  }
-
-  get authors() {
-    return this.scrollProgram.get("authors")
   }
   async build() {
     return this.scrollProgram.build()
