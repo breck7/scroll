@@ -25,6 +25,13 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+150.0.0 11/13/2024
+==================
+🎉 added `concepts` parser for loading concepts in a file into a table
+⚠️ BREAKING: (no one should be affected) nearly all Scroll code is now available to Scroll in the browser. Some internal APIs may have changed if using Scroll programmatically.
+
+This is prep work for the major release coming imminently which brings the full power of PPS to the browser, including ability to write Parsers, fully user Scrollsets, and more, dynamically, clientside in browser.
+
 149.0.0 11/13/2024
 ==================
 🎉 `parsers.parsers` now ships with Scroll! Syntax highlighting, autocomplete, and other tools for writing parsers in try.scroll.pub.
@@ -567,14 +574,14 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 11/13/2024,2024,Settings,settings.html,,,0,0
 11/13/2024,2024,Scroll Prompt,scrollPrompt.html,,,1026,5.1
 11/13/2024,2024,Scroll Roadmap,roadmap.html,,main,162,0.8
-11/13/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14550,72.8
-11/13/2024,2024,Readme Prompt,readmePrompt.html,,,19340,96.7
+11/13/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14630,73.2
+11/13/2024,2024,Readme Prompt,readmePrompt.html,,,19420,97.1
 11/13/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
 11/13/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
 11/13/2024,2024,Parser Usage,parserUsage.html,,,270,1.4
-11/13/2024,2024,Parser Prompt,parserPrompt.html,,,17604,88
+11/13/2024,2024,Parser Prompt,parserPrompt.html,,,18916,94.6
 11/13/2024,2024,Parsers LeetSheet,parserLeetsheet.html,,,299,1.5
-11/13/2024,2024,Scroll LeetSheet,leetsheet.html,,,872,4.4
+11/13/2024,2024,Scroll LeetSheet,leetsheet.html,,,877,4.4
 11/13/2024,2024,Header,header.html,,,0,0
 11/13/2024,2024,Scroll FAQ,faq.html,,main,3307,16.5
 11/13/2024,2024,Download Scroll.pub,download.html,,,49,0.2
@@ -3214,4 +3221,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v149.0.0
+Built with Scroll v150.0.0

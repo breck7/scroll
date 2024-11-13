@@ -76,7 +76,7 @@ abstractIdParser
  javascript
   getErrors() {
     const errors = super.getErrors()
-    let requiredMeasureNames = this.parent.file.measures.filter(measure => measure.isMeasureRequired).map(measure => measure.Name).filter(name => name !== "id")
+    let requiredMeasureNames = this.root.measures.filter(measure => measure.isMeasureRequired).map(measure => measure.Name).filter(name => name !== "id")
     if (!requiredMeasureNames.length) return errors
     let next = this.next
     while (requiredMeasureNames.length && next.cue !== "id" && next.index !== 0) {

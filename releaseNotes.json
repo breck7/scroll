@@ -1,5 +1,12 @@
 [
   {
+    "version": "150.0.0",
+    "releaseDate": "11/13/2024",
+    "bugFixes": 0,
+    "newFeatures": 1,
+    "breakingChanges": 1
+  },
+  {
     "version": "149.0.0",
     "releaseDate": "11/13/2024",
     "bugFixes": 0,

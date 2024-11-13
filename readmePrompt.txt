@@ -88,6 +88,12 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 150.0.0 11/13/2024
+🎉 added `concepts` parser for loading concepts in a file into a table
+⚠️ BREAKING: (no one should be affected) nearly all Scroll code is now available to Scroll in the browser. Some internal APIs may have changed if using Scroll programmatically.
+
+This is prep work for the major release coming imminently which brings the full power of PPS to the browser, including ability to write Parsers, fully user Scrollsets, and more, dynamically, clientside in browser.
+
 📦 149.0.0 11/13/2024
 🎉 `parsers.parsers` now ships with Scroll! Syntax highlighting, autocomplete, and other tools for writing parsers in try.scroll.pub.
  - Note: compiling these Parsers still requires desktop Scroll. Not everything runs in browser...yet

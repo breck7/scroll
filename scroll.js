@@ -27,17 +27,7 @@ const scrollKeywords = {
   replace: "replace",
   replaceJs: "replaceJs",
   replaceNodejs: "replaceNodejs",
-  footer: "footer",
-  buildConcepts: "buildConcepts",
-  buildMeasures: "buildMeasures",
-  buildHtml: "buildHtml",
-  buildPdf: "buildPdf"
-}
-
-const makeLodashOrderByParams = str => {
-  const part1 = str.split(" ")
-  const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
-  return [part1.map(col => col.replace(/^\-/, "")), part2]
+  footer: "footer"
 }
 
 class FileInterface {
@@ -85,133 +75,8 @@ class ScrollFileSystem extends ParticleFileSystem {
     return this.folderCache[folderPath]
   }
 }
-
-const removeBlanks = data => data.map(obj => Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== "")))
 const defaultScrollParser = new ParticleFileSystem().getParser(Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION)))
 const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
-
-// todo: tags is currently matching partial substrings
-const getFilesWithTag = (tag, files) => files.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.tags.includes(tag))
-
-// todo: clean this up
-const getCueAtoms = rootParserProgram =>
-  rootParserProgram
-    .filter(particle => particle.getLine().endsWith("Parser") && !particle.getLine().startsWith("abstract"))
-    .map(particle => particle.get("cue") || particle.getLine())
-    .map(line => line.replace(/Parser$/, ""))
-
-const measureCache = new Map()
-const parseMeasures = parser => {
-  if (measureCache.get(parser)) return measureCache.get(parser)
-  // Generate a fake program with one of every of the available parsers. Then parse it. Then we can easily access the meta data on the parsers
-  const dummyProgram = new parser(
-    Array.from(
-      new Set(
-        getCueAtoms(parser.cachedHandParsersProgramRoot) // is there a better method name than this?
-      )
-    ).join("\n")
-  )
-  // Delete any particles that are not measures
-  dummyProgram.filter(particle => !particle.isMeasure).forEach(particle => particle.destroy())
-  dummyProgram.forEach(particle => {
-    // add nested measures
-    Object.keys(particle.definition.cueMapWithDefinitions).forEach(key => particle.appendLine(key))
-  })
-  // Delete any nested particles that are not measures
-  dummyProgram.topDownArray.filter(particle => !particle.isMeasure).forEach(particle => particle.destroy())
-  const measures = dummyProgram.topDownArray.map(particle => {
-    return {
-      Name: particle.measureName,
-      Values: 0,
-      Coverage: 0,
-      Question: particle.definition.description,
-      Example: particle.definition.getParticle("example")?.subparticlesToString() || "",
-      Type: particle.typeForWebForms,
-      Source: particle.sourceDomain,
-      //Definition: parsedProgram.root.filename + ":" + particle.lineNumber
-      SortIndex: particle.sortIndex,
-      IsComputed: particle.isComputed,
-      IsRequired: particle.isMeasureRequired,
-      IsConceptDelimiter: particle.isConceptDelimiter,
-      Cue: particle.definition.get("cue")
-    }
-  })
-  measureCache.set(parser, lodash.sortBy(measures, "SortIndex"))
-  return measureCache.get(parser)
-}
-
-const addMeasureStats = (concepts, measures) =>
-  measures.map(measure => {
-    let Type = false
-    concepts.forEach(concept => {
-      const value = concept[measure.Name]
-      if (value === undefined || value === "") return
-      measure.Values++
-
-      if (!Type) {
-        measure.Example = value.toString().replace(/\n/g, " ")
-        measure.Type = typeof value
-        Type = true
-      }
-    })
-    measure.Coverage = Math.floor((100 * measure.Values) / concepts.length) + "%"
-    return measure
-  })
-
-// note that this is currently global, assuming there wont be
-// name conflicts in computed measures in a single scroll
-const measureFnCache = {}
-const computeMeasure = (parsedProgram, measureName, concept, concepts) => {
-  if (!measureFnCache[measureName]) {
-    // a bit hacky but works??
-    const particle = parsedProgram.appendLine(measureName)
-    measureFnCache[measureName] = particle.computeValue
-    particle.destroy()
-  }
-  return measureFnCache[measureName](concept, measureName, parsedProgram, concepts)
-}
-
-const parseConcepts = (parsedProgram, measures) => {
-  // Todo: might be a perf/memory/simplicity win to have a "segment" method in ScrollSDK, where you could
-  // virtually split a Particle into multiple segments, and then query on those segments.
-  // So we would "segment" on "id ", and then not need to create a bunch of new objects, and the original
-  // already parsed lines could then learn about/access to their respective segments.
-  const conceptDelimiter = measures.filter(measure => measure.IsConceptDelimiter)[0]
-  if (!conceptDelimiter) return []
-  const concepts = parsedProgram.split(conceptDelimiter.Cue || conceptDelimiter.Name)
-  concepts.shift() // Remove the part before "id"
-  return concepts.map(concept => {
-    const row = {}
-    measures.forEach(measure => {
-      const measureName = measure.Name
-      const measureKey = measure.Cue || measureName.replace(/_/g, " ")
-      if (!measure.IsComputed) row[measureName] = concept.getParticle(measureKey)?.measureValue ?? ""
-      else row[measureName] = computeMeasure(parsedProgram, measureName, concept, concepts)
-    })
-    return row
-  })
-}
-
-const arrayToCSV = (data, delimiter = ",") => {
-  if (!data.length) return ""
-
-  // Extract headers
-  const headers = Object.keys(data[0])
-  const csv = data.map(row =>
-    headers
-      .map(fieldName => {
-        const fieldValue = row[fieldName]
-        // Escape commas if the value is a string
-        if (typeof fieldValue === "string" && fieldValue.includes(delimiter)) {
-          return `"${fieldValue.replace(/"/g, '""')}"` // Escape double quotes and wrap in double quotes
-        }
-        return fieldValue
-      })
-      .join(delimiter)
-  )
-  csv.unshift(headers.join(delimiter)) // Add header row at the top
-  return csv.join("\n")
-}
 
 class ScrollFile {
   constructor(codeAtStart, absoluteFilePath = "", fileSystem = new ScrollFileSystem({})) {
@@ -250,13 +115,6 @@ class ScrollFile {
     this.scrollProgram.setFile(this)
   }
 
-  get parsersRequiringExternals() {
-    const { parser } = this
-    // todo: could be cleaned up a bit
-    if (!parser.parsersRequiringExternals) parser.parsersRequiringExternals = parser.cachedHandParsersProgramRoot.filter(particle => particle.copyFromExternal).map(particle => particle.atoms[0])
-    return parser.parsersRequiringExternals
-  }
-
   // todo: speed this up and do a proper release. also could add more metrics like this.
   get lastCommitTime() {
     if (this._lastCommitTime === undefined) {
@@ -276,116 +134,13 @@ class ScrollFile {
     return true
   }
 
-  _buildFileType(extension) {
-    const { fileSystem, scrollProgram, folderPath, filename, filePath } = this
-    const capitalized = lodash.capitalize(extension)
-    const buildKeyword = "build" + capitalized
-    if (!this.has(buildKeyword)) return
-    const { permalink } = scrollProgram
-    const outputFiles = this.get(buildKeyword)?.split(" ") || [""]
-    outputFiles.forEach(name => {
-      const link = name || permalink.replace(".html", "." + extension)
-      try {
-        fileSystem.writeProduct(path.join(folderPath, link), scrollProgram.compileTo(capitalized))
-        this.log(`💾 Built ${link} from ${filename}`)
-      } catch (err) {
-        console.error(`Error while building '${filePath}' with extension '${extension}'`)
-        throw err
-      }
-    })
-  }
-
-  _copyExternalFiles(externalFilesCopied = {}) {
-    // If this file uses a parser that has external requirements,
-    // copy those from external folder into the destination folder.
-    const { parsersRequiringExternals, scrollProgram, folderPath, fileSystem, filename } = this
-    const { parserIdIndex } = scrollProgram
-    if (!externalFilesCopied[folderPath]) externalFilesCopied[folderPath] = {}
-    parsersRequiringExternals.forEach(parserId => {
-      if (externalFilesCopied[folderPath][parserId]) return
-      if (!parserIdIndex[parserId]) return
-      parserIdIndex[parserId].map(particle => {
-        const externalFiles = particle.copyFromExternal.split(" ")
-        externalFiles.forEach(name => {
-          const newPath = path.join(folderPath, name)
-          fileSystem.writeProduct(newPath, Disk.read(path.join(EXTERNALS_PATH, name)))
-          this.log(`💾 Copied external file needed by ${filename} to ${name}`)
-        })
-      })
-      if (parserId !== "scrollThemeParser")
-        // todo: generalize when not to cache
-        externalFilesCopied[folderPath][parserId] = true
-    })
-  }
-
   log(message) {
     if (this.logger) this.logger.log(message)
   }
 
-  // todo: cleanup
-  async buildOne() {
-    await this.build() // Run any build steps
-    this._buildFileType("parsers")
-    this._buildConceptsAndMeasures() // todo: call this buildDelimited?
-    this._buildFileType("csv")
-    this._buildFileType("tsv")
-    this._buildFileType("json")
-  }
-
   async buildAll() {
-    await this.buildOne()
-    this.buildTwo()
-  }
-
-  buildTwo(externalFilesCopied = {}) {
-    if (this.has(scrollKeywords.buildHtml)) this._copyExternalFiles(externalFilesCopied)
-    this._buildFileType("js")
-    this._buildFileType("txt")
-    this._buildFileType("html")
-    this._buildFileType("rss")
-    this._buildFileType("css")
-    if (this.has(scrollKeywords.buildPdf)) this.buildPdf()
-  }
-
-  buildPdf() {
-    const { scrollProgram, filename } = this
-    const outputFile = scrollProgram.filenameNoExtension + ".pdf"
-    // relevant source code for chrome: https://github.com/chromium/chromium/blob/a56ef4a02086c6c09770446733700312c86f7623/components/headless/command_handler/headless_command_switches.cc#L22
-    const command = `/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --headless --disable-gpu --no-pdf-header-footer --default-background-color=00000000 --no-pdf-background --print-to-pdf="${outputFile}" "${scrollProgram.permalink}"`
-    // console.log(`Node.js is running on architecture: ${process.arch}`)
-    try {
-      const output = require("child_process").execSync(command, { stdio: "ignore" })
-      this.log(`💾 Built ${outputFile} from ${filename}`)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  _buildConceptsAndMeasures() {
-    const { fileSystem, folderPath, scrollProgram, filename } = this
-    // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
-    if (!this.has(scrollKeywords.buildConcepts)) return
-    const { permalink } = scrollProgram
-    scrollProgram.findParticles(scrollKeywords.buildConcepts).forEach(particle => {
-      const files = particle.getAtomsFrom(1)
-      if (!files.length) files.push(permalink.replace(".html", ".csv"))
-      const sortBy = particle.get("sortBy")
-      files.forEach(link => {
-        fileSystem.writeProduct(path.join(folderPath, link), this.compileConcepts(link, sortBy))
-        this.log(`💾 Built concepts in ${filename} to ${link}`)
-      })
-    })
-
-    if (!this.has(scrollKeywords.buildMeasures)) return
-    scrollProgram.findParticles(scrollKeywords.buildMeasures).forEach(particle => {
-      const files = particle.getAtomsFrom(1)
-      if (!files.length) files.push(permalink.replace(".html", ".csv"))
-      const sortBy = particle.get("sortBy")
-      files.forEach(link => {
-        fileSystem.writeProduct(path.join(folderPath, link), this.compileMeasures(link, sortBy))
-        this.log(`💾 Built measures in ${filename} to ${link}`)
-      })
-    })
+    // todo: remove
+    await scrollProgram.buildAll()
   }
 
   getFileFromId(id) {
@@ -394,20 +149,6 @@ class ScrollFile {
 
   get allScrollFiles() {
     return this.fileSystem.getScrollFilesInFolder(this.folderPath)
-  }
-
-  _concepts
-  get concepts() {
-    if (this._concepts) return this._concepts
-    this._concepts = parseConcepts(this.scrollProgram, this.measures)
-    return this._concepts
-  }
-
-  _measures
-  get measures() {
-    if (this._measures) return this._measures
-    this._measures = parseMeasures(this.parser)
-    return this._measures
   }
 
   get parsersBundle() {
@@ -437,36 +178,6 @@ parsers/errors.parsers`
 
   get formatted() {
     return this.scrollProgram.getFormatted(this.codeAtStart)
-  }
-
-  _compileArray(filename, arr) {
-    const parts = filename.split(".")
-    const format = parts.pop()
-    if (format === "json") return JSON.stringify(removeBlanks(arr), null, 2)
-    if (format === "js") return `const ${parts[0]} = ` + JSON.stringify(removeBlanks(arr), null, 2)
-    if (format === "csv") return arrayToCSV(arr)
-    if (format === "tsv") return arrayToCSV(arr, "\t")
-    if (format === "particles") return particles.toString()
-    return particles.toString()
-  }
-
-  compileConcepts(filename = "csv", sortBy = "") {
-    if (!sortBy) return this._compileArray(filename, this.concepts)
-    const orderBy = makeLodashOrderByParams(sortBy)
-    return this._compileArray(filename, lodash.orderBy(this.concepts, orderBy[0], orderBy[1]))
-  }
-
-  _withStats
-  get measuresWithStats() {
-    if (!this._withStats) this._withStats = addMeasureStats(this.concepts, this.measures)
-    return this._withStats
-  }
-
-  compileMeasures(filename = "csv", sortBy = "") {
-    const withStats = this.measuresWithStats
-    if (!sortBy) return this._compileArray(filename, withStats)
-    const orderBy = makeLodashOrderByParams(sortBy)
-    return this._compileArray(filename, lodash.orderBy(withStats, orderBy[0], orderBy[1]))
   }
 
   evalMacros(code, codeAtStart, absolutePath) {
@@ -588,6 +299,8 @@ parsers/errors.parsers`
   }
 
   getFilesByTags(tags, limit) {
+    // todo: tags is currently matching partial substrings
+    const getFilesWithTag = (tag, files) => files.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.tags.includes(tag))
     if (typeof tags === "string") tags = tags.split(" ")
     if (!tags || !tags.length)
       return this.allHtmlFiles
@@ -619,9 +332,6 @@ parsers/errors.parsers`
     })
 
     return lodash.sortBy(arr, file => file.file.timestamp).reverse()
-  }
-  async build() {
-    return this.scrollProgram.build()
   }
 }
 
@@ -808,9 +518,11 @@ footer.scroll`
     const externalFilesCopied = {}
     for (const file of toBuild) {
       file.logger = this
-      await file.buildOne()
+      await file.scrollProgram.buildOne()
     }
-    toBuild.forEach(file => file.buildTwo(externalFilesCopied))
+    for (const file of toBuild) {
+      await file.scrollProgram.buildTwo(externalFilesCopied)
+    }
     const seconds = (Date.now() - start) / 1000
     this.log(``)
     const outputExtensions = Object.keys(fileSystem.productCache).map(filename => filename.split(".").pop())

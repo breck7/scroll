@@ -57,6 +57,7 @@ https://scroll.pub/dark.html
 https://scroll.pub/customMarkups.html
 https://scroll.pub/css.html
 https://scroll.pub/contacts.html
+https://scroll.pub/concepts.html
 https://scroll.pub/comments.html
 https://scroll.pub/cloc.html
 https://scroll.pub/center.html

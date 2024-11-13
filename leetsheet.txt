@@ -56,6 +56,7 @@ code - A code block.
 codeFromFile - A code block.
 codeWithHeader - A code block.
 comment - Prints nothing.
+concepts - Load concepts as table.
 container - A centered HTML div.
 copyButtons - Copy code widget.
 counter - Visualize the speed of something.
@@ -178,4 +179,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v149.0.0
+Built with Scroll v150.0.0

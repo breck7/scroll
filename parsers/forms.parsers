@@ -36,8 +36,7 @@ classicFormParser
   </style>
  javascript
   get inputs() {
-    const {measures} = this.parent.file
-    return measures.filter(measure => !measure.IsComputed).map((measure, index) => {
+    return this.root.measures.filter(measure => !measure.IsComputed).map((measure, index) => {
       const {Name, Question, IsRequired, Type} = measure
       const type = Type || "text"
       const placeholder = Question
@@ -101,7 +100,7 @@ scrollFormParser
   }
   get inputs() {
     const Name = "particles"
-    return `<textarea title="oneTextarea" rows="${Math.min(this.parent.file.measures.length * 2, 30)}" placeholder="${this.placeholder}" id="${Name}" name="${Name}"></textarea>
+    return `<textarea title="oneTextarea" rows="${Math.min(this.root.measures.length * 2, 30)}" placeholder="${this.placeholder}" id="${Name}" name="${Name}"></textarea>
     <script id="${Name}Parsers" type="text/plain">${this.parent.file.parsersBundle}</script>
     <script>{
     let {width, height} = document.getElementById('${Name}').getBoundingClientRect();
