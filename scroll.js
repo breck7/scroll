@@ -22,14 +22,6 @@ const PARSERS_FILE_EXTENSION = ".parsers"
 const EXTERNALS_PATH = path.join(__dirname, "external")
 const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
 
-// todo: all of these should be in parsers
-const scrollKeywords = {
-  replace: "replace",
-  replaceJs: "replaceJs",
-  replaceNodejs: "replaceNodejs",
-  footer: "footer"
-}
-
 class FileInterface {
   EXTERNALS_PATH
   SCROLL_VERSION
@@ -103,13 +95,11 @@ class ScrollFile {
     }
     this.codeAfterImportPass = codeAfterImportPass
 
-    // PASS 3: READ AND REPLACE MACROS. PARSE AND REMOVE MACROS DEFINITIONS THEN REPLACE REFERENCES.
-    const codeAfterMacroPass = this.evalMacros(codeAfterImportPass, codeAtStart, this.filePath)
+    const results = new DefaultScrollParser().parseAndCompile(codeAfterImportPass, codeAtStart, absoluteFilePath, parser)
 
-    // PASS 4: READ WITH STD COMPILER OR CUSTOM COMPILER.
-    this.codeAfterMacroPass = codeAfterMacroPass
-    this.parser = parser
-    this.scrollProgram = new parser(codeAfterMacroPass)
+    this.codeAfterMacroPass = results.codeAfterMacroPass
+    this.parser = results.parser
+    this.scrollProgram = results.scrollProgram
 
     this.timestamp = dayjs(this.scrollProgram.get("date") ?? this.fileSystem.getCTime(this.filePath) ?? 0).unix()
     this.scrollProgram.setFile(this)
@@ -136,11 +126,6 @@ class ScrollFile {
 
   log(message) {
     if (this.logger) this.logger.log(message)
-  }
-
-  async buildAll() {
-    // todo: remove
-    await scrollProgram.buildAll()
   }
 
   getFileFromId(id) {
@@ -178,59 +163,6 @@ parsers/errors.parsers`
 
   get formatted() {
     return this.scrollProgram.getFormatted(this.codeAtStart)
-  }
-
-  evalMacros(code, codeAtStart, absolutePath) {
-    // note: the 2 params above are not used in this method, but may be used in user eval code. (todo: cleanup)
-    const regex = /^(replace|footer$)/gm
-    if (!regex.test(code)) return code
-    const particle = new Particle(code) // todo: this can be faster. a more lightweight particle class?
-    // Process macros
-    const macroMap = {}
-    particle
-      .filter(particle => {
-        const parserAtom = particle.cue
-        return parserAtom === scrollKeywords.replace || parserAtom === scrollKeywords.replaceJs || parserAtom === scrollKeywords.replaceNodejs
-      })
-      .forEach(particle => {
-        let value = particle.length ? particle.subparticlesToString() : particle.getAtomsFrom(2).join(" ")
-        const kind = particle.cue
-        if (kind === scrollKeywords.replaceJs) value = eval(value)
-        if (kind === scrollKeywords.replaceNodejs) {
-          const tempPath = this.filePath + ".js"
-          if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)
-          try {
-            Disk.write(tempPath, value)
-            const results = require(tempPath)
-            Object.keys(results).forEach(key => (macroMap[key] = results[key]))
-          } catch (err) {
-            console.error(`Error in evalMacros in file '${this.filePath}'`)
-            console.error(err)
-          } finally {
-            Disk.rm(tempPath)
-          }
-        } else macroMap[particle.getAtom(1)] = value
-        particle.destroy() // Destroy definitions after eval
-      })
-
-    if (particle.has(scrollKeywords.footer)) {
-      const pushes = particle.getParticles(scrollKeywords.footer)
-      const append = pushes.map(push => push.section.join("\n")).join("\n")
-      pushes.forEach(push => {
-        push.section.forEach(particle => particle.destroy())
-        push.destroy()
-      })
-      code = particle.asString + append
-    }
-
-    const keys = Object.keys(macroMap)
-    if (!keys.length) return code
-
-    let codeAfterMacroSubstitution = particle.asString
-    // Todo: speed up. build a template?
-    Object.keys(macroMap).forEach(key => (codeAfterMacroSubstitution = codeAfterMacroSubstitution.replace(new RegExp(key, "g"), macroMap[key])))
-
-    return codeAfterMacroSubstitution
   }
 
   get mtimeMs() {

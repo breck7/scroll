@@ -88,6 +88,14 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 151.0.0 11/13/2024
+
+## 🚨 MAJOR RELEASE
+- try.scroll.pub now supports writing parsers!
+
+🎉 moved code from desktop to parsers
+🏥 fixed regression where parsers were printing
+
 📦 150.0.0 11/13/2024
 🎉 added `concepts` parser for loading concepts in a file into a table
 ⚠️ BREAKING: (no one should be affected) nearly all Scroll code is now available to Scroll in the browser. Some internal APIs may have changed if using Scroll programmatically.
