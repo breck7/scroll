@@ -241,7 +241,7 @@ scrollParser
  extensions scroll
  description Scroll is a language for scientists of all ages. Refine, share and collaborate on ideas.
  root
- inScope abstractScrollParser blankLineParser
+ inScope abstractScrollParser blankLineParser atomTypeDefinitionParser parserDefinitionParser
  catchAllParser errorParser
  compilesTo html
  javascript
@@ -898,6 +898,42 @@ biographyParser
   })
   codeMirrorInstance.setSize(width, height);
   codeMirrorInstance.setValue(`name Bob
-emailAddress bob@example.com`); }</script><button value="Post Scroll form test" title="insert.htm?line=2" class="scrollButton" type="submit">Post Scroll form test</button></form></div>
+emailAddress bob@example.com`); }</script><button value="Post Scroll form test" title="insert.htm?line=2" class="scrollButton" type="submit">Post Scroll form test</button></form>
+nameParser
+ extends abstractIdParser
+ description What is your name?
+ example
+  name Jane Doe
+
+  
+ 
+
+emailAddressParser
+ extends abstractEmailMeasureParser
+ description What is your email address?
+ example
+  name jane@doe.com
+
+  
+ 
+
+homepageParser
+ extends abstractUrlMeasureParser
+ description What is your homepage?
+ example
+  homepage http://jane.com
+
+  
+ 
+
+biographyParser
+ extends abstractTextareaMeasureParser
+ description What is your bio?
+ example
+  biography My name is Jane.
+
+  
+ 
+</div>
 </body>
 </html>

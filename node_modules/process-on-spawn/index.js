@@ -8,7 +8,6 @@ const state = getState(1);
 function getState(version) {
 	const stateId = Symbol.for('process-on-spawn@*:singletonId');
 
-	/* istanbul ignore next: cannot cover this once nyc depends on this module */
 	if (stateId in global === false) {
 		/* Hopefully version and unwrap forward compatibility is never actually needed */
 		Object.defineProperty(global, stateId, {
@@ -87,8 +86,11 @@ function wrapSpawnFunctions() {
 	ChildProcess.prototype.spawn = wrappedSpawnFunction(ChildProcess.prototype.spawn);
 
 	/* istanbul ignore next: forward compatibility code */
+	/* c8 ignore next */
 	return () => {
+		/* c8 ignore next */
 		spawnSyncBinding.spawn = originalSync;
+		/* c8 ignore next */
 		ChildProcess.prototype.spawn = originalAsync;
 	};
 }

@@ -88,6 +88,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 149.0.0 11/13/2024
+🎉 `parsers.parsers` now ships with Scroll! Syntax highlighting, autocomplete, and other tools for writing parsers in try.scroll.pub.
+ - Note: compiling these Parsers still requires desktop Scroll. Not everything runs in browser...yet
+⚠️ BREAKING: (no one should be affected) any custom parsers in your Scroll files will now be fully parsed. So previously undetected errors will now be caught. There may also be some namespace conflicts as we cleanup the Parser code.
+
 📦 148.3.1 11/12/2024
 🏥 fix author bug in postsMeta
 
