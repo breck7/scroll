@@ -88,6 +88,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 153.0.0 11/14/2024
+🎉 refactored build system so try.scroll.pub can access all build outputs, not just HTML
+⚠️ BREAKING: (no one should be affected) low level internal build APIs have changed
+
 📦 152.0.0 11/13/2024
 🎉 upgraded ScrollSDK
 🏥 fixed problems from namespace collisions

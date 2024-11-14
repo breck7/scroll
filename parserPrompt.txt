@@ -547,10 +547,42 @@ stamp
     compile() {
      return ""
     }
+    get extension() {
+      return this.cue.replace("build", "")
+    }
     buildOutput() {
-      // todo: move build steps into root.parsers
-      const extension = this.cue.replace("build", "")
-      return this.root.compileTo(extension)
+      return this.root.compileTo(this.extension)
+    }
+    _buildFileType(extension) {
+      const {root} = this
+      const { fileSystem, folderPath, filename, filePath, path, lodash, permalink } = root
+      const capitalized = lodash.capitalize(extension)
+      const buildKeyword = "build" + capitalized
+      const outputFiles = this.content?.split(" ") || [""]
+      outputFiles.forEach(name => {
+        const link = name || permalink.replace(".html", "." + extension.toLowerCase())
+        try {
+          fileSystem.writeProduct(path.join(folderPath, link), root.compileTo(capitalized))
+          root.log(`💾 Built ${link} from ${filename}`)
+        } catch (err) {
+          console.error(`Error while building '${filePath}' with extension '${extension}'`)
+          throw err
+        }
+      })
+    }
+  
+  abstractBuildOneCommandParser
+   // buildOne and buildTwo are just a dumb/temporary way to have CSVs/JSONs/TSVs build first. Will be merged at some point.
+   extends abstractBuildCommandParser
+   javascript
+    buildOne() {
+    this._buildFileType(this.extension)}
+  
+  abstractBuildTwoCommandParser
+   extends abstractBuildCommandParser
+   javascript
+    buildTwo() {
+      this._buildFileType(this.extension)
     }
  buttons.parsers
   scrollButtonParser
@@ -908,6 +940,18 @@ stamp
    sortByParser
     cueFromId
     atoms cueAtom anyAtom
+   javascript
+    buildOne() {
+      const {root} = this
+      const { fileSystem, folderPath, filename, path, permalink } = root
+      const files = this.getAtomsFrom(1)
+      if (!files.length) files.push(permalink.replace(".html", ".csv"))
+      const sortBy = this.get("sortBy")
+      files.forEach(link => {
+        fileSystem.writeProduct(path.join(folderPath, link), root.compileConcepts(link, sortBy))
+        root.log(`💾 Built concepts in ${filename} to ${link}`)
+      })
+    }
  container.parsers
   scrollContainerParser
    popularity 0.000096
@@ -962,7 +1006,7 @@ stamp
   buildCssParser
    popularity 0.000048
    description Compile to CSS file.
-   extends abstractBuildCommandParser
+   extends abstractBuildTwoCommandParser
   
   cssAnyAtom
    extends codeAtom
@@ -1147,12 +1191,12 @@ stamp
   buildCsvParser
    popularity 0.000096
    description Compile to CSV file.
-   extends abstractBuildCommandParser
+   extends abstractBuildOneCommandParser
   
   buildTsvParser
    popularity 0.000096
    description Compile to TSV file.
-   extends abstractBuildCommandParser
+   extends abstractBuildOneCommandParser
   
  dependencies.parsers
   scrollDependenciesParser
@@ -2084,8 +2128,36 @@ stamp
   buildHtmlParser
    popularity 0.007645
    description Compile to HTML file.
-   extends abstractBuildCommandParser
+   extends abstractBuildTwoCommandParser
    boolean isPopular true
+   javascript
+    buildTwo(externalFilesCopied) {
+      this._copyExternalFiles(externalFilesCopied)
+      super.buildTwo()
+    }
+    _copyExternalFiles(externalFilesCopied = {}) {
+      if (!this.isNodeJs()) return
+      const {root} = this
+      // If this file uses a parser that has external requirements,
+      // copy those from external folder into the destination folder.
+      const { parsersRequiringExternals, folderPath, fileSystem, filename, parserIdIndex, path, Disk, externalsPath } = root
+      if (!externalFilesCopied[folderPath]) externalFilesCopied[folderPath] = {}
+      parsersRequiringExternals.forEach(parserId => {
+        if (externalFilesCopied[folderPath][parserId]) return
+        if (!parserIdIndex[parserId]) return
+        parserIdIndex[parserId].map(particle => {
+          const externalFiles = particle.copyFromExternal.split(" ")
+          externalFiles.forEach(name => {
+            const newPath = path.join(folderPath, name)
+            fileSystem.writeProduct(newPath, Disk.read(path.join(externalsPath, name)))
+            root.log(`💾 Copied external file needed by ${filename} to ${name}`)
+          })
+        })
+        if (parserId !== "scrollThemeParser")
+          // todo: generalize when not to cache
+          externalFilesCopied[folderPath][parserId] = true
+      })
+    }
   
   quickIncludeHtmlParser
    popularity 0.007524
@@ -2474,7 +2546,7 @@ stamp
   
   buildJsParser
    description Compile to JS file.
-   extends abstractBuildCommandParser
+   extends abstractBuildTwoCommandParser
   
   scriptAnyAtom
    extends codeAtom
@@ -2501,7 +2573,7 @@ stamp
   buildJsonParser
    popularity 0.000096
    description Compile to JSON file.
-   extends abstractBuildCommandParser
+   extends abstractBuildOneCommandParser
   
   jsonScriptParser
    popularity 0.007524
@@ -3046,6 +3118,18 @@ stamp
    sortByParser
     cueFromId
     atoms cueAtom anyAtom
+   javascript
+    buildOne() {
+      const {root} = this
+      const { fileSystem, folderPath, filename, path, permalink } = root
+      const files = this.getAtomsFrom(1)
+      if (!files.length) files.push(permalink.replace(".html", ".csv"))
+      const sortBy = this.get("sortBy")
+      files.forEach(link => {
+        fileSystem.writeProduct(path.join(folderPath, link), root.compileMeasures(link, sortBy))
+        root.log(`💾 Built measures in ${filename} to ${link}`)
+      })
+    }
   
   // The main measure parser. All measures should extend from this.
   abstractMeasureParser
@@ -3915,7 +3999,22 @@ stamp
    popularity 0.000096
    description Compile to PDF file.
    extends abstractBuildCommandParser
-  
+   javascript
+    async buildTwo() {
+      if (!this.isNodeJs()) return "Only works in Node currently."
+      const {root} = this
+      const { filename } = root
+      const outputFile = root.filenameNoExtension + ".pdf"
+      // relevant source code for chrome: https://github.com/chromium/chromium/blob/a56ef4a02086c6c09770446733700312c86f7623/components/headless/command_handler/headless_command_switches.cc#L22
+      const command = `/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --headless --disable-gpu --no-pdf-header-footer --default-background-color=00000000 --no-pdf-background --print-to-pdf="${outputFile}" "${this.permalink}"`
+      // console.log(`Node.js is running on architecture: ${process.arch}`)
+      try {
+        const output = require("child_process").execSync(command, { stdio: "ignore" })
+        root.log(`💾 Built ${outputFile} from ${filename}`)
+      } catch (error) {
+        console.error(error)
+      }
+    }
  permalinks.parsers
   baseUrlParser
    popularity 0.009188
@@ -4542,105 +4641,16 @@ stamp
       return parser.parsersRequiringExternals
     }
     get Disk() { return this.isNodeJs() ? require("scrollsdk/products/Disk.node.js").Disk : {}}
-    _copyExternalFiles(externalFilesCopied = {}) {
-      if (!this.isNodeJs()) return
-      // If this file uses a parser that has external requirements,
-      // copy those from external folder into the destination folder.
-      const { parsersRequiringExternals, folderPath, fileSystem, filename, parserIdIndex, path } = this
-      const { Disk } = this
-      if (!externalFilesCopied[folderPath]) externalFilesCopied[folderPath] = {}
-      parsersRequiringExternals.forEach(parserId => {
-        if (externalFilesCopied[folderPath][parserId]) return
-        if (!parserIdIndex[parserId]) return
-        parserIdIndex[parserId].map(particle => {
-          const externalFiles = particle.copyFromExternal.split(" ")
-          externalFiles.forEach(name => {
-            const newPath = path.join(folderPath, name)
-            fileSystem.writeProduct(newPath, Disk.read(path.join(this.externalsPath, name)))
-            this.log(`💾 Copied external file needed by ${filename} to ${name}`)
-          })
-        })
-        if (parserId !== "scrollThemeParser")
-          // todo: generalize when not to cache
-          externalFilesCopied[folderPath][parserId] = true
-      })
-    }
-    _buildFileType(extension) {
-      const { fileSystem, folderPath, filename, filePath, path } = this
-      const capitalized = this.lodash.capitalize(extension)
-      const buildKeyword = "build" + capitalized
-      if (!this.has(buildKeyword)) return
-      const { permalink } = this
-      const outputFiles = this.get(buildKeyword)?.split(" ") || [""]
-      outputFiles.forEach(name => {
-        const link = name || permalink.replace(".html", "." + extension)
-        try {
-          fileSystem.writeProduct(path.join(folderPath, link), this.compileTo(capitalized))
-          this.log(`💾 Built ${link} from ${filename}`)
-        } catch (err) {
-          console.error(`Error while building '${filePath}' with extension '${extension}'`)
-          throw err
-        }
-      })
-    }
-    async buildPdf() {
-      if (!this.isNodeJs()) return "Only works in Node currently."
-      const { filename } = this
-      const outputFile = this.filenameNoExtension + ".pdf"
-      // relevant source code for chrome: https://github.com/chromium/chromium/blob/a56ef4a02086c6c09770446733700312c86f7623/components/headless/command_handler/headless_command_switches.cc#L22
-      const command = `/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --headless --disable-gpu --no-pdf-header-footer --default-background-color=00000000 --no-pdf-background --print-to-pdf="${outputFile}" "${this.permalink}"`
-      // console.log(`Node.js is running on architecture: ${process.arch}`)
-      try {
-        const output = require("child_process").execSync(command, { stdio: "ignore" })
-        this.log(`💾 Built ${outputFile} from ${filename}`)
-      } catch (error) {
-        console.error(error)
-      }
+    async buildAll() {
+      await this.buildOne()
+      this.buildTwo()
     }
     async buildOne() {
-      // todo: cleanup
-      // todo: iterate over buildFile particles directly. not this hard coded order.
       await this.build()
-      this._buildFileType("parsers")
-      this._buildConceptsAndMeasures() // todo: call this buildDelimited?
-      this._buildFileType("csv")
-      this._buildFileType("tsv")
-      this._buildFileType("json")
+      this.filter(particle => particle.buildOne).forEach(particle => particle.buildOne())
     }
     async buildTwo(externalFilesCopied = {}) {
-      // todo: iterate over buildFile particles directly. not this hard coded order.
-      if (this.has("buildHtml")) this._copyExternalFiles(externalFilesCopied)
-      this._buildFileType("js")
-      this._buildFileType("txt")
-      this._buildFileType("html")
-      this._buildFileType("rss")
-      this._buildFileType("css")
-      if (this.has("buildPdf")) this.buildPdf()
-    }
-    _buildConceptsAndMeasures() {
-      const { fileSystem, folderPath, filename, path } = this
-      // If this proves useful maybe make slight adjustments to Scroll lang to be more imperative.
-      if (!this.has("buildConcepts")) return
-      const { permalink } = this
-      this.findParticles("buildConcepts").forEach(particle => {
-        const files = particle.getAtomsFrom(1)
-        if (!files.length) files.push(permalink.replace(".html", ".csv"))
-        const sortBy = particle.get("sortBy")
-        files.forEach(link => {
-          fileSystem.writeProduct(path.join(folderPath, link), this.compileConcepts(link, sortBy))
-          this.log(`💾 Built concepts in ${filename} to ${link}`)
-        })
-      })
-      if (!this.has("buildMeasures")) return
-      this.findParticles("buildMeasures").forEach(particle => {
-        const files = particle.getAtomsFrom(1)
-        if (!files.length) files.push(permalink.replace(".html", ".csv"))
-        const sortBy = particle.get("sortBy")
-        files.forEach(link => {
-          fileSystem.writeProduct(path.join(folderPath, link), this.compileMeasures(link, sortBy))
-          this.log(`💾 Built measures in ${filename} to ${link}`)
-        })
-      })
+      this.filter(particle => particle.buildTwo).forEach(particle => particle.buildTwo(externalFilesCopied))
     }
     _compileArray(filename, arr) {
       const removeBlanks = data => data.map(obj => Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== "")))
@@ -4803,10 +4813,6 @@ stamp
       const orderBy = this.makeLodashOrderByParams(sortBy)
       return this._compileArray(filename, this.lodash.orderBy(withStats, orderBy[0], orderBy[1]))
     }
-    async buildAll() {
-      await this.buildOne()
-      this.buildTwo()
-    }
     evalNodeJsMacros(value, macroMap, filePath) {
       const tempPath = filePath + ".js"
       const {Disk} = this
@@ -4895,7 +4901,7 @@ stamp
   buildRssParser
    popularity 0.000048
    description Write RSS file.
-   extends abstractBuildCommandParser
+   extends abstractBuildTwoCommandParser
   
   rssFeedUrlParser
    popularity 0.008850
@@ -5956,7 +5962,7 @@ stamp
   buildTxtParser
    popularity 0.007596
    description Compile to TXT file.
-   extends abstractBuildCommandParser
+   extends abstractBuildTwoCommandParser
    boolean isPopular true
   
   plainTextParser

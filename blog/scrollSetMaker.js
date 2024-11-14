@@ -37,7 +37,7 @@ function capitalizeFirstLetter(string) {
 
 function getParserType(header) {
   const lowerHeader = header.toLowerCase()
-  if (lowerHeader === "id") return "IdParser"
+  if (lowerHeader === "id") return "Id"
   if (lowerHeader.includes("link") || lowerHeader === "twitter") return "UrlMeasure"
   else if (lowerHeader === "year" || lowerHeader === "day" || lowerHeader === "days") return "IntegerMeasure"
   else return "StringMeasure"
