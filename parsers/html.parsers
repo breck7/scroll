@@ -1,8 +1,36 @@
 buildHtmlParser
  popularity 0.007645
  description Compile to HTML file.
- extends abstractBuildCommandParser
+ extends abstractBuildTwoCommandParser
  boolean isPopular true
+ javascript
+  buildTwo(externalFilesCopied) {
+    this._copyExternalFiles(externalFilesCopied)
+    super.buildTwo()
+  }
+  _copyExternalFiles(externalFilesCopied = {}) {
+    if (!this.isNodeJs()) return
+    const {root} = this
+    // If this file uses a parser that has external requirements,
+    // copy those from external folder into the destination folder.
+    const { parsersRequiringExternals, folderPath, fileSystem, filename, parserIdIndex, path, Disk, externalsPath } = root
+    if (!externalFilesCopied[folderPath]) externalFilesCopied[folderPath] = {}
+    parsersRequiringExternals.forEach(parserId => {
+      if (externalFilesCopied[folderPath][parserId]) return
+      if (!parserIdIndex[parserId]) return
+      parserIdIndex[parserId].map(particle => {
+        const externalFiles = particle.copyFromExternal.split(" ")
+        externalFiles.forEach(name => {
+          const newPath = path.join(folderPath, name)
+          fileSystem.writeProduct(newPath, Disk.read(path.join(externalsPath, name)))
+          root.log(`💾 Copied external file needed by ${filename} to ${name}`)
+        })
+      })
+      if (parserId !== "scrollThemeParser")
+        // todo: generalize when not to cache
+        externalFilesCopied[folderPath][parserId] = true
+    })
+  }
 
 quickIncludeHtmlParser
  popularity 0.007524

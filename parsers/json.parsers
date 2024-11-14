@@ -1,7 +1,7 @@
 buildJsonParser
  popularity 0.000096
  description Compile to JSON file.
- extends abstractBuildCommandParser
+ extends abstractBuildOneCommandParser
 
 jsonScriptParser
  popularity 0.007524

@@ -1,7 +1,7 @@
 buildRssParser
  popularity 0.000048
  description Write RSS file.
- extends abstractBuildCommandParser
+ extends abstractBuildTwoCommandParser
 
 rssFeedUrlParser
  popularity 0.008850

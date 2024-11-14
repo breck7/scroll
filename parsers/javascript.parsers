@@ -28,7 +28,7 @@ inlineJsParser
 
 buildJsParser
  description Compile to JS file.
- extends abstractBuildCommandParser
+ extends abstractBuildTwoCommandParser
 
 scriptAnyAtom
  extends codeAtom

@@ -1,7 +1,7 @@
 buildCssParser
  popularity 0.000048
  description Compile to CSS file.
- extends abstractBuildCommandParser
+ extends abstractBuildTwoCommandParser
 
 cssAnyAtom
  extends codeAtom

@@ -1,7 +1,7 @@
 buildTxtParser
  popularity 0.007596
  description Compile to TXT file.
- extends abstractBuildCommandParser
+ extends abstractBuildTwoCommandParser
  boolean isPopular true
 
 plainTextParser
