@@ -386,46 +386,9 @@ stamp
     getErrors() { return super.getErrors()}
   
  atomTypes.parsers
-  // Basic atom types
-  blankAtom
-  anyAtom
-  
-  // Enum atom types
-  enumAtom
-   paint constant.language
-  booleanAtom
-   enum true false
-   extends enumAtom
-  
-  // String atom types
-  stringAtom
-   paint string
-  
-  atomAtom
-   paint string
-   description A non-empty single atom string.
-   regex .+
-  
   columnNameAtom
    extends stringAtom
   
-  semanticVersionAtom
-   paint string
-   description A 3 part sem version string like 1.2.1
-  
-  // Date atom types
-  dateAtom
-   paint string
-  
-  // Numeric atom types
-  numberAtom
-   paint constant.numeric
-  integerAtom
-   extends numberAtom
-   paint constant.numeric.integer
-  floatAtom
-   extends numberAtom
-   paint constant.numeric.float
   percentAtom
    paint constant.numeric.float
    extends stringAtom
@@ -435,25 +398,14 @@ stamp
   yearAtom
    extends integerAtom
   
-  // Scroll atom types
-  cueAtom
-   description A atom that indicates a certain parser to use.
-   paint keyword
-  
   preBuildCommandAtom
    extends cueAtom
    description Give build command atoms their own color.
    paint constant.character.escape
   
-  commentAtom
-   paint comment
-  
   delimiterAtom
    description String to use as a delimiter.
    paint string
-  
-  codeAtom
-   paint comment
   
   bulletPointAtom
    description Any token used as a bullet point such as "-" or "1." or ">"
@@ -3429,9 +3381,12 @@ stamp
    enum blobParser errorParser
    paint variable.parameter
   
-  boolAtom
+  enumAtom
+   paint constant.language
+  
+  booleanAtom
    enum true false
-   paint constant.numeric
+   extends enumAtom
   
   atomParserAtom
    enum prefix postfix omnifix
@@ -3441,7 +3396,7 @@ stamp
    paint variable.parameter
   
   atomTypeIdAtom
-   examples intAtom keywordAtom someCustomAtom
+   examples integerAtom keywordAtom someCustomAtom
    extends javascriptSafeAlphaNumericIdentifierAtom
    enumFromAtomTypes atomTypeIdAtom
    paint storage
@@ -3471,17 +3426,22 @@ stamp
    regex [a-zA-Z0-9]+
    paint string
   
-  numericAtom
-   description A float or an int.
+  numberAtom
    paint constant.numeric
   
   floatAtom
+   extends numberAtom
    regex \-?[0-9]*\.?[0-9]*
-   paint constant.numeric
+   paint constant.numeric.float
   
-  intAtom
+  integerAtom
    regex \-?[0-9]+
-   paint constant.numeric
+   extends numberAtom
+   paint constant.numeric.integer
+  
+  cueAtom
+   description A atom that indicates a certain parser to use.
+   paint keyword
   
   javascriptCodeAtom
   
@@ -3495,7 +3455,7 @@ stamp
    extends javascriptSafeAlphaNumericIdentifierAtom
    enumFromAtomTypes parserIdAtom
   
-  propertyKeywordAtom
+  cueAtom
    paint constant.language
   
   regexAtom
@@ -3516,13 +3476,17 @@ stamp
    regex [0-9]+\.[0-9]+\.[0-9]+
    paint constant.numeric
   
+  // Date atom types
+  dateAtom
+   paint string
+  
   stringAtom
    paint string
-   examples lorem ipsum
   
-  tagAtom
+  atomAtom
    paint string
-  
+   description A non-empty single atom string.
+   regex .+
   
   exampleAnyAtom
    examples lorem ipsem
@@ -3535,12 +3499,15 @@ stamp
   commentAtom
    paint comment
   
+  codeAtom
+   paint comment
+  
   // Line Parsers
   
   
   abstractCompilerRuleParser
    catchAllAtomType anyAtom
-   atoms propertyKeywordAtom
+   atoms cueAtom
   
   closeSubparticlesParser
    extends abstractCompilerRuleParser
@@ -3574,31 +3541,35 @@ stamp
   
   abstractConstantParser
    description A constant.
-   atoms propertyKeywordAtom
+   atoms cueAtom
    cueFromId
    // todo: make tags inherit
    tags actPhase
   
-  booleanParser
-   atoms propertyKeywordAtom constantIdentifierAtom
-   catchAllAtomType boolAtom
+  parsersBooleanParser
+   cue boolean
+   atoms cueAtom constantIdentifierAtom
+   catchAllAtomType booleanAtom
    extends abstractConstantParser
    tags actPhase
   
-  floatParser
-   atoms propertyKeywordAtom constantIdentifierAtom
+  parsersFloatParser
+   cue float
+   atoms cueAtom constantIdentifierAtom
    catchAllAtomType floatAtom
    extends abstractConstantParser
    tags actPhase
   
-  intParser
-   atoms propertyKeywordAtom constantIdentifierAtom
-   catchAllAtomType intAtom
+  parsersIntParser
+   cue int
+   atoms cueAtom constantIdentifierAtom
+   catchAllAtomType integerAtom
    tags actPhase
    extends abstractConstantParser
   
-  stringParser
-   atoms propertyKeywordAtom constantIdentifierAtom
+  parsersStringParser
+   cue string
+   atoms cueAtom constantIdentifierAtom
    catchAllAtomType stringAtom
    catchAllParser catchAllMultilineStringConstantParser
    extends abstractConstantParser
@@ -3606,38 +3577,38 @@ stamp
   
   abstractParserRuleParser
    single
-   atoms propertyKeywordAtom
+   atoms cueAtom
   
-  compilesToParser
-   atoms propertyKeywordAtom fileExtensionAtom
+  parsersCompilesToParser
+   cue compilesTo
+   atoms cueAtom fileExtensionAtom
    extends abstractParserRuleParser
    description File extension for simple compilers.
    // todo: deprecate?
    // Optionally specify a file extension that will be used when compiling your language to a file. Generally used on parsers marked root.
-   cueFromId
    tags experimental
   
-  extensionsParser
+  parsersExtensionsParser
    extends abstractParserRuleParser
    catchAllAtomType fileExtensionAtom
    description File extension for your dialect.
    // File extensions of your language. Generally used for parsers marked "root". Sometimes your language might have multiple extensions. If you don't add this, the root particle's parserId will be used as the default file extension.
-   cueFromId
+   cue extensions
    tags deprecate
   
   abstractNonTerminalParserRuleParser
    extends abstractParserRuleParser
   
-  baseParserParser
-   atoms propertyKeywordAtom baseParsersAtom
+  parsersBaseParserParser
+   atoms cueAtom baseParsersAtom
    description Set for blobs or errors. 
    // In rare cases with untyped content you can use a blobParser, for now, to skip parsing for performance gains. The base errorParser will report errors when parsed. Use that if you don't want to implement your own error parser.
    extends abstractParserRuleParser
-   cueFromId
+   cue baseParser
    tags analyzePhase
   
   catchAllAtomTypeParser
-   atoms propertyKeywordAtom atomTypeIdAtom
+   atoms cueAtom atomTypeIdAtom
    description Use for lists.
    // Aka 'listAtomType'. Use this when the value in a key/value pair is a list. If there are extra atoms in the particle's line, parse these atoms as this type. Often used with `listDelimiterParser`.
    extends abstractParserRuleParser
@@ -3645,7 +3616,7 @@ stamp
    tags analyzePhase
   
   atomParserParser
-   atoms propertyKeywordAtom atomParserAtom
+   atoms cueAtom atomParserAtom
    description Set parsing strategy.
    // prefix/postfix/omnifix parsing strategy. If missing, defaults to prefix.
    extends abstractParserRuleParser
@@ -3655,24 +3626,24 @@ stamp
   catchAllParserParser
    description Attach this to unmatched lines.
    // If a parser is not found in the inScope list, instantiate this type of particle instead.
-   atoms propertyKeywordAtom parserIdAtom
+   atoms cueAtom parserIdAtom
    extends abstractParserRuleParser
    cueFromId
    tags acquirePhase
   
-  atomsParser
+  parsersAtomsParser
    catchAllAtomType atomTypeIdAtom
    description Set required atomTypes.
    extends abstractParserRuleParser
-   cueFromId
+   cue atoms
    tags analyzePhase
   
-  compilerParser
+  parsersCompilerParser
    // todo Remove this and its subparticles?
    description For simple compilers.
    inScope stringTemplateParser catchAllAtomDelimiterParser openSubparticlesParser closeSubparticlesParser indentCharacterParser joinSubparticlesWithParser
    extends abstractParserRuleParser
-   cueFromId
+   cue compiler
    tags experimental
   
   parserDescriptionParser
@@ -3687,14 +3658,16 @@ stamp
    catchAllAtomType stringAtom
    cue description
    tags assemblePhase
+   javascript
+    compile() { return ""}
   
-  exampleParser
+  parsersExampleParser
    // todo Should this just be a "string" constant on particles?
    description Set example for docs and tests.
    catchAllAtomType exampleAnyAtom
    catchAllParser catchAllExampleLineParser
    extends abstractParserRuleParser
-   cueFromId
+   cue example
    tags assemblePhase
   
   extendsParserParser
@@ -3702,15 +3675,15 @@ stamp
    tags assemblePhase
    description Extend another parser.
    // todo: add a catchall that is used for mixins
-   atoms propertyKeywordAtom parserIdAtom
+   atoms cueAtom parserIdAtom
    extends abstractParserRuleParser
   
-  popularityParser
+  parsersPopularityParser
    // todo Remove this parser. Switch to conditional frequencies.
    description Parser popularity.
-   atoms propertyKeywordAtom floatAtom
+   atoms cueAtom floatAtom
    extends abstractParserRuleParser
-   cueFromId
+   cue popularity
    tags assemblePhase
   
   inScopeParser
@@ -3720,7 +3693,7 @@ stamp
    cueFromId
    tags acquirePhase
   
-  javascriptParser
+  parsersJavascriptParser
    // todo Urgently need to get submode syntax highlighting running! (And eventually LSP)
    description Javascript code for Parser Actions.
    catchAllParser catchAllJavascriptCodeLineParser
@@ -3741,48 +3714,51 @@ stamp
      }
      return this
     }
-   cueFromId
+   cue javascript
   
   abstractParseRuleParser
    // Each particle should have a pattern that it matches on unless it's a catch all particle.
    extends abstractParserRuleParser
    cueFromId
   
-  cueParser
-   atoms propertyKeywordAtom stringAtom
+  parsersCueParser
+   atoms cueAtom stringAtom
    description Attach by matching first atom.
    extends abstractParseRuleParser
    tags acquirePhase
+   cue cue
   
   cueFromIdParser
-   atoms propertyKeywordAtom
+   atoms cueAtom
    description Derive cue from parserId.
    // for example 'fooParser' would have cue of 'foo'.
    extends abstractParseRuleParser
    tags acquirePhase
   
-  patternParser
+  parsersPatternParser
    catchAllAtomType regexAtom
    description Attach via regex.
    extends abstractParseRuleParser
    tags acquirePhase
+   cue pattern
   
-  requiredParser
+  parsersRequiredParser
    description Assert is present at least once.
    extends abstractParserRuleParser
-   cueFromId
+   cue required
    tags analyzePhase
   
   abstractValidationRuleParser
    extends abstractParserRuleParser
    cueFromId
-   catchAllAtomType boolAtom
+   catchAllAtomType booleanAtom
   
-  singleParser
+  parsersSingleParser
    description Assert used once.
    // Can be overridden by a child class by setting to false.
    extends abstractValidationRuleParser
    tags analyzePhase
+   cue single
   
   uniqueLineParser
    description Assert unique lines. For pattern parsers.
@@ -3820,11 +3796,11 @@ stamp
    catchAllAtomType stringAtom
    tags deprecate
   
-  tagsParser
-   catchAllAtomType tagAtom
+  parsersTagsParser
+   catchAllAtomType stringAtom
    extends abstractParserRuleParser
    description Custom metadata.
-   cueFromId
+   cue tags
    tags assemblePhase
   
   catchAllErrorParser
@@ -3851,11 +3827,9 @@ stamp
    // todo Allow abstract atom types?
    // todo Change pattern to postfix.
    pattern ^[a-zA-Z0-9_]+Atom$
-   inScope paintParser regexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser enumParser slashCommentParser extendsAtomTypeParser examplesParser atomMinParser atomMaxParser
+   inScope parsersPaintParser parsersRegexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser parsersEnumParser slashCommentParser extendsAtomTypeParser parsersExamplesParser atomMinParser atomMaxParser
    atoms atomTypeIdAtom
    tags assemblePhase
-   javascript
-    compile() {return ""}
   
   // Enums
   enumFromAtomTypesParser
@@ -3865,17 +3839,17 @@ stamp
    cueFromId
    tags analyzePhase
   
-  enumParser
+  parsersEnumParser
    description Set enum options.
-   cueFromId
+   cue enum
    catchAllAtomType enumOptionAtom
    atoms atomPropertyNameAtom
    tags analyzePhase
   
-  examplesParser
+  parsersExamplesParser
    description Examples for documentation and tests.
    // If the domain of possible atom values is large, such as a string type, it can help certain methods—such as program synthesis—to provide a few examples.
-   cueFromId
+   cue examples
    catchAllAtomType atomExampleAtom
    atoms atomPropertyNameAtom
    tags assemblePhase
@@ -3883,20 +3857,20 @@ stamp
   atomMinParser
    description Specify a min if numeric.
    cue min
-   atoms atomPropertyNameAtom numericAtom
+   atoms atomPropertyNameAtom numberAtom
    tags analyzePhase
   
   atomMaxParser
    description Specify a max if numeric.
    cue max
-   atoms atomPropertyNameAtom numericAtom
+   atoms atomPropertyNameAtom numberAtom
    tags analyzePhase
   
-  paintParser
-   atoms propertyKeywordAtom paintTypeAtom
+  parsersPaintParser
+   atoms cueAtom paintTypeAtom
    description Instructor editor how to color these.
    single
-   cueFromId
+   cue paint
    tags analyzePhase
   
   
@@ -3909,14 +3883,14 @@ stamp
    atoms parserIdAtom
    tags assemblePhase
    javascript
-    compile() {return ""}
+    compile() { return ""}
   
-  regexParser
+  parsersRegexParser
    catchAllAtomType regexAtom
    description Atoms must match this.
    single
    atoms atomPropertyNameAtom
-   cueFromId
+   cue regex
    tags analyzePhase
   
   reservedAtomsParser
@@ -3933,7 +3907,7 @@ stamp
    cue extends
    description Extend another atomType.
    // todo Add mixin support in addition to extends?
-   atoms propertyKeywordAtom atomTypeIdAtom
+   atoms cueAtom atomTypeIdAtom
    tags assemblePhase
    single
  pdf.parsers

@@ -1,9 +1,9 @@
 parserId,uses
-blankLineParser,1069
-versionParser,573
-newFeatureParser,503
+blankLineParser,1070
+versionParser,574
+newFeatureParser,504
 catchAllParagraphParser,265
-bugFixParser,217
+bugFixParser,218
 lineOfCodeParser,216
 breakingChangeParser,209
 BlobParser,108
@@ -126,10 +126,10 @@ endOfPostDinkusParser,1
 printSiteMapParser,1
 messageParser,1
 hiddenMessageParser,1
-javascriptParser,1
+parsersJavascriptParser,1
 inScopeParser,1
 catchAllAtomTypeParser,1
 pParser,1
-cueParser,1
+parsersCueParser,1
 scrollDashboardParser,1
 redirectToParser,1

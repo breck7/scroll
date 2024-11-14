@@ -35,9 +35,12 @@ baseParsersAtom
  enum blobParser errorParser
  paint variable.parameter
 
-boolAtom
+enumAtom
+ paint constant.language
+
+booleanAtom
  enum true false
- paint constant.numeric
+ extends enumAtom
 
 atomParserAtom
  enum prefix postfix omnifix
@@ -47,7 +50,7 @@ atomPropertyNameAtom
  paint variable.parameter
 
 atomTypeIdAtom
- examples intAtom keywordAtom someCustomAtom
+ examples integerAtom keywordAtom someCustomAtom
  extends javascriptSafeAlphaNumericIdentifierAtom
  enumFromAtomTypes atomTypeIdAtom
  paint storage
@@ -77,17 +80,22 @@ fileExtensionAtom
  regex [a-zA-Z0-9]+
  paint string
 
-numericAtom
- description A float or an int.
+numberAtom
  paint constant.numeric
 
 floatAtom
+ extends numberAtom
  regex \\-?[0-9]*\\.?[0-9]*
- paint constant.numeric
+ paint constant.numeric.float
 
-intAtom
+integerAtom
  regex \\-?[0-9]+
- paint constant.numeric
+ extends numberAtom
+ paint constant.numeric.integer
+
+cueAtom
+ description A atom that indicates a certain parser to use.
+ paint keyword
 
 javascriptCodeAtom
 
@@ -101,7 +109,7 @@ parserIdAtom
  extends javascriptSafeAlphaNumericIdentifierAtom
  enumFromAtomTypes parserIdAtom
 
-propertyKeywordAtom
+cueAtom
  paint constant.language
 
 regexAtom
@@ -122,16 +130,17 @@ semanticVersionAtom
  regex [0-9]+\\.[0-9]+\\.[0-9]+
  paint constant.numeric
 
-stringAtom
+// Date atom types
+dateAtom
  paint string
- examples lorem ipsum
 
-tagAtom
+stringAtom
  paint string
 
 atomAtom
- regex [a-zA-Z]+
- paint variable.parameter
+ paint string
+ description A non-empty single atom string.
+ regex .+
 
 exampleAnyAtom
  examples lorem ipsem
@@ -142,6 +151,9 @@ exampleAnyAtom
 blankAtom
 
 commentAtom
+ paint comment
+
+codeAtom
  paint comment
 
 // Line Parsers
@@ -167,7 +179,7 @@ blankLineParser
 
 abstractCompilerRuleParser
  catchAllAtomType anyAtom
- atoms propertyKeywordAtom
+ atoms cueAtom
 
 closeSubparticlesParser
  extends abstractCompilerRuleParser
@@ -201,31 +213,35 @@ joinSubparticlesWithParser
 
 abstractConstantParser
  description A constant.
- atoms propertyKeywordAtom
+ atoms cueAtom
  cueFromId
  // todo: make tags inherit
  tags actPhase
 
-booleanParser
- atoms propertyKeywordAtom constantIdentifierAtom
- catchAllAtomType boolAtom
+parsersBooleanParser
+ cue boolean
+ atoms cueAtom constantIdentifierAtom
+ catchAllAtomType booleanAtom
  extends abstractConstantParser
  tags actPhase
 
-floatParser
- atoms propertyKeywordAtom constantIdentifierAtom
+parsersFloatParser
+ cue float
+ atoms cueAtom constantIdentifierAtom
  catchAllAtomType floatAtom
  extends abstractConstantParser
  tags actPhase
 
-intParser
- atoms propertyKeywordAtom constantIdentifierAtom
- catchAllAtomType intAtom
+parsersIntParser
+ cue int
+ atoms cueAtom constantIdentifierAtom
+ catchAllAtomType integerAtom
  tags actPhase
  extends abstractConstantParser
 
-stringParser
- atoms propertyKeywordAtom constantIdentifierAtom
+parsersStringParser
+ cue string
+ atoms cueAtom constantIdentifierAtom
  catchAllAtomType stringAtom
  catchAllParser catchAllMultilineStringConstantParser
  extends abstractConstantParser
@@ -233,38 +249,38 @@ stringParser
 
 abstractParserRuleParser
  single
- atoms propertyKeywordAtom
+ atoms cueAtom
 
-compilesToParser
- atoms propertyKeywordAtom fileExtensionAtom
+parsersCompilesToParser
+ cue compilesTo
+ atoms cueAtom fileExtensionAtom
  extends abstractParserRuleParser
  description File extension for simple compilers.
  // todo: deprecate?
  // Optionally specify a file extension that will be used when compiling your language to a file. Generally used on parsers marked root.
- cueFromId
  tags experimental
 
-extensionsParser
+parsersExtensionsParser
  extends abstractParserRuleParser
  catchAllAtomType fileExtensionAtom
  description File extension for your dialect.
  // File extensions of your language. Generally used for parsers marked "root". Sometimes your language might have multiple extensions. If you don't add this, the root particle's parserId will be used as the default file extension.
- cueFromId
+ cue extensions
  tags deprecate
 
 abstractNonTerminalParserRuleParser
  extends abstractParserRuleParser
 
-baseParserParser
- atoms propertyKeywordAtom baseParsersAtom
+parsersBaseParserParser
+ atoms cueAtom baseParsersAtom
  description Set for blobs or errors. 
  // In rare cases with untyped content you can use a blobParser, for now, to skip parsing for performance gains. The base errorParser will report errors when parsed. Use that if you don't want to implement your own error parser.
  extends abstractParserRuleParser
- cueFromId
+ cue baseParser
  tags analyzePhase
 
 catchAllAtomTypeParser
- atoms propertyKeywordAtom atomTypeIdAtom
+ atoms cueAtom atomTypeIdAtom
  description Use for lists.
  // Aka 'listAtomType'. Use this when the value in a key/value pair is a list. If there are extra atoms in the particle's line, parse these atoms as this type. Often used with \`listDelimiterParser\`.
  extends abstractParserRuleParser
@@ -272,7 +288,7 @@ catchAllAtomTypeParser
  tags analyzePhase
 
 atomParserParser
- atoms propertyKeywordAtom atomParserAtom
+ atoms cueAtom atomParserAtom
  description Set parsing strategy.
  // prefix/postfix/omnifix parsing strategy. If missing, defaults to prefix.
  extends abstractParserRuleParser
@@ -282,24 +298,24 @@ atomParserParser
 catchAllParserParser
  description Attach this to unmatched lines.
  // If a parser is not found in the inScope list, instantiate this type of particle instead.
- atoms propertyKeywordAtom parserIdAtom
+ atoms cueAtom parserIdAtom
  extends abstractParserRuleParser
  cueFromId
  tags acquirePhase
 
-atomsParser
+parsersAtomsParser
  catchAllAtomType atomTypeIdAtom
  description Set required atomTypes.
  extends abstractParserRuleParser
- cueFromId
+ cue atoms
  tags analyzePhase
 
-compilerParser
+parsersCompilerParser
  // todo Remove this and its subparticles?
  description For simple compilers.
  inScope stringTemplateParser catchAllAtomDelimiterParser openSubparticlesParser closeSubparticlesParser indentCharacterParser joinSubparticlesWithParser
  extends abstractParserRuleParser
- cueFromId
+ cue compiler
  tags experimental
 
 parserDescriptionParser
@@ -314,14 +330,16 @@ atomTypeDescriptionParser
  catchAllAtomType stringAtom
  cue description
  tags assemblePhase
+ javascript
+  compile() { return ""}
 
-exampleParser
+parsersExampleParser
  // todo Should this just be a "string" constant on particles?
  description Set example for docs and tests.
  catchAllAtomType exampleAnyAtom
  catchAllParser catchAllExampleLineParser
  extends abstractParserRuleParser
- cueFromId
+ cue example
  tags assemblePhase
 
 extendsParserParser
@@ -329,15 +347,15 @@ extendsParserParser
  tags assemblePhase
  description Extend another parser.
  // todo: add a catchall that is used for mixins
- atoms propertyKeywordAtom parserIdAtom
+ atoms cueAtom parserIdAtom
  extends abstractParserRuleParser
 
-popularityParser
+parsersPopularityParser
  // todo Remove this parser. Switch to conditional frequencies.
  description Parser popularity.
- atoms propertyKeywordAtom floatAtom
+ atoms cueAtom floatAtom
  extends abstractParserRuleParser
- cueFromId
+ cue popularity
  tags assemblePhase
 
 inScopeParser
@@ -347,7 +365,7 @@ inScopeParser
  cueFromId
  tags acquirePhase
 
-javascriptParser
+parsersJavascriptParser
  // todo Urgently need to get submode syntax highlighting running! (And eventually LSP)
  description Javascript code for Parser Actions.
  catchAllParser catchAllJavascriptCodeLineParser
@@ -368,48 +386,51 @@ javascriptParser
    }
    return this
   }
- cueFromId
+ cue javascript
 
 abstractParseRuleParser
  // Each particle should have a pattern that it matches on unless it's a catch all particle.
  extends abstractParserRuleParser
  cueFromId
 
-cueParser
- atoms propertyKeywordAtom stringAtom
+parsersCueParser
+ atoms cueAtom stringAtom
  description Attach by matching first atom.
  extends abstractParseRuleParser
  tags acquirePhase
+ cue cue
 
 cueFromIdParser
- atoms propertyKeywordAtom
+ atoms cueAtom
  description Derive cue from parserId.
  // for example 'fooParser' would have cue of 'foo'.
  extends abstractParseRuleParser
  tags acquirePhase
 
-patternParser
+parsersPatternParser
  catchAllAtomType regexAtom
  description Attach via regex.
  extends abstractParseRuleParser
  tags acquirePhase
+ cue pattern
 
-requiredParser
+parsersRequiredParser
  description Assert is present at least once.
  extends abstractParserRuleParser
- cueFromId
+ cue required
  tags analyzePhase
 
 abstractValidationRuleParser
  extends abstractParserRuleParser
  cueFromId
- catchAllAtomType boolAtom
+ catchAllAtomType booleanAtom
 
-singleParser
+parsersSingleParser
  description Assert used once.
  // Can be overridden by a child class by setting to false.
  extends abstractValidationRuleParser
  tags analyzePhase
+ cue single
 
 uniqueLineParser
  description Assert unique lines. For pattern parsers.
@@ -447,11 +468,11 @@ subparticlesKeyParser
  catchAllAtomType stringAtom
  tags deprecate
 
-tagsParser
- catchAllAtomType tagAtom
+parsersTagsParser
+ catchAllAtomType stringAtom
  extends abstractParserRuleParser
  description Custom metadata.
- cueFromId
+ cue tags
  tags assemblePhase
 
 catchAllErrorParser
@@ -478,7 +499,7 @@ atomTypeDefinitionParser
  // todo Allow abstract atom types?
  // todo Change pattern to postfix.
  pattern ^[a-zA-Z0-9_]+Atom$
- inScope paintParser regexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser enumParser slashCommentParser extendsAtomTypeParser examplesParser atomMinParser atomMaxParser
+ inScope parsersPaintParser parsersRegexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser parsersEnumParser slashCommentParser extendsAtomTypeParser parsersExamplesParser atomMinParser atomMaxParser
  atoms atomTypeIdAtom
  tags assemblePhase
 
@@ -490,17 +511,17 @@ enumFromAtomTypesParser
  cueFromId
  tags analyzePhase
 
-enumParser
+parsersEnumParser
  description Set enum options.
- cueFromId
+ cue enum
  catchAllAtomType enumOptionAtom
  atoms atomPropertyNameAtom
  tags analyzePhase
 
-examplesParser
+parsersExamplesParser
  description Examples for documentation and tests.
  // If the domain of possible atom values is large, such as a string type, it can help certain methods—such as program synthesis—to provide a few examples.
- cueFromId
+ cue examples
  catchAllAtomType atomExampleAtom
  atoms atomPropertyNameAtom
  tags assemblePhase
@@ -508,27 +529,27 @@ examplesParser
 atomMinParser
  description Specify a min if numeric.
  cue min
- atoms atomPropertyNameAtom numericAtom
+ atoms atomPropertyNameAtom numberAtom
  tags analyzePhase
 
 atomMaxParser
  description Specify a max if numeric.
  cue max
- atoms atomPropertyNameAtom numericAtom
+ atoms atomPropertyNameAtom numberAtom
  tags analyzePhase
 
-paintParser
- atoms propertyKeywordAtom paintTypeAtom
+parsersPaintParser
+ atoms cueAtom paintTypeAtom
  description Instructor editor how to color these.
  single
- cueFromId
+ cue paint
  tags analyzePhase
 
 rootFlagParser
  cue root
  description Set root parser.
  // Mark a parser as root if it is the root of your language. The parserId will be the name of your language. The parserId will also serve as the default file extension, if you don't specify another. If more than 1 parser is marked as "root", the last one wins.
- atoms propertyKeywordAtom
+ atoms cueAtom
  tags assemblePhase
 
 parserDefinitionParser
@@ -539,13 +560,15 @@ parserDefinitionParser
  inScope rootFlagParser abstractParserRuleParser abstractConstantParser slashCommentParser parserDefinitionParser
  atoms parserIdAtom
  tags assemblePhase
+ javascript
+  compile() { return ""}
 
-regexParser
+parsersRegexParser
  catchAllAtomType regexAtom
  description Atoms must match this.
  single
  atoms atomPropertyNameAtom
- cueFromId
+ cue regex
  tags analyzePhase
 
 reservedAtomsParser
@@ -570,7 +593,7 @@ extendsAtomTypeParser
  cue extends
  description Extend another atomType.
  // todo Add mixin support in addition to extends?
- atoms propertyKeywordAtom atomTypeIdAtom
+ atoms cueAtom atomTypeIdAtom
  tags assemblePhase
  single`)
     get handParsersProgram() {
@@ -586,7 +609,7 @@ extendsAtomTypeParser
   }
 
   class abstractCompilerRuleParser extends ParserBackedParticle {
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get anyAtom() {
@@ -607,25 +630,25 @@ extendsAtomTypeParser
   class joinSubparticlesWithParser extends abstractCompilerRuleParser {}
 
   class abstractConstantParser extends ParserBackedParticle {
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
   }
 
-  class booleanParser extends abstractConstantParser {
-    get propertyKeywordAtom() {
+  class parsersBooleanParser extends abstractConstantParser {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get constantIdentifierAtom() {
       return this.getAtom(1)
     }
-    get boolAtom() {
+    get booleanAtom() {
       return this.getAtomsFrom(2)
     }
   }
 
-  class floatParser extends abstractConstantParser {
-    get propertyKeywordAtom() {
+  class parsersFloatParser extends abstractConstantParser {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get constantIdentifierAtom() {
@@ -636,23 +659,23 @@ extendsAtomTypeParser
     }
   }
 
-  class intParser extends abstractConstantParser {
-    get propertyKeywordAtom() {
+  class parsersIntParser extends abstractConstantParser {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get constantIdentifierAtom() {
       return this.getAtom(1)
     }
-    get intAtom() {
+    get integerAtom() {
       return this.getAtomsFrom(2).map(val => parseInt(val))
     }
   }
 
-  class stringParser extends abstractConstantParser {
+  class parsersStringParser extends abstractConstantParser {
     createParserCombinator() {
       return new Particle.ParserCombinator(catchAllMultilineStringConstantParser, undefined, undefined)
     }
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get constantIdentifierAtom() {
@@ -664,13 +687,13 @@ extendsAtomTypeParser
   }
 
   class abstractParserRuleParser extends ParserBackedParticle {
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
   }
 
-  class compilesToParser extends abstractParserRuleParser {
-    get propertyKeywordAtom() {
+  class parsersCompilesToParser extends abstractParserRuleParser {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get fileExtensionAtom() {
@@ -678,7 +701,7 @@ extendsAtomTypeParser
     }
   }
 
-  class extensionsParser extends abstractParserRuleParser {
+  class parsersExtensionsParser extends abstractParserRuleParser {
     get fileExtensionAtom() {
       return this.getAtomsFrom(0)
     }
@@ -686,8 +709,8 @@ extendsAtomTypeParser
 
   class abstractNonTerminalParserRuleParser extends abstractParserRuleParser {}
 
-  class baseParserParser extends abstractParserRuleParser {
-    get propertyKeywordAtom() {
+  class parsersBaseParserParser extends abstractParserRuleParser {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get baseParsersAtom() {
@@ -696,7 +719,7 @@ extendsAtomTypeParser
   }
 
   class catchAllAtomTypeParser extends abstractParserRuleParser {
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get atomTypeIdAtom() {
@@ -705,7 +728,7 @@ extendsAtomTypeParser
   }
 
   class atomParserParser extends abstractParserRuleParser {
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get atomParserAtom() {
@@ -714,7 +737,7 @@ extendsAtomTypeParser
   }
 
   class catchAllParserParser extends abstractParserRuleParser {
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get parserIdAtom() {
@@ -722,13 +745,13 @@ extendsAtomTypeParser
     }
   }
 
-  class atomsParser extends abstractParserRuleParser {
+  class parsersAtomsParser extends abstractParserRuleParser {
     get atomTypeIdAtom() {
       return this.getAtomsFrom(0)
     }
   }
 
-  class compilerParser extends abstractParserRuleParser {
+  class parsersCompilerParser extends abstractParserRuleParser {
     createParserCombinator() {
       return new Particle.ParserCombinator(
         undefined,
@@ -755,9 +778,12 @@ extendsAtomTypeParser
     get stringAtom() {
       return this.getAtomsFrom(0)
     }
+    compile() {
+      return ""
+    }
   }
 
-  class exampleParser extends abstractParserRuleParser {
+  class parsersExampleParser extends abstractParserRuleParser {
     createParserCombinator() {
       return new Particle.ParserCombinator(catchAllExampleLineParser, undefined, undefined)
     }
@@ -767,7 +793,7 @@ extendsAtomTypeParser
   }
 
   class extendsParserParser extends abstractParserRuleParser {
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get parserIdAtom() {
@@ -775,8 +801,8 @@ extendsAtomTypeParser
     }
   }
 
-  class popularityParser extends abstractParserRuleParser {
-    get propertyKeywordAtom() {
+  class parsersPopularityParser extends abstractParserRuleParser {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get floatAtom() {
@@ -790,7 +816,7 @@ extendsAtomTypeParser
     }
   }
 
-  class javascriptParser extends abstractParserRuleParser {
+  class parsersJavascriptParser extends abstractParserRuleParser {
     createParserCombinator() {
       return new Particle.ParserCombinator(catchAllJavascriptCodeLineParser, undefined, undefined)
     }
@@ -812,8 +838,8 @@ extendsAtomTypeParser
 
   class abstractParseRuleParser extends abstractParserRuleParser {}
 
-  class cueParser extends abstractParseRuleParser {
-    get propertyKeywordAtom() {
+  class parsersCueParser extends abstractParseRuleParser {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get stringAtom() {
@@ -822,26 +848,26 @@ extendsAtomTypeParser
   }
 
   class cueFromIdParser extends abstractParseRuleParser {
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
   }
 
-  class patternParser extends abstractParseRuleParser {
+  class parsersPatternParser extends abstractParseRuleParser {
     get regexAtom() {
       return this.getAtomsFrom(0)
     }
   }
 
-  class requiredParser extends abstractParserRuleParser {}
+  class parsersRequiredParser extends abstractParserRuleParser {}
 
   class abstractValidationRuleParser extends abstractParserRuleParser {
-    get boolAtom() {
+    get booleanAtom() {
       return this.getAtomsFrom(0)
     }
   }
 
-  class singleParser extends abstractValidationRuleParser {}
+  class parsersSingleParser extends abstractValidationRuleParser {}
 
   class uniqueLineParser extends abstractValidationRuleParser {}
 
@@ -865,8 +891,8 @@ extendsAtomTypeParser
     }
   }
 
-  class tagsParser extends abstractParserRuleParser {
-    get tagAtom() {
+  class parsersTagsParser extends abstractParserRuleParser {
+    get stringAtom() {
       return this.getAtomsFrom(0)
     }
   }
@@ -917,12 +943,12 @@ extendsAtomTypeParser
         Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           description: atomTypeDescriptionParser,
           enumFromAtomTypes: enumFromAtomTypesParser,
-          enum: enumParser,
-          examples: examplesParser,
+          enum: parsersEnumParser,
+          examples: parsersExamplesParser,
           min: atomMinParser,
           max: atomMaxParser,
-          paint: paintParser,
-          regex: regexParser,
+          paint: parsersPaintParser,
+          regex: parsersRegexParser,
           reservedAtoms: reservedAtomsParser,
           "//": slashCommentParser,
           extends: extendsAtomTypeParser
@@ -944,7 +970,7 @@ extendsAtomTypeParser
     }
   }
 
-  class enumParser extends ParserBackedParticle {
+  class parsersEnumParser extends ParserBackedParticle {
     get atomPropertyNameAtom() {
       return this.getAtom(0)
     }
@@ -953,7 +979,7 @@ extendsAtomTypeParser
     }
   }
 
-  class examplesParser extends ParserBackedParticle {
+  class parsersExamplesParser extends ParserBackedParticle {
     get atomPropertyNameAtom() {
       return this.getAtom(0)
     }
@@ -966,8 +992,8 @@ extendsAtomTypeParser
     get atomPropertyNameAtom() {
       return this.getAtom(0)
     }
-    get numericAtom() {
-      return this.getAtom(1)
+    get numberAtom() {
+      return parseFloat(this.getAtom(1))
     }
   }
 
@@ -975,13 +1001,13 @@ extendsAtomTypeParser
     get atomPropertyNameAtom() {
       return this.getAtom(0)
     }
-    get numericAtom() {
-      return this.getAtom(1)
+    get numberAtom() {
+      return parseFloat(this.getAtom(1))
     }
   }
 
-  class paintParser extends ParserBackedParticle {
-    get propertyKeywordAtom() {
+  class parsersPaintParser extends ParserBackedParticle {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get paintTypeAtom() {
@@ -990,7 +1016,7 @@ extendsAtomTypeParser
   }
 
   class rootFlagParser extends ParserBackedParticle {
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
   }
@@ -1000,35 +1026,35 @@ extendsAtomTypeParser
       return new Particle.ParserCombinator(
         catchAllErrorParser,
         Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
-          boolean: booleanParser,
-          float: floatParser,
-          int: intParser,
-          string: stringParser,
-          compilesTo: compilesToParser,
-          extensions: extensionsParser,
-          baseParser: baseParserParser,
+          boolean: parsersBooleanParser,
+          float: parsersFloatParser,
+          int: parsersIntParser,
+          string: parsersStringParser,
+          compilesTo: parsersCompilesToParser,
+          extensions: parsersExtensionsParser,
+          baseParser: parsersBaseParserParser,
           catchAllAtomType: catchAllAtomTypeParser,
           atomParser: atomParserParser,
           catchAllParser: catchAllParserParser,
-          atoms: atomsParser,
-          compiler: compilerParser,
+          atoms: parsersAtomsParser,
+          compiler: parsersCompilerParser,
           description: parserDescriptionParser,
-          example: exampleParser,
+          example: parsersExampleParser,
           extends: extendsParserParser,
-          popularity: popularityParser,
+          popularity: parsersPopularityParser,
           inScope: inScopeParser,
-          javascript: javascriptParser,
-          cue: cueParser,
+          javascript: parsersJavascriptParser,
+          cue: parsersCueParser,
           cueFromId: cueFromIdParser,
-          pattern: patternParser,
-          required: requiredParser,
-          single: singleParser,
+          pattern: parsersPatternParser,
+          required: parsersRequiredParser,
+          single: parsersSingleParser,
           uniqueLine: uniqueLineParser,
           uniqueCue: uniqueCueParser,
           listDelimiter: listDelimiterParser,
           contentKey: contentKeyParser,
           subparticlesKey: subparticlesKeyParser,
-          tags: tagsParser,
+          tags: parsersTagsParser,
           root: rootFlagParser,
           "//": slashCommentParser
         }),
@@ -1038,9 +1064,12 @@ extendsAtomTypeParser
     get parserIdAtom() {
       return this.getAtom(0)
     }
+    compile() {
+      return ""
+    }
   }
 
-  class regexParser extends ParserBackedParticle {
+  class parsersRegexParser extends ParserBackedParticle {
     get atomPropertyNameAtom() {
       return this.getAtom(0)
     }
@@ -1074,7 +1103,7 @@ extendsAtomTypeParser
   }
 
   class extendsAtomTypeParser extends ParserBackedParticle {
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get atomTypeIdAtom() {

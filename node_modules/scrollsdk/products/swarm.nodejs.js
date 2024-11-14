@@ -58,7 +58,7 @@ hashBangKeywordAtom
  enum #!
 hashBangAtom
  paint comment
-intAtom
+integerAtom
  regex \\-?[0-9]+
  paint constant.numeric.integer
 parameterKeywordAtom
@@ -152,7 +152,7 @@ assertParagraphIsParser
 assertLengthIsParser
  cue assertLengthIs
  description Intake is an array, and checks if the length of array matches expected.
- atoms assertionKeywordAtom intAtom
+ atoms assertionKeywordAtom integerAtom
  javascript
   parseActual(actual) {
    return actual.length
@@ -423,7 +423,7 @@ todoParser
     get assertionKeywordAtom() {
       return this.getAtom(0)
     }
-    get intAtom() {
+    get integerAtom() {
       return parseInt(this.getAtom(1))
     }
     parseActual(actual) {

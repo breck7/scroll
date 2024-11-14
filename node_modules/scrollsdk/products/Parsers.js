@@ -28,8 +28,8 @@ var PreludeAtomTypeIds
   PreludeAtomTypeIds["floatAtom"] = "floatAtom"
   PreludeAtomTypeIds["numberAtom"] = "numberAtom"
   PreludeAtomTypeIds["bitAtom"] = "bitAtom"
-  PreludeAtomTypeIds["boolAtom"] = "boolAtom"
-  PreludeAtomTypeIds["intAtom"] = "intAtom"
+  PreludeAtomTypeIds["booleanAtom"] = "booleanAtom"
+  PreludeAtomTypeIds["integerAtom"] = "integerAtom"
 })(PreludeAtomTypeIds || (PreludeAtomTypeIds = {}))
 var ParsersConstantsConstantTypes
 ;(function (ParsersConstantsConstantTypes) {
@@ -742,7 +742,7 @@ class ParsersBitAtom extends AbstractParsersBackedAtom {
   }
 }
 ParsersBitAtom.defaultPaint = "constant.numeric"
-class ParsersNumericAtom extends AbstractParsersBackedAtom {
+class ParsersNumberAtom extends AbstractParsersBackedAtom {
   _toStumpInput(cue) {
     return `input
  name ${cue}
@@ -752,7 +752,7 @@ class ParsersNumericAtom extends AbstractParsersBackedAtom {
  max ${this.max}`
   }
 }
-class ParsersIntAtom extends ParsersNumericAtom {
+class ParsersIntegerAtom extends ParsersNumberAtom {
   _isValid() {
     const atom = this.getAtom()
     const num = parseInt(atom)
@@ -770,9 +770,9 @@ class ParsersIntAtom extends ParsersNumericAtom {
     return parseInt(atom)
   }
 }
-ParsersIntAtom.defaultPaint = "constant.numeric.integer"
-ParsersIntAtom.parserFunctionName = "parseInt"
-class ParsersFloatAtom extends ParsersNumericAtom {
+ParsersIntegerAtom.defaultPaint = "constant.numeric.integer"
+ParsersIntegerAtom.parserFunctionName = "parseInt"
+class ParsersFloatAtom extends ParsersNumberAtom {
   _isValid() {
     const atom = this.getAtom()
     const num = parseFloat(atom)
@@ -792,7 +792,7 @@ class ParsersFloatAtom extends ParsersNumericAtom {
 ParsersFloatAtom.defaultPaint = "constant.numeric.float"
 ParsersFloatAtom.parserFunctionName = "parseFloat"
 // ErrorAtomType => parsers asks for a '' atom type here but the parsers does not specify a '' atom type. (todo: bring in didyoumean?)
-class ParsersBoolAtom extends AbstractParsersBackedAtom {
+class ParsersBooleanAtom extends AbstractParsersBackedAtom {
   constructor() {
     super(...arguments)
     this._trues = new Set(["1", "true", "t", "yes"])
@@ -817,7 +817,7 @@ class ParsersBoolAtom extends AbstractParsersBackedAtom {
     return this._trues.has(atom.toLowerCase())
   }
 }
-ParsersBoolAtom.defaultPaint = "constant.numeric"
+ParsersBooleanAtom.defaultPaint = "constant.language"
 class ParsersAnyAtom extends AbstractParsersBackedAtom {
   _isValid() {
     return true
@@ -2246,8 +2246,8 @@ PreludeKinds[PreludeAtomTypeIds.keywordAtom] = ParsersKeywordAtom
 PreludeKinds[PreludeAtomTypeIds.floatAtom] = ParsersFloatAtom
 PreludeKinds[PreludeAtomTypeIds.numberAtom] = ParsersFloatAtom
 PreludeKinds[PreludeAtomTypeIds.bitAtom] = ParsersBitAtom
-PreludeKinds[PreludeAtomTypeIds.boolAtom] = ParsersBoolAtom
-PreludeKinds[PreludeAtomTypeIds.intAtom] = ParsersIntAtom
+PreludeKinds[PreludeAtomTypeIds.booleanAtom] = ParsersBooleanAtom
+PreludeKinds[PreludeAtomTypeIds.integerAtom] = ParsersIntegerAtom
 class UnknownParsersProgram extends Particle {
   _inferRootParticleForAPrefixLanguage(parsersName) {
     parsersName = HandParsersProgram.makeParserId(parsersName)
@@ -2377,11 +2377,11 @@ class UnknownParsersProgram extends Particle {
         return num.toString() === str
       })
     ) {
-      return { atomTypeId: PreludeAtomTypeIds.intAtom }
+      return { atomTypeId: PreludeAtomTypeIds.integerAtom }
     }
     if (every(str => str.match(/^-?\d*.?\d+$/))) return { atomTypeId: PreludeAtomTypeIds.floatAtom }
     const bools = new Set(["1", "0", "true", "false", "t", "f", "yes", "no"])
-    if (every(str => bools.has(str.toLowerCase()))) return { atomTypeId: PreludeAtomTypeIds.boolAtom }
+    if (every(str => bools.has(str.toLowerCase()))) return { atomTypeId: PreludeAtomTypeIds.booleanAtom }
     // todo: cleanup
     const enumLimit = 30
     if (instanceCount > 1 && maxAtomsOnLine === 1 && allValues.length > asSet.size && asSet.size < enumLimit)

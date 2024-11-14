@@ -2,17 +2,17 @@ Scroll Roadmap
 ==============
 Scroll FAQ
 ==========
-11/13/2024
+11/14/2024
 https://scroll.pub/faq.html
 
 Scroll Release Notes
 ====================
-11/13/2024
+11/14/2024
 https://scroll.pub/releaseNotes.html
 
 Scroll Tutorial
 ===============
-11/13/2024
+11/14/2024
 https://scroll.pub/tutorial.html
 
 What major improvements are coming next?

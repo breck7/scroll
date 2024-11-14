@@ -22,6 +22,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 152.0.0 11/13/2024
+🎉 upgraded ScrollSDK
+🏥 fixed problems from namespace collisions
+
 📦 151.0.0 11/13/2024
 
 ## 🚨 MAJOR RELEASE

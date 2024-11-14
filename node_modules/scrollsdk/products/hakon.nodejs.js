@@ -33,11 +33,11 @@ selectorAtom
  paint keyword.control
  examples body h1
  // todo add html tags, css and ids selector regexes, etc
-vendorPrefixPropertyKeywordAtom
+vendorPrefixCueAtom
  description Properties like -moz-column-fill
  paint variable.function
  extends keywordAtom
-propertyKeywordAtom
+cueAtom
  paint variable.function
  extends keywordAtom
  // todo Where are these coming from? Can we add a url link
@@ -81,14 +81,14 @@ propertyParser
   compile(spaces) {
    return \`\${spaces}\${this.cue}: \${this.content};\`
   }
- atoms propertyKeywordAtom
+ atoms cueAtom
 variableParser
  extends propertyParser
  pattern --
 browserPrefixPropertyParser
  extends propertyParser
  pattern ^\\-\\w.+
- atoms vendorPrefixPropertyKeywordAtom
+ atoms vendorPrefixCueAtom
 errorParser
  catchAllParser errorParser
  catchAllAtomType errorAtom
@@ -131,7 +131,7 @@ selectorParser
     createParserCombinator() {
       return new Particle.ParserCombinator(errorParser, undefined, undefined)
     }
-    get propertyKeywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get cssValueAtom() {
@@ -145,7 +145,7 @@ selectorParser
   class variableParser extends propertyParser {}
 
   class browserPrefixPropertyParser extends propertyParser {
-    get vendorPrefixPropertyKeywordAtom() {
+    get vendorPrefixCueAtom() {
       return this.getAtom(0)
     }
   }

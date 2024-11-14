@@ -70,46 +70,9 @@ box-sizing: border-box;
 </style><form  method='post' action='insert.htm?line=2' class="scrollFormParser"><textarea title="oneTextarea" rows="8" placeholder="// Placeholder
 name Bob
 emailAddress bob@example.com" id="particles" name="particles"></textarea>
-  <script id="particlesParsers" type="text/plain">// Basic atom types
-blankAtom
-anyAtom
-
-// Enum atom types
-enumAtom
- paint constant.language
-booleanAtom
- enum true false
- extends enumAtom
-
-// String atom types
-stringAtom
- paint string
-
-atomAtom
- paint string
- description A non-empty single atom string.
- regex .+
-
-columnNameAtom
+  <script id="particlesParsers" type="text/plain">columnNameAtom
  extends stringAtom
 
-semanticVersionAtom
- paint string
- description A 3 part sem version string like 1.2.1
-
-// Date atom types
-dateAtom
- paint string
-
-// Numeric atom types
-numberAtom
- paint constant.numeric
-integerAtom
- extends numberAtom
- paint constant.numeric.integer
-floatAtom
- extends numberAtom
- paint constant.numeric.float
 percentAtom
  paint constant.numeric.float
  extends stringAtom
@@ -119,25 +82,14 @@ countAtom
 yearAtom
  extends integerAtom
 
-// Scroll atom types
-cueAtom
- description A atom that indicates a certain parser to use.
- paint keyword
-
 preBuildCommandAtom
  extends cueAtom
  description Give build command atoms their own color.
  paint constant.character.escape
 
-commentAtom
- paint comment
-
 delimiterAtom
  description String to use as a delimiter.
  paint string
-
-codeAtom
- paint comment
 
 bulletPointAtom
  description Any token used as a bullet point such as "-" or "1." or ">"

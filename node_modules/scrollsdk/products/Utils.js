@@ -431,7 +431,7 @@ class Utils {
   static formatStr(str, catchAllAtomDelimiter = " ", parameterMap) {
     return str.replace(/{([^\}]+)}/g, (match, path) => {
       const val = parameterMap[path]
-      if (!val) return ""
+      if (val === undefined) return ""
       return Array.isArray(val) ? val.join(catchAllAtomDelimiter) : val
     })
   }
