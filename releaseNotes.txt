@@ -3236,4 +3236,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v151.0.0
+Built with Scroll v152.0.0
