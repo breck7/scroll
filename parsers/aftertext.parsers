@@ -67,17 +67,25 @@ abstractAftertextParser
   compile(compileSettings) {
    if (this.isHidden) return ""
    this.compileSettings = compileSettings
-   const { className } = this
+   const { className, styles } = this
    const classAttr = className ? `class="${this.className}"` : ""
    const tag = this.get("tag") || this.tag
    if (tag === "none") // Allow no tag for aftertext in tables
      return this.text
    const id = this.has("id") ? "" : `id="${this.htmlId}" ` // always add an html id
-   return this.getHtmlRequirements(compileSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}>${this.text}</${tag}>`
+   return this.getHtmlRequirements(compileSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}>${this.text}</${tag}>`
   }
   get htmlAttributes() {
    const attrs = this.filter(particle => particle.isAttribute)
    return attrs.length ? attrs.map(particle => particle.htmlAttributes).join(" ") + " " : ""
+  }
+  get styles() {
+    const style = this.getParticle("style")
+    const fontFamily = this.getParticle("font")
+    const color = this.getParticle("color")
+    if (!style && !fontFamily && !color)
+      return ""
+    return ` style="${style?.content};${fontFamily?.css};${color?.css}"`
   }
   get htmlId() {
    return this.get("id") || "particle" + this.index
@@ -307,6 +315,31 @@ aftertextStyleParser
  description Set HTML style attribute.
  extends abstractAftertextAttributeParser
  catchAllAtomType cssAnyAtom
+ javascript
+   htmlAttributes = "" // special case this one
+   get css() { return `${this.property}:${this.content};` }
+
+aftertextFontParser
+ popularity 0.000217
+ cue font
+ description Set font.
+ extends aftertextStyleParser
+ atoms cueAtom fontFamilyAtom
+ catchAllAtomType cssAnyAtom
+ string property font-family
+ javascript
+   get css() {
+     if (this.content === "Slim") return "font-family:Helvetica Neue; font-weight:100;"
+     return super.css
+   }
+
+aftertextColorParser
+ popularity 0.000217
+ cue color
+ description Set font color.
+ extends aftertextStyleParser
+ catchAllAtomType cssAnyAtom
+ string property color
 
 aftertextOnclickParser
  popularity 0.000217

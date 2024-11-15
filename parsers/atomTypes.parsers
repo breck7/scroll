@@ -65,3 +65,7 @@ classNameAtom
 
 htmlIdAtom
  extends anyAtom
+
+fontFamilyAtom
+ enum Arial Helvetica Verdana Georgia Impact Tahoma Slim
+ paint constant
