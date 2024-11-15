@@ -10,10 +10,10 @@ quoteParser
  catchAllParser quoteLineParser
  extends abstractScrollParser
  javascript
-  compile() {
+  buildHtml() {
    return `<blockquote class="scrollQuote">${this.subparticlesToString()}</blockquote>`
   }
-  compileTxt() {
+  buildTxt() {
     return this.subparticlesToString()
   }
 

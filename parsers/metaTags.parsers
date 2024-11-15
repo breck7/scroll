@@ -13,10 +13,10 @@ metaTagsParser
  extends abstractScrollParser
  description Print meta tags including title.
  javascript
-  compileEmbeddedVersion() {
+  buildHtmlSnippet() {
    return ""
   }
-  compile() {
+  buildHtml() {
    const {root} = this
    const { title, description, canonicalUrl, gitRepo, scrollVersion, openGraphImage } = root
    const rssFeedUrl = root.get("rssFeedUrl")

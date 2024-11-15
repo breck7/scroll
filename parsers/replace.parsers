@@ -8,7 +8,7 @@ abstractVariableParser
  cueFromId
  javascript
   isTopMatter = true
-  compile() {
+  buildHtml() {
    return ""
   }
 

@@ -28,6 +28,6 @@ footnoteDefinitionParser
   get noteDefinitionIndex() {
    return this.parent.footnotes.indexOf(this) + 1
   }
-  compileTxt() {
-    return this.getAtom(0) + ": " + super.compileTxt()
+  buildTxt() {
+    return this.getAtom(0) + ": " + super.buildTxt()
   }

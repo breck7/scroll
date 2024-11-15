@@ -50,7 +50,7 @@ classicFormParser
       return `<div><label for="${Name}" title="${IsRequired ? "Required" : ""}">${ucFirst}${IsRequired ? "*" : ""}:</label>${tag}</div>`
     }).join("\n")
   }
-  compile() {
+  buildHtml() {
     const {isEmail, formDestination, callToAction, subject} = this
     return `${this.script}${this.style}<form ${isEmail ? "onsubmit='sendFormViaEmail(this); return false;'" : ` method='post' action='${formDestination}'`} class="scrollFormParser">${this.inputs}<button value="${subject}" title="${formDestination}" class="scrollButton" type="submit">${callToAction}</button>${this.footer}</form>`
   }
@@ -112,6 +112,6 @@ scrollFormParser
     codeMirrorInstance.setSize(width, height);
     codeMirrorInstance.setValue(\`${this.value}\`); }</script>`
   }
-  compile(compileSettings) {
-    return this.getHtmlRequirements(compileSettings) + super.compile()
+  buildHtml(buildSettings) {
+    return this.getHtmlRequirements(buildSettings) + super.buildHtml()
   }

@@ -19,13 +19,13 @@ cssParser
  catchAllParser cssLineParser
  catchAllAtomType cssAnyAtom
  javascript
-  compile() {
+  buildHtml() {
    return `<style>${this.css}</style>`
   }
   get css() {
     return this.content ?? this.subparticlesToString()
   }
-  compileCss() {
+  buildCs() {
     return this.css
   }
 
@@ -36,13 +36,13 @@ inlineCssParser
  cueFromId
  catchAllAtomType filePathAtom
  javascript
-  compile() {
+  buildHtml() {
    return `<style>/* ${this.content} */\n${this.css}</style>`
   }
   get css() {
     return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join("\n\n")
   }
-  compileCss() {
+  buildCs() {
     return this.css
   }
 
@@ -53,7 +53,7 @@ scrollBackgroundColorParser
  cue background
  catchAllAtomType cssAnyAtom
  javascript
-  compile() {
+  buildHtml() {
    return `<style>html, body { background: ${this.content};}</style>`
   }
 
@@ -64,7 +64,7 @@ scrollFontColorParser
  cue color
  catchAllAtomType cssAnyAtom
  javascript
-  compile() {
+  buildHtml() {
    return `<style>html, body { color: ${this.content};}</style>`
   }
 
@@ -76,7 +76,7 @@ scrollFontParser
  atoms cueAtom fontFamilyAtom
  catchAllAtomType cssAnyAtom
  javascript
-  compile() {
+  buildHtml() {
    const font = this.content === "Slim" ? "Helvetica Neue; font-weight:100;" : this.content
    return `<style>html, body, h1,h2,h3 { font-family: ${font};}</style>`
   }
@@ -88,6 +88,6 @@ quickCssParser
  atoms urlAtom
  pattern ^[^\s]+\.(css)$
  javascript
-  compile() {
+  buildHtml() {
    return `<link rel="stylesheet" type="text/css" href="${this.filename}">`
   }

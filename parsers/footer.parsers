@@ -4,6 +4,6 @@ scrollFooterParser
  atoms preBuildCommandAtom
  cue footer
  javascript
-  compile() {
+  buildHtml() {
    return ""
   }

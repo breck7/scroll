@@ -4,10 +4,10 @@ scrollLeftRightButtonsParser
  description Previous and next nav buttons.
  extends abstractScrollParser
  javascript
-  compileEmbeddedVersion() {
+  buildHtmlSnippet() {
    return ""
   }
-  compile() {
+  buildHtml() {
     const file = this.parent.file
     const { linkToPrevious, linkToNext } = file
     if (!linkToPrevious) return ""
@@ -22,10 +22,10 @@ keyboardNavParser
  cueFromId
  catchAllAtomType urlAtom
  javascript
-  compileEmbeddedVersion() {
+  buildHtmlSnippet() {
    return ""
   }
-  compile() {
+  buildHtml() {
    const {root} = this.root
    const linkToPrevious = this.getAtom(1) ?? root.linkToPrevious
    const linkToNext = this.getAtom(2) ?? root.linkToNext

@@ -21,9 +21,9 @@ scrollDashboardParser
   makeRow(items) {
    return `<tr>` + items.map(particle => `<td>${particle.cue}<span>${particle.content}</span></td>`).join("\n") + `</tr>\n`
   }
-  compile() {
+  buildHtml() {
    return `<table class="scrollDashboard">${this.tableBody}</table>`
   }
-  compileTxt() {
+  buildTxt() {
     return this.subparticlesToString()
   }

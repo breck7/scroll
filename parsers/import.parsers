@@ -6,7 +6,7 @@ importParser
  extends abstractScrollParser
  catchAllAtomType filePathAtom
  javascript
-  compile() {
+  buildHtml() {
    return ""
   }
  example
@@ -21,7 +21,7 @@ scrollImportedParser
  baseParser blobParser
  catchAllAtomType filePathAtom
  javascript
-  compile() {
+  buildHtml() {
    return ""
   }
   getErrors() {
@@ -38,7 +38,7 @@ quickImportParser
  atoms urlAtom
  pattern ^[^\s]+\.(scroll|parsers)$
  javascript
-  compile() {
+  buildHtml() {
    return ""
   }
  example
@@ -52,7 +52,7 @@ importOnlyParser
  atoms preBuildCommandAtom
  extends abstractTopLevelSingleMetaParser
  javascript
-  compile() {
+  buildHtml() {
    return ""
   }
 

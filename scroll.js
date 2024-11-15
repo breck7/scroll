@@ -12,7 +12,6 @@ const { Particle } = require("scrollsdk/products/Particle.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { Utils } = require("scrollsdk/products/Utils.js")
 const { ParticleFileSystem } = require("scrollsdk/products/ParticleFileSystem.js")
-const stumpParser = require("scrollsdk/products/stump.nodejs.js")
 const packageJson = require("./package.json")
 
 // Constants
@@ -173,11 +172,6 @@ parsers/errors.parsers`
   EXTERNALS_PATH = EXTERNALS_PATH
   importOnly = false
   filePath = ""
-
-  compileStumpCode(code) {
-    return new stumpParser(code).compile()
-  }
-
   timeIndex = 0
 
   _nextAndPrevious(arr, index) {

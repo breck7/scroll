@@ -11,10 +11,10 @@ plainTextParser
  catchAllParser plainTextLineParser
  catchAllAtomType stringAtom
  javascript
-  compile() {
-   return this.compileTxt()
+  buildHtml() {
+   return this.buildTxt()
   }
-  compileTxt() {
+  buildTxt() {
     return `${this.content ?? ""}${this.subparticlesToString()}`
   }
 
@@ -23,7 +23,7 @@ plainTextOnlyParser
  extends plainTextParser
  description Only print for buildTxt.
  javascript
-  compile() {
+  buildHtml() {
    return ""
   }
 
@@ -38,15 +38,15 @@ printFormatLinksParser
  example
   printFormatLinks
  javascript
-  compile() {
+  buildHtml() {
    const permalink = this.root.permalink.replace(".html", "")
    // hacky
    const particle = this.appendSibling(`HTML | TXT`, `class scrollDateline\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
-   const html = particle.compile()
+   const html = particle.buildHtml()
    particle.destroy()
    return html
   }
-  compileTxt() {
+  buildTxt() {
     const permalink = this.root.permalink.replace(".html", "")
     return `HTML | TXT\n link ${permalink}.html HTML\n link ${permalink}.txt TXT`
   }

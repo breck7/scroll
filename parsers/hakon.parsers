@@ -9,13 +9,13 @@ hakonParser
  description Compile Hakon to CSS.
  catchAllParser hakonContentParser
  javascript
-  compile() {
+  buildHtml() {
    return `<style>${this.css}</style>`
   }
   get css() {
     const {hakonParser} = this.root
     return new hakonParser(this.subparticlesToString()).compile()
   }
-  compileCss() {
+  buildCs() {
     return this.css
   }

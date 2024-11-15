@@ -31,7 +31,7 @@ testParticles.compileAftertext = areEqual => {
   ]
 
   tests.forEach(example => {
-    const result = new DefaultScrollParser(example.text).compile()
+    const result = new DefaultScrollParser(example.text).buildHtml()
     areEqual(result, example.expected)
   })
 }
@@ -41,8 +41,8 @@ testParticles.paragraphParser = areEqual => {
   const program = new DefaultScrollParser(`* foo`)
 
   // Act
-  program.compile()
-  const result = program.compile()
+  program.buildHtml()
+  const result = program.buildHtml()
 
   areEqual(result, `<p id="particle0" class="scrollParagraph">foo</p>`)
 }
@@ -52,8 +52,8 @@ testParticles.linkOnly = areEqual => {
   const program = new DefaultScrollParser(`* https://particles.scroll.pub`)
 
   // Act
-  program.compile()
-  const result = program.compile()
+  program.buildHtml()
+  const result = program.buildHtml()
 
   areEqual(result, `<p id="particle0" class="scrollParagraph"><a href="https://particles.scroll.pub" target="_blank">https://particles.scroll.pub</a></p>`)
 }
@@ -63,7 +63,7 @@ testParticles.endSnippet = areEqual => {
   const program = new DefaultScrollParser(`Hi\nendSnippet`)
 
   // Act/Assert
-  areEqual(program.compile().includes("endSnippet"), false, "should not print endSnippet")
+  areEqual(program.buildHtml().includes("endSnippet"), false, "should not print endSnippet")
 }
 
 testParticles.tableWithLinks = areEqual => {
@@ -80,7 +80,7 @@ testParticles.tableWithLinks = areEqual => {
   ]
 
   tests.forEach(example => {
-    const result = new DefaultScrollParser(example.text).compile()
+    const result = new DefaultScrollParser(example.text).buildHtml()
     areEqual(result.includes(example.contains), true)
   })
 }

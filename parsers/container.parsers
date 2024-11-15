@@ -9,10 +9,10 @@ scrollContainerParser
   get maxWidth() {
     return this.atoms[1] || "1200px"
   }
-  compileEmbeddedVersion() {
+  buildHtmlSnippet() {
    return ""
   }
-  compile() {
+  buildHtml() {
     this.parent.bodyStack.push("</div>")
    return `<div style="width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;" class="scrollContainerParser">`
   }

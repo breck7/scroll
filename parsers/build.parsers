@@ -11,7 +11,7 @@ abstractBuildCommandParser
  inScope slashCommentParser
  javascript
   isTopMatter = true
-  compile() {
+  buildHtml() {
    return ""
   }
   get extension() {

@@ -58,10 +58,10 @@ printColumnParser
   atoms cueAtom
   catchAllAtomType stringAtom
  javascript
-  compile() {
+  buildHtml() {
    return this.columnValues.join(this.join)
   }
-  compileTxt() {
+  buildTxt() {
     return this.columnValues.join(this.join)
   }
   get join() {
@@ -87,13 +87,13 @@ printTableParser
   get columnNames() {
    return this.parent.columnNames
   }
-  compileJson() {
+  buildJson() {
     return JSON.stringify(this.coreTable, undefined, 2)
   }
-  compileCsv() {
+  buildCsv() {
      return new Particle(this.coreTable).asCsv
   }
-  compileTsv() {
+  buildTsv() {
      return new Particle(this.coreTable).asTsv
   }
   get columns() {
@@ -139,13 +139,13 @@ printTableParser
     .map(row => `<tr>${this.toRow(row)}</tr>`)
     .join("\n")
   }
-  compile() {
+  buildHtml() {
    return `<table id="table${this._getUid()}" class="scrollTable">
    <thead><tr>${this.tableHeader.join("\n")}</tr></thead>
    <tbody>${this.tableBody}</tbody>
    </table>`
   }
-  compileTxt() {
+  buildTxt() {
     return this.parent.delimitedData || new Particle(this.coreTable).asCsv
   }
 
@@ -162,7 +162,7 @@ scrollTableDelimiterParser
  cue delimiter
  atoms cueAtom stringAtom
  javascript
-  compile() {
+  buildHtml() {
     return ""
   }
 
@@ -174,13 +174,13 @@ abstractDatatableProviderParser
   get visualizations() {
     return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)
   }
-  compile(compileSettings) {
-   return this.visualizations.map(particle => particle.compile(compileSettings))
+  buildHtml(buildSettings) {
+   return this.visualizations.map(particle => particle.buildHtml(buildSettings))
      .join("\n")
      .trim()
   }
-  compileTxt() {
-    return this.visualizations.map(particle => particle.compileTxt())
+  buildTxt() {
+    return this.visualizations.map(particle => particle.buildTxt())
      .join("\n")
      .trim()
   }
@@ -611,6 +611,6 @@ tableSearchParser
  // adds to all tables on page
  description Table search and sort widget.
  javascript
-  compileInstance() {
+  buildInstance() {
    return ""
   }

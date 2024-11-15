@@ -4,14 +4,14 @@ abstractAssertionParser
  string bindTo previous
  cueFromId
  javascript
-  compile() {
+  buildHtml() {
    return ``
   }
   get particleToTest() {
     // If the previous particle is also an assertion particle, use the one before that.
     return this.previous.particleToTest ? this.previous.particleToTest : this.previous
   }
-  get actual() {return this.particleToTest.compile()}
+  get actual() {return this.particleToTest.buildHtml()}
   getErrors() {
     const {actual} = this
     const expected = this.subparticlesToString()

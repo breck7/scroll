@@ -13,12 +13,12 @@ heatrixParser
  catchAllParser heatrixCatchAllParser
  extends abstractTableVisualizationParser
  javascript
-  compile() {
+  buildHtml() {
    // A hacky but simple way to do this for now.
    const advanced = new Particle("heatrixAdvanced")
    advanced.appendLineAndSubparticles("table", "\n " + this.tableData.replace(/\n/g, "\n "))
    const particle = this.appendSibling("heatrixAdvanced", advanced.subparticlesToString())
-   const html = particle.compile()
+   const html = particle.buildHtml()
    particle.destroy()
    return html
   }
@@ -61,7 +61,7 @@ heatrixAdvancedParser
     #a1d99b 400
     #74c476 1600
  javascript
-  compile() {
+  buildHtml() {
   class Heatrix {
     static HeatrixId = 0
     uid = Heatrix.HeatrixId++

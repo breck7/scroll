@@ -5,7 +5,7 @@ quickScriptParser
  atoms urlAtom
  pattern ^[^\s]+\.(js)$
  javascript
-  compile() {
+  buildHtml() {
    return `<script src="${this.filename}"></script>`
   }
 
@@ -16,13 +16,13 @@ inlineJsParser
  cueFromId
  catchAllAtomType filePathAtom
  javascript
-  compile() {
+  buildHtml() {
    return `<script>/* ${this.content} */\n${this.contents}</script>`
   }
   get contents() {
     return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join(";\n\n")
   }
-  compileJs() {
+  buildJs() {
     return this.contents
   }
 
@@ -42,12 +42,12 @@ scriptParser
  catchAllParser scriptLineParser
  catchAllAtomType scriptAnyAtom
  javascript
-  compile() {
+  buildHtml() {
    return `<script>${this.scriptContent}</script>`
   }
   get scriptContent() {
     return this.content ?? this.subparticlesToString()
   }
-  compileJs() {
+  buildJs() {
     return this.scriptContent
   }

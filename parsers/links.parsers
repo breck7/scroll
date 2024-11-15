@@ -44,7 +44,7 @@ linkParser
  cueFromId
  javascript
   tag = "a"
-  compileTxt() {
+  buildTxt() {
     return this.root.ensureAbsoluteLink(this.link) + " " + this.pattern
   }
   get link() {
@@ -57,7 +57,7 @@ linkParser
    const link = this.getAtom(1)
    const isAbsoluteLink = link.includes("://")
    if (isAbsoluteLink) return link
-   const relativePath = this.parent.compileSettings?.relativePath || ""
+   const relativePath = this.parent.buildSettings?.relativePath || ""
    return relativePath + link
   }
   get attributes() {

@@ -39,7 +39,7 @@ quickIncludeHtmlParser
  atoms urlAtom
  pattern ^[^\s]+\.(html|htm)$
  javascript
-  compile() {
+  buildHtml() {
    return this.root.readFile(this.filename)
   }
 
@@ -51,10 +51,10 @@ abstractHtmlParser
  catchAllParser htmlLineParser
  catchAllAtomType htmlAnyAtom
  javascript
-  compile() {
+  buildHtml() {
    return `${this.content ?? ""}${this.subparticlesToString()}`
   }
-  compileTxt() {
+  buildTxt() {
     return ""
   }
 
@@ -66,7 +66,7 @@ scrollBrParser
  catchAllAtomType integerAtom
  boolean isHtml true
  javascript
-  compile() {
+  buildHtml() {
    return `<br>`.repeat(parseInt(this.getAtom(1) || 1))
   }
 
@@ -90,6 +90,6 @@ htmlInlineParser
  description Inline HTML.
  boolean isPopular true
  javascript
-  compile() {
+  buildHtml() {
    return `${this.getLine() ?? ""}${this.subparticlesToString()}`
   }

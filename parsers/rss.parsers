@@ -17,7 +17,7 @@ printFeedParser
   printFeed cars/index
   buildRss
  javascript
-  compileRss() {
+  buildRss() {
    const {dayjs} = this.root
    const scrollPrograms = this.files.map(file => file.file.scrollProgram)
    const { title, baseUrl, description } = this.root
@@ -33,6 +33,6 @@ printFeedParser
   </channel>
   </rss>`
   }
-  compileTxt() {
-    return this.compileRss()
+  buildTxt() {
+    return this.buildRss()
   }

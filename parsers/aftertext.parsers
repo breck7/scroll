@@ -64,16 +64,16 @@ abstractAftertextParser
   get isHidden() {
     return this.has("hidden")
   }
-  compile(compileSettings) {
+  buildHtml(buildSettings) {
    if (this.isHidden) return ""
-   this.compileSettings = compileSettings
+   this.buildSettings = buildSettings
    const { className, styles } = this
    const classAttr = className ? `class="${this.className}"` : ""
    const tag = this.get("tag") || this.tag
    if (tag === "none") // Allow no tag for aftertext in tables
      return this.text
    const id = this.has("id") ? "" : `id="${this.htmlId}" ` // always add an html id
-   return this.getHtmlRequirements(compileSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}>${this.text}</${tag}>`
+   return this.getHtmlRequirements(buildSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}>${this.text}</${tag}>`
   }
   get htmlAttributes() {
    const attrs = this.filter(particle => particle.isAttribute)
@@ -98,7 +98,7 @@ abstractAftertextAttributeParser
   get htmlAttributes() {
    return `${this.cue}="${this.content}"`
   }
-  compile() {
+  buildHtml() {
    return ""
   }
 
@@ -107,7 +107,7 @@ aftertextTagParser
  description Override the HTML tag that the compiled particle will use.
  cue tag
  javascript
-  compile() {
+  buildHtml() {
    return ""
   }
 
@@ -116,7 +116,7 @@ abstractAftertextDirectiveParser
  catchAllAtomType stringAtom
  javascript
   isMarkup = true
-  compile() {
+  buildHtml() {
    return ""
   }
   getErrors() {
@@ -259,7 +259,7 @@ aftertextStrikeParser
 
 abstractHtmlAttributeParser
  javascript
-  compile() {
+  buildHtml() {
    return ""
   }
 

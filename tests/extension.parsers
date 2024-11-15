@@ -3,6 +3,6 @@ goodMorningParser
  cueFromId
  extends abstractScrollParser
  javascript
-  compile() {
+  buildHtml() {
     return "Good morning"
   }

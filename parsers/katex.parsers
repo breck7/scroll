@@ -22,11 +22,11 @@ katexParser
   ))
   </script>
  javascript
-  compileInstance() {
+  buildInstance() {
    const id = this._getUid()
    const content = this.content === undefined ? "" : this.content
    return `<div class="scrollKatex" id="${id}">${content + this.subparticlesToString()}</div>`
   }
-  compileTxt() {
+  buildTxt() {
     return ( this.content ? this.content : "" )+ this.subparticlesToString()
   }

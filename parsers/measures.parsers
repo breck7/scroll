@@ -34,10 +34,10 @@ abstractMeasureParser
  string typeForWebForms text
  extends abstractScrollParser
  javascript
-  compileEmbeddedVersion() {
+  buildHtmlSnippet() {
    return ""
   }
-  compile() {
+  buildHtml() {
    return ""
   }
   get measureValue() {

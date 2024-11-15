@@ -6,17 +6,17 @@ paragraphParser
  boolean suggestInAutocomplete false
  cueFromId
  javascript
-  compile(compileSettings) {
+  buildHtml(buildSettings) {
    if (this.isHidden) return ""
    // Hacky, I know.
    const newLine = this.has("inlineMarkupsOn") ? undefined : this.appendLine("inlineMarkupsOn")
-   const compiled = super.compile(compileSettings)
+   const compiled = super.buildHtml(buildSettings)
    if (newLine)
     newLine.destroy()
    return compiled
   }
-  compileTxt() {
-    const subparticles = this.filter(particle => particle.compileTxt).map(particle => particle.compileTxt()).filter(i => i).join("\n")
+  buildTxt() {
+    const subparticles = this.filter(particle => particle.buildTxt).map(particle => particle.buildTxt()).filter(i => i).join("\n")
     const dateline = this.getParticle("dateline")
     return (dateline ? dateline.day + "\n\n" : "") + (this.originalText || "") + (subparticles ? "\n " + subparticles.replace(/\n/g, "\n ") : "")
   }
@@ -35,13 +35,13 @@ abstractIndentableParagraphParser
  inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser
  javascript
   compileSubparticles() {
-    return this.map(particle => particle.compile())
+    return this.map(particle => particle.buildHtml())
      .join("\n")
      .trim()
   }
-  compile() {
-   return super.compile() + this.compileSubparticles()
+  buildHtml() {
+   return super.buildHtml() + this.compileSubparticles()
   }
-  compileTxt() {
-    return this.getAtom(0) + " " + super.compileTxt()
+  buildTxt() {
+    return this.getAtom(0) + " " + super.buildTxt()
   }

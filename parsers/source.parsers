@@ -6,7 +6,7 @@ printSourceParser
   printSource index
   buildTxt source.txt
  javascript
-  compile() {
+  buildHtml() {
    const files = this.root.getFilesByTags(this.content).map(file => file.file)
    return `${files.map(file => file.filePath + "\n " + file.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
   }
@@ -33,9 +33,9 @@ printSourceStackParser
       code
     }})
   }
-  compile() {
-   return `<code class="scrollCodeBlock">${this.compileTxt().replace(/\</g, "&lt;")}</code>`
+  buildHtml() {
+   return `<code class="scrollCodeBlock">${this.buildTxt().replace(/\</g, "&lt;")}</code>`
   }
-  compileTxt() {
+  buildTxt() {
    return this.sources.map((pass, index) => `Pass ${index + 1} - ${pass.name}\n========\n${pass.code}`).join("\n\n\n")
   }

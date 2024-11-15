@@ -3,14 +3,14 @@ abstractHeaderParser
  example
   # Hello world
  javascript
-  compile(compileSettings) {
+  buildHtml(buildSettings) {
    if (this.isHidden) return ""
    if (this.parent.sectionStack)
     this.parent.sectionStack.push("</div>")
-   return `<div class="scrollSection">` + super.compile(compileSettings)
+   return `<div class="scrollSection">` + super.buildHtml(buildSettings)
   }
-  compileTxt() {
-    const line = super.compileTxt()
+  buildTxt() {
+    const line = super.buildTxt()
     return line + "\n" + "=".repeat(line.length)
   }
   isHeader = true

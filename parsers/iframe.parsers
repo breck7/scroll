@@ -7,6 +7,6 @@ iframesParser
  example
   iframes frame.html
  javascript
-  compile() {
+  buildHtml() {
    return this.atoms.slice(1).map(url => `<iframe src="${url}" frameborder="0"></iframe>`).join("\n")
   }
