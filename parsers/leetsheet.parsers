@@ -12,21 +12,21 @@ printUsageStatsParser
    const sorted = this.root.lodash.sortBy(rows, "count").reverse()
    return "parserId uses\n" + sorted.map(row => `${row.atom} ${row.count}`).join('\n')
   }
-  compile() {
+  buildHtml() {
     // A hacky but simple way to do this for now.
    const particle = this.appendSibling("table")
    particle.appendLine("delimiter  ")
    particle.appendLine("printTable")
    const dataParticle = particle.appendLine("data")
     dataParticle.setSubparticles(this.stats)
-   const html = particle.compile()
+   const html = particle.buildHtml()
    particle.destroy()
    return html
   }
-  compileTxt() {
+  buildTxt() {
     return this.stats
   }
-  compileCsv() {
+  buildCsv() {
     return this.stats.replace(/ /g, ",")
   }
 
@@ -74,10 +74,10 @@ printScrollLeetSheetParser
    const css = `#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }`
    return `<style>${css}</style><div id="scrollLeetSheet">` + doc.map(obj => `<div class="${obj.category}"><a href="${this.makeLink(obj.examples, obj.id)}">${obj.isPopular ? "<b>" : ""}${obj.id}</a> ${obj.description}${obj.isPopular ? "</b>" : ""}${obj.note}</div>`).join("\n") + "</div>"
   }
-  compile() {
+  buildHtml() {
     return this.docToHtml(this.sortDocs(this.parsersToDocument))
   }
-  compileTxt() {
+  buildTxt() {
    return this.sortDocs(this.parsersToDocument).map(obj => `${obj.id} - ${obj.description}`).join("\n")
   }
   getCategory(input) {
@@ -86,7 +86,7 @@ printScrollLeetSheetParser
   getNote() {
     return ""
   }
-  compileCsv() {
+  buildCsv() {
     const rows = this.sortDocs(this.parsersToDocument).map(obj => {
       const {id, isPopular, description, popularity, category} = obj
       return {
@@ -107,7 +107,7 @@ printparsersLeetSheetParser
  tags experimental
  description Parsers leetsheet.
  javascript
-  compile() {
+  buildHtml() {
     return "<p><b>Parser Definition Parsers</b> define parsers that acquire, analyze and act on code.</p>" + this.docToHtml(this.sortDocs(this.parsersToDocument)) + "<p><b>Atom Definition Parsers</b> analyze the atoms in a line.</p>" + this.docToHtml(this.sortDocs(this.atomParsersToDocument))
   }
   makeLink() {

@@ -5,12 +5,12 @@ thinColumnsParser
  catchAllAtomType integerAtom
  description Thin columns.
  javascript
-  compileEmbeddedVersion() {
+  buildHtmlSnippet() {
    return ""
   }
   columnWidth = 35
   columnGap = 20
-  compile() {
+  buildHtml() {
    const {columnWidth, columnGap, maxColumns} = this
    const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * columnGap
    const stackContents = this.parent.clearSectionStack() // Starting columns always first clears the section stack.
@@ -59,9 +59,9 @@ endColumnsParser
  cueFromId
  description End columns.
  javascript
-  compile() {
+  buildHtml() {
    return "</div>"
   }
-  compileEmbeddedVersion() {
+  buildHtmlSnippet() {
    return ""
   }

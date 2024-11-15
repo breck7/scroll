@@ -29,13 +29,13 @@ runScriptParser
     }
     return [interpreterMap[ext], fullPath].join(" ")
   }
-  compile() {
-    return this.compileTxt()
+  buildHtml() {
+    return this.buildTxt()
   }
   get filename() {
     return this.getAtom(this.filenameIndex)
   }
-  compileTxt() {
+  buildTxt() {
     return this.results.toString().trim()
   }
 

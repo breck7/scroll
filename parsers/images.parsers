@@ -11,13 +11,13 @@ abstractCaptionedParser
  inScope captionAftertextParser slashCommentParser
  cueFromId
  javascript
-  compile(compileSettings) {
+  buildHtml(buildSettings) {
    const caption = this.getParticle("caption")
-   const captionFig = caption ? `<figcaption>${caption.compile()}</figcaption>` : ""
+   const captionFig = caption ? `<figcaption>${caption.buildHtml()}</figcaption>` : ""
    const {figureWidth} = this
    const widthStyle = figureWidth ? `width:${figureWidth}px; margin: auto;` : ""
    const float = this.has("float") ? `margin: 20px; float: ${this.get("float")};` : ""
-   return `<figure class="scrollCaptionedFigure" style="${widthStyle + float}">${this.getFigureContent(compileSettings)}${captionFig}</figure>`
+   return `<figure class="scrollCaptionedFigure" style="${widthStyle + float}">${this.getFigureContent(buildSettings)}${captionFig}</figure>`
   }
   get figureWidth() {
     return this.get("width")
@@ -72,8 +72,8 @@ scrollImageParser
     return this.getAtom(this.atomIndex)
   }
   get dependencies() { return [this.filename]}
-  getFigureContent(compileSettings) {
-   const linkRelativeToCompileTarget = (compileSettings ? (compileSettings.relativePath ?? "") : "") + this.filename
+  getFigureContent(buildSettings) {
+   const linkRelativeToCompileTarget = (buildSettings ? (buildSettings.relativePath ?? "") : "") + this.filename
    const {width, height} = this.dimensions
    let dimensionAttributes = width || height  ? `width="${width}" height="${height}" ` : ""
    // Todo: can we reuse more code from aftertext?
@@ -83,8 +83,8 @@ scrollImageParser
    const target = this.has("target") ? this.get("target") : (this.has("link") ? "" : "_blank")
    return `<a href="${clickLink}" target="${target}" ${className} ${id}><img src="${linkRelativeToCompileTarget}" ${dimensionAttributes}loading="lazy"></a>`
   }
-  compileTxt() {
-    const subparticles = this.filter(particle => particle.compileTxt).map(particle => particle.compileTxt()).filter(i => i).join("\n")
+  buildTxt() {
+    const subparticles = this.filter(particle => particle.buildTxt).map(particle => particle.buildTxt()).filter(i => i).join("\n")
     return  "[Image Omitted]" + (subparticles ? "\n " + subparticles.replace(/\n/g, "\n ") : "")
   }
 

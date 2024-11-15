@@ -25,7 +25,7 @@ belowAsCodeParser
    return this.selectedParticles.map(particle => particle.asString).join("\n")
   }
   reverse = false
-  compile() {
+  buildHtml() {
    return `<code class="scrollCodeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
   }
   get howMany() {

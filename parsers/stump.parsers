@@ -9,8 +9,12 @@ stumpParser
  description Compile Stump to HTML.
  catchAllParser stumpContentParser
  javascript
-  compile() {
-   return this.parent.file.compileStumpCode(this.subparticlesToString())
+  buildHtml() {
+   const {stumpParser} = this
+   return new stumpParser(this.subparticlesToString()).compile()
+  }
+  get stumpParser() {
+    return this.isNodeJs() ? require("scrollsdk/products/stump.nodejs.js") : stumpParser
   }
 
 stumpNoSnippetParser
@@ -20,6 +24,6 @@ stumpNoSnippetParser
  description Compile Stump unless snippet.
  cueFromId
  javascript
-  compileEmbeddedVersion() {
+  buildHtmlSnippet() {
    return ""
   }

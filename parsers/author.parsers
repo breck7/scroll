@@ -10,11 +10,11 @@ printAuthorsParser
    https://breckyunits.com
   printAuthors
  javascript
-  compile() {
-   return this.parent.getParticle("authors")?.compileHtmlForPrint()
+  buildHtml() {
+   return this.parent.getParticle("authors")?.buildHtmlForPrint()
   }
-  compileTxt() {
-    return this.parent.getParticle("authors")?.compileTxtForPrint()
+  buildTxt() {
+    return this.parent.getParticle("authors")?.buildTxtForPrint()
   }
 
 authorsParser
@@ -31,21 +31,21 @@ authorsParser
  javascript
   isTopMatter = true
   isSetterParser = true
-  compileHtmlForPrint() {
+  buildHtmlForPrint() {
     // hacky. todo: cleanup
     const originalContent = this.content
     this.setContent(`by ${originalContent}`)
-    const html = super.compile()
+    const html = super.buildHtml()
     this.setContent(originalContent)
     return html
   }
-  compileTxtForPrint() {
-    return 'by ' + super.compileTxt()
+  buildTxtForPrint() {
+    return 'by ' + super.buildTxt()
   }
-  compile() {
+  buildHtml() {
    return ""
   }
-  compileTxt() {
+  buildTxt() {
     return ""
   }
   defaultClassName = "scrollByLine"

@@ -25,7 +25,7 @@ abstractPlotParser
   plot
  inScope abstractColumnNameParser
  javascript
-  compileInstance() {
+  buildInstance() {
    const id = "plot" + this._getUid()
    return `<div id="${id}"></div><script>
    {

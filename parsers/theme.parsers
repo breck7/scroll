@@ -18,6 +18,6 @@ scrollThemeParser
   get files() {
     return this.atoms.slice(1).map(name => `${name}.css`)
   }
-  compile() {
+  buildHtml() {
    return this.files.map(name => `<link rel="stylesheet" type="text/css" href="${name}">`).join("\n")
   }

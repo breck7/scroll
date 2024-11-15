@@ -9,7 +9,7 @@ abstractCommentParser
  baseParser blobParser
  string bindTo next
  javascript
-  compile() {
+  buildHtml() {
    return ``
   }
  catchAllParser commentLineParser

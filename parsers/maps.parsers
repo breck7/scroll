@@ -56,7 +56,7 @@ mapParser
   <script src="leaflet.js"></script>
   <script src="scrollLibs.js"></script>
  javascript
-  compileInstance() {
+  buildInstance() {
    const height = this.get("height") || 500
    const id = this._getUid()
    const obj = this.toObject()

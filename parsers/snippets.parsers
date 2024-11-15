@@ -4,7 +4,7 @@ endSnippetParser
  extends abstractScrollParser
  cueFromId
  javascript
-  compile() {
+  buildHtml() {
    return ""
   }
 
@@ -19,13 +19,13 @@ printSnippetsParser
  example
   printSnippets index
  javascript
-  makeSnippet(scrollProgram, compileSettings) {
+  makeSnippet(scrollProgram, buildSettings) {
     const {endSnippetIndex} = scrollProgram
-    if (endSnippetIndex === -1) return scrollProgram.compileEmbeddedVersion(compileSettings) + scrollProgram.editHtml
-    const linkRelativeToCompileTarget = compileSettings.relativePath + scrollProgram.permalink
+    if (endSnippetIndex === -1) return scrollProgram.buildHtmlSnippet(buildSettings) + scrollProgram.editHtml
+    const linkRelativeToCompileTarget = buildSettings.relativePath + scrollProgram.permalink
     const joinChar = "\n"
     const html = scrollProgram
-        .map((subparticle, index) => (index >= endSnippetIndex ? "" : subparticle.compileEmbeddedVersion ? subparticle.compileEmbeddedVersion(compileSettings) : subparticle.compile(compileSettings)))
+        .map((subparticle, index) => (index >= endSnippetIndex ? "" : subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : subparticle.buildHtml(buildSettings)))
         .filter(i => i)
         .join(joinChar)
         .trim() +
@@ -41,15 +41,15 @@ printSnippetsParser
    }
    return files
   }
-  compile() {
+  buildHtml() {
    const alreadyRequired = this.root.alreadyRequired
    const snippets = this.files.map(file => {
-    const compileSettings = {relativePath: file.relativePath, alreadyRequired }
-    return `<div class="scrollSnippetContainer">${this.makeSnippet(file.file.scrollProgram, compileSettings)}</div>`
+    const buildSettings = {relativePath: file.relativePath, alreadyRequired }
+    return `<div class="scrollSnippetContainer">${this.makeSnippet(file.file.scrollProgram, buildSettings)}</div>`
     }).join("\n\n")
    return `<div class="scrollColumns" style="column-width:35ch;">${snippets}</div>`
   }
-  compileTxt() {
+  buildTxt() {
    return this.files.map(file =>  {
     const {scrollProgram} = file.file
     const {title, date, absoluteLink} = scrollProgram
@@ -65,8 +65,8 @@ printFullSnippetsParser
  cueFromId
  description Print full pages in group(s).
  javascript
-  makeSnippet(scrollProgram, compileSettings) {
-   return scrollProgram.compileEmbeddedVersion(compileSettings) + scrollProgram.editHtml
+  makeSnippet(scrollProgram, buildSettings) {
+   return scrollProgram.buildHtmlSnippet(buildSettings) + scrollProgram.editHtml
   }
 
 printShortSnippetsParser
@@ -75,7 +75,7 @@ printShortSnippetsParser
  cueFromId
  description Titles and descriptions in group(s).
  javascript
-  makeSnippet(scrollProgram, compileSettings) {
+  makeSnippet(scrollProgram, buildSettings) {
    const { title, permalink, description, timestamp } = scrollProgram
    return `<div><a href="${permalink}">${title}</a><div>${description}...</div><div class="subdued" style="text-align:right;">${this.root.dayjs(timestamp * 1000).format(`MMMM D, YYYY`)}</div></div>`
   }
@@ -86,7 +86,7 @@ printRelatedParser
  extends printSnippetsParser
  cueFromId
  javascript
-  compile() {
+  buildHtml() {
    const alreadyRequired = this.root.alreadyRequired
    const list = this.files.map(fileWrapper => {
     const {relativePath, file} = fileWrapper
@@ -94,7 +94,7 @@ printRelatedParser
     return `- ${title}${year ? " (" + year + ")" : ""}\n link ${relativePath + permalink}`
     }).join("\n")
     const items = this.parent.concat(list)
-    const html = items.map(item => item.compile()).join("\n")
+    const html = items.map(item => item.buildHtml()).join("\n")
     items.forEach(item => item.destroy())
    return html
   }

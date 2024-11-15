@@ -108,17 +108,17 @@ fontFamilyAtom
 abstractScrollParser
  atoms cueAtom
  javascript
-  compileEmbeddedVersion(compileSettings) {
-   return this.compile(compileSettings)
+  buildHtmlSnippet(buildSettings) {
+   return this.buildHtml(buildSettings)
   }
-  compileTxt() {
+  buildTxt() {
     return ""
   }
-  getHtmlRequirements(compileSettings) {
+  getHtmlRequirements(buildSettings) {
     const {requireOnce} = this
     if (!requireOnce)
       return ""
-    const set = compileSettings?.alreadyRequired || this.root.alreadyRequired
+    const set = buildSettings?.alreadyRequired || this.root.alreadyRequired
     if (set.has(requireOnce))
       return ""
     
@@ -130,8 +130,8 @@ abstractScrollWithRequirementsParser
  extends abstractScrollParser
  cueFromId
  javascript
-  compile(compileSettings) {
-    return this.getHtmlRequirements(compileSettings) + this.compileInstance()
+  buildHtml(buildSettings) {
+    return this.getHtmlRequirements(buildSettings) + this.buildInstance()
   }
 
 metaCommandAtom
@@ -151,7 +151,7 @@ abstractTopLevelSingleMetaParser
  javascript
   isTopMatter = true
   isSetterParser = true
-  compile() {
+  buildHtml() {
    return ""
   }
 
@@ -167,9 +167,9 @@ scrollParser
    this.file = file
    return this
   }
-  compile(compileSettings) {
+  buildHtml(buildSettings) {
     this.sectionStack = []
-    return this.map(subparticle => subparticle.compile(compileSettings)).filter(i => i).join("\n") + this.clearSectionStack()
+    return this.map(subparticle => subparticle.buildHtml(buildSettings)).filter(i => i).join("\n") + this.clearSectionStack()
   }
   sectionStack = []
   clearSectionStack() {
@@ -253,9 +253,9 @@ scrollParser
     return ""
   }
   alreadyRequired = new Set()
-  compileEmbeddedVersion(compileSettings) {
+  buildHtmlSnippet(buildSettings) {
    this.sectionStack = []
-   return this.map(subparticle => (subparticle.compileEmbeddedVersion ? subparticle.compileEmbeddedVersion(compileSettings) : subparticle.compile(compileSettings)))
+   return this.map(subparticle => (subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : subparticle.buildHtml(buildSettings)))
      .filter(i => i)
      .join("\n")
      .trim() + this.clearSectionStack()
@@ -390,7 +390,7 @@ scrollParser
       return this.asTxt
     if (extensionCapitalized === "Html")
       return this.asHtml
-    const methodName = "compile" + extensionCapitalized
+    const methodName = "build" + extensionCapitalized
     return this.topDownArray
       .filter(particle => particle[methodName])
       .map((particle, index) => particle[methodName](index))
@@ -400,7 +400,7 @@ scrollParser
   get asTxt() {
     return (
       this.map(particle => {
-          const text = particle.compileTxt ? particle.compileTxt() : ""
+          const text = particle.buildTxt ? particle.buildTxt() : ""
           if (text) return text + "\n"
           if (!particle.getLine().length) return "\n"
           return ""
@@ -428,7 +428,7 @@ scrollParser
   get asHtml() {
     if (!this._compiledHtml) {
       const { permalink, buildsHtml } = this
-      const content = (this.compile() + this.clearBodyStack()).trim()
+      const content = (this.buildHtml() + this.clearBodyStack()).trim()
       // Don't add html tags to CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
       // <1% of use case so might be good enough.
       const wrapWithHtmlTags = buildsHtml
@@ -822,7 +822,7 @@ abstractBuildCommandParser
  inScope slashCommentParser
  javascript
   isTopMatter = true
-  compile() {
+  buildHtml() {
    return ""
   }
   get extension() {
@@ -874,7 +874,7 @@ abstractCommentParser
  baseParser blobParser
  string bindTo next
  javascript
-  compile() {
+  buildHtml() {
    return ``
   }
  catchAllParser commentLineParser
@@ -899,7 +899,7 @@ blankLineParser
  atoms blankAtom
  boolean isPopular true
  javascript
-  compile() {
+  buildHtml() {
    return this.parent.clearSectionStack()
   }
  pattern ^$
@@ -942,10 +942,10 @@ abstractMeasureParser
  string typeForWebForms text
  extends abstractScrollParser
  javascript
-  compileEmbeddedVersion() {
+  buildHtmlSnippet() {
    return ""
   }
-  compile() {
+  buildHtml() {
    return ""
   }
   get measureValue() {

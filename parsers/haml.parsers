@@ -16,13 +16,13 @@ hamlParser
   get htmlClasses() {
     return this.atoms[0].match(/\.([\w-]+)/g)?.map(cls => cls.slice(1)) || [];
   }
-  compile() {
+  buildHtml() {
    const {htmlId, htmlClasses, content, tag} = this
    this.parent.sectionStack.unshift(`</${tag}>`)
    const attrs = [htmlId ? ' id="' + htmlId + '"' : "", htmlClasses.length ? ' class="' + htmlClasses.join(" ") + '"' : ""].join(" ").trim()
    return `<${tag}${attrs ? " " + attrs : ""}>${content || ""}`
   }
-  compileTxt() {
+  buildTxt() {
     return this.content
   }
 hamlTagParser

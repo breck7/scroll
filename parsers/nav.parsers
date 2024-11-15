@@ -9,7 +9,7 @@ scrollNavParser
   atoms cueAtom
   catchAllAtomType stringAtom
  javascript
-  compile() {
+  buildHtml() {
     return `<nav class="scrollNavParser">` + this.root.getFilesByTags(this.content).map(file => {
         const { linkTitle, permalink } = file.file.scrollProgram
         return `<a href="${permalink}">${linkTitle}</a>` 

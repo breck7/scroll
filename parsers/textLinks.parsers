@@ -2,12 +2,12 @@ abstractTextLinkParser
  extends abstractAftertextParser
  cueFromId
  javascript
-  compileEmbeddedVersion() {
+  buildHtmlSnippet() {
    return ""
   }
-  compileTxt() {
+  buildTxt() {
     return this.text
   }
-  compile() {
+  buildHtml() {
    return `<div class="abstractTextLinkParser"><a href="${this.link}">${this.text}</a></div>`
   }

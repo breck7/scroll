@@ -13,10 +13,10 @@ codeParser
   code
    two = 1 + 1
  javascript
-  compile() {
+  buildHtml() {
    return `<code class="scrollCodeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
   }
-  compileTxt() {
+  buildTxt() {
     return "```\n" + this.code + "\n```"
   }
   get code() {
@@ -33,10 +33,10 @@ codeWithHeaderParser
   codeWithHeader math.py
    two = 1 + 1
  javascript
-  compile() {
-   return `<div class="codeWithHeader"><div class="codeHeader">${this.content}</div>${super.compile()}</div>`
+  buildHtml() {
+   return `<div class="codeWithHeader"><div class="codeHeader">${this.content}</div>${super.buildHtml()}</div>`
   }
-  compileTxt() {
+  buildTxt() {
     return "```" + this.content + "\n" + this.code + "\n```"
   }
 
@@ -63,7 +63,7 @@ copyButtonsParser
  extends abstractScrollWithRequirementsParser
  description Copy code widget.
  javascript
-  compileInstance() {
+  buildInstance() {
    return ""
   }
  string requireOnce

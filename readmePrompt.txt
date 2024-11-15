@@ -88,6 +88,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 154.0.0 11/15/2024
+🎉 `compile` is now renamed to specific output methods such as `buildHtml`.
+⚠️ BREAKING: if you've written custom parsers please rename your `compile` methods to `buildHtml`, `buildTxt`, et cetera
+
 📦 153.1.0 11/14/2024
 🎉 added `font` parser for quickly setting font family
 🎉 added `color` parser for quickly setting font family
@@ -2934,7 +2938,7 @@ code
   extends abstractScrollParser
   cue recipe
   javascript
-   compile() {
+   buildHtml() {
      const addYourSpecialMagic = ""
      return `${addYourSpecialMagic}`
    }
@@ -3454,8 +3458,8 @@ hiddenMessageParser
  inScope messageParser
  cueFromId
  javascript
-  compile() {
-    return `${super.compile()}`
+  buildHtml() {
+    return `${super.buildHtml()}`
   }
 hiddenMessage Click me.
  message Hello world

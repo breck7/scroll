@@ -29,7 +29,7 @@ printTitleParser
   printTitle
  cueFromId
  javascript
-  compile(compileSettings) {
+  buildHtml(buildSettings) {
    // Hacky, I know.
    const {content} = this
    if (content === undefined)
@@ -37,10 +37,10 @@ printTitleParser
    const { permalink } = this.root
    if (!permalink) {
     this.setContent(content) // Restore it as it was.
-    return super.compile(compileSettings)
+    return super.buildHtml(buildSettings)
    }
    const newLine = this.appendLine(`link ${permalink}`)
-   const compiled = super.compile(compileSettings)
+   const compiled = super.buildHtml(buildSettings)
    newLine.destroy()
    this.setContent(content) // Restore it as it was.
    return compiled

@@ -35,7 +35,7 @@ printDateParser
  description Print published date.
  boolean isPopular true
  javascript
-  compile() {
+  buildHtml() {
    return `<div style="text-align: center;" class="scrollDateline">${this.day}</div>`
   }
   get day() {
@@ -43,6 +43,6 @@ printDateParser
    if (!day) return ""
    return this.root.dayjs(day).format(`MMMM D, YYYY`)
   }
-  compileTxt() {
+  buildTxt() {
     return this.day
   }

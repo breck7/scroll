@@ -2,11 +2,11 @@ abstractDinkusParser
  extends abstractAftertextParser
  boolean isDinkus true
  javascript
-  compile() {
+  buildHtml() {
    return `<div class="${this.defaultClass}"><span>${this.dinkus}</span></div>`
   }
   defaultClass = "dinkus"
-  compileTxt() {
+  buildTxt() {
     return this.dinkus
   }
   get dinkus() {
@@ -19,7 +19,7 @@ horizontalRuleParser
  description A horizontal rule.
  extends abstractDinkusParser
  javascript
-  compile() {
+  buildHtml() {
    return `<hr>`
   }
 

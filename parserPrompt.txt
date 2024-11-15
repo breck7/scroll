@@ -64,16 +64,16 @@ stamp
     get isHidden() {
       return this.has("hidden")
     }
-    compile(compileSettings) {
+    buildHtml(buildSettings) {
      if (this.isHidden) return ""
-     this.compileSettings = compileSettings
+     this.buildSettings = buildSettings
      const { className, styles } = this
      const classAttr = className ? `class="${this.className}"` : ""
      const tag = this.get("tag") || this.tag
      if (tag === "none") // Allow no tag for aftertext in tables
        return this.text
      const id = this.has("id") ? "" : `id="${this.htmlId}" ` // always add an html id
-     return this.getHtmlRequirements(compileSettings) + `${this.text}`
+     return this.getHtmlRequirements(buildSettings) + `${this.text}`
     }
     get htmlAttributes() {
      const attrs = this.filter(particle => particle.isAttribute)
@@ -98,7 +98,7 @@ stamp
     get htmlAttributes() {
      return `${this.cue}="${this.content}"`
     }
-    compile() {
+    buildHtml() {
      return ""
     }
   
@@ -107,7 +107,7 @@ stamp
    description Override the HTML tag that the compiled particle will use.
    cue tag
    javascript
-    compile() {
+    buildHtml() {
      return ""
     }
   
@@ -116,7 +116,7 @@ stamp
    catchAllAtomType stringAtom
    javascript
     isMarkup = true
-    compile() {
+    buildHtml() {
      return ""
     }
     getErrors() {
@@ -259,7 +259,7 @@ stamp
   
   abstractHtmlAttributeParser
    javascript
-    compile() {
+    buildHtml() {
      return ""
     }
   
@@ -362,14 +362,14 @@ stamp
    string bindTo previous
    cueFromId
    javascript
-    compile() {
+    buildHtml() {
      return ``
     }
     get particleToTest() {
       // If the previous particle is also an assertion particle, use the one before that.
       return this.previous.particleToTest ? this.previous.particleToTest : this.previous
     }
-    get actual() {return this.particleToTest.compile()}
+    get actual() {return this.particleToTest.buildHtml()}
     getErrors() {
       const {actual} = this
       const expected = this.subparticlesToString()
@@ -503,11 +503,11 @@ stamp
      https://breckyunits.com
     printAuthors
    javascript
-    compile() {
-     return this.parent.getParticle("authors")?.compileHtmlForPrint()
+    buildHtml() {
+     return this.parent.getParticle("authors")?.buildHtmlForPrint()
     }
-    compileTxt() {
-      return this.parent.getParticle("authors")?.compileTxtForPrint()
+    buildTxt() {
+      return this.parent.getParticle("authors")?.buildTxtForPrint()
     }
   
   authorsParser
@@ -524,21 +524,21 @@ stamp
    javascript
     isTopMatter = true
     isSetterParser = true
-    compileHtmlForPrint() {
+    buildHtmlForPrint() {
       // hacky. todo: cleanup
       const originalContent = this.content
       this.setContent(`by ${originalContent}`)
-      const html = super.compile()
+      const html = super.buildHtml()
       this.setContent(originalContent)
       return html
     }
-    compileTxtForPrint() {
-      return 'by ' + super.compileTxt()
+    buildTxtForPrint() {
+      return 'by ' + super.buildTxt()
     }
-    compile() {
+    buildHtml() {
      return ""
     }
-    compileTxt() {
+    buildTxt() {
       return ""
     }
     defaultClassName = "scrollByLine"
@@ -549,7 +549,7 @@ stamp
    atoms blankAtom
    boolean isPopular true
    javascript
-    compile() {
+    buildHtml() {
      return this.parent.clearSectionStack()
     }
    pattern ^$
@@ -562,8 +562,8 @@ stamp
     blink Carpe diem!
    cue blink
    javascript
-    compile() {
-     return `${super.compile()}
+    buildHtml() {
+     return `${super.buildHtml()}
       setInterval(()=>{ Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden") }, 500)`
     }
  build.parsers
@@ -580,7 +580,7 @@ stamp
    inScope slashCommentParser
    javascript
     isTopMatter = true
-    compile() {
+    buildHtml() {
      return ""
     }
     get extension() {
@@ -678,11 +678,11 @@ stamp
     center
     This paragraph is centered.
    javascript
-    compile() {
+    buildHtml() {
      this.parent.sectionStack.push("")
-     return `${super.compile()}`
+     return `${super.buildHtml()}`
     }
-    compileTxt() {
+    buildTxt() {
       return this.content
     }
  chat.parsers
@@ -701,10 +701,10 @@ stamp
      Hi
      👋
    javascript
-    compile() {
+    buildHtml() {
      return this.map((line, index) => line.asString ? `${line.asString}` : "").join("")
     }
-    compileTxt() {
+    buildTxt() {
       return this.subparticlesToString()
     }
  checklist.parsers
@@ -764,10 +764,10 @@ stamp
     code
      two = 1 + 1
    javascript
-    compile() {
+    buildHtml() {
      return `${this.code.replace(/\`
     }
-    compileTxt() {
+    buildTxt() {
       return "```\n" + this.code + "\n```"
     }
     get code() {
@@ -784,10 +784,10 @@ stamp
     codeWithHeader math.py
      two = 1 + 1
    javascript
-    compile() {
-     return `${this.content}${super.compile()}`
+    buildHtml() {
+     return `${this.content}${super.buildHtml()}`
     }
-    compileTxt() {
+    buildTxt() {
       return "```" + this.content + "\n" + this.code + "\n```"
     }
   
@@ -814,7 +814,7 @@ stamp
    extends abstractScrollWithRequirementsParser
    description Copy code widget.
    javascript
-    compileInstance() {
+    buildInstance() {
      return ""
     }
    string requireOnce
@@ -842,12 +842,12 @@ stamp
    catchAllAtomType integerAtom
    description Thin columns.
    javascript
-    compileEmbeddedVersion() {
+    buildHtmlSnippet() {
      return ""
     }
     columnWidth = 35
     columnGap = 20
-    compile() {
+    buildHtml() {
      const {columnWidth, columnGap, maxColumns} = this
      const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * columnGap
      const stackContents = this.parent.clearSectionStack() // Starting columns always first clears the section stack.
@@ -896,10 +896,10 @@ stamp
    cueFromId
    description End columns.
    javascript
-    compile() {
+    buildHtml() {
      return ""
     }
-    compileEmbeddedVersion() {
+    buildHtmlSnippet() {
      return ""
     }
  comments.parsers
@@ -914,7 +914,7 @@ stamp
    baseParser blobParser
    string bindTo next
    javascript
-    compile() {
+    buildHtml() {
      return ``
     }
    catchAllParser commentLineParser
@@ -964,7 +964,7 @@ stamp
       this.parent.concat(ONE_BIG_FILE)
      //console.log(ONE_BIG_FILE)
     }
-    compile() {
+    buildHtml() {
       return ""
     }
   
@@ -1000,10 +1000,10 @@ stamp
     get maxWidth() {
       return this.atoms[1] || "1200px"
     }
-    compileEmbeddedVersion() {
+    buildHtmlSnippet() {
      return ""
     }
-    compile() {
+    buildHtml() {
       this.parent.bodyStack.push("")
      return ``
     }
@@ -1016,7 +1016,7 @@ stamp
     counter 4.5 Babies Born
    atoms cueAtom numberAtom
    javascript
-    compile() {
+    buildHtml() {
      const line = this.getLine()
      const atoms = line.split(" ")
      atoms.shift() // drop the counter atom
@@ -1024,7 +1024,7 @@ stamp
      const increment = perSecond/10
      const id = this._getUid()
      this.setLine(`* 0setInterval(()=>{ const el = document.getElementById('counter${id}'); el.title = parseFloat(el.title) + ${increment}; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100) ` + atoms.join(" "))
-     const html = super.compile()
+     const html = super.buildHtml()
      this.setLine(line)
      return html
     }
@@ -1060,13 +1060,13 @@ stamp
    catchAllParser cssLineParser
    catchAllAtomType cssAnyAtom
    javascript
-    compile() {
+    buildHtml() {
      return `${this.css}`
     }
     get css() {
       return this.content ?? this.subparticlesToString()
     }
-    compileCss() {
+    buildCs() {
       return this.css
     }
   
@@ -1077,13 +1077,13 @@ stamp
    cueFromId
    catchAllAtomType filePathAtom
    javascript
-    compile() {
+    buildHtml() {
      return `/* ${this.content} */\n${this.css}`
     }
     get css() {
       return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join("\n\n")
     }
-    compileCss() {
+    buildCs() {
       return this.css
     }
   
@@ -1094,7 +1094,7 @@ stamp
    cue background
    catchAllAtomType cssAnyAtom
    javascript
-    compile() {
+    buildHtml() {
      return `html, body { background: ${this.content};}`
     }
   
@@ -1105,7 +1105,7 @@ stamp
    cue color
    catchAllAtomType cssAnyAtom
    javascript
-    compile() {
+    buildHtml() {
      return `html, body { color: ${this.content};}`
     }
   
@@ -1117,7 +1117,7 @@ stamp
    atoms cueAtom fontFamilyAtom
    catchAllAtomType cssAnyAtom
    javascript
-    compile() {
+    buildHtml() {
      const font = this.content === "Slim" ? "Helvetica Neue; font-weight:100;" : this.content
      return `html, body, h1,h2,h3 { font-family: ${font};}`
     }
@@ -1129,7 +1129,7 @@ stamp
    atoms urlAtom
    pattern ^[^\s]+\.(css)$
    javascript
-    compile() {
+    buildHtml() {
      return ``
     }
   
@@ -1151,10 +1151,10 @@ stamp
      let str = ""
      for (let i = 0; i ` + items.map(particle => `${particle.cue}${particle.content}`).join("\n") + `\n`
     }
-    compile() {
+    buildHtml() {
      return `${this.tableBody}`
     }
-    compileTxt() {
+    buildTxt() {
       return this.subparticlesToString()
     }
  date.parsers
@@ -1195,7 +1195,7 @@ stamp
    description Print published date.
    boolean isPopular true
    javascript
-    compile() {
+    buildHtml() {
      return `${this.day}`
     }
     get day() {
@@ -1203,7 +1203,7 @@ stamp
      if (!day) return ""
      return this.root.dayjs(day).format(`MMMM D, YYYY`)
     }
-    compileTxt() {
+    buildTxt() {
       return this.day
     }
  dayjs.parsers
@@ -1273,11 +1273,11 @@ stamp
    extends abstractAftertextParser
    boolean isDinkus true
    javascript
-    compile() {
+    buildHtml() {
      return `${this.dinkus}`
     }
     defaultClass = "dinkus"
-    compileTxt() {
+    buildTxt() {
       return this.dinkus
     }
     get dinkus() {
@@ -1290,7 +1290,7 @@ stamp
    description A horizontal rule.
    extends abstractDinkusParser
    javascript
-    compile() {
+    buildHtml() {
      return ``
     }
   
@@ -1376,7 +1376,7 @@ stamp
      return this.selectedParticles.map(particle => particle.asString).join("\n")
     }
     reverse = false
-    compile() {
+    buildHtml() {
      return `${this.code.replace(/\`
     }
     get howMany() {
@@ -1498,11 +1498,11 @@ stamp
     expander Knock Knock
     Who's there?
    javascript
-    compile() {
+    buildHtml() {
      this.parent.sectionStack.push("")
-     return `${super.compile()}`
+     return `${super.buildHtml()}`
     }
-    compileTxt() {
+    buildTxt() {
       return this.content
     }
     tag = "summary"
@@ -1537,7 +1537,7 @@ stamp
     async build() {
      await this.root.fetch(this.url, this.filename)
     }
-    compile() {
+    buildHtml() {
       return ""
     }
  footer.parsers
@@ -1547,7 +1547,7 @@ stamp
    atoms preBuildCommandAtom
    cue footer
    javascript
-    compile() {
+    buildHtml() {
      return ""
     }
   
@@ -1582,8 +1582,8 @@ stamp
     get noteDefinitionIndex() {
      return this.parent.footnotes.indexOf(this) + 1
     }
-    compileTxt() {
-      return this.getAtom(0) + ": " + super.compileTxt()
+    buildTxt() {
+      return this.getAtom(0) + ": " + super.buildTxt()
     }
  forms.parsers
   classicFormParser
@@ -1638,7 +1638,7 @@ stamp
         return `${ucFirst}${IsRequired ? "*" : ""}:${tag}`
       }).join("\n")
     }
-    compile() {
+    buildHtml() {
       const {isEmail, formDestination, callToAction, subject} = this
       return `${this.script}${this.style}${this.inputs}${callToAction}${this.footer}`
     }
@@ -1700,8 +1700,8 @@ stamp
       codeMirrorInstance.setSize(width, height);
       codeMirrorInstance.setValue(\`${this.value}\`); }`
     }
-    compile(compileSettings) {
-      return this.getHtmlRequirements(compileSettings) + super.compile()
+    buildHtml(buildSettings) {
+      return this.getHtmlRequirements(buildSettings) + super.buildHtml()
     }
   
  groupBy.parsers
@@ -1830,14 +1830,14 @@ stamp
    description Compile Hakon to CSS.
    catchAllParser hakonContentParser
    javascript
-    compile() {
+    buildHtml() {
      return `${this.css}`
     }
     get css() {
       const {hakonParser} = this.root
       return new hakonParser(this.subparticlesToString()).compile()
     }
-    compileCss() {
+    buildCs() {
       return this.css
     }
   
@@ -1860,13 +1860,13 @@ stamp
     get htmlClasses() {
       return this.atoms[0].match(/\.([\w-]+)/g)?.map(cls => cls.slice(1)) || [];
     }
-    compile() {
+    buildHtml() {
      const {htmlId, htmlClasses, content, tag} = this
      this.parent.sectionStack.unshift(``)
      const attrs = [htmlId ? ' id="' + htmlId + '"' : "", htmlClasses.length ? ' class="' + htmlClasses.join(" ") + '"' : ""].join(" ").trim()
      return `${content || ""}`
     }
-    compileTxt() {
+    buildTxt() {
       return this.content
     }
   hamlTagParser
@@ -1879,14 +1879,14 @@ stamp
    example
     # Hello world
    javascript
-    compile(compileSettings) {
+    buildHtml(buildSettings) {
      if (this.isHidden) return ""
      if (this.parent.sectionStack)
       this.parent.sectionStack.push("")
-     return `` + super.compile(compileSettings)
+     return `` + super.buildHtml(buildSettings)
     }
-    compileTxt() {
-      const line = super.compileTxt()
+    buildTxt() {
+      const line = super.buildTxt()
       return line + "\n" + "=".repeat(line.length)
     }
     isHeader = true
@@ -1950,12 +1950,12 @@ stamp
    catchAllParser heatrixCatchAllParser
    extends abstractTableVisualizationParser
    javascript
-    compile() {
+    buildHtml() {
      // A hacky but simple way to do this for now.
      const advanced = new Particle("heatrixAdvanced")
      advanced.appendLineAndSubparticles("table", "\n " + this.tableData.replace(/\n/g, "\n "))
      const particle = this.appendSibling("heatrixAdvanced", advanced.subparticlesToString())
-     const html = particle.compile()
+     const html = particle.buildHtml()
      particle.destroy()
      return html
     }
@@ -1998,7 +1998,7 @@ stamp
       #a1d99b 400
       #74c476 1600
    javascript
-    compile() {
+    buildHtml() {
     class Heatrix {
       static HeatrixId = 0
       uid = Heatrix.HeatrixId++
@@ -2226,7 +2226,7 @@ stamp
    atoms urlAtom
    pattern ^[^\s]+\.(html|htm)$
    javascript
-    compile() {
+    buildHtml() {
      return this.root.readFile(this.filename)
     }
   
@@ -2238,10 +2238,10 @@ stamp
    catchAllParser htmlLineParser
    catchAllAtomType htmlAnyAtom
    javascript
-    compile() {
+    buildHtml() {
      return `${this.content ?? ""}${this.subparticlesToString()}`
     }
-    compileTxt() {
+    buildTxt() {
       return ""
     }
   
@@ -2253,7 +2253,7 @@ stamp
    catchAllAtomType integerAtom
    boolean isHtml true
    javascript
-    compile() {
+    buildHtml() {
      return ``.repeat(parseInt(this.getAtom(1) || 1))
     }
   
@@ -2286,7 +2286,7 @@ stamp
    example
     iframes frame.html
    javascript
-    compile() {
+    buildHtml() {
      return this.atoms.slice(1).map(url => ``).join("\n")
     }
  images.parsers
@@ -2303,13 +2303,13 @@ stamp
    inScope captionAftertextParser slashCommentParser
    cueFromId
    javascript
-    compile(compileSettings) {
+    buildHtml(buildSettings) {
      const caption = this.getParticle("caption")
-     const captionFig = caption ? `${caption.compile()}` : ""
+     const captionFig = caption ? `${caption.buildHtml()}` : ""
      const {figureWidth} = this
      const widthStyle = figureWidth ? `width:${figureWidth}px; margin: auto;` : ""
      const float = this.has("float") ? `margin: 20px; float: ${this.get("float")};` : ""
-     return `${this.getFigureContent(compileSettings)}${captionFig}`
+     return `${this.getFigureContent(buildSettings)}${captionFig}`
     }
     get figureWidth() {
       return this.get("width")
@@ -2364,8 +2364,8 @@ stamp
       return this.getAtom(this.atomIndex)
     }
     get dependencies() { return [this.filename]}
-    getFigureContent(compileSettings) {
-     const linkRelativeToCompileTarget = (compileSettings ? (compileSettings.relativePath ?? "") : "") + this.filename
+    getFigureContent(buildSettings) {
+     const linkRelativeToCompileTarget = (buildSettings ? (buildSettings.relativePath ?? "") : "") + this.filename
      const {width, height} = this.dimensions
      let dimensionAttributes = width || height  ? `width="${width}" height="${height}" ` : ""
      // Todo: can we reuse more code from aftertext?
@@ -2375,8 +2375,8 @@ stamp
      const target = this.has("target") ? this.get("target") : (this.has("link") ? "" : "_blank")
      return ``
     }
-    compileTxt() {
-      const subparticles = this.filter(particle => particle.compileTxt).map(particle => particle.compileTxt()).filter(i => i).join("\n")
+    buildTxt() {
+      const subparticles = this.filter(particle => particle.buildTxt).map(particle => particle.buildTxt()).filter(i => i).join("\n")
       return  "[Image Omitted]" + (subparticles ? "\n " + subparticles.replace(/\n/g, "\n ") : "")
     }
   
@@ -2395,7 +2395,7 @@ stamp
    extends abstractScrollParser
    catchAllAtomType filePathAtom
    javascript
-    compile() {
+    buildHtml() {
      return ""
     }
    example
@@ -2410,7 +2410,7 @@ stamp
    baseParser blobParser
    catchAllAtomType filePathAtom
    javascript
-    compile() {
+    buildHtml() {
      return ""
     }
     getErrors() {
@@ -2427,7 +2427,7 @@ stamp
    atoms urlAtom
    pattern ^[^\s]+\.(scroll|parsers)$
    javascript
-    compile() {
+    buildHtml() {
      return ""
     }
    example
@@ -2441,7 +2441,7 @@ stamp
    atoms preBuildCommandAtom
    extends abstractTopLevelSingleMetaParser
    javascript
-    compile() {
+    buildHtml() {
      return ""
     }
   
@@ -2564,7 +2564,7 @@ stamp
       return `${particle.constructor.name}${particle.atoms.map((atom, index) => `${atom}${atomTypes[index]}`).join(" ")}${(particle.length ? `` + particle.map(mapFn).join("") + `` : "")}`}
      return this.selectedParticles.map(mapFn).join("")
     }
-    compile() {
+    buildHtml() {
      return `` + this.code
     }
   
@@ -2583,7 +2583,7 @@ stamp
    atoms urlAtom
    pattern ^[^\s]+\.(js)$
    javascript
-    compile() {
+    buildHtml() {
      return ``
     }
   
@@ -2594,13 +2594,13 @@ stamp
    cueFromId
    catchAllAtomType filePathAtom
    javascript
-    compile() {
+    buildHtml() {
      return `/* ${this.content} */\n${this.contents}`
     }
     get contents() {
       return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join(";\n\n")
     }
-    compileJs() {
+    buildJs() {
       return this.contents
     }
   
@@ -2620,13 +2620,13 @@ stamp
    catchAllParser scriptLineParser
    catchAllAtomType scriptAnyAtom
    javascript
-    compile() {
+    buildHtml() {
      return `${this.scriptContent}`
     }
     get scriptContent() {
       return this.content ?? this.subparticlesToString()
     }
-    compileJs() {
+    buildJs() {
       return this.scriptContent
     }
  json.parsers
@@ -2642,7 +2642,7 @@ stamp
    extends abstractScrollParser
    atoms cueAtom urlAtom
    javascript
-    compile() {
+    buildHtml() {
      const varName = this.filename.split("/").pop().replace(".json", "")
      return `window.${varName} = ${this.root.readFile(this.filename)}`
     }
@@ -2674,12 +2674,12 @@ stamp
     ))
     
    javascript
-    compileInstance() {
+    buildInstance() {
      const id = this._getUid()
      const content = this.content === undefined ? "" : this.content
      return `${content + this.subparticlesToString()}`
     }
-    compileTxt() {
+    buildTxt() {
       return ( this.content ? this.content : "" )+ this.subparticlesToString()
     }
  keyboardNav.parsers
@@ -2689,10 +2689,10 @@ stamp
    description Previous and next nav buttons.
    extends abstractScrollParser
    javascript
-    compileEmbeddedVersion() {
+    buildHtmlSnippet() {
      return ""
     }
-    compile() {
+    buildHtml() {
       const file = this.parent.file
       const { linkToPrevious, linkToNext } = file
       if (!linkToPrevious) return ""
@@ -2707,10 +2707,10 @@ stamp
    cueFromId
    catchAllAtomType urlAtom
    javascript
-    compileEmbeddedVersion() {
+    buildHtmlSnippet() {
      return ""
     }
-    compile() {
+    buildHtml() {
      const {root} = this.root
      const linkToPrevious = this.getAtom(1) ?? root.linkToPrevious
      const linkToNext = this.getAtom(2) ?? root.linkToNext
@@ -2740,21 +2740,21 @@ stamp
      const sorted = this.root.lodash.sortBy(rows, "count").reverse()
      return "parserId uses\n" + sorted.map(row => `${row.atom} ${row.count}`).join('\n')
     }
-    compile() {
+    buildHtml() {
       // A hacky but simple way to do this for now.
      const particle = this.appendSibling("table")
      particle.appendLine("delimiter  ")
      particle.appendLine("printTable")
      const dataParticle = particle.appendLine("data")
       dataParticle.setSubparticles(this.stats)
-     const html = particle.compile()
+     const html = particle.buildHtml()
      particle.destroy()
      return html
     }
-    compileTxt() {
+    buildTxt() {
       return this.stats
     }
-    compileCsv() {
+    buildCsv() {
       return this.stats.replace(/ /g, ",")
     }
   
@@ -2802,10 +2802,10 @@ stamp
      const css = `#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }`
      return `${css}` + doc.map(obj => `${obj.isPopular ? "" : ""}${obj.id} ${obj.description}${obj.isPopular ? "" : ""}${obj.note}`).join("\n") + ""
     }
-    compile() {
+    buildHtml() {
       return this.docToHtml(this.sortDocs(this.parsersToDocument))
     }
-    compileTxt() {
+    buildTxt() {
      return this.sortDocs(this.parsersToDocument).map(obj => `${obj.id} - ${obj.description}`).join("\n")
     }
     getCategory(input) {
@@ -2814,7 +2814,7 @@ stamp
     getNote() {
       return ""
     }
-    compileCsv() {
+    buildCsv() {
       const rows = this.sortDocs(this.parsersToDocument).map(obj => {
         const {id, isPopular, description, popularity, category} = obj
         return {
@@ -2835,7 +2835,7 @@ stamp
    tags experimental
    description Parsers leetsheet.
    javascript
-    compile() {
+    buildHtml() {
       return "Parser Definition Parsers define parsers that acquire, analyze and act on code." + this.docToHtml(this.sortDocs(this.parsersToDocument)) + "Atom Definition Parsers analyze the atoms in a line." + this.docToHtml(this.sortDocs(this.atomParsersToDocument))
     }
     makeLink() {
@@ -2917,7 +2917,7 @@ stamp
    cueFromId
    javascript
     tag = "a"
-    compileTxt() {
+    buildTxt() {
       return this.root.ensureAbsoluteLink(this.link) + " " + this.pattern
     }
     get link() {
@@ -2930,7 +2930,7 @@ stamp
      const link = this.getAtom(1)
      const isAbsoluteLink = link.includes("://")
      if (isAbsoluteLink) return link
-     const relativePath = this.parent.compileSettings?.relativePath || ""
+     const relativePath = this.parent.buildSettings?.relativePath || ""
      return relativePath + link
     }
     get attributes() {
@@ -2988,13 +2988,13 @@ stamp
    cue -
    javascript
     defaultClassName = ""
-    compile() {
+    buildHtml() {
      const {index, parent} = this
      const particleClass = this.constructor
      const isStartOfList = index === 0 || !(parent.particleAt(index - 1) instanceof particleClass)
      const isEndOfList = parent.length === index + 1 || !(parent.particleAt(index + 1) instanceof particleClass)
      const { listType } = this
-     return (isStartOfList ? `` : "") + `${super.compile()}` + (isEndOfList ? `` : "")
+     return (isStartOfList ? `` : "") + `${super.buildHtml()}` + (isEndOfList ? `` : "")
     }
     get attributes() {
       return ""
@@ -3099,7 +3099,7 @@ stamp
     
     
    javascript
-    compileInstance() {
+    buildInstance() {
      const height = this.get("height") || 500
      const id = this._getUid()
      const obj = this.toObject()
@@ -3200,10 +3200,10 @@ stamp
    string typeForWebForms text
    extends abstractScrollParser
    javascript
-    compileEmbeddedVersion() {
+    buildHtmlSnippet() {
      return ""
     }
-    compile() {
+    buildHtml() {
      return ""
     }
     get measureValue() {
@@ -3322,7 +3322,7 @@ stamp
    inScope scrollMediaLoopParser scrollAutoplayParser
    int atomIndex 1
    javascript
-    compileTxt() {
+    buildTxt() {
       return ""
     }
     get filename() {
@@ -3336,7 +3336,7 @@ stamp
     getAsHtmlAttributes(list) {
       return list.map(atom => this.getAsHtmlAttribute(atom)).filter(i => i).join(" ")
     }
-    compile() {
+    buildHtml() {
       return ``
     }
  metaTags.parsers
@@ -3355,10 +3355,10 @@ stamp
    extends abstractScrollParser
    description Print meta tags including title.
    javascript
-    compileEmbeddedVersion() {
+    buildHtmlSnippet() {
      return ""
     }
-    compile() {
+    buildHtml() {
      const {root} = this
      const { title, description, canonicalUrl, gitRepo, scrollVersion, openGraphImage } = root
      const rssFeedUrl = root.get("rssFeedUrl")
@@ -3400,7 +3400,7 @@ stamp
    example
     music sipOfCoffee.m4a
    javascript
-    compile() {
+    buildHtml() {
       return ``
     }
   
@@ -3422,7 +3422,7 @@ stamp
     atoms cueAtom
     catchAllAtomType stringAtom
    javascript
-    compile() {
+    buildHtml() {
       return `` + this.root.getFilesByTags(this.content).map(file => {
           const { linkTitle, permalink } = file.file.scrollProgram
           return `${linkTitle}` 
@@ -3436,7 +3436,7 @@ stamp
    string copyFromExternal helpfulNotFound.js
    description Helpful not found widget.
    javascript
-    compileInstance() {
+    buildInstance() {
      return `#helpfulNotFound{margin: 100px 0;}document.addEventListener("DOMContentLoaded", () => new NotFoundApp('${this.content}'))`
     }
   
@@ -3463,17 +3463,17 @@ stamp
    boolean suggestInAutocomplete false
    cueFromId
    javascript
-    compile(compileSettings) {
+    buildHtml(buildSettings) {
      if (this.isHidden) return ""
      // Hacky, I know.
      const newLine = this.has("inlineMarkupsOn") ? undefined : this.appendLine("inlineMarkupsOn")
-     const compiled = super.compile(compileSettings)
+     const compiled = super.buildHtml(buildSettings)
      if (newLine)
       newLine.destroy()
      return compiled
     }
-    compileTxt() {
-      const subparticles = this.filter(particle => particle.compileTxt).map(particle => particle.compileTxt()).filter(i => i).join("\n")
+    buildTxt() {
+      const subparticles = this.filter(particle => particle.buildTxt).map(particle => particle.buildTxt()).filter(i => i).join("\n")
       const dateline = this.getParticle("dateline")
       return (dateline ? dateline.day + "\n\n" : "") + (this.originalText || "") + (subparticles ? "\n " + subparticles.replace(/\n/g, "\n ") : "")
     }
@@ -3492,15 +3492,15 @@ stamp
    inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser
    javascript
     compileSubparticles() {
-      return this.map(particle => particle.compile())
+      return this.map(particle => particle.buildHtml())
        .join("\n")
        .trim()
     }
-    compile() {
-     return super.compile() + this.compileSubparticles()
+    buildHtml() {
+     return super.buildHtml() + this.compileSubparticles()
     }
-    compileTxt() {
-      return this.getAtom(0) + " " + super.compileTxt()
+    buildTxt() {
+      return this.getAtom(0) + " " + super.buildTxt()
     }
  parsers.parsers
   // todo Add imports parsers, along with source maps, so we can correctly support parsers split across multiple files, and better enable parsers from compositions of reusable bits?
@@ -3801,8 +3801,6 @@ stamp
    catchAllAtomType stringAtom
    cue description
    tags assemblePhase
-   javascript
-    compile() { return ""}
   
   parsersExampleParser
    // todo Should this just be a "string" constant on particles?
@@ -3973,6 +3971,8 @@ stamp
    inScope parsersPaintParser parsersRegexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser parsersEnumParser slashCommentParser extendsAtomTypeParser parsersExamplesParser atomMinParser atomMaxParser
    atoms atomTypeIdAtom
    tags assemblePhase
+   javascript
+    buildHtml() {return ""}
   
   // Enums
   enumFromAtomTypesParser
@@ -4026,7 +4026,7 @@ stamp
    atoms parserIdAtom
    tags assemblePhase
    javascript
-    compile() { return ""}
+    buildHtml() { return ""}
   
   parsersRegexParser
    catchAllAtomType regexAtom
@@ -4113,7 +4113,7 @@ stamp
     plot
    inScope abstractColumnNameParser
    javascript
-    compileInstance() {
+    buildInstance() {
      const id = "plot" + this._getUid()
      return `
      {
@@ -4186,7 +4186,7 @@ stamp
       const {title, permalink, asTxt, date, wordCount, minutes} = scrollProgram
       const text = asTxt.replace(/(\t|\n)/g, " ").replace(/${this.subparticlesToString()}`
     }
-    compileTxt() {
+    buildTxt() {
       return this.subparticlesToString()
     }
   
@@ -4211,7 +4211,7 @@ stamp
    example
     redirectTo https://scroll.pub/releaseNotes.html
    javascript
-    compile() {
+    buildHtml() {
      return ``
     }
  replace.parsers
@@ -4225,7 +4225,7 @@ stamp
    cueFromId
    javascript
     isTopMatter = true
-    compile() {
+    buildHtml() {
      return ""
     }
   
@@ -4258,17 +4258,17 @@ stamp
   abstractScrollParser
    atoms cueAtom
    javascript
-    compileEmbeddedVersion(compileSettings) {
-     return this.compile(compileSettings)
+    buildHtmlSnippet(buildSettings) {
+     return this.buildHtml(buildSettings)
     }
-    compileTxt() {
+    buildTxt() {
       return ""
     }
-    getHtmlRequirements(compileSettings) {
+    getHtmlRequirements(buildSettings) {
       const {requireOnce} = this
       if (!requireOnce)
         return ""
-      const set = compileSettings?.alreadyRequired || this.root.alreadyRequired
+      const set = buildSettings?.alreadyRequired || this.root.alreadyRequired
       if (set.has(requireOnce))
         return ""
       
@@ -4280,8 +4280,8 @@ stamp
    extends abstractScrollParser
    cueFromId
    javascript
-    compile(compileSettings) {
-      return this.getHtmlRequirements(compileSettings) + this.compileInstance()
+    buildHtml(buildSettings) {
+      return this.getHtmlRequirements(buildSettings) + this.buildInstance()
     }
   
   metaCommandAtom
@@ -4301,7 +4301,7 @@ stamp
    javascript
     isTopMatter = true
     isSetterParser = true
-    compile() {
+    buildHtml() {
      return ""
     }
   
@@ -4317,9 +4317,9 @@ stamp
      this.file = file
      return this
     }
-    compile(compileSettings) {
+    buildHtml(buildSettings) {
       this.sectionStack = []
-      return this.map(subparticle => subparticle.compile(compileSettings)).filter(i => i).join("\n") + this.clearSectionStack()
+      return this.map(subparticle => subparticle.buildHtml(buildSettings)).filter(i => i).join("\n") + this.clearSectionStack()
     }
     sectionStack = []
     clearSectionStack() {
@@ -4403,9 +4403,9 @@ stamp
       return ""
     }
     alreadyRequired = new Set()
-    compileEmbeddedVersion(compileSettings) {
+    buildHtmlSnippet(buildSettings) {
      this.sectionStack = []
-     return this.map(subparticle => (subparticle.compileEmbeddedVersion ? subparticle.compileEmbeddedVersion(compileSettings) : subparticle.compile(compileSettings)))
+     return this.map(subparticle => (subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : subparticle.buildHtml(buildSettings)))
        .filter(i => i)
        .join("\n")
        .trim() + this.clearSectionStack()
@@ -4540,7 +4540,7 @@ stamp
         return this.asTxt
       if (extensionCapitalized === "Html")
         return this.asHtml
-      const methodName = "compile" + extensionCapitalized
+      const methodName = "build" + extensionCapitalized
       return this.topDownArray
         .filter(particle => particle[methodName])
         .map((particle, index) => particle[methodName](index))
@@ -4550,7 +4550,7 @@ stamp
     get asTxt() {
       return (
         this.map(particle => {
-            const text = particle.compileTxt ? particle.compileTxt() : ""
+            const text = particle.buildTxt ? particle.buildTxt() : ""
             if (text) return text + "\n"
             if (!particle.getLine().length) return "\n"
             return ""
@@ -4578,7 +4578,7 @@ stamp
     get asHtml() {
       if (!this._compiledHtml) {
         const { permalink, buildsHtml } = this
-        const content = (this.compile() + this.clearBodyStack()).trim()
+        const content = (this.buildHtml() + this.clearBodyStack()).trim()
         // Don't add html tags to CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
         // \n"
         this._compiledHtml = wrapWithHtmlTags ? `\n\n${bodyTag}${content}\n\n` : content
@@ -4976,7 +4976,7 @@ stamp
     printFeed cars/index
     buildRss
    javascript
-    compileRss() {
+    buildRss() {
      const {dayjs} = this.root
      const scrollPrograms = this.files.map(file => file.file.scrollProgram)
      const { title, baseUrl, description } = this.root
@@ -4992,8 +4992,8 @@ stamp
     
     `
     }
-    compileTxt() {
-      return this.compileRss()
+    buildTxt() {
+      return this.buildRss()
     }
  run.parsers
   runScriptParser
@@ -5027,13 +5027,13 @@ stamp
       }
       return [interpreterMap[ext], fullPath].join(" ")
     }
-    compile() {
-      return this.compileTxt()
+    buildHtml() {
+      return this.buildTxt()
     }
     get filename() {
       return this.getAtom(this.filenameIndex)
     }
-    compileTxt() {
+    buildTxt() {
       return this.results.toString().trim()
     }
   
@@ -5064,12 +5064,12 @@ stamp
     baseUrl http://test.com
     printSiteMap
    javascript
-    compile() {
+    buildHtml() {
      const { baseUrl } = this.root
      return this.files.map(file => baseUrl + file.relativePath + file.file.scrollProgram.permalink).join("\n")
     }
-    compileTxt() {
-      return this.compile()
+    buildTxt() {
+      return this.buildHtml()
     }
  slideshow.parsers
   slideshowParser
@@ -5086,7 +5086,7 @@ stamp
     THE END
     ****
    javascript
-    compile() {
+    buildHtml() {
      return `html {font-size: var(--scrollBaseFontSize, 28px);} body {margin: auto; width: 500px;}.slideshowNav{text-align: center; margin-bottom:20px; font-size: 24px;color: rgba(204,204,204,.8);} a{text-decoration: none; color: rgba(204,204,204,.8);}`
     }
  snippets.parsers
@@ -5096,7 +5096,7 @@ stamp
    extends abstractScrollParser
    cueFromId
    javascript
-    compile() {
+    buildHtml() {
      return ""
     }
   
@@ -5111,13 +5111,13 @@ stamp
    example
     printSnippets index
    javascript
-    makeSnippet(scrollProgram, compileSettings) {
+    makeSnippet(scrollProgram, buildSettings) {
       const {endSnippetIndex} = scrollProgram
-      if (endSnippetIndex === -1) return scrollProgram.compileEmbeddedVersion(compileSettings) + scrollProgram.editHtml
-      const linkRelativeToCompileTarget = compileSettings.relativePath + scrollProgram.permalink
+      if (endSnippetIndex === -1) return scrollProgram.buildHtmlSnippet(buildSettings) + scrollProgram.editHtml
+      const linkRelativeToCompileTarget = buildSettings.relativePath + scrollProgram.permalink
       const joinChar = "\n"
       const html = scrollProgram
-          .map((subparticle, index) => (index >= endSnippetIndex ? "" : subparticle.compileEmbeddedVersion ? subparticle.compileEmbeddedVersion(compileSettings) : subparticle.compile(compileSettings)))
+          .map((subparticle, index) => (index >= endSnippetIndex ? "" : subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : subparticle.buildHtml(buildSettings)))
           .filter(i => i)
           .join(joinChar)
           .trim() +
@@ -5133,15 +5133,15 @@ stamp
      }
      return files
     }
-    compile() {
+    buildHtml() {
      const alreadyRequired = this.root.alreadyRequired
      const snippets = this.files.map(file => {
-      const compileSettings = {relativePath: file.relativePath, alreadyRequired }
-      return `${this.makeSnippet(file.file.scrollProgram, compileSettings)}`
+      const buildSettings = {relativePath: file.relativePath, alreadyRequired }
+      return `${this.makeSnippet(file.file.scrollProgram, buildSettings)}`
       }).join("\n\n")
      return `${snippets}`
     }
-    compileTxt() {
+    buildTxt() {
      return this.files.map(file =>  {
       const {scrollProgram} = file.file
       const {title, date, absoluteLink} = scrollProgram
@@ -5157,8 +5157,8 @@ stamp
    cueFromId
    description Print full pages in group(s).
    javascript
-    makeSnippet(scrollProgram, compileSettings) {
-     return scrollProgram.compileEmbeddedVersion(compileSettings) + scrollProgram.editHtml
+    makeSnippet(scrollProgram, buildSettings) {
+     return scrollProgram.buildHtmlSnippet(buildSettings) + scrollProgram.editHtml
     }
   
   printShortSnippetsParser
@@ -5167,7 +5167,7 @@ stamp
    cueFromId
    description Titles and descriptions in group(s).
    javascript
-    makeSnippet(scrollProgram, compileSettings) {
+    makeSnippet(scrollProgram, buildSettings) {
      const { title, permalink, description, timestamp } = scrollProgram
      return `${title}${description}...${this.root.dayjs(timestamp * 1000).format(`MMMM D, YYYY`)}`
     }
@@ -5178,7 +5178,7 @@ stamp
    extends printSnippetsParser
    cueFromId
    javascript
-    compile() {
+    buildHtml() {
      const alreadyRequired = this.root.alreadyRequired
      const list = this.files.map(fileWrapper => {
       const {relativePath, file} = fileWrapper
@@ -5186,7 +5186,7 @@ stamp
       return `- ${title}${year ? " (" + year + ")" : ""}\n link ${relativePath + permalink}`
       }).join("\n")
       const items = this.parent.concat(list)
-      const html = items.map(item => item.compile()).join("\n")
+      const html = items.map(item => item.buildHtml()).join("\n")
       items.forEach(item => item.destroy())
      return html
     }
@@ -5199,7 +5199,7 @@ stamp
     printSource index
     buildTxt source.txt
    javascript
-    compile() {
+    buildHtml() {
      const files = this.root.getFilesByTags(this.content).map(file => file.file)
      return `${files.map(file => file.filePath + "\n " + file.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
     }
@@ -5226,10 +5226,10 @@ stamp
         code
       }})
     }
-    compile() {
-     return `${this.compileTxt().replace(/\`
+    buildHtml() {
+     return `${this.buildTxt().replace(/\`
     }
-    compileTxt() {
+    buildTxt() {
      return this.sources.map((pass, index) => `Pass ${index + 1} - ${pass.name}\n========\n${pass.code}`).join("\n\n\n")
     }
  sparkline.parsers
@@ -5245,7 +5245,7 @@ stamp
    // we need pattern matching
    inScope scrollYParser
    javascript
-    compileInstance() {
+    buildInstance() {
      const id = "spark" + this._getUid()
      const {columnValues} = this
      const start = this.has("start") ? parseInt(this.get("start")) : 0
@@ -5308,11 +5308,11 @@ stamp
    catchAllAtomType filePathAtom
    cueFromId
    javascript
-    compileTxt() {
+    buildTxt() {
       return this.makeStamp(this.root.makeFullPath(this.content))
     }
-    compileHtml() {
-      return `${this.compileTxt()}`
+    buildHtml() {
+      return `${this.buildTxt()}`
     }
     makeStamp(dir) {
     const fs = require('fs');
@@ -5387,11 +5387,11 @@ stamp
    atoms cueAtom
    catchAllAtomType numberAtom
    javascript
-    compile() {
+    buildHtml() {
      const line = this.getLine()
      const id = this._getUid()
      this.setLine(`* 0.0{let startTime = parseFloat(new URLSearchParams(window.location.search).get('start') || 0); document.getElementById('stopwatch${id}').title = startTime; setInterval(()=>{ const el = document.getElementById('stopwatch${id}'); el.title = parseFloat(el.title) + .1; el.textContent = (parseFloat(el.title)).toFixed(1)}, 100)} `)
-     const html = super.compile()
+     const html = super.buildHtml()
      this.setLine(line)
      return html
     }
@@ -5407,8 +5407,12 @@ stamp
    description Compile Stump to HTML.
    catchAllParser stumpContentParser
    javascript
-    compile() {
-     return this.parent.file.compileStumpCode(this.subparticlesToString())
+    buildHtml() {
+     const {stumpParser} = this
+     return new stumpParser(this.subparticlesToString()).compile()
+    }
+    get stumpParser() {
+      return this.isNodeJs() ? require("scrollsdk/products/stump.nodejs.js") : stumpParser
     }
   
   stumpNoSnippetParser
@@ -5418,7 +5422,7 @@ stamp
    description Compile Stump unless snippet.
    cueFromId
    javascript
-    compileEmbeddedVersion() {
+    buildHtmlSnippet() {
      return ""
     }
  tables.parsers
@@ -5482,10 +5486,10 @@ stamp
     atoms cueAtom
     catchAllAtomType stringAtom
    javascript
-    compile() {
+    buildHtml() {
      return this.columnValues.join(this.join)
     }
-    compileTxt() {
+    buildTxt() {
       return this.columnValues.join(this.join)
     }
     get join() {
@@ -5511,13 +5515,13 @@ stamp
     get columnNames() {
      return this.parent.columnNames
     }
-    compileJson() {
+    buildJson() {
       return JSON.stringify(this.coreTable, undefined, 2)
     }
-    compileCsv() {
+    buildCsv() {
        return new Particle(this.coreTable).asCsv
     }
-    compileTsv() {
+    buildTsv() {
        return new Particle(this.coreTable).asTsv
     }
     get columns() {
@@ -5553,13 +5557,13 @@ stamp
       .map(row => `${this.toRow(row)}`)
       .join("\n")
     }
-    compile() {
+    buildHtml() {
      return `
      ${this.tableHeader.join("\n")}
      ${this.tableBody}
      `
     }
-    compileTxt() {
+    buildTxt() {
       return this.parent.delimitedData || new Particle(this.coreTable).asCsv
     }
   
@@ -5576,7 +5580,7 @@ stamp
    cue delimiter
    atoms cueAtom stringAtom
    javascript
-    compile() {
+    buildHtml() {
       return ""
     }
   
@@ -5588,13 +5592,13 @@ stamp
     get visualizations() {
       return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)
     }
-    compile(compileSettings) {
-     return this.visualizations.map(particle => particle.compile(compileSettings))
+    buildHtml(buildSettings) {
+     return this.visualizations.map(particle => particle.buildHtml(buildSettings))
        .join("\n")
        .trim()
     }
-    compileTxt() {
-      return this.visualizations.map(particle => particle.compileTxt())
+    buildTxt() {
+      return this.visualizations.map(particle => particle.buildTxt())
        .join("\n")
        .trim()
     }
@@ -5999,7 +6003,7 @@ stamp
    // adds to all tables on page
    description Table search and sort widget.
    javascript
-    compileInstance() {
+    buildInstance() {
      return ""
     }
   
@@ -6031,10 +6035,10 @@ stamp
    catchAllParser plainTextLineParser
    catchAllAtomType stringAtom
    javascript
-    compile() {
-     return this.compileTxt()
+    buildHtml() {
+     return this.buildTxt()
     }
-    compileTxt() {
+    buildTxt() {
       return `${this.content ?? ""}${this.subparticlesToString()}`
     }
   
@@ -6043,7 +6047,7 @@ stamp
    extends plainTextParser
    description Only print for buildTxt.
    javascript
-    compile() {
+    buildHtml() {
      return ""
     }
   
@@ -6058,15 +6062,15 @@ stamp
    example
     printFormatLinks
    javascript
-    compile() {
+    buildHtml() {
      const permalink = this.root.permalink.replace(".html", "")
      // hacky
      const particle = this.appendSibling(`HTML | TXT`, `class scrollDateline\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
-     const html = particle.compile()
+     const html = particle.buildHtml()
      particle.destroy()
      return html
     }
-    compileTxt() {
+    buildTxt() {
       const permalink = this.root.permalink.replace(".html", "")
       return `HTML | TXT\n link ${permalink}.html HTML\n link ${permalink}.txt TXT`
     }
@@ -6075,13 +6079,13 @@ stamp
    extends abstractAftertextParser
    cueFromId
    javascript
-    compileEmbeddedVersion() {
+    buildHtmlSnippet() {
      return ""
     }
-    compileTxt() {
+    buildTxt() {
       return this.text
     }
-    compile() {
+    buildHtml() {
      return `${this.text}`
     }
   
@@ -6106,7 +6110,7 @@ stamp
     get files() {
       return this.atoms.slice(1).map(name => `${name}.css`)
     }
-    compile() {
+    buildHtml() {
      return this.files.map(name => ``).join("\n")
     }
   
@@ -6142,7 +6146,7 @@ stamp
     printTitle
    cueFromId
    javascript
-    compile(compileSettings) {
+    buildHtml(buildSettings) {
      // Hacky, I know.
      const {content} = this
      if (content === undefined)
@@ -6150,10 +6154,10 @@ stamp
      const { permalink } = this.root
      if (!permalink) {
       this.setContent(content) // Restore it as it was.
-      return super.compile(compileSettings)
+      return super.buildHtml(buildSettings)
      }
      const newLine = this.appendLine(`link ${permalink}`)
-     const compiled = super.compile(compileSettings)
+     const compiled = super.buildHtml(buildSettings)
      newLine.destroy()
      this.setContent(content) // Restore it as it was.
      return compiled

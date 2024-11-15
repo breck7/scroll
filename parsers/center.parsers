@@ -7,10 +7,10 @@ scrollCenterParser
   center
   This paragraph is centered.
  javascript
-  compile() {
+  buildHtml() {
    this.parent.sectionStack.push("</center>")
-   return `<center>${super.compile()}`
+   return `<center>${super.buildHtml()}`
   }
-  compileTxt() {
+  buildTxt() {
     return this.content
   }

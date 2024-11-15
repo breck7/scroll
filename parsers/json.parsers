@@ -10,7 +10,7 @@ jsonScriptParser
  extends abstractScrollParser
  atoms cueAtom urlAtom
  javascript
-  compile() {
+  buildHtml() {
    const varName = this.filename.split("/").pop().replace(".json", "")
    return `<script>window.${varName} = ${this.root.readFile(this.filename)}</script>`
   }

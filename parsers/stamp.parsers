@@ -41,11 +41,11 @@ toStampParser
  catchAllAtomType filePathAtom
  cueFromId
  javascript
-  compileTxt() {
+  buildTxt() {
     return this.makeStamp(this.root.makeFullPath(this.content))
   }
-  compileHtml() {
-    return `<pre>${this.compileTxt()}</pre>`
+  buildHtml() {
+    return `<pre>${this.buildTxt()}</pre>`
   }
   makeStamp(dir) {
   const fs = require('fs');

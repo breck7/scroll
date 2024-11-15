@@ -6,7 +6,7 @@ scrollMusicParser
  example
   music sipOfCoffee.m4a
  javascript
-  compile() {
+  buildHtml() {
     return `<audio controls ${this.getAsHtmlAttributes("loop autoplay".split(" "))}><source src="${this.filename}" type="audio/mpeg"></audio>`
   }
 

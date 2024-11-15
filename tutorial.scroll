@@ -215,8 +215,8 @@ hiddenMessageParser
  inScope messageParser
  cueFromId
  javascript
-  compile() {
-    return `<span onclick="alert('${this.get('message')}')">${super.compile()}</span>`
+  buildHtml() {
+    return `<span onclick="alert('${this.get('message')}')">${super.buildHtml()}</span>`
   }
 hiddenMessage Click me.
  message Hello world
