@@ -88,6 +88,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 154.1.0 11/15/2024
+🎉 JSON table parser now handles more common kinds of json data
+ - Thanks TBD!
+  https://x.com/tbdr/status/1857446832923652190
+
 📦 154.0.0 11/15/2024
 🎉 `compile` is now renamed to specific output methods such as `buildHtml`.
 ⚠️ BREAKING: if you've written custom parsers please rename your `compile` methods to `buildHtml`, `buildTxt`, et cetera
