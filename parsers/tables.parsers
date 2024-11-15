@@ -241,7 +241,19 @@ scrollTableParser
     if (this._coreTable) return this._coreTable
     const {delimiter, delimitedData} = this
     if (delimiter === "json") {
-       const rows = JSON.parse(delimitedData)
+       const obj = JSON.parse(delimitedData)
+       let rows = []
+       // Optimal case: Array of objects
+       if (Array.isArray(obj)) { rows = obj}
+       else if (!Array.isArray(obj) && typeof obj === "object") {
+          // Case 2: Nested array under a key
+         const arrayKey = Object.keys(obj).find(key => Array.isArray(obj[key]))
+         if (arrayKey) rows = obj[arrayKey]
+       }
+       // Case 3: Array of primitive values
+       else if (Array.isArray(obj) && obj.length && typeof obj[0] !== "object") {
+           rows = obj.map(value => ({ value }))
+       }
        this._columnNames = rows.length ? Object.keys(rows[0]) : []
        this._coreTable = rows
        return rows
