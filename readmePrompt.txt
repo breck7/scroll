@@ -88,6 +88,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 153.1.0 11/14/2024
+🎉 added `font` parser for quickly setting font family
+🎉 added `color` parser for quickly setting font family
+🎉 lorem ipsum parsers now extend aftertext properly
+
 📦 153.0.0 11/14/2024
 🎉 refactored build system so try.scroll.pub can access all build outputs, not just HTML
 ⚠️ BREAKING: (no one should be affected) low level internal build APIs have changed

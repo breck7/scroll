@@ -55,6 +55,7 @@ cloc - Output results of cloc as table.
 code - A code block.
 codeFromFile - A code block.
 codeWithHeader - A code block.
+color - Quickly set CSS font-color.
 comment - Prints nothing.
 concepts - Load concepts as table.
 container - A centered HTML div.
@@ -79,6 +80,7 @@ endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
 favicon - Favicon file.
 fetch - Download URL to disk.
+font - Quickly set font family.
 footer - Move section to file footer.
 hakon - Compile Hakon to CSS.
 heatrix - A heatmap matrix data visualization.
@@ -179,4 +181,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v153.0.0
+Built with Scroll v153.1.0

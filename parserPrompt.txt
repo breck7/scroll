@@ -67,7 +67,7 @@ stamp
     compile(compileSettings) {
      if (this.isHidden) return ""
      this.compileSettings = compileSettings
-     const { className } = this
+     const { className, styles } = this
      const classAttr = className ? `class="${this.className}"` : ""
      const tag = this.get("tag") || this.tag
      if (tag === "none") // Allow no tag for aftertext in tables
@@ -78,6 +78,14 @@ stamp
     get htmlAttributes() {
      const attrs = this.filter(particle => particle.isAttribute)
      return attrs.length ? attrs.map(particle => particle.htmlAttributes).join(" ") + " " : ""
+    }
+    get styles() {
+      const style = this.getParticle("style")
+      const fontFamily = this.getParticle("font")
+      const color = this.getParticle("color")
+      if (!style && !fontFamily && !color)
+        return ""
+      return ` style="${style?.content};${fontFamily?.css};${color?.css}"`
     }
     get htmlId() {
      return this.get("id") || "particle" + this.index
@@ -307,6 +315,31 @@ stamp
    description Set HTML style attribute.
    extends abstractAftertextAttributeParser
    catchAllAtomType cssAnyAtom
+   javascript
+     htmlAttributes = "" // special case this one
+     get css() { return `${this.property}:${this.content};` }
+  
+  aftertextFontParser
+   popularity 0.000217
+   cue font
+   description Set font.
+   extends aftertextStyleParser
+   atoms cueAtom fontFamilyAtom
+   catchAllAtomType cssAnyAtom
+   string property font-family
+   javascript
+     get css() {
+       if (this.content === "Slim") return "font-family:Helvetica Neue; font-weight:100;"
+       return super.css
+     }
+  
+  aftertextColorParser
+   popularity 0.000217
+   cue color
+   description Set font color.
+   extends aftertextStyleParser
+   catchAllAtomType cssAnyAtom
+   string property color
   
   aftertextOnclickParser
    popularity 0.000217
@@ -454,6 +487,9 @@ stamp
   htmlIdAtom
    extends anyAtom
   
+  fontFamilyAtom
+   enum Arial Helvetica Verdana Georgia Impact Tahoma Slim
+   paint constant
  author.parsers
   printAuthorsParser
    popularity 0.001664
@@ -1060,6 +1096,30 @@ stamp
    javascript
     compile() {
      return `html, body { background: ${this.content};}`
+    }
+  
+  scrollFontColorParser
+   description Quickly set CSS font-color.
+   popularity 0.007211
+   extends abstractScrollParser
+   cue color
+   catchAllAtomType cssAnyAtom
+   javascript
+    compile() {
+     return `html, body { color: ${this.content};}`
+    }
+  
+  scrollFontParser
+   description Quickly set font family.
+   popularity 0.007211
+   extends abstractScrollParser
+   cue font
+   atoms cueAtom fontFamilyAtom
+   catchAllAtomType cssAnyAtom
+   javascript
+    compile() {
+     const font = this.content === "Slim" ? "Helvetica Neue; font-weight:100;" : this.content
+     return `html, body, h1,h2,h3 { font-family: ${font};}`
     }
   
   quickCssParser
@@ -2968,10 +3028,10 @@ stamp
    cueFromId
    description Generate dummy text.
    catchAllAtomType integerAtom
+   string placeholder Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
    javascript
-    text = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-    compile() {
-     return this.text.repeat(this.howMany)
+    get originalText() {
+     return this.placeholder.repeat(this.howMany)
     }
     get howMany() {
       return this.getAtom(1) ? parseInt(this.getAtom(1)) : 1
@@ -2979,8 +3039,7 @@ stamp
   
   nickelbackIpsumParser
    extends loremIpsumParser
-   javascript
-    text = `And one day, I’ll be at the door. And lose your wings to fall in love? To the bottom of every bottle. I’m on the ledge of the eighteenth story. Why must the blind always lead the blind?`
+   string placeholder And one day, I’ll be at the door. And lose your wings to fall in love? To the bottom of every bottle. I’m on the ledge of the eighteenth story. Why must the blind always lead the blind?
  maps.parsers
   tileOptionAtom
    enum default light

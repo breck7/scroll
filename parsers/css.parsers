@@ -57,6 +57,30 @@ scrollBackgroundColorParser
    return `<style>html, body { background: ${this.content};}</style>`
   }
 
+scrollFontColorParser
+ description Quickly set CSS font-color.
+ popularity 0.007211
+ extends abstractScrollParser
+ cue color
+ catchAllAtomType cssAnyAtom
+ javascript
+  compile() {
+   return `<style>html, body { color: ${this.content};}</style>`
+  }
+
+scrollFontParser
+ description Quickly set font family.
+ popularity 0.007211
+ extends abstractScrollParser
+ cue font
+ atoms cueAtom fontFamilyAtom
+ catchAllAtomType cssAnyAtom
+ javascript
+  compile() {
+   const font = this.content === "Slim" ? "Helvetica Neue; font-weight:100;" : this.content
+   return `<style>html, body, h1,h2,h3 { font-family: ${font};}</style>`
+  }
+
 quickCssParser
  popularity 0.007524
  description Make a CSS tag.
