@@ -16,3 +16,17 @@ scrollContainerParser
     this.parent.bodyStack.push("</div>")
    return `<div style="width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;" class="scrollContainerParser">`
   }
+
+scrollClearStackParser
+ popularity 0.000096
+ cue clearStack
+ description Clear body stack.
+ extends abstractScrollParser
+ boolean isHtml true
+ javascript
+  buildHtmlSnippet() {
+   return ""
+  }
+  buildHtml() {
+    return this.root.clearBodyStack().trim()
+  }
