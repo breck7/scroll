@@ -142,35 +142,36 @@ class ParticleFileSystem {
     if (!importRegex.test(code))
       return {
         afterImportPass: code,
+        footers: [],
         isImportOnly,
         importFilePaths: [],
         filepathsWithParserDefinitions,
         exists
       }
     let importFilePaths = []
-    const lines = code.split("\n")
-    const replacements = []
-    lines.forEach((line, lineNumber) => {
-      const folder = this.dirname(absoluteFilePath)
-      if (line.match(importRegex)) {
-        const relativeFilePath = line.replace("import ", "")
+    let footers = []
+    const particle = new Particle(code)
+    const folder = this.dirname(absoluteFilePath)
+    particle
+      .filter(particle => particle.getLine().match(importRegex))
+      .forEach(importParticle => {
+        const relativeFilePath = importParticle.getLine().replace("import ", "")
         const absoluteImportFilePath = this.join(folder, relativeFilePath)
         const expandedFile = this._assembleFile(absoluteImportFilePath)
         importFilePaths.push(absoluteImportFilePath)
         importFilePaths = importFilePaths.concat(expandedFile.importFilePaths)
         const exists = this.exists(absoluteImportFilePath)
-        replacements.push({ lineNumber, code: expandedFile.afterImportPass, relativeFilePath, absoluteImportFilePath, exists })
-      }
-    })
-    replacements.forEach(replacement => {
-      const { lineNumber, code, relativeFilePath, exists } = replacement
-      lines[lineNumber] = `imported ${relativeFilePath}\n exists ${exists}\n` + code
-    })
-    const combinedLines = lines.join("\n")
+        importParticle.setLine("imported " + relativeFilePath)
+        importParticle.set("exists", `${exists}`)
+        footers = footers.concat(expandedFile.footers)
+        if (importParticle.has("footer")) footers.push(expandedFile.afterImportPass)
+        else importParticle.insertLinesAfter(expandedFile.afterImportPass)
+      })
     _expandedImportCache[absoluteFilePath] = {
       importFilePaths,
       isImportOnly,
-      afterImportPass: combinedLines,
+      afterImportPass: particle.toString(),
+      footers,
       exists: !importFilePaths.some(file => !this.exists(file)),
       filepathsWithParserDefinitions: importFilePaths.filter(filename => this._doesFileHaveParsersDefinitions(filename)).concat(filepathsWithParserDefinitions)
     }

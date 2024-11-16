@@ -88,6 +88,7 @@ class ScrollFile {
       const assembledFile = fileSystem.assembleFile(absoluteFilePath, defaultScrollParser.parsersCode)
       this.importOnly = assembledFile.isImportOnly
       codeAfterImportPass = assembledFile.afterImportPass
+      if (assembledFile.footers.length) codeAfterImportPass += "\n" + assembledFile.footers.join("\n")
       if (assembledFile.parser) parser = assembledFile.parser
       this.dependencies = assembledFile.importFilePaths
       this.assembledFile = assembledFile

@@ -1409,6 +1409,18 @@ class Particle extends AbstractParticle {
     this.clearQuickCache()
     return newParticle
   }
+  _insertLines(lines, index = this.length) {
+    const parser = this.constructor
+    const newParticle = new parser(lines)
+    const adjustedIndex = index < 0 ? this.length + index : index
+    this._getSubparticlesArray().splice(adjustedIndex, 0, ...newParticle.getSubparticles())
+    if (this._cueIndex) this._makeCueIndex(adjustedIndex)
+    this.clearQuickCache()
+    return this.getSubparticles().slice(index, index + newParticle.length)
+  }
+  insertLinesAfter(lines) {
+    return this.parent._insertLines(lines, this.index + 1)
+  }
   _appendSubparticlesFromString(str) {
     const lines = str.split(this.particleBreakSymbolRegex)
     const parentStack = []
@@ -1987,6 +1999,10 @@ class Particle extends AbstractParticle {
   }
   insertLine(line, index) {
     return this._insertLineAndSubparticles(line, undefined, index)
+  }
+  insertSection(lines, index) {
+    const particle = new Particle(lines)
+    this._insertLineAndSubparticles(line, subparticles)
   }
   prependLine(line) {
     return this.insertLine(line, 0)
@@ -2572,7 +2588,7 @@ Particle.iris = `sepal_length,sepal_width,petal_length,petal_width,species
 4.9,2.5,4.5,1.7,virginica
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`
-Particle.getVersion = () => "94.1.0"
+Particle.getVersion = () => "94.2.0"
 class AbstractExtendibleParticle extends Particle {
   _getFromExtended(cuePath) {
     const hit = this._getParticleFromExtended(cuePath)

@@ -30,6 +30,11 @@ scrollImportedParser
     return []
   }
 
+scrollFooterParser
+ description Import to bottom of file.
+ atoms preBuildCommandAtom
+ cue footer
+
 quickImportParser
  popularity 0.007524
  description Import a Scroll or Parsers file.

@@ -88,6 +88,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 154.2.0 11/16/2024
+🎉 Added `footer` parser to import statements. Now you can import a footer at top of file.
+🎉 Added scrollClearStackParser
+🎉 Upgraded ScrollSDK
+
 📦 154.1.0 11/15/2024
 🎉 JSON table parser now handles more common kinds of json data
  - Thanks TBD!

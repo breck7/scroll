@@ -1007,6 +1007,20 @@ stamp
       this.parent.bodyStack.push("")
      return ``
     }
+  
+  scrollClearStackParser
+   popularity 0.000096
+   cue clearStack
+   description Clear body stack.
+   extends abstractScrollParser
+   boolean isHtml true
+   javascript
+    buildHtmlSnippet() {
+     return ""
+    }
+    buildHtml() {
+      return this.root.clearBodyStack().trim()
+    }
  counter.parsers
   scrollCounterParser
    description Visualize the speed of something.
@@ -1540,17 +1554,6 @@ stamp
     buildHtml() {
       return ""
     }
- footer.parsers
-  scrollFooterParser
-   extends abstractScrollParser
-   description Move section to file footer.
-   atoms preBuildCommandAtom
-   cue footer
-   javascript
-    buildHtml() {
-     return ""
-    }
-  
  footnotes.parsers
   footnoteDefinitionParser
    popularity 0.001953
@@ -2418,6 +2421,11 @@ stamp
         return [this.makeError(`File '${this.atoms[1]}' does not exist.`)]
       return []
     }
+  
+  scrollFooterParser
+   description Import to bottom of file.
+   atoms preBuildCommandAtom
+   cue footer
   
   quickImportParser
    popularity 0.007524
