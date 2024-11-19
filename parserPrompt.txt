@@ -73,7 +73,11 @@ stamp
      if (tag === "none") // Allow no tag for aftertext in tables
        return this.text
      const id = this.has("id") ? "" : `id="${this.htmlId}" ` // always add an html id
-     return this.getHtmlRequirements(buildSettings) + `${this.text}`
+     return this.getHtmlRequirements(buildSettings) + `${this.text}${this.closingTag}`
+    }
+    get closingTag() {
+      const tag = this.get("tag") || this.tag
+      return ``
     }
     get htmlAttributes() {
      const attrs = this.filter(particle => particle.isAttribute)
@@ -994,7 +998,7 @@ stamp
    cue container
    description A centered HTML div.
    catchAllAtomType cssLengthAtom
-   extends abstractScrollParser
+   extends abstractAftertextParser
    boolean isHtml true
    javascript
     get maxWidth() {
@@ -1003,10 +1007,14 @@ stamp
     buildHtmlSnippet() {
      return ""
     }
+    tag = "div"
+    defaultClassName = "scrollContainerParser"
     buildHtml() {
-      this.parent.bodyStack.push("")
-     return ``
+     this.parent.bodyStack.push("")
+     return `.scrollContainerParser{width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;}` + super.buildHtml()
     }
+    get text() { return ""}
+    get closingTag() { return ""}
   
   scrollClearStackParser
    popularity 0.000096
@@ -1061,7 +1069,7 @@ stamp
   cssAnyAtom
    extends codeAtom
   cssLengthAtom
-   extends anyAtom
+   extends codeAtom
   cssLineParser
    popularity 0.002870
    catchAllAtomType cssAnyAtom
@@ -3730,23 +3738,6 @@ stamp
    single
    atoms cueAtom
   
-  parsersCompilesToParser
-   cue compilesTo
-   atoms cueAtom fileExtensionAtom
-   extends abstractParserRuleParser
-   description File extension for simple compilers.
-   // todo: deprecate?
-   // Optionally specify a file extension that will be used when compiling your language to a file. Generally used on parsers marked root.
-   tags experimental
-  
-  parsersExtensionsParser
-   extends abstractParserRuleParser
-   catchAllAtomType fileExtensionAtom
-   description File extension for your dialect.
-   // File extensions of your language. Generally used for parsers marked "root". Sometimes your language might have multiple extensions. If you don't add this, the root particle's parserId will be used as the default file extension.
-   cue extensions
-   tags deprecate
-  
   abstractNonTerminalParserRuleParser
    extends abstractParserRuleParser
   
@@ -3791,11 +3782,12 @@ stamp
   
   parsersCompilerParser
    // todo Remove this and its subparticles?
-   description For simple compilers.
+   description Deprecated. For simple compilers.
    inScope stringTemplateParser catchAllAtomDelimiterParser openSubparticlesParser closeSubparticlesParser indentCharacterParser joinSubparticlesWithParser
    extends abstractParserRuleParser
    cue compiler
-   tags experimental
+   tags deprecate
+   boolean suggestInAutocomplete false
   
   parserDescriptionParser
    description Parser description.
@@ -3936,6 +3928,7 @@ stamp
    cueFromId
    catchAllAtomType stringAtom
    tags deprecate
+   boolean suggestInAutocomplete false
   subparticlesKeyParser
    // todo: deprecate?
    description Deprecated. For to/from JSON.
@@ -3944,6 +3937,7 @@ stamp
    cueFromId
    catchAllAtomType stringAtom
    tags deprecate
+   boolean suggestInAutocomplete false
   
   parsersTagsParser
    catchAllAtomType stringAtom
@@ -4314,12 +4308,10 @@ stamp
     }
   
   scrollParser
-   extensions scroll
    description Scroll is a language for scientists of all ages. Refine, share and collaborate on ideas.
    root
    inScope abstractScrollParser blankLineParser atomTypeDefinitionParser parserDefinitionParser
    catchAllParser catchAllParagraphParser
-   compilesTo html
    javascript
     setFile(file) {
      this.file = file

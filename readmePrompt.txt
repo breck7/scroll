@@ -88,6 +88,13 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 155.0.0 11/19/2024
+🎉 cleaner Parsers autocomplete
+⚠️ BREAKING: (no one should be affected) updated scrollsdk
+
+📦 154.3.0 11/18/2024
+🎉 container parser now extends aftertext
+
 📦 154.2.0 11/16/2024
 🎉 Added `footer` parser to import statements. Now you can import a footer at top of file.
 🎉 Added scrollClearStackParser

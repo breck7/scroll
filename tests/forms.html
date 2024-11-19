@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="gazette.css">
 </div>
 <style>body {font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;}</style>
-<div style="width: 100%; box-sizing: border-box; max-width: 600px; margin: 0 auto;" class="scrollContainerParser">
+<style>.scrollContainerParser{width: 100%; box-sizing: border-box; max-width: 600px; margin: 0 auto;}</style><div id="particle7" class="scrollContainerParser">
 <div class="scrollSection"><h3 id="particle9" class="scrollParagraph">Past: to generate a classic form write "classicForm"</h3>
 </div>
 <script>
@@ -193,12 +193,10 @@ abstractTopLevelSingleMetaParser
   }
 
 scrollParser
- extensions scroll
  description Scroll is a language for scientists of all ages. Refine, share and collaborate on ideas.
  root
  inScope abstractScrollParser blankLineParser atomTypeDefinitionParser parserDefinitionParser
  catchAllParser errorParser
- compilesTo html
  javascript
   setFile(file) {
    this.file = file

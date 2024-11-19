@@ -2,7 +2,7 @@
 <html lang="en">
 <body>
 <p id="particle3" class="scrollParagraph">This example shows the use of Scroll Defs to create forms even faster than writing Parsers.</p>
-<div style="width: 100%; box-sizing: border-box; max-width: 1200px; margin: 0 auto;" class="scrollContainerParser">
+<style>.scrollContainerParser{width: 100%; box-sizing: border-box; max-width: 1200px; margin: 0 auto;}</style><div id="particle5" class="scrollContainerParser">
 <link rel="stylesheet" type="text/css" href="gazette.css">
 <link rel="stylesheet" href="codeMirror.css">
 <script src="scrollLibs.js"></script>
@@ -156,12 +156,10 @@ abstractTopLevelSingleMetaParser
   }
 
 scrollParser
- extensions scroll
  description Scroll is a language for scientists of all ages. Refine, share and collaborate on ideas.
  root
  inScope abstractScrollParser blankLineParser atomTypeDefinitionParser parserDefinitionParser
  catchAllParser errorParser
- compilesTo html
  javascript
   setFile(file) {
    this.file = file

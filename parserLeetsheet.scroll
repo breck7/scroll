@@ -72,7 +72,5 @@ table
   2 floatParser
   1 tagsParser
   1 rootFlagParser
-  1 extensionsParser
-  1 compilesToParser
 
 footer.scroll

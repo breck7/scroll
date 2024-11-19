@@ -3,7 +3,7 @@ scrollContainerParser
  cue container
  description A centered HTML div.
  catchAllAtomType cssLengthAtom
- extends abstractScrollParser
+ extends abstractAftertextParser
  boolean isHtml true
  javascript
   get maxWidth() {
@@ -12,10 +12,14 @@ scrollContainerParser
   buildHtmlSnippet() {
    return ""
   }
+  tag = "div"
+  defaultClassName = "scrollContainerParser"
   buildHtml() {
-    this.parent.bodyStack.push("</div>")
-   return `<div style="width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;" class="scrollContainerParser">`
+   this.parent.bodyStack.push("</div>")
+   return `<style>.scrollContainerParser{width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;}</style>` + super.buildHtml()
   }
+  get text() { return ""}
+  get closingTag() { return ""}
 
 scrollClearStackParser
  popularity 0.000096

@@ -55,7 +55,6 @@ var ParsersAtomParser
 var ParsersConstants
 ;(function (ParsersConstants) {
   // particle types
-  ParsersConstants["extensions"] = "extensions"
   ParsersConstants["comment"] = "//"
   ParsersConstants["parser"] = "parser"
   ParsersConstants["atomType"] = "atomType"
@@ -103,7 +102,6 @@ var ParsersConstants
   ParsersConstants["javascript"] = "javascript"
   // compile time
   ParsersConstants["compilerParser"] = "compiler"
-  ParsersConstants["compilesTo"] = "compilesTo"
   // develop time
   ParsersConstants["description"] = "description"
   ParsersConstants["example"] = "example"
@@ -1411,7 +1409,6 @@ class AbstractParserDefinitionParser extends AbstractExtendibleParticle {
       ParsersConstants.catchAllParser,
       ParsersConstants.catchAllAtomType,
       ParsersConstants.atomParser,
-      ParsersConstants.extensions,
       ParsersConstants.tags,
       ParsersConstants.cue,
       ParsersConstants.cueFromId,
@@ -1426,7 +1423,6 @@ class AbstractParserDefinitionParser extends AbstractExtendibleParticle {
       ParsersConstants.root,
       ParsersConstants._rootNodeJsHeader,
       ParsersConstants.javascript,
-      ParsersConstants.compilesTo,
       ParsersConstants.javascript,
       ParsersConstants.single,
       ParsersConstants.comment
@@ -2082,9 +2078,6 @@ ${testCode}
 ${testCode}`
     return files
   }
-  get targetExtension() {
-    return this.rootParserDefinition.get(ParsersConstants.compilesTo)
-  }
   get atomTypeDefinitions() {
     if (this._cache_atomTypes) return this._cache_atomTypes
     const types = {}
@@ -2165,9 +2158,6 @@ ${testCode}`
     }
     return this._cached_rootParser
   }
-  get fileExtensions() {
-    return this.rootParserDefinition.get(ParsersConstants.extensions) ? this.rootParserDefinition.get(ParsersConstants.extensions).split(" ").join(",") : this.extensionName
-  }
   toNodeJsJavascript(scrollsdkProductsPath = "scrollsdk/products") {
     return this._rootParticleDefToJavascriptClass(scrollsdkProductsPath, true).trim()
   }
@@ -2207,7 +2197,7 @@ ${exportScript}
 }
 `
   }
-  toSublimeSyntaxFile() {
+  toSublimeSyntaxFile(fileExtensions = "") {
     const atomTypeDefs = this.atomTypeDefinitions
     const variables = Object.keys(atomTypeDefs)
       .map(name => ` ${name}: '${atomTypeDefs[name].regexString}'`)
@@ -2218,7 +2208,7 @@ ${exportScript}
     return `%YAML 1.2
 ---
 name: ${this.extensionName}
-file_extensions: [${this.fileExtensions}]
+file_extensions: [${fileExtensions}]
 scope: source.${this.extensionName}
 
 variables:
