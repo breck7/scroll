@@ -25,6 +25,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+155.0.2 11/20/2024
+==================
+🏥 fixed regression from version 154.
+
 155.0.1 11/20/2024
 ==================
 🏥 fixed bug in buildParsers
@@ -630,12 +634,12 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 11/20/2024,2024,Settings,settings.html,,,0,0
 11/20/2024,2024,Scroll Prompt,scrollPrompt.html,,,1026,5.1
 11/20/2024,2024,Scroll Roadmap,roadmap.html,,main,162,0.8
-11/20/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14858,74.3
-11/20/2024,2024,Readme Prompt,readmePrompt.html,,,19646,98.2
+11/20/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14869,74.3
+11/20/2024,2024,Readme Prompt,readmePrompt.html,,,19657,98.3
 11/20/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
 11/20/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
 11/20/2024,2024,Parser Usage,parserUsage.html,,,270,1.4
-11/20/2024,2024,Parser Prompt,parserPrompt.html,,,19376,96.9
+11/20/2024,2024,Parser Prompt,parserPrompt.html,,,19380,96.9
 11/20/2024,2024,Parsers LeetSheet,parserLeetsheet.html,,,295,1.5
 11/20/2024,2024,Scroll LeetSheet,leetsheet.html,,,886,4.4
 11/20/2024,2024,Header,header.html,,,0,0
@@ -3277,4 +3281,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v155.0.1
+Built with Scroll v155.0.2

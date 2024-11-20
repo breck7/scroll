@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 155.0.2 11/20/2024
+🏥 fixed regression from version 154.
+
 📦 155.0.1 11/20/2024
 🏥 fixed bug in buildParsers
 

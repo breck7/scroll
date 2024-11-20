@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<script>
+sendFormViaEmail = form => {
+  const mailto = new URL("mailto:")
+  const params = []
+  const { value, title } = form.querySelector('button[type="submit"]')
+  params.push(`subject=${encodeURIComponent(value)}`)
+  params.push(`to=${encodeURIComponent(title)}`)
+  const oneTextarea = form.querySelector('textarea[title="oneTextarea"]')
+  const body = oneTextarea ? codeMirrorInstance.getValue() : Array.from(new FormData(form)).map(([name, value]) => `${name} ${value}`).join("\n")
+  params.push(`body=${encodeURIComponent(body)}`)
+  mailto.search = params.join("&")
+  window.open(mailto.href, '_blank')
+}
+</script><style> .scrollFormParser {
+    font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
+  }
+.scrollFormParser input , .scrollFormParser textarea{
+padding: 10px;
+margin-bottom: 10px;
+width: 100%;
+box-sizing: border-box;
+} .scrollFormParser label {
+  display: block;
+  margin-bottom: 5px;
+}
+</style><form  method='post' action='' class="scrollFormParser"><div><label for="firstName" title="Required">FirstName*:</label><input placeholder="What is your first name?  " type="text" id="firstName" name="firstName" required></div><button value="" title="" class="scrollButton" type="submit">Post</button></form>
+</body>
+</html>

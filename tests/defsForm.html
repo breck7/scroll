@@ -167,7 +167,7 @@ scrollParser
   }
   buildHtml(buildSettings) {
     this.sectionStack = []
-    return this.map(subparticle => subparticle.buildHtml(buildSettings)).filter(i => i).join("\n") + this.clearSectionStack()
+    return this.filter(subparticle => subparticle.buildHtml).map(subparticle => subparticle.buildHtml(buildSettings)).filter(i => i).join("\n") + this.clearSectionStack()
   }
   sectionStack = []
   clearSectionStack() {
