@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 155.0.1 11/20/2024
+🏥 fixed bug in buildParsers
+
 📦 155.0.0 11/19/2024
 🎉 cleaner Parsers autocomplete
 ⚠️ BREAKING: (no one should be affected) updated scrollsdk

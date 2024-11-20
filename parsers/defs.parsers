@@ -7,7 +7,7 @@ scrollDefParser
  example
   urlDef What is the URL?
  javascript
-  compileParsers(index) {
+  buildParsers(index) {
    const idStuff = index ? "" : `boolean isMeasure true
    boolean isMeasureRequired true
    boolean isConceptDelimiter true`
