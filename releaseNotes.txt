@@ -25,6 +25,15 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+155.1.0 11/21/2024
+==================
+🎉 added splitYear parser
+🎉 added splitMonth parser
+🎉 added splitDayOfMonth parser
+🎉 added splitDay parser
+🎉 added splitMonthName parser
+🎉 added splitDayName parser
+
 155.0.3 11/20/2024
 ==================
 🏥 temp inheritance parser bug patch.
@@ -638,12 +647,12 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 11/21/2024,2024,Settings,settings.html,,,0,0
 11/21/2024,2024,Scroll Prompt,scrollPrompt.html,,,1026,5.1
 11/21/2024,2024,Scroll Roadmap,roadmap.html,,main,162,0.8
-11/21/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14880,74.4
-11/21/2024,2024,Readme Prompt,readmePrompt.html,,,19668,98.3
+11/21/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14904,74.5
+11/21/2024,2024,Readme Prompt,readmePrompt.html,,,19692,98.5
 11/21/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
 11/21/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
 11/21/2024,2024,Parser Usage,parserUsage.html,,,270,1.4
-11/21/2024,2024,Parser Prompt,parserPrompt.html,,,19392,97
+11/21/2024,2024,Parser Prompt,parserPrompt.html,,,19635,98.2
 11/21/2024,2024,Parsers LeetSheet,parserLeetsheet.html,,,295,1.5
 11/21/2024,2024,Scroll LeetSheet,leetsheet.html,,,886,4.4
 11/21/2024,2024,Header,header.html,,,0,0
@@ -3285,4 +3294,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v155.0.3
+Built with Scroll v155.1.0

@@ -54,6 +54,7 @@ https://scroll.pub/dependencies.html
 https://scroll.pub/defsForm.html
 https://scroll.pub/defs.html
 https://scroll.pub/debugging.html
+https://scroll.pub/dateTransforms.html
 https://scroll.pub/dark.html
 https://scroll.pub/customMarkups.html
 https://scroll.pub/css.html
