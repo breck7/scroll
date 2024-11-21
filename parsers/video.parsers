@@ -20,3 +20,10 @@ quickVideoParser
  atoms urlAtom
  pattern ^[^\s]+\.(mp4|webm|avi|mov)
  int atomIndex 0
+ widthParser
+  // todo: fix inheritance bug
+  cueFromId
+  atoms cueAtom
+ heightParser
+  cueFromId
+  atoms cueAtom

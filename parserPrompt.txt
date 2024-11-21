@@ -6203,6 +6203,13 @@ stamp
    atoms urlAtom
    pattern ^[^\s]+\.(mp4|webm|avi|mov)
    int atomIndex 0
+   widthParser
+    // todo: fix inheritance bug
+    cueFromId
+    atoms cueAtom
+   heightParser
+    cueFromId
+    atoms cueAtom
  wws.parsers
   theScrollButtonParser
    popularity 0.006294
