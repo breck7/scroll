@@ -1,0 +1,22 @@
+buildHtml
+
+table
+ splitYear
+  splitMonth
+   splitDayOfMonth
+    splitDay
+     splitMonthName
+      splitDayName
+       printTable
+ data
+  version	releaseDate	bugFixes	newFeatures	breakingChanges
+  145.3.0	10/24/2024	0	1	0
+  58.5.0	3/2/2023	0	1	0
+  148.3.1	11/12/2024	1	0	0
+  28.0.0	8/26/2022	0	1	12
+  100.0.0	7/02/2024	0	2	1
+  89.2.0	5/16/2024	0	1	0
+  54.0.0	1/19/2023	1	2	2
+  107.1.0	7/14/2024	0	1	0
+  84.5.1	5/07/2024	1	0	0
+  145.1.1	10/23/2024	1	0	0
