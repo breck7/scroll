@@ -83,6 +83,11 @@ scrollFormParser
   baseParser blobParser
   cueFromId
   single
+ nameParser
+  description Name for the post submission.
+  atoms cueAtom stringAtom
+  cueFromId
+  single
  description Generate a Scroll Form.
  string copyFromExternal codeMirror.css scrollLibs.js
  string requireOnce
@@ -98,8 +103,11 @@ scrollFormParser
   get footer() {
     return ""
   }
+  get name() {
+    return this.get("name") || "particles"
+  }
   get inputs() {
-    const Name = "particles"
+    const Name = this.name
     return `<textarea title="oneTextarea" rows="${Math.min(this.root.measures.length * 2, 30)}" placeholder="${this.placeholder}" id="${Name}" name="${Name}"></textarea>
     <script id="${Name}Parsers" type="text/plain">${this.parent.file.parsersBundle}</script>
     <script>{
