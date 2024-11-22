@@ -1765,6 +1765,11 @@ stamp
     baseParser blobParser
     cueFromId
     single
+   nameParser
+    description Name for the post submission.
+    atoms cueAtom stringAtom
+    cueFromId
+    single
    description Generate a Scroll Form.
    string copyFromExternal codeMirror.css scrollLibs.js
    string requireOnce
@@ -1780,8 +1785,11 @@ stamp
     get footer() {
       return ""
     }
+    get name() {
+      return this.get("name") || "particles"
+    }
     get inputs() {
-      const Name = "particles"
+      const Name = this.name
       return `
       ${this.parent.file.parsersBundle}
       {

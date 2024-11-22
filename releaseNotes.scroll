@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 155.2.0 11/22/2024
+🎉 added `name` parser to support naming the field in one textarea
+
 📦 155.1.0 11/21/2024
 🎉 added splitYear parser
 🎉 added splitMonth parser
