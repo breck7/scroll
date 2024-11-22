@@ -3547,6 +3547,27 @@ stamp
      return `#helpfulNotFound{margin: 100px 0;}document.addEventListener("DOMContentLoaded", () => new NotFoundApp('${this.content}'))`
     }
   
+ notice.parsers
+  scrollNoticesParser
+   extends abstractAftertextParser
+   description Display messages in URL query parameters.
+   cue notices
+   javascript
+    buildHtml() {
+     const id = this.htmlId
+     return `(function(){
+       const params = new URLSearchParams(window.location.search)
+       if (!params.size) return
+       document.getElementById('${id}').innerHTML = Array.from(params.entries()).map(([key, value]) => {
+        if (key === "error") 
+          return 'Error: ' + value + ''
+        if (key === "success")
+          return 'Success: ' + value + ''
+        return '' + key + ': ' + value + ''
+       }).join("") || "No query parameters found"
+       document.getElementById('${id}').style.display = "block"
+     })()`
+    }
  openGraph.parsers
   openGraphDescriptionParser
    popularity 0.001688

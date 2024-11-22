@@ -114,6 +114,7 @@ metaTags - Print meta tags including title.
 music - Play sound files.
 nav - Titles and links in group(s).
 nickelbackIpsum - Generate dummy text.
+notices - Display messages in URL query parameters.
 openGraphImage - Override Open Graph Image.
 permalink - Override output filename.
 plainText - Plain text oneliner or block.
@@ -181,4 +182,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v155.2.0
+Built with Scroll v155.3.0

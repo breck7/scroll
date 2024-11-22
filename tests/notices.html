@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div id="particle2" class="scrollNoticesParser" style="display:none;"></div><script>(function(){
+   const params = new URLSearchParams(window.location.search)
+   if (!params.size) return
+   document.getElementById('particle2').innerHTML = Array.from(params.entries()).map(([key, value]) => {
+    if (key === "error") 
+      return '<div style="color:red">Error: ' + value + '</div>'
+    if (key === "success")
+      return '<div style="color:green">Success: ' + value + '</div>'
+    return '<div>' + key + ': ' + value + '</div>'
+   }).join("") || "No query parameters found"
+   document.getElementById('particle2').style.display = "block"
+ })()</script>
+</body>
+</html>
