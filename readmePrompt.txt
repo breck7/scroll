@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 155.4.0 11/23/2024
+🎉 loadConcepts now supports other concept cues than "id"
+
 📦 155.3.0 11/22/2024
 🎉 added `notices` parser
 
