@@ -1,9 +1,9 @@
 parserId,uses
-blankLineParser,1083
-versionParser,588
+blankLineParser,1084
+versionParser,589
 newFeatureParser,524
 catchAllParagraphParser,265
-bugFixParser,221
+bugFixParser,222
 lineOfCodeParser,216
 breakingChangeParser,212
 BlobParser,106
@@ -88,7 +88,7 @@ quickCssParser,2
 hamlParser,2
 hoverNoteParser,2
 linkTitleParser,2
-chatParser,2
+scrollChatParser,2
 quickTableParser,2
 toStampParser,2
 cueFromIdParser,2

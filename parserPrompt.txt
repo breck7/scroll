@@ -694,11 +694,11 @@ stamp
    popularity 0.009887
    catchAllAtomType anyAtom
    catchAllParser chatLineParser
-  chatParser
+  scrollChatParser
    popularity 0.000362
    description A faux text chat conversation.
    catchAllParser chatLineParser
-   cueFromId
+   cue chat
    extends abstractScrollParser
    example
     chat
