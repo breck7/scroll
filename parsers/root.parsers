@@ -189,8 +189,8 @@ scrollParser
   get allScrollFiles() {
     return this.file.allScrollFiles || []
   }
-  getFilesByTags(tags) {
-    return this.file.getFilesByTags ? this.file.getFilesByTags(tags) : []
+  getFilesByTags(tags, limit) {
+    return this.file.getFilesByTags ? this.file.getFilesByTags(tags, limit) : []
   }
   get endSnippetIndex() {
     // Get the line number that the snippet should stop at.

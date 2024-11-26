@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 155.4.2 11/26/2024
+🏥 fix regression in limit on getFilesByTag
+
 📦 155.4.1 11/25/2024
 🏥 namespace cleanup
 
