@@ -21,7 +21,7 @@ printSourceStackParser
  javascript
   get sources() {
     const {file} = this.root
-    const passNames = ["codeAtStart", "codeAfterImportPass", "codeAfterMacroPass"]
+    const passNames = ["codeAtStart", "fusedCode", "codeAfterMacroPass"]
     let lastCode = ""
     return passNames.map(name => {
       let code = file[name]

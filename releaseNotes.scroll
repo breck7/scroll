@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 156.0.0 11/28/2024
+⚠️ BREAKING: (no one should be affected) updated scrollsdk to get Fusion
+
 📦 155.4.2 11/26/2024
 🏥 fix regression in limit on getFilesByTag
 

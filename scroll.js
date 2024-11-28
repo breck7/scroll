@@ -11,7 +11,7 @@ const dayjs = require("dayjs")
 const { Particle } = require("scrollsdk/products/Particle.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { Utils } = require("scrollsdk/products/Utils.js")
-const { ParticleFileSystem } = require("scrollsdk/products/ParticleFileSystem.js")
+const { Fusion } = require("scrollsdk/products/Fusion.js")
 const packageJson = require("./package.json")
 
 // Constants
@@ -26,7 +26,7 @@ class FileInterface {
   SCROLL_VERSION
 }
 
-class ScrollFileSystem extends ParticleFileSystem {
+class ScrollFileSystem extends Fusion {
   getScrollFile(filePath) {
     return this._getParsedFile(filePath, ScrollFile)
   }
@@ -66,7 +66,7 @@ class ScrollFileSystem extends ParticleFileSystem {
     return this.folderCache[folderPath]
   }
 }
-const defaultScrollParser = new ParticleFileSystem().getParser(Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION)))
+const defaultScrollParser = new Fusion().getParser(Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION)))
 const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 
 class ScrollFile {
@@ -82,20 +82,20 @@ class ScrollFile {
     this.codeAtStart = codeAtStart
 
     // PASS 2: READ AND REPLACE IMPORTs
-    let codeAfterImportPass = codeAtStart
+    let fusedCode = codeAtStart
     let parser = DefaultScrollParser
     if (absoluteFilePath) {
-      const assembledFile = fileSystem.assembleFile(absoluteFilePath, defaultScrollParser.parsersCode)
-      this.importOnly = assembledFile.isImportOnly
-      codeAfterImportPass = assembledFile.afterImportPass
-      if (assembledFile.footers.length) codeAfterImportPass += "\n" + assembledFile.footers.join("\n")
-      if (assembledFile.parser) parser = assembledFile.parser
-      this.dependencies = assembledFile.importFilePaths
-      this.assembledFile = assembledFile
+      const fusedFile = fileSystem.fuseFile(absoluteFilePath, defaultScrollParser.parsersCode)
+      this.importOnly = fusedFile.isImportOnly
+      fusedCode = fusedFile.fused
+      if (fusedFile.footers.length) fusedCode += "\n" + fusedFile.footers.join("\n")
+      if (fusedFile.parser) parser = fusedFile.parser
+      this.dependencies = fusedFile.importFilePaths
+      this.fusedFile = fusedFile
     }
-    this.codeAfterImportPass = codeAfterImportPass
+    this.fusedCode = fusedCode
 
-    const results = new DefaultScrollParser().parseAndCompile(codeAfterImportPass, codeAtStart, absoluteFilePath, parser)
+    const results = new DefaultScrollParser().parseAndCompile(fusedCode, codeAtStart, absoluteFilePath, parser)
 
     this.codeAfterMacroPass = results.codeAfterMacroPass
     this.parser = results.parser
