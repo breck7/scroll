@@ -4999,9 +4999,9 @@ stamp
         Disk.rm(tempPath)
       }
     }
-    parseAndCompile(codeAfterImportPass, codeAtStart, absoluteFilePath, parser){
+    parseAndCompile(fusedCode, codeAtStart, absoluteFilePath, parser){
       // PASS 3: READ AND REPLACE MACROS. PARSE AND REMOVE MACROS DEFINITIONS THEN REPLACE REFERENCES.
-      const codeAfterMacroPass = this.evalMacros(codeAfterImportPass, codeAtStart, absoluteFilePath)
+      const codeAfterMacroPass = this.evalMacros(fusedCode, codeAtStart, absoluteFilePath)
       // PASS 4: READ WITH STD COMPILER OR CUSTOM COMPILER.
       return {
         codeAfterMacroPass,
@@ -5326,7 +5326,7 @@ stamp
    javascript
     get sources() {
       const {file} = this.root
-      const passNames = ["codeAtStart", "codeAfterImportPass", "codeAfterMacroPass"]
+      const passNames = ["codeAtStart", "fusedCode", "codeAfterMacroPass"]
       let lastCode = ""
       return passNames.map(name => {
         let code = file[name]
