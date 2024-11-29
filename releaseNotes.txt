@@ -27,7 +27,8 @@ Download as CSV | TSV | JSON
 
 157.0.0 11/29/2024
 ==================
-⚠️ BREAKING: (only API changes) switched to async Fusion file system.
+⚠️ BREAKING: (userspace unaffected. dev API changes only) switched to async Fusion file system.
+⚠️ BREAKING: (userspace unaffected. dev API changes only) `build` method is now split into `load` and `execute` methods.
 
 156.0.0 11/28/2024
 ==================
@@ -667,18 +668,18 @@ Demos
 =====
 
 date,year,title,permalink,authors,tags,wordCount,minutes
-11/29/2024,2024,Wws,wws.html,,,35,0.2
-11/29/2024,2024,Wws Redirect,wws.html,,,0,0
-11/29/2024,2024,Settings,settings.html,,,0,0
-11/29/2024,2024,Sitemap,sitemap.html,,,110,0.6
 11/29/2024,2024,Top Buttons,topButtons.html,,,0,0
 11/29/2024,2024,Scroll Tutorial,tutorial.html,,main,949,4.7
-11/29/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-11/29/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
-11/29/2024,2024,Readme Prompt,readmePrompt.html,,,19785,98.9
-11/29/2024,2024,Scroll Release Notes,releaseNotes.html,,main,14997,75
+11/29/2024,2024,Wws,wws.html,,,35,0.2
+11/29/2024,2024,Wws Redirect,wws.html,,,0,0
+11/29/2024,2024,Scroll Release Notes,releaseNotes.html,,main,15017,75.1
 11/29/2024,2024,Scroll Roadmap,roadmap.html,,main,162,0.8
 11/29/2024,2024,Scroll Prompt,scrollPrompt.html,,,1026,5.1
+11/29/2024,2024,Settings,settings.html,,,0,0
+11/29/2024,2024,Sitemap,sitemap.html,,,110,0.6
+11/29/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
+11/29/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
+11/29/2024,2024,Readme Prompt,readmePrompt.html,,,19805,99
 11/29/2024,2024,Scroll FAQ,faq.html,,main,3307,16.5
 11/29/2024,2024,Header,header.html,,,0,0
 11/29/2024,2024,Scroll LeetSheet,leetsheet.html,,,893,4.5
