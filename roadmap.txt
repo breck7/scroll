@@ -29,7 +29,7 @@ A book describing all the key ideas in Scroll with sections for beginner, interm
 
 Robust Browser Version: scroll.browser.js
 =========================================
-https://try.scroll.pub is limited and hacked together. A browser version should be shipped in this npm package and it should support adding Parsers so people can use the full power of Scroll + Parsers completely in the client.
+It should be as simple to use Scroll as it is to use JQuery.
 
 *
 
