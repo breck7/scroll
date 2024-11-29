@@ -3,7 +3,7 @@
 const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
-const { ScrollCli, ScrollFile, ScrollFileSystem } = require("../scroll.js")
+const { ScrollCli, ScrollFile, ScrollFileSystem, DefaultScrollParser } = require("../scroll.js")
 const { ScrollSetCLI } = require("../ScrollSetCLI.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { TestRacer } = require("scrollsdk/products/TestRacer.js")
@@ -18,14 +18,7 @@ const stampFolder = path.join(testsFolder, "testOutput")
 // cleanup in case it was built earlier:
 if (Disk.exists(stampFolder)) fs.rmSync(stampFolder, { recursive: true })
 
-const getDefaultParser = async () => {
-  const file = new ScrollFile()
-  const parser = await file.loadDefaultParser()
-  return parser.parser
-}
-
 testParticles.compileAftertext = async areEqual => {
-  const DefaultScrollParser = await getDefaultParser()
   const tests = [
     {
       text: `* Hello brave new world
@@ -45,31 +38,26 @@ testParticles.compileAftertext = async areEqual => {
 }
 
 testParticles.paragraphParser = async areEqual => {
-  const DefaultScrollParser = await getDefaultParser()
   // Arrange
   const program = new DefaultScrollParser(`* foo`)
 
   // Act
-  program.buildHtml()
   const result = program.buildHtml()
 
   areEqual(result, `<p id="particle0" class="scrollParagraph">foo</p>`)
 }
 
 testParticles.linkOnly = async areEqual => {
-  const DefaultScrollParser = await getDefaultParser()
   // Arrange
   const program = new DefaultScrollParser(`* https://particles.scroll.pub`)
 
   // Act
-  program.buildHtml()
   const result = program.buildHtml()
 
   areEqual(result, `<p id="particle0" class="scrollParagraph"><a href="https://particles.scroll.pub" target="_blank">https://particles.scroll.pub</a></p>`)
 }
 
 testParticles.endSnippet = async areEqual => {
-  const DefaultScrollParser = await getDefaultParser()
   // Arrange
   const program = new DefaultScrollParser(`Hi\nendSnippet`)
 
@@ -78,7 +66,6 @@ testParticles.endSnippet = async areEqual => {
 }
 
 testParticles.tableWithLinks = async areEqual => {
-  const DefaultScrollParser = await getDefaultParser()
   const tests = [
     {
       text: `table
@@ -153,7 +140,6 @@ testParticles.file = async areEqual => {
 }
 
 testParticles.ensureNoErrorsInParser = async areEqual => {
-  const DefaultScrollParser = await getDefaultParser()
   const parserErrors = new parsersParser(new DefaultScrollParser().definition.asString).getAllErrors().map(err => err.toObject())
   if (parserErrors.length) console.log(parserErrors)
   areEqual(parserErrors.length, 0, "no errors in scroll standard library parsers")

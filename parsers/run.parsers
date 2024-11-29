@@ -8,7 +8,7 @@ runScriptParser
  javascript
   get dependencies() { return [this.filename]}
   results = "Not yet run"
-  async build() {
+  async execute() {
     if (!this.filename) return
     await this.root.fetch(this.filename)
     // todo: make async

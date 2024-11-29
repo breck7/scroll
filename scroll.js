@@ -36,19 +36,20 @@ class ScrollFileSystem extends Fusion {
   }
 }
 
+const defaultParserFiles = Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION))
+const defaultParser = Fusion.combineParsers(
+  defaultParserFiles,
+  defaultParserFiles.map(filePath => Disk.read(filePath))
+)
+const DefaultScrollParser = defaultParser.parser
+
 class ScrollFile extends FusionFile {
   SCROLL_VERSION = SCROLL_VERSION
   EXTERNALS_PATH = EXTERNALS_PATH
-  async loadDefaultParser() {
-    if (ScrollFile.defaultScrollParser) return ScrollFile.defaultScrollParser
-    ScrollFile.defaultScrollParser = await new Fusion().getParser(Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION)))
-    this.defaultScrollParser = ScrollFile.defaultScrollParser
-    this.defaultParserCode = this.defaultScrollParser.parsersCode
-    return ScrollFile.defaultScrollParser
-  }
+
+  defaultParserCode = defaultParser.parsersCode
 
   parseCode() {
-    const DefaultScrollParser = ScrollFile.defaultScrollParser.parser
     const results = new DefaultScrollParser().parseAndCompile(this.fusedCode, this.codeAtStart, this.filePath, this.fusedFile?.parser || DefaultScrollParser)
     this.codeAfterMacroPass = results.codeAfterMacroPass
     this.parser = results.parser
@@ -303,6 +304,9 @@ footer.scroll`
     const externalFilesCopied = {}
     for (const file of toBuild) {
       file.logger = this
+      await file.scrollProgram.load()
+    }
+    for (const file of toBuild) {
       await file.scrollProgram.buildOne()
     }
     for (const file of toBuild) {
@@ -354,4 +358,4 @@ footer.scroll`
 
 if (module && !module.parent) new ScrollCli().executeUsersInstructionsFromShell(parseArgs(process.argv.slice(2))._)
 
-module.exports = { ScrollFile, ScrollCli, SimpleCLI, ScrollFileSystem }
+module.exports = { ScrollFile, ScrollCli, SimpleCLI, ScrollFileSystem, DefaultScrollParser }

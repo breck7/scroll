@@ -5,10 +5,21 @@ abstractPostsParser
  atoms cueAtom
  catchAllAtomType tagWithOptionalFolderAtom
  javascript
+  async load() {
+    const dependsOn = this.tags.map(tag => this.root.parseNestedTag(tag)).filter(i => i).map(i => i.folderPath)
+    const {fileSystem} = this.root
+    for (let folderPath of dependsOn) {
+      console.log(`${this.root.filePath} is loading: ${folderPath} in id '${fileSystem.fusionId}'`)
+      await fileSystem.getScrollFilesInFolder(folderPath)
+    }
+  }
+  get tags() {
+    return this.content?.split(" ") || []
+  }
   get files() {
    const thisFile = this.root.file
    // todo: we can include this file, but just not run asTxt
-   const files = this.root.getFilesByTags(this.content).filter(file => file.file !== thisFile)
+   const files = this.root.getFilesByTags(this.tags).filter(file => file.file !== thisFile)
    return files
   }
   get coreTable() {

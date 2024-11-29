@@ -133,11 +133,22 @@ scrollParser
   get allHtmlFiles() {
     return this.allScrollFiles.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.permalink !== "404.html")
   }
+  parseNestedTag(tag) {
+    if (!tag.includes("/")) return;
+    const {path} = this
+    const parts = tag.split("/")
+    const group = parts.pop()
+    const relativePath = parts.join("/")
+    return {
+      group,
+      relativePath,
+      folderPath: path.join(this.folderPath, path.normalize(relativePath))
+      }
+  }
   getFilesByTags(tags, limit) {
     // todo: tags is currently matching partial substrings
     const getFilesWithTag = (tag, files) => files.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.tags.includes(tag))
     if (typeof tags === "string") tags = tags.split(" ")
-    const {path, lodash} = this
     if (!tags || !tags.length)
       return this.allHtmlFiles
         .filter(file => file !== this) // avoid infinite loops. todo: think this through better.
@@ -146,26 +157,24 @@ scrollParser
         })
         .slice(0, limit)
     let arr = []
-    tags.forEach(name => {
-      if (!name.includes("/"))
+    tags.forEach(tag => {
+      if (!tag.includes("/"))
         return (arr = arr.concat(
-          getFilesWithTag(name, this.allScrollFiles)
+          getFilesWithTag(tag, this.allScrollFiles)
             .map(file => {
               return { file, relativePath: "" }
             })
             .slice(0, limit)
         ))
-      const parts = name.split("/")
-      const group = parts.pop()
-      const relativePath = parts.join("/")
-      const folderPath = path.join(this.folderPath, path.normalize(relativePath))
-      const files = this.fileSystem.getCachedLoadedFilesInFolder(folderPath)
+      const {folderPath, group, relativePath} = this.parseNestedTag(tag)
+      // todo: fix the below
+      const files = this.fileSystem.getCachedLoadedFilesInFolder(folderPath, this)
       const filtered = getFilesWithTag(group, files).map(file => {
         return { file, relativePath: relativePath + "/" }
       })
       arr = arr.concat(filtered.slice(0, limit))
     })
-    return lodash.sortBy(arr, file => file.file.timestamp).reverse()
+    return this.lodash.sortBy(arr, file => file.file.timestamp).reverse()
   }
   async fetchNode(url, filename) {
     filename = filename || new URL(url).pathname.split('/').pop()
@@ -221,10 +230,16 @@ scrollParser
     return this.get("authors")
   }
   get allScrollFiles() {
-    return this.fileSystem.getCachedLoadedFilesInFolder(this.folderPath, ".scroll")
+    return this.fileSystem.getCachedLoadedFilesInFolder(this.folderPath, this)
   }
-  async build() {
-    await Promise.all(this.filter(particle => particle.build).map(async particle => particle.build()))
+  async doThing(thing) {
+    await Promise.all(this.filter(particle => particle[thing]).map(async particle => particle[thing]()))
+  }
+  async load() {
+    await this.doThing("load")
+  }
+  async execute() {
+    await this.doThing("execute")
   }
   file = {}
   getFromParserId(parserId) {
@@ -503,11 +518,12 @@ scrollParser
   }
   get Disk() { return this.isNodeJs() ? require("scrollsdk/products/Disk.node.js").Disk : {}}
   async buildAll() {
+    await this.load()
     await this.buildOne()
-    this.buildTwo()
+    await this.buildTwo()
   }
   async buildOne() {
-    await this.build()
+    await this.execute()
     const toBuild = this.filter(particle => particle.buildOne)
     for (let particle of toBuild) {
       await particle.buildOne()
