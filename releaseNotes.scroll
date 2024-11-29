@@ -22,6 +22,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 158.0.0 11/29/2024
+🎉 import Scroll files now by URLS
+⚠️ BREAKING: (no one should be affected). Lines that are just a URL to a Scroll file now will attempt an import.
+
 📦 157.0.0 11/29/2024
 ⚠️ BREAKING: (userspace unaffected. dev API changes only) switched to async Fusion file system.
 ⚠️ BREAKING: (userspace unaffected. dev API changes only) `build` method is now split into `load` and `execute` methods.
