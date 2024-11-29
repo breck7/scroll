@@ -22,7 +22,7 @@ loadConceptsParser
  cueFromId
  atoms preBuildCommandAtom filePathAtom
  javascript
-  build() {
+  async load() {
    const { Disk } = require("scrollsdk/products/Disk.node.js")
    const path = require("path")
    const folder = path.join(this.root.folderPath, this.getAtom(1))
@@ -44,14 +44,14 @@ buildConceptsParser
   cueFromId
   atoms cueAtom anyAtom
  javascript
-  buildOne() {
+  async buildOne() {
     const {root} = this
     const { fileSystem, folderPath, filename, path, permalink } = root
     const files = this.getAtomsFrom(1)
     if (!files.length) files.push(permalink.replace(".html", ".csv"))
     const sortBy = this.get("sortBy")
-    files.forEach(link => {
-      fileSystem.writeProduct(path.join(folderPath, link), root.compileConcepts(link, sortBy))
+    for (let link of files) {
+      await fileSystem.writeProduct(path.join(folderPath, link), root.compileConcepts(link, sortBy))
       root.log(`💾 Built concepts in ${filename} to ${link}`)
-    })
+    }
   }

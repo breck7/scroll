@@ -96,14 +96,85 @@ scrollParser
   makeFullPath(filename) {
     return this.path.join(this.folderPath, filename)
   }
-  get date() {
-    return this.get("date") || this.file.date
+  _nextAndPrevious(arr, index) {
+    const nextIndex = index + 1
+    const previousIndex = index - 1
+    return {
+      previous: arr[previousIndex] ?? arr[arr.length - 1],
+      next: arr[nextIndex] ?? arr[0]
+    }
+  }
+  // keyboard nav is always in the same folder. does not currently support cross folder
+  includeFileInKeyboardNav(file) {
+    const { scrollProgram } = file
+    return scrollProgram.buildsHtml && scrollProgram.hasKeyboardNav && scrollProgram.tags.includes(this.primaryTag)
   }
   get linkToPrevious() {
-    return this.file.linkToPrevious
+    if (!this.hasKeyboardNav)
+      // Dont provide link to next unless keyboard nav is on
+      return undefined
+    let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).previous
+    while (!this.includeFileInKeyboardNav(file)) {
+      file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).previous
+    }
+    return file.scrollProgram.permalink
   }
   get linkToNext() {
-    return this.file.linkToNext
+    if (!this.hasKeyboardNav)
+      // Dont provide link to next unless keyboard nav is on
+      return undefined
+    let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).next
+    while (!this.includeFileInKeyboardNav(file)) {
+      file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).next
+    }
+    return file.scrollProgram.permalink
+  }
+  // todo: clean up this naming pattern and add a parser instead of special casing 404.html
+  get allHtmlFiles() {
+    return this.allScrollFiles.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.permalink !== "404.html")
+  }
+  parseNestedTag(tag) {
+    if (!tag.includes("/")) return;
+    const {path} = this
+    const parts = tag.split("/")
+    const group = parts.pop()
+    const relativePath = parts.join("/")
+    return {
+      group,
+      relativePath,
+      folderPath: path.join(this.folderPath, path.normalize(relativePath))
+      }
+  }
+  getFilesByTags(tags, limit) {
+    // todo: tags is currently matching partial substrings
+    const getFilesWithTag = (tag, files) => files.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.tags.includes(tag))
+    if (typeof tags === "string") tags = tags.split(" ")
+    if (!tags || !tags.length)
+      return this.allHtmlFiles
+        .filter(file => file !== this) // avoid infinite loops. todo: think this through better.
+        .map(file => {
+          return { file, relativePath: "" }
+        })
+        .slice(0, limit)
+    let arr = []
+    tags.forEach(tag => {
+      if (!tag.includes("/"))
+        return (arr = arr.concat(
+          getFilesWithTag(tag, this.allScrollFiles)
+            .map(file => {
+              return { file, relativePath: "" }
+            })
+            .slice(0, limit)
+        ))
+      const {folderPath, group, relativePath} = this.parseNestedTag(tag)
+      // todo: fix the below
+      const files = this.fileSystem.getCachedLoadedFilesInFolder(folderPath, this)
+      const filtered = getFilesWithTag(group, files).map(file => {
+        return { file, relativePath: relativePath + "/" }
+      })
+      arr = arr.concat(filtered.slice(0, limit))
+    })
+    return this.lodash.sortBy(arr, file => file.file.timestamp).reverse()
   }
   async fetchNode(url, filename) {
     filename = filename || new URL(url).pathname.split('/').pop()
@@ -158,8 +229,17 @@ scrollParser
   get authors() {
     return this.get("authors")
   }
-  async build() {
-    await Promise.all(this.filter(particle => particle.build).map(async particle => particle.build()))
+  get allScrollFiles() {
+    return this.fileSystem.getCachedLoadedFilesInFolder(this.folderPath, this)
+  }
+  async doThing(thing) {
+    await Promise.all(this.filter(particle => particle[thing]).map(async particle => particle[thing]()))
+  }
+  async load() {
+    await this.doThing("load")
+  }
+  async execute() {
+    await this.doThing("execute")
   }
   file = {}
   getFromParserId(parserId) {
@@ -185,12 +265,6 @@ scrollParser
   }
   get externalsPath() {
     return this.file.EXTERNALS_PATH
-  }
-  get allScrollFiles() {
-    return this.file.allScrollFiles || []
-  }
-  getFilesByTags(tags, limit) {
-    return this.file.getFilesByTags ? this.file.getFilesByTags(tags, limit) : []
   }
   get endSnippetIndex() {
     // Get the line number that the snippet should stop at.
@@ -309,7 +383,7 @@ scrollParser
   }
   get buildsHtml() {
     const { permalink } = this
-    return !this.file?.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
+    return !this.file.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
   }
   // Without specifying the language hyphenation will not work.
   get lang() {
@@ -335,7 +409,7 @@ scrollParser
     return parseFloat((this.wordCount / 200).toFixed(1))
   }
   get date() {
-    const date = this.get("date") || (this.file.timestamp ? this.file.timestamp * 1000 : 0) || 0
+    const date = this.get("date") || (this.file.timestamp ? this.file.timestamp : 0)
     return this.dayjs(date).format(`MM/DD/YYYY`)
   }
   get year() {
@@ -444,15 +518,22 @@ scrollParser
   }
   get Disk() { return this.isNodeJs() ? require("scrollsdk/products/Disk.node.js").Disk : {}}
   async buildAll() {
+    await this.load()
     await this.buildOne()
-    this.buildTwo()
+    await this.buildTwo()
   }
   async buildOne() {
-    await this.build()
-    this.filter(particle => particle.buildOne).forEach(particle => particle.buildOne())
+    await this.execute()
+    const toBuild = this.filter(particle => particle.buildOne)
+    for (let particle of toBuild) {
+      await particle.buildOne()
+    }
   }
   async buildTwo(externalFilesCopied = {}) {
-    this.filter(particle => particle.buildTwo).forEach(particle => particle.buildTwo(externalFilesCopied))
+    const toBuild = this.filter(particle => particle.buildTwo)
+    for (let particle of toBuild) {
+      await particle.buildTwo(externalFilesCopied)
+    }
   }
   _compileArray(filename, arr) {
     const removeBlanks = data => data.map(obj => Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== "")))

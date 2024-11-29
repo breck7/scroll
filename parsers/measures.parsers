@@ -12,16 +12,16 @@ buildMeasuresParser
   cueFromId
   atoms cueAtom anyAtom
  javascript
-  buildOne() {
+  async buildOne() {
     const {root} = this
     const { fileSystem, folderPath, filename, path, permalink } = root
     const files = this.getAtomsFrom(1)
     if (!files.length) files.push(permalink.replace(".html", ".csv"))
     const sortBy = this.get("sortBy")
-    files.forEach(link => {
-      fileSystem.writeProduct(path.join(folderPath, link), root.compileMeasures(link, sortBy))
+    for (let link of files) {
+      await fileSystem.writeProduct(path.join(folderPath, link), root.compileMeasures(link, sortBy))
       root.log(`💾 Built measures in ${filename} to ${link}`)
-    })
+    }
   }
 
 // The main measure parser. All measures should extend from this.

@@ -13,7 +13,7 @@ fetchParser
   get filename() {
     return this.getAtom(2)
   }
-  async build() {
+  async load() {
    await this.root.fetch(this.url, this.filename)
   }
   buildHtml() {

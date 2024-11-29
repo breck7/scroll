@@ -274,7 +274,7 @@ scrollTableParser
     const coreTable = this.coreTable
     return this._columnNames
   }
-  async build() {
+  async load() {
     if (this.filename)
       await this.root.fetch(this.filename)
   }

@@ -11,7 +11,7 @@ const dayjs = require("dayjs")
 const { Particle } = require("scrollsdk/products/Particle.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { Utils } = require("scrollsdk/products/Utils.js")
-const { Fusion } = require("scrollsdk/products/Fusion.js")
+const { Fusion, FusionFile } = require("scrollsdk/products/Fusion.js")
 const packageJson = require("./package.json")
 
 // Constants
@@ -27,82 +27,36 @@ class FileInterface {
 }
 
 class ScrollFileSystem extends Fusion {
-  getScrollFile(filePath) {
-    return this._getParsedFile(filePath, ScrollFile)
+  defaultFileClass = ScrollFile
+  async getScrollFilesInFolder(folderPath) {
+    return await this.getLoadedFilesInFolder(folderPath, SCROLL_FILE_EXTENSION)
   }
-
-  productCache = {}
-  writeProduct(absolutePath, content) {
-    this.productCache[absolutePath] = content
-    return this.write(absolutePath, content)
-  }
-
-  parsedFiles = {}
-  _getParsedFile(absolutePath, parser) {
-    if (this.parsedFiles[absolutePath]) return this.parsedFiles[absolutePath]
-    this.parsedFiles[absolutePath] = new parser(undefined, absolutePath, this)
-    return this.parsedFiles[absolutePath]
-  }
-
-  folderCache = {}
-  getScrollFilesInFolder(folderPath) {
-    return this._getFilesInFolder(folderPath, SCROLL_FILE_EXTENSION)
-  }
-
-  getParserFilesInFolder(folderPath) {
-    return this._getFilesInFolder(folderPath, PARSERS_FILE_EXTENSION)
-  }
-
-  _getFilesInFolder(folderPath, extension) {
-    folderPath = Utils.ensureFolderEndsInSlash(folderPath)
-    if (this.folderCache[folderPath]) return this.folderCache[folderPath]
-    const files = this.list(folderPath)
-      .filter(file => file.endsWith(extension))
-      .map(filePath => this.getScrollFile(filePath))
-
-    const sorted = lodash.sortBy(files, file => file.timestamp).reverse()
-    sorted.forEach((file, index) => (file.timeIndex = index))
-    this.folderCache[folderPath] = sorted
-    return this.folderCache[folderPath]
+  async getParserFilesInFolder(folderPath) {
+    return await this.getLoadedFilesInFolder(folderPath, PARSERS_FILE_EXTENSION)
   }
 }
-const defaultScrollParser = new Fusion().getParser(Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION)))
-const DefaultScrollParser = defaultScrollParser.parser // todo: remove?
 
-class ScrollFile {
-  constructor(codeAtStart, absoluteFilePath = "", fileSystem = new ScrollFileSystem({})) {
-    this.fileSystem = fileSystem
-    if (codeAtStart === undefined) codeAtStart = absoluteFilePath ? fileSystem.read(absoluteFilePath) : ""
+const defaultParserFiles = Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION))
+const defaultParser = Fusion.combineParsers(
+  defaultParserFiles,
+  defaultParserFiles.map(filePath => Disk.read(filePath))
+)
+const DefaultScrollParser = defaultParser.parser
 
-    this.filePath = absoluteFilePath
-    this.filename = path.basename(this.filePath)
-    this.folderPath = path.dirname(absoluteFilePath) + "/"
+class ScrollFile extends FusionFile {
+  SCROLL_VERSION = SCROLL_VERSION
+  EXTERNALS_PATH = EXTERNALS_PATH
 
-    // PASS 1: READ FULL FILE
-    this.codeAtStart = codeAtStart
+  defaultParserCode = defaultParser.parsersCode
 
-    // PASS 2: READ AND REPLACE IMPORTs
-    let fusedCode = codeAtStart
-    let parser = DefaultScrollParser
-    if (absoluteFilePath) {
-      const fusedFile = fileSystem.fuseFile(absoluteFilePath, defaultScrollParser.parsersCode)
-      this.importOnly = fusedFile.isImportOnly
-      fusedCode = fusedFile.fused
-      if (fusedFile.footers.length) fusedCode += "\n" + fusedFile.footers.join("\n")
-      if (fusedFile.parser) parser = fusedFile.parser
-      this.dependencies = fusedFile.importFilePaths
-      this.fusedFile = fusedFile
-    }
-    this.fusedCode = fusedCode
-
-    const results = new DefaultScrollParser().parseAndCompile(fusedCode, codeAtStart, absoluteFilePath, parser)
-
+  parseCode() {
+    const results = new DefaultScrollParser().parseAndCompile(this.fusedCode, this.codeAtStart, this.filePath, this.fusedFile?.parser || DefaultScrollParser)
     this.codeAfterMacroPass = results.codeAfterMacroPass
     this.parser = results.parser
     this.scrollProgram = results.scrollProgram
-
-    this.timestamp = dayjs(this.scrollProgram.get("date") ?? this.fileSystem.getCTime(this.filePath) ?? 0).unix()
     this.scrollProgram.setFile(this)
+    const date = this.scrollProgram.get("date")
+    if (date) this.timestamp = dayjs(this.scrollProgram.get("date")).unix()
   }
 
   // todo: speed this up and do a proper release. also could add more metrics like this.
@@ -117,23 +71,12 @@ class ScrollFile {
     return this._lastCommitTime
   }
 
-  formatAndSave() {
-    const { codeAtStart, formatted } = this
-    if (codeAtStart === formatted) return false
-    this.fileSystem.write(this.filePath, formatted)
-    return true
-  }
-
   log(message) {
     if (this.logger) this.logger.log(message)
   }
 
-  getFileFromId(id) {
-    return this.fileSystem.getScrollFile(path.join(this.folderPath, id + ".scroll"))
-  }
-
-  get allScrollFiles() {
-    return this.fileSystem.getScrollFilesInFolder(this.folderPath)
+  async getFileFromId(id) {
+    return await this.fileSystem.getLoadedFile(path.join(this.folderPath, id + ".scroll"))
   }
 
   get parsersBundle() {
@@ -169,96 +112,12 @@ parsers/errors.parsers`
     return this.fileSystem.getMTime(this.filePath)
   }
 
-  SCROLL_VERSION = SCROLL_VERSION
-  EXTERNALS_PATH = EXTERNALS_PATH
-  importOnly = false
-  filePath = ""
-  timeIndex = 0
-
-  _nextAndPrevious(arr, index) {
-    const nextIndex = index + 1
-    const previousIndex = index - 1
-    return {
-      previous: arr[previousIndex] ?? arr[arr.length - 1],
-      next: arr[nextIndex] ?? arr[0]
-    }
-  }
-
-  // keyboard nav is always in the same folder. does not currently support cross folder
-  includeFileInKeyboardNav(file) {
-    const { scrollProgram } = file
-    return scrollProgram.buildsHtml && scrollProgram.hasKeyboardNav && scrollProgram.tags.includes(this.scrollProgram.primaryTag)
-  }
-
-  get linkToPrevious() {
-    if (!this.scrollProgram.hasKeyboardNav)
-      // Dont provide link to next unless keyboard nav is on
-      return undefined
-    let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).previous
-    while (!this.includeFileInKeyboardNav(file)) {
-      file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).previous
-    }
-    return file.scrollProgram.permalink
-  }
-
-  get linkToNext() {
-    if (!this.scrollProgram.hasKeyboardNav)
-      // Dont provide link to next unless keyboard nav is on
-      return undefined
-    let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).next
-    while (!this.includeFileInKeyboardNav(file)) {
-      file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).next
-    }
-    return file.scrollProgram.permalink
-  }
-
   get(parserAtom) {
     return this.scrollProgram.get(parserAtom)
   }
 
   has(parserAtom) {
     return this.scrollProgram.has(parserAtom)
-  }
-
-  // todo: clean up this naming pattern and add a parser instead of special casing 404.html
-  get allHtmlFiles() {
-    return this.allScrollFiles.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.permalink !== "404.html")
-  }
-
-  getFilesByTags(tags, limit) {
-    // todo: tags is currently matching partial substrings
-    const getFilesWithTag = (tag, files) => files.filter(file => file.scrollProgram.buildsHtml && file.scrollProgram.tags.includes(tag))
-    if (typeof tags === "string") tags = tags.split(" ")
-    if (!tags || !tags.length)
-      return this.allHtmlFiles
-        .filter(file => file !== this) // avoid infinite loops. todo: think this through better.
-        .map(file => {
-          return { file, relativePath: "" }
-        })
-        .slice(0, limit)
-    let arr = []
-    tags.forEach(name => {
-      if (!name.includes("/"))
-        return (arr = arr.concat(
-          getFilesWithTag(name, this.allScrollFiles)
-            .map(file => {
-              return { file, relativePath: "" }
-            })
-            .slice(0, limit)
-        ))
-      const parts = name.split("/")
-      const group = parts.pop()
-      const relativePath = parts.join("/")
-      const folderPath = path.join(this.folderPath, path.normalize(relativePath))
-      const files = this.fileSystem.getScrollFilesInFolder(folderPath)
-      const filtered = getFilesWithTag(group, files).map(file => {
-        return { file, relativePath: relativePath + "/" }
-      })
-
-      arr = arr.concat(filtered.slice(0, limit))
-    })
-
-    return lodash.sortBy(arr, file => file.file.timestamp).reverse()
   }
 }
 
@@ -383,14 +242,16 @@ footer.scroll`
     return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
   }
 
-  getErrorsInFolder(folder) {
+  async getErrorsInFolder(folder) {
     const fileSystem = new ScrollFileSystem()
     const folderPath = Utils.ensureFolderEndsInSlash(folder)
-    fileSystem.getScrollFilesInFolder(folderPath) // Init all parsers
+    const files = await fileSystem.getScrollFilesInFolder(folderPath) // Init/cache all parsers
     const parserErrors = fileSystem.parsers.map(parser => parser.getAllErrors().map(err => err.toObject())).flat()
-
-    const scrollErrors = fileSystem
-      .getScrollFilesInFolder(folderPath)
+    // load all files
+    for (let file of files) {
+      await file.scrollProgram.load()
+    }
+    const scrollErrors = files
       .map(file =>
         file.scrollProgram.getAllErrors().map(err => {
           return { filename: file.filename, ...err.toObject() }
@@ -401,10 +262,10 @@ footer.scroll`
     return { parserErrors, scrollErrors }
   }
 
-  testCommand(cwd) {
+  async testCommand(cwd) {
     const start = Date.now()
     const folder = this.resolvePath(cwd)
-    const { parserErrors, scrollErrors } = this.getErrorsInFolder(folder)
+    const { parserErrors, scrollErrors } = await this.getErrorsInFolder(folder)
 
     const seconds = (Date.now() - start) / 1000
 
@@ -424,10 +285,10 @@ footer.scroll`
     return `${parserErrors.length + scrollErrors.length} Errors`
   }
 
-  formatCommand(cwd) {
+  async formatCommand(cwd) {
     const fileSystem = new ScrollFileSystem()
     const folder = this.resolvePath(cwd)
-    const files = fileSystem.getScrollFilesInFolder(folder)
+    const files = await fileSystem.getScrollFilesInFolder(folder)
     // .concat(fileSystem.getParserFilesInFolder(folder)) // todo: should format parser files too.
     files.forEach(file => (file.formatAndSave() ? this.log(`💾 formatted ${file.filename}`) : ""))
   }
@@ -445,6 +306,9 @@ footer.scroll`
     const externalFilesCopied = {}
     for (const file of toBuild) {
       file.logger = this
+      await file.scrollProgram.load()
+    }
+    for (const file of toBuild) {
       await file.scrollProgram.buildOne()
     }
     for (const file of toBuild) {
@@ -465,10 +329,9 @@ footer.scroll`
 
   async buildFilesInFolder(fileSystem, folder = "/") {
     folder = Utils.ensureFolderEndsInSlash(folder)
-    const files = fileSystem.getScrollFilesInFolder(folder)
+    const files = await fileSystem.getScrollFilesInFolder(folder)
     this.log(`Found ${files.length} scroll files in '${folder}'\n`)
-    const res = await this.buildFiles(fileSystem, files, folder)
-    return res
+    return await this.buildFiles(fileSystem, files, folder)
   }
 
   listCommand(cwd) {

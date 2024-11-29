@@ -20,34 +20,33 @@ abstractBuildCommandParser
   buildOutput() {
     return this.root.compileTo(this.extension)
   }
-  _buildFileType(extension) {
+  async _buildFileType(extension) {
     const {root} = this
     const { fileSystem, folderPath, filename, filePath, path, lodash, permalink } = root
     const capitalized = lodash.capitalize(extension)
     const buildKeyword = "build" + capitalized
     const outputFiles = this.content?.split(" ") || [""]
-    outputFiles.forEach(name => {
+    for (let name of outputFiles) {
       const link = name || permalink.replace(".html", "." + extension.toLowerCase())
       try {
-        fileSystem.writeProduct(path.join(folderPath, link), root.compileTo(capitalized))
+        await fileSystem.writeProduct(path.join(folderPath, link), root.compileTo(capitalized))
         root.log(`💾 Built ${link} from ${filename}`)
       } catch (err) {
         console.error(`Error while building '${filePath}' with extension '${extension}'`)
         throw err
       }
-    })
+    }
   }
 
 abstractBuildOneCommandParser
  // buildOne and buildTwo are just a dumb/temporary way to have CSVs/JSONs/TSVs build first. Will be merged at some point.
  extends abstractBuildCommandParser
  javascript
-  buildOne() {
-  this._buildFileType(this.extension)}
+  async buildOne() { await this._buildFileType(this.extension) }
 
 abstractBuildTwoCommandParser
  extends abstractBuildCommandParser
  javascript
-  buildTwo() {
-    this._buildFileType(this.extension)
+  async buildTwo() {
+    await this._buildFileType(this.extension)
   }

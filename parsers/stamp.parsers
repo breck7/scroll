@@ -7,7 +7,7 @@ stampFileParser
  catchAllAtomType stringAtom
  description Create a file.
  javascript
-  build(parentDir) {
+  execute(parentDir) {
    const fs = require("fs")
    const path = require("path")
    const fullPath = path.join(parentDir, this.getLine())
@@ -26,13 +26,13 @@ stampFolderParser
  catchAllParser stampFileParser
  pattern \/$
  javascript
-  build(parentDir) {
+  execute(parentDir) {
    const fs = require("fs")
    const path = require("path")
    const newPath = path.join(parentDir, this.getLine())
    this.root.log(`Creating folder ${newPath}`)
    fs.mkdirSync(newPath, {recursive: true})
-   this.forEach(particle => particle.build(newPath))
+   this.forEach(particle => particle.execute(newPath))
   }
 
 toStampParser
@@ -105,7 +105,7 @@ stampParser
  cueFromId
  atoms preBuildCommandAtom
  javascript
-  build() {
+  execute() {
     const dir = this.root.folderPath
-    this.forEach(particle => particle.build(dir))
+    this.forEach(particle => particle.execute(dir))
   }
