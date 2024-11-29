@@ -6,7 +6,10 @@ abstractPostsParser
  catchAllAtomType tagWithOptionalFolderAtom
  javascript
   get files() {
-   return this.root.getFilesByTags(this.content)
+   const thisFile = this.root.file
+   // todo: we can include this file, but just not run asTxt
+   const files = this.root.getFilesByTags(this.content).filter(file => file.file !== thisFile)
+   return files
   }
   get coreTable() {
     if (this._coreTable) return this._coreTable

@@ -251,9 +251,6 @@ scrollParser
   get externalsPath() {
     return this.file.EXTERNALS_PATH
   }
-  getFilesByTags(tags, limit) {
-    return this.file.getFilesByTags ? this.file.getFilesByTags(tags, limit) : []
-  }
   get endSnippetIndex() {
     // Get the line number that the snippet should stop at.
     // First if its hard coded, use that
@@ -371,7 +368,7 @@ scrollParser
   }
   get buildsHtml() {
     const { permalink } = this
-    return !this.file?.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
+    return !this.file.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
   }
   // Without specifying the language hyphenation will not work.
   get lang() {
