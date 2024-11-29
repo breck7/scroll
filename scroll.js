@@ -245,10 +245,12 @@ footer.scroll`
   async getErrorsInFolder(folder) {
     const fileSystem = new ScrollFileSystem()
     const folderPath = Utils.ensureFolderEndsInSlash(folder)
-    await fileSystem.getScrollFilesInFolder(folderPath) // Init/cache all parsers
+    const files = await fileSystem.getScrollFilesInFolder(folderPath) // Init/cache all parsers
     const parserErrors = fileSystem.parsers.map(parser => parser.getAllErrors().map(err => err.toObject())).flat()
-
-    const files = await fileSystem.getScrollFilesInFolder(folderPath)
+    // load all files
+    for (let file of files) {
+      await file.scrollProgram.load()
+    }
     const scrollErrors = files
       .map(file =>
         file.scrollProgram.getAllErrors().map(err => {

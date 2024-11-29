@@ -9,7 +9,7 @@ abstractPostsParser
     const dependsOn = this.tags.map(tag => this.root.parseNestedTag(tag)).filter(i => i).map(i => i.folderPath)
     const {fileSystem} = this.root
     for (let folderPath of dependsOn) {
-      console.log(`${this.root.filePath} is loading: ${folderPath} in id '${fileSystem.fusionId}'`)
+      // console.log(`${this.root.filePath} is loading: ${folderPath} in id '${fileSystem.fusionId}'`)
       await fileSystem.getScrollFilesInFolder(folderPath)
     }
   }
