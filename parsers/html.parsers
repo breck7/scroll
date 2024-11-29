@@ -4,11 +4,11 @@ buildHtmlParser
  extends abstractBuildTwoCommandParser
  boolean isPopular true
  javascript
-  buildTwo(externalFilesCopied) {
-    this._copyExternalFiles(externalFilesCopied)
-    super.buildTwo()
+  async buildTwo(externalFilesCopied) {
+    await this._copyExternalFiles(externalFilesCopied)
+    await super.buildTwo()
   }
-  _copyExternalFiles(externalFilesCopied = {}) {
+  async _copyExternalFiles(externalFilesCopied = {}) {
     if (!this.isNodeJs()) return
     const {root} = this
     // If this file uses a parser that has external requirements,

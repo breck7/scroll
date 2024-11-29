@@ -47,16 +47,18 @@ class ScrollSetCLI {
     return new ScrollFile(new Particle(Disk.read(target)).patch(patch).toString(), target, scrollFs).formatAndSave()
   }
 
-  setAndSave(file, measurementPath, measurementValue) {
+  async setAndSave(file, measurementPath, measurementValue) {
     const particle = this.getParticle(file)
     particle.set(measurementPath, measurementValue)
-    return this.formatAndSave(file, particle)
+    const result = await this.formatAndSave(file, particle)
+    return result
   }
 
-  formatAndSave(file, particle = this.getParticle(file)) {
-    const formatted = new ScrollFile(particle.toString(), this.makeFilePath(file.id), scrollFs).formatted
+  async formatAndSave(file, particle = this.getParticle(file)) {
+    const fusedFile = new ScrollFile(particle.toString(), this.makeFilePath(file.id), scrollFs)
+    await fusedFile.fuse()
     // force a write
-    return scrollFs.write(this.makeFilePath(file.id), formatted)
+    return scrollFs.write(this.makeFilePath(file.id), fusedFileformatted)
   }
 
   makeNameSearchIndex(files = this.concepts.slice(0).reverse()) {

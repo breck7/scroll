@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 157.0.0 11/29/2024
+⚠️ BREAKING: (only API changes) switched to async Fusion file system.
+
 📦 156.0.0 11/28/2024
 ⚠️ BREAKING: (no one should be affected) updated scrollsdk to get Fusion
 

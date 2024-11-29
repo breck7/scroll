@@ -3,7 +3,7 @@
 const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
-const { ScrollCli, ScrollFile, DefaultScrollParser, ScrollFileSystem } = require("../scroll.js")
+const { ScrollCli, ScrollFile, ScrollFileSystem, DefaultScrollParser } = require("../scroll.js")
 const { ScrollSetCLI } = require("../ScrollSetCLI.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { TestRacer } = require("scrollsdk/products/TestRacer.js")
@@ -18,7 +18,7 @@ const stampFolder = path.join(testsFolder, "testOutput")
 // cleanup in case it was built earlier:
 if (Disk.exists(stampFolder)) fs.rmSync(stampFolder, { recursive: true })
 
-testParticles.compileAftertext = areEqual => {
+testParticles.compileAftertext = async areEqual => {
   const tests = [
     {
       text: `* Hello brave new world
@@ -30,35 +30,34 @@ testParticles.compileAftertext = areEqual => {
     }
   ]
 
-  tests.forEach(example => {
-    const result = new DefaultScrollParser(example.text).buildHtml()
+  tests.forEach(async example => {
+    const program = new DefaultScrollParser(example.text)
+    const result = program.buildHtml()
     areEqual(result, example.expected)
   })
 }
 
-testParticles.paragraphParser = areEqual => {
+testParticles.paragraphParser = async areEqual => {
   // Arrange
   const program = new DefaultScrollParser(`* foo`)
 
   // Act
-  program.buildHtml()
   const result = program.buildHtml()
 
   areEqual(result, `<p id="particle0" class="scrollParagraph">foo</p>`)
 }
 
-testParticles.linkOnly = areEqual => {
+testParticles.linkOnly = async areEqual => {
   // Arrange
   const program = new DefaultScrollParser(`* https://particles.scroll.pub`)
 
   // Act
-  program.buildHtml()
   const result = program.buildHtml()
 
   areEqual(result, `<p id="particle0" class="scrollParagraph"><a href="https://particles.scroll.pub" target="_blank">https://particles.scroll.pub</a></p>`)
 }
 
-testParticles.endSnippet = areEqual => {
+testParticles.endSnippet = async areEqual => {
   // Arrange
   const program = new DefaultScrollParser(`Hi\nendSnippet`)
 
@@ -66,7 +65,7 @@ testParticles.endSnippet = areEqual => {
   areEqual(program.buildHtml().includes("endSnippet"), false, "should not print endSnippet")
 }
 
-testParticles.tableWithLinks = areEqual => {
+testParticles.tableWithLinks = async areEqual => {
   const tests = [
     {
       text: `table
@@ -96,10 +95,11 @@ testParticles.testAllScrollsInThisRepo = async areEqual => {
   const cli = new ScrollCli()
   cli.verbose = false
   const result = await cli.listCommand(path.join(__dirname, ".."))
-  Object.keys(result).forEach(async dir => {
+  const dirs = Object.keys(result)
+  for (let dir of dirs) {
     const result = await cli.testCommand(dir)
     areEqual(result.includes("0 errors"), true, `No errors in '${dir}'`)
-  })
+  }
 }
 
 testParticles.inMemoryFileSystem = async areEqual => {
@@ -127,10 +127,10 @@ buildHtml`
   areEqual(files["/pages/about.html"].includes(`<html lang="en">`), true, "HTML tag and lang attribute set to ensure hyphenation will work.")
 }
 
-testParticles.file = areEqual => {
+testParticles.file = async areEqual => {
   const rootFolder = path.join(__dirname, "..")
   const fileSystem = new ScrollFileSystem()
-  const files = fileSystem.getScrollFilesInFolder(rootFolder)
+  const files = await fileSystem.getScrollFilesInFolder(rootFolder)
   const releaseNotesFile = files.find(file => file.scrollProgram.permalink === "releaseNotes.html").scrollProgram
 
   areEqual(releaseNotesFile.permalink, "releaseNotes.html")
@@ -139,7 +139,7 @@ testParticles.file = areEqual => {
   areEqual(files[4].scrollProgram.permalink.endsWith(".html"), true)
 }
 
-testParticles.ensureNoErrorsInParser = areEqual => {
+testParticles.ensureNoErrorsInParser = async areEqual => {
   const parserErrors = new parsersParser(new DefaultScrollParser().definition.asString).getAllErrors().map(err => err.toObject())
   if (parserErrors.length) console.log(parserErrors)
   areEqual(parserErrors.length, 0, "no errors in scroll standard library parsers")
@@ -167,21 +167,23 @@ testParticles.cli = async areEqual => {
   areEqual(JSON.stringify(results).includes("scrollFileCount"), true, "list works")
 }
 
-testParticles.standalonePage = areEqual => {
+testParticles.standalonePage = async areEqual => {
   // Arrange
   const page = new ScrollFile(`title A standalone page
 printTitle
 * Blue sky`)
   // Act/Assert
+  await page.fuse()
   const { asHtml, asTxt } = page.scrollProgram
   areEqual(asHtml.includes("Blue sky"), true)
   areEqual(asTxt.includes("A standalone page"), true)
 }
 
-testParticles.aBlankPage = areEqual => {
+testParticles.aBlankPage = async areEqual => {
   // Arrange
   const page = new ScrollFile(``)
   // Act/Assert
+  await page.fuse()
   areEqual(page.scrollProgram.asHtml, ``)
 
   // Arrange
@@ -189,15 +191,17 @@ testParticles.aBlankPage = areEqual => {
 # Hello world
  hidden`)
   // Act/Assert
+  await testHidden.fuse()
   areEqual(testHidden.scrollProgram.asHtml, `<!DOCTYPE html>\n<html lang="en">\n<body>\n\n</body>\n</html>`)
 }
 
-testParticles.baseUrl = areEqual => {
+testParticles.baseUrl = async areEqual => {
   // Arrange
   const page = new ScrollFile(`baseUrl http://test.com/
 metaTags
 blog/screenshot.png`)
   // Act/Assert
+  await page.fuse()
   const { asHtml } = page.scrollProgram
   areEqual(asHtml.includes("http://test.com/blog/screenshot.png"), true)
 }
@@ -219,10 +223,12 @@ testParticles.format = async areEqual => {
   // Arrange
   const page = new ScrollFile(``)
   // Act/Assert
+  await page.fuse()
   areEqual(page.formatted, "", "format works")
 
   const page2 = new ScrollFile(`# hi`)
   // Act/Assert
+  await page2.fuse()
   areEqual(page2.formatted, "# hi\n", "format works")
 }
 
@@ -242,11 +248,11 @@ testParticles.initCommand = async areEqual => {
     const products = await cli.buildFilesInFolder(fileSystem, tempFolder)
 
     // Assert
-    areEqual(Object.values(products)[2].includes("Built with Scroll"), true, "has message")
+    areEqual(Object.values(products)[3].includes("Built with Scroll"), true, "has message")
     areEqual(Object.keys(products).filter(name => name.endsWith(".html")).length, 2, "should have 2 html pages")
     areEqual(Object.values(products).length, 6, "should have 6 total generated files")
 
-    const { scrollErrors, parserErrors } = cli.getErrorsInFolder(tempFolder)
+    const { scrollErrors, parserErrors } = await cli.getErrorsInFolder(tempFolder)
     areEqual(scrollErrors.length, 0)
     areEqual(parserErrors.length, 0)
   } catch (err) {
