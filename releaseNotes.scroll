@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 159.1.0 11/30/2024
+🎉 make Scroll version work in browser version
+
 📦 159.0.0 11/30/2024
 ⚠️ BREAKING: (almost no one should be affected). `paragraphParser` is now `scrollParagraphParser` to avoid namespace collisions.
 

@@ -21,11 +21,6 @@ const PARSERS_FILE_EXTENSION = ".parsers"
 const EXTERNALS_PATH = path.join(__dirname, "external")
 const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
 
-class FileInterface {
-  EXTERNALS_PATH
-  SCROLL_VERSION
-}
-
 class ScrollFileSystem extends Fusion {
   defaultFileClass = ScrollFile
   async getScrollFilesInFolder(folderPath) {
@@ -44,7 +39,6 @@ const defaultParser = Fusion.combineParsers(
 const DefaultScrollParser = defaultParser.parser
 
 class ScrollFile extends FusionFile {
-  SCROLL_VERSION = SCROLL_VERSION
   EXTERNALS_PATH = EXTERNALS_PATH
 
   defaultParserCode = defaultParser.parsersCode
