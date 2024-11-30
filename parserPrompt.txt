@@ -2799,8 +2799,7 @@ stamp
      return ""
     }
     buildHtml() {
-      const file = this.parent.file
-      const { linkToPrevious, linkToNext } = file
+      const { linkToPrevious, linkToNext } = this.root
       if (!linkToPrevious) return ""
       const style = `a.keyboardNav {display:block;position:absolute;top:0.25rem; color: rgba(204,204,204,.8); font-size: 1.875rem; line-height: 1.7rem;}a.keyboardNav:hover{color: #333;text-decoration: none;}`
       return `${style}&lt;&gt;`
@@ -2817,7 +2816,7 @@ stamp
      return ""
     }
     buildHtml() {
-     const {root} = this.root
+     const {root} = this
      const linkToPrevious = this.getAtom(1) ?? root.linkToPrevious
      const linkToNext = this.getAtom(2) ?? root.linkToNext
      const script = `document.addEventListener('keydown', function(event) {
@@ -4444,7 +4443,7 @@ stamp
     }
     buildHtml(buildSettings) {
       this.sectionStack = []
-      return this.filter(subparticle => subparticle.buildHtml).map(subparticle => subparticle.buildHtml(buildSettings)).filter(i => i).join("\n") + this.clearSectionStack()
+      return this.filter(subparticle => subparticle.buildHtml).map(subparticle => { try {return subparticle.buildHtml(buildSettings)} catch (err) {console.error(err); return ""} }).filter(i => i).join("\n") + this.clearSectionStack()
     }
     sectionStack = []
     clearSectionStack() {
@@ -4493,13 +4492,17 @@ stamp
       const { scrollProgram } = file
       return scrollProgram.buildsHtml && scrollProgram.hasKeyboardNav && scrollProgram.tags.includes(this.primaryTag)
     }
+    get timeIndex() {
+      return this.file.timeIndex || 0
+    }
     get linkToPrevious() {
       if (!this.hasKeyboardNav)
         // Dont provide link to next unless keyboard nav is on
         return undefined
-      let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).previous
+      const {allScrollFiles} = this
+      let file = this._nextAndPrevious(allScrollFiles, this.timeIndex).previous
       while (!this.includeFileInKeyboardNav(file)) {
-        file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).previous
+        file = this._nextAndPrevious(allScrollFiles, file.timeIndex).previous
       }
       return file.scrollProgram.permalink
     }
@@ -4507,9 +4510,10 @@ stamp
       if (!this.hasKeyboardNav)
         // Dont provide link to next unless keyboard nav is on
         return undefined
-      let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).next
+      const {allScrollFiles} = this
+      let file = this._nextAndPrevious(allScrollFiles, this.timeIndex).next
       while (!this.includeFileInKeyboardNav(file)) {
-        file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).next
+        file = this._nextAndPrevious(allScrollFiles, file.timeIndex).next
       }
       return file.scrollProgram.permalink
     }

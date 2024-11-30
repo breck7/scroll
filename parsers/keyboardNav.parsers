@@ -8,8 +8,7 @@ scrollLeftRightButtonsParser
    return ""
   }
   buildHtml() {
-    const file = this.parent.file
-    const { linkToPrevious, linkToNext } = file
+    const { linkToPrevious, linkToNext } = this.root
     if (!linkToPrevious) return ""
     const style = `a.keyboardNav {display:block;position:absolute;top:0.25rem; color: rgba(204,204,204,.8); font-size: 1.875rem; line-height: 1.7rem;}a.keyboardNav:hover{color: #333;text-decoration: none;}`
     return `<style>${style}</style><a class="keyboardNav doNotPrint" style="left:.5rem;" href="${linkToPrevious}">&lt;</a><a class="keyboardNav doNotPrint" style="right:.5rem;" href="${linkToPrevious}">&gt;</a>`
@@ -26,7 +25,7 @@ keyboardNavParser
    return ""
   }
   buildHtml() {
-   const {root} = this.root
+   const {root} = this
    const linkToPrevious = this.getAtom(1) ?? root.linkToPrevious
    const linkToNext = this.getAtom(2) ?? root.linkToNext
    const script = `<script>document.addEventListener('keydown', function(event) {

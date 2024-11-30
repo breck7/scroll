@@ -167,7 +167,7 @@ scrollParser
   }
   buildHtml(buildSettings) {
     this.sectionStack = []
-    return this.filter(subparticle => subparticle.buildHtml).map(subparticle => subparticle.buildHtml(buildSettings)).filter(i => i).join("\n") + this.clearSectionStack()
+    return this.filter(subparticle => subparticle.buildHtml).map(subparticle => { try {return subparticle.buildHtml(buildSettings)} catch (err) {console.error(err); return ""} }).filter(i => i).join("\n") + this.clearSectionStack()
   }
   sectionStack = []
   clearSectionStack() {
@@ -216,13 +216,17 @@ scrollParser
     const { scrollProgram } = file
     return scrollProgram.buildsHtml && scrollProgram.hasKeyboardNav && scrollProgram.tags.includes(this.primaryTag)
   }
+  get timeIndex() {
+    return this.file.timeIndex || 0
+  }
   get linkToPrevious() {
     if (!this.hasKeyboardNav)
       // Dont provide link to next unless keyboard nav is on
       return undefined
-    let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).previous
+    const {allScrollFiles} = this
+    let file = this._nextAndPrevious(allScrollFiles, this.timeIndex).previous
     while (!this.includeFileInKeyboardNav(file)) {
-      file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).previous
+      file = this._nextAndPrevious(allScrollFiles, file.timeIndex).previous
     }
     return file.scrollProgram.permalink
   }
@@ -230,9 +234,10 @@ scrollParser
     if (!this.hasKeyboardNav)
       // Dont provide link to next unless keyboard nav is on
       return undefined
-    let file = this._nextAndPrevious(this.allScrollFiles, this.timeIndex).next
+    const {allScrollFiles} = this
+    let file = this._nextAndPrevious(allScrollFiles, this.timeIndex).next
     while (!this.includeFileInKeyboardNav(file)) {
-      file = this._nextAndPrevious(this.allScrollFiles, file.timeIndex).next
+      file = this._nextAndPrevious(allScrollFiles, file.timeIndex).next
     }
     return file.scrollProgram.permalink
   }
