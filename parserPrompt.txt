@@ -2,6 +2,8 @@ Below is the source code for all the Scroll Parsers.
 
 After listing all the source code, I will tell you about the new Parser I want you to make.
 
+Do not use React. Make the Parser just like these other parsers.
+
 stamp
  aftertext.parsers
   // Related work:

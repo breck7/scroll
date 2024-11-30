@@ -1,238 +1,760 @@
-Below is the source code for a Scroll Tutorial.
+Below is the source code for a Scroll Tutorial and some other Scroll files.
 
 Then I will give you some content. I want you to convert the content into Scroll.
 
-stamp
- /home/runner/work/scroll/scroll/tutorial.scroll
-  replace DOMAIN scroll.pub
-  title Scroll Tutorial
-  linkTitle Tutorial
-  
+Do not use React or Markdown. Use Scroll.
+
+```tutorial.scroll
+replace DOMAIN scroll.pub
+title Scroll Tutorial
+linkTitle Tutorial
+
+header.scroll
+
+container 800px
+
+printTitle
+nav.scroll
+center
+Video walkthrough of this tutorial | Edit this file on try.scroll.pub
+ https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll Edit this file on try.scroll.pub
+ https://www.youtube.com/watch?v=IE3lHAmMqC4 Video walkthrough of this tutorial
+
+? What is Scroll?
+
+Scroll is a new computer language that evolved from taking one question very seriously: what if you removed every unnecessary stroke from a language? What if you made a language as simple as possible?
+
+Scroll is the result of relentlessly pursuing those questions.
+
+This tutorial will walk you through the basics of using Scroll.
+
+---
+
+## A Scroll document
+A Scroll document (or "program") is a _list of lines_.
+
+Each line can contain content (or "atoms").
+
+For example, here is a line containing 3 atoms:
+
+code
+ title Hello world
+
+In addition to containing atoms, each line can have its own document with its own lines using indentation.
+
+When you add a space at the beginning of a line, that line becomes a "subparticle" of the parent line.
+
+code
+ image hello.png
+  caption This line is a subparticle of the line above.
+
+You may have seen this _indent trick_ before in languages like Python.
+
+But Scroll pushes it to the max.
+
+Master the indent trick and master Scroll.
+
+But we're getting ahead of ourselves, let's start with the basics.
+
+---
+
+# Parsers
+
+Every line in a Scroll document matches and is parsed by a Parser.
+
+You can see all the available parsers in the Scroll Leet Sheet.
+ leetsheet.html Scroll Leet Sheet
+
+(Advanced users who want to write their own parsers might want to checkout the Parsers Leet Sheet.)
+ parserLeetsheet.html Parsers Leet Sheet
+
+Let's walk through some of the most common parsers.
+
+---
+
+# Basic Lines
+## 1. The Paragraph Parser
+
+Let's start with the most common parser, the `paragraph` parser.
+
+You can think of paragraphs as similar to a `p` or `div` tag in HTML.
+
+To use this parser you can write out the atom `paragraph`, or use an asterisk `*`, OR just start any text that does not match another parser (the "catch all" parser of a Scroll program is the paragraph parser).
+
+This paragraph was compiled by the catch all paragraph parser. The code is:
+aboveAsCode
+
+## 2. Headers
+Scroll has headers like markdown:
+belowAsCode 2
+# This is a section header
+## This is a subsection header
+
+## 3. Unordered lists
+Here's how you write unordered lists:
+belowAsCode 2
+- Scroll has lists
+ - That can be nested
+
+## 4. Checklists
+Below is the code for a checklist and its rendered version:
+belowAsCode 2
+[] Finish full tutorial
+ [x] Learn that checklists support nesting
+
+## 5. Tables
+Use the `table` parser to make tables:
+belowAsCode
+table
+ printTable
+ data
+  Name,Rank
+  Scroll,#1
+  Markdown,#2
+
+## 6. Images
+To add an image use the `image` parser:
+belowAsCode 2
+https://scroll.pub/blog/screenshot.png
+ caption An image with a caption
+
+## 7. Footnotes
+You can make footnotes like this:
+belowAsCode 2
+Pau means done^pau
+^pau In Hawaiian
+
+## 8. Dashboard
+If you are building a dashboard you might want to try the `dashboard` parser:
+belowAsCode
+dashboard
+ #1 Lang
+ 2k Users
+ 300 Stars
+
+## 9. Including HTML and CSS
+html If you need to jump into regular HTML, use the `html` parser.
+aboveAsCode
+
+For CSS, use the `css` parser:
+belowAsCode 2
+css .green {color: green;}
+This text should be green.
+ class green
+
+---
+
+# Marking Up Text
+## Inline markups
+You can use inline markups similar to Markdown or Textile.
+belowAsCode
+Here's how to *bold*, _italicize_, or denote `code`.
+
+## HTML markups
+You can use also markup text using HTML.
+belowAsCode
+Here's how to bold.
+
+## Aftertext
+Scroll invented something called aftertext, where you put markup after the text.
+ https://breckyunits.com/aftertext.html
+
+For example, instead of mixing in the link with the content, you put the link _after the text_ along with the text you want the link to match against. For example:
+belowAsCode
+A link to Wikipedia
+ https://wikipedia.org Wikipedia
+You can also make the whole paragraph a link by not including any text to match against.
+belowAsCode
+A link to Wikipedia
+ https://wikipedia.org
+
+## Columns
+You can use the `thinColumns [maxNumberOfColumns]` parser to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between lines. Line breaks will clear sections.
+
+---
+
+# Advanced
+## Variables
+Use the `replace` parser to define macros. Macros definitions are parsed and removed on the first compiler pass.
+Our domain is: *DOMAIN*
+
+## Import statements
+Scroll files can import other Scroll files. Use the `import` parser by just specifyingcthe path to the file, such as: `header.scroll`
+
+---
+
+## Themes
+Scroll ships with some default themes, which are just CSS files.
+
+## Examples
+## A page using no theme:
+code
+ # This page has no theme
+## A page using a theme:
+code
+ theme gazette
+ homeButton
+ editButton
+ This page uses the Gazette theme.
+
+---
+
+# Expert: Adding your own parsers
+_Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom parsers_.
+
+You can define your own parsers right in your Scroll documents using `*Parser`.
+
+Here is a simple example that extends Scroll by making `p` work the same as `*`:
+
+belowAsCode 2
+pParser
+ extends paragraphParser
+ cue p
+p We can then make paragraphs using `p`.
+
+Let's now make a `hiddenMessage` Parser that alerts a message when clicked:
+belowAsCode 3
+messageParser
+ cueFromId
+ catchAllAtomType stringAtom
+hiddenMessageParser
+ extends paragraphParser
+ inScope messageParser
+ cueFromId
+ javascript
+  buildHtml() {
+    return `${super.buildHtml()}`
+  }
+hiddenMessage Click me.
+ message Hello world
+
+As you can see, you can define new parsers with a small amount of code.
+
+You probably also can see that the Parsers code is powerful but has lots of sharp edges.
+
+While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
+
+footer.scroll
+
+```
+```readme.scroll
+permalink index.html
+title Scroll is a language for scientists of all ages
+
+header.scroll
+
+# Scroll is a language for scientists of all ages
+ style font-weight: 300; font-size: 200%;
+ class scrollTitle
+
+## Publish and evolve your most intelligent ideas
+ style font-weight: 300;
+
+css :root { --scrollBaseFontSize: 18px !important; }
+
+br
+mediumColumns 1
+
+animation.scroll
+
+ScrollHub &nbsp;&nbsp; Try now
+ center
+ http://hub.scroll.pub/ ScrollHub
+ class scrollButton ScrollHub
+ https://try.scroll.pub/ Try now
+ class scrollButton Try now
+
+LeetSheet · Blog · Release Notes · FAQ · Tutorial
+ center
+ leetsheet.html LeetSheet
+ blog/index.html Blog
+ faq.html FAQ
+ releaseNotes.html Release Notes
+ tutorial.html Tutorial
+ style margin:15px; margin-top: 40px;
+
+Videos · GitHub · Subreddit
+ center
+ https://www.youtube.com/@breckyunits Videos
+ https://github.com/breck7/scroll GitHub
+ https://www.reddit.com/r/WorldWideScroll/ Subreddit
+ style margin:15px;
+
+npm package · Tests · Parser Designer
+ center
+ https://www.npmjs.com/package/scroll-cli npm package
+ tests/index.html Tests
+ https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers Parser Designer
+ style margin:15px;
+
+scroll prompt · parser prompt
+ center
+ link scrollPrompt.txt scroll prompt
+ link parserPrompt.txt parser prompt
+ style margin:15px;
+
+endColumns
+
+footer.scroll
+
+```
+```faq.scroll
+replace ParsersLinks Parsers
+replace ParticlesLinked Particles
+title Scroll FAQ
+linkTitle FAQ
+
+header.scroll
+printTitle
+nav.scroll
+
+## A list of Frequently Asked Questions
+
+thinColumns
+
+Have a question not answered here? Email feedback@scroll.pub.
+
+? Any more docs?
+- Tutorial
+ tutorial.html
+- Roadmap
+ roadmap.html
+
+? What can I build with Scroll?
+
+### Blogs
+Scroll powers an ever increasing number of blogs like this one.
+ blog/index.html this one
+
+blog/screenshot.png
+ width 200
+ float right
+ link https://breckyunits.com/
+ caption This screenshot is from a blog powered by Scroll.
+  https://breckyunits.com/ a blog powered by Scroll
+
+### Knowledge Bases
+Scroll powers PLDB, a knowledge base with over 100 contributors who have added over 100,000 atoms of structured data and thousands of pages.
+ https://pldb.io PLDB
+
+### Static Sites
+This site you are reading is powered by Scroll.
+ index.html This site
+
+? What makes Scroll different?
+Scroll has an unusually simple syntax called Particles, an extensive set of parsers and commands needed by researchers, bloggers, knowledge bases and sites of all sizes, is highly expandable, and is familiar to anyone who knows Markdown.
+
+? What is the Scroll command line app?
+The command line app builds static blogs, websites, CSVs, text files, and more.
+ blog/textFiles.html text files
+ blog/scrollsets.html CSVs
+ blog/index.html static blogs
+ index.html websites
+
+? How do I install the command line app?
+Scroll currently requires Node.js.
+ https://nodejs.org/ Node.js
+After Node.js is installed, install the npm package with:
+ https://www.npmjs.com/package/scroll-cli npm package
+code
+ npm install -g scroll-cli
+
+? How do I install the developer version?
+code
+ git clone https://github.com/breck7/scroll.git
+ cd scroll
+ npm install -g .
+ npm test
+
+? How do I run the CLI?
+code
+ scroll help
+
+? Is Scroll open source?
+Yes. Breck's Lab publishes Scroll to the public domain.
+ https://breckyunits.com/lab.html Breck's Lab
+
+The source code is hosted on GitHub.
+ https://github.com/breck7/scroll source code
+
+? Is there an official blog for the project?
+Yes.
+ link blog/ Yes
+
+? Who is Scroll for?
+Scroll is built for bloggers who appreciate writing, minimal, well designed tools for thoughts, open source, git backed static site generators, and fast simple code.
+
+? What makes Scroll different?
+Scroll is different than other static site generators because it is also *an extendible language*.
+ https://staticsitegenerators.net other static site generators
+
+The basics of Scroll are even simpler than Markdown. For example, you can make a whole paragraph a link like this:
+
+This is a link
+ https://scroll.pub
+aboveAsCode
+
+You can stick to the basics or define new parsers to extend Scroll to better fit your content and workflows.
+
+Your parsers can be simple or as complex as any programming language, and a simple indent is all you need to make sure your parser won't interfere with other parsers.
+
+Parsers in Scroll are written in a mini language called ParsersLinks and both Scroll and Parsers are built on the syntax called ParticlesLinked.
+
+? How does Scroll improve over the latest incarnations of Markdown?
+Scroll evolved based on the theory that instead of a fixed language for blogging it is better to have an ever evolving ecosystem of parsers, so that your symbolic tools can grow along with your mental tools.
+
+Thus, Scroll is designed to be easy to extend.
+
+You can see this in the Scroll source code.
+
+Scroll is a collection of ParsersLinks and there are currently dozens of `.parsers` files in the base distribution.
+
+Each Parser can define a mini language of its own. You can simply add (or remove) Parsers to generate your own custom dialects to better fit your domains.
+
+Think of it as one file, many languages.
+
+Altering traditional languages in this fashion would lead to chaos, but Scroll does it in a stable and scalable way by making the most of the indent trick (also known as the off-side rule). Each line gets its own scope. So you can add, remove, and update your microlanguages and their associated blocks without breaking the rest of the documents.
+ https://en.wikipedia.org/wiki/Off-side_rule off-side rule
+
+In Scroll, it's almost as if each line is its own file.
+
+? How do I extend Scroll?
+Imagine you run a cooking blog where you share recipes. It may be useful to present recipes to your readers in a specialized style. You could create a _recipe_ parser and write a post like this:
+code
+ # McCarthy Salad
+  https://www.dorchestercollection.com/the-edit/los-angeles/our-famous-mccarthy-salad-recipe
+ 
+ recipe
+  ingredients For salad
+   ¼ head iceberg lettuce
+   ½ head romaine lettuce
+   ½ cup diced, grilled free-range chicken
+   ½ cup diced, roasted red beets
+   ¼ cup free-range egg yolk
+   ¼ cup free-range egg white
+   ½ cup finely diced aged cheddar cheese
+   ½ cup applewood-smoked bacon
+   ¼ cup diced tomato
+   ¼ cup diced avocado
+  step Dice ingredients.
+  step Artfully arrange the salad ingredients in a bowl.
+  ingredients For salad dressing
+   1 cup balsamic vinegar
+   1 shallot
+   3 cloves roasted garlic
+   1 teaspoon Dijon mustard
+   Salt and black pepper to season
+   Canola oil
+  step Place the dressing ingredients in a blender and drizzle in the canola oil to emulsify.
+  step Combine and mix salad and dressing!
+  step Enjoy!
+Notice that your post uses the first atom `recipe`, but Scroll does not have a parser for that. No problem, just write a recipe parser yourself using ParsersLinks, extending your dialect of Scroll:
+code
+ recipeParser
+  extends abstractScrollParser
+  cue recipe
+  javascript
+   buildHtml() {
+     const addYourSpecialMagic = ""
+     return `${addYourSpecialMagic}`
+   }
+Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine microlanguages in a simple and non-conflicting way. What you do with those languages is up to you.
+For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
+ https://scroll.pub/blog/indented-heredocs.html one
+
+? What is the biggest downside to Scroll?
+Compared to Markdown there is very little tooling and the ecosystem is currently very small.
+Also, although it is simple to write your own parsers in ParsersLinks once you know what you're doing, documentation for ParsersLinks is still poor and tooling isn't great yet.
+
+? What kind of sites can I use Scroll to build?
+Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
+ https://scroll.pub one page
+ https://scroll.pub/blog/ a few pages
+ https://breckyunits.com/code/ tens of pages
+ https://breckyunits.com/ hundreds of pages
+ https://pldb.io/ thousands of pages
+
+? How do I get Scroll?
+Scroll is a language and command line app you install on your local machine. Scroll requires basic familiarity with the command line and NodeJs >=18. If you do not have NodeJs, Mac/Linux users can install NodeJs with #n# (make sure to install with `--arch arm64` flag for M1s+) and Windows users can install NodeJs with Scoop.
+ https://nodejs.org NodeJs
+ inlineMarkup # https://github.com/tj/n
+ https://scoop.sh/ Scoop
+If you would like to use Scroll but aren't familiar with the command line, please open an issue and we may be able to help.
+Once you have NodeJs installed you can install from GitHub or npm. Scroll is scroll-cli on npm.
+ https://www.npmjs.com/package/scroll-cli scroll-cli
+You can install from GitHub:
+code
+ git clone https://github.com/breck7/scroll
+ cd scroll
+ npm install -g .
+Or you can install Scroll with npm by typing:
+code
+ npm install -g scroll-cli --production
+
+One way to try the Scroll command line app without installing is with GitPod.
+ https://gitpod.io/#https://github.com/breck7/scroll GitPod
+
+? How do I use Scroll?
+Scroll is a command line app. To see the commands type:
+code
+ scroll help
+
+? Where do I get help?
+Post an issue in this GitHub or email us.
+ email feedback@scroll.pub us
+
+? What are some example sites using Scroll?
+Scroll currently powers blog and sites of one page, a few pages, tens of pages, hundreds of pages, and even thousands of pages.
+ https://scroll.pub one page
+ https://scroll.pub/blog/ a few pages
+ https://breckyunits.com/code/ tens of pages
+ https://breckyunits.com/ hundreds of pages
+ https://pldb.io/ thousands of pages
+
+? What does a typical project folder look like?
+A typical Scroll project folder, excluding the files built by Scroll, looks like this:
+code
+ 📁yourDomainName.org
+  about.scroll
+  helloWorld.scroll
+  index.scroll
   header.scroll
-  
-  container 800px
-  
-  printTitle
-  nav.scroll
-  center
-  Video walkthrough of this tutorial | Edit this file on try.scroll.pub
-   https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll Edit this file on try.scroll.pub
-   https://www.youtube.com/watch?v=IE3lHAmMqC4 Video walkthrough of this tutorial
-  
-  ? What is Scroll?
-  
-  Scroll is a new computer language that evolved from taking one question very seriously: what if you removed every unnecessary stroke from a language? What if you made a language as simple as possible?
-  
-  Scroll is the result of relentlessly pursuing those questions.
-  
-  This tutorial will walk you through the basics of using Scroll.
-  
-  ---
-  
-  ## A Scroll document
-  A Scroll document (or "program") is a _list of lines_.
-  
-  Each line can contain content (or "atoms").
-  
-  For example, here is a line containing 3 atoms:
-  
-  code
-   title Hello world
-  
-  In addition to containing atoms, each line can have its own document with its own lines using indentation.
-  
-  When you add a space at the beginning of a line, that line becomes a "subparticle" of the parent line.
-  
-  code
-   image hello.png
-    caption This line is a subparticle of the line above.
-  
-  You may have seen this _indent trick_ before in languages like Python.
-  
-  But Scroll pushes it to the max.
-  
-  Master the indent trick and master Scroll.
-  
-  But we're getting ahead of ourselves, let's start with the basics.
-  
-  ---
-  
-  # Parsers
-  
-  Every line in a Scroll document matches and is parsed by a Parser.
-  
-  You can see all the available parsers in the Scroll Leet Sheet.
-   leetsheet.html Scroll Leet Sheet
-  
-  (Advanced users who want to write their own parsers might want to checkout the Parsers Leet Sheet.)
-   parserLeetsheet.html Parsers Leet Sheet
-  
-  Let's walk through some of the most common parsers.
-  
-  ---
-  
-  # Basic Lines
-  ## 1. The Paragraph Parser
-  
-  Let's start with the most common parser, the `paragraph` parser.
-  
-  You can think of paragraphs as similar to a `p` or `div` tag in HTML.
-  
-  To use this parser you can write out the atom `paragraph`, or use an asterisk `*`, OR just start any text that does not match another parser (the "catch all" parser of a Scroll program is the paragraph parser).
-  
-  This paragraph was compiled by the catch all paragraph parser. The code is:
-  aboveAsCode
-  
-  ## 2. Headers
-  Scroll has headers like markdown:
-  belowAsCode 2
-  # This is a section header
-  ## This is a subsection header
-  
-  ## 3. Unordered lists
-  Here's how you write unordered lists:
-  belowAsCode 2
-  - Scroll has lists
-   - That can be nested
-  
-  ## 4. Checklists
-  Below is the code for a checklist and its rendered version:
-  belowAsCode 2
-  [] Finish full tutorial
-   [x] Learn that checklists support nesting
-  
-  ## 5. Tables
-  Use the `table` parser to make tables:
-  belowAsCode
-  table
-   printTable
-   data
-    Name,Rank
-    Scroll,#1
-    Markdown,#2
-  
-  ## 6. Images
-  To add an image use the `image` parser:
-  belowAsCode 2
-  https://scroll.pub/blog/screenshot.png
-   caption An image with a caption
-  
-  ## 7. Footnotes
-  You can make footnotes like this:
-  belowAsCode 2
-  Pau means done^pau
-  ^pau In Hawaiian
-  
-  ## 8. Dashboard
-  If you are building a dashboard you might want to try the `dashboard` parser:
-  belowAsCode
-  dashboard
-   #1 Lang
-   2k Users
-   300 Stars
-  
-  ## 9. Including HTML and CSS
-  html If you need to jump into regular HTML, use the `html` parser.
-  aboveAsCode
-  
-  For CSS, use the `css` parser:
-  belowAsCode 2
-  css .green {color: green;}
-  This text should be green.
-   class green
-  
-  ---
-  
-  # Marking Up Text
-  ## Inline markups
-  You can use inline markups similar to Markdown or Textile.
-  belowAsCode
-  Here's how to *bold*, _italicize_, or denote `code`.
-  
-  ## HTML markups
-  You can use also markup text using HTML.
-  belowAsCode
-  Here's how to bold.
-  
-  ## Aftertext
-  Scroll invented something called aftertext, where you put markup after the text.
-   https://breckyunits.com/aftertext.html
-  
-  For example, instead of mixing in the link with the content, you put the link _after the text_ along with the text you want the link to match against. For example:
-  belowAsCode
-  A link to Wikipedia
-   https://wikipedia.org Wikipedia
-  You can also make the whole paragraph a link by not including any text to match against.
-  belowAsCode
-  A link to Wikipedia
-   https://wikipedia.org
-  
-  ## Columns
-  You can use the `thinColumns [maxNumberOfColumns]` parser to start a columns flow and `endColumns` to end a columns flow. If you don't want a section to break across columns, don't put line breaks in between lines. Line breaks will clear sections.
-  
-  ---
-  
-  # Advanced
-  ## Variables
-  Use the `replace` parser to define macros. Macros definitions are parsed and removed on the first compiler pass.
-  Our domain is: *DOMAIN*
-  
-  ## Import statements
-  Scroll files can import other Scroll files. Use the `import` parser by just specifyingcthe path to the file, such as: `header.scroll`
-  
-  ---
-  
-  ## Themes
-  Scroll ships with some default themes, which are just CSS files.
-  
-  ## Examples
-  ## A page using no theme:
-  code
-   # This page has no theme
-  ## A page using a theme:
-  code
-   theme gazette
-   homeButton
-   editButton
-   This page uses the Gazette theme.
-  
-  ---
-  
-  # Expert: Adding your own parsers
-  _Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom parsers_.
-  
-  You can define your own parsers right in your Scroll documents using `*Parser`.
-  
-  Here is a simple example that extends Scroll by making `p` work the same as `*`:
-  
-  belowAsCode 2
-  pParser
-   extends paragraphParser
-   cue p
-  p We can then make paragraphs using `p`.
-  
-  Let's now make a `hiddenMessage` Parser that alerts a message when clicked:
-  belowAsCode 3
-  messageParser
-   cueFromId
-   catchAllAtomType stringAtom
-  hiddenMessageParser
-   extends paragraphParser
-   inScope messageParser
-   cueFromId
-   javascript
-    buildHtml() {
-      return `${super.buildHtml()}`
-    }
-  hiddenMessage Click me.
-   message Hello world
-  
-  As you can see, you can define new parsers with a small amount of code.
-  
-  You probably also can see that the Parsers code is powerful but has lots of sharp edges.
-  
-  While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
-  
   footer.scroll
+  anImageInTheArticle.png
+When you run `scroll build`, Scroll reads those files and generates the outputs right in that site's folder.
+With Scroll your site's Scroll files and static files and generated html are all in one public folder and checked into version control. Usually you want to add `*.html` and `feed.xml` to your `.gitignore`.
+
+? How do I save drafts?
+Have a drafts folder next to your published scroll. For example:
+code
+ 📁drafts
+  someDraft.scroll
+ 📁yourDomainName.org
+  publishedArticle.scroll
+
+? What file formats does Scroll use?
+Scroll articles are written as Scroll files with the file extension scroll. The current base parsers for Scroll are defined here.
+ code scroll
+ https://github.com/breck7/scroll/tree/main/parsers here
+
+? What language is Scroll written in?
+Scroll is written in Particles, ParsersLinks, and Javascript. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a few other microlangs written in Parsers. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
+ https://sdk.scroll.pub/designer/#standard%20hakon Hakon
+ https://sdk.scroll.pub/designer/#standard%20stump stump
+TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.
+
+? How does versioning of articles work?
+Scroll is designed for git. A single article is stored as a single file tracked by git.
+
+? When I run `scroll format` in what order are particles sorted?
+The rough order is:
+code
+ [importOnly?]
+ [topMatter*]
+ [measurements*]
+ [everythingElse*]
+
+? Is Scroll public domain?
+Yes! Scroll is also 100% focused on helping people build internal or *public domain sites* and everything is designed with that assumption.
+
+? Why does the default theme have a single page layout?
+The default Scroll theme is designed to make it easier for syntopic reading. Being able to scan the page like a newspaper. This allows you to read at a higher level—to "get in the author's head"—compared to reading one article at a time from beginning to end.
+ https://fs.blog/how-to-read-a-book syntopic reading
+And if anyone prefers to read a scroll in a different way—they can! Scroll is for public domain sites. People are free to arrange the symbols any way they wish.
+
+? Will you make design decisions for non-public domain sites?
+No.
+
+? Can I use Scroll for internal private sites not intended for publishing?
+Yes!
+
+? In the single page layout why don't you have only the newest articles above the fold?
+This was originally a bug. But then it turns out to be a feature, as it gives older articles, which are often more important, more visibility.
+
+? How do I recursively build multiple scrolls in child folders?
+code
+ scroll list | scroll build
+
+? What's an easy way to have GitHub run Scroll and build my HTML files automatically?
+Go to your project folder and create the file below:
+code
+ mkdir -p .github/workflows
+ touch .github/workflows/wws.yaml
+Then open that file and paste in this code:
+code
+ # Adapted from https://github.com/JamesIves/github-pages-deploy-action
+ name: Build and Deploy Scroll
+ on:
+   push:
+     branches:
+       - main
+ jobs:
+   build-and-deploy:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout 🛎️
+         uses: actions/checkout@v2.3.1
+       - name: Install and Build
+         run: |
+           npm install -g scroll-cli --production
+           scroll build
+           # The line below is needed if you have *.html in your gitignore file
+           rm .gitignore
+       - name: Deploy 🚀
+         uses: JamesIves/github-pages-deploy-action@4.1.4
+         with:
+           branch: wws # The branch the action should deploy to.
+           folder: .
+Commit and push. Now go to your GitHub Repo and then Settings, then Pages, and select the wws branch as the Source for the pages. Click save. Your built site should be live.
+ code Settings
+ code Pages
+ code wws
+
+? How do I setup a custom 404 page with GitHub pages?
+Check out the `404.scroll` file in this folder.
+
+GitHub has instructions but is really is as simple as this:
+ https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site instructions
+
+? How do I check for broken links?
+Scroll does not check for broken links. For that, try linkinator.
+ https://github.com/JustinBeckwith/linkinator linkinator
+code
+ # npm install -g linkinator
+ linkinator https://scroll.pub > brokenLinks.txt
+
+? How do I check browser performance?
+Scroll does not have browser perf tools built in. For that, try lighthouse.
+ https://github.com/GoogleChrome/lighthouse lighthouse
+code
+ # npm install -g lighthouse
+ lighthouse https://scroll.pub --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
+
+? Where should I host my site?
+Any web server works. You can even host your scroll for free using GitHub Pages, just like this site.
+ https://pages.github.com GitHub Pages
+
+? How do I use Scroll with a custom domain?
+Just buy a domain and point it to your web server or web host (such as GitHub Pages). Google Domains is where this domain is registered and is a great service.
+ https://domains.google Google Domains
+
+? How can I deploy my site?
+If you have your own web server try rsync. Here's a bash one liner:
+code
+ # deploy.sh
+ # swap "/var/www/html" with the path to your website's location on your web server
+ rsync -vr /[path/to/your/site]/* [yourdomain.com]:/var/www/html
+Add a section like the one below to your ~.ssh/config to save your username and correct key pair.
+ https://unix.stackexchange.com/questions/494483/specifying-an-identityfile-with-ssh section
+code
+ Host example.com
+   User yourUserName
+   IdentityFile ~/.ssh/example_id_rsa
+   IdentitiesOnly yes
+
+? Does Scroll compile to plain text as well as HTML?
+Yes! Support for plain text outputs as added in April, 2024.
+ https://scroll.pub/blog/textFiles.html
+
+? How can I output my Scroll to an EPUB file?
+Pandoc is one way to do it. If you are on a Mac and have Homebrew installed:
+ https://brew.sh Homebrew
+code
+ brew install pandoc
+ pandoc index.html -o book.epub
+
+? How can I do hot reloading?
+Scroll does not come with hot reloading but you can easily set it up with `nodemon`. Install `nodemon` with `sudo npm install -g nodemon`. Then run:
+bashCode
+ nodemon -e scroll -x "scroll build"
+Or alias it:
+bashCode
+ alias watch="nodemon -e scroll -x 'scroll build'"
+You can also add the following code to the page(s) you are working on to have them reload without manually refreshing the browser:
+scrollCode
+ html 
+
+? How can I track web traffic?
+Scroll emits HTML with zero Javascript and does not have any tracking or cookies. You can easily add your own tracking tag if you want.
+
+If you are self hosting using a web server like Nginx you might have some access logs on your server. The one liner below uses GoAccess to summarize recent Nginx access logs.
+ https://goaccess.io GoAccess
+code
+ # apt-get install goaccess
+ goaccess /var/log/nginx/access.log -o /var/www/html/YOUR_SECRET_REPORT_URL.html --log-format=COMBINED --real-time-html --ws-url=wss://YOURDOMAIN.com
+
+? Does Scroll support RSS?
+Yes! Just create a `feed.scroll` file like this.
+ https://github.com/breck7/scroll/blob/main/blog/feed.scroll this
+
+? Does Scroll support tags?
+Yes! Add tags to a post using the `tags` parser. Then create a `yourTagName.scroll` file to create a category page for that tag. See a demo here.
+ https://github.com/breck7/scroll/blob/main/blog/index.scroll here
+
+? Does Scroll support Open Graph tags for better social media sharing?
+Yes. By default the first image and first paragraph of an article will be used for the "og:" tags. Unfortunately Twitter doesn't support relative image links so you need to specify `baseUrl`. For more help check out the debuggers from Facebook and X or try LinkPreview.
+ https://developers.facebook.com/tools/debug Facebook
+ https://cards-dev.twitter.com/validator X
+ https://linkpreview.xyz/ LinkPreview
+
+? Does Scroll support themes and templates?
+Yes! Scroll includes a simple API for changing the style of your site. This is an active area of development so please reach out if you'd like to customize the look of your Scroll.
+
+? How can I build a scroll from a Twitter account?
+Hopefully someone will build a package or site that does this. For now, on your Twitter settings, download an archive of your data and convert the tweets JSON into scroll files. Or to experiment faster use this tool to grab some tweets as a TSV.
+ https://www.vicinitas.io/free-tools/download-user-tweets tool
+
+? What were some alternatives considered?
+There was no publishing software that reads and writes Scroll yet so building Scroll was necessary. Jekyll and Brecksblog were the two biggest inspirations.
+ https://jekyllrb.com Jekyll
+ https://github.com/breck7/brecksblog Brecksblog
+
+# Contributing to Scroll development
+? How do I contribute?
+File issues. Share your Scroll sites.
+You can submit pull requests too. The shorter the better.
+
+? How do I debug node.js performance?
+code
+ # cd your_slow_scroll
+ # you may need to update the path below so it points to your scroll code
+ node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile ~/scroll/scroll.js build
+ # Now ➡️ open a new Chrome tab ➡️ open devtools ➡️ click Performance ➡️ click "Load Profile..." ➡️ select your scrollNodePerf.cpuprofile
+ # For profiling memory, use this line:
+ node --cpu-prof --cpu-prof-name=scrollNodePerf.cpuprofile --heap-prof --heap-prof-name=scrollNodeMem.heapprofile ~/scroll/scroll.js build
+ # Now ➡️ open a new Chrome tab ➡️ open devtools ➡️ click Memory ➡️ click "Load Profile..." ➡️ select your scrollNodeMem.heapprofile
+
+? How is a parser different than a web component?
+Scroll Parsers and Web Components are similar in that both empower users to define their own reusable components. But Scroll is higher level than web components. For example, in addition to easily targeting HTML and web components, Scroll also plays really nicely with version control and 2D editors. Scroll encourages encoding semantic content with as little noise as possible, which creates benefits in many places.
+
+? How do I run cross browser tests?
+For that we use BrowserStack.
+ https://browserstack.com BrowserStack
+
+? Is there a subreddit to discuss Scroll?
+Yes.
+ https://www.reddit.com/r/WorldWideScroll/
+
+? How many compiler passes are there in the language?
+Each Scroll file is currently passed over 4 times during compilation to HTML and/or text.
+1. The full file is read.
+2. All `import` statements are replaced with the contents of the imported file.
+3. All variable `replace` statements are executed and applied to the current file.
+4. Finally, an extended Scroll parser is constructed if needed (if any new parser definitions appear in the document), and then is used to parse the resulting file for compilation.
+
+? Is there a chart showing all the layers of Scroll?
+evolutionOfScroll.png
+ caption Made with nomnoml
+  https://t.co/Fggo87gUr1
+
+# Other
+? Why the name Scroll?
+The scroll was invented thousands of years ago and scrolls are still useful today. Scroll has been designed with a focus on simplicity and a goal of making something that would have been useful decades ago, with the hope that this will make it useful decades into the future.
+
+endColumns
+
+footer.scroll
+
+```
 
 THE CONTENT TO CONVERT INTO SCROLL:
