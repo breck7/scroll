@@ -1,8 +1,12 @@
 buildTxt
-Below is the source code for a Scroll Tutorial.
+Below is the source code for a Scroll Tutorial and some other Scroll files.
 
 Then I will give you some content. I want you to convert the content into Scroll.
 
-toStamp ./tutorial.scroll
+Do not use React or Markdown. Use Scroll.
+
+codeFromFile tutorial.scroll
+codeFromFile readme.scroll
+codeFromFile faq.scroll
 
 THE CONTENT TO CONVERT INTO SCROLL:
