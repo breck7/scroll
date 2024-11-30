@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 158.0.2 11/29/2024
+🏥 fix stumpParser namespace bug
+
 📦 158.0.1 11/29/2024
 🏥 more graceful error handling
 

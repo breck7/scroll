@@ -5617,8 +5617,8 @@ stamp
    popularity 0.102322
    catchAllAtomType anyAtom
   
-  stumpParser
-   cueFromId
+  scrollStumpParser
+   cue stump
    extends abstractScrollParser
    description Compile Stump to HTML.
    catchAllParser stumpContentParser
@@ -5634,7 +5634,7 @@ stamp
   stumpNoSnippetParser
    popularity 0.010177
    // todo: make noSnippets an aftertext directive?
-   extends stumpParser
+   extends scrollStumpParser
    description Compile Stump unless snippet.
    cueFromId
    javascript
