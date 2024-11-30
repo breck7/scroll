@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 158.0.1 11/29/2024
+🏥 more graceful error handling
+
 📦 158.0.0 11/29/2024
 🎉 import Scroll files now by URLS
 ⚠️ BREAKING: (no one should be affected). Lines that are just a URL to a Scroll file now will attempt an import.

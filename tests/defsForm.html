@@ -274,8 +274,12 @@ scrollParser
             .slice(0, limit)
         ))
       const {folderPath, group, relativePath} = this.parseNestedTag(tag)
-      // todo: fix the below
-      const files = this.fileSystem.getCachedLoadedFilesInFolder(folderPath, this)
+      let files = []
+      try {
+      files = this.fileSystem.getCachedLoadedFilesInFolder(folderPath, this)
+      } catch (err) {
+        console.error(err)
+      }
       const filtered = getFilesWithTag(group, files).map(file => {
         return { file, relativePath: relativePath + "/" }
       })
@@ -337,7 +341,12 @@ scrollParser
     return this.get("authors")
   }
   get allScrollFiles() {
+    try {
     return this.fileSystem.getCachedLoadedFilesInFolder(this.folderPath, this)
+    } catch (err) {
+      console.error(err)
+      return []
+    }
   }
   async doThing(thing) {
     await Promise.all(this.filter(particle => particle[thing]).map(async particle => particle[thing]()))
