@@ -481,7 +481,8 @@ scrollParser
     return this.editUrl.split("/").slice(0, 5).join("/")
   }
   get scrollVersion() {
-    return this.file.SCROLL_VERSION
+    // currently manually updated
+    return "159.1.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
