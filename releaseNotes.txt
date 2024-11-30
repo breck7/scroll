@@ -25,10 +25,14 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+158.0.4 11/29/2024
+==================
+🏥 fix right button regression
+
 158.0.3 11/29/2024
 ==================
 🏥 try/catch of buildHtml for better robustness
-🏥 fix left/rigth buttons regression
+🏥 fix left/right buttons regression
 
 158.0.2 11/29/2024
 ==================
@@ -690,14 +694,14 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 11/30/2024,2024,Scroll Tutorial,tutorial.html,,main,949,4.7
 11/30/2024,2024,Wws,wws.html,,,35,0.2
 11/30/2024,2024,Wws Redirect,wws.html,,,0,0
-11/30/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-11/30/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
-11/30/2024,2024,Readme Prompt,readmePrompt.html,,,19876,99.4
-11/30/2024,2024,Scroll Release Notes,releaseNotes.html,,main,15088,75.4
+11/30/2024,2024,Scroll Release Notes,releaseNotes.html,,main,15098,75.5
 11/30/2024,2024,Scroll Roadmap,roadmap.html,,main,137,0.7
 11/30/2024,2024,Scroll Prompt,scrollPrompt.html,,,1026,5.1
 11/30/2024,2024,Settings,settings.html,,,0,0
 11/30/2024,2024,Sitemap,sitemap.html,,,110,0.6
+11/30/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
+11/30/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
+11/30/2024,2024,Readme Prompt,readmePrompt.html,,,19886,99.4
 11/30/2024,2024,Scroll FAQ,faq.html,,main,3307,16.5
 11/30/2024,2024,Header,header.html,,,0,0
 11/30/2024,2024,Scroll LeetSheet,leetsheet.html,,,893,4.5
@@ -3341,4 +3345,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v158.0.3
+Built with Scroll v158.0.4

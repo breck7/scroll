@@ -88,9 +88,12 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 158.0.4 11/29/2024
+🏥 fix right button regression
+
 📦 158.0.3 11/29/2024
 🏥 try/catch of buildHtml for better robustness
-🏥 fix left/rigth buttons regression
+🏥 fix left/right buttons regression
 
 📦 158.0.2 11/29/2024
 🏥 fix stumpParser namespace bug
