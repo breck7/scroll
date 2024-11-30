@@ -14,7 +14,6 @@ abstractScrollParser
     const set = buildSettings?.alreadyRequired || this.root.alreadyRequired
     if (set.has(requireOnce))
       return ""
-    
     set.add(requireOnce)
     return requireOnce + "\n\n"
   }
@@ -742,18 +741,10 @@ scrollParser
       Disk.rm(tempPath)
     }
   }
-  parseFromFusedFile(fusedFile){
-    const {codeAtStart, fusedCode, filePath} = fusedFile
-    // PASS 3: READ AND REPLACE MACROS. PARSE AND REMOVE MACROS DEFINITIONS THEN REPLACE REFERENCES.
-    const codeAfterMacroPass = this.evalMacros(fusedCode, codeAtStart, filePath)
-    // PASS 4: READ WITH STD COMPILER OR CUSTOM COMPILER.
-    fusedFile.codeAfterMacroPass = codeAfterMacroPass
-    const parser = fusedFile.parser || fusedFile.defaultParser
-    fusedFile.parser = parser
-    fusedFile.scrollProgram = new parser(codeAfterMacroPass)
-    fusedFile.scrollProgram.setFile(fusedFile)
-  }
-  evalMacros(code, codeAtStart, absolutePath) {
+  evalMacros(fusedFile) {
+    const {fusedCode, codeAtStart, filePath} = fusedFile
+    let code = fusedCode
+    const absolutePath = filePath
     // note: the 2 params above are not used in this method, but may be used in user eval code. (todo: cleanup)
     const regex = /^(replace|footer$)/gm
     if (!regex.test(code)) return code

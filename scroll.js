@@ -37,9 +37,6 @@ class ScrollFile extends FusionFile {
   EXTERNALS_PATH = EXTERNALS_PATH
   defaultParserCode = defaultParser.parsersCode
   defaultParser = DefaultScrollParser
-  parseCode() {
-    new this.defaultParser().parseFromFusedFile(this)
-  }
 }
 
 const isUserPipingInput = () => {
