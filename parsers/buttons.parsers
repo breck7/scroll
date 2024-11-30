@@ -1,5 +1,5 @@
 scrollButtonParser
- extends paragraphParser
+ extends scrollParagraphParser
  cue button
  description A button.
  postParser

@@ -1,5 +1,5 @@
 hiddenMessageParser
- extends paragraphParser
+ extends scrollParagraphParser
  inScope messageParser
  cueFromId
  javascript

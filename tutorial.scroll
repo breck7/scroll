@@ -201,7 +201,7 @@ Here is a simple example that extends Scroll by making `p` work the same as `*`:
 
 belowAsCode 2
 pParser
- extends paragraphParser
+ extends scrollParagraphParser
  cue p
 p We can then make paragraphs using `p`.
 
@@ -211,7 +211,7 @@ messageParser
  cueFromId
  catchAllAtomType stringAtom
 hiddenMessageParser
- extends paragraphParser
+ extends scrollParagraphParser
  inScope messageParser
  cueFromId
  javascript

@@ -1,6 +1,6 @@
 scrollStopwatchParser
  description A stopwatch.
- extends paragraphParser
+ extends scrollParagraphParser
  cue stopwatch
  example
   stopwatch

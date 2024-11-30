@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 159.0.0 11/30/2024
+⚠️ BREAKING: (almost no one should be affected). `paragraphParser` is now `scrollParagraphParser` to avoid namespace collisions.
+
 📦 158.0.4 11/29/2024
 🏥 fix right button regression
 
@@ -3517,7 +3520,7 @@ Here is a simple example that extends Scroll by making `p` work the same as `*`:
 
 belowAsCode 2
 pParser
- extends paragraphParser
+ extends scrollParagraphParser
  cue p
 p We can then make paragraphs using `p`.
 
@@ -3527,7 +3530,7 @@ messageParser
  cueFromId
  catchAllAtomType stringAtom
 hiddenMessageParser
- extends paragraphParser
+ extends scrollParagraphParser
  inScope messageParser
  cueFromId
  javascript

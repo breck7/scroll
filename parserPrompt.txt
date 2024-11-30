@@ -520,7 +520,7 @@ stamp
    popularity 0.007379
    // multiple authors delimited by " and "
    boolean isPopular true
-   extends paragraphParser
+   extends scrollParagraphParser
    description Set author(s) name(s).
    example
     authors Breck Yunits
@@ -563,7 +563,7 @@ stamp
  blink.parsers
   blinkParser
    description Just for fun.
-   extends paragraphParser
+   extends scrollParagraphParser
    example
     blink Carpe diem!
    cue blink
@@ -627,7 +627,7 @@ stamp
     }
  buttons.parsers
   scrollButtonParser
-   extends paragraphParser
+   extends scrollParagraphParser
    cue button
    description A button.
    postParser
@@ -655,7 +655,7 @@ stamp
   catchAllParagraphParser
    popularity 0.115562
    description A paragraph.
-   extends paragraphParser
+   extends scrollParagraphParser
    boolean suggestInAutocomplete false
    boolean isPopular true
    boolean isArticleContent true
@@ -678,7 +678,7 @@ stamp
    popularity 0.006415
    cue center
    description A centered section.
-   extends paragraphParser
+   extends scrollParagraphParser
    example
     center
     This paragraph is centered.
@@ -1033,7 +1033,7 @@ stamp
  counter.parsers
   scrollCounterParser
    description Visualize the speed of something.
-   extends paragraphParser
+   extends scrollParagraphParser
    cue counter
    example
     counter 4.5 Babies Born
@@ -1599,7 +1599,7 @@ stamp
    popularity 0.000072
    cueFromId
    description An collapsible HTML details tag.
-   extends paragraphParser
+   extends scrollParagraphParser
    example
     expander Knock Knock
     Who's there?
@@ -1650,7 +1650,7 @@ stamp
   footnoteDefinitionParser
    popularity 0.001953
    description A footnote. Can also be used as section notes.
-   extends paragraphParser
+   extends scrollParagraphParser
    boolean isFootnote true
    pattern ^\^.+$
    // We need to quickLinks back in scope because there is currently a bug in ScrollSDK/parsers where if a parser extending a parent class has a child parser defined, then any regex parsers in the parent class will not be tested unless explicitly included in scope again.
@@ -1978,7 +1978,7 @@ stamp
    pattern ^%[^#]+$
  headers.parsers
   abstractHeaderParser
-   extends paragraphParser
+   extends scrollParagraphParser
    example
     # Hello world
    javascript
@@ -2397,7 +2397,7 @@ stamp
    popularity 0.003207
    description An image caption.
    cue caption
-   extends paragraphParser
+   extends scrollParagraphParser
    boolean isPopular true
   
   abstractCaptionedParser
@@ -3425,7 +3425,7 @@ stamp
    cue autoplay
    atoms cueAtom
   abstractMediaParser
-   extends paragraphParser
+   extends scrollParagraphParser
    inScope scrollMediaLoopParser scrollAutoplayParser
    int atomIndex 1
    javascript
@@ -3583,7 +3583,7 @@ stamp
    description Override Open Graph Image.
    extends abstractUrlSettingParser
  paragraphs.parsers
-  paragraphParser
+  scrollParagraphParser
    // todo Perhaps rewrite this from scratch and move out of aftertext.
    extends abstractAftertextParser
    catchAllAtomType stringAtom
@@ -3609,14 +3609,14 @@ stamp
   quickParagraphParser
    popularity 0.001881
    cue *
-   extends paragraphParser
+   extends scrollParagraphParser
    description A paragraph.
    boolean isArticleContent true
    example
     * I had a _new_ idea.
   
   abstractIndentableParagraphParser
-   extends paragraphParser
+   extends scrollParagraphParser
    inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser
    javascript
     compileSubparticles() {
@@ -5602,7 +5602,7 @@ stamp
  stopwatch.parsers
   scrollStopwatchParser
    description A stopwatch.
-   extends paragraphParser
+   extends scrollParagraphParser
    cue stopwatch
    example
     stopwatch
