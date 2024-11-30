@@ -37,7 +37,7 @@ testParticles.compileAftertext = async areEqual => {
   })
 }
 
-testParticles.paragraphParser = async areEqual => {
+testParticles.scrollParagraphParser = async areEqual => {
   // Arrange
   const program = new DefaultScrollParser(`* foo`)
 
@@ -111,7 +111,7 @@ testParticles.inMemoryFileSystem = async areEqual => {
     "/settings.scroll": "* This should be imported",
     "/pages/about.scroll": `../header.scroll\ntitle About us
 pParser
- extends paragraphParser
+ extends scrollParagraphParser
  cue p
 p A custom parser
 buildHtml`

@@ -1,6 +1,6 @@
 blinkParser
  description Just for fun.
- extends paragraphParser
+ extends scrollParagraphParser
  example
   blink Carpe diem!
  cue blink

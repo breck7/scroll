@@ -1,5 +1,5 @@
 abstractHeaderParser
- extends paragraphParser
+ extends scrollParagraphParser
  example
   # Hello world
  javascript

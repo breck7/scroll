@@ -1,4 +1,4 @@
-paragraphParser
+scrollParagraphParser
  // todo Perhaps rewrite this from scratch and move out of aftertext.
  extends abstractAftertextParser
  catchAllAtomType stringAtom
@@ -24,14 +24,14 @@ paragraphParser
 quickParagraphParser
  popularity 0.001881
  cue *
- extends paragraphParser
+ extends scrollParagraphParser
  description A paragraph.
  boolean isArticleContent true
  example
   * I had a _new_ idea.
 
 abstractIndentableParagraphParser
- extends paragraphParser
+ extends scrollParagraphParser
  inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser
  javascript
   compileSubparticles() {

@@ -2,7 +2,7 @@ expanderParser
  popularity 0.000072
  cueFromId
  description An collapsible HTML details tag.
- extends paragraphParser
+ extends scrollParagraphParser
  example
   expander Knock Knock
   Who's there?

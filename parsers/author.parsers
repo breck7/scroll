@@ -21,7 +21,7 @@ authorsParser
  popularity 0.007379
  // multiple authors delimited by " and "
  boolean isPopular true
- extends paragraphParser
+ extends scrollParagraphParser
  description Set author(s) name(s).
  example
   authors Breck Yunits
