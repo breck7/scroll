@@ -19,16 +19,10 @@ const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const PARSERS_FILE_EXTENSION = ".parsers"
 const EXTERNALS_PATH = path.join(__dirname, "external")
-const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
 
+// todo: remove
 class ScrollFileSystem extends Fusion {
   defaultFileClass = ScrollFile
-  async getScrollFilesInFolder(folderPath) {
-    return await this.getLoadedFilesInFolder(folderPath, SCROLL_FILE_EXTENSION)
-  }
-  async getParserFilesInFolder(folderPath) {
-    return await this.getLoadedFilesInFolder(folderPath, PARSERS_FILE_EXTENSION)
-  }
 }
 
 const defaultParserFiles = Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION))
@@ -38,81 +32,11 @@ const defaultParser = Fusion.combineParsers(
 )
 const DefaultScrollParser = defaultParser.parser
 
+// todo: remove
 class ScrollFile extends FusionFile {
   EXTERNALS_PATH = EXTERNALS_PATH
-
   defaultParserCode = defaultParser.parsersCode
-
-  parseCode() {
-    const results = new DefaultScrollParser().parseAndCompile(this.fusedCode, this.codeAtStart, this.filePath, this.fusedFile?.parser || DefaultScrollParser)
-    this.codeAfterMacroPass = results.codeAfterMacroPass
-    this.parser = results.parser
-    this.scrollProgram = results.scrollProgram
-    this.scrollProgram.setFile(this)
-    const date = this.scrollProgram.get("date")
-    if (date) this.timestamp = dayjs(this.scrollProgram.get("date")).unix()
-  }
-
-  // todo: speed this up and do a proper release. also could add more metrics like this.
-  get lastCommitTime() {
-    if (this._lastCommitTime === undefined) {
-      try {
-        this._lastCommitTime = require("child_process").execSync(`git log -1 --format="%at" -- "${this.filePath}"`).toString().trim()
-      } catch (err) {
-        this._lastCommitTime = 0
-      }
-    }
-    return this._lastCommitTime
-  }
-
-  log(message) {
-    if (this.logger) this.logger.log(message)
-  }
-
-  async getFileFromId(id) {
-    return await this.fileSystem.getLoadedFile(path.join(this.folderPath, id + ".scroll"))
-  }
-
-  get parsersBundle() {
-    let code =
-      `parsers/atomTypes.parsers
-parsers/root.parsers
-parsers/build.parsers
-parsers/comments.parsers
-parsers/blankLine.parsers
-parsers/measures.parsers
-parsers/errors.parsers`
-        .trim()
-        .split("\n")
-        .map(filepath => Disk.read(path.join(__dirname, filepath)))
-        .join("\n\n")
-        .replace("catchAllParser catchAllParagraphParser", "catchAllParser errorParser") + this.scrollProgram.toString()
-
-    code = code.replace(/^importOnly\n/gm, "").replace(importParticleRegex, "")
-
-    code = new Particle(code)
-    code.getParticle("commentParser").appendLine("boolean suggestInAutocomplete false")
-    code.getParticle("slashCommentParser").appendLine("boolean suggestInAutocomplete false")
-    code.getParticle("buildMeasuresParser").appendLine("boolean suggestInAutocomplete false")
-
-    return code.toString()
-  }
-
-  get formatted() {
-    return this.scrollProgram.getFormatted(this.codeAtStart)
-  }
-
-  get mtimeMs() {
-    return this.fileSystem.getMTime(this.filePath)
-  }
-
-  get(parserAtom) {
-    return this.scrollProgram.get(parserAtom)
-  }
-
-  has(parserAtom) {
-    return this.scrollProgram.has(parserAtom)
-  }
+  defaultParser = DefaultScrollParser
 }
 
 const isUserPipingInput = () => {
@@ -239,7 +163,7 @@ footer.scroll`
   async getErrorsInFolder(folder) {
     const fileSystem = new ScrollFileSystem()
     const folderPath = Utils.ensureFolderEndsInSlash(folder)
-    const files = await fileSystem.getScrollFilesInFolder(folderPath) // Init/cache all parsers
+    const files = await fileSystem.getLoadedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
     const parserErrors = fileSystem.parsers.map(parser => parser.getAllErrors().map(err => err.toObject())).flat()
     // load all files
     for (let file of files) {
@@ -282,8 +206,8 @@ footer.scroll`
   async formatCommand(cwd) {
     const fileSystem = new ScrollFileSystem()
     const folder = this.resolvePath(cwd)
-    const files = await fileSystem.getScrollFilesInFolder(folder)
-    // .concat(fileSystem.getParserFilesInFolder(folder)) // todo: should format parser files too.
+    const files = await fileSystem.getLoadedFilesInFolder(folder, ".scroll")
+    // .concat(fileSystem.getLoadedFilesInFolder(folder, PARSERS_FILE_EXTENSION)) // todo: should format parser files too.
     files.forEach(file => (file.formatAndSave() ? this.log(`💾 formatted ${file.filename}`) : ""))
   }
 
@@ -299,7 +223,7 @@ footer.scroll`
     const toBuild = files.filter(file => !file.importOnly)
     const externalFilesCopied = {}
     for (const file of toBuild) {
-      file.logger = this
+      file.scrollProgram.logger = this
       await file.scrollProgram.load()
     }
     for (const file of toBuild) {
@@ -323,7 +247,7 @@ footer.scroll`
 
   async buildFilesInFolder(fileSystem, folder = "/") {
     folder = Utils.ensureFolderEndsInSlash(folder)
-    const files = await fileSystem.getScrollFilesInFolder(folder)
+    const files = await fileSystem.getLoadedFilesInFolder(folder, ".scroll")
     this.log(`Found ${files.length} scroll files in '${folder}'\n`)
     return await this.buildFiles(fileSystem, files, folder)
   }

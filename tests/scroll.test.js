@@ -130,7 +130,7 @@ buildHtml`
 testParticles.file = async areEqual => {
   const rootFolder = path.join(__dirname, "..")
   const fileSystem = new ScrollFileSystem()
-  const files = await fileSystem.getScrollFilesInFolder(rootFolder)
+  const files = await fileSystem.getLoadedFilesInFolder(rootFolder, ".scroll")
   const releaseNotesFile = files.find(file => file.scrollProgram.permalink === "releaseNotes.html").scrollProgram
 
   areEqual(releaseNotesFile.permalink, "releaseNotes.html")
@@ -224,12 +224,12 @@ testParticles.format = async areEqual => {
   const page = new ScrollFile(``)
   // Act/Assert
   await page.fuse()
-  areEqual(page.formatted, "", "format works")
+  areEqual(page.scrollProgram.formatted, "", "format works")
 
   const page2 = new ScrollFile(`# hi`)
   // Act/Assert
   await page2.fuse()
-  areEqual(page2.formatted, "# hi\n", "format works")
+  areEqual(page2.scrollProgram.formatted, "# hi\n", "format works")
 }
 
 testParticles.initCommand = async areEqual => {

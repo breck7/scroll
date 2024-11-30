@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 160.0.0 11/30/2024
+🎉 upgrade ScrollSDK
+
 📦 159.1.0 11/30/2024
 🎉 make Scroll version work in browser version
 

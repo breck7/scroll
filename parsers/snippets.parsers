@@ -37,7 +37,7 @@ printSnippetsParser
    const files = this.root.getFilesByTags(this.content, this.has("limit") ? parseInt(this.get("limit")) : undefined).filter(file => file.file !== thisFile)
    // allow sortBy lastCommit Time
    if (this.get("sortBy") === "commitTime") {
-     return this.root.sortBy(files, file => file.file.lastCommitTime).reverse()
+     return this.root.sortBy(files, file => file.scrollProgram.lastCommitTime).reverse()
    }
    return files
   }

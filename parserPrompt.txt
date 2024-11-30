@@ -1789,10 +1789,20 @@ stamp
     get name() {
       return this.get("name") || "particles"
     }
+    get parsersBundle() {
+      const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
+      let code = this.root.definition.toString().replace("catchAllParser catchAllParagraphParser", "catchAllParser errorParser") + this.root.toString()
+      code = code.replace(/^importOnly\n/gm, "").replace(importParticleRegex, "")
+      code = new Particle(code)
+      code.getParticle("commentParser").appendLine("boolean suggestInAutocomplete false")
+      code.getParticle("slashCommentParser").appendLine("boolean suggestInAutocomplete false")
+      code.getParticle("buildMeasuresParser").appendLine("boolean suggestInAutocomplete false")
+      return code.toString()
+    }
     get inputs() {
       const Name = this.name
       return `
-      ${this.parent.file.parsersBundle}
+      ${this.parsersBundle}
       {
       let {width, height} = document.getElementById('${Name}').getBoundingClientRect();
       const scrollParser = new HandParsersProgram(document.getElementById("${Name}Parsers").textContent).compileAndReturnRootParser()
@@ -4291,7 +4301,7 @@ stamp
       const {fileSystem} = this.root
       for (let folderPath of dependsOn) {
         // console.log(`${this.root.filePath} is loading: ${folderPath} in id '${fileSystem.fusionId}'`)
-        await fileSystem.getScrollFilesInFolder(folderPath)
+        await fileSystem.getLoadedFilesInFolder(folderPath,  ".scroll")
       }
     }
     get tags() {
@@ -4399,7 +4409,6 @@ stamp
       const set = buildSettings?.alreadyRequired || this.root.alreadyRequired
       if (set.has(requireOnce))
         return ""
-      
       set.add(requireOnce)
       return requireOnce + "\n\n"
     }
@@ -4441,6 +4450,8 @@ stamp
    javascript
     setFile(file) {
      this.file = file
+     const date = this.get("date")
+     if (date) this.file.timestamp = this.dayjs(this.get("date")).unix()
      return this
     }
     buildHtml(buildSettings) {
@@ -4579,7 +4590,7 @@ stamp
       return this.readFile(fullpath)
     }
     log(message) {
-      this.file.log ? this.file.log(message) : ""
+      if (this.logger) this.logger.log(message)
     }
     async fetchBrowser(url) {
       const content = localStorage.getItem(url)
@@ -4859,6 +4870,20 @@ stamp
         concept[0].replaceParticle(() => newCode)
       })
     }
+    get formatted() {
+      return this.getFormatted(this.file.codeAtStart)
+    }
+    get lastCommitTime() {
+      // todo: speed this up and do a proper release. also could add more metrics like this.
+      if (this._lastCommitTime === undefined) {
+        try {
+          this._lastCommitTime = require("child_process").execSync(`git log -1 --format="%at" -- "${this.filePath}"`).toString().trim()
+        } catch (err) {
+          this._lastCommitTime = 0
+        }
+      }
+      return this._lastCommitTime
+    }
     getFormatted(codeAtStart = this.toString()) {
       let formatted = codeAtStart.replace(/\r/g, "") // remove all carriage returns if there are any
       const parsed = new this.constructor(formatted)
@@ -5109,17 +5134,10 @@ stamp
         Disk.rm(tempPath)
       }
     }
-    parseAndCompile(fusedCode, codeAtStart, absoluteFilePath, parser){
-      // PASS 3: READ AND REPLACE MACROS. PARSE AND REMOVE MACROS DEFINITIONS THEN REPLACE REFERENCES.
-      const codeAfterMacroPass = this.evalMacros(fusedCode, codeAtStart, absoluteFilePath)
-      // PASS 4: READ WITH STD COMPILER OR CUSTOM COMPILER.
-      return {
-        codeAfterMacroPass,
-        parser,
-        scrollProgram: new parser(codeAfterMacroPass)
-      }
-    }
-    evalMacros(code, codeAtStart, absolutePath) {
+    evalMacros(fusedFile) {
+      const {fusedCode, codeAtStart, filePath} = fusedFile
+      let code = fusedCode
+      const absolutePath = filePath
       // note: the 2 params above are not used in this method, but may be used in user eval code. (todo: cleanup)
       const regex = /^(replace|footer$)/gm
       if (!regex.test(code)) return code
@@ -5352,7 +5370,7 @@ stamp
      const files = this.root.getFilesByTags(this.content, this.has("limit") ? parseInt(this.get("limit")) : undefined).filter(file => file.file !== thisFile)
      // allow sortBy lastCommit Time
      if (this.get("sortBy") === "commitTime") {
-       return this.root.sortBy(files, file => file.file.lastCommitTime).reverse()
+       return this.root.sortBy(files, file => file.scrollProgram.lastCommitTime).reverse()
      }
      return files
     }
