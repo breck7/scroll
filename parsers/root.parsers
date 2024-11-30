@@ -56,6 +56,8 @@ scrollParser
  javascript
   setFile(file) {
    this.file = file
+   const date = this.get("date")
+   if (date) this.file.timestamp = this.dayjs(this.get("date")).unix()
    return this
   }
   buildHtml(buildSettings) {
@@ -194,7 +196,7 @@ scrollParser
     return this.readFile(fullpath)
   }
   log(message) {
-    this.file.log ? this.file.log(message) : ""
+    if (this.logger) this.logger.log(message)
   }
   async fetchBrowser(url) {
     const content = localStorage.getItem(url)
@@ -476,6 +478,20 @@ scrollParser
       concept[0].replaceParticle(() => newCode)
     })
   }
+  get formatted() {
+    return this.getFormatted(this.file.codeAtStart)
+  }
+  get lastCommitTime() {
+    // todo: speed this up and do a proper release. also could add more metrics like this.
+    if (this._lastCommitTime === undefined) {
+      try {
+        this._lastCommitTime = require("child_process").execSync(`git log -1 --format="%at" -- "${this.filePath}"`).toString().trim()
+      } catch (err) {
+        this._lastCommitTime = 0
+      }
+    }
+    return this._lastCommitTime
+  }
   getFormatted(codeAtStart = this.toString()) {
     let formatted = codeAtStart.replace(/\r/g, "") // remove all carriage returns if there are any
     const parsed = new this.constructor(formatted)
@@ -726,15 +742,16 @@ scrollParser
       Disk.rm(tempPath)
     }
   }
-  parseAndCompile(fusedCode, codeAtStart, absoluteFilePath, parser){
+  parseFromFusedFile(fusedFile){
+    const {codeAtStart, fusedCode, filePath} = fusedFile
     // PASS 3: READ AND REPLACE MACROS. PARSE AND REMOVE MACROS DEFINITIONS THEN REPLACE REFERENCES.
-    const codeAfterMacroPass = this.evalMacros(fusedCode, codeAtStart, absoluteFilePath)
+    const codeAfterMacroPass = this.evalMacros(fusedCode, codeAtStart, filePath)
     // PASS 4: READ WITH STD COMPILER OR CUSTOM COMPILER.
-    return {
-      codeAfterMacroPass,
-      parser,
-      scrollProgram: new parser(codeAfterMacroPass)
-    }
+    fusedFile.codeAfterMacroPass = codeAfterMacroPass
+    const parser = fusedFile.parser || fusedFile.defaultParser
+    fusedFile.parser = parser
+    fusedFile.scrollProgram = new parser(codeAfterMacroPass)
+    fusedFile.scrollProgram.setFile(fusedFile)
   }
   evalMacros(code, codeAtStart, absolutePath) {
     // note: the 2 params above are not used in this method, but may be used in user eval code. (todo: cleanup)

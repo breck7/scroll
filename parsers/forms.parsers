@@ -106,10 +106,20 @@ scrollFormParser
   get name() {
     return this.get("name") || "particles"
   }
+  get parsersBundle() {
+    const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
+    let code = this.root.definition.toString().replace("catchAllParser catchAllParagraphParser", "catchAllParser errorParser") + this.root.toString()
+    code = code.replace(/^importOnly\n/gm, "").replace(importParticleRegex, "")
+    code = new Particle(code)
+    code.getParticle("commentParser").appendLine("boolean suggestInAutocomplete false")
+    code.getParticle("slashCommentParser").appendLine("boolean suggestInAutocomplete false")
+    code.getParticle("buildMeasuresParser").appendLine("boolean suggestInAutocomplete false")
+    return code.toString()
+  }
   get inputs() {
     const Name = this.name
     return `<textarea title="oneTextarea" rows="${Math.min(this.root.measures.length * 2, 30)}" placeholder="${this.placeholder}" id="${Name}" name="${Name}"></textarea>
-    <script id="${Name}Parsers" type="text/plain">${this.parent.file.parsersBundle}</script>
+    <script id="${Name}Parsers" type="text/plain">${this.parsersBundle}</script>
     <script>{
     let {width, height} = document.getElementById('${Name}').getBoundingClientRect();
     const scrollParser = new HandParsersProgram(document.getElementById("${Name}Parsers").textContent).compileAndReturnRootParser()
