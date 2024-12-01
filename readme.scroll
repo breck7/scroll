@@ -5,7 +5,7 @@ header.scroll
 
 # Scroll is a language for scientists of all ages
  style font-weight: 300; font-size: 200%;
- class scrollTitle
+ class printTitleParser
 
 ## Publish and evolve your most intelligent ideas
  style font-weight: 300;

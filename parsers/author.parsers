@@ -48,4 +48,4 @@ authorsParser
   buildTxt() {
     return ""
   }
-  defaultClassName = "scrollByLine"
+  defaultClassName = "printAuthorsParser"
