@@ -179,6 +179,19 @@ class ParserBackedParticle extends Particle {
     }
     return newIndex
   }
+  /**
+   * Returns the total information bits required to represent this particle and all its subparticles.
+   * This is calculated as the sum of:
+   * 1. Information bits of all atoms in this particle
+   * 2. Information bits of all subparticles (recursive)
+   */
+  get bitsRequired() {
+    // Get information bits for all atoms in this particle
+    const atomBits = this.parsedAtoms.map(atom => atom.bitsRequired).reduce((sum, bits) => sum + bits, 0)
+    // Recursively get information bits from all subparticles
+    const subparticleBits = this.map(child => child.bitsRequired).reduce((sum, bits) => sum + bits, 0)
+    return atomBits + subparticleBits
+  }
   getSubparticleInstancesOfParserId(parserId) {
     return this.particleIndex[parserId] || []
   }
@@ -629,6 +642,12 @@ class AbstractParsersBackedAtom {
     this._atomTypeId = atomTypeId
     this._parserDefinitionParser = parserDefinitionParser
   }
+  get optionCount() {
+    return this._typeDef.optionCount
+  }
+  get bitsRequired() {
+    return Math.log2(this.optionCount)
+  }
   getAtom() {
     return this._particle.getAtom(this._index)
   }
@@ -728,6 +747,9 @@ class ParsersBitAtom extends AbstractParsersBackedAtom {
     const atom = this.getAtom()
     return atom === "0" || atom === "1"
   }
+  get optionCount() {
+    return 2
+  }
   _synthesizeAtom() {
     return Utils.getRandomString(1, "01".split(""))
   }
@@ -757,6 +779,11 @@ class ParsersIntegerAtom extends ParsersNumberAtom {
     if (isNaN(num)) return false
     return num.toString() === atom
   }
+  get optionCount() {
+    const minVal = parseInt(this.min) || -Infinity
+    const maxVal = parseInt(this.max) || Infinity
+    return maxVal - minVal + 1
+  }
   _synthesizeAtom(seed) {
     return Utils.randomUniformInt(parseInt(this.min), parseInt(this.max), seed).toString()
   }
@@ -775,6 +802,13 @@ class ParsersFloatAtom extends ParsersNumberAtom {
     const atom = this.getAtom()
     const num = parseFloat(atom)
     return !isNaN(num) && /^-?\d*(\.\d+)?([eE][+-]?\d+)?$/.test(atom)
+  }
+  get optionCount() {
+    // For floats, we'll estimate based on typical float32 precision
+    // ~7 decimal digits of precision
+    const minVal = parseInt(this.min) || -Infinity
+    const maxVal = parseInt(this.max) || Infinity
+    return (maxVal - minVal) * Math.pow(10, 7)
   }
   _synthesizeAtom(seed) {
     return Utils.randomUniformFloat(parseFloat(this.min), parseFloat(this.max), seed).toString()
@@ -800,6 +834,9 @@ class ParsersBooleanAtom extends AbstractParsersBackedAtom {
     const atom = this.getAtom()
     const str = atom.toLowerCase()
     return this._trues.has(str) || this._falses.has(str)
+  }
+  get optionCount() {
+    return 2
   }
   _synthesizeAtom() {
     return Utils.getRandomString(1, ["1", "true", "t", "yes", "0", "false", "f", "no"])
@@ -835,6 +872,9 @@ class ParsersAnyAtom extends AbstractParsersBackedAtom {
 class ParsersKeywordAtom extends ParsersAnyAtom {
   _synthesizeAtom() {
     return this._parserDefinitionParser.cueIfAny
+  }
+  get optionCount() {
+    return 1
   }
 }
 ParsersKeywordAtom.defaultPaint = "keyword"
@@ -1226,6 +1266,11 @@ class atomTypeDefinitionParser extends AbstractExtendibleParticle {
     const options = Object.keys(enumParticle.getParticle(ParsersConstants.enum).getOptions())
     options.sort((a, b) => b.length - a.length)
     return options
+  }
+  get optionCount() {
+    const enumOptions = this._getEnumOptions()
+    if (enumOptions) return enumOptions.length
+    return Infinity
   }
   _getEnumFromAtomTypeOptions(program) {
     const particle = this._getParticleFromExtended(ParsersConstants.enumFromAtomTypes)

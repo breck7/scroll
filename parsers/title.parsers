@@ -48,5 +48,5 @@ printTitleParser
   get originalText() {
    return this.content ?? this.root.title ?? ""
   }
-  defaultClassName = "scrollTitle"
+  defaultClassName = "printTitleParser"
   tag = "h1"

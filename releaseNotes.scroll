@@ -22,6 +22,16 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 161.0.0 12/01/2024
+🎉 added new theme `prestige`
+🎉 upgrade ScrollSDK
+🎉 scroll theme cleanup:
+⚠️ BREAKING: .dinkus is now .abstractDinkusParser
+⚠️ BREAKING: .scrollTitle is now .printTitleParser
+⚠️ BREAKING: .scrollByLine is now .printAuthorsParser
+⚠️ BREAKING: .scrollDateline is now .printDateParser
+⚠️ BREAKING: dateParser is now scrollDateParser
+
 📦 160.0.0 11/30/2024
 🎉 upgrade ScrollSDK
 

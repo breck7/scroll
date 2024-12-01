@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 
 
 <style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--scrollBaseFontSize, 16px);}</style>
-<div class="scrollSection"><h1 id="particle25" class="scrollTitle"><a href="programLinks.html">Introducing Program Links</a></h1>
-<p id="particle0" class="scrollByLine">by <a href="https://github.com/breck7">Breck Yunits</a></p>
+<div class="scrollSection"><h1 id="particle25" class="printTitleParser"><a href="programLinks.html">Introducing Program Links</a></h1>
+<p id="particle0" class="printAuthorsParser">by <a href="https://github.com/breck7">Breck Yunits</a></p>
 </div>
 <div class="scrollKeyboardNav" style="display:none;"><a href="scrollsets.html">scrollsets.html</a> · programLinks.html · <a href="counterpoints.html">counterpoints.html</a><script>document.addEventListener('keydown', function(event) {
   if (document.activeElement !== document.body) return
@@ -56,11 +56,11 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p id="particle33" class="scrollParagraph"><span class="scrollDateline">May 8, 2023 — </span>Some web apps are designed to load <em>entire programs</em> from a link.</p>
 <p id="particle35" class="scrollParagraph">But if a program contain certain characters, such as <em>newlines</em>, those links won't work as-is.</p>
 <p id="particle37" class="scrollParagraph">To create working links you have to run them through <code>encodeURIComponent</code>.</p>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <p id="particle41" class="scrollParagraph">If you are creating blog content by hand this is annoying.</p>
 <p id="particle43" class="scrollParagraph">To update a program link you have to keep a copy of the program, update that, then run <code>encodeURIComponent</code>, then paste the result into your post.</p>
 <p id="particle45" class="scrollParagraph">Today's release of Scroll includes a small new addition that solves this problem. You can call them "Multline Links" or "Program Links".</p>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <div class="scrollSection"><h2 id="particle49" class="scrollParagraph">Here are two examples</h2>
 </div>
 <p id="particle51" class="scrollParagraph">Here is a <a href="https://try.scroll.pub/#scroll%0A%20%23%20Testing%20Program%20Links%0A%20It%20worked!%0A%20%20style%20color%3Agreen%3B%20font-size%3A%20100px%3B">program link</a> to the Scroll web app.</p>
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
     It worked!
      style color:green; font-size: 100px;</code>
 <p id="particle54" class="scrollParagraph">If you click that link you should see "It worked!" in big green text.</p>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <p id="particle58" class="scrollParagraph">Now let's show a complex real world example. The link below contains a 28 line program pasted verbatim from the Ohayo data science studio.</p>
 <details><summary id="particle60" >See code</summary>
 <code class="scrollCodeBlock">
@@ -111,7 +111,7 @@ Discovery of the Elements
 <p id="particle63" class="scrollParagraph"><a href="https://ohayo.breckyunits.com?filename=test.ohayo&data=doc.title%20Discovery%20of%20the%20Elements%0Adoc.subtitle%20What%20is%20the%20growth%20in%20known%20elements%20over%20time%3F%0Asamples.periodicTable%0A%20hidden%0A%20fill.missing%20Year%201000%0A%20%20hidden%0A%20%20columns.keep%20Element%20Year%0A%20%20%20hidden%0A%20%20%20rows.sortBy%20Year%0A%20%20%20%20hidden%0A%20%20group.by%20Year%0A%20%20%20hidden%0A%20%20%20rows.sortBy%20Year%0A%20%20%20%20hidden%0A%20%20%20%20rows.runningTotal%20count%0A%20%20%20%20%20hidden%0A%20%20%20%20%20vega.bar%20Number%20of%20Elements%20Found%20Each%20Year%0A%20%20%20%20%20%20xColumn%20Year%0A%20%20%20%20%20%20yColumn%20count%0A%20%20%20%20%20vega.line%20Cumulative%20Number%20of%20Elements%0A%20%20%20%20%20%20xColumn%20Year%0A%20%20%20%20%20%20yColumn%20total%0A%20vega.scatter%20Year%20of%20Discovery%20by%20Atomic%20Number%0A%20%20xColumn%20Year%0A%20%20yColumn%20AtomicNumber%0A%20tables.basic%0A%20%20rowDisplayLimit%20200%0Adoc.categories%20chemistry">Discovery of the Elements</a></p>
 <p id="particle65" class="scrollParagraph">If you click that link you should see a few data visualizations generated from that program.</p>
 <p id="particle67" class="scrollParagraph">Edit the source and the link will update accordingly. Scroll handles the <code>encodeURIComponent</code>.</p>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <div class="scrollSection"><h1 id="particle71" class="scrollParagraph">Why not use HTML directly?</h1>
 <p id="particle72" class="scrollParagraph">Modern browsers do their best to make URLs well-formed and you will notice that they auto encode certain characters like <a href="https://www.google.com/search?q=Spaces are encoded">spaces</a>.</p>
 </div>

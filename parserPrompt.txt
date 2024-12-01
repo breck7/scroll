@@ -547,7 +547,7 @@ stamp
     buildTxt() {
       return ""
     }
-    defaultClassName = "scrollByLine"
+    defaultClassName = "printAuthorsParser"
  blankLine.parsers
   blankLineParser
    popularity 0.308149
@@ -1181,7 +1181,8 @@ stamp
       return this.subparticlesToString()
     }
  date.parsers
-  dateParser
+  scrollDateParser
+   cue date
    popularity 0.006680
    catchAllAtomType dateAtom
    description Set published date.
@@ -1382,7 +1383,7 @@ stamp
     buildHtml() {
      return `${this.dinkus}`
     }
-    defaultClass = "dinkus"
+    defaultClass = "abstractDinkusParser"
     buildTxt() {
       return this.dinkus
     }
@@ -6318,7 +6319,7 @@ stamp
     buildHtml() {
      const permalink = this.root.permalink.replace(".html", "")
      // hacky
-     const particle = this.appendSibling(`HTML | TXT`, `class scrollDateline\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
+     const particle = this.appendSibling(`HTML | TXT`, `class printDateParser\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
      const html = particle.buildHtml()
      particle.destroy()
      return html
@@ -6344,7 +6345,7 @@ stamp
   
  theme.parsers
   scrollThemeAtom
-   enum roboto gazette dark tufte
+   enum roboto gazette dark tufte prestige
    paint constant
   
   scrollThemeParser
@@ -6418,7 +6419,7 @@ stamp
     get originalText() {
      return this.content ?? this.root.title ?? ""
     }
-    defaultClassName = "scrollTitle"
+    defaultClassName = "printTitleParser"
     tag = "h1"
   
  video.parsers

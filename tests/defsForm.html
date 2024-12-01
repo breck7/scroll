@@ -603,7 +603,7 @@ tagWithOptionalFolderAtom
  description A group name optionally combined with a folder path. Only used when referencing tags, not in posts.
  extends stringAtom
 scrollThemeAtom
- enum roboto gazette dark tufte
+ enum roboto gazette dark tufte prestige
  paint constant
 abstractScrollParser
  atoms cueAtom
@@ -770,7 +770,7 @@ authorsParser
   buildTxt() {
     return ""
   }
-  defaultClassName = "scrollByLine"
+  defaultClassName = "printAuthorsParser"
 blinkParser
  description Just for fun.
  extends scrollParagraphParser
@@ -1093,7 +1093,7 @@ printTitleParser
   get originalText() {
    return this.content ?? this.root.title ?? ""
   }
-  defaultClassName = "scrollTitle"
+  defaultClassName = "printTitleParser"
   tag = "h1"
 captionAftertextParser
  popularity 0.003207
@@ -1283,7 +1283,7 @@ abstractDinkusParser
   buildHtml() {
    return `<div class="${this.defaultClass}"><span>${this.dinkus}</span></div>`
   }
-  defaultClass = "dinkus"
+  defaultClass = "abstractDinkusParser"
   buildTxt() {
     return this.dinkus
   }
@@ -1807,7 +1807,7 @@ printDateParser
  boolean isPopular true
  javascript
   buildHtml() {
-   return `<div style="text-align: center;" class="scrollDateline">${this.day}</div>`
+   return `<div class="printDateParser">${this.day}</div>`
   }
   get day() {
    let day = this.content || this.root.date
@@ -1826,7 +1826,7 @@ printFormatLinksParser
   buildHtml() {
    const permalink = this.root.permalink.replace(".html", "")
    // hacky
-   const particle = this.appendSibling(`HTML | TXT`, `class scrollDateline\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
+   const particle = this.appendSibling(`HTML | TXT`, `class printDateParser\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
    const html = particle.buildHtml()
    particle.destroy()
    return html
@@ -2062,7 +2062,8 @@ abstractTopLevelSingleMetaParser
 testStrictParser
  description Make catchAllParagraphParser = error.
  extends abstractTopLevelSingleMetaParser
-dateParser
+scrollDateParser
+ cue date
  popularity 0.006680
  catchAllAtomType dateAtom
  description Set published date.

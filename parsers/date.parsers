@@ -1,4 +1,5 @@
-dateParser
+scrollDateParser
+ cue date
  popularity 0.006680
  catchAllAtomType dateAtom
  description Set published date.
@@ -36,7 +37,7 @@ printDateParser
  boolean isPopular true
  javascript
   buildHtml() {
-   return `<div style="text-align: center;" class="scrollDateline">${this.day}</div>`
+   return `<div class="printDateParser">${this.day}</div>`
   }
   get day() {
    let day = this.content || this.root.date

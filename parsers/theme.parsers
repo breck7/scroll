@@ -1,5 +1,5 @@
 scrollThemeAtom
- enum roboto gazette dark tufte
+ enum roboto gazette dark tufte prestige
  paint constant
 
 scrollThemeParser

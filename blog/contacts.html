@@ -49,18 +49,18 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
   else if (event.key === "ArrowRight")
     getLinks()[1].click()
  });</script></div>
-<div class="scrollSection"><h1 id="particle26" class="scrollTitle"><a href="contacts.html">Contacts: A Microlang for Managing Contacts</a></h1>
-<p id="particle0" class="scrollByLine">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></p>
+<div class="scrollSection"><h1 id="particle26" class="printTitleParser"><a href="contacts.html">Contacts: A Microlang for Managing Contacts</a></h1>
+<p id="particle0" class="printAuthorsParser">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></p>
 </div>
 <div class="scrollColumns" style="column-width:65ch;column-count:1;max-width:65ch;">
 <p id="particle31" class="scrollParagraph"><span class="scrollDateline">July 16, 2024 — </span>Imagine a single plain text file named <code>contacts.scroll</code> where you stored the contact info for your family, friends, and colleagues, and you could track changes with git, compile it to a beautiful PDF or HTML page with search and sort, and it would also compile to CSV and/or JSON for import into iPhone, Android, Gmail, Outlook, et cetera?</p>
 <p id="particle33" class="scrollParagraph">Also imagine that this tool is free, open source, and public domain.</p>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <p id="particle37" class="scrollParagraph">Introducing <strong>Contacts</strong>, a microlanguage (currently <a href="https://github.com/breck7/scroll/blob/main/microlangs/contacts.parsers">23 lines of code</a>, including comments) that makes it as concise as possible to add, prune, display, print and export your contacts.</p>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <p id="particle41" class="scrollParagraph">There's almost nothing to learn (the code is self-explanatory).</p>
 <p id="particle43" class="scrollParagraph">In fact, it's almost guaranteed that using Contacts you will need to write less (we've taken every unnecessary character out).</p>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <div class="scrollSection"><h1 id="particle47" class="scrollParagraph">Example</h1>
 </div>
 <code class="scrollCodeBlock">👤 Jack Doe
@@ -73,7 +73,7 @@ notes Daughter - Samantha.
 phone +1 (555) 123-4562
 email jill@gmail.com
 birthday 1/23/80</code>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <div class="scrollSection"><h1 id="particle53" class="scrollParagraph">How to use</h1>
 </div>
 <ol  start="1."><li id="particle55" >Create a file named something like <code>contacts.scroll</code> with this content:</li></ol>
@@ -101,15 +101,15 @@ email jill@gmail.com
 birthday 1/23/80</code>
 <ol  start="2."><li id="particle58" >Run <code>scroll build</code></li></ol>
 <p id="particle60" class="scrollParagraph">Done! You should now see a <a href="../tests/contacts.html">contacts.html</a> file for display and printing as well as TSV, CSV, and JSON files.</p>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <figure class="scrollCaptionedFigure" style="width:1174px; margin: auto;"><a href="contacts.jpg" target="_blank"  ><img src="contacts.jpg" width="1174" height="1254" loading="lazy"></a><figcaption><p id="particle0" class="scrollParagraph">Contacts is interoperable with pen and paper.</p></figcaption></figure>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <p id="particle68" class="scrollParagraph">What do you think? Anything that should be added/removed/improved?</p>
-<div class="dinkus"><span>*</span></div>
+<div class="abstractDinkusParser"><span>*</span></div>
 <div class="scrollSection"><h1 id="particle72" class="scrollParagraph">Notes</h1>
 <ol  start="1."><li id="particle73" >The idea for Contacts was sparked by <a href="https://x.com/tylertringas/status/1813239718957461528">this tweet from Tyler Tringas</a>.</li></ol>
 </div>
-<div class="dinkus"><span>⁂</span></div>
+<div class="abstractDinkusParser"><span>⁂</span></div>
 </div>
 <center><p id="particle82" class="scrollParagraph"></p>
 <style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="mailto:feedback@scroll.pub" class="doNotPrint abstractIconButtonParser" style="position:relative;"><svg viewBox="3 5 24 20" width="24" height="20" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(1, 0, 0, 1, 0, -289.0625)"><path style="opacity:1;stroke:none;stroke-width:0.49999997;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 5 5 C 4.2955948 5 3.6803238 5.3628126 3.3242188 5.9101562 L 14.292969 16.878906 C 14.696939 17.282876 15.303061 17.282876 15.707031 16.878906 L 26.675781 5.9101562 C 26.319676 5.3628126 25.704405 5 25 5 L 5 5 z M 3 8.4140625 L 3 23 C 3 24.108 3.892 25 5 25 L 25 25 C 26.108 25 27 24.108 27 23 L 27 8.4140625 L 17.121094 18.292969 C 15.958108 19.455959 14.041892 19.455959 12.878906 18.292969 L 3 8.4140625 z " transform="translate(0,289.0625)" id="rect4592"/></g></svg></a>

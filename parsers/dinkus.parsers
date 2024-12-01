@@ -5,7 +5,7 @@ abstractDinkusParser
   buildHtml() {
    return `<div class="${this.defaultClass}"><span>${this.dinkus}</span></div>`
   }
-  defaultClass = "dinkus"
+  defaultClass = "abstractDinkusParser"
   buildTxt() {
     return this.dinkus
   }

@@ -10,7 +10,7 @@ class SlideShow {
 
   renderSlide() {
     jQuery(this.slides[this.page - 1]).show()
-    jQuery(".dinkus").hide()
+    jQuery(".abstractDinkusParser").hide()
   }
 
   hideAll() {
@@ -18,9 +18,9 @@ class SlideShow {
   }
 
   get slides() {
-    return jQuery(".dinkus")
+    return jQuery(".abstractDinkusParser")
       .map(function () {
-        return jQuery(this).prevUntil(".dinkus").addBack().prev()
+        return jQuery(this).prevUntil(".abstractDinkusParser").addBack().prev()
       })
       .get()
       .slice(1)

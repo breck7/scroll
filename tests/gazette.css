@@ -69,12 +69,12 @@ figure {
   float: left;
 }
 
-.dinkus {
+.abstractDinkusParser {
   text-align: center;
   padding: 1rem;
 }
 
-.dinkus span {
+.abstractDinkusParser span {
   vertical-align: sub;
 }
 
@@ -313,7 +313,7 @@ h4 {
   font-size: 1rem;
 }
 
-h1.scrollTitle {
+h1.printTitleParser {
   text-align: center;
   margin: auto;
   margin-bottom: 0.15625rem;
@@ -322,11 +322,15 @@ h1.scrollTitle {
   max-width: calc(100vw - 2 * (1.5625rem + 1.875rem));
 }
 
-h1.scrollTitle a {
+h1.printTitleParser a {
   color: var(--scrollColorText);
 }
 
-.scrollDateline {
+.printDateParser {
+  text-align: center;
+}
+.scrollDateline,
+.printDateParser {
   font-style: italic;
   line-height: 1.4rem;
   font-size: 0.75rem;
@@ -435,7 +439,7 @@ h4.scrollQuestion {
   white-space: unset;
 }
 
-.scrollByLine {
+.printAuthorsParser {
   font-size: 0.875rem;
   font-style: italic;
   margin: 0.25rem 0;

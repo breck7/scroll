@@ -41,7 +41,7 @@ printFormatLinksParser
   buildHtml() {
    const permalink = this.root.permalink.replace(".html", "")
    // hacky
-   const particle = this.appendSibling(`HTML | TXT`, `class scrollDateline\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
+   const particle = this.appendSibling(`HTML | TXT`, `class printDateParser\nlink ${permalink}.html HTML\nlink ${permalink}.txt TXT\nstyle text-align:center;`)
    const html = particle.buildHtml()
    particle.destroy()
    return html
