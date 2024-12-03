@@ -58,7 +58,8 @@ class ScrollSetCLI {
     const fusedFile = new ScrollFile(particle.toString(), this.makeFilePath(file.id), scrollFs)
     await fusedFile.fuse()
     // force a write
-    return scrollFs.write(this.makeFilePath(file.id), fusedFile.formatted)
+    const result = await scrollFs.write(this.makeFilePath(file.id), fusedFile.scrollProgram.formatted)
+    return result
   }
 
   makeNameSearchIndex(files = this.concepts.slice(0).reverse()) {
