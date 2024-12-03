@@ -1,10 +1,10 @@
-https://scroll.pub/push.html
 https://scroll.pub/python.html
 https://scroll.pub/qrcodes.html
 https://scroll.pub/redirectTest.html
 https://scroll.pub/relativeSnippets.html
 https://scroll.pub/roboto.html
 https://scroll.pub/script.html
+https://scroll.pub/scrollFormsTest.html
 https://scroll.pub/scrollVersion.html
 https://scroll.pub/settings.html
 https://scroll.pub/slideshowDemo.html
@@ -31,6 +31,7 @@ https://scroll.pub/blogPost.html
 https://scroll.pub/buildDelimited.html
 https://scroll.pub/buttons.html
 https://scroll.pub/center.html
+https://scroll.pub/classicFormsTest.html
 https://scroll.pub/cloc.html
 https://scroll.pub/comments.html
 https://scroll.pub/concepts.html
@@ -49,8 +50,6 @@ https://scroll.pub/favicon.html
 https://scroll.pub/feed.html
 https://scroll.pub/fetchTest.html
 https://scroll.pub/footer.html
-https://scroll.pub/formTest.html
-https://scroll.pub/forms.html
 https://scroll.pub/full.html
 https://scroll.pub/gazette.html
 https://scroll.pub/hakon.html
@@ -74,4 +73,5 @@ https://scroll.pub/openGraphImages.html
 https://scroll.pub/optionalImport.html
 https://scroll.pub/posts.html
 https://scroll.pub/prestige.html
+https://scroll.pub/push.html
 https://scroll.pub/top-sinks.html

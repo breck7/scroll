@@ -961,11 +961,9 @@ stamp
    atoms preBuildCommandAtom filePathAtom
    javascript
     async load() {
-     const { Disk } = require("scrollsdk/products/Disk.node.js")
-     const path = require("path")
+     const { Disk, path, importRegex } = this.root
      const folder = path.join(this.root.folderPath, this.getAtom(1))
-     const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
-     const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).join("\n\n").replace(importParticleRegex, "")
+     const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).join("\n\n").replace(importRegex, "")
       this.parent.concat(ONE_BIG_FILE)
      //console.log(ONE_BIG_FILE)
     }
@@ -1773,8 +1771,9 @@ stamp
     cueFromId
     single
    description Generate a Scroll Form.
-   string copyFromExternal codeMirror.css scrollLibs.js
+   string copyFromExternal codeMirror.css scrollLibs.js constants.js
    string requireOnce
+    
     
     
    javascript
@@ -1791,23 +1790,27 @@ stamp
       return this.get("name") || "particles"
     }
     get parsersBundle() {
-      const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
-      let code = this.root.definition.toString().replace("catchAllParser catchAllParagraphParser", "catchAllParser errorParser") + this.root.toString()
-      code = code.replace(/^importOnly\n/gm, "").replace(importParticleRegex, "")
-      code = new Particle(code)
-      code.getParticle("commentParser").appendLine("boolean suggestInAutocomplete false")
-      code.getParticle("slashCommentParser").appendLine("boolean suggestInAutocomplete false")
-      code.getParticle("buildMeasuresParser").appendLine("boolean suggestInAutocomplete false")
-      return code.toString()
+      const parserRegex = /^[a-zA-Z0-9_]+Parser$/gm
+      const clone = this.root.clone()
+      const parsers = clone.filter(line => parserRegex.test(line.getLine()))
+      return "\n" + parsers.map(particle => {
+        particle.prependLine("boolean suggestInAutocomplete true")
+        return particle.toString()
+      }).join("\n")
     }
     get inputs() {
       const Name = this.name
       return `
       ${this.parsersBundle}
       {
+      const parserRegex = /^[a-zA-Z0-9_]+Parser$/gm
       let {width, height} = document.getElementById('${Name}').getBoundingClientRect();
-      const scrollParser = new HandParsersProgram(document.getElementById("${Name}Parsers").textContent).compileAndReturnRootParser()
-      codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => scrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("${Name}"), {
+      const sp = new Particle(AppConstants.parsers)
+      sp.filter(particle => particle.getLine().match(parserRegex)).forEach(part => {
+      part.appendLine("boolean suggestInAutocomplete false")
+      })
+      const customScrollParser = new HandParsersProgram(sp.toString() + document.getElementById("${Name}Parsers").textContent).compileAndReturnRootParser()
+      codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => customScrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("${Name}"), {
         lineWrapping: false,
         lineNumbers: false
       })
@@ -4520,6 +4523,7 @@ stamp
       }
       return file.scrollProgram.permalink
     }
+    importRegex = /^(import |[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$|https?:\/\/.+\.(scroll|parsers)$)/gm
     get linkToNext() {
       if (!this.hasKeyboardNav)
         // Dont provide link to next unless keyboard nav is on
@@ -4735,7 +4739,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "161.0.0"
+      return "161.0.1"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6282,6 +6286,11 @@ stamp
    extends abstractBuildTwoCommandParser
    boolean isPopular true
   
+  plainTextLineParser
+   popularity 0.000121
+   catchAllAtomType stringAtom
+   catchAllParser plainTextLineParser
+  
   plainTextParser
    description Plain text oneliner or block.
    cueFromId
@@ -6304,11 +6313,6 @@ stamp
     buildHtml() {
      return ""
     }
-  
-  plainTextLineParser
-   popularity 0.000121
-   catchAllAtomType stringAtom
-   catchAllParser plainTextLineParser
   
   printFormatLinksParser
    description Prints links to other formats.

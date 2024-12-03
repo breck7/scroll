@@ -124,6 +124,7 @@ scrollParser
     }
     return file.scrollProgram.permalink
   }
+  importRegex = /^(import |[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$|https?:\/\/.+\.(scroll|parsers)$)/gm
   get linkToNext() {
     if (!this.hasKeyboardNav)
       // Dont provide link to next unless keyboard nav is on
@@ -339,7 +340,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "161.0.0"
+    return "161.0.1"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

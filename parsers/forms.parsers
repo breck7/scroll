@@ -89,10 +89,11 @@ scrollFormParser
   cueFromId
   single
  description Generate a Scroll Form.
- string copyFromExternal codeMirror.css scrollLibs.js
+ string copyFromExternal codeMirror.css scrollLibs.js constants.js
  string requireOnce
   <link rel="stylesheet" href="codeMirror.css">
   <script src="scrollLibs.js"></script>
+  <script src="constants.js"></script>
  javascript
   get placeholder() {
     return this.getParticle("placeholder")?.subparticlesToString() || ""
@@ -107,23 +108,27 @@ scrollFormParser
     return this.get("name") || "particles"
   }
   get parsersBundle() {
-    const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
-    let code = this.root.definition.toString().replace("catchAllParser catchAllParagraphParser", "catchAllParser errorParser") + this.root.toString()
-    code = code.replace(/^importOnly\n/gm, "").replace(importParticleRegex, "")
-    code = new Particle(code)
-    code.getParticle("commentParser").appendLine("boolean suggestInAutocomplete false")
-    code.getParticle("slashCommentParser").appendLine("boolean suggestInAutocomplete false")
-    code.getParticle("buildMeasuresParser").appendLine("boolean suggestInAutocomplete false")
-    return code.toString()
+    const parserRegex = /^[a-zA-Z0-9_]+Parser$/gm
+    const clone = this.root.clone()
+    const parsers = clone.filter(line => parserRegex.test(line.getLine()))
+    return "\n" + parsers.map(particle => {
+      particle.prependLine("boolean suggestInAutocomplete true")
+      return particle.toString()
+    }).join("\n")
   }
   get inputs() {
     const Name = this.name
     return `<textarea title="oneTextarea" rows="${Math.min(this.root.measures.length * 2, 30)}" placeholder="${this.placeholder}" id="${Name}" name="${Name}"></textarea>
     <script id="${Name}Parsers" type="text/plain">${this.parsersBundle}</script>
     <script>{
+    const parserRegex = /^[a-zA-Z0-9_]+Parser$/gm
     let {width, height} = document.getElementById('${Name}').getBoundingClientRect();
-    const scrollParser = new HandParsersProgram(document.getElementById("${Name}Parsers").textContent).compileAndReturnRootParser()
-    codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => scrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("${Name}"), {
+    const sp = new Particle(AppConstants.parsers)
+    sp.filter(particle => particle.getLine().match(parserRegex)).forEach(part => {
+    part.appendLine("boolean suggestInAutocomplete false")
+    })
+    const customScrollParser = new HandParsersProgram(sp.toString() + document.getElementById("${Name}Parsers").textContent).compileAndReturnRootParser()
+    codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => customScrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("${Name}"), {
       lineWrapping: false,
       lineNumbers: false
     })

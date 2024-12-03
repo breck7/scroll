@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div class="scrollSection"><h1 id="particle2" class="scrollParagraph">ScrollSet Form Maker</h1>
+<link rel="stylesheet" type="text/css" href="gazette.css">
+</div>
+<style>body {font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;}</style>
+<style>.scrollContainerParser{width: 100%; box-sizing: border-box; max-width: 600px; margin: 0 auto;}</style><div id="particle7" class="scrollContainerParser">
+<div class="scrollSection"><h3 id="particle9" class="scrollParagraph">Past: to generate a classic form write "classicForm"</h3>
+</div>
+<script>
+sendFormViaEmail = form => {
+  const mailto = new URL("mailto:")
+  const params = []
+  const { value, title } = form.querySelector('button[type="submit"]')
+  params.push(`subject=${encodeURIComponent(value)}`)
+  params.push(`to=${encodeURIComponent(title)}`)
+  const oneTextarea = form.querySelector('textarea[title="oneTextarea"]')
+  const body = oneTextarea ? codeMirrorInstance.getValue() : Array.from(new FormData(form)).map(([name, value]) => `${name} ${value}`).join("\n")
+  params.push(`body=${encodeURIComponent(body)}`)
+  mailto.search = params.join("&")
+  window.open(mailto.href, '_blank')
+}
+</script><style> .scrollFormParser {
+    font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
+  }
+.scrollFormParser input , .scrollFormParser textarea{
+padding: 10px;
+margin-bottom: 10px;
+width: 100%;
+box-sizing: border-box;
+} .scrollFormParser label {
+  display: block;
+  margin-bottom: 5px;
+}
+</style><form onsubmit='sendFormViaEmail(this); return false;' class="scrollFormParser"><div><label for="name" title="Required">Name*:</label><input placeholder="What is your name?" type="text" id="name" name="name" required></div>
+<div><label for="emailAddress" title="">EmailAddress:</label><input placeholder="What is your email address?" type="email" id="emailAddress" name="emailAddress" ></div>
+<div><label for="homepage" title="">Homepage:</label><input placeholder="What is your homepage?" type="url" id="homepage" name="homepage" ></div>
+<div><label for="biography" title="">Biography:</label><textarea placeholder="What is your bio?" id="biography" name="biography" ></textarea></div><button value="Classic form test" title="breck7+classicForm@gmail.com" class="scrollButton" type="submit">Submit via email</button></form>
+<div class="scrollSection"><h3 id="particle13" class="scrollParagraph">Future: to generate a Scroll Form write "scrollForm"</h3>
+</div>
+<link rel="stylesheet" href="codeMirror.css">
+<script src="scrollLibs.js"></script>
+<script src="constants.js"></script>
+
+<script>
+sendFormViaEmail = form => {
+  const mailto = new URL("mailto:")
+  const params = []
+  const { value, title } = form.querySelector('button[type="submit"]')
+  params.push(`subject=${encodeURIComponent(value)}`)
+  params.push(`to=${encodeURIComponent(title)}`)
+  const oneTextarea = form.querySelector('textarea[title="oneTextarea"]')
+  const body = oneTextarea ? codeMirrorInstance.getValue() : Array.from(new FormData(form)).map(([name, value]) => `${name} ${value}`).join("\n")
+  params.push(`body=${encodeURIComponent(body)}`)
+  mailto.search = params.join("&")
+  window.open(mailto.href, '_blank')
+}
+</script><style> .scrollFormParser {
+    font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
+  }
+.scrollFormParser input , .scrollFormParser textarea{
+padding: 10px;
+margin-bottom: 10px;
+width: 100%;
+box-sizing: border-box;
+} .scrollFormParser label {
+  display: block;
+  margin-bottom: 5px;
+}
+</style><form  method='post' action='insert.htm?line=2' class="scrollFormParser"><textarea title="oneTextarea" rows="8" placeholder="// Placeholder
+name Bob
+emailAddress bob@example.com" id="particles" name="particles"></textarea>
+  <script id="particlesParsers" type="text/plain">
+nameParser
+ boolean suggestInAutocomplete true
+ extends abstractIdParser
+ description What is your name?
+ example
+  name Jane Doe
+emailAddressParser
+ boolean suggestInAutocomplete true
+ extends abstractEmailMeasureParser
+ description What is your email address?
+ example
+  name jane@doe.com
+homepageParser
+ boolean suggestInAutocomplete true
+ extends abstractUrlMeasureParser
+ description What is your homepage?
+ example
+  homepage http://jane.com
+biographyParser
+ boolean suggestInAutocomplete true
+ extends abstractTextareaMeasureParser
+ description What is your bio?
+ example
+  biography My name is Jane.</script>
+  <script>{
+  const parserRegex = /^[a-zA-Z0-9_]+Parser$/gm
+  let {width, height} = document.getElementById('particles').getBoundingClientRect();
+  const sp = new Particle(AppConstants.parsers)
+  sp.filter(particle => particle.getLine().match(parserRegex)).forEach(part => {
+  part.appendLine("boolean suggestInAutocomplete false")
+  })
+  const customScrollParser = new HandParsersProgram(sp.toString() + document.getElementById("particlesParsers").textContent).compileAndReturnRootParser()
+  codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => customScrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("particles"), {
+    lineWrapping: false,
+    lineNumbers: false
+  })
+  codeMirrorInstance.setSize(width, height);
+  codeMirrorInstance.setValue(`name Bob
+emailAddress bob@example.com`); }</script><button value="Post Scroll form test" title="insert.htm?line=2" class="scrollButton" type="submit">Post Scroll form test</button></form></div>
+</body>
+</html>
