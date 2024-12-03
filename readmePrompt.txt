@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 161.0.4 12/02/2024
+🏥 scroll cli format command regression fix
+
 📦 161.0.3 12/02/2024
 🏥 scroll format regression fix
 
@@ -3560,7 +3563,7 @@ hiddenMessageParser
  cueFromId
  javascript
   buildHtml() {
-    return `${super.buildHtml()}`
+   return `${super.buildHtml()}`
   }
 hiddenMessage Click me.
  message Hello world

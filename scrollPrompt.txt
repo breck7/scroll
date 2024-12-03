@@ -223,7 +223,7 @@ hiddenMessageParser
  cueFromId
  javascript
   buildHtml() {
-    return `${super.buildHtml()}`
+   return `${super.buildHtml()}`
   }
 hiddenMessage Click me.
  message Hello world

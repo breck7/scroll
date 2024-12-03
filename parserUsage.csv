@@ -1,9 +1,9 @@
 parserId,uses
-blankLineParser,1101
-versionParser,604
+blankLineParser,1102
+versionParser,605
 newFeatureParser,530
 catchAllParagraphParser,267
-bugFixParser,231
+bugFixParser,232
 breakingChangeParser,222
 lineOfCodeParser,216
 BlobParser,106
@@ -51,8 +51,8 @@ cssParser,8
 horizontalRuleParser,8
 inlineMarkupParser,7
 orderedListAftertextParser,7
-endColumnsParser,7
 codeFromFileParser,7
+endColumnsParser,7
 scrollTableDataParser,7
 scrollTableParser,7
 cssLineParser,6
@@ -106,6 +106,7 @@ scrollPostsMetaParser,1
 scrollOrderByParser,1
 printScrollLeetSheetParser,1
 emailLinkParser,1
+printSiteMapParser,1
 endOfPostDinkusParser,1
 matchParser,1
 matchAllParser,1
@@ -123,7 +124,6 @@ thinColumnParser,1
 buildMeasuresParser,1
 buildConceptsParser,1
 mediumColumnsParser,1
-printSiteMapParser,1
 redirectToParser,1
 messageParser,1
 hiddenMessageParser,1
