@@ -208,7 +208,13 @@ footer.scroll`
     const folder = this.resolvePath(cwd)
     const files = await fileSystem.getLoadedFilesInFolder(folder, ".scroll")
     // .concat(fileSystem.getLoadedFilesInFolder(folder, PARSERS_FILE_EXTENSION)) // todo: should format parser files too.
-    files.forEach(file => (file.formatAndSave() ? this.log(`💾 formatted ${file.filename}`) : ""))
+    for (let file of files) {
+      const { formatted } = file.scrollProgram
+      const { codeAtStart } = file
+      if (codeAtStart === formatted) continue
+      await fileSystem.write(file.filePath, formatted)
+      this.log(`💾 formatted ${file.filename}`)
+    }
   }
 
   async buildCommand(cwd) {
