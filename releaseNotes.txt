@@ -25,6 +25,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+161.0.3 12/02/2024
+==================
+🏥 scroll format regression fix
+
 161.0.2 12/02/2024
 ==================
 🏥 scroll format regression fix
@@ -725,14 +729,14 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 12/03/2024,2024,Scroll Tutorial,tutorial.html,,main,949,4.7
 12/03/2024,2024,Wws,wws.html,,,35,0.2
 12/03/2024,2024,Wws Redirect,wws.html,,,0,0
-12/03/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-12/03/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
-12/03/2024,2024,Readme Prompt,readmePrompt.html,,,19987,99.9
-12/03/2024,2024,Scroll Release Notes,releaseNotes.html,,main,15199,76
-12/03/2024,2024,Scroll Roadmap,roadmap.html,,main,137,0.7
 12/03/2024,2024,Scroll Prompt,scrollPrompt.html,,,4511,22.6
 12/03/2024,2024,Settings,settings.html,,,0,0
 12/03/2024,2024,Sitemap,sitemap.html,,,110,0.6
+12/03/2024,2024,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
+12/03/2024,2024,Scroll is a language for scientists of all ages,index.html,,,166,0.8
+12/03/2024,2024,Readme Prompt,readmePrompt.html,,,19997,100
+12/03/2024,2024,Scroll Release Notes,releaseNotes.html,,main,15209,76
+12/03/2024,2024,Scroll Roadmap,roadmap.html,,main,137,0.7
 12/03/2024,2024,Scroll FAQ,faq.html,,main,3307,16.5
 12/03/2024,2024,Header,header.html,,,0,0
 12/03/2024,2024,Scroll LeetSheet,leetsheet.html,,,893,4.5
@@ -3376,4 +3380,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v161.0.2
+Built with Scroll v161.0.3
