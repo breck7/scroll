@@ -4,6 +4,11 @@ buildTxtParser
  extends abstractBuildTwoCommandParser
  boolean isPopular true
 
+plainTextLineParser
+ popularity 0.000121
+ catchAllAtomType stringAtom
+ catchAllParser plainTextLineParser
+
 plainTextParser
  description Plain text oneliner or block.
  cueFromId
@@ -26,11 +31,6 @@ plainTextOnlyParser
   buildHtml() {
    return ""
   }
-
-plainTextLineParser
- popularity 0.000121
- catchAllAtomType stringAtom
- catchAllParser plainTextLineParser
 
 printFormatLinksParser
  description Prints links to other formats.

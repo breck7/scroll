@@ -23,11 +23,9 @@ loadConceptsParser
  atoms preBuildCommandAtom filePathAtom
  javascript
   async load() {
-   const { Disk } = require("scrollsdk/products/Disk.node.js")
-   const path = require("path")
+   const { Disk, path, importRegex } = this.root
    const folder = path.join(this.root.folderPath, this.getAtom(1))
-   const importParticleRegex = /^(import .+|[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$)/gm
-   const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).join("\n\n").replace(importParticleRegex, "")
+   const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).join("\n\n").replace(importRegex, "")
     this.parent.concat(ONE_BIG_FILE)
    //console.log(ONE_BIG_FILE)
   }

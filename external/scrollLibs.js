@@ -1,5265 +1,449 @@
 /* mousetrap v1.6.3 craig.is/killing/mice */
-;(function (q, u, c) {
-  function v(a, b, g) {
-    a.addEventListener ? a.addEventListener(b, g, !1) : a.attachEvent("on" + b, g)
-  }
-  function z(a) {
-    if ("keypress" == a.type) {
-      var b = String.fromCharCode(a.which)
-      a.shiftKey || (b = b.toLowerCase())
-      return b
-    }
-    return n[a.which] ? n[a.which] : r[a.which] ? r[a.which] : String.fromCharCode(a.which).toLowerCase()
-  }
-  function F(a) {
-    var b = []
-    a.shiftKey && b.push("shift")
-    a.altKey && b.push("alt")
-    a.ctrlKey && b.push("ctrl")
-    a.metaKey && b.push("meta")
-    return b
-  }
-  function w(a) {
-    return "shift" == a || "ctrl" == a || "alt" == a || "meta" == a
-  }
-  function A(a, b) {
-    var g,
-      d = []
-    var e = a
-    "+" === e ? (e = ["+"]) : ((e = e.replace(/\+{2}/g, "+plus")), (e = e.split("+")))
-    for (g = 0; g < e.length; ++g) {
-      var m = e[g]
-      B[m] && (m = B[m])
-      b && "keypress" != b && C[m] && ((m = C[m]), d.push("shift"))
-      w(m) && d.push(m)
-    }
-    e = m
-    g = b
-    if (!g) {
-      if (!p) {
-        p = {}
-        for (var c in n) (95 < c && 112 > c) || (n.hasOwnProperty(c) && (p[n[c]] = c))
-      }
-      g = p[e] ? "keydown" : "keypress"
-    }
-    "keypress" == g && d.length && (g = "keydown")
-    return { key: m, modifiers: d, action: g }
-  }
-  function D(a, b) {
-    return null === a || a === u ? !1 : a === b ? !0 : D(a.parentNode, b)
-  }
-  function d(a) {
-    function b(a) {
-      a = a || {}
-      var b = !1,
-        l
-      for (l in p) a[l] ? (b = !0) : (p[l] = 0)
-      b || (x = !1)
-    }
-    function g(a, b, t, f, g, d) {
-      var l,
-        E = [],
-        h = t.type
-      if (!k._callbacks[a]) return []
-      "keyup" == h && w(a) && (b = [a])
-      for (l = 0; l < k._callbacks[a].length; ++l) {
-        var c = k._callbacks[a][l]
-        if ((f || !c.seq || p[c.seq] == c.level) && h == c.action) {
-          var e
-          ;(e = "keypress" == h && !t.metaKey && !t.ctrlKey) || ((e = c.modifiers), (e = b.sort().join(",") === e.sort().join(",")))
-          e && ((e = f && c.seq == f && c.level == d), ((!f && c.combo == g) || e) && k._callbacks[a].splice(l, 1), E.push(c))
-        }
-      }
-      return E
-    }
-    function c(a, b, c, f) {
-      k.stopCallback(b, b.target || b.srcElement, c, f) || !1 !== a(b, c) || (b.preventDefault ? b.preventDefault() : (b.returnValue = !1), b.stopPropagation ? b.stopPropagation() : (b.cancelBubble = !0))
-    }
-    function e(a) {
-      "number" !== typeof a.which && (a.which = a.keyCode)
-      var b = z(a)
-      b && ("keyup" == a.type && y === b ? (y = !1) : k.handleKey(b, F(a), a))
-    }
-    function m(a, g, t, f) {
-      function h(c) {
-        return function () {
-          x = c
-          ++p[a]
-          clearTimeout(q)
-          q = setTimeout(b, 1e3)
-        }
-      }
-      function l(g) {
-        c(t, g, a)
-        "keyup" !== f && (y = z(g))
-        setTimeout(b, 10)
-      }
-      for (var d = (p[a] = 0); d < g.length; ++d) {
-        var e = d + 1 === g.length ? l : h(f || A(g[d + 1]).action)
-        n(g[d], e, f, a, d)
-      }
-    }
-    function n(a, b, c, f, d) {
-      k._directMap[a + ":" + c] = b
-      a = a.replace(/\s+/g, " ")
-      var e = a.split(" ")
-      1 < e.length
-        ? m(a, e, b, c)
-        : ((c = A(a, c)),
-          (k._callbacks[c.key] = k._callbacks[c.key] || []),
-          g(c.key, c.modifiers, { type: c.action }, f, a, d),
-          k._callbacks[c.key][f ? "unshift" : "push"]({ callback: b, modifiers: c.modifiers, action: c.action, seq: f, level: d, combo: a }))
-    }
-    var k = this
-    a = a || u
-    if (!(k instanceof d)) return new d(a)
-    k.target = a
-    k._callbacks = {}
-    k._directMap = {}
-    var p = {},
-      q,
-      y = !1,
-      r = !1,
-      x = !1
-    k._handleKey = function (a, d, e) {
-      var f = g(a, d, e),
-        h
-      d = {}
-      var k = 0,
-        l = !1
-      for (h = 0; h < f.length; ++h) f[h].seq && (k = Math.max(k, f[h].level))
-      for (h = 0; h < f.length; ++h) f[h].seq ? f[h].level == k && ((l = !0), (d[f[h].seq] = 1), c(f[h].callback, e, f[h].combo, f[h].seq)) : l || c(f[h].callback, e, f[h].combo)
-      f = "keypress" == e.type && r
-      e.type != x || w(a) || f || b(d)
-      r = l && "keydown" == e.type
-    }
-    k._bindMultiple = function (a, b, c) {
-      for (var d = 0; d < a.length; ++d) n(a[d], b, c)
-    }
-    v(a, "keypress", e)
-    v(a, "keydown", e)
-    v(a, "keyup", e)
-  }
-  if (q) {
-    var n = {
-        8: "backspace",
-        9: "tab",
-        13: "enter",
-        16: "shift",
-        17: "ctrl",
-        18: "alt",
-        20: "capslock",
-        27: "esc",
-        32: "space",
-        33: "pageup",
-        34: "pagedown",
-        35: "end",
-        36: "home",
-        37: "left",
-        38: "up",
-        39: "right",
-        40: "down",
-        45: "ins",
-        46: "del",
-        91: "meta",
-        93: "meta",
-        224: "meta"
-      },
-      r = { 106: "*", 107: "+", 109: "-", 110: ".", 111: "/", 186: ";", 187: "=", 188: ",", 189: "-", 190: ".", 191: "/", 192: "`", 219: "[", 220: "\\", 221: "]", 222: "'" },
-      C = { "~": "`", "!": "1", "@": "2", "#": "3", $: "4", "%": "5", "^": "6", "&": "7", "*": "8", "(": "9", ")": "0", _: "-", "+": "=", ":": ";", '"': "'", "<": ",", ">": ".", "?": "/", "|": "\\" },
-      B = { option: "alt", command: "meta", return: "enter", escape: "esc", plus: "+", mod: /Mac|iPod|iPhone|iPad/.test(navigator.platform) ? "meta" : "ctrl" },
-      p
-    for (c = 1; 20 > c; ++c) n[111 + c] = "f" + c
-    for (c = 0; 9 >= c; ++c) n[c + 96] = c.toString()
-    d.prototype.bind = function (a, b, c) {
-      a = a instanceof Array ? a : [a]
-      this._bindMultiple.call(this, a, b, c)
-      return this
-    }
-    d.prototype.unbind = function (a, b) {
-      return this.bind.call(this, a, function () {}, b)
-    }
-    d.prototype.trigger = function (a, b) {
-      if (this._directMap[a + ":" + b]) this._directMap[a + ":" + b]({}, a)
-      return this
-    }
-    d.prototype.reset = function () {
-      this._callbacks = {}
-      this._directMap = {}
-      return this
-    }
-    d.prototype.stopCallback = function (a, b) {
-      if (-1 < (" " + b.className + " ").indexOf(" mousetrap ") || D(b, this.target)) return !1
-      if ("composedPath" in a && "function" === typeof a.composedPath) {
-        var c = a.composedPath()[0]
-        c !== a.target && (b = c)
-      }
-      return "INPUT" == b.tagName || "SELECT" == b.tagName || "TEXTAREA" == b.tagName || b.isContentEditable
-    }
-    d.prototype.handleKey = function () {
-      return this._handleKey.apply(this, arguments)
-    }
-    d.addKeycodes = function (a) {
-      for (var b in a) a.hasOwnProperty(b) && (n[b] = a[b])
-      p = null
-    }
-    d.init = function () {
-      var a = d(u),
-        b
-      for (b in a)
-        "_" !== b.charAt(0) &&
-          (d[b] = (function (b) {
-            return function () {
-              return a[b].apply(a, arguments)
-            }
-          })(b))
-    }
-    d.init()
-    q.Mousetrap = d
-    "undefined" !== typeof module && module.exports && (module.exports = d)
-    "function" === typeof define &&
-      define.amd &&
-      define(function () {
-        return d
-      })
-  }
-})("undefined" !== typeof window ? window : null, "undefined" !== typeof window ? document : null)
+(function(q,u,c){function v(a,b,g){a.addEventListener?a.addEventListener(b,g,!1):a.attachEvent("on"+b,g)}function z(a){if("keypress"==a.type){var b=String.fromCharCode(a.which);a.shiftKey||(b=b.toLowerCase());return b}return n[a.which]?n[a.which]:r[a.which]?r[a.which]:String.fromCharCode(a.which).toLowerCase()}function F(a){var b=[];a.shiftKey&&b.push("shift");a.altKey&&b.push("alt");a.ctrlKey&&b.push("ctrl");a.metaKey&&b.push("meta");return b}function w(a){return"shift"==a||"ctrl"==a||"alt"==a||
+"meta"==a}function A(a,b){var g,d=[];var e=a;"+"===e?e=["+"]:(e=e.replace(/\+{2}/g,"+plus"),e=e.split("+"));for(g=0;g<e.length;++g){var m=e[g];B[m]&&(m=B[m]);b&&"keypress"!=b&&C[m]&&(m=C[m],d.push("shift"));w(m)&&d.push(m)}e=m;g=b;if(!g){if(!p){p={};for(var c in n)95<c&&112>c||n.hasOwnProperty(c)&&(p[n[c]]=c)}g=p[e]?"keydown":"keypress"}"keypress"==g&&d.length&&(g="keydown");return{key:m,modifiers:d,action:g}}function D(a,b){return null===a||a===u?!1:a===b?!0:D(a.parentNode,b)}function d(a){function b(a){a=
+a||{};var b=!1,l;for(l in p)a[l]?b=!0:p[l]=0;b||(x=!1)}function g(a,b,t,f,g,d){var l,E=[],h=t.type;if(!k._callbacks[a])return[];"keyup"==h&&w(a)&&(b=[a]);for(l=0;l<k._callbacks[a].length;++l){var c=k._callbacks[a][l];if((f||!c.seq||p[c.seq]==c.level)&&h==c.action){var e;(e="keypress"==h&&!t.metaKey&&!t.ctrlKey)||(e=c.modifiers,e=b.sort().join(",")===e.sort().join(","));e&&(e=f&&c.seq==f&&c.level==d,(!f&&c.combo==g||e)&&k._callbacks[a].splice(l,1),E.push(c))}}return E}function c(a,b,c,f){k.stopCallback(b,
+b.target||b.srcElement,c,f)||!1!==a(b,c)||(b.preventDefault?b.preventDefault():b.returnValue=!1,b.stopPropagation?b.stopPropagation():b.cancelBubble=!0)}function e(a){"number"!==typeof a.which&&(a.which=a.keyCode);var b=z(a);b&&("keyup"==a.type&&y===b?y=!1:k.handleKey(b,F(a),a))}function m(a,g,t,f){function h(c){return function(){x=c;++p[a];clearTimeout(q);q=setTimeout(b,1E3)}}function l(g){c(t,g,a);"keyup"!==f&&(y=z(g));setTimeout(b,10)}for(var d=p[a]=0;d<g.length;++d){var e=d+1===g.length?l:h(f||
+A(g[d+1]).action);n(g[d],e,f,a,d)}}function n(a,b,c,f,d){k._directMap[a+":"+c]=b;a=a.replace(/\s+/g," ");var e=a.split(" ");1<e.length?m(a,e,b,c):(c=A(a,c),k._callbacks[c.key]=k._callbacks[c.key]||[],g(c.key,c.modifiers,{type:c.action},f,a,d),k._callbacks[c.key][f?"unshift":"push"]({callback:b,modifiers:c.modifiers,action:c.action,seq:f,level:d,combo:a}))}var k=this;a=a||u;if(!(k instanceof d))return new d(a);k.target=a;k._callbacks={};k._directMap={};var p={},q,y=!1,r=!1,x=!1;k._handleKey=function(a,
+d,e){var f=g(a,d,e),h;d={};var k=0,l=!1;for(h=0;h<f.length;++h)f[h].seq&&(k=Math.max(k,f[h].level));for(h=0;h<f.length;++h)f[h].seq?f[h].level==k&&(l=!0,d[f[h].seq]=1,c(f[h].callback,e,f[h].combo,f[h].seq)):l||c(f[h].callback,e,f[h].combo);f="keypress"==e.type&&r;e.type!=x||w(a)||f||b(d);r=l&&"keydown"==e.type};k._bindMultiple=function(a,b,c){for(var d=0;d<a.length;++d)n(a[d],b,c)};v(a,"keypress",e);v(a,"keydown",e);v(a,"keyup",e)}if(q){var n={8:"backspace",9:"tab",13:"enter",16:"shift",17:"ctrl",
+18:"alt",20:"capslock",27:"esc",32:"space",33:"pageup",34:"pagedown",35:"end",36:"home",37:"left",38:"up",39:"right",40:"down",45:"ins",46:"del",91:"meta",93:"meta",224:"meta"},r={106:"*",107:"+",109:"-",110:".",111:"/",186:";",187:"=",188:",",189:"-",190:".",191:"/",192:"`",219:"[",220:"\\",221:"]",222:"'"},C={"~":"`","!":"1","@":"2","#":"3",$:"4","%":"5","^":"6","&":"7","*":"8","(":"9",")":"0",_:"-","+":"=",":":";",'"':"'","<":",",">":".","?":"/","|":"\\"},B={option:"alt",command:"meta","return":"enter",
+escape:"esc",plus:"+",mod:/Mac|iPod|iPhone|iPad/.test(navigator.platform)?"meta":"ctrl"},p;for(c=1;20>c;++c)n[111+c]="f"+c;for(c=0;9>=c;++c)n[c+96]=c.toString();d.prototype.bind=function(a,b,c){a=a instanceof Array?a:[a];this._bindMultiple.call(this,a,b,c);return this};d.prototype.unbind=function(a,b){return this.bind.call(this,a,function(){},b)};d.prototype.trigger=function(a,b){if(this._directMap[a+":"+b])this._directMap[a+":"+b]({},a);return this};d.prototype.reset=function(){this._callbacks={};
+this._directMap={};return this};d.prototype.stopCallback=function(a,b){if(-1<(" "+b.className+" ").indexOf(" mousetrap ")||D(b,this.target))return!1;if("composedPath"in a&&"function"===typeof a.composedPath){var c=a.composedPath()[0];c!==a.target&&(b=c)}return"INPUT"==b.tagName||"SELECT"==b.tagName||"TEXTAREA"==b.tagName||b.isContentEditable};d.prototype.handleKey=function(){return this._handleKey.apply(this,arguments)};d.addKeycodes=function(a){for(var b in a)a.hasOwnProperty(b)&&(n[b]=a[b]);p=null};
+d.init=function(){var a=d(u),b;for(b in a)"_"!==b.charAt(0)&&(d[b]=function(b){return function(){return a[b].apply(a,arguments)}}(b))};d.init();q.Mousetrap=d;"undefined"!==typeof module&&module.exports&&(module.exports=d);"function"===typeof define&&define.amd&&define(function(){return d})}})("undefined"!==typeof window?window:null,"undefined"!==typeof window?document:null);
 
 /*! jQuery v3.6.0 | (c) OpenJS Foundation and other contributors | jquery.org/license */
-!(function (e, t) {
+!function(e,t){"use strict";"object"==typeof module&&"object"==typeof module.exports?module.exports=e.document?t(e,!0):function(e){if(!e.document)throw new Error("jQuery requires a window with a document");return t(e)}:t(e)}("undefined"!=typeof window?window:this,function(C,e){"use strict";var t=[],r=Object.getPrototypeOf,s=t.slice,g=t.flat?function(e){return t.flat.call(e)}:function(e){return t.concat.apply([],e)},u=t.push,i=t.indexOf,n={},o=n.toString,v=n.hasOwnProperty,a=v.toString,l=a.call(Object),y={},m=function(e){return"function"==typeof e&&"number"!=typeof e.nodeType&&"function"!=typeof e.item},x=function(e){return null!=e&&e===e.window},E=C.document,c={type:!0,src:!0,nonce:!0,noModule:!0};function b(e,t,n){var r,i,o=(n=n||E).createElement("script");if(o.text=e,t)for(r in c)(i=t[r]||t.getAttribute&&t.getAttribute(r))&&o.setAttribute(r,i);n.head.appendChild(o).parentNode.removeChild(o)}function w(e){return null==e?e+"":"object"==typeof e||"function"==typeof e?n[o.call(e)]||"object":typeof e}var f="3.6.0",S=function(e,t){return new S.fn.init(e,t)};function p(e){var t=!!e&&"length"in e&&e.length,n=w(e);return!m(e)&&!x(e)&&("array"===n||0===t||"number"==typeof t&&0<t&&t-1 in e)}S.fn=S.prototype={jquery:f,constructor:S,length:0,toArray:function(){return s.call(this)},get:function(e){return null==e?s.call(this):e<0?this[e+this.length]:this[e]},pushStack:function(e){var t=S.merge(this.constructor(),e);return t.prevObject=this,t},each:function(e){return S.each(this,e)},map:function(n){return this.pushStack(S.map(this,function(e,t){return n.call(e,t,e)}))},slice:function(){return this.pushStack(s.apply(this,arguments))},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},even:function(){return this.pushStack(S.grep(this,function(e,t){return(t+1)%2}))},odd:function(){return this.pushStack(S.grep(this,function(e,t){return t%2}))},eq:function(e){var t=this.length,n=+e+(e<0?t:0);return this.pushStack(0<=n&&n<t?[this[n]]:[])},end:function(){return this.prevObject||this.constructor()},push:u,sort:t.sort,splice:t.splice},S.extend=S.fn.extend=function(){var e,t,n,r,i,o,a=arguments[0]||{},s=1,u=arguments.length,l=!1;for("boolean"==typeof a&&(l=a,a=arguments[s]||{},s++),"object"==typeof a||m(a)||(a={}),s===u&&(a=this,s--);s<u;s++)if(null!=(e=arguments[s]))for(t in e)r=e[t],"__proto__"!==t&&a!==r&&(l&&r&&(S.isPlainObject(r)||(i=Array.isArray(r)))?(n=a[t],o=i&&!Array.isArray(n)?[]:i||S.isPlainObject(n)?n:{},i=!1,a[t]=S.extend(l,o,r)):void 0!==r&&(a[t]=r));return a},S.extend({expando:"jQuery"+(f+Math.random()).replace(/\D/g,""),isReady:!0,error:function(e){throw new Error(e)},noop:function(){},isPlainObject:function(e){var t,n;return!(!e||"[object Object]"!==o.call(e))&&(!(t=r(e))||"function"==typeof(n=v.call(t,"constructor")&&t.constructor)&&a.call(n)===l)},isEmptyObject:function(e){var t;for(t in e)return!1;return!0},globalEval:function(e,t,n){b(e,{nonce:t&&t.nonce},n)},each:function(e,t){var n,r=0;if(p(e)){for(n=e.length;r<n;r++)if(!1===t.call(e[r],r,e[r]))break}else for(r in e)if(!1===t.call(e[r],r,e[r]))break;return e},makeArray:function(e,t){var n=t||[];return null!=e&&(p(Object(e))?S.merge(n,"string"==typeof e?[e]:e):u.call(n,e)),n},inArray:function(e,t,n){return null==t?-1:i.call(t,e,n)},merge:function(e,t){for(var n=+t.length,r=0,i=e.length;r<n;r++)e[i++]=t[r];return e.length=i,e},grep:function(e,t,n){for(var r=[],i=0,o=e.length,a=!n;i<o;i++)!t(e[i],i)!==a&&r.push(e[i]);return r},map:function(e,t,n){var r,i,o=0,a=[];if(p(e))for(r=e.length;o<r;o++)null!=(i=t(e[o],o,n))&&a.push(i);else for(o in e)null!=(i=t(e[o],o,n))&&a.push(i);return g(a)},guid:1,support:y}),"function"==typeof Symbol&&(S.fn[Symbol.iterator]=t[Symbol.iterator]),S.each("Boolean Number String Function Array Date RegExp Object Error Symbol".split(" "),function(e,t){n["[object "+t+"]"]=t.toLowerCase()});var d=function(n){var e,d,b,o,i,h,f,g,w,u,l,T,C,a,E,v,s,c,y,S="sizzle"+1*new Date,p=n.document,k=0,r=0,m=ue(),x=ue(),A=ue(),N=ue(),j=function(e,t){return e===t&&(l=!0),0},D={}.hasOwnProperty,t=[],q=t.pop,L=t.push,H=t.push,O=t.slice,P=function(e,t){for(var n=0,r=e.length;n<r;n++)if(e[n]===t)return n;return-1},R="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",M="[\\x20\\t\\r\\n\\f]",I="(?:\\\\[\\da-fA-F]{1,6}"+M+"?|\\\\[^\\r\\n\\f]|[\\w-]|[^\0-\\x7f])+",W="\\["+M+"*("+I+")(?:"+M+"*([*^$|!~]?=)"+M+"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|("+I+"))|)"+M+"*\\]",F=":("+I+")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|"+W+")*)|.*)\\)|)",B=new RegExp(M+"+","g"),$=new RegExp("^"+M+"+|((?:^|[^\\\\])(?:\\\\.)*)"+M+"+$","g"),_=new RegExp("^"+M+"*,"+M+"*"),z=new RegExp("^"+M+"*([>+~]|"+M+")"+M+"*"),U=new RegExp(M+"|>"),X=new RegExp(F),V=new RegExp("^"+I+"$"),G={ID:new RegExp("^#("+I+")"),CLASS:new RegExp("^\\.("+I+")"),TAG:new RegExp("^("+I+"|[*])"),ATTR:new RegExp("^"+W),PSEUDO:new RegExp("^"+F),CHILD:new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\("+M+"*(even|odd|(([+-]|)(\\d*)n|)"+M+"*(?:([+-]|)"+M+"*(\\d+)|))"+M+"*\\)|)","i"),bool:new RegExp("^(?:"+R+")$","i"),needsContext:new RegExp("^"+M+"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\("+M+"*((?:-\\d)?\\d*)"+M+"*\\)|)(?=[^-]|$)","i")},Y=/HTML$/i,Q=/^(?:input|select|textarea|button)$/i,J=/^h\d$/i,K=/^[^{]+\{\s*\[native \w/,Z=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,ee=/[+~]/,te=new RegExp("\\\\[\\da-fA-F]{1,6}"+M+"?|\\\\([^\\r\\n\\f])","g"),ne=function(e,t){var n="0x"+e.slice(1)-65536;return t||(n<0?String.fromCharCode(n+65536):String.fromCharCode(n>>10|55296,1023&n|56320))},re=/([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g,ie=function(e,t){return t?"\0"===e?"\ufffd":e.slice(0,-1)+"\\"+e.charCodeAt(e.length-1).toString(16)+" ":"\\"+e},oe=function(){T()},ae=be(function(e){return!0===e.disabled&&"fieldset"===e.nodeName.toLowerCase()},{dir:"parentNode",next:"legend"});try{H.apply(t=O.call(p.childNodes),p.childNodes),t[p.childNodes.length].nodeType}catch(e){H={apply:t.length?function(e,t){L.apply(e,O.call(t))}:function(e,t){var n=e.length,r=0;while(e[n++]=t[r++]);e.length=n-1}}}function se(t,e,n,r){var i,o,a,s,u,l,c,f=e&&e.ownerDocument,p=e?e.nodeType:9;if(n=n||[],"string"!=typeof t||!t||1!==p&&9!==p&&11!==p)return n;if(!r&&(T(e),e=e||C,E)){if(11!==p&&(u=Z.exec(t)))if(i=u[1]){if(9===p){if(!(a=e.getElementById(i)))return n;if(a.id===i)return n.push(a),n}else if(f&&(a=f.getElementById(i))&&y(e,a)&&a.id===i)return n.push(a),n}else{if(u[2])return H.apply(n,e.getElementsByTagName(t)),n;if((i=u[3])&&d.getElementsByClassName&&e.getElementsByClassName)return H.apply(n,e.getElementsByClassName(i)),n}if(d.qsa&&!N[t+" "]&&(!v||!v.test(t))&&(1!==p||"object"!==e.nodeName.toLowerCase())){if(c=t,f=e,1===p&&(U.test(t)||z.test(t))){(f=ee.test(t)&&ye(e.parentNode)||e)===e&&d.scope||((s=e.getAttribute("id"))?s=s.replace(re,ie):e.setAttribute("id",s=S)),o=(l=h(t)).length;while(o--)l[o]=(s?"#"+s:":scope")+" "+xe(l[o]);c=l.join(",")}try{return H.apply(n,f.querySelectorAll(c)),n}catch(e){N(t,!0)}finally{s===S&&e.removeAttribute("id")}}}return g(t.replace($,"$1"),e,n,r)}function ue(){var r=[];return function e(t,n){return r.push(t+" ")>b.cacheLength&&delete e[r.shift()],e[t+" "]=n}}function le(e){return e[S]=!0,e}function ce(e){var t=C.createElement("fieldset");try{return!!e(t)}catch(e){return!1}finally{t.parentNode&&t.parentNode.removeChild(t),t=null}}function fe(e,t){var n=e.split("|"),r=n.length;while(r--)b.attrHandle[n[r]]=t}function pe(e,t){var n=t&&e,r=n&&1===e.nodeType&&1===t.nodeType&&e.sourceIndex-t.sourceIndex;if(r)return r;if(n)while(n=n.nextSibling)if(n===t)return-1;return e?1:-1}function de(t){return function(e){return"input"===e.nodeName.toLowerCase()&&e.type===t}}function he(n){return function(e){var t=e.nodeName.toLowerCase();return("input"===t||"button"===t)&&e.type===n}}function ge(t){return function(e){return"form"in e?e.parentNode&&!1===e.disabled?"label"in e?"label"in e.parentNode?e.parentNode.disabled===t:e.disabled===t:e.isDisabled===t||e.isDisabled!==!t&&ae(e)===t:e.disabled===t:"label"in e&&e.disabled===t}}function ve(a){return le(function(o){return o=+o,le(function(e,t){var n,r=a([],e.length,o),i=r.length;while(i--)e[n=r[i]]&&(e[n]=!(t[n]=e[n]))})})}function ye(e){return e&&"undefined"!=typeof e.getElementsByTagName&&e}for(e in d=se.support={},i=se.isXML=function(e){var t=e&&e.namespaceURI,n=e&&(e.ownerDocument||e).documentElement;return!Y.test(t||n&&n.nodeName||"HTML")},T=se.setDocument=function(e){var t,n,r=e?e.ownerDocument||e:p;return r!=C&&9===r.nodeType&&r.documentElement&&(a=(C=r).documentElement,E=!i(C),p!=C&&(n=C.defaultView)&&n.top!==n&&(n.addEventListener?n.addEventListener("unload",oe,!1):n.attachEvent&&n.attachEvent("onunload",oe)),d.scope=ce(function(e){return a.appendChild(e).appendChild(C.createElement("div")),"undefined"!=typeof e.querySelectorAll&&!e.querySelectorAll(":scope fieldset div").length}),d.attributes=ce(function(e){return e.className="i",!e.getAttribute("className")}),d.getElementsByTagName=ce(function(e){return e.appendChild(C.createComment("")),!e.getElementsByTagName("*").length}),d.getElementsByClassName=K.test(C.getElementsByClassName),d.getById=ce(function(e){return a.appendChild(e).id=S,!C.getElementsByName||!C.getElementsByName(S).length}),d.getById?(b.filter.ID=function(e){var t=e.replace(te,ne);return function(e){return e.getAttribute("id")===t}},b.find.ID=function(e,t){if("undefined"!=typeof t.getElementById&&E){var n=t.getElementById(e);return n?[n]:[]}}):(b.filter.ID=function(e){var n=e.replace(te,ne);return function(e){var t="undefined"!=typeof e.getAttributeNode&&e.getAttributeNode("id");return t&&t.value===n}},b.find.ID=function(e,t){if("undefined"!=typeof t.getElementById&&E){var n,r,i,o=t.getElementById(e);if(o){if((n=o.getAttributeNode("id"))&&n.value===e)return[o];i=t.getElementsByName(e),r=0;while(o=i[r++])if((n=o.getAttributeNode("id"))&&n.value===e)return[o]}return[]}}),b.find.TAG=d.getElementsByTagName?function(e,t){return"undefined"!=typeof t.getElementsByTagName?t.getElementsByTagName(e):d.qsa?t.querySelectorAll(e):void 0}:function(e,t){var n,r=[],i=0,o=t.getElementsByTagName(e);if("*"===e){while(n=o[i++])1===n.nodeType&&r.push(n);return r}return o},b.find.CLASS=d.getElementsByClassName&&function(e,t){if("undefined"!=typeof t.getElementsByClassName&&E)return t.getElementsByClassName(e)},s=[],v=[],(d.qsa=K.test(C.querySelectorAll))&&(ce(function(e){var t;a.appendChild(e).innerHTML="<a id='"+S+"'></a><select id='"+S+"-\r\\' msallowcapture=''><option selected=''></option></select>",e.querySelectorAll("[msallowcapture^='']").length&&v.push("[*^$]="+M+"*(?:''|\"\")"),e.querySelectorAll("[selected]").length||v.push("\\["+M+"*(?:value|"+R+")"),e.querySelectorAll("[id~="+S+"-]").length||v.push("~="),(t=C.createElement("input")).setAttribute("name",""),e.appendChild(t),e.querySelectorAll("[name='']").length||v.push("\\["+M+"*name"+M+"*="+M+"*(?:''|\"\")"),e.querySelectorAll(":checked").length||v.push(":checked"),e.querySelectorAll("a#"+S+"+*").length||v.push(".#.+[+~]"),e.querySelectorAll("\\\f"),v.push("[\\r\\n\\f]")}),ce(function(e){e.innerHTML="<a href='' disabled='disabled'></a><select disabled='disabled'><option/></select>";var t=C.createElement("input");t.setAttribute("type","hidden"),e.appendChild(t).setAttribute("name","D"),e.querySelectorAll("[name=d]").length&&v.push("name"+M+"*[*^$|!~]?="),2!==e.querySelectorAll(":enabled").length&&v.push(":enabled",":disabled"),a.appendChild(e).disabled=!0,2!==e.querySelectorAll(":disabled").length&&v.push(":enabled",":disabled"),e.querySelectorAll("*,:x"),v.push(",.*:")})),(d.matchesSelector=K.test(c=a.matches||a.webkitMatchesSelector||a.mozMatchesSelector||a.oMatchesSelector||a.msMatchesSelector))&&ce(function(e){d.disconnectedMatch=c.call(e,"*"),c.call(e,"[s!='']:x"),s.push("!=",F)}),v=v.length&&new RegExp(v.join("|")),s=s.length&&new RegExp(s.join("|")),t=K.test(a.compareDocumentPosition),y=t||K.test(a.contains)?function(e,t){var n=9===e.nodeType?e.documentElement:e,r=t&&t.parentNode;return e===r||!(!r||1!==r.nodeType||!(n.contains?n.contains(r):e.compareDocumentPosition&&16&e.compareDocumentPosition(r)))}:function(e,t){if(t)while(t=t.parentNode)if(t===e)return!0;return!1},j=t?function(e,t){if(e===t)return l=!0,0;var n=!e.compareDocumentPosition-!t.compareDocumentPosition;return n||(1&(n=(e.ownerDocument||e)==(t.ownerDocument||t)?e.compareDocumentPosition(t):1)||!d.sortDetached&&t.compareDocumentPosition(e)===n?e==C||e.ownerDocument==p&&y(p,e)?-1:t==C||t.ownerDocument==p&&y(p,t)?1:u?P(u,e)-P(u,t):0:4&n?-1:1)}:function(e,t){if(e===t)return l=!0,0;var n,r=0,i=e.parentNode,o=t.parentNode,a=[e],s=[t];if(!i||!o)return e==C?-1:t==C?1:i?-1:o?1:u?P(u,e)-P(u,t):0;if(i===o)return pe(e,t);n=e;while(n=n.parentNode)a.unshift(n);n=t;while(n=n.parentNode)s.unshift(n);while(a[r]===s[r])r++;return r?pe(a[r],s[r]):a[r]==p?-1:s[r]==p?1:0}),C},se.matches=function(e,t){return se(e,null,null,t)},se.matchesSelector=function(e,t){if(T(e),d.matchesSelector&&E&&!N[t+" "]&&(!s||!s.test(t))&&(!v||!v.test(t)))try{var n=c.call(e,t);if(n||d.disconnectedMatch||e.document&&11!==e.document.nodeType)return n}catch(e){N(t,!0)}return 0<se(t,C,null,[e]).length},se.contains=function(e,t){return(e.ownerDocument||e)!=C&&T(e),y(e,t)},se.attr=function(e,t){(e.ownerDocument||e)!=C&&T(e);var n=b.attrHandle[t.toLowerCase()],r=n&&D.call(b.attrHandle,t.toLowerCase())?n(e,t,!E):void 0;return void 0!==r?r:d.attributes||!E?e.getAttribute(t):(r=e.getAttributeNode(t))&&r.specified?r.value:null},se.escape=function(e){return(e+"").replace(re,ie)},se.error=function(e){throw new Error("Syntax error, unrecognized expression: "+e)},se.uniqueSort=function(e){var t,n=[],r=0,i=0;if(l=!d.detectDuplicates,u=!d.sortStable&&e.slice(0),e.sort(j),l){while(t=e[i++])t===e[i]&&(r=n.push(i));while(r--)e.splice(n[r],1)}return u=null,e},o=se.getText=function(e){var t,n="",r=0,i=e.nodeType;if(i){if(1===i||9===i||11===i){if("string"==typeof e.textContent)return e.textContent;for(e=e.firstChild;e;e=e.nextSibling)n+=o(e)}else if(3===i||4===i)return e.nodeValue}else while(t=e[r++])n+=o(t);return n},(b=se.selectors={cacheLength:50,createPseudo:le,match:G,attrHandle:{},find:{},relative:{">":{dir:"parentNode",first:!0}," ":{dir:"parentNode"},"+":{dir:"previousSibling",first:!0},"~":{dir:"previousSibling"}},preFilter:{ATTR:function(e){return e[1]=e[1].replace(te,ne),e[3]=(e[3]||e[4]||e[5]||"").replace(te,ne),"~="===e[2]&&(e[3]=" "+e[3]+" "),e.slice(0,4)},CHILD:function(e){return e[1]=e[1].toLowerCase(),"nth"===e[1].slice(0,3)?(e[3]||se.error(e[0]),e[4]=+(e[4]?e[5]+(e[6]||1):2*("even"===e[3]||"odd"===e[3])),e[5]=+(e[7]+e[8]||"odd"===e[3])):e[3]&&se.error(e[0]),e},PSEUDO:function(e){var t,n=!e[6]&&e[2];return G.CHILD.test(e[0])?null:(e[3]?e[2]=e[4]||e[5]||"":n&&X.test(n)&&(t=h(n,!0))&&(t=n.indexOf(")",n.length-t)-n.length)&&(e[0]=e[0].slice(0,t),e[2]=n.slice(0,t)),e.slice(0,3))}},filter:{TAG:function(e){var t=e.replace(te,ne).toLowerCase();return"*"===e?function(){return!0}:function(e){return e.nodeName&&e.nodeName.toLowerCase()===t}},CLASS:function(e){var t=m[e+" "];return t||(t=new RegExp("(^|"+M+")"+e+"("+M+"|$)"))&&m(e,function(e){return t.test("string"==typeof e.className&&e.className||"undefined"!=typeof e.getAttribute&&e.getAttribute("class")||"")})},ATTR:function(n,r,i){return function(e){var t=se.attr(e,n);return null==t?"!="===r:!r||(t+="","="===r?t===i:"!="===r?t!==i:"^="===r?i&&0===t.indexOf(i):"*="===r?i&&-1<t.indexOf(i):"$="===r?i&&t.slice(-i.length)===i:"~="===r?-1<(" "+t.replace(B," ")+" ").indexOf(i):"|="===r&&(t===i||t.slice(0,i.length+1)===i+"-"))}},CHILD:function(h,e,t,g,v){var y="nth"!==h.slice(0,3),m="last"!==h.slice(-4),x="of-type"===e;return 1===g&&0===v?function(e){return!!e.parentNode}:function(e,t,n){var r,i,o,a,s,u,l=y!==m?"nextSibling":"previousSibling",c=e.parentNode,f=x&&e.nodeName.toLowerCase(),p=!n&&!x,d=!1;if(c){if(y){while(l){a=e;while(a=a[l])if(x?a.nodeName.toLowerCase()===f:1===a.nodeType)return!1;u=l="only"===h&&!u&&"nextSibling"}return!0}if(u=[m?c.firstChild:c.lastChild],m&&p){d=(s=(r=(i=(o=(a=c)[S]||(a[S]={}))[a.uniqueID]||(o[a.uniqueID]={}))[h]||[])[0]===k&&r[1])&&r[2],a=s&&c.childNodes[s];while(a=++s&&a&&a[l]||(d=s=0)||u.pop())if(1===a.nodeType&&++d&&a===e){i[h]=[k,s,d];break}}else if(p&&(d=s=(r=(i=(o=(a=e)[S]||(a[S]={}))[a.uniqueID]||(o[a.uniqueID]={}))[h]||[])[0]===k&&r[1]),!1===d)while(a=++s&&a&&a[l]||(d=s=0)||u.pop())if((x?a.nodeName.toLowerCase()===f:1===a.nodeType)&&++d&&(p&&((i=(o=a[S]||(a[S]={}))[a.uniqueID]||(o[a.uniqueID]={}))[h]=[k,d]),a===e))break;return(d-=v)===g||d%g==0&&0<=d/g}}},PSEUDO:function(e,o){var t,a=b.pseudos[e]||b.setFilters[e.toLowerCase()]||se.error("unsupported pseudo: "+e);return a[S]?a(o):1<a.length?(t=[e,e,"",o],b.setFilters.hasOwnProperty(e.toLowerCase())?le(function(e,t){var n,r=a(e,o),i=r.length;while(i--)e[n=P(e,r[i])]=!(t[n]=r[i])}):function(e){return a(e,0,t)}):a}},pseudos:{not:le(function(e){var r=[],i=[],s=f(e.replace($,"$1"));return s[S]?le(function(e,t,n,r){var i,o=s(e,null,r,[]),a=e.length;while(a--)(i=o[a])&&(e[a]=!(t[a]=i))}):function(e,t,n){return r[0]=e,s(r,null,n,i),r[0]=null,!i.pop()}}),has:le(function(t){return function(e){return 0<se(t,e).length}}),contains:le(function(t){return t=t.replace(te,ne),function(e){return-1<(e.textContent||o(e)).indexOf(t)}}),lang:le(function(n){return V.test(n||"")||se.error("unsupported lang: "+n),n=n.replace(te,ne).toLowerCase(),function(e){var t;do{if(t=E?e.lang:e.getAttribute("xml:lang")||e.getAttribute("lang"))return(t=t.toLowerCase())===n||0===t.indexOf(n+"-")}while((e=e.parentNode)&&1===e.nodeType);return!1}}),target:function(e){var t=n.location&&n.location.hash;return t&&t.slice(1)===e.id},root:function(e){return e===a},focus:function(e){return e===C.activeElement&&(!C.hasFocus||C.hasFocus())&&!!(e.type||e.href||~e.tabIndex)},enabled:ge(!1),disabled:ge(!0),checked:function(e){var t=e.nodeName.toLowerCase();return"input"===t&&!!e.checked||"option"===t&&!!e.selected},selected:function(e){return e.parentNode&&e.parentNode.selectedIndex,!0===e.selected},empty:function(e){for(e=e.firstChild;e;e=e.nextSibling)if(e.nodeType<6)return!1;return!0},parent:function(e){return!b.pseudos.empty(e)},header:function(e){return J.test(e.nodeName)},input:function(e){return Q.test(e.nodeName)},button:function(e){var t=e.nodeName.toLowerCase();return"input"===t&&"button"===e.type||"button"===t},text:function(e){var t;return"input"===e.nodeName.toLowerCase()&&"text"===e.type&&(null==(t=e.getAttribute("type"))||"text"===t.toLowerCase())},first:ve(function(){return[0]}),last:ve(function(e,t){return[t-1]}),eq:ve(function(e,t,n){return[n<0?n+t:n]}),even:ve(function(e,t){for(var n=0;n<t;n+=2)e.push(n);return e}),odd:ve(function(e,t){for(var n=1;n<t;n+=2)e.push(n);return e}),lt:ve(function(e,t,n){for(var r=n<0?n+t:t<n?t:n;0<=--r;)e.push(r);return e}),gt:ve(function(e,t,n){for(var r=n<0?n+t:n;++r<t;)e.push(r);return e})}}).pseudos.nth=b.pseudos.eq,{radio:!0,checkbox:!0,file:!0,password:!0,image:!0})b.pseudos[e]=de(e);for(e in{submit:!0,reset:!0})b.pseudos[e]=he(e);function me(){}function xe(e){for(var t=0,n=e.length,r="";t<n;t++)r+=e[t].value;return r}function be(s,e,t){var u=e.dir,l=e.next,c=l||u,f=t&&"parentNode"===c,p=r++;return e.first?function(e,t,n){while(e=e[u])if(1===e.nodeType||f)return s(e,t,n);return!1}:function(e,t,n){var r,i,o,a=[k,p];if(n){while(e=e[u])if((1===e.nodeType||f)&&s(e,t,n))return!0}else while(e=e[u])if(1===e.nodeType||f)if(i=(o=e[S]||(e[S]={}))[e.uniqueID]||(o[e.uniqueID]={}),l&&l===e.nodeName.toLowerCase())e=e[u]||e;else{if((r=i[c])&&r[0]===k&&r[1]===p)return a[2]=r[2];if((i[c]=a)[2]=s(e,t,n))return!0}return!1}}function we(i){return 1<i.length?function(e,t,n){var r=i.length;while(r--)if(!i[r](e,t,n))return!1;return!0}:i[0]}function Te(e,t,n,r,i){for(var o,a=[],s=0,u=e.length,l=null!=t;s<u;s++)(o=e[s])&&(n&&!n(o,r,i)||(a.push(o),l&&t.push(s)));return a}function Ce(d,h,g,v,y,e){return v&&!v[S]&&(v=Ce(v)),y&&!y[S]&&(y=Ce(y,e)),le(function(e,t,n,r){var i,o,a,s=[],u=[],l=t.length,c=e||function(e,t,n){for(var r=0,i=t.length;r<i;r++)se(e,t[r],n);return n}(h||"*",n.nodeType?[n]:n,[]),f=!d||!e&&h?c:Te(c,s,d,n,r),p=g?y||(e?d:l||v)?[]:t:f;if(g&&g(f,p,n,r),v){i=Te(p,u),v(i,[],n,r),o=i.length;while(o--)(a=i[o])&&(p[u[o]]=!(f[u[o]]=a))}if(e){if(y||d){if(y){i=[],o=p.length;while(o--)(a=p[o])&&i.push(f[o]=a);y(null,p=[],i,r)}o=p.length;while(o--)(a=p[o])&&-1<(i=y?P(e,a):s[o])&&(e[i]=!(t[i]=a))}}else p=Te(p===t?p.splice(l,p.length):p),y?y(null,t,p,r):H.apply(t,p)})}function Ee(e){for(var i,t,n,r=e.length,o=b.relative[e[0].type],a=o||b.relative[" "],s=o?1:0,u=be(function(e){return e===i},a,!0),l=be(function(e){return-1<P(i,e)},a,!0),c=[function(e,t,n){var r=!o&&(n||t!==w)||((i=t).nodeType?u(e,t,n):l(e,t,n));return i=null,r}];s<r;s++)if(t=b.relative[e[s].type])c=[be(we(c),t)];else{if((t=b.filter[e[s].type].apply(null,e[s].matches))[S]){for(n=++s;n<r;n++)if(b.relative[e[n].type])break;return Ce(1<s&&we(c),1<s&&xe(e.slice(0,s-1).concat({value:" "===e[s-2].type?"*":""})).replace($,"$1"),t,s<n&&Ee(e.slice(s,n)),n<r&&Ee(e=e.slice(n)),n<r&&xe(e))}c.push(t)}return we(c)}return me.prototype=b.filters=b.pseudos,b.setFilters=new me,h=se.tokenize=function(e,t){var n,r,i,o,a,s,u,l=x[e+" "];if(l)return t?0:l.slice(0);a=e,s=[],u=b.preFilter;while(a){for(o in n&&!(r=_.exec(a))||(r&&(a=a.slice(r[0].length)||a),s.push(i=[])),n=!1,(r=z.exec(a))&&(n=r.shift(),i.push({value:n,type:r[0].replace($," ")}),a=a.slice(n.length)),b.filter)!(r=G[o].exec(a))||u[o]&&!(r=u[o](r))||(n=r.shift(),i.push({value:n,type:o,matches:r}),a=a.slice(n.length));if(!n)break}return t?a.length:a?se.error(e):x(e,s).slice(0)},f=se.compile=function(e,t){var n,v,y,m,x,r,i=[],o=[],a=A[e+" "];if(!a){t||(t=h(e)),n=t.length;while(n--)(a=Ee(t[n]))[S]?i.push(a):o.push(a);(a=A(e,(v=o,m=0<(y=i).length,x=0<v.length,r=function(e,t,n,r,i){var o,a,s,u=0,l="0",c=e&&[],f=[],p=w,d=e||x&&b.find.TAG("*",i),h=k+=null==p?1:Math.random()||.1,g=d.length;for(i&&(w=t==C||t||i);l!==g&&null!=(o=d[l]);l++){if(x&&o){a=0,t||o.ownerDocument==C||(T(o),n=!E);while(s=v[a++])if(s(o,t||C,n)){r.push(o);break}i&&(k=h)}m&&((o=!s&&o)&&u--,e&&c.push(o))}if(u+=l,m&&l!==u){a=0;while(s=y[a++])s(c,f,t,n);if(e){if(0<u)while(l--)c[l]||f[l]||(f[l]=q.call(r));f=Te(f)}H.apply(r,f),i&&!e&&0<f.length&&1<u+y.length&&se.uniqueSort(r)}return i&&(k=h,w=p),c},m?le(r):r))).selector=e}return a},g=se.select=function(e,t,n,r){var i,o,a,s,u,l="function"==typeof e&&e,c=!r&&h(e=l.selector||e);if(n=n||[],1===c.length){if(2<(o=c[0]=c[0].slice(0)).length&&"ID"===(a=o[0]).type&&9===t.nodeType&&E&&b.relative[o[1].type]){if(!(t=(b.find.ID(a.matches[0].replace(te,ne),t)||[])[0]))return n;l&&(t=t.parentNode),e=e.slice(o.shift().value.length)}i=G.needsContext.test(e)?0:o.length;while(i--){if(a=o[i],b.relative[s=a.type])break;if((u=b.find[s])&&(r=u(a.matches[0].replace(te,ne),ee.test(o[0].type)&&ye(t.parentNode)||t))){if(o.splice(i,1),!(e=r.length&&xe(o)))return H.apply(n,r),n;break}}}return(l||f(e,c))(r,t,!E,n,!t||ee.test(e)&&ye(t.parentNode)||t),n},d.sortStable=S.split("").sort(j).join("")===S,d.detectDuplicates=!!l,T(),d.sortDetached=ce(function(e){return 1&e.compareDocumentPosition(C.createElement("fieldset"))}),ce(function(e){return e.innerHTML="<a href='#'></a>","#"===e.firstChild.getAttribute("href")})||fe("type|href|height|width",function(e,t,n){if(!n)return e.getAttribute(t,"type"===t.toLowerCase()?1:2)}),d.attributes&&ce(function(e){return e.innerHTML="<input/>",e.firstChild.setAttribute("value",""),""===e.firstChild.getAttribute("value")})||fe("value",function(e,t,n){if(!n&&"input"===e.nodeName.toLowerCase())return e.defaultValue}),ce(function(e){return null==e.getAttribute("disabled")})||fe(R,function(e,t,n){var r;if(!n)return!0===e[t]?t.toLowerCase():(r=e.getAttributeNode(t))&&r.specified?r.value:null}),se}(C);S.find=d,S.expr=d.selectors,S.expr[":"]=S.expr.pseudos,S.uniqueSort=S.unique=d.uniqueSort,S.text=d.getText,S.isXMLDoc=d.isXML,S.contains=d.contains,S.escapeSelector=d.escape;var h=function(e,t,n){var r=[],i=void 0!==n;while((e=e[t])&&9!==e.nodeType)if(1===e.nodeType){if(i&&S(e).is(n))break;r.push(e)}return r},T=function(e,t){for(var n=[];e;e=e.nextSibling)1===e.nodeType&&e!==t&&n.push(e);return n},k=S.expr.match.needsContext;function A(e,t){return e.nodeName&&e.nodeName.toLowerCase()===t.toLowerCase()}var N=/^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i;function j(e,n,r){return m(n)?S.grep(e,function(e,t){return!!n.call(e,t,e)!==r}):n.nodeType?S.grep(e,function(e){return e===n!==r}):"string"!=typeof n?S.grep(e,function(e){return-1<i.call(n,e)!==r}):S.filter(n,e,r)}S.filter=function(e,t,n){var r=t[0];return n&&(e=":not("+e+")"),1===t.length&&1===r.nodeType?S.find.matchesSelector(r,e)?[r]:[]:S.find.matches(e,S.grep(t,function(e){return 1===e.nodeType}))},S.fn.extend({find:function(e){var t,n,r=this.length,i=this;if("string"!=typeof e)return this.pushStack(S(e).filter(function(){for(t=0;t<r;t++)if(S.contains(i[t],this))return!0}));for(n=this.pushStack([]),t=0;t<r;t++)S.find(e,i[t],n);return 1<r?S.uniqueSort(n):n},filter:function(e){return this.pushStack(j(this,e||[],!1))},not:function(e){return this.pushStack(j(this,e||[],!0))},is:function(e){return!!j(this,"string"==typeof e&&k.test(e)?S(e):e||[],!1).length}});var D,q=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/;(S.fn.init=function(e,t,n){var r,i;if(!e)return this;if(n=n||D,"string"==typeof e){if(!(r="<"===e[0]&&">"===e[e.length-1]&&3<=e.length?[null,e,null]:q.exec(e))||!r[1]&&t)return!t||t.jquery?(t||n).find(e):this.constructor(t).find(e);if(r[1]){if(t=t instanceof S?t[0]:t,S.merge(this,S.parseHTML(r[1],t&&t.nodeType?t.ownerDocument||t:E,!0)),N.test(r[1])&&S.isPlainObject(t))for(r in t)m(this[r])?this[r](t[r]):this.attr(r,t[r]);return this}return(i=E.getElementById(r[2]))&&(this[0]=i,this.length=1),this}return e.nodeType?(this[0]=e,this.length=1,this):m(e)?void 0!==n.ready?n.ready(e):e(S):S.makeArray(e,this)}).prototype=S.fn,D=S(E);var L=/^(?:parents|prev(?:Until|All))/,H={children:!0,contents:!0,next:!0,prev:!0};function O(e,t){while((e=e[t])&&1!==e.nodeType);return e}S.fn.extend({has:function(e){var t=S(e,this),n=t.length;return this.filter(function(){for(var e=0;e<n;e++)if(S.contains(this,t[e]))return!0})},closest:function(e,t){var n,r=0,i=this.length,o=[],a="string"!=typeof e&&S(e);if(!k.test(e))for(;r<i;r++)for(n=this[r];n&&n!==t;n=n.parentNode)if(n.nodeType<11&&(a?-1<a.index(n):1===n.nodeType&&S.find.matchesSelector(n,e))){o.push(n);break}return this.pushStack(1<o.length?S.uniqueSort(o):o)},index:function(e){return e?"string"==typeof e?i.call(S(e),this[0]):i.call(this,e.jquery?e[0]:e):this[0]&&this[0].parentNode?this.first().prevAll().length:-1},add:function(e,t){return this.pushStack(S.uniqueSort(S.merge(this.get(),S(e,t))))},addBack:function(e){return this.add(null==e?this.prevObject:this.prevObject.filter(e))}}),S.each({parent:function(e){var t=e.parentNode;return t&&11!==t.nodeType?t:null},parents:function(e){return h(e,"parentNode")},parentsUntil:function(e,t,n){return h(e,"parentNode",n)},next:function(e){return O(e,"nextSibling")},prev:function(e){return O(e,"previousSibling")},nextAll:function(e){return h(e,"nextSibling")},prevAll:function(e){return h(e,"previousSibling")},nextUntil:function(e,t,n){return h(e,"nextSibling",n)},prevUntil:function(e,t,n){return h(e,"previousSibling",n)},siblings:function(e){return T((e.parentNode||{}).firstChild,e)},children:function(e){return T(e.firstChild)},contents:function(e){return null!=e.contentDocument&&r(e.contentDocument)?e.contentDocument:(A(e,"template")&&(e=e.content||e),S.merge([],e.childNodes))}},function(r,i){S.fn[r]=function(e,t){var n=S.map(this,i,e);return"Until"!==r.slice(-5)&&(t=e),t&&"string"==typeof t&&(n=S.filter(t,n)),1<this.length&&(H[r]||S.uniqueSort(n),L.test(r)&&n.reverse()),this.pushStack(n)}});var P=/[^\x20\t\r\n\f]+/g;function R(e){return e}function M(e){throw e}function I(e,t,n,r){var i;try{e&&m(i=e.promise)?i.call(e).done(t).fail(n):e&&m(i=e.then)?i.call(e,t,n):t.apply(void 0,[e].slice(r))}catch(e){n.apply(void 0,[e])}}S.Callbacks=function(r){var e,n;r="string"==typeof r?(e=r,n={},S.each(e.match(P)||[],function(e,t){n[t]=!0}),n):S.extend({},r);var i,t,o,a,s=[],u=[],l=-1,c=function(){for(a=a||r.once,o=i=!0;u.length;l=-1){t=u.shift();while(++l<s.length)!1===s[l].apply(t[0],t[1])&&r.stopOnFalse&&(l=s.length,t=!1)}r.memory||(t=!1),i=!1,a&&(s=t?[]:"")},f={add:function(){return s&&(t&&!i&&(l=s.length-1,u.push(t)),function n(e){S.each(e,function(e,t){m(t)?r.unique&&f.has(t)||s.push(t):t&&t.length&&"string"!==w(t)&&n(t)})}(arguments),t&&!i&&c()),this},remove:function(){return S.each(arguments,function(e,t){var n;while(-1<(n=S.inArray(t,s,n)))s.splice(n,1),n<=l&&l--}),this},has:function(e){return e?-1<S.inArray(e,s):0<s.length},empty:function(){return s&&(s=[]),this},disable:function(){return a=u=[],s=t="",this},disabled:function(){return!s},lock:function(){return a=u=[],t||i||(s=t=""),this},locked:function(){return!!a},fireWith:function(e,t){return a||(t=[e,(t=t||[]).slice?t.slice():t],u.push(t),i||c()),this},fire:function(){return f.fireWith(this,arguments),this},fired:function(){return!!o}};return f},S.extend({Deferred:function(e){var o=[["notify","progress",S.Callbacks("memory"),S.Callbacks("memory"),2],["resolve","done",S.Callbacks("once memory"),S.Callbacks("once memory"),0,"resolved"],["reject","fail",S.Callbacks("once memory"),S.Callbacks("once memory"),1,"rejected"]],i="pending",a={state:function(){return i},always:function(){return s.done(arguments).fail(arguments),this},"catch":function(e){return a.then(null,e)},pipe:function(){var i=arguments;return S.Deferred(function(r){S.each(o,function(e,t){var n=m(i[t[4]])&&i[t[4]];s[t[1]](function(){var e=n&&n.apply(this,arguments);e&&m(e.promise)?e.promise().progress(r.notify).done(r.resolve).fail(r.reject):r[t[0]+"With"](this,n?[e]:arguments)})}),i=null}).promise()},then:function(t,n,r){var u=0;function l(i,o,a,s){return function(){var n=this,r=arguments,e=function(){var e,t;if(!(i<u)){if((e=a.apply(n,r))===o.promise())throw new TypeError("Thenable self-resolution");t=e&&("object"==typeof e||"function"==typeof e)&&e.then,m(t)?s?t.call(e,l(u,o,R,s),l(u,o,M,s)):(u++,t.call(e,l(u,o,R,s),l(u,o,M,s),l(u,o,R,o.notifyWith))):(a!==R&&(n=void 0,r=[e]),(s||o.resolveWith)(n,r))}},t=s?e:function(){try{e()}catch(e){S.Deferred.exceptionHook&&S.Deferred.exceptionHook(e,t.stackTrace),u<=i+1&&(a!==M&&(n=void 0,r=[e]),o.rejectWith(n,r))}};i?t():(S.Deferred.getStackHook&&(t.stackTrace=S.Deferred.getStackHook()),C.setTimeout(t))}}return S.Deferred(function(e){o[0][3].add(l(0,e,m(r)?r:R,e.notifyWith)),o[1][3].add(l(0,e,m(t)?t:R)),o[2][3].add(l(0,e,m(n)?n:M))}).promise()},promise:function(e){return null!=e?S.extend(e,a):a}},s={};return S.each(o,function(e,t){var n=t[2],r=t[5];a[t[1]]=n.add,r&&n.add(function(){i=r},o[3-e][2].disable,o[3-e][3].disable,o[0][2].lock,o[0][3].lock),n.add(t[3].fire),s[t[0]]=function(){return s[t[0]+"With"](this===s?void 0:this,arguments),this},s[t[0]+"With"]=n.fireWith}),a.promise(s),e&&e.call(s,s),s},when:function(e){var n=arguments.length,t=n,r=Array(t),i=s.call(arguments),o=S.Deferred(),a=function(t){return function(e){r[t]=this,i[t]=1<arguments.length?s.call(arguments):e,--n||o.resolveWith(r,i)}};if(n<=1&&(I(e,o.done(a(t)).resolve,o.reject,!n),"pending"===o.state()||m(i[t]&&i[t].then)))return o.then();while(t--)I(i[t],a(t),o.reject);return o.promise()}});var W=/^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;S.Deferred.exceptionHook=function(e,t){C.console&&C.console.warn&&e&&W.test(e.name)&&C.console.warn("jQuery.Deferred exception: "+e.message,e.stack,t)},S.readyException=function(e){C.setTimeout(function(){throw e})};var F=S.Deferred();function B(){E.removeEventListener("DOMContentLoaded",B),C.removeEventListener("load",B),S.ready()}S.fn.ready=function(e){return F.then(e)["catch"](function(e){S.readyException(e)}),this},S.extend({isReady:!1,readyWait:1,ready:function(e){(!0===e?--S.readyWait:S.isReady)||(S.isReady=!0)!==e&&0<--S.readyWait||F.resolveWith(E,[S])}}),S.ready.then=F.then,"complete"===E.readyState||"loading"!==E.readyState&&!E.documentElement.doScroll?C.setTimeout(S.ready):(E.addEventListener("DOMContentLoaded",B),C.addEventListener("load",B));var $=function(e,t,n,r,i,o,a){var s=0,u=e.length,l=null==n;if("object"===w(n))for(s in i=!0,n)$(e,t,s,n[s],!0,o,a);else if(void 0!==r&&(i=!0,m(r)||(a=!0),l&&(a?(t.call(e,r),t=null):(l=t,t=function(e,t,n){return l.call(S(e),n)})),t))for(;s<u;s++)t(e[s],n,a?r:r.call(e[s],s,t(e[s],n)));return i?e:l?t.call(e):u?t(e[0],n):o},_=/^-ms-/,z=/-([a-z])/g;function U(e,t){return t.toUpperCase()}function X(e){return e.replace(_,"ms-").replace(z,U)}var V=function(e){return 1===e.nodeType||9===e.nodeType||!+e.nodeType};function G(){this.expando=S.expando+G.uid++}G.uid=1,G.prototype={cache:function(e){var t=e[this.expando];return t||(t={},V(e)&&(e.nodeType?e[this.expando]=t:Object.defineProperty(e,this.expando,{value:t,configurable:!0}))),t},set:function(e,t,n){var r,i=this.cache(e);if("string"==typeof t)i[X(t)]=n;else for(r in t)i[X(r)]=t[r];return i},get:function(e,t){return void 0===t?this.cache(e):e[this.expando]&&e[this.expando][X(t)]},access:function(e,t,n){return void 0===t||t&&"string"==typeof t&&void 0===n?this.get(e,t):(this.set(e,t,n),void 0!==n?n:t)},remove:function(e,t){var n,r=e[this.expando];if(void 0!==r){if(void 0!==t){n=(t=Array.isArray(t)?t.map(X):(t=X(t))in r?[t]:t.match(P)||[]).length;while(n--)delete r[t[n]]}(void 0===t||S.isEmptyObject(r))&&(e.nodeType?e[this.expando]=void 0:delete e[this.expando])}},hasData:function(e){var t=e[this.expando];return void 0!==t&&!S.isEmptyObject(t)}};var Y=new G,Q=new G,J=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,K=/[A-Z]/g;function Z(e,t,n){var r,i;if(void 0===n&&1===e.nodeType)if(r="data-"+t.replace(K,"-$&").toLowerCase(),"string"==typeof(n=e.getAttribute(r))){try{n="true"===(i=n)||"false"!==i&&("null"===i?null:i===+i+""?+i:J.test(i)?JSON.parse(i):i)}catch(e){}Q.set(e,t,n)}else n=void 0;return n}S.extend({hasData:function(e){return Q.hasData(e)||Y.hasData(e)},data:function(e,t,n){return Q.access(e,t,n)},removeData:function(e,t){Q.remove(e,t)},_data:function(e,t,n){return Y.access(e,t,n)},_removeData:function(e,t){Y.remove(e,t)}}),S.fn.extend({data:function(n,e){var t,r,i,o=this[0],a=o&&o.attributes;if(void 0===n){if(this.length&&(i=Q.get(o),1===o.nodeType&&!Y.get(o,"hasDataAttrs"))){t=a.length;while(t--)a[t]&&0===(r=a[t].name).indexOf("data-")&&(r=X(r.slice(5)),Z(o,r,i[r]));Y.set(o,"hasDataAttrs",!0)}return i}return"object"==typeof n?this.each(function(){Q.set(this,n)}):$(this,function(e){var t;if(o&&void 0===e)return void 0!==(t=Q.get(o,n))?t:void 0!==(t=Z(o,n))?t:void 0;this.each(function(){Q.set(this,n,e)})},null,e,1<arguments.length,null,!0)},removeData:function(e){return this.each(function(){Q.remove(this,e)})}}),S.extend({queue:function(e,t,n){var r;if(e)return t=(t||"fx")+"queue",r=Y.get(e,t),n&&(!r||Array.isArray(n)?r=Y.access(e,t,S.makeArray(n)):r.push(n)),r||[]},dequeue:function(e,t){t=t||"fx";var n=S.queue(e,t),r=n.length,i=n.shift(),o=S._queueHooks(e,t);"inprogress"===i&&(i=n.shift(),r--),i&&("fx"===t&&n.unshift("inprogress"),delete o.stop,i.call(e,function(){S.dequeue(e,t)},o)),!r&&o&&o.empty.fire()},_queueHooks:function(e,t){var n=t+"queueHooks";return Y.get(e,n)||Y.access(e,n,{empty:S.Callbacks("once memory").add(function(){Y.remove(e,[t+"queue",n])})})}}),S.fn.extend({queue:function(t,n){var e=2;return"string"!=typeof t&&(n=t,t="fx",e--),arguments.length<e?S.queue(this[0],t):void 0===n?this:this.each(function(){var e=S.queue(this,t,n);S._queueHooks(this,t),"fx"===t&&"inprogress"!==e[0]&&S.dequeue(this,t)})},dequeue:function(e){return this.each(function(){S.dequeue(this,e)})},clearQueue:function(e){return this.queue(e||"fx",[])},promise:function(e,t){var n,r=1,i=S.Deferred(),o=this,a=this.length,s=function(){--r||i.resolveWith(o,[o])};"string"!=typeof e&&(t=e,e=void 0),e=e||"fx";while(a--)(n=Y.get(o[a],e+"queueHooks"))&&n.empty&&(r++,n.empty.add(s));return s(),i.promise(t)}});var ee=/[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source,te=new RegExp("^(?:([+-])=|)("+ee+")([a-z%]*)$","i"),ne=["Top","Right","Bottom","Left"],re=E.documentElement,ie=function(e){return S.contains(e.ownerDocument,e)},oe={composed:!0};re.getRootNode&&(ie=function(e){return S.contains(e.ownerDocument,e)||e.getRootNode(oe)===e.ownerDocument});var ae=function(e,t){return"none"===(e=t||e).style.display||""===e.style.display&&ie(e)&&"none"===S.css(e,"display")};function se(e,t,n,r){var i,o,a=20,s=r?function(){return r.cur()}:function(){return S.css(e,t,"")},u=s(),l=n&&n[3]||(S.cssNumber[t]?"":"px"),c=e.nodeType&&(S.cssNumber[t]||"px"!==l&&+u)&&te.exec(S.css(e,t));if(c&&c[3]!==l){u/=2,l=l||c[3],c=+u||1;while(a--)S.style(e,t,c+l),(1-o)*(1-(o=s()/u||.5))<=0&&(a=0),c/=o;c*=2,S.style(e,t,c+l),n=n||[]}return n&&(c=+c||+u||0,i=n[1]?c+(n[1]+1)*n[2]:+n[2],r&&(r.unit=l,r.start=c,r.end=i)),i}var ue={};function le(e,t){for(var n,r,i,o,a,s,u,l=[],c=0,f=e.length;c<f;c++)(r=e[c]).style&&(n=r.style.display,t?("none"===n&&(l[c]=Y.get(r,"display")||null,l[c]||(r.style.display="")),""===r.style.display&&ae(r)&&(l[c]=(u=a=o=void 0,a=(i=r).ownerDocument,s=i.nodeName,(u=ue[s])||(o=a.body.appendChild(a.createElement(s)),u=S.css(o,"display"),o.parentNode.removeChild(o),"none"===u&&(u="block"),ue[s]=u)))):"none"!==n&&(l[c]="none",Y.set(r,"display",n)));for(c=0;c<f;c++)null!=l[c]&&(e[c].style.display=l[c]);return e}S.fn.extend({show:function(){return le(this,!0)},hide:function(){return le(this)},toggle:function(e){return"boolean"==typeof e?e?this.show():this.hide():this.each(function(){ae(this)?S(this).show():S(this).hide()})}});var ce,fe,pe=/^(?:checkbox|radio)$/i,de=/<([a-z][^\/\0>\x20\t\r\n\f]*)/i,he=/^$|^module$|\/(?:java|ecma)script/i;ce=E.createDocumentFragment().appendChild(E.createElement("div")),(fe=E.createElement("input")).setAttribute("type","radio"),fe.setAttribute("checked","checked"),fe.setAttribute("name","t"),ce.appendChild(fe),y.checkClone=ce.cloneNode(!0).cloneNode(!0).lastChild.checked,ce.innerHTML="<textarea>x</textarea>",y.noCloneChecked=!!ce.cloneNode(!0).lastChild.defaultValue,ce.innerHTML="<option></option>",y.option=!!ce.lastChild;var ge={thead:[1,"<table>","</table>"],col:[2,"<table><colgroup>","</colgroup></table>"],tr:[2,"<table><tbody>","</tbody></table>"],td:[3,"<table><tbody><tr>","</tr></tbody></table>"],_default:[0,"",""]};function ve(e,t){var n;return n="undefined"!=typeof e.getElementsByTagName?e.getElementsByTagName(t||"*"):"undefined"!=typeof e.querySelectorAll?e.querySelectorAll(t||"*"):[],void 0===t||t&&A(e,t)?S.merge([e],n):n}function ye(e,t){for(var n=0,r=e.length;n<r;n++)Y.set(e[n],"globalEval",!t||Y.get(t[n],"globalEval"))}ge.tbody=ge.tfoot=ge.colgroup=ge.caption=ge.thead,ge.th=ge.td,y.option||(ge.optgroup=ge.option=[1,"<select multiple='multiple'>","</select>"]);var me=/<|&#?\w+;/;function xe(e,t,n,r,i){for(var o,a,s,u,l,c,f=t.createDocumentFragment(),p=[],d=0,h=e.length;d<h;d++)if((o=e[d])||0===o)if("object"===w(o))S.merge(p,o.nodeType?[o]:o);else if(me.test(o)){a=a||f.appendChild(t.createElement("div")),s=(de.exec(o)||["",""])[1].toLowerCase(),u=ge[s]||ge._default,a.innerHTML=u[1]+S.htmlPrefilter(o)+u[2],c=u[0];while(c--)a=a.lastChild;S.merge(p,a.childNodes),(a=f.firstChild).textContent=""}else p.push(t.createTextNode(o));f.textContent="",d=0;while(o=p[d++])if(r&&-1<S.inArray(o,r))i&&i.push(o);else if(l=ie(o),a=ve(f.appendChild(o),"script"),l&&ye(a),n){c=0;while(o=a[c++])he.test(o.type||"")&&n.push(o)}return f}var be=/^([^.]*)(?:\.(.+)|)/;function we(){return!0}function Te(){return!1}function Ce(e,t){return e===function(){try{return E.activeElement}catch(e){}}()==("focus"===t)}function Ee(e,t,n,r,i,o){var a,s;if("object"==typeof t){for(s in"string"!=typeof n&&(r=r||n,n=void 0),t)Ee(e,s,n,r,t[s],o);return e}if(null==r&&null==i?(i=n,r=n=void 0):null==i&&("string"==typeof n?(i=r,r=void 0):(i=r,r=n,n=void 0)),!1===i)i=Te;else if(!i)return e;return 1===o&&(a=i,(i=function(e){return S().off(e),a.apply(this,arguments)}).guid=a.guid||(a.guid=S.guid++)),e.each(function(){S.event.add(this,t,i,r,n)})}function Se(e,i,o){o?(Y.set(e,i,!1),S.event.add(e,i,{namespace:!1,handler:function(e){var t,n,r=Y.get(this,i);if(1&e.isTrigger&&this[i]){if(r.length)(S.event.special[i]||{}).delegateType&&e.stopPropagation();else if(r=s.call(arguments),Y.set(this,i,r),t=o(this,i),this[i](),r!==(n=Y.get(this,i))||t?Y.set(this,i,!1):n={},r!==n)return e.stopImmediatePropagation(),e.preventDefault(),n&&n.value}else r.length&&(Y.set(this,i,{value:S.event.trigger(S.extend(r[0],S.Event.prototype),r.slice(1),this)}),e.stopImmediatePropagation())}})):void 0===Y.get(e,i)&&S.event.add(e,i,we)}S.event={global:{},add:function(t,e,n,r,i){var o,a,s,u,l,c,f,p,d,h,g,v=Y.get(t);if(V(t)){n.handler&&(n=(o=n).handler,i=o.selector),i&&S.find.matchesSelector(re,i),n.guid||(n.guid=S.guid++),(u=v.events)||(u=v.events=Object.create(null)),(a=v.handle)||(a=v.handle=function(e){return"undefined"!=typeof S&&S.event.triggered!==e.type?S.event.dispatch.apply(t,arguments):void 0}),l=(e=(e||"").match(P)||[""]).length;while(l--)d=g=(s=be.exec(e[l])||[])[1],h=(s[2]||"").split(".").sort(),d&&(f=S.event.special[d]||{},d=(i?f.delegateType:f.bindType)||d,f=S.event.special[d]||{},c=S.extend({type:d,origType:g,data:r,handler:n,guid:n.guid,selector:i,needsContext:i&&S.expr.match.needsContext.test(i),namespace:h.join(".")},o),(p=u[d])||((p=u[d]=[]).delegateCount=0,f.setup&&!1!==f.setup.call(t,r,h,a)||t.addEventListener&&t.addEventListener(d,a)),f.add&&(f.add.call(t,c),c.handler.guid||(c.handler.guid=n.guid)),i?p.splice(p.delegateCount++,0,c):p.push(c),S.event.global[d]=!0)}},remove:function(e,t,n,r,i){var o,a,s,u,l,c,f,p,d,h,g,v=Y.hasData(e)&&Y.get(e);if(v&&(u=v.events)){l=(t=(t||"").match(P)||[""]).length;while(l--)if(d=g=(s=be.exec(t[l])||[])[1],h=(s[2]||"").split(".").sort(),d){f=S.event.special[d]||{},p=u[d=(r?f.delegateType:f.bindType)||d]||[],s=s[2]&&new RegExp("(^|\\.)"+h.join("\\.(?:.*\\.|)")+"(\\.|$)"),a=o=p.length;while(o--)c=p[o],!i&&g!==c.origType||n&&n.guid!==c.guid||s&&!s.test(c.namespace)||r&&r!==c.selector&&("**"!==r||!c.selector)||(p.splice(o,1),c.selector&&p.delegateCount--,f.remove&&f.remove.call(e,c));a&&!p.length&&(f.teardown&&!1!==f.teardown.call(e,h,v.handle)||S.removeEvent(e,d,v.handle),delete u[d])}else for(d in u)S.event.remove(e,d+t[l],n,r,!0);S.isEmptyObject(u)&&Y.remove(e,"handle events")}},dispatch:function(e){var t,n,r,i,o,a,s=new Array(arguments.length),u=S.event.fix(e),l=(Y.get(this,"events")||Object.create(null))[u.type]||[],c=S.event.special[u.type]||{};for(s[0]=u,t=1;t<arguments.length;t++)s[t]=arguments[t];if(u.delegateTarget=this,!c.preDispatch||!1!==c.preDispatch.call(this,u)){a=S.event.handlers.call(this,u,l),t=0;while((i=a[t++])&&!u.isPropagationStopped()){u.currentTarget=i.elem,n=0;while((o=i.handlers[n++])&&!u.isImmediatePropagationStopped())u.rnamespace&&!1!==o.namespace&&!u.rnamespace.test(o.namespace)||(u.handleObj=o,u.data=o.data,void 0!==(r=((S.event.special[o.origType]||{}).handle||o.handler).apply(i.elem,s))&&!1===(u.result=r)&&(u.preventDefault(),u.stopPropagation()))}return c.postDispatch&&c.postDispatch.call(this,u),u.result}},handlers:function(e,t){var n,r,i,o,a,s=[],u=t.delegateCount,l=e.target;if(u&&l.nodeType&&!("click"===e.type&&1<=e.button))for(;l!==this;l=l.parentNode||this)if(1===l.nodeType&&("click"!==e.type||!0!==l.disabled)){for(o=[],a={},n=0;n<u;n++)void 0===a[i=(r=t[n]).selector+" "]&&(a[i]=r.needsContext?-1<S(i,this).index(l):S.find(i,this,null,[l]).length),a[i]&&o.push(r);o.length&&s.push({elem:l,handlers:o})}return l=this,u<t.length&&s.push({elem:l,handlers:t.slice(u)}),s},addProp:function(t,e){Object.defineProperty(S.Event.prototype,t,{enumerable:!0,configurable:!0,get:m(e)?function(){if(this.originalEvent)return e(this.originalEvent)}:function(){if(this.originalEvent)return this.originalEvent[t]},set:function(e){Object.defineProperty(this,t,{enumerable:!0,configurable:!0,writable:!0,value:e})}})},fix:function(e){return e[S.expando]?e:new S.Event(e)},special:{load:{noBubble:!0},click:{setup:function(e){var t=this||e;return pe.test(t.type)&&t.click&&A(t,"input")&&Se(t,"click",we),!1},trigger:function(e){var t=this||e;return pe.test(t.type)&&t.click&&A(t,"input")&&Se(t,"click"),!0},_default:function(e){var t=e.target;return pe.test(t.type)&&t.click&&A(t,"input")&&Y.get(t,"click")||A(t,"a")}},beforeunload:{postDispatch:function(e){void 0!==e.result&&e.originalEvent&&(e.originalEvent.returnValue=e.result)}}}},S.removeEvent=function(e,t,n){e.removeEventListener&&e.removeEventListener(t,n)},S.Event=function(e,t){if(!(this instanceof S.Event))return new S.Event(e,t);e&&e.type?(this.originalEvent=e,this.type=e.type,this.isDefaultPrevented=e.defaultPrevented||void 0===e.defaultPrevented&&!1===e.returnValue?we:Te,this.target=e.target&&3===e.target.nodeType?e.target.parentNode:e.target,this.currentTarget=e.currentTarget,this.relatedTarget=e.relatedTarget):this.type=e,t&&S.extend(this,t),this.timeStamp=e&&e.timeStamp||Date.now(),this[S.expando]=!0},S.Event.prototype={constructor:S.Event,isDefaultPrevented:Te,isPropagationStopped:Te,isImmediatePropagationStopped:Te,isSimulated:!1,preventDefault:function(){var e=this.originalEvent;this.isDefaultPrevented=we,e&&!this.isSimulated&&e.preventDefault()},stopPropagation:function(){var e=this.originalEvent;this.isPropagationStopped=we,e&&!this.isSimulated&&e.stopPropagation()},stopImmediatePropagation:function(){var e=this.originalEvent;this.isImmediatePropagationStopped=we,e&&!this.isSimulated&&e.stopImmediatePropagation(),this.stopPropagation()}},S.each({altKey:!0,bubbles:!0,cancelable:!0,changedTouches:!0,ctrlKey:!0,detail:!0,eventPhase:!0,metaKey:!0,pageX:!0,pageY:!0,shiftKey:!0,view:!0,"char":!0,code:!0,charCode:!0,key:!0,keyCode:!0,button:!0,buttons:!0,clientX:!0,clientY:!0,offsetX:!0,offsetY:!0,pointerId:!0,pointerType:!0,screenX:!0,screenY:!0,targetTouches:!0,toElement:!0,touches:!0,which:!0},S.event.addProp),S.each({focus:"focusin",blur:"focusout"},function(e,t){S.event.special[e]={setup:function(){return Se(this,e,Ce),!1},trigger:function(){return Se(this,e),!0},_default:function(){return!0},delegateType:t}}),S.each({mouseenter:"mouseover",mouseleave:"mouseout",pointerenter:"pointerover",pointerleave:"pointerout"},function(e,i){S.event.special[e]={delegateType:i,bindType:i,handle:function(e){var t,n=e.relatedTarget,r=e.handleObj;return n&&(n===this||S.contains(this,n))||(e.type=r.origType,t=r.handler.apply(this,arguments),e.type=i),t}}}),S.fn.extend({on:function(e,t,n,r){return Ee(this,e,t,n,r)},one:function(e,t,n,r){return Ee(this,e,t,n,r,1)},off:function(e,t,n){var r,i;if(e&&e.preventDefault&&e.handleObj)return r=e.handleObj,S(e.delegateTarget).off(r.namespace?r.origType+"."+r.namespace:r.origType,r.selector,r.handler),this;if("object"==typeof e){for(i in e)this.off(i,t,e[i]);return this}return!1!==t&&"function"!=typeof t||(n=t,t=void 0),!1===n&&(n=Te),this.each(function(){S.event.remove(this,e,n,t)})}});var ke=/<script|<style|<link/i,Ae=/checked\s*(?:[^=]|=\s*.checked.)/i,Ne=/^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;function je(e,t){return A(e,"table")&&A(11!==t.nodeType?t:t.firstChild,"tr")&&S(e).children("tbody")[0]||e}function De(e){return e.type=(null!==e.getAttribute("type"))+"/"+e.type,e}function qe(e){return"true/"===(e.type||"").slice(0,5)?e.type=e.type.slice(5):e.removeAttribute("type"),e}function Le(e,t){var n,r,i,o,a,s;if(1===t.nodeType){if(Y.hasData(e)&&(s=Y.get(e).events))for(i in Y.remove(t,"handle events"),s)for(n=0,r=s[i].length;n<r;n++)S.event.add(t,i,s[i][n]);Q.hasData(e)&&(o=Q.access(e),a=S.extend({},o),Q.set(t,a))}}function He(n,r,i,o){r=g(r);var e,t,a,s,u,l,c=0,f=n.length,p=f-1,d=r[0],h=m(d);if(h||1<f&&"string"==typeof d&&!y.checkClone&&Ae.test(d))return n.each(function(e){var t=n.eq(e);h&&(r[0]=d.call(this,e,t.html())),He(t,r,i,o)});if(f&&(t=(e=xe(r,n[0].ownerDocument,!1,n,o)).firstChild,1===e.childNodes.length&&(e=t),t||o)){for(s=(a=S.map(ve(e,"script"),De)).length;c<f;c++)u=e,c!==p&&(u=S.clone(u,!0,!0),s&&S.merge(a,ve(u,"script"))),i.call(n[c],u,c);if(s)for(l=a[a.length-1].ownerDocument,S.map(a,qe),c=0;c<s;c++)u=a[c],he.test(u.type||"")&&!Y.access(u,"globalEval")&&S.contains(l,u)&&(u.src&&"module"!==(u.type||"").toLowerCase()?S._evalUrl&&!u.noModule&&S._evalUrl(u.src,{nonce:u.nonce||u.getAttribute("nonce")},l):b(u.textContent.replace(Ne,""),u,l))}return n}function Oe(e,t,n){for(var r,i=t?S.filter(t,e):e,o=0;null!=(r=i[o]);o++)n||1!==r.nodeType||S.cleanData(ve(r)),r.parentNode&&(n&&ie(r)&&ye(ve(r,"script")),r.parentNode.removeChild(r));return e}S.extend({htmlPrefilter:function(e){return e},clone:function(e,t,n){var r,i,o,a,s,u,l,c=e.cloneNode(!0),f=ie(e);if(!(y.noCloneChecked||1!==e.nodeType&&11!==e.nodeType||S.isXMLDoc(e)))for(a=ve(c),r=0,i=(o=ve(e)).length;r<i;r++)s=o[r],u=a[r],void 0,"input"===(l=u.nodeName.toLowerCase())&&pe.test(s.type)?u.checked=s.checked:"input"!==l&&"textarea"!==l||(u.defaultValue=s.defaultValue);if(t)if(n)for(o=o||ve(e),a=a||ve(c),r=0,i=o.length;r<i;r++)Le(o[r],a[r]);else Le(e,c);return 0<(a=ve(c,"script")).length&&ye(a,!f&&ve(e,"script")),c},cleanData:function(e){for(var t,n,r,i=S.event.special,o=0;void 0!==(n=e[o]);o++)if(V(n)){if(t=n[Y.expando]){if(t.events)for(r in t.events)i[r]?S.event.remove(n,r):S.removeEvent(n,r,t.handle);n[Y.expando]=void 0}n[Q.expando]&&(n[Q.expando]=void 0)}}}),S.fn.extend({detach:function(e){return Oe(this,e,!0)},remove:function(e){return Oe(this,e)},text:function(e){return $(this,function(e){return void 0===e?S.text(this):this.empty().each(function(){1!==this.nodeType&&11!==this.nodeType&&9!==this.nodeType||(this.textContent=e)})},null,e,arguments.length)},append:function(){return He(this,arguments,function(e){1!==this.nodeType&&11!==this.nodeType&&9!==this.nodeType||je(this,e).appendChild(e)})},prepend:function(){return He(this,arguments,function(e){if(1===this.nodeType||11===this.nodeType||9===this.nodeType){var t=je(this,e);t.insertBefore(e,t.firstChild)}})},before:function(){return He(this,arguments,function(e){this.parentNode&&this.parentNode.insertBefore(e,this)})},after:function(){return He(this,arguments,function(e){this.parentNode&&this.parentNode.insertBefore(e,this.nextSibling)})},empty:function(){for(var e,t=0;null!=(e=this[t]);t++)1===e.nodeType&&(S.cleanData(ve(e,!1)),e.textContent="");return this},clone:function(e,t){return e=null!=e&&e,t=null==t?e:t,this.map(function(){return S.clone(this,e,t)})},html:function(e){return $(this,function(e){var t=this[0]||{},n=0,r=this.length;if(void 0===e&&1===t.nodeType)return t.innerHTML;if("string"==typeof e&&!ke.test(e)&&!ge[(de.exec(e)||["",""])[1].toLowerCase()]){e=S.htmlPrefilter(e);try{for(;n<r;n++)1===(t=this[n]||{}).nodeType&&(S.cleanData(ve(t,!1)),t.innerHTML=e);t=0}catch(e){}}t&&this.empty().append(e)},null,e,arguments.length)},replaceWith:function(){var n=[];return He(this,arguments,function(e){var t=this.parentNode;S.inArray(this,n)<0&&(S.cleanData(ve(this)),t&&t.replaceChild(e,this))},n)}}),S.each({appendTo:"append",prependTo:"prepend",insertBefore:"before",insertAfter:"after",replaceAll:"replaceWith"},function(e,a){S.fn[e]=function(e){for(var t,n=[],r=S(e),i=r.length-1,o=0;o<=i;o++)t=o===i?this:this.clone(!0),S(r[o])[a](t),u.apply(n,t.get());return this.pushStack(n)}});var Pe=new RegExp("^("+ee+")(?!px)[a-z%]+$","i"),Re=function(e){var t=e.ownerDocument.defaultView;return t&&t.opener||(t=C),t.getComputedStyle(e)},Me=function(e,t,n){var r,i,o={};for(i in t)o[i]=e.style[i],e.style[i]=t[i];for(i in r=n.call(e),t)e.style[i]=o[i];return r},Ie=new RegExp(ne.join("|"),"i");function We(e,t,n){var r,i,o,a,s=e.style;return(n=n||Re(e))&&(""!==(a=n.getPropertyValue(t)||n[t])||ie(e)||(a=S.style(e,t)),!y.pixelBoxStyles()&&Pe.test(a)&&Ie.test(t)&&(r=s.width,i=s.minWidth,o=s.maxWidth,s.minWidth=s.maxWidth=s.width=a,a=n.width,s.width=r,s.minWidth=i,s.maxWidth=o)),void 0!==a?a+"":a}function Fe(e,t){return{get:function(){if(!e())return(this.get=t).apply(this,arguments);delete this.get}}}!function(){function e(){if(l){u.style.cssText="position:absolute;left:-11111px;width:60px;margin-top:1px;padding:0;border:0",l.style.cssText="position:relative;display:block;box-sizing:border-box;overflow:scroll;margin:auto;border:1px;padding:1px;width:60%;top:1%",re.appendChild(u).appendChild(l);var e=C.getComputedStyle(l);n="1%"!==e.top,s=12===t(e.marginLeft),l.style.right="60%",o=36===t(e.right),r=36===t(e.width),l.style.position="absolute",i=12===t(l.offsetWidth/3),re.removeChild(u),l=null}}function t(e){return Math.round(parseFloat(e))}var n,r,i,o,a,s,u=E.createElement("div"),l=E.createElement("div");l.style&&(l.style.backgroundClip="content-box",l.cloneNode(!0).style.backgroundClip="",y.clearCloneStyle="content-box"===l.style.backgroundClip,S.extend(y,{boxSizingReliable:function(){return e(),r},pixelBoxStyles:function(){return e(),o},pixelPosition:function(){return e(),n},reliableMarginLeft:function(){return e(),s},scrollboxSize:function(){return e(),i},reliableTrDimensions:function(){var e,t,n,r;return null==a&&(e=E.createElement("table"),t=E.createElement("tr"),n=E.createElement("div"),e.style.cssText="position:absolute;left:-11111px;border-collapse:separate",t.style.cssText="border:1px solid",t.style.height="1px",n.style.height="9px",n.style.display="block",re.appendChild(e).appendChild(t).appendChild(n),r=C.getComputedStyle(t),a=parseInt(r.height,10)+parseInt(r.borderTopWidth,10)+parseInt(r.borderBottomWidth,10)===t.offsetHeight,re.removeChild(e)),a}}))}();var Be=["Webkit","Moz","ms"],$e=E.createElement("div").style,_e={};function ze(e){var t=S.cssProps[e]||_e[e];return t||(e in $e?e:_e[e]=function(e){var t=e[0].toUpperCase()+e.slice(1),n=Be.length;while(n--)if((e=Be[n]+t)in $e)return e}(e)||e)}var Ue=/^(none|table(?!-c[ea]).+)/,Xe=/^--/,Ve={position:"absolute",visibility:"hidden",display:"block"},Ge={letterSpacing:"0",fontWeight:"400"};function Ye(e,t,n){var r=te.exec(t);return r?Math.max(0,r[2]-(n||0))+(r[3]||"px"):t}function Qe(e,t,n,r,i,o){var a="width"===t?1:0,s=0,u=0;if(n===(r?"border":"content"))return 0;for(;a<4;a+=2)"margin"===n&&(u+=S.css(e,n+ne[a],!0,i)),r?("content"===n&&(u-=S.css(e,"padding"+ne[a],!0,i)),"margin"!==n&&(u-=S.css(e,"border"+ne[a]+"Width",!0,i))):(u+=S.css(e,"padding"+ne[a],!0,i),"padding"!==n?u+=S.css(e,"border"+ne[a]+"Width",!0,i):s+=S.css(e,"border"+ne[a]+"Width",!0,i));return!r&&0<=o&&(u+=Math.max(0,Math.ceil(e["offset"+t[0].toUpperCase()+t.slice(1)]-o-u-s-.5))||0),u}function Je(e,t,n){var r=Re(e),i=(!y.boxSizingReliable()||n)&&"border-box"===S.css(e,"boxSizing",!1,r),o=i,a=We(e,t,r),s="offset"+t[0].toUpperCase()+t.slice(1);if(Pe.test(a)){if(!n)return a;a="auto"}return(!y.boxSizingReliable()&&i||!y.reliableTrDimensions()&&A(e,"tr")||"auto"===a||!parseFloat(a)&&"inline"===S.css(e,"display",!1,r))&&e.getClientRects().length&&(i="border-box"===S.css(e,"boxSizing",!1,r),(o=s in e)&&(a=e[s])),(a=parseFloat(a)||0)+Qe(e,t,n||(i?"border":"content"),o,r,a)+"px"}function Ke(e,t,n,r,i){return new Ke.prototype.init(e,t,n,r,i)}S.extend({cssHooks:{opacity:{get:function(e,t){if(t){var n=We(e,"opacity");return""===n?"1":n}}}},cssNumber:{animationIterationCount:!0,columnCount:!0,fillOpacity:!0,flexGrow:!0,flexShrink:!0,fontWeight:!0,gridArea:!0,gridColumn:!0,gridColumnEnd:!0,gridColumnStart:!0,gridRow:!0,gridRowEnd:!0,gridRowStart:!0,lineHeight:!0,opacity:!0,order:!0,orphans:!0,widows:!0,zIndex:!0,zoom:!0},cssProps:{},style:function(e,t,n,r){if(e&&3!==e.nodeType&&8!==e.nodeType&&e.style){var i,o,a,s=X(t),u=Xe.test(t),l=e.style;if(u||(t=ze(s)),a=S.cssHooks[t]||S.cssHooks[s],void 0===n)return a&&"get"in a&&void 0!==(i=a.get(e,!1,r))?i:l[t];"string"===(o=typeof n)&&(i=te.exec(n))&&i[1]&&(n=se(e,t,i),o="number"),null!=n&&n==n&&("number"!==o||u||(n+=i&&i[3]||(S.cssNumber[s]?"":"px")),y.clearCloneStyle||""!==n||0!==t.indexOf("background")||(l[t]="inherit"),a&&"set"in a&&void 0===(n=a.set(e,n,r))||(u?l.setProperty(t,n):l[t]=n))}},css:function(e,t,n,r){var i,o,a,s=X(t);return Xe.test(t)||(t=ze(s)),(a=S.cssHooks[t]||S.cssHooks[s])&&"get"in a&&(i=a.get(e,!0,n)),void 0===i&&(i=We(e,t,r)),"normal"===i&&t in Ge&&(i=Ge[t]),""===n||n?(o=parseFloat(i),!0===n||isFinite(o)?o||0:i):i}}),S.each(["height","width"],function(e,u){S.cssHooks[u]={get:function(e,t,n){if(t)return!Ue.test(S.css(e,"display"))||e.getClientRects().length&&e.getBoundingClientRect().width?Je(e,u,n):Me(e,Ve,function(){return Je(e,u,n)})},set:function(e,t,n){var r,i=Re(e),o=!y.scrollboxSize()&&"absolute"===i.position,a=(o||n)&&"border-box"===S.css(e,"boxSizing",!1,i),s=n?Qe(e,u,n,a,i):0;return a&&o&&(s-=Math.ceil(e["offset"+u[0].toUpperCase()+u.slice(1)]-parseFloat(i[u])-Qe(e,u,"border",!1,i)-.5)),s&&(r=te.exec(t))&&"px"!==(r[3]||"px")&&(e.style[u]=t,t=S.css(e,u)),Ye(0,t,s)}}}),S.cssHooks.marginLeft=Fe(y.reliableMarginLeft,function(e,t){if(t)return(parseFloat(We(e,"marginLeft"))||e.getBoundingClientRect().left-Me(e,{marginLeft:0},function(){return e.getBoundingClientRect().left}))+"px"}),S.each({margin:"",padding:"",border:"Width"},function(i,o){S.cssHooks[i+o]={expand:function(e){for(var t=0,n={},r="string"==typeof e?e.split(" "):[e];t<4;t++)n[i+ne[t]+o]=r[t]||r[t-2]||r[0];return n}},"margin"!==i&&(S.cssHooks[i+o].set=Ye)}),S.fn.extend({css:function(e,t){return $(this,function(e,t,n){var r,i,o={},a=0;if(Array.isArray(t)){for(r=Re(e),i=t.length;a<i;a++)o[t[a]]=S.css(e,t[a],!1,r);return o}return void 0!==n?S.style(e,t,n):S.css(e,t)},e,t,1<arguments.length)}}),((S.Tween=Ke).prototype={constructor:Ke,init:function(e,t,n,r,i,o){this.elem=e,this.prop=n,this.easing=i||S.easing._default,this.options=t,this.start=this.now=this.cur(),this.end=r,this.unit=o||(S.cssNumber[n]?"":"px")},cur:function(){var e=Ke.propHooks[this.prop];return e&&e.get?e.get(this):Ke.propHooks._default.get(this)},run:function(e){var t,n=Ke.propHooks[this.prop];return this.options.duration?this.pos=t=S.easing[this.easing](e,this.options.duration*e,0,1,this.options.duration):this.pos=t=e,this.now=(this.end-this.start)*t+this.start,this.options.step&&this.options.step.call(this.elem,this.now,this),n&&n.set?n.set(this):Ke.propHooks._default.set(this),this}}).init.prototype=Ke.prototype,(Ke.propHooks={_default:{get:function(e){var t;return 1!==e.elem.nodeType||null!=e.elem[e.prop]&&null==e.elem.style[e.prop]?e.elem[e.prop]:(t=S.css(e.elem,e.prop,""))&&"auto"!==t?t:0},set:function(e){S.fx.step[e.prop]?S.fx.step[e.prop](e):1!==e.elem.nodeType||!S.cssHooks[e.prop]&&null==e.elem.style[ze(e.prop)]?e.elem[e.prop]=e.now:S.style(e.elem,e.prop,e.now+e.unit)}}}).scrollTop=Ke.propHooks.scrollLeft={set:function(e){e.elem.nodeType&&e.elem.parentNode&&(e.elem[e.prop]=e.now)}},S.easing={linear:function(e){return e},swing:function(e){return.5-Math.cos(e*Math.PI)/2},_default:"swing"},S.fx=Ke.prototype.init,S.fx.step={};var Ze,et,tt,nt,rt=/^(?:toggle|show|hide)$/,it=/queueHooks$/;function ot(){et&&(!1===E.hidden&&C.requestAnimationFrame?C.requestAnimationFrame(ot):C.setTimeout(ot,S.fx.interval),S.fx.tick())}function at(){return C.setTimeout(function(){Ze=void 0}),Ze=Date.now()}function st(e,t){var n,r=0,i={height:e};for(t=t?1:0;r<4;r+=2-t)i["margin"+(n=ne[r])]=i["padding"+n]=e;return t&&(i.opacity=i.width=e),i}function ut(e,t,n){for(var r,i=(lt.tweeners[t]||[]).concat(lt.tweeners["*"]),o=0,a=i.length;o<a;o++)if(r=i[o].call(n,t,e))return r}function lt(o,e,t){var n,a,r=0,i=lt.prefilters.length,s=S.Deferred().always(function(){delete u.elem}),u=function(){if(a)return!1;for(var e=Ze||at(),t=Math.max(0,l.startTime+l.duration-e),n=1-(t/l.duration||0),r=0,i=l.tweens.length;r<i;r++)l.tweens[r].run(n);return s.notifyWith(o,[l,n,t]),n<1&&i?t:(i||s.notifyWith(o,[l,1,0]),s.resolveWith(o,[l]),!1)},l=s.promise({elem:o,props:S.extend({},e),opts:S.extend(!0,{specialEasing:{},easing:S.easing._default},t),originalProperties:e,originalOptions:t,startTime:Ze||at(),duration:t.duration,tweens:[],createTween:function(e,t){var n=S.Tween(o,l.opts,e,t,l.opts.specialEasing[e]||l.opts.easing);return l.tweens.push(n),n},stop:function(e){var t=0,n=e?l.tweens.length:0;if(a)return this;for(a=!0;t<n;t++)l.tweens[t].run(1);return e?(s.notifyWith(o,[l,1,0]),s.resolveWith(o,[l,e])):s.rejectWith(o,[l,e]),this}}),c=l.props;for(!function(e,t){var n,r,i,o,a;for(n in e)if(i=t[r=X(n)],o=e[n],Array.isArray(o)&&(i=o[1],o=e[n]=o[0]),n!==r&&(e[r]=o,delete e[n]),(a=S.cssHooks[r])&&"expand"in a)for(n in o=a.expand(o),delete e[r],o)n in e||(e[n]=o[n],t[n]=i);else t[r]=i}(c,l.opts.specialEasing);r<i;r++)if(n=lt.prefilters[r].call(l,o,c,l.opts))return m(n.stop)&&(S._queueHooks(l.elem,l.opts.queue).stop=n.stop.bind(n)),n;return S.map(c,ut,l),m(l.opts.start)&&l.opts.start.call(o,l),l.progress(l.opts.progress).done(l.opts.done,l.opts.complete).fail(l.opts.fail).always(l.opts.always),S.fx.timer(S.extend(u,{elem:o,anim:l,queue:l.opts.queue})),l}S.Animation=S.extend(lt,{tweeners:{"*":[function(e,t){var n=this.createTween(e,t);return se(n.elem,e,te.exec(t),n),n}]},tweener:function(e,t){m(e)?(t=e,e=["*"]):e=e.match(P);for(var n,r=0,i=e.length;r<i;r++)n=e[r],lt.tweeners[n]=lt.tweeners[n]||[],lt.tweeners[n].unshift(t)},prefilters:[function(e,t,n){var r,i,o,a,s,u,l,c,f="width"in t||"height"in t,p=this,d={},h=e.style,g=e.nodeType&&ae(e),v=Y.get(e,"fxshow");for(r in n.queue||(null==(a=S._queueHooks(e,"fx")).unqueued&&(a.unqueued=0,s=a.empty.fire,a.empty.fire=function(){a.unqueued||s()}),a.unqueued++,p.always(function(){p.always(function(){a.unqueued--,S.queue(e,"fx").length||a.empty.fire()})})),t)if(i=t[r],rt.test(i)){if(delete t[r],o=o||"toggle"===i,i===(g?"hide":"show")){if("show"!==i||!v||void 0===v[r])continue;g=!0}d[r]=v&&v[r]||S.style(e,r)}if((u=!S.isEmptyObject(t))||!S.isEmptyObject(d))for(r in f&&1===e.nodeType&&(n.overflow=[h.overflow,h.overflowX,h.overflowY],null==(l=v&&v.display)&&(l=Y.get(e,"display")),"none"===(c=S.css(e,"display"))&&(l?c=l:(le([e],!0),l=e.style.display||l,c=S.css(e,"display"),le([e]))),("inline"===c||"inline-block"===c&&null!=l)&&"none"===S.css(e,"float")&&(u||(p.done(function(){h.display=l}),null==l&&(c=h.display,l="none"===c?"":c)),h.display="inline-block")),n.overflow&&(h.overflow="hidden",p.always(function(){h.overflow=n.overflow[0],h.overflowX=n.overflow[1],h.overflowY=n.overflow[2]})),u=!1,d)u||(v?"hidden"in v&&(g=v.hidden):v=Y.access(e,"fxshow",{display:l}),o&&(v.hidden=!g),g&&le([e],!0),p.done(function(){for(r in g||le([e]),Y.remove(e,"fxshow"),d)S.style(e,r,d[r])})),u=ut(g?v[r]:0,r,p),r in v||(v[r]=u.start,g&&(u.end=u.start,u.start=0))}],prefilter:function(e,t){t?lt.prefilters.unshift(e):lt.prefilters.push(e)}}),S.speed=function(e,t,n){var r=e&&"object"==typeof e?S.extend({},e):{complete:n||!n&&t||m(e)&&e,duration:e,easing:n&&t||t&&!m(t)&&t};return S.fx.off?r.duration=0:"number"!=typeof r.duration&&(r.duration in S.fx.speeds?r.duration=S.fx.speeds[r.duration]:r.duration=S.fx.speeds._default),null!=r.queue&&!0!==r.queue||(r.queue="fx"),r.old=r.complete,r.complete=function(){m(r.old)&&r.old.call(this),r.queue&&S.dequeue(this,r.queue)},r},S.fn.extend({fadeTo:function(e,t,n,r){return this.filter(ae).css("opacity",0).show().end().animate({opacity:t},e,n,r)},animate:function(t,e,n,r){var i=S.isEmptyObject(t),o=S.speed(e,n,r),a=function(){var e=lt(this,S.extend({},t),o);(i||Y.get(this,"finish"))&&e.stop(!0)};return a.finish=a,i||!1===o.queue?this.each(a):this.queue(o.queue,a)},stop:function(i,e,o){var a=function(e){var t=e.stop;delete e.stop,t(o)};return"string"!=typeof i&&(o=e,e=i,i=void 0),e&&this.queue(i||"fx",[]),this.each(function(){var e=!0,t=null!=i&&i+"queueHooks",n=S.timers,r=Y.get(this);if(t)r[t]&&r[t].stop&&a(r[t]);else for(t in r)r[t]&&r[t].stop&&it.test(t)&&a(r[t]);for(t=n.length;t--;)n[t].elem!==this||null!=i&&n[t].queue!==i||(n[t].anim.stop(o),e=!1,n.splice(t,1));!e&&o||S.dequeue(this,i)})},finish:function(a){return!1!==a&&(a=a||"fx"),this.each(function(){var e,t=Y.get(this),n=t[a+"queue"],r=t[a+"queueHooks"],i=S.timers,o=n?n.length:0;for(t.finish=!0,S.queue(this,a,[]),r&&r.stop&&r.stop.call(this,!0),e=i.length;e--;)i[e].elem===this&&i[e].queue===a&&(i[e].anim.stop(!0),i.splice(e,1));for(e=0;e<o;e++)n[e]&&n[e].finish&&n[e].finish.call(this);delete t.finish})}}),S.each(["toggle","show","hide"],function(e,r){var i=S.fn[r];S.fn[r]=function(e,t,n){return null==e||"boolean"==typeof e?i.apply(this,arguments):this.animate(st(r,!0),e,t,n)}}),S.each({slideDown:st("show"),slideUp:st("hide"),slideToggle:st("toggle"),fadeIn:{opacity:"show"},fadeOut:{opacity:"hide"},fadeToggle:{opacity:"toggle"}},function(e,r){S.fn[e]=function(e,t,n){return this.animate(r,e,t,n)}}),S.timers=[],S.fx.tick=function(){var e,t=0,n=S.timers;for(Ze=Date.now();t<n.length;t++)(e=n[t])()||n[t]!==e||n.splice(t--,1);n.length||S.fx.stop(),Ze=void 0},S.fx.timer=function(e){S.timers.push(e),S.fx.start()},S.fx.interval=13,S.fx.start=function(){et||(et=!0,ot())},S.fx.stop=function(){et=null},S.fx.speeds={slow:600,fast:200,_default:400},S.fn.delay=function(r,e){return r=S.fx&&S.fx.speeds[r]||r,e=e||"fx",this.queue(e,function(e,t){var n=C.setTimeout(e,r);t.stop=function(){C.clearTimeout(n)}})},tt=E.createElement("input"),nt=E.createElement("select").appendChild(E.createElement("option")),tt.type="checkbox",y.checkOn=""!==tt.value,y.optSelected=nt.selected,(tt=E.createElement("input")).value="t",tt.type="radio",y.radioValue="t"===tt.value;var ct,ft=S.expr.attrHandle;S.fn.extend({attr:function(e,t){return $(this,S.attr,e,t,1<arguments.length)},removeAttr:function(e){return this.each(function(){S.removeAttr(this,e)})}}),S.extend({attr:function(e,t,n){var r,i,o=e.nodeType;if(3!==o&&8!==o&&2!==o)return"undefined"==typeof e.getAttribute?S.prop(e,t,n):(1===o&&S.isXMLDoc(e)||(i=S.attrHooks[t.toLowerCase()]||(S.expr.match.bool.test(t)?ct:void 0)),void 0!==n?null===n?void S.removeAttr(e,t):i&&"set"in i&&void 0!==(r=i.set(e,n,t))?r:(e.setAttribute(t,n+""),n):i&&"get"in i&&null!==(r=i.get(e,t))?r:null==(r=S.find.attr(e,t))?void 0:r)},attrHooks:{type:{set:function(e,t){if(!y.radioValue&&"radio"===t&&A(e,"input")){var n=e.value;return e.setAttribute("type",t),n&&(e.value=n),t}}}},removeAttr:function(e,t){var n,r=0,i=t&&t.match(P);if(i&&1===e.nodeType)while(n=i[r++])e.removeAttribute(n)}}),ct={set:function(e,t,n){return!1===t?S.removeAttr(e,n):e.setAttribute(n,n),n}},S.each(S.expr.match.bool.source.match(/\w+/g),function(e,t){var a=ft[t]||S.find.attr;ft[t]=function(e,t,n){var r,i,o=t.toLowerCase();return n||(i=ft[o],ft[o]=r,r=null!=a(e,t,n)?o:null,ft[o]=i),r}});var pt=/^(?:input|select|textarea|button)$/i,dt=/^(?:a|area)$/i;function ht(e){return(e.match(P)||[]).join(" ")}function gt(e){return e.getAttribute&&e.getAttribute("class")||""}function vt(e){return Array.isArray(e)?e:"string"==typeof e&&e.match(P)||[]}S.fn.extend({prop:function(e,t){return $(this,S.prop,e,t,1<arguments.length)},removeProp:function(e){return this.each(function(){delete this[S.propFix[e]||e]})}}),S.extend({prop:function(e,t,n){var r,i,o=e.nodeType;if(3!==o&&8!==o&&2!==o)return 1===o&&S.isXMLDoc(e)||(t=S.propFix[t]||t,i=S.propHooks[t]),void 0!==n?i&&"set"in i&&void 0!==(r=i.set(e,n,t))?r:e[t]=n:i&&"get"in i&&null!==(r=i.get(e,t))?r:e[t]},propHooks:{tabIndex:{get:function(e){var t=S.find.attr(e,"tabindex");return t?parseInt(t,10):pt.test(e.nodeName)||dt.test(e.nodeName)&&e.href?0:-1}}},propFix:{"for":"htmlFor","class":"className"}}),y.optSelected||(S.propHooks.selected={get:function(e){var t=e.parentNode;return t&&t.parentNode&&t.parentNode.selectedIndex,null},set:function(e){var t=e.parentNode;t&&(t.selectedIndex,t.parentNode&&t.parentNode.selectedIndex)}}),S.each(["tabIndex","readOnly","maxLength","cellSpacing","cellPadding","rowSpan","colSpan","useMap","frameBorder","contentEditable"],function(){S.propFix[this.toLowerCase()]=this}),S.fn.extend({addClass:function(t){var e,n,r,i,o,a,s,u=0;if(m(t))return this.each(function(e){S(this).addClass(t.call(this,e,gt(this)))});if((e=vt(t)).length)while(n=this[u++])if(i=gt(n),r=1===n.nodeType&&" "+ht(i)+" "){a=0;while(o=e[a++])r.indexOf(" "+o+" ")<0&&(r+=o+" ");i!==(s=ht(r))&&n.setAttribute("class",s)}return this},removeClass:function(t){var e,n,r,i,o,a,s,u=0;if(m(t))return this.each(function(e){S(this).removeClass(t.call(this,e,gt(this)))});if(!arguments.length)return this.attr("class","");if((e=vt(t)).length)while(n=this[u++])if(i=gt(n),r=1===n.nodeType&&" "+ht(i)+" "){a=0;while(o=e[a++])while(-1<r.indexOf(" "+o+" "))r=r.replace(" "+o+" "," ");i!==(s=ht(r))&&n.setAttribute("class",s)}return this},toggleClass:function(i,t){var o=typeof i,a="string"===o||Array.isArray(i);return"boolean"==typeof t&&a?t?this.addClass(i):this.removeClass(i):m(i)?this.each(function(e){S(this).toggleClass(i.call(this,e,gt(this),t),t)}):this.each(function(){var e,t,n,r;if(a){t=0,n=S(this),r=vt(i);while(e=r[t++])n.hasClass(e)?n.removeClass(e):n.addClass(e)}else void 0!==i&&"boolean"!==o||((e=gt(this))&&Y.set(this,"__className__",e),this.setAttribute&&this.setAttribute("class",e||!1===i?"":Y.get(this,"__className__")||""))})},hasClass:function(e){var t,n,r=0;t=" "+e+" ";while(n=this[r++])if(1===n.nodeType&&-1<(" "+ht(gt(n))+" ").indexOf(t))return!0;return!1}});var yt=/\r/g;S.fn.extend({val:function(n){var r,e,i,t=this[0];return arguments.length?(i=m(n),this.each(function(e){var t;1===this.nodeType&&(null==(t=i?n.call(this,e,S(this).val()):n)?t="":"number"==typeof t?t+="":Array.isArray(t)&&(t=S.map(t,function(e){return null==e?"":e+""})),(r=S.valHooks[this.type]||S.valHooks[this.nodeName.toLowerCase()])&&"set"in r&&void 0!==r.set(this,t,"value")||(this.value=t))})):t?(r=S.valHooks[t.type]||S.valHooks[t.nodeName.toLowerCase()])&&"get"in r&&void 0!==(e=r.get(t,"value"))?e:"string"==typeof(e=t.value)?e.replace(yt,""):null==e?"":e:void 0}}),S.extend({valHooks:{option:{get:function(e){var t=S.find.attr(e,"value");return null!=t?t:ht(S.text(e))}},select:{get:function(e){var t,n,r,i=e.options,o=e.selectedIndex,a="select-one"===e.type,s=a?null:[],u=a?o+1:i.length;for(r=o<0?u:a?o:0;r<u;r++)if(((n=i[r]).selected||r===o)&&!n.disabled&&(!n.parentNode.disabled||!A(n.parentNode,"optgroup"))){if(t=S(n).val(),a)return t;s.push(t)}return s},set:function(e,t){var n,r,i=e.options,o=S.makeArray(t),a=i.length;while(a--)((r=i[a]).selected=-1<S.inArray(S.valHooks.option.get(r),o))&&(n=!0);return n||(e.selectedIndex=-1),o}}}}),S.each(["radio","checkbox"],function(){S.valHooks[this]={set:function(e,t){if(Array.isArray(t))return e.checked=-1<S.inArray(S(e).val(),t)}},y.checkOn||(S.valHooks[this].get=function(e){return null===e.getAttribute("value")?"on":e.value})}),y.focusin="onfocusin"in C;var mt=/^(?:focusinfocus|focusoutblur)$/,xt=function(e){e.stopPropagation()};S.extend(S.event,{trigger:function(e,t,n,r){var i,o,a,s,u,l,c,f,p=[n||E],d=v.call(e,"type")?e.type:e,h=v.call(e,"namespace")?e.namespace.split("."):[];if(o=f=a=n=n||E,3!==n.nodeType&&8!==n.nodeType&&!mt.test(d+S.event.triggered)&&(-1<d.indexOf(".")&&(d=(h=d.split(".")).shift(),h.sort()),u=d.indexOf(":")<0&&"on"+d,(e=e[S.expando]?e:new S.Event(d,"object"==typeof e&&e)).isTrigger=r?2:3,e.namespace=h.join("."),e.rnamespace=e.namespace?new RegExp("(^|\\.)"+h.join("\\.(?:.*\\.|)")+"(\\.|$)"):null,e.result=void 0,e.target||(e.target=n),t=null==t?[e]:S.makeArray(t,[e]),c=S.event.special[d]||{},r||!c.trigger||!1!==c.trigger.apply(n,t))){if(!r&&!c.noBubble&&!x(n)){for(s=c.delegateType||d,mt.test(s+d)||(o=o.parentNode);o;o=o.parentNode)p.push(o),a=o;a===(n.ownerDocument||E)&&p.push(a.defaultView||a.parentWindow||C)}i=0;while((o=p[i++])&&!e.isPropagationStopped())f=o,e.type=1<i?s:c.bindType||d,(l=(Y.get(o,"events")||Object.create(null))[e.type]&&Y.get(o,"handle"))&&l.apply(o,t),(l=u&&o[u])&&l.apply&&V(o)&&(e.result=l.apply(o,t),!1===e.result&&e.preventDefault());return e.type=d,r||e.isDefaultPrevented()||c._default&&!1!==c._default.apply(p.pop(),t)||!V(n)||u&&m(n[d])&&!x(n)&&((a=n[u])&&(n[u]=null),S.event.triggered=d,e.isPropagationStopped()&&f.addEventListener(d,xt),n[d](),e.isPropagationStopped()&&f.removeEventListener(d,xt),S.event.triggered=void 0,a&&(n[u]=a)),e.result}},simulate:function(e,t,n){var r=S.extend(new S.Event,n,{type:e,isSimulated:!0});S.event.trigger(r,null,t)}}),S.fn.extend({trigger:function(e,t){return this.each(function(){S.event.trigger(e,t,this)})},triggerHandler:function(e,t){var n=this[0];if(n)return S.event.trigger(e,t,n,!0)}}),y.focusin||S.each({focus:"focusin",blur:"focusout"},function(n,r){var i=function(e){S.event.simulate(r,e.target,S.event.fix(e))};S.event.special[r]={setup:function(){var e=this.ownerDocument||this.document||this,t=Y.access(e,r);t||e.addEventListener(n,i,!0),Y.access(e,r,(t||0)+1)},teardown:function(){var e=this.ownerDocument||this.document||this,t=Y.access(e,r)-1;t?Y.access(e,r,t):(e.removeEventListener(n,i,!0),Y.remove(e,r))}}});var bt=C.location,wt={guid:Date.now()},Tt=/\?/;S.parseXML=function(e){var t,n;if(!e||"string"!=typeof e)return null;try{t=(new C.DOMParser).parseFromString(e,"text/xml")}catch(e){}return n=t&&t.getElementsByTagName("parsererror")[0],t&&!n||S.error("Invalid XML: "+(n?S.map(n.childNodes,function(e){return e.textContent}).join("\n"):e)),t};var Ct=/\[\]$/,Et=/\r?\n/g,St=/^(?:submit|button|image|reset|file)$/i,kt=/^(?:input|select|textarea|keygen)/i;function At(n,e,r,i){var t;if(Array.isArray(e))S.each(e,function(e,t){r||Ct.test(n)?i(n,t):At(n+"["+("object"==typeof t&&null!=t?e:"")+"]",t,r,i)});else if(r||"object"!==w(e))i(n,e);else for(t in e)At(n+"["+t+"]",e[t],r,i)}S.param=function(e,t){var n,r=[],i=function(e,t){var n=m(t)?t():t;r[r.length]=encodeURIComponent(e)+"="+encodeURIComponent(null==n?"":n)};if(null==e)return"";if(Array.isArray(e)||e.jquery&&!S.isPlainObject(e))S.each(e,function(){i(this.name,this.value)});else for(n in e)At(n,e[n],t,i);return r.join("&")},S.fn.extend({serialize:function(){return S.param(this.serializeArray())},serializeArray:function(){return this.map(function(){var e=S.prop(this,"elements");return e?S.makeArray(e):this}).filter(function(){var e=this.type;return this.name&&!S(this).is(":disabled")&&kt.test(this.nodeName)&&!St.test(e)&&(this.checked||!pe.test(e))}).map(function(e,t){var n=S(this).val();return null==n?null:Array.isArray(n)?S.map(n,function(e){return{name:t.name,value:e.replace(Et,"\r\n")}}):{name:t.name,value:n.replace(Et,"\r\n")}}).get()}});var Nt=/%20/g,jt=/#.*$/,Dt=/([?&])_=[^&]*/,qt=/^(.*?):[ \t]*([^\r\n]*)$/gm,Lt=/^(?:GET|HEAD)$/,Ht=/^\/\//,Ot={},Pt={},Rt="*/".concat("*"),Mt=E.createElement("a");function It(o){return function(e,t){"string"!=typeof e&&(t=e,e="*");var n,r=0,i=e.toLowerCase().match(P)||[];if(m(t))while(n=i[r++])"+"===n[0]?(n=n.slice(1)||"*",(o[n]=o[n]||[]).unshift(t)):(o[n]=o[n]||[]).push(t)}}function Wt(t,i,o,a){var s={},u=t===Pt;function l(e){var r;return s[e]=!0,S.each(t[e]||[],function(e,t){var n=t(i,o,a);return"string"!=typeof n||u||s[n]?u?!(r=n):void 0:(i.dataTypes.unshift(n),l(n),!1)}),r}return l(i.dataTypes[0])||!s["*"]&&l("*")}function Ft(e,t){var n,r,i=S.ajaxSettings.flatOptions||{};for(n in t)void 0!==t[n]&&((i[n]?e:r||(r={}))[n]=t[n]);return r&&S.extend(!0,e,r),e}Mt.href=bt.href,S.extend({active:0,lastModified:{},etag:{},ajaxSettings:{url:bt.href,type:"GET",isLocal:/^(?:about|app|app-storage|.+-extension|file|res|widget):$/.test(bt.protocol),global:!0,processData:!0,async:!0,contentType:"application/x-www-form-urlencoded; charset=UTF-8",accepts:{"*":Rt,text:"text/plain",html:"text/html",xml:"application/xml, text/xml",json:"application/json, text/javascript"},contents:{xml:/\bxml\b/,html:/\bhtml/,json:/\bjson\b/},responseFields:{xml:"responseXML",text:"responseText",json:"responseJSON"},converters:{"* text":String,"text html":!0,"text json":JSON.parse,"text xml":S.parseXML},flatOptions:{url:!0,context:!0}},ajaxSetup:function(e,t){return t?Ft(Ft(e,S.ajaxSettings),t):Ft(S.ajaxSettings,e)},ajaxPrefilter:It(Ot),ajaxTransport:It(Pt),ajax:function(e,t){"object"==typeof e&&(t=e,e=void 0),t=t||{};var c,f,p,n,d,r,h,g,i,o,v=S.ajaxSetup({},t),y=v.context||v,m=v.context&&(y.nodeType||y.jquery)?S(y):S.event,x=S.Deferred(),b=S.Callbacks("once memory"),w=v.statusCode||{},a={},s={},u="canceled",T={readyState:0,getResponseHeader:function(e){var t;if(h){if(!n){n={};while(t=qt.exec(p))n[t[1].toLowerCase()+" "]=(n[t[1].toLowerCase()+" "]||[]).concat(t[2])}t=n[e.toLowerCase()+" "]}return null==t?null:t.join(", ")},getAllResponseHeaders:function(){return h?p:null},setRequestHeader:function(e,t){return null==h&&(e=s[e.toLowerCase()]=s[e.toLowerCase()]||e,a[e]=t),this},overrideMimeType:function(e){return null==h&&(v.mimeType=e),this},statusCode:function(e){var t;if(e)if(h)T.always(e[T.status]);else for(t in e)w[t]=[w[t],e[t]];return this},abort:function(e){var t=e||u;return c&&c.abort(t),l(0,t),this}};if(x.promise(T),v.url=((e||v.url||bt.href)+"").replace(Ht,bt.protocol+"//"),v.type=t.method||t.type||v.method||v.type,v.dataTypes=(v.dataType||"*").toLowerCase().match(P)||[""],null==v.crossDomain){r=E.createElement("a");try{r.href=v.url,r.href=r.href,v.crossDomain=Mt.protocol+"//"+Mt.host!=r.protocol+"//"+r.host}catch(e){v.crossDomain=!0}}if(v.data&&v.processData&&"string"!=typeof v.data&&(v.data=S.param(v.data,v.traditional)),Wt(Ot,v,t,T),h)return T;for(i in(g=S.event&&v.global)&&0==S.active++&&S.event.trigger("ajaxStart"),v.type=v.type.toUpperCase(),v.hasContent=!Lt.test(v.type),f=v.url.replace(jt,""),v.hasContent?v.data&&v.processData&&0===(v.contentType||"").indexOf("application/x-www-form-urlencoded")&&(v.data=v.data.replace(Nt,"+")):(o=v.url.slice(f.length),v.data&&(v.processData||"string"==typeof v.data)&&(f+=(Tt.test(f)?"&":"?")+v.data,delete v.data),!1===v.cache&&(f=f.replace(Dt,"$1"),o=(Tt.test(f)?"&":"?")+"_="+wt.guid+++o),v.url=f+o),v.ifModified&&(S.lastModified[f]&&T.setRequestHeader("If-Modified-Since",S.lastModified[f]),S.etag[f]&&T.setRequestHeader("If-None-Match",S.etag[f])),(v.data&&v.hasContent&&!1!==v.contentType||t.contentType)&&T.setRequestHeader("Content-Type",v.contentType),T.setRequestHeader("Accept",v.dataTypes[0]&&v.accepts[v.dataTypes[0]]?v.accepts[v.dataTypes[0]]+("*"!==v.dataTypes[0]?", "+Rt+"; q=0.01":""):v.accepts["*"]),v.headers)T.setRequestHeader(i,v.headers[i]);if(v.beforeSend&&(!1===v.beforeSend.call(y,T,v)||h))return T.abort();if(u="abort",b.add(v.complete),T.done(v.success),T.fail(v.error),c=Wt(Pt,v,t,T)){if(T.readyState=1,g&&m.trigger("ajaxSend",[T,v]),h)return T;v.async&&0<v.timeout&&(d=C.setTimeout(function(){T.abort("timeout")},v.timeout));try{h=!1,c.send(a,l)}catch(e){if(h)throw e;l(-1,e)}}else l(-1,"No Transport");function l(e,t,n,r){var i,o,a,s,u,l=t;h||(h=!0,d&&C.clearTimeout(d),c=void 0,p=r||"",T.readyState=0<e?4:0,i=200<=e&&e<300||304===e,n&&(s=function(e,t,n){var r,i,o,a,s=e.contents,u=e.dataTypes;while("*"===u[0])u.shift(),void 0===r&&(r=e.mimeType||t.getResponseHeader("Content-Type"));if(r)for(i in s)if(s[i]&&s[i].test(r)){u.unshift(i);break}if(u[0]in n)o=u[0];else{for(i in n){if(!u[0]||e.converters[i+" "+u[0]]){o=i;break}a||(a=i)}o=o||a}if(o)return o!==u[0]&&u.unshift(o),n[o]}(v,T,n)),!i&&-1<S.inArray("script",v.dataTypes)&&S.inArray("json",v.dataTypes)<0&&(v.converters["text script"]=function(){}),s=function(e,t,n,r){var i,o,a,s,u,l={},c=e.dataTypes.slice();if(c[1])for(a in e.converters)l[a.toLowerCase()]=e.converters[a];o=c.shift();while(o)if(e.responseFields[o]&&(n[e.responseFields[o]]=t),!u&&r&&e.dataFilter&&(t=e.dataFilter(t,e.dataType)),u=o,o=c.shift())if("*"===o)o=u;else if("*"!==u&&u!==o){if(!(a=l[u+" "+o]||l["* "+o]))for(i in l)if((s=i.split(" "))[1]===o&&(a=l[u+" "+s[0]]||l["* "+s[0]])){!0===a?a=l[i]:!0!==l[i]&&(o=s[0],c.unshift(s[1]));break}if(!0!==a)if(a&&e["throws"])t=a(t);else try{t=a(t)}catch(e){return{state:"parsererror",error:a?e:"No conversion from "+u+" to "+o}}}return{state:"success",data:t}}(v,s,T,i),i?(v.ifModified&&((u=T.getResponseHeader("Last-Modified"))&&(S.lastModified[f]=u),(u=T.getResponseHeader("etag"))&&(S.etag[f]=u)),204===e||"HEAD"===v.type?l="nocontent":304===e?l="notmodified":(l=s.state,o=s.data,i=!(a=s.error))):(a=l,!e&&l||(l="error",e<0&&(e=0))),T.status=e,T.statusText=(t||l)+"",i?x.resolveWith(y,[o,l,T]):x.rejectWith(y,[T,l,a]),T.statusCode(w),w=void 0,g&&m.trigger(i?"ajaxSuccess":"ajaxError",[T,v,i?o:a]),b.fireWith(y,[T,l]),g&&(m.trigger("ajaxComplete",[T,v]),--S.active||S.event.trigger("ajaxStop")))}return T},getJSON:function(e,t,n){return S.get(e,t,n,"json")},getScript:function(e,t){return S.get(e,void 0,t,"script")}}),S.each(["get","post"],function(e,i){S[i]=function(e,t,n,r){return m(t)&&(r=r||n,n=t,t=void 0),S.ajax(S.extend({url:e,type:i,dataType:r,data:t,success:n},S.isPlainObject(e)&&e))}}),S.ajaxPrefilter(function(e){var t;for(t in e.headers)"content-type"===t.toLowerCase()&&(e.contentType=e.headers[t]||"")}),S._evalUrl=function(e,t,n){return S.ajax({url:e,type:"GET",dataType:"script",cache:!0,async:!1,global:!1,converters:{"text script":function(){}},dataFilter:function(e){S.globalEval(e,t,n)}})},S.fn.extend({wrapAll:function(e){var t;return this[0]&&(m(e)&&(e=e.call(this[0])),t=S(e,this[0].ownerDocument).eq(0).clone(!0),this[0].parentNode&&t.insertBefore(this[0]),t.map(function(){var e=this;while(e.firstElementChild)e=e.firstElementChild;return e}).append(this)),this},wrapInner:function(n){return m(n)?this.each(function(e){S(this).wrapInner(n.call(this,e))}):this.each(function(){var e=S(this),t=e.contents();t.length?t.wrapAll(n):e.append(n)})},wrap:function(t){var n=m(t);return this.each(function(e){S(this).wrapAll(n?t.call(this,e):t)})},unwrap:function(e){return this.parent(e).not("body").each(function(){S(this).replaceWith(this.childNodes)}),this}}),S.expr.pseudos.hidden=function(e){return!S.expr.pseudos.visible(e)},S.expr.pseudos.visible=function(e){return!!(e.offsetWidth||e.offsetHeight||e.getClientRects().length)},S.ajaxSettings.xhr=function(){try{return new C.XMLHttpRequest}catch(e){}};var Bt={0:200,1223:204},$t=S.ajaxSettings.xhr();y.cors=!!$t&&"withCredentials"in $t,y.ajax=$t=!!$t,S.ajaxTransport(function(i){var o,a;if(y.cors||$t&&!i.crossDomain)return{send:function(e,t){var n,r=i.xhr();if(r.open(i.type,i.url,i.async,i.username,i.password),i.xhrFields)for(n in i.xhrFields)r[n]=i.xhrFields[n];for(n in i.mimeType&&r.overrideMimeType&&r.overrideMimeType(i.mimeType),i.crossDomain||e["X-Requested-With"]||(e["X-Requested-With"]="XMLHttpRequest"),e)r.setRequestHeader(n,e[n]);o=function(e){return function(){o&&(o=a=r.onload=r.onerror=r.onabort=r.ontimeout=r.onreadystatechange=null,"abort"===e?r.abort():"error"===e?"number"!=typeof r.status?t(0,"error"):t(r.status,r.statusText):t(Bt[r.status]||r.status,r.statusText,"text"!==(r.responseType||"text")||"string"!=typeof r.responseText?{binary:r.response}:{text:r.responseText},r.getAllResponseHeaders()))}},r.onload=o(),a=r.onerror=r.ontimeout=o("error"),void 0!==r.onabort?r.onabort=a:r.onreadystatechange=function(){4===r.readyState&&C.setTimeout(function(){o&&a()})},o=o("abort");try{r.send(i.hasContent&&i.data||null)}catch(e){if(o)throw e}},abort:function(){o&&o()}}}),S.ajaxPrefilter(function(e){e.crossDomain&&(e.contents.script=!1)}),S.ajaxSetup({accepts:{script:"text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"},contents:{script:/\b(?:java|ecma)script\b/},converters:{"text script":function(e){return S.globalEval(e),e}}}),S.ajaxPrefilter("script",function(e){void 0===e.cache&&(e.cache=!1),e.crossDomain&&(e.type="GET")}),S.ajaxTransport("script",function(n){var r,i;if(n.crossDomain||n.scriptAttrs)return{send:function(e,t){r=S("<script>").attr(n.scriptAttrs||{}).prop({charset:n.scriptCharset,src:n.url}).on("load error",i=function(e){r.remove(),i=null,e&&t("error"===e.type?404:200,e.type)}),E.head.appendChild(r[0])},abort:function(){i&&i()}}});var _t,zt=[],Ut=/(=)\?(?=&|$)|\?\?/;S.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var e=zt.pop()||S.expando+"_"+wt.guid++;return this[e]=!0,e}}),S.ajaxPrefilter("json jsonp",function(e,t,n){var r,i,o,a=!1!==e.jsonp&&(Ut.test(e.url)?"url":"string"==typeof e.data&&0===(e.contentType||"").indexOf("application/x-www-form-urlencoded")&&Ut.test(e.data)&&"data");if(a||"jsonp"===e.dataTypes[0])return r=e.jsonpCallback=m(e.jsonpCallback)?e.jsonpCallback():e.jsonpCallback,a?e[a]=e[a].replace(Ut,"$1"+r):!1!==e.jsonp&&(e.url+=(Tt.test(e.url)?"&":"?")+e.jsonp+"="+r),e.converters["script json"]=function(){return o||S.error(r+" was not called"),o[0]},e.dataTypes[0]="json",i=C[r],C[r]=function(){o=arguments},n.always(function(){void 0===i?S(C).removeProp(r):C[r]=i,e[r]&&(e.jsonpCallback=t.jsonpCallback,zt.push(r)),o&&m(i)&&i(o[0]),o=i=void 0}),"script"}),y.createHTMLDocument=((_t=E.implementation.createHTMLDocument("").body).innerHTML="<form></form><form></form>",2===_t.childNodes.length),S.parseHTML=function(e,t,n){return"string"!=typeof e?[]:("boolean"==typeof t&&(n=t,t=!1),t||(y.createHTMLDocument?((r=(t=E.implementation.createHTMLDocument("")).createElement("base")).href=E.location.href,t.head.appendChild(r)):t=E),o=!n&&[],(i=N.exec(e))?[t.createElement(i[1])]:(i=xe([e],t,o),o&&o.length&&S(o).remove(),S.merge([],i.childNodes)));var r,i,o},S.fn.load=function(e,t,n){var r,i,o,a=this,s=e.indexOf(" ");return-1<s&&(r=ht(e.slice(s)),e=e.slice(0,s)),m(t)?(n=t,t=void 0):t&&"object"==typeof t&&(i="POST"),0<a.length&&S.ajax({url:e,type:i||"GET",dataType:"html",data:t}).done(function(e){o=arguments,a.html(r?S("<div>").append(S.parseHTML(e)).find(r):e)}).always(n&&function(e,t){a.each(function(){n.apply(this,o||[e.responseText,t,e])})}),this},S.expr.pseudos.animated=function(t){return S.grep(S.timers,function(e){return t===e.elem}).length},S.offset={setOffset:function(e,t,n){var r,i,o,a,s,u,l=S.css(e,"position"),c=S(e),f={};"static"===l&&(e.style.position="relative"),s=c.offset(),o=S.css(e,"top"),u=S.css(e,"left"),("absolute"===l||"fixed"===l)&&-1<(o+u).indexOf("auto")?(a=(r=c.position()).top,i=r.left):(a=parseFloat(o)||0,i=parseFloat(u)||0),m(t)&&(t=t.call(e,n,S.extend({},s))),null!=t.top&&(f.top=t.top-s.top+a),null!=t.left&&(f.left=t.left-s.left+i),"using"in t?t.using.call(e,f):c.css(f)}},S.fn.extend({offset:function(t){if(arguments.length)return void 0===t?this:this.each(function(e){S.offset.setOffset(this,t,e)});var e,n,r=this[0];return r?r.getClientRects().length?(e=r.getBoundingClientRect(),n=r.ownerDocument.defaultView,{top:e.top+n.pageYOffset,left:e.left+n.pageXOffset}):{top:0,left:0}:void 0},position:function(){if(this[0]){var e,t,n,r=this[0],i={top:0,left:0};if("fixed"===S.css(r,"position"))t=r.getBoundingClientRect();else{t=this.offset(),n=r.ownerDocument,e=r.offsetParent||n.documentElement;while(e&&(e===n.body||e===n.documentElement)&&"static"===S.css(e,"position"))e=e.parentNode;e&&e!==r&&1===e.nodeType&&((i=S(e).offset()).top+=S.css(e,"borderTopWidth",!0),i.left+=S.css(e,"borderLeftWidth",!0))}return{top:t.top-i.top-S.css(r,"marginTop",!0),left:t.left-i.left-S.css(r,"marginLeft",!0)}}},offsetParent:function(){return this.map(function(){var e=this.offsetParent;while(e&&"static"===S.css(e,"position"))e=e.offsetParent;return e||re})}}),S.each({scrollLeft:"pageXOffset",scrollTop:"pageYOffset"},function(t,i){var o="pageYOffset"===i;S.fn[t]=function(e){return $(this,function(e,t,n){var r;if(x(e)?r=e:9===e.nodeType&&(r=e.defaultView),void 0===n)return r?r[i]:e[t];r?r.scrollTo(o?r.pageXOffset:n,o?n:r.pageYOffset):e[t]=n},t,e,arguments.length)}}),S.each(["top","left"],function(e,n){S.cssHooks[n]=Fe(y.pixelPosition,function(e,t){if(t)return t=We(e,n),Pe.test(t)?S(e).position()[n]+"px":t})}),S.each({Height:"height",Width:"width"},function(a,s){S.each({padding:"inner"+a,content:s,"":"outer"+a},function(r,o){S.fn[o]=function(e,t){var n=arguments.length&&(r||"boolean"!=typeof e),i=r||(!0===e||!0===t?"margin":"border");return $(this,function(e,t,n){var r;return x(e)?0===o.indexOf("outer")?e["inner"+a]:e.document.documentElement["client"+a]:9===e.nodeType?(r=e.documentElement,Math.max(e.body["scroll"+a],r["scroll"+a],e.body["offset"+a],r["offset"+a],r["client"+a])):void 0===n?S.css(e,t,i):S.style(e,t,n,i)},s,n?e:void 0,n)}})}),S.each(["ajaxStart","ajaxStop","ajaxComplete","ajaxError","ajaxSuccess","ajaxSend"],function(e,t){S.fn[t]=function(e){return this.on(t,e)}}),S.fn.extend({bind:function(e,t,n){return this.on(e,null,t,n)},unbind:function(e,t){return this.off(e,null,t)},delegate:function(e,t,n,r){return this.on(t,e,n,r)},undelegate:function(e,t,n){return 1===arguments.length?this.off(e,"**"):this.off(t,e||"**",n)},hover:function(e,t){return this.mouseenter(e).mouseleave(t||e)}}),S.each("blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup contextmenu".split(" "),function(e,n){S.fn[n]=function(e,t){return 0<arguments.length?this.on(n,null,e,t):this.trigger(n)}});var Xt=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;S.proxy=function(e,t){var n,r,i;if("string"==typeof t&&(n=e[t],t=e,e=n),m(e))return r=s.call(arguments,2),(i=function(){return e.apply(t||this,r.concat(s.call(arguments)))}).guid=e.guid=e.guid||S.guid++,i},S.holdReady=function(e){e?S.readyWait++:S.ready(!0)},S.isArray=Array.isArray,S.parseJSON=JSON.parse,S.nodeName=A,S.isFunction=m,S.isWindow=x,S.camelCase=X,S.type=w,S.now=Date.now,S.isNumeric=function(e){var t=S.type(e);return("number"===t||"string"===t)&&!isNaN(e-parseFloat(e))},S.trim=function(e){return null==e?"":(e+"").replace(Xt,"")},"function"==typeof define&&define.amd&&define("jquery",[],function(){return S});var Vt=C.jQuery,Gt=C.$;return S.noConflict=function(e){return C.$===S&&(C.$=Gt),e&&C.jQuery===S&&(C.jQuery=Vt),S},"undefined"==typeof e&&(C.jQuery=C.$=S),S});
+
+
+/*! jQuery UI - v1.12.1 - 2021-08-17
+* http://jqueryui.com
+* Includes: widget.js, data.js, scroll-parent.js, widgets/draggable.js, widgets/mouse.js
+* Copyright jQuery Foundation and other contributors; Licensed MIT */
+
+!function(t){"function"==typeof define&&define.amd?define(["jquery"],t):t(jQuery)}(function(b){b.ui=b.ui||{};b.ui.version="1.12.1";var o,s=0,a=Array.prototype.slice;b.cleanData=(o=b.cleanData,function(t){for(var e,s,i=0;null!=(s=t[i]);i++)try{(e=b._data(s,"events"))&&e.remove&&b(s).triggerHandler("remove")}catch(t){}o(t)}),b.widget=function(t,s,e){var i,o,n,r={},a=t.split(".")[0],l=a+"-"+(t=t.split(".")[1]);return e||(e=s,s=b.Widget),b.isArray(e)&&(e=b.extend.apply(null,[{}].concat(e))),b.expr[":"][l.toLowerCase()]=function(t){return!!b.data(t,l)},b[a]=b[a]||{},i=b[a][t],o=b[a][t]=function(t,e){if(!this._createWidget)return new o(t,e);arguments.length&&this._createWidget(t,e)},b.extend(o,i,{version:e.version,_proto:b.extend({},e),_childConstructors:[]}),(n=new s).options=b.widget.extend({},n.options),b.each(e,function(e,i){function o(){return s.prototype[e].apply(this,arguments)}function n(t){return s.prototype[e].apply(this,t)}b.isFunction(i)?r[e]=function(){var t,e=this._super,s=this._superApply;return this._super=o,this._superApply=n,t=i.apply(this,arguments),this._super=e,this._superApply=s,t}:r[e]=i}),o.prototype=b.widget.extend(n,{widgetEventPrefix:i&&n.widgetEventPrefix||t},r,{constructor:o,namespace:a,widgetName:t,widgetFullName:l}),i?(b.each(i._childConstructors,function(t,e){var s=e.prototype;b.widget(s.namespace+"."+s.widgetName,o,e._proto)}),delete i._childConstructors):s._childConstructors.push(o),b.widget.bridge(t,o),o},b.widget.extend=function(t){for(var e,s,i=a.call(arguments,1),o=0,n=i.length;o<n;o++)for(e in i[o])s=i[o][e],i[o].hasOwnProperty(e)&&void 0!==s&&(b.isPlainObject(s)?t[e]=b.isPlainObject(t[e])?b.widget.extend({},t[e],s):b.widget.extend({},s):t[e]=s);return t},b.widget.bridge=function(n,e){var r=e.prototype.widgetFullName||n;b.fn[n]=function(s){var t="string"==typeof s,i=a.call(arguments,1),o=this;return t?this.length||"instance"!==s?this.each(function(){var t,e=b.data(this,r);return"instance"===s?(o=e,!1):e?b.isFunction(e[s])&&"_"!==s.charAt(0)?(t=e[s].apply(e,i))!==e&&void 0!==t?(o=t&&t.jquery?o.pushStack(t.get()):t,!1):void 0:b.error("no such method '"+s+"' for "+n+" widget instance"):b.error("cannot call methods on "+n+" prior to initialization; attempted to call method '"+s+"'")}):o=void 0:(i.length&&(s=b.widget.extend.apply(null,[s].concat(i))),this.each(function(){var t=b.data(this,r);t?(t.option(s||{}),t._init&&t._init()):b.data(this,r,new e(s,this))})),o}},b.Widget=function(){},b.Widget._childConstructors=[],b.Widget.prototype={widgetName:"widget",widgetEventPrefix:"",defaultElement:"<div>",options:{classes:{},disabled:!1,create:null},_createWidget:function(t,e){e=b(e||this.defaultElement||this)[0],this.element=b(e),this.uuid=s++,this.eventNamespace="."+this.widgetName+this.uuid,this.bindings=b(),this.hoverable=b(),this.focusable=b(),this.classesElementLookup={},e!==this&&(b.data(e,this.widgetFullName,this),this._on(!0,this.element,{remove:function(t){t.target===e&&this.destroy()}}),this.document=b(e.style?e.ownerDocument:e.document||e),this.window=b(this.document[0].defaultView||this.document[0].parentWindow)),this.options=b.widget.extend({},this.options,this._getCreateOptions(),t),this._create(),this.options.disabled&&this._setOptionDisabled(this.options.disabled),this._trigger("create",null,this._getCreateEventData()),this._init()},_getCreateOptions:function(){return{}},_getCreateEventData:b.noop,_create:b.noop,_init:b.noop,destroy:function(){var s=this;this._destroy(),b.each(this.classesElementLookup,function(t,e){s._removeClass(e,t)}),this.element.off(this.eventNamespace).removeData(this.widgetFullName),this.widget().off(this.eventNamespace).removeAttr("aria-disabled"),this.bindings.off(this.eventNamespace)},_destroy:b.noop,widget:function(){return this.element},option:function(t,e){var s,i,o,n=t;if(0===arguments.length)return b.widget.extend({},this.options);if("string"==typeof t)if(n={},t=(s=t.split(".")).shift(),s.length){for(i=n[t]=b.widget.extend({},this.options[t]),o=0;o<s.length-1;o++)i[s[o]]=i[s[o]]||{},i=i[s[o]];if(t=s.pop(),1===arguments.length)return void 0===i[t]?null:i[t];i[t]=e}else{if(1===arguments.length)return void 0===this.options[t]?null:this.options[t];n[t]=e}return this._setOptions(n),this},_setOptions:function(t){for(var e in t)this._setOption(e,t[e]);return this},_setOption:function(t,e){return"classes"===t&&this._setOptionClasses(e),this.options[t]=e,"disabled"===t&&this._setOptionDisabled(e),this},_setOptionClasses:function(t){var e,s,i;for(e in t)i=this.classesElementLookup[e],t[e]!==this.options.classes[e]&&i&&i.length&&(s=b(i.get()),this._removeClass(i,e),s.addClass(this._classes({element:s,keys:e,classes:t,add:!0})))},_setOptionDisabled:function(t){this._toggleClass(this.widget(),this.widgetFullName+"-disabled",null,!!t),t&&(this._removeClass(this.hoverable,null,"ui-state-hover"),this._removeClass(this.focusable,null,"ui-state-focus"))},enable:function(){return this._setOptions({disabled:!1})},disable:function(){return this._setOptions({disabled:!0})},_classes:function(o){var n=[],r=this;function t(t,e){for(var s,i=0;i<t.length;i++)s=r.classesElementLookup[t[i]]||b(),s=o.add?b(b.unique(s.get().concat(o.element.get()))):b(s.not(o.element).get()),r.classesElementLookup[t[i]]=s,n.push(t[i]),e&&o.classes[t[i]]&&n.push(o.classes[t[i]])}return o=b.extend({element:this.element,classes:this.options.classes||{}},o),this._on(o.element,{remove:"_untrackClassesElement"}),o.keys&&t(o.keys.match(/\S+/g)||[],!0),o.extra&&t(o.extra.match(/\S+/g)||[]),n.join(" ")},_untrackClassesElement:function(s){var i=this;b.each(i.classesElementLookup,function(t,e){-1!==b.inArray(s.target,e)&&(i.classesElementLookup[t]=b(e.not(s.target).get()))})},_removeClass:function(t,e,s){return this._toggleClass(t,e,s,!1)},_addClass:function(t,e,s){return this._toggleClass(t,e,s,!0)},_toggleClass:function(t,e,s,i){var o="string"==typeof t||null===t,s={extra:o?e:s,keys:o?t:e,element:o?this.element:t,add:i="boolean"==typeof i?i:s};return s.element.toggleClass(this._classes(s),i),this},_on:function(o,n,t){var r,a=this;"boolean"!=typeof o&&(t=n,n=o,o=!1),t?(n=r=b(n),this.bindings=this.bindings.add(n)):(t=n,n=this.element,r=this.widget()),b.each(t,function(t,e){function s(){if(o||!0!==a.options.disabled&&!b(this).hasClass("ui-state-disabled"))return("string"==typeof e?a[e]:e).apply(a,arguments)}"string"!=typeof e&&(s.guid=e.guid=e.guid||s.guid||b.guid++);var i=t.match(/^([\w:-]*)\s*(.*)$/),t=i[1]+a.eventNamespace,i=i[2];i?r.on(t,i,s):n.on(t,s)})},_off:function(t,e){e=(e||"").split(" ").join(this.eventNamespace+" ")+this.eventNamespace,t.off(e).off(e),this.bindings=b(this.bindings.not(t).get()),this.focusable=b(this.focusable.not(t).get()),this.hoverable=b(this.hoverable.not(t).get())},_delay:function(t,e){var s=this;return setTimeout(function(){return("string"==typeof t?s[t]:t).apply(s,arguments)},e||0)},_hoverable:function(t){this.hoverable=this.hoverable.add(t),this._on(t,{mouseenter:function(t){this._addClass(b(t.currentTarget),null,"ui-state-hover")},mouseleave:function(t){this._removeClass(b(t.currentTarget),null,"ui-state-hover")}})},_focusable:function(t){this.focusable=this.focusable.add(t),this._on(t,{focusin:function(t){this._addClass(b(t.currentTarget),null,"ui-state-focus")},focusout:function(t){this._removeClass(b(t.currentTarget),null,"ui-state-focus")}})},_trigger:function(t,e,s){var i,o,n=this.options[t];if(s=s||{},(e=b.Event(e)).type=(t===this.widgetEventPrefix?t:this.widgetEventPrefix+t).toLowerCase(),e.target=this.element[0],o=e.originalEvent)for(i in o)i in e||(e[i]=o[i]);return this.element.trigger(e,s),!(b.isFunction(n)&&!1===n.apply(this.element[0],[e].concat(s))||e.isDefaultPrevented())}},b.each({show:"fadeIn",hide:"fadeOut"},function(n,r){b.Widget.prototype["_"+n]=function(e,t,s){var i=(t="string"==typeof t?{effect:t}:t)?!0!==t&&"number"!=typeof t&&t.effect||r:n,o=!b.isEmptyObject(t="number"==typeof(t=t||{})?{duration:t}:t);t.complete=s,t.delay&&e.delay(t.delay),o&&b.effects&&b.effects.effect[i]?e[n](t):i!==n&&e[i]?e[i](t.duration,t.easing,s):e.queue(function(t){b(this)[n](),s&&s.call(e[0]),t()})}});b.widget,b.extend(b.expr[":"],{data:b.expr.createPseudo?b.expr.createPseudo(function(e){return function(t){return!!b.data(t,e)}}):function(t,e,s){return!!b.data(t,s[3])}}),b.fn.scrollParent=function(t){var e=this.css("position"),s="absolute"===e,i=t?/(auto|scroll|hidden)/:/(auto|scroll)/,t=this.parents().filter(function(){var t=b(this);return(!s||"static"!==t.css("position"))&&i.test(t.css("overflow")+t.css("overflow-y")+t.css("overflow-x"))}).eq(0);return"fixed"!==e&&t.length?t:b(this[0].ownerDocument||document)},b.ui.ie=!!/msie [\w.]+/.exec(navigator.userAgent.toLowerCase());var n=!1;b(document).on("mouseup",function(){n=!1});b.widget("ui.mouse",{version:"1.12.1",options:{cancel:"input, textarea, button, select, option",distance:1,delay:0},_mouseInit:function(){var e=this;this.element.on("mousedown."+this.widgetName,function(t){return e._mouseDown(t)}).on("click."+this.widgetName,function(t){if(!0===b.data(t.target,e.widgetName+".preventClickEvent"))return b.removeData(t.target,e.widgetName+".preventClickEvent"),t.stopImmediatePropagation(),!1}),this.started=!1},_mouseDestroy:function(){this.element.off("."+this.widgetName),this._mouseMoveDelegate&&this.document.off("mousemove."+this.widgetName,this._mouseMoveDelegate).off("mouseup."+this.widgetName,this._mouseUpDelegate)},_mouseDown:function(t){if(!n){this._mouseMoved=!1,this._mouseStarted&&this._mouseUp(t),this._mouseDownEvent=t;var e=this,s=1===t.which,i=!("string"!=typeof this.options.cancel||!t.target.nodeName)&&b(t.target).closest(this.options.cancel).length;return s&&!i&&this._mouseCapture(t)?(this.mouseDelayMet=!this.options.delay,this.mouseDelayMet||(this._mouseDelayTimer=setTimeout(function(){e.mouseDelayMet=!0},this.options.delay)),this._mouseDistanceMet(t)&&this._mouseDelayMet(t)&&(this._mouseStarted=!1!==this._mouseStart(t),!this._mouseStarted)?(t.preventDefault(),!0):(!0===b.data(t.target,this.widgetName+".preventClickEvent")&&b.removeData(t.target,this.widgetName+".preventClickEvent"),this._mouseMoveDelegate=function(t){return e._mouseMove(t)},this._mouseUpDelegate=function(t){return e._mouseUp(t)},this.document.on("mousemove."+this.widgetName,this._mouseMoveDelegate).on("mouseup."+this.widgetName,this._mouseUpDelegate),t.preventDefault(),n=!0)):!0}},_mouseMove:function(t){if(this._mouseMoved){if(b.ui.ie&&(!document.documentMode||document.documentMode<9)&&!t.button)return this._mouseUp(t);if(!t.which)if(t.originalEvent.altKey||t.originalEvent.ctrlKey||t.originalEvent.metaKey||t.originalEvent.shiftKey)this.ignoreMissingWhich=!0;else if(!this.ignoreMissingWhich)return this._mouseUp(t)}return(t.which||t.button)&&(this._mouseMoved=!0),this._mouseStarted?(this._mouseDrag(t),t.preventDefault()):(this._mouseDistanceMet(t)&&this._mouseDelayMet(t)&&(this._mouseStarted=!1!==this._mouseStart(this._mouseDownEvent,t),this._mouseStarted?this._mouseDrag(t):this._mouseUp(t)),!this._mouseStarted)},_mouseUp:function(t){this.document.off("mousemove."+this.widgetName,this._mouseMoveDelegate).off("mouseup."+this.widgetName,this._mouseUpDelegate),this._mouseStarted&&(this._mouseStarted=!1,t.target===this._mouseDownEvent.target&&b.data(t.target,this.widgetName+".preventClickEvent",!0),this._mouseStop(t)),this._mouseDelayTimer&&(clearTimeout(this._mouseDelayTimer),delete this._mouseDelayTimer),this.ignoreMissingWhich=!1,n=!1,t.preventDefault()},_mouseDistanceMet:function(t){return Math.max(Math.abs(this._mouseDownEvent.pageX-t.pageX),Math.abs(this._mouseDownEvent.pageY-t.pageY))>=this.options.distance},_mouseDelayMet:function(){return this.mouseDelayMet},_mouseStart:function(){},_mouseDrag:function(){},_mouseStop:function(){},_mouseCapture:function(){return!0}}),b.ui.plugin={add:function(t,e,s){var i,o=b.ui[t].prototype;for(i in s)o.plugins[i]=o.plugins[i]||[],o.plugins[i].push([e,s[i]])},call:function(t,e,s,i){var o,n=t.plugins[e];if(n&&(i||t.element[0].parentNode&&11!==t.element[0].parentNode.nodeType))for(o=0;o<n.length;o++)t.options[n[o][0]]&&n[o][1].apply(t.element,s)}},b.ui.safeActiveElement=function(e){var s;try{s=e.activeElement}catch(t){s=e.body}return s=!(s=s||e.body).nodeName?e.body:s},b.ui.safeBlur=function(t){t&&"body"!==t.nodeName.toLowerCase()&&b(t).trigger("blur")};b.widget("ui.draggable",b.ui.mouse,{version:"1.12.1",widgetEventPrefix:"drag",options:{addClasses:!0,appendTo:"parent",axis:!1,connectToSortable:!1,containment:!1,cursor:"auto",cursorAt:!1,grid:!1,handle:!1,helper:"original",iframeFix:!1,opacity:!1,refreshPositions:!1,revert:!1,revertDuration:500,scope:"default",scroll:!0,scrollSensitivity:20,scrollSpeed:20,snap:!1,snapMode:"both",snapTolerance:20,stack:!1,zIndex:!1,drag:null,start:null,stop:null},_create:function(){"original"===this.options.helper&&this._setPositionRelative(),this.options.addClasses&&this._addClass("ui-draggable"),this._setHandleClassName(),this._mouseInit()},_setOption:function(t,e){this._super(t,e),"handle"===t&&(this._removeHandleClassName(),this._setHandleClassName())},_destroy:function(){(this.helper||this.element).is(".ui-draggable-dragging")?this.destroyOnClear=!0:(this._removeHandleClassName(),this._mouseDestroy())},_mouseCapture:function(t){var e=this.options;return!(this.helper||e.disabled||0<b(t.target).closest(".ui-resizable-handle").length)&&(this.handle=this._getHandle(t),!!this.handle&&(this._blurActiveElement(t),this._blockFrames(!0===e.iframeFix?"iframe":e.iframeFix),!0))},_blockFrames:function(t){this.iframeBlocks=this.document.find(t).map(function(){var t=b(this);return b("<div>").css("position","absolute").appendTo(t.parent()).outerWidth(t.outerWidth()).outerHeight(t.outerHeight()).offset(t.offset())[0]})},_unblockFrames:function(){this.iframeBlocks&&(this.iframeBlocks.remove(),delete this.iframeBlocks)},_blurActiveElement:function(t){var e=b.ui.safeActiveElement(this.document[0]);b(t.target).closest(e).length||b.ui.safeBlur(e)},_mouseStart:function(t){var e=this.options;return this.helper=this._createHelper(t),this._addClass(this.helper,"ui-draggable-dragging"),this._cacheHelperProportions(),b.ui.ddmanager&&(b.ui.ddmanager.current=this),this._cacheMargins(),this.cssPosition=this.helper.css("position"),this.scrollParent=this.helper.scrollParent(!0),this.offsetParent=this.helper.offsetParent(),this.hasFixedAncestor=0<this.helper.parents().filter(function(){return"fixed"===b(this).css("position")}).length,this.positionAbs=this.element.offset(),this._refreshOffsets(t),this.originalPosition=this.position=this._generatePosition(t,!1),this.originalPageX=t.pageX,this.originalPageY=t.pageY,e.cursorAt&&this._adjustOffsetFromHelper(e.cursorAt),this._setContainment(),!1===this._trigger("start",t)?(this._clear(),!1):(this._cacheHelperProportions(),b.ui.ddmanager&&!e.dropBehaviour&&b.ui.ddmanager.prepareOffsets(this,t),this._mouseDrag(t,!0),b.ui.ddmanager&&b.ui.ddmanager.dragStart(this,t),!0)},_refreshOffsets:function(t){this.offset={top:this.positionAbs.top-this.margins.top,left:this.positionAbs.left-this.margins.left,scroll:!1,parent:this._getParentOffset(),relative:this._getRelativeOffset()},this.offset.click={left:t.pageX-this.offset.left,top:t.pageY-this.offset.top}},_mouseDrag:function(t,e){if(this.hasFixedAncestor&&(this.offset.parent=this._getParentOffset()),this.position=this._generatePosition(t,!0),this.positionAbs=this._convertPositionTo("absolute"),!e){e=this._uiHash();if(!1===this._trigger("drag",t,e))return this._mouseUp(new b.Event("mouseup",t)),!1;this.position=e.position}return this.helper[0].style.left=this.position.left+"px",this.helper[0].style.top=this.position.top+"px",b.ui.ddmanager&&b.ui.ddmanager.drag(this,t),!1},_mouseStop:function(t){var e=this,s=!1;return b.ui.ddmanager&&!this.options.dropBehaviour&&(s=b.ui.ddmanager.drop(this,t)),this.dropped&&(s=this.dropped,this.dropped=!1),"invalid"===this.options.revert&&!s||"valid"===this.options.revert&&s||!0===this.options.revert||b.isFunction(this.options.revert)&&this.options.revert.call(this.element,s)?b(this.helper).animate(this.originalPosition,parseInt(this.options.revertDuration,10),function(){!1!==e._trigger("stop",t)&&e._clear()}):!1!==this._trigger("stop",t)&&this._clear(),!1},_mouseUp:function(t){return this._unblockFrames(),b.ui.ddmanager&&b.ui.ddmanager.dragStop(this,t),this.handleElement.is(t.target)&&this.element.trigger("focus"),b.ui.mouse.prototype._mouseUp.call(this,t)},cancel:function(){return this.helper.is(".ui-draggable-dragging")?this._mouseUp(new b.Event("mouseup",{target:this.element[0]})):this._clear(),this},_getHandle:function(t){return!this.options.handle||!!b(t.target).closest(this.element.find(this.options.handle)).length},_setHandleClassName:function(){this.handleElement=this.options.handle?this.element.find(this.options.handle):this.element,this._addClass(this.handleElement,"ui-draggable-handle")},_removeHandleClassName:function(){this._removeClass(this.handleElement,"ui-draggable-handle")},_createHelper:function(t){var e=this.options,s=b.isFunction(e.helper),t=s?b(e.helper.apply(this.element[0],[t])):"clone"===e.helper?this.element.clone().removeAttr("id"):this.element;return t.parents("body").length||t.appendTo("parent"===e.appendTo?this.element[0].parentNode:e.appendTo),s&&t[0]===this.element[0]&&this._setPositionRelative(),t[0]===this.element[0]||/(fixed|absolute)/.test(t.css("position"))||t.css("position","absolute"),t},_setPositionRelative:function(){/^(?:r|a|f)/.test(this.element.css("position"))||(this.element[0].style.position="relative")},_adjustOffsetFromHelper:function(t){"string"==typeof t&&(t=t.split(" ")),"left"in(t=b.isArray(t)?{left:+t[0],top:+t[1]||0}:t)&&(this.offset.click.left=t.left+this.margins.left),"right"in t&&(this.offset.click.left=this.helperProportions.width-t.right+this.margins.left),"top"in t&&(this.offset.click.top=t.top+this.margins.top),"bottom"in t&&(this.offset.click.top=this.helperProportions.height-t.bottom+this.margins.top)},_isRootNode:function(t){return/(html|body)/i.test(t.tagName)||t===this.document[0]},_getParentOffset:function(){var t=this.offsetParent.offset(),e=this.document[0];return"absolute"===this.cssPosition&&this.scrollParent[0]!==e&&b.contains(this.scrollParent[0],this.offsetParent[0])&&(t.left+=this.scrollParent.scrollLeft(),t.top+=this.scrollParent.scrollTop()),{top:(t=this._isRootNode(this.offsetParent[0])?{top:0,left:0}:t).top+(parseInt(this.offsetParent.css("borderTopWidth"),10)||0),left:t.left+(parseInt(this.offsetParent.css("borderLeftWidth"),10)||0)}},_getRelativeOffset:function(){if("relative"!==this.cssPosition)return{top:0,left:0};var t=this.element.position(),e=this._isRootNode(this.scrollParent[0]);return{top:t.top-(parseInt(this.helper.css("top"),10)||0)+(e?0:this.scrollParent.scrollTop()),left:t.left-(parseInt(this.helper.css("left"),10)||0)+(e?0:this.scrollParent.scrollLeft())}},_cacheMargins:function(){this.margins={left:parseInt(this.element.css("marginLeft"),10)||0,top:parseInt(this.element.css("marginTop"),10)||0,right:parseInt(this.element.css("marginRight"),10)||0,bottom:parseInt(this.element.css("marginBottom"),10)||0}},_cacheHelperProportions:function(){this.helperProportions={width:this.helper.outerWidth(),height:this.helper.outerHeight()}},_setContainment:function(){var t,e,s,i=this.options,o=this.document[0];this.relativeContainer=null,i.containment?"window"!==i.containment?"document"!==i.containment?i.containment.constructor!==Array?("parent"===i.containment&&(i.containment=this.helper[0].parentNode),(s=(e=b(i.containment))[0])&&(t=/(scroll|auto)/.test(e.css("overflow")),this.containment=[(parseInt(e.css("borderLeftWidth"),10)||0)+(parseInt(e.css("paddingLeft"),10)||0),(parseInt(e.css("borderTopWidth"),10)||0)+(parseInt(e.css("paddingTop"),10)||0),(t?Math.max(s.scrollWidth,s.offsetWidth):s.offsetWidth)-(parseInt(e.css("borderRightWidth"),10)||0)-(parseInt(e.css("paddingRight"),10)||0)-this.helperProportions.width-this.margins.left-this.margins.right,(t?Math.max(s.scrollHeight,s.offsetHeight):s.offsetHeight)-(parseInt(e.css("borderBottomWidth"),10)||0)-(parseInt(e.css("paddingBottom"),10)||0)-this.helperProportions.height-this.margins.top-this.margins.bottom],this.relativeContainer=e)):this.containment=i.containment:this.containment=[0,0,b(o).width()-this.helperProportions.width-this.margins.left,(b(o).height()||o.body.parentNode.scrollHeight)-this.helperProportions.height-this.margins.top]:this.containment=[b(window).scrollLeft()-this.offset.relative.left-this.offset.parent.left,b(window).scrollTop()-this.offset.relative.top-this.offset.parent.top,b(window).scrollLeft()+b(window).width()-this.helperProportions.width-this.margins.left,b(window).scrollTop()+(b(window).height()||o.body.parentNode.scrollHeight)-this.helperProportions.height-this.margins.top]:this.containment=null},_convertPositionTo:function(t,e){e=e||this.position;var s="absolute"===t?1:-1,t=this._isRootNode(this.scrollParent[0]);return{top:e.top+this.offset.relative.top*s+this.offset.parent.top*s-("fixed"===this.cssPosition?-this.offset.scroll.top:t?0:this.offset.scroll.top)*s,left:e.left+this.offset.relative.left*s+this.offset.parent.left*s-("fixed"===this.cssPosition?-this.offset.scroll.left:t?0:this.offset.scroll.left)*s}},_generatePosition:function(t,e){var s,i=this.options,o=this._isRootNode(this.scrollParent[0]),n=t.pageX,r=t.pageY;return o&&this.offset.scroll||(this.offset.scroll={top:this.scrollParent.scrollTop(),left:this.scrollParent.scrollLeft()}),e&&(this.containment&&(s=this.relativeContainer?(s=this.relativeContainer.offset(),[this.containment[0]+s.left,this.containment[1]+s.top,this.containment[2]+s.left,this.containment[3]+s.top]):this.containment,t.pageX-this.offset.click.left<s[0]&&(n=s[0]+this.offset.click.left),t.pageY-this.offset.click.top<s[1]&&(r=s[1]+this.offset.click.top),t.pageX-this.offset.click.left>s[2]&&(n=s[2]+this.offset.click.left),t.pageY-this.offset.click.top>s[3]&&(r=s[3]+this.offset.click.top)),i.grid&&(t=i.grid[1]?this.originalPageY+Math.round((r-this.originalPageY)/i.grid[1])*i.grid[1]:this.originalPageY,r=!s||t-this.offset.click.top>=s[1]||t-this.offset.click.top>s[3]?t:t-this.offset.click.top>=s[1]?t-i.grid[1]:t+i.grid[1],t=i.grid[0]?this.originalPageX+Math.round((n-this.originalPageX)/i.grid[0])*i.grid[0]:this.originalPageX,n=!s||t-this.offset.click.left>=s[0]||t-this.offset.click.left>s[2]?t:t-this.offset.click.left>=s[0]?t-i.grid[0]:t+i.grid[0]),"y"===i.axis&&(n=this.originalPageX),"x"===i.axis&&(r=this.originalPageY)),{top:r-this.offset.click.top-this.offset.relative.top-this.offset.parent.top+("fixed"===this.cssPosition?-this.offset.scroll.top:o?0:this.offset.scroll.top),left:n-this.offset.click.left-this.offset.relative.left-this.offset.parent.left+("fixed"===this.cssPosition?-this.offset.scroll.left:o?0:this.offset.scroll.left)}},_clear:function(){this._removeClass(this.helper,"ui-draggable-dragging"),this.helper[0]===this.element[0]||this.cancelHelperRemoval||this.helper.remove(),this.helper=null,this.cancelHelperRemoval=!1,this.destroyOnClear&&this.destroy()},_trigger:function(t,e,s){return s=s||this._uiHash(),b.ui.plugin.call(this,t,[e,s,this],!0),/^(drag|start|stop)/.test(t)&&(this.positionAbs=this._convertPositionTo("absolute"),s.offset=this.positionAbs),b.Widget.prototype._trigger.call(this,t,e,s)},plugins:{},_uiHash:function(){return{helper:this.helper,position:this.position,originalPosition:this.originalPosition,offset:this.positionAbs}}}),b.ui.plugin.add("draggable","connectToSortable",{start:function(e,t,s){var i=b.extend({},t,{item:s.element});s.sortables=[],b(s.options.connectToSortable).each(function(){var t=b(this).sortable("instance");t&&!t.options.disabled&&(s.sortables.push(t),t.refreshPositions(),t._trigger("activate",e,i))})},stop:function(e,t,s){var i=b.extend({},t,{item:s.element});s.cancelHelperRemoval=!1,b.each(s.sortables,function(){var t=this;t.isOver?(t.isOver=0,s.cancelHelperRemoval=!0,t.cancelHelperRemoval=!1,t._storedCSS={position:t.placeholder.css("position"),top:t.placeholder.css("top"),left:t.placeholder.css("left")},t._mouseStop(e),t.options.helper=t.options._helper):(t.cancelHelperRemoval=!0,t._trigger("deactivate",e,i))})},drag:function(s,i,o){b.each(o.sortables,function(){var t=!1,e=this;e.positionAbs=o.positionAbs,e.helperProportions=o.helperProportions,e.offset.click=o.offset.click,e._intersectsWith(e.containerCache)&&(t=!0,b.each(o.sortables,function(){return this.positionAbs=o.positionAbs,this.helperProportions=o.helperProportions,this.offset.click=o.offset.click,t=this!==e&&this._intersectsWith(this.containerCache)&&b.contains(e.element[0],this.element[0])?!1:t})),t?(e.isOver||(e.isOver=1,o._parent=i.helper.parent(),e.currentItem=i.helper.appendTo(e.element).data("ui-sortable-item",!0),e.options._helper=e.options.helper,e.options.helper=function(){return i.helper[0]},s.target=e.currentItem[0],e._mouseCapture(s,!0),e._mouseStart(s,!0,!0),e.offset.click.top=o.offset.click.top,e.offset.click.left=o.offset.click.left,e.offset.parent.left-=o.offset.parent.left-e.offset.parent.left,e.offset.parent.top-=o.offset.parent.top-e.offset.parent.top,o._trigger("toSortable",s),o.dropped=e.element,b.each(o.sortables,function(){this.refreshPositions()}),o.currentItem=o.element,e.fromOutside=o),e.currentItem&&(e._mouseDrag(s),i.position=e.position)):e.isOver&&(e.isOver=0,e.cancelHelperRemoval=!0,e.options._revert=e.options.revert,e.options.revert=!1,e._trigger("out",s,e._uiHash(e)),e._mouseStop(s,!0),e.options.revert=e.options._revert,e.options.helper=e.options._helper,e.placeholder&&e.placeholder.remove(),i.helper.appendTo(o._parent),o._refreshOffsets(s),i.position=o._generatePosition(s,!0),o._trigger("fromSortable",s),o.dropped=!1,b.each(o.sortables,function(){this.refreshPositions()}))})}}),b.ui.plugin.add("draggable","cursor",{start:function(t,e,s){var i=b("body"),s=s.options;i.css("cursor")&&(s._cursor=i.css("cursor")),i.css("cursor",s.cursor)},stop:function(t,e,s){s=s.options;s._cursor&&b("body").css("cursor",s._cursor)}}),b.ui.plugin.add("draggable","opacity",{start:function(t,e,s){e=b(e.helper),s=s.options;e.css("opacity")&&(s._opacity=e.css("opacity")),e.css("opacity",s.opacity)},stop:function(t,e,s){s=s.options;s._opacity&&b(e.helper).css("opacity",s._opacity)}}),b.ui.plugin.add("draggable","scroll",{start:function(t,e,s){s.scrollParentNotHidden||(s.scrollParentNotHidden=s.helper.scrollParent(!1)),s.scrollParentNotHidden[0]!==s.document[0]&&"HTML"!==s.scrollParentNotHidden[0].tagName&&(s.overflowOffset=s.scrollParentNotHidden.offset())},drag:function(t,e,s){var i=s.options,o=!1,n=s.scrollParentNotHidden[0],r=s.document[0];n!==r&&"HTML"!==n.tagName?(i.axis&&"x"===i.axis||(s.overflowOffset.top+n.offsetHeight-t.pageY<i.scrollSensitivity?n.scrollTop=o=n.scrollTop+i.scrollSpeed:t.pageY-s.overflowOffset.top<i.scrollSensitivity&&(n.scrollTop=o=n.scrollTop-i.scrollSpeed)),i.axis&&"y"===i.axis||(s.overflowOffset.left+n.offsetWidth-t.pageX<i.scrollSensitivity?n.scrollLeft=o=n.scrollLeft+i.scrollSpeed:t.pageX-s.overflowOffset.left<i.scrollSensitivity&&(n.scrollLeft=o=n.scrollLeft-i.scrollSpeed))):(i.axis&&"x"===i.axis||(t.pageY-b(r).scrollTop()<i.scrollSensitivity?o=b(r).scrollTop(b(r).scrollTop()-i.scrollSpeed):b(window).height()-(t.pageY-b(r).scrollTop())<i.scrollSensitivity&&(o=b(r).scrollTop(b(r).scrollTop()+i.scrollSpeed))),i.axis&&"y"===i.axis||(t.pageX-b(r).scrollLeft()<i.scrollSensitivity?o=b(r).scrollLeft(b(r).scrollLeft()-i.scrollSpeed):b(window).width()-(t.pageX-b(r).scrollLeft())<i.scrollSensitivity&&(o=b(r).scrollLeft(b(r).scrollLeft()+i.scrollSpeed)))),!1!==o&&b.ui.ddmanager&&!i.dropBehaviour&&b.ui.ddmanager.prepareOffsets(s,t)}}),b.ui.plugin.add("draggable","snap",{start:function(t,e,s){var i=s.options;s.snapElements=[],b(i.snap.constructor!==String?i.snap.items||":data(ui-draggable)":i.snap).each(function(){var t=b(this),e=t.offset();this!==s.element[0]&&s.snapElements.push({item:this,width:t.outerWidth(),height:t.outerHeight(),top:e.top,left:e.left})})},drag:function(t,e,s){for(var i,o,n,r,a,l,h,p,c,f=s.options,u=f.snapTolerance,d=e.offset.left,g=d+s.helperProportions.width,m=e.offset.top,v=m+s.helperProportions.height,_=s.snapElements.length-1;0<=_;_--)l=(a=s.snapElements[_].left-s.margins.left)+s.snapElements[_].width,p=(h=s.snapElements[_].top-s.margins.top)+s.snapElements[_].height,g<a-u||l+u<d||v<h-u||p+u<m||!b.contains(s.snapElements[_].item.ownerDocument,s.snapElements[_].item)?(s.snapElements[_].snapping&&s.options.snap.release&&s.options.snap.release.call(s.element,t,b.extend(s._uiHash(),{snapItem:s.snapElements[_].item})),s.snapElements[_].snapping=!1):("inner"!==f.snapMode&&(i=Math.abs(h-v)<=u,o=Math.abs(p-m)<=u,n=Math.abs(a-g)<=u,r=Math.abs(l-d)<=u,i&&(e.position.top=s._convertPositionTo("relative",{top:h-s.helperProportions.height,left:0}).top),o&&(e.position.top=s._convertPositionTo("relative",{top:p,left:0}).top),n&&(e.position.left=s._convertPositionTo("relative",{top:0,left:a-s.helperProportions.width}).left),r&&(e.position.left=s._convertPositionTo("relative",{top:0,left:l}).left)),c=i||o||n||r,"outer"!==f.snapMode&&(i=Math.abs(h-m)<=u,o=Math.abs(p-v)<=u,n=Math.abs(a-d)<=u,r=Math.abs(l-g)<=u,i&&(e.position.top=s._convertPositionTo("relative",{top:h,left:0}).top),o&&(e.position.top=s._convertPositionTo("relative",{top:p-s.helperProportions.height,left:0}).top),n&&(e.position.left=s._convertPositionTo("relative",{top:0,left:a}).left),r&&(e.position.left=s._convertPositionTo("relative",{top:0,left:l-s.helperProportions.width}).left)),!s.snapElements[_].snapping&&(i||o||n||r||c)&&s.options.snap.snap&&s.options.snap.snap.call(s.element,t,b.extend(s._uiHash(),{snapItem:s.snapElements[_].item})),s.snapElements[_].snapping=i||o||n||r||c)}}),b.ui.plugin.add("draggable","stack",{start:function(t,e,s){var i,s=s.options,s=b.makeArray(b(s.stack)).sort(function(t,e){return(parseInt(b(t).css("zIndex"),10)||0)-(parseInt(b(e).css("zIndex"),10)||0)});s.length&&(i=parseInt(b(s[0]).css("zIndex"),10)||0,b(s).each(function(t){b(this).css("zIndex",i+t)}),this.css("zIndex",i+s.length))}}),b.ui.plugin.add("draggable","zIndex",{start:function(t,e,s){e=b(e.helper),s=s.options;e.css("zIndex")&&(s._zIndex=e.css("zIndex")),e.css("zIndex",s.zIndex)},stop:function(t,e,s){s=s.options;s._zIndex&&b(e.helper).css("zIndex",s._zIndex)}});b.ui.draggable});
+
+!(function (t, e) {
+  "object" == typeof exports && "undefined" != typeof module ? (module.exports = e()) : "function" == typeof define && define.amd ? define(e) : ((t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs = e())
+})(this, function () {
   "use strict"
-  "object" == typeof module && "object" == typeof module.exports
-    ? (module.exports = e.document
-        ? t(e, !0)
-        : function (e) {
-            if (!e.document) throw new Error("jQuery requires a window with a document")
-            return t(e)
-          })
-    : t(e)
-})("undefined" != typeof window ? window : this, function (C, e) {
-  "use strict"
-  var t = [],
-    r = Object.getPrototypeOf,
-    s = t.slice,
-    g = t.flat
-      ? function (e) {
-          return t.flat.call(e)
-        }
-      : function (e) {
-          return t.concat.apply([], e)
-        },
-    u = t.push,
-    i = t.indexOf,
-    n = {},
-    o = n.toString,
-    v = n.hasOwnProperty,
-    a = v.toString,
-    l = a.call(Object),
-    y = {},
-    m = function (e) {
-      return "function" == typeof e && "number" != typeof e.nodeType && "function" != typeof e.item
+  var t = 1e3,
+    e = 6e4,
+    n = 36e5,
+    r = "millisecond",
+    i = "second",
+    s = "minute",
+    u = "hour",
+    a = "day",
+    o = "week",
+    c = "month",
+    f = "quarter",
+    h = "year",
+    d = "date",
+    l = "Invalid Date",
+    $ = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,
+    y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,
+    M = {
+      name: "en",
+      weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
+      months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"),
+      ordinal: function (t) {
+        var e = ["th", "st", "nd", "rd"],
+          n = t % 100
+        return "[" + t + (e[(n - 20) % 10] || e[n] || e[0]) + "]"
+      }
     },
-    x = function (e) {
-      return null != e && e === e.window
+    m = function (t, e, n) {
+      var r = String(t)
+      return !r || r.length >= e ? t : "" + Array(e + 1 - r.length).join(n) + t
     },
-    E = C.document,
-    c = { type: !0, src: !0, nonce: !0, noModule: !0 }
-  function b(e, t, n) {
-    var r,
-      i,
-      o = (n = n || E).createElement("script")
-    if (((o.text = e), t)) for (r in c) (i = t[r] || (t.getAttribute && t.getAttribute(r))) && o.setAttribute(r, i)
-    n.head.appendChild(o).parentNode.removeChild(o)
-  }
-  function w(e) {
-    return null == e ? e + "" : "object" == typeof e || "function" == typeof e ? n[o.call(e)] || "object" : typeof e
-  }
-  var f = "3.6.0",
-    S = function (e, t) {
-      return new S.fn.init(e, t)
-    }
-  function p(e) {
-    var t = !!e && "length" in e && e.length,
-      n = w(e)
-    return !m(e) && !x(e) && ("array" === n || 0 === t || ("number" == typeof t && 0 < t && t - 1 in e))
-  }
-  ;(S.fn = S.prototype =
-    {
-      jquery: f,
-      constructor: S,
-      length: 0,
-      toArray: function () {
-        return s.call(this)
+    v = {
+      s: m,
+      z: function (t) {
+        var e = -t.utcOffset(),
+          n = Math.abs(e),
+          r = Math.floor(n / 60),
+          i = n % 60
+        return (e <= 0 ? "+" : "-") + m(r, 2, "0") + ":" + m(i, 2, "0")
       },
-      get: function (e) {
-        return null == e ? s.call(this) : e < 0 ? this[e + this.length] : this[e]
+      m: function t(e, n) {
+        if (e.date() < n.date()) return -t(n, e)
+        var r = 12 * (n.year() - e.year()) + (n.month() - e.month()),
+          i = e.clone().add(r, c),
+          s = n - i < 0,
+          u = e.clone().add(r + (s ? -1 : 1), c)
+        return +(-(r + (n - i) / (s ? i - u : u - i)) || 0)
       },
-      pushStack: function (e) {
-        var t = S.merge(this.constructor(), e)
-        return (t.prevObject = this), t
+      a: function (t) {
+        return t < 0 ? Math.ceil(t) || 0 : Math.floor(t)
       },
-      each: function (e) {
-        return S.each(this, e)
-      },
-      map: function (n) {
-        return this.pushStack(
-          S.map(this, function (e, t) {
-            return n.call(e, t, e)
-          })
+      p: function (t) {
+        return (
+          { M: c, y: h, w: o, d: a, D: d, h: u, m: s, s: i, ms: r, Q: f }[t] ||
+          String(t || "")
+            .toLowerCase()
+            .replace(/s$/, "")
         )
       },
-      slice: function () {
-        return this.pushStack(s.apply(this, arguments))
-      },
-      first: function () {
-        return this.eq(0)
-      },
-      last: function () {
-        return this.eq(-1)
-      },
-      even: function () {
-        return this.pushStack(
-          S.grep(this, function (e, t) {
-            return (t + 1) % 2
-          })
-        )
-      },
-      odd: function () {
-        return this.pushStack(
-          S.grep(this, function (e, t) {
-            return t % 2
-          })
-        )
-      },
-      eq: function (e) {
-        var t = this.length,
-          n = +e + (e < 0 ? t : 0)
-        return this.pushStack(0 <= n && n < t ? [this[n]] : [])
-      },
-      end: function () {
-        return this.prevObject || this.constructor()
-      },
-      push: u,
-      sort: t.sort,
-      splice: t.splice
-    }),
-    (S.extend = S.fn.extend =
-      function () {
-        var e,
-          t,
-          n,
-          r,
-          i,
-          o,
-          a = arguments[0] || {},
-          s = 1,
-          u = arguments.length,
-          l = !1
-        for ("boolean" == typeof a && ((l = a), (a = arguments[s] || {}), s++), "object" == typeof a || m(a) || (a = {}), s === u && ((a = this), s--); s < u; s++)
-          if (null != (e = arguments[s]))
-            for (t in e)
-              (r = e[t]),
-                "__proto__" !== t &&
-                  a !== r &&
-                  (l && r && (S.isPlainObject(r) || (i = Array.isArray(r))) ? ((n = a[t]), (o = i && !Array.isArray(n) ? [] : i || S.isPlainObject(n) ? n : {}), (i = !1), (a[t] = S.extend(l, o, r))) : void 0 !== r && (a[t] = r))
-        return a
-      }),
-    S.extend({
-      expando: "jQuery" + (f + Math.random()).replace(/\D/g, ""),
-      isReady: !0,
-      error: function (e) {
-        throw new Error(e)
-      },
-      noop: function () {},
-      isPlainObject: function (e) {
-        var t, n
-        return !(!e || "[object Object]" !== o.call(e)) && (!(t = r(e)) || ("function" == typeof (n = v.call(t, "constructor") && t.constructor) && a.call(n) === l))
-      },
-      isEmptyObject: function (e) {
-        var t
-        for (t in e) return !1
-        return !0
-      },
-      globalEval: function (e, t, n) {
-        b(e, { nonce: t && t.nonce }, n)
-      },
-      each: function (e, t) {
-        var n,
-          r = 0
-        if (p(e)) {
-          for (n = e.length; r < n; r++) if (!1 === t.call(e[r], r, e[r])) break
-        } else for (r in e) if (!1 === t.call(e[r], r, e[r])) break
-        return e
-      },
-      makeArray: function (e, t) {
-        var n = t || []
-        return null != e && (p(Object(e)) ? S.merge(n, "string" == typeof e ? [e] : e) : u.call(n, e)), n
-      },
-      inArray: function (e, t, n) {
-        return null == t ? -1 : i.call(t, e, n)
-      },
-      merge: function (e, t) {
-        for (var n = +t.length, r = 0, i = e.length; r < n; r++) e[i++] = t[r]
-        return (e.length = i), e
-      },
-      grep: function (e, t, n) {
-        for (var r = [], i = 0, o = e.length, a = !n; i < o; i++) !t(e[i], i) !== a && r.push(e[i])
-        return r
-      },
-      map: function (e, t, n) {
-        var r,
-          i,
-          o = 0,
-          a = []
-        if (p(e)) for (r = e.length; o < r; o++) null != (i = t(e[o], o, n)) && a.push(i)
-        else for (o in e) null != (i = t(e[o], o, n)) && a.push(i)
-        return g(a)
-      },
-      guid: 1,
-      support: y
-    }),
-    "function" == typeof Symbol && (S.fn[Symbol.iterator] = t[Symbol.iterator]),
-    S.each("Boolean Number String Function Array Date RegExp Object Error Symbol".split(" "), function (e, t) {
-      n["[object " + t + "]"] = t.toLowerCase()
+      u: function (t) {
+        return void 0 === t
+      }
+    },
+    g = "en",
+    D = {}
+  D[g] = M
+  var p = "$isDayjsObject",
+    S = function (t) {
+      return t instanceof _ || !(!t || !t[p])
+    },
+    w = function t(e, n, r) {
+      var i
+      if (!e) return g
+      if ("string" == typeof e) {
+        var s = e.toLowerCase()
+        D[s] && (i = s), n && ((D[s] = n), (i = s))
+        var u = e.split("-")
+        if (!i && u.length > 1) return t(u[0])
+      } else {
+        var a = e.name
+        ;(D[a] = e), (i = a)
+      }
+      return !r && i && (g = i), i || (!r && g)
+    },
+    O = function (t, e) {
+      if (S(t)) return t.clone()
+      var n = "object" == typeof e ? e : {}
+      return (n.date = t), (n.args = arguments), new _(n)
+    },
+    b = v
+  ;(b.l = w),
+    (b.i = S),
+    (b.w = function (t, e) {
+      return O(t, { locale: e.$L, utc: e.$u, x: e.$x, $offset: e.$offset })
     })
-  var d = (function (n) {
-    var e,
-      d,
-      b,
-      o,
-      i,
-      h,
-      f,
-      g,
-      w,
-      u,
-      l,
-      T,
-      C,
-      a,
-      E,
-      v,
-      s,
-      c,
-      y,
-      S = "sizzle" + 1 * new Date(),
-      p = n.document,
-      k = 0,
-      r = 0,
-      m = ue(),
-      x = ue(),
-      A = ue(),
-      N = ue(),
-      j = function (e, t) {
-        return e === t && (l = !0), 0
-      },
-      D = {}.hasOwnProperty,
-      t = [],
-      q = t.pop,
-      L = t.push,
-      H = t.push,
-      O = t.slice,
-      P = function (e, t) {
-        for (var n = 0, r = e.length; n < r; n++) if (e[n] === t) return n
-        return -1
-      },
-      R = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",
-      M = "[\\x20\\t\\r\\n\\f]",
-      I = "(?:\\\\[\\da-fA-F]{1,6}" + M + "?|\\\\[^\\r\\n\\f]|[\\w-]|[^\0-\\x7f])+",
-      W = "\\[" + M + "*(" + I + ")(?:" + M + "*([*^$|!~]?=)" + M + "*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + I + "))|)" + M + "*\\]",
-      F = ":(" + I + ")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|" + W + ")*)|.*)\\)|)",
-      B = new RegExp(M + "+", "g"),
-      $ = new RegExp("^" + M + "+|((?:^|[^\\\\])(?:\\\\.)*)" + M + "+$", "g"),
-      _ = new RegExp("^" + M + "*," + M + "*"),
-      z = new RegExp("^" + M + "*([>+~]|" + M + ")" + M + "*"),
-      U = new RegExp(M + "|>"),
-      X = new RegExp(F),
-      V = new RegExp("^" + I + "$"),
-      G = {
-        ID: new RegExp("^#(" + I + ")"),
-        CLASS: new RegExp("^\\.(" + I + ")"),
-        TAG: new RegExp("^(" + I + "|[*])"),
-        ATTR: new RegExp("^" + W),
-        PSEUDO: new RegExp("^" + F),
-        CHILD: new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + M + "*(even|odd|(([+-]|)(\\d*)n|)" + M + "*(?:([+-]|)" + M + "*(\\d+)|))" + M + "*\\)|)", "i"),
-        bool: new RegExp("^(?:" + R + ")$", "i"),
-        needsContext: new RegExp("^" + M + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" + M + "*((?:-\\d)?\\d*)" + M + "*\\)|)(?=[^-]|$)", "i")
-      },
-      Y = /HTML$/i,
-      Q = /^(?:input|select|textarea|button)$/i,
-      J = /^h\d$/i,
-      K = /^[^{]+\{\s*\[native \w/,
-      Z = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,
-      ee = /[+~]/,
-      te = new RegExp("\\\\[\\da-fA-F]{1,6}" + M + "?|\\\\([^\\r\\n\\f])", "g"),
-      ne = function (e, t) {
-        var n = "0x" + e.slice(1) - 65536
-        return t || (n < 0 ? String.fromCharCode(n + 65536) : String.fromCharCode((n >> 10) | 55296, (1023 & n) | 56320))
-      },
-      re = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g,
-      ie = function (e, t) {
-        return t ? ("\0" === e ? "\ufffd" : e.slice(0, -1) + "\\" + e.charCodeAt(e.length - 1).toString(16) + " ") : "\\" + e
-      },
-      oe = function () {
-        T()
-      },
-      ae = be(
-        function (e) {
-          return !0 === e.disabled && "fieldset" === e.nodeName.toLowerCase()
-        },
-        { dir: "parentNode", next: "legend" }
-      )
-    try {
-      H.apply((t = O.call(p.childNodes)), p.childNodes), t[p.childNodes.length].nodeType
-    } catch (e) {
-      H = {
-        apply: t.length
-          ? function (e, t) {
-              L.apply(e, O.call(t))
-            }
-          : function (e, t) {
-              var n = e.length,
-                r = 0
-              while ((e[n++] = t[r++]));
-              e.length = n - 1
-            }
+  var _ = (function () {
+      function M(t) {
+        ;(this.$L = w(t.locale, null, !0)), this.parse(t), (this.$x = this.$x || t.x || {}), (this[p] = !0)
       }
-    }
-    function se(t, e, n, r) {
-      var i,
-        o,
-        a,
-        s,
-        u,
-        l,
-        c,
-        f = e && e.ownerDocument,
-        p = e ? e.nodeType : 9
-      if (((n = n || []), "string" != typeof t || !t || (1 !== p && 9 !== p && 11 !== p))) return n
-      if (!r && (T(e), (e = e || C), E)) {
-        if (11 !== p && (u = Z.exec(t)))
-          if ((i = u[1])) {
-            if (9 === p) {
-              if (!(a = e.getElementById(i))) return n
-              if (a.id === i) return n.push(a), n
-            } else if (f && (a = f.getElementById(i)) && y(e, a) && a.id === i) return n.push(a), n
-          } else {
-            if (u[2]) return H.apply(n, e.getElementsByTagName(t)), n
-            if ((i = u[3]) && d.getElementsByClassName && e.getElementsByClassName) return H.apply(n, e.getElementsByClassName(i)), n
-          }
-        if (d.qsa && !N[t + " "] && (!v || !v.test(t)) && (1 !== p || "object" !== e.nodeName.toLowerCase())) {
-          if (((c = t), (f = e), 1 === p && (U.test(t) || z.test(t)))) {
-            ;((f = (ee.test(t) && ye(e.parentNode)) || e) === e && d.scope) || ((s = e.getAttribute("id")) ? (s = s.replace(re, ie)) : e.setAttribute("id", (s = S))), (o = (l = h(t)).length)
-            while (o--) l[o] = (s ? "#" + s : ":scope") + " " + xe(l[o])
-            c = l.join(",")
-          }
-          try {
-            return H.apply(n, f.querySelectorAll(c)), n
-          } catch (e) {
-            N(t, !0)
-          } finally {
-            s === S && e.removeAttribute("id")
-          }
-        }
-      }
-      return g(t.replace($, "$1"), e, n, r)
-    }
-    function ue() {
-      var r = []
-      return function e(t, n) {
-        return r.push(t + " ") > b.cacheLength && delete e[r.shift()], (e[t + " "] = n)
-      }
-    }
-    function le(e) {
-      return (e[S] = !0), e
-    }
-    function ce(e) {
-      var t = C.createElement("fieldset")
-      try {
-        return !!e(t)
-      } catch (e) {
-        return !1
-      } finally {
-        t.parentNode && t.parentNode.removeChild(t), (t = null)
-      }
-    }
-    function fe(e, t) {
-      var n = e.split("|"),
-        r = n.length
-      while (r--) b.attrHandle[n[r]] = t
-    }
-    function pe(e, t) {
-      var n = t && e,
-        r = n && 1 === e.nodeType && 1 === t.nodeType && e.sourceIndex - t.sourceIndex
-      if (r) return r
-      if (n) while ((n = n.nextSibling)) if (n === t) return -1
-      return e ? 1 : -1
-    }
-    function de(t) {
-      return function (e) {
-        return "input" === e.nodeName.toLowerCase() && e.type === t
-      }
-    }
-    function he(n) {
-      return function (e) {
-        var t = e.nodeName.toLowerCase()
-        return ("input" === t || "button" === t) && e.type === n
-      }
-    }
-    function ge(t) {
-      return function (e) {
-        return "form" in e
-          ? e.parentNode && !1 === e.disabled
-            ? "label" in e
-              ? "label" in e.parentNode
-                ? e.parentNode.disabled === t
-                : e.disabled === t
-              : e.isDisabled === t || (e.isDisabled !== !t && ae(e) === t)
-            : e.disabled === t
-          : "label" in e && e.disabled === t
-      }
-    }
-    function ve(a) {
-      return le(function (o) {
-        return (
-          (o = +o),
-          le(function (e, t) {
-            var n,
-              r = a([], e.length, o),
-              i = r.length
-            while (i--) e[(n = r[i])] && (e[n] = !(t[n] = e[n]))
-          })
-        )
-      })
-    }
-    function ye(e) {
-      return e && "undefined" != typeof e.getElementsByTagName && e
-    }
-    for (e in ((d = se.support = {}),
-    (i = se.isXML =
-      function (e) {
-        var t = e && e.namespaceURI,
-          n = e && (e.ownerDocument || e).documentElement
-        return !Y.test(t || (n && n.nodeName) || "HTML")
-      }),
-    (T = se.setDocument =
-      function (e) {
-        var t,
-          n,
-          r = e ? e.ownerDocument || e : p
-        return (
-          r != C &&
-            9 === r.nodeType &&
-            r.documentElement &&
-            ((a = (C = r).documentElement),
-            (E = !i(C)),
-            p != C && (n = C.defaultView) && n.top !== n && (n.addEventListener ? n.addEventListener("unload", oe, !1) : n.attachEvent && n.attachEvent("onunload", oe)),
-            (d.scope = ce(function (e) {
-              return a.appendChild(e).appendChild(C.createElement("div")), "undefined" != typeof e.querySelectorAll && !e.querySelectorAll(":scope fieldset div").length
-            })),
-            (d.attributes = ce(function (e) {
-              return (e.className = "i"), !e.getAttribute("className")
-            })),
-            (d.getElementsByTagName = ce(function (e) {
-              return e.appendChild(C.createComment("")), !e.getElementsByTagName("*").length
-            })),
-            (d.getElementsByClassName = K.test(C.getElementsByClassName)),
-            (d.getById = ce(function (e) {
-              return (a.appendChild(e).id = S), !C.getElementsByName || !C.getElementsByName(S).length
-            })),
-            d.getById
-              ? ((b.filter.ID = function (e) {
-                  var t = e.replace(te, ne)
-                  return function (e) {
-                    return e.getAttribute("id") === t
-                  }
-                }),
-                (b.find.ID = function (e, t) {
-                  if ("undefined" != typeof t.getElementById && E) {
-                    var n = t.getElementById(e)
-                    return n ? [n] : []
-                  }
-                }))
-              : ((b.filter.ID = function (e) {
-                  var n = e.replace(te, ne)
-                  return function (e) {
-                    var t = "undefined" != typeof e.getAttributeNode && e.getAttributeNode("id")
-                    return t && t.value === n
-                  }
-                }),
-                (b.find.ID = function (e, t) {
-                  if ("undefined" != typeof t.getElementById && E) {
-                    var n,
-                      r,
-                      i,
-                      o = t.getElementById(e)
-                    if (o) {
-                      if ((n = o.getAttributeNode("id")) && n.value === e) return [o]
-                      ;(i = t.getElementsByName(e)), (r = 0)
-                      while ((o = i[r++])) if ((n = o.getAttributeNode("id")) && n.value === e) return [o]
-                    }
-                    return []
-                  }
-                })),
-            (b.find.TAG = d.getElementsByTagName
-              ? function (e, t) {
-                  return "undefined" != typeof t.getElementsByTagName ? t.getElementsByTagName(e) : d.qsa ? t.querySelectorAll(e) : void 0
-                }
-              : function (e, t) {
-                  var n,
-                    r = [],
-                    i = 0,
-                    o = t.getElementsByTagName(e)
-                  if ("*" === e) {
-                    while ((n = o[i++])) 1 === n.nodeType && r.push(n)
-                    return r
-                  }
-                  return o
-                }),
-            (b.find.CLASS =
-              d.getElementsByClassName &&
-              function (e, t) {
-                if ("undefined" != typeof t.getElementsByClassName && E) return t.getElementsByClassName(e)
-              }),
-            (s = []),
-            (v = []),
-            (d.qsa = K.test(C.querySelectorAll)) &&
-              (ce(function (e) {
-                var t
-                ;(a.appendChild(e).innerHTML = "<a id='" + S + "'></a><select id='" + S + "-\r\\' msallowcapture=''><option selected=''></option></select>"),
-                  e.querySelectorAll("[msallowcapture^='']").length && v.push("[*^$]=" + M + "*(?:''|\"\")"),
-                  e.querySelectorAll("[selected]").length || v.push("\\[" + M + "*(?:value|" + R + ")"),
-                  e.querySelectorAll("[id~=" + S + "-]").length || v.push("~="),
-                  (t = C.createElement("input")).setAttribute("name", ""),
-                  e.appendChild(t),
-                  e.querySelectorAll("[name='']").length || v.push("\\[" + M + "*name" + M + "*=" + M + "*(?:''|\"\")"),
-                  e.querySelectorAll(":checked").length || v.push(":checked"),
-                  e.querySelectorAll("a#" + S + "+*").length || v.push(".#.+[+~]"),
-                  e.querySelectorAll("\\\f"),
-                  v.push("[\\r\\n\\f]")
-              }),
-              ce(function (e) {
-                e.innerHTML = "<a href='' disabled='disabled'></a><select disabled='disabled'><option/></select>"
-                var t = C.createElement("input")
-                t.setAttribute("type", "hidden"),
-                  e.appendChild(t).setAttribute("name", "D"),
-                  e.querySelectorAll("[name=d]").length && v.push("name" + M + "*[*^$|!~]?="),
-                  2 !== e.querySelectorAll(":enabled").length && v.push(":enabled", ":disabled"),
-                  (a.appendChild(e).disabled = !0),
-                  2 !== e.querySelectorAll(":disabled").length && v.push(":enabled", ":disabled"),
-                  e.querySelectorAll("*,:x"),
-                  v.push(",.*:")
-              })),
-            (d.matchesSelector = K.test((c = a.matches || a.webkitMatchesSelector || a.mozMatchesSelector || a.oMatchesSelector || a.msMatchesSelector))) &&
-              ce(function (e) {
-                ;(d.disconnectedMatch = c.call(e, "*")), c.call(e, "[s!='']:x"), s.push("!=", F)
-              }),
-            (v = v.length && new RegExp(v.join("|"))),
-            (s = s.length && new RegExp(s.join("|"))),
-            (t = K.test(a.compareDocumentPosition)),
-            (y =
-              t || K.test(a.contains)
-                ? function (e, t) {
-                    var n = 9 === e.nodeType ? e.documentElement : e,
-                      r = t && t.parentNode
-                    return e === r || !(!r || 1 !== r.nodeType || !(n.contains ? n.contains(r) : e.compareDocumentPosition && 16 & e.compareDocumentPosition(r)))
-                  }
-                : function (e, t) {
-                    if (t) while ((t = t.parentNode)) if (t === e) return !0
-                    return !1
-                  }),
-            (j = t
-              ? function (e, t) {
-                  if (e === t) return (l = !0), 0
-                  var n = !e.compareDocumentPosition - !t.compareDocumentPosition
-                  return (
-                    n ||
-                    (1 & (n = (e.ownerDocument || e) == (t.ownerDocument || t) ? e.compareDocumentPosition(t) : 1) || (!d.sortDetached && t.compareDocumentPosition(e) === n)
-                      ? e == C || (e.ownerDocument == p && y(p, e))
-                        ? -1
-                        : t == C || (t.ownerDocument == p && y(p, t))
-                          ? 1
-                          : u
-                            ? P(u, e) - P(u, t)
-                            : 0
-                      : 4 & n
-                        ? -1
-                        : 1)
-                  )
-                }
-              : function (e, t) {
-                  if (e === t) return (l = !0), 0
-                  var n,
-                    r = 0,
-                    i = e.parentNode,
-                    o = t.parentNode,
-                    a = [e],
-                    s = [t]
-                  if (!i || !o) return e == C ? -1 : t == C ? 1 : i ? -1 : o ? 1 : u ? P(u, e) - P(u, t) : 0
-                  if (i === o) return pe(e, t)
-                  n = e
-                  while ((n = n.parentNode)) a.unshift(n)
-                  n = t
-                  while ((n = n.parentNode)) s.unshift(n)
-                  while (a[r] === s[r]) r++
-                  return r ? pe(a[r], s[r]) : a[r] == p ? -1 : s[r] == p ? 1 : 0
-                })),
-          C
-        )
-      }),
-    (se.matches = function (e, t) {
-      return se(e, null, null, t)
-    }),
-    (se.matchesSelector = function (e, t) {
-      if ((T(e), d.matchesSelector && E && !N[t + " "] && (!s || !s.test(t)) && (!v || !v.test(t))))
-        try {
-          var n = c.call(e, t)
-          if (n || d.disconnectedMatch || (e.document && 11 !== e.document.nodeType)) return n
-        } catch (e) {
-          N(t, !0)
-        }
-      return 0 < se(t, C, null, [e]).length
-    }),
-    (se.contains = function (e, t) {
-      return (e.ownerDocument || e) != C && T(e), y(e, t)
-    }),
-    (se.attr = function (e, t) {
-      ;(e.ownerDocument || e) != C && T(e)
-      var n = b.attrHandle[t.toLowerCase()],
-        r = n && D.call(b.attrHandle, t.toLowerCase()) ? n(e, t, !E) : void 0
-      return void 0 !== r ? r : d.attributes || !E ? e.getAttribute(t) : (r = e.getAttributeNode(t)) && r.specified ? r.value : null
-    }),
-    (se.escape = function (e) {
-      return (e + "").replace(re, ie)
-    }),
-    (se.error = function (e) {
-      throw new Error("Syntax error, unrecognized expression: " + e)
-    }),
-    (se.uniqueSort = function (e) {
-      var t,
-        n = [],
-        r = 0,
-        i = 0
-      if (((l = !d.detectDuplicates), (u = !d.sortStable && e.slice(0)), e.sort(j), l)) {
-        while ((t = e[i++])) t === e[i] && (r = n.push(i))
-        while (r--) e.splice(n[r], 1)
-      }
-      return (u = null), e
-    }),
-    (o = se.getText =
-      function (e) {
-        var t,
-          n = "",
-          r = 0,
-          i = e.nodeType
-        if (i) {
-          if (1 === i || 9 === i || 11 === i) {
-            if ("string" == typeof e.textContent) return e.textContent
-            for (e = e.firstChild; e; e = e.nextSibling) n += o(e)
-          } else if (3 === i || 4 === i) return e.nodeValue
-        } else while ((t = e[r++])) n += o(t)
-        return n
-      }),
-    ((b = se.selectors =
-      {
-        cacheLength: 50,
-        createPseudo: le,
-        match: G,
-        attrHandle: {},
-        find: {},
-        relative: { ">": { dir: "parentNode", first: !0 }, " ": { dir: "parentNode" }, "+": { dir: "previousSibling", first: !0 }, "~": { dir: "previousSibling" } },
-        preFilter: {
-          ATTR: function (e) {
-            return (e[1] = e[1].replace(te, ne)), (e[3] = (e[3] || e[4] || e[5] || "").replace(te, ne)), "~=" === e[2] && (e[3] = " " + e[3] + " "), e.slice(0, 4)
-          },
-          CHILD: function (e) {
-            return (
-              (e[1] = e[1].toLowerCase()),
-              "nth" === e[1].slice(0, 3) ? (e[3] || se.error(e[0]), (e[4] = +(e[4] ? e[5] + (e[6] || 1) : 2 * ("even" === e[3] || "odd" === e[3]))), (e[5] = +(e[7] + e[8] || "odd" === e[3]))) : e[3] && se.error(e[0]),
-              e
-            )
-          },
-          PSEUDO: function (e) {
-            var t,
-              n = !e[6] && e[2]
-            return G.CHILD.test(e[0]) ? null : (e[3] ? (e[2] = e[4] || e[5] || "") : n && X.test(n) && (t = h(n, !0)) && (t = n.indexOf(")", n.length - t) - n.length) && ((e[0] = e[0].slice(0, t)), (e[2] = n.slice(0, t))), e.slice(0, 3))
-          }
-        },
-        filter: {
-          TAG: function (e) {
-            var t = e.replace(te, ne).toLowerCase()
-            return "*" === e
-              ? function () {
-                  return !0
-                }
-              : function (e) {
-                  return e.nodeName && e.nodeName.toLowerCase() === t
-                }
-          },
-          CLASS: function (e) {
-            var t = m[e + " "]
-            return (
-              t ||
-              ((t = new RegExp("(^|" + M + ")" + e + "(" + M + "|$)")) &&
-                m(e, function (e) {
-                  return t.test(("string" == typeof e.className && e.className) || ("undefined" != typeof e.getAttribute && e.getAttribute("class")) || "")
-                }))
-            )
-          },
-          ATTR: function (n, r, i) {
-            return function (e) {
-              var t = se.attr(e, n)
-              return null == t
-                ? "!=" === r
-                : !r ||
-                    ((t += ""),
-                    "=" === r
-                      ? t === i
-                      : "!=" === r
-                        ? t !== i
-                        : "^=" === r
-                          ? i && 0 === t.indexOf(i)
-                          : "*=" === r
-                            ? i && -1 < t.indexOf(i)
-                            : "$=" === r
-                              ? i && t.slice(-i.length) === i
-                              : "~=" === r
-                                ? -1 < (" " + t.replace(B, " ") + " ").indexOf(i)
-                                : "|=" === r && (t === i || t.slice(0, i.length + 1) === i + "-"))
-            }
-          },
-          CHILD: function (h, e, t, g, v) {
-            var y = "nth" !== h.slice(0, 3),
-              m = "last" !== h.slice(-4),
-              x = "of-type" === e
-            return 1 === g && 0 === v
-              ? function (e) {
-                  return !!e.parentNode
-                }
-              : function (e, t, n) {
-                  var r,
-                    i,
-                    o,
-                    a,
-                    s,
-                    u,
-                    l = y !== m ? "nextSibling" : "previousSibling",
-                    c = e.parentNode,
-                    f = x && e.nodeName.toLowerCase(),
-                    p = !n && !x,
-                    d = !1
-                  if (c) {
-                    if (y) {
-                      while (l) {
-                        a = e
-                        while ((a = a[l])) if (x ? a.nodeName.toLowerCase() === f : 1 === a.nodeType) return !1
-                        u = l = "only" === h && !u && "nextSibling"
-                      }
-                      return !0
-                    }
-                    if (((u = [m ? c.firstChild : c.lastChild]), m && p)) {
-                      ;(d = (s = (r = (i = (o = (a = c)[S] || (a[S] = {}))[a.uniqueID] || (o[a.uniqueID] = {}))[h] || [])[0] === k && r[1]) && r[2]), (a = s && c.childNodes[s])
-                      while ((a = (++s && a && a[l]) || (d = s = 0) || u.pop()))
-                        if (1 === a.nodeType && ++d && a === e) {
-                          i[h] = [k, s, d]
-                          break
-                        }
-                    } else if ((p && (d = s = (r = (i = (o = (a = e)[S] || (a[S] = {}))[a.uniqueID] || (o[a.uniqueID] = {}))[h] || [])[0] === k && r[1]), !1 === d))
-                      while ((a = (++s && a && a[l]) || (d = s = 0) || u.pop()))
-                        if ((x ? a.nodeName.toLowerCase() === f : 1 === a.nodeType) && ++d && (p && ((i = (o = a[S] || (a[S] = {}))[a.uniqueID] || (o[a.uniqueID] = {}))[h] = [k, d]), a === e)) break
-                    return (d -= v) === g || (d % g == 0 && 0 <= d / g)
-                  }
-                }
-          },
-          PSEUDO: function (e, o) {
-            var t,
-              a = b.pseudos[e] || b.setFilters[e.toLowerCase()] || se.error("unsupported pseudo: " + e)
-            return a[S]
-              ? a(o)
-              : 1 < a.length
-                ? ((t = [e, e, "", o]),
-                  b.setFilters.hasOwnProperty(e.toLowerCase())
-                    ? le(function (e, t) {
-                        var n,
-                          r = a(e, o),
-                          i = r.length
-                        while (i--) e[(n = P(e, r[i]))] = !(t[n] = r[i])
-                      })
-                    : function (e) {
-                        return a(e, 0, t)
-                      })
-                : a
-          }
-        },
-        pseudos: {
-          not: le(function (e) {
-            var r = [],
-              i = [],
-              s = f(e.replace($, "$1"))
-            return s[S]
-              ? le(function (e, t, n, r) {
-                  var i,
-                    o = s(e, null, r, []),
-                    a = e.length
-                  while (a--) (i = o[a]) && (e[a] = !(t[a] = i))
-                })
-              : function (e, t, n) {
-                  return (r[0] = e), s(r, null, n, i), (r[0] = null), !i.pop()
-                }
-          }),
-          has: le(function (t) {
-            return function (e) {
-              return 0 < se(t, e).length
-            }
-          }),
-          contains: le(function (t) {
-            return (
-              (t = t.replace(te, ne)),
-              function (e) {
-                return -1 < (e.textContent || o(e)).indexOf(t)
-              }
-            )
-          }),
-          lang: le(function (n) {
-            return (
-              V.test(n || "") || se.error("unsupported lang: " + n),
-              (n = n.replace(te, ne).toLowerCase()),
-              function (e) {
-                var t
-                do {
-                  if ((t = E ? e.lang : e.getAttribute("xml:lang") || e.getAttribute("lang"))) return (t = t.toLowerCase()) === n || 0 === t.indexOf(n + "-")
-                } while ((e = e.parentNode) && 1 === e.nodeType)
-                return !1
-              }
-            )
-          }),
-          target: function (e) {
-            var t = n.location && n.location.hash
-            return t && t.slice(1) === e.id
-          },
-          root: function (e) {
-            return e === a
-          },
-          focus: function (e) {
-            return e === C.activeElement && (!C.hasFocus || C.hasFocus()) && !!(e.type || e.href || ~e.tabIndex)
-          },
-          enabled: ge(!1),
-          disabled: ge(!0),
-          checked: function (e) {
-            var t = e.nodeName.toLowerCase()
-            return ("input" === t && !!e.checked) || ("option" === t && !!e.selected)
-          },
-          selected: function (e) {
-            return e.parentNode && e.parentNode.selectedIndex, !0 === e.selected
-          },
-          empty: function (e) {
-            for (e = e.firstChild; e; e = e.nextSibling) if (e.nodeType < 6) return !1
-            return !0
-          },
-          parent: function (e) {
-            return !b.pseudos.empty(e)
-          },
-          header: function (e) {
-            return J.test(e.nodeName)
-          },
-          input: function (e) {
-            return Q.test(e.nodeName)
-          },
-          button: function (e) {
-            var t = e.nodeName.toLowerCase()
-            return ("input" === t && "button" === e.type) || "button" === t
-          },
-          text: function (e) {
-            var t
-            return "input" === e.nodeName.toLowerCase() && "text" === e.type && (null == (t = e.getAttribute("type")) || "text" === t.toLowerCase())
-          },
-          first: ve(function () {
-            return [0]
-          }),
-          last: ve(function (e, t) {
-            return [t - 1]
-          }),
-          eq: ve(function (e, t, n) {
-            return [n < 0 ? n + t : n]
-          }),
-          even: ve(function (e, t) {
-            for (var n = 0; n < t; n += 2) e.push(n)
-            return e
-          }),
-          odd: ve(function (e, t) {
-            for (var n = 1; n < t; n += 2) e.push(n)
-            return e
-          }),
-          lt: ve(function (e, t, n) {
-            for (var r = n < 0 ? n + t : t < n ? t : n; 0 <= --r; ) e.push(r)
-            return e
-          }),
-          gt: ve(function (e, t, n) {
-            for (var r = n < 0 ? n + t : n; ++r < t; ) e.push(r)
-            return e
-          })
-        }
-      }).pseudos.nth = b.pseudos.eq),
-    { radio: !0, checkbox: !0, file: !0, password: !0, image: !0 }))
-      b.pseudos[e] = de(e)
-    for (e in { submit: !0, reset: !0 }) b.pseudos[e] = he(e)
-    function me() {}
-    function xe(e) {
-      for (var t = 0, n = e.length, r = ""; t < n; t++) r += e[t].value
-      return r
-    }
-    function be(s, e, t) {
-      var u = e.dir,
-        l = e.next,
-        c = l || u,
-        f = t && "parentNode" === c,
-        p = r++
-      return e.first
-        ? function (e, t, n) {
-            while ((e = e[u])) if (1 === e.nodeType || f) return s(e, t, n)
-            return !1
-          }
-        : function (e, t, n) {
-            var r,
-              i,
-              o,
-              a = [k, p]
-            if (n) {
-              while ((e = e[u])) if ((1 === e.nodeType || f) && s(e, t, n)) return !0
-            } else
-              while ((e = e[u]))
-                if (1 === e.nodeType || f)
-                  if (((i = (o = e[S] || (e[S] = {}))[e.uniqueID] || (o[e.uniqueID] = {})), l && l === e.nodeName.toLowerCase())) e = e[u] || e
-                  else {
-                    if ((r = i[c]) && r[0] === k && r[1] === p) return (a[2] = r[2])
-                    if (((i[c] = a)[2] = s(e, t, n))) return !0
-                  }
-            return !1
-          }
-    }
-    function we(i) {
-      return 1 < i.length
-        ? function (e, t, n) {
-            var r = i.length
-            while (r--) if (!i[r](e, t, n)) return !1
-            return !0
-          }
-        : i[0]
-    }
-    function Te(e, t, n, r, i) {
-      for (var o, a = [], s = 0, u = e.length, l = null != t; s < u; s++) (o = e[s]) && ((n && !n(o, r, i)) || (a.push(o), l && t.push(s)))
-      return a
-    }
-    function Ce(d, h, g, v, y, e) {
+      var m = M.prototype
       return (
-        v && !v[S] && (v = Ce(v)),
-        y && !y[S] && (y = Ce(y, e)),
-        le(function (e, t, n, r) {
-          var i,
-            o,
-            a,
-            s = [],
-            u = [],
-            l = t.length,
-            c =
-              e ||
-              (function (e, t, n) {
-                for (var r = 0, i = t.length; r < i; r++) se(e, t[r], n)
-                return n
-              })(h || "*", n.nodeType ? [n] : n, []),
-            f = !d || (!e && h) ? c : Te(c, s, d, n, r),
-            p = g ? (y || (e ? d : l || v) ? [] : t) : f
-          if ((g && g(f, p, n, r), v)) {
-            ;(i = Te(p, u)), v(i, [], n, r), (o = i.length)
-            while (o--) (a = i[o]) && (p[u[o]] = !(f[u[o]] = a))
-          }
-          if (e) {
-            if (y || d) {
-              if (y) {
-                ;(i = []), (o = p.length)
-                while (o--) (a = p[o]) && i.push((f[o] = a))
-                y(null, (p = []), i, r)
-              }
-              o = p.length
-              while (o--) (a = p[o]) && -1 < (i = y ? P(e, a) : s[o]) && (e[i] = !(t[i] = a))
-            }
-          } else (p = Te(p === t ? p.splice(l, p.length) : p)), y ? y(null, t, p, r) : H.apply(t, p)
-        })
-      )
-    }
-    function Ee(e) {
-      for (
-        var i,
-          t,
-          n,
-          r = e.length,
-          o = b.relative[e[0].type],
-          a = o || b.relative[" "],
-          s = o ? 1 : 0,
-          u = be(
-            function (e) {
-              return e === i
-            },
-            a,
-            !0
-          ),
-          l = be(
-            function (e) {
-              return -1 < P(i, e)
-            },
-            a,
-            !0
-          ),
-          c = [
-            function (e, t, n) {
-              var r = (!o && (n || t !== w)) || ((i = t).nodeType ? u(e, t, n) : l(e, t, n))
-              return (i = null), r
-            }
-          ];
-        s < r;
-        s++
-      )
-        if ((t = b.relative[e[s].type])) c = [be(we(c), t)]
-        else {
-          if ((t = b.filter[e[s].type].apply(null, e[s].matches))[S]) {
-            for (n = ++s; n < r; n++) if (b.relative[e[n].type]) break
-            return Ce(1 < s && we(c), 1 < s && xe(e.slice(0, s - 1).concat({ value: " " === e[s - 2].type ? "*" : "" })).replace($, "$1"), t, s < n && Ee(e.slice(s, n)), n < r && Ee((e = e.slice(n))), n < r && xe(e))
-          }
-          c.push(t)
-        }
-      return we(c)
-    }
-    return (
-      (me.prototype = b.filters = b.pseudos),
-      (b.setFilters = new me()),
-      (h = se.tokenize =
-        function (e, t) {
-          var n,
-            r,
-            i,
-            o,
-            a,
-            s,
-            u,
-            l = x[e + " "]
-          if (l) return t ? 0 : l.slice(0)
-          ;(a = e), (s = []), (u = b.preFilter)
-          while (a) {
-            for (o in ((n && !(r = _.exec(a))) || (r && (a = a.slice(r[0].length) || a), s.push((i = []))),
-            (n = !1),
-            (r = z.exec(a)) && ((n = r.shift()), i.push({ value: n, type: r[0].replace($, " ") }), (a = a.slice(n.length))),
-            b.filter))
-              !(r = G[o].exec(a)) || (u[o] && !(r = u[o](r))) || ((n = r.shift()), i.push({ value: n, type: o, matches: r }), (a = a.slice(n.length)))
-            if (!n) break
-          }
-          return t ? a.length : a ? se.error(e) : x(e, s).slice(0)
-        }),
-      (f = se.compile =
-        function (e, t) {
-          var n,
-            v,
-            y,
-            m,
-            x,
-            r,
-            i = [],
-            o = [],
-            a = A[e + " "]
-          if (!a) {
-            t || (t = h(e)), (n = t.length)
-            while (n--) (a = Ee(t[n]))[S] ? i.push(a) : o.push(a)
-            ;(a = A(
-              e,
-              ((v = o),
-              (m = 0 < (y = i).length),
-              (x = 0 < v.length),
-              (r = function (e, t, n, r, i) {
-                var o,
-                  a,
-                  s,
-                  u = 0,
-                  l = "0",
-                  c = e && [],
-                  f = [],
-                  p = w,
-                  d = e || (x && b.find.TAG("*", i)),
-                  h = (k += null == p ? 1 : Math.random() || 0.1),
-                  g = d.length
-                for (i && (w = t == C || t || i); l !== g && null != (o = d[l]); l++) {
-                  if (x && o) {
-                    ;(a = 0), t || o.ownerDocument == C || (T(o), (n = !E))
-                    while ((s = v[a++]))
-                      if (s(o, t || C, n)) {
-                        r.push(o)
-                        break
-                      }
-                    i && (k = h)
-                  }
-                  m && ((o = !s && o) && u--, e && c.push(o))
-                }
-                if (((u += l), m && l !== u)) {
-                  a = 0
-                  while ((s = y[a++])) s(c, f, t, n)
-                  if (e) {
-                    if (0 < u) while (l--) c[l] || f[l] || (f[l] = q.call(r))
-                    f = Te(f)
-                  }
-                  H.apply(r, f), i && !e && 0 < f.length && 1 < u + y.length && se.uniqueSort(r)
-                }
-                return i && ((k = h), (w = p)), c
-              }),
-              m ? le(r) : r)
-            )).selector = e
-          }
-          return a
-        }),
-      (g = se.select =
-        function (e, t, n, r) {
-          var i,
-            o,
-            a,
-            s,
-            u,
-            l = "function" == typeof e && e,
-            c = !r && h((e = l.selector || e))
-          if (((n = n || []), 1 === c.length)) {
-            if (2 < (o = c[0] = c[0].slice(0)).length && "ID" === (a = o[0]).type && 9 === t.nodeType && E && b.relative[o[1].type]) {
-              if (!(t = (b.find.ID(a.matches[0].replace(te, ne), t) || [])[0])) return n
-              l && (t = t.parentNode), (e = e.slice(o.shift().value.length))
-            }
-            i = G.needsContext.test(e) ? 0 : o.length
-            while (i--) {
-              if (((a = o[i]), b.relative[(s = a.type)])) break
-              if ((u = b.find[s]) && (r = u(a.matches[0].replace(te, ne), (ee.test(o[0].type) && ye(t.parentNode)) || t))) {
-                if ((o.splice(i, 1), !(e = r.length && xe(o)))) return H.apply(n, r), n
-                break
+        (m.parse = function (t) {
+          ;(this.$d = (function (t) {
+            var e = t.date,
+              n = t.utc
+            if (null === e) return new Date(NaN)
+            if (b.u(e)) return new Date()
+            if (e instanceof Date) return new Date(e)
+            if ("string" == typeof e && !/Z$/i.test(e)) {
+              var r = e.match($)
+              if (r) {
+                var i = r[2] - 1 || 0,
+                  s = (r[7] || "0").substring(0, 3)
+                return n ? new Date(Date.UTC(r[1], i, r[3] || 1, r[4] || 0, r[5] || 0, r[6] || 0, s)) : new Date(r[1], i, r[3] || 1, r[4] || 0, r[5] || 0, r[6] || 0, s)
               }
             }
+            return new Date(e)
+          })(t)),
+            this.init()
+        }),
+        (m.init = function () {
+          var t = this.$d
+          ;(this.$y = t.getFullYear()), (this.$M = t.getMonth()), (this.$D = t.getDate()), (this.$W = t.getDay()), (this.$H = t.getHours()), (this.$m = t.getMinutes()), (this.$s = t.getSeconds()), (this.$ms = t.getMilliseconds())
+        }),
+        (m.$utils = function () {
+          return b
+        }),
+        (m.isValid = function () {
+          return !(this.$d.toString() === l)
+        }),
+        (m.isSame = function (t, e) {
+          var n = O(t)
+          return this.startOf(e) <= n && n <= this.endOf(e)
+        }),
+        (m.isAfter = function (t, e) {
+          return O(t) < this.startOf(e)
+        }),
+        (m.isBefore = function (t, e) {
+          return this.endOf(e) < O(t)
+        }),
+        (m.$g = function (t, e, n) {
+          return b.u(t) ? this[e] : this.set(n, t)
+        }),
+        (m.unix = function () {
+          return Math.floor(this.valueOf() / 1e3)
+        }),
+        (m.valueOf = function () {
+          return this.$d.getTime()
+        }),
+        (m.startOf = function (t, e) {
+          var n = this,
+            r = !!b.u(e) || e,
+            f = b.p(t),
+            l = function (t, e) {
+              var i = b.w(n.$u ? Date.UTC(n.$y, e, t) : new Date(n.$y, e, t), n)
+              return r ? i : i.endOf(a)
+            },
+            $ = function (t, e) {
+              return b.w(n.toDate()[t].apply(n.toDate("s"), (r ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e)), n)
+            },
+            y = this.$W,
+            M = this.$M,
+            m = this.$D,
+            v = "set" + (this.$u ? "UTC" : "")
+          switch (f) {
+            case h:
+              return r ? l(1, 0) : l(31, 11)
+            case c:
+              return r ? l(1, M) : l(0, M + 1)
+            case o:
+              var g = this.$locale().weekStart || 0,
+                D = (y < g ? y + 7 : y) - g
+              return l(r ? m - D : m + (6 - D), M)
+            case a:
+            case d:
+              return $(v + "Hours", 0)
+            case u:
+              return $(v + "Minutes", 1)
+            case s:
+              return $(v + "Seconds", 2)
+            case i:
+              return $(v + "Milliseconds", 3)
+            default:
+              return this.clone()
           }
-          return (l || f(e, c))(r, t, !E, n, !t || (ee.test(e) && ye(t.parentNode)) || t), n
         }),
-      (d.sortStable = S.split("").sort(j).join("") === S),
-      (d.detectDuplicates = !!l),
-      T(),
-      (d.sortDetached = ce(function (e) {
-        return 1 & e.compareDocumentPosition(C.createElement("fieldset"))
-      })),
-      ce(function (e) {
-        return (e.innerHTML = "<a href='#'></a>"), "#" === e.firstChild.getAttribute("href")
-      }) ||
-        fe("type|href|height|width", function (e, t, n) {
-          if (!n) return e.getAttribute(t, "type" === t.toLowerCase() ? 1 : 2)
+        (m.endOf = function (t) {
+          return this.startOf(t, !1)
         }),
-      (d.attributes &&
-        ce(function (e) {
-          return (e.innerHTML = "<input/>"), e.firstChild.setAttribute("value", ""), "" === e.firstChild.getAttribute("value")
-        })) ||
-        fe("value", function (e, t, n) {
-          if (!n && "input" === e.nodeName.toLowerCase()) return e.defaultValue
+        (m.$set = function (t, e) {
+          var n,
+            o = b.p(t),
+            f = "set" + (this.$u ? "UTC" : ""),
+            l = ((n = {}), (n[a] = f + "Date"), (n[d] = f + "Date"), (n[c] = f + "Month"), (n[h] = f + "FullYear"), (n[u] = f + "Hours"), (n[s] = f + "Minutes"), (n[i] = f + "Seconds"), (n[r] = f + "Milliseconds"), n)[o],
+            $ = o === a ? this.$D + (e - this.$W) : e
+          if (o === c || o === h) {
+            var y = this.clone().set(d, 1)
+            y.$d[l]($), y.init(), (this.$d = y.set(d, Math.min(this.$D, y.daysInMonth())).$d)
+          } else l && this.$d[l]($)
+          return this.init(), this
         }),
-      ce(function (e) {
-        return null == e.getAttribute("disabled")
-      }) ||
-        fe(R, function (e, t, n) {
-          var r
-          if (!n) return !0 === e[t] ? t.toLowerCase() : (r = e.getAttributeNode(t)) && r.specified ? r.value : null
+        (m.set = function (t, e) {
+          return this.clone().$set(t, e)
         }),
-      se
-    )
-  })(C)
-  ;(S.find = d), (S.expr = d.selectors), (S.expr[":"] = S.expr.pseudos), (S.uniqueSort = S.unique = d.uniqueSort), (S.text = d.getText), (S.isXMLDoc = d.isXML), (S.contains = d.contains), (S.escapeSelector = d.escape)
-  var h = function (e, t, n) {
-      var r = [],
-        i = void 0 !== n
-      while ((e = e[t]) && 9 !== e.nodeType)
-        if (1 === e.nodeType) {
-          if (i && S(e).is(n)) break
-          r.push(e)
-        }
-      return r
-    },
-    T = function (e, t) {
-      for (var n = []; e; e = e.nextSibling) 1 === e.nodeType && e !== t && n.push(e)
-      return n
-    },
-    k = S.expr.match.needsContext
-  function A(e, t) {
-    return e.nodeName && e.nodeName.toLowerCase() === t.toLowerCase()
-  }
-  var N = /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i
-  function j(e, n, r) {
-    return m(n)
-      ? S.grep(e, function (e, t) {
-          return !!n.call(e, t, e) !== r
-        })
-      : n.nodeType
-        ? S.grep(e, function (e) {
-            return (e === n) !== r
+        (m.get = function (t) {
+          return this[b.p(t)]()
+        }),
+        (m.add = function (r, f) {
+          var d,
+            l = this
+          r = Number(r)
+          var $ = b.p(f),
+            y = function (t) {
+              var e = O(l)
+              return b.w(e.date(e.date() + Math.round(t * r)), l)
+            }
+          if ($ === c) return this.set(c, this.$M + r)
+          if ($ === h) return this.set(h, this.$y + r)
+          if ($ === a) return y(1)
+          if ($ === o) return y(7)
+          var M = ((d = {}), (d[s] = e), (d[u] = n), (d[i] = t), d)[$] || 1,
+            m = this.$d.getTime() + r * M
+          return b.w(m, this)
+        }),
+        (m.subtract = function (t, e) {
+          return this.add(-1 * t, e)
+        }),
+        (m.format = function (t) {
+          var e = this,
+            n = this.$locale()
+          if (!this.isValid()) return n.invalidDate || l
+          var r = t || "YYYY-MM-DDTHH:mm:ssZ",
+            i = b.z(this),
+            s = this.$H,
+            u = this.$m,
+            a = this.$M,
+            o = n.weekdays,
+            c = n.months,
+            f = n.meridiem,
+            h = function (t, n, i, s) {
+              return (t && (t[n] || t(e, r))) || i[n].slice(0, s)
+            },
+            d = function (t) {
+              return b.s(s % 12 || 12, t, "0")
+            },
+            $ =
+              f ||
+              function (t, e, n) {
+                var r = t < 12 ? "AM" : "PM"
+                return n ? r.toLowerCase() : r
+              }
+          return r.replace(y, function (t, r) {
+            return (
+              r ||
+              (function (t) {
+                switch (t) {
+                  case "YY":
+                    return String(e.$y).slice(-2)
+                  case "YYYY":
+                    return b.s(e.$y, 4, "0")
+                  case "M":
+                    return a + 1
+                  case "MM":
+                    return b.s(a + 1, 2, "0")
+                  case "MMM":
+                    return h(n.monthsShort, a, c, 3)
+                  case "MMMM":
+                    return h(c, a)
+                  case "D":
+                    return e.$D
+                  case "DD":
+                    return b.s(e.$D, 2, "0")
+                  case "d":
+                    return String(e.$W)
+                  case "dd":
+                    return h(n.weekdaysMin, e.$W, o, 2)
+                  case "ddd":
+                    return h(n.weekdaysShort, e.$W, o, 3)
+                  case "dddd":
+                    return o[e.$W]
+                  case "H":
+                    return String(s)
+                  case "HH":
+                    return b.s(s, 2, "0")
+                  case "h":
+                    return d(1)
+                  case "hh":
+                    return d(2)
+                  case "a":
+                    return $(s, u, !0)
+                  case "A":
+                    return $(s, u, !1)
+                  case "m":
+                    return String(u)
+                  case "mm":
+                    return b.s(u, 2, "0")
+                  case "s":
+                    return String(e.$s)
+                  case "ss":
+                    return b.s(e.$s, 2, "0")
+                  case "SSS":
+                    return b.s(e.$ms, 3, "0")
+                  case "Z":
+                    return i
+                }
+                return null
+              })(t) ||
+              i.replace(":", "")
+            )
           })
-        : "string" != typeof n
-          ? S.grep(e, function (e) {
-              return -1 < i.call(n, e) !== r
-            })
-          : S.filter(n, e, r)
-  }
-  ;(S.filter = function (e, t, n) {
-    var r = t[0]
-    return (
-      n && (e = ":not(" + e + ")"),
-      1 === t.length && 1 === r.nodeType
-        ? S.find.matchesSelector(r, e)
-          ? [r]
-          : []
-        : S.find.matches(
-            e,
-            S.grep(t, function (e) {
-              return 1 === e.nodeType
-            })
-          )
-    )
-  }),
-    S.fn.extend({
-      find: function (e) {
-        var t,
-          n,
-          r = this.length,
-          i = this
-        if ("string" != typeof e)
-          return this.pushStack(
-            S(e).filter(function () {
-              for (t = 0; t < r; t++) if (S.contains(i[t], this)) return !0
-            })
-          )
-        for (n = this.pushStack([]), t = 0; t < r; t++) S.find(e, i[t], n)
-        return 1 < r ? S.uniqueSort(n) : n
-      },
-      filter: function (e) {
-        return this.pushStack(j(this, e || [], !1))
-      },
-      not: function (e) {
-        return this.pushStack(j(this, e || [], !0))
-      },
-      is: function (e) {
-        return !!j(this, "string" == typeof e && k.test(e) ? S(e) : e || [], !1).length
-      }
-    })
-  var D,
-    q = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/
-  ;((S.fn.init = function (e, t, n) {
-    var r, i
-    if (!e) return this
-    if (((n = n || D), "string" == typeof e)) {
-      if (!(r = "<" === e[0] && ">" === e[e.length - 1] && 3 <= e.length ? [null, e, null] : q.exec(e)) || (!r[1] && t)) return !t || t.jquery ? (t || n).find(e) : this.constructor(t).find(e)
-      if (r[1]) {
-        if (((t = t instanceof S ? t[0] : t), S.merge(this, S.parseHTML(r[1], t && t.nodeType ? t.ownerDocument || t : E, !0)), N.test(r[1]) && S.isPlainObject(t))) for (r in t) m(this[r]) ? this[r](t[r]) : this.attr(r, t[r])
-        return this
-      }
-      return (i = E.getElementById(r[2])) && ((this[0] = i), (this.length = 1)), this
-    }
-    return e.nodeType ? ((this[0] = e), (this.length = 1), this) : m(e) ? (void 0 !== n.ready ? n.ready(e) : e(S)) : S.makeArray(e, this)
-  }).prototype = S.fn),
-    (D = S(E))
-  var L = /^(?:parents|prev(?:Until|All))/,
-    H = { children: !0, contents: !0, next: !0, prev: !0 }
-  function O(e, t) {
-    while ((e = e[t]) && 1 !== e.nodeType);
-    return e
-  }
-  S.fn.extend({
-    has: function (e) {
-      var t = S(e, this),
-        n = t.length
-      return this.filter(function () {
-        for (var e = 0; e < n; e++) if (S.contains(this, t[e])) return !0
-      })
-    },
-    closest: function (e, t) {
-      var n,
-        r = 0,
-        i = this.length,
-        o = [],
-        a = "string" != typeof e && S(e)
-      if (!k.test(e))
-        for (; r < i; r++)
-          for (n = this[r]; n && n !== t; n = n.parentNode)
-            if (n.nodeType < 11 && (a ? -1 < a.index(n) : 1 === n.nodeType && S.find.matchesSelector(n, e))) {
-              o.push(n)
+        }),
+        (m.utcOffset = function () {
+          return 15 * -Math.round(this.$d.getTimezoneOffset() / 15)
+        }),
+        (m.diff = function (r, d, l) {
+          var $,
+            y = this,
+            M = b.p(d),
+            m = O(r),
+            v = (m.utcOffset() - this.utcOffset()) * e,
+            g = this - m,
+            D = function () {
+              return b.m(y, m)
+            }
+          switch (M) {
+            case h:
+              $ = D() / 12
               break
-            }
-      return this.pushStack(1 < o.length ? S.uniqueSort(o) : o)
-    },
-    index: function (e) {
-      return e ? ("string" == typeof e ? i.call(S(e), this[0]) : i.call(this, e.jquery ? e[0] : e)) : this[0] && this[0].parentNode ? this.first().prevAll().length : -1
-    },
-    add: function (e, t) {
-      return this.pushStack(S.uniqueSort(S.merge(this.get(), S(e, t))))
-    },
-    addBack: function (e) {
-      return this.add(null == e ? this.prevObject : this.prevObject.filter(e))
-    }
-  }),
-    S.each(
-      {
-        parent: function (e) {
-          var t = e.parentNode
-          return t && 11 !== t.nodeType ? t : null
-        },
-        parents: function (e) {
-          return h(e, "parentNode")
-        },
-        parentsUntil: function (e, t, n) {
-          return h(e, "parentNode", n)
-        },
-        next: function (e) {
-          return O(e, "nextSibling")
-        },
-        prev: function (e) {
-          return O(e, "previousSibling")
-        },
-        nextAll: function (e) {
-          return h(e, "nextSibling")
-        },
-        prevAll: function (e) {
-          return h(e, "previousSibling")
-        },
-        nextUntil: function (e, t, n) {
-          return h(e, "nextSibling", n)
-        },
-        prevUntil: function (e, t, n) {
-          return h(e, "previousSibling", n)
-        },
-        siblings: function (e) {
-          return T((e.parentNode || {}).firstChild, e)
-        },
-        children: function (e) {
-          return T(e.firstChild)
-        },
-        contents: function (e) {
-          return null != e.contentDocument && r(e.contentDocument) ? e.contentDocument : (A(e, "template") && (e = e.content || e), S.merge([], e.childNodes))
-        }
-      },
-      function (r, i) {
-        S.fn[r] = function (e, t) {
-          var n = S.map(this, i, e)
-          return "Until" !== r.slice(-5) && (t = e), t && "string" == typeof t && (n = S.filter(t, n)), 1 < this.length && (H[r] || S.uniqueSort(n), L.test(r) && n.reverse()), this.pushStack(n)
-        }
-      }
-    )
-  var P = /[^\x20\t\r\n\f]+/g
-  function R(e) {
-    return e
-  }
-  function M(e) {
-    throw e
-  }
-  function I(e, t, n, r) {
-    var i
-    try {
-      e && m((i = e.promise)) ? i.call(e).done(t).fail(n) : e && m((i = e.then)) ? i.call(e, t, n) : t.apply(void 0, [e].slice(r))
-    } catch (e) {
-      n.apply(void 0, [e])
-    }
-  }
-  ;(S.Callbacks = function (r) {
-    var e, n
-    r =
-      "string" == typeof r
-        ? ((e = r),
-          (n = {}),
-          S.each(e.match(P) || [], function (e, t) {
-            n[t] = !0
-          }),
-          n)
-        : S.extend({}, r)
-    var i,
-      t,
-      o,
-      a,
-      s = [],
-      u = [],
-      l = -1,
-      c = function () {
-        for (a = a || r.once, o = i = !0; u.length; l = -1) {
-          t = u.shift()
-          while (++l < s.length) !1 === s[l].apply(t[0], t[1]) && r.stopOnFalse && ((l = s.length), (t = !1))
-        }
-        r.memory || (t = !1), (i = !1), a && (s = t ? [] : "")
-      },
-      f = {
-        add: function () {
-          return (
-            s &&
-              (t && !i && ((l = s.length - 1), u.push(t)),
-              (function n(e) {
-                S.each(e, function (e, t) {
-                  m(t) ? (r.unique && f.has(t)) || s.push(t) : t && t.length && "string" !== w(t) && n(t)
-                })
-              })(arguments),
-              t && !i && c()),
-            this
-          )
-        },
-        remove: function () {
-          return (
-            S.each(arguments, function (e, t) {
-              var n
-              while (-1 < (n = S.inArray(t, s, n))) s.splice(n, 1), n <= l && l--
-            }),
-            this
-          )
-        },
-        has: function (e) {
-          return e ? -1 < S.inArray(e, s) : 0 < s.length
-        },
-        empty: function () {
-          return s && (s = []), this
-        },
-        disable: function () {
-          return (a = u = []), (s = t = ""), this
-        },
-        disabled: function () {
-          return !s
-        },
-        lock: function () {
-          return (a = u = []), t || i || (s = t = ""), this
-        },
-        locked: function () {
-          return !!a
-        },
-        fireWith: function (e, t) {
-          return a || ((t = [e, (t = t || []).slice ? t.slice() : t]), u.push(t), i || c()), this
-        },
-        fire: function () {
-          return f.fireWith(this, arguments), this
-        },
-        fired: function () {
-          return !!o
-        }
-      }
-    return f
-  }),
-    S.extend({
-      Deferred: function (e) {
-        var o = [
-            ["notify", "progress", S.Callbacks("memory"), S.Callbacks("memory"), 2],
-            ["resolve", "done", S.Callbacks("once memory"), S.Callbacks("once memory"), 0, "resolved"],
-            ["reject", "fail", S.Callbacks("once memory"), S.Callbacks("once memory"), 1, "rejected"]
-          ],
-          i = "pending",
-          a = {
-            state: function () {
-              return i
-            },
-            always: function () {
-              return s.done(arguments).fail(arguments), this
-            },
-            catch: function (e) {
-              return a.then(null, e)
-            },
-            pipe: function () {
-              var i = arguments
-              return S.Deferred(function (r) {
-                S.each(o, function (e, t) {
-                  var n = m(i[t[4]]) && i[t[4]]
-                  s[t[1]](function () {
-                    var e = n && n.apply(this, arguments)
-                    e && m(e.promise) ? e.promise().progress(r.notify).done(r.resolve).fail(r.reject) : r[t[0] + "With"](this, n ? [e] : arguments)
-                  })
-                }),
-                  (i = null)
-              }).promise()
-            },
-            then: function (t, n, r) {
-              var u = 0
-              function l(i, o, a, s) {
-                return function () {
-                  var n = this,
-                    r = arguments,
-                    e = function () {
-                      var e, t
-                      if (!(i < u)) {
-                        if ((e = a.apply(n, r)) === o.promise()) throw new TypeError("Thenable self-resolution")
-                        ;(t = e && ("object" == typeof e || "function" == typeof e) && e.then),
-                          m(t) ? (s ? t.call(e, l(u, o, R, s), l(u, o, M, s)) : (u++, t.call(e, l(u, o, R, s), l(u, o, M, s), l(u, o, R, o.notifyWith)))) : (a !== R && ((n = void 0), (r = [e])), (s || o.resolveWith)(n, r))
-                      }
-                    },
-                    t = s
-                      ? e
-                      : function () {
-                          try {
-                            e()
-                          } catch (e) {
-                            S.Deferred.exceptionHook && S.Deferred.exceptionHook(e, t.stackTrace), u <= i + 1 && (a !== M && ((n = void 0), (r = [e])), o.rejectWith(n, r))
-                          }
-                        }
-                  i ? t() : (S.Deferred.getStackHook && (t.stackTrace = S.Deferred.getStackHook()), C.setTimeout(t))
-                }
-              }
-              return S.Deferred(function (e) {
-                o[0][3].add(l(0, e, m(r) ? r : R, e.notifyWith)), o[1][3].add(l(0, e, m(t) ? t : R)), o[2][3].add(l(0, e, m(n) ? n : M))
-              }).promise()
-            },
-            promise: function (e) {
-              return null != e ? S.extend(e, a) : a
-            }
-          },
-          s = {}
-        return (
-          S.each(o, function (e, t) {
-            var n = t[2],
-              r = t[5]
-            ;(a[t[1]] = n.add),
-              r &&
-                n.add(
-                  function () {
-                    i = r
-                  },
-                  o[3 - e][2].disable,
-                  o[3 - e][3].disable,
-                  o[0][2].lock,
-                  o[0][3].lock
-                ),
-              n.add(t[3].fire),
-              (s[t[0]] = function () {
-                return s[t[0] + "With"](this === s ? void 0 : this, arguments), this
-              }),
-              (s[t[0] + "With"] = n.fireWith)
-          }),
-          a.promise(s),
-          e && e.call(s, s),
-          s
-        )
-      },
-      when: function (e) {
-        var n = arguments.length,
-          t = n,
-          r = Array(t),
-          i = s.call(arguments),
-          o = S.Deferred(),
-          a = function (t) {
-            return function (e) {
-              ;(r[t] = this), (i[t] = 1 < arguments.length ? s.call(arguments) : e), --n || o.resolveWith(r, i)
-            }
+            case c:
+              $ = D()
+              break
+            case f:
+              $ = D() / 3
+              break
+            case o:
+              $ = (g - v) / 6048e5
+              break
+            case a:
+              $ = (g - v) / 864e5
+              break
+            case u:
+              $ = g / n
+              break
+            case s:
+              $ = g / e
+              break
+            case i:
+              $ = g / t
+              break
+            default:
+              $ = g
           }
-        if (n <= 1 && (I(e, o.done(a(t)).resolve, o.reject, !n), "pending" === o.state() || m(i[t] && i[t].then))) return o.then()
-        while (t--) I(i[t], a(t), o.reject)
-        return o.promise()
-      }
-    })
-  var W = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/
-  ;(S.Deferred.exceptionHook = function (e, t) {
-    C.console && C.console.warn && e && W.test(e.name) && C.console.warn("jQuery.Deferred exception: " + e.message, e.stack, t)
-  }),
-    (S.readyException = function (e) {
-      C.setTimeout(function () {
-        throw e
-      })
-    })
-  var F = S.Deferred()
-  function B() {
-    E.removeEventListener("DOMContentLoaded", B), C.removeEventListener("load", B), S.ready()
-  }
-  ;(S.fn.ready = function (e) {
-    return (
-      F.then(e)["catch"](function (e) {
-        S.readyException(e)
-      }),
-      this
-    )
-  }),
-    S.extend({
-      isReady: !1,
-      readyWait: 1,
-      ready: function (e) {
-        ;(!0 === e ? --S.readyWait : S.isReady) || ((S.isReady = !0) !== e && 0 < --S.readyWait) || F.resolveWith(E, [S])
-      }
-    }),
-    (S.ready.then = F.then),
-    "complete" === E.readyState || ("loading" !== E.readyState && !E.documentElement.doScroll) ? C.setTimeout(S.ready) : (E.addEventListener("DOMContentLoaded", B), C.addEventListener("load", B))
-  var $ = function (e, t, n, r, i, o, a) {
-      var s = 0,
-        u = e.length,
-        l = null == n
-      if ("object" === w(n)) for (s in ((i = !0), n)) $(e, t, s, n[s], !0, o, a)
-      else if (
-        void 0 !== r &&
-        ((i = !0),
-        m(r) || (a = !0),
-        l &&
-          (a
-            ? (t.call(e, r), (t = null))
-            : ((l = t),
-              (t = function (e, t, n) {
-                return l.call(S(e), n)
-              }))),
-        t)
-      )
-        for (; s < u; s++) t(e[s], n, a ? r : r.call(e[s], s, t(e[s], n)))
-      return i ? e : l ? t.call(e) : u ? t(e[0], n) : o
-    },
-    _ = /^-ms-/,
-    z = /-([a-z])/g
-  function U(e, t) {
-    return t.toUpperCase()
-  }
-  function X(e) {
-    return e.replace(_, "ms-").replace(z, U)
-  }
-  var V = function (e) {
-    return 1 === e.nodeType || 9 === e.nodeType || !+e.nodeType
-  }
-  function G() {
-    this.expando = S.expando + G.uid++
-  }
-  ;(G.uid = 1),
-    (G.prototype = {
-      cache: function (e) {
-        var t = e[this.expando]
-        return t || ((t = {}), V(e) && (e.nodeType ? (e[this.expando] = t) : Object.defineProperty(e, this.expando, { value: t, configurable: !0 }))), t
-      },
-      set: function (e, t, n) {
-        var r,
-          i = this.cache(e)
-        if ("string" == typeof t) i[X(t)] = n
-        else for (r in t) i[X(r)] = t[r]
-        return i
-      },
-      get: function (e, t) {
-        return void 0 === t ? this.cache(e) : e[this.expando] && e[this.expando][X(t)]
-      },
-      access: function (e, t, n) {
-        return void 0 === t || (t && "string" == typeof t && void 0 === n) ? this.get(e, t) : (this.set(e, t, n), void 0 !== n ? n : t)
-      },
-      remove: function (e, t) {
-        var n,
-          r = e[this.expando]
-        if (void 0 !== r) {
-          if (void 0 !== t) {
-            n = (t = Array.isArray(t) ? t.map(X) : (t = X(t)) in r ? [t] : t.match(P) || []).length
-            while (n--) delete r[t[n]]
-          }
-          ;(void 0 === t || S.isEmptyObject(r)) && (e.nodeType ? (e[this.expando] = void 0) : delete e[this.expando])
-        }
-      },
-      hasData: function (e) {
-        var t = e[this.expando]
-        return void 0 !== t && !S.isEmptyObject(t)
-      }
-    })
-  var Y = new G(),
-    Q = new G(),
-    J = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
-    K = /[A-Z]/g
-  function Z(e, t, n) {
-    var r, i
-    if (void 0 === n && 1 === e.nodeType)
-      if (((r = "data-" + t.replace(K, "-$&").toLowerCase()), "string" == typeof (n = e.getAttribute(r)))) {
-        try {
-          n = "true" === (i = n) || ("false" !== i && ("null" === i ? null : i === +i + "" ? +i : J.test(i) ? JSON.parse(i) : i))
-        } catch (e) {}
-        Q.set(e, t, n)
-      } else n = void 0
-    return n
-  }
-  S.extend({
-    hasData: function (e) {
-      return Q.hasData(e) || Y.hasData(e)
-    },
-    data: function (e, t, n) {
-      return Q.access(e, t, n)
-    },
-    removeData: function (e, t) {
-      Q.remove(e, t)
-    },
-    _data: function (e, t, n) {
-      return Y.access(e, t, n)
-    },
-    _removeData: function (e, t) {
-      Y.remove(e, t)
-    }
-  }),
-    S.fn.extend({
-      data: function (n, e) {
-        var t,
-          r,
-          i,
-          o = this[0],
-          a = o && o.attributes
-        if (void 0 === n) {
-          if (this.length && ((i = Q.get(o)), 1 === o.nodeType && !Y.get(o, "hasDataAttrs"))) {
-            t = a.length
-            while (t--) a[t] && 0 === (r = a[t].name).indexOf("data-") && ((r = X(r.slice(5))), Z(o, r, i[r]))
-            Y.set(o, "hasDataAttrs", !0)
-          }
-          return i
-        }
-        return "object" == typeof n
-          ? this.each(function () {
-              Q.set(this, n)
-            })
-          : $(
-              this,
-              function (e) {
-                var t
-                if (o && void 0 === e) return void 0 !== (t = Q.get(o, n)) ? t : void 0 !== (t = Z(o, n)) ? t : void 0
-                this.each(function () {
-                  Q.set(this, n, e)
-                })
-              },
-              null,
-              e,
-              1 < arguments.length,
-              null,
-              !0
-            )
-      },
-      removeData: function (e) {
-        return this.each(function () {
-          Q.remove(this, e)
-        })
-      }
-    }),
-    S.extend({
-      queue: function (e, t, n) {
-        var r
-        if (e) return (t = (t || "fx") + "queue"), (r = Y.get(e, t)), n && (!r || Array.isArray(n) ? (r = Y.access(e, t, S.makeArray(n))) : r.push(n)), r || []
-      },
-      dequeue: function (e, t) {
-        t = t || "fx"
-        var n = S.queue(e, t),
-          r = n.length,
-          i = n.shift(),
-          o = S._queueHooks(e, t)
-        "inprogress" === i && ((i = n.shift()), r--),
-          i &&
-            ("fx" === t && n.unshift("inprogress"),
-            delete o.stop,
-            i.call(
-              e,
-              function () {
-                S.dequeue(e, t)
-              },
-              o
-            )),
-          !r && o && o.empty.fire()
-      },
-      _queueHooks: function (e, t) {
-        var n = t + "queueHooks"
-        return (
-          Y.get(e, n) ||
-          Y.access(e, n, {
-            empty: S.Callbacks("once memory").add(function () {
-              Y.remove(e, [t + "queue", n])
-            })
-          })
-        )
-      }
-    }),
-    S.fn.extend({
-      queue: function (t, n) {
-        var e = 2
-        return (
-          "string" != typeof t && ((n = t), (t = "fx"), e--),
-          arguments.length < e
-            ? S.queue(this[0], t)
-            : void 0 === n
-              ? this
-              : this.each(function () {
-                  var e = S.queue(this, t, n)
-                  S._queueHooks(this, t), "fx" === t && "inprogress" !== e[0] && S.dequeue(this, t)
-                })
-        )
-      },
-      dequeue: function (e) {
-        return this.each(function () {
-          S.dequeue(this, e)
-        })
-      },
-      clearQueue: function (e) {
-        return this.queue(e || "fx", [])
-      },
-      promise: function (e, t) {
-        var n,
-          r = 1,
-          i = S.Deferred(),
-          o = this,
-          a = this.length,
-          s = function () {
-            --r || i.resolveWith(o, [o])
-          }
-        "string" != typeof e && ((t = e), (e = void 0)), (e = e || "fx")
-        while (a--) (n = Y.get(o[a], e + "queueHooks")) && n.empty && (r++, n.empty.add(s))
-        return s(), i.promise(t)
-      }
-    })
-  var ee = /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source,
-    te = new RegExp("^(?:([+-])=|)(" + ee + ")([a-z%]*)$", "i"),
-    ne = ["Top", "Right", "Bottom", "Left"],
-    re = E.documentElement,
-    ie = function (e) {
-      return S.contains(e.ownerDocument, e)
-    },
-    oe = { composed: !0 }
-  re.getRootNode &&
-    (ie = function (e) {
-      return S.contains(e.ownerDocument, e) || e.getRootNode(oe) === e.ownerDocument
-    })
-  var ae = function (e, t) {
-    return "none" === (e = t || e).style.display || ("" === e.style.display && ie(e) && "none" === S.css(e, "display"))
-  }
-  function se(e, t, n, r) {
-    var i,
-      o,
-      a = 20,
-      s = r
-        ? function () {
-            return r.cur()
-          }
-        : function () {
-            return S.css(e, t, "")
-          },
-      u = s(),
-      l = (n && n[3]) || (S.cssNumber[t] ? "" : "px"),
-      c = e.nodeType && (S.cssNumber[t] || ("px" !== l && +u)) && te.exec(S.css(e, t))
-    if (c && c[3] !== l) {
-      ;(u /= 2), (l = l || c[3]), (c = +u || 1)
-      while (a--) S.style(e, t, c + l), (1 - o) * (1 - (o = s() / u || 0.5)) <= 0 && (a = 0), (c /= o)
-      ;(c *= 2), S.style(e, t, c + l), (n = n || [])
-    }
-    return n && ((c = +c || +u || 0), (i = n[1] ? c + (n[1] + 1) * n[2] : +n[2]), r && ((r.unit = l), (r.start = c), (r.end = i))), i
-  }
-  var ue = {}
-  function le(e, t) {
-    for (var n, r, i, o, a, s, u, l = [], c = 0, f = e.length; c < f; c++)
-      (r = e[c]).style &&
-        ((n = r.style.display),
-        t
-          ? ("none" === n && ((l[c] = Y.get(r, "display") || null), l[c] || (r.style.display = "")),
-            "" === r.style.display &&
-              ae(r) &&
-              (l[c] =
-                ((u = a = o = void 0),
-                (a = (i = r).ownerDocument),
-                (s = i.nodeName),
-                (u = ue[s]) || ((o = a.body.appendChild(a.createElement(s))), (u = S.css(o, "display")), o.parentNode.removeChild(o), "none" === u && (u = "block"), (ue[s] = u)))))
-          : "none" !== n && ((l[c] = "none"), Y.set(r, "display", n)))
-    for (c = 0; c < f; c++) null != l[c] && (e[c].style.display = l[c])
-    return e
-  }
-  S.fn.extend({
-    show: function () {
-      return le(this, !0)
-    },
-    hide: function () {
-      return le(this)
-    },
-    toggle: function (e) {
-      return "boolean" == typeof e
-        ? e
-          ? this.show()
-          : this.hide()
-        : this.each(function () {
-            ae(this) ? S(this).show() : S(this).hide()
-          })
-    }
-  })
-  var ce,
-    fe,
-    pe = /^(?:checkbox|radio)$/i,
-    de = /<([a-z][^\/\0>\x20\t\r\n\f]*)/i,
-    he = /^$|^module$|\/(?:java|ecma)script/i
-  ;(ce = E.createDocumentFragment().appendChild(E.createElement("div"))),
-    (fe = E.createElement("input")).setAttribute("type", "radio"),
-    fe.setAttribute("checked", "checked"),
-    fe.setAttribute("name", "t"),
-    ce.appendChild(fe),
-    (y.checkClone = ce.cloneNode(!0).cloneNode(!0).lastChild.checked),
-    (ce.innerHTML = "<textarea>x</textarea>"),
-    (y.noCloneChecked = !!ce.cloneNode(!0).lastChild.defaultValue),
-    (ce.innerHTML = "<option></option>"),
-    (y.option = !!ce.lastChild)
-  var ge = { thead: [1, "<table>", "</table>"], col: [2, "<table><colgroup>", "</colgroup></table>"], tr: [2, "<table><tbody>", "</tbody></table>"], td: [3, "<table><tbody><tr>", "</tr></tbody></table>"], _default: [0, "", ""] }
-  function ve(e, t) {
-    var n
-    return (n = "undefined" != typeof e.getElementsByTagName ? e.getElementsByTagName(t || "*") : "undefined" != typeof e.querySelectorAll ? e.querySelectorAll(t || "*") : []), void 0 === t || (t && A(e, t)) ? S.merge([e], n) : n
-  }
-  function ye(e, t) {
-    for (var n = 0, r = e.length; n < r; n++) Y.set(e[n], "globalEval", !t || Y.get(t[n], "globalEval"))
-  }
-  ;(ge.tbody = ge.tfoot = ge.colgroup = ge.caption = ge.thead), (ge.th = ge.td), y.option || (ge.optgroup = ge.option = [1, "<select multiple='multiple'>", "</select>"])
-  var me = /<|&#?\w+;/
-  function xe(e, t, n, r, i) {
-    for (var o, a, s, u, l, c, f = t.createDocumentFragment(), p = [], d = 0, h = e.length; d < h; d++)
-      if ((o = e[d]) || 0 === o)
-        if ("object" === w(o)) S.merge(p, o.nodeType ? [o] : o)
-        else if (me.test(o)) {
-          ;(a = a || f.appendChild(t.createElement("div"))), (s = (de.exec(o) || ["", ""])[1].toLowerCase()), (u = ge[s] || ge._default), (a.innerHTML = u[1] + S.htmlPrefilter(o) + u[2]), (c = u[0])
-          while (c--) a = a.lastChild
-          S.merge(p, a.childNodes), ((a = f.firstChild).textContent = "")
-        } else p.push(t.createTextNode(o))
-    ;(f.textContent = ""), (d = 0)
-    while ((o = p[d++]))
-      if (r && -1 < S.inArray(o, r)) i && i.push(o)
-      else if (((l = ie(o)), (a = ve(f.appendChild(o), "script")), l && ye(a), n)) {
-        c = 0
-        while ((o = a[c++])) he.test(o.type || "") && n.push(o)
-      }
-    return f
-  }
-  var be = /^([^.]*)(?:\.(.+)|)/
-  function we() {
-    return !0
-  }
-  function Te() {
-    return !1
-  }
-  function Ce(e, t) {
-    return (
-      (e ===
-        (function () {
-          try {
-            return E.activeElement
-          } catch (e) {}
-        })()) ==
-      ("focus" === t)
-    )
-  }
-  function Ee(e, t, n, r, i, o) {
-    var a, s
-    if ("object" == typeof t) {
-      for (s in ("string" != typeof n && ((r = r || n), (n = void 0)), t)) Ee(e, s, n, r, t[s], o)
-      return e
-    }
-    if ((null == r && null == i ? ((i = n), (r = n = void 0)) : null == i && ("string" == typeof n ? ((i = r), (r = void 0)) : ((i = r), (r = n), (n = void 0))), !1 === i)) i = Te
-    else if (!i) return e
-    return (
-      1 === o &&
-        ((a = i),
-        ((i = function (e) {
-          return S().off(e), a.apply(this, arguments)
-        }).guid = a.guid || (a.guid = S.guid++))),
-      e.each(function () {
-        S.event.add(this, t, i, r, n)
-      })
-    )
-  }
-  function Se(e, i, o) {
-    o
-      ? (Y.set(e, i, !1),
-        S.event.add(e, i, {
-          namespace: !1,
-          handler: function (e) {
-            var t,
-              n,
-              r = Y.get(this, i)
-            if (1 & e.isTrigger && this[i]) {
-              if (r.length) (S.event.special[i] || {}).delegateType && e.stopPropagation()
-              else if (((r = s.call(arguments)), Y.set(this, i, r), (t = o(this, i)), this[i](), r !== (n = Y.get(this, i)) || t ? Y.set(this, i, !1) : (n = {}), r !== n))
-                return e.stopImmediatePropagation(), e.preventDefault(), n && n.value
-            } else r.length && (Y.set(this, i, { value: S.event.trigger(S.extend(r[0], S.Event.prototype), r.slice(1), this) }), e.stopImmediatePropagation())
-          }
-        }))
-      : void 0 === Y.get(e, i) && S.event.add(e, i, we)
-  }
-  ;(S.event = {
-    global: {},
-    add: function (t, e, n, r, i) {
-      var o,
-        a,
-        s,
-        u,
-        l,
-        c,
-        f,
-        p,
-        d,
-        h,
-        g,
-        v = Y.get(t)
-      if (V(t)) {
-        n.handler && ((n = (o = n).handler), (i = o.selector)),
-          i && S.find.matchesSelector(re, i),
-          n.guid || (n.guid = S.guid++),
-          (u = v.events) || (u = v.events = Object.create(null)),
-          (a = v.handle) ||
-            (a = v.handle =
-              function (e) {
-                return "undefined" != typeof S && S.event.triggered !== e.type ? S.event.dispatch.apply(t, arguments) : void 0
-              }),
-          (l = (e = (e || "").match(P) || [""]).length)
-        while (l--)
-          (d = g = (s = be.exec(e[l]) || [])[1]),
-            (h = (s[2] || "").split(".").sort()),
-            d &&
-              ((f = S.event.special[d] || {}),
-              (d = (i ? f.delegateType : f.bindType) || d),
-              (f = S.event.special[d] || {}),
-              (c = S.extend({ type: d, origType: g, data: r, handler: n, guid: n.guid, selector: i, needsContext: i && S.expr.match.needsContext.test(i), namespace: h.join(".") }, o)),
-              (p = u[d]) || (((p = u[d] = []).delegateCount = 0), (f.setup && !1 !== f.setup.call(t, r, h, a)) || (t.addEventListener && t.addEventListener(d, a))),
-              f.add && (f.add.call(t, c), c.handler.guid || (c.handler.guid = n.guid)),
-              i ? p.splice(p.delegateCount++, 0, c) : p.push(c),
-              (S.event.global[d] = !0))
-      }
-    },
-    remove: function (e, t, n, r, i) {
-      var o,
-        a,
-        s,
-        u,
-        l,
-        c,
-        f,
-        p,
-        d,
-        h,
-        g,
-        v = Y.hasData(e) && Y.get(e)
-      if (v && (u = v.events)) {
-        l = (t = (t || "").match(P) || [""]).length
-        while (l--)
-          if (((d = g = (s = be.exec(t[l]) || [])[1]), (h = (s[2] || "").split(".").sort()), d)) {
-            ;(f = S.event.special[d] || {}), (p = u[(d = (r ? f.delegateType : f.bindType) || d)] || []), (s = s[2] && new RegExp("(^|\\.)" + h.join("\\.(?:.*\\.|)") + "(\\.|$)")), (a = o = p.length)
-            while (o--)
-              (c = p[o]),
-                (!i && g !== c.origType) ||
-                  (n && n.guid !== c.guid) ||
-                  (s && !s.test(c.namespace)) ||
-                  (r && r !== c.selector && ("**" !== r || !c.selector)) ||
-                  (p.splice(o, 1), c.selector && p.delegateCount--, f.remove && f.remove.call(e, c))
-            a && !p.length && ((f.teardown && !1 !== f.teardown.call(e, h, v.handle)) || S.removeEvent(e, d, v.handle), delete u[d])
-          } else for (d in u) S.event.remove(e, d + t[l], n, r, !0)
-        S.isEmptyObject(u) && Y.remove(e, "handle events")
-      }
-    },
-    dispatch: function (e) {
-      var t,
-        n,
-        r,
-        i,
-        o,
-        a,
-        s = new Array(arguments.length),
-        u = S.event.fix(e),
-        l = (Y.get(this, "events") || Object.create(null))[u.type] || [],
-        c = S.event.special[u.type] || {}
-      for (s[0] = u, t = 1; t < arguments.length; t++) s[t] = arguments[t]
-      if (((u.delegateTarget = this), !c.preDispatch || !1 !== c.preDispatch.call(this, u))) {
-        ;(a = S.event.handlers.call(this, u, l)), (t = 0)
-        while ((i = a[t++]) && !u.isPropagationStopped()) {
-          ;(u.currentTarget = i.elem), (n = 0)
-          while ((o = i.handlers[n++]) && !u.isImmediatePropagationStopped())
-            (u.rnamespace && !1 !== o.namespace && !u.rnamespace.test(o.namespace)) ||
-              ((u.handleObj = o), (u.data = o.data), void 0 !== (r = ((S.event.special[o.origType] || {}).handle || o.handler).apply(i.elem, s)) && !1 === (u.result = r) && (u.preventDefault(), u.stopPropagation()))
-        }
-        return c.postDispatch && c.postDispatch.call(this, u), u.result
-      }
-    },
-    handlers: function (e, t) {
-      var n,
-        r,
-        i,
-        o,
-        a,
-        s = [],
-        u = t.delegateCount,
-        l = e.target
-      if (u && l.nodeType && !("click" === e.type && 1 <= e.button))
-        for (; l !== this; l = l.parentNode || this)
-          if (1 === l.nodeType && ("click" !== e.type || !0 !== l.disabled)) {
-            for (o = [], a = {}, n = 0; n < u; n++) void 0 === a[(i = (r = t[n]).selector + " ")] && (a[i] = r.needsContext ? -1 < S(i, this).index(l) : S.find(i, this, null, [l]).length), a[i] && o.push(r)
-            o.length && s.push({ elem: l, handlers: o })
-          }
-      return (l = this), u < t.length && s.push({ elem: l, handlers: t.slice(u) }), s
-    },
-    addProp: function (t, e) {
-      Object.defineProperty(S.Event.prototype, t, {
-        enumerable: !0,
-        configurable: !0,
-        get: m(e)
-          ? function () {
-              if (this.originalEvent) return e(this.originalEvent)
-            }
-          : function () {
-              if (this.originalEvent) return this.originalEvent[t]
-            },
-        set: function (e) {
-          Object.defineProperty(this, t, { enumerable: !0, configurable: !0, writable: !0, value: e })
-        }
-      })
-    },
-    fix: function (e) {
-      return e[S.expando] ? e : new S.Event(e)
-    },
-    special: {
-      load: { noBubble: !0 },
-      click: {
-        setup: function (e) {
-          var t = this || e
-          return pe.test(t.type) && t.click && A(t, "input") && Se(t, "click", we), !1
-        },
-        trigger: function (e) {
-          var t = this || e
-          return pe.test(t.type) && t.click && A(t, "input") && Se(t, "click"), !0
-        },
-        _default: function (e) {
-          var t = e.target
-          return (pe.test(t.type) && t.click && A(t, "input") && Y.get(t, "click")) || A(t, "a")
-        }
-      },
-      beforeunload: {
-        postDispatch: function (e) {
-          void 0 !== e.result && e.originalEvent && (e.originalEvent.returnValue = e.result)
-        }
-      }
-    }
-  }),
-    (S.removeEvent = function (e, t, n) {
-      e.removeEventListener && e.removeEventListener(t, n)
-    }),
-    (S.Event = function (e, t) {
-      if (!(this instanceof S.Event)) return new S.Event(e, t)
-      e && e.type
-        ? ((this.originalEvent = e),
-          (this.type = e.type),
-          (this.isDefaultPrevented = e.defaultPrevented || (void 0 === e.defaultPrevented && !1 === e.returnValue) ? we : Te),
-          (this.target = e.target && 3 === e.target.nodeType ? e.target.parentNode : e.target),
-          (this.currentTarget = e.currentTarget),
-          (this.relatedTarget = e.relatedTarget))
-        : (this.type = e),
-        t && S.extend(this, t),
-        (this.timeStamp = (e && e.timeStamp) || Date.now()),
-        (this[S.expando] = !0)
-    }),
-    (S.Event.prototype = {
-      constructor: S.Event,
-      isDefaultPrevented: Te,
-      isPropagationStopped: Te,
-      isImmediatePropagationStopped: Te,
-      isSimulated: !1,
-      preventDefault: function () {
-        var e = this.originalEvent
-        ;(this.isDefaultPrevented = we), e && !this.isSimulated && e.preventDefault()
-      },
-      stopPropagation: function () {
-        var e = this.originalEvent
-        ;(this.isPropagationStopped = we), e && !this.isSimulated && e.stopPropagation()
-      },
-      stopImmediatePropagation: function () {
-        var e = this.originalEvent
-        ;(this.isImmediatePropagationStopped = we), e && !this.isSimulated && e.stopImmediatePropagation(), this.stopPropagation()
-      }
-    }),
-    S.each(
-      {
-        altKey: !0,
-        bubbles: !0,
-        cancelable: !0,
-        changedTouches: !0,
-        ctrlKey: !0,
-        detail: !0,
-        eventPhase: !0,
-        metaKey: !0,
-        pageX: !0,
-        pageY: !0,
-        shiftKey: !0,
-        view: !0,
-        char: !0,
-        code: !0,
-        charCode: !0,
-        key: !0,
-        keyCode: !0,
-        button: !0,
-        buttons: !0,
-        clientX: !0,
-        clientY: !0,
-        offsetX: !0,
-        offsetY: !0,
-        pointerId: !0,
-        pointerType: !0,
-        screenX: !0,
-        screenY: !0,
-        targetTouches: !0,
-        toElement: !0,
-        touches: !0,
-        which: !0
-      },
-      S.event.addProp
-    ),
-    S.each({ focus: "focusin", blur: "focusout" }, function (e, t) {
-      S.event.special[e] = {
-        setup: function () {
-          return Se(this, e, Ce), !1
-        },
-        trigger: function () {
-          return Se(this, e), !0
-        },
-        _default: function () {
-          return !0
-        },
-        delegateType: t
-      }
-    }),
-    S.each({ mouseenter: "mouseover", mouseleave: "mouseout", pointerenter: "pointerover", pointerleave: "pointerout" }, function (e, i) {
-      S.event.special[e] = {
-        delegateType: i,
-        bindType: i,
-        handle: function (e) {
-          var t,
-            n = e.relatedTarget,
-            r = e.handleObj
-          return (n && (n === this || S.contains(this, n))) || ((e.type = r.origType), (t = r.handler.apply(this, arguments)), (e.type = i)), t
-        }
-      }
-    }),
-    S.fn.extend({
-      on: function (e, t, n, r) {
-        return Ee(this, e, t, n, r)
-      },
-      one: function (e, t, n, r) {
-        return Ee(this, e, t, n, r, 1)
-      },
-      off: function (e, t, n) {
-        var r, i
-        if (e && e.preventDefault && e.handleObj) return (r = e.handleObj), S(e.delegateTarget).off(r.namespace ? r.origType + "." + r.namespace : r.origType, r.selector, r.handler), this
-        if ("object" == typeof e) {
-          for (i in e) this.off(i, t, e[i])
-          return this
-        }
-        return (
-          (!1 !== t && "function" != typeof t) || ((n = t), (t = void 0)),
-          !1 === n && (n = Te),
-          this.each(function () {
-            S.event.remove(this, e, n, t)
-          })
-        )
-      }
-    })
-  var ke = /<script|<style|<link/i,
-    Ae = /checked\s*(?:[^=]|=\s*.checked.)/i,
-    Ne = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g
-  function je(e, t) {
-    return (A(e, "table") && A(11 !== t.nodeType ? t : t.firstChild, "tr") && S(e).children("tbody")[0]) || e
-  }
-  function De(e) {
-    return (e.type = (null !== e.getAttribute("type")) + "/" + e.type), e
-  }
-  function qe(e) {
-    return "true/" === (e.type || "").slice(0, 5) ? (e.type = e.type.slice(5)) : e.removeAttribute("type"), e
-  }
-  function Le(e, t) {
-    var n, r, i, o, a, s
-    if (1 === t.nodeType) {
-      if (Y.hasData(e) && (s = Y.get(e).events)) for (i in (Y.remove(t, "handle events"), s)) for (n = 0, r = s[i].length; n < r; n++) S.event.add(t, i, s[i][n])
-      Q.hasData(e) && ((o = Q.access(e)), (a = S.extend({}, o)), Q.set(t, a))
-    }
-  }
-  function He(n, r, i, o) {
-    r = g(r)
-    var e,
-      t,
-      a,
-      s,
-      u,
-      l,
-      c = 0,
-      f = n.length,
-      p = f - 1,
-      d = r[0],
-      h = m(d)
-    if (h || (1 < f && "string" == typeof d && !y.checkClone && Ae.test(d)))
-      return n.each(function (e) {
-        var t = n.eq(e)
-        h && (r[0] = d.call(this, e, t.html())), He(t, r, i, o)
-      })
-    if (f && ((t = (e = xe(r, n[0].ownerDocument, !1, n, o)).firstChild), 1 === e.childNodes.length && (e = t), t || o)) {
-      for (s = (a = S.map(ve(e, "script"), De)).length; c < f; c++) (u = e), c !== p && ((u = S.clone(u, !0, !0)), s && S.merge(a, ve(u, "script"))), i.call(n[c], u, c)
-      if (s)
-        for (l = a[a.length - 1].ownerDocument, S.map(a, qe), c = 0; c < s; c++)
-          (u = a[c]),
-            he.test(u.type || "") &&
-              !Y.access(u, "globalEval") &&
-              S.contains(l, u) &&
-              (u.src && "module" !== (u.type || "").toLowerCase() ? S._evalUrl && !u.noModule && S._evalUrl(u.src, { nonce: u.nonce || u.getAttribute("nonce") }, l) : b(u.textContent.replace(Ne, ""), u, l))
-    }
-    return n
-  }
-  function Oe(e, t, n) {
-    for (var r, i = t ? S.filter(t, e) : e, o = 0; null != (r = i[o]); o++) n || 1 !== r.nodeType || S.cleanData(ve(r)), r.parentNode && (n && ie(r) && ye(ve(r, "script")), r.parentNode.removeChild(r))
-    return e
-  }
-  S.extend({
-    htmlPrefilter: function (e) {
-      return e
-    },
-    clone: function (e, t, n) {
-      var r,
-        i,
-        o,
-        a,
-        s,
-        u,
-        l,
-        c = e.cloneNode(!0),
-        f = ie(e)
-      if (!(y.noCloneChecked || (1 !== e.nodeType && 11 !== e.nodeType) || S.isXMLDoc(e)))
-        for (a = ve(c), r = 0, i = (o = ve(e)).length; r < i; r++)
-          (s = o[r]), (u = a[r]), void 0, "input" === (l = u.nodeName.toLowerCase()) && pe.test(s.type) ? (u.checked = s.checked) : ("input" !== l && "textarea" !== l) || (u.defaultValue = s.defaultValue)
-      if (t)
-        if (n) for (o = o || ve(e), a = a || ve(c), r = 0, i = o.length; r < i; r++) Le(o[r], a[r])
-        else Le(e, c)
-      return 0 < (a = ve(c, "script")).length && ye(a, !f && ve(e, "script")), c
-    },
-    cleanData: function (e) {
-      for (var t, n, r, i = S.event.special, o = 0; void 0 !== (n = e[o]); o++)
-        if (V(n)) {
-          if ((t = n[Y.expando])) {
-            if (t.events) for (r in t.events) i[r] ? S.event.remove(n, r) : S.removeEvent(n, r, t.handle)
-            n[Y.expando] = void 0
-          }
-          n[Q.expando] && (n[Q.expando] = void 0)
-        }
-    }
-  }),
-    S.fn.extend({
-      detach: function (e) {
-        return Oe(this, e, !0)
-      },
-      remove: function (e) {
-        return Oe(this, e)
-      },
-      text: function (e) {
-        return $(
-          this,
-          function (e) {
-            return void 0 === e
-              ? S.text(this)
-              : this.empty().each(function () {
-                  ;(1 !== this.nodeType && 11 !== this.nodeType && 9 !== this.nodeType) || (this.textContent = e)
-                })
-          },
-          null,
-          e,
-          arguments.length
-        )
-      },
-      append: function () {
-        return He(this, arguments, function (e) {
-          ;(1 !== this.nodeType && 11 !== this.nodeType && 9 !== this.nodeType) || je(this, e).appendChild(e)
-        })
-      },
-      prepend: function () {
-        return He(this, arguments, function (e) {
-          if (1 === this.nodeType || 11 === this.nodeType || 9 === this.nodeType) {
-            var t = je(this, e)
-            t.insertBefore(e, t.firstChild)
-          }
-        })
-      },
-      before: function () {
-        return He(this, arguments, function (e) {
-          this.parentNode && this.parentNode.insertBefore(e, this)
-        })
-      },
-      after: function () {
-        return He(this, arguments, function (e) {
-          this.parentNode && this.parentNode.insertBefore(e, this.nextSibling)
-        })
-      },
-      empty: function () {
-        for (var e, t = 0; null != (e = this[t]); t++) 1 === e.nodeType && (S.cleanData(ve(e, !1)), (e.textContent = ""))
-        return this
-      },
-      clone: function (e, t) {
-        return (
-          (e = null != e && e),
-          (t = null == t ? e : t),
-          this.map(function () {
-            return S.clone(this, e, t)
-          })
-        )
-      },
-      html: function (e) {
-        return $(
-          this,
-          function (e) {
-            var t = this[0] || {},
-              n = 0,
-              r = this.length
-            if (void 0 === e && 1 === t.nodeType) return t.innerHTML
-            if ("string" == typeof e && !ke.test(e) && !ge[(de.exec(e) || ["", ""])[1].toLowerCase()]) {
-              e = S.htmlPrefilter(e)
-              try {
-                for (; n < r; n++) 1 === (t = this[n] || {}).nodeType && (S.cleanData(ve(t, !1)), (t.innerHTML = e))
-                t = 0
-              } catch (e) {}
-            }
-            t && this.empty().append(e)
-          },
-          null,
-          e,
-          arguments.length
-        )
-      },
-      replaceWith: function () {
-        var n = []
-        return He(
-          this,
-          arguments,
-          function (e) {
-            var t = this.parentNode
-            S.inArray(this, n) < 0 && (S.cleanData(ve(this)), t && t.replaceChild(e, this))
-          },
-          n
-        )
-      }
-    }),
-    S.each({ appendTo: "append", prependTo: "prepend", insertBefore: "before", insertAfter: "after", replaceAll: "replaceWith" }, function (e, a) {
-      S.fn[e] = function (e) {
-        for (var t, n = [], r = S(e), i = r.length - 1, o = 0; o <= i; o++) (t = o === i ? this : this.clone(!0)), S(r[o])[a](t), u.apply(n, t.get())
-        return this.pushStack(n)
-      }
-    })
-  var Pe = new RegExp("^(" + ee + ")(?!px)[a-z%]+$", "i"),
-    Re = function (e) {
-      var t = e.ownerDocument.defaultView
-      return (t && t.opener) || (t = C), t.getComputedStyle(e)
-    },
-    Me = function (e, t, n) {
-      var r,
-        i,
-        o = {}
-      for (i in t) (o[i] = e.style[i]), (e.style[i] = t[i])
-      for (i in ((r = n.call(e)), t)) e.style[i] = o[i]
-      return r
-    },
-    Ie = new RegExp(ne.join("|"), "i")
-  function We(e, t, n) {
-    var r,
-      i,
-      o,
-      a,
-      s = e.style
-    return (
-      (n = n || Re(e)) &&
-        ("" !== (a = n.getPropertyValue(t) || n[t]) || ie(e) || (a = S.style(e, t)),
-        !y.pixelBoxStyles() && Pe.test(a) && Ie.test(t) && ((r = s.width), (i = s.minWidth), (o = s.maxWidth), (s.minWidth = s.maxWidth = s.width = a), (a = n.width), (s.width = r), (s.minWidth = i), (s.maxWidth = o))),
-      void 0 !== a ? a + "" : a
-    )
-  }
-  function Fe(e, t) {
-    return {
-      get: function () {
-        if (!e()) return (this.get = t).apply(this, arguments)
-        delete this.get
-      }
-    }
-  }
-  !(function () {
-    function e() {
-      if (l) {
-        ;(u.style.cssText = "position:absolute;left:-11111px;width:60px;margin-top:1px;padding:0;border:0"),
-          (l.style.cssText = "position:relative;display:block;box-sizing:border-box;overflow:scroll;margin:auto;border:1px;padding:1px;width:60%;top:1%"),
-          re.appendChild(u).appendChild(l)
-        var e = C.getComputedStyle(l)
-        ;(n = "1%" !== e.top), (s = 12 === t(e.marginLeft)), (l.style.right = "60%"), (o = 36 === t(e.right)), (r = 36 === t(e.width)), (l.style.position = "absolute"), (i = 12 === t(l.offsetWidth / 3)), re.removeChild(u), (l = null)
-      }
-    }
-    function t(e) {
-      return Math.round(parseFloat(e))
-    }
-    var n,
-      r,
-      i,
-      o,
-      a,
-      s,
-      u = E.createElement("div"),
-      l = E.createElement("div")
-    l.style &&
-      ((l.style.backgroundClip = "content-box"),
-      (l.cloneNode(!0).style.backgroundClip = ""),
-      (y.clearCloneStyle = "content-box" === l.style.backgroundClip),
-      S.extend(y, {
-        boxSizingReliable: function () {
-          return e(), r
-        },
-        pixelBoxStyles: function () {
-          return e(), o
-        },
-        pixelPosition: function () {
-          return e(), n
-        },
-        reliableMarginLeft: function () {
-          return e(), s
-        },
-        scrollboxSize: function () {
-          return e(), i
-        },
-        reliableTrDimensions: function () {
-          var e, t, n, r
-          return (
-            null == a &&
-              ((e = E.createElement("table")),
-              (t = E.createElement("tr")),
-              (n = E.createElement("div")),
-              (e.style.cssText = "position:absolute;left:-11111px;border-collapse:separate"),
-              (t.style.cssText = "border:1px solid"),
-              (t.style.height = "1px"),
-              (n.style.height = "9px"),
-              (n.style.display = "block"),
-              re.appendChild(e).appendChild(t).appendChild(n),
-              (r = C.getComputedStyle(t)),
-              (a = parseInt(r.height, 10) + parseInt(r.borderTopWidth, 10) + parseInt(r.borderBottomWidth, 10) === t.offsetHeight),
-              re.removeChild(e)),
-            a
-          )
-        }
-      }))
-  })()
-  var Be = ["Webkit", "Moz", "ms"],
-    $e = E.createElement("div").style,
-    _e = {}
-  function ze(e) {
-    var t = S.cssProps[e] || _e[e]
-    return (
-      t ||
-      (e in $e
-        ? e
-        : (_e[e] =
-            (function (e) {
-              var t = e[0].toUpperCase() + e.slice(1),
-                n = Be.length
-              while (n--) if ((e = Be[n] + t) in $e) return e
-            })(e) || e))
-    )
-  }
-  var Ue = /^(none|table(?!-c[ea]).+)/,
-    Xe = /^--/,
-    Ve = { position: "absolute", visibility: "hidden", display: "block" },
-    Ge = { letterSpacing: "0", fontWeight: "400" }
-  function Ye(e, t, n) {
-    var r = te.exec(t)
-    return r ? Math.max(0, r[2] - (n || 0)) + (r[3] || "px") : t
-  }
-  function Qe(e, t, n, r, i, o) {
-    var a = "width" === t ? 1 : 0,
-      s = 0,
-      u = 0
-    if (n === (r ? "border" : "content")) return 0
-    for (; a < 4; a += 2)
-      "margin" === n && (u += S.css(e, n + ne[a], !0, i)),
-        r
-          ? ("content" === n && (u -= S.css(e, "padding" + ne[a], !0, i)), "margin" !== n && (u -= S.css(e, "border" + ne[a] + "Width", !0, i)))
-          : ((u += S.css(e, "padding" + ne[a], !0, i)), "padding" !== n ? (u += S.css(e, "border" + ne[a] + "Width", !0, i)) : (s += S.css(e, "border" + ne[a] + "Width", !0, i)))
-    return !r && 0 <= o && (u += Math.max(0, Math.ceil(e["offset" + t[0].toUpperCase() + t.slice(1)] - o - u - s - 0.5)) || 0), u
-  }
-  function Je(e, t, n) {
-    var r = Re(e),
-      i = (!y.boxSizingReliable() || n) && "border-box" === S.css(e, "boxSizing", !1, r),
-      o = i,
-      a = We(e, t, r),
-      s = "offset" + t[0].toUpperCase() + t.slice(1)
-    if (Pe.test(a)) {
-      if (!n) return a
-      a = "auto"
-    }
-    return (
-      ((!y.boxSizingReliable() && i) || (!y.reliableTrDimensions() && A(e, "tr")) || "auto" === a || (!parseFloat(a) && "inline" === S.css(e, "display", !1, r))) &&
-        e.getClientRects().length &&
-        ((i = "border-box" === S.css(e, "boxSizing", !1, r)), (o = s in e) && (a = e[s])),
-      (a = parseFloat(a) || 0) + Qe(e, t, n || (i ? "border" : "content"), o, r, a) + "px"
-    )
-  }
-  function Ke(e, t, n, r, i) {
-    return new Ke.prototype.init(e, t, n, r, i)
-  }
-  S.extend({
-    cssHooks: {
-      opacity: {
-        get: function (e, t) {
-          if (t) {
-            var n = We(e, "opacity")
-            return "" === n ? "1" : n
-          }
-        }
-      }
-    },
-    cssNumber: {
-      animationIterationCount: !0,
-      columnCount: !0,
-      fillOpacity: !0,
-      flexGrow: !0,
-      flexShrink: !0,
-      fontWeight: !0,
-      gridArea: !0,
-      gridColumn: !0,
-      gridColumnEnd: !0,
-      gridColumnStart: !0,
-      gridRow: !0,
-      gridRowEnd: !0,
-      gridRowStart: !0,
-      lineHeight: !0,
-      opacity: !0,
-      order: !0,
-      orphans: !0,
-      widows: !0,
-      zIndex: !0,
-      zoom: !0
-    },
-    cssProps: {},
-    style: function (e, t, n, r) {
-      if (e && 3 !== e.nodeType && 8 !== e.nodeType && e.style) {
-        var i,
-          o,
-          a,
-          s = X(t),
-          u = Xe.test(t),
-          l = e.style
-        if ((u || (t = ze(s)), (a = S.cssHooks[t] || S.cssHooks[s]), void 0 === n)) return a && "get" in a && void 0 !== (i = a.get(e, !1, r)) ? i : l[t]
-        "string" === (o = typeof n) && (i = te.exec(n)) && i[1] && ((n = se(e, t, i)), (o = "number")),
-          null != n &&
-            n == n &&
-            ("number" !== o || u || (n += (i && i[3]) || (S.cssNumber[s] ? "" : "px")),
-            y.clearCloneStyle || "" !== n || 0 !== t.indexOf("background") || (l[t] = "inherit"),
-            (a && "set" in a && void 0 === (n = a.set(e, n, r))) || (u ? l.setProperty(t, n) : (l[t] = n)))
-      }
-    },
-    css: function (e, t, n, r) {
-      var i,
-        o,
-        a,
-        s = X(t)
-      return (
-        Xe.test(t) || (t = ze(s)),
-        (a = S.cssHooks[t] || S.cssHooks[s]) && "get" in a && (i = a.get(e, !0, n)),
-        void 0 === i && (i = We(e, t, r)),
-        "normal" === i && t in Ge && (i = Ge[t]),
-        "" === n || n ? ((o = parseFloat(i)), !0 === n || isFinite(o) ? o || 0 : i) : i
-      )
-    }
-  }),
-    S.each(["height", "width"], function (e, u) {
-      S.cssHooks[u] = {
-        get: function (e, t, n) {
-          if (t)
-            return !Ue.test(S.css(e, "display")) || (e.getClientRects().length && e.getBoundingClientRect().width)
-              ? Je(e, u, n)
-              : Me(e, Ve, function () {
-                  return Je(e, u, n)
-                })
-        },
-        set: function (e, t, n) {
-          var r,
-            i = Re(e),
-            o = !y.scrollboxSize() && "absolute" === i.position,
-            a = (o || n) && "border-box" === S.css(e, "boxSizing", !1, i),
-            s = n ? Qe(e, u, n, a, i) : 0
-          return (
-            a && o && (s -= Math.ceil(e["offset" + u[0].toUpperCase() + u.slice(1)] - parseFloat(i[u]) - Qe(e, u, "border", !1, i) - 0.5)),
-            s && (r = te.exec(t)) && "px" !== (r[3] || "px") && ((e.style[u] = t), (t = S.css(e, u))),
-            Ye(0, t, s)
-          )
-        }
-      }
-    }),
-    (S.cssHooks.marginLeft = Fe(y.reliableMarginLeft, function (e, t) {
-      if (t)
-        return (
-          (parseFloat(We(e, "marginLeft")) ||
-            e.getBoundingClientRect().left -
-              Me(e, { marginLeft: 0 }, function () {
-                return e.getBoundingClientRect().left
-              })) + "px"
-        )
-    })),
-    S.each({ margin: "", padding: "", border: "Width" }, function (i, o) {
-      ;(S.cssHooks[i + o] = {
-        expand: function (e) {
-          for (var t = 0, n = {}, r = "string" == typeof e ? e.split(" ") : [e]; t < 4; t++) n[i + ne[t] + o] = r[t] || r[t - 2] || r[0]
-          return n
-        }
-      }),
-        "margin" !== i && (S.cssHooks[i + o].set = Ye)
-    }),
-    S.fn.extend({
-      css: function (e, t) {
-        return $(
-          this,
-          function (e, t, n) {
-            var r,
-              i,
-              o = {},
-              a = 0
-            if (Array.isArray(t)) {
-              for (r = Re(e), i = t.length; a < i; a++) o[t[a]] = S.css(e, t[a], !1, r)
-              return o
-            }
-            return void 0 !== n ? S.style(e, t, n) : S.css(e, t)
-          },
-          e,
-          t,
-          1 < arguments.length
-        )
-      }
-    }),
-    (((S.Tween = Ke).prototype = {
-      constructor: Ke,
-      init: function (e, t, n, r, i, o) {
-        ;(this.elem = e), (this.prop = n), (this.easing = i || S.easing._default), (this.options = t), (this.start = this.now = this.cur()), (this.end = r), (this.unit = o || (S.cssNumber[n] ? "" : "px"))
-      },
-      cur: function () {
-        var e = Ke.propHooks[this.prop]
-        return e && e.get ? e.get(this) : Ke.propHooks._default.get(this)
-      },
-      run: function (e) {
-        var t,
-          n = Ke.propHooks[this.prop]
-        return (
-          this.options.duration ? (this.pos = t = S.easing[this.easing](e, this.options.duration * e, 0, 1, this.options.duration)) : (this.pos = t = e),
-          (this.now = (this.end - this.start) * t + this.start),
-          this.options.step && this.options.step.call(this.elem, this.now, this),
-          n && n.set ? n.set(this) : Ke.propHooks._default.set(this),
-          this
-        )
-      }
-    }).init.prototype = Ke.prototype),
-    ((Ke.propHooks = {
-      _default: {
-        get: function (e) {
-          var t
-          return 1 !== e.elem.nodeType || (null != e.elem[e.prop] && null == e.elem.style[e.prop]) ? e.elem[e.prop] : (t = S.css(e.elem, e.prop, "")) && "auto" !== t ? t : 0
-        },
-        set: function (e) {
-          S.fx.step[e.prop] ? S.fx.step[e.prop](e) : 1 !== e.elem.nodeType || (!S.cssHooks[e.prop] && null == e.elem.style[ze(e.prop)]) ? (e.elem[e.prop] = e.now) : S.style(e.elem, e.prop, e.now + e.unit)
-        }
-      }
-    }).scrollTop = Ke.propHooks.scrollLeft =
-      {
-        set: function (e) {
-          e.elem.nodeType && e.elem.parentNode && (e.elem[e.prop] = e.now)
-        }
-      }),
-    (S.easing = {
-      linear: function (e) {
-        return e
-      },
-      swing: function (e) {
-        return 0.5 - Math.cos(e * Math.PI) / 2
-      },
-      _default: "swing"
-    }),
-    (S.fx = Ke.prototype.init),
-    (S.fx.step = {})
-  var Ze,
-    et,
-    tt,
-    nt,
-    rt = /^(?:toggle|show|hide)$/,
-    it = /queueHooks$/
-  function ot() {
-    et && (!1 === E.hidden && C.requestAnimationFrame ? C.requestAnimationFrame(ot) : C.setTimeout(ot, S.fx.interval), S.fx.tick())
-  }
-  function at() {
-    return (
-      C.setTimeout(function () {
-        Ze = void 0
-      }),
-      (Ze = Date.now())
-    )
-  }
-  function st(e, t) {
-    var n,
-      r = 0,
-      i = { height: e }
-    for (t = t ? 1 : 0; r < 4; r += 2 - t) i["margin" + (n = ne[r])] = i["padding" + n] = e
-    return t && (i.opacity = i.width = e), i
-  }
-  function ut(e, t, n) {
-    for (var r, i = (lt.tweeners[t] || []).concat(lt.tweeners["*"]), o = 0, a = i.length; o < a; o++) if ((r = i[o].call(n, t, e))) return r
-  }
-  function lt(o, e, t) {
-    var n,
-      a,
-      r = 0,
-      i = lt.prefilters.length,
-      s = S.Deferred().always(function () {
-        delete u.elem
-      }),
-      u = function () {
-        if (a) return !1
-        for (var e = Ze || at(), t = Math.max(0, l.startTime + l.duration - e), n = 1 - (t / l.duration || 0), r = 0, i = l.tweens.length; r < i; r++) l.tweens[r].run(n)
-        return s.notifyWith(o, [l, n, t]), n < 1 && i ? t : (i || s.notifyWith(o, [l, 1, 0]), s.resolveWith(o, [l]), !1)
-      },
-      l = s.promise({
-        elem: o,
-        props: S.extend({}, e),
-        opts: S.extend(!0, { specialEasing: {}, easing: S.easing._default }, t),
-        originalProperties: e,
-        originalOptions: t,
-        startTime: Ze || at(),
-        duration: t.duration,
-        tweens: [],
-        createTween: function (e, t) {
-          var n = S.Tween(o, l.opts, e, t, l.opts.specialEasing[e] || l.opts.easing)
-          return l.tweens.push(n), n
-        },
-        stop: function (e) {
-          var t = 0,
-            n = e ? l.tweens.length : 0
-          if (a) return this
-          for (a = !0; t < n; t++) l.tweens[t].run(1)
-          return e ? (s.notifyWith(o, [l, 1, 0]), s.resolveWith(o, [l, e])) : s.rejectWith(o, [l, e]), this
-        }
-      }),
-      c = l.props
-    for (
-      !(function (e, t) {
-        var n, r, i, o, a
-        for (n in e)
-          if (((i = t[(r = X(n))]), (o = e[n]), Array.isArray(o) && ((i = o[1]), (o = e[n] = o[0])), n !== r && ((e[r] = o), delete e[n]), (a = S.cssHooks[r]) && ("expand" in a)))
-            for (n in ((o = a.expand(o)), delete e[r], o)) (n in e) || ((e[n] = o[n]), (t[n] = i))
-          else t[r] = i
-      })(c, l.opts.specialEasing);
-      r < i;
-      r++
-    )
-      if ((n = lt.prefilters[r].call(l, o, c, l.opts))) return m(n.stop) && (S._queueHooks(l.elem, l.opts.queue).stop = n.stop.bind(n)), n
-    return (
-      S.map(c, ut, l), m(l.opts.start) && l.opts.start.call(o, l), l.progress(l.opts.progress).done(l.opts.done, l.opts.complete).fail(l.opts.fail).always(l.opts.always), S.fx.timer(S.extend(u, { elem: o, anim: l, queue: l.opts.queue })), l
-    )
-  }
-  ;(S.Animation = S.extend(lt, {
-    tweeners: {
-      "*": [
-        function (e, t) {
-          var n = this.createTween(e, t)
-          return se(n.elem, e, te.exec(t), n), n
-        }
-      ]
-    },
-    tweener: function (e, t) {
-      m(e) ? ((t = e), (e = ["*"])) : (e = e.match(P))
-      for (var n, r = 0, i = e.length; r < i; r++) (n = e[r]), (lt.tweeners[n] = lt.tweeners[n] || []), lt.tweeners[n].unshift(t)
-    },
-    prefilters: [
-      function (e, t, n) {
-        var r,
-          i,
-          o,
-          a,
-          s,
-          u,
-          l,
-          c,
-          f = "width" in t || "height" in t,
-          p = this,
-          d = {},
-          h = e.style,
-          g = e.nodeType && ae(e),
-          v = Y.get(e, "fxshow")
-        for (r in (n.queue ||
-          (null == (a = S._queueHooks(e, "fx")).unqueued &&
-            ((a.unqueued = 0),
-            (s = a.empty.fire),
-            (a.empty.fire = function () {
-              a.unqueued || s()
-            })),
-          a.unqueued++,
-          p.always(function () {
-            p.always(function () {
-              a.unqueued--, S.queue(e, "fx").length || a.empty.fire()
-            })
-          })),
-        t))
-          if (((i = t[r]), rt.test(i))) {
-            if ((delete t[r], (o = o || "toggle" === i), i === (g ? "hide" : "show"))) {
-              if ("show" !== i || !v || void 0 === v[r]) continue
-              g = !0
-            }
-            d[r] = (v && v[r]) || S.style(e, r)
-          }
-        if ((u = !S.isEmptyObject(t)) || !S.isEmptyObject(d))
-          for (r in (f &&
-            1 === e.nodeType &&
-            ((n.overflow = [h.overflow, h.overflowX, h.overflowY]),
-            null == (l = v && v.display) && (l = Y.get(e, "display")),
-            "none" === (c = S.css(e, "display")) && (l ? (c = l) : (le([e], !0), (l = e.style.display || l), (c = S.css(e, "display")), le([e]))),
-            ("inline" === c || ("inline-block" === c && null != l)) &&
-              "none" === S.css(e, "float") &&
-              (u ||
-                (p.done(function () {
-                  h.display = l
-                }),
-                null == l && ((c = h.display), (l = "none" === c ? "" : c))),
-              (h.display = "inline-block"))),
-          n.overflow &&
-            ((h.overflow = "hidden"),
-            p.always(function () {
-              ;(h.overflow = n.overflow[0]), (h.overflowX = n.overflow[1]), (h.overflowY = n.overflow[2])
-            })),
-          (u = !1),
-          d))
-            u ||
-              (v ? "hidden" in v && (g = v.hidden) : (v = Y.access(e, "fxshow", { display: l })),
-              o && (v.hidden = !g),
-              g && le([e], !0),
-              p.done(function () {
-                for (r in (g || le([e]), Y.remove(e, "fxshow"), d)) S.style(e, r, d[r])
-              })),
-              (u = ut(g ? v[r] : 0, r, p)),
-              r in v || ((v[r] = u.start), g && ((u.end = u.start), (u.start = 0)))
-      }
-    ],
-    prefilter: function (e, t) {
-      t ? lt.prefilters.unshift(e) : lt.prefilters.push(e)
-    }
-  })),
-    (S.speed = function (e, t, n) {
-      var r = e && "object" == typeof e ? S.extend({}, e) : { complete: n || (!n && t) || (m(e) && e), duration: e, easing: (n && t) || (t && !m(t) && t) }
-      return (
-        S.fx.off ? (r.duration = 0) : "number" != typeof r.duration && (r.duration in S.fx.speeds ? (r.duration = S.fx.speeds[r.duration]) : (r.duration = S.fx.speeds._default)),
-        (null != r.queue && !0 !== r.queue) || (r.queue = "fx"),
-        (r.old = r.complete),
-        (r.complete = function () {
-          m(r.old) && r.old.call(this), r.queue && S.dequeue(this, r.queue)
+          return l ? $ : b.a($)
         }),
-        r
-      )
-    }),
-    S.fn.extend({
-      fadeTo: function (e, t, n, r) {
-        return this.filter(ae).css("opacity", 0).show().end().animate({ opacity: t }, e, n, r)
-      },
-      animate: function (t, e, n, r) {
-        var i = S.isEmptyObject(t),
-          o = S.speed(e, n, r),
-          a = function () {
-            var e = lt(this, S.extend({}, t), o)
-            ;(i || Y.get(this, "finish")) && e.stop(!0)
-          }
-        return (a.finish = a), i || !1 === o.queue ? this.each(a) : this.queue(o.queue, a)
-      },
-      stop: function (i, e, o) {
-        var a = function (e) {
-          var t = e.stop
-          delete e.stop, t(o)
-        }
-        return (
-          "string" != typeof i && ((o = e), (e = i), (i = void 0)),
-          e && this.queue(i || "fx", []),
-          this.each(function () {
-            var e = !0,
-              t = null != i && i + "queueHooks",
-              n = S.timers,
-              r = Y.get(this)
-            if (t) r[t] && r[t].stop && a(r[t])
-            else for (t in r) r[t] && r[t].stop && it.test(t) && a(r[t])
-            for (t = n.length; t--; ) n[t].elem !== this || (null != i && n[t].queue !== i) || (n[t].anim.stop(o), (e = !1), n.splice(t, 1))
-            ;(!e && o) || S.dequeue(this, i)
-          })
-        )
-      },
-      finish: function (a) {
-        return (
-          !1 !== a && (a = a || "fx"),
-          this.each(function () {
-            var e,
-              t = Y.get(this),
-              n = t[a + "queue"],
-              r = t[a + "queueHooks"],
-              i = S.timers,
-              o = n ? n.length : 0
-            for (t.finish = !0, S.queue(this, a, []), r && r.stop && r.stop.call(this, !0), e = i.length; e--; ) i[e].elem === this && i[e].queue === a && (i[e].anim.stop(!0), i.splice(e, 1))
-            for (e = 0; e < o; e++) n[e] && n[e].finish && n[e].finish.call(this)
-            delete t.finish
-          })
-        )
-      }
-    }),
-    S.each(["toggle", "show", "hide"], function (e, r) {
-      var i = S.fn[r]
-      S.fn[r] = function (e, t, n) {
-        return null == e || "boolean" == typeof e ? i.apply(this, arguments) : this.animate(st(r, !0), e, t, n)
-      }
-    }),
-    S.each({ slideDown: st("show"), slideUp: st("hide"), slideToggle: st("toggle"), fadeIn: { opacity: "show" }, fadeOut: { opacity: "hide" }, fadeToggle: { opacity: "toggle" } }, function (e, r) {
-      S.fn[e] = function (e, t, n) {
-        return this.animate(r, e, t, n)
-      }
-    }),
-    (S.timers = []),
-    (S.fx.tick = function () {
-      var e,
-        t = 0,
-        n = S.timers
-      for (Ze = Date.now(); t < n.length; t++) (e = n[t])() || n[t] !== e || n.splice(t--, 1)
-      n.length || S.fx.stop(), (Ze = void 0)
-    }),
-    (S.fx.timer = function (e) {
-      S.timers.push(e), S.fx.start()
-    }),
-    (S.fx.interval = 13),
-    (S.fx.start = function () {
-      et || ((et = !0), ot())
-    }),
-    (S.fx.stop = function () {
-      et = null
-    }),
-    (S.fx.speeds = { slow: 600, fast: 200, _default: 400 }),
-    (S.fn.delay = function (r, e) {
-      return (
-        (r = (S.fx && S.fx.speeds[r]) || r),
-        (e = e || "fx"),
-        this.queue(e, function (e, t) {
-          var n = C.setTimeout(e, r)
-          t.stop = function () {
-            C.clearTimeout(n)
-          }
-        })
-      )
-    }),
-    (tt = E.createElement("input")),
-    (nt = E.createElement("select").appendChild(E.createElement("option"))),
-    (tt.type = "checkbox"),
-    (y.checkOn = "" !== tt.value),
-    (y.optSelected = nt.selected),
-    ((tt = E.createElement("input")).value = "t"),
-    (tt.type = "radio"),
-    (y.radioValue = "t" === tt.value)
-  var ct,
-    ft = S.expr.attrHandle
-  S.fn.extend({
-    attr: function (e, t) {
-      return $(this, S.attr, e, t, 1 < arguments.length)
-    },
-    removeAttr: function (e) {
-      return this.each(function () {
-        S.removeAttr(this, e)
-      })
-    }
-  }),
-    S.extend({
-      attr: function (e, t, n) {
-        var r,
-          i,
-          o = e.nodeType
-        if (3 !== o && 8 !== o && 2 !== o)
-          return "undefined" == typeof e.getAttribute
-            ? S.prop(e, t, n)
-            : ((1 === o && S.isXMLDoc(e)) || (i = S.attrHooks[t.toLowerCase()] || (S.expr.match.bool.test(t) ? ct : void 0)),
-              void 0 !== n
-                ? null === n
-                  ? void S.removeAttr(e, t)
-                  : i && "set" in i && void 0 !== (r = i.set(e, n, t))
-                    ? r
-                    : (e.setAttribute(t, n + ""), n)
-                : i && "get" in i && null !== (r = i.get(e, t))
-                  ? r
-                  : null == (r = S.find.attr(e, t))
-                    ? void 0
-                    : r)
-      },
-      attrHooks: {
-        type: {
-          set: function (e, t) {
-            if (!y.radioValue && "radio" === t && A(e, "input")) {
-              var n = e.value
-              return e.setAttribute("type", t), n && (e.value = n), t
-            }
-          }
-        }
-      },
-      removeAttr: function (e, t) {
-        var n,
-          r = 0,
-          i = t && t.match(P)
-        if (i && 1 === e.nodeType) while ((n = i[r++])) e.removeAttribute(n)
-      }
-    }),
-    (ct = {
-      set: function (e, t, n) {
-        return !1 === t ? S.removeAttr(e, n) : e.setAttribute(n, n), n
-      }
-    }),
-    S.each(S.expr.match.bool.source.match(/\w+/g), function (e, t) {
-      var a = ft[t] || S.find.attr
-      ft[t] = function (e, t, n) {
-        var r,
-          i,
-          o = t.toLowerCase()
-        return n || ((i = ft[o]), (ft[o] = r), (r = null != a(e, t, n) ? o : null), (ft[o] = i)), r
-      }
-    })
-  var pt = /^(?:input|select|textarea|button)$/i,
-    dt = /^(?:a|area)$/i
-  function ht(e) {
-    return (e.match(P) || []).join(" ")
-  }
-  function gt(e) {
-    return (e.getAttribute && e.getAttribute("class")) || ""
-  }
-  function vt(e) {
-    return Array.isArray(e) ? e : ("string" == typeof e && e.match(P)) || []
-  }
-  S.fn.extend({
-    prop: function (e, t) {
-      return $(this, S.prop, e, t, 1 < arguments.length)
-    },
-    removeProp: function (e) {
-      return this.each(function () {
-        delete this[S.propFix[e] || e]
-      })
-    }
-  }),
-    S.extend({
-      prop: function (e, t, n) {
-        var r,
-          i,
-          o = e.nodeType
-        if (3 !== o && 8 !== o && 2 !== o)
-          return (1 === o && S.isXMLDoc(e)) || ((t = S.propFix[t] || t), (i = S.propHooks[t])), void 0 !== n ? (i && "set" in i && void 0 !== (r = i.set(e, n, t)) ? r : (e[t] = n)) : i && "get" in i && null !== (r = i.get(e, t)) ? r : e[t]
-      },
-      propHooks: {
-        tabIndex: {
-          get: function (e) {
-            var t = S.find.attr(e, "tabindex")
-            return t ? parseInt(t, 10) : pt.test(e.nodeName) || (dt.test(e.nodeName) && e.href) ? 0 : -1
-          }
-        }
-      },
-      propFix: { for: "htmlFor", class: "className" }
-    }),
-    y.optSelected ||
-      (S.propHooks.selected = {
-        get: function (e) {
-          var t = e.parentNode
-          return t && t.parentNode && t.parentNode.selectedIndex, null
-        },
-        set: function (e) {
-          var t = e.parentNode
-          t && (t.selectedIndex, t.parentNode && t.parentNode.selectedIndex)
-        }
-      }),
-    S.each(["tabIndex", "readOnly", "maxLength", "cellSpacing", "cellPadding", "rowSpan", "colSpan", "useMap", "frameBorder", "contentEditable"], function () {
-      S.propFix[this.toLowerCase()] = this
-    }),
-    S.fn.extend({
-      addClass: function (t) {
-        var e,
-          n,
-          r,
-          i,
-          o,
-          a,
-          s,
-          u = 0
-        if (m(t))
-          return this.each(function (e) {
-            S(this).addClass(t.call(this, e, gt(this)))
-          })
-        if ((e = vt(t)).length)
-          while ((n = this[u++]))
-            if (((i = gt(n)), (r = 1 === n.nodeType && " " + ht(i) + " "))) {
-              a = 0
-              while ((o = e[a++])) r.indexOf(" " + o + " ") < 0 && (r += o + " ")
-              i !== (s = ht(r)) && n.setAttribute("class", s)
-            }
-        return this
-      },
-      removeClass: function (t) {
-        var e,
-          n,
-          r,
-          i,
-          o,
-          a,
-          s,
-          u = 0
-        if (m(t))
-          return this.each(function (e) {
-            S(this).removeClass(t.call(this, e, gt(this)))
-          })
-        if (!arguments.length) return this.attr("class", "")
-        if ((e = vt(t)).length)
-          while ((n = this[u++]))
-            if (((i = gt(n)), (r = 1 === n.nodeType && " " + ht(i) + " "))) {
-              a = 0
-              while ((o = e[a++])) while (-1 < r.indexOf(" " + o + " ")) r = r.replace(" " + o + " ", " ")
-              i !== (s = ht(r)) && n.setAttribute("class", s)
-            }
-        return this
-      },
-      toggleClass: function (i, t) {
-        var o = typeof i,
-          a = "string" === o || Array.isArray(i)
-        return "boolean" == typeof t && a
-          ? t
-            ? this.addClass(i)
-            : this.removeClass(i)
-          : m(i)
-            ? this.each(function (e) {
-                S(this).toggleClass(i.call(this, e, gt(this), t), t)
-              })
-            : this.each(function () {
-                var e, t, n, r
-                if (a) {
-                  ;(t = 0), (n = S(this)), (r = vt(i))
-                  while ((e = r[t++])) n.hasClass(e) ? n.removeClass(e) : n.addClass(e)
-                } else (void 0 !== i && "boolean" !== o) || ((e = gt(this)) && Y.set(this, "__className__", e), this.setAttribute && this.setAttribute("class", e || !1 === i ? "" : Y.get(this, "__className__") || ""))
-              })
-      },
-      hasClass: function (e) {
-        var t,
-          n,
-          r = 0
-        t = " " + e + " "
-        while ((n = this[r++])) if (1 === n.nodeType && -1 < (" " + ht(gt(n)) + " ").indexOf(t)) return !0
-        return !1
-      }
-    })
-  var yt = /\r/g
-  S.fn.extend({
-    val: function (n) {
-      var r,
-        e,
-        i,
-        t = this[0]
-      return arguments.length
-        ? ((i = m(n)),
-          this.each(function (e) {
-            var t
-            1 === this.nodeType &&
-              (null == (t = i ? n.call(this, e, S(this).val()) : n)
-                ? (t = "")
-                : "number" == typeof t
-                  ? (t += "")
-                  : Array.isArray(t) &&
-                    (t = S.map(t, function (e) {
-                      return null == e ? "" : e + ""
-                    })),
-              ((r = S.valHooks[this.type] || S.valHooks[this.nodeName.toLowerCase()]) && "set" in r && void 0 !== r.set(this, t, "value")) || (this.value = t))
-          }))
-        : t
-          ? (r = S.valHooks[t.type] || S.valHooks[t.nodeName.toLowerCase()]) && "get" in r && void 0 !== (e = r.get(t, "value"))
-            ? e
-            : "string" == typeof (e = t.value)
-              ? e.replace(yt, "")
-              : null == e
-                ? ""
-                : e
-          : void 0
-    }
-  }),
-    S.extend({
-      valHooks: {
-        option: {
-          get: function (e) {
-            var t = S.find.attr(e, "value")
-            return null != t ? t : ht(S.text(e))
-          }
-        },
-        select: {
-          get: function (e) {
-            var t,
-              n,
-              r,
-              i = e.options,
-              o = e.selectedIndex,
-              a = "select-one" === e.type,
-              s = a ? null : [],
-              u = a ? o + 1 : i.length
-            for (r = o < 0 ? u : a ? o : 0; r < u; r++)
-              if (((n = i[r]).selected || r === o) && !n.disabled && (!n.parentNode.disabled || !A(n.parentNode, "optgroup"))) {
-                if (((t = S(n).val()), a)) return t
-                s.push(t)
-              }
-            return s
-          },
-          set: function (e, t) {
-            var n,
-              r,
-              i = e.options,
-              o = S.makeArray(t),
-              a = i.length
-            while (a--) ((r = i[a]).selected = -1 < S.inArray(S.valHooks.option.get(r), o)) && (n = !0)
-            return n || (e.selectedIndex = -1), o
-          }
-        }
-      }
-    }),
-    S.each(["radio", "checkbox"], function () {
-      ;(S.valHooks[this] = {
-        set: function (e, t) {
-          if (Array.isArray(t)) return (e.checked = -1 < S.inArray(S(e).val(), t))
-        }
-      }),
-        y.checkOn ||
-          (S.valHooks[this].get = function (e) {
-            return null === e.getAttribute("value") ? "on" : e.value
-          })
-    }),
-    (y.focusin = "onfocusin" in C)
-  var mt = /^(?:focusinfocus|focusoutblur)$/,
-    xt = function (e) {
-      e.stopPropagation()
-    }
-  S.extend(S.event, {
-    trigger: function (e, t, n, r) {
-      var i,
-        o,
-        a,
-        s,
-        u,
-        l,
-        c,
-        f,
-        p = [n || E],
-        d = v.call(e, "type") ? e.type : e,
-        h = v.call(e, "namespace") ? e.namespace.split(".") : []
-      if (
-        ((o = f = a = n = n || E),
-        3 !== n.nodeType &&
-          8 !== n.nodeType &&
-          !mt.test(d + S.event.triggered) &&
-          (-1 < d.indexOf(".") && ((d = (h = d.split(".")).shift()), h.sort()),
-          (u = d.indexOf(":") < 0 && "on" + d),
-          ((e = e[S.expando] ? e : new S.Event(d, "object" == typeof e && e)).isTrigger = r ? 2 : 3),
-          (e.namespace = h.join(".")),
-          (e.rnamespace = e.namespace ? new RegExp("(^|\\.)" + h.join("\\.(?:.*\\.|)") + "(\\.|$)") : null),
-          (e.result = void 0),
-          e.target || (e.target = n),
-          (t = null == t ? [e] : S.makeArray(t, [e])),
-          (c = S.event.special[d] || {}),
-          r || !c.trigger || !1 !== c.trigger.apply(n, t)))
-      ) {
-        if (!r && !c.noBubble && !x(n)) {
-          for (s = c.delegateType || d, mt.test(s + d) || (o = o.parentNode); o; o = o.parentNode) p.push(o), (a = o)
-          a === (n.ownerDocument || E) && p.push(a.defaultView || a.parentWindow || C)
-        }
-        i = 0
-        while ((o = p[i++]) && !e.isPropagationStopped())
-          (f = o),
-            (e.type = 1 < i ? s : c.bindType || d),
-            (l = (Y.get(o, "events") || Object.create(null))[e.type] && Y.get(o, "handle")) && l.apply(o, t),
-            (l = u && o[u]) && l.apply && V(o) && ((e.result = l.apply(o, t)), !1 === e.result && e.preventDefault())
-        return (
-          (e.type = d),
-          r ||
-            e.isDefaultPrevented() ||
-            (c._default && !1 !== c._default.apply(p.pop(), t)) ||
-            !V(n) ||
-            (u &&
-              m(n[d]) &&
-              !x(n) &&
-              ((a = n[u]) && (n[u] = null), (S.event.triggered = d), e.isPropagationStopped() && f.addEventListener(d, xt), n[d](), e.isPropagationStopped() && f.removeEventListener(d, xt), (S.event.triggered = void 0), a && (n[u] = a))),
-          e.result
-        )
-      }
-    },
-    simulate: function (e, t, n) {
-      var r = S.extend(new S.Event(), n, { type: e, isSimulated: !0 })
-      S.event.trigger(r, null, t)
-    }
-  }),
-    S.fn.extend({
-      trigger: function (e, t) {
-        return this.each(function () {
-          S.event.trigger(e, t, this)
-        })
-      },
-      triggerHandler: function (e, t) {
-        var n = this[0]
-        if (n) return S.event.trigger(e, t, n, !0)
-      }
-    }),
-    y.focusin ||
-      S.each({ focus: "focusin", blur: "focusout" }, function (n, r) {
-        var i = function (e) {
-          S.event.simulate(r, e.target, S.event.fix(e))
-        }
-        S.event.special[r] = {
-          setup: function () {
-            var e = this.ownerDocument || this.document || this,
-              t = Y.access(e, r)
-            t || e.addEventListener(n, i, !0), Y.access(e, r, (t || 0) + 1)
-          },
-          teardown: function () {
-            var e = this.ownerDocument || this.document || this,
-              t = Y.access(e, r) - 1
-            t ? Y.access(e, r, t) : (e.removeEventListener(n, i, !0), Y.remove(e, r))
-          }
-        }
-      })
-  var bt = C.location,
-    wt = { guid: Date.now() },
-    Tt = /\?/
-  S.parseXML = function (e) {
-    var t, n
-    if (!e || "string" != typeof e) return null
-    try {
-      t = new C.DOMParser().parseFromString(e, "text/xml")
-    } catch (e) {}
-    return (
-      (n = t && t.getElementsByTagName("parsererror")[0]),
-      (t && !n) ||
-        S.error(
-          "Invalid XML: " +
-            (n
-              ? S.map(n.childNodes, function (e) {
-                  return e.textContent
-                }).join("\n")
-              : e)
-        ),
-      t
-    )
-  }
-  var Ct = /\[\]$/,
-    Et = /\r?\n/g,
-    St = /^(?:submit|button|image|reset|file)$/i,
-    kt = /^(?:input|select|textarea|keygen)/i
-  function At(n, e, r, i) {
-    var t
-    if (Array.isArray(e))
-      S.each(e, function (e, t) {
-        r || Ct.test(n) ? i(n, t) : At(n + "[" + ("object" == typeof t && null != t ? e : "") + "]", t, r, i)
-      })
-    else if (r || "object" !== w(e)) i(n, e)
-    else for (t in e) At(n + "[" + t + "]", e[t], r, i)
-  }
-  ;(S.param = function (e, t) {
-    var n,
-      r = [],
-      i = function (e, t) {
-        var n = m(t) ? t() : t
-        r[r.length] = encodeURIComponent(e) + "=" + encodeURIComponent(null == n ? "" : n)
-      }
-    if (null == e) return ""
-    if (Array.isArray(e) || (e.jquery && !S.isPlainObject(e)))
-      S.each(e, function () {
-        i(this.name, this.value)
-      })
-    else for (n in e) At(n, e[n], t, i)
-    return r.join("&")
-  }),
-    S.fn.extend({
-      serialize: function () {
-        return S.param(this.serializeArray())
-      },
-      serializeArray: function () {
-        return this.map(function () {
-          var e = S.prop(this, "elements")
-          return e ? S.makeArray(e) : this
-        })
-          .filter(function () {
-            var e = this.type
-            return this.name && !S(this).is(":disabled") && kt.test(this.nodeName) && !St.test(e) && (this.checked || !pe.test(e))
-          })
-          .map(function (e, t) {
-            var n = S(this).val()
-            return null == n
-              ? null
-              : Array.isArray(n)
-                ? S.map(n, function (e) {
-                    return { name: t.name, value: e.replace(Et, "\r\n") }
-                  })
-                : { name: t.name, value: n.replace(Et, "\r\n") }
-          })
-          .get()
-      }
-    })
-  var Nt = /%20/g,
-    jt = /#.*$/,
-    Dt = /([?&])_=[^&]*/,
-    qt = /^(.*?):[ \t]*([^\r\n]*)$/gm,
-    Lt = /^(?:GET|HEAD)$/,
-    Ht = /^\/\//,
-    Ot = {},
-    Pt = {},
-    Rt = "*/".concat("*"),
-    Mt = E.createElement("a")
-  function It(o) {
-    return function (e, t) {
-      "string" != typeof e && ((t = e), (e = "*"))
-      var n,
-        r = 0,
-        i = e.toLowerCase().match(P) || []
-      if (m(t)) while ((n = i[r++])) "+" === n[0] ? ((n = n.slice(1) || "*"), (o[n] = o[n] || []).unshift(t)) : (o[n] = o[n] || []).push(t)
-    }
-  }
-  function Wt(t, i, o, a) {
-    var s = {},
-      u = t === Pt
-    function l(e) {
-      var r
-      return (
-        (s[e] = !0),
-        S.each(t[e] || [], function (e, t) {
-          var n = t(i, o, a)
-          return "string" != typeof n || u || s[n] ? (u ? !(r = n) : void 0) : (i.dataTypes.unshift(n), l(n), !1)
+        (m.daysInMonth = function () {
+          return this.endOf(c).$D
         }),
-        r
+        (m.$locale = function () {
+          return D[this.$L]
+        }),
+        (m.locale = function (t, e) {
+          if (!t) return this.$L
+          var n = this.clone(),
+            r = w(t, e, !0)
+          return r && (n.$L = r), n
+        }),
+        (m.clone = function () {
+          return b.w(this.$d, this)
+        }),
+        (m.toDate = function () {
+          return new Date(this.valueOf())
+        }),
+        (m.toJSON = function () {
+          return this.isValid() ? this.toISOString() : null
+        }),
+        (m.toISOString = function () {
+          return this.$d.toISOString()
+        }),
+        (m.toString = function () {
+          return this.$d.toUTCString()
+        }),
+        M
       )
-    }
-    return l(i.dataTypes[0]) || (!s["*"] && l("*"))
-  }
-  function Ft(e, t) {
-    var n,
-      r,
-      i = S.ajaxSettings.flatOptions || {}
-    for (n in t) void 0 !== t[n] && ((i[n] ? e : r || (r = {}))[n] = t[n])
-    return r && S.extend(!0, e, r), e
-  }
-  ;(Mt.href = bt.href),
-    S.extend({
-      active: 0,
-      lastModified: {},
-      etag: {},
-      ajaxSettings: {
-        url: bt.href,
-        type: "GET",
-        isLocal: /^(?:about|app|app-storage|.+-extension|file|res|widget):$/.test(bt.protocol),
-        global: !0,
-        processData: !0,
-        async: !0,
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        accepts: { "*": Rt, text: "text/plain", html: "text/html", xml: "application/xml, text/xml", json: "application/json, text/javascript" },
-        contents: { xml: /\bxml\b/, html: /\bhtml/, json: /\bjson\b/ },
-        responseFields: { xml: "responseXML", text: "responseText", json: "responseJSON" },
-        converters: { "* text": String, "text html": !0, "text json": JSON.parse, "text xml": S.parseXML },
-        flatOptions: { url: !0, context: !0 }
-      },
-      ajaxSetup: function (e, t) {
-        return t ? Ft(Ft(e, S.ajaxSettings), t) : Ft(S.ajaxSettings, e)
-      },
-      ajaxPrefilter: It(Ot),
-      ajaxTransport: It(Pt),
-      ajax: function (e, t) {
-        "object" == typeof e && ((t = e), (e = void 0)), (t = t || {})
-        var c,
-          f,
-          p,
-          n,
-          d,
-          r,
-          h,
-          g,
-          i,
-          o,
-          v = S.ajaxSetup({}, t),
-          y = v.context || v,
-          m = v.context && (y.nodeType || y.jquery) ? S(y) : S.event,
-          x = S.Deferred(),
-          b = S.Callbacks("once memory"),
-          w = v.statusCode || {},
-          a = {},
-          s = {},
-          u = "canceled",
-          T = {
-            readyState: 0,
-            getResponseHeader: function (e) {
-              var t
-              if (h) {
-                if (!n) {
-                  n = {}
-                  while ((t = qt.exec(p))) n[t[1].toLowerCase() + " "] = (n[t[1].toLowerCase() + " "] || []).concat(t[2])
-                }
-                t = n[e.toLowerCase() + " "]
-              }
-              return null == t ? null : t.join(", ")
-            },
-            getAllResponseHeaders: function () {
-              return h ? p : null
-            },
-            setRequestHeader: function (e, t) {
-              return null == h && ((e = s[e.toLowerCase()] = s[e.toLowerCase()] || e), (a[e] = t)), this
-            },
-            overrideMimeType: function (e) {
-              return null == h && (v.mimeType = e), this
-            },
-            statusCode: function (e) {
-              var t
-              if (e)
-                if (h) T.always(e[T.status])
-                else for (t in e) w[t] = [w[t], e[t]]
-              return this
-            },
-            abort: function (e) {
-              var t = e || u
-              return c && c.abort(t), l(0, t), this
-            }
-          }
-        if (
-          (x.promise(T),
-          (v.url = ((e || v.url || bt.href) + "").replace(Ht, bt.protocol + "//")),
-          (v.type = t.method || t.type || v.method || v.type),
-          (v.dataTypes = (v.dataType || "*").toLowerCase().match(P) || [""]),
-          null == v.crossDomain)
-        ) {
-          r = E.createElement("a")
-          try {
-            ;(r.href = v.url), (r.href = r.href), (v.crossDomain = Mt.protocol + "//" + Mt.host != r.protocol + "//" + r.host)
-          } catch (e) {
-            v.crossDomain = !0
-          }
-        }
-        if ((v.data && v.processData && "string" != typeof v.data && (v.data = S.param(v.data, v.traditional)), Wt(Ot, v, t, T), h)) return T
-        for (i in ((g = S.event && v.global) && 0 == S.active++ && S.event.trigger("ajaxStart"),
-        (v.type = v.type.toUpperCase()),
-        (v.hasContent = !Lt.test(v.type)),
-        (f = v.url.replace(jt, "")),
-        v.hasContent
-          ? v.data && v.processData && 0 === (v.contentType || "").indexOf("application/x-www-form-urlencoded") && (v.data = v.data.replace(Nt, "+"))
-          : ((o = v.url.slice(f.length)),
-            v.data && (v.processData || "string" == typeof v.data) && ((f += (Tt.test(f) ? "&" : "?") + v.data), delete v.data),
-            !1 === v.cache && ((f = f.replace(Dt, "$1")), (o = (Tt.test(f) ? "&" : "?") + "_=" + wt.guid++ + o)),
-            (v.url = f + o)),
-        v.ifModified && (S.lastModified[f] && T.setRequestHeader("If-Modified-Since", S.lastModified[f]), S.etag[f] && T.setRequestHeader("If-None-Match", S.etag[f])),
-        ((v.data && v.hasContent && !1 !== v.contentType) || t.contentType) && T.setRequestHeader("Content-Type", v.contentType),
-        T.setRequestHeader("Accept", v.dataTypes[0] && v.accepts[v.dataTypes[0]] ? v.accepts[v.dataTypes[0]] + ("*" !== v.dataTypes[0] ? ", " + Rt + "; q=0.01" : "") : v.accepts["*"]),
-        v.headers))
-          T.setRequestHeader(i, v.headers[i])
-        if (v.beforeSend && (!1 === v.beforeSend.call(y, T, v) || h)) return T.abort()
-        if (((u = "abort"), b.add(v.complete), T.done(v.success), T.fail(v.error), (c = Wt(Pt, v, t, T)))) {
-          if (((T.readyState = 1), g && m.trigger("ajaxSend", [T, v]), h)) return T
-          v.async &&
-            0 < v.timeout &&
-            (d = C.setTimeout(function () {
-              T.abort("timeout")
-            }, v.timeout))
-          try {
-            ;(h = !1), c.send(a, l)
-          } catch (e) {
-            if (h) throw e
-            l(-1, e)
-          }
-        } else l(-1, "No Transport")
-        function l(e, t, n, r) {
-          var i,
-            o,
-            a,
-            s,
-            u,
-            l = t
-          h ||
-            ((h = !0),
-            d && C.clearTimeout(d),
-            (c = void 0),
-            (p = r || ""),
-            (T.readyState = 0 < e ? 4 : 0),
-            (i = (200 <= e && e < 300) || 304 === e),
-            n &&
-              (s = (function (e, t, n) {
-                var r,
-                  i,
-                  o,
-                  a,
-                  s = e.contents,
-                  u = e.dataTypes
-                while ("*" === u[0]) u.shift(), void 0 === r && (r = e.mimeType || t.getResponseHeader("Content-Type"))
-                if (r)
-                  for (i in s)
-                    if (s[i] && s[i].test(r)) {
-                      u.unshift(i)
-                      break
-                    }
-                if (u[0] in n) o = u[0]
-                else {
-                  for (i in n) {
-                    if (!u[0] || e.converters[i + " " + u[0]]) {
-                      o = i
-                      break
-                    }
-                    a || (a = i)
-                  }
-                  o = o || a
-                }
-                if (o) return o !== u[0] && u.unshift(o), n[o]
-              })(v, T, n)),
-            !i && -1 < S.inArray("script", v.dataTypes) && S.inArray("json", v.dataTypes) < 0 && (v.converters["text script"] = function () {}),
-            (s = (function (e, t, n, r) {
-              var i,
-                o,
-                a,
-                s,
-                u,
-                l = {},
-                c = e.dataTypes.slice()
-              if (c[1]) for (a in e.converters) l[a.toLowerCase()] = e.converters[a]
-              o = c.shift()
-              while (o)
-                if ((e.responseFields[o] && (n[e.responseFields[o]] = t), !u && r && e.dataFilter && (t = e.dataFilter(t, e.dataType)), (u = o), (o = c.shift())))
-                  if ("*" === o) o = u
-                  else if ("*" !== u && u !== o) {
-                    if (!(a = l[u + " " + o] || l["* " + o]))
-                      for (i in l)
-                        if ((s = i.split(" "))[1] === o && (a = l[u + " " + s[0]] || l["* " + s[0]])) {
-                          !0 === a ? (a = l[i]) : !0 !== l[i] && ((o = s[0]), c.unshift(s[1]))
-                          break
-                        }
-                    if (!0 !== a)
-                      if (a && e["throws"]) t = a(t)
-                      else
-                        try {
-                          t = a(t)
-                        } catch (e) {
-                          return { state: "parsererror", error: a ? e : "No conversion from " + u + " to " + o }
-                        }
-                  }
-              return { state: "success", data: t }
-            })(v, s, T, i)),
-            i
-              ? (v.ifModified && ((u = T.getResponseHeader("Last-Modified")) && (S.lastModified[f] = u), (u = T.getResponseHeader("etag")) && (S.etag[f] = u)),
-                204 === e || "HEAD" === v.type ? (l = "nocontent") : 304 === e ? (l = "notmodified") : ((l = s.state), (o = s.data), (i = !(a = s.error))))
-              : ((a = l), (!e && l) || ((l = "error"), e < 0 && (e = 0))),
-            (T.status = e),
-            (T.statusText = (t || l) + ""),
-            i ? x.resolveWith(y, [o, l, T]) : x.rejectWith(y, [T, l, a]),
-            T.statusCode(w),
-            (w = void 0),
-            g && m.trigger(i ? "ajaxSuccess" : "ajaxError", [T, v, i ? o : a]),
-            b.fireWith(y, [T, l]),
-            g && (m.trigger("ajaxComplete", [T, v]), --S.active || S.event.trigger("ajaxStop")))
-        }
-        return T
-      },
-      getJSON: function (e, t, n) {
-        return S.get(e, t, n, "json")
-      },
-      getScript: function (e, t) {
-        return S.get(e, void 0, t, "script")
-      }
-    }),
-    S.each(["get", "post"], function (e, i) {
-      S[i] = function (e, t, n, r) {
-        return m(t) && ((r = r || n), (n = t), (t = void 0)), S.ajax(S.extend({ url: e, type: i, dataType: r, data: t, success: n }, S.isPlainObject(e) && e))
-      }
-    }),
-    S.ajaxPrefilter(function (e) {
-      var t
-      for (t in e.headers) "content-type" === t.toLowerCase() && (e.contentType = e.headers[t] || "")
-    }),
-    (S._evalUrl = function (e, t, n) {
-      return S.ajax({
-        url: e,
-        type: "GET",
-        dataType: "script",
-        cache: !0,
-        async: !1,
-        global: !1,
-        converters: { "text script": function () {} },
-        dataFilter: function (e) {
-          S.globalEval(e, t, n)
-        }
-      })
-    }),
-    S.fn.extend({
-      wrapAll: function (e) {
-        var t
-        return (
-          this[0] &&
-            (m(e) && (e = e.call(this[0])),
-            (t = S(e, this[0].ownerDocument).eq(0).clone(!0)),
-            this[0].parentNode && t.insertBefore(this[0]),
-            t
-              .map(function () {
-                var e = this
-                while (e.firstElementChild) e = e.firstElementChild
-                return e
-              })
-              .append(this)),
-          this
-        )
-      },
-      wrapInner: function (n) {
-        return m(n)
-          ? this.each(function (e) {
-              S(this).wrapInner(n.call(this, e))
-            })
-          : this.each(function () {
-              var e = S(this),
-                t = e.contents()
-              t.length ? t.wrapAll(n) : e.append(n)
-            })
-      },
-      wrap: function (t) {
-        var n = m(t)
-        return this.each(function (e) {
-          S(this).wrapAll(n ? t.call(this, e) : t)
-        })
-      },
-      unwrap: function (e) {
-        return (
-          this.parent(e)
-            .not("body")
-            .each(function () {
-              S(this).replaceWith(this.childNodes)
-            }),
-          this
-        )
-      }
-    }),
-    (S.expr.pseudos.hidden = function (e) {
-      return !S.expr.pseudos.visible(e)
-    }),
-    (S.expr.pseudos.visible = function (e) {
-      return !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length)
-    }),
-    (S.ajaxSettings.xhr = function () {
-      try {
-        return new C.XMLHttpRequest()
-      } catch (e) {}
-    })
-  var Bt = { 0: 200, 1223: 204 },
-    $t = S.ajaxSettings.xhr()
-  ;(y.cors = !!$t && "withCredentials" in $t),
-    (y.ajax = $t = !!$t),
-    S.ajaxTransport(function (i) {
-      var o, a
-      if (y.cors || ($t && !i.crossDomain))
-        return {
-          send: function (e, t) {
-            var n,
-              r = i.xhr()
-            if ((r.open(i.type, i.url, i.async, i.username, i.password), i.xhrFields)) for (n in i.xhrFields) r[n] = i.xhrFields[n]
-            for (n in (i.mimeType && r.overrideMimeType && r.overrideMimeType(i.mimeType), i.crossDomain || e["X-Requested-With"] || (e["X-Requested-With"] = "XMLHttpRequest"), e)) r.setRequestHeader(n, e[n])
-            ;(o = function (e) {
-              return function () {
-                o &&
-                  ((o = a = r.onload = r.onerror = r.onabort = r.ontimeout = r.onreadystatechange = null),
-                  "abort" === e
-                    ? r.abort()
-                    : "error" === e
-                      ? "number" != typeof r.status
-                        ? t(0, "error")
-                        : t(r.status, r.statusText)
-                      : t(Bt[r.status] || r.status, r.statusText, "text" !== (r.responseType || "text") || "string" != typeof r.responseText ? { binary: r.response } : { text: r.responseText }, r.getAllResponseHeaders()))
-              }
-            }),
-              (r.onload = o()),
-              (a = r.onerror = r.ontimeout = o("error")),
-              void 0 !== r.onabort
-                ? (r.onabort = a)
-                : (r.onreadystatechange = function () {
-                    4 === r.readyState &&
-                      C.setTimeout(function () {
-                        o && a()
-                      })
-                  }),
-              (o = o("abort"))
-            try {
-              r.send((i.hasContent && i.data) || null)
-            } catch (e) {
-              if (o) throw e
-            }
-          },
-          abort: function () {
-            o && o()
-          }
-        }
-    }),
-    S.ajaxPrefilter(function (e) {
-      e.crossDomain && (e.contents.script = !1)
-    }),
-    S.ajaxSetup({
-      accepts: { script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript" },
-      contents: { script: /\b(?:java|ecma)script\b/ },
-      converters: {
-        "text script": function (e) {
-          return S.globalEval(e), e
-        }
-      }
-    }),
-    S.ajaxPrefilter("script", function (e) {
-      void 0 === e.cache && (e.cache = !1), e.crossDomain && (e.type = "GET")
-    }),
-    S.ajaxTransport("script", function (n) {
-      var r, i
-      if (n.crossDomain || n.scriptAttrs)
-        return {
-          send: function (e, t) {
-            ;(r = S("<script>")
-              .attr(n.scriptAttrs || {})
-              .prop({ charset: n.scriptCharset, src: n.url })
-              .on(
-                "load error",
-                (i = function (e) {
-                  r.remove(), (i = null), e && t("error" === e.type ? 404 : 200, e.type)
-                })
-              )),
-              E.head.appendChild(r[0])
-          },
-          abort: function () {
-            i && i()
-          }
-        }
-    })
-  var _t,
-    zt = [],
-    Ut = /(=)\?(?=&|$)|\?\?/
-  S.ajaxSetup({
-    jsonp: "callback",
-    jsonpCallback: function () {
-      var e = zt.pop() || S.expando + "_" + wt.guid++
-      return (this[e] = !0), e
-    }
-  }),
-    S.ajaxPrefilter("json jsonp", function (e, t, n) {
-      var r,
-        i,
-        o,
-        a = !1 !== e.jsonp && (Ut.test(e.url) ? "url" : "string" == typeof e.data && 0 === (e.contentType || "").indexOf("application/x-www-form-urlencoded") && Ut.test(e.data) && "data")
-      if (a || "jsonp" === e.dataTypes[0])
-        return (
-          (r = e.jsonpCallback = m(e.jsonpCallback) ? e.jsonpCallback() : e.jsonpCallback),
-          a ? (e[a] = e[a].replace(Ut, "$1" + r)) : !1 !== e.jsonp && (e.url += (Tt.test(e.url) ? "&" : "?") + e.jsonp + "=" + r),
-          (e.converters["script json"] = function () {
-            return o || S.error(r + " was not called"), o[0]
-          }),
-          (e.dataTypes[0] = "json"),
-          (i = C[r]),
-          (C[r] = function () {
-            o = arguments
-          }),
-          n.always(function () {
-            void 0 === i ? S(C).removeProp(r) : (C[r] = i), e[r] && ((e.jsonpCallback = t.jsonpCallback), zt.push(r)), o && m(i) && i(o[0]), (o = i = void 0)
-          }),
-          "script"
-        )
-    }),
-    (y.createHTMLDocument = (((_t = E.implementation.createHTMLDocument("").body).innerHTML = "<form></form><form></form>"), 2 === _t.childNodes.length)),
-    (S.parseHTML = function (e, t, n) {
-      return "string" != typeof e
-        ? []
-        : ("boolean" == typeof t && ((n = t), (t = !1)),
-          t || (y.createHTMLDocument ? (((r = (t = E.implementation.createHTMLDocument("")).createElement("base")).href = E.location.href), t.head.appendChild(r)) : (t = E)),
-          (o = !n && []),
-          (i = N.exec(e)) ? [t.createElement(i[1])] : ((i = xe([e], t, o)), o && o.length && S(o).remove(), S.merge([], i.childNodes)))
-      var r, i, o
-    }),
-    (S.fn.load = function (e, t, n) {
-      var r,
-        i,
-        o,
-        a = this,
-        s = e.indexOf(" ")
-      return (
-        -1 < s && ((r = ht(e.slice(s))), (e = e.slice(0, s))),
-        m(t) ? ((n = t), (t = void 0)) : t && "object" == typeof t && (i = "POST"),
-        0 < a.length &&
-          S.ajax({ url: e, type: i || "GET", dataType: "html", data: t })
-            .done(function (e) {
-              ;(o = arguments), a.html(r ? S("<div>").append(S.parseHTML(e)).find(r) : e)
-            })
-            .always(
-              n &&
-                function (e, t) {
-                  a.each(function () {
-                    n.apply(this, o || [e.responseText, t, e])
-                  })
-                }
-            ),
-        this
-      )
-    }),
-    (S.expr.pseudos.animated = function (t) {
-      return S.grep(S.timers, function (e) {
-        return t === e.elem
-      }).length
-    }),
-    (S.offset = {
-      setOffset: function (e, t, n) {
-        var r,
-          i,
-          o,
-          a,
-          s,
-          u,
-          l = S.css(e, "position"),
-          c = S(e),
-          f = {}
-        "static" === l && (e.style.position = "relative"),
-          (s = c.offset()),
-          (o = S.css(e, "top")),
-          (u = S.css(e, "left")),
-          ("absolute" === l || "fixed" === l) && -1 < (o + u).indexOf("auto") ? ((a = (r = c.position()).top), (i = r.left)) : ((a = parseFloat(o) || 0), (i = parseFloat(u) || 0)),
-          m(t) && (t = t.call(e, n, S.extend({}, s))),
-          null != t.top && (f.top = t.top - s.top + a),
-          null != t.left && (f.left = t.left - s.left + i),
-          "using" in t ? t.using.call(e, f) : c.css(f)
-      }
-    }),
-    S.fn.extend({
-      offset: function (t) {
-        if (arguments.length)
-          return void 0 === t
-            ? this
-            : this.each(function (e) {
-                S.offset.setOffset(this, t, e)
-              })
-        var e,
-          n,
-          r = this[0]
-        return r ? (r.getClientRects().length ? ((e = r.getBoundingClientRect()), (n = r.ownerDocument.defaultView), { top: e.top + n.pageYOffset, left: e.left + n.pageXOffset }) : { top: 0, left: 0 }) : void 0
-      },
-      position: function () {
-        if (this[0]) {
-          var e,
-            t,
-            n,
-            r = this[0],
-            i = { top: 0, left: 0 }
-          if ("fixed" === S.css(r, "position")) t = r.getBoundingClientRect()
-          else {
-            ;(t = this.offset()), (n = r.ownerDocument), (e = r.offsetParent || n.documentElement)
-            while (e && (e === n.body || e === n.documentElement) && "static" === S.css(e, "position")) e = e.parentNode
-            e && e !== r && 1 === e.nodeType && (((i = S(e).offset()).top += S.css(e, "borderTopWidth", !0)), (i.left += S.css(e, "borderLeftWidth", !0)))
-          }
-          return { top: t.top - i.top - S.css(r, "marginTop", !0), left: t.left - i.left - S.css(r, "marginLeft", !0) }
-        }
-      },
-      offsetParent: function () {
-        return this.map(function () {
-          var e = this.offsetParent
-          while (e && "static" === S.css(e, "position")) e = e.offsetParent
-          return e || re
-        })
-      }
-    }),
-    S.each({ scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function (t, i) {
-      var o = "pageYOffset" === i
-      S.fn[t] = function (e) {
-        return $(
-          this,
-          function (e, t, n) {
-            var r
-            if ((x(e) ? (r = e) : 9 === e.nodeType && (r = e.defaultView), void 0 === n)) return r ? r[i] : e[t]
-            r ? r.scrollTo(o ? r.pageXOffset : n, o ? n : r.pageYOffset) : (e[t] = n)
-          },
-          t,
-          e,
-          arguments.length
-        )
-      }
-    }),
-    S.each(["top", "left"], function (e, n) {
-      S.cssHooks[n] = Fe(y.pixelPosition, function (e, t) {
-        if (t) return (t = We(e, n)), Pe.test(t) ? S(e).position()[n] + "px" : t
-      })
-    }),
-    S.each({ Height: "height", Width: "width" }, function (a, s) {
-      S.each({ padding: "inner" + a, content: s, "": "outer" + a }, function (r, o) {
-        S.fn[o] = function (e, t) {
-          var n = arguments.length && (r || "boolean" != typeof e),
-            i = r || (!0 === e || !0 === t ? "margin" : "border")
-          return $(
-            this,
-            function (e, t, n) {
-              var r
-              return x(e)
-                ? 0 === o.indexOf("outer")
-                  ? e["inner" + a]
-                  : e.document.documentElement["client" + a]
-                : 9 === e.nodeType
-                  ? ((r = e.documentElement), Math.max(e.body["scroll" + a], r["scroll" + a], e.body["offset" + a], r["offset" + a], r["client" + a]))
-                  : void 0 === n
-                    ? S.css(e, t, i)
-                    : S.style(e, t, n, i)
-            },
-            s,
-            n ? e : void 0,
-            n
-          )
-        }
-      })
-    }),
-    S.each(["ajaxStart", "ajaxStop", "ajaxComplete", "ajaxError", "ajaxSuccess", "ajaxSend"], function (e, t) {
-      S.fn[t] = function (e) {
-        return this.on(t, e)
-      }
-    }),
-    S.fn.extend({
-      bind: function (e, t, n) {
-        return this.on(e, null, t, n)
-      },
-      unbind: function (e, t) {
-        return this.off(e, null, t)
-      },
-      delegate: function (e, t, n, r) {
-        return this.on(t, e, n, r)
-      },
-      undelegate: function (e, t, n) {
-        return 1 === arguments.length ? this.off(e, "**") : this.off(t, e || "**", n)
-      },
-      hover: function (e, t) {
-        return this.mouseenter(e).mouseleave(t || e)
-      }
-    }),
-    S.each("blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup contextmenu".split(" "), function (e, n) {
-      S.fn[n] = function (e, t) {
-        return 0 < arguments.length ? this.on(n, null, e, t) : this.trigger(n)
-      }
-    })
-  var Xt = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g
-  ;(S.proxy = function (e, t) {
-    var n, r, i
-    if (("string" == typeof t && ((n = e[t]), (t = e), (e = n)), m(e)))
-      return (
-        (r = s.call(arguments, 2)),
-        ((i = function () {
-          return e.apply(t || this, r.concat(s.call(arguments)))
-        }).guid = e.guid =
-          e.guid || S.guid++),
-        i
-      )
-  }),
-    (S.holdReady = function (e) {
-      e ? S.readyWait++ : S.ready(!0)
-    }),
-    (S.isArray = Array.isArray),
-    (S.parseJSON = JSON.parse),
-    (S.nodeName = A),
-    (S.isFunction = m),
-    (S.isWindow = x),
-    (S.camelCase = X),
-    (S.type = w),
-    (S.now = Date.now),
-    (S.isNumeric = function (e) {
-      var t = S.type(e)
-      return ("number" === t || "string" === t) && !isNaN(e - parseFloat(e))
-    }),
-    (S.trim = function (e) {
-      return null == e ? "" : (e + "").replace(Xt, "")
-    }),
-    "function" == typeof define &&
-      define.amd &&
-      define("jquery", [], function () {
-        return S
-      })
-  var Vt = C.jQuery,
-    Gt = C.$
+    })(),
+    k = _.prototype
   return (
-    (S.noConflict = function (e) {
-      return C.$ === S && (C.$ = Gt), e && C.jQuery === S && (C.jQuery = Vt), S
+    (O.prototype = k),
+    [
+      ["$ms", r],
+      ["$s", i],
+      ["$m", s],
+      ["$H", u],
+      ["$W", a],
+      ["$M", c],
+      ["$y", h],
+      ["$D", d]
+    ].forEach(function (t) {
+      k[t[1]] = function (e) {
+        return this.$g(e, t[0], t[1])
+      }
     }),
-    "undefined" == typeof e && (C.jQuery = C.$ = S),
-    S
+    (O.extend = function (t, e) {
+      return t.$i || (t(e, _, O), (t.$i = !0)), O
+    }),
+    (O.locale = w),
+    (O.isDayjs = S),
+    (O.unix = function (t) {
+      return O(1e3 * t)
+    }),
+    (O.en = D[g]),
+    (O.Ls = D),
+    (O.p = {}),
+    O
   )
 })
 
-/*! jQuery UI - v1.12.1 - 2021-08-17
- * http://jqueryui.com
- * Includes: widget.js, data.js, scroll-parent.js, widgets/draggable.js, widgets/mouse.js
- * Copyright jQuery Foundation and other contributors; Licensed MIT */
+!function(r,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):(r="undefined"!=typeof globalThis?globalThis:r||self).dayjs_plugin_relativeTime=e()}(this,(function(){"use strict";return function(r,e,t){r=r||{};var n=e.prototype,o={future:"in %s",past:"%s ago",s:"a few seconds",m:"a minute",mm:"%d minutes",h:"an hour",hh:"%d hours",d:"a day",dd:"%d days",M:"a month",MM:"%d months",y:"a year",yy:"%d years"};function i(r,e,t,o){return n.fromToBase(r,e,t,o)}t.en.relativeTime=o,n.fromToBase=function(e,n,i,d,u){for(var f,a,s,l=i.$locale().relativeTime||o,h=r.thresholds||[{l:"s",r:44,d:"second"},{l:"m",r:89},{l:"mm",r:44,d:"minute"},{l:"h",r:89},{l:"hh",r:21,d:"hour"},{l:"d",r:35},{l:"dd",r:25,d:"day"},{l:"M",r:45},{l:"MM",r:10,d:"month"},{l:"y",r:17},{l:"yy",d:"year"}],m=h.length,c=0;c<m;c+=1){var y=h[c];y.d&&(f=d?t(e).diff(i,y.d,!0):i.diff(e,y.d,!0));var p=(r.rounding||Math.round)(Math.abs(f));if(s=f>0,p<=y.r||!y.r){p<=1&&c>0&&(y=h[c-1]);var v=l[y.l];u&&(p=u(""+p)),a="string"==typeof v?v.replace("%d",p):v(p,n,y.l,s);break}}if(n)return a;var M=s?l.future:l.past;return"function"==typeof M?M(a):M.replace("%s",a)},n.to=function(r,e){return i(r,e,this,!0)},n.from=function(r,e){return i(r,e,this)};var d=function(r){return r.$u?t.utc():t()};n.toNow=function(r){return this.to(d(this),r)},n.fromNow=function(r){return this.from(d(this),r)}}}));
+dayjs.extend(window.dayjs_plugin_relativeTime);
 
-!(function (t) {
-  "function" == typeof define && define.amd ? define(["jquery"], t) : t(jQuery)
-})(function (b) {
-  b.ui = b.ui || {}
-  b.ui.version = "1.12.1"
-  var o,
-    s = 0,
-    a = Array.prototype.slice
-  ;(b.cleanData =
-    ((o = b.cleanData),
-    function (t) {
-      for (var e, s, i = 0; null != (s = t[i]); i++)
-        try {
-          ;(e = b._data(s, "events")) && e.remove && b(s).triggerHandler("remove")
-        } catch (t) {}
-      o(t)
-    })),
-    (b.widget = function (t, s, e) {
-      var i,
-        o,
-        n,
-        r = {},
-        a = t.split(".")[0],
-        l = a + "-" + (t = t.split(".")[1])
-      return (
-        e || ((e = s), (s = b.Widget)),
-        b.isArray(e) && (e = b.extend.apply(null, [{}].concat(e))),
-        (b.expr[":"][l.toLowerCase()] = function (t) {
-          return !!b.data(t, l)
-        }),
-        (b[a] = b[a] || {}),
-        (i = b[a][t]),
-        (o = b[a][t] =
-          function (t, e) {
-            if (!this._createWidget) return new o(t, e)
-            arguments.length && this._createWidget(t, e)
-          }),
-        b.extend(o, i, { version: e.version, _proto: b.extend({}, e), _childConstructors: [] }),
-        ((n = new s()).options = b.widget.extend({}, n.options)),
-        b.each(e, function (e, i) {
-          function o() {
-            return s.prototype[e].apply(this, arguments)
-          }
-          function n(t) {
-            return s.prototype[e].apply(this, t)
-          }
-          b.isFunction(i)
-            ? (r[e] = function () {
-                var t,
-                  e = this._super,
-                  s = this._superApply
-                return (this._super = o), (this._superApply = n), (t = i.apply(this, arguments)), (this._super = e), (this._superApply = s), t
-              })
-            : (r[e] = i)
-        }),
-        (o.prototype = b.widget.extend(n, { widgetEventPrefix: (i && n.widgetEventPrefix) || t }, r, { constructor: o, namespace: a, widgetName: t, widgetFullName: l })),
-        i
-          ? (b.each(i._childConstructors, function (t, e) {
-              var s = e.prototype
-              b.widget(s.namespace + "." + s.widgetName, o, e._proto)
-            }),
-            delete i._childConstructors)
-          : s._childConstructors.push(o),
-        b.widget.bridge(t, o),
-        o
-      )
-    }),
-    (b.widget.extend = function (t) {
-      for (var e, s, i = a.call(arguments, 1), o = 0, n = i.length; o < n; o++)
-        for (e in i[o]) (s = i[o][e]), i[o].hasOwnProperty(e) && void 0 !== s && (b.isPlainObject(s) ? (t[e] = b.isPlainObject(t[e]) ? b.widget.extend({}, t[e], s) : b.widget.extend({}, s)) : (t[e] = s))
-      return t
-    }),
-    (b.widget.bridge = function (n, e) {
-      var r = e.prototype.widgetFullName || n
-      b.fn[n] = function (s) {
-        var t = "string" == typeof s,
-          i = a.call(arguments, 1),
-          o = this
-        return (
-          t
-            ? this.length || "instance" !== s
-              ? this.each(function () {
-                  var t,
-                    e = b.data(this, r)
-                  return "instance" === s
-                    ? ((o = e), !1)
-                    : e
-                      ? b.isFunction(e[s]) && "_" !== s.charAt(0)
-                        ? (t = e[s].apply(e, i)) !== e && void 0 !== t
-                          ? ((o = t && t.jquery ? o.pushStack(t.get()) : t), !1)
-                          : void 0
-                        : b.error("no such method '" + s + "' for " + n + " widget instance")
-                      : b.error("cannot call methods on " + n + " prior to initialization; attempted to call method '" + s + "'")
-                })
-              : (o = void 0)
-            : (i.length && (s = b.widget.extend.apply(null, [s].concat(i))),
-              this.each(function () {
-                var t = b.data(this, r)
-                t ? (t.option(s || {}), t._init && t._init()) : b.data(this, r, new e(s, this))
-              })),
-          o
-        )
-      }
-    }),
-    (b.Widget = function () {}),
-    (b.Widget._childConstructors = []),
-    (b.Widget.prototype = {
-      widgetName: "widget",
-      widgetEventPrefix: "",
-      defaultElement: "<div>",
-      options: { classes: {}, disabled: !1, create: null },
-      _createWidget: function (t, e) {
-        ;(e = b(e || this.defaultElement || this)[0]),
-          (this.element = b(e)),
-          (this.uuid = s++),
-          (this.eventNamespace = "." + this.widgetName + this.uuid),
-          (this.bindings = b()),
-          (this.hoverable = b()),
-          (this.focusable = b()),
-          (this.classesElementLookup = {}),
-          e !== this &&
-            (b.data(e, this.widgetFullName, this),
-            this._on(!0, this.element, {
-              remove: function (t) {
-                t.target === e && this.destroy()
-              }
-            }),
-            (this.document = b(e.style ? e.ownerDocument : e.document || e)),
-            (this.window = b(this.document[0].defaultView || this.document[0].parentWindow))),
-          (this.options = b.widget.extend({}, this.options, this._getCreateOptions(), t)),
-          this._create(),
-          this.options.disabled && this._setOptionDisabled(this.options.disabled),
-          this._trigger("create", null, this._getCreateEventData()),
-          this._init()
-      },
-      _getCreateOptions: function () {
-        return {}
-      },
-      _getCreateEventData: b.noop,
-      _create: b.noop,
-      _init: b.noop,
-      destroy: function () {
-        var s = this
-        this._destroy(),
-          b.each(this.classesElementLookup, function (t, e) {
-            s._removeClass(e, t)
-          }),
-          this.element.off(this.eventNamespace).removeData(this.widgetFullName),
-          this.widget().off(this.eventNamespace).removeAttr("aria-disabled"),
-          this.bindings.off(this.eventNamespace)
-      },
-      _destroy: b.noop,
-      widget: function () {
-        return this.element
-      },
-      option: function (t, e) {
-        var s,
-          i,
-          o,
-          n = t
-        if (0 === arguments.length) return b.widget.extend({}, this.options)
-        if ("string" == typeof t)
-          if (((n = {}), (t = (s = t.split(".")).shift()), s.length)) {
-            for (i = n[t] = b.widget.extend({}, this.options[t]), o = 0; o < s.length - 1; o++) (i[s[o]] = i[s[o]] || {}), (i = i[s[o]])
-            if (((t = s.pop()), 1 === arguments.length)) return void 0 === i[t] ? null : i[t]
-            i[t] = e
-          } else {
-            if (1 === arguments.length) return void 0 === this.options[t] ? null : this.options[t]
-            n[t] = e
-          }
-        return this._setOptions(n), this
-      },
-      _setOptions: function (t) {
-        for (var e in t) this._setOption(e, t[e])
-        return this
-      },
-      _setOption: function (t, e) {
-        return "classes" === t && this._setOptionClasses(e), (this.options[t] = e), "disabled" === t && this._setOptionDisabled(e), this
-      },
-      _setOptionClasses: function (t) {
-        var e, s, i
-        for (e in t) (i = this.classesElementLookup[e]), t[e] !== this.options.classes[e] && i && i.length && ((s = b(i.get())), this._removeClass(i, e), s.addClass(this._classes({ element: s, keys: e, classes: t, add: !0 })))
-      },
-      _setOptionDisabled: function (t) {
-        this._toggleClass(this.widget(), this.widgetFullName + "-disabled", null, !!t), t && (this._removeClass(this.hoverable, null, "ui-state-hover"), this._removeClass(this.focusable, null, "ui-state-focus"))
-      },
-      enable: function () {
-        return this._setOptions({ disabled: !1 })
-      },
-      disable: function () {
-        return this._setOptions({ disabled: !0 })
-      },
-      _classes: function (o) {
-        var n = [],
-          r = this
-        function t(t, e) {
-          for (var s, i = 0; i < t.length; i++)
-            (s = r.classesElementLookup[t[i]] || b()), (s = o.add ? b(b.unique(s.get().concat(o.element.get()))) : b(s.not(o.element).get())), (r.classesElementLookup[t[i]] = s), n.push(t[i]), e && o.classes[t[i]] && n.push(o.classes[t[i]])
-        }
-        return (
-          (o = b.extend({ element: this.element, classes: this.options.classes || {} }, o)),
-          this._on(o.element, { remove: "_untrackClassesElement" }),
-          o.keys && t(o.keys.match(/\S+/g) || [], !0),
-          o.extra && t(o.extra.match(/\S+/g) || []),
-          n.join(" ")
-        )
-      },
-      _untrackClassesElement: function (s) {
-        var i = this
-        b.each(i.classesElementLookup, function (t, e) {
-          ;-1 !== b.inArray(s.target, e) && (i.classesElementLookup[t] = b(e.not(s.target).get()))
-        })
-      },
-      _removeClass: function (t, e, s) {
-        return this._toggleClass(t, e, s, !1)
-      },
-      _addClass: function (t, e, s) {
-        return this._toggleClass(t, e, s, !0)
-      },
-      _toggleClass: function (t, e, s, i) {
-        var o = "string" == typeof t || null === t,
-          s = { extra: o ? e : s, keys: o ? t : e, element: o ? this.element : t, add: (i = "boolean" == typeof i ? i : s) }
-        return s.element.toggleClass(this._classes(s), i), this
-      },
-      _on: function (o, n, t) {
-        var r,
-          a = this
-        "boolean" != typeof o && ((t = n), (n = o), (o = !1)),
-          t ? ((n = r = b(n)), (this.bindings = this.bindings.add(n))) : ((t = n), (n = this.element), (r = this.widget())),
-          b.each(t, function (t, e) {
-            function s() {
-              if (o || (!0 !== a.options.disabled && !b(this).hasClass("ui-state-disabled"))) return ("string" == typeof e ? a[e] : e).apply(a, arguments)
-            }
-            "string" != typeof e && (s.guid = e.guid = e.guid || s.guid || b.guid++)
-            var i = t.match(/^([\w:-]*)\s*(.*)$/),
-              t = i[1] + a.eventNamespace,
-              i = i[2]
-            i ? r.on(t, i, s) : n.on(t, s)
-          })
-      },
-      _off: function (t, e) {
-        ;(e = (e || "").split(" ").join(this.eventNamespace + " ") + this.eventNamespace),
-          t.off(e).off(e),
-          (this.bindings = b(this.bindings.not(t).get())),
-          (this.focusable = b(this.focusable.not(t).get())),
-          (this.hoverable = b(this.hoverable.not(t).get()))
-      },
-      _delay: function (t, e) {
-        var s = this
-        return setTimeout(function () {
-          return ("string" == typeof t ? s[t] : t).apply(s, arguments)
-        }, e || 0)
-      },
-      _hoverable: function (t) {
-        ;(this.hoverable = this.hoverable.add(t)),
-          this._on(t, {
-            mouseenter: function (t) {
-              this._addClass(b(t.currentTarget), null, "ui-state-hover")
-            },
-            mouseleave: function (t) {
-              this._removeClass(b(t.currentTarget), null, "ui-state-hover")
-            }
-          })
-      },
-      _focusable: function (t) {
-        ;(this.focusable = this.focusable.add(t)),
-          this._on(t, {
-            focusin: function (t) {
-              this._addClass(b(t.currentTarget), null, "ui-state-focus")
-            },
-            focusout: function (t) {
-              this._removeClass(b(t.currentTarget), null, "ui-state-focus")
-            }
-          })
-      },
-      _trigger: function (t, e, s) {
-        var i,
-          o,
-          n = this.options[t]
-        if (((s = s || {}), ((e = b.Event(e)).type = (t === this.widgetEventPrefix ? t : this.widgetEventPrefix + t).toLowerCase()), (e.target = this.element[0]), (o = e.originalEvent))) for (i in o) i in e || (e[i] = o[i])
-        return this.element.trigger(e, s), !((b.isFunction(n) && !1 === n.apply(this.element[0], [e].concat(s))) || e.isDefaultPrevented())
-      }
-    }),
-    b.each({ show: "fadeIn", hide: "fadeOut" }, function (n, r) {
-      b.Widget.prototype["_" + n] = function (e, t, s) {
-        var i = (t = "string" == typeof t ? { effect: t } : t) ? (!0 !== t && "number" != typeof t && t.effect) || r : n,
-          o = !b.isEmptyObject((t = "number" == typeof (t = t || {}) ? { duration: t } : t))
-        ;(t.complete = s),
-          t.delay && e.delay(t.delay),
-          o && b.effects && b.effects.effect[i]
-            ? e[n](t)
-            : i !== n && e[i]
-              ? e[i](t.duration, t.easing, s)
-              : e.queue(function (t) {
-                  b(this)[n](), s && s.call(e[0]), t()
-                })
-      }
-    })
-  b.widget,
-    b.extend(b.expr[":"], {
-      data: b.expr.createPseudo
-        ? b.expr.createPseudo(function (e) {
-            return function (t) {
-              return !!b.data(t, e)
-            }
-          })
-        : function (t, e, s) {
-            return !!b.data(t, s[3])
-          }
-    }),
-    (b.fn.scrollParent = function (t) {
-      var e = this.css("position"),
-        s = "absolute" === e,
-        i = t ? /(auto|scroll|hidden)/ : /(auto|scroll)/,
-        t = this.parents()
-          .filter(function () {
-            var t = b(this)
-            return (!s || "static" !== t.css("position")) && i.test(t.css("overflow") + t.css("overflow-y") + t.css("overflow-x"))
-          })
-          .eq(0)
-      return "fixed" !== e && t.length ? t : b(this[0].ownerDocument || document)
-    }),
-    (b.ui.ie = !!/msie [\w.]+/.exec(navigator.userAgent.toLowerCase()))
-  var n = !1
-  b(document).on("mouseup", function () {
-    n = !1
-  })
-  b.widget("ui.mouse", {
-    version: "1.12.1",
-    options: { cancel: "input, textarea, button, select, option", distance: 1, delay: 0 },
-    _mouseInit: function () {
-      var e = this
-      this.element
-        .on("mousedown." + this.widgetName, function (t) {
-          return e._mouseDown(t)
-        })
-        .on("click." + this.widgetName, function (t) {
-          if (!0 === b.data(t.target, e.widgetName + ".preventClickEvent")) return b.removeData(t.target, e.widgetName + ".preventClickEvent"), t.stopImmediatePropagation(), !1
-        }),
-        (this.started = !1)
-    },
-    _mouseDestroy: function () {
-      this.element.off("." + this.widgetName), this._mouseMoveDelegate && this.document.off("mousemove." + this.widgetName, this._mouseMoveDelegate).off("mouseup." + this.widgetName, this._mouseUpDelegate)
-    },
-    _mouseDown: function (t) {
-      if (!n) {
-        ;(this._mouseMoved = !1), this._mouseStarted && this._mouseUp(t), (this._mouseDownEvent = t)
-        var e = this,
-          s = 1 === t.which,
-          i = !("string" != typeof this.options.cancel || !t.target.nodeName) && b(t.target).closest(this.options.cancel).length
-        return s && !i && this._mouseCapture(t)
-          ? ((this.mouseDelayMet = !this.options.delay),
-            this.mouseDelayMet ||
-              (this._mouseDelayTimer = setTimeout(function () {
-                e.mouseDelayMet = !0
-              }, this.options.delay)),
-            this._mouseDistanceMet(t) && this._mouseDelayMet(t) && ((this._mouseStarted = !1 !== this._mouseStart(t)), !this._mouseStarted)
-              ? (t.preventDefault(), !0)
-              : (!0 === b.data(t.target, this.widgetName + ".preventClickEvent") && b.removeData(t.target, this.widgetName + ".preventClickEvent"),
-                (this._mouseMoveDelegate = function (t) {
-                  return e._mouseMove(t)
-                }),
-                (this._mouseUpDelegate = function (t) {
-                  return e._mouseUp(t)
-                }),
-                this.document.on("mousemove." + this.widgetName, this._mouseMoveDelegate).on("mouseup." + this.widgetName, this._mouseUpDelegate),
-                t.preventDefault(),
-                (n = !0)))
-          : !0
-      }
-    },
-    _mouseMove: function (t) {
-      if (this._mouseMoved) {
-        if (b.ui.ie && (!document.documentMode || document.documentMode < 9) && !t.button) return this._mouseUp(t)
-        if (!t.which)
-          if (t.originalEvent.altKey || t.originalEvent.ctrlKey || t.originalEvent.metaKey || t.originalEvent.shiftKey) this.ignoreMissingWhich = !0
-          else if (!this.ignoreMissingWhich) return this._mouseUp(t)
-      }
-      return (
-        (t.which || t.button) && (this._mouseMoved = !0),
-        this._mouseStarted
-          ? (this._mouseDrag(t), t.preventDefault())
-          : (this._mouseDistanceMet(t) && this._mouseDelayMet(t) && ((this._mouseStarted = !1 !== this._mouseStart(this._mouseDownEvent, t)), this._mouseStarted ? this._mouseDrag(t) : this._mouseUp(t)), !this._mouseStarted)
-      )
-    },
-    _mouseUp: function (t) {
-      this.document.off("mousemove." + this.widgetName, this._mouseMoveDelegate).off("mouseup." + this.widgetName, this._mouseUpDelegate),
-        this._mouseStarted && ((this._mouseStarted = !1), t.target === this._mouseDownEvent.target && b.data(t.target, this.widgetName + ".preventClickEvent", !0), this._mouseStop(t)),
-        this._mouseDelayTimer && (clearTimeout(this._mouseDelayTimer), delete this._mouseDelayTimer),
-        (this.ignoreMissingWhich = !1),
-        (n = !1),
-        t.preventDefault()
-    },
-    _mouseDistanceMet: function (t) {
-      return Math.max(Math.abs(this._mouseDownEvent.pageX - t.pageX), Math.abs(this._mouseDownEvent.pageY - t.pageY)) >= this.options.distance
-    },
-    _mouseDelayMet: function () {
-      return this.mouseDelayMet
-    },
-    _mouseStart: function () {},
-    _mouseDrag: function () {},
-    _mouseStop: function () {},
-    _mouseCapture: function () {
-      return !0
-    }
-  }),
-    (b.ui.plugin = {
-      add: function (t, e, s) {
-        var i,
-          o = b.ui[t].prototype
-        for (i in s) (o.plugins[i] = o.plugins[i] || []), o.plugins[i].push([e, s[i]])
-      },
-      call: function (t, e, s, i) {
-        var o,
-          n = t.plugins[e]
-        if (n && (i || (t.element[0].parentNode && 11 !== t.element[0].parentNode.nodeType))) for (o = 0; o < n.length; o++) t.options[n[o][0]] && n[o][1].apply(t.element, s)
-      }
-    }),
-    (b.ui.safeActiveElement = function (e) {
-      var s
-      try {
-        s = e.activeElement
-      } catch (t) {
-        s = e.body
-      }
-      return (s = !(s = s || e.body).nodeName ? e.body : s)
-    }),
-    (b.ui.safeBlur = function (t) {
-      t && "body" !== t.nodeName.toLowerCase() && b(t).trigger("blur")
-    })
-  b.widget("ui.draggable", b.ui.mouse, {
-    version: "1.12.1",
-    widgetEventPrefix: "drag",
-    options: {
-      addClasses: !0,
-      appendTo: "parent",
-      axis: !1,
-      connectToSortable: !1,
-      containment: !1,
-      cursor: "auto",
-      cursorAt: !1,
-      grid: !1,
-      handle: !1,
-      helper: "original",
-      iframeFix: !1,
-      opacity: !1,
-      refreshPositions: !1,
-      revert: !1,
-      revertDuration: 500,
-      scope: "default",
-      scroll: !0,
-      scrollSensitivity: 20,
-      scrollSpeed: 20,
-      snap: !1,
-      snapMode: "both",
-      snapTolerance: 20,
-      stack: !1,
-      zIndex: !1,
-      drag: null,
-      start: null,
-      stop: null
-    },
-    _create: function () {
-      "original" === this.options.helper && this._setPositionRelative(), this.options.addClasses && this._addClass("ui-draggable"), this._setHandleClassName(), this._mouseInit()
-    },
-    _setOption: function (t, e) {
-      this._super(t, e), "handle" === t && (this._removeHandleClassName(), this._setHandleClassName())
-    },
-    _destroy: function () {
-      ;(this.helper || this.element).is(".ui-draggable-dragging") ? (this.destroyOnClear = !0) : (this._removeHandleClassName(), this._mouseDestroy())
-    },
-    _mouseCapture: function (t) {
-      var e = this.options
-      return (
-        !(this.helper || e.disabled || 0 < b(t.target).closest(".ui-resizable-handle").length) &&
-        ((this.handle = this._getHandle(t)), !!this.handle && (this._blurActiveElement(t), this._blockFrames(!0 === e.iframeFix ? "iframe" : e.iframeFix), !0))
-      )
-    },
-    _blockFrames: function (t) {
-      this.iframeBlocks = this.document.find(t).map(function () {
-        var t = b(this)
-        return b("<div>").css("position", "absolute").appendTo(t.parent()).outerWidth(t.outerWidth()).outerHeight(t.outerHeight()).offset(t.offset())[0]
-      })
-    },
-    _unblockFrames: function () {
-      this.iframeBlocks && (this.iframeBlocks.remove(), delete this.iframeBlocks)
-    },
-    _blurActiveElement: function (t) {
-      var e = b.ui.safeActiveElement(this.document[0])
-      b(t.target).closest(e).length || b.ui.safeBlur(e)
-    },
-    _mouseStart: function (t) {
-      var e = this.options
-      return (
-        (this.helper = this._createHelper(t)),
-        this._addClass(this.helper, "ui-draggable-dragging"),
-        this._cacheHelperProportions(),
-        b.ui.ddmanager && (b.ui.ddmanager.current = this),
-        this._cacheMargins(),
-        (this.cssPosition = this.helper.css("position")),
-        (this.scrollParent = this.helper.scrollParent(!0)),
-        (this.offsetParent = this.helper.offsetParent()),
-        (this.hasFixedAncestor =
-          0 <
-          this.helper.parents().filter(function () {
-            return "fixed" === b(this).css("position")
-          }).length),
-        (this.positionAbs = this.element.offset()),
-        this._refreshOffsets(t),
-        (this.originalPosition = this.position = this._generatePosition(t, !1)),
-        (this.originalPageX = t.pageX),
-        (this.originalPageY = t.pageY),
-        e.cursorAt && this._adjustOffsetFromHelper(e.cursorAt),
-        this._setContainment(),
-        !1 === this._trigger("start", t)
-          ? (this._clear(), !1)
-          : (this._cacheHelperProportions(), b.ui.ddmanager && !e.dropBehaviour && b.ui.ddmanager.prepareOffsets(this, t), this._mouseDrag(t, !0), b.ui.ddmanager && b.ui.ddmanager.dragStart(this, t), !0)
-      )
-    },
-    _refreshOffsets: function (t) {
-      ;(this.offset = { top: this.positionAbs.top - this.margins.top, left: this.positionAbs.left - this.margins.left, scroll: !1, parent: this._getParentOffset(), relative: this._getRelativeOffset() }),
-        (this.offset.click = { left: t.pageX - this.offset.left, top: t.pageY - this.offset.top })
-    },
-    _mouseDrag: function (t, e) {
-      if ((this.hasFixedAncestor && (this.offset.parent = this._getParentOffset()), (this.position = this._generatePosition(t, !0)), (this.positionAbs = this._convertPositionTo("absolute")), !e)) {
-        e = this._uiHash()
-        if (!1 === this._trigger("drag", t, e)) return this._mouseUp(new b.Event("mouseup", t)), !1
-        this.position = e.position
-      }
-      return (this.helper[0].style.left = this.position.left + "px"), (this.helper[0].style.top = this.position.top + "px"), b.ui.ddmanager && b.ui.ddmanager.drag(this, t), !1
-    },
-    _mouseStop: function (t) {
-      var e = this,
-        s = !1
-      return (
-        b.ui.ddmanager && !this.options.dropBehaviour && (s = b.ui.ddmanager.drop(this, t)),
-        this.dropped && ((s = this.dropped), (this.dropped = !1)),
-        ("invalid" === this.options.revert && !s) || ("valid" === this.options.revert && s) || !0 === this.options.revert || (b.isFunction(this.options.revert) && this.options.revert.call(this.element, s))
-          ? b(this.helper).animate(this.originalPosition, parseInt(this.options.revertDuration, 10), function () {
-              !1 !== e._trigger("stop", t) && e._clear()
-            })
-          : !1 !== this._trigger("stop", t) && this._clear(),
-        !1
-      )
-    },
-    _mouseUp: function (t) {
-      return this._unblockFrames(), b.ui.ddmanager && b.ui.ddmanager.dragStop(this, t), this.handleElement.is(t.target) && this.element.trigger("focus"), b.ui.mouse.prototype._mouseUp.call(this, t)
-    },
-    cancel: function () {
-      return this.helper.is(".ui-draggable-dragging") ? this._mouseUp(new b.Event("mouseup", { target: this.element[0] })) : this._clear(), this
-    },
-    _getHandle: function (t) {
-      return !this.options.handle || !!b(t.target).closest(this.element.find(this.options.handle)).length
-    },
-    _setHandleClassName: function () {
-      ;(this.handleElement = this.options.handle ? this.element.find(this.options.handle) : this.element), this._addClass(this.handleElement, "ui-draggable-handle")
-    },
-    _removeHandleClassName: function () {
-      this._removeClass(this.handleElement, "ui-draggable-handle")
-    },
-    _createHelper: function (t) {
-      var e = this.options,
-        s = b.isFunction(e.helper),
-        t = s ? b(e.helper.apply(this.element[0], [t])) : "clone" === e.helper ? this.element.clone().removeAttr("id") : this.element
-      return (
-        t.parents("body").length || t.appendTo("parent" === e.appendTo ? this.element[0].parentNode : e.appendTo),
-        s && t[0] === this.element[0] && this._setPositionRelative(),
-        t[0] === this.element[0] || /(fixed|absolute)/.test(t.css("position")) || t.css("position", "absolute"),
-        t
-      )
-    },
-    _setPositionRelative: function () {
-      ;/^(?:r|a|f)/.test(this.element.css("position")) || (this.element[0].style.position = "relative")
-    },
-    _adjustOffsetFromHelper: function (t) {
-      "string" == typeof t && (t = t.split(" ")),
-        "left" in (t = b.isArray(t) ? { left: +t[0], top: +t[1] || 0 } : t) && (this.offset.click.left = t.left + this.margins.left),
-        "right" in t && (this.offset.click.left = this.helperProportions.width - t.right + this.margins.left),
-        "top" in t && (this.offset.click.top = t.top + this.margins.top),
-        "bottom" in t && (this.offset.click.top = this.helperProportions.height - t.bottom + this.margins.top)
-    },
-    _isRootNode: function (t) {
-      return /(html|body)/i.test(t.tagName) || t === this.document[0]
-    },
-    _getParentOffset: function () {
-      var t = this.offsetParent.offset(),
-        e = this.document[0]
-      return (
-        "absolute" === this.cssPosition && this.scrollParent[0] !== e && b.contains(this.scrollParent[0], this.offsetParent[0]) && ((t.left += this.scrollParent.scrollLeft()), (t.top += this.scrollParent.scrollTop())),
-        { top: (t = this._isRootNode(this.offsetParent[0]) ? { top: 0, left: 0 } : t).top + (parseInt(this.offsetParent.css("borderTopWidth"), 10) || 0), left: t.left + (parseInt(this.offsetParent.css("borderLeftWidth"), 10) || 0) }
-      )
-    },
-    _getRelativeOffset: function () {
-      if ("relative" !== this.cssPosition) return { top: 0, left: 0 }
-      var t = this.element.position(),
-        e = this._isRootNode(this.scrollParent[0])
-      return { top: t.top - (parseInt(this.helper.css("top"), 10) || 0) + (e ? 0 : this.scrollParent.scrollTop()), left: t.left - (parseInt(this.helper.css("left"), 10) || 0) + (e ? 0 : this.scrollParent.scrollLeft()) }
-    },
-    _cacheMargins: function () {
-      this.margins = {
-        left: parseInt(this.element.css("marginLeft"), 10) || 0,
-        top: parseInt(this.element.css("marginTop"), 10) || 0,
-        right: parseInt(this.element.css("marginRight"), 10) || 0,
-        bottom: parseInt(this.element.css("marginBottom"), 10) || 0
-      }
-    },
-    _cacheHelperProportions: function () {
-      this.helperProportions = { width: this.helper.outerWidth(), height: this.helper.outerHeight() }
-    },
-    _setContainment: function () {
-      var t,
-        e,
-        s,
-        i = this.options,
-        o = this.document[0]
-      ;(this.relativeContainer = null),
-        i.containment
-          ? "window" !== i.containment
-            ? "document" !== i.containment
-              ? i.containment.constructor !== Array
-                ? ("parent" === i.containment && (i.containment = this.helper[0].parentNode),
-                  (s = (e = b(i.containment))[0]) &&
-                    ((t = /(scroll|auto)/.test(e.css("overflow"))),
-                    (this.containment = [
-                      (parseInt(e.css("borderLeftWidth"), 10) || 0) + (parseInt(e.css("paddingLeft"), 10) || 0),
-                      (parseInt(e.css("borderTopWidth"), 10) || 0) + (parseInt(e.css("paddingTop"), 10) || 0),
-                      (t ? Math.max(s.scrollWidth, s.offsetWidth) : s.offsetWidth) -
-                        (parseInt(e.css("borderRightWidth"), 10) || 0) -
-                        (parseInt(e.css("paddingRight"), 10) || 0) -
-                        this.helperProportions.width -
-                        this.margins.left -
-                        this.margins.right,
-                      (t ? Math.max(s.scrollHeight, s.offsetHeight) : s.offsetHeight) -
-                        (parseInt(e.css("borderBottomWidth"), 10) || 0) -
-                        (parseInt(e.css("paddingBottom"), 10) || 0) -
-                        this.helperProportions.height -
-                        this.margins.top -
-                        this.margins.bottom
-                    ]),
-                    (this.relativeContainer = e)))
-                : (this.containment = i.containment)
-              : (this.containment = [0, 0, b(o).width() - this.helperProportions.width - this.margins.left, (b(o).height() || o.body.parentNode.scrollHeight) - this.helperProportions.height - this.margins.top])
-            : (this.containment = [
-                b(window).scrollLeft() - this.offset.relative.left - this.offset.parent.left,
-                b(window).scrollTop() - this.offset.relative.top - this.offset.parent.top,
-                b(window).scrollLeft() + b(window).width() - this.helperProportions.width - this.margins.left,
-                b(window).scrollTop() + (b(window).height() || o.body.parentNode.scrollHeight) - this.helperProportions.height - this.margins.top
-              ])
-          : (this.containment = null)
-    },
-    _convertPositionTo: function (t, e) {
-      e = e || this.position
-      var s = "absolute" === t ? 1 : -1,
-        t = this._isRootNode(this.scrollParent[0])
-      return {
-        top: e.top + this.offset.relative.top * s + this.offset.parent.top * s - ("fixed" === this.cssPosition ? -this.offset.scroll.top : t ? 0 : this.offset.scroll.top) * s,
-        left: e.left + this.offset.relative.left * s + this.offset.parent.left * s - ("fixed" === this.cssPosition ? -this.offset.scroll.left : t ? 0 : this.offset.scroll.left) * s
-      }
-    },
-    _generatePosition: function (t, e) {
-      var s,
-        i = this.options,
-        o = this._isRootNode(this.scrollParent[0]),
-        n = t.pageX,
-        r = t.pageY
-      return (
-        (o && this.offset.scroll) || (this.offset.scroll = { top: this.scrollParent.scrollTop(), left: this.scrollParent.scrollLeft() }),
-        e &&
-          (this.containment &&
-            ((s = this.relativeContainer ? ((s = this.relativeContainer.offset()), [this.containment[0] + s.left, this.containment[1] + s.top, this.containment[2] + s.left, this.containment[3] + s.top]) : this.containment),
-            t.pageX - this.offset.click.left < s[0] && (n = s[0] + this.offset.click.left),
-            t.pageY - this.offset.click.top < s[1] && (r = s[1] + this.offset.click.top),
-            t.pageX - this.offset.click.left > s[2] && (n = s[2] + this.offset.click.left),
-            t.pageY - this.offset.click.top > s[3] && (r = s[3] + this.offset.click.top)),
-          i.grid &&
-            ((t = i.grid[1] ? this.originalPageY + Math.round((r - this.originalPageY) / i.grid[1]) * i.grid[1] : this.originalPageY),
-            (r = !s || t - this.offset.click.top >= s[1] || t - this.offset.click.top > s[3] ? t : t - this.offset.click.top >= s[1] ? t - i.grid[1] : t + i.grid[1]),
-            (t = i.grid[0] ? this.originalPageX + Math.round((n - this.originalPageX) / i.grid[0]) * i.grid[0] : this.originalPageX),
-            (n = !s || t - this.offset.click.left >= s[0] || t - this.offset.click.left > s[2] ? t : t - this.offset.click.left >= s[0] ? t - i.grid[0] : t + i.grid[0])),
-          "y" === i.axis && (n = this.originalPageX),
-          "x" === i.axis && (r = this.originalPageY)),
-        {
-          top: r - this.offset.click.top - this.offset.relative.top - this.offset.parent.top + ("fixed" === this.cssPosition ? -this.offset.scroll.top : o ? 0 : this.offset.scroll.top),
-          left: n - this.offset.click.left - this.offset.relative.left - this.offset.parent.left + ("fixed" === this.cssPosition ? -this.offset.scroll.left : o ? 0 : this.offset.scroll.left)
-        }
-      )
-    },
-    _clear: function () {
-      this._removeClass(this.helper, "ui-draggable-dragging"),
-        this.helper[0] === this.element[0] || this.cancelHelperRemoval || this.helper.remove(),
-        (this.helper = null),
-        (this.cancelHelperRemoval = !1),
-        this.destroyOnClear && this.destroy()
-    },
-    _trigger: function (t, e, s) {
-      return (
-        (s = s || this._uiHash()),
-        b.ui.plugin.call(this, t, [e, s, this], !0),
-        /^(drag|start|stop)/.test(t) && ((this.positionAbs = this._convertPositionTo("absolute")), (s.offset = this.positionAbs)),
-        b.Widget.prototype._trigger.call(this, t, e, s)
-      )
-    },
-    plugins: {},
-    _uiHash: function () {
-      return { helper: this.helper, position: this.position, originalPosition: this.originalPosition, offset: this.positionAbs }
-    }
-  }),
-    b.ui.plugin.add("draggable", "connectToSortable", {
-      start: function (e, t, s) {
-        var i = b.extend({}, t, { item: s.element })
-        ;(s.sortables = []),
-          b(s.options.connectToSortable).each(function () {
-            var t = b(this).sortable("instance")
-            t && !t.options.disabled && (s.sortables.push(t), t.refreshPositions(), t._trigger("activate", e, i))
-          })
-      },
-      stop: function (e, t, s) {
-        var i = b.extend({}, t, { item: s.element })
-        ;(s.cancelHelperRemoval = !1),
-          b.each(s.sortables, function () {
-            var t = this
-            t.isOver
-              ? ((t.isOver = 0),
-                (s.cancelHelperRemoval = !0),
-                (t.cancelHelperRemoval = !1),
-                (t._storedCSS = { position: t.placeholder.css("position"), top: t.placeholder.css("top"), left: t.placeholder.css("left") }),
-                t._mouseStop(e),
-                (t.options.helper = t.options._helper))
-              : ((t.cancelHelperRemoval = !0), t._trigger("deactivate", e, i))
-          })
-      },
-      drag: function (s, i, o) {
-        b.each(o.sortables, function () {
-          var t = !1,
-            e = this
-          ;(e.positionAbs = o.positionAbs),
-            (e.helperProportions = o.helperProportions),
-            (e.offset.click = o.offset.click),
-            e._intersectsWith(e.containerCache) &&
-              ((t = !0),
-              b.each(o.sortables, function () {
-                return (
-                  (this.positionAbs = o.positionAbs),
-                  (this.helperProportions = o.helperProportions),
-                  (this.offset.click = o.offset.click),
-                  (t = this !== e && this._intersectsWith(this.containerCache) && b.contains(e.element[0], this.element[0]) ? !1 : t)
-                )
-              })),
-            t
-              ? (e.isOver ||
-                  ((e.isOver = 1),
-                  (o._parent = i.helper.parent()),
-                  (e.currentItem = i.helper.appendTo(e.element).data("ui-sortable-item", !0)),
-                  (e.options._helper = e.options.helper),
-                  (e.options.helper = function () {
-                    return i.helper[0]
-                  }),
-                  (s.target = e.currentItem[0]),
-                  e._mouseCapture(s, !0),
-                  e._mouseStart(s, !0, !0),
-                  (e.offset.click.top = o.offset.click.top),
-                  (e.offset.click.left = o.offset.click.left),
-                  (e.offset.parent.left -= o.offset.parent.left - e.offset.parent.left),
-                  (e.offset.parent.top -= o.offset.parent.top - e.offset.parent.top),
-                  o._trigger("toSortable", s),
-                  (o.dropped = e.element),
-                  b.each(o.sortables, function () {
-                    this.refreshPositions()
-                  }),
-                  (o.currentItem = o.element),
-                  (e.fromOutside = o)),
-                e.currentItem && (e._mouseDrag(s), (i.position = e.position)))
-              : e.isOver &&
-                ((e.isOver = 0),
-                (e.cancelHelperRemoval = !0),
-                (e.options._revert = e.options.revert),
-                (e.options.revert = !1),
-                e._trigger("out", s, e._uiHash(e)),
-                e._mouseStop(s, !0),
-                (e.options.revert = e.options._revert),
-                (e.options.helper = e.options._helper),
-                e.placeholder && e.placeholder.remove(),
-                i.helper.appendTo(o._parent),
-                o._refreshOffsets(s),
-                (i.position = o._generatePosition(s, !0)),
-                o._trigger("fromSortable", s),
-                (o.dropped = !1),
-                b.each(o.sortables, function () {
-                  this.refreshPositions()
-                }))
-        })
-      }
-    }),
-    b.ui.plugin.add("draggable", "cursor", {
-      start: function (t, e, s) {
-        var i = b("body"),
-          s = s.options
-        i.css("cursor") && (s._cursor = i.css("cursor")), i.css("cursor", s.cursor)
-      },
-      stop: function (t, e, s) {
-        s = s.options
-        s._cursor && b("body").css("cursor", s._cursor)
-      }
-    }),
-    b.ui.plugin.add("draggable", "opacity", {
-      start: function (t, e, s) {
-        ;(e = b(e.helper)), (s = s.options)
-        e.css("opacity") && (s._opacity = e.css("opacity")), e.css("opacity", s.opacity)
-      },
-      stop: function (t, e, s) {
-        s = s.options
-        s._opacity && b(e.helper).css("opacity", s._opacity)
-      }
-    }),
-    b.ui.plugin.add("draggable", "scroll", {
-      start: function (t, e, s) {
-        s.scrollParentNotHidden || (s.scrollParentNotHidden = s.helper.scrollParent(!1)), s.scrollParentNotHidden[0] !== s.document[0] && "HTML" !== s.scrollParentNotHidden[0].tagName && (s.overflowOffset = s.scrollParentNotHidden.offset())
-      },
-      drag: function (t, e, s) {
-        var i = s.options,
-          o = !1,
-          n = s.scrollParentNotHidden[0],
-          r = s.document[0]
-        n !== r && "HTML" !== n.tagName
-          ? ((i.axis && "x" === i.axis) ||
-              (s.overflowOffset.top + n.offsetHeight - t.pageY < i.scrollSensitivity
-                ? (n.scrollTop = o = n.scrollTop + i.scrollSpeed)
-                : t.pageY - s.overflowOffset.top < i.scrollSensitivity && (n.scrollTop = o = n.scrollTop - i.scrollSpeed)),
-            (i.axis && "y" === i.axis) ||
-              (s.overflowOffset.left + n.offsetWidth - t.pageX < i.scrollSensitivity
-                ? (n.scrollLeft = o = n.scrollLeft + i.scrollSpeed)
-                : t.pageX - s.overflowOffset.left < i.scrollSensitivity && (n.scrollLeft = o = n.scrollLeft - i.scrollSpeed)))
-          : ((i.axis && "x" === i.axis) ||
-              (t.pageY - b(r).scrollTop() < i.scrollSensitivity
-                ? (o = b(r).scrollTop(b(r).scrollTop() - i.scrollSpeed))
-                : b(window).height() - (t.pageY - b(r).scrollTop()) < i.scrollSensitivity && (o = b(r).scrollTop(b(r).scrollTop() + i.scrollSpeed))),
-            (i.axis && "y" === i.axis) ||
-              (t.pageX - b(r).scrollLeft() < i.scrollSensitivity
-                ? (o = b(r).scrollLeft(b(r).scrollLeft() - i.scrollSpeed))
-                : b(window).width() - (t.pageX - b(r).scrollLeft()) < i.scrollSensitivity && (o = b(r).scrollLeft(b(r).scrollLeft() + i.scrollSpeed)))),
-          !1 !== o && b.ui.ddmanager && !i.dropBehaviour && b.ui.ddmanager.prepareOffsets(s, t)
-      }
-    }),
-    b.ui.plugin.add("draggable", "snap", {
-      start: function (t, e, s) {
-        var i = s.options
-        ;(s.snapElements = []),
-          b(i.snap.constructor !== String ? i.snap.items || ":data(ui-draggable)" : i.snap).each(function () {
-            var t = b(this),
-              e = t.offset()
-            this !== s.element[0] && s.snapElements.push({ item: this, width: t.outerWidth(), height: t.outerHeight(), top: e.top, left: e.left })
-          })
-      },
-      drag: function (t, e, s) {
-        for (var i, o, n, r, a, l, h, p, c, f = s.options, u = f.snapTolerance, d = e.offset.left, g = d + s.helperProportions.width, m = e.offset.top, v = m + s.helperProportions.height, _ = s.snapElements.length - 1; 0 <= _; _--)
-          (l = (a = s.snapElements[_].left - s.margins.left) + s.snapElements[_].width),
-            (p = (h = s.snapElements[_].top - s.margins.top) + s.snapElements[_].height),
-            g < a - u || l + u < d || v < h - u || p + u < m || !b.contains(s.snapElements[_].item.ownerDocument, s.snapElements[_].item)
-              ? (s.snapElements[_].snapping && s.options.snap.release && s.options.snap.release.call(s.element, t, b.extend(s._uiHash(), { snapItem: s.snapElements[_].item })), (s.snapElements[_].snapping = !1))
-              : ("inner" !== f.snapMode &&
-                  ((i = Math.abs(h - v) <= u),
-                  (o = Math.abs(p - m) <= u),
-                  (n = Math.abs(a - g) <= u),
-                  (r = Math.abs(l - d) <= u),
-                  i && (e.position.top = s._convertPositionTo("relative", { top: h - s.helperProportions.height, left: 0 }).top),
-                  o && (e.position.top = s._convertPositionTo("relative", { top: p, left: 0 }).top),
-                  n && (e.position.left = s._convertPositionTo("relative", { top: 0, left: a - s.helperProportions.width }).left),
-                  r && (e.position.left = s._convertPositionTo("relative", { top: 0, left: l }).left)),
-                (c = i || o || n || r),
-                "outer" !== f.snapMode &&
-                  ((i = Math.abs(h - m) <= u),
-                  (o = Math.abs(p - v) <= u),
-                  (n = Math.abs(a - d) <= u),
-                  (r = Math.abs(l - g) <= u),
-                  i && (e.position.top = s._convertPositionTo("relative", { top: h, left: 0 }).top),
-                  o && (e.position.top = s._convertPositionTo("relative", { top: p - s.helperProportions.height, left: 0 }).top),
-                  n && (e.position.left = s._convertPositionTo("relative", { top: 0, left: a }).left),
-                  r && (e.position.left = s._convertPositionTo("relative", { top: 0, left: l - s.helperProportions.width }).left)),
-                !s.snapElements[_].snapping && (i || o || n || r || c) && s.options.snap.snap && s.options.snap.snap.call(s.element, t, b.extend(s._uiHash(), { snapItem: s.snapElements[_].item })),
-                (s.snapElements[_].snapping = i || o || n || r || c))
-      }
-    }),
-    b.ui.plugin.add("draggable", "stack", {
-      start: function (t, e, s) {
-        var i,
-          s = s.options,
-          s = b.makeArray(b(s.stack)).sort(function (t, e) {
-            return (parseInt(b(t).css("zIndex"), 10) || 0) - (parseInt(b(e).css("zIndex"), 10) || 0)
-          })
-        s.length &&
-          ((i = parseInt(b(s[0]).css("zIndex"), 10) || 0),
-          b(s).each(function (t) {
-            b(this).css("zIndex", i + t)
-          }),
-          this.css("zIndex", i + s.length))
-      }
-    }),
-    b.ui.plugin.add("draggable", "zIndex", {
-      start: function (t, e, s) {
-        ;(e = b(e.helper)), (s = s.options)
-        e.css("zIndex") && (s._zIndex = e.css("zIndex")), e.css("zIndex", s.zIndex)
-      },
-      stop: function (t, e, s) {
-        s = s.options
-        s._zIndex && b(e.helper).css("zIndex", s._zIndex)
-      }
-    })
-  b.ui.draggable
-})
+
 
 /*!
  * jQuery UI Touch Punch 0.2.3
@@ -5271,40 +455,7 @@
  *  jquery.ui.widget.js
  *  jquery.ui.mouse.js
  */
-!(function (a) {
-  function f(a, b) {
-    if (!(a.originalEvent.touches.length > 1)) {
-      a.preventDefault()
-      var c = a.originalEvent.changedTouches[0],
-        d = document.createEvent("MouseEvents")
-      d.initMouseEvent(b, !0, !0, window, 1, c.screenX, c.screenY, c.clientX, c.clientY, !1, !1, !1, !1, 0, null), a.target.dispatchEvent(d)
-    }
-  }
-  if (((a.support.touch = "ontouchend" in document), a.support.touch)) {
-    var e,
-      b = a.ui.mouse.prototype,
-      c = b._mouseInit,
-      d = b._mouseDestroy
-    ;(b._touchStart = function (a) {
-      var b = this
-      !e && b._mouseCapture(a.originalEvent.changedTouches[0]) && ((e = !0), (b._touchMoved = !1), f(a, "mouseover"), f(a, "mousemove"), f(a, "mousedown"))
-    }),
-      (b._touchMove = function (a) {
-        e && ((this._touchMoved = !0), f(a, "mousemove"))
-      }),
-      (b._touchEnd = function (a) {
-        e && (f(a, "mouseup"), f(a, "mouseout"), this._touchMoved || f(a, "click"), (e = !1))
-      }),
-      (b._mouseInit = function () {
-        var b = this
-        b.element.bind({ touchstart: a.proxy(b, "_touchStart"), touchmove: a.proxy(b, "_touchMove"), touchend: a.proxy(b, "_touchEnd") }), c.call(b)
-      }),
-      (b._mouseDestroy = function () {
-        var b = this
-        b.element.unbind({ touchstart: a.proxy(b, "_touchStart"), touchmove: a.proxy(b, "_touchMove"), touchend: a.proxy(b, "_touchEnd") }), d.call(b)
-      })
-  }
-})(jQuery)
+!function(a){function f(a,b){if(!(a.originalEvent.touches.length>1)){a.preventDefault();var c=a.originalEvent.changedTouches[0],d=document.createEvent("MouseEvents");d.initMouseEvent(b,!0,!0,window,1,c.screenX,c.screenY,c.clientX,c.clientY,!1,!1,!1,!1,0,null),a.target.dispatchEvent(d)}}if(a.support.touch="ontouchend"in document,a.support.touch){var e,b=a.ui.mouse.prototype,c=b._mouseInit,d=b._mouseDestroy;b._touchStart=function(a){var b=this;!e&&b._mouseCapture(a.originalEvent.changedTouches[0])&&(e=!0,b._touchMoved=!1,f(a,"mouseover"),f(a,"mousemove"),f(a,"mousedown"))},b._touchMove=function(a){e&&(this._touchMoved=!0,f(a,"mousemove"))},b._touchEnd=function(a){e&&(f(a,"mouseup"),f(a,"mouseout"),this._touchMoved||f(a,"click"),e=!1)},b._mouseInit=function(){var b=this;b.element.bind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),c.call(b)},b._mouseDestroy=function(){var b=this;b.element.unbind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),d.call(b)}}}(jQuery);
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
@@ -5314,6 +465,7 @@
 //
 // You can find some technical background for some of the code below
 // at http://marijnhaverbeke.nl/blog/#cm-internals .
+
 ;(function (global, factory) {
   typeof exports === "object" && typeof module !== "undefined" ? (module.exports = factory()) : typeof define === "function" && define.amd ? define(factory) : (global.CodeMirror = factory())
 })(this, function () {
@@ -5635,15 +787,15 @@
     return inst
   }
 
-  var nonASCIISingleCaseWordChar = /[\u00df\u0587\u0590-\u05f4\u0600-\u06ff\u3040-\u309f\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcc\uac00-\ud7af]/
-  function isWordCharBasic(ch) {
-    return /\w/.test(ch) || (ch > "\x80" && (ch.toUpperCase() != ch.toLowerCase() || nonASCIISingleCaseWordChar.test(ch)))
+  var nonASCIISingleCaseAtomChar = /[\u00df\u0587\u0590-\u05f4\u0600-\u06ff\u3040-\u309f\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcc\uac00-\ud7af]/
+  function isAtomCharBasic(ch) {
+    return /\w/.test(ch) || (ch > "\x80" && (ch.toUpperCase() != ch.toLowerCase() || nonASCIISingleCaseAtomChar.test(ch)))
   }
-  function isWordChar(ch, helper) {
+  function isAtomChar(ch, helper) {
     if (!helper) {
-      return isWordCharBasic(ch)
+      return isAtomCharBasic(ch)
     }
-    if (helper.source.indexOf("\\w") > -1 && isWordCharBasic(ch)) {
+    if (helper.source.indexOf("\\w") > -1 && isAtomCharBasic(ch)) {
       return true
     }
     return helper.test(ch)
@@ -10483,10 +5635,7 @@
       var cutTop = viewCuttingPoint(cm, from, from, -1)
       var cutBot = viewCuttingPoint(cm, to, to + lendiff, 1)
       if (cutTop && cutBot) {
-        display.view = display.view
-          .slice(0, cutTop.index)
-          .concat(buildViewArray(cm, cutTop.lineN, cutBot.lineN))
-          .concat(display.view.slice(cutBot.index))
+        display.view = display.view.slice(0, cutTop.index).concat(buildViewArray(cm, cutTop.lineN, cutBot.lineN)).concat(display.view.slice(cutBot.index))
         display.viewTo += lendiff
       } else {
         resetView(cm)
@@ -13948,16 +9097,16 @@
     "Ctrl-B": "goCharLeft",
     "Ctrl-P": "goLineUp",
     "Ctrl-N": "goLineDown",
-    "Alt-F": "goWordRight",
-    "Alt-B": "goWordLeft",
+    "Alt-F": "goAtomRight",
+    "Alt-B": "goAtomLeft",
     "Ctrl-A": "goLineStart",
     "Ctrl-E": "goLineEnd",
     "Ctrl-V": "goPageDown",
     "Shift-Ctrl-V": "goPageUp",
     "Ctrl-D": "delCharAfter",
     "Ctrl-H": "delCharBefore",
-    "Alt-D": "delWordAfter",
-    "Alt-Backspace": "delWordBefore",
+    "Alt-D": "delAtomAfter",
+    "Alt-Backspace": "delAtomBefore",
     "Ctrl-K": "killLine",
     "Ctrl-T": "transposeChars",
     "Ctrl-O": "openLine"
@@ -14445,7 +9594,7 @@
     goColumnRight: function (cm) {
       return cm.moveH(1, "column")
     },
-    goWordLeft: function (cm) {
+    goAtomLeft: function (cm) {
       return cm.moveH(-1, "word")
     },
     goGroupRight: function (cm) {
@@ -14454,7 +9603,7 @@
     goGroupLeft: function (cm) {
       return cm.moveH(-1, "group")
     },
-    goWordRight: function (cm) {
+    goAtomRight: function (cm) {
       return cm.moveH(1, "word")
     },
     delCharBefore: function (cm) {
@@ -14463,10 +9612,10 @@
     delCharAfter: function (cm) {
       return cm.deleteH(1, "char")
     },
-    delWordBefore: function (cm) {
+    delAtomBefore: function (cm) {
       return cm.deleteH(-1, "word")
     },
-    delWordAfter: function (cm) {
+    delAtomAfter: function (cm) {
       return cm.deleteH(1, "word")
     },
     delGroupBefore: function (cm) {
@@ -15015,7 +10164,7 @@
       return new Range(pos, pos)
     }
     if (unit == "word") {
-      return cm.findWordAt(pos)
+      return cm.findAtomAt(pos)
     }
     if (unit == "line") {
       return new Range(Pos(pos.line, 0), clipPos(cm.doc, Pos(pos.line + 1, 0)))
@@ -15745,7 +10894,7 @@
             return
           }
           e_preventDefault(e)
-          var word = cm.findWordAt(pos)
+          var word = cm.findAtomAt(pos)
           extendSelection(cm.doc, word.anchor, word.head)
         })
       )
@@ -15815,7 +10964,7 @@
           range = new Range(pos, pos)
         } else if (!touch.prev.prev || farAway(touch, touch.prev.prev)) {
           // Double tap
-          range = cm.findWordAt(pos)
+          range = cm.findAtomAt(pos)
         } // Triple tap
         else {
           range = new Range(Pos(pos.line, 0), clipPos(cm.doc, Pos(pos.line + 1, 0)))
@@ -16548,7 +11697,7 @@
       }),
 
       // Find the word at the given position (as returned by coordsChar).
-      findWordAt: function (pos) {
+      findAtomAt: function (pos) {
         var doc = this.doc,
           line = getLine(doc, pos.line).text
         var start = pos.ch,
@@ -16561,17 +11710,17 @@
             ++end
           }
           var startChar = line.charAt(start)
-          var check = isWordChar(startChar, helper)
+          var check = isAtomChar(startChar, helper)
             ? function (ch) {
-                return isWordChar(ch, helper)
+                return isAtomChar(ch, helper)
               }
             : /\s/.test(startChar)
-              ? function (ch) {
-                  return /\s/.test(ch)
-                }
-              : function (ch) {
-                  return !/\s/.test(ch) && !isWordChar(ch)
-                }
+            ? function (ch) {
+                return /\s/.test(ch)
+              }
+            : function (ch) {
+                return !/\s/.test(ch) && !isAtomChar(ch)
+              }
           while (start > 0 && check(line.charAt(start - 1))) {
             --start
           }
@@ -16790,7 +11939,7 @@
           break
         }
         var cur = lineObj.text.charAt(pos.ch) || "\n"
-        var type = isWordChar(cur, helper) ? "w" : group && cur == "\n" ? "n" : !group || /\s/.test(cur) ? null : "p"
+        var type = isAtomChar(cur, helper) ? "w" : group && cur == "\n" ? "n" : !group || /\s/.test(cur) ? null : "p"
         if (group && !first && !type) {
           type = "s"
         }
@@ -18037,7 +13186,7 @@
     CodeMirror.splitLines = splitLinesAuto
     CodeMirror.countColumn = countColumn
     CodeMirror.findColumn = findColumn
-    CodeMirror.isWordChar = isWordCharBasic
+    CodeMirror.isAtomChar = isAtomCharBasic
     CodeMirror.Pass = Pass
     CodeMirror.signal = signal
     CodeMirror.Line = Line
@@ -18135,7 +13284,95 @@
 })
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: https://codemirror.net/5/LICENSE
+;(function (mod) {
+  if (typeof exports == "object" && typeof module == "object")
+    // CommonJS
+    mod(require("../../lib/codemirror"))
+  else if (typeof define == "function" && define.amd)
+    // AMD
+    define(["../../lib/codemirror"], mod)
+  // Plain browser env
+  else mod(CodeMirror)
+})(function (CodeMirror) {
+  CodeMirror.defineOption("placeholder", "", function (cm, val, old) {
+    var prev = old && old != CodeMirror.Init
+    if (val && !prev) {
+      cm.on("blur", onBlur)
+      cm.on("change", onChange)
+      cm.on("swapDoc", onChange)
+      CodeMirror.on(
+        cm.getInputField(),
+        "compositionupdate",
+        (cm.state.placeholderCompose = function () {
+          onComposition(cm)
+        })
+      )
+      onChange(cm)
+    } else if (!val && prev) {
+      cm.off("blur", onBlur)
+      cm.off("change", onChange)
+      cm.off("swapDoc", onChange)
+      CodeMirror.off(cm.getInputField(), "compositionupdate", cm.state.placeholderCompose)
+      clearPlaceholder(cm)
+      var wrapper = cm.getWrapperElement()
+      wrapper.className = wrapper.className.replace(" CodeMirror-empty", "")
+    }
+
+    if (val && !cm.hasFocus()) onBlur(cm)
+  })
+
+  function clearPlaceholder(cm) {
+    if (cm.state.placeholder) {
+      cm.state.placeholder.parentNode.removeChild(cm.state.placeholder)
+      cm.state.placeholder = null
+    }
+  }
+  function setPlaceholder(cm) {
+    clearPlaceholder(cm)
+    var elt = (cm.state.placeholder = document.createElement("pre"))
+    elt.style.cssText = "height: 0; overflow: visible"
+    elt.style.direction = cm.getOption("direction")
+    elt.className = "CodeMirror-placeholder CodeMirror-line-like"
+    var placeHolder = cm.getOption("placeholder")
+    if (typeof placeHolder == "string") placeHolder = document.createTextNode(placeHolder)
+    elt.appendChild(placeHolder)
+    cm.display.lineSpace.insertBefore(elt, cm.display.lineSpace.firstChild)
+  }
+
+  function onComposition(cm) {
+    setTimeout(function () {
+      var empty = false
+      if (cm.lineCount() == 1) {
+        var input = cm.getInputField()
+        empty = input.nodeName == "TEXTAREA" ? !cm.getLine(0).length : !/[^\u200b]/.test(input.querySelector(".CodeMirror-line").textContent)
+      }
+      if (empty) setPlaceholder(cm)
+      else clearPlaceholder(cm)
+    }, 20)
+  }
+
+  function onBlur(cm) {
+    if (isEmpty(cm)) setPlaceholder(cm)
+  }
+  function onChange(cm) {
+    var wrapper = cm.getWrapperElement(),
+      empty = isEmpty(cm)
+    wrapper.className = wrapper.className.replace(" CodeMirror-empty", "") + (empty ? " CodeMirror-empty" : "")
+
+    if (empty) setPlaceholder(cm)
+    else clearPlaceholder(cm)
+  }
+
+  function isEmpty(cm) {
+    return cm.lineCount() === 1 && cm.getLine(0) === ""
+  }
+})
+
+
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
+
 ;(function (mod) {
   if (typeof exports == "object" && typeof module == "object")
     // CommonJS
@@ -18385,7 +13622,7 @@
       elt.hintId = i
     }
 
-    var pos = cm.cursorCoords(completion.options.alignWithWord ? data.from : null)
+    var pos = cm.cursorCoords(completion.options.alignWithAtom ? data.from : null)
     var left = pos.left,
       top = pos.bottom,
       below = true
@@ -18591,7 +13828,7 @@
       resolved.async = true
       resolved.supportsSelection = true
       return resolved
-    } else if ((words = cm.getHelper(cm.getCursor(), "hintWords"))) {
+    } else if ((words = cm.getHelper(cm.getCursor(), "hintAtoms"))) {
       return function (cm) {
         return CodeMirror.hint.fromList(cm, { words: words })
       }
@@ -18634,7 +13871,7 @@
   var defaultOptions = {
     hint: CodeMirror.hint.auto,
     completeSingle: true,
-    alignWithWord: true,
+    alignWithAtom: true,
     closeCharacters: /[\s()\[\]{};:>,]/,
     closeOnUnfocus: true,
     completeOnSingleClick: true,
@@ -18645,6 +13882,95 @@
 
   CodeMirror.defineOption("hintOptions", null)
 })
+
+
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: https://codemirror.net/5/LICENSE
+
+;(function (mod) {
+  if (typeof exports == "object" && typeof module == "object")
+    // CommonJS
+    mod(require("../../lib/codemirror"))
+  else if (typeof define == "function" && define.amd)
+    // AMD
+    define(["../../lib/codemirror"], mod)
+  // Plain browser env
+  else mod(CodeMirror)
+})(function (CodeMirror) {
+  CodeMirror.defineOption("placeholder", "", function (cm, val, old) {
+    var prev = old && old != CodeMirror.Init
+    if (val && !prev) {
+      cm.on("blur", onBlur)
+      cm.on("change", onChange)
+      cm.on("swapDoc", onChange)
+      CodeMirror.on(
+        cm.getInputField(),
+        "compositionupdate",
+        (cm.state.placeholderCompose = function () {
+          onComposition(cm)
+        })
+      )
+      onChange(cm)
+    } else if (!val && prev) {
+      cm.off("blur", onBlur)
+      cm.off("change", onChange)
+      cm.off("swapDoc", onChange)
+      CodeMirror.off(cm.getInputField(), "compositionupdate", cm.state.placeholderCompose)
+      clearPlaceholder(cm)
+      var wrapper = cm.getWrapperElement()
+      wrapper.className = wrapper.className.replace(" CodeMirror-empty", "")
+    }
+
+    if (val && !cm.hasFocus()) onBlur(cm)
+  })
+
+  function clearPlaceholder(cm) {
+    if (cm.state.placeholder) {
+      cm.state.placeholder.parentNode.removeChild(cm.state.placeholder)
+      cm.state.placeholder = null
+    }
+  }
+  function setPlaceholder(cm) {
+    clearPlaceholder(cm)
+    var elt = (cm.state.placeholder = document.createElement("pre"))
+    elt.style.cssText = "height: 0; overflow: visible"
+    elt.style.direction = cm.getOption("direction")
+    elt.className = "CodeMirror-placeholder CodeMirror-line-like"
+    var placeHolder = cm.getOption("placeholder")
+    if (typeof placeHolder == "string") placeHolder = document.createTextNode(placeHolder)
+    elt.appendChild(placeHolder)
+    cm.display.lineSpace.insertBefore(elt, cm.display.lineSpace.firstChild)
+  }
+
+  function onComposition(cm) {
+    setTimeout(function () {
+      var empty = false
+      if (cm.lineCount() == 1) {
+        var input = cm.getInputField()
+        empty = input.nodeName == "TEXTAREA" ? !cm.getLine(0).length : !/[^\u200b]/.test(input.querySelector(".CodeMirror-line").textContent)
+      }
+      if (empty) setPlaceholder(cm)
+      else clearPlaceholder(cm)
+    }, 20)
+  }
+
+  function onBlur(cm) {
+    if (isEmpty(cm)) setPlaceholder(cm)
+  }
+  function onChange(cm) {
+    var wrapper = cm.getWrapperElement(),
+      empty = isEmpty(cm)
+    wrapper.className = wrapper.className.replace(" CodeMirror-empty", "") + (empty ? " CodeMirror-empty" : "")
+
+    if (empty) setPlaceholder(cm)
+    else clearPlaceholder(cm)
+  }
+
+  function isEmpty(cm) {
+    return cm.lineCount() === 1 && cm.getLine(0) === ""
+  }
+})
+
 
 class Timer {
   constructor() {
@@ -18677,7 +14003,7 @@ class Utils {
     if (instance[command + "Command"]) return run(command + "Command")
     // Get commands from both the child and parent classes
     const classes = [Object.getPrototypeOf(instance), Object.getPrototypeOf(Object.getPrototypeOf(instance))]
-    const allCommands = classes.map(classInstance => Object.getOwnPropertyNames(classInstance).filter(word => word.endsWith("Command"))).flat()
+    const allCommands = classes.map(classInstance => Object.getOwnPropertyNames(classInstance).filter(atom => atom.endsWith("Command"))).flat()
     allCommands.sort()
     const commandAsNumber = parseInt(command) - 1
     if (command.match(/^\d+$/) && allCommands[commandAsNumber]) return run(allCommands[commandAsNumber])
@@ -18712,47 +14038,47 @@ class Utils {
     return `${color}${message}${reset}`
   }
   static ensureDelimiterNotFound(strings, delimiter) {
-    const hit = strings.find(word => word.includes(delimiter))
+    const hit = strings.find(atom => atom.includes(delimiter))
     if (hit) throw `Delimiter "${delimiter}" found in hit`
   }
   // https://github.com/rigoneri/indefinite-article.js/blob/master/indefinite-article.js
   static getIndefiniteArticle(phrase) {
-    // Getting the first word
+    // Getting the first atom
     const match = /\w+/.exec(phrase)
-    let word
-    if (match) word = match[0]
+    let atom
+    if (match) atom = match[0]
     else return "an"
-    var l_word = word.toLowerCase()
-    // Specific start of words that should be preceded by 'an'
+    var l_atom = atom.toLowerCase()
+    // Specific start of atoms that should be preceded by 'an'
     var alt_cases = ["honest", "hour", "hono"]
     for (var i in alt_cases) {
-      if (l_word.indexOf(alt_cases[i]) == 0) return "an"
+      if (l_atom.indexOf(alt_cases[i]) == 0) return "an"
     }
-    // Single letter word which should be preceded by 'an'
-    if (l_word.length == 1) {
-      if ("aedhilmnorsx".indexOf(l_word) >= 0) return "an"
+    // Single letter atom which should be preceded by 'an'
+    if (l_atom.length == 1) {
+      if ("aedhilmnorsx".indexOf(l_atom) >= 0) return "an"
       else return "a"
     }
-    // Capital words which should likely be preceded by 'an'
-    if (word.match(/(?!FJO|[HLMNS]Y.|RY[EO]|SQU|(F[LR]?|[HL]|MN?|N|RH?|S[CHKLMNPTVW]?|X(YL)?)[AEIOU])[FHLMNRSX][A-Z]/)) {
+    // Capital atoms which should likely be preceded by 'an'
+    if (atom.match(/(?!FJO|[HLMNS]Y.|RY[EO]|SQU|(F[LR]?|[HL]|MN?|N|RH?|S[CHKLMNPTVW]?|X(YL)?)[AEIOU])[FHLMNRSX][A-Z]/)) {
       return "an"
     }
-    // Special cases where a word that begins with a vowel should be preceded by 'a'
+    // Special cases where a atom that begins with a vowel should be preceded by 'a'
     const regexes = [/^e[uw]/, /^onc?e\b/, /^uni([^nmd]|mo)/, /^u[bcfhjkqrst][aeiou]/]
     for (var i in regexes) {
-      if (l_word.match(regexes[i])) return "a"
+      if (l_atom.match(regexes[i])) return "a"
     }
-    // Special capital words (UK, UN)
-    if (word.match(/^U[NK][AIEO]/)) {
+    // Special capital atoms (UK, UN)
+    if (atom.match(/^U[NK][AIEO]/)) {
       return "a"
-    } else if (word == word.toUpperCase()) {
-      if ("aedhilmnorsx".indexOf(l_word[0]) >= 0) return "an"
+    } else if (atom == atom.toUpperCase()) {
+      if ("aedhilmnorsx".indexOf(l_atom[0]) >= 0) return "an"
       else return "a"
     }
-    // Basic method of words that begin with a vowel being preceded by 'an'
-    if ("aeiou".indexOf(l_word[0]) >= 0) return "an"
+    // Basic method of atoms that begin with a vowel being preceded by 'an'
+    if ("aeiou".indexOf(l_atom[0]) >= 0) return "an"
     // Instances where y follwed by specific letters is preceded by 'an'
-    if (l_word.match(/^y(b[lor]|cl[ea]|fere|gg|p[ios]|rou|tt)/)) return "an"
+    if (l_atom.match(/^y(b[lor]|cl[ea]|fere|gg|p[ios]|rou|tt)/)) return "an"
     return "a"
   }
   static htmlEscaped(content = "") {
@@ -18952,7 +14278,7 @@ class Utils {
     if (len <= limit) return clone.join(", ") + ` and ${last}`
     return clone.join(", ") + ` and ${len - limit} more`
   }
-  // todo: refactor so instead of str input takes an array of cells(strings) and scans each indepndently.
+  // todo: refactor so instead of str input takes an array of atoms(strings) and scans each indepndently.
   static _chooseDelimiter(str) {
     const del = " ,|\t;^%$!#@~*&+-=_:?.{}[]()<>/".split("").find(idea => !str.includes(idea))
     if (!del) throw new Error("Could not find a delimiter")
@@ -19076,26 +14402,26 @@ class Utils {
     document.head.appendChild(script)
     return window[name]
   }
-  static formatStr(str, catchAllCellDelimiter = " ", parameterMap) {
+  static formatStr(str, catchAllAtomDelimiter = " ", parameterMap) {
     return str.replace(/{([^\}]+)}/g, (match, path) => {
       const val = parameterMap[path]
-      if (!val) return ""
-      return Array.isArray(val) ? val.join(catchAllCellDelimiter) : val
+      if (val === undefined) return ""
+      return Array.isArray(val) ? val.join(catchAllAtomDelimiter) : val
     })
   }
   static stripHtml(text) {
     return text && text.replace ? text.replace(/<(?:.|\n)*?>/gm, "") : text
   }
-  static getUniqueWordsArray(allWords) {
-    const words = allWords.replace(/\n/g, " ").split(" ")
+  static getUniqueAtomsArray(allAtoms) {
+    const atoms = allAtoms.replace(/\n/g, " ").split(" ")
     const index = {}
-    words.forEach(word => {
-      if (!index[word]) index[word] = 0
-      index[word]++
+    atoms.forEach(atom => {
+      if (!index[atom]) index[atom] = 0
+      index[atom]++
     })
     return Object.keys(index).map(key => {
       return {
-        word: key,
+        atom: key,
         count: index[key]
       }
     })
@@ -19237,7 +14563,7 @@ class Utils {
       const particleAFirst = -1
       const particleBFirst = 1
       if (!particleAExtends && !particleBExtends) {
-        // If neither extends, sort by firstWord
+        // If neither extends, sort by cue
         if (particleAUniqueId > particleBUniqueId) return particleBFirst
         else if (particleAUniqueId < particleBUniqueId) return particleAFirst
         return 0
@@ -19251,7 +14577,7 @@ class Utils {
       // Sort by what they extend
       if (particleAExtends > particleBExtends) return particleBFirst
       else if (particleAExtends < particleBExtends) return particleAFirst
-      // Finally sort by firstWord
+      // Finally sort by cue
       if (particleAUniqueId > particleBUniqueId) return particleBFirst
       else if (particleAUniqueId < particleBUniqueId) return particleAFirst
       // Should never hit this, unless we have a duplicate line.
@@ -19301,6 +14627,505 @@ Utils.getRange = (startIndex, endIndexExclusive, increment = 1) => {
 Utils.MAX_INT = Math.pow(2, 32) - 1
 window.Utils = Utils
 
+
+// https://github.com/browserify/path-browserify/blob/master/index.js
+
+function assertPath(path) {
+  if (typeof path !== "string") {
+    throw new TypeError("Path must be a string. Received " + JSON.stringify(path))
+  }
+}
+
+// Resolves . and .. elements in a path with directory names
+function normalizeStringPosix(path, allowAboveRoot) {
+  var res = ""
+  var lastSegmentLength = 0
+  var lastSlash = -1
+  var dots = 0
+  var code
+  for (var i = 0; i <= path.length; ++i) {
+    if (i < path.length) code = path.charCodeAt(i)
+    else if (code === 47 /*/*/) break
+    else code = 47 /*/*/
+    if (code === 47 /*/*/) {
+      if (lastSlash === i - 1 || dots === 1) {
+        // NOOP
+      } else if (lastSlash !== i - 1 && dots === 2) {
+        if (res.length < 2 || lastSegmentLength !== 2 || res.charCodeAt(res.length - 1) !== 46 /*.*/ || res.charCodeAt(res.length - 2) !== 46 /*.*/) {
+          if (res.length > 2) {
+            var lastSlashIndex = res.lastIndexOf("/")
+            if (lastSlashIndex !== res.length - 1) {
+              if (lastSlashIndex === -1) {
+                res = ""
+                lastSegmentLength = 0
+              } else {
+                res = res.slice(0, lastSlashIndex)
+                lastSegmentLength = res.length - 1 - res.lastIndexOf("/")
+              }
+              lastSlash = i
+              dots = 0
+              continue
+            }
+          } else if (res.length === 2 || res.length === 1) {
+            res = ""
+            lastSegmentLength = 0
+            lastSlash = i
+            dots = 0
+            continue
+          }
+        }
+        if (allowAboveRoot) {
+          if (res.length > 0) res += "/.."
+          else res = ".."
+          lastSegmentLength = 2
+        }
+      } else {
+        if (res.length > 0) res += "/" + path.slice(lastSlash + 1, i)
+        else res = path.slice(lastSlash + 1, i)
+        lastSegmentLength = i - lastSlash - 1
+      }
+      lastSlash = i
+      dots = 0
+    } else if (code === 46 /*.*/ && dots !== -1) {
+      ++dots
+    } else {
+      dots = -1
+    }
+  }
+  return res
+}
+
+function _format(sep, pathObject) {
+  var dir = pathObject.dir || pathObject.root
+  var base = pathObject.base || (pathObject.name || "") + (pathObject.ext || "")
+  if (!dir) {
+    return base
+  }
+  if (dir === pathObject.root) {
+    return dir + base
+  }
+  return dir + sep + base
+}
+
+var posix = {
+  // path.resolve([from ...], to)
+  resolve: function resolve() {
+    var resolvedPath = ""
+    var resolvedAbsolute = false
+    var cwd
+
+    for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+      var path
+      if (i >= 0) path = arguments[i]
+      else {
+        if (cwd === undefined) cwd = process.cwd()
+        path = cwd
+      }
+
+      assertPath(path)
+
+      // Skip empty entries
+      if (path.length === 0) {
+        continue
+      }
+
+      resolvedPath = path + "/" + resolvedPath
+      resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/
+    }
+
+    // At this point the path should be resolved to a full absolute path, but
+    // handle relative paths to be safe (might happen when process.cwd() fails)
+
+    // Normalize the path
+    resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute)
+
+    if (resolvedAbsolute) {
+      if (resolvedPath.length > 0) return "/" + resolvedPath
+      else return "/"
+    } else if (resolvedPath.length > 0) {
+      return resolvedPath
+    } else {
+      return "."
+    }
+  },
+
+  normalize: function normalize(path) {
+    assertPath(path)
+
+    if (path.length === 0) return "."
+
+    var isAbsolute = path.charCodeAt(0) === 47 /*/*/
+    var trailingSeparator = path.charCodeAt(path.length - 1) === 47 /*/*/
+
+    // Normalize the path
+    path = normalizeStringPosix(path, !isAbsolute)
+
+    if (path.length === 0 && !isAbsolute) path = "."
+    if (path.length > 0 && trailingSeparator) path += "/"
+
+    if (isAbsolute) return "/" + path
+    return path
+  },
+
+  isAbsolute: function isAbsolute(path) {
+    assertPath(path)
+    return path.length > 0 && path.charCodeAt(0) === 47 /*/*/
+  },
+
+  join: function join() {
+    if (arguments.length === 0) return "."
+    var joined
+    for (var i = 0; i < arguments.length; ++i) {
+      var arg = arguments[i]
+      assertPath(arg)
+      if (arg.length > 0) {
+        if (joined === undefined) joined = arg
+        else joined += "/" + arg
+      }
+    }
+    if (joined === undefined) return "."
+    return posix.normalize(joined)
+  },
+
+  relative: function relative(from, to) {
+    assertPath(from)
+    assertPath(to)
+
+    if (from === to) return ""
+
+    from = posix.resolve(from)
+    to = posix.resolve(to)
+
+    if (from === to) return ""
+
+    // Trim any leading backslashes
+    var fromStart = 1
+    for (; fromStart < from.length; ++fromStart) {
+      if (from.charCodeAt(fromStart) !== 47 /*/*/) break
+    }
+    var fromEnd = from.length
+    var fromLen = fromEnd - fromStart
+
+    // Trim any leading backslashes
+    var toStart = 1
+    for (; toStart < to.length; ++toStart) {
+      if (to.charCodeAt(toStart) !== 47 /*/*/) break
+    }
+    var toEnd = to.length
+    var toLen = toEnd - toStart
+
+    // Compare paths to find the longest common path from root
+    var length = fromLen < toLen ? fromLen : toLen
+    var lastCommonSep = -1
+    var i = 0
+    for (; i <= length; ++i) {
+      if (i === length) {
+        if (toLen > length) {
+          if (to.charCodeAt(toStart + i) === 47 /*/*/) {
+            // We get here if `from` is the exact base path for `to`.
+            // For example: from='/foo/bar'; to='/foo/bar/baz'
+            return to.slice(toStart + i + 1)
+          } else if (i === 0) {
+            // We get here if `from` is the root
+            // For example: from='/'; to='/foo'
+            return to.slice(toStart + i)
+          }
+        } else if (fromLen > length) {
+          if (from.charCodeAt(fromStart + i) === 47 /*/*/) {
+            // We get here if `to` is the exact base path for `from`.
+            // For example: from='/foo/bar/baz'; to='/foo/bar'
+            lastCommonSep = i
+          } else if (i === 0) {
+            // We get here if `to` is the root.
+            // For example: from='/foo'; to='/'
+            lastCommonSep = 0
+          }
+        }
+        break
+      }
+      var fromCode = from.charCodeAt(fromStart + i)
+      var toCode = to.charCodeAt(toStart + i)
+      if (fromCode !== toCode) break
+      else if (fromCode === 47 /*/*/) lastCommonSep = i
+    }
+
+    var out = ""
+    // Generate the relative path based on the path difference between `to`
+    // and `from`
+    for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
+      if (i === fromEnd || from.charCodeAt(i) === 47 /*/*/) {
+        if (out.length === 0) out += ".."
+        else out += "/.."
+      }
+    }
+
+    // Lastly, append the rest of the destination (`to`) path that comes after
+    // the common path parts
+    if (out.length > 0) return out + to.slice(toStart + lastCommonSep)
+    else {
+      toStart += lastCommonSep
+      if (to.charCodeAt(toStart) === 47 /*/*/) ++toStart
+      return to.slice(toStart)
+    }
+  },
+
+  _makeLong: function _makeLong(path) {
+    return path
+  },
+
+  dirname: function dirname(path) {
+    assertPath(path)
+    if (path.length === 0) return "."
+    var code = path.charCodeAt(0)
+    var hasRoot = code === 47 /*/*/
+    var end = -1
+    var matchedSlash = true
+    for (var i = path.length - 1; i >= 1; --i) {
+      code = path.charCodeAt(i)
+      if (code === 47 /*/*/) {
+        if (!matchedSlash) {
+          end = i
+          break
+        }
+      } else {
+        // We saw the first non-path separator
+        matchedSlash = false
+      }
+    }
+
+    if (end === -1) return hasRoot ? "/" : "."
+    if (hasRoot && end === 1) return "//"
+    return path.slice(0, end)
+  },
+
+  basename: function basename(path, ext) {
+    if (ext !== undefined && typeof ext !== "string") throw new TypeError('"ext" argument must be a string')
+    assertPath(path)
+
+    var start = 0
+    var end = -1
+    var matchedSlash = true
+    var i
+
+    if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
+      if (ext.length === path.length && ext === path) return ""
+      var extIdx = ext.length - 1
+      var firstNonSlashEnd = -1
+      for (i = path.length - 1; i >= 0; --i) {
+        var code = path.charCodeAt(i)
+        if (code === 47 /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            start = i + 1
+            break
+          }
+        } else {
+          if (firstNonSlashEnd === -1) {
+            // We saw the first non-path separator, remember this index in case
+            // we need it if the extension ends up not matching
+            matchedSlash = false
+            firstNonSlashEnd = i + 1
+          }
+          if (extIdx >= 0) {
+            // Try to match the explicit extension
+            if (code === ext.charCodeAt(extIdx)) {
+              if (--extIdx === -1) {
+                // We matched the extension, so mark this as the end of our path
+                // component
+                end = i
+              }
+            } else {
+              // Extension does not match, so our result is the entire path
+              // component
+              extIdx = -1
+              end = firstNonSlashEnd
+            }
+          }
+        }
+      }
+
+      if (start === end) end = firstNonSlashEnd
+      else if (end === -1) end = path.length
+      return path.slice(start, end)
+    } else {
+      for (i = path.length - 1; i >= 0; --i) {
+        if (path.charCodeAt(i) === 47 /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            start = i + 1
+            break
+          }
+        } else if (end === -1) {
+          // We saw the first non-path separator, mark this as the end of our
+          // path component
+          matchedSlash = false
+          end = i + 1
+        }
+      }
+
+      if (end === -1) return ""
+      return path.slice(start, end)
+    }
+  },
+
+  extname: function extname(path) {
+    assertPath(path)
+    var startDot = -1
+    var startPart = 0
+    var end = -1
+    var matchedSlash = true
+    // Track the state of characters (if any) we see before our first dot and
+    // after any path separator we find
+    var preDotState = 0
+    for (var i = path.length - 1; i >= 0; --i) {
+      var code = path.charCodeAt(i)
+      if (code === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          startPart = i + 1
+          break
+        }
+        continue
+      }
+      if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // extension
+        matchedSlash = false
+        end = i + 1
+      }
+      if (code === 46 /*.*/) {
+        // If this is our first dot, mark it as the start of our extension
+        if (startDot === -1) startDot = i
+        else if (preDotState !== 1) preDotState = 1
+      } else if (startDot !== -1) {
+        // We saw a non-dot and non-path separator before our dot, so we should
+        // have a good chance at having a non-empty extension
+        preDotState = -1
+      }
+    }
+
+    if (
+      startDot === -1 ||
+      end === -1 ||
+      // We saw a non-dot character immediately before the dot
+      preDotState === 0 ||
+      // The (right-most) trimmed path component is exactly '..'
+      (preDotState === 1 && startDot === end - 1 && startDot === startPart + 1)
+    ) {
+      return ""
+    }
+    return path.slice(startDot, end)
+  },
+
+  format: function format(pathObject) {
+    if (pathObject === null || typeof pathObject !== "object") {
+      throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject)
+    }
+    return _format("/", pathObject)
+  },
+
+  parse: function parse(path) {
+    assertPath(path)
+
+    var ret = { root: "", dir: "", base: "", ext: "", name: "" }
+    if (path.length === 0) return ret
+    var code = path.charCodeAt(0)
+    var isAbsolute = code === 47 /*/*/
+    var start
+    if (isAbsolute) {
+      ret.root = "/"
+      start = 1
+    } else {
+      start = 0
+    }
+    var startDot = -1
+    var startPart = 0
+    var end = -1
+    var matchedSlash = true
+    var i = path.length - 1
+
+    // Track the state of characters (if any) we see before our first dot and
+    // after any path separator we find
+    var preDotState = 0
+
+    // Get non-dir info
+    for (; i >= start; --i) {
+      code = path.charCodeAt(i)
+      if (code === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          startPart = i + 1
+          break
+        }
+        continue
+      }
+      if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // extension
+        matchedSlash = false
+        end = i + 1
+      }
+      if (code === 46 /*.*/) {
+        // If this is our first dot, mark it as the start of our extension
+        if (startDot === -1) startDot = i
+        else if (preDotState !== 1) preDotState = 1
+      } else if (startDot !== -1) {
+        // We saw a non-dot and non-path separator before our dot, so we should
+        // have a good chance at having a non-empty extension
+        preDotState = -1
+      }
+    }
+
+    if (
+      startDot === -1 ||
+      end === -1 ||
+      // We saw a non-dot character immediately before the dot
+      preDotState === 0 ||
+      // The (right-most) trimmed path component is exactly '..'
+      (preDotState === 1 && startDot === end - 1 && startDot === startPart + 1)
+    ) {
+      if (end !== -1) {
+        if (startPart === 0 && isAbsolute) ret.base = ret.name = path.slice(1, end)
+        else ret.base = ret.name = path.slice(startPart, end)
+      }
+    } else {
+      if (startPart === 0 && isAbsolute) {
+        ret.name = path.slice(1, startDot)
+        ret.base = path.slice(1, end)
+      } else {
+        ret.name = path.slice(startPart, startDot)
+        ret.base = path.slice(startPart, end)
+      }
+      ret.ext = path.slice(startDot, end)
+    }
+
+    if (startPart > 0) ret.dir = path.slice(0, startPart - 1)
+    else if (isAbsolute) ret.dir = "/"
+
+    return ret
+  },
+
+  sep: "/",
+  delimiter: ":",
+  win32: null,
+  posix: null
+}
+
+posix.posix = posix
+
+// Check if the environment is Node.js, and export the module
+if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
+  module.exports = { posix }
+} else {
+  // Otherwise, assign the module to the global scope (browser environment)
+  window.posix = posix
+}
+
+
 let _scrollsdkLatestTime = 0
 let _scrollsdkMinTimeIncrement = 0.000000000001
 class AbstractParticle {
@@ -19336,16 +15161,16 @@ class ChildAddedParticleEvent extends AbstractParticleEvent {}
 class ChildRemovedParticleEvent extends AbstractParticleEvent {}
 class DescendantChangedParticleEvent extends AbstractParticleEvent {}
 class LineChangedParticleEvent extends AbstractParticleEvent {}
-class ParticleWord {
-  constructor(particle, cellIndex) {
+class ParticleAtom {
+  constructor(particle, atomIndex) {
     this._particle = particle
-    this._cellIndex = cellIndex
+    this._atomIndex = atomIndex
   }
-  replace(newWord) {
-    this._particle.setWord(this._cellIndex, newWord)
+  replace(newAtom) {
+    this._particle.setAtom(this._atomIndex, newAtom)
   }
-  get word() {
-    return this._particle.getWord(this._cellIndex)
+  get atom() {
+    return this._particle.getAtom(this._atomIndex)
   }
 }
 const ParticleEvents = { ChildAddedParticleEvent, ChildRemovedParticleEvent, DescendantChangedParticleEvent, LineChangedParticleEvent }
@@ -19369,29 +15194,29 @@ var ParticlesConstants
   ParticlesConstants["extends"] = "extends"
 })(ParticlesConstants || (ParticlesConstants = {}))
 class ParserCombinator {
-  constructor(catchAllParser, firstWordMap = {}, regexTests = undefined) {
+  constructor(catchAllParser, cueMap = {}, regexTests = undefined) {
     this._catchAllParser = catchAllParser
-    this._firstWordMap = new Map(Object.entries(firstWordMap))
+    this._cueMap = new Map(Object.entries(cueMap))
     this._regexTests = regexTests
   }
-  getFirstWordOptions() {
-    return Array.from(this._getFirstWordMap().keys())
+  getCueOptions() {
+    return Array.from(this._getCueMap().keys())
   }
   // todo: remove
-  _getFirstWordMap() {
-    return this._firstWordMap
+  _getCueMap() {
+    return this._cueMap
   }
   // todo: remove
-  _getFirstWordMapAsObject() {
+  _getCueMapAsObject() {
     let obj = {}
-    const map = this._getFirstWordMap()
+    const map = this._getCueMap()
     for (let [key, val] of map.entries()) {
       obj[key] = val
     }
     return obj
   }
-  _getParser(line, contextParticle, wordBreakSymbol = TN_WORD_BREAK_SYMBOL) {
-    return this._getFirstWordMap().get(this._getFirstWord(line, wordBreakSymbol)) || this._getParserFromRegexTests(line) || this._getCatchAllParser(contextParticle)
+  _getParser(line, contextParticle, atomBreakSymbol = TN_WORD_BREAK_SYMBOL) {
+    return this._getCueMap().get(this._getCue(line, atomBreakSymbol)) || this._getParserFromRegexTests(line) || this._getCatchAllParser(contextParticle)
   }
   _getCatchAllParser(contextParticle) {
     if (this._catchAllParser) return this._catchAllParser
@@ -19405,19 +15230,19 @@ class ParserCombinator {
     if (hit) return hit.parser
     return undefined
   }
-  _getFirstWord(line, wordBreakSymbol) {
-    const firstBreak = line.indexOf(wordBreakSymbol)
+  _getCue(line, atomBreakSymbol) {
+    const firstBreak = line.indexOf(atomBreakSymbol)
     return line.substr(0, firstBreak > -1 ? firstBreak : undefined)
   }
 }
 class Particle extends AbstractParticle {
-  constructor(children, line, parent) {
+  constructor(subparticles, line, parent) {
     super()
     // BEGIN MUTABLE METHODS BELOw
     this._particleCreationTime = this._getProcessTimeInMilliseconds()
     this._parent = parent
     this._setLine(line)
-    this._setChildren(children)
+    this._setSubparticles(subparticles)
   }
   execute() {}
   async loadRequirements(context) {
@@ -19427,9 +15252,9 @@ class Particle extends AbstractParticle {
   getErrors() {
     return []
   }
-  get lineCellTypes() {
+  get lineAtomTypes() {
     // todo: make this any a constant
-    return "undefinedCellType ".repeat(this.words.length).trim()
+    return "undefinedAtomType ".repeat(this.atoms.length).trim()
   }
   isNodeJs() {
     return typeof exports !== "undefined"
@@ -19439,7 +15264,7 @@ class Particle extends AbstractParticle {
   }
   getOlderSiblings() {
     if (this.isRoot()) return []
-    return this.parent.slice(0, this.getIndex())
+    return this.parent.slice(0, this.index)
   }
   _getClosestOlderSibling() {
     const olderSiblings = this.getOlderSiblings()
@@ -19447,7 +15272,7 @@ class Particle extends AbstractParticle {
   }
   getYoungerSiblings() {
     if (this.isRoot()) return []
-    return this.parent.slice(this.getIndex() + 1)
+    return this.parent.slice(this.index + 1)
   }
   getSiblings() {
     if (this.isRoot()) return []
@@ -19470,9 +15295,9 @@ class Particle extends AbstractParticle {
     return this.edgeSymbol.repeat(indentLevel)
   }
   _getTopDownArray(arr) {
-    this.forEach(child => {
-      arr.push(child)
-      child._getTopDownArray(arr)
+    this.forEach(subparticle => {
+      arr.push(subparticle)
+      subparticle._getTopDownArray(arr)
     })
   }
   get topDownArray() {
@@ -19481,9 +15306,9 @@ class Particle extends AbstractParticle {
     return arr
   }
   *getTopDownArrayIterator() {
-    for (let child of this.getChildren()) {
-      yield child
-      yield* child.getTopDownArrayIterator()
+    for (let subparticle of this.getSubparticles()) {
+      yield subparticle
+      yield* subparticle.getTopDownArrayIterator()
     }
   }
   particleAtLine(lineNumber) {
@@ -19503,17 +15328,17 @@ class Particle extends AbstractParticle {
   _getMaxUnitsOnALine() {
     let max = 0
     for (let particle of this.getTopDownArrayIterator()) {
-      const count = particle.words.length + particle.getIndentLevel()
+      const count = particle.atoms.length + particle.getIndentLevel()
       if (count > max) max = count
     }
     return max
   }
-  get numberOfWords() {
-    let wordCount = 0
+  get numberOfAtoms() {
+    let atomCount = 0
     for (let particle of this.getTopDownArrayIterator()) {
-      wordCount += particle.words.length
+      atomCount += particle.atoms.length
     }
-    return wordCount
+    return atomCount
   }
   get lineNumber() {
     return this._getLineNumberRelativeTo()
@@ -19530,8 +15355,11 @@ class Particle extends AbstractParticle {
   isBlankLine() {
     return !this.length && !this.getLine()
   }
-  hasDuplicateFirstWords() {
-    return this.length ? new Set(this.getFirstWords()).size !== this.length : false
+  get isBlank() {
+    return this.isBlankLine()
+  }
+  hasDuplicateCues() {
+    return this.length ? new Set(this.getCues()).size !== this.length : false
   }
   isEmpty() {
     return !this.length && !this.content
@@ -19552,8 +15380,8 @@ class Particle extends AbstractParticle {
     return this.parent._getRootParticle(relativeTo)
   }
   toString(indentCount = 0, language = this) {
-    if (this.isRoot()) return this._childrenToString(indentCount, language)
-    return language.edgeSymbol.repeat(indentCount) + this.getLine(language) + (this.length ? language.particleBreakSymbol + this._childrenToString(indentCount + 1, language) : "")
+    if (this.isRoot()) return this._subparticlesToString(indentCount, language)
+    return language.edgeSymbol.repeat(indentCount) + this.getLine(language) + (this.length ? language.particleBreakSymbol + this._subparticlesToString(indentCount + 1, language) : "")
   }
   get asString() {
     return this.toString()
@@ -19576,13 +15404,13 @@ class Particle extends AbstractParticle {
       })
     return this
   }
-  getWord(index) {
-    const words = this._getWords(0)
-    if (index < 0) index = words.length + index
-    return words[index]
+  getAtom(index) {
+    const atoms = this._getAtoms(0)
+    if (index < 0) index = atoms.length + index
+    return atoms[index]
   }
   get list() {
-    return this.getWordsFrom(1)
+    return this.getAtomsFrom(1)
   }
   _toHtml(indentCount) {
     const path = this.getPathVector().join(" ")
@@ -19590,21 +15418,21 @@ class Particle extends AbstractParticle {
       particleLine: "particleLine",
       edgeSymbol: "edgeSymbol",
       particleBreakSymbol: "particleBreakSymbol",
-      particleChildren: "particleChildren"
+      particleSubparticles: "particleSubparticles"
     }
     const edge = this.edgeSymbol.repeat(indentCount)
-    // Set up the firstWord part of the particle
+    // Set up the cue part of the particle
     const edgeHtml = `<span class="${classes.particleLine}" data-pathVector="${path}"><span class="${classes.edgeSymbol}">${edge}</span>`
     const lineHtml = this._getLineHtml()
-    const childrenHtml = this.length ? `<span class="${classes.particleBreakSymbol}">${this.particleBreakSymbol}</span>` + `<span class="${classes.particleChildren}">${this._childrenToHtml(indentCount + 1)}</span>` : ""
-    return `${edgeHtml}${lineHtml}${childrenHtml}</span>`
+    const subparticlesHtml = this.length ? `<span class="${classes.particleBreakSymbol}">${this.particleBreakSymbol}</span>` + `<span class="${classes.particleSubparticles}">${this._subparticlesToHtml(indentCount + 1)}</span>` : ""
+    return `${edgeHtml}${lineHtml}${subparticlesHtml}</span>`
   }
-  _getWords(startFrom) {
-    if (!this._words) this._words = this._getLine().split(this.wordBreakSymbol)
-    return startFrom ? this._words.slice(startFrom) : this._words
+  _getAtoms(startFrom) {
+    if (!this._atoms) this._atoms = this._getLine().split(this.atomBreakSymbol)
+    return startFrom ? this._atoms.slice(startFrom) : this._atoms
   }
-  get words() {
-    return this._getWords(0)
+  get atoms() {
+    return this._getAtoms(0)
   }
   doesExtend(parserId) {
     return false
@@ -19613,8 +15441,8 @@ class Particle extends AbstractParticle {
     if (!this.isNodeJs()) return window[moduleName]
     return require(filePath || moduleName)
   }
-  getWordsFrom(startFrom) {
-    return this._getWords(startFrom)
+  getAtomsFrom(startFrom) {
+    return this._getAtoms(startFrom)
   }
   getFirstAncestor() {
     const parent = this.parent
@@ -19652,17 +15480,17 @@ class Particle extends AbstractParticle {
   patch(two) {
     const copy = this.clone()
     two.forEach(particle => {
-      const hit = copy.getParticle(particle.getWord(0))
+      const hit = copy.getParticle(particle.getAtom(0))
       if (hit) hit.destroy()
     })
     copy.concat(two)
     return copy
   }
   getSparsity() {
-    const particles = this.getChildren()
+    const particles = this.getSubparticles()
     const fields = this._getUnionNames()
     let count = 0
-    this.getChildren().forEach(particle => {
+    this.getSubparticles().forEach(particle => {
       fields.forEach(field => {
         if (particle.has(field)) count++
       })
@@ -19670,15 +15498,15 @@ class Particle extends AbstractParticle {
     return 1 - count / (particles.length * fields.length)
   }
   // todo: rename. what is the proper term from set/cat theory?
-  getBiDirectionalMaps(propertyNameOrFn, propertyNameOrFn2 = particle => particle.getWord(0)) {
+  getBiDirectionalMaps(propertyNameOrFn, propertyNameOrFn2 = particle => particle.getAtom(0)) {
     const oneToTwo = {}
     const twoToOne = {}
     const is1Str = typeof propertyNameOrFn === "string"
     const is2Str = typeof propertyNameOrFn2 === "string"
-    const children = this.getChildren()
+    const subparticles = this.getSubparticles()
     this.forEach((particle, index) => {
-      const value1 = is1Str ? particle.get(propertyNameOrFn) : propertyNameOrFn(particle, index, children)
-      const value2 = is2Str ? particle.get(propertyNameOrFn2) : propertyNameOrFn2(particle, index, children)
+      const value1 = is1Str ? particle.get(propertyNameOrFn) : propertyNameOrFn(particle, index, subparticles)
+      const value2 = is2Str ? particle.get(propertyNameOrFn2) : propertyNameOrFn2(particle, index, subparticles)
       if (value1 !== undefined) {
         if (!oneToTwo[value1]) oneToTwo[value1] = []
         oneToTwo[value1].push(value2)
@@ -19690,65 +15518,65 @@ class Particle extends AbstractParticle {
     })
     return [oneToTwo, twoToOne]
   }
-  _getWordIndexCharacterStartPosition(wordIndex) {
+  _getAtomIndexCharacterStartPosition(atomIndex) {
     const xiLength = this.edgeSymbol.length
     const numIndents = this._getIndentLevel() - 1
     const indentPosition = xiLength * numIndents
-    if (wordIndex < 1) return xiLength * (numIndents + wordIndex)
-    return indentPosition + this.words.slice(0, wordIndex).join(this.wordBreakSymbol).length + this.wordBreakSymbol.length
+    if (atomIndex < 1) return xiLength * (numIndents + atomIndex)
+    return indentPosition + this.atoms.slice(0, atomIndex).join(this.atomBreakSymbol).length + this.atomBreakSymbol.length
   }
   getParticleInScopeAtCharIndex(charIndex) {
     if (this.isRoot()) return this
-    let wordIndex = this.getWordIndexAtCharacterIndex(charIndex)
-    if (wordIndex > 0) return this
+    let atomIndex = this.getAtomIndexAtCharacterIndex(charIndex)
+    if (atomIndex > 0) return this
     let particle = this
-    while (wordIndex < 1) {
+    while (atomIndex < 1) {
       particle = particle.parent
-      wordIndex++
+      atomIndex++
     }
     return particle
   }
-  getWordProperties(wordIndex) {
-    const start = this._getWordIndexCharacterStartPosition(wordIndex)
-    const word = wordIndex < 0 ? "" : this.getWord(wordIndex)
+  getAtomProperties(atomIndex) {
+    const start = this._getAtomIndexCharacterStartPosition(atomIndex)
+    const atom = atomIndex < 0 ? "" : this.getAtom(atomIndex)
     return {
       startCharIndex: start,
-      endCharIndex: start + word.length,
-      word: word
+      endCharIndex: start + atom.length,
+      atom: atom
     }
   }
   fill(fill = "") {
     this.topDownArray.forEach(line => {
-      line.words.forEach((word, index) => line.setWord(index, fill))
+      line.atoms.forEach((atom, index) => line.setAtom(index, fill))
     })
     return this
   }
-  getAllWordBoundaryCoordinates() {
+  getAllAtomBoundaryCoordinates() {
     const coordinates = []
     let lineIndex = 0
     for (let particle of this.getTopDownArrayIterator()) {
-      particle.getWordBoundaryCharIndices().forEach((charIndex, wordIndex) => {
+      particle.getAtomBoundaryCharIndices().forEach((charIndex, atomIndex) => {
         coordinates.push({
           lineIndex: lineIndex,
           charIndex: charIndex,
-          wordIndex: wordIndex
+          atomIndex: atomIndex
         })
       })
       lineIndex++
     }
     return coordinates
   }
-  getWordBoundaryCharIndices() {
+  getAtomBoundaryCharIndices() {
     let indentLevel = this._getIndentLevel()
-    const wordBreakSymbolLength = this.wordBreakSymbol.length
+    const atomBreakSymbolLength = this.atomBreakSymbol.length
     let elapsed = indentLevel
-    return this.words.map((word, wordIndex) => {
+    return this.atoms.map((atom, atomIndex) => {
       const boundary = elapsed
-      elapsed += word.length + wordBreakSymbolLength
+      elapsed += atom.length + atomBreakSymbolLength
       return boundary
     })
   }
-  getWordIndexAtCharacterIndex(charIndex) {
+  getAtomIndexAtCharacterIndex(charIndex) {
     // todo: is this correct thinking for handling root?
     if (this.isRoot()) return 0
     const numberOfIndents = this._getIndentLevel(undefined) - 1
@@ -19757,11 +15585,11 @@ class Particle extends AbstractParticle {
     while (spots.length < numberOfIndents) {
       spots.push(-(numberOfIndents - spots.length))
     }
-    this.words.forEach((word, wordIndex) => {
-      word.split("").forEach(letter => {
-        spots.push(wordIndex)
+    this.atoms.forEach((atom, atomIndex) => {
+      atom.split("").forEach(letter => {
+        spots.push(atomIndex)
       })
-      spots.push(wordIndex)
+      spots.push(atomIndex)
     })
     return spots[charIndex]
   }
@@ -19787,17 +15615,20 @@ class Particle extends AbstractParticle {
       line++
     }
   }
-  get firstWord() {
-    return this.words[0]
+  get cue() {
+    return this.atoms[0]
+  }
+  set cue(atom) {
+    this.setAtom(0, atom)
   }
   get content() {
-    const words = this.getWordsFrom(1)
-    return words.length ? words.join(this.wordBreakSymbol) : undefined
+    const atoms = this.getAtomsFrom(1)
+    return atoms.length ? atoms.join(this.atomBreakSymbol) : undefined
   }
-  get contentWithChildren() {
+  get contentWithSubparticles() {
     // todo: deprecate
     const content = this.content
-    return (content ? content : "") + (this.length ? this.particleBreakSymbol + this._childrenToString() : "")
+    return (content ? content : "") + (this.length ? this.particleBreakSymbol + this._subparticlesToString() : "")
   }
   getFirstParticle() {
     return this.particleAt(0)
@@ -19817,8 +15648,8 @@ class Particle extends AbstractParticle {
       .join(this.particleBreakSymbol)
   }
   getLine(language) {
-    if (!this._words && !language) return this._getLine() // todo: how does this interact with "language" param?
-    return this.words.join((language || this).wordBreakSymbol)
+    if (!this._atoms && !language) return this._getLine() // todo: how does this interact with "language" param?
+    return this.atoms.join((language || this).atomBreakSymbol)
   }
   getColumnNames() {
     return this._getUnionNames()
@@ -19836,16 +15667,16 @@ class Particle extends AbstractParticle {
     return clone
   }
   // todo: return array? getPathArray?
-  _getFirstWordPath(relativeTo) {
+  _getCuePath(relativeTo) {
     if (this.isRoot(relativeTo)) return ""
-    else if (this.parent.isRoot(relativeTo)) return this.firstWord
-    return this.parent._getFirstWordPath(relativeTo) + this.edgeSymbol + this.firstWord
+    else if (this.parent.isRoot(relativeTo)) return this.cue
+    return this.parent._getCuePath(relativeTo) + this.edgeSymbol + this.cue
   }
-  getFirstWordPathRelativeTo(relativeTo) {
-    return this._getFirstWordPath(relativeTo)
+  getCuePathRelativeTo(relativeTo) {
+    return this._getCuePath(relativeTo)
   }
-  getFirstWordPath() {
-    return this._getFirstWordPath()
+  getCuePath() {
+    return this._getCuePath()
   }
   getPathVector() {
     return this._getPathVector()
@@ -19856,36 +15687,36 @@ class Particle extends AbstractParticle {
   _getPathVector(relativeTo) {
     if (this.isRoot(relativeTo)) return []
     const path = this.parent._getPathVector(relativeTo)
-    path.push(this.getIndex())
+    path.push(this.index)
     return path
   }
-  getIndex() {
+  get index() {
     return this.parent._indexOfParticle(this)
   }
   isTerminal() {
     return !this.length
   }
   _getLineHtml() {
-    return this.words.map((word, index) => `<span class="word${index}">${Utils.stripHtml(word)}</span>`).join(`<span class="zIncrement">${this.wordBreakSymbol}</span>`)
+    return this.atoms.map((atom, index) => `<span class="atom${index}">${Utils.stripHtml(atom)}</span>`).join(`<span class="zIncrement">${this.atomBreakSymbol}</span>`)
   }
   _getXmlContent(indentCount) {
-    if (this.content !== undefined) return this.contentWithChildren
-    return this.length ? `${indentCount === -1 ? "" : "\n"}${this._childrenToXml(indentCount > -1 ? indentCount + 2 : -1)}${" ".repeat(indentCount)}` : ""
+    if (this.content !== undefined) return this.contentWithSubparticles
+    return this.length ? `${indentCount === -1 ? "" : "\n"}${this._subparticlesToXml(indentCount > -1 ? indentCount + 2 : -1)}${" ".repeat(indentCount)}` : ""
   }
   _toXml(indentCount) {
     const indent = " ".repeat(indentCount)
-    const tag = this.firstWord
+    const tag = this.cue
     return `${indent}<${tag}>${this._getXmlContent(indentCount)}</${tag}>${indentCount === -1 ? "" : "\n"}`
   }
   _toObjectTuple() {
     const content = this.content
     const length = this.length
-    const hasChildrenNoContent = content === undefined && length
-    const hasContentAndHasChildren = content !== undefined && length
+    const hasSubparticlesNoContent = content === undefined && length
+    const hasContentAndHasSubparticles = content !== undefined && length
     // If the particle has a content and a subparticle return it as a string, as
     // Javascript object values can't be both a leaf and a particle.
-    const tupleValue = hasChildrenNoContent ? this.toObject() : hasContentAndHasChildren ? this.contentWithChildren : content
-    return [this.firstWord, tupleValue]
+    const tupleValue = hasSubparticlesNoContent ? this.toObject() : hasContentAndHasSubparticles ? this.contentWithSubparticles : content
+    return [this.cue, tupleValue]
   }
   _indexOfParticle(needleParticle) {
     let result = -1
@@ -19966,25 +15797,25 @@ class Particle extends AbstractParticle {
   getSlice(startIndexInclusive, stopIndexExclusive) {
     return new Particle(
       this.slice(startIndexInclusive, stopIndexExclusive)
-        .map(child => child.toString())
+        .map(subparticle => subparticle.toString())
         .join("\n")
     )
   }
   _hasColumns(columns) {
-    const words = this.words
-    return columns.every((searchTerm, index) => searchTerm === words[index])
+    const atoms = this.atoms
+    return columns.every((searchTerm, index) => searchTerm === atoms[index])
   }
-  hasWord(index, word) {
-    return this.getWord(index) === word
+  hasAtom(index, atom) {
+    return this.getAtom(index) === atom
   }
   getParticleByColumns(...columns) {
     return this.topDownArray.find(particle => particle._hasColumns(columns))
   }
   getParticleByColumn(index, name) {
-    return this.find(particle => particle.getWord(index) === name)
+    return this.find(particle => particle.getAtom(index) === name)
   }
   _getParticlesByColumn(index, name) {
-    return this.filter(particle => particle.getWord(index) === name)
+    return this.filter(particle => particle.getAtom(index) === name)
   }
   // todo: preserve subclasses!
   select(columnNames) {
@@ -20024,20 +15855,20 @@ class Particle extends AbstractParticle {
     let parser
     if (valueType === "number") parser = parseFloat
     const fn = particle => {
-      const cell = particle.get(columnName)
-      const typedCell = parser ? parser(cell) : cell
-      if (operator === WhereOperators.equal) return fixedValue === typedCell
-      else if (operator === WhereOperators.notEqual) return fixedValue !== typedCell
-      else if (operator === WhereOperators.includes) return typedCell !== undefined && typedCell.includes(fixedValue)
-      else if (operator === WhereOperators.doesNotInclude) return typedCell === undefined || !typedCell.includes(fixedValue)
-      else if (operator === WhereOperators.greaterThan) return typedCell > fixedValue
-      else if (operator === WhereOperators.lessThan) return typedCell < fixedValue
-      else if (operator === WhereOperators.greaterThanOrEqual) return typedCell >= fixedValue
-      else if (operator === WhereOperators.lessThanOrEqual) return typedCell <= fixedValue
+      const atom = particle.get(columnName)
+      const typedAtom = parser ? parser(atom) : atom
+      if (operator === WhereOperators.equal) return fixedValue === typedAtom
+      else if (operator === WhereOperators.notEqual) return fixedValue !== typedAtom
+      else if (operator === WhereOperators.includes) return typedAtom !== undefined && typedAtom.includes(fixedValue)
+      else if (operator === WhereOperators.doesNotInclude) return typedAtom === undefined || !typedAtom.includes(fixedValue)
+      else if (operator === WhereOperators.greaterThan) return typedAtom > fixedValue
+      else if (operator === WhereOperators.lessThan) return typedAtom < fixedValue
+      else if (operator === WhereOperators.greaterThanOrEqual) return typedAtom >= fixedValue
+      else if (operator === WhereOperators.lessThanOrEqual) return typedAtom <= fixedValue
       else if (operator === WhereOperators.empty) return !particle.has(columnName)
-      else if (operator === WhereOperators.notEmpty) return particle.has(columnName) || (cell !== "" && cell !== undefined)
-      else if (operator === WhereOperators.in && isArray) return fixedValue.includes(typedCell)
-      else if (operator === WhereOperators.notIn && isArray) return !fixedValue.includes(typedCell)
+      else if (operator === WhereOperators.notEmpty) return particle.has(columnName) || (atom !== "" && atom !== undefined)
+      else if (operator === WhereOperators.in && isArray) return fixedValue.includes(typedAtom)
+      else if (operator === WhereOperators.notIn && isArray) return !fixedValue.includes(typedAtom)
     }
     const result = new Particle()
     this.filter(fn).forEach(particle => {
@@ -20045,11 +15876,11 @@ class Particle extends AbstractParticle {
     })
     return result
   }
-  with(firstWord) {
-    return this.filter(particle => particle.has(firstWord))
+  with(cue) {
+    return this.filter(particle => particle.has(cue))
   }
-  without(firstWord) {
-    return this.filter(particle => !particle.has(firstWord))
+  without(cue) {
+    return this.filter(particle => !particle.has(cue))
   }
   first(quantity = 1) {
     return this.limit(quantity, 0)
@@ -20060,22 +15891,22 @@ class Particle extends AbstractParticle {
   // todo: preserve subclasses!
   limit(quantity, offset = 0) {
     const result = new Particle()
-    this.getChildren()
+    this.getSubparticles()
       .slice(offset, quantity + offset)
       .forEach(particle => {
         result.appendParticle(particle)
       })
     return result
   }
-  getChildrenFirstArray() {
+  getSubparticlesFirstArray() {
     const arr = []
-    this._getChildrenFirstArray(arr)
+    this._getSubparticlesFirstArray(arr)
     return arr
   }
-  _getChildrenFirstArray(arr) {
-    this.forEach(child => {
-      child._getChildrenFirstArray(arr)
-      arr.push(child)
+  _getSubparticlesFirstArray(arr) {
+    this.forEach(subparticle => {
+      subparticle._getSubparticlesFirstArray(arr)
+      arr.push(subparticle)
     })
   }
   _getIndentLevel(relativeTo) {
@@ -20098,22 +15929,22 @@ class Particle extends AbstractParticle {
     })
     return levels
   }
-  _getChildrenArray() {
-    if (!this._children) this._children = []
-    return this._children
+  _getSubparticlesArray() {
+    if (!this._subparticles) this._subparticles = []
+    return this._subparticles
   }
   getLines() {
     return this.map(particle => particle.getLine())
   }
-  getChildren() {
-    return this._getChildrenArray().slice(0)
+  getSubparticles() {
+    return this._getSubparticlesArray().slice(0)
   }
   get length() {
-    return this._getChildrenArray().length
+    return this._getSubparticlesArray().length
   }
   _particleAt(index) {
     if (index < 0) index = this.length + index
-    return this._getChildrenArray()[index]
+    return this._getSubparticlesArray()[index]
   }
   particleAt(indexOrIndexArray) {
     if (typeof indexOrIndexArray === "number") return this._particleAt(indexOrIndexArray)
@@ -20128,10 +15959,10 @@ class Particle extends AbstractParticle {
   toFlatObject(delimiter = ".") {
     let newObject = {}
     const { edgeSymbolRegex } = this
-    this.forEach((child, index) => {
-      newObject[child.getWord(0)] = child.content
-      child.topDownArray.forEach(particle => {
-        const newColumnName = particle.getFirstWordPathRelativeTo(this).replace(edgeSymbolRegex, delimiter)
+    this.forEach((subparticle, index) => {
+      newObject[subparticle.getAtom(0)] = subparticle.content
+      subparticle.topDownArray.forEach(particle => {
+        const newColumnName = particle.getCuePathRelativeTo(this).replace(edgeSymbolRegex, delimiter)
         const value = particle.content
         newObject[newColumnName] = value
       })
@@ -20147,14 +15978,14 @@ class Particle extends AbstractParticle {
     return obj
   }
   get asHtml() {
-    return this._childrenToHtml(0)
+    return this._subparticlesToHtml(0)
   }
   _toHtmlCubeLine(indents = 0, lineIndex = 0, planeIndex = 0) {
-    const getLine = (cellIndex, word = "") =>
-      `<span class="htmlCubeSpan" style="top: calc(var(--topIncrement) * ${planeIndex} + var(--rowHeight) * ${lineIndex}); left:calc(var(--leftIncrement) * ${planeIndex} + var(--cellWidth) * ${cellIndex});">${word}</span>`
-    let cells = []
-    this.words.forEach((word, index) => (word ? cells.push(getLine(index + indents, word)) : ""))
-    return cells.join("")
+    const getLine = (atomIndex, atom = "") =>
+      `<span class="htmlCubeSpan" style="top: calc(var(--topIncrement) * ${planeIndex} + var(--rowHeight) * ${lineIndex}); left:calc(var(--leftIncrement) * ${planeIndex} + var(--atomWidth) * ${atomIndex});">${atom}</span>`
+    let atoms = []
+    this.atoms.forEach((atom, index) => (atom ? atoms.push(getLine(index + indents, atom)) : ""))
+    return atoms.join("")
   }
   get asHtmlCube() {
     return this.map((plane, planeIndex) => plane.topDownArray.map((line, lineIndex) => line._toHtmlCubeLine(line.getIndentLevel() - 2, lineIndex, planeIndex)).join("")).join("")
@@ -20162,29 +15993,29 @@ class Particle extends AbstractParticle {
   _getHtmlJoinByCharacter() {
     return `<span class="particleBreakSymbol">${this.particleBreakSymbol}</span>`
   }
-  _childrenToHtml(indentCount) {
+  _subparticlesToHtml(indentCount) {
     const joinBy = this._getHtmlJoinByCharacter()
     return this.map(particle => particle._toHtml(indentCount)).join(joinBy)
   }
-  _childrenToString(indentCount, language = this) {
+  _subparticlesToString(indentCount, language = this) {
     return this.map(particle => particle.toString(indentCount, language)).join(language.particleBreakSymbol)
   }
-  childrenToString(indentCount = 0) {
-    return this._childrenToString(indentCount)
+  subparticlesToString(indentCount = 0) {
+    return this._subparticlesToString(indentCount)
   }
   // todo: implement
   _getChildJoinCharacter() {
     return "\n"
   }
   format() {
-    this.forEach(child => child.format())
+    this.forEach(subparticle => subparticle.format())
     return this
   }
   compile() {
-    return this.map(child => child.compile()).join(this._getChildJoinCharacter())
+    return this.map(subparticle => subparticle.compile()).join(this._getChildJoinCharacter())
   }
   get asXml() {
-    return this._childrenToXml(0)
+    return this._subparticlesToXml(0)
   }
   toDisk(path) {
     if (!this.isNodeJs()) throw new Error("This method only works in Node.js")
@@ -20200,18 +16031,18 @@ class Particle extends AbstractParticle {
   _lineToYaml(indentLevel, listTag = "") {
     let prefix = " ".repeat(indentLevel)
     if (listTag && indentLevel > 1) prefix = " ".repeat(indentLevel - 2) + listTag + " "
-    return prefix + `${this.firstWord}:` + (this.content ? " " + this.content : "")
+    return prefix + `${this.cue}:` + (this.content ? " " + this.content : "")
   }
   _isYamlList() {
-    return this.hasDuplicateFirstWords()
+    return this.hasDuplicateCues()
   }
   get asYaml() {
     return `%YAML 1.2
----\n${this._childrenToYaml(0).join("\n")}`
+---\n${this._subparticlesToYaml(0).join("\n")}`
   }
-  _childrenToYaml(indentLevel) {
-    if (this._isYamlList()) return this._childrenToYamlList(indentLevel)
-    else return this._childrenToYamlAssociativeArray(indentLevel)
+  _subparticlesToYaml(indentLevel) {
+    if (this._isYamlList()) return this._subparticlesToYamlList(indentLevel)
+    else return this._subparticlesToYamlAssociativeArray(indentLevel)
   }
   // if your code-to-be-yaml has a list of associative arrays of type N and you don't
   // want the type N to print
@@ -20219,24 +16050,24 @@ class Particle extends AbstractParticle {
     return false
   }
   _toYamlListElement(indentLevel) {
-    const children = this._childrenToYaml(indentLevel + 1)
+    const subparticles = this._subparticlesToYaml(indentLevel + 1)
     if (this._collapseYamlLine()) {
-      if (indentLevel > 1) return children.join("\n").replace(" ".repeat(indentLevel), " ".repeat(indentLevel - 2) + "- ")
-      return children.join("\n")
+      if (indentLevel > 1) return subparticles.join("\n").replace(" ".repeat(indentLevel), " ".repeat(indentLevel - 2) + "- ")
+      return subparticles.join("\n")
     } else {
-      children.unshift(this._lineToYaml(indentLevel, "-"))
-      return children.join("\n")
+      subparticles.unshift(this._lineToYaml(indentLevel, "-"))
+      return subparticles.join("\n")
     }
   }
-  _childrenToYamlList(indentLevel) {
+  _subparticlesToYamlList(indentLevel) {
     return this.map(particle => particle._toYamlListElement(indentLevel + 2))
   }
   _toYamlAssociativeArrayElement(indentLevel) {
-    const children = this._childrenToYaml(indentLevel + 1)
-    children.unshift(this._lineToYaml(indentLevel))
-    return children.join("\n")
+    const subparticles = this._subparticlesToYaml(indentLevel + 1)
+    subparticles.unshift(this._lineToYaml(indentLevel))
+    return subparticles.join("\n")
   }
-  _childrenToYamlAssociativeArray(indentLevel) {
+  _subparticlesToYamlAssociativeArray(indentLevel) {
     return this.map(particle => particle._toYamlAssociativeArrayElement(indentLevel))
   }
   get asJsonSubset() {
@@ -20245,32 +16076,32 @@ class Particle extends AbstractParticle {
   _toObjectForSerialization() {
     return this.length
       ? {
-          cells: this.words,
-          children: this.map(child => child._toObjectForSerialization())
+          atoms: this.atoms,
+          subparticles: this.map(subparticle => subparticle._toObjectForSerialization())
         }
       : {
-          cells: this.words
+          atoms: this.atoms
         }
   }
   get asJson() {
-    return JSON.stringify({ children: this.map(child => child._toObjectForSerialization()) }, null, " ")
+    return JSON.stringify({ subparticles: this.map(subparticle => subparticle._toObjectForSerialization()) }, null, " ")
   }
   get asGrid() {
-    const WordBreakSymbol = this.wordBreakSymbol
+    const AtomBreakSymbol = this.atomBreakSymbol
     return this.toString()
       .split(this.particleBreakSymbol)
-      .map(line => line.split(WordBreakSymbol))
+      .map(line => line.split(AtomBreakSymbol))
   }
   get asGridJson() {
     return JSON.stringify(this.asGrid, null, 2)
   }
-  findParticles(firstWordPath) {
+  findParticles(cuePath) {
     // todo: can easily speed this up
     const map = {}
-    if (!Array.isArray(firstWordPath)) firstWordPath = [firstWordPath]
-    firstWordPath.forEach(path => (map[path] = true))
+    if (!Array.isArray(cuePath)) cuePath = [cuePath]
+    cuePath.forEach(path => (map[path] = true))
     return this.topDownArray.filter(particle => {
-      if (map[particle._getFirstWordPath(this)]) return true
+      if (map[particle._getCuePath(this)]) return true
       return false
     })
   }
@@ -20293,15 +16124,36 @@ class Particle extends AbstractParticle {
       })
     return clone
   }
-  getParticle(firstWordPath) {
-    return this._getParticleByPath(firstWordPath)
+  getParticle(cuePath) {
+    return this._getParticleByPath(cuePath)
+  }
+  getParticles(cuePath) {
+    return this.findParticles(cuePath)
+  }
+  get section() {
+    // return all particles after this one to the next blank line or end of file
+    const particles = []
+    if (this.isLast) return particles
+    let next = this.next
+    while (!next.isBlank) {
+      particles.push(next)
+      next = next.next
+      if (next.isFirst) break
+    }
+    return particles
+  }
+  get isLast() {
+    return this.index === this.parent.length - 1
+  }
+  get isFirst() {
+    return this.index === 0
   }
   getFrom(prefix) {
     const hit = this.filter(particle => particle.getLine().startsWith(prefix))[0]
-    if (hit) return hit.getLine().substr((prefix + this.wordBreakSymbol).length)
+    if (hit) return hit.getLine().substr((prefix + this.atomBreakSymbol).length)
   }
-  get(firstWordPath) {
-    const particle = this._getParticleByPath(firstWordPath)
+  get(cuePath) {
+    const particle = this._getParticleByPath(cuePath)
     return particle === undefined ? undefined : particle.content
   }
   getOneOf(keys) {
@@ -20315,7 +16167,7 @@ class Particle extends AbstractParticle {
     const newParticle = new Particle(this.toString()) // todo: why not clone?
     const map = Utils.arrayToMap(fields)
     newParticle.particleAt(0).forEach(particle => {
-      if (!map[particle.getWord(0)]) particle.destroy()
+      if (!map[particle.getAtom(0)]) particle.destroy()
     })
     return newParticle
   }
@@ -20325,44 +16177,44 @@ class Particle extends AbstractParticle {
   _getParticlesByGlobPath(globPath) {
     const edgeSymbol = this.edgeSymbol
     if (!globPath.includes(edgeSymbol)) {
-      if (globPath === "*") return this.getChildren()
-      return this.filter(particle => particle.firstWord === globPath)
+      if (globPath === "*") return this.getSubparticles()
+      return this.filter(particle => particle.cue === globPath)
     }
     const parts = globPath.split(edgeSymbol)
     const current = parts.shift()
     const rest = parts.join(edgeSymbol)
-    const matchingParticles = current === "*" ? this.getChildren() : this.filter(child => child.firstWord === current)
+    const matchingParticles = current === "*" ? this.getSubparticles() : this.filter(subparticle => subparticle.cue === current)
     return [].concat.apply(
       [],
       matchingParticles.map(particle => particle._getParticlesByGlobPath(rest))
     )
   }
-  _getParticleByPath(firstWordPath) {
+  _getParticleByPath(cuePath) {
     const edgeSymbol = this.edgeSymbol
-    if (!firstWordPath.includes(edgeSymbol)) {
-      const index = this.indexOfLast(firstWordPath)
+    if (!cuePath.includes(edgeSymbol)) {
+      const index = this.indexOfLast(cuePath)
       return index === -1 ? undefined : this._particleAt(index)
     }
-    const parts = firstWordPath.split(edgeSymbol)
+    const parts = cuePath.split(edgeSymbol)
     const current = parts.shift()
-    const currentParticle = this._getChildrenArray()[this._getIndex()[current]]
+    const currentParticle = this._getSubparticlesArray()[this._getCueIndex()[current]]
     return currentParticle ? currentParticle._getParticleByPath(parts.join(edgeSymbol)) : undefined
   }
   get next() {
     if (this.isRoot()) return this
-    const index = this.getIndex()
+    const index = this.index
     const parent = this.parent
     const length = parent.length
     const next = index + 1
-    return next === length ? parent._getChildrenArray()[0] : parent._getChildrenArray()[next]
+    return next === length ? parent._getSubparticlesArray()[0] : parent._getSubparticlesArray()[next]
   }
   get previous() {
     if (this.isRoot()) return this
-    const index = this.getIndex()
+    const index = this.index
     const parent = this.parent
     const length = parent.length
     const prev = index - 1
-    return prev === -1 ? parent._getChildrenArray()[length - 1] : parent._getChildrenArray()[prev]
+    return prev === -1 ? parent._getSubparticlesArray()[length - 1] : parent._getSubparticlesArray()[prev]
   }
   _getUnionNames() {
     if (!this.length) return []
@@ -20370,7 +16222,7 @@ class Particle extends AbstractParticle {
     this.forEach(particle => {
       if (!particle.length) return undefined
       particle.forEach(particle => {
-        obj[particle.firstWord] = 1
+        obj[particle.cue] = 1
       })
     })
     return Object.keys(obj)
@@ -20388,7 +16240,7 @@ class Particle extends AbstractParticle {
   getAncestorParticlesByInheritanceViaColumnIndices(thisColumnNumber, extendsColumnNumber) {
     const ancestorParticles = this._getAncestorParticles(
       (particle, id) => particle._getParticlesByColumn(thisColumnNumber, id),
-      particle => particle.getWord(extendsColumnNumber),
+      particle => particle.getAtom(extendsColumnNumber),
       this
     )
     ancestorParticles.push(this)
@@ -20407,13 +16259,13 @@ class Particle extends AbstractParticle {
     ancestorParticles.push(parentParticle)
     return ancestorParticles
   }
-  pathVectorToFirstWordPath(pathVector) {
+  pathVectorToCuePath(pathVector) {
     const path = pathVector.slice() // copy array
     const names = []
     let particle = this
     while (path.length) {
       if (!particle) return names
-      names.push(particle.particleAt(path[0]).firstWord)
+      names.push(particle.particleAt(path[0]).cue)
       particle = particle.particleAt(path.shift())
     }
     return names
@@ -20452,35 +16304,35 @@ class Particle extends AbstractParticle {
       float: parseFloat,
       int: parseInt
     }
-    const cellFn = (cellValue, rowIndex, columnIndex) => (rowIndex ? parsers[types[columnIndex]](cellValue) : cellValue)
-    const arrays = this._toArrays(header, cellFn)
+    const atomFn = (atomValue, rowIndex, columnIndex) => (rowIndex ? parsers[types[columnIndex]](atomValue) : atomValue)
+    const arrays = this._toArrays(header, atomFn)
     arrays.rows.unshift(arrays.header)
     return arrays.rows
   }
   toDelimited(delimiter, header = this._getUnionNames(), escapeSpecialChars = true) {
     const regex = new RegExp(`(\\n|\\"|\\${delimiter})`)
-    const cellFn = (str, row, column) => (!str.toString().match(regex) ? str : `"` + str.replace(/\"/g, `""`) + `"`)
-    return this._toDelimited(delimiter, header, escapeSpecialChars ? cellFn : str => str)
+    const atomFn = (str, row, column) => (!str.toString().match(regex) ? str : `"` + str.replace(/\"/g, `""`) + `"`)
+    return this._toDelimited(delimiter, header, escapeSpecialChars ? atomFn : str => str)
   }
   _getMatrix(columns) {
     const matrix = []
-    this.forEach(child => {
+    this.forEach(subparticle => {
       const row = []
       columns.forEach(col => {
-        row.push(child.get(col))
+        row.push(subparticle.get(col))
       })
       matrix.push(row)
     })
     return matrix
   }
-  _toArrays(columnNames, cellFn) {
+  _toArrays(columnNames, atomFn) {
     const skipHeaderRow = 1
-    const header = columnNames.map((columnName, index) => cellFn(columnName, 0, index))
+    const header = columnNames.map((columnName, index) => atomFn(columnName, 0, index))
     const rows = this.map((particle, rowNumber) =>
       columnNames.map((columnName, columnIndex) => {
-        const childParticle = particle.getParticle(columnName)
-        const content = childParticle ? childParticle.contentWithChildren : ""
-        return cellFn(content, rowNumber + skipHeaderRow, columnIndex)
+        const subparticleParticle = particle.getParticle(columnName)
+        const content = subparticleParticle ? subparticleParticle.contentWithSubparticles : ""
+        return atomFn(content, rowNumber + skipHeaderRow, columnIndex)
       })
     )
     return {
@@ -20488,8 +16340,8 @@ class Particle extends AbstractParticle {
       header
     }
   }
-  _toDelimited(delimiter, header, cellFn) {
-    const data = this._toArrays(header, cellFn)
+  _toDelimited(delimiter, header, atomFn) {
+    const data = this._toArrays(header, atomFn)
     return data.header.join(delimiter) + "\n" + data.rows.map(row => row.join(delimiter)).join("\n")
   }
   get asTable() {
@@ -20507,22 +16359,22 @@ class Particle extends AbstractParticle {
     this.forEach(particle => {
       if (!particle.length) return true
       header.forEach((col, index) => {
-        const cellValue = particle.get(col)
-        if (!cellValue) return true
-        const length = cellValue.toString().length
+        const atomValue = particle.get(col)
+        if (!atomValue) return true
+        const length = atomValue.toString().length
         if (length > widths[index]) widths[index] = length > maxCharactersPerColumn ? maxCharactersPerColumn : length
       })
     })
-    const cellFn = (cellText, row, col) => {
+    const atomFn = (atomText, row, col) => {
       const width = widths[col]
       // Strip newlines in fixedWidth output
-      const cellValue = cellText.toString().replace(/\n/g, "\\n")
-      const cellLength = cellValue.length
-      if (cellLength > width) return cellValue.substr(0, width) + "..."
-      const padding = " ".repeat(width - cellLength)
-      return alignRight ? padding + cellValue : cellValue + padding
+      const atomValue = atomText.toString().replace(/\n/g, "\\n")
+      const atomLength = atomValue.length
+      if (atomLength > width) return atomValue.substr(0, width) + "..."
+      const padding = " ".repeat(width - atomLength)
+      return alignRight ? padding + atomValue : atomValue + padding
     }
-    return this._toDelimited(" ", header, cellFn)
+    return this._toDelimited(" ", header, atomFn)
   }
   get asSsv() {
     return this.toDelimited(" ")
@@ -20540,12 +16392,12 @@ class Particle extends AbstractParticle {
       const particle = outlineParticle.particle
       if (lastStatesCopy.push([outlineParticle, last]) && lastStates.length > 0) {
         let line = ""
-        // firstWordd on the "was last element" states of whatever we're nested within,
+        // cued on the "was last element" states of whatever we're nested within,
         // we need to append either blankness or a branch to our line
         lastStates.forEach((lastState, idx) => {
           if (idx > 0) line += lastState[1] ? " " : "│"
         })
-        // the prefix varies firstWordd on whether the key contains something to show and
+        // the prefix varies cued on whether the key contains something to show and
         // whether we're dealing with the last element in this collection
         // the extra "-" just makes things stand out more.
         line += (last ? "└" : "├") + particleFn(particle)
@@ -20564,17 +16416,17 @@ class Particle extends AbstractParticle {
     return output
   }
   copyTo(particle, index) {
-    return particle._insertLineAndChildren(this.getLine(), this.childrenToString(), index)
+    return particle._insertLineAndSubparticles(this.getLine(), this.subparticlesToString(), index)
   }
   // Note: Splits using a positive lookahead
   // this.split("foo").join("\n") === this.toString()
-  split(firstWord) {
+  split(cue) {
     const constructor = this.constructor
     const ParticleBreakSymbol = this.particleBreakSymbol
-    const WordBreakSymbol = this.wordBreakSymbol
+    const AtomBreakSymbol = this.atomBreakSymbol
     // todo: cleanup. the escaping is wierd.
     return this.toString()
-      .split(new RegExp(`\\${ParticleBreakSymbol}(?=${firstWord}(?:${WordBreakSymbol}|\\${ParticleBreakSymbol}))`, "g"))
+      .split(new RegExp(`\\${ParticleBreakSymbol}(?=${cue}(?:${AtomBreakSymbol}|\\${ParticleBreakSymbol}))`, "g"))
       .map(str => new constructor(str))
   }
   get asMarkdownTable() {
@@ -20597,7 +16449,7 @@ class Particle extends AbstractParticle {
   get particleBreakSymbol() {
     return TN_NODE_BREAK_SYMBOL
   }
-  get wordBreakSymbol() {
+  get atomBreakSymbol() {
     return TN_WORD_BREAK_SYMBOL
   }
   get edgeSymbolRegex() {
@@ -20609,41 +16461,41 @@ class Particle extends AbstractParticle {
   get edgeSymbol() {
     return TN_EDGE_SYMBOL
   }
-  _textToContentAndChildrenTuple(text) {
+  _textToContentAndSubparticlesTuple(text) {
     const lines = text.split(this.particleBreakSymbolRegex)
     const firstLine = lines.shift()
-    const children = !lines.length
+    const subparticles = !lines.length
       ? undefined
       : lines
           .map(line => (line.substr(0, 1) === this.edgeSymbol ? line : this.edgeSymbol + line))
           .map(line => line.substr(1))
           .join(this.particleBreakSymbol)
-    return [firstLine, children]
+    return [firstLine, subparticles]
   }
   _getLine() {
     return this._line
   }
   _setLine(line = "") {
     this._line = line
-    if (this._words) delete this._words
+    if (this._atoms) delete this._atoms
     return this
   }
-  _clearChildren() {
+  _clearSubparticles() {
     this._deleteByIndexes(Utils.getRange(0, this.length))
-    delete this._children
+    delete this._subparticles
     return this
   }
-  _setChildren(content, circularCheckArray) {
-    this._clearChildren()
+  _setSubparticles(content, circularCheckArray) {
+    this._clearSubparticles()
     if (!content) return this
     // set from string
     if (typeof content === "string") {
-      this._appendChildrenFromString(content)
+      this._appendSubparticlesFromString(content)
       return this
     }
     // set from particle
     if (content instanceof Particle) {
-      content.forEach(particle => this._insertLineAndChildren(particle.getLine(), particle.childrenToString()))
+      content.forEach(particle => this._insertLineAndSubparticles(particle.getLine(), particle.subparticlesToString()))
       return this
     }
     // If we set from object, create an array of inserted objects to avoid circular loops
@@ -20651,51 +16503,63 @@ class Particle extends AbstractParticle {
     return this._setFromObject(content, circularCheckArray)
   }
   _setFromObject(content, circularCheckArray) {
-    for (let firstWord in content) {
-      if (!content.hasOwnProperty(firstWord)) continue
+    for (let cue in content) {
+      if (!content.hasOwnProperty(cue)) continue
       // Branch the circularCheckArray, as we only have same branch circular arrays
-      this._appendFromJavascriptObjectTuple(firstWord, content[firstWord], circularCheckArray.slice(0))
+      this._appendFromJavascriptObjectTuple(cue, content[cue], circularCheckArray.slice(0))
     }
     return this
   }
   // todo: refactor the below.
-  _appendFromJavascriptObjectTuple(firstWord, content, circularCheckArray) {
+  _appendFromJavascriptObjectTuple(cue, content, circularCheckArray) {
     const type = typeof content
     let line
-    let children
-    if (content === null) line = firstWord + " " + null
-    else if (content === undefined) line = firstWord
+    let subparticles
+    if (content === null) line = cue + " " + null
+    else if (content === undefined) line = cue
     else if (type === "string") {
-      const tuple = this._textToContentAndChildrenTuple(content)
-      line = firstWord + " " + tuple[0]
-      children = tuple[1]
-    } else if (type === "function") line = firstWord + " " + content.toString()
-    else if (type !== "object") line = firstWord + " " + content
-    else if (content instanceof Date) line = firstWord + " " + content.getTime().toString()
+      const tuple = this._textToContentAndSubparticlesTuple(content)
+      line = cue + " " + tuple[0]
+      subparticles = tuple[1]
+    } else if (type === "function") line = cue + " " + content.toString()
+    else if (type !== "object") line = cue + " " + content
+    else if (content instanceof Date) line = cue + " " + content.getTime().toString()
     else if (content instanceof Particle) {
-      line = firstWord
-      children = new Particle(content.childrenToString(), content.getLine())
+      line = cue
+      subparticles = new Particle(content.subparticlesToString(), content.getLine())
     } else if (circularCheckArray.indexOf(content) === -1) {
       circularCheckArray.push(content)
-      line = firstWord
+      line = cue
       const length = content instanceof Array ? content.length : Object.keys(content).length
-      if (length) children = new Particle()._setChildren(content, circularCheckArray)
+      if (length) subparticles = new Particle()._setSubparticles(content, circularCheckArray)
     } else {
       // iirc this is return early from circular
       return
     }
-    this._insertLineAndChildren(line, children)
+    this._insertLineAndSubparticles(line, subparticles)
   }
-  _insertLineAndChildren(line, children, index = this.length) {
+  _insertLineAndSubparticles(line, subparticles, index = this.length) {
     const parser = this._getParser()._getParser(line, this)
-    const newParticle = new parser(children, line, this)
+    const newParticle = new parser(subparticles, line, this)
     const adjustedIndex = index < 0 ? this.length + index : index
-    this._getChildrenArray().splice(adjustedIndex, 0, newParticle)
-    if (this._index) this._makeIndex(adjustedIndex)
+    this._getSubparticlesArray().splice(adjustedIndex, 0, newParticle)
+    if (this._cueIndex) this._makeCueIndex(adjustedIndex)
     this.clearQuickCache()
     return newParticle
   }
-  _appendChildrenFromString(str) {
+  _insertLines(lines, index = this.length) {
+    const parser = this.constructor
+    const newParticle = new parser(lines)
+    const adjustedIndex = index < 0 ? this.length + index : index
+    this._getSubparticlesArray().splice(adjustedIndex, 0, ...newParticle.getSubparticles())
+    if (this._cueIndex) this._makeCueIndex(adjustedIndex)
+    this.clearQuickCache()
+    return this.getSubparticles().slice(index, index + newParticle.length)
+  }
+  insertLinesAfter(lines) {
+    return this.parent._insertLines(lines, this.index + 1)
+  }
+  _appendSubparticlesFromString(str) {
     const lines = str.split(this.particleBreakSymbolRegex)
     const parentStack = []
     let currentIndentCount = -1
@@ -20716,20 +16580,20 @@ class Particle extends AbstractParticle {
       const parent = parentStack[parentStack.length - 1]
       const parser = parent._getParser()._getParser(lineContent, parent)
       lastParticle = new parser(undefined, lineContent, parent)
-      parent._getChildrenArray().push(lastParticle)
+      parent._getSubparticlesArray().push(lastParticle)
     })
   }
-  _getIndex() {
-    // StringMap<int> {firstWord: index}
-    // When there are multiple tails with the same firstWord, _index stores the last content.
+  _getCueIndex() {
+    // StringMap<int> {cue: index}
+    // When there are multiple tails with the same cue, index stores the last content.
     // todo: change the above behavior: when a collision occurs, create an array.
-    return this._index || this._makeIndex()
+    return this._cueIndex || this._makeCueIndex()
   }
   getContentsArray() {
     return this.map(particle => particle.content)
   }
-  getChildrenByParser(parser) {
-    return this.filter(child => child instanceof parser)
+  getSubparticlesByParser(parser) {
+    return this.filter(subparticle => subparticle instanceof parser)
   }
   getAncestorByParser(parser) {
     if (this instanceof parser) return this
@@ -20738,39 +16602,39 @@ class Particle extends AbstractParticle {
     return parent instanceof parser ? parent : parent.getAncestorByParser(parser)
   }
   getParticleByParser(parser) {
-    return this.find(child => child instanceof parser)
+    return this.find(subparticle => subparticle instanceof parser)
   }
-  indexOfLast(firstWord) {
-    const result = this._getIndex()[firstWord]
+  indexOfLast(cue) {
+    const result = this._getCueIndex()[cue]
     return result === undefined ? -1 : result
   }
   // todo: renmae to indexOfFirst?
-  indexOf(firstWord) {
-    if (!this.has(firstWord)) return -1
+  indexOf(cue) {
+    if (!this.has(cue)) return -1
     const length = this.length
-    const particles = this._getChildrenArray()
+    const particles = this._getSubparticlesArray()
     for (let index = 0; index < length; index++) {
-      if (particles[index].firstWord === firstWord) return index
+      if (particles[index].cue === cue) return index
     }
   }
   // todo: rename this. it is a particular type of object.
   toObject() {
     return this._toObject()
   }
-  getFirstWords() {
-    return this.map(particle => particle.firstWord)
+  getCues() {
+    return this.map(particle => particle.cue)
   }
-  _makeIndex(startAt = 0) {
-    if (!this._index || !startAt) this._index = {}
-    const particles = this._getChildrenArray()
-    const newIndex = this._index
+  _makeCueIndex(startAt = 0) {
+    if (!this._cueIndex || !startAt) this._cueIndex = {}
+    const particles = this._getSubparticlesArray()
+    const newIndex = this._cueIndex
     const length = particles.length
     for (let index = startAt; index < length; index++) {
-      newIndex[particles[index].firstWord] = index
+      newIndex[particles[index].cue] = index
     }
     return newIndex
   }
-  _childrenToXml(indentCount) {
+  _subparticlesToXml(indentCount) {
     return this.map(particle => particle._toXml(indentCount)).join("")
   }
   _getIndentCount(str) {
@@ -20781,38 +16645,38 @@ class Particle extends AbstractParticle {
     }
     return level
   }
-  clone(children = this.childrenToString(), line = this.getLine()) {
-    return new this.constructor(children, line)
+  clone(subparticles = this.subparticlesToString(), line = this.getLine()) {
+    return new this.constructor(subparticles, line)
   }
-  hasFirstWord(firstWord) {
-    return this._hasFirstWord(firstWord)
+  hasCue(cue) {
+    return this._hasCue(cue)
   }
-  has(firstWordPath) {
+  has(cuePath) {
     const edgeSymbol = this.edgeSymbol
-    if (!firstWordPath.includes(edgeSymbol)) return this.hasFirstWord(firstWordPath)
-    const parts = firstWordPath.split(edgeSymbol)
+    if (!cuePath.includes(edgeSymbol)) return this.hasCue(cuePath)
+    const parts = cuePath.split(edgeSymbol)
     const next = this.getParticle(parts.shift())
     if (!next) return false
     return next.has(parts.join(edgeSymbol))
   }
   hasParticle(particle) {
     const needle = particle.toString()
-    return this.getChildren().some(particle => particle.toString() === needle)
+    return this.getSubparticles().some(particle => particle.toString() === needle)
   }
-  _hasFirstWord(firstWord) {
-    return this._getIndex()[firstWord] !== undefined
+  _hasCue(cue) {
+    return this._getCueIndex()[cue] !== undefined
   }
   map(fn) {
-    return this.getChildren().map(fn)
+    return this.getSubparticles().map(fn)
   }
   filter(fn = item => item) {
-    return this.getChildren().filter(fn)
+    return this.getSubparticles().filter(fn)
   }
   find(fn) {
-    return this.getChildren().find(fn)
+    return this.getSubparticles().find(fn)
   }
   findLast(fn) {
-    return this.getChildren().reverse().find(fn)
+    return this.getSubparticles().reverse().find(fn)
   }
   every(fn) {
     let index = 0
@@ -20823,7 +16687,7 @@ class Particle extends AbstractParticle {
     return true
   }
   forEach(fn) {
-    this.getChildren().forEach(fn)
+    this.getSubparticles().forEach(fn)
     return this
   }
   // Recurse if predicate passes
@@ -20853,20 +16717,20 @@ class Particle extends AbstractParticle {
     delete this._quickCache
   }
   // todo: protected?
-  _clearIndex() {
-    delete this._index
+  _clearCueIndex() {
+    delete this._cueIndex
     this.clearQuickCache()
   }
   slice(start, end) {
-    return this.getChildren().slice(start, end)
+    return this.getSubparticles().slice(start, end)
   }
   // todo: make 0 and 1 a param
   getInheritanceParticles() {
     const paths = {}
     const result = new Particle()
     this.forEach(particle => {
-      const key = particle.getWord(0)
-      const parentKey = particle.getWord(1)
+      const key = particle.getAtom(0)
+      const parentKey = particle.getAtom(1)
       const parentPath = paths[parentKey]
       paths[key] = parentPath ? [parentPath, key].join(" ") : key
       result.touchParticle(paths[key])
@@ -20896,19 +16760,19 @@ class Particle extends AbstractParticle {
     return this._lineModifiedTime || this._particleCreationTime
   }
   getChildArrayModifiedTime() {
-    return this._childArrayModifiedTime || this._particleCreationTime
+    return this._subparticleArrayModifiedTime || this._particleCreationTime
   }
   _setChildArrayMofifiedTime(value) {
-    this._childArrayModifiedTime = value
+    this._subparticleArrayModifiedTime = value
     return this
   }
-  getLineOrChildrenModifiedTime() {
+  getLineOrSubparticlesModifiedTime() {
     return Math.max(
       this.getLineModifiedTime(),
       this.getChildArrayModifiedTime(),
       Math.max.apply(
         null,
-        this.map(child => child.getLineOrChildrenModifiedTime())
+        this.map(subparticle => subparticle.getLineOrSubparticlesModifiedTime())
       )
     )
   }
@@ -20922,12 +16786,12 @@ class Particle extends AbstractParticle {
   _setVirtualAncestorParticlesByInheritanceViaColumnIndicesAndThenExpand(particles, thisIdColumnNumber, extendsIdColumnNumber) {
     const map = {}
     for (let particle of particles) {
-      const particleId = particle.getWord(thisIdColumnNumber)
+      const particleId = particle.getAtom(thisIdColumnNumber)
       if (map[particleId]) throw new Error(`Tried to define a particle with id "${particleId}" but one is already defined.`)
       map[particleId] = {
         particleId: particleId,
         particle: particle,
-        parentId: particle.getWord(extendsIdColumnNumber)
+        parentId: particle.getAtom(extendsIdColumnNumber)
       }
     }
     // Add parent Particles
@@ -20948,15 +16812,15 @@ class Particle extends AbstractParticle {
       if (parentParticle._isExpanding) throw new Error(`Loop detected: '${this.getLine()}' is the ancestor of one of its ancestors.`)
       parentParticle._expandFromVirtualParentParticle()
       const clone = this.clone()
-      this._setChildren(parentParticle.childrenToString())
+      this._setSubparticles(parentParticle.subparticlesToString())
       this.extend(clone)
     }
     this._isExpanding = false
     this._isVirtualExpanded = true
   }
   // todo: solve issue related to whether extend should overwrite or append.
-  _expandChildren(thisIdColumnNumber, extendsIdColumnNumber, childrenThatNeedExpanding = this.getChildren()) {
-    return this._setVirtualAncestorParticlesByInheritanceViaColumnIndicesAndThenExpand(childrenThatNeedExpanding, thisIdColumnNumber, extendsIdColumnNumber)
+  _expandSubparticles(thisIdColumnNumber, extendsIdColumnNumber, subparticlesThatNeedExpanding = this.getSubparticles()) {
+    return this._setVirtualAncestorParticlesByInheritanceViaColumnIndicesAndThenExpand(subparticlesThatNeedExpanding, thisIdColumnNumber, extendsIdColumnNumber)
   }
   // todo: add more testing.
   // todo: solve issue with where extend should overwrite or append
@@ -20964,52 +16828,52 @@ class Particle extends AbstractParticle {
   // todo: this is slow.
   extend(particleOrStr) {
     const particle = particleOrStr instanceof Particle ? particleOrStr : new Particle(particleOrStr)
-    const usedFirstWords = new Set()
+    const usedCues = new Set()
     particle.forEach(sourceParticle => {
-      const firstWord = sourceParticle.firstWord
+      const cue = sourceParticle.cue
       let targetParticle
-      const isAnArrayNotMap = usedFirstWords.has(firstWord)
-      if (!this.has(firstWord)) {
-        usedFirstWords.add(firstWord)
-        this.appendLineAndChildren(sourceParticle.getLine(), sourceParticle.childrenToString())
+      const isAnArrayNotMap = usedCues.has(cue)
+      if (!this.has(cue)) {
+        usedCues.add(cue)
+        this.appendLineAndSubparticles(sourceParticle.getLine(), sourceParticle.subparticlesToString())
         return true
       }
       if (isAnArrayNotMap) targetParticle = this.appendLine(sourceParticle.getLine())
       else {
-        targetParticle = this.touchParticle(firstWord).setContent(sourceParticle.content)
-        usedFirstWords.add(firstWord)
+        targetParticle = this.touchParticle(cue).setContent(sourceParticle.content)
+        usedCues.add(cue)
       }
       if (sourceParticle.length) targetParticle.extend(sourceParticle)
     })
     return this
   }
   lastParticle() {
-    return this.getChildren()[this.length - 1]
+    return this.getSubparticles()[this.length - 1]
   }
   expandLastFromTopMatter() {
     const clone = this.clone()
     const map = new Map()
     const lastParticle = clone.lastParticle()
-    lastParticle.getOlderSiblings().forEach(particle => map.set(particle.getWord(0), particle))
+    lastParticle.getOlderSiblings().forEach(particle => map.set(particle.getAtom(0), particle))
     lastParticle.topDownArray.forEach(particle => {
-      const replacement = map.get(particle.getWord(0))
+      const replacement = map.get(particle.getAtom(0))
       if (!replacement) return
       particle.replaceParticle(str => replacement.toString())
     })
     return lastParticle
   }
-  macroExpand(macroDefinitionWord, macroUsageWord) {
+  macroExpand(macroDefinitionAtom, macroUsageAtom) {
     const clone = this.clone()
-    const defs = clone.findParticles(macroDefinitionWord)
-    const allUses = clone.findParticles(macroUsageWord)
-    const wordBreakSymbol = clone.wordBreakSymbol
+    const defs = clone.findParticles(macroDefinitionAtom)
+    const allUses = clone.findParticles(macroUsageAtom)
+    const atomBreakSymbol = clone.atomBreakSymbol
     defs.forEach(def => {
-      const macroName = def.getWord(1)
-      const uses = allUses.filter(particle => particle.hasWord(1, macroName))
-      const params = def.getWordsFrom(2)
+      const macroName = def.getAtom(1)
+      const uses = allUses.filter(particle => particle.hasAtom(1, macroName))
+      const params = def.getAtomsFrom(2)
       const replaceFn = str => {
-        const paramValues = str.split(wordBreakSymbol).slice(2)
-        let newParticle = def.childrenToString()
+        const paramValues = str.split(atomBreakSymbol).slice(2)
+        let newParticle = def.subparticlesToString()
         params.forEach((param, index) => {
           newParticle = newParticle.replace(new RegExp(param, "g"), paramValues[index])
         })
@@ -21022,17 +16886,17 @@ class Particle extends AbstractParticle {
     })
     return clone
   }
-  setChildren(children) {
-    return this._setChildren(children)
+  setSubparticles(subparticles) {
+    return this._setSubparticles(subparticles)
   }
   _updateLineModifiedTimeAndTriggerEvent() {
     this._lineModifiedTime = this._getProcessTimeInMilliseconds()
   }
-  insertWord(index, word) {
-    const wi = this.wordBreakSymbol
-    const words = this._getLine().split(wi)
-    words.splice(index, 0, word)
-    this.setLine(words.join(wi))
+  insertAtom(index, atom) {
+    const wi = this.atomBreakSymbol
+    const atoms = this._getLine().split(wi)
+    atoms.splice(index, 0, atom)
+    this.setLine(atoms.join(wi))
     return this
   }
   deleteDuplicates() {
@@ -21044,38 +16908,38 @@ class Particle extends AbstractParticle {
     })
     return this
   }
-  setWord(index, word) {
-    const wi = this.wordBreakSymbol
-    const words = this._getLine().split(wi)
-    words[index] = word
-    this.setLine(words.join(wi))
+  setAtom(index, atom) {
+    const wi = this.atomBreakSymbol
+    const atoms = this._getLine().split(wi)
+    atoms[index] = atom
+    this.setLine(atoms.join(wi))
     return this
   }
-  deleteChildren() {
-    return this._clearChildren()
+  deleteSubparticles() {
+    return this._clearSubparticles()
   }
   setContent(content) {
     if (content === this.content) return this
-    const newArray = [this.firstWord]
+    const newArray = [this.cue]
     if (content !== undefined) {
       content = content.toString()
-      if (content.match(this.particleBreakSymbol)) return this.setContentWithChildren(content)
+      if (content.match(this.particleBreakSymbol)) return this.setContentWithSubparticles(content)
       newArray.push(content)
     }
-    this._setLine(newArray.join(this.wordBreakSymbol))
+    this._setLine(newArray.join(this.atomBreakSymbol))
     this._updateLineModifiedTimeAndTriggerEvent()
     return this
   }
-  prependSibling(line, children) {
-    return this.parent.insertLineAndChildren(line, children, this.getIndex())
+  prependSibling(line, subparticles) {
+    return this.parent.insertLineAndSubparticles(line, subparticles, this.index)
   }
-  appendSibling(line, children) {
-    return this.parent.insertLineAndChildren(line, children, this.getIndex() + 1)
+  appendSibling(line, subparticles) {
+    return this.parent.insertLineAndSubparticles(line, subparticles, this.index + 1)
   }
-  setContentWithChildren(text) {
+  setContentWithSubparticles(text) {
     // todo: deprecate
     if (!text.includes(this.particleBreakSymbol)) {
-      this._clearChildren()
+      this._clearSubparticles()
       return this.setContent(text)
     }
     const lines = text.split(this.particleBreakSymbolRegex)
@@ -21083,41 +16947,41 @@ class Particle extends AbstractParticle {
     this.setContent(firstLine)
     // tood: cleanup.
     const remainingString = lines.join(this.particleBreakSymbol)
-    const children = new Particle(remainingString)
-    if (!remainingString) children.appendLine("")
-    this.setChildren(children)
+    const subparticles = new Particle(remainingString)
+    if (!remainingString) subparticles.appendLine("")
+    this.setSubparticles(subparticles)
     return this
   }
-  setFirstWord(firstWord) {
-    return this.setWord(0, firstWord)
+  setCue(cue) {
+    return this.setAtom(0, cue)
   }
   setLine(line) {
     if (line === this.getLine()) return this
     // todo: clear parent TMTimes
-    this.parent._clearIndex()
+    this.parent._clearCueIndex()
     this._setLine(line)
     this._updateLineModifiedTimeAndTriggerEvent()
     return this
   }
   duplicate() {
-    return this.parent._insertLineAndChildren(this.getLine(), this.childrenToString(), this.getIndex() + 1)
+    return this.parent._insertLineAndSubparticles(this.getLine(), this.subparticlesToString(), this.index + 1)
   }
   trim() {
     // todo: could do this so only the trimmed rows are deleted.
-    this.setChildren(this.childrenToString().trim())
+    this.setSubparticles(this.subparticlesToString().trim())
     return this
   }
   destroy() {
     this.parent._deleteParticle(this)
   }
-  set(firstWordPath, text) {
-    return this.touchParticle(firstWordPath).setContentWithChildren(text)
+  set(cuePath, text) {
+    return this.touchParticle(cuePath).setContentWithSubparticles(text)
   }
   setFromText(text) {
     if (this.toString() === text) return this
-    const tuple = this._textToContentAndChildrenTuple(text)
+    const tuple = this._textToContentAndSubparticlesTuple(text)
     this.setLine(tuple[0])
-    return this._setChildren(tuple[1])
+    return this._setSubparticles(tuple[1])
   }
   setPropertyIfMissing(prop, value) {
     if (this.has(prop)) return true
@@ -21137,14 +17001,14 @@ class Particle extends AbstractParticle {
   }
   // todo: throw error if line contains a \n
   appendLine(line) {
-    return this._insertLineAndChildren(line)
+    return this._insertLineAndSubparticles(line)
   }
   appendUniqueLine(line) {
     if (!this.hasLine(line)) return this.appendLine(line)
     return this.findLine(line)
   }
-  appendLineAndChildren(line, children) {
-    return this._insertLineAndChildren(line, children)
+  appendLineAndSubparticles(line, subparticles) {
+    return this._insertLineAndSubparticles(line, subparticles)
   }
   getParticlesByRegex(regex) {
     const matches = []
@@ -21167,19 +17031,19 @@ class Particle extends AbstractParticle {
   _getParticlesByLineRegex(matches, regs) {
     const rgs = regs.slice(0)
     const reg = rgs.shift()
-    const candidates = this.filter(child => child.getLine().match(reg))
+    const candidates = this.filter(subparticle => subparticle.getLine().match(reg))
     if (!rgs.length) return candidates.forEach(cand => matches.push(cand))
     candidates.forEach(cand => cand._getParticlesByLineRegex(matches, rgs))
   }
   concat(particle) {
     if (typeof particle === "string") particle = new Particle(particle)
-    return particle.map(particle => this._insertLineAndChildren(particle.getLine(), particle.childrenToString()))
+    return particle.map(particle => this._insertLineAndSubparticles(particle.getLine(), particle.subparticlesToString()))
   }
   _deleteByIndexes(indexesToDelete) {
     if (!indexesToDelete.length) return this
-    this._clearIndex()
+    this._clearCueIndex()
     // note: assumes indexesToDelete is in ascending order
-    const deletedParticles = indexesToDelete.reverse().map(index => this._getChildrenArray().splice(index, 1)[0])
+    const deletedParticles = indexesToDelete.reverse().map(index => this._getSubparticlesArray().splice(index, 1)[0])
     this._setChildArrayMofifiedTime(this._getProcessTimeInMilliseconds())
     return this
   }
@@ -21188,117 +17052,121 @@ class Particle extends AbstractParticle {
     return index > -1 ? this._deleteByIndexes([index]) : 0
   }
   reverse() {
-    this._clearIndex()
-    this._getChildrenArray().reverse()
+    this._clearCueIndex()
+    this._getSubparticlesArray().reverse()
     return this
   }
   shift() {
     if (!this.length) return null
-    const particle = this._getChildrenArray().shift()
+    const particle = this._getSubparticlesArray().shift()
     return particle.copyTo(new this.constructor(), 0)
   }
   sort(fn) {
-    this._getChildrenArray().sort(fn)
-    this._clearIndex()
+    this._getSubparticlesArray().sort(fn)
+    this._clearCueIndex()
     return this
   }
   invert() {
-    this.forEach(particle => particle.words.reverse())
+    this.forEach(particle => particle.atoms.reverse())
     return this
   }
-  _rename(oldFirstWord, newFirstWord) {
-    const index = this.indexOf(oldFirstWord)
+  _rename(oldCue, newCue) {
+    const index = this.indexOf(oldCue)
     if (index === -1) return this
-    const particle = this._getChildrenArray()[index]
-    particle.setFirstWord(newFirstWord)
-    this._clearIndex()
+    const particle = this._getSubparticlesArray()[index]
+    particle.setCue(newCue)
+    this._clearCueIndex()
     return this
   }
   // Does not recurse.
   remap(map) {
     this.forEach(particle => {
-      const firstWord = particle.firstWord
-      if (map[firstWord] !== undefined) particle.setFirstWord(map[firstWord])
+      const cue = particle.cue
+      if (map[cue] !== undefined) particle.setCue(map[cue])
     })
     return this
   }
-  rename(oldFirstWord, newFirstWord) {
-    this._rename(oldFirstWord, newFirstWord)
+  rename(oldCue, newCue) {
+    this._rename(oldCue, newCue)
     return this
   }
   renameAll(oldName, newName) {
-    this.findParticles(oldName).forEach(particle => particle.setFirstWord(newName))
+    this.findParticles(oldName).forEach(particle => particle.setCue(newName))
     return this
   }
-  _deleteAllChildParticlesWithFirstWord(firstWord) {
-    if (!this.has(firstWord)) return this
-    const allParticles = this._getChildrenArray()
+  _deleteAllChildParticlesWithCue(cue) {
+    if (!this.has(cue)) return this
+    const allParticles = this._getSubparticlesArray()
     const indexesToDelete = []
     allParticles.forEach((particle, index) => {
-      if (particle.firstWord === firstWord) indexesToDelete.push(index)
+      if (particle.cue === cue) indexesToDelete.push(index)
     })
     return this._deleteByIndexes(indexesToDelete)
   }
   delete(path = "") {
     const edgeSymbol = this.edgeSymbol
-    if (!path.includes(edgeSymbol)) return this._deleteAllChildParticlesWithFirstWord(path)
+    if (!path.includes(edgeSymbol)) return this._deleteAllChildParticlesWithCue(path)
     const parts = path.split(edgeSymbol)
-    const nextFirstWord = parts.pop()
+    const nextCue = parts.pop()
     const targetParticle = this.getParticle(parts.join(edgeSymbol))
-    return targetParticle ? targetParticle._deleteAllChildParticlesWithFirstWord(nextFirstWord) : 0
+    return targetParticle ? targetParticle._deleteAllChildParticlesWithCue(nextCue) : 0
   }
-  deleteColumn(firstWord = "") {
-    this.forEach(particle => particle.delete(firstWord))
+  deleteColumn(cue = "") {
+    this.forEach(particle => particle.delete(cue))
     return this
   }
   _getNonMaps() {
-    const results = this.topDownArray.filter(particle => particle.hasDuplicateFirstWords())
-    if (this.hasDuplicateFirstWords()) results.unshift(this)
+    const results = this.topDownArray.filter(particle => particle.hasDuplicateCues())
+    if (this.hasDuplicateCues()) results.unshift(this)
     return results
   }
   replaceParticle(fn) {
     const parent = this.parent
-    const index = this.getIndex()
+    const index = this.index
     const newParticles = new Particle(fn(this.toString()))
     const returnedParticles = []
-    newParticles.forEach((child, childIndex) => {
-      const newParticle = parent.insertLineAndChildren(child.getLine(), child.childrenToString(), index + childIndex)
+    newParticles.forEach((subparticle, subparticleIndex) => {
+      const newParticle = parent.insertLineAndSubparticles(subparticle.getLine(), subparticle.subparticlesToString(), index + subparticleIndex)
       returnedParticles.push(newParticle)
     })
     this.destroy()
     return returnedParticles
   }
-  insertLineAndChildren(line, children, index) {
-    return this._insertLineAndChildren(line, children, index)
+  insertLineAndSubparticles(line, subparticles, index) {
+    return this._insertLineAndSubparticles(line, subparticles, index)
   }
   insertLine(line, index) {
-    return this._insertLineAndChildren(line, undefined, index)
+    return this._insertLineAndSubparticles(line, undefined, index)
+  }
+  insertSection(lines, index) {
+    const particle = new Particle(lines)
+    this._insertLineAndSubparticles(line, subparticles)
   }
   prependLine(line) {
     return this.insertLine(line, 0)
   }
-  pushContentAndChildren(content, children) {
+  pushContentAndSubparticles(content, subparticles) {
     let index = this.length
     while (this.has(index.toString())) {
       index++
     }
-    const line = index.toString() + (content === undefined ? "" : this.wordBreakSymbol + content)
-    return this.appendLineAndChildren(line, children)
+    const line = index.toString() + (content === undefined ? "" : this.atomBreakSymbol + content)
+    return this.appendLineAndSubparticles(line, subparticles)
   }
   deleteBlanks() {
-    this.getChildren()
+    this.getSubparticles()
       .filter(particle => particle.isBlankLine())
       .forEach(particle => particle.destroy())
     return this
   }
   // todo: add "globalReplace" method? Which runs a global regex or string replace on the Particle as a string?
-  firstWordSort(firstWordOrder) {
-    return this._firstWordSort(firstWordOrder)
+  cueSort(cueOrder) {
+    return this._cueSort(cueOrder)
   }
-  deleteWordAt(wordIndex) {
-    const words = this.words
-    words.splice(wordIndex, 1)
-    return this.setWords(words)
+  deleteAtomAt(atomIndex) {
+    const atoms = this.atoms
+    atoms.splice(atomIndex, 1)
+    return this.setAtoms(atoms)
   }
   trigger(event) {
     if (this._listeners && this._listeners.has(event.constructor)) {
@@ -21335,56 +17203,56 @@ class Particle extends AbstractParticle {
     this._listeners.get(eventClass).push(eventHandler)
     return this
   }
-  setWords(words) {
-    return this.setLine(words.join(this.wordBreakSymbol))
+  setAtoms(atoms) {
+    return this.setLine(atoms.join(this.atomBreakSymbol))
   }
-  setWordsFrom(index, words) {
-    this.setWords(this.words.slice(0, index).concat(words))
+  setAtomsFrom(index, atoms) {
+    this.setAtoms(this.atoms.slice(0, index).concat(atoms))
     return this
   }
-  appendWord(word) {
-    const words = this.words
-    words.push(word)
-    return this.setWords(words)
+  appendAtom(atom) {
+    const atoms = this.atoms
+    atoms.push(atom)
+    return this.setAtoms(atoms)
   }
-  _firstWordSort(firstWordOrder, secondarySortFn) {
+  _cueSort(cueOrder, secondarySortFn) {
     const particleAFirst = -1
     const particleBFirst = 1
     const map = {}
-    firstWordOrder.forEach((word, index) => {
-      map[word] = index
+    cueOrder.forEach((atom, index) => {
+      map[atom] = index
     })
     this.sort((particleA, particleB) => {
-      const valA = map[particleA.firstWord]
-      const valB = map[particleB.firstWord]
+      const valA = map[particleA.cue]
+      const valB = map[particleB.cue]
       if (valA > valB) return particleBFirst
       if (valA < valB) return particleAFirst
       return secondarySortFn ? secondarySortFn(particleA, particleB) : 0
     })
     return this
   }
-  _touchParticle(firstWordPathArray) {
+  _touchParticle(cuePathArray) {
     let contextParticle = this
-    firstWordPathArray.forEach(firstWord => {
-      contextParticle = contextParticle.getParticle(firstWord) || contextParticle.appendLine(firstWord)
+    cuePathArray.forEach(cue => {
+      contextParticle = contextParticle.getParticle(cue) || contextParticle.appendLine(cue)
     })
     return contextParticle
   }
   _touchParticleByString(str) {
     str = str.replace(this.particleBreakSymbolRegex, "") // todo: do we want to do this sanitization?
-    return this._touchParticle(str.split(this.wordBreakSymbol))
+    return this._touchParticle(str.split(this.atomBreakSymbol))
   }
   touchParticle(str) {
     return this._touchParticleByString(str)
   }
   appendParticle(particle) {
-    return this.appendLineAndChildren(particle.getLine(), particle.childrenToString())
+    return this.appendLineAndSubparticles(particle.getLine(), particle.subparticlesToString())
   }
   hasLine(line) {
-    return this.getChildren().some(particle => particle.getLine() === line)
+    return this.getSubparticles().some(particle => particle.getLine() === line)
   }
   findLine(line) {
-    return this.getChildren().find(particle => particle.getLine() === line)
+    return this.getSubparticles().find(particle => particle.getLine() === line)
   }
   getParticlesByLine(line) {
     return this.filter(particle => particle.getLine() === line)
@@ -21402,12 +17270,12 @@ class Particle extends AbstractParticle {
     const indices = indexOrIndices instanceof Array ? indexOrIndices : [indexOrIndices]
     const length = indices.length
     this.sort((particleA, particleB) => {
-      const wordsA = particleA.words
-      const wordsB = particleB.words
+      const atomsA = particleA.atoms
+      const atomsB = particleB.atoms
       for (let index = 0; index < length; index++) {
         const col = indices[index]
-        const av = wordsA[col]
-        const bv = wordsB[col]
+        const av = atomsA[col]
+        const bv = atomsB[col]
         if (av === undefined) return -1
         if (bv === undefined) return 1
         if (av > bv) return 1
@@ -21417,12 +17285,12 @@ class Particle extends AbstractParticle {
     })
     return this
   }
-  getWordsAsSet() {
-    return new Set(this.getWordsFrom(1))
+  getAtomsAsSet() {
+    return new Set(this.getAtomsFrom(1))
   }
-  appendWordIfMissing(word) {
-    if (this.getWordsAsSet().has(word)) return this
-    return this.appendWord(word)
+  appendAtomIfMissing(atom) {
+    if (this.getAtomsAsSet().has(atom)) return this
+    return this.appendAtom(atom)
   }
   // todo: check to ensure identical objects
   addObjectsAsDelimited(arrayOfObjects, delimiter = Utils._chooseDelimiter(new Particle(arrayOfObjects).toString())) {
@@ -21436,13 +17304,13 @@ class Particle extends AbstractParticle {
     )
     return this.addUniqueRowsToNestedDelimited(header, rows)
   }
-  setChildrenAsDelimited(particle, delimiter = Utils._chooseDelimiter(particle.toString())) {
+  setSubparticlesAsDelimited(particle, delimiter = Utils._chooseDelimiter(particle.toString())) {
     particle = particle instanceof Particle ? particle : new Particle(particle)
-    return this.setChildren(particle.toDelimited(delimiter))
+    return this.setSubparticles(particle.toDelimited(delimiter))
   }
-  convertChildrenToDelimited(delimiter = Utils._chooseDelimiter(this.childrenToString())) {
+  convertSubparticlesToDelimited(delimiter = Utils._chooseDelimiter(this.subparticlesToString())) {
     // todo: handle newlines!!!
-    return this.setChildren(this.toDelimited(delimiter))
+    return this.setSubparticles(this.toDelimited(delimiter))
   }
   addUniqueRowsToNestedDelimited(header, rowsAsStrings) {
     if (!this.length) this.appendLine(header)
@@ -21455,27 +17323,27 @@ class Particle extends AbstractParticle {
   shiftLeft() {
     const grandParent = this._getGrandParent()
     if (!grandParent) return this
-    const parentIndex = this.parent.getIndex()
-    const newParticle = grandParent.insertLineAndChildren(this.getLine(), this.length ? this.childrenToString() : undefined, parentIndex + 1)
+    const parentIndex = this.parent.index
+    const newParticle = grandParent.insertLineAndSubparticles(this.getLine(), this.length ? this.subparticlesToString() : undefined, parentIndex + 1)
     this.destroy()
     return newParticle
   }
   pasteText(text) {
     const parent = this.parent
-    const index = this.getIndex()
+    const index = this.index
     const newParticles = new Particle(text)
     const firstParticle = newParticles.particleAt(0)
     if (firstParticle) {
       this.setLine(firstParticle.getLine())
-      if (firstParticle.length) this.setChildren(firstParticle.childrenToString())
+      if (firstParticle.length) this.setSubparticles(firstParticle.subparticlesToString())
     } else {
       this.setLine("")
     }
-    newParticles.forEach((child, childIndex) => {
-      if (!childIndex)
+    newParticles.forEach((subparticle, subparticleIndex) => {
+      if (!subparticleIndex)
         // skip first
         return true
-      parent.insertLineAndChildren(child.getLine(), child.childrenToString(), index + childIndex)
+      parent.insertLineAndSubparticles(subparticle.getLine(), subparticle.subparticlesToString(), index + subparticleIndex)
     })
     return this
   }
@@ -21495,7 +17363,7 @@ class Particle extends AbstractParticle {
   shiftRight() {
     const olderSibling = this._getClosestOlderSibling()
     if (!olderSibling) return this
-    const newParticle = olderSibling.appendLineAndChildren(this.getLine(), this.length ? this.childrenToString() : undefined)
+    const newParticle = olderSibling.appendLineAndSubparticles(this.getLine(), this.length ? this.subparticlesToString() : undefined)
     this.destroy()
     return newParticle
   }
@@ -21512,9 +17380,9 @@ class Particle extends AbstractParticle {
       else if (!particleA.length) return -1
       else if (!particleB.length) return 1
       for (let index = 0; index < length; index++) {
-        const firstWord = names[index]
-        const av = particleA.get(firstWord)
-        const bv = particleB.get(firstWord)
+        const cue = names[index]
+        const av = particleA.get(cue)
+        const bv = particleB.get(cue)
         if (av > bv) return 1
         else if (av < bv) return -1
       }
@@ -21583,7 +17451,7 @@ class Particle extends AbstractParticle {
     return undoStack[undoStack.length - 1]
   }
   async _reloadFromUndoTop() {
-    this.setChildren(this._getTopUndoVersion())
+    this.setSubparticles(this._getTopUndoVersion())
   }
   _recordChange(newVersion) {
     this._clearRedoStack()
@@ -21598,13 +17466,13 @@ class Particle extends AbstractParticle {
   }
   static serializedParticleToParticle(particle) {
     const language = new Particle()
-    const cellDelimiter = language.wordBreakSymbol
+    const atomDelimiter = language.atomBreakSymbol
     const particleDelimiter = language.particleBreakSymbol
-    const line = particle.cells ? particle.cells.join(cellDelimiter) : undefined
+    const line = particle.atoms ? particle.atoms.join(atomDelimiter) : undefined
     const newParticle = new Particle(undefined, line)
-    if (particle.children)
-      particle.children.forEach(child => {
-        newParticle.appendParticle(this.serializedParticleToParticle(child))
+    if (particle.subparticles)
+      particle.subparticles.forEach(subparticle => {
+        newParticle.appendParticle(this.serializedParticleToParticle(subparticle))
       })
     return newParticle
   }
@@ -21614,9 +17482,9 @@ class Particle extends AbstractParticle {
   static fromGridJson(str) {
     const lines = JSON.parse(str)
     const language = new Particle()
-    const cellDelimiter = language.wordBreakSymbol
+    const atomDelimiter = language.atomBreakSymbol
     const particleDelimiter = language.particleBreakSymbol
-    return new Particle(lines.map(line => line.join(cellDelimiter)).join(particleDelimiter))
+    return new Particle(lines.map(line => line.join(atomDelimiter)).join(particleDelimiter))
   }
   static fromSsv(str) {
     return this.fromDelimited(str, " ", '"')
@@ -21641,7 +17509,7 @@ class Particle extends AbstractParticle {
     const rows = [[]]
     const newLine = "\n"
     const length = str.length
-    let currentCell = ""
+    let currentAtom = ""
     let inQuote = str.substr(0, 1) === quoteChar
     let currentPosition = inQuote ? 1 : 0
     let nextChar
@@ -21655,35 +17523,35 @@ class Particle extends AbstractParticle {
       nextChar = str[currentPosition + 1]
       isNextCharAQuote = nextChar === quoteChar
       if (inQuote) {
-        if (char !== quoteChar) currentCell += char
+        if (char !== quoteChar) currentAtom += char
         else if (isNextCharAQuote) {
           // Both the current and next char are ", so the " is escaped
-          currentCell += nextChar
+          currentAtom += nextChar
           currentPosition++ // Jump 2
         } else {
           // If the current char is a " and the next char is not, it's the end of the quotes
           inQuote = false
-          if (isLastChar) rows[currentRow].push(currentCell)
+          if (isLastChar) rows[currentRow].push(currentAtom)
         }
       } else {
         if (char === delimiter) {
-          rows[currentRow].push(currentCell)
-          currentCell = ""
+          rows[currentRow].push(currentAtom)
+          currentAtom = ""
           if (isNextCharAQuote) {
             inQuote = true
             currentPosition++ // Jump 2
           }
         } else if (char === newLine) {
-          rows[currentRow].push(currentCell)
-          currentCell = ""
+          rows[currentRow].push(currentAtom)
+          currentAtom = ""
           currentRow++
           if (nextChar) rows[currentRow] = []
           if (isNextCharAQuote) {
             inQuote = true
             currentPosition++ // Jump 2
           }
-        } else if (isLastChar) rows[currentRow].push(currentCell + char)
-        else currentCell += char
+        } else if (isLastChar) rows[currentRow].push(currentAtom + char)
+        else currentAtom += char
       }
       currentPosition++
     }
@@ -21692,7 +17560,7 @@ class Particle extends AbstractParticle {
   static multiply(particleA, particleB) {
     const productParticle = particleA.clone()
     productParticle.forEach((particle, index) => {
-      particle.setChildren(particle.length ? this.multiply(particle, particleB) : particleB.clone())
+      particle.setSubparticles(particle.length ? this.multiply(particle, particleB) : particleB.clone())
     })
     return productParticle
   }
@@ -21717,10 +17585,10 @@ class Particle extends AbstractParticle {
         }
       }
       const obj = {}
-      row.forEach((cellValue, index) => {
-        obj[names[index]] = cellValue
+      row.forEach((atomValue, index) => {
+        obj[names[index]] = atomValue
       })
-      particle.pushContentAndChildren(undefined, obj)
+      particle.pushContentAndSubparticles(undefined, obj)
     }
     return particle
   }
@@ -21741,9 +17609,9 @@ class Particle extends AbstractParticle {
     this._initializeXmlParser()
     const xml = this._xmlParser(str)
     try {
-      return this._particleFromXml(xml).getParticle("children")
+      return this._particleFromXml(xml).getParticle("subparticles")
     } catch (err) {
-      return this._particleFromXml(this._parseXml2(str)).getParticle("children")
+      return this._particleFromXml(this._parseXml2(str)).getParticle("subparticles")
     }
   }
   static _zipObject(keys, values) {
@@ -21773,38 +17641,38 @@ class Particle extends AbstractParticle {
   // todo: cleanup typings
   static _particleFromXml(xml) {
     const result = new Particle()
-    const children = new Particle()
+    const subparticles = new Particle()
     // Set attributes
     if (xml.attributes) {
       for (let index = 0; index < xml.attributes.length; index++) {
         result.set(xml.attributes[index].name, xml.attributes[index].value)
       }
     }
-    if (xml.data) children.pushContentAndChildren(xml.data)
+    if (xml.data) subparticles.pushContentAndSubparticles(xml.data)
     // Set content
     if (xml.childNodes && xml.childNodes.length > 0) {
       for (let index = 0; index < xml.childNodes.length; index++) {
         const child = xml.childNodes[index]
         if (child.tagName && child.tagName.match(/parsererror/i)) throw new Error("Parse Error")
-        if (child.childNodes.length > 0 && child.tagName) children.appendLineAndChildren(child.tagName, this._particleFromXml(child))
-        else if (child.tagName) children.appendLine(child.tagName)
+        if (child.childNodes.length > 0 && child.tagName) subparticles.appendLineAndSubparticles(child.tagName, this._particleFromXml(child))
+        else if (child.tagName) subparticles.appendLine(child.tagName)
         else if (child.data) {
           const data = child.data.trim()
-          if (data) children.pushContentAndChildren(data)
+          if (data) subparticles.pushContentAndSubparticles(data)
         }
       }
     }
-    if (children.length > 0) result.touchParticle("children").setChildren(children)
+    if (subparticles.length > 0) result.touchParticle("subparticles").setSubparticles(subparticles)
     return result
   }
   static _getHeader(rows, hasHeaders) {
     const numberOfColumns = rows[0].length
     const headerRow = hasHeaders ? rows[0] : []
-    const WordBreakSymbol = " "
-    const ziRegex = new RegExp(WordBreakSymbol, "g")
+    const AtomBreakSymbol = " "
+    const ziRegex = new RegExp(AtomBreakSymbol, "g")
     if (hasHeaders) {
-      // Strip any WordBreakSymbols from column names in the header row.
-      // This makes the mapping not quite 1 to 1 if there are any WordBreakSymbols in names.
+      // Strip any AtomBreakSymbols from column names in the header row.
+      // This makes the mapping not quite 1 to 1 if there are any AtomBreakSymbols in names.
       for (let index = 0; index < numberOfColumns; index++) {
         headerRow[index] = headerRow[index].replace(ziRegex, "")
       }
@@ -21818,8 +17686,8 @@ class Particle extends AbstractParticle {
   }
   static nest(str, xValue) {
     const ParticleBreakSymbol = TN_NODE_BREAK_SYMBOL
-    const WordBreakSymbol = TN_WORD_BREAK_SYMBOL
-    const indent = ParticleBreakSymbol + WordBreakSymbol.repeat(xValue)
+    const AtomBreakSymbol = TN_WORD_BREAK_SYMBOL
+    const indent = ParticleBreakSymbol + AtomBreakSymbol.repeat(xValue)
     return str ? indent + str.replace(/\n/g, indent) : ""
   }
   static fromDisk(path) {
@@ -21841,7 +17709,7 @@ class Particle extends AbstractParticle {
       .readdirSync(folderPath)
       .map(filename => path.join(folderPath, filename))
       .filter(filepath => !fs.statSync(filepath).isDirectory() && filepathPredicate(filepath))
-      .forEach(filePath => particle.appendLineAndChildren(filePath, fs.readFileSync(filePath, "utf8")))
+      .forEach(filePath => particle.appendLineAndSubparticles(filePath, fs.readFileSync(filePath, "utf8")))
     return particle
   }
 }
@@ -21858,11 +17726,11 @@ Particle.iris = `sepal_length,sepal_width,petal_length,petal_width,species
 4.9,2.5,4.5,1.7,virginica
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`
-Particle.getVersion = () => "85.0.0"
+Particle.getVersion = () => "99.1.0"
 class AbstractExtendibleParticle extends Particle {
-  _getFromExtended(firstWordPath) {
-    const hit = this._getParticleFromExtended(firstWordPath)
-    return hit ? hit.get(firstWordPath) : undefined
+  _getFromExtended(cuePath) {
+    const hit = this._getParticleFromExtended(cuePath)
+    return hit ? hit.get(cuePath) : undefined
   }
   _getLineage() {
     const newParticle = new Particle()
@@ -21874,22 +17742,22 @@ class AbstractExtendibleParticle extends Particle {
     return newParticle
   }
   // todo: be more specific with the param
-  _getChildrenByParserInExtended(parser) {
-    return Utils.flatten(this._getAncestorsArray().map(particle => particle.getChildrenByParser(parser)))
+  _getSubparticlesByParserInExtended(parser) {
+    return Utils.flatten(this._getAncestorsArray().map(particle => particle.getSubparticlesByParser(parser)))
   }
   _getExtendedParent() {
     return this._getAncestorsArray()[1]
   }
-  _hasFromExtended(firstWordPath) {
-    return !!this._getParticleFromExtended(firstWordPath)
+  _hasFromExtended(cuePath) {
+    return !!this._getParticleFromExtended(cuePath)
   }
-  _getParticleFromExtended(firstWordPath) {
-    return this._getAncestorsArray().find(particle => particle.has(firstWordPath))
+  _getParticleFromExtended(cuePath) {
+    return this._getAncestorsArray().find(particle => particle.has(cuePath))
   }
-  _getConcatBlockStringFromExtended(firstWordPath) {
+  _getConcatBlockStringFromExtended(cuePath) {
     return this._getAncestorsArray()
-      .filter(particle => particle.has(firstWordPath))
-      .map(particle => particle.getParticle(firstWordPath).childrenToString())
+      .filter(particle => particle.has(cuePath))
+      .map(particle => particle.getParticle(cuePath).subparticlesToString())
       .reverse()
       .join("\n")
   }
@@ -21927,21 +17795,22 @@ class ExtendibleParticle extends AbstractExtendibleParticle {
     if (!this.isRoot()) return this.root.idToParticleMap
     if (!this._particleMapCache) {
       this._particleMapCache = {}
-      this.forEach(child => {
-        this._particleMapCache[child.id] = child
+      this.forEach(subparticle => {
+        this._particleMapCache[subparticle.id] = subparticle
       })
     }
     return this._particleMapCache
   }
   get id() {
-    return this.getWord(0)
+    return this.getAtom(0)
   }
 }
 window.Particle = Particle
 window.ExtendibleParticle = ExtendibleParticle
 window.AbstractExtendibleParticle = AbstractExtendibleParticle
 window.ParticleEvents = ParticleEvents
-window.ParticleWord = ParticleWord
+window.ParticleAtom = ParticleAtom
+
 
 // Compiled language parsers will include these files:
 const GlobalNamespaceAdditions = {
@@ -21954,26 +17823,26 @@ var ParsersConstantsCompiler
 ;(function (ParsersConstantsCompiler) {
   ParsersConstantsCompiler["stringTemplate"] = "stringTemplate"
   ParsersConstantsCompiler["indentCharacter"] = "indentCharacter"
-  ParsersConstantsCompiler["catchAllCellDelimiter"] = "catchAllCellDelimiter"
-  ParsersConstantsCompiler["openChildren"] = "openChildren"
-  ParsersConstantsCompiler["joinChildrenWith"] = "joinChildrenWith"
-  ParsersConstantsCompiler["closeChildren"] = "closeChildren"
+  ParsersConstantsCompiler["catchAllAtomDelimiter"] = "catchAllAtomDelimiter"
+  ParsersConstantsCompiler["openSubparticles"] = "openSubparticles"
+  ParsersConstantsCompiler["joinSubparticlesWith"] = "joinSubparticlesWith"
+  ParsersConstantsCompiler["closeSubparticles"] = "closeSubparticles"
 })(ParsersConstantsCompiler || (ParsersConstantsCompiler = {}))
 var ParsersConstantsMisc
 ;(function (ParsersConstantsMisc) {
   ParsersConstantsMisc["doNotSynthesize"] = "doNotSynthesize"
 })(ParsersConstantsMisc || (ParsersConstantsMisc = {}))
-var PreludeCellTypeIds
-;(function (PreludeCellTypeIds) {
-  PreludeCellTypeIds["anyCell"] = "anyCell"
-  PreludeCellTypeIds["keywordCell"] = "keywordCell"
-  PreludeCellTypeIds["extraWordCell"] = "extraWordCell"
-  PreludeCellTypeIds["floatCell"] = "floatCell"
-  PreludeCellTypeIds["numberCell"] = "numberCell"
-  PreludeCellTypeIds["bitCell"] = "bitCell"
-  PreludeCellTypeIds["boolCell"] = "boolCell"
-  PreludeCellTypeIds["intCell"] = "intCell"
-})(PreludeCellTypeIds || (PreludeCellTypeIds = {}))
+var PreludeAtomTypeIds
+;(function (PreludeAtomTypeIds) {
+  PreludeAtomTypeIds["anyAtom"] = "anyAtom"
+  PreludeAtomTypeIds["keywordAtom"] = "keywordAtom"
+  PreludeAtomTypeIds["extraAtomAtom"] = "extraAtomAtom"
+  PreludeAtomTypeIds["floatAtom"] = "floatAtom"
+  PreludeAtomTypeIds["numberAtom"] = "numberAtom"
+  PreludeAtomTypeIds["bitAtom"] = "bitAtom"
+  PreludeAtomTypeIds["booleanAtom"] = "booleanAtom"
+  PreludeAtomTypeIds["integerAtom"] = "integerAtom"
+})(PreludeAtomTypeIds || (PreludeAtomTypeIds = {}))
 var ParsersConstantsConstantTypes
 ;(function (ParsersConstantsConstantTypes) {
   ParsersConstantsConstantTypes["boolean"] = "boolean"
@@ -21989,27 +17858,26 @@ var ParsersBundleFiles
   ParsersBundleFiles["indexJs"] = "index.js"
   ParsersBundleFiles["testJs"] = "test.js"
 })(ParsersBundleFiles || (ParsersBundleFiles = {}))
-var ParsersCellParser
-;(function (ParsersCellParser) {
-  ParsersCellParser["prefix"] = "prefix"
-  ParsersCellParser["postfix"] = "postfix"
-  ParsersCellParser["omnifix"] = "omnifix"
-})(ParsersCellParser || (ParsersCellParser = {}))
+var ParsersAtomParser
+;(function (ParsersAtomParser) {
+  ParsersAtomParser["prefix"] = "prefix"
+  ParsersAtomParser["postfix"] = "postfix"
+  ParsersAtomParser["omnifix"] = "omnifix"
+})(ParsersAtomParser || (ParsersAtomParser = {}))
 var ParsersConstants
 ;(function (ParsersConstants) {
   // particle types
-  ParsersConstants["extensions"] = "extensions"
   ParsersConstants["comment"] = "//"
   ParsersConstants["parser"] = "parser"
-  ParsersConstants["cellType"] = "cellType"
+  ParsersConstants["atomType"] = "atomType"
   ParsersConstants["parsersFileExtension"] = "parsers"
   ParsersConstants["abstractParserPrefix"] = "abstract"
   ParsersConstants["parserSuffix"] = "Parser"
-  ParsersConstants["cellTypeSuffix"] = "Cell"
+  ParsersConstants["atomTypeSuffix"] = "Atom"
   // error check time
   ParsersConstants["regex"] = "regex"
-  ParsersConstants["reservedWords"] = "reservedWords"
-  ParsersConstants["enumFromCellTypes"] = "enumFromCellTypes"
+  ParsersConstants["reservedAtoms"] = "reservedAtoms"
+  ParsersConstants["enumFromAtomTypes"] = "enumFromAtomTypes"
   ParsersConstants["enum"] = "enum"
   ParsersConstants["examples"] = "examples"
   ParsersConstants["min"] = "min"
@@ -22025,13 +17893,13 @@ var ParsersConstants
   ParsersConstants["cueFromId"] = "cueFromId"
   ParsersConstants["pattern"] = "pattern"
   ParsersConstants["inScope"] = "inScope"
-  ParsersConstants["cells"] = "cells"
+  ParsersConstants["atoms"] = "atoms"
   ParsersConstants["listDelimiter"] = "listDelimiter"
   ParsersConstants["contentKey"] = "contentKey"
-  ParsersConstants["childrenKey"] = "childrenKey"
-  ParsersConstants["uniqueFirstWord"] = "uniqueFirstWord"
-  ParsersConstants["catchAllCellType"] = "catchAllCellType"
-  ParsersConstants["cellParser"] = "cellParser"
+  ParsersConstants["subparticlesKey"] = "subparticlesKey"
+  ParsersConstants["uniqueCue"] = "uniqueCue"
+  ParsersConstants["catchAllAtomType"] = "catchAllAtomType"
+  ParsersConstants["atomParser"] = "atomParser"
   ParsersConstants["catchAllParser"] = "catchAllParser"
   ParsersConstants["constants"] = "constants"
   ParsersConstants["required"] = "required"
@@ -22046,23 +17914,22 @@ var ParsersConstants
   ParsersConstants["javascript"] = "javascript"
   // compile time
   ParsersConstants["compilerParser"] = "compiler"
-  ParsersConstants["compilesTo"] = "compilesTo"
   // develop time
   ParsersConstants["description"] = "description"
   ParsersConstants["example"] = "example"
   ParsersConstants["popularity"] = "popularity"
   ParsersConstants["paint"] = "paint"
 })(ParsersConstants || (ParsersConstants = {}))
-class TypedWord extends ParticleWord {
-  constructor(particle, cellIndex, type) {
-    super(particle, cellIndex)
+class TypedAtom extends ParticleAtom {
+  constructor(particle, atomIndex, type) {
+    super(particle, atomIndex)
     this._type = type
   }
   get type() {
     return this._type
   }
   toString() {
-    return this.word + ":" + this.type
+    return this.atom + ":" + this.type
   }
 }
 // todo: can we merge these methods into base Particle and ditch this class?
@@ -22075,29 +17942,44 @@ class ParserBackedParticle extends Particle {
   get rootParsersParticles() {
     return this.definition.root
   }
-  getAutocompleteResults(partialWord, cellIndex) {
-    return cellIndex === 0 ? this._getAutocompleteResultsForFirstWord(partialWord) : this._getAutocompleteResultsForCell(partialWord, cellIndex)
+  getAutocompleteResults(partialAtom, atomIndex) {
+    return atomIndex === 0 ? this._getAutocompleteResultsForCue(partialAtom) : this._getAutocompleteResultsForAtom(partialAtom, atomIndex)
   }
   makeError(message) {
     return new ParserDefinedError(this, message)
   }
+  usesParser(parserId) {
+    return !!this.parserIdIndex[parserId]
+  }
+  get parserIdIndex() {
+    if (this._parserIdIndex) return this._parserIdIndex
+    const index = {}
+    this._parserIdIndex = index
+    for (let particle of this.getTopDownArrayIterator()) {
+      Array.from(particle.definition._getAncestorSet()).forEach(id => {
+        if (!index[id]) index[id] = []
+        index[id].push(particle)
+      })
+    }
+    return index
+  }
   get particleIndex() {
-    // StringMap<int> {firstWord: index}
-    // When there are multiple tails with the same firstWord, _index stores the last content.
+    // StringMap<int> {cue: index}
+    // When there are multiple tails with the same cue, index stores the last content.
     // todo: change the above behavior: when a collision occurs, create an array.
     return this._particleIndex || this._makeParticleIndex()
   }
-  _clearIndex() {
+  _clearCueIndex() {
     delete this._particleIndex
-    return super._clearIndex()
+    return super._clearCueIndex()
   }
-  _makeIndex(startAt = 0) {
+  _makeCueIndex(startAt = 0) {
     if (this._particleIndex) this._makeParticleIndex(startAt)
-    return super._makeIndex(startAt)
+    return super._makeCueIndex(startAt)
   }
   _makeParticleIndex(startAt = 0) {
     if (!this._particleIndex || !startAt) this._particleIndex = {}
-    const particles = this._getChildrenArray()
+    const particles = this._getSubparticlesArray()
     const newIndex = this._particleIndex
     const length = particles.length
     for (let index = startAt; index < length; index++) {
@@ -22109,22 +17991,35 @@ class ParserBackedParticle extends Particle {
     }
     return newIndex
   }
-  getChildInstancesOfParserId(parserId) {
+  /**
+   * Returns the total information bits required to represent this particle and all its subparticles.
+   * This is calculated as the sum of:
+   * 1. Information bits of all atoms in this particle
+   * 2. Information bits of all subparticles (recursive)
+   */
+  get bitsRequired() {
+    // Get information bits for all atoms in this particle
+    const atomBits = this.parsedAtoms.map(atom => atom.bitsRequired).reduce((sum, bits) => sum + bits, 0)
+    // Recursively get information bits from all subparticles
+    const subparticleBits = this.map(child => child.bitsRequired).reduce((sum, bits) => sum + bits, 0)
+    return atomBits + subparticleBits
+  }
+  getSubparticleInstancesOfParserId(parserId) {
     return this.particleIndex[parserId] || []
   }
   doesExtend(parserId) {
     return this.definition._doesExtend(parserId)
   }
   _getErrorParserErrors() {
-    return [this.firstWord ? new UnknownParserError(this) : new BlankLineError(this)]
+    return [this.cue ? new UnknownParserError(this) : new BlankLineError(this)]
   }
   _getBlobParserCatchAllParser() {
     return BlobParser
   }
-  _getAutocompleteResultsForFirstWord(partialWord) {
-    const keywordMap = this.definition.firstWordMapWithDefinitions
+  _getAutocompleteResultsForCue(partialAtom) {
+    const keywordMap = this.definition.cueMapWithDefinitions
     let keywords = Object.keys(keywordMap)
-    if (partialWord) keywords = keywords.filter(keyword => keyword.includes(partialWord))
+    if (partialAtom) keywords = keywords.filter(keyword => keyword.includes(partialAtom))
     return keywords
       .map(keyword => {
         const def = keywordMap[keyword]
@@ -22137,10 +18032,10 @@ class ParserBackedParticle extends Particle {
       })
       .filter(i => i)
   }
-  _getAutocompleteResultsForCell(partialWord, cellIndex) {
+  _getAutocompleteResultsForAtom(partialAtom, atomIndex) {
     // todo: root should be [] correct?
-    const cell = this.parsedCells[cellIndex]
-    return cell ? cell.getAutoCompleteWords(partialWord) : []
+    const atom = this.parsedAtoms[atomIndex]
+    return atom ? atom.getAutoCompleteAtoms(partialAtom) : []
   }
   // note: this is overwritten by the root particle of a runtime parsers program.
   // some of the magic that makes this all work. but maybe there's a better way.
@@ -22148,58 +18043,58 @@ class ParserBackedParticle extends Particle {
     if (this.isRoot()) throw new Error(`Root particle without getHandParsersProgram defined.`)
     return this.root.handParsersProgram
   }
-  getRunTimeEnumOptions(cell) {
+  getRunTimeEnumOptions(atom) {
     return undefined
   }
-  getRunTimeEnumOptionsForValidation(cell) {
-    return this.getRunTimeEnumOptions(cell)
+  getRunTimeEnumOptionsForValidation(atom) {
+    return this.getRunTimeEnumOptions(atom)
   }
   _sortParticlesByInScopeOrder() {
     const parserOrder = this.definition._getMyInScopeParserIds()
     if (!parserOrder.length) return this
     const orderMap = {}
-    parserOrder.forEach((word, index) => (orderMap[word] = index))
+    parserOrder.forEach((atom, index) => (orderMap[atom] = index))
     this.sort(Utils.makeSortByFn(runtimeParticle => orderMap[runtimeParticle.definition.parserIdFromDefinition]))
     return this
   }
   get requiredParticleErrors() {
     const errors = []
-    Object.values(this.definition.firstWordMapWithDefinitions).forEach(def => {
+    Object.values(this.definition.cueMapWithDefinitions).forEach(def => {
       if (def.isRequired() && !this.particleIndex[def.id]) errors.push(new MissingRequiredParserError(this, def.id))
     })
     return errors
   }
-  get programAsCells() {
+  get programAsAtoms() {
     // todo: what is this?
     return this.topDownArray.map(particle => {
-      const cells = particle.parsedCells
+      const atoms = particle.parsedAtoms
       let indents = particle.getIndentLevel() - 1
       while (indents) {
-        cells.unshift(undefined)
+        atoms.unshift(undefined)
         indents--
       }
-      return cells
+      return atoms
     })
   }
   get programWidth() {
-    return Math.max(...this.programAsCells.map(line => line.length))
+    return Math.max(...this.programAsAtoms.map(line => line.length))
   }
-  get allTypedWords() {
-    const words = []
-    this.topDownArray.forEach(particle => particle.wordTypes.forEach((cell, index) => words.push(new TypedWord(particle, index, cell.cellTypeId))))
-    return words
+  get allTypedAtoms() {
+    const atoms = []
+    this.topDownArray.forEach(particle => particle.atomTypes.forEach((atom, index) => atoms.push(new TypedAtom(particle, index, atom.atomTypeId))))
+    return atoms
   }
-  findAllWordsWithCellType(cellTypeId) {
-    return this.allTypedWords.filter(typedWord => typedWord.type === cellTypeId)
+  findAllAtomsWithAtomType(atomTypeId) {
+    return this.allTypedAtoms.filter(typedAtom => typedAtom.type === atomTypeId)
   }
   findAllParticlesWithParser(parserId) {
     return this.topDownArray.filter(particle => particle.definition.parserIdFromDefinition === parserId)
   }
-  toCellTypeParticles() {
-    return this.topDownArray.map(child => child.indentation + child.lineCellTypes).join("\n")
+  toAtomTypeParticles() {
+    return this.topDownArray.map(subparticle => subparticle.indentation + subparticle.lineAtomTypes).join("\n")
   }
   getParseTable(maxColumnWidth = 40) {
-    const particle = new Particle(this.toCellTypeParticles())
+    const particle = new Particle(this.toAtomTypeParticles())
     return new Particle(
       particle.topDownArray.map((particle, lineNumber) => {
         const sourceParticle = this.particleAtLine(lineNumber)
@@ -22209,7 +18104,7 @@ class ParserBackedParticle extends Particle {
           lineNumber: lineNumber,
           source: sourceParticle.indentation + sourceParticle.getLine(),
           parser: sourceParticle.constructor.name,
-          cellTypes: particle.content,
+          atomTypes: particle.content,
           errorCount: errorCount
         }
         if (errorCount) obj.errorMessages = errs.map(err => err.message).join(";")
@@ -22223,18 +18118,18 @@ class ParserBackedParticle extends Particle {
       new Set(
         this.getAllErrors()
           .filter(err => err instanceof UnknownParserError)
-          .map(err => err.getParticle().firstWord)
+          .map(err => err.getParticle().cue)
       )
     )
   }
-  _getAllAutoCompleteWords() {
-    return this.getAllWordBoundaryCoordinates().map(coordinate => {
+  _getAllAutoCompleteAtoms() {
+    return this.getAllAtomBoundaryCoordinates().map(coordinate => {
       const results = this.getAutocompleteResultsAt(coordinate.lineIndex, coordinate.charIndex)
       return {
         lineIndex: coordinate.lineIndex,
         charIndex: coordinate.charIndex,
-        wordIndex: coordinate.wordIndex,
-        word: results.word,
+        atomIndex: coordinate.atomIndex,
+        atom: results.atom,
         suggestions: results.matches
       }
     })
@@ -22242,17 +18137,17 @@ class ParserBackedParticle extends Particle {
   toAutoCompleteCube(fillChar = "") {
     const particles = [this.clone()]
     const filled = this.clone().fill(fillChar)
-    this._getAllAutoCompleteWords().forEach(hole => {
+    this._getAllAutoCompleteAtoms().forEach(hole => {
       hole.suggestions.forEach((suggestion, index) => {
         if (!particles[index + 1]) particles[index + 1] = filled.clone()
-        particles[index + 1].particleAtLine(hole.lineIndex).setWord(hole.wordIndex, suggestion.text)
+        particles[index + 1].particleAtLine(hole.lineIndex).setAtom(hole.atomIndex, suggestion.text)
       })
     })
     return new Particle(particles)
   }
   toAutoCompleteTable() {
     return new Particle(
-      this._getAllAutoCompleteWords().map(result => {
+      this._getAllAutoCompleteAtoms().map(result => {
         result.suggestions = result.suggestions.map(particle => particle.text).join(" ")
         return result
       })
@@ -22262,28 +18157,28 @@ class ParserBackedParticle extends Particle {
     const lineParticle = this.particleAtLine(lineIndex) || this
     const particleInScope = lineParticle.getParticleInScopeAtCharIndex(charIndex)
     // todo: add more tests
-    // todo: second param this.childrenToString()
+    // todo: second param this.subparticlesToString()
     // todo: change to getAutocomplete definitions
-    const wordIndex = lineParticle.getWordIndexAtCharacterIndex(charIndex)
-    const wordProperties = lineParticle.getWordProperties(wordIndex)
+    const atomIndex = lineParticle.getAtomIndexAtCharacterIndex(charIndex)
+    const atomProperties = lineParticle.getAtomProperties(atomIndex)
     return {
-      startCharIndex: wordProperties.startCharIndex,
-      endCharIndex: wordProperties.endCharIndex,
-      word: wordProperties.word,
-      matches: particleInScope.getAutocompleteResults(wordProperties.word, wordIndex)
+      startCharIndex: atomProperties.startCharIndex,
+      endCharIndex: atomProperties.endCharIndex,
+      atom: atomProperties.atom,
+      matches: particleInScope.getAutocompleteResults(atomProperties.atom, atomIndex)
     }
   }
   _sortWithParentParsersUpTop() {
     const lineage = new HandParsersProgram(this.toString()).parserLineage
     const rank = {}
     lineage.topDownArray.forEach((particle, index) => {
-      rank[particle.getWord(0)] = index
+      rank[particle.getAtom(0)] = index
     })
     const particleAFirst = -1
     const particleBFirst = 1
     this.sort((particleA, particleB) => {
-      const particleARank = rank[particleA.getWord(0)]
-      const particleBRank = rank[particleB.getWord(0)]
+      const particleARank = rank[particleA.getAtom(0)]
+      const particleBRank = rank[particleB.getAtom(0)]
       return particleARank < particleBRank ? particleAFirst : particleBFirst
     })
     return this
@@ -22297,7 +18192,7 @@ class ParserBackedParticle extends Particle {
         console.log(`Warning: ${err}`)
       }
     }
-    this.topDownArray.forEach(child => child.format())
+    this.topDownArray.forEach(subparticle => subparticle.format())
     return this
   }
   getParserUsage(filepath = "") {
@@ -22305,41 +18200,41 @@ class ParserBackedParticle extends Particle {
     const usage = new Particle()
     const handParsersProgram = this.handParsersProgram
     handParsersProgram.validConcreteAndAbstractParserDefinitions.forEach(def => {
-      const requiredCellTypeIds = def.cellParser.getRequiredCellTypeIds()
-      usage.appendLine([def.parserIdFromDefinition, "line-id", "parser", requiredCellTypeIds.join(" ")].join(" "))
+      const requiredAtomTypeIds = def.atomParser.getRequiredAtomTypeIds()
+      usage.appendLine([def.parserIdFromDefinition, "line-id", "parser", requiredAtomTypeIds.join(" ")].join(" "))
     })
     this.topDownArray.forEach((particle, lineNumber) => {
       const stats = usage.getParticle(particle.parserId)
-      stats.appendLine([filepath + "-" + lineNumber, particle.words.join(" ")].join(" "))
+      stats.appendLine([filepath + "-" + lineNumber, particle.atoms.join(" ")].join(" "))
     })
     return usage
   }
   toPaintParticles() {
-    return this.topDownArray.map(child => child.indentation + child.getLinePaints()).join("\n")
+    return this.topDownArray.map(subparticle => subparticle.indentation + subparticle.getLinePaints()).join("\n")
   }
   toDefinitionLineNumberParticles() {
-    return this.topDownArray.map(child => child.definition.lineNumber + " " + child.indentation + child.cellDefinitionLineNumbers.join(" ")).join("\n")
+    return this.topDownArray.map(subparticle => subparticle.definition.lineNumber + " " + subparticle.indentation + subparticle.atomDefinitionLineNumbers.join(" ")).join("\n")
   }
-  get asCellTypeParticlesWithParserIds() {
-    return this.topDownArray.map(child => child.constructor.name + this.wordBreakSymbol + child.indentation + child.lineCellTypes).join("\n")
+  get asAtomTypeParticlesWithParserIds() {
+    return this.topDownArray.map(subparticle => subparticle.constructor.name + this.atomBreakSymbol + subparticle.indentation + subparticle.lineAtomTypes).join("\n")
   }
-  toPreludeCellTypeParticlesWithParserIds() {
-    return this.topDownArray.map(child => child.constructor.name + this.wordBreakSymbol + child.indentation + child.getLineCellPreludeTypes()).join("\n")
+  toPreludeAtomTypeParticlesWithParserIds() {
+    return this.topDownArray.map(subparticle => subparticle.constructor.name + this.atomBreakSymbol + subparticle.indentation + subparticle.getLineAtomPreludeTypes()).join("\n")
   }
   get asParticlesWithParsers() {
-    return this.topDownArray.map(child => child.constructor.name + this.wordBreakSymbol + child.indentation + child.getLine()).join("\n")
+    return this.topDownArray.map(subparticle => subparticle.constructor.name + this.atomBreakSymbol + subparticle.indentation + subparticle.getLine()).join("\n")
   }
-  getCellPaintAtPosition(lineIndex, wordIndex) {
-    this._initCellTypeCache()
+  getAtomPaintAtPosition(lineIndex, atomIndex) {
+    this._initAtomTypeCache()
     const typeParticle = this._cache_paintParticles.topDownArray[lineIndex - 1]
-    return typeParticle ? typeParticle.getWord(wordIndex - 1) : undefined
+    return typeParticle ? typeParticle.getAtom(atomIndex - 1) : undefined
   }
-  _initCellTypeCache() {
-    const particleMTime = this.getLineOrChildrenModifiedTime()
-    if (this._cache_programCellTypeStringMTime === particleMTime) return undefined
-    this._cache_typeParticles = new Particle(this.toCellTypeParticles())
+  _initAtomTypeCache() {
+    const particleMTime = this.getLineOrSubparticlesModifiedTime()
+    if (this._cache_programAtomTypeStringMTime === particleMTime) return undefined
+    this._cache_typeParticles = new Particle(this.toAtomTypeParticles())
     this._cache_paintParticles = new Particle(this.toPaintParticles())
-    this._cache_programCellTypeStringMTime = particleMTime
+    this._cache_programAtomTypeStringMTime = particleMTime
   }
   createParserCombinator() {
     return this.isRoot() ? new Particle.ParserCombinator(BlobParser) : new Particle.ParserCombinator(this.parent._getParser()._getCatchAllParser(this.parent), {})
@@ -22347,18 +18242,18 @@ class ParserBackedParticle extends Particle {
   get parserId() {
     return this.definition.parserIdFromDefinition
   }
-  get wordTypes() {
-    return this.parsedCells.filter(cell => cell.getWord() !== undefined)
+  get atomTypes() {
+    return this.parsedAtoms.filter(atom => atom.getAtom() !== undefined)
   }
-  get cellErrors() {
-    const { parsedCells } = this // todo: speedup. takes ~3s on pldb.
+  get atomErrors() {
+    const { parsedAtoms } = this // todo: speedup. takes ~3s on pldb.
     // todo: speedup getErrorIfAny. takes ~3s on pldb.
-    return parsedCells.map(check => check.getErrorIfAny()).filter(identity => identity)
+    return parsedAtoms.map(check => check.getErrorIfAny()).filter(identity => identity)
   }
   get singleParserUsedTwiceErrors() {
     const errors = []
     const parent = this.parent
-    const hits = parent.getChildInstancesOfParserId(this.definition.id)
+    const hits = parent.getSubparticleInstancesOfParserId(this.definition.id)
     if (hits.length > 1)
       hits.forEach((particle, index) => {
         if (particle === this) errors.push(new ParserUsedMultipleTimesError(particle))
@@ -22368,7 +18263,7 @@ class ParserBackedParticle extends Particle {
   get uniqueLineAppearsTwiceErrors() {
     const errors = []
     const parent = this.parent
-    const hits = parent.getChildInstancesOfParserId(this.definition.id)
+    const hits = parent.getSubparticleInstancesOfParserId(this.definition.id)
     if (hits.length > 1) {
       const set = new Set()
       hits.forEach((particle, index) => {
@@ -22389,29 +18284,29 @@ class ParserBackedParticle extends Particle {
     return errors
   }
   getErrors() {
-    return this.cellErrors.concat(this.scopeErrors)
+    return this.atomErrors.concat(this.scopeErrors)
   }
-  get parsedCells() {
-    return this.definition.cellParser.getCellArray(this)
+  get parsedAtoms() {
+    return this.definition.atomParser.getAtomArray(this)
   }
   // todo: just make a fn that computes proper spacing and then is given a particle to print
-  get lineCellTypes() {
-    return this.parsedCells.map(slot => slot.cellTypeId).join(" ")
+  get lineAtomTypes() {
+    return this.parsedAtoms.map(slot => slot.atomTypeId).join(" ")
   }
-  getLineCellPreludeTypes() {
-    return this.parsedCells
+  getLineAtomPreludeTypes() {
+    return this.parsedAtoms
       .map(slot => {
-        const def = slot.cellTypeDefinition
+        const def = slot.atomTypeDefinition
         //todo: cleanup
-        return def ? def.preludeKindId : PreludeCellTypeIds.anyCell
+        return def ? def.preludeKindId : PreludeAtomTypeIds.anyAtom
       })
       .join(" ")
   }
   getLinePaints(defaultScope = "source") {
-    return this.parsedCells.map(slot => slot.paint || defaultScope).join(" ")
+    return this.parsedAtoms.map(slot => slot.paint || defaultScope).join(" ")
   }
-  get cellDefinitionLineNumbers() {
-    return this.parsedCells.map(cell => cell.definitionLineNumber)
+  get atomDefinitionLineNumbers() {
+    return this.parsedAtoms.map(atom => atom.definitionLineNumber)
   }
   _getCompiledIndentation() {
     const indentCharacter = this.definition._getCompilerObject()[ParsersConstantsCompiler.indentCharacter]
@@ -22419,19 +18314,19 @@ class ParserBackedParticle extends Particle {
     return indentCharacter !== undefined ? indentCharacter.repeat(indent.length) : indent
   }
   _getFields() {
-    // fields are like cells
+    // fields are like atoms
     const fields = {}
     this.forEach(particle => {
       const def = particle.definition
-      if (def.isRequired() || def.isSingle) fields[particle.getWord(0)] = particle.content
+      if (def.isRequired() || def.isSingle) fields[particle.getAtom(0)] = particle.content
     })
     return fields
   }
   _getCompiledLine() {
     const compiler = this.definition._getCompilerObject()
-    const catchAllCellDelimiter = compiler[ParsersConstantsCompiler.catchAllCellDelimiter]
+    const catchAllAtomDelimiter = compiler[ParsersConstantsCompiler.catchAllAtomDelimiter]
     const str = compiler[ParsersConstantsCompiler.stringTemplate]
-    return str !== undefined ? Utils.formatStr(str, catchAllCellDelimiter, Object.assign(this._getFields(), this.cells)) : this.getLine()
+    return str !== undefined ? Utils.formatStr(str, catchAllAtomDelimiter, Object.assign(this._getFields(), this.atomsMap)) : this.getLine()
   }
   get listDelimiter() {
     return this.definition._getFromExtended(ParsersConstants.listDelimiter)
@@ -22439,48 +18334,48 @@ class ParserBackedParticle extends Particle {
   get contentKey() {
     return this.definition._getFromExtended(ParsersConstants.contentKey)
   }
-  get childrenKey() {
-    return this.definition._getFromExtended(ParsersConstants.childrenKey)
+  get subparticlesKey() {
+    return this.definition._getFromExtended(ParsersConstants.subparticlesKey)
   }
-  get childrenAreTextBlob() {
+  get subparticlesAreTextBlob() {
     return this.definition._isBlobParser()
   }
   get isArrayElement() {
-    return this.definition._hasFromExtended(ParsersConstants.uniqueFirstWord) ? false : !this.definition.isSingle
+    return this.definition._hasFromExtended(ParsersConstants.uniqueCue) ? false : !this.definition.isSingle
   }
   get list() {
     return this.listDelimiter ? this.content.split(this.listDelimiter) : super.list
   }
   get typedContent() {
-    // todo: probably a better way to do this, perhaps by defining a cellDelimiter at the particle level
+    // todo: probably a better way to do this, perhaps by defining a atomDelimiter at the particle level
     // todo: this currently parse anything other than string types
     if (this.listDelimiter) return this.content.split(this.listDelimiter)
-    const cells = this.parsedCells
-    if (cells.length === 2) return cells[1].parsed
+    const atoms = this.parsedAtoms
+    if (atoms.length === 2) return atoms[1].parsed
     return this.content
   }
   get typedTuple() {
-    const key = this.firstWord
-    if (this.childrenAreTextBlob) return [key, this.childrenToString()]
-    const { typedContent, contentKey, childrenKey } = this
-    if (contentKey || childrenKey) {
+    const key = this.cue
+    if (this.subparticlesAreTextBlob) return [key, this.subparticlesToString()]
+    const { typedContent, contentKey, subparticlesKey } = this
+    if (contentKey || subparticlesKey) {
       let obj = {}
-      if (childrenKey) obj[childrenKey] = this.childrenToString()
+      if (subparticlesKey) obj[subparticlesKey] = this.subparticlesToString()
       else obj = this.typedMap
       if (contentKey) {
         obj[contentKey] = typedContent
       }
       return [key, obj]
     }
-    const hasChildren = this.length > 0
-    const hasChildrenNoContent = typedContent === undefined && hasChildren
-    const shouldReturnValueAsObject = hasChildrenNoContent
+    const hasSubparticles = this.length > 0
+    const hasSubparticlesNoContent = typedContent === undefined && hasSubparticles
+    const shouldReturnValueAsObject = hasSubparticlesNoContent
     if (shouldReturnValueAsObject) return [key, this.typedMap]
-    const hasChildrenAndContent = typedContent !== undefined && hasChildren
-    const shouldReturnValueAsContentPlusChildren = hasChildrenAndContent
+    const hasSubparticlesAndContent = typedContent !== undefined && hasSubparticles
+    const shouldReturnValueAsContentPlusSubparticles = hasSubparticlesAndContent
     // If the particle has a content and a subparticle return it as a string, as
     // Javascript object values can't be both a leaf and a particle.
-    if (shouldReturnValueAsContentPlusChildren) return [key, this.contentWithChildren]
+    if (shouldReturnValueAsContentPlusSubparticles) return [key, this.contentWithSubparticles]
     return [key, typedContent]
   }
   get _shouldSerialize() {
@@ -22508,26 +18403,26 @@ class ParserBackedParticle extends Particle {
     const compiledLine = this._getCompiledLine()
     if (def.isTerminalParser()) return indent + compiledLine
     const compiler = def._getCompilerObject()
-    const openChildrenString = compiler[ParsersConstantsCompiler.openChildren] || ""
-    const closeChildrenString = compiler[ParsersConstantsCompiler.closeChildren] || ""
-    const childJoinCharacter = compiler[ParsersConstantsCompiler.joinChildrenWith] || "\n"
-    const compiledChildren = this.map(child => child.compile()).join(childJoinCharacter)
-    return `${indent + compiledLine}${openChildrenString}
-${compiledChildren}
-${indent}${closeChildrenString}`
+    const openSubparticlesString = compiler[ParsersConstantsCompiler.openSubparticles] || ""
+    const closeSubparticlesString = compiler[ParsersConstantsCompiler.closeSubparticles] || ""
+    const subparticleJoinCharacter = compiler[ParsersConstantsCompiler.joinSubparticlesWith] || "\n"
+    const compiledSubparticles = this.map(subparticle => subparticle.compile()).join(subparticleJoinCharacter)
+    return `${indent + compiledLine}${openSubparticlesString}
+${compiledSubparticles}
+${indent}${closeSubparticlesString}`
   }
   // todo: remove
-  get cells() {
-    const cells = {}
-    this.parsedCells.forEach(cell => {
-      const cellTypeId = cell.cellTypeId
-      if (!cell.isCatchAll()) cells[cellTypeId] = cell.parsed
+  get atomsMap() {
+    const atomsMap = {}
+    this.parsedAtoms.forEach(atom => {
+      const atomTypeId = atom.atomTypeId
+      if (!atom.isCatchAll()) atomsMap[atomTypeId] = atom.parsed
       else {
-        if (!cells[cellTypeId]) cells[cellTypeId] = []
-        cells[cellTypeId].push(cell.parsed)
+        if (!atomsMap[atomTypeId]) atomsMap[atomTypeId] = []
+        atomsMap[atomTypeId].push(atom.parsed)
       }
     })
-    return cells
+    return atomsMap
   }
 }
 class BlobParser extends ParserBackedParticle {
@@ -22548,71 +18443,77 @@ class UnknownParserParticle extends ParserBackedParticle {
   }
 }
 /*
-A cell contains a word but also the type information for that word.
+A atom contains a atom but also the type information for that atom.
 */
-class AbstractParsersBackedCell {
-  constructor(particle, index, typeDef, cellTypeId, isCatchAll, parserDefinitionParser) {
+class AbstractParsersBackedAtom {
+  constructor(particle, index, typeDef, atomTypeId, isCatchAll, parserDefinitionParser) {
     this._typeDef = typeDef
     this._particle = particle
     this._isCatchAll = isCatchAll
     this._index = index
-    this._cellTypeId = cellTypeId
+    this._atomTypeId = atomTypeId
     this._parserDefinitionParser = parserDefinitionParser
   }
-  getWord() {
-    return this._particle.getWord(this._index)
+  get optionCount() {
+    return this._typeDef.optionCount
+  }
+  get bitsRequired() {
+    return Math.log2(this.optionCount)
+  }
+  getAtom() {
+    return this._particle.getAtom(this._index)
   }
   get definitionLineNumber() {
     return this._typeDef.lineNumber
   }
-  get cellTypeId() {
-    return this._cellTypeId
+  get atomTypeId() {
+    return this._atomTypeId
   }
   getParticle() {
     return this._particle
   }
-  get cellIndex() {
+  get atomIndex() {
     return this._index
   }
   isCatchAll() {
     return this._isCatchAll
   }
   get min() {
-    return this.cellTypeDefinition.get(ParsersConstants.min) || "0"
+    return this.atomTypeDefinition.get(ParsersConstants.min) || "0"
   }
   get max() {
-    return this.cellTypeDefinition.get(ParsersConstants.max) || "100"
+    return this.atomTypeDefinition.get(ParsersConstants.max) || "100"
   }
   get placeholder() {
-    return this.cellTypeDefinition.get(ParsersConstants.examples) || ""
+    return this.atomTypeDefinition.get(ParsersConstants.examples) || ""
   }
   get paint() {
-    const definition = this.cellTypeDefinition
+    const definition = this.atomTypeDefinition
     if (definition) return definition.paint // todo: why the undefined?
   }
-  getAutoCompleteWords(partialWord = "") {
-    const cellDef = this.cellTypeDefinition
-    let words = cellDef ? cellDef._getAutocompleteWordOptions(this.getParticle().root) : []
+  getAutoCompleteAtoms(partialAtom = "") {
+    const atomDef = this.atomTypeDefinition
+    let atoms = atomDef ? atomDef._getAutocompleteAtomOptions(this.getParticle().root) : []
     const runTimeOptions = this.getParticle().getRunTimeEnumOptions(this)
-    if (runTimeOptions) words = runTimeOptions.concat(words)
-    if (partialWord) words = words.filter(word => word.includes(partialWord))
-    return words.map(word => {
+    if (runTimeOptions) atoms = runTimeOptions.concat(atoms)
+    if (partialAtom) atoms = atoms.filter(atom => atom.includes(partialAtom))
+    return atoms.map(atom => {
       return {
-        text: word,
-        displayText: word
+        text: atom,
+        displayText: atom
       }
     })
   }
-  synthesizeCell(seed = Date.now()) {
+  synthesizeAtom(seed = Date.now()) {
     // todo: cleanup
-    const cellDef = this.cellTypeDefinition
-    const enumOptions = cellDef._getFromExtended(ParsersConstants.enum)
+    const atomDef = this.atomTypeDefinition
+    const enumOptions = atomDef._getFromExtended(ParsersConstants.enum)
     if (enumOptions) return Utils.getRandomString(1, enumOptions.split(" "))
-    return this._synthesizeCell(seed)
+    return this._synthesizeAtom(seed)
   }
   _getStumpEnumInput(cue) {
-    const cellDef = this.cellTypeDefinition
-    const enumOptions = cellDef._getFromExtended(ParsersConstants.enum)
+    const atomDef = this.atomTypeDefinition
+    const enumOptions = atomDef._getFromExtended(ParsersConstants.enum)
     if (!enumOptions) return undefined
     const options = new Particle(
       enumOptions
@@ -22628,49 +18529,52 @@ ${options.toString(1)}`
     // todo: remove
     const enumInput = this._getStumpEnumInput(cue)
     if (enumInput) return enumInput
-    // todo: cleanup. We shouldn't have these dual cellType classes.
+    // todo: cleanup. We shouldn't have these dual atomType classes.
     return `input
  name ${cue}
  placeholder ${this.placeholder}`
   }
-  get cellTypeDefinition() {
+  get atomTypeDefinition() {
     return this._typeDef
   }
   _getErrorContext() {
-    return this.getParticle().getLine().split(" ")[0] // todo: WordBreakSymbol
+    return this.getParticle().getLine().split(" ")[0] // todo: AtomBreakSymbol
   }
   isValid() {
     const runTimeOptions = this.getParticle().getRunTimeEnumOptionsForValidation(this)
-    const word = this.getWord()
-    if (runTimeOptions) return runTimeOptions.includes(word)
-    return this.cellTypeDefinition.isValid(word, this.getParticle().root) && this._isValid()
+    const atom = this.getAtom()
+    if (runTimeOptions) return runTimeOptions.includes(atom)
+    return this.atomTypeDefinition.isValid(atom, this.getParticle().root) && this._isValid()
   }
   getErrorIfAny() {
-    const word = this.getWord()
-    if (word !== undefined && this.isValid()) return undefined
-    // todo: refactor invalidwordError. We want better error messages.
-    return word === undefined || word === "" ? new MissingWordError(this) : new InvalidWordError(this)
+    const atom = this.getAtom()
+    if (atom !== undefined && this.isValid()) return undefined
+    // todo: refactor invalidatomError. We want better error messages.
+    return atom === undefined || atom === "" ? new MissingAtomError(this) : new InvalidAtomError(this)
   }
 }
-AbstractParsersBackedCell.parserFunctionName = ""
-class ParsersBitCell extends AbstractParsersBackedCell {
+AbstractParsersBackedAtom.parserFunctionName = ""
+class ParsersBitAtom extends AbstractParsersBackedAtom {
   _isValid() {
-    const word = this.getWord()
-    return word === "0" || word === "1"
+    const atom = this.getAtom()
+    return atom === "0" || atom === "1"
   }
-  _synthesizeCell() {
+  get optionCount() {
+    return 2
+  }
+  _synthesizeAtom() {
     return Utils.getRandomString(1, "01".split(""))
   }
   get regexString() {
     return "[01]"
   }
   get parsed() {
-    const word = this.getWord()
-    return !!parseInt(word)
+    const atom = this.getAtom()
+    return !!parseInt(atom)
   }
 }
-ParsersBitCell.defaultPaint = "constant.numeric"
-class ParsersNumericCell extends AbstractParsersBackedCell {
+ParsersBitAtom.defaultPaint = "constant.numeric"
+class ParsersNumberAtom extends AbstractParsersBackedAtom {
   _toStumpInput(cue) {
     return `input
  name ${cue}
@@ -22680,58 +18584,73 @@ class ParsersNumericCell extends AbstractParsersBackedCell {
  max ${this.max}`
   }
 }
-class ParsersIntCell extends ParsersNumericCell {
+class ParsersIntegerAtom extends ParsersNumberAtom {
   _isValid() {
-    const word = this.getWord()
-    const num = parseInt(word)
+    const atom = this.getAtom()
+    const num = parseInt(atom)
     if (isNaN(num)) return false
-    return num.toString() === word
+    return num.toString() === atom
   }
-  _synthesizeCell(seed) {
+  get optionCount() {
+    const minVal = parseInt(this.min) || -Infinity
+    const maxVal = parseInt(this.max) || Infinity
+    return maxVal - minVal + 1
+  }
+  _synthesizeAtom(seed) {
     return Utils.randomUniformInt(parseInt(this.min), parseInt(this.max), seed).toString()
   }
   get regexString() {
     return "-?[0-9]+"
   }
   get parsed() {
-    const word = this.getWord()
-    return parseInt(word)
+    const atom = this.getAtom()
+    return parseInt(atom)
   }
 }
-ParsersIntCell.defaultPaint = "constant.numeric.integer"
-ParsersIntCell.parserFunctionName = "parseInt"
-class ParsersFloatCell extends ParsersNumericCell {
+ParsersIntegerAtom.defaultPaint = "constant.numeric.integer"
+ParsersIntegerAtom.parserFunctionName = "parseInt"
+class ParsersFloatAtom extends ParsersNumberAtom {
   _isValid() {
-    const word = this.getWord()
-    const num = parseFloat(word)
-    return !isNaN(num) && /^-?\d*(\.\d+)?([eE][+-]?\d+)?$/.test(word)
+    const atom = this.getAtom()
+    const num = parseFloat(atom)
+    return !isNaN(num) && /^-?\d*(\.\d+)?([eE][+-]?\d+)?$/.test(atom)
   }
-  _synthesizeCell(seed) {
+  get optionCount() {
+    // For floats, we'll estimate based on typical float32 precision
+    // ~7 decimal digits of precision
+    const minVal = parseInt(this.min) || -Infinity
+    const maxVal = parseInt(this.max) || Infinity
+    return (maxVal - minVal) * Math.pow(10, 7)
+  }
+  _synthesizeAtom(seed) {
     return Utils.randomUniformFloat(parseFloat(this.min), parseFloat(this.max), seed).toString()
   }
   get regexString() {
     return "-?d*(.d+)?"
   }
   get parsed() {
-    const word = this.getWord()
-    return parseFloat(word)
+    const atom = this.getAtom()
+    return parseFloat(atom)
   }
 }
-ParsersFloatCell.defaultPaint = "constant.numeric.float"
-ParsersFloatCell.parserFunctionName = "parseFloat"
-// ErrorCellType => parsers asks for a '' cell type here but the parsers does not specify a '' cell type. (todo: bring in didyoumean?)
-class ParsersBoolCell extends AbstractParsersBackedCell {
+ParsersFloatAtom.defaultPaint = "constant.numeric.float"
+ParsersFloatAtom.parserFunctionName = "parseFloat"
+// ErrorAtomType => parsers asks for a '' atom type here but the parsers does not specify a '' atom type. (todo: bring in didyoumean?)
+class ParsersBooleanAtom extends AbstractParsersBackedAtom {
   constructor() {
     super(...arguments)
     this._trues = new Set(["1", "true", "t", "yes"])
     this._falses = new Set(["0", "false", "f", "no"])
   }
   _isValid() {
-    const word = this.getWord()
-    const str = word.toLowerCase()
+    const atom = this.getAtom()
+    const str = atom.toLowerCase()
     return this._trues.has(str) || this._falses.has(str)
   }
-  _synthesizeCell() {
+  get optionCount() {
+    return 2
+  }
+  _synthesizeAtom() {
     return Utils.getRandomString(1, ["1", "true", "t", "yes", "0", "false", "f", "no"])
   }
   _getOptions() {
@@ -22741,17 +18660,17 @@ class ParsersBoolCell extends AbstractParsersBackedCell {
     return "(?:" + this._getOptions().join("|") + ")"
   }
   get parsed() {
-    const word = this.getWord()
-    return this._trues.has(word.toLowerCase())
+    const atom = this.getAtom()
+    return this._trues.has(atom.toLowerCase())
   }
 }
-ParsersBoolCell.defaultPaint = "constant.numeric"
-class ParsersAnyCell extends AbstractParsersBackedCell {
+ParsersBooleanAtom.defaultPaint = "constant.language"
+class ParsersAnyAtom extends AbstractParsersBackedAtom {
   _isValid() {
     return true
   }
-  _synthesizeCell() {
-    const examples = this.cellTypeDefinition._getFromExtended(ParsersConstants.examples)
+  _synthesizeAtom() {
+    const examples = this.atomTypeDefinition._getFromExtended(ParsersConstants.examples)
     if (examples) return Utils.getRandomString(1, examples.split(" "))
     return this._parserDefinitionParser.parserIdFromDefinition + "-" + this.constructor.name
   }
@@ -22759,49 +18678,52 @@ class ParsersAnyCell extends AbstractParsersBackedCell {
     return "[^ ]+"
   }
   get parsed() {
-    return this.getWord()
+    return this.getAtom()
   }
 }
-class ParsersKeywordCell extends ParsersAnyCell {
-  _synthesizeCell() {
+class ParsersKeywordAtom extends ParsersAnyAtom {
+  _synthesizeAtom() {
     return this._parserDefinitionParser.cueIfAny
   }
+  get optionCount() {
+    return 1
+  }
 }
-ParsersKeywordCell.defaultPaint = "keyword"
-class ParsersExtraWordCellTypeCell extends AbstractParsersBackedCell {
+ParsersKeywordAtom.defaultPaint = "keyword"
+class ParsersExtraAtomAtomTypeAtom extends AbstractParsersBackedAtom {
   _isValid() {
     return false
   }
-  synthesizeCell() {
-    throw new Error(`Trying to synthesize a ParsersExtraWordCellTypeCell`)
-    return this._synthesizeCell()
+  synthesizeAtom() {
+    throw new Error(`Trying to synthesize a ParsersExtraAtomAtomTypeAtom`)
+    return this._synthesizeAtom()
   }
-  _synthesizeCell() {
-    return "extraWord" // should never occur?
+  _synthesizeAtom() {
+    return "extraAtom" // should never occur?
   }
   get parsed() {
-    return this.getWord()
+    return this.getAtom()
   }
   getErrorIfAny() {
-    return new ExtraWordError(this)
+    return new ExtraAtomError(this)
   }
 }
-class ParsersUnknownCellTypeCell extends AbstractParsersBackedCell {
+class ParsersUnknownAtomTypeAtom extends AbstractParsersBackedAtom {
   _isValid() {
     return false
   }
-  synthesizeCell() {
-    throw new Error(`Trying to synthesize an ParsersUnknownCellTypeCell`)
-    return this._synthesizeCell()
+  synthesizeAtom() {
+    throw new Error(`Trying to synthesize an ParsersUnknownAtomTypeAtom`)
+    return this._synthesizeAtom()
   }
-  _synthesizeCell() {
-    return "extraWord" // should never occur?
+  _synthesizeAtom() {
+    return "extraAtom" // should never occur?
   }
   get parsed() {
-    return this.getWord()
+    return this.getAtom()
   }
   getErrorIfAny() {
-    return new UnknownCellTypeError(this)
+    return new UnknownAtomTypeError(this)
   }
 }
 class AbstractParticleError {
@@ -22814,18 +18736,18 @@ class AbstractParticleError {
   get lineNumber() {
     return this.getParticle()._getLineNumber() // todo: handle sourcemaps
   }
-  isCursorOnWord(lineIndex, characterIndex) {
-    return lineIndex === this.getLineIndex() && this._doesCharacterIndexFallOnWord(characterIndex)
+  isCursorOnAtom(lineIndex, characterIndex) {
+    return lineIndex === this.getLineIndex() && this._doesCharacterIndexFallOnAtom(characterIndex)
   }
-  _doesCharacterIndexFallOnWord(characterIndex) {
-    return this.cellIndex === this.getParticle().getWordIndexAtCharacterIndex(characterIndex)
+  _doesCharacterIndexFallOnAtom(characterIndex) {
+    return this.atomIndex === this.getParticle().getAtomIndexAtCharacterIndex(characterIndex)
   }
   // convenience method. may be removed.
   isBlankLineError() {
     return false
   }
   // convenience method. may be removed.
-  isMissingWordError() {
+  isMissingAtomError() {
     return false
   }
   getIndent() {
@@ -22833,17 +18755,17 @@ class AbstractParticleError {
   }
   getCodeMirrorLineWidgetElement(onApplySuggestionCallBack = () => {}) {
     const suggestion = this.suggestionMessage
-    if (this.isMissingWordError()) return this._getCodeMirrorLineWidgetElementCellTypeHints()
+    if (this.isMissingAtomError()) return this._getCodeMirrorLineWidgetElementAtomTypeHints()
     if (suggestion) return this._getCodeMirrorLineWidgetElementWithSuggestion(onApplySuggestionCallBack, suggestion)
     return this._getCodeMirrorLineWidgetElementWithoutSuggestion()
   }
   get parserId() {
     return this.getParticle().definition.parserIdFromDefinition
   }
-  _getCodeMirrorLineWidgetElementCellTypeHints() {
+  _getCodeMirrorLineWidgetElementAtomTypeHints() {
     const el = document.createElement("div")
     el.appendChild(document.createTextNode(this.getIndent() + this.getParticle().definition.lineHints))
-    el.className = "LintCellTypeHints"
+    el.className = "LintAtomTypeHints"
     return el
   }
   _getCodeMirrorLineWidgetElementWithoutSuggestion() {
@@ -22874,16 +18796,16 @@ class AbstractParticleError {
   get errorTypeName() {
     return this.constructor.name.replace("Error", "")
   }
-  get cellIndex() {
+  get atomIndex() {
     return 0
   }
   toObject() {
     return {
       type: this.errorTypeName,
       line: this.lineNumber,
-      cell: this.cellIndex,
+      atom: this.atomIndex,
       suggestion: this.suggestionMessage,
-      path: this.getParticle().getFirstWordPath(),
+      path: this.getParticle().getCuePath(),
       message: this.message
     }
   }
@@ -22898,24 +18820,24 @@ class AbstractParticleError {
   }
   applySuggestion() {}
   get message() {
-    return `${this.errorTypeName} at line ${this.lineNumber} cell ${this.cellIndex}.`
+    return `${this.errorTypeName} at line ${this.lineNumber} atom ${this.atomIndex}.`
   }
 }
-class AbstractCellError extends AbstractParticleError {
-  constructor(cell) {
-    super(cell.getParticle())
-    this._cell = cell
+class AbstractAtomError extends AbstractParticleError {
+  constructor(atom) {
+    super(atom.getParticle())
+    this._atom = atom
   }
-  get cell() {
-    return this._cell
+  get atom() {
+    return this._atom
   }
-  get cellIndex() {
-    return this._cell.cellIndex
+  get atomIndex() {
+    return this._atom.atomIndex
   }
-  get wordSuggestion() {
+  get atomSuggestion() {
     return Utils.didYouMean(
-      this.cell.getWord(),
-      this.cell.getAutoCompleteWords().map(option => option.text)
+      this.atom.getAtom(),
+      this.atom.getAutoCompleteAtoms().map(option => option.text)
     )
   }
 }
@@ -22923,26 +18845,26 @@ class UnknownParserError extends AbstractParticleError {
   get message() {
     const particle = this.getParticle()
     const parentParticle = particle.parent
-    const options = parentParticle._getParser().getFirstWordOptions()
-    return super.message + ` Invalid parser "${particle.firstWord}". Valid parsers are: ${Utils._listToEnglishText(options, 7)}.`
+    const options = parentParticle._getParser().getCueOptions()
+    return super.message + ` Invalid parser "${particle.cue}". Valid parsers are: ${Utils._listToEnglishText(options, 7)}.`
   }
-  get wordSuggestion() {
+  get atomSuggestion() {
     const particle = this.getParticle()
     const parentParticle = particle.parent
     return Utils.didYouMean(
-      particle.firstWord,
+      particle.cue,
       parentParticle.getAutocompleteResults("", 0).map(option => option.text)
     )
   }
   get suggestionMessage() {
-    const suggestion = this.wordSuggestion
+    const suggestion = this.atomSuggestion
     const particle = this.getParticle()
-    if (suggestion) return `Change "${particle.firstWord}" to "${suggestion}"`
+    if (suggestion) return `Change "${particle.cue}" to "${suggestion}"`
     return ""
   }
   applySuggestion() {
-    const suggestion = this.wordSuggestion
-    if (suggestion) this.getParticle().setWord(this.cellIndex, suggestion)
+    const suggestion = this.atomSuggestion
+    if (suggestion) this.getParticle().setAtom(this.atomIndex, suggestion)
     return this
   }
 }
@@ -22983,7 +18905,7 @@ class MissingRequiredParserError extends AbstractParticleError {
 }
 class ParserUsedMultipleTimesError extends AbstractParticleError {
   get message() {
-    return super.message + ` Multiple "${this.getParticle().firstWord}" found.`
+    return super.message + ` Multiple "${this.getParticle().cue}" found.`
   }
   get suggestionMessage() {
     return `Delete line ${this.lineNumber}`
@@ -23003,101 +18925,101 @@ class LineAppearsMultipleTimesError extends AbstractParticleError {
     return this.getParticle().destroy()
   }
 }
-class UnknownCellTypeError extends AbstractCellError {
+class UnknownAtomTypeError extends AbstractAtomError {
   get message() {
-    return super.message + ` No cellType "${this.cell.cellTypeId}" found. Language parsers for "${this.getExtension()}" may need to be fixed.`
+    return super.message + ` No atomType "${this.atom.atomTypeId}" found. Language parsers for "${this.getExtension()}" may need to be fixed.`
   }
 }
-class InvalidWordError extends AbstractCellError {
+class InvalidAtomError extends AbstractAtomError {
   get message() {
-    return super.message + ` "${this.cell.getWord()}" does not fit in cellType "${this.cell.cellTypeId}".`
+    return super.message + ` "${this.atom.getAtom()}" does not fit in atomType "${this.atom.atomTypeId}".`
   }
   get suggestionMessage() {
-    const suggestion = this.wordSuggestion
-    if (suggestion) return `Change "${this.cell.getWord()}" to "${suggestion}"`
+    const suggestion = this.atomSuggestion
+    if (suggestion) return `Change "${this.atom.getAtom()}" to "${suggestion}"`
     return ""
   }
   applySuggestion() {
-    const suggestion = this.wordSuggestion
-    if (suggestion) this.getParticle().setWord(this.cellIndex, suggestion)
+    const suggestion = this.atomSuggestion
+    if (suggestion) this.getParticle().setAtom(this.atomIndex, suggestion)
     return this
   }
 }
-class ExtraWordError extends AbstractCellError {
+class ExtraAtomError extends AbstractAtomError {
   get message() {
-    return super.message + ` Extra word "${this.cell.getWord()}" in ${this.parserId}.`
+    return super.message + ` Extra atom "${this.atom.getAtom()}" in ${this.parserId}.`
   }
   get suggestionMessage() {
-    return `Delete word "${this.cell.getWord()}" at cell ${this.cellIndex}`
+    return `Delete atom "${this.atom.getAtom()}" at atom ${this.atomIndex}`
   }
   applySuggestion() {
-    return this.getParticle().deleteWordAt(this.cellIndex)
+    return this.getParticle().deleteAtomAt(this.atomIndex)
   }
 }
-class MissingWordError extends AbstractCellError {
+class MissingAtomError extends AbstractAtomError {
   // todo: autocomplete suggestion
   get message() {
-    return super.message + ` Missing word for cell "${this.cell.cellTypeId}".`
+    return super.message + ` Missing atom for atom "${this.atom.atomTypeId}".`
   }
-  isMissingWordError() {
+  isMissingAtomError() {
     return true
   }
 }
 // todo: add standard types, enum types, from disk types
-class AbstractParsersWordTestParser extends Particle {}
-class ParsersRegexTestParser extends AbstractParsersWordTestParser {
+class AbstractParsersAtomTestParser extends Particle {}
+class ParsersRegexTestParser extends AbstractParsersAtomTestParser {
   isValid(str) {
     if (!this._regex) this._regex = new RegExp("^" + this.content + "$")
     return !!str.match(this._regex)
   }
 }
-class ParsersReservedWordsTestParser extends AbstractParsersWordTestParser {
+class ParsersReservedAtomsTestParser extends AbstractParsersAtomTestParser {
   isValid(str) {
     if (!this._set) this._set = new Set(this.content.split(" "))
     return !this._set.has(str)
   }
 }
-// todo: remove in favor of custom word type constructors
-class EnumFromCellTypesTestParser extends AbstractParsersWordTestParser {
-  _getEnumFromCellTypes(programRootParticle) {
-    const cellTypeIds = this.getWordsFrom(1)
-    const enumGroup = cellTypeIds.join(" ")
+// todo: remove in favor of custom atom type constructors
+class EnumFromAtomTypesTestParser extends AbstractParsersAtomTestParser {
+  _getEnumFromAtomTypes(programRootParticle) {
+    const atomTypeIds = this.getAtomsFrom(1)
+    const enumGroup = atomTypeIds.join(" ")
     // note: hack where we store it on the program. otherwise has global effects.
     if (!programRootParticle._enumMaps) programRootParticle._enumMaps = {}
     if (programRootParticle._enumMaps[enumGroup]) return programRootParticle._enumMaps[enumGroup]
-    const wordIndex = 1
+    const atomIndex = 1
     const map = {}
-    const cellTypeMap = {}
-    cellTypeIds.forEach(typeId => (cellTypeMap[typeId] = true))
-    programRootParticle.allTypedWords
-      .filter(typedWord => cellTypeMap[typedWord.type])
-      .forEach(typedWord => {
-        map[typedWord.word] = true
+    const atomTypeMap = {}
+    atomTypeIds.forEach(typeId => (atomTypeMap[typeId] = true))
+    programRootParticle.allTypedAtoms
+      .filter(typedAtom => atomTypeMap[typedAtom.type])
+      .forEach(typedAtom => {
+        map[typedAtom.atom] = true
       })
     programRootParticle._enumMaps[enumGroup] = map
     return map
   }
   // todo: remove
   isValid(str, programRootParticle) {
-    return this._getEnumFromCellTypes(programRootParticle)[str] === true
+    return this._getEnumFromAtomTypes(programRootParticle)[str] === true
   }
 }
-class ParsersEnumTestParticle extends AbstractParsersWordTestParser {
+class ParsersEnumTestParticle extends AbstractParsersAtomTestParser {
   isValid(str) {
     // enum c c++ java
     return !!this.getOptions()[str]
   }
   getOptions() {
-    if (!this._map) this._map = Utils.arrayToMap(this.getWordsFrom(1))
+    if (!this._map) this._map = Utils.arrayToMap(this.getAtomsFrom(1))
     return this._map
   }
 }
-class cellTypeDefinitionParser extends AbstractExtendibleParticle {
+class atomTypeDefinitionParser extends AbstractExtendibleParticle {
   createParserCombinator() {
     const types = {}
     types[ParsersConstants.regex] = ParsersRegexTestParser
-    types[ParsersConstants.reservedWords] = ParsersReservedWordsTestParser
-    types[ParsersConstants.enumFromCellTypes] = EnumFromCellTypesTestParser
+    types[ParsersConstants.reservedAtoms] = ParsersReservedAtomsTestParser
+    types[ParsersConstants.enumFromAtomTypes] = EnumFromAtomTypesTestParser
     types[ParsersConstants.enum] = ParsersEnumTestParticle
     types[ParsersConstants.paint] = Particle
     types[ParsersConstants.comment] = Particle
@@ -23109,37 +19031,37 @@ class cellTypeDefinitionParser extends AbstractExtendibleParticle {
     return new Particle.ParserCombinator(undefined, types)
   }
   get id() {
-    return this.getWord(0)
+    return this.getAtom(0)
   }
   get idToParticleMap() {
-    return this.parent.cellTypeDefinitions
+    return this.parent.atomTypeDefinitions
   }
-  getGetter(wordIndex) {
-    const wordToNativeJavascriptTypeParser = this.getCellConstructor().parserFunctionName
-    return `get ${this.cellTypeId}() {
-      return ${wordToNativeJavascriptTypeParser ? wordToNativeJavascriptTypeParser + `(this.getWord(${wordIndex}))` : `this.getWord(${wordIndex})`}
+  getGetter(atomIndex) {
+    const atomToNativeJavascriptTypeParser = this.getAtomConstructor().parserFunctionName
+    return `get ${this.atomTypeId}() {
+      return ${atomToNativeJavascriptTypeParser ? atomToNativeJavascriptTypeParser + `(this.getAtom(${atomIndex}))` : `this.getAtom(${atomIndex})`}
     }`
   }
-  getCatchAllGetter(wordIndex) {
-    const wordToNativeJavascriptTypeParser = this.getCellConstructor().parserFunctionName
-    return `get ${this.cellTypeId}() {
-      return ${wordToNativeJavascriptTypeParser ? `this.getWordsFrom(${wordIndex}).map(val => ${wordToNativeJavascriptTypeParser}(val))` : `this.getWordsFrom(${wordIndex})`}
+  getCatchAllGetter(atomIndex) {
+    const atomToNativeJavascriptTypeParser = this.getAtomConstructor().parserFunctionName
+    return `get ${this.atomTypeId}() {
+      return ${atomToNativeJavascriptTypeParser ? `this.getAtomsFrom(${atomIndex}).map(val => ${atomToNativeJavascriptTypeParser}(val))` : `this.getAtomsFrom(${atomIndex})`}
     }`
   }
-  // `this.getWordsFrom(${requireds.length + 1})`
+  // `this.getAtomsFrom(${requireds.length + 1})`
   // todo: cleanup typings. todo: remove this hidden logic. have a "baseType" property?
-  getCellConstructor() {
-    return this.preludeKind || ParsersAnyCell
+  getAtomConstructor() {
+    return this.preludeKind || ParsersAnyAtom
   }
   get preludeKind() {
-    return PreludeKinds[this.getWord(0)] || PreludeKinds[this._getExtendedCellTypeId()]
+    return PreludeKinds[this.getAtom(0)] || PreludeKinds[this._getExtendedAtomTypeId()]
   }
   get preludeKindId() {
-    if (PreludeKinds[this.getWord(0)]) return this.getWord(0)
-    else if (PreludeKinds[this._getExtendedCellTypeId()]) return this._getExtendedCellTypeId()
-    return PreludeCellTypeIds.anyCell
+    if (PreludeKinds[this.getAtom(0)]) return this.getAtom(0)
+    else if (PreludeKinds[this._getExtendedAtomTypeId()]) return this._getExtendedAtomTypeId()
+    return PreludeAtomTypeIds.anyAtom
   }
-  _getExtendedCellTypeId() {
+  _getExtendedAtomTypeId() {
     const arr = this._getAncestorsArray()
     return arr[arr.length - 1].id
   }
@@ -23157,12 +19079,17 @@ class cellTypeDefinitionParser extends AbstractExtendibleParticle {
     options.sort((a, b) => b.length - a.length)
     return options
   }
-  _getEnumFromCellTypeOptions(program) {
-    const particle = this._getParticleFromExtended(ParsersConstants.enumFromCellTypes)
-    return particle ? Object.keys(particle.getParticle(ParsersConstants.enumFromCellTypes)._getEnumFromCellTypes(program)) : undefined
+  get optionCount() {
+    const enumOptions = this._getEnumOptions()
+    if (enumOptions) return enumOptions.length
+    return Infinity
   }
-  _getAutocompleteWordOptions(program) {
-    return this._getEnumOptions() || this._getEnumFromCellTypeOptions(program) || []
+  _getEnumFromAtomTypeOptions(program) {
+    const particle = this._getParticleFromExtended(ParsersConstants.enumFromAtomTypes)
+    return particle ? Object.keys(particle.getParticle(ParsersConstants.enumFromAtomTypes)._getEnumFromAtomTypes(program)) : undefined
+  }
+  _getAutocompleteAtomOptions(program) {
+    return this._getEnumOptions() || this._getEnumFromAtomTypeOptions(program) || []
   }
   get regexString() {
     // todo: enum
@@ -23170,113 +19097,113 @@ class cellTypeDefinitionParser extends AbstractExtendibleParticle {
     return this._getFromExtended(ParsersConstants.regex) || (enumOptions ? "(?:" + enumOptions.join("|") + ")" : "[^ ]*")
   }
   _getAllTests() {
-    return this._getChildrenByParserInExtended(AbstractParsersWordTestParser)
+    return this._getSubparticlesByParserInExtended(AbstractParsersAtomTestParser)
   }
   isValid(str, programRootParticle) {
     return this._getAllTests().every(particle => particle.isValid(str, programRootParticle))
   }
-  get cellTypeId() {
-    return this.getWord(0)
+  get atomTypeId() {
+    return this.getAtom(0)
   }
 }
-class AbstractCellParser {
+class AbstractAtomParser {
   constructor(definition) {
     this._definition = definition
   }
-  get catchAllCellTypeId() {
-    return this._definition._getFromExtended(ParsersConstants.catchAllCellType)
+  get catchAllAtomTypeId() {
+    return this._definition._getFromExtended(ParsersConstants.catchAllAtomType)
   }
   // todo: improve layout (use bold?)
   get lineHints() {
-    const catchAllCellTypeId = this.catchAllCellTypeId
+    const catchAllAtomTypeId = this.catchAllAtomTypeId
     const parserId = this._definition.cueIfAny || this._definition.id // todo: cleanup
-    return `${parserId}: ${this.getRequiredCellTypeIds().join(" ")}${catchAllCellTypeId ? ` ${catchAllCellTypeId}...` : ""}`
+    return `${parserId}: ${this.getRequiredAtomTypeIds().join(" ")}${catchAllAtomTypeId ? ` ${catchAllAtomTypeId}...` : ""}`
   }
-  getRequiredCellTypeIds() {
-    if (!this._requiredCellTypeIds) {
-      const parameters = this._definition._getFromExtended(ParsersConstants.cells)
-      this._requiredCellTypeIds = parameters ? parameters.split(" ") : []
+  getRequiredAtomTypeIds() {
+    if (!this._requiredAtomTypeIds) {
+      const parameters = this._definition._getFromExtended(ParsersConstants.atoms)
+      this._requiredAtomTypeIds = parameters ? parameters.split(" ") : []
     }
-    return this._requiredCellTypeIds
+    return this._requiredAtomTypeIds
   }
-  _getCellTypeId(cellIndex, requiredCellTypeIds, totalWordCount) {
-    return requiredCellTypeIds[cellIndex]
+  _getAtomTypeId(atomIndex, requiredAtomTypeIds, totalAtomCount) {
+    return requiredAtomTypeIds[atomIndex]
   }
-  _isCatchAllCell(cellIndex, numberOfRequiredCells, totalWordCount) {
-    return cellIndex >= numberOfRequiredCells
+  _isCatchAllAtom(atomIndex, numberOfRequiredAtoms, totalAtomCount) {
+    return atomIndex >= numberOfRequiredAtoms
   }
-  getCellArray(particle = undefined) {
-    const wordCount = particle ? particle.words.length : 0
+  getAtomArray(particle = undefined) {
+    const atomCount = particle ? particle.atoms.length : 0
     const def = this._definition
     const parsersProgram = def.languageDefinitionProgram
-    const requiredCellTypeIds = this.getRequiredCellTypeIds()
-    const numberOfRequiredCells = requiredCellTypeIds.length
-    const actualWordCountOrRequiredCellCount = Math.max(wordCount, numberOfRequiredCells)
-    const cells = []
-    // A for loop instead of map because "numberOfCellsToFill" can be longer than words.length
-    for (let cellIndex = 0; cellIndex < actualWordCountOrRequiredCellCount; cellIndex++) {
-      const isCatchAll = this._isCatchAllCell(cellIndex, numberOfRequiredCells, wordCount)
-      let cellTypeId = isCatchAll ? this.catchAllCellTypeId : this._getCellTypeId(cellIndex, requiredCellTypeIds, wordCount)
-      let cellTypeDefinition = parsersProgram.getCellTypeDefinitionById(cellTypeId)
-      let cellConstructor
-      if (cellTypeDefinition) cellConstructor = cellTypeDefinition.getCellConstructor()
-      else if (cellTypeId) cellConstructor = ParsersUnknownCellTypeCell
+    const requiredAtomTypeIds = this.getRequiredAtomTypeIds()
+    const numberOfRequiredAtoms = requiredAtomTypeIds.length
+    const actualAtomCountOrRequiredAtomCount = Math.max(atomCount, numberOfRequiredAtoms)
+    const atoms = []
+    // A for loop instead of map because "numberOfAtomsToFill" can be longer than atoms.length
+    for (let atomIndex = 0; atomIndex < actualAtomCountOrRequiredAtomCount; atomIndex++) {
+      const isCatchAll = this._isCatchAllAtom(atomIndex, numberOfRequiredAtoms, atomCount)
+      let atomTypeId = isCatchAll ? this.catchAllAtomTypeId : this._getAtomTypeId(atomIndex, requiredAtomTypeIds, atomCount)
+      let atomTypeDefinition = parsersProgram.getAtomTypeDefinitionById(atomTypeId)
+      let atomConstructor
+      if (atomTypeDefinition) atomConstructor = atomTypeDefinition.getAtomConstructor()
+      else if (atomTypeId) atomConstructor = ParsersUnknownAtomTypeAtom
       else {
-        cellConstructor = ParsersExtraWordCellTypeCell
-        cellTypeId = PreludeCellTypeIds.extraWordCell
-        cellTypeDefinition = parsersProgram.getCellTypeDefinitionById(cellTypeId)
+        atomConstructor = ParsersExtraAtomAtomTypeAtom
+        atomTypeId = PreludeAtomTypeIds.extraAtomAtom
+        atomTypeDefinition = parsersProgram.getAtomTypeDefinitionById(atomTypeId)
       }
-      const anyCellConstructor = cellConstructor
-      cells[cellIndex] = new anyCellConstructor(particle, cellIndex, cellTypeDefinition, cellTypeId, isCatchAll, def)
+      const anyAtomConstructor = atomConstructor
+      atoms[atomIndex] = new anyAtomConstructor(particle, atomIndex, atomTypeDefinition, atomTypeId, isCatchAll, def)
     }
-    return cells
+    return atoms
   }
 }
-class PrefixCellParser extends AbstractCellParser {}
-class PostfixCellParser extends AbstractCellParser {
-  _isCatchAllCell(cellIndex, numberOfRequiredCells, totalWordCount) {
-    return cellIndex < totalWordCount - numberOfRequiredCells
+class PrefixAtomParser extends AbstractAtomParser {}
+class PostfixAtomParser extends AbstractAtomParser {
+  _isCatchAllAtom(atomIndex, numberOfRequiredAtoms, totalAtomCount) {
+    return atomIndex < totalAtomCount - numberOfRequiredAtoms
   }
-  _getCellTypeId(cellIndex, requiredCellTypeIds, totalWordCount) {
-    const catchAllWordCount = Math.max(totalWordCount - requiredCellTypeIds.length, 0)
-    return requiredCellTypeIds[cellIndex - catchAllWordCount]
+  _getAtomTypeId(atomIndex, requiredAtomTypeIds, totalAtomCount) {
+    const catchAllAtomCount = Math.max(totalAtomCount - requiredAtomTypeIds.length, 0)
+    return requiredAtomTypeIds[atomIndex - catchAllAtomCount]
   }
 }
-class OmnifixCellParser extends AbstractCellParser {
-  getCellArray(particle = undefined) {
-    const cells = []
+class OmnifixAtomParser extends AbstractAtomParser {
+  getAtomArray(particle = undefined) {
+    const atomsArr = []
     const def = this._definition
     const program = particle ? particle.root : undefined
     const parsersProgram = def.languageDefinitionProgram
-    const words = particle ? particle.words : []
-    const requiredCellTypeDefs = this.getRequiredCellTypeIds().map(cellTypeId => parsersProgram.getCellTypeDefinitionById(cellTypeId))
-    const catchAllCellTypeId = this.catchAllCellTypeId
-    const catchAllCellTypeDef = catchAllCellTypeId && parsersProgram.getCellTypeDefinitionById(catchAllCellTypeId)
-    words.forEach((word, wordIndex) => {
-      let cellConstructor
-      for (let index = 0; index < requiredCellTypeDefs.length; index++) {
-        const cellTypeDefinition = requiredCellTypeDefs[index]
-        if (cellTypeDefinition.isValid(word, program)) {
-          // todo: cleanup cellIndex/wordIndex stuff
-          cellConstructor = cellTypeDefinition.getCellConstructor()
-          cells.push(new cellConstructor(particle, wordIndex, cellTypeDefinition, cellTypeDefinition.id, false, def))
-          requiredCellTypeDefs.splice(index, 1)
+    const atoms = particle ? particle.atoms : []
+    const requiredAtomTypeDefs = this.getRequiredAtomTypeIds().map(atomTypeId => parsersProgram.getAtomTypeDefinitionById(atomTypeId))
+    const catchAllAtomTypeId = this.catchAllAtomTypeId
+    const catchAllAtomTypeDef = catchAllAtomTypeId && parsersProgram.getAtomTypeDefinitionById(catchAllAtomTypeId)
+    atoms.forEach((atom, atomIndex) => {
+      let atomConstructor
+      for (let index = 0; index < requiredAtomTypeDefs.length; index++) {
+        const atomTypeDefinition = requiredAtomTypeDefs[index]
+        if (atomTypeDefinition.isValid(atom, program)) {
+          // todo: cleanup atomIndex/atomIndex stuff
+          atomConstructor = atomTypeDefinition.getAtomConstructor()
+          atomsArr.push(new atomConstructor(particle, atomIndex, atomTypeDefinition, atomTypeDefinition.id, false, def))
+          requiredAtomTypeDefs.splice(index, 1)
           return true
         }
       }
-      if (catchAllCellTypeDef && catchAllCellTypeDef.isValid(word, program)) {
-        cellConstructor = catchAllCellTypeDef.getCellConstructor()
-        cells.push(new cellConstructor(particle, wordIndex, catchAllCellTypeDef, catchAllCellTypeId, true, def))
+      if (catchAllAtomTypeDef && catchAllAtomTypeDef.isValid(atom, program)) {
+        atomConstructor = catchAllAtomTypeDef.getAtomConstructor()
+        atomsArr.push(new atomConstructor(particle, atomIndex, catchAllAtomTypeDef, catchAllAtomTypeId, true, def))
         return true
       }
-      cells.push(new ParsersUnknownCellTypeCell(particle, wordIndex, undefined, undefined, false, def))
+      atomsArr.push(new ParsersUnknownAtomTypeAtom(particle, atomIndex, undefined, undefined, false, def))
     })
-    const wordCount = words.length
-    requiredCellTypeDefs.forEach((cellTypeDef, index) => {
-      let cellConstructor = cellTypeDef.getCellConstructor()
-      cells.push(new cellConstructor(particle, wordCount + index, cellTypeDef, cellTypeDef.id, false, def))
+    const atomCount = atoms.length
+    requiredAtomTypeDefs.forEach((atomTypeDef, index) => {
+      let atomConstructor = atomTypeDef.getAtomConstructor()
+      atomsArr.push(new atomConstructor(particle, atomCount + index, atomTypeDef, atomTypeDef.id, false, def))
     })
-    return cells
+    return atomsArr
   }
 }
 class ParsersExampleParser extends Particle {}
@@ -23285,10 +19212,10 @@ class ParsersCompilerParser extends Particle {
     const types = [
       ParsersConstantsCompiler.stringTemplate,
       ParsersConstantsCompiler.indentCharacter,
-      ParsersConstantsCompiler.catchAllCellDelimiter,
-      ParsersConstantsCompiler.joinChildrenWith,
-      ParsersConstantsCompiler.openChildren,
-      ParsersConstantsCompiler.closeChildren
+      ParsersConstantsCompiler.catchAllAtomDelimiter,
+      ParsersConstantsCompiler.joinSubparticlesWith,
+      ParsersConstantsCompiler.openSubparticles,
+      ParsersConstantsCompiler.closeSubparticles
     ]
     const map = {}
     types.forEach(type => {
@@ -23298,19 +19225,19 @@ class ParsersCompilerParser extends Particle {
   }
 }
 class AbstractParserConstantParser extends Particle {
-  constructor(children, line, parent) {
-    super(children, line, parent)
+  constructor(subparticles, line, parent) {
+    super(subparticles, line, parent)
     parent[this.identifier] = this.constantValue
   }
   getGetter() {
     return `get ${this.identifier}() { return ${this.constantValueAsJsText} }`
   }
   get identifier() {
-    return this.getWord(1)
+    return this.getAtom(1)
   }
   get constantValueAsJsText() {
-    const words = this.getWordsFrom(2)
-    return words.length > 1 ? `[${words.join(",")}]` : words[0]
+    const atoms = this.getAtomsFrom(2)
+    return atoms.length > 1 ? `[${atoms.join(",")}]` : atoms[0]
   }
   get constantValue() {
     return JSON.parse(this.constantValueAsJsText)
@@ -23322,7 +19249,7 @@ class ParsersParserConstantString extends AbstractParserConstantParser {
     return "`" + Utils.escapeBackTicks(this.constantValue) + "`"
   }
   get constantValue() {
-    return this.length ? this.childrenToString() : this.getWordsFrom(2).join(" ")
+    return this.length ? this.subparticlesToString() : this.getAtomsFrom(2).join(" ")
   }
 }
 class ParsersParserConstantFloat extends AbstractParserConstantParser {}
@@ -23333,20 +19260,19 @@ class AbstractParserDefinitionParser extends AbstractExtendibleParticle {
     const types = [
       ParsersConstants.popularity,
       ParsersConstants.inScope,
-      ParsersConstants.cells,
+      ParsersConstants.atoms,
       ParsersConstants.extends,
       ParsersConstants.description,
       ParsersConstants.catchAllParser,
-      ParsersConstants.catchAllCellType,
-      ParsersConstants.cellParser,
-      ParsersConstants.extensions,
+      ParsersConstants.catchAllAtomType,
+      ParsersConstants.atomParser,
       ParsersConstants.tags,
       ParsersConstants.cue,
       ParsersConstants.cueFromId,
       ParsersConstants.listDelimiter,
       ParsersConstants.contentKey,
-      ParsersConstants.childrenKey,
-      ParsersConstants.uniqueFirstWord,
+      ParsersConstants.subparticlesKey,
+      ParsersConstants.uniqueCue,
       ParsersConstants.uniqueLine,
       ParsersConstants.pattern,
       ParsersConstants.baseParser,
@@ -23354,7 +19280,6 @@ class AbstractParserDefinitionParser extends AbstractExtendibleParticle {
       ParsersConstants.root,
       ParsersConstants._rootNodeJsHeader,
       ParsersConstants.javascript,
-      ParsersConstants.compilesTo,
       ParsersConstants.javascript,
       ParsersConstants.single,
       ParsersConstants.comment
@@ -23372,34 +19297,34 @@ class AbstractParserDefinitionParser extends AbstractExtendibleParticle {
     return new Particle.ParserCombinator(undefined, map, [{ regex: HandParsersProgram.parserFullRegex, parser: parserDefinitionParser }])
   }
   toTypeScriptInterface(used = new Set()) {
-    let childrenInterfaces = []
+    let subparticlesInterfaces = []
     let properties = []
-    const inScope = this.firstWordMapWithDefinitions
+    const inScope = this.cueMapWithDefinitions
     const thisId = this.id
     used.add(thisId)
     Object.keys(inScope).forEach(key => {
       const def = inScope[key]
-      const map = def.firstWordMapWithDefinitions
+      const map = def.cueMapWithDefinitions
       const id = def.id
       const optionalTag = def.isRequired() ? "" : "?"
       const escapedKey = key.match(/\?/) ? `"${key}"` : key
       const description = def.description
       if (Object.keys(map).length && !used.has(id)) {
-        childrenInterfaces.push(def.toTypeScriptInterface(used))
+        subparticlesInterfaces.push(def.toTypeScriptInterface(used))
         properties.push(` ${escapedKey}${optionalTag}: ${id}`)
       } else properties.push(` ${escapedKey}${optionalTag}: any${description ? " // " + description : ""}`)
     })
     properties.sort()
     const description = this.description
     const myInterface = ""
-    return `${childrenInterfaces.join("\n")}
+    return `${subparticlesInterfaces.join("\n")}
 ${description ? "// " + description : ""}
 interface ${thisId} {
 ${properties.join("\n")}
 }`.trim()
   }
   get id() {
-    return this.getWord(0)
+    return this.getAtom(0)
   }
   get idWithoutSuffix() {
     return this.id.replace(HandParsersProgram.parserSuffixRegex, "")
@@ -23411,16 +19336,16 @@ ${properties.join("\n")}
   }
   _getUniqueConstantParticles(extended = true) {
     const obj = {}
-    const items = extended ? this._getChildrenByParserInExtended(AbstractParserConstantParser) : this.getChildrenByParser(AbstractParserConstantParser)
+    const items = extended ? this._getSubparticlesByParserInExtended(AbstractParserConstantParser) : this.getSubparticlesByParser(AbstractParserConstantParser)
     items.reverse() // Last definition wins.
     items.forEach(particle => (obj[particle.identifier] = particle))
     return obj
   }
   get examples() {
-    return this._getChildrenByParserInExtended(ParsersExampleParser)
+    return this._getSubparticlesByParserInExtended(ParsersExampleParser)
   }
   get parserIdFromDefinition() {
-    return this.getWord(0)
+    return this.getAtom(0)
   }
   // todo: remove? just reused parserId
   get generatedClassName() {
@@ -23438,49 +19363,49 @@ ${properties.join("\n")}
   get regexMatch() {
     return this.get(ParsersConstants.pattern)
   }
-  get firstCellEnumOptions() {
-    const firstCellDef = this._getMyCellTypeDefs()[0]
-    return firstCellDef ? firstCellDef._getEnumOptions() : undefined
+  get cueEnumOptions() {
+    const cueDef = this._getMyAtomTypeDefs()[0]
+    return cueDef ? cueDef._getEnumOptions() : undefined
   }
   get languageDefinitionProgram() {
     return this.root
   }
   get customJavascriptMethods() {
     const hasJsCode = this.has(ParsersConstants.javascript)
-    return hasJsCode ? this.getParticle(ParsersConstants.javascript).childrenToString() : ""
+    return hasJsCode ? this.getParticle(ParsersConstants.javascript).subparticlesToString() : ""
   }
-  get firstWordMapWithDefinitions() {
-    if (!this._cache_firstWordToParticleDefMap) this._cache_firstWordToParticleDefMap = this._createParserInfo(this._getInScopeParserIds()).firstWordMap
-    return this._cache_firstWordToParticleDefMap
+  get cueMapWithDefinitions() {
+    if (!this._cache_cueToParticleDefMap) this._cache_cueToParticleDefMap = this._createParserInfo(this._getInScopeParserIds()).cueMap
+    return this._cache_cueToParticleDefMap
   }
   // todo: remove
-  get runTimeFirstWordsInScope() {
-    return this._getParser().getFirstWordOptions()
+  get runTimeCuesInScope() {
+    return this._getParser().getCueOptions()
   }
-  _getMyCellTypeDefs() {
-    const requiredCells = this.get(ParsersConstants.cells)
-    if (!requiredCells) return []
+  _getMyAtomTypeDefs() {
+    const requiredAtoms = this.get(ParsersConstants.atoms)
+    if (!requiredAtoms) return []
     const parsersProgram = this.languageDefinitionProgram
-    return requiredCells.split(" ").map(cellTypeId => {
-      const cellTypeDef = parsersProgram.getCellTypeDefinitionById(cellTypeId)
-      if (!cellTypeDef) throw new Error(`No cellType "${cellTypeId}" found`)
-      return cellTypeDef
+    return requiredAtoms.split(" ").map(atomTypeId => {
+      const atomTypeDef = parsersProgram.getAtomTypeDefinitionById(atomTypeId)
+      if (!atomTypeDef) throw new Error(`No atomType "${atomTypeId}" found`)
+      return atomTypeDef
     })
   }
-  // todo: what happens when you have a cell getter and constant with same name?
-  get cellGettersAndParserConstants() {
-    // todo: add cellType parsings
+  // todo: what happens when you have a atom getter and constant with same name?
+  get atomGettersAndParserConstants() {
+    // todo: add atomType parsings
     const parsersProgram = this.languageDefinitionProgram
-    const getters = this._getMyCellTypeDefs().map((cellTypeDef, index) => cellTypeDef.getGetter(index))
-    const catchAllCellTypeId = this.get(ParsersConstants.catchAllCellType)
-    if (catchAllCellTypeId) getters.push(parsersProgram.getCellTypeDefinitionById(catchAllCellTypeId).getCatchAllGetter(getters.length))
+    const getters = this._getMyAtomTypeDefs().map((atomTypeDef, index) => atomTypeDef.getGetter(index))
+    const catchAllAtomTypeId = this.get(ParsersConstants.catchAllAtomType)
+    if (catchAllAtomTypeId) getters.push(parsersProgram.getAtomTypeDefinitionById(catchAllAtomTypeId).getCatchAllGetter(getters.length))
     // Constants
     Object.values(this._getUniqueConstantParticles(false)).forEach(particle => getters.push(particle.getGetter()))
     return getters.join("\n")
   }
   _createParserInfo(parserIdsInScope) {
     const result = {
-      firstWordMap: {},
+      cueMap: {},
       regexTests: []
     }
     if (!parserIdsInScope.length) return result
@@ -23494,17 +19419,17 @@ ${properties.join("\n")}
         const def = allProgramParserDefinitionsMap[parserId]
         const regex = def.regexMatch
         const cue = def.cueIfAny
-        const enumOptions = def.firstCellEnumOptions
+        const enumOptions = def.cueEnumOptions
         if (regex) result.regexTests.push({ regex: regex, parser: def.parserIdFromDefinition })
-        else if (cue) result.firstWordMap[cue] = def
+        else if (cue) result.cueMap[cue] = def
         else if (enumOptions) {
-          enumOptions.forEach(option => (result.firstWordMap[option] = def))
+          enumOptions.forEach(option => (result.cueMap[option] = def))
         }
       })
     return result
   }
   get topParserDefinitions() {
-    const arr = Object.values(this.firstWordMapWithDefinitions)
+    const arr = Object.values(this.cueMapWithDefinitions)
     arr.sort(Utils.makeSortByFn(definition => definition.popularity))
     arr.reverse()
     return arr
@@ -23512,7 +19437,7 @@ ${properties.join("\n")}
   _getMyInScopeParserIds(target = this) {
     const parsersParticle = target.getParticle(ParsersConstants.inScope)
     const scopedDefinitionIds = target.myScopedParserDefinitions.map(def => def.id)
-    return parsersParticle ? parsersParticle.getWordsFrom(1).concat(scopedDefinitionIds) : scopedDefinitionIds
+    return parsersParticle ? parsersParticle.getAtomsFrom(1).concat(scopedDefinitionIds) : scopedDefinitionIds
   }
   _getInScopeParserIds() {
     // todo: allow multiple of these if we allow mixins?
@@ -23561,7 +19486,7 @@ ${properties.join("\n")}
     return this._getFromExtended(ParsersConstants.baseParser) === ParsersConstants.blobParser
   }
   get errorMethodToJavascript() {
-    if (this._isBlobParser()) return "getErrors() { return [] }" // Skips parsing child particles for perf gains.
+    if (this._isBlobParser()) return "getErrors() { return [] }" // Skips parsing subparticles for perf gains.
     if (this._isErrorParser()) return "getErrors() { return this._getErrorParserErrors() }"
     return ""
   }
@@ -23570,17 +19495,15 @@ ${properties.join("\n")}
       // todo: do we need this?
       return "createParserCombinator() { return new Particle.ParserCombinator(this._getBlobParserCatchAllParser())}"
     const parserInfo = this._createParserInfo(this._getMyInScopeParserIds())
-    const myFirstWordMap = parserInfo.firstWordMap
+    const myCueMap = parserInfo.cueMap
     const regexRules = parserInfo.regexTests
-    // todo: use constants in first word maps?
+    // todo: use constants in first atom maps?
     // todo: cache the super extending?
-    const firstWords = Object.keys(myFirstWordMap)
-    const hasFirstWords = firstWords.length
+    const cues = Object.keys(myCueMap)
+    const hasCues = cues.length
     const catchAllParser = this.catchAllParserToJavascript
-    if (!hasFirstWords && !catchAllParser && !regexRules.length) return ""
-    const firstWordsStr = hasFirstWords
-      ? `Object.assign(Object.assign({}, super.createParserCombinator()._getFirstWordMapAsObject()), {` + firstWords.map(firstWord => `"${firstWord}" : ${myFirstWordMap[firstWord].parserIdFromDefinition}`).join(",\n") + "})"
-      : "undefined"
+    if (!hasCues && !catchAllParser && !regexRules.length) return ""
+    const cuesStr = hasCues ? `Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {` + cues.map(cue => `"${cue}" : ${myCueMap[cue].parserIdFromDefinition}`).join(",\n") + "})" : "undefined"
     const regexStr = regexRules.length
       ? `[${regexRules
           .map(rule => {
@@ -23591,11 +19514,11 @@ ${properties.join("\n")}
     const catchAllStr = catchAllParser ? catchAllParser : this._amIRoot() ? `this._getBlobParserCatchAllParser()` : "undefined"
     const scopedParserJavascript = this.myScopedParserDefinitions.map(def => def.asJavascriptClass).join("\n\n")
     return `createParserCombinator() {${scopedParserJavascript}
-  return new Particle.ParserCombinator(${catchAllStr}, ${firstWordsStr}, ${regexStr})
+  return new Particle.ParserCombinator(${catchAllStr}, ${cuesStr}, ${regexStr})
   }`
   }
   get myScopedParserDefinitions() {
-    return this.getChildrenByParser(parserDefinitionParser)
+    return this.getSubparticlesByParser(parserDefinitionParser)
   }
   get catchAllParserToJavascript() {
     if (this._isBlobParser()) return "this._getBlobParserCatchAllParser()"
@@ -23605,7 +19528,7 @@ ${properties.join("\n")}
     return particleDef.generatedClassName
   }
   get asJavascriptClass() {
-    const components = [this.parserAsJavascript, this.errorMethodToJavascript, this.cellGettersAndParserConstants, this.customJavascriptMethods].filter(identity => identity)
+    const components = [this.parserAsJavascript, this.errorMethodToJavascript, this.atomGettersAndParserConstants, this.customJavascriptMethods].filter(identity => identity)
     const thisClassName = this.generatedClassName
     if (this._amIRoot()) {
       components.push(`static cachedHandParsersProgramRoot = new HandParsersProgram(\`${Utils.escapeBackTicks(this.parent.toString().replace(/\\/g, "\\\\"))}\`)
@@ -23624,7 +19547,7 @@ ${properties.join("\n")}
   }
   _getCompilerObject() {
     let obj = {}
-    const items = this._getChildrenByParserInExtended(ParsersCompilerParser)
+    const items = this._getSubparticlesByParserInExtended(ParsersCompilerParser)
     items.reverse() // Last definition wins.
     items.forEach(particle => {
       obj = Object.assign(obj, particle.toObject()) // todo: what about multiline strings?
@@ -23633,11 +19556,11 @@ ${properties.join("\n")}
   }
   // todo: improve layout (use bold?)
   get lineHints() {
-    return this.cellParser.lineHints
+    return this.atomParser.lineHints
   }
-  isOrExtendsAParserInScope(firstWordsInScope) {
+  isOrExtendsAParserInScope(cuesInScope) {
     const chain = this._getParserInheritanceSet()
-    return firstWordsInScope.some(firstWord => chain.has(firstWord))
+    return cuesInScope.some(cue => chain.has(cue))
   }
   isTerminalParser() {
     return !this._getFromExtended(ParsersConstants.inScope) && !this._getFromExtended(ParsersConstants.catchAllParser)
@@ -23647,34 +19570,34 @@ ${properties.join("\n")}
     if (regexMatch) return `'${regexMatch}'`
     const cueMatch = this.cueIfAny
     if (cueMatch) return `'^ *${Utils.escapeRegExp(cueMatch)}(?: |$)'`
-    const enumOptions = this.firstCellEnumOptions
+    const enumOptions = this.cueEnumOptions
     if (enumOptions) return `'^ *(${Utils.escapeRegExp(enumOptions.join("|"))})(?: |$)'`
   }
-  // todo: refactor. move some parts to cellParser?
+  // todo: refactor. move some parts to atomParser?
   _toSublimeMatchBlock() {
     const defaultPaint = "source"
     const program = this.languageDefinitionProgram
-    const cellParser = this.cellParser
-    const requiredCellTypeIds = cellParser.getRequiredCellTypeIds()
-    const catchAllCellTypeId = cellParser.catchAllCellTypeId
-    const firstCellTypeDef = program.getCellTypeDefinitionById(requiredCellTypeIds[0])
-    const firstWordPaint = (firstCellTypeDef ? firstCellTypeDef.paint : defaultPaint) + "." + this.parserIdFromDefinition
+    const atomParser = this.atomParser
+    const requiredAtomTypeIds = atomParser.getRequiredAtomTypeIds()
+    const catchAllAtomTypeId = atomParser.catchAllAtomTypeId
+    const cueTypeDef = program.getAtomTypeDefinitionById(requiredAtomTypeIds[0])
+    const cuePaint = (cueTypeDef ? cueTypeDef.paint : defaultPaint) + "." + this.parserIdFromDefinition
     const topHalf = ` '${this.parserIdFromDefinition}':
   - match: ${this.sublimeMatchLine}
-    scope: ${firstWordPaint}`
-    if (catchAllCellTypeId) requiredCellTypeIds.push(catchAllCellTypeId)
-    if (!requiredCellTypeIds.length) return topHalf
-    const captures = requiredCellTypeIds
-      .map((cellTypeId, index) => {
-        const cellTypeDefinition = program.getCellTypeDefinitionById(cellTypeId) // todo: cleanup
-        if (!cellTypeDefinition) throw new Error(`No ${ParsersConstants.cellType} ${cellTypeId} found`) // todo: standardize error/capture error at parsers time
-        return `        ${index + 1}: ${(cellTypeDefinition.paint || defaultPaint) + "." + cellTypeDefinition.cellTypeId}`
+    scope: ${cuePaint}`
+    if (catchAllAtomTypeId) requiredAtomTypeIds.push(catchAllAtomTypeId)
+    if (!requiredAtomTypeIds.length) return topHalf
+    const captures = requiredAtomTypeIds
+      .map((atomTypeId, index) => {
+        const atomTypeDefinition = program.getAtomTypeDefinitionById(atomTypeId) // todo: cleanup
+        if (!atomTypeDefinition) throw new Error(`No ${ParsersConstants.atomType} ${atomTypeId} found`) // todo: standardize error/capture error at parsers time
+        return `        ${index + 1}: ${(atomTypeDefinition.paint || defaultPaint) + "." + atomTypeDefinition.atomTypeId}`
       })
       .join("\n")
-    const cellTypesToRegex = cellTypeIds => cellTypeIds.map(cellTypeId => `({{${cellTypeId}}})?`).join(" ?")
+    const atomTypesToRegex = atomTypeIds => atomTypeIds.map(atomTypeId => `({{${atomTypeId}}})?`).join(" ?")
     return `${topHalf}
     push:
-     - match: ${cellTypesToRegex(requiredCellTypeIds)}
+     - match: ${atomTypesToRegex(requiredAtomTypeIds)}
        captures:
 ${captures}
      - match: $
@@ -23696,10 +19619,10 @@ ${captures}
     return this._cache_parserDefinitionParsers
   }
   get hasParserDefinitions() {
-    return !!this.getChildrenByParser(parserDefinitionParser).length
+    return !!this.getSubparticlesByParser(parserDefinitionParser).length
   }
   makeProgramParserDefinitionCache() {
-    const scopedParsers = this.getChildrenByParser(parserDefinitionParser)
+    const scopedParsers = this.getSubparticlesByParser(parserDefinitionParser)
     const cache = Object.assign({}, this.parent.programParserDefinitionCache) // todo. We don't really need this. we should just lookup the parent if no local hits.
     scopedParsers.forEach(parserDefinitionParser => (cache[parserDefinitionParser.parserIdFromDefinition] = parserDefinitionParser))
     return cache
@@ -23717,14 +19640,14 @@ ${captures}
   }
   _toStumpString() {
     const cue = this.cueIfAny
-    const cellArray = this.cellParser.getCellArray().filter((item, index) => index) // for now this only works for keyword langs
-    if (!cellArray.length)
-      // todo: remove this! just doing it for now until we refactor getCellArray to handle catchAlls better.
+    const atomArray = this.atomParser.getAtomArray().filter((item, index) => index) // for now this only works for keyword langs
+    if (!atomArray.length)
+      // todo: remove this! just doing it for now until we refactor getAtomArray to handle catchAlls better.
       return ""
-    const cells = new Particle(cellArray.map((cell, index) => cell._toStumpInput(cue)).join("\n"))
+    const atoms = new Particle(atomArray.map((atom, index) => atom._toStumpInput(cue)).join("\n"))
     return `div
  label ${cue}
-${cells.toString(1)}`
+${atoms.toString(1)}`
   }
   toStumpString() {
     const particleBreakSymbol = "\n"
@@ -23736,9 +19659,9 @@ ${cells.toString(1)}`
   _generateSimulatedLine(seed) {
     // todo: generate simulated data from catch all
     const cue = this.cueIfAny
-    return this.cellParser
-      .getCellArray()
-      .map((cell, index) => (!index && cue ? cue : cell.synthesizeCell(seed)))
+    return this.atomParser
+      .getAtomArray()
+      .map((atom, index) => (!index && cue ? cue : atom.synthesizeAtom(seed)))
       .join(" ")
   }
   _shouldSynthesize(def, parserChain) {
@@ -23755,7 +19678,7 @@ ${cells.toString(1)}`
   _collectAllDefinitions(defs, collection = []) {
     defs.forEach(def => {
       collection.push(def)
-      def._collectAllDefinitions(def.getChildrenByParser(parserDefinitionParser), collection)
+      def._collectAllDefinitions(def.getSubparticlesByParser(parserDefinitionParser), collection)
     })
     return collection
   }
@@ -23809,14 +19732,14 @@ ${cells.toString(1)}`
     }
     return lines
   }
-  get cellParser() {
-    if (!this._cellParser) {
-      const cellParsingStrategy = this._getFromExtended(ParsersConstants.cellParser)
-      if (cellParsingStrategy === ParsersCellParser.postfix) this._cellParser = new PostfixCellParser(this)
-      else if (cellParsingStrategy === ParsersCellParser.omnifix) this._cellParser = new OmnifixCellParser(this)
-      else this._cellParser = new PrefixCellParser(this)
+  get atomParser() {
+    if (!this._atomParser) {
+      const atomParsingStrategy = this._getFromExtended(ParsersConstants.atomParser)
+      if (atomParsingStrategy === ParsersAtomParser.postfix) this._atomParser = new PostfixAtomParser(this)
+      else if (atomParsingStrategy === ParsersAtomParser.omnifix) this._atomParser = new OmnifixAtomParser(this)
+      else this._atomParser = new PrefixAtomParser(this)
     }
-    return this._cellParser
+    return this._atomParser
   }
 }
 // todo: remove?
@@ -23830,7 +19753,7 @@ class HandParsersProgram extends AbstractParserDefinitionParser {
     return new Particle.ParserCombinator(UnknownParserParticle, map, [
       { regex: HandParsersProgram.blankLineRegex, parser: Particle },
       { regex: HandParsersProgram.parserFullRegex, parser: parserDefinitionParser },
-      { regex: HandParsersProgram.cellTypeFullRegex, parser: cellTypeDefinitionParser }
+      { regex: HandParsersProgram.atomTypeFullRegex, parser: atomTypeDefinitionParser }
     ])
   }
   // rootParser
@@ -23903,13 +19826,13 @@ class HandParsersProgram extends AbstractParserDefinitionParser {
     predictions.sort(Utils.makeSortByFn(prediction => prediction.count)).reverse()
     return predictions
   }
-  predictChildren(model, particle) {
-    return this._mapPredictions(this._predictChildren(model, particle), model)
+  predictSubparticles(model, particle) {
+    return this._mapPredictions(this._predictSubparticles(model, particle), model)
   }
   predictParents(model, particle) {
     return this._mapPredictions(this._predictParents(model, particle), model)
   }
-  _predictChildren(model, particle) {
+  _predictSubparticles(model, particle) {
     return model.matrix[particle.isRoot() ? 0 : model.idToIndex[particle.definition.id]]
   }
   _predictParents(model, particle) {
@@ -23947,7 +19870,7 @@ class HandParsersProgram extends AbstractParserDefinitionParser {
       def.examples.forEach(example => {
         const id = def.id + example.content
         testBlocks[id] = equal => {
-          const exampleProgram = new rootParser(example.childrenToString())
+          const exampleProgram = new rootParser(example.subparticlesToString())
           const errors = exampleProgram.getAllErrors(example._getLineNumber() + 1)
           equal(errors.join("\n"), expectedErrorMessage, `Expected no errors in ${id}`)
         }
@@ -23958,64 +19881,23 @@ class HandParsersProgram extends AbstractParserDefinitionParser {
   toReadMe() {
     const languageName = this.extensionName
     const rootParticleDef = this.rootParserDefinition
-    const cellTypes = this.cellTypeDefinitions
+    const atomTypes = this.atomTypeDefinitions
     const parserLineage = this.parserLineage
     const exampleParticle = rootParticleDef.examples[0]
-    return `title ${languageName} Readme
-
-paragraph ${rootParticleDef.description}
-
-subtitle Quick Example
-
-code
-${exampleParticle ? exampleParticle.childrenToString(1) : ""}
-
-subtitle Quick facts about ${languageName}
+    return `title2 ${languageName} stats
 
 list
- - ${languageName} has ${parserLineage.topDownArray.length} particle types.
- - ${languageName} has ${Object.keys(cellTypes).length} cell types
+ - ${languageName} has ${parserLineage.topDownArray.length} parsers.
+ - ${languageName} has ${Object.keys(atomTypes).length} atom types.
  - The source code for ${languageName} is ${this.topDownArray.length} lines long.
-
-subtitle Installing
-
-code
- npm install .
-
-subtitle Testing
-
-code
- node test.js
-
-subtitle Parsers
-
-code
-${parserLineage.toString(1)}
-
-subtitle Cell Types
-
-code
-${new Particle(Object.keys(cellTypes).join("\n")).toString(1)}
-
-subtitle Road Map
-
-paragraph Here are the "todos" present in the source code for ${languageName}:
-
-list
-${this.topDownArray
-  .filter(particle => particle.getWord(0) === "todo")
-  .map(particle => ` - ${particle.getLine()}`)
-  .join("\n")}
-
-paragraph This readme was auto-generated using the
- link https://github.com/breck7/scrollsdk ScrollSDK.`
+`
   }
   toBundle() {
     const files = {}
     const rootParticleDef = this.rootParserDefinition
     const languageName = this.extensionName
     const example = rootParticleDef.examples[0]
-    const sampleCode = example ? example.childrenToString() : ""
+    const sampleCode = example ? example.subparticlesToString() : ""
     files[ParsersBundleFiles.package] = JSON.stringify(
       {
         name: languageName,
@@ -24053,20 +19935,17 @@ ${testCode}
 ${testCode}`
     return files
   }
-  get targetExtension() {
-    return this.rootParserDefinition.get(ParsersConstants.compilesTo)
-  }
-  get cellTypeDefinitions() {
-    if (this._cache_cellTypes) return this._cache_cellTypes
+  get atomTypeDefinitions() {
+    if (this._cache_atomTypes) return this._cache_atomTypes
     const types = {}
-    // todo: add built in word types?
-    this.getChildrenByParser(cellTypeDefinitionParser).forEach(type => (types[type.cellTypeId] = type))
-    this._cache_cellTypes = types
+    // todo: add built in atom types?
+    this.getSubparticlesByParser(atomTypeDefinitionParser).forEach(type => (types[type.atomTypeId] = type))
+    this._cache_atomTypes = types
     return types
   }
-  getCellTypeDefinitionById(cellTypeId) {
-    // todo: return unknownCellTypeDefinition? or is that handled somewhere else?
-    return this.cellTypeDefinitions[cellTypeId]
+  getAtomTypeDefinitionById(atomTypeId) {
+    // todo: return unknownAtomTypeDefinition? or is that handled somewhere else?
+    return this.atomTypeDefinitions[atomTypeId]
   }
   get parserLineage() {
     const newParticle = new Particle()
@@ -24077,7 +19956,7 @@ ${testCode}`
     return this
   }
   get validConcreteAndAbstractParserDefinitions() {
-    return this.getChildrenByParser(parserDefinitionParser).filter(particle => particle._hasValidParserId())
+    return this.getSubparticlesByParser(parserDefinitionParser).filter(particle => particle._hasValidParserId())
   }
   get lastRootParserDefinitionParticle() {
     return this.findLast(def => def instanceof AbstractParserDefinitionParser && def.has(ParsersConstants.root) && def._hasValidParserId())
@@ -24122,11 +20001,11 @@ ${testCode}`
   }
   _getInScopeParserIds() {
     const parsersParticle = this.rootParserDefinition.getParticle(ParsersConstants.inScope)
-    return parsersParticle ? parsersParticle.getWordsFrom(1) : []
+    return parsersParticle ? parsersParticle.getAtomsFrom(1) : []
   }
   makeProgramParserDefinitionCache() {
     const cache = {}
-    this.getChildrenByParser(parserDefinitionParser).forEach(parserDefinitionParser => (cache[parserDefinitionParser.parserIdFromDefinition] = parserDefinitionParser))
+    this.getSubparticlesByParser(parserDefinitionParser).forEach(parserDefinitionParser => (cache[parserDefinitionParser.parserIdFromDefinition] = parserDefinitionParser))
     return cache
   }
   compileAndReturnRootParser() {
@@ -24135,9 +20014,6 @@ ${testCode}`
       this._cached_rootParser = rootDef.languageDefinitionProgram._compileAndReturnRootParser()
     }
     return this._cached_rootParser
-  }
-  get fileExtensions() {
-    return this.rootParserDefinition.get(ParsersConstants.extensions) ? this.rootParserDefinition.get(ParsersConstants.extensions).split(" ").join(",") : this.extensionName
   }
   toNodeJsJavascript(scrollsdkProductsPath = "scrollsdk/products") {
     return this._rootParticleDefToJavascriptClass(scrollsdkProductsPath, true).trim()
@@ -24178,10 +20054,10 @@ ${exportScript}
 }
 `
   }
-  toSublimeSyntaxFile() {
-    const cellTypeDefs = this.cellTypeDefinitions
-    const variables = Object.keys(cellTypeDefs)
-      .map(name => ` ${name}: '${cellTypeDefs[name].regexString}'`)
+  toSublimeSyntaxFile(fileExtensions = "") {
+    const atomTypeDefs = this.atomTypeDefinitions
+    const variables = Object.keys(atomTypeDefs)
+      .map(name => ` ${name}: '${atomTypeDefs[name].regexString}'`)
       .join("\n")
     const defs = this.validConcreteAndAbstractParserDefinitions.filter(kw => !kw._isAbstract())
     const parserContexts = defs.map(def => def._toSublimeMatchBlock()).join("\n\n")
@@ -24189,7 +20065,7 @@ ${exportScript}
     return `%YAML 1.2
 ---
 name: ${this.extensionName}
-file_extensions: [${this.fileExtensions}]
+file_extensions: [${fileExtensions}]
 scope: source.${this.extensionName}
 
 variables:
@@ -24203,96 +20079,96 @@ ${parserContexts}`
   }
 }
 HandParsersProgram.makeParserId = str => Utils._replaceNonAlphaNumericCharactersWithCharCodes(str).replace(HandParsersProgram.parserSuffixRegex, "") + ParsersConstants.parserSuffix
-HandParsersProgram.makeCellTypeId = str => Utils._replaceNonAlphaNumericCharactersWithCharCodes(str).replace(HandParsersProgram.cellTypeSuffixRegex, "") + ParsersConstants.cellTypeSuffix
+HandParsersProgram.makeAtomTypeId = str => Utils._replaceNonAlphaNumericCharactersWithCharCodes(str).replace(HandParsersProgram.atomTypeSuffixRegex, "") + ParsersConstants.atomTypeSuffix
 HandParsersProgram.parserSuffixRegex = new RegExp(ParsersConstants.parserSuffix + "$")
 HandParsersProgram.parserFullRegex = new RegExp("^[a-zA-Z0-9_]+" + ParsersConstants.parserSuffix + "$")
 HandParsersProgram.blankLineRegex = new RegExp("^$")
-HandParsersProgram.cellTypeSuffixRegex = new RegExp(ParsersConstants.cellTypeSuffix + "$")
-HandParsersProgram.cellTypeFullRegex = new RegExp("^[a-zA-Z0-9_]+" + ParsersConstants.cellTypeSuffix + "$")
+HandParsersProgram.atomTypeSuffixRegex = new RegExp(ParsersConstants.atomTypeSuffix + "$")
+HandParsersProgram.atomTypeFullRegex = new RegExp("^[a-zA-Z0-9_]+" + ParsersConstants.atomTypeSuffix + "$")
 HandParsersProgram._languages = {}
 HandParsersProgram._parsers = {}
 const PreludeKinds = {}
-PreludeKinds[PreludeCellTypeIds.anyCell] = ParsersAnyCell
-PreludeKinds[PreludeCellTypeIds.keywordCell] = ParsersKeywordCell
-PreludeKinds[PreludeCellTypeIds.floatCell] = ParsersFloatCell
-PreludeKinds[PreludeCellTypeIds.numberCell] = ParsersFloatCell
-PreludeKinds[PreludeCellTypeIds.bitCell] = ParsersBitCell
-PreludeKinds[PreludeCellTypeIds.boolCell] = ParsersBoolCell
-PreludeKinds[PreludeCellTypeIds.intCell] = ParsersIntCell
+PreludeKinds[PreludeAtomTypeIds.anyAtom] = ParsersAnyAtom
+PreludeKinds[PreludeAtomTypeIds.keywordAtom] = ParsersKeywordAtom
+PreludeKinds[PreludeAtomTypeIds.floatAtom] = ParsersFloatAtom
+PreludeKinds[PreludeAtomTypeIds.numberAtom] = ParsersFloatAtom
+PreludeKinds[PreludeAtomTypeIds.bitAtom] = ParsersBitAtom
+PreludeKinds[PreludeAtomTypeIds.booleanAtom] = ParsersBooleanAtom
+PreludeKinds[PreludeAtomTypeIds.integerAtom] = ParsersIntegerAtom
 class UnknownParsersProgram extends Particle {
   _inferRootParticleForAPrefixLanguage(parsersName) {
     parsersName = HandParsersProgram.makeParserId(parsersName)
     const rootParticle = new Particle(`${parsersName}
  ${ParsersConstants.root}`)
-    // note: right now we assume 1 global cellTypeMap and parserMap per parsers. But we may have scopes in the future?
-    const rootParticleNames = this.getFirstWords()
+    // note: right now we assume 1 global atomTypeMap and parserMap per parsers. But we may have scopes in the future?
+    const rootParticleNames = this.getCues()
       .filter(identity => identity)
-      .map(word => HandParsersProgram.makeParserId(word))
+      .map(atom => HandParsersProgram.makeParserId(atom))
     rootParticle
       .particleAt(0)
       .touchParticle(ParsersConstants.inScope)
-      .setWordsFrom(1, Array.from(new Set(rootParticleNames)))
+      .setAtomsFrom(1, Array.from(new Set(rootParticleNames)))
     return rootParticle
   }
   _renameIntegerKeywords(clone) {
     // todo: why are we doing this?
     for (let particle of clone.getTopDownArrayIterator()) {
-      const firstWordIsAnInteger = !!particle.firstWord.match(/^\d+$/)
-      const parentFirstWord = particle.parent.firstWord
-      if (firstWordIsAnInteger && parentFirstWord) particle.setFirstWord(HandParsersProgram.makeParserId(parentFirstWord + UnknownParsersProgram._childSuffix))
+      const cueIsAnInteger = !!particle.cue.match(/^\d+$/)
+      const parentCue = particle.parent.cue
+      if (cueIsAnInteger && parentCue) particle.setCue(HandParsersProgram.makeParserId(parentCue + UnknownParsersProgram._subparticleSuffix))
     }
   }
   _getKeywordMaps(clone) {
     const keywordsToChildKeywords = {}
     const keywordsToParticleInstances = {}
     for (let particle of clone.getTopDownArrayIterator()) {
-      const firstWord = particle.firstWord
-      if (!keywordsToChildKeywords[firstWord]) keywordsToChildKeywords[firstWord] = {}
-      if (!keywordsToParticleInstances[firstWord]) keywordsToParticleInstances[firstWord] = []
-      keywordsToParticleInstances[firstWord].push(particle)
-      particle.forEach(child => (keywordsToChildKeywords[firstWord][child.firstWord] = true))
+      const cue = particle.cue
+      if (!keywordsToChildKeywords[cue]) keywordsToChildKeywords[cue] = {}
+      if (!keywordsToParticleInstances[cue]) keywordsToParticleInstances[cue] = []
+      keywordsToParticleInstances[cue].push(particle)
+      particle.forEach(subparticle => (keywordsToChildKeywords[cue][subparticle.cue] = true))
     }
     return { keywordsToChildKeywords: keywordsToChildKeywords, keywordsToParticleInstances: keywordsToParticleInstances }
   }
-  _inferParserDef(firstWord, globalCellTypeMap, childFirstWords, instances) {
+  _inferParserDef(cue, globalAtomTypeMap, subparticleCues, instances) {
     const edgeSymbol = this.edgeSymbol
-    const parserId = HandParsersProgram.makeParserId(firstWord)
+    const parserId = HandParsersProgram.makeParserId(cue)
     const particleDefParticle = new Particle(parserId).particleAt(0)
-    const childParserIds = childFirstWords.map(word => HandParsersProgram.makeParserId(word))
-    if (childParserIds.length) particleDefParticle.touchParticle(ParsersConstants.inScope).setWordsFrom(1, childParserIds)
-    const cellsForAllInstances = instances
+    const subparticleParserIds = subparticleCues.map(atom => HandParsersProgram.makeParserId(atom))
+    if (subparticleParserIds.length) particleDefParticle.touchParticle(ParsersConstants.inScope).setAtomsFrom(1, subparticleParserIds)
+    const atomsForAllInstances = instances
       .map(line => line.content)
       .filter(identity => identity)
       .map(line => line.split(edgeSymbol))
-    const instanceCellCounts = new Set(cellsForAllInstances.map(cells => cells.length))
-    const maxCellsOnLine = Math.max(...Array.from(instanceCellCounts))
-    const minCellsOnLine = Math.min(...Array.from(instanceCellCounts))
-    let catchAllCellType
-    let cellTypeIds = []
-    for (let cellIndex = 0; cellIndex < maxCellsOnLine; cellIndex++) {
-      const cellType = this._getBestCellType(
-        firstWord,
+    const instanceAtomCounts = new Set(atomsForAllInstances.map(atoms => atoms.length))
+    const maxAtomsOnLine = Math.max(...Array.from(instanceAtomCounts))
+    const minAtomsOnLine = Math.min(...Array.from(instanceAtomCounts))
+    let catchAllAtomType
+    let atomTypeIds = []
+    for (let atomIndex = 0; atomIndex < maxAtomsOnLine; atomIndex++) {
+      const atomType = this._getBestAtomType(
+        cue,
         instances.length,
-        maxCellsOnLine,
-        cellsForAllInstances.map(cells => cells[cellIndex])
+        maxAtomsOnLine,
+        atomsForAllInstances.map(atoms => atoms[atomIndex])
       )
-      if (!globalCellTypeMap.has(cellType.cellTypeId)) globalCellTypeMap.set(cellType.cellTypeId, cellType.cellTypeDefinition)
-      cellTypeIds.push(cellType.cellTypeId)
+      if (!globalAtomTypeMap.has(atomType.atomTypeId)) globalAtomTypeMap.set(atomType.atomTypeId, atomType.atomTypeDefinition)
+      atomTypeIds.push(atomType.atomTypeId)
     }
-    if (maxCellsOnLine > minCellsOnLine) {
+    if (maxAtomsOnLine > minAtomsOnLine) {
       //columns = columns.slice(0, min)
-      catchAllCellType = cellTypeIds.pop()
-      while (cellTypeIds[cellTypeIds.length - 1] === catchAllCellType) {
-        cellTypeIds.pop()
+      catchAllAtomType = atomTypeIds.pop()
+      while (atomTypeIds[atomTypeIds.length - 1] === catchAllAtomType) {
+        atomTypeIds.pop()
       }
     }
-    const needsCueProperty = !firstWord.endsWith(UnknownParsersProgram._childSuffix + ParsersConstants.parserSuffix) // todo: cleanup
-    if (needsCueProperty) particleDefParticle.set(ParsersConstants.cue, firstWord)
-    if (catchAllCellType) particleDefParticle.set(ParsersConstants.catchAllCellType, catchAllCellType)
-    const cellLine = cellTypeIds.slice()
-    cellLine.unshift(PreludeCellTypeIds.keywordCell)
-    if (cellLine.length > 0) particleDefParticle.set(ParsersConstants.cells, cellLine.join(edgeSymbol))
-    //if (!catchAllCellType && cellTypeIds.length === 1) particleDefParticle.set(ParsersConstants.cells, cellTypeIds[0])
+    const needsCueProperty = !cue.endsWith(UnknownParsersProgram._subparticleSuffix + ParsersConstants.parserSuffix) // todo: cleanup
+    if (needsCueProperty) particleDefParticle.set(ParsersConstants.cue, cue)
+    if (catchAllAtomType) particleDefParticle.set(ParsersConstants.catchAllAtomType, catchAllAtomType)
+    const atomLine = atomTypeIds.slice()
+    atomLine.unshift(PreludeAtomTypeIds.keywordAtom)
+    if (atomLine.length > 0) particleDefParticle.set(ParsersConstants.atoms, atomLine.join(edgeSymbol))
+    //if (!catchAllAtomType && atomTypeIds.length === 1) particleDefParticle.set(ParsersConstants.atoms, atomTypeIds[0])
     // Todo: add conditional frequencies
     return particleDefParticle.parent.toString()
   }
@@ -24300,27 +20176,27 @@ class UnknownParsersProgram extends Particle {
   //     parsersName = HandParsersProgram.makeParserId(parsersName)
   //    const rootParticle = new Particle(`${parsersName}
   // ${ParsersConstants.root}`)
-  //    // note: right now we assume 1 global cellTypeMap and parserMap per parsers. But we may have scopes in the future?
-  //    const rootParticleNames = this.getFirstWords().map(word => HandParsersProgram.makeParserId(word))
+  //    // note: right now we assume 1 global atomTypeMap and parserMap per parsers. But we may have scopes in the future?
+  //    const rootParticleNames = this.getCues().map(atom => HandParsersProgram.makeParserId(atom))
   //    rootParticle
   //      .particleAt(0)
   //      .touchParticle(ParsersConstants.inScope)
-  //      .setWordsFrom(1, Array.from(new Set(rootParticleNames)))
+  //      .setAtomsFrom(1, Array.from(new Set(rootParticleNames)))
   //    return rootParticle
   //  }
   inferParsersFileForAKeywordLanguage(parsersName) {
     const clone = this.clone()
     this._renameIntegerKeywords(clone)
     const { keywordsToChildKeywords, keywordsToParticleInstances } = this._getKeywordMaps(clone)
-    const globalCellTypeMap = new Map()
-    globalCellTypeMap.set(PreludeCellTypeIds.keywordCell, undefined)
+    const globalAtomTypeMap = new Map()
+    globalAtomTypeMap.set(PreludeAtomTypeIds.keywordAtom, undefined)
     const parserDefs = Object.keys(keywordsToChildKeywords)
       .filter(identity => identity)
-      .map(firstWord => this._inferParserDef(firstWord, globalCellTypeMap, Object.keys(keywordsToChildKeywords[firstWord]), keywordsToParticleInstances[firstWord]))
-    const cellTypeDefs = []
-    globalCellTypeMap.forEach((def, id) => cellTypeDefs.push(def ? def : id))
+      .map(cue => this._inferParserDef(cue, globalAtomTypeMap, Object.keys(keywordsToChildKeywords[cue]), keywordsToParticleInstances[cue]))
+    const atomTypeDefs = []
+    globalAtomTypeMap.forEach((def, id) => atomTypeDefs.push(def ? def : id))
     const particleBreakSymbol = this.particleBreakSymbol
-    return this._formatCode([this._inferRootParticleForAPrefixLanguage(parsersName).toString(), cellTypeDefs.join(particleBreakSymbol), parserDefs.join(particleBreakSymbol)].filter(identity => identity).join("\n"))
+    return this._formatCode([this._inferRootParticleForAPrefixLanguage(parsersName).toString(), atomTypeDefs.join(particleBreakSymbol), parserDefs.join(particleBreakSymbol)].filter(identity => identity).join("\n"))
   }
   _formatCode(code) {
     // todo: make this run in browser too
@@ -24330,7 +20206,7 @@ class UnknownParsersProgram extends Particle {
     const program = new rootParser(code)
     return program.format().toString()
   }
-  _getBestCellType(firstWord, instanceCount, maxCellsOnLine, allValues) {
+  _getBestAtomType(cue, instanceCount, maxAtomsOnLine, allValues) {
     const asSet = new Set(allValues)
     const edgeSymbol = this.edgeSymbol
     const values = Array.from(asSet).filter(identity => identity)
@@ -24340,7 +20216,7 @@ class UnknownParsersProgram extends Particle {
       }
       return true
     }
-    if (every(str => str === "0" || str === "1")) return { cellTypeId: PreludeCellTypeIds.bitCell }
+    if (every(str => str === "0" || str === "1")) return { atomTypeId: PreludeAtomTypeIds.bitAtom }
     if (
       every(str => {
         const num = parseInt(str)
@@ -24348,30 +20224,1120 @@ class UnknownParsersProgram extends Particle {
         return num.toString() === str
       })
     ) {
-      return { cellTypeId: PreludeCellTypeIds.intCell }
+      return { atomTypeId: PreludeAtomTypeIds.integerAtom }
     }
-    if (every(str => str.match(/^-?\d*.?\d+$/))) return { cellTypeId: PreludeCellTypeIds.floatCell }
+    if (every(str => str.match(/^-?\d*.?\d+$/))) return { atomTypeId: PreludeAtomTypeIds.floatAtom }
     const bools = new Set(["1", "0", "true", "false", "t", "f", "yes", "no"])
-    if (every(str => bools.has(str.toLowerCase()))) return { cellTypeId: PreludeCellTypeIds.boolCell }
+    if (every(str => bools.has(str.toLowerCase()))) return { atomTypeId: PreludeAtomTypeIds.booleanAtom }
     // todo: cleanup
     const enumLimit = 30
-    if (instanceCount > 1 && maxCellsOnLine === 1 && allValues.length > asSet.size && asSet.size < enumLimit)
+    if (instanceCount > 1 && maxAtomsOnLine === 1 && allValues.length > asSet.size && asSet.size < enumLimit)
       return {
-        cellTypeId: HandParsersProgram.makeCellTypeId(firstWord),
-        cellTypeDefinition: `${HandParsersProgram.makeCellTypeId(firstWord)}
+        atomTypeId: HandParsersProgram.makeAtomTypeId(cue),
+        atomTypeDefinition: `${HandParsersProgram.makeAtomTypeId(cue)}
  enum ${values.join(edgeSymbol)}`
       }
-    return { cellTypeId: PreludeCellTypeIds.anyCell }
+    return { atomTypeId: PreludeAtomTypeIds.anyAtom }
   }
 }
-UnknownParsersProgram._childSuffix = "Child"
+UnknownParsersProgram._subparticleSuffix = "Subparticle"
 window.ParsersConstants = ParsersConstants
-window.PreludeCellTypeIds = PreludeCellTypeIds
+window.PreludeAtomTypeIds = PreludeAtomTypeIds
 window.HandParsersProgram = HandParsersProgram
 window.ParserBackedParticle = ParserBackedParticle
 window.UnknownParserError = UnknownParserError
 window.UnknownParsersProgram = UnknownParsersProgram
-;("use strict")
+
+
+{
+  class parsersParser extends ParserBackedParticle {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(catchAllErrorParser, Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), { "//": slashCommentParser }), [
+        { regex: /^$/, parser: blankLineParser },
+        { regex: /^[a-zA-Z0-9_]+Atom$/, parser: atomTypeDefinitionParser },
+        { regex: /^[a-zA-Z0-9_]+Parser$/, parser: parserDefinitionParser }
+      ])
+    }
+    static cachedHandParsersProgramRoot =
+      new HandParsersProgram(`// todo Add imports parsers, along with source maps, so we can correctly support parsers split across multiple files, and better enable parsers from compositions of reusable bits?
+// todo Do error checking for if you have a firstatomAtomType, atoms, and/or catchAllAtomType with same name.
+// todo Add enumOption root level type?
+// todo compile atoms. add javascript property. move getRunTimeEnumOptions to atoms.
+
+// Atom Parsers
+abstractConstantAtom
+ paint entity.name.tag
+
+javascriptSafeAlphaNumericIdentifierAtom
+ regex [a-zA-Z0-9_]+
+ reservedAtoms enum extends function static if while export return class for default require var let const new
+
+anyAtom
+
+baseParsersAtom
+ description There are a few classes of special parsers. BlobParsers don't have their subparticles parsed. Error particles always report an error.
+ // todo Remove?
+ enum blobParser errorParser
+ paint variable.parameter
+
+enumAtom
+ paint constant.language
+
+booleanAtom
+ enum true false
+ extends enumAtom
+
+atomParserAtom
+ enum prefix postfix omnifix
+ paint constant.numeric
+
+atomPropertyNameAtom
+ paint variable.parameter
+
+atomTypeIdAtom
+ examples integerAtom keywordAtom someCustomAtom
+ extends javascriptSafeAlphaNumericIdentifierAtom
+ enumFromAtomTypes atomTypeIdAtom
+ paint storage
+
+constantIdentifierAtom
+ examples someId myVar
+ // todo Extend javascriptSafeAlphaNumericIdentifier
+ regex [a-zA-Z]\\w+
+ paint constant.other
+ description A atom that can be assigned to the parser in the target language.
+
+constructorFilePathAtom
+
+enumOptionAtom
+ // todo Add an enumOption top level type, so we can add data to an enum option such as a description.
+ paint string
+
+atomExampleAtom
+ description Holds an example for a atom with a wide range of options.
+ paint string
+
+extraAtom
+ paint invalid
+
+fileExtensionAtom
+ examples js txt doc exe
+ regex [a-zA-Z0-9]+
+ paint string
+
+numberAtom
+ paint constant.numeric
+
+floatAtom
+ extends numberAtom
+ regex \\-?[0-9]*\\.?[0-9]*
+ paint constant.numeric.float
+
+integerAtom
+ regex \\-?[0-9]+
+ extends numberAtom
+ paint constant.numeric.integer
+
+cueAtom
+ description A atom that indicates a certain parser to use.
+ paint keyword
+
+javascriptCodeAtom
+
+lowercaseAtom
+ regex [a-z]+
+
+parserIdAtom
+ examples commentParser addParser
+ description This doubles as the class name in Javascript. If this begins with \`abstract\`, then the parser will be considered an abstract parser, which cannot be used by itself but provides common functionality to parsers that extend it.
+ paint variable.parameter
+ extends javascriptSafeAlphaNumericIdentifierAtom
+ enumFromAtomTypes parserIdAtom
+
+cueAtom
+ paint constant.language
+
+regexAtom
+ paint string.regexp
+
+reservedAtomAtom
+ description A atom that a atom cannot contain.
+ paint string
+
+paintTypeAtom
+ enum comment comment.block comment.block.documentation comment.line constant constant.character.escape constant.language constant.numeric constant.numeric.complex constant.numeric.complex.imaginary constant.numeric.complex.real constant.numeric.float constant.numeric.float.binary constant.numeric.float.decimal constant.numeric.float.hexadecimal constant.numeric.float.octal constant.numeric.float.other constant.numeric.integer constant.numeric.integer.binary constant.numeric.integer.decimal constant.numeric.integer.hexadecimal constant.numeric.integer.octal constant.numeric.integer.other constant.other constant.other.placeholder entity entity.name entity.name.class entity.name.class.forward-decl entity.name.constant entity.name.enum entity.name.function entity.name.function.constructor entity.name.function.destructor entity.name.impl entity.name.interface entity.name.label entity.name.namespace entity.name.section entity.name.struct entity.name.tag entity.name.trait entity.name.type entity.name.union entity.other.attribute-name entity.other.inherited-class invalid invalid.deprecated invalid.illegal keyword keyword.control keyword.control.conditional keyword.control.import keyword.declaration keyword.operator keyword.operator.arithmetic keyword.operator.assignment keyword.operator.bitwise keyword.operator.logical keyword.operator.atom keyword.other markup markup.bold markup.deleted markup.heading markup.inserted markup.italic markup.list.numbered markup.list.unnumbered markup.other markup.quote markup.raw.block markup.raw.inline markup.underline markup.underline.link meta meta.annotation meta.annotation.identifier meta.annotation.parameters meta.block meta.braces meta.brackets meta.class meta.enum meta.function meta.function-call meta.function.parameters meta.function.return-type meta.generic meta.group meta.impl meta.interface meta.interpolation meta.namespace meta.paragraph meta.parens meta.path meta.preprocessor meta.string meta.struct meta.tag meta.toc-list meta.trait meta.type meta.union punctuation punctuation.accessor punctuation.definition.annotation punctuation.definition.comment punctuation.definition.generic.begin punctuation.definition.generic.end punctuation.definition.keyword punctuation.definition.string.begin punctuation.definition.string.end punctuation.definition.variable punctuation.section.block.begin punctuation.section.block.end punctuation.section.braces.begin punctuation.section.braces.end punctuation.section.brackets.begin punctuation.section.brackets.end punctuation.section.group.begin punctuation.section.group.end punctuation.section.interpolation.begin punctuation.section.interpolation.end punctuation.section.parens.begin punctuation.section.parens.end punctuation.separator punctuation.separator.continuation punctuation.terminator source source.language-suffix.embedded storage storage.modifier storage.type storage.type keyword.declaration.type storage.type.class keyword.declaration.class storage.type.enum keyword.declaration.enum storage.type.function keyword.declaration.function storage.type.impl keyword.declaration.impl storage.type.interface keyword.declaration.interface storage.type.struct keyword.declaration.struct storage.type.trait keyword.declaration.trait storage.type.union keyword.declaration.union string string.quoted.double string.quoted.other string.quoted.single string.quoted.triple string.regexp string.unquoted support support.class support.constant support.function support.module support.type text text.html text.xml variable variable.annotation variable.function variable.language variable.other variable.other.constant variable.other.member variable.other.readwrite variable.parameter
+ paint string
+
+scriptUrlAtom
+
+semanticVersionAtom
+ examples 1.0.0 2.2.1
+ regex [0-9]+\\.[0-9]+\\.[0-9]+
+ paint constant.numeric
+
+// Date atom types
+dateAtom
+ paint string
+
+stringAtom
+ paint string
+
+atomAtom
+ paint string
+ description A non-empty single atom string.
+ regex .+
+
+exampleAnyAtom
+ examples lorem ipsem
+ // todo Eventually we want to be able to parse correctly the examples.
+ paint comment
+ extends stringAtom
+
+blankAtom
+
+commentAtom
+ paint comment
+
+codeAtom
+ paint comment
+
+// Line Parsers
+parsersParser
+ root
+ description A programming language for making languages.
+ // Parsers is a language for creating new languages on top of Particles. By creating a parsers file you get a parser, a type checker, syntax highlighting, autocomplete, a compiler, and virtual machine for executing your new language. Parsers uses both postfix and prefix language features.
+ catchAllParser catchAllErrorParser
+ example A parsers that parses anything:
+  latinParser
+   root
+   catchAllParser anyParser
+  anyParser
+   baseParser blobParser
+ inScope slashCommentParser blankLineParser atomTypeDefinitionParser parserDefinitionParser
+
+blankLineParser
+ description Blank lines are OK in Parsers.
+ atoms blankAtom
+ pattern ^$
+ tags doNotSynthesize
+
+abstractCompilerRuleParser
+ catchAllAtomType anyAtom
+ atoms cueAtom
+
+closeSubparticlesParser
+ extends abstractCompilerRuleParser
+ description When compiling a parent particle to a string, this string is appended to the compiled and joined subparticles. Default is blank.
+ cueFromId
+
+indentCharacterParser
+ extends abstractCompilerRuleParser
+ description You can change the indent character for compiled subparticles. Default is a space.
+ cueFromId
+
+catchAllAtomDelimiterParser
+ description If a particle has a catchAllAtom, this is the string delimiter that will be used to join those atoms. Default is comma.
+ extends abstractCompilerRuleParser
+ cueFromId
+
+openSubparticlesParser
+ extends abstractCompilerRuleParser
+ description When compiling a parent particle to a string, this string is prepended to the compiled and joined subparticles. Default is blank.
+ cueFromId
+
+stringTemplateParser
+ extends abstractCompilerRuleParser
+ description This template string is used to compile this line, and accepts strings of the format: const var = {someAtomId}
+ cueFromId
+
+joinSubparticlesWithParser
+ description When compiling a parent particle to a string, subparticles are compiled to strings and joined by this character. Default is a newline.
+ extends abstractCompilerRuleParser
+ cueFromId
+
+abstractConstantParser
+ description A constant.
+ atoms cueAtom
+ cueFromId
+ // todo: make tags inherit
+ tags actPhase
+
+parsersBooleanParser
+ cue boolean
+ atoms cueAtom constantIdentifierAtom
+ catchAllAtomType booleanAtom
+ extends abstractConstantParser
+ tags actPhase
+
+parsersFloatParser
+ cue float
+ atoms cueAtom constantIdentifierAtom
+ catchAllAtomType floatAtom
+ extends abstractConstantParser
+ tags actPhase
+
+parsersIntParser
+ cue int
+ atoms cueAtom constantIdentifierAtom
+ catchAllAtomType integerAtom
+ tags actPhase
+ extends abstractConstantParser
+
+parsersStringParser
+ cue string
+ atoms cueAtom constantIdentifierAtom
+ catchAllAtomType stringAtom
+ catchAllParser catchAllMultilineStringConstantParser
+ extends abstractConstantParser
+ tags actPhase
+
+abstractParserRuleParser
+ single
+ atoms cueAtom
+
+abstractNonTerminalParserRuleParser
+ extends abstractParserRuleParser
+
+parsersBaseParserParser
+ atoms cueAtom baseParsersAtom
+ description Set for blobs or errors. 
+ // In rare cases with untyped content you can use a blobParser, for now, to skip parsing for performance gains. The base errorParser will report errors when parsed. Use that if you don't want to implement your own error parser.
+ extends abstractParserRuleParser
+ cue baseParser
+ tags analyzePhase
+
+catchAllAtomTypeParser
+ atoms cueAtom atomTypeIdAtom
+ description Use for lists.
+ // Aka 'listAtomType'. Use this when the value in a key/value pair is a list. If there are extra atoms in the particle's line, parse these atoms as this type. Often used with \`listDelimiterParser\`.
+ extends abstractParserRuleParser
+ cueFromId
+ tags analyzePhase
+
+atomParserParser
+ atoms cueAtom atomParserAtom
+ description Set parsing strategy.
+ // prefix/postfix/omnifix parsing strategy. If missing, defaults to prefix.
+ extends abstractParserRuleParser
+ cueFromId
+ tags experimental analyzePhase
+
+catchAllParserParser
+ description Attach this to unmatched lines.
+ // If a parser is not found in the inScope list, instantiate this type of particle instead.
+ atoms cueAtom parserIdAtom
+ extends abstractParserRuleParser
+ cueFromId
+ tags acquirePhase
+
+parsersAtomsParser
+ catchAllAtomType atomTypeIdAtom
+ description Set required atomTypes.
+ extends abstractParserRuleParser
+ cue atoms
+ tags analyzePhase
+
+parsersCompilerParser
+ // todo Remove this and its subparticles?
+ description Deprecated. For simple compilers.
+ inScope stringTemplateParser catchAllAtomDelimiterParser openSubparticlesParser closeSubparticlesParser indentCharacterParser joinSubparticlesWithParser
+ extends abstractParserRuleParser
+ cue compiler
+ tags deprecate
+ boolean suggestInAutocomplete false
+
+parserDescriptionParser
+ description Parser description.
+ catchAllAtomType stringAtom
+ extends abstractParserRuleParser
+ cue description
+ tags assemblePhase
+
+atomTypeDescriptionParser
+ description Atom Type description.
+ catchAllAtomType stringAtom
+ cue description
+ tags assemblePhase
+
+parsersExampleParser
+ // todo Should this just be a "string" constant on particles?
+ description Set example for docs and tests.
+ catchAllAtomType exampleAnyAtom
+ catchAllParser catchAllExampleLineParser
+ extends abstractParserRuleParser
+ cue example
+ tags assemblePhase
+
+extendsParserParser
+ cue extends
+ tags assemblePhase
+ description Extend another parser.
+ // todo: add a catchall that is used for mixins
+ atoms cueAtom parserIdAtom
+ extends abstractParserRuleParser
+
+parsersPopularityParser
+ // todo Remove this parser. Switch to conditional frequencies.
+ description Parser popularity.
+ atoms cueAtom floatAtom
+ extends abstractParserRuleParser
+ cue popularity
+ tags assemblePhase
+
+inScopeParser
+ description Parsers in scope.
+ catchAllAtomType parserIdAtom
+ extends abstractParserRuleParser
+ cueFromId
+ tags acquirePhase
+
+parsersJavascriptParser
+ // todo Urgently need to get submode syntax highlighting running! (And eventually LSP)
+ description Javascript code for Parser Actions.
+ catchAllParser catchAllJavascriptCodeLineParser
+ extends abstractParserRuleParser
+ tags actPhase
+ javascript
+  format() {
+   if (this.isNodeJs()) {
+    const template = \`class FOO{ \${this.subparticlesToString()}}\`
+    this.setSubparticles(
+     require("prettier")
+      .format(template, { semi: false, useTabs: true, parser: "babel", printWidth: 240 })
+      .replace(/class FOO \\{\\s+/, "")
+      .replace(/\\s+\\}\\s+$/, "")
+      .replace(/\\n\\t/g, "\\n") // drop one level of indent
+      .replace(/\\t/g, " ") // we used tabs instead of spaces to be able to dedent without breaking literals.
+    )
+   }
+   return this
+  }
+ cue javascript
+
+abstractParseRuleParser
+ // Each particle should have a pattern that it matches on unless it's a catch all particle.
+ extends abstractParserRuleParser
+ cueFromId
+
+parsersCueParser
+ atoms cueAtom stringAtom
+ description Attach by matching first atom.
+ extends abstractParseRuleParser
+ tags acquirePhase
+ cue cue
+
+cueFromIdParser
+ atoms cueAtom
+ description Derive cue from parserId.
+ // for example 'fooParser' would have cue of 'foo'.
+ extends abstractParseRuleParser
+ tags acquirePhase
+
+parsersPatternParser
+ catchAllAtomType regexAtom
+ description Attach via regex.
+ extends abstractParseRuleParser
+ tags acquirePhase
+ cue pattern
+
+parsersRequiredParser
+ description Assert is present at least once.
+ extends abstractParserRuleParser
+ cue required
+ tags analyzePhase
+
+abstractValidationRuleParser
+ extends abstractParserRuleParser
+ cueFromId
+ catchAllAtomType booleanAtom
+
+parsersSingleParser
+ description Assert used once.
+ // Can be overridden by a child class by setting to false.
+ extends abstractValidationRuleParser
+ tags analyzePhase
+ cue single
+
+uniqueLineParser
+ description Assert unique lines. For pattern parsers.
+ // Can be overridden by a child class by setting to false.
+ extends abstractValidationRuleParser
+ tags analyzePhase
+
+uniqueCueParser
+ description Assert unique first atoms. For pattern parsers.
+ // For catch all parsers or pattern particles, use this to indicate the 
+ extends abstractValidationRuleParser
+ tags analyzePhase
+
+listDelimiterParser
+ description Split content by this delimiter.
+ extends abstractParserRuleParser
+ cueFromId
+ catchAllAtomType stringAtom
+ tags analyzePhase
+
+
+contentKeyParser
+ description Deprecated. For to/from JSON.
+ // Advanced keyword to help with isomorphic JSON serialization/deserialization. If present will serialize the particle to an object and set a property with this key and the value set to the particle's content.
+ extends abstractParserRuleParser
+ cueFromId
+ catchAllAtomType stringAtom
+ tags deprecate
+ boolean suggestInAutocomplete false
+subparticlesKeyParser
+ // todo: deprecate?
+ description Deprecated. For to/from JSON.
+ // Advanced keyword to help with serialization/deserialization of blobs. If present will serialize the particle to an object and set a property with this key and the value set to the particle's subparticles.
+ extends abstractParserRuleParser
+ cueFromId
+ catchAllAtomType stringAtom
+ tags deprecate
+ boolean suggestInAutocomplete false
+
+parsersTagsParser
+ catchAllAtomType stringAtom
+ extends abstractParserRuleParser
+ description Custom metadata.
+ cue tags
+ tags assemblePhase
+
+catchAllErrorParser
+ baseParser errorParser
+
+catchAllExampleLineParser
+ catchAllAtomType exampleAnyAtom
+ catchAllParser catchAllExampleLineParser
+ atoms exampleAnyAtom
+
+catchAllJavascriptCodeLineParser
+ catchAllAtomType javascriptCodeAtom
+ catchAllParser catchAllJavascriptCodeLineParser
+
+catchAllMultilineStringConstantParser
+ description String constants can span multiple lines.
+ catchAllAtomType stringAtom
+ catchAllParser catchAllMultilineStringConstantParser
+ atoms stringAtom
+
+
+atomTypeDefinitionParser
+ // todo Generate a class for each atom type?
+ // todo Allow abstract atom types?
+ // todo Change pattern to postfix.
+ pattern ^[a-zA-Z0-9_]+Atom$
+ inScope parsersPaintParser parsersRegexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser parsersEnumParser slashCommentParser extendsAtomTypeParser parsersExamplesParser atomMinParser atomMaxParser
+ atoms atomTypeIdAtom
+ tags assemblePhase
+ javascript
+  buildHtml() {return ""}
+
+// Enums
+enumFromAtomTypesParser
+ description Runtime enum options.
+ catchAllAtomType atomTypeIdAtom
+ atoms atomPropertyNameAtom
+ cueFromId
+ tags analyzePhase
+
+parsersEnumParser
+ description Set enum options.
+ cue enum
+ catchAllAtomType enumOptionAtom
+ atoms atomPropertyNameAtom
+ tags analyzePhase
+
+parsersExamplesParser
+ description Examples for documentation and tests.
+ // If the domain of possible atom values is large, such as a string type, it can help certain methods—such as program synthesis—to provide a few examples.
+ cue examples
+ catchAllAtomType atomExampleAtom
+ atoms atomPropertyNameAtom
+ tags assemblePhase
+
+atomMinParser
+ description Specify a min if numeric.
+ cue min
+ atoms atomPropertyNameAtom numberAtom
+ tags analyzePhase
+
+atomMaxParser
+ description Specify a max if numeric.
+ cue max
+ atoms atomPropertyNameAtom numberAtom
+ tags analyzePhase
+
+parsersPaintParser
+ atoms cueAtom paintTypeAtom
+ description Instructor editor how to color these.
+ single
+ cue paint
+ tags analyzePhase
+
+rootFlagParser
+ cue root
+ description Set root parser.
+ // Mark a parser as root if it is the root of your language. The parserId will be the name of your language. The parserId will also serve as the default file extension, if you don't specify another. If more than 1 parser is marked as "root", the last one wins.
+ atoms cueAtom
+ tags assemblePhase
+
+parserDefinitionParser
+ // todo Add multiple dispatch?
+ pattern ^[a-zA-Z0-9_]+Parser$
+ description Parser types are a core unit of your language. They translate to 1 class per parser. Examples of parser would be "header", "person", "if", "+", "define", etc.
+ catchAllParser catchAllErrorParser
+ inScope rootFlagParser abstractParserRuleParser abstractConstantParser slashCommentParser parserDefinitionParser
+ atoms parserIdAtom
+ tags assemblePhase
+ javascript
+  buildHtml() { return ""}
+
+parsersRegexParser
+ catchAllAtomType regexAtom
+ description Atoms must match this.
+ single
+ atoms atomPropertyNameAtom
+ cue regex
+ tags analyzePhase
+
+reservedAtomsParser
+ single
+ description Atoms can't be any of these.
+ catchAllAtomType reservedAtomAtom
+ atoms atomPropertyNameAtom
+ cueFromId
+ tags analyzePhase
+
+commentLineParser
+ catchAllAtomType commentAtom
+
+slashCommentParser
+ description A comment.
+ catchAllAtomType commentAtom
+ cue //
+ catchAllParser commentLineParser
+ tags assemblePhase
+
+extendsAtomTypeParser
+ cue extends
+ description Extend another atomType.
+ // todo Add mixin support in addition to extends?
+ atoms cueAtom atomTypeIdAtom
+ tags assemblePhase
+ single`)
+    get handParsersProgram() {
+      return this.constructor.cachedHandParsersProgramRoot
+    }
+    static rootParser = parsersParser
+  }
+
+  class blankLineParser extends ParserBackedParticle {
+    get blankAtom() {
+      return this.getAtom(0)
+    }
+  }
+
+  class abstractCompilerRuleParser extends ParserBackedParticle {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get anyAtom() {
+      return this.getAtomsFrom(1)
+    }
+  }
+
+  class closeSubparticlesParser extends abstractCompilerRuleParser {}
+
+  class indentCharacterParser extends abstractCompilerRuleParser {}
+
+  class catchAllAtomDelimiterParser extends abstractCompilerRuleParser {}
+
+  class openSubparticlesParser extends abstractCompilerRuleParser {}
+
+  class stringTemplateParser extends abstractCompilerRuleParser {}
+
+  class joinSubparticlesWithParser extends abstractCompilerRuleParser {}
+
+  class abstractConstantParser extends ParserBackedParticle {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+  }
+
+  class parsersBooleanParser extends abstractConstantParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get constantIdentifierAtom() {
+      return this.getAtom(1)
+    }
+    get booleanAtom() {
+      return this.getAtomsFrom(2)
+    }
+  }
+
+  class parsersFloatParser extends abstractConstantParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get constantIdentifierAtom() {
+      return this.getAtom(1)
+    }
+    get floatAtom() {
+      return this.getAtomsFrom(2).map(val => parseFloat(val))
+    }
+  }
+
+  class parsersIntParser extends abstractConstantParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get constantIdentifierAtom() {
+      return this.getAtom(1)
+    }
+    get integerAtom() {
+      return this.getAtomsFrom(2).map(val => parseInt(val))
+    }
+  }
+
+  class parsersStringParser extends abstractConstantParser {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(catchAllMultilineStringConstantParser, undefined, undefined)
+    }
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get constantIdentifierAtom() {
+      return this.getAtom(1)
+    }
+    get stringAtom() {
+      return this.getAtomsFrom(2)
+    }
+  }
+
+  class abstractParserRuleParser extends ParserBackedParticle {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+  }
+
+  class abstractNonTerminalParserRuleParser extends abstractParserRuleParser {}
+
+  class parsersBaseParserParser extends abstractParserRuleParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get baseParsersAtom() {
+      return this.getAtom(1)
+    }
+  }
+
+  class catchAllAtomTypeParser extends abstractParserRuleParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get atomTypeIdAtom() {
+      return this.getAtom(1)
+    }
+  }
+
+  class atomParserParser extends abstractParserRuleParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get atomParserAtom() {
+      return this.getAtom(1)
+    }
+  }
+
+  class catchAllParserParser extends abstractParserRuleParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get parserIdAtom() {
+      return this.getAtom(1)
+    }
+  }
+
+  class parsersAtomsParser extends abstractParserRuleParser {
+    get atomTypeIdAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class parsersCompilerParser extends abstractParserRuleParser {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(
+        undefined,
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
+          closeSubparticles: closeSubparticlesParser,
+          indentCharacter: indentCharacterParser,
+          catchAllAtomDelimiter: catchAllAtomDelimiterParser,
+          openSubparticles: openSubparticlesParser,
+          stringTemplate: stringTemplateParser,
+          joinSubparticlesWith: joinSubparticlesWithParser
+        }),
+        undefined
+      )
+    }
+    get suggestInAutocomplete() {
+      return false
+    }
+  }
+
+  class parserDescriptionParser extends abstractParserRuleParser {
+    get stringAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class atomTypeDescriptionParser extends ParserBackedParticle {
+    get stringAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class parsersExampleParser extends abstractParserRuleParser {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(catchAllExampleLineParser, undefined, undefined)
+    }
+    get exampleAnyAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class extendsParserParser extends abstractParserRuleParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get parserIdAtom() {
+      return this.getAtom(1)
+    }
+  }
+
+  class parsersPopularityParser extends abstractParserRuleParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get floatAtom() {
+      return parseFloat(this.getAtom(1))
+    }
+  }
+
+  class inScopeParser extends abstractParserRuleParser {
+    get parserIdAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class parsersJavascriptParser extends abstractParserRuleParser {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(catchAllJavascriptCodeLineParser, undefined, undefined)
+    }
+    format() {
+      if (this.isNodeJs()) {
+        const template = `class FOO{ ${this.subparticlesToString()}}`
+        this.setSubparticles(
+          require("prettier")
+            .format(template, { semi: false, useTabs: true, parser: "babel", printWidth: 240 })
+            .replace(/class FOO \{\s+/, "")
+            .replace(/\s+\}\s+$/, "")
+            .replace(/\n\t/g, "\n") // drop one level of indent
+            .replace(/\t/g, " ") // we used tabs instead of spaces to be able to dedent without breaking literals.
+        )
+      }
+      return this
+    }
+  }
+
+  class abstractParseRuleParser extends abstractParserRuleParser {}
+
+  class parsersCueParser extends abstractParseRuleParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get stringAtom() {
+      return this.getAtom(1)
+    }
+  }
+
+  class cueFromIdParser extends abstractParseRuleParser {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+  }
+
+  class parsersPatternParser extends abstractParseRuleParser {
+    get regexAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class parsersRequiredParser extends abstractParserRuleParser {}
+
+  class abstractValidationRuleParser extends abstractParserRuleParser {
+    get booleanAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class parsersSingleParser extends abstractValidationRuleParser {}
+
+  class uniqueLineParser extends abstractValidationRuleParser {}
+
+  class uniqueCueParser extends abstractValidationRuleParser {}
+
+  class listDelimiterParser extends abstractParserRuleParser {
+    get stringAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class contentKeyParser extends abstractParserRuleParser {
+    get stringAtom() {
+      return this.getAtomsFrom(0)
+    }
+    get suggestInAutocomplete() {
+      return false
+    }
+  }
+
+  class subparticlesKeyParser extends abstractParserRuleParser {
+    get stringAtom() {
+      return this.getAtomsFrom(0)
+    }
+    get suggestInAutocomplete() {
+      return false
+    }
+  }
+
+  class parsersTagsParser extends abstractParserRuleParser {
+    get stringAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class catchAllErrorParser extends ParserBackedParticle {
+    getErrors() {
+      return this._getErrorParserErrors()
+    }
+  }
+
+  class catchAllExampleLineParser extends ParserBackedParticle {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(catchAllExampleLineParser, undefined, undefined)
+    }
+    get exampleAnyAtom() {
+      return this.getAtom(0)
+    }
+    get exampleAnyAtom() {
+      return this.getAtomsFrom(1)
+    }
+  }
+
+  class catchAllJavascriptCodeLineParser extends ParserBackedParticle {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(catchAllJavascriptCodeLineParser, undefined, undefined)
+    }
+    get javascriptCodeAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class catchAllMultilineStringConstantParser extends ParserBackedParticle {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(catchAllMultilineStringConstantParser, undefined, undefined)
+    }
+    get stringAtom() {
+      return this.getAtom(0)
+    }
+    get stringAtom() {
+      return this.getAtomsFrom(1)
+    }
+  }
+
+  class atomTypeDefinitionParser extends ParserBackedParticle {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(
+        undefined,
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
+          description: atomTypeDescriptionParser,
+          enumFromAtomTypes: enumFromAtomTypesParser,
+          enum: parsersEnumParser,
+          examples: parsersExamplesParser,
+          min: atomMinParser,
+          max: atomMaxParser,
+          paint: parsersPaintParser,
+          regex: parsersRegexParser,
+          reservedAtoms: reservedAtomsParser,
+          "//": slashCommentParser,
+          extends: extendsAtomTypeParser
+        }),
+        undefined
+      )
+    }
+    get atomTypeIdAtom() {
+      return this.getAtom(0)
+    }
+    buildHtml() {
+      return ""
+    }
+  }
+
+  class enumFromAtomTypesParser extends ParserBackedParticle {
+    get atomPropertyNameAtom() {
+      return this.getAtom(0)
+    }
+    get atomTypeIdAtom() {
+      return this.getAtomsFrom(1)
+    }
+  }
+
+  class parsersEnumParser extends ParserBackedParticle {
+    get atomPropertyNameAtom() {
+      return this.getAtom(0)
+    }
+    get enumOptionAtom() {
+      return this.getAtomsFrom(1)
+    }
+  }
+
+  class parsersExamplesParser extends ParserBackedParticle {
+    get atomPropertyNameAtom() {
+      return this.getAtom(0)
+    }
+    get atomExampleAtom() {
+      return this.getAtomsFrom(1)
+    }
+  }
+
+  class atomMinParser extends ParserBackedParticle {
+    get atomPropertyNameAtom() {
+      return this.getAtom(0)
+    }
+    get numberAtom() {
+      return parseFloat(this.getAtom(1))
+    }
+  }
+
+  class atomMaxParser extends ParserBackedParticle {
+    get atomPropertyNameAtom() {
+      return this.getAtom(0)
+    }
+    get numberAtom() {
+      return parseFloat(this.getAtom(1))
+    }
+  }
+
+  class parsersPaintParser extends ParserBackedParticle {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get paintTypeAtom() {
+      return this.getAtom(1)
+    }
+  }
+
+  class rootFlagParser extends ParserBackedParticle {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+  }
+
+  class parserDefinitionParser extends ParserBackedParticle {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(
+        catchAllErrorParser,
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
+          boolean: parsersBooleanParser,
+          float: parsersFloatParser,
+          int: parsersIntParser,
+          string: parsersStringParser,
+          baseParser: parsersBaseParserParser,
+          catchAllAtomType: catchAllAtomTypeParser,
+          atomParser: atomParserParser,
+          catchAllParser: catchAllParserParser,
+          atoms: parsersAtomsParser,
+          compiler: parsersCompilerParser,
+          description: parserDescriptionParser,
+          example: parsersExampleParser,
+          extends: extendsParserParser,
+          popularity: parsersPopularityParser,
+          inScope: inScopeParser,
+          javascript: parsersJavascriptParser,
+          cue: parsersCueParser,
+          cueFromId: cueFromIdParser,
+          pattern: parsersPatternParser,
+          required: parsersRequiredParser,
+          single: parsersSingleParser,
+          uniqueLine: uniqueLineParser,
+          uniqueCue: uniqueCueParser,
+          listDelimiter: listDelimiterParser,
+          contentKey: contentKeyParser,
+          subparticlesKey: subparticlesKeyParser,
+          tags: parsersTagsParser,
+          root: rootFlagParser,
+          "//": slashCommentParser
+        }),
+        [{ regex: /^[a-zA-Z0-9_]+Parser$/, parser: parserDefinitionParser }]
+      )
+    }
+    get parserIdAtom() {
+      return this.getAtom(0)
+    }
+    buildHtml() {
+      return ""
+    }
+  }
+
+  class parsersRegexParser extends ParserBackedParticle {
+    get atomPropertyNameAtom() {
+      return this.getAtom(0)
+    }
+    get regexAtom() {
+      return this.getAtomsFrom(1)
+    }
+  }
+
+  class reservedAtomsParser extends ParserBackedParticle {
+    get atomPropertyNameAtom() {
+      return this.getAtom(0)
+    }
+    get reservedAtomAtom() {
+      return this.getAtomsFrom(1)
+    }
+  }
+
+  class commentLineParser extends ParserBackedParticle {
+    get commentAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class slashCommentParser extends ParserBackedParticle {
+    createParserCombinator() {
+      return new Particle.ParserCombinator(commentLineParser, undefined, undefined)
+    }
+    get commentAtom() {
+      return this.getAtomsFrom(0)
+    }
+  }
+
+  class extendsAtomTypeParser extends ParserBackedParticle {
+    get cueAtom() {
+      return this.getAtom(0)
+    }
+    get atomTypeIdAtom() {
+      return this.getAtom(1)
+    }
+  }
+
+  window.parsersParser = parsersParser
+}
+
+
+"use strict"
 // Adapted from https://github.com/NeekSandhu/codemirror-textmate/blob/master/src/tmToCm.ts
 var CmToken
 ;(function (CmToken) {
@@ -24643,8 +21609,8 @@ class ParsersCodeMirrorMode {
     const cursor = cmInstance.getDoc().getCursor()
     const codeMirrorLib = this._getCodeMirrorLib()
     const result = await this._getParsedProgram().getAutocompleteResultsAt(cursor.line, cursor.ch)
-    // It seems to be better UX if there's only 1 result, and its the word the user entered, to close autocomplete
-    if (result.matches.length === 1 && result.matches[0].text === result.word) return null
+    // It seems to be better UX if there's only 1 result, and its the atom the user entered, to close autocomplete
+    if (result.matches.length === 1 && result.matches[0].text === result.atom) return null
     return result.matches.length
       ? {
           list: result.matches,
@@ -24662,59 +21628,539 @@ class ParsersCodeMirrorMode {
   _advanceStreamAndReturnTokenType(stream, state) {
     let nextCharacter = stream.next()
     const lineNumber = stream.lineOracle.line + 1 // state.lineIndex
-    const WordBreakSymbol = " "
+    const AtomBreakSymbol = " "
     const ParticleBreakSymbol = "\n"
     while (typeof nextCharacter === "string") {
       const peek = stream.peek()
-      if (nextCharacter === WordBreakSymbol) {
+      if (nextCharacter === AtomBreakSymbol) {
         if (peek === undefined || peek === ParticleBreakSymbol) {
           stream.skipToEnd() // advance string to end
           this._incrementLine(state)
         }
-        if (peek === WordBreakSymbol && state.cellIndex) {
-          // If we are missing a cell.
-          // TODO: this is broken for a blank 1st cell. We need to track WordBreakSymbol level.
-          state.cellIndex++
+        if (peek === AtomBreakSymbol && state.atomIndex) {
+          // If we are missing a atom.
+          // TODO: this is broken for a blank 1st atom. We need to track AtomBreakSymbol level.
+          state.atomIndex++
         }
         return "bracket"
       }
-      if (peek === WordBreakSymbol) {
-        state.cellIndex++
-        return this._getCellStyle(lineNumber, state.cellIndex)
+      if (peek === AtomBreakSymbol) {
+        state.atomIndex++
+        return this._getAtomStyle(lineNumber, state.atomIndex)
       }
       nextCharacter = stream.next()
     }
-    state.cellIndex++
-    const style = this._getCellStyle(lineNumber, state.cellIndex)
+    state.atomIndex++
+    const style = this._getAtomStyle(lineNumber, state.atomIndex)
     this._incrementLine(state)
     return style
   }
-  _getCellStyle(lineIndex, cellIndex) {
-    const program = this._getParsedProgram()
-    // todo: if the current word is an error, don't show red?
-    if (!program.getCellPaintAtPosition) console.log(program)
-    const paint = program.getCellPaintAtPosition(lineIndex, cellIndex)
-    const style = paint ? textMateScopeToCodeMirrorStyle(paint.split(".")) : undefined
-    return style || "noPaintDefinedInParsers"
+  _getAtomStyle(lineIndex, atomIndex) {
+    try {
+      const program = this._getParsedProgram()
+      // todo: if the current atom is an error, don't show red?
+      if (!program.getAtomPaintAtPosition) console.log(program)
+      const paint = program.getAtomPaintAtPosition(lineIndex, atomIndex)
+      const style = paint ? textMateScopeToCodeMirrorStyle(paint.split(".")) : undefined
+      return style || "noPaintDefinedInParsers"
+    } catch (err) {
+      console.error(err)
+      return "noPaintDefinedInParsers"
+    }
   }
   // todo: remove.
   startState() {
     return {
-      cellIndex: 0
+      atomIndex: 0
     }
   }
   _incrementLine(state) {
-    state.cellIndex = 0
+    state.atomIndex = 0
   }
 }
 window.ParsersCodeMirrorMode = ParsersCodeMirrorMode
+
+
+const PARSERS_EXTENSION = ".parsers"
+const SCROLL_EXTENSION = ".scroll"
+// Add URL regex pattern
+const urlRegex = /^https?:\/\/[^ ]+$/i
+const parserRegex = /^[a-zA-Z0-9_]+Parser$/gm
+const importRegex = /^(import |[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$|https?:\/\/.+\.(scroll|parsers)$)/gm
+const importOnlyRegex = /^importOnly/
+const isUrl = path => urlRegex.test(path)
+// URL content cache
+const urlCache = {}
+async function fetchWithCache(url) {
+  const now = Date.now()
+  const cached = urlCache[url]
+  if (cached) return cached
+  try {
+    const response = await fetch(url)
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+    const content = await response.text()
+    urlCache[url] = {
+      content,
+      timestamp: now,
+      exists: true
+    }
+  } catch (error) {
+    console.error(`Error fetching ${url}:`, error)
+    urlCache[url] = {
+      content: "",
+      timestamp: now,
+      exists: false
+    }
+  }
+  return urlCache[url]
+}
+class DiskWriter {
+  constructor() {
+    this.fileCache = {}
+  }
+  async _read(absolutePath) {
+    const { fileCache } = this
+    if (isUrl(absolutePath)) {
+      const result = await fetchWithCache(absolutePath)
+      return {
+        absolutePath,
+        exists: result.exists,
+        content: result.content,
+        stats: { mtimeMs: Date.now(), ctimeMs: Date.now() }
+      }
+    }
+    if (!fileCache[absolutePath]) {
+      const exists = await fs
+        .access(absolutePath)
+        .then(() => true)
+        .catch(() => false)
+      if (exists) {
+        const [content, stats] = await Promise.all([fs.readFile(absolutePath, "utf8").then(content => content.replace(/\r/g, "")), fs.stat(absolutePath)])
+        fileCache[absolutePath] = { absolutePath, exists: true, content, stats }
+      } else {
+        fileCache[absolutePath] = { absolutePath, exists: false, content: "", stats: { mtimeMs: 0, ctimeMs: 0 } }
+      }
+    }
+    return fileCache[absolutePath]
+  }
+  async exists(absolutePath) {
+    if (isUrl(absolutePath)) {
+      const result = await fetchWithCache(absolutePath)
+      return result.exists
+    }
+    const file = await this._read(absolutePath)
+    return file.exists
+  }
+  async read(absolutePath) {
+    const file = await this._read(absolutePath)
+    return file.content
+  }
+  async list(folder) {
+    if (isUrl(folder)) {
+      return [] // URLs don't support directory listing
+    }
+    return Disk.getFiles(folder)
+  }
+  async write(fullPath, content) {
+    if (isUrl(fullPath)) {
+      throw new Error("Cannot write to URL")
+    }
+    Disk.writeIfChanged(fullPath, content)
+  }
+  async getMTime(absolutePath) {
+    if (isUrl(absolutePath)) {
+      const cached = urlCache[absolutePath]
+      return cached ? cached.timestamp : Date.now()
+    }
+    const file = await this._read(absolutePath)
+    return file.stats.mtimeMs
+  }
+  async getCTime(absolutePath) {
+    if (isUrl(absolutePath)) {
+      const cached = urlCache[absolutePath]
+      return cached ? cached.timestamp : Date.now()
+    }
+    const file = await this._read(absolutePath)
+    return file.stats.ctimeMs
+  }
+  dirname(absolutePath) {
+    if (isUrl(absolutePath)) {
+      return absolutePath.substring(0, absolutePath.lastIndexOf("/"))
+    }
+    return path.dirname(absolutePath)
+  }
+  join(...segments) {
+    const firstSegment = segments[0]
+    if (isUrl(firstSegment)) {
+      // For URLs, we need to handle joining differently
+      const baseUrl = firstSegment.endsWith("/") ? firstSegment : firstSegment + "/"
+      return new URL(segments.slice(1).join("/"), baseUrl).toString()
+    }
+    return path.join(...segments)
+  }
+}
+// Update MemoryWriter to support URLs
+class MemoryWriter {
+  constructor(inMemoryFiles) {
+    this.inMemoryFiles = inMemoryFiles
+  }
+  async read(absolutePath) {
+    if (isUrl(absolutePath)) {
+      const result = await fetchWithCache(absolutePath)
+      return result.content
+    }
+    const value = this.inMemoryFiles[absolutePath]
+    if (value === undefined) {
+      return ""
+    }
+    return value
+  }
+  async exists(absolutePath) {
+    if (isUrl(absolutePath)) {
+      const result = await fetchWithCache(absolutePath)
+      return result.exists
+    }
+    return this.inMemoryFiles[absolutePath] !== undefined
+  }
+  async write(absolutePath, content) {
+    if (isUrl(absolutePath)) {
+      throw new Error("Cannot write to URL")
+    }
+    this.inMemoryFiles[absolutePath] = content
+  }
+  async list(absolutePath) {
+    if (isUrl(absolutePath)) {
+      return []
+    }
+    return Object.keys(this.inMemoryFiles).filter(filePath => filePath.startsWith(absolutePath) && !filePath.replace(absolutePath, "").includes("/"))
+  }
+  async getMTime(absolutePath) {
+    if (isUrl(absolutePath)) {
+      const cached = urlCache[absolutePath]
+      return cached ? cached.timestamp : Date.now()
+    }
+    return 1
+  }
+  async getCTime(absolutePath) {
+    if (isUrl(absolutePath)) {
+      const cached = urlCache[absolutePath]
+      return cached ? cached.timestamp : Date.now()
+    }
+    return 1
+  }
+  dirname(path) {
+    if (isUrl(path)) {
+      return path.substring(0, path.lastIndexOf("/"))
+    }
+    return posix.dirname(path)
+  }
+  join(...segments) {
+    const firstSegment = segments[0]
+    if (isUrl(firstSegment)) {
+      const baseUrl = firstSegment.endsWith("/") ? firstSegment : firstSegment + "/"
+      return new URL(segments.slice(1).join("/"), baseUrl).toString()
+    }
+    return posix.join(...segments)
+  }
+}
+class EmptyScrollParser extends Particle {
+  evalMacros(fusionFile) {
+    return fusionFile.fusedCode
+  }
+  setFile(fusionFile) {
+    this.file = fusionFile
+  }
+}
+class FusionFile {
+  constructor(codeAtStart, absoluteFilePath = "", fileSystem = new Fusion({})) {
+    this.defaultParserCode = ""
+    this.defaultParser = EmptyScrollParser
+    this.fileSystem = fileSystem
+    this.filePath = absoluteFilePath
+    this.filename = posix.basename(absoluteFilePath)
+    this.folderPath = posix.dirname(absoluteFilePath) + "/"
+    this.codeAtStart = codeAtStart
+    this.timeIndex = 0
+    this.timestamp = 0
+    this.importOnly = false
+  }
+  async readCodeFromStorage() {
+    if (this.codeAtStart !== undefined) return this // Code provided
+    const { filePath } = this
+    if (!filePath) {
+      this.codeAtStart = ""
+      return this
+    }
+    this.codeAtStart = await this.fileSystem.read(filePath)
+  }
+  get isFused() {
+    return this.fusedCode !== undefined
+  }
+  async fuse() {
+    // PASS 1: READ FULL FILE
+    await this.readCodeFromStorage()
+    const { codeAtStart, fileSystem, filePath, defaultParserCode, defaultParser } = this
+    // PASS 2: READ AND REPLACE IMPORTs
+    let fusedCode = codeAtStart
+    let fusedFile
+    if (filePath) {
+      this.timestamp = await fileSystem.getCTime(filePath)
+      fusedFile = await fileSystem.fuseFile(filePath, defaultParserCode)
+      this.importOnly = fusedFile.isImportOnly
+      fusedCode = fusedFile.fused
+      if (fusedFile.footers.length) fusedCode += "\n" + fusedFile.footers.join("\n")
+      this.dependencies = fusedFile.importFilePaths
+      this.fusedFile = fusedFile
+    }
+    this.fusedCode = fusedCode
+    const tempProgram = new defaultParser()
+    // PASS 3: READ AND REPLACE MACROS. PARSE AND REMOVE MACROS DEFINITIONS THEN REPLACE REFERENCES.
+    const codeAfterMacroPass = tempProgram.evalMacros(this)
+    this.codeAfterMacroPass = codeAfterMacroPass
+    this.parser = (fusedFile === null || fusedFile === void 0 ? void 0 : fusedFile.parser) || defaultParser
+    // PASS 4: PARSER WITH CUSTOM PARSER OR STANDARD SCROLL PARSER
+    this.scrollProgram = new this.parser(codeAfterMacroPass)
+    this.scrollProgram.setFile(this)
+    return this
+  }
+  get formatted() {
+    return this.codeAtStart
+  }
+  async formatAndSave() {
+    const { codeAtStart, formatted } = this
+    if (codeAtStart === formatted) return false
+    await this.fileSystem.write(this.filePath, formatted)
+    return true
+  }
+}
+let fusionIdNumber = 0
+class Fusion {
+  constructor(inMemoryFiles) {
+    this.productCache = {}
+    this._particleCache = {}
+    this._parserCache = {}
+    this._expandedImportCache = {}
+    this._parsersExpandersCache = {}
+    this.defaultFileClass = FusionFile
+    this.parsedFiles = {}
+    this.folderCache = {}
+    if (inMemoryFiles) this._storage = new MemoryWriter(inMemoryFiles)
+    else this._storage = new DiskWriter()
+    fusionIdNumber = fusionIdNumber + 1
+    this.fusionId = fusionIdNumber
+  }
+  async read(absolutePath) {
+    return await this._storage.read(absolutePath)
+  }
+  async exists(absolutePath) {
+    return await this._storage.exists(absolutePath)
+  }
+  async write(absolutePath, content) {
+    return await this._storage.write(absolutePath, content)
+  }
+  async list(absolutePath) {
+    return await this._storage.list(absolutePath)
+  }
+  dirname(absolutePath) {
+    return this._storage.dirname(absolutePath)
+  }
+  join(...segments) {
+    return this._storage.join(...segments)
+  }
+  async getMTime(absolutePath) {
+    return await this._storage.getMTime(absolutePath)
+  }
+  async getCTime(absolutePath) {
+    return await this._storage.getCTime(absolutePath)
+  }
+  async writeProduct(absolutePath, content) {
+    this.productCache[absolutePath] = content
+    return await this.write(absolutePath, content)
+  }
+  async _getFileAsParticles(absoluteFilePathOrUrl) {
+    const { _particleCache } = this
+    if (_particleCache[absoluteFilePathOrUrl] === undefined) {
+      const content = await this._storage.read(absoluteFilePathOrUrl)
+      _particleCache[absoluteFilePathOrUrl] = new Particle(content)
+    }
+    return _particleCache[absoluteFilePathOrUrl]
+  }
+  async _fuseFile(absoluteFilePathOrUrl) {
+    const { _expandedImportCache } = this
+    if (_expandedImportCache[absoluteFilePathOrUrl]) return _expandedImportCache[absoluteFilePathOrUrl]
+    const [code, exists] = await Promise.all([this.read(absoluteFilePathOrUrl), this.exists(absoluteFilePathOrUrl)])
+    const isImportOnly = importOnlyRegex.test(code)
+    // Perf hack
+    // If its a parsers file, it will have no content, just parsers (and maybe imports).
+    // The parsers will already have been processed. We can skip them
+    const stripParsers = absoluteFilePathOrUrl.endsWith(PARSERS_EXTENSION)
+    const processedCode = stripParsers
+      ? code
+          .split("\n")
+          .filter(line => importRegex.test(line))
+          .join("\n")
+      : code
+    const filepathsWithParserDefinitions = []
+    if (await this._doesFileHaveParsersDefinitions(absoluteFilePathOrUrl)) {
+      filepathsWithParserDefinitions.push(absoluteFilePathOrUrl)
+    }
+    if (!importRegex.test(processedCode)) {
+      return {
+        fused: processedCode,
+        footers: [],
+        isImportOnly,
+        importFilePaths: [],
+        filepathsWithParserDefinitions,
+        exists
+      }
+    }
+    const particle = new Particle(processedCode)
+    const folder = this.dirname(absoluteFilePathOrUrl)
+    // Fetch all imports in parallel
+    const importParticles = particle.filter(particle => particle.getLine().match(importRegex))
+    const importResults = importParticles.map(async importParticle => {
+      const rawPath = importParticle.getLine().replace("import ", "")
+      let absoluteImportFilePath = this.join(folder, rawPath)
+      if (isUrl(rawPath)) absoluteImportFilePath = rawPath
+      else if (isUrl(folder)) absoluteImportFilePath = folder + "/" + rawPath
+      // todo: race conditions
+      const [expandedFile, exists] = await Promise.all([this._fuseFile(absoluteImportFilePath), this.exists(absoluteImportFilePath)])
+      return {
+        expandedFile,
+        exists,
+        absoluteImportFilePath,
+        importParticle
+      }
+    })
+    const imported = await Promise.all(importResults)
+    // Assemble all imports
+    let importFilePaths = []
+    let footers = []
+    imported.forEach(importResults => {
+      const { importParticle, absoluteImportFilePath, expandedFile, exists } = importResults
+      importFilePaths.push(absoluteImportFilePath)
+      importFilePaths = importFilePaths.concat(expandedFile.importFilePaths)
+      importParticle.setLine("imported " + absoluteImportFilePath)
+      importParticle.set("exists", `${exists}`)
+      footers = footers.concat(expandedFile.footers)
+      if (importParticle.has("footer")) footers.push(expandedFile.fused)
+      else importParticle.insertLinesAfter(expandedFile.fused)
+    })
+    const existStates = await Promise.all(importFilePaths.map(file => this.exists(file)))
+    const allImportsExist = !existStates.some(exists => !exists)
+    _expandedImportCache[absoluteFilePathOrUrl] = {
+      importFilePaths,
+      isImportOnly,
+      fused: particle.toString(),
+      footers,
+      exists: allImportsExist,
+      filepathsWithParserDefinitions: (
+        await Promise.all(
+          importFilePaths.map(async filename => ({
+            filename,
+            hasParser: await this._doesFileHaveParsersDefinitions(filename)
+          }))
+        )
+      )
+        .filter(result => result.hasParser)
+        .map(result => result.filename)
+        .concat(filepathsWithParserDefinitions)
+    }
+    return _expandedImportCache[absoluteFilePathOrUrl]
+  }
+  async _doesFileHaveParsersDefinitions(absoluteFilePathOrUrl) {
+    if (!absoluteFilePathOrUrl) return false
+    const { _parsersExpandersCache } = this
+    if (_parsersExpandersCache[absoluteFilePathOrUrl] === undefined) {
+      const content = await this._storage.read(absoluteFilePathOrUrl)
+      _parsersExpandersCache[absoluteFilePathOrUrl] = !!content.match(parserRegex)
+    }
+    return _parsersExpandersCache[absoluteFilePathOrUrl]
+  }
+  async _getOneParsersParserFromFiles(filePaths, baseParsersCode) {
+    const fileContents = await Promise.all(filePaths.map(async filePath => await this._storage.read(filePath)))
+    return Fusion.combineParsers(filePaths, fileContents, baseParsersCode)
+  }
+  async getParser(filePaths, baseParsersCode = "") {
+    const { _parserCache } = this
+    const key = filePaths
+      .filter(fp => fp)
+      .sort()
+      .join("\n")
+    const hit = _parserCache[key]
+    if (hit) return hit
+    _parserCache[key] = await this._getOneParsersParserFromFiles(filePaths, baseParsersCode)
+    return _parserCache[key]
+  }
+  static combineParsers(filePaths, fileContents, baseParsersCode = "") {
+    const parserDefinitionRegex = /^[a-zA-Z0-9_]+Parser$/
+    const atomDefinitionRegex = /^[a-zA-Z0-9_]+Atom/
+    const mapped = fileContents.map((content, index) => {
+      const filePath = filePaths[index]
+      if (filePath.endsWith(PARSERS_EXTENSION)) return content
+      return new Particle(content)
+        .filter(particle => particle.getLine().match(parserDefinitionRegex) || particle.getLine().match(atomDefinitionRegex))
+        .map(particle => particle.asString)
+        .join("\n")
+    })
+    const asOneFile = mapped.join("\n").trim()
+    const sorted = new parsersParser(baseParsersCode + "\n" + asOneFile)._sortParticlesByInScopeOrder()._sortWithParentParsersUpTop()
+    const parsersCode = sorted.asString
+    return {
+      parsersParser: sorted,
+      parsersCode,
+      parser: new HandParsersProgram(parsersCode).compileAndReturnRootParser()
+    }
+  }
+  get parsers() {
+    return Object.values(this._parserCache).map(parser => parser.parsersParser)
+  }
+  async fuseFile(absoluteFilePathOrUrl, defaultParserCode) {
+    const fusedFile = await this._fuseFile(absoluteFilePathOrUrl)
+    if (!defaultParserCode) return fusedFile
+    if (fusedFile.filepathsWithParserDefinitions.length) {
+      const parser = await this.getParser(fusedFile.filepathsWithParserDefinitions, defaultParserCode)
+      fusedFile.parser = parser.parser
+    }
+    return fusedFile
+  }
+  async getLoadedFile(filePath) {
+    return await this._getLoadedFile(filePath, this.defaultFileClass)
+  }
+  async _getLoadedFile(absolutePath, parser) {
+    if (this.parsedFiles[absolutePath]) return this.parsedFiles[absolutePath]
+    const file = new parser(undefined, absolutePath, this)
+    await file.fuse()
+    this.parsedFiles[absolutePath] = file
+    return file
+  }
+  getCachedLoadedFilesInFolder(folderPath, requester) {
+    folderPath = Utils.ensureFolderEndsInSlash(folderPath)
+    const hit = this.folderCache[folderPath]
+    if (!hit) console.log(`Warning: '${folderPath}' not yet loaded in '${this.fusionId}'. Requested by '${requester.filePath}'`)
+    return hit || []
+  }
+  async getLoadedFilesInFolder(folderPath, extension) {
+    folderPath = Utils.ensureFolderEndsInSlash(folderPath)
+    if (this.folderCache[folderPath]) return this.folderCache[folderPath]
+    const allFiles = await this.list(folderPath)
+    const loadedFiles = await Promise.all(allFiles.filter(file => file.endsWith(extension)).map(filePath => this.getLoadedFile(filePath)))
+    const sorted = loadedFiles.sort((a, b) => b.timestamp - a.timestamp)
+    sorted.forEach((file, index) => (file.timeIndex = index))
+    this.folderCache[folderPath] = sorted
+    return this.folderCache[folderPath]
+  }
+}
+window.Fusion = Fusion
+window.FusionFile = FusionFile
+
 
 {
   class stumpParser extends ParserBackedParticle {
     createParserCombinator() {
       return new Particle.ParserCombinator(
         errorParser,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstWordMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           blockquote: htmlTagParser,
           colgroup: htmlTagParser,
           datalist: htmlTagParser,
@@ -24838,30 +22284,30 @@ window.ParsersCodeMirrorMode = ParsersCodeMirrorMode
     _getHtmlJoinByCharacter() {
       return ""
     }
-    static cachedHandParsersProgramRoot = new HandParsersProgram(`// Cell parsers
-anyCell
-keywordCell
-emptyCell
-extraCell
+    static cachedHandParsersProgramRoot = new HandParsersProgram(`// Atom parsers
+anyAtom
+keywordAtom
+emptyAtom
+extraAtom
  paint invalid
-anyHtmlContentCell
+anyHtmlContentAtom
  paint string
-attributeValueCell
+attributeValueAtom
  paint constant.language
-componentTagNameCell
+componentTagNameAtom
  paint variable.function
- extends keywordCell
-htmlTagNameCell
+ extends keywordAtom
+htmlTagNameAtom
  paint variable.function
- extends keywordCell
+ extends keywordAtom
  enum a abbr address area article aside b base bdi bdo blockquote body br button canvas caption code col colgroup datalist dd del details dfn dialog div dl dt em embed fieldset figure footer form h1 h2 h3 h4 h5 h6 head header hgroup hr html i iframe img input ins kbd keygen label legend li link main map mark menu menuitem meta meter nav noscript object ol optgroup option output p param pre progress q rb rp rt rtc ruby s samp script section select small source span strong styleTag sub summary sup table tbody td template textarea tfoot th thead time titleTag tr track u ul var video wbr
-htmlAttributeNameCell
+htmlAttributeNameAtom
  paint entity.name.type
- extends keywordCell
+ extends keywordAtom
  enum accept accept-charset accesskey action align alt async autocomplete autofocus autoplay bgcolor border charset checked class color cols colspan content contenteditable controls coords datetime default defer dir dirname disabled download draggable dropzone enctype for formaction headers height hidden high href hreflang http-equiv id ismap kind lang list loop low max maxlength media method min multiple muted name novalidate onabort onafterprint onbeforeprint onbeforeunload onblur oncanplay oncanplaythrough onchange onclick oncontextmenu oncopy oncuechange oncut ondblclick ondrag ondragend ondragenter ondragleave ondragover ondragstart ondrop ondurationchange onemptied onended onerror onfocus onhashchange oninput oninvalid onkeydown onkeypress onkeyup onload onloadeddata onloadedmetadata onloadstart onmousedown onmousemove onmouseout onmouseover onmouseup onmousewheel onoffline ononline onpagehide onpageshow onpaste onpause onplay onplaying onpopstate onprogress onratechange onreset onresize onscroll onsearch onseeked onseeking onselect onstalled onstorage onsubmit onsuspend ontimeupdate ontoggle onunload onvolumechange onwaiting onwheel open optimum pattern placeholder poster preload property readonly rel required reversed rows rowspan sandbox scope selected shape size sizes spellcheck src srcdoc srclang srcset start step style tabindex target title translate type usemap value width wrap
-bernKeywordCell
+bernKeywordAtom
  enum bern
- extends keywordCell
+ extends keywordAtom
 
 // Line parsers
 stumpParser
@@ -24872,7 +22318,6 @@ stumpParser
  example
   div
    h1 hello world
- compilesTo html
  javascript
   compile() {
    return this.asHtml
@@ -24883,7 +22328,7 @@ stumpParser
 blankLineParser
  pattern ^$
  tags doNotSynthesize
- cells emptyCell
+ atoms emptyAtom
  javascript
   _toHtml() {
    return ""
@@ -24891,18 +22336,18 @@ blankLineParser
   getTextContent() {return ""}
 htmlTagParser
  inScope bernParser htmlTagParser htmlAttributeParser blankLineParser
- catchAllCellType anyHtmlContentCell
- cells htmlTagNameCell
+ catchAllAtomType anyHtmlContentAtom
+ atoms htmlTagNameAtom
  javascript
   isHtmlTagParser = true
   getTag() {
    // we need to remove the "Tag" bit to handle the style and title attribute/tag conflict.
-   const firstWord = this.firstWord
+   const cue = this.cue
    const map = {
     titleTag: "title",
     styleTag: "style"
    }
-   return map[firstWord] || firstWord
+   return map[cue] || cue
   }
   _getHtmlJoinByCharacter() {
    return ""
@@ -24911,8 +22356,8 @@ htmlTagParser
    return this._toHtml(undefined, true)
   }
   _getOneLiner() {
-   const oneLinerWords = this.getWordsFrom(1)
-   return oneLinerWords.length ? oneLinerWords.join(" ") : ""
+   const oneLinerAtoms = this.getAtomsFrom(1)
+   return oneLinerAtoms.length ? oneLinerAtoms.join(" ") : ""
   }
   getTextContent() {
     return this._getOneLiner()
@@ -24924,10 +22369,10 @@ htmlTagParser
     var elem = document.createElement(this.getTag())
     elem.setAttribute("stumpUid", this._getUid())
     this.filter(particle => particle.isAttributeParser)
-      .forEach(child => elem.setAttribute(child.firstWord, child.content))
-    elem.innerHTML = this.has("bern") ? this.getParticle("bern").childrenToString() : this._getOneLiner()
+      .forEach(subparticle => elem.setAttribute(subparticle.cue, subparticle.content))
+    elem.innerHTML = this.has("bern") ? this.getParticle("bern").subparticlesToString() : this._getOneLiner()
     this.filter(particle => particle.isHtmlTagParser)
-      .forEach(child => elem.appendChild(child.domElement))
+      .forEach(subparticle => elem.appendChild(subparticle.domElement))
     return elem
   }
   _toHtml(indentCount, withSuid) {
@@ -24938,7 +22383,7 @@ htmlTagParser
     .join("")
    const indent = " ".repeat(indentCount)
    const collapse = this.shouldCollapse()
-   const indentForChildParsers = !collapse && this.getChildInstancesOfParserId("htmlTagParser").length > 0
+   const indentForChildParsers = !collapse && this.getSubparticleInstancesOfParserId("htmlTagParser").length > 0
    const suid = withSuid ? \` stumpUid="\${this._getUid()}"\` : ""
    const oneLiner = this._getOneLiner()
    return \`\${!collapse ? indent : ""}<\${tag}\${attributesStr}\${suid}>\${oneLiner}\${indentForChildParsers ? "\\n" : ""}\${children}</\${tag}>\${collapse ? "" : "\\n"}\`
@@ -24955,19 +22400,19 @@ htmlTagParser
   }
   addClassToStumpParticle(className) {
    const classParser = this.touchParticle("class")
-   const words = classParser.getWordsFrom(1)
+   const atoms = classParser.getAtomsFrom(1)
    // note: we call add on shadow regardless, because at the moment stump may have gotten out of
    // sync with shadow, if things modified the dom. todo: cleanup.
    this.getShadow().addClassToShadow(className)
-   if (words.includes(className)) return this
-   words.push(className)
-   classParser.setContent(words.join(this.wordBreakSymbol))
+   if (atoms.includes(className)) return this
+   atoms.push(className)
+   classParser.setContent(atoms.join(this.atomBreakSymbol))
    return this
   }
   removeClassFromStumpParticle(className) {
    const classParser = this.getParticle("class")
    if (!classParser) return this
-   const newClasses = classParser.words.filter(word => word !== className)
+   const newClasses = classParser.atoms.filter(atom => atom !== className)
    if (!newClasses.length) classParser.destroy()
    else classParser.setContent(newClasses.join(" "))
    this.getShadow().removeClassFromShadow(className)
@@ -24975,7 +22420,7 @@ htmlTagParser
   }
   stumpParticleHasClass(className) {
    const classParser = this.getParticle("class")
-   return classParser && classParser.words.includes(className) ? true : false
+   return classParser && classParser.atoms.includes(className) ? true : false
   }
   isStumpParticleCheckbox() {
    return this.get("type") === "checkbox"
@@ -24991,8 +22436,8 @@ htmlTagParser
    return this.insertChildParticle(text, index)
   }
   insertChildParticle(text, index) {
-   const singleParticle = new Particle(text).getChildren()[0]
-   const newParticle = this.insertLineAndChildren(singleParticle.getLine(), singleParticle.childrenToString(), index)
+   const singleParticle = new Particle(text).getSubparticles()[0]
+   const newParticle = this.insertLineAndSubparticles(singleParticle.getLine(), singleParticle.subparticlesToString(), index)
    const stumpParserIndex = this.filter(particle => particle.isHtmlTagParser).indexOf(newParticle)
    this.getShadow().insertHtmlParticle(newParticle, stumpParserIndex)
    return newParticle
@@ -25006,19 +22451,19 @@ htmlTagParser
   findStumpParticleByChildString(line) {
    return this.topDownArray.find(particle =>
     particle
-     .map(child => child.getLine())
+     .map(subparticle => subparticle.getLine())
      .join("\\n")
      .includes(line)
    )
   }
-  findStumpParticleByFirstWord(firstWord) {
-   return this._findStumpParticlesByBase(firstWord)[0]
+  findStumpParticleByCue(cue) {
+   return this._findStumpParticlesByBase(cue)[0]
   }
-  _findStumpParticlesByBase(firstWord) {
-   return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.firstWord === firstWord)
+  _findStumpParticlesByBase(cue) {
+   return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.cue === cue)
   }
   hasLine(line) {
-   return this.getChildren().some(particle => particle.getLine() === line)
+   return this.getSubparticles().some(particle => particle.getLine() === line)
   }
   findStumpParticlesByChild(line) {
    return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.hasLine(line))
@@ -25030,7 +22475,7 @@ htmlTagParser
      particle.has("class") &&
      particle
       .getParticle("class")
-      .words
+      .atoms
       .includes(className)
    )
   }
@@ -25064,7 +22509,7 @@ errorParser
 componentDefinitionParser
  extends htmlTagParser
  pattern ^[a-zA-Z0-9_]+Component
- cells componentTagNameCell
+ atoms componentTagNameAtom
  javascript
   getTag() {
    return "div"
@@ -25076,24 +22521,24 @@ htmlAttributeParser
   }
   getTextContent() {return ""}
   getAttribute() {
-   return \` \${this.firstWord}="\${this.content}"\`
+   return \` \${this.cue}="\${this.content}"\`
   }
  boolean isAttributeParser true
  boolean isTileAttribute true
  catchAllParser errorParser
- catchAllCellType attributeValueCell
- cells htmlAttributeNameCell
-stumpExtendedAttributeNameCell
- extends htmlAttributeNameCell
+ catchAllAtomType attributeValueAtom
+ atoms htmlAttributeNameAtom
+stumpExtendedAttributeNameAtom
+ extends htmlAttributeNameAtom
  enum collapse blurCommand changeCommand clickCommand contextMenuCommand doubleClickCommand keyUpCommand lineClickCommand lineShiftClickCommand shiftClickCommand
 stumpExtendedAttributeParser
  description Parser types not present in HTML but included in stump.
  extends htmlAttributeParser
- cells stumpExtendedAttributeNameCell
+ atoms stumpExtendedAttributeNameAtom
 lineOfHtmlContentParser
  boolean isTileAttribute true
  catchAllParser lineOfHtmlContentParser
- catchAllCellType anyHtmlContentCell
+ catchAllAtomType anyHtmlContentAtom
  javascript
   getTextContent() {return this.getLine()}
 bernParser
@@ -25103,10 +22548,10 @@ bernParser
  catchAllParser lineOfHtmlContentParser
  javascript
   _toHtml() {
-   return this.childrenToString()
+   return this.subparticlesToString()
   }
   getTextContent() {return ""}
- cells bernKeywordCell`)
+ atoms bernKeywordAtom`)
     get handParsersProgram() {
       return this.constructor.cachedHandParsersProgramRoot
     }
@@ -25114,8 +22559,8 @@ bernParser
   }
 
   class blankLineParser extends ParserBackedParticle {
-    get emptyCell() {
-      return this.getWord(0)
+    get emptyAtom() {
+      return this.getAtom(0)
     }
     _toHtml() {
       return ""
@@ -25129,7 +22574,7 @@ bernParser
     createParserCombinator() {
       return new Particle.ParserCombinator(
         undefined,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstWordMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           blockquote: htmlTagParser,
           colgroup: htmlTagParser,
           datalist: htmlTagParser,
@@ -25421,21 +22866,21 @@ bernParser
         ]
       )
     }
-    get htmlTagNameCell() {
-      return this.getWord(0)
+    get htmlTagNameAtom() {
+      return this.getAtom(0)
     }
-    get anyHtmlContentCell() {
-      return this.getWordsFrom(1)
+    get anyHtmlContentAtom() {
+      return this.getAtomsFrom(1)
     }
     isHtmlTagParser = true
     getTag() {
       // we need to remove the "Tag" bit to handle the style and title attribute/tag conflict.
-      const firstWord = this.firstWord
+      const cue = this.cue
       const map = {
         titleTag: "title",
         styleTag: "style"
       }
-      return map[firstWord] || firstWord
+      return map[cue] || cue
     }
     _getHtmlJoinByCharacter() {
       return ""
@@ -25444,8 +22889,8 @@ bernParser
       return this._toHtml(undefined, true)
     }
     _getOneLiner() {
-      const oneLinerWords = this.getWordsFrom(1)
-      return oneLinerWords.length ? oneLinerWords.join(" ") : ""
+      const oneLinerAtoms = this.getAtomsFrom(1)
+      return oneLinerAtoms.length ? oneLinerAtoms.join(" ") : ""
     }
     getTextContent() {
       return this._getOneLiner()
@@ -25456,9 +22901,9 @@ bernParser
     get domElement() {
       var elem = document.createElement(this.getTag())
       elem.setAttribute("stumpUid", this._getUid())
-      this.filter(particle => particle.isAttributeParser).forEach(child => elem.setAttribute(child.firstWord, child.content))
-      elem.innerHTML = this.has("bern") ? this.getParticle("bern").childrenToString() : this._getOneLiner()
-      this.filter(particle => particle.isHtmlTagParser).forEach(child => elem.appendChild(child.domElement))
+      this.filter(particle => particle.isAttributeParser).forEach(subparticle => elem.setAttribute(subparticle.cue, subparticle.content))
+      elem.innerHTML = this.has("bern") ? this.getParticle("bern").subparticlesToString() : this._getOneLiner()
+      this.filter(particle => particle.isHtmlTagParser).forEach(subparticle => elem.appendChild(subparticle.domElement))
       return elem
     }
     _toHtml(indentCount, withSuid) {
@@ -25469,7 +22914,7 @@ bernParser
         .join("")
       const indent = " ".repeat(indentCount)
       const collapse = this.shouldCollapse()
-      const indentForChildParsers = !collapse && this.getChildInstancesOfParserId("htmlTagParser").length > 0
+      const indentForChildParsers = !collapse && this.getSubparticleInstancesOfParserId("htmlTagParser").length > 0
       const suid = withSuid ? ` stumpUid="${this._getUid()}"` : ""
       const oneLiner = this._getOneLiner()
       return `${!collapse ? indent : ""}<${tag}${attributesStr}${suid}>${oneLiner}${indentForChildParsers ? "\n" : ""}${children}</${tag}>${collapse ? "" : "\n"}`
@@ -25486,19 +22931,19 @@ bernParser
     }
     addClassToStumpParticle(className) {
       const classParser = this.touchParticle("class")
-      const words = classParser.getWordsFrom(1)
+      const atoms = classParser.getAtomsFrom(1)
       // note: we call add on shadow regardless, because at the moment stump may have gotten out of
       // sync with shadow, if things modified the dom. todo: cleanup.
       this.getShadow().addClassToShadow(className)
-      if (words.includes(className)) return this
-      words.push(className)
-      classParser.setContent(words.join(this.wordBreakSymbol))
+      if (atoms.includes(className)) return this
+      atoms.push(className)
+      classParser.setContent(atoms.join(this.atomBreakSymbol))
       return this
     }
     removeClassFromStumpParticle(className) {
       const classParser = this.getParticle("class")
       if (!classParser) return this
-      const newClasses = classParser.words.filter(word => word !== className)
+      const newClasses = classParser.atoms.filter(atom => atom !== className)
       if (!newClasses.length) classParser.destroy()
       else classParser.setContent(newClasses.join(" "))
       this.getShadow().removeClassFromShadow(className)
@@ -25506,7 +22951,7 @@ bernParser
     }
     stumpParticleHasClass(className) {
       const classParser = this.getParticle("class")
-      return classParser && classParser.words.includes(className) ? true : false
+      return classParser && classParser.atoms.includes(className) ? true : false
     }
     isStumpParticleCheckbox() {
       return this.get("type") === "checkbox"
@@ -25522,8 +22967,8 @@ bernParser
       return this.insertChildParticle(text, index)
     }
     insertChildParticle(text, index) {
-      const singleParticle = new Particle(text).getChildren()[0]
-      const newParticle = this.insertLineAndChildren(singleParticle.getLine(), singleParticle.childrenToString(), index)
+      const singleParticle = new Particle(text).getSubparticles()[0]
+      const newParticle = this.insertLineAndSubparticles(singleParticle.getLine(), singleParticle.subparticlesToString(), index)
       const stumpParserIndex = this.filter(particle => particle.isHtmlTagParser).indexOf(newParticle)
       this.getShadow().insertHtmlParticle(newParticle, stumpParserIndex)
       return newParticle
@@ -25537,25 +22982,25 @@ bernParser
     findStumpParticleByChildString(line) {
       return this.topDownArray.find(particle =>
         particle
-          .map(child => child.getLine())
+          .map(subparticle => subparticle.getLine())
           .join("\n")
           .includes(line)
       )
     }
-    findStumpParticleByFirstWord(firstWord) {
-      return this._findStumpParticlesByBase(firstWord)[0]
+    findStumpParticleByCue(cue) {
+      return this._findStumpParticlesByBase(cue)[0]
     }
-    _findStumpParticlesByBase(firstWord) {
-      return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.firstWord === firstWord)
+    _findStumpParticlesByBase(cue) {
+      return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.cue === cue)
     }
     hasLine(line) {
-      return this.getChildren().some(particle => particle.getLine() === line)
+      return this.getSubparticles().some(particle => particle.getLine() === line)
     }
     findStumpParticlesByChild(line) {
       return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.hasLine(line))
     }
     findStumpParticlesWithClass(className) {
-      return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.has("class") && particle.getParticle("class").words.includes(className))
+      return this.topDownArray.filter(particle => particle.doesExtend("htmlTagParser") && particle.has("class") && particle.getParticle("class").atoms.includes(className))
     }
     getShadowClass() {
       return this.parent.getShadowClass()
@@ -25591,8 +23036,8 @@ bernParser
   }
 
   class componentDefinitionParser extends htmlTagParser {
-    get componentTagNameCell() {
-      return this.getWord(0)
+    get componentTagNameAtom() {
+      return this.getAtom(0)
     }
     getTag() {
       return "div"
@@ -25603,11 +23048,11 @@ bernParser
     createParserCombinator() {
       return new Particle.ParserCombinator(errorParser, undefined, undefined)
     }
-    get htmlAttributeNameCell() {
-      return this.getWord(0)
+    get htmlAttributeNameAtom() {
+      return this.getAtom(0)
     }
-    get attributeValueCell() {
-      return this.getWordsFrom(1)
+    get attributeValueAtom() {
+      return this.getAtomsFrom(1)
     }
     get isTileAttribute() {
       return true
@@ -25622,13 +23067,13 @@ bernParser
       return ""
     }
     getAttribute() {
-      return ` ${this.firstWord}="${this.content}"`
+      return ` ${this.cue}="${this.content}"`
     }
   }
 
   class stumpExtendedAttributeParser extends htmlAttributeParser {
-    get stumpExtendedAttributeNameCell() {
-      return this.getWord(0)
+    get stumpExtendedAttributeNameAtom() {
+      return this.getAtom(0)
     }
   }
 
@@ -25636,8 +23081,8 @@ bernParser
     createParserCombinator() {
       return new Particle.ParserCombinator(lineOfHtmlContentParser, undefined, undefined)
     }
-    get anyHtmlContentCell() {
-      return this.getWordsFrom(0)
+    get anyHtmlContentAtom() {
+      return this.getAtomsFrom(0)
     }
     get isTileAttribute() {
       return true
@@ -25651,14 +23096,14 @@ bernParser
     createParserCombinator() {
       return new Particle.ParserCombinator(lineOfHtmlContentParser, undefined, undefined)
     }
-    get bernKeywordCell() {
-      return this.getWord(0)
+    get bernKeywordAtom() {
+      return this.getAtom(0)
     }
     get isTileAttribute() {
       return true
     }
     _toHtml() {
-      return this.childrenToString()
+      return this.subparticlesToString()
     }
     getTextContent() {
       return ""
@@ -25668,10 +23113,11 @@ bernParser
   window.stumpParser = stumpParser
 }
 
+
 {
   class hakonParser extends ParserBackedParticle {
     createParserCombinator() {
-      return new Particle.ParserCombinator(selectorParser, Object.assign(Object.assign({}, super.createParserCombinator()._getFirstWordMapAsObject()), { comment: commentParser }), undefined)
+      return new Particle.ParserCombinator(selectorParser, Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), { comment: commentParser }), undefined)
     }
     getSelector() {
       return ""
@@ -25679,36 +23125,36 @@ bernParser
     compile() {
       return this.topDownArray
         .filter(particle => particle.isSelectorParser)
-        .map(child => child.compile())
+        .map(subparticle => subparticle.compile())
         .join("")
     }
-    static cachedHandParsersProgramRoot = new HandParsersProgram(`// Cell Parsers
-anyCell
-keywordCell
-commentKeywordCell
- extends keywordCell
+    static cachedHandParsersProgramRoot = new HandParsersProgram(`// Atom Parsers
+anyAtom
+keywordAtom
+commentKeywordAtom
+ extends keywordAtom
  paint comment
  enum comment
-extraCell
+extraAtom
  paint invalid
-cssValueCell
+cssValueAtom
  paint constant.numeric
-selectorCell
+selectorAtom
  paint keyword.control
  examples body h1
  // todo add html tags, css and ids selector regexes, etc
-vendorPrefixPropertyKeywordCell
+vendorPrefixCueAtom
  description Properties like -moz-column-fill
  paint variable.function
- extends keywordCell
-propertyKeywordCell
+ extends keywordAtom
+cueAtom
  paint variable.function
- extends keywordCell
+ extends keywordAtom
  // todo Where are these coming from? Can we add a url link
- enum align-content align-items align-self all animation animation-delay animation-direction animation-duration animation-fill-mode animation-iteration-count animation-name animation-play-state animation-timing-function backface-visibility background background-attachment background-blend-mode background-clip background-color background-image background-origin background-position background-repeat background-size border border-bottom border-bottom-color border-bottom-left-radius border-bottom-right-radius border-bottom-style border-bottom-width border-collapse border-color border-image border-image-outset border-image-repeat border-image-slice border-image-source border-image-width border-left border-left-color border-left-style border-left-width border-radius border-right border-right-color border-right-style border-right-width border-spacing border-style border-top border-top-color border-top-left-radius border-top-right-radius border-top-style border-top-width border-width bottom box-shadow box-sizing break-inside caption-side clear clip color column-count column-fill column-gap column-rule column-rule-color column-rule-style column-rule-width column-span column-width columns content counter-increment counter-reset cursor direction display empty-cells fill filter flex flex-basis flex-direction flex-flow flex-grow flex-shrink flex-wrap float font @font-face font-family font-size font-size-adjust font-stretch font-style font-variant font-weight  hanging-punctuation height hyphens justify-content @keyframes left letter-spacing line-height list-style list-style-image list-style-position list-style-type margin margin-bottom margin-left margin-right margin-top max-height max-width @media min-height min-width nav-down nav-index nav-left nav-right nav-up opacity order outline outline-color outline-offset outline-style outline-width overflow overflow-x overflow-y padding padding-bottom padding-left padding-right padding-top page-break-after page-break-before page-break-inside perspective perspective-origin position quotes resize right tab-size table-layout text-align text-align-last text-decoration text-decoration-color text-decoration-line text-decoration-style text-indent text-justify text-overflow text-shadow text-transform top transform transform-origin transform-style transition transition-delay transition-duration transition-property transition-timing-function unicode-bidi vertical-align visibility white-space width word-break word-spacing word-wrap z-index overscroll-behavior-x user-select -ms-touch-action -webkit-user-select -webkit-touch-callout -moz-user-select touch-action -ms-user-select -khtml-user-select gap grid-auto-flow grid-column grid-column-end grid-column-gap grid-column-start grid-gap grid-row grid-row-end grid-row-gap grid-row-start grid-template-columns grid-template-rows justify-items justify-self
-errorCell
+ enum align-content align-items align-self all animation animation-delay animation-direction animation-duration animation-fill-mode animation-iteration-count animation-name animation-play-state animation-timing-function backface-visibility background background-attachment background-blend-mode background-clip background-color background-image background-origin background-position background-repeat background-size border border-bottom border-bottom-color border-bottom-left-radius border-bottom-right-radius border-bottom-style border-bottom-width border-collapse border-color border-image border-image-outset border-image-repeat border-image-slice border-image-source border-image-width border-left border-left-color border-left-style border-left-width border-radius border-right border-right-color border-right-style border-right-width border-spacing border-style border-top border-top-color border-top-left-radius border-top-right-radius border-top-style border-top-width border-width bottom box-shadow box-sizing break-inside caption-side clear clip color column-count column-fill column-gap column-rule column-rule-color column-rule-style column-rule-width column-span column-width columns content counter-increment counter-reset cursor direction display empty-atoms fill filter flex flex-basis flex-direction flex-flow flex-grow flex-shrink flex-wrap float font @font-face font-family font-size font-size-adjust font-stretch font-style font-variant font-weight  hanging-punctuation height hyphens justify-content @keyframes left letter-spacing line-height list-style list-style-image list-style-position list-style-type margin margin-bottom margin-left margin-right margin-top max-height max-width @media min-height min-width nav-down nav-index nav-left nav-right nav-up opacity order outline outline-color outline-offset outline-style outline-width overflow overflow-x overflow-y padding padding-bottom padding-left padding-right padding-top page-break-after page-break-before page-break-inside perspective perspective-origin position quotes resize right tab-size table-layout text-align text-align-last text-decoration text-decoration-color text-decoration-line text-decoration-style text-indent text-justify text-overflow text-shadow text-transform top transform transform-origin transform-style transition transition-delay transition-duration transition-property transition-timing-function unicode-bidi vertical-align visibility white-space width atom-break atom-spacing atom-wrap z-index overscroll-behavior-x user-select -ms-touch-action -webkit-user-select -webkit-touch-callout -moz-user-select touch-action -ms-user-select -khtml-user-select gap grid-auto-flow grid-column grid-column-end grid-column-gap grid-column-start grid-gap grid-row grid-row-end grid-row-gap grid-row-start grid-template-columns grid-template-rows justify-items justify-self
+errorAtom
  paint invalid
-commentCell
+commentAtom
  paint comment
 
 // Line Parsers
@@ -25716,7 +23162,6 @@ hakonParser
  root
  // todo Add variables?
  description A prefix Language that compiles to CSS
- compilesTo css
  inScope commentParser
  catchAllParser selectorParser
  javascript
@@ -25726,7 +23171,7 @@ hakonParser
   compile() {
    return this.topDownArray
     .filter(particle => particle.isSelectorParser)
-    .map(child => child.compile())
+    .map(subparticle => subparticle.compile())
     .join("")
   }
  example A basic example
@@ -25739,27 +23184,27 @@ hakonParser
     color blue
     font-size 17px
 propertyParser
- catchAllCellType cssValueCell
+ catchAllAtomType cssValueAtom
  catchAllParser errorParser
  javascript
   compile(spaces) {
-   return \`\${spaces}\${this.firstWord}: \${this.content};\`
+   return \`\${spaces}\${this.cue}: \${this.content};\`
   }
- cells propertyKeywordCell
+ atoms cueAtom
 variableParser
  extends propertyParser
  pattern --
 browserPrefixPropertyParser
  extends propertyParser
  pattern ^\\-\\w.+
- cells vendorPrefixPropertyKeywordCell
+ atoms vendorPrefixCueAtom
 errorParser
  catchAllParser errorParser
- catchAllCellType errorCell
+ catchAllAtomType errorAtom
  baseParser errorParser
 commentParser
- cells commentKeywordCell
- catchAllCellType commentCell
+ atoms commentKeywordAtom
+ catchAllAtomType commentAtom
  catchAllParser commentParser
 selectorParser
  inScope propertyParser variableParser commentParser
@@ -25768,7 +23213,7 @@ selectorParser
  javascript
   getSelector() {
    const parentSelector = this.parent.getSelector()
-   return this.firstWord
+   return this.cue
     .split(",")
     .map(part => {
      if (part.startsWith("&")) return parentSelector + part.substr(1)
@@ -25777,14 +23222,14 @@ selectorParser
     .join(",")
   }
   compile() {
-   const propertyParsers = this.getChildren().filter(particle => particle.doesExtend("propertyParser"))
+   const propertyParsers = this.getSubparticles().filter(particle => particle.doesExtend("propertyParser"))
    if (!propertyParsers.length) return ""
    const spaces = "  "
    return \`\${this.getSelector()} {
-  \${propertyParsers.map(child => child.compile(spaces)).join("\\n")}
+  \${propertyParsers.map(subparticle => subparticle.compile(spaces)).join("\\n")}
   }\\n\`
   }
- cells selectorCell`)
+ atoms selectorAtom`)
     get handParsersProgram() {
       return this.constructor.cachedHandParsersProgramRoot
     }
@@ -25795,22 +23240,22 @@ selectorParser
     createParserCombinator() {
       return new Particle.ParserCombinator(errorParser, undefined, undefined)
     }
-    get propertyKeywordCell() {
-      return this.getWord(0)
+    get cueAtom() {
+      return this.getAtom(0)
     }
-    get cssValueCell() {
-      return this.getWordsFrom(1)
+    get cssValueAtom() {
+      return this.getAtomsFrom(1)
     }
     compile(spaces) {
-      return `${spaces}${this.firstWord}: ${this.content};`
+      return `${spaces}${this.cue}: ${this.content};`
     }
   }
 
   class variableParser extends propertyParser {}
 
   class browserPrefixPropertyParser extends propertyParser {
-    get vendorPrefixPropertyKeywordCell() {
-      return this.getWord(0)
+    get vendorPrefixCueAtom() {
+      return this.getAtom(0)
     }
   }
 
@@ -25821,8 +23266,8 @@ selectorParser
     getErrors() {
       return this._getErrorParserErrors()
     }
-    get errorCell() {
-      return this.getWordsFrom(0)
+    get errorAtom() {
+      return this.getAtomsFrom(0)
     }
   }
 
@@ -25830,11 +23275,11 @@ selectorParser
     createParserCombinator() {
       return new Particle.ParserCombinator(commentParser, undefined, undefined)
     }
-    get commentKeywordCell() {
-      return this.getWord(0)
+    get commentKeywordAtom() {
+      return this.getAtom(0)
     }
-    get commentCell() {
-      return this.getWordsFrom(1)
+    get commentAtom() {
+      return this.getAtomsFrom(1)
     }
   }
 
@@ -25842,7 +23287,7 @@ selectorParser
     createParserCombinator() {
       return new Particle.ParserCombinator(
         selectorParser,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getFirstWordMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
           "border-bottom-right-radius": propertyParser,
           "transition-timing-function": propertyParser,
           "animation-iteration-count": propertyParser,
@@ -25956,7 +23401,7 @@ selectorParser
           "table-layout": propertyParser,
           "text-justify": propertyParser,
           "unicode-bidi": propertyParser,
-          "word-spacing": propertyParser,
+          "atom-spacing": propertyParser,
           "touch-action": propertyParser,
           "grid-row-end": propertyParser,
           "grid-row-gap": propertyParser,
@@ -25966,7 +23411,7 @@ selectorParser
           "column-fill": propertyParser,
           "column-rule": propertyParser,
           "column-span": propertyParser,
-          "empty-cells": propertyParser,
+          "empty-atoms": propertyParser,
           "flex-shrink": propertyParser,
           "font-family": propertyParser,
           "font-weight": propertyParser,
@@ -25998,7 +23443,7 @@ selectorParser
           "text-align": propertyParser,
           transition: propertyParser,
           visibility: propertyParser,
-          "word-break": propertyParser,
+          "atom-break": propertyParser,
           animation: propertyParser,
           direction: propertyParser,
           "flex-flow": propertyParser,
@@ -26010,7 +23455,7 @@ selectorParser
           "nav-index": propertyParser,
           "nav-right": propertyParser,
           transform: propertyParser,
-          "word-wrap": propertyParser,
+          "atom-wrap": propertyParser,
           "nav-down": propertyParser,
           "nav-left": propertyParser,
           overflow: propertyParser,
@@ -26059,15 +23504,15 @@ selectorParser
         ]
       )
     }
-    get selectorCell() {
-      return this.getWord(0)
+    get selectorAtom() {
+      return this.getAtom(0)
     }
     get isSelectorParser() {
       return true
     }
     getSelector() {
       const parentSelector = this.parent.getSelector()
-      return this.firstWord
+      return this.cue
         .split(",")
         .map(part => {
           if (part.startsWith("&")) return parentSelector + part.substr(1)
@@ -26076,17 +23521,18 @@ selectorParser
         .join(",")
     }
     compile() {
-      const propertyParsers = this.getChildren().filter(particle => particle.doesExtend("propertyParser"))
+      const propertyParsers = this.getSubparticles().filter(particle => particle.doesExtend("propertyParser"))
       if (!propertyParsers.length) return ""
       const spaces = "  "
       return `${this.getSelector()} {
-${propertyParsers.map(child => child.compile(spaces)).join("\n")}
+${propertyParsers.map(subparticle => subparticle.compile(spaces)).join("\n")}
 }\n`
     }
   }
 
   window.hakonParser = hakonParser
 }
+
 
 //onsave scrollsdk build produce ParticleComponentFramework.browser.js
 const BrowserEvents = {}
@@ -26289,7 +23735,7 @@ class AbstractWillowShadow {
   getShadowCss(property) {
     return ""
   }
-  insertHtmlParticle(childParticle, index) {}
+  insertHtmlParticle(subparticle, index) {}
   get element() {
     return {}
   }
@@ -26487,14 +23933,14 @@ class AbstractWillowBrowser extends stumpParser {
   }
   async appendScript(url) {}
   getWindowTitle() {
-    // todo: deep getParticleByBase/withBase/type/word or something?
+    // todo: deep getParticleByBase/withBase/type/atom or something?
     const particles = this.topDownArray
-    const titleParticle = particles.find(particle => particle.firstWord === WillowConstants.titleTag)
+    const titleParticle = particles.find(particle => particle.cue === WillowConstants.titleTag)
     return titleParticle ? titleParticle.content : ""
   }
   setWindowTitle(value) {
     const particles = this.topDownArray
-    const headParticle = particles.find(particle => particle.firstWord === WillowConstants.tags.head)
+    const headParticle = particles.find(particle => particle.cue === WillowConstants.tags.head)
     headParticle.touchParticle(WillowConstants.titleTag).setContent(value)
     return this
   }
@@ -27055,7 +24501,7 @@ class AbstractParticleComponentParser extends ParserBackedParticle {
   _getHtmlOnlyParticles() {
     const particles = []
     this.willowBrowser.getHtmlStumpParticle().deepVisit(particle => {
-      if (particle.firstWord === "styleTag" || (particle.content || "").startsWith("<svg ")) return false
+      if (particle.cue === "styleTag" || (particle.content || "").startsWith("<svg ")) return false
       particles.push(particle)
     })
     return particles
@@ -27064,7 +24510,7 @@ class AbstractParticleComponentParser extends ParserBackedParticle {
     // todo: cleanup. feels hacky.
     const clone = new Particle(this.willowBrowser.getHtmlStumpParticle().toString())
     clone.topDownArray.forEach(particle => {
-      if (particle.firstWord === "styleTag" || (particle.content || "").startsWith("<svg ")) particle.destroy()
+      if (particle.cue === "styleTag" || (particle.content || "").startsWith("<svg ")) particle.destroy()
     })
     return clone.toString()
   }
@@ -27075,7 +24521,7 @@ class AbstractParticleComponentParser extends ParserBackedParticle {
       .join("\n")
   }
   getCommandNames() {
-    return Object.getOwnPropertyNames(Object.getPrototypeOf(this)).filter(word => word.endsWith("Command"))
+    return Object.getOwnPropertyNames(Object.getPrototypeOf(this)).filter(atom => atom.endsWith("Command"))
   }
   async _executeCommandOnStumpParticle(stumpParticle, commandMethod) {
     const params = this._getCommandArgumentsFromStumpParticle(stumpParticle, commandMethod)
@@ -27187,7 +24633,7 @@ class AbstractParticleComponentParser extends ParserBackedParticle {
     // note: we have 1 parameter, and are going to do type inference first.
     // Todo: add actions that can be taken from a message?
     // todo: add tests
-    this.getMessageBuffer().appendLineAndChildren("message", message)
+    this.getMessageBuffer().appendLineAndSubparticles("message", message)
   }
   addStumpErrorMessageToLog(errorMessage) {
     // todo: cleanup!
@@ -27205,7 +24651,7 @@ class AbstractParticleComponentParser extends ParserBackedParticle {
       !this.isMounted() // todo: why do we need this check?
     )
       return undefined
-    this._getChildParticleComponents().forEach(child => child.unmount())
+    this._getChildParticleComponents().forEach(subparticle => subparticle.unmount())
     this.particleComponentWillUnmount()
     this._removeCss()
     this._removeHtml()
@@ -27240,13 +24686,13 @@ class AbstractParticleComponentParser extends ParserBackedParticle {
   }
   async particleComponentDidUpdate() {}
   _getChildParticleComponents() {
-    return this.getChildrenByParser(AbstractParticleComponentParser)
+    return this.getSubparticlesByParser(AbstractParticleComponentParser)
   }
-  _hasChildrenParticleComponents() {
+  _hasSubparticlesParticleComponents() {
     return this._getChildParticleComponents().length > 0
   }
   // todo: this is hacky. we do it so we can just mount all tiles to wall.
-  getStumpParticleForChildren() {
+  getStumpParticleForSubparticles() {
     return this.getStumpParticle()
   }
   _getLastRenderedTime() {
@@ -27270,14 +24716,14 @@ ${new stumpParser(this.toStumpCode()).compile()}
     // todo: fucking switch to react? looks like we don't update parent because we dont want to nuke children.
     // okay. i see why we might do that for non tile particleComponents. but for Tile particleComponents, seems like we arent nesting, so why not?
     // for now
-    if (this._hasChildrenParticleComponents()) return { shouldUpdate: false, reason: "did not update because is a parent" }
+    if (this._hasSubparticlesParticleComponents()) return { shouldUpdate: false, reason: "did not update because is a parent" }
     this._updateHtml()
     this._lastTimeToRender = this._getProcessTimeInMilliseconds() - this._getLastRenderedTime()
     return reasonForUpdatingOrNot
   }
   _updateHtml() {
     const stumpParticleToMountOn = this._htmlStumpParticle.parent
-    const currentIndex = this._htmlStumpParticle.getIndex()
+    const currentIndex = this._htmlStumpParticle.index
     this._removeHtml()
     this._mountHtml(stumpParticleToMountOn, this._toLoadedOrLoadingStumpCode(), currentIndex)
   }
@@ -27286,21 +24732,21 @@ ${new stumpParser(this.toStumpCode()).compile()}
     return this.destroy()
   }
   // todo: move to keyword particle class?
-  toggle(firstWord, contentOptions) {
-    const currentParticle = this.getParticle(firstWord)
-    if (!contentOptions) return currentParticle ? currentParticle.unmountAndDestroy() : this.appendLine(firstWord)
+  toggle(cue, contentOptions) {
+    const currentParticle = this.getParticle(cue)
+    if (!contentOptions) return currentParticle ? currentParticle.unmountAndDestroy() : this.appendLine(cue)
     const currentContent = currentParticle === undefined ? undefined : currentParticle.content
     const index = contentOptions.indexOf(currentContent)
     const newContent = index === -1 || index + 1 === contentOptions.length ? contentOptions[0] : contentOptions[index + 1]
-    this.delete(firstWord)
-    if (newContent) this.touchParticle(firstWord).setContent(newContent)
+    this.delete(cue)
+    if (newContent) this.touchParticle(cue).setContent(newContent)
     return newContent
   }
   isMounted() {
     return !!this._htmlStumpParticle
   }
-  toggleAndRender(firstWord, contentOptions) {
-    this.toggle(firstWord, contentOptions)
+  toggleAndRender(cue, contentOptions) {
+    this.toggle(cue, contentOptions)
     this.root.renderAndGetRenderReport()
   }
   _getFirstOutdatedDependency(lastRenderedTime = this._getLastRenderedTime() || 0) {
@@ -27341,14 +24787,14 @@ ${new stumpParser(this.toStumpCode()).compile()}
     return []
   }
   _getParticleComponentsThatNeedRendering(arr) {
-    this._getChildParticleComponents().forEach(child => {
-      const reasonForUpdatingOrNot = child.getWhetherToUpdateAndReason()
-      if (!child.isMounted() || reasonForUpdatingOrNot.shouldUpdate) arr.push({ child: child, childUpdateBecause: reasonForUpdatingOrNot })
-      child._getParticleComponentsThatNeedRendering(arr)
+    this._getChildParticleComponents().forEach(subparticle => {
+      const reasonForUpdatingOrNot = subparticle.getWhetherToUpdateAndReason()
+      if (!subparticle.isMounted() || reasonForUpdatingOrNot.shouldUpdate) arr.push({ subparticle: subparticle, subparticleUpdateBecause: reasonForUpdatingOrNot })
+      subparticle._getParticleComponentsThatNeedRendering(arr)
     })
   }
   toStumpLoadingCode() {
-    return `div Loading ${this.firstWord}...
+    return `div Loading ${this.cue}...
  class ${this.getCssClassNames().join(" ")}
  id ${this.getParticleComponentId()}`
   }
@@ -27409,9 +24855,9 @@ ${new stumpParser(this.toStumpCode()).compile()}
     }
     if (isUpdateOp) particleComponentUpdateReport = this._updateAndGetUpdateReport()
     else this._mount(stumpParticle, index)
-    const stumpParticleForChildren = this.getStumpParticleForChildren()
+    const stumpParticleForSubparticles = this.getStumpParticleForSubparticles()
     // Todo: insert delayed rendering?
-    const childResults = this._getChildParticleComponents().map((child, index) => child.renderAndGetRenderReport(stumpParticleForChildren, index))
+    const subparticleResults = this._getChildParticleComponents().map((subparticle, index) => subparticle.renderAndGetRenderReport(stumpParticleForSubparticles, index))
     if (isUpdateOp) {
       if (particleComponentUpdateReport.shouldUpdate) {
         try {
@@ -27427,8 +24873,8 @@ ${new stumpParser(this.toStumpCode()).compile()}
         console.error(err)
       }
     }
-    let str = `${this.getWord(0) || this.constructor.name} ${isUpdateOp ? "update" : "mount"} ${particleComponentUpdateReport.shouldUpdate} ${particleComponentUpdateReport.reason}`
-    childResults.forEach(child => (str += "\n" + child.toString(1)))
+    let str = `${this.getAtom(0) || this.constructor.name} ${isUpdateOp ? "update" : "mount"} ${particleComponentUpdateReport.shouldUpdate} ${particleComponentUpdateReport.reason}`
+    subparticleResults.forEach(subparticle => (str += "\n" + subparticle.toString(1)))
     return new Particle(str)
   }
 }
@@ -27495,89 +24941,3 @@ window.AbstractGithubTriangleComponent = AbstractGithubTriangleComponent
 window.AbstractParticleComponentParser = AbstractParticleComponentParser
 window.WillowBrowser = WillowBrowser
 window.ParticleComponentFrameworkDebuggerComponent = ParticleComponentFrameworkDebuggerComponent
-
-// CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: https://codemirror.net/5/LICENSE
-;(function (mod) {
-  if (typeof exports == "object" && typeof module == "object")
-    // CommonJS
-    mod(require("../../lib/codemirror"))
-  else if (typeof define == "function" && define.amd)
-    // AMD
-    define(["../../lib/codemirror"], mod)
-  // Plain browser env
-  else mod(CodeMirror)
-})(function (CodeMirror) {
-  CodeMirror.defineOption("placeholder", "", function (cm, val, old) {
-    var prev = old && old != CodeMirror.Init
-    if (val && !prev) {
-      cm.on("blur", onBlur)
-      cm.on("change", onChange)
-      cm.on("swapDoc", onChange)
-      CodeMirror.on(
-        cm.getInputField(),
-        "compositionupdate",
-        (cm.state.placeholderCompose = function () {
-          onComposition(cm)
-        })
-      )
-      onChange(cm)
-    } else if (!val && prev) {
-      cm.off("blur", onBlur)
-      cm.off("change", onChange)
-      cm.off("swapDoc", onChange)
-      CodeMirror.off(cm.getInputField(), "compositionupdate", cm.state.placeholderCompose)
-      clearPlaceholder(cm)
-      var wrapper = cm.getWrapperElement()
-      wrapper.className = wrapper.className.replace(" CodeMirror-empty", "")
-    }
-
-    if (val && !cm.hasFocus()) onBlur(cm)
-  })
-
-  function clearPlaceholder(cm) {
-    if (cm.state.placeholder) {
-      cm.state.placeholder.parentNode.removeChild(cm.state.placeholder)
-      cm.state.placeholder = null
-    }
-  }
-  function setPlaceholder(cm) {
-    clearPlaceholder(cm)
-    var elt = (cm.state.placeholder = document.createElement("pre"))
-    elt.style.cssText = "height: 0; overflow: visible"
-    elt.style.direction = cm.getOption("direction")
-    elt.className = "CodeMirror-placeholder CodeMirror-line-like"
-    var placeHolder = cm.getOption("placeholder")
-    if (typeof placeHolder == "string") placeHolder = document.createTextNode(placeHolder)
-    elt.appendChild(placeHolder)
-    cm.display.lineSpace.insertBefore(elt, cm.display.lineSpace.firstChild)
-  }
-
-  function onComposition(cm) {
-    setTimeout(function () {
-      var empty = false
-      if (cm.lineCount() == 1) {
-        var input = cm.getInputField()
-        empty = input.nodeName == "TEXTAREA" ? !cm.getLine(0).length : !/[^\u200b]/.test(input.querySelector(".CodeMirror-line").textContent)
-      }
-      if (empty) setPlaceholder(cm)
-      else clearPlaceholder(cm)
-    }, 20)
-  }
-
-  function onBlur(cm) {
-    if (isEmpty(cm)) setPlaceholder(cm)
-  }
-  function onChange(cm) {
-    var wrapper = cm.getWrapperElement(),
-      empty = isEmpty(cm)
-    wrapper.className = wrapper.className.replace(" CodeMirror-empty", "") + (empty ? " CodeMirror-empty" : "")
-
-    if (empty) setPlaceholder(cm)
-    else clearPlaceholder(cm)
-  }
-
-  function isEmpty(cm) {
-    return cm.lineCount() === 1 && cm.getLine(0) === ""
-  }
-})
