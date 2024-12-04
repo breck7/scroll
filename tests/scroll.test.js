@@ -232,6 +232,24 @@ testParticles.format = async areEqual => {
   areEqual(page2.scrollProgram.formatted, "# hi\n", "format works")
 }
 
+testParticles.outputFileNames = async areEqual => {
+  // Arrange
+  const page = new ScrollFile(``)
+  // Act
+  await page.fuse()
+  // Assert
+  areEqual(page.scrollProgram.outputFileNames.length, 0, "no outputFileNames in a blank file")
+
+  // Arrange
+  const page2 = new ScrollFile(`buildHtml foo.html
+buildTxt foo.txt
+`)
+  // Act
+  await page2.fuse()
+  // Assert
+  areEqual(page2.scrollProgram.outputFileNames[1], "foo.txt")
+}
+
 testParticles.initCommand = async areEqual => {
   const tempFolder = path.join(__dirname, "tempFolderForTesting")
 
