@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 161.2.0 12/04/2024
+🎉 update SDK for better Fusion
+
 📦 161.1.0 12/04/2024
 🎉 added `outputFileNames` internal API
 

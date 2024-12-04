@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "161.1.0",
+  "version": "161.2.0",
   "description": "A language for scientists of all ages. A curated collection of tools for refining and sharing thoughts.",
   "main": "scroll.js",
   "engines": {
@@ -51,7 +51,7 @@
     "image-size": "^1.0.2",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
-    "scrollsdk": "^99.1.0"
+    "scrollsdk": "^99.2.0"
   },
   "devDependencies": {
     "prettier": "^2.8.8",
