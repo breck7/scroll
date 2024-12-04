@@ -20,17 +20,19 @@ abstractBuildCommandParser
   buildOutput() {
     return this.root.compileTo(this.extension)
   }
+  get outputFileNames() {
+    return this.content?.split(" ") || [this.root.permalink.replace(".html", "." + this.extension.toLowerCase())]
+  }
   async _buildFileType(extension) {
     const {root} = this
-    const { fileSystem, folderPath, filename, filePath, path, lodash, permalink } = root
+    const { fileSystem, folderPath, filename, filePath, path, lodash } = root
     const capitalized = lodash.capitalize(extension)
     const buildKeyword = "build" + capitalized
-    const outputFiles = this.content?.split(" ") || [""]
-    for (let name of outputFiles) {
-      const link = name || permalink.replace(".html", "." + extension.toLowerCase())
+    const {outputFileNames} = this
+    for (let name of outputFileNames) {
       try {
-        await fileSystem.writeProduct(path.join(folderPath, link), root.compileTo(capitalized))
-        root.log(`💾 Built ${link} from ${filename}`)
+        await fileSystem.writeProduct(path.join(folderPath, name), root.compileTo(capitalized))
+        root.log(`💾 Built ${name} from ${filename}`)
       } catch (err) {
         console.error(`Error while building '${filePath}' with extension '${extension}'`)
         throw err

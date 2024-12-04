@@ -566,6 +566,9 @@ scrollParser
       await particle.buildTwo(externalFilesCopied)
     }
   }
+  get outputFileNames() {
+    return this.filter(p => p.outputFileNames).map(p => p.outputFileNames).flat()
+  }
   _compileArray(filename, arr) {
     const removeBlanks = data => data.map(obj => Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== "")))
     const parts = filename.split(".")
