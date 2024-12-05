@@ -42,7 +42,7 @@ toStampParser
  cueFromId
  javascript
   buildTxt() {
-    return this.makeStamp(this.root.makeFullPath(this.content))
+    return this.makeStamp(this.content)
   }
   buildHtml() {
     return `<pre>${this.buildTxt()}</pre>`
@@ -63,7 +63,7 @@ toStampParser
     items.forEach(item => {
       const itemPath = path.join(currentPath, item);
       const relativePath = path.relative(dir, itemPath);
-      if (!gitTrackedFiles.has(item)) return
+      //if (!gitTrackedFiles.has(item)) return
       const stats = fs.statSync(itemPath);
       const indentation = ' '.repeat(depth);
       if (stats.isDirectory()) {

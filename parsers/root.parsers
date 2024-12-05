@@ -340,7 +340,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "161.0.4"
+    return "161.3.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -763,10 +763,14 @@ scrollParser
       .forEach(particle => {
         let value = particle.length ? particle.subparticlesToString() : particle.getAtomsFrom(2).join(" ")
         const kind = particle.cue
+        try {
         if (kind === "replaceJs") value = eval(value)
         if (this.isNodeJs() && kind === "replaceNodejs")
           this.evalNodeJsMacros(value, macroMap, absolutePath)
         else macroMap[particle.getAtom(1)] = value
+        } catch (err) {
+          console.error(err)
+        }
         particle.destroy() // Destroy definitions after eval
       })
     if (particle.has("footer")) {
