@@ -4741,7 +4741,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "161.0.4"
+      return "161.3.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -5162,10 +5162,14 @@ stamp
         .forEach(particle => {
           let value = particle.length ? particle.subparticlesToString() : particle.getAtomsFrom(2).join(" ")
           const kind = particle.cue
+          try {
           if (kind === "replaceJs") value = eval(value)
           if (this.isNodeJs() && kind === "replaceNodejs")
             this.evalNodeJsMacros(value, macroMap, absolutePath)
           else macroMap[particle.getAtom(1)] = value
+          } catch (err) {
+            console.error(err)
+          }
           particle.destroy() // Destroy definitions after eval
         })
       if (particle.has("footer")) {
@@ -5560,7 +5564,7 @@ stamp
    cueFromId
    javascript
     buildTxt() {
-      return this.makeStamp(this.root.makeFullPath(this.content))
+      return this.makeStamp(this.content)
     }
     buildHtml() {
       return `${this.buildTxt()}`
@@ -5581,7 +5585,7 @@ stamp
       items.forEach(item => {
         const itemPath = path.join(currentPath, item);
         const relativePath = path.relative(dir, itemPath);
-        if (!gitTrackedFiles.has(item)) return
+        //if (!gitTrackedFiles.has(item)) return
         const stats = fs.statSync(itemPath);
         const indentation = ' '.repeat(depth);
         if (stats.isDirectory()) {

@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 161.3.0 12/04/2024
+🎉 handle macro failures gracefully
+
 📦 161.2.0 12/04/2024
 🎉 update SDK for better Fusion
 
