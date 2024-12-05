@@ -16,7 +16,7 @@ https://scroll.pub/pages.html
 https://scroll.pub/parserLeetsheet.html
 https://scroll.pub/parserPrompt.html
 https://scroll.pub/parserUsage.html
+https://scroll.pub/download.html
 https://scroll.pub/ciBadges.html
 https://scroll.pub/cloc.html
-https://scroll.pub/download.html
 https://scroll.pub/animation.html

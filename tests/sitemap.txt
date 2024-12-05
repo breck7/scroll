@@ -1,3 +1,9 @@
+https://scroll.pub/buildDelimited.html
+https://scroll.pub/buttons.html
+https://scroll.pub/center.html
+https://scroll.pub/classicFormsTest.html
+https://scroll.pub/cloc.html
+https://scroll.pub/comments.html
 https://scroll.pub/concepts.html
 https://scroll.pub/contacts.html
 https://scroll.pub/css.html
@@ -68,10 +74,4 @@ https://scroll.pub/all.html
 https://scroll.pub/autoTitle.html
 https://scroll.pub/background.html
 https://scroll.pub/blogPost.html
-https://scroll.pub/buildDelimited.html
-https://scroll.pub/buttons.html
-https://scroll.pub/center.html
-https://scroll.pub/classicFormsTest.html
-https://scroll.pub/cloc.html
-https://scroll.pub/comments.html
 https://scroll.pub/top-sinks.html
