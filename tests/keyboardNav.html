@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<div class="scrollKeyboardNav" style="display:none;"><a href="top-sinks.html">top-sinks.html</a> · keyboardNav.html · <a href="a-review-of-my-sink.html">a-review-of-my-sink.html</a><script>document.addEventListener('keydown', function(event) {
+<div class="scrollKeyboardNav" style="display:none;"><a href="a-review-of-my-sink.html">a-review-of-my-sink.html</a> · keyboardNav.html · <a href="top-sinks.html">top-sinks.html</a><script>document.addEventListener('keydown', function(event) {
   if (document.activeElement !== document.body) return
   if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return // dont interfere with keyboard back button shortcut
   const getLinks = () => document.getElementsByClassName("scrollKeyboardNav")[0].getElementsByTagName("a")
