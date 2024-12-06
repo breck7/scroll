@@ -743,7 +743,7 @@ stamp
    extends scrollTableParser
    description Output results of cloc as table.
    cue cloc
-   string copyFromExternal clocLangs.txt
+   string copyFromExternal .clocLangs.txt
    javascript
     delimiter = ","
     get delimitedData() {
@@ -753,7 +753,7 @@ stamp
      return csv
     }
     get command(){
-     return `cloc --vcs git . --csv --read-lang-def=clocLangs.txt ${this.content || ""}`
+     return `cloc --vcs git . --csv --read-lang-def=.clocLangs.txt ${this.content || ""}`
     }
  code.parsers
   lineOfCodeParser
@@ -1773,7 +1773,7 @@ stamp
     cueFromId
     single
    description Generate a Scroll Form.
-   string copyFromExternal codeMirror.css scrollLibs.js constants.js
+   string copyFromExternal .codeMirror.css .scrollLibs.js .constants.js
    string requireOnce
     
     
@@ -2680,7 +2680,7 @@ stamp
   inspectBelowParser
    description Inspect particle below.
    extends belowAsCodeParser
-   string copyFromExternal inspector.css
+   string copyFromExternal .inspector.css
    javascript
     get code() {
       const mapFn = particle => {
@@ -2784,7 +2784,7 @@ stamp
     katex
      \text{E} = \text{T} / \text{A}!
    description KaTex widget for typeset math.
-   string copyFromExternal katex.min.css katex.min.js
+   string copyFromExternal .katex.min.css .katex.min.js
    string requireOnce
     
     
@@ -3216,7 +3216,7 @@ stamp
     single
    extends abstractTableVisualizationParser
    description Map widget.
-   string copyFromExternal leaflet.css leaflet.js scrollLibs.js
+   string copyFromExternal .leaflet.css .leaflet.js .scrollLibs.js
    string requireOnce
     
     
@@ -3556,7 +3556,7 @@ stamp
    popularity 0.000048
    extends abstractScrollWithRequirementsParser
    catchAllAtomType filePathAtom
-   string copyFromExternal helpfulNotFound.js
+   string copyFromExternal .helpfulNotFound.js
    description Helpful not found widget.
    javascript
     buildInstance() {
@@ -4235,7 +4235,7 @@ stamp
   abstractPlotParser
    // Observablehq
    extends abstractTableVisualizationParser
-   string copyFromExternal d3.js plot.js
+   string copyFromExternal .d3.js .plot.js
    string requireOnce
     
     
@@ -4280,7 +4280,7 @@ stamp
    extends abstractPlotParser
    description Scatterplot Widget.
    // todo: make copyFromExternal work with inheritance
-   string copyFromExternal d3.js plot.js
+   string copyFromExternal .d3.js .plot.js
    javascript
     get marks() {
       const x = this.get("x")
@@ -4741,7 +4741,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "161.3.0"
+      return "162.0.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -5331,7 +5331,7 @@ stamp
    // Left and right arrows navigate.
    description Slideshow widget. *** delimits slides.
    extends abstractScrollWithRequirementsParser
-   string copyFromExternal jquery-3.7.1.min.js slideshow.js
+   string copyFromExternal .jquery-3.7.1.min.js .slideshow.js
    example
     slideshow
     Why did the cow cross the road?
@@ -5494,7 +5494,7 @@ stamp
    extends abstractTableVisualizationParser
    example
     sparkline 1 2 3 4 5
-   string copyFromExternal sparkline.js
+   string copyFromExternal .sparkline.js
    string requireOnce 
    catchAllAtomType numberAtom
    // we need pattern matching
@@ -6259,7 +6259,7 @@ stamp
   tableSearchParser
    popularity 0.000072
    extends abstractScrollWithRequirementsParser
-   string copyFromExternal jquery-3.7.1.min.js datatables.css dayjs.min.js datatables.js tableSearch.js
+   string copyFromExternal .jquery-3.7.1.min.js .datatables.css .dayjs.min.js .datatables.js .tableSearch.js
    string requireOnce
     
     .dt-search{font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";}
@@ -6368,14 +6368,14 @@ stamp
    extends abstractScrollParser
    catchAllAtomType scrollThemeAtom
    description A collection of simple themes.
-   string copyFromExternal gazette.css
+   string copyFromExternal .gazette.css
     // Note this will be replaced at runtime
    javascript
     get copyFromExternal() {
      return this.files.join(" ")
     }
     get files() {
-      return this.atoms.slice(1).map(name => `${name}.css`)
+      return this.atoms.slice(1).map(name => `.${name}.css`)
     }
     buildHtml() {
      return this.files.map(name => ``).join("\n")

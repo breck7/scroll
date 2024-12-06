@@ -9,14 +9,14 @@ scrollThemeParser
  extends abstractScrollParser
  catchAllAtomType scrollThemeAtom
  description A collection of simple themes.
- string copyFromExternal gazette.css
+ string copyFromExternal .gazette.css
   // Note this will be replaced at runtime
  javascript
   get copyFromExternal() {
    return this.files.join(" ")
   }
   get files() {
-    return this.atoms.slice(1).map(name => `${name}.css`)
+    return this.atoms.slice(1).map(name => `.${name}.css`)
   }
   buildHtml() {
    return this.files.map(name => `<link rel="stylesheet" type="text/css" href="${name}">`).join("\n")

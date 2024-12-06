@@ -6,5 +6,5 @@ stumpNoSnippet
  link
   rel stylesheet
   type text/css
-  href gazette.css
+  href .gazette.css
 inlineCss style.css

@@ -50,11 +50,11 @@ mapParser
   single
  extends abstractTableVisualizationParser
  description Map widget.
- string copyFromExternal leaflet.css leaflet.js scrollLibs.js
+ string copyFromExternal .leaflet.css .leaflet.js .scrollLibs.js
  string requireOnce
-  <link rel="stylesheet" href="leaflet.css">
-  <script src="leaflet.js"></script>
-  <script src="scrollLibs.js"></script>
+  <link rel="stylesheet" href=".leaflet.css">
+  <script src=".leaflet.js"></script>
+  <script src=".scrollLibs.js"></script>
  javascript
   buildInstance() {
    const height = this.get("height") || 500

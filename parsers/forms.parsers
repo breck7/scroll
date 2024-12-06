@@ -89,11 +89,11 @@ scrollFormParser
   cueFromId
   single
  description Generate a Scroll Form.
- string copyFromExternal codeMirror.css scrollLibs.js constants.js
+ string copyFromExternal .codeMirror.css .scrollLibs.js .constants.js
  string requireOnce
-  <link rel="stylesheet" href="codeMirror.css">
-  <script src="scrollLibs.js"></script>
-  <script src="constants.js"></script>
+  <link rel="stylesheet" href=".codeMirror.css">
+  <script src=".scrollLibs.js"></script>
+  <script src=".constants.js"></script>
  javascript
   get placeholder() {
     return this.getParticle("placeholder")?.subparticlesToString() || ""

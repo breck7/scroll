@@ -16,10 +16,10 @@ const isUserPipingInput = () => {
 
 class SimpleCLI {
   CommandFnDecoratorSuffix = "Command"
-  executeUsersInstructionsFromShell(args = parseArgs(process.argv.slice(2))._, userIsPipingInput = isUserPipingInput()) {
-    const command = args[0] // Note: we don't take any parameters on purpose. Simpler UX.
+  async executeUsersInstructionsFromShell(args = parseArgs(process.argv.slice(2))._, userIsPipingInput = isUserPipingInput()) {
+    const command = args[0]
     const commandName = `${command}${this.CommandFnDecoratorSuffix}`
-    if (this[commandName]) return userIsPipingInput ? this._runCommandOnPipedStdIn(commandName) : this[commandName](process.cwd())
+    if (this[commandName]) return userIsPipingInput ? this._runCommandOnPipedStdIn(commandName) : this[commandName](process.cwd(), args.slice(1))
     else if (command) this.log(`No command '${command}'. Running help command.`)
     else this.log(`No command provided. Running help command.`)
     return this.helpCommand()

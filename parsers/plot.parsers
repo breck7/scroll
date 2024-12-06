@@ -17,10 +17,10 @@ scrollLabelParser
 abstractPlotParser
  // Observablehq
  extends abstractTableVisualizationParser
- string copyFromExternal d3.js plot.js
+ string copyFromExternal .d3.js .plot.js
  string requireOnce
-  <script src="d3.js"></script>
-  <script src="plot.js"></script>
+  <script src=".d3.js"></script>
+  <script src=".plot.js"></script>
  example
   plot
  inScope abstractColumnNameParser
@@ -62,7 +62,7 @@ scatterplotParser
  extends abstractPlotParser
  description Scatterplot Widget.
  // todo: make copyFromExternal work with inheritance
- string copyFromExternal d3.js plot.js
+ string copyFromExternal .d3.js .plot.js
  javascript
   get marks() {
     const x = this.get("x")
