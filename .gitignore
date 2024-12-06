@@ -24,8 +24,9 @@ tests/defs.parsers
 *.csv
 *.json
 *.tsv
+*.css
+*.js
 # Do not check in hidden files by default
-.*
 .*
 # We need to reinclude the below 2 files to get them in node_modules folder.
 !external/.*.css
