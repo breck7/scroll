@@ -26,7 +26,7 @@
 <script src=".leaflet.js"></script>
 <script src=".scrollLibs.js"></script>
 
-<div id="map60" style="height: 500px;"></div>
+<div id="map45" style="height: 500px;"></div>
 <script>
  {
     if (!window.maps) window.maps = {}
@@ -34,13 +34,13 @@
       if (!navigator.geolocation) return
       navigator.geolocation.getCurrentPosition((position) => {
           const { latitude, longitude } = position.coords
-          window.maps.map60.setView([latitude, longitude])
+          window.maps.map45.setView([latitude, longitude])
           L.circleMarker([latitude, longitude], {
               fillOpacity: 0.8,
               radius: 20,
               weight: 4
           })
-          .addTo(window.maps.map60)
+          .addTo(window.maps.map45)
       }, () => {})
     }
   const lat = 37.8
@@ -52,8 +52,8 @@
   const hover = '<b>{title}</b><br>{description}'
   const template = {}
   const points = []
-  window.maps.map60 = L.map("map60").setView([lat, long], zoomLevel)
-  const map = window.maps.map60
+  window.maps.map45 = L.map("map45").setView([lat, long], zoomLevel)
+  const map = window.maps.map45
   const tileOptions = {
   "default": {
       baseLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -81,7 +81,7 @@
 </div>
 <div class="scrollSection"><h1 id="particle23" class="scrollParagraph">Custom</h1>
 </div>
-<div id="map61" style="height: 500px;"></div>
+<div id="map46" style="height: 500px;"></div>
 <script>
  {
     if (!window.maps) window.maps = {}
@@ -89,13 +89,13 @@
       if (!navigator.geolocation) return
       navigator.geolocation.getCurrentPosition((position) => {
           const { latitude, longitude } = position.coords
-          window.maps.map61.setView([latitude, longitude])
+          window.maps.map46.setView([latitude, longitude])
           L.circleMarker([latitude, longitude], {
               fillOpacity: 0.8,
               radius: 20,
               weight: 4
           })
-          .addTo(window.maps.map61)
+          .addTo(window.maps.map46)
       }, () => {})
     }
   const lat = 37.0854
@@ -208,8 +208,8 @@
     "fillOpacity": null
   }
 ]
-  window.maps.map61 = L.map("map61").setView([lat, long], zoomLevel)
-  const map = window.maps.map61
+  window.maps.map46 = L.map("map46").setView([lat, long], zoomLevel)
+  const map = window.maps.map46
   const tileOptions = {
   "default": {
       baseLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -234,7 +234,7 @@
   })
  }
 </script>
-<div id="map62" style="height: 500px;"></div>
+<div id="map47" style="height: 500px;"></div>
 <script>
  {
     if (!window.maps) window.maps = {}
@@ -242,13 +242,13 @@
       if (!navigator.geolocation) return
       navigator.geolocation.getCurrentPosition((position) => {
           const { latitude, longitude } = position.coords
-          window.maps.map62.setView([latitude, longitude])
+          window.maps.map47.setView([latitude, longitude])
           L.circleMarker([latitude, longitude], {
               fillOpacity: 0.8,
               radius: 20,
               weight: 4
           })
-          .addTo(window.maps.map62)
+          .addTo(window.maps.map47)
       }, () => {})
     }
   const lat = 37.0854
@@ -361,8 +361,8 @@
     "fillOpacity": null
   }
 ]
-  window.maps.map62 = L.map("map62").setView([lat, long], zoomLevel)
-  const map = window.maps.map62
+  window.maps.map47 = L.map("map47").setView([lat, long], zoomLevel)
+  const map = window.maps.map47
   const tileOptions = {
   "default": {
       baseLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 162.0.1 12/06/2024
+🏥 npm fix
+
 📦 162.0.0 12/06/2024
 🎉 much cleaner strategy for CSS and JS files shipped with Scroll
 ⚠️ BREAKING: all external Javascript and CSS files now begin with `.`.
