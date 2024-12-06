@@ -2,7 +2,7 @@ clocParser
  extends scrollTableParser
  description Output results of cloc as table.
  cue cloc
- string copyFromExternal clocLangs.txt
+ string copyFromExternal .clocLangs.txt
  javascript
   delimiter = ","
   get delimitedData() {
@@ -12,5 +12,5 @@ clocParser
    return csv
   }
   get command(){
-   return `cloc --vcs git . --csv --read-lang-def=clocLangs.txt ${this.content || ""}`
+   return `cloc --vcs git . --csv --read-lang-def=.clocLangs.txt ${this.content || ""}`
   }

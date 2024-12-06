@@ -43,7 +43,10 @@ class ScrollCli extends SimpleCLI {
     // todo: use stamp for this.
     const initFolder = {
       ".gitignore": `*.html
+*.rss
 *.txt
+.*.js
+.*.css
 feed.xml`,
       "header.scroll": `importOnly
 metaTags

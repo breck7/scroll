@@ -10,7 +10,7 @@ qrcodeParser
     if (isNode) {
       const {externalsPath} = this.root
       const path = require("path")
-      const {qrcodegen, toSvgString} = require(path.join(externalsPath, "qrcodegen.js"))
+      const {qrcodegen, toSvgString} = require(path.join(externalsPath, ".qrcodegen.js"))
       const QRC = qrcodegen.QrCode;
       const qr0 = QRC.encodeText(url, QRC.Ecc.MEDIUM);
       const svg = toSvgString(qr0, 4);  // See qrcodegen-input-demo

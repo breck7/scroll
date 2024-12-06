@@ -1,6 +1,6 @@
 buildHtml
 
-inlineCss dark.css gazette.css
+inlineCss .dark.css .gazette.css
 
 inlineJs javascript.js javascript.js
 

@@ -1,7 +1,7 @@
 inspectBelowParser
  description Inspect particle below.
  extends belowAsCodeParser
- string copyFromExternal inspector.css
+ string copyFromExternal .inspector.css
  javascript
   get code() {
     const mapFn = particle => {
@@ -10,7 +10,7 @@ inspectBelowParser
    return this.selectedParticles.map(mapFn).join("<br>")
   }
   buildHtml() {
-   return `<link rel="stylesheet" href="inspector.css">` + this.code
+   return `<link rel="stylesheet" href=".inspector.css">` + this.code
   }
 
 inspectAboveParser

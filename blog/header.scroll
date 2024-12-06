@@ -8,7 +8,7 @@ stumpNoSnippet
  link
   rel stylesheet
   type text/css
-  href ../gazette.css
+  href ../.gazette.css
 editButton
 homeButton ../index.html
 leftRightButtons

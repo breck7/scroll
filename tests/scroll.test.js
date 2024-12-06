@@ -159,7 +159,8 @@ testParticles.cli = async areEqual => {
   areEqual(!!result, true)
 
   // Act/Assert
-  areEqual(cli.executeUsersInstructionsFromShell(["help"], false).includes("Available commands"), true)
+  const res2 = await cli.executeUsersInstructionsFromShell(["help"], false)
+  areEqual(res2.includes("Available commands"), true)
 
   // Act
   const results = cli.findScrollsInDirRecursive(__dirname)

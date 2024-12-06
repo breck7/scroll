@@ -22,6 +22,14 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 162.0.0 12/06/2024
+🎉 much cleaner strategy for CSS and JS files shipped with Scroll
+⚠️ BREAKING: all external Javascript and CSS files now begin with `.`.
+
+Before this change, people's folders were getting filled with theme and JS files that had to be .gitignored. Now, all of those files will start with a ".".
+
+So we use the hidden file convention for separating files you want to track from external libs you are using.
+
 📦 161.3.0 12/04/2024
 🎉 handle macro failures gracefully
 

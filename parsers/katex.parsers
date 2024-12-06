@@ -8,10 +8,10 @@ katexParser
   katex
    \text{E} = \text{T} / \text{A}!
  description KaTex widget for typeset math.
- string copyFromExternal katex.min.css katex.min.js
+ string copyFromExternal .katex.min.css .katex.min.js
  string requireOnce
-  <link rel="stylesheet" href="katex.min.css">
-  <script defer src="katex.min.js"></script>
+  <link rel="stylesheet" href=".katex.min.css">
+  <script defer src=".katex.min.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollKatex").forEach(el =>
    {

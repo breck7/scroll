@@ -24,10 +24,10 @@ tests/defs.parsers
 *.csv
 *.json
 *.tsv
-# Do not check in external assets copied by Scroll
-*.css
-*.js
+# Do not check in hidden files by default
+.*
+.*
 # We need to reinclude the below 2 files to get them in node_modules folder.
-!external/katex.min.css
-!external/katex.min.js
-!external/helpfulNotFound.js
+!external/.*.css
+!external/.*.js
+
