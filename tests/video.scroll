@@ -6,3 +6,8 @@ video spirit.mp4
 video spirit.mp4
  loop
  autoplay
+
+# Quick video
+spirit.mp4
+ width 400
+ height 400
