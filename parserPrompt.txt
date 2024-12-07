@@ -3683,7 +3683,7 @@ stamp
    paint variable.parameter
   
   atomTypeIdAtom
-   examples integerAtom keywordAtom someCustomAtom
+   examples integerAtom cueAtom someCustomAtom
    extends javascriptSafeAlphaNumericIdentifierAtom
    enumFromAtomTypes atomTypeIdAtom
    paint storage
@@ -4741,7 +4741,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "162.0.1"
+      return "162.1.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6445,10 +6445,10 @@ stamp
    description Play video files.
    widthParser
     cueFromId
-    atoms cueAtom
+    atoms cueAtom integerAtom
    heightParser
     cueFromId
-    atoms cueAtom
+    atoms cueAtom integerAtom
    javascript
     tag = "video"
   
@@ -6458,13 +6458,6 @@ stamp
    atoms urlAtom
    pattern ^[^\s]+\.(mp4|webm|avi|mov)
    int atomIndex 0
-   widthParser
-    // todo: fix inheritance bug
-    cueFromId
-    atoms cueAtom
-   heightParser
-    cueFromId
-    atoms cueAtom
  wws.parsers
   theScrollButtonParser
    popularity 0.006294

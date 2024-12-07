@@ -50,7 +50,7 @@ atomPropertyNameAtom
  paint variable.parameter
 
 atomTypeIdAtom
- examples integerAtom keywordAtom someCustomAtom
+ examples integerAtom cueAtom someCustomAtom
  extends javascriptSafeAlphaNumericIdentifierAtom
  enumFromAtomTypes atomTypeIdAtom
  paint storage

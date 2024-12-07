@@ -41,9 +41,9 @@ anyAtom
  examples lorem ipsum
 assertionKeywordAtom
  paint keyword.operator
- extends keywordAtom
+ extends cueAtom
 commandAtom
- extends keywordAtom
+ extends cueAtom
  paint variable.function
  examples someCommand
 extraAtom
@@ -51,9 +51,9 @@ extraAtom
 filepathAtom
  examples foobar.foo someFile.foo
  paint string
-keywordAtom
+cueAtom
 hashBangKeywordAtom
- extends keywordAtom
+ extends cueAtom
  paint comment
  enum #!
 hashBangAtom
@@ -62,12 +62,12 @@ integerAtom
  regex \\-?[0-9]+
  paint constant.numeric.integer
 parameterKeywordAtom
- extends keywordAtom
+ extends cueAtom
  paint variable.parameter
 todoAtom
  paint comment
 todoKeywordAtom
- extends keywordAtom
+ extends cueAtom
  paint comment
 typeOfOptionAtom
  description The 6 possible results for Javascript's typeof.
@@ -200,7 +200,7 @@ assertTypeIsParser
   }
  extends abstractAssertionParser
 abstractArrangeFlagParser
- atoms keywordAtom
+ atoms cueAtom
 arrangeAsyncParser
  description Add this flag in the arrange particle to test async methods.
  extends abstractArrangeFlagParser
@@ -208,7 +208,7 @@ arrangeAsyncParser
 arrangeRequireParser
  description Pass in the filename to require for nodejs tests.
  cue require
- atoms keywordAtom filepathAtom
+ atoms cueAtom filepathAtom
  catchAllAtomType anyAtom
 arrangeStaticParser
  cue static
@@ -245,7 +245,7 @@ abstractTestBlockParser
   }
  inScope arrangeParser
  catchAllParser actParser
- atoms keywordAtom
+ atoms cueAtom
 testParser
  description Basic test block.
  extends abstractTestBlockParser
@@ -300,7 +300,7 @@ arrangeParser
   }
   executeSync() {}
  inScope arrangeAsyncParser arrangeRequireParser arrangeStaticParser constructWithParagraphParser todoParser
- atoms keywordAtom
+ atoms cueAtom
 withParagraphParser
  description Pass in a multiline string as a command arg.
  javascript
@@ -346,7 +346,7 @@ constructWithParagraphParser
   executeSync() {}
  description Pass in a multiline string to setup constructor. #todo: rename
  catchAllParser paragraphLineParser
- atoms keywordAtom
+ atoms cueAtom
  cue constructWithParagraph
 errorParser
  baseParser errorParser
@@ -477,7 +477,7 @@ todoParser
   }
 
   class abstractArrangeFlagParser extends ParserBackedParticle {
-    get keywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
   }
@@ -485,7 +485,7 @@ todoParser
   class arrangeAsyncParser extends abstractArrangeFlagParser {}
 
   class arrangeRequireParser extends ParserBackedParticle {
-    get keywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get filepathAtom() {
@@ -502,7 +502,7 @@ todoParser
     createParserCombinator() {
       return new Particle.ParserCombinator(actParser, Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), { arrange: arrangeParser }), undefined)
     }
-    get keywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     get anyAtom() {
@@ -576,7 +576,7 @@ todoParser
         undefined
       )
     }
-    get keywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     isAsync() {
@@ -669,7 +669,7 @@ todoParser
     createParserCombinator() {
       return new Particle.ParserCombinator(paragraphLineParser, undefined, undefined)
     }
-    get keywordAtom() {
+    get cueAtom() {
       return this.getAtom(0)
     }
     executeSync() {}
