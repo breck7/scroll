@@ -259,10 +259,10 @@ scrollTableParser
        return rows
     }
     else if (delimiter === "particles") {
-       const d3lib = typeof d3 === "undefined" ? require('d3') : d3
+       const d3lib = this.root.d3
        this._coreTable = d3lib.dsvFormat(",").parse(new Particle(delimitedData).asCsv, d3lib.autoType)
     } else {
-      const d3lib = typeof d3 === "undefined" ? require('d3') : d3
+      const d3lib = this.root.d3
       this._coreTable = d3lib.dsvFormat(delimiter).parse(delimitedData, d3lib.autoType)
     }
     this._columnNames = this._coreTable.columns

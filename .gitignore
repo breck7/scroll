@@ -32,3 +32,5 @@ tests/defs.parsers
 !external/.*.css
 !external/.*.js
 
+# Exclude the concatenated file in root:
+scroll.parsers
