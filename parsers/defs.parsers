@@ -25,4 +25,4 @@ scrollDefParser
 buildParsersParser
  popularity 0.000096
  description Compile to Parsers file.
- extends abstractBuildCommandParser
+ extends abstractBuildOneCommandParser

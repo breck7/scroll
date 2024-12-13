@@ -88,6 +88,15 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 163.0.0 12/13/2024
+### Organized the debug parsers into a common namespace.
+🎉 new `debugParsers` parser
+🎉 new `debugAll` parser
+🎉 `debugBelow` and `debugAbove` now have better txt output
+⚠️ BREAKING: `inspectBelow` is now `debugBelow`.
+⚠️ BREAKING: `inspectAbove` is now `debugAbove`.
+⚠️ BREAKING: `printSourceStack` is now `debugSourceStack`.
+
 📦 162.1.0 12/07/2024
 🎉 upgrade ScrollSDK
 

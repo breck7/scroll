@@ -1325,6 +1325,86 @@ stamp
      const index = this.parent.originalTextPostLinkify.indexOf("days")
      return [{ index, string: `${days} ` }]
     }
+ debug.parsers
+  debugSourceStackParser
+   // useful for debugging
+   description Print compilation steps.
+   extends abstractAftertextParser
+   cueFromId
+   example
+    printOriginalSource
+   javascript
+    get sources() {
+      const {file} = this.root
+      const passNames = ["codeAtStart", "fusedCode", "codeAfterMacroPass"]
+      let lastCode = ""
+      return passNames.map(name => {
+        let code = file[name]
+        if (lastCode === code)
+          code = "[Unchanged]"
+        lastCode = file[name]
+        return {
+        name,
+        code
+      }})
+    }
+    buildHtml() {
+     return `${this.buildTxt().replace(/\`
+    }
+    buildTxt() {
+     return this.sources.map((pass, index) => `Pass ${index + 1} - ${pass.name}\n========\n${pass.code}`).join("\n\n\n")
+    }
+  
+  debugParsersParser
+   description Print the parsers used.
+   extends codeParser
+   cueFromId
+   javascript
+    buildParsers() { return this.code}
+    get code() {
+      let code = new Particle(this.root.definition.toString())
+        // Remove comments
+      code.filter((line) => line.getLine().startsWith("//")).forEach((particle) => particle.destroy())
+      // Remove blank lines
+      code = code.toString().replace(/^\n/gm, "")
+      return code
+    }
+  
+  debugBelowParser
+   description Inspect particle below.
+   extends belowAsCodeParser
+   string copyFromExternal .debug.css
+   javascript
+    get code() {
+      const mapFn = particle => {
+      const atomTypes = particle.lineAtomTypes.split(" ")
+      return `${particle.constructor.name}${particle.atoms.map((atom, index) => `${atom}${atomTypes[index]}`).join(" ")}${(particle.length ? `` + particle.map(mapFn).join("") + `` : "")}`}
+     return this.selectedParticles.map(mapFn).join("")
+    }
+    buildHtml() {
+     return `` + this.code
+    }
+    buildTxt() {
+      const mapFn = particle => {
+      const atomTypes = particle.lineAtomTypes.split(" ")
+      return `${particle.constructor.name} ${particle.atoms.map((atom, index) => `${atomTypes[index]}:${atom}`).join(" ")}${(particle.length ? `\n ` + particle.map(mapFn).join("\n") + `` : "")}`}
+     return this.selectedParticles.map(mapFn).join("\n")
+    }
+    buildParsers() {return this.buildTxt()}
+  
+  debugAboveParser
+   description Inspect particle above.
+   extends debugBelowParser
+   string bindTo previous
+   javascript
+    method = "previous"
+    reverse = true
+  
+  debugAllParser
+   description Inspect entire document.
+   extends debugBelowParser
+   javascript
+    get selectedParticles() { return this.root.getSubparticles()}
  defs.parsers
   scrollDefParser
    popularity 0.004244
@@ -1353,7 +1433,7 @@ stamp
   buildParsersParser
    popularity 0.000096
    description Compile to Parsers file.
-   extends abstractBuildCommandParser
+   extends abstractBuildOneCommandParser
  delimited.parsers
   buildCsvParser
    popularity 0.000096
@@ -2676,29 +2756,6 @@ stamp
      }
      // Note: doubling up doesn't work because of the consumption characters.
     }
- inspector.parsers
-  inspectBelowParser
-   description Inspect particle below.
-   extends belowAsCodeParser
-   string copyFromExternal .inspector.css
-   javascript
-    get code() {
-      const mapFn = particle => {
-      const atomTypes = particle.lineAtomTypes.split(" ")
-      return `${particle.constructor.name}${particle.atoms.map((atom, index) => `${atom}${atomTypes[index]}`).join(" ")}${(particle.length ? `` + particle.map(mapFn).join("") + `` : "")}`}
-     return this.selectedParticles.map(mapFn).join("")
-    }
-    buildHtml() {
-     return `` + this.code
-    }
-  
-  inspectAboveParser
-   description Inspect particle above.
-   extends inspectBelowParser
-   string bindTo previous
-   javascript
-    method = "previous"
-    reverse = true
  javascript.parsers
   quickScriptParser
    popularity 0.007524
@@ -4741,7 +4798,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "162.1.0"
+      return "163.0.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -4840,6 +4897,9 @@ stamp
     }
     get lodash() {
       return this.isNodeJs() ? require("lodash") : lodash
+    }
+    get d3() {
+      return this.isNodeJs() ? require('d3') : d3
     }
     getConcepts(parsed) {
       const concepts = []
@@ -5459,34 +5519,6 @@ stamp
      return `${files.map(file => file.filePath + "\n " + file.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
     }
   
-  printSourceStackParser
-   // useful for debugging
-   description Print compilation steps.
-   extends abstractAftertextParser
-   cueFromId
-   example
-    printOriginalSource
-   javascript
-    get sources() {
-      const {file} = this.root
-      const passNames = ["codeAtStart", "fusedCode", "codeAfterMacroPass"]
-      let lastCode = ""
-      return passNames.map(name => {
-        let code = file[name]
-        if (lastCode === code)
-          code = "[Unchanged]"
-        lastCode = file[name]
-        return {
-        name,
-        code
-      }})
-    }
-    buildHtml() {
-     return `${this.buildTxt().replace(/\`
-    }
-    buildTxt() {
-     return this.sources.map((pass, index) => `Pass ${index + 1} - ${pass.name}\n========\n${pass.code}`).join("\n\n\n")
-    }
  sparkline.parsers
   sparklineParser
    popularity 0.000024
@@ -5932,10 +5964,10 @@ stamp
          return rows
       }
       else if (delimiter === "particles") {
-         const d3lib = typeof d3 === "undefined" ? require('d3') : d3
+         const d3lib = this.root.d3
          this._coreTable = d3lib.dsvFormat(",").parse(new Particle(delimitedData).asCsv, d3lib.autoType)
       } else {
-        const d3lib = typeof d3 === "undefined" ? require('d3') : d3
+        const d3lib = this.root.d3
         this._coreTable = d3lib.dsvFormat(delimiter).parse(delimitedData, d3lib.autoType)
       }
       this._columnNames = this._coreTable.columns

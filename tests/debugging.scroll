@@ -9,6 +9,6 @@ printTitle
 
 The sum of 1+1 is SUM
 
-printSourceStack
+debugSourceStack
 
 footer.scroll

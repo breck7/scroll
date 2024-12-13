@@ -10,32 +10,3 @@ printSourceParser
    const files = this.root.getFilesByTags(this.content).map(file => file.file)
    return `${files.map(file => file.filePath + "\n " + file.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
   }
-
-printSourceStackParser
- // useful for debugging
- description Print compilation steps.
- extends abstractAftertextParser
- cueFromId
- example
-  printOriginalSource
- javascript
-  get sources() {
-    const {file} = this.root
-    const passNames = ["codeAtStart", "fusedCode", "codeAfterMacroPass"]
-    let lastCode = ""
-    return passNames.map(name => {
-      let code = file[name]
-      if (lastCode === code)
-        code = "[Unchanged]"
-      lastCode = file[name]
-      return {
-      name,
-      code
-    }})
-  }
-  buildHtml() {
-   return `<code class="scrollCodeBlock">${this.buildTxt().replace(/\</g, "&lt;")}</code>`
-  }
-  buildTxt() {
-   return this.sources.map((pass, index) => `Pass ${index + 1} - ${pass.name}\n========\n${pass.code}`).join("\n\n\n")
-  }

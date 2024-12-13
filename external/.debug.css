@@ -1,4 +1,4 @@
-.inspectorParticle {
+.debugParticle {
   font-family: arial;
   white-space: nowrap;
   font-size: 18px;
@@ -10,14 +10,14 @@
   min-width: 20ch;
   border: 3px solid rgb(0, 119, 182);
 }
-.inspectorSubparticles {
+.debugSubparticles {
   margin-left: 5px;
   display: inline-block;
   padding: 5px;
   border-radius: 2px;
   background: rgba(0, 0, 0, 0.05);
 }
-.inspectorAtom {
+.debugAtom {
   background: #fcbf49;
   position: relative;
   display: inline-block;
@@ -26,8 +26,8 @@
   text-align: center;
   min-width: 15ch;
 }
-.inspectorAtomType,
-.inspectorParticleId {
+.debugAtomType,
+.debugParticleId {
   position: absolute;
   text-align: center;
   left: 0;
@@ -35,6 +35,6 @@
   right: 0;
   color: green;
 }
-.inspectorParticleId {
+.debugParticleId {
   color: white;
 }

@@ -1,0 +1,33 @@
+urlDefParser
+ cue url
+ extends abstractStringMeasureParser
+ description URL to the creation being tried?
+ float sortIndex 1
+ boolean isMeasure true
+ boolean isMeasureRequired true
+ boolean isConceptDelimiter true
+creationDefParser
+ cue creation
+ extends abstractStringMeasureParser
+ description What is the title of the creation?
+ float sortIndex 1.1
+tryDefParser
+ cue try
+ extends abstractStringMeasureParser
+ description URL to the builder test video?
+ float sortIndex 1.2
+rankDefParser
+ cue rank
+ extends abstractStringMeasureParser
+ description What is the current rank?
+ float sortIndex 1.3
+dateDefParser
+ cue date
+ extends abstractStringMeasureParser
+ description When did they try?
+ float sortIndex 1.4
+tryerDefParser
+ cue tryer
+ extends abstractStringMeasureParser
+ description Name of the tryer?
+ float sortIndex 1.5

@@ -65,6 +65,11 @@ counter - Visualize the speed of something.
 css - A style tag.
 dashboard - Key stats in large font.
 date - Set published date.
+debugAbove - Inspect particle above.
+debugAll - Inspect entire document.
+debugBelow - Inspect particle below.
+debugParsers - Print the parsers used.
+debugSourceStack - Print compilation steps.
 dependencies - Get files this file depends on.
 description - Meta tag description.
 dinkus - A custom dinkus.
@@ -97,8 +102,6 @@ importOnly - Don't build this file.
 inlineCss - Inline CSS from files.
 inlineJs - Inline JS from files.
 inlineMarkups - Set global inline markups.
-inspectAbove - Inspect particle above.
-inspectBelow - Inspect particle below.
 iris - Iris dataset from R.A. Fisher.
 jsonScript - Include JSON and assign to window.
 katex - KaTex widget for typeset math.
@@ -132,7 +135,6 @@ printShortSnippets - Titles and descriptions in group(s).
 printSiteMap - Print text sitemap.
 printSnippets - Prints snippets matching tag(s).
 printSource - Print source for files in group(s).
-printSourceStack - Print compilation steps.
 printTable - Print table.
 printTitle - Print title.
 printUsageStats - Parser usage stats for folder.
@@ -182,4 +184,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v162.1.0
+Built with Scroll v163.0.0

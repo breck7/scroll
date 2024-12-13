@@ -3,4 +3,4 @@ settings.scroll
 // todo: the below optional line should be in the importer code.
 // optional
 env.scroll
-printSourceStack
+debugSourceStack
