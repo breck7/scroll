@@ -28,7 +28,7 @@ Videos · GitHub · Subreddit
 npm package · Tests · Parser Designer
  https://www.npmjs.com/package/scroll-cli npm package
  https://scroll.pub/tests/index.html Tests
- https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers Parser Designer
+ https://sdk.scroll.pub/designer#url%20https%3A%2F%2Fscroll.pub%2Fscroll.parsers Parser Designer
 
 scroll prompt · parser prompt
  https://scroll.pub/scrollPrompt.txt scroll prompt

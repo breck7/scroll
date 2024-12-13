@@ -49,7 +49,7 @@ npm package · Tests · Parser Designer
  center
  https://www.npmjs.com/package/scroll-cli npm package
  tests/index.html Tests
- https://sdk.scroll.pub/designer#url%20https%3A%2F%2Ftry.scroll.pub%2Fscroll.parsers Parser Designer
+ https://sdk.scroll.pub/designer#url%20https%3A%2F%2Fscroll.pub%2Fscroll.parsers Parser Designer
  style margin:15px;
 
 scroll prompt · parser prompt
