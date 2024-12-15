@@ -88,6 +88,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 163.1.0 12/15/2024
+🎉 column names in table particles now try to match users intent (case insensitive and close match).
+🎉 new `assertIgnoreBelowErrorsParser` for automated testing purposes
+
 📦 163.0.0 12/13/2024
 ### Organized the debug parsers into a common namespace.
 🎉 new `debugParsers` parser

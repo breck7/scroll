@@ -121,3 +121,14 @@ table
   2000,122
   2020,23
   ,missing
+
+
+---
+
+# Case insensitive
+iris
+ assertIgnoreBelowErrors
+ select SpEcies
+  printTable
+ select species
+  printTable

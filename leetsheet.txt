@@ -24,6 +24,7 @@ assertBuildIncludes - Test above particle's output.
 assertHtmlEquals - Test above particle's output.
 assertHtmlExcludes - Test above particle's output.
 assertHtmlIncludes - Test above particle's output.
+assertIgnoreBelowErrors - If you want to ignore any errors in the below particle in automated tests.
 authors - Set author(s) name(s).
 background - Quickly set CSS background.
 baseUrl - Required for RSS and OpenGraph.
@@ -184,4 +185,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v163.0.0
+Built with Scroll v163.1.0

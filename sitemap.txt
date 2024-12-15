@@ -9,6 +9,7 @@ https://scroll.pub/releaseNotes.html
 https://scroll.pub/roadmap.html
 https://scroll.pub/scrollPrompt.html
 https://scroll.pub/settings.html
+https://scroll.pub/header.html
 https://scroll.pub/leetsheet.html
 https://scroll.pub/pages.html
 https://scroll.pub/parserLeetsheet.html
@@ -16,7 +17,6 @@ https://scroll.pub/parserPrompt.html
 https://scroll.pub/parserUsage.html
 https://scroll.pub/parsers.html
 https://scroll.pub/faq.html
-https://scroll.pub/header.html
 https://scroll.pub/ciBadges.html
 https://scroll.pub/cloc.html
 https://scroll.pub/download.html

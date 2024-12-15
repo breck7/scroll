@@ -1359,6 +1359,11 @@ assertHtmlExcludesParser
     return !actual.includes(expected)
   }
   getErrors() { return super.getErrors()}
+assertIgnoreBelowErrorsParser
+ description If you want to ignore any errors in the below particle in automated tests.
+ extends abstractScrollParser
+ string bindTo next
+ cueFromId
 abstractPrintMetaParser
  extends abstractScrollParser
  cueFromId
@@ -2672,9 +2677,6 @@ printColumnParser
   }
   get join() {
     return this.get("join") || "\n"
-  }
-  get columnName() {
-    return this.atoms[1]
   }
   get columnValues() {
     return this.parent.coreTable.map(row => row[this.columnName])
@@ -4482,6 +4484,53 @@ abstractTableTransformParser
   get columnNames() {
     return this.parent.columnNames
   }
+  connectColumnNames(userColumnNames, availableColumnNames = this.parent.columnNames) {
+    const result = {}
+    const normalize = str => str.toLowerCase().trim()
+    userColumnNames.forEach(userColumn => {
+      // Strategy 1: Exact match
+      const exactMatch = availableColumnNames.find(col => col === userColumn)
+      if (exactMatch) {
+        result[userColumn] = exactMatch
+        return
+      }
+      // Strategy 2: Case-insensitive match
+      const normalizedUserColumn = normalize(userColumn)
+      const caseInsensitiveMatch = availableColumnNames.find(col => normalize(col) === normalizedUserColumn)
+      if (caseInsensitiveMatch) {
+        result[userColumn] = caseInsensitiveMatch
+        return
+      }
+      // Strategy 3: Levenshtein distance match
+      const THRESHOLD = 2 // Consider matches with distance <= 2 as "very close"
+      let bestMatch = null
+      let bestDistance = Infinity
+      availableColumnNames.forEach(col => {
+        const distance = this.root.levenshteinDistance(userColumn, col)
+        if (distance < bestDistance) {
+          bestDistance = distance
+          bestMatch = col
+        }
+      })
+      // Only use Levenshtein match if it's very close
+      if (bestDistance <= THRESHOLD) {
+        result[userColumn] = bestMatch
+        return
+      }
+      // Strategy 4: Fallback - use original unmatched name
+      result[userColumn] = userColumn
+    })
+    return result
+  }
+  connectColumnName(name) {
+    return this.connectColumnNames([name])[name]
+  }
+  getErrors() {
+    const errors = super.getErrors()
+    if (errors.length && this.previous.cue !== "assertIgnoreBelowErrors")
+      return errors
+    return []
+  }
   getRunTimeEnumOptions(atom) {
    if (atom.atomTypeId === "columnNameAtom")
       return this.parent.columnNames
@@ -4691,7 +4740,7 @@ scrollWhereParser
  javascript
   get coreTable() {
    // todo: use atoms here.
-   const columnName = this.getAtom(1)
+   const columnName = this.connectColumnName(this.getAtom(1))
    const operator = this.getAtom(2)
    let untypedScalarValue = this.getAtom(3)
    const typedValue = isNaN(parseFloat(untypedScalarValue)) ? untypedScalarValue : parseFloat(untypedScalarValue)
@@ -4736,7 +4785,12 @@ scrollSelectParser
    return coreTable.map(row => Object.fromEntries(columnNames.map(colName => [colName, row[colName]])))
   }
   get columnNames() {
-    return this.getAtomsFrom(1)
+    if (!this._columnNames) {
+      const names = this.getAtomsFrom(1)
+     this._columnNamesMap = this.connectColumnNames(names)
+     this._columnNames = names.map(name => this._columnNamesMap[name])
+    }
+    return this._columnNames
   }
 scrollReverseParser
  extends abstractTableTransformParser
@@ -4900,7 +4954,7 @@ scrollImputeParser
    return imputed
   }
   get columnName() {
-    return this.getAtom(1)
+    return this.connectColumnName(this.getAtom(1))
   }
 scrollOrderByParser
  extends abstractTableTransformParser
@@ -4912,7 +4966,7 @@ scrollOrderByParser
     const makeLodashOrderByParams = str => {
     const part1 = str.split(" ")
     const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
-    return [part1.map(col => col.replace(/^\-/, "")), part2]
+    return [part1.map(col => this.connectColumnName(col.replace(/^\-/, ""))), part2]
    }
    const orderBy = makeLodashOrderByParams(this.content)
    return this.root.lodash.orderBy(this.parent.coreTable.slice(), orderBy[0], orderBy[1])
@@ -5666,7 +5720,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "163.0.0"
+    return "163.1.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -5908,6 +5962,24 @@ scrollParser
     if (format === "tsv") return this.arrayToCSV(arr, "\t")
     if (format === "particles") return particles.toString()
     return particles.toString()
+  }
+  levenshteinDistance(a, b) {
+    const m = a.length
+    const n = b.length
+    const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0))
+    for (let i = 0; i <= m; i++) {
+      dp[i][0] = i
+    }
+    for (let j = 0; j <= n; j++) {
+      dp[0][j] = j
+    }
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1
+        dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost)
+      }
+    }
+    return dp[m][n]
   }
   makeLodashOrderByParams(str) {
   const part1 = str.split(" ")

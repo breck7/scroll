@@ -386,6 +386,12 @@ stamp
     }
    catchAllParser htmlLineParser
   
+  assertIgnoreBelowErrorsParser
+   description If you want to ignore any errors in the below particle in automated tests.
+   extends abstractScrollParser
+   string bindTo next
+   cueFromId
+  
   assertHtmlEqualsParser
    extends abstractAssertionParser
    string kind equal
@@ -4798,7 +4804,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "163.0.0"
+      return "163.1.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -5039,9 +5045,11 @@ stamp
       if (format === "particles") return particles.toString()
       return particles.toString()
     }
-    makeLodashOrderByParams(str) {
-    const part1 = str.split(" ")
-    const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
+    levenshteinDistance(a, b) {
+      const m = a.length
+      const n = b.length
+      const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0))
+      for (let i = 0; i  (col.startsWith("-") ? "desc" : "asc"))
     return [part1.map(col => col.replace(/^\-/, "")), part2]
     }
     arrayToCSV(data, delimiter = ",") {
@@ -5723,15 +5731,27 @@ stamp
     get columnNames() {
       return this.parent.columnNames
     }
-    getRunTimeEnumOptions(atom) {
-     if (atom.atomTypeId === "columnNameAtom")
-        return this.parent.columnNames
-     return super.getRunTimeEnumOptions(atom)
-    }
-    getRunTimeEnumOptionsForValidation(atom) {
-      // Note: this will fail if the CSV file hasnt been built yet.
-      if (atom.atomTypeId === "columnNameAtom")
-        return this.parent.columnNames.concat(this.parent.columnNames.map(c => "-" + c)) // Add reverse names
+    connectColumnNames(userColumnNames, availableColumnNames = this.parent.columnNames) {
+      const result = {}
+      const normalize = str => str.toLowerCase().trim()
+      userColumnNames.forEach(userColumn => {
+        // Strategy 1: Exact match
+        const exactMatch = availableColumnNames.find(col => col === userColumn)
+        if (exactMatch) {
+          result[userColumn] = exactMatch
+          return
+        }
+        // Strategy 2: Case-insensitive match
+        const normalizedUserColumn = normalize(userColumn)
+        const caseInsensitiveMatch = availableColumnNames.find(col => normalize(col) === normalizedUserColumn)
+        if (caseInsensitiveMatch) {
+          result[userColumn] = caseInsensitiveMatch
+          return
+        }
+        // Strategy 3: Levenshtein distance match
+        const THRESHOLD = 2 // Consider matches with distance  {
+          const distance = this.root.levenshteinDistance(userColumn, col)
+          if (distance  "-" + c)) // Add reverse names
      return super.getRunTimeEnumOptions(atom)
     }
   
@@ -5781,9 +5801,6 @@ stamp
     }
     get join() {
       return this.get("join") || "\n"
-    }
-    get columnName() {
-      return this.atoms[1]
     }
     get columnValues() {
       return this.parent.coreTable.map(row => row[this.columnName])
@@ -6032,7 +6049,7 @@ stamp
    javascript
     get coreTable() {
      // todo: use atoms here.
-     const columnName = this.getAtom(1)
+     const columnName = this.connectColumnName(this.getAtom(1))
      const operator = this.getAtom(2)
      let untypedScalarValue = this.getAtom(3)
      const typedValue = isNaN(parseFloat(untypedScalarValue)) ? untypedScalarValue : parseFloat(untypedScalarValue)
@@ -6052,8 +6069,14 @@ stamp
         else if (operator === " Object.fromEntries(columnNames.map(colName => [colName, row[colName]])))
     }
     get columnNames() {
-      return this.getAtomsFrom(1)
+      if (!this._columnNames) {
+        const names = this.getAtomsFrom(1)
+       this._columnNamesMap = this.connectColumnNames(names)
+       this._columnNames = names.map(name => this._columnNamesMap[name])
+      }
+      return this._columnNames
     }
+  
   
   scrollReverseParser
    extends abstractTableTransformParser
@@ -6223,7 +6246,7 @@ stamp
      return imputed
     }
     get columnName() {
-      return this.getAtom(1)
+      return this.connectColumnName(this.getAtom(1))
     }
   
   scrollOrderByParser
@@ -6236,7 +6259,7 @@ stamp
       const makeLodashOrderByParams = str => {
       const part1 = str.split(" ")
       const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
-      return [part1.map(col => col.replace(/^\-/, "")), part2]
+      return [part1.map(col => this.connectColumnName(col.replace(/^\-/, ""))), part2]
      }
      const orderBy = makeLodashOrderByParams(this.content)
      return this.root.lodash.orderBy(this.parent.coreTable.slice(), orderBy[0], orderBy[1])
