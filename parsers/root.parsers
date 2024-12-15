@@ -340,7 +340,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "163.0.0"
+    return "163.1.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -582,6 +582,24 @@ scrollParser
     if (format === "tsv") return this.arrayToCSV(arr, "\t")
     if (format === "particles") return particles.toString()
     return particles.toString()
+  }
+  levenshteinDistance(a, b) {
+    const m = a.length
+    const n = b.length
+    const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0))
+    for (let i = 0; i <= m; i++) {
+      dp[i][0] = i
+    }
+    for (let j = 0; j <= n; j++) {
+      dp[0][j] = j
+    }
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1
+        dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost)
+      }
+    }
+    return dp[m][n]
   }
   makeLodashOrderByParams(str) {
   const part1 = str.split(" ")

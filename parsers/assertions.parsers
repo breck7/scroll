@@ -22,6 +22,12 @@ abstractAssertionParser
   }
  catchAllParser htmlLineParser
 
+assertIgnoreBelowErrorsParser
+ description If you want to ignore any errors in the below particle in automated tests.
+ extends abstractScrollParser
+ string bindTo next
+ cueFromId
+
 assertHtmlEqualsParser
  extends abstractAssertionParser
  string kind equal
