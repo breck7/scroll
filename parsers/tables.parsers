@@ -676,3 +676,57 @@ tableSearchParser
   buildInstance() {
    return ""
   }
+
+scrollSummarizeParser
+ extends abstractTableTransformParser
+ description Generate summary statistics for each column.
+ cue summarize
+ example
+  table data.csv
+   summarize
+    printTable
+ javascript
+  get coreTable() {
+   const {lodash} = this.root
+   const sourceData = this.parent.coreTable
+   if (!sourceData.length) return []
+   return this.parent.columnNames.map(colName => {
+     const values = sourceData.map(row => row[colName]).filter(val => val !== undefined && val !== null)
+     const numericValues = values.filter(val => typeof val === "number" && !isNaN(val))
+     const sorted = [...numericValues].sort((a, b) => a - b)
+     // Calculate mode
+     const frequency = {}
+     values.forEach(val => {
+       frequency[val] = (frequency[val] || 0) + 1
+     })
+     const mode = Object.entries(frequency)
+       .sort((a, b) => b[1] - a[1])
+       .map(entry => entry[0])[0]
+     // Calculate median for numeric values
+     const median = sorted.length ? 
+       sorted.length % 2 === 0 
+         ? (sorted[sorted.length/2 - 1] + sorted[sorted.length/2]) / 2
+         : sorted[Math.floor(sorted.length/2)]
+       : null
+     const sum = numericValues.length ? numericValues.reduce((a, b) => a + b, 0) : null
+     const theType = typeof values[0]
+     const count = values.length
+     const mean = theType === "number" ? sum/count : ""
+     return {
+       name: colName,
+       type: theType,
+       incompleteCount: sourceData.length - values.length,
+       uniqueCount: new Set(values).size,
+       count,
+       sum,
+       median,
+       mean,
+       min: sorted.length ? sorted[0] : null,
+       max: sorted.length ? sorted[sorted.length - 1] : null,
+       mode
+     }
+   })
+  }
+  get columnNames() {
+   return ["name", "type", "incompleteCount", "uniqueCount", "count", "sum", "median", "mean", "min", "max", "mode"]
+  }

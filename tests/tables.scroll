@@ -3,7 +3,7 @@ buildTxt
 
 theme gazette
 
-thinColumns 1
+container 800px
 
 # Simple sparkline with inline data
 sparkline 5 7 27 87 300 17 10 5
@@ -131,4 +131,11 @@ iris
  select SpEcies
   printTable
  select species
+  printTable
+
+---
+
+# Summarize
+iris
+ summarize
   printTable

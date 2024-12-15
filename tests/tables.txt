@@ -273,3 +273,14 @@ virginica
 virginica
 setosa
 setosa
+
+---
+
+Summarize
+=========
+name,type,incompleteCount,uniqueCount,count,sum,median,mean,min,max,mode
+sepal_length,number,0,8,10,57.699999999999996,5.6,5.77,4.9,7.7,5.6
+sepal_width,number,0,8,10,31.599999999999998,3.2,3.1599999999999997,2.5,3.8,2.8
+petal_length,number,0,8,10,39.8,4.65,3.9799999999999995,1.4,6.7,4.9
+petal_width,number,0,7,10,13.699999999999996,1.75,1.3699999999999997,0.2,2.3,0.2
+species,string,0,3,10,null,null,,null,null,virginica
