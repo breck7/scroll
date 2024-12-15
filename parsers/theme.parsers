@@ -16,7 +16,7 @@ scrollThemeParser
    return this.files.join(" ")
   }
   get files() {
-    return this.atoms.slice(1).map(name => `.${name}.css`)
+    return this.atoms.slice(1).map(name => `.${name}.css`).concat([".scroll.css"])
   }
   buildHtml() {
    return this.files.map(name => `<link rel="stylesheet" type="text/css" href="${name}">`).join("\n")

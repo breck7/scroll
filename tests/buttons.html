@@ -2,6 +2,7 @@
 <html lang="en">
 <body>
 <link rel="stylesheet" type="text/css" href=".gazette.css">
+<link rel="stylesheet" type="text/css" href=".scroll.css">
 <button id="particle4" onclick="window.location='https://scroll.pub'"class="scrollButton"><a href="https://scroll.pub">A link</a></button>
 <button id="particle6"  onclick="fetch('https://hub.scroll.pub/echo.htm', {method: 'post', body: 'particle=hello+world', headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(async (message) => {const el = document.createElement('div'); el.textContent = await message.text(); this.insertAdjacentElement('afterend', el);}); return false;" class="scrollButton"><a href="https://hub.scroll.pub/echo.htm">A Post</a></button>
 </body>

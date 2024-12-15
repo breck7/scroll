@@ -1,43 +1,20 @@
-html,
-body,
-div,
-span,
-p,
-h1,
-h2,
-h3 {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  vertical-align: baseline;
-  border-spacing: 0;
-}
-body {
-  font-family: "Roboto", sans-serif;
-  line-height: 1.6;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #1a1a1a;
-  color: #e0e0e0;
-}
-a {
-  color: #66b3ff;
-  text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0% 100%;
-  background-repeat: no-repeat;
-  background-size: 0% 2px;
-  transition: background-size 0.3s;
-}
-a:hover,
-a:focus {
-  background-size: 100% 2px;
-}
-a.abstractIconButtonParser {
-  background-image: none;
-}
-::selection {
-  background-color: #66b3ff;
-  color: #1a1a1a;
+:root {
+  /* Base Colors */
+  --scrollPrimaryRgb: 102, 179, 255;
+  --scrollSurfaceRgb: 224, 224, 224;
+  --scrollTextBase: 224, 224, 224;
+  --scrollLinkBase: 102, 179, 255;
+
+  /* Semantic Colors */
+  --scrollColorBackground: rgb(26, 26, 26);
+  --scrollColorText: rgb(224, 224, 224);
+  --scrollColorLink: #66b3ff;
+  --scrollColorSubdued: rgb(179, 179, 179);
+
+  /* Typography */
+  --scrollFontPrimary: "Roboto", sans-serif;
+  --scrollFontUi: "Roboto", sans-serif;
+  --scrollFontMono: monospace;
+  --scrollBaseFontSize: 16px;
+  --scrollLineHeight: 1.6;
 }

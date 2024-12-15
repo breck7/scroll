@@ -4804,7 +4804,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "163.2.1"
+      return "164.0.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6486,7 +6486,7 @@ stamp
      return this.files.join(" ")
     }
     get files() {
-      return this.atoms.slice(1).map(name => `.${name}.css`)
+      return this.atoms.slice(1).map(name => `.${name}.css`).concat([".scroll.css"])
     }
     buildHtml() {
      return this.files.map(name => ``).join("\n")
