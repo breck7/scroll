@@ -5,6 +5,8 @@ header.scroll
 posts index subfolder/index
  printColumn title
   join ·
+assertHtmlIncludes
+ sink
 
 ---
 

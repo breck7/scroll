@@ -1,9 +1,9 @@
 parserId,uses
-blankLineParser,1113
-versionParser,614
+blankLineParser,1114
+versionParser,615
 newFeatureParser,541
 catchAllParagraphParser,269
-bugFixParser,233
+bugFixParser,234
 breakingChangeParser,226
 lineOfCodeParser,216
 BlobParser,106
@@ -25,12 +25,12 @@ importOnlyParser,16
 buildTxtParser,15
 scrollBrParser,14
 baseUrlParser,14
-buildHtmlParser,13
 inlineCssParser,13
 stumpNoSnippetParser,13
 metaTagsParser,13
 editBaseUrlParser,13
 homeButtonParser,13
+buildHtmlParser,13
 scrollVersionLinkParser,12
 emailButtonParser,12
 copyButtonsParser,12
@@ -51,8 +51,8 @@ cssParser,8
 horizontalRuleParser,8
 inlineMarkupParser,7
 orderedListAftertextParser,7
-endColumnsParser,7
 codeFromFileParser,7
+endColumnsParser,7
 scrollTableDataParser,7
 scrollTableParser,7
 cssLineParser,6
@@ -90,11 +90,11 @@ scrollChatParser,2
 quickTableParser,2
 quickCssParser,2
 hamlParser,2
-permalinkParser,2
 cueFromIdParser,2
 extendsParserParser,2
 htmlParser,2
 checklistTodoParser,2
+permalinkParser,2
 downloadButtonParser,1
 helpfulNotFoundParser,1
 scrollThemeParser,1
@@ -126,7 +126,6 @@ buildMeasuresParser,1
 buildConceptsParser,1
 mediumColumnsParser,1
 printSiteMapParser,1
-redirectToParser,1
 messageParser,1
 hiddenMessageParser,1
 parsersJavascriptParser,1
@@ -135,3 +134,4 @@ catchAllAtomTypeParser,1
 pParser,1
 parsersCueParser,1
 scrollDashboardParser,1
+redirectToParser,1

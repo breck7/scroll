@@ -114,6 +114,9 @@ printColumnParser
   get join() {
     return this.get("join") || "\n"
   }
+  get columnName() {
+    return this.atoms[1]
+  }
   get columnValues() {
     return this.parent.coreTable.map(row => row[this.columnName])
   }

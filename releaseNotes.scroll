@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 163.2.1 12/15/2024
+🏥 fix regression in printColumn
+
 📦 163.2.0 12/15/2024
 🎉 added `summarize` parser
 
