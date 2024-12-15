@@ -269,7 +269,7 @@ testParticles.initCommand = async areEqual => {
     // Assert
     areEqual(Object.values(products)[3].includes("Built with Scroll"), true, "has message")
     areEqual(Object.keys(products).filter(name => name.endsWith(".html")).length, 2, "should have 2 html pages")
-    areEqual(Object.values(products).length, 6, "should have 6 total generated files")
+    areEqual(Object.values(products).length, 7, "should have 6 total generated files")
 
     const { scrollErrors, parserErrors } = await cli.getErrorsInFolder(tempFolder)
     areEqual(scrollErrors.length, 0)

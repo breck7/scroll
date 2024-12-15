@@ -9,6 +9,11 @@ stumpNoSnippet
   rel stylesheet
   type text/css
   href ../.gazette.css
+stumpNoSnippet
+ link
+  rel stylesheet
+  type text/css
+  href ../.scroll.css
 editButton
 homeButton ../index.html
 leftRightButtons
