@@ -4,7 +4,7 @@ printAuthorsParser
  boolean isPopular true
  extends abstractPrintMetaParser
  // todo: we need pattern matching added to sdk to support having no params or a url and personNameAtom
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  example
   authors Breck Yunits
    https://breckyunits.com

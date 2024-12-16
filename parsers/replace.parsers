@@ -1,6 +1,3 @@
-javascriptAtom
- extends stringAtom
-
 abstractVariableParser
  extends abstractScrollParser
  catchAllAtomType stringAtom
@@ -22,7 +19,7 @@ replaceParser
 replaceJsParser
  description Replace this with evaled JS.
  extends replaceParser
- catchAllAtomType javascriptAtom
+ catchAllAtomType javascriptAnyAtom
  example
   replaceJs SUM 1+1
   * 1+1 = SUM
@@ -30,7 +27,7 @@ replaceJsParser
 replaceNodejsParser
  description Replace with evaled Node.JS.
  extends abstractVariableParser
- catchAllAtomType javascriptAtom
+ catchAllAtomType javascriptAnyAtom
  baseParser blobParser
  example
   replaceNodejs

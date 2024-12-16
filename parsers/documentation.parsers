@@ -37,7 +37,7 @@ belowAsCodeParser
 belowAsCodeUntilParser
  description Print code above until match.
  extends belowAsCodeParser
- catchAllAtomType anyAtom
+ catchAllAtomType codeAtom
  example
   belowAsCode
   counter 1 second

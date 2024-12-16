@@ -30,17 +30,15 @@ buildJsParser
  description Compile to JS file.
  extends abstractBuildTwoCommandParser
 
-scriptAnyAtom
- extends codeAtom
 scriptLineParser
- catchAllAtomType scriptAnyAtom
+ catchAllAtomType javascriptAnyAtom
  catchAllParser scriptLineParser
 scriptParser
  extends abstractScrollParser
  description Print script tag.
  cueFromId
  catchAllParser scriptLineParser
- catchAllAtomType scriptAnyAtom
+ catchAllAtomType javascriptAnyAtom
  javascript
   buildHtml() {
    return `<script>${this.scriptContent}</script>`

@@ -350,7 +350,7 @@ aftertextOnclickParser
  cue onclick
  description Set HTML onclick attribute.
  extends abstractAftertextAttributeParser
- catchAllAtomType anyAtom
+ catchAllAtomType javascriptAnyAtom
 
 aftertextHiddenParser
  cue hidden

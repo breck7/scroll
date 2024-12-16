@@ -199,8 +199,8 @@ printTableParser
 scrollTableDataParser
  popularity 0.001061
  cue data
+ atoms cueAtom
  description Table from inline delimited data.
- catchAllAtomType anyAtom
  baseParser blobParser
 
 scrollTableDelimiterParser
@@ -367,7 +367,7 @@ scrollWhereParser
  extends abstractTableTransformParser
  description Filter rows by condition.
  cue where
- atoms cueAtom columnNameAtom comparisonAtom atomAtom
+ atoms cueAtom columnNameAtom comparisonAtom constantAtom
  example
   table iris.csv
    where Species = setosa

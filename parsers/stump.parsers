@@ -1,7 +1,7 @@
 // Stump is a HAML like lang that compiles to HTML
 stumpContentParser
  popularity 0.102322
- catchAllAtomType anyAtom
+ catchAllAtomType codeAtom
 
 scrollStumpParser
  cue stump

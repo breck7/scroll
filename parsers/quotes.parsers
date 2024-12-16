@@ -1,6 +1,6 @@
 quoteLineParser
  popularity 0.004172
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  catchAllParser quoteLineParser
 
 quoteParser

@@ -43,9 +43,6 @@ quickIncludeHtmlParser
    return this.root.readFile(this.filename)
   }
 
-htmlAnyAtom
- extends codeAtom
-
 abstractHtmlParser
  extends abstractScrollParser
  catchAllParser htmlLineParser
