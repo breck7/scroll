@@ -1,6 +1,6 @@
 scrollTitleParser
  popularity 0.007524
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  cue title
  description Set title.
  example
@@ -11,7 +11,7 @@ scrollTitleParser
 
 scrollLinkTitleParser
  popularity 0.007524
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  cue linkTitle
  description Text for links.
  example

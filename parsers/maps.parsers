@@ -32,11 +32,11 @@ mapParser
   cueFromId
   single
  fillColorParser
-  atoms cueAtom anyAtom
+  atoms cueAtom colorAtom
   cueFromId
   single
  colorParser
-  atoms cueAtom anyAtom
+  atoms cueAtom colorAtom
   cueFromId
   single
  heightParser
@@ -45,7 +45,7 @@ mapParser
   single
  hoverParser
   atoms cueAtom
-  catchAllAtomType anyAtom
+  catchAllAtomType colorAtom
   cueFromId
   single
  extends abstractTableVisualizationParser

@@ -1,7 +1,7 @@
 // Hakon is a SCSS like lang that compiles to CSS
 hakonContentParser
  popularity 0.102322
- catchAllAtomType anyAtom
+ catchAllAtomType codeAtom
 
 hakonParser
  cueFromId

@@ -1,6 +1,6 @@
 chatLineParser
  popularity 0.009887
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  catchAllParser chatLineParser
 scrollChatParser
  popularity 0.000362

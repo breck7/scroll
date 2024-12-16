@@ -352,7 +352,7 @@ stamp
    cue onclick
    description Set HTML onclick attribute.
    extends abstractAftertextAttributeParser
-   catchAllAtomType anyAtom
+   catchAllAtomType javascriptAnyAtom
   
   aftertextHiddenParser
    cue hidden
@@ -432,7 +432,10 @@ stamp
   
  atomTypes.parsers
   columnNameAtom
-   extends stringAtom
+   paint variable
+  
+  constantAtom
+   paint constant
   
   percentAtom
    paint constant.numeric.float
@@ -472,6 +475,7 @@ stamp
   
   emailAddressAtom
    extends stringAtom
+   paint constant.language
   
   // File system atom types
   permalinkAtom
@@ -479,7 +483,7 @@ stamp
    description A string that doesn't contain characters that might interfere with most filesystems. No slashes, for instance.
   
   filePathAtom
-   extends stringAtom
+   paint constant.language
   
   // HTML atom types
   tagOrUrlAtom
@@ -487,7 +491,7 @@ stamp
    paint constant.language
   
   htmlAttributesAtom
-   paint comment
+   paint constant
   
   htmlTagAtom
    paint constant.language
@@ -497,11 +501,20 @@ stamp
    paint constant
   
   htmlIdAtom
-   extends anyAtom
+   paint constant
   
   fontFamilyAtom
    enum Arial Helvetica Verdana Georgia Impact Tahoma Slim
    paint constant
+  
+  javascriptAnyAtom
+   extends codeAtom
+  
+  htmlAnyAtom
+   extends codeAtom
+  
+  colorAtom
+   extends codeAtom
  author.parsers
   printAuthorsParser
    popularity 0.001664
@@ -509,7 +522,7 @@ stamp
    boolean isPopular true
    extends abstractPrintMetaParser
    // todo: we need pattern matching added to sdk to support having no params or a url and personNameAtom
-   catchAllAtomType anyAtom
+   catchAllAtomType stringAtom
    example
     authors Breck Yunits
      https://breckyunits.com
@@ -701,7 +714,7 @@ stamp
  chat.parsers
   chatLineParser
    popularity 0.009887
-   catchAllAtomType anyAtom
+   catchAllAtomType stringAtom
    catchAllParser chatLineParser
   scrollChatParser
    popularity 0.000362
@@ -986,7 +999,7 @@ stamp
    extends abstractBuildCommandParser
    sortByParser
     cueFromId
-    atoms cueAtom anyAtom
+    atoms cueAtom columnNameAtom
    javascript
     async buildOne() {
       const {root} = this
@@ -1581,7 +1594,7 @@ stamp
   belowAsCodeUntilParser
    description Print code above until match.
    extends belowAsCodeParser
-   catchAllAtomType anyAtom
+   catchAllAtomType codeAtom
    example
     belowAsCode
     counter 1 second
@@ -2027,7 +2040,7 @@ stamp
   // Hakon is a SCSS like lang that compiles to CSS
   hakonContentParser
    popularity 0.102322
-   catchAllAtomType anyAtom
+   catchAllAtomType codeAtom
   
   hakonParser
    cueFromId
@@ -2435,9 +2448,6 @@ stamp
      return this.root.readFile(this.filename)
     }
   
-  htmlAnyAtom
-   extends codeAtom
-  
   abstractHtmlParser
    extends abstractScrollParser
    catchAllParser htmlLineParser
@@ -2795,17 +2805,15 @@ stamp
    description Compile to JS file.
    extends abstractBuildTwoCommandParser
   
-  scriptAnyAtom
-   extends codeAtom
   scriptLineParser
-   catchAllAtomType scriptAnyAtom
+   catchAllAtomType javascriptAnyAtom
    catchAllParser scriptLineParser
   scriptParser
    extends abstractScrollParser
    description Print script tag.
    cueFromId
    catchAllParser scriptLineParser
-   catchAllAtomType scriptAnyAtom
+   catchAllAtomType javascriptAnyAtom
    javascript
     buildHtml() {
      return `${this.scriptContent}`
@@ -3068,14 +3076,14 @@ stamp
    extends abstractHtmlAttributeParser
    description If you want to set the target of the link. To "_blank", for example.
    cue target
-   atoms cueAtom anyAtom
+   atoms cueAtom codeAtom
   
   linkTitleParser
    popularity 0.000048
    description If you want to set the title of the link.
    cue title
    atoms cueAtom
-   catchAllAtomType anyAtom
+   catchAllAtomType stringAtom
    example
     * This report showed the treatment had a big impact.
      https://example.com/report This report.
@@ -3261,11 +3269,11 @@ stamp
     cueFromId
     single
    fillColorParser
-    atoms cueAtom anyAtom
+    atoms cueAtom colorAtom
     cueFromId
     single
    colorParser
-    atoms cueAtom anyAtom
+    atoms cueAtom colorAtom
     cueFromId
     single
    heightParser
@@ -3274,7 +3282,7 @@ stamp
     single
    hoverParser
     atoms cueAtom
-    catchAllAtomType anyAtom
+    catchAllAtomType colorAtom
     cueFromId
     single
    extends abstractTableVisualizationParser
@@ -3362,7 +3370,7 @@ stamp
    extends abstractBuildCommandParser
    sortByParser
     cueFromId
-    atoms cueAtom anyAtom
+    atoms cueAtom columnNameAtom
    javascript
     async buildOne() {
       const {root} = this
@@ -4422,9 +4430,6 @@ stamp
      return ``
     }
  replace.parsers
-  javascriptAtom
-   extends stringAtom
-  
   abstractVariableParser
    extends abstractScrollParser
    catchAllAtomType stringAtom
@@ -4446,7 +4451,7 @@ stamp
   replaceJsParser
    description Replace this with evaled JS.
    extends replaceParser
-   catchAllAtomType javascriptAtom
+   catchAllAtomType javascriptAnyAtom
    example
     replaceJs SUM 1+1
     * 1+1 = SUM
@@ -4454,7 +4459,7 @@ stamp
   replaceNodejsParser
    description Replace with evaled Node.JS.
    extends abstractVariableParser
-   catchAllAtomType javascriptAtom
+   catchAllAtomType javascriptAnyAtom
    baseParser blobParser
    example
     replaceNodejs
@@ -4804,7 +4809,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "164.0.0"
+      return "164.1.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -5694,7 +5699,7 @@ stamp
   // Stump is a HAML like lang that compiles to HTML
   stumpContentParser
    popularity 0.102322
-   catchAllAtomType anyAtom
+   catchAllAtomType codeAtom
   
   scrollStumpParser
    cue stump
@@ -5877,8 +5882,8 @@ stamp
   scrollTableDataParser
    popularity 0.001061
    cue data
+   atoms cueAtom
    description Table from inline delimited data.
-   catchAllAtomType anyAtom
    baseParser blobParser
   
   scrollTableDelimiterParser
@@ -6045,7 +6050,7 @@ stamp
    extends abstractTableTransformParser
    description Filter rows by condition.
    cue where
-   atoms cueAtom columnNameAtom comparisonAtom atomAtom
+   atoms cueAtom columnNameAtom comparisonAtom constantAtom
    example
     table iris.csv
      where Species = setosa
@@ -6495,7 +6500,7 @@ stamp
  title.parsers
   scrollTitleParser
    popularity 0.007524
-   catchAllAtomType anyAtom
+   catchAllAtomType stringAtom
    cue title
    description Set title.
    example
@@ -6506,7 +6511,7 @@ stamp
   
   scrollLinkTitleParser
    popularity 0.007524
-   catchAllAtomType anyAtom
+   catchAllAtomType stringAtom
    cue linkTitle
    description Text for links.
    example

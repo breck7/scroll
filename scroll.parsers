@@ -1,5 +1,7 @@
 columnNameAtom
- extends stringAtom
+ paint variable
+constantAtom
+ paint constant
 percentAtom
  paint constant.numeric.float
  extends stringAtom
@@ -30,26 +32,33 @@ absoluteUrlAtom
  regex (ftp|https?)://.+
 emailAddressAtom
  extends stringAtom
+ paint constant.language
 permalinkAtom
  paint string
  description A string that doesn't contain characters that might interfere with most filesystems. No slashes, for instance.
 filePathAtom
- extends stringAtom
+ paint constant.language
 tagOrUrlAtom
  description An HTML tag or a url.
  paint constant.language
 htmlAttributesAtom
- paint comment
+ paint constant
 htmlTagAtom
  paint constant.language
  enum div span p a img ul ol li h1 h2 h3 h4 h5 h6 header nav section article aside main footer input button form label select option textarea table tr td th tbody thead tfoot br hr meta link script style title code
 classNameAtom
  paint constant
 htmlIdAtom
- extends anyAtom
+ paint constant
 fontFamilyAtom
  enum Arial Helvetica Verdana Georgia Impact Tahoma Slim
  paint constant
+javascriptAnyAtom
+ extends codeAtom
+htmlAnyAtom
+ extends codeAtom
+colorAtom
+ extends codeAtom
 buildCommandAtom
  extends cueAtom
  description Give build command atoms their own color.
@@ -58,13 +67,9 @@ cssAnyAtom
  extends codeAtom
 cssLengthAtom
  extends codeAtom
-htmlAnyAtom
- extends codeAtom
 inlineMarkupNameAtom
  description Options to turn on some inline markups.
  enum bold italics code katex none
-scriptAnyAtom
- extends codeAtom
 tileOptionAtom
  enum default light
 measureNameAtom
@@ -171,8 +176,6 @@ commentAtom
  paint comment
 codeAtom
  paint comment
-javascriptAtom
- extends stringAtom
 metaCommandAtom
  extends cueAtom
  description Give meta command atoms their own color.
@@ -1373,7 +1376,7 @@ printAuthorsParser
  boolean isPopular true
  extends abstractPrintMetaParser
  // todo: we need pattern matching added to sdk to support having no params or a url and personNameAtom
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  example
   authors Breck Yunits
    https://breckyunits.com
@@ -1558,7 +1561,7 @@ buildConceptsParser
  extends abstractBuildCommandParser
  sortByParser
   cueFromId
-  atoms cueAtom anyAtom
+  atoms cueAtom columnNameAtom
  javascript
   async buildOne() {
     const {root} = this
@@ -1599,7 +1602,7 @@ buildMeasuresParser
  extends abstractBuildCommandParser
  sortByParser
   cueFromId
-  atoms cueAtom anyAtom
+  atoms cueAtom columnNameAtom
  javascript
   async buildOne() {
     const {root} = this
@@ -1752,7 +1755,7 @@ scrollTagsParser
  catchAllAtomType tagAtom
 scrollTitleParser
  popularity 0.007524
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  cue title
  description Set title.
  example
@@ -1762,7 +1765,7 @@ scrollTitleParser
  boolean isPopular true
 scrollLinkTitleParser
  popularity 0.007524
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  cue linkTitle
  description Text for links.
  example
@@ -2477,11 +2480,11 @@ mapParser
   cueFromId
   single
  fillColorParser
-  atoms cueAtom anyAtom
+  atoms cueAtom colorAtom
   cueFromId
   single
  colorParser
-  atoms cueAtom anyAtom
+  atoms cueAtom colorAtom
   cueFromId
   single
  heightParser
@@ -2490,7 +2493,7 @@ mapParser
   single
  hoverParser
   atoms cueAtom
-  catchAllAtomType anyAtom
+  catchAllAtomType colorAtom
   cueFromId
   single
  extends abstractTableVisualizationParser
@@ -3079,7 +3082,7 @@ debugAllParser
 belowAsCodeUntilParser
  description Print code above until match.
  extends belowAsCodeParser
- catchAllAtomType anyAtom
+ catchAllAtomType codeAtom
  example
   belowAsCode
   counter 1 second
@@ -3409,7 +3412,7 @@ scriptParser
  description Print script tag.
  cueFromId
  catchAllParser scriptLineParser
- catchAllAtomType scriptAnyAtom
+ catchAllAtomType javascriptAnyAtom
  javascript
   buildHtml() {
    return `<script>${this.scriptContent}</script>`
@@ -3791,14 +3794,14 @@ replaceParser
 replaceJsParser
  description Replace this with evaled JS.
  extends replaceParser
- catchAllAtomType javascriptAtom
+ catchAllAtomType javascriptAnyAtom
  example
   replaceJs SUM 1+1
   * 1+1 = SUM
 replaceNodejsParser
  description Replace with evaled Node.JS.
  extends abstractVariableParser
- catchAllAtomType javascriptAtom
+ catchAllAtomType javascriptAnyAtom
  baseParser blobParser
  example
   replaceNodejs
@@ -4045,7 +4048,7 @@ aftertextOnclickParser
  cue onclick
  description Set HTML onclick attribute.
  extends abstractAftertextAttributeParser
- catchAllAtomType anyAtom
+ catchAllAtomType javascriptAnyAtom
 aftertextHiddenParser
  cue hidden
  atoms cueAtom
@@ -4451,7 +4454,7 @@ linkTargetParser
  extends abstractHtmlAttributeParser
  description If you want to set the target of the link. To "_blank", for example.
  cue target
- atoms cueAtom anyAtom
+ atoms cueAtom codeAtom
 blankLineParser
  popularity 0.308149
  description Print nothing. Break section.
@@ -4465,7 +4468,7 @@ blankLineParser
  tags doNotSynthesize
 chatLineParser
  popularity 0.009887
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  catchAllParser chatLineParser
 lineOfCodeParser
  popularity 0.018665
@@ -4736,7 +4739,7 @@ scrollWhereParser
  extends abstractTableTransformParser
  description Filter rows by condition.
  cue where
- atoms cueAtom columnNameAtom comparisonAtom atomAtom
+ atoms cueAtom columnNameAtom comparisonAtom constantAtom
  example
   table iris.csv
    where Species = setosa
@@ -5076,7 +5079,7 @@ errorParser
  baseParser errorParser
 hakonContentParser
  popularity 0.102322
- catchAllAtomType anyAtom
+ catchAllAtomType codeAtom
 heatrixCatchAllParser
  popularity 0.000193
  // todo Fill this out
@@ -5099,14 +5102,14 @@ scrollFooterParser
  atoms preBuildCommandAtom
  cue footer
 scriptLineParser
- catchAllAtomType scriptAnyAtom
+ catchAllAtomType javascriptAnyAtom
  catchAllParser scriptLineParser
 linkTitleParser
  popularity 0.000048
  description If you want to set the title of the link.
  cue title
  atoms cueAtom
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  example
   * This report showed the treatment had a big impact.
    https://example.com/report This report.
@@ -5481,7 +5484,7 @@ scrollYParser
  extends abstractColumnNameParser
 quoteLineParser
  popularity 0.004172
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  catchAllParser quoteLineParser
 scrollParser
  description Scroll is a language for scientists of all ages. Refine, share and collaborate on ideas.
@@ -5776,7 +5779,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "164.0.0"
+    return "164.1.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6294,12 +6297,12 @@ stampFolderParser
   }
 stumpContentParser
  popularity 0.102322
- catchAllAtomType anyAtom
+ catchAllAtomType codeAtom
 scrollTableDataParser
  popularity 0.001061
  cue data
+ atoms cueAtom
  description Table from inline delimited data.
- catchAllAtomType anyAtom
  baseParser blobParser
 scrollTableDelimiterParser
  popularity 0.001037

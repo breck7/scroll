@@ -1,5 +1,8 @@
 columnNameAtom
- extends stringAtom
+ paint variable
+
+constantAtom
+ paint constant
 
 percentAtom
  paint constant.numeric.float
@@ -39,6 +42,7 @@ absoluteUrlAtom
 
 emailAddressAtom
  extends stringAtom
+ paint constant.language
 
 // File system atom types
 permalinkAtom
@@ -46,7 +50,7 @@ permalinkAtom
  description A string that doesn't contain characters that might interfere with most filesystems. No slashes, for instance.
 
 filePathAtom
- extends stringAtom
+ paint constant.language
 
 // HTML atom types
 tagOrUrlAtom
@@ -54,7 +58,7 @@ tagOrUrlAtom
  paint constant.language
 
 htmlAttributesAtom
- paint comment
+ paint constant
 
 htmlTagAtom
  paint constant.language
@@ -64,8 +68,17 @@ classNameAtom
  paint constant
 
 htmlIdAtom
- extends anyAtom
+ paint constant
 
 fontFamilyAtom
  enum Arial Helvetica Verdana Georgia Impact Tahoma Slim
  paint constant
+
+javascriptAnyAtom
+ extends codeAtom
+
+htmlAnyAtom
+ extends codeAtom
+
+colorAtom
+ extends codeAtom

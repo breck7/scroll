@@ -10,7 +10,7 @@ buildMeasuresParser
  extends abstractBuildCommandParser
  sortByParser
   cueFromId
-  atoms cueAtom anyAtom
+  atoms cueAtom columnNameAtom
  javascript
   async buildOne() {
     const {root} = this

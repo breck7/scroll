@@ -9,14 +9,14 @@ linkTargetParser
  extends abstractHtmlAttributeParser
  description If you want to set the target of the link. To "_blank", for example.
  cue target
- atoms cueAtom anyAtom
+ atoms cueAtom codeAtom
 
 linkTitleParser
  popularity 0.000048
  description If you want to set the title of the link.
  cue title
  atoms cueAtom
- catchAllAtomType anyAtom
+ catchAllAtomType stringAtom
  example
   * This report showed the treatment had a big impact.
    https://example.com/report This report.
