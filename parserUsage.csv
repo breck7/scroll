@@ -49,10 +49,10 @@ thinColumnsParser,8
 linkParser,8
 cssParser,8
 horizontalRuleParser,8
-codeFromFileParser,7
 endColumnsParser,7
 inlineMarkupParser,7
 orderedListAftertextParser,7
+codeFromFileParser,7
 scrollTableDataParser,7
 scrollTableParser,7
 afterTextCenterParser,6
@@ -99,8 +99,6 @@ downloadButtonParser,1
 helpfulNotFoundParser,1
 scrollThemeParser,1
 clocParser,1
-scrollOrderByParser,1
-printScrollLeetSheetParser,1
 emailLinkParser,1
 debugParsersParser,1
 buildParsersParser,1
@@ -108,6 +106,8 @@ printUsageStatsParser,1
 toStampParser,1
 printparsersLeetSheetParser,1
 scrollPostsMetaParser,1
+scrollOrderByParser,1
+printScrollLeetSheetParser,1
 mediumColumnsParser,1
 printSiteMapParser,1
 endOfPostDinkusParser,1

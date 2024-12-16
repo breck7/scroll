@@ -40,7 +40,7 @@ LeetSheet · Blog · Release Notes · FAQ · Tutorial
 
 Videos · GitHub · Subreddit
  center
- https://www.youtube.com/@breckyunits Videos
+ https://www.youtube.com/playlist?list=PLnN2hBdpELHqcBeZIJyxT-WKyJ34lqqt- Videos
  https://github.com/breck7/scroll GitHub
  https://www.reddit.com/r/WorldWideScroll/ Subreddit
  style margin:15px;
