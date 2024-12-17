@@ -1,6 +1,5 @@
 buildRss
-assertBuildIncludes
- <?xml
+assertBuildIncludes <?xml
 
 settings.scroll
 

@@ -1,8 +1,7 @@
 buildHtml
 
 <b></b>
-assertHtmlEquals
- <b></b>
+assertHtmlEquals <b></b>
 
 The background should be green
 htmlInclude.html

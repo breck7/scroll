@@ -1,0 +1,117 @@
+:root {
+  --animationFontWeight: 300;
+  --animationTextAlign: center;
+  --animationMarginBottom: 30px;
+  --animationLineHeight: 2rem;
+  --animationHeight: 2rem;
+  --animationWidth: 12rem;
+  --animationDotWidth: 4rem;
+  --animationShrinkColor: #3c3b6e;
+  --animationShrinkColor2: #b22234;
+  --animationTranslateY: -30px;
+  --animationColor: black;
+  --animationDotShadow1: 0 4px 30px rgba(0, 0, 0, 0.3), inset 3px 0 5px -3px rgba(0, 0, 0, 0.6), inset -3px 0 5px -3px rgba(0, 0, 0, 0.6), inset 0 3px 5px -3px rgba(0, 0, 0, 0.6);
+  --animationDotShadow2: 0 4px 30px rgba(0, 0, 0, 0.3), inset 3px 0 5px -3px rgba(0, 0, 0, 0.6), inset -3px 0 5px -3px rgba(0, 0, 0, 0.6), inset 0 -3px 5px -3px rgba(0, 0, 0, 0.6);
+}
+
+#theAnimation {
+  font-weight: var(--animationFontWeight);
+  text-align: var(--animationTextAlign);
+}
+
+#theAnimation .scrollParagraph {
+  text-align: var(--animationTextAlign);
+  margin-bottom: var(--animationMarginBottom);
+}
+
+.animationLine {
+  font-weight: var(--animationFontWeight);
+  white-space: nowrap;
+  line-height: var(--animationLineHeight);
+  height: var(--animationHeight);
+  width: var(--animationWidth);
+  margin: auto;
+  margin-bottom: var(--animationMarginBottom);
+}
+
+.atomToDot,
+.atomToDot2 {
+  width: var(--animationDotWidth);
+  height: var(--animationHeight);
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.atomToDot {
+  animation: shrinkToDot 15s infinite;
+  border-top-left-radius: var(--animationDotWidth);
+  border-top-right-radius: var(--animationDotWidth);
+}
+
+@keyframes shrinkToDot {
+  0% {
+    color: var(--animationColor);
+    background-color: transparent;
+    box-shadow: none;
+  }
+  20% {
+    color: var(--animationColor);
+    background-color: transparent;
+    box-shadow: none;
+  }
+  40% {
+    background-color: var(--animationShrinkColor);
+    color: transparent;
+    box-shadow: var(--animationDotShadow1);
+  }
+  100% {
+    background-color: var(--animationShrinkColor);
+    color: transparent;
+    box-shadow: var(--animationDotShadow1);
+  }
+}
+
+.atomToDot2 {
+  animation: shrinkToDot2 15s forwards infinite;
+  border-bottom-left-radius: var(--animationDotWidth);
+  border-bottom-right-radius: var(--animationDotWidth);
+}
+
+@keyframes shrinkToDot2 {
+  0% {
+    color: var(--animationColor);
+    transform: translateY(0);
+    background-color: transparent;
+    box-shadow: none;
+  }
+  20% {
+  }
+  40% {
+    transform: translateY(0);
+    color: var(--animationColor);
+    background-color: transparent;
+    box-shadow: none;
+  }
+  60% {
+    background-color: var(--animationShrinkColor2);
+    color: transparent;
+    transform: translateY(0);
+    box-shadow: var(--animationDotShadow2);
+  }
+  80% {
+    background-color: var(--animationShrinkColor2);
+    color: transparent;
+    transform: translateY(var(--animationTranslateY));
+  }
+  100% {
+    background-color: var(--animationShrinkColor2);
+    color: transparent;
+    transform: translateY(var(--animationTranslateY));
+    box-shadow: var(--animationDotShadow2);
+  }
+}
+
+
+:root {
+  --scrollFontPrimary: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial" !important;
+}

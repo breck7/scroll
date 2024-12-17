@@ -1,0 +1,11 @@
+buildCss
+assertBuildIncludes --scrollFontPrimary
+buildJs
+
+// Bundle any random files:
+inlineCss ../animation.css
+ ../style.css
+
+// Just bundle a couple of random files:
+inlineJs ../scroll.js
+ ../importParsers.js

@@ -1,7 +1,5 @@
 buildCsv
-assertBuildIncludes
- date,year,title,permalink
-assertBuildIncludes
- Breck
+assertBuildIncludes date,year,title,permalink
+assertBuildIncludes Breck
 postsMeta ../blog/All
  printTable

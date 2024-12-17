@@ -1315,6 +1315,7 @@ abstractAssertionParser
  description Test above particle's output.
  extends abstractScrollParser
  string bindTo previous
+ catchAllAtomType codeAtom
  cueFromId
  javascript
   buildHtml() {
@@ -1326,12 +1327,14 @@ abstractAssertionParser
   }
   get actual() {return this.particleToTest.buildHtml()}
   getErrors() {
-    const {actual} = this
-    const expected = this.subparticlesToString()
+    const {actual, expected} = this
     const errors = super.getErrors()
     if (this.areEqual(actual, expected))
       return errors
     return errors.concat(this.makeError(`'${actual}' did not ${this.kind} '${expected}'`))
+  }
+  get expected() {
+    return this.length ? this.subparticlesToString() : (this.content ? this.content : "")
   }
  catchAllParser htmlLineParser
 assertHtmlEqualsParser
@@ -1640,6 +1643,44 @@ buildPdfParser
     } catch (error) {
       console.error(error)
     }
+  }
+abstractInlineFileParser
+ extends abstractScrollParser
+ catchAllAtomType filePathAtom
+ catchAllParser scrollFileAddressParser
+ string joinChar ;\n\n
+ string htmlTag script
+ javascript
+  get files() {
+    const inline = this.atoms.slice(1)
+    const children = this.map(particle => particle.cue)
+    return inline.concat(children)
+  }
+  get contents() {
+    return this.files.map(filename => this.root.readFile(filename)).join(this.joinChar)
+  }
+  buildHtml() {
+   return `<${this.htmlTag}>/* ${this.files.join(" ")} */\n${this.contents}</${this.htmlTag}>`
+  }
+scrollInlineCssParser
+ description Inline CSS from files.
+ popularity 0.007211
+ extends abstractInlineFileParser
+ cue inlineCss
+ string joinChar \n\n
+ string htmlTag style
+ javascript
+  buildCss() {
+    return this.contents
+  }
+scrollInlineJsParser
+ description Inline JS from files.
+ popularity 0.007211
+ extends abstractInlineFileParser
+ cue inlineJs
+ javascript
+  buildJs() {
+    return this.contents
   }
 abstractTopLevelSingleMetaParser
  description Use these parsers once per file.
@@ -2898,23 +2939,7 @@ cssParser
   get css() {
     return this.content ?? this.subparticlesToString()
   }
-  buildCs() {
-    return this.css
-  }
-inlineCssParser
- description Inline CSS from files.
- popularity 0.007211
- extends abstractScrollParser
- cueFromId
- catchAllAtomType filePathAtom
- javascript
-  buildHtml() {
-   return `<style>/* ${this.content} */\n${this.css}</style>`
-  }
-  get css() {
-    return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join("\n\n")
-  }
-  buildCs() {
+  buildCss() {
     return this.css
   }
 scrollBackgroundColorParser
@@ -3152,7 +3177,7 @@ hakonParser
     const {hakonParser} = this.root
     return new hakonParser(this.subparticlesToString()).compile()
   }
-  buildCs() {
+  buildCss() {
     return this.css
   }
 hamlParser
@@ -3397,22 +3422,6 @@ quickImportParser
   }
  example
   header.scroll
-inlineJsParser
- description Inline JS from files.
- popularity 0.007211
- extends abstractScrollParser
- cueFromId
- catchAllAtomType filePathAtom
- javascript
-  buildHtml() {
-   return `<script>/* ${this.content} */\n${this.contents}</script>`
-  }
-  get contents() {
-    return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join(";\n\n")
-  }
-  buildJs() {
-    return this.contents
-  }
 scriptParser
  extends abstractScrollParser
  description Print script tag.
@@ -4472,6 +4481,9 @@ blankLineParser
   }
  pattern ^$
  tags doNotSynthesize
+scrollFileAddressParser
+ catchAllAtomType filePathAtom
+ catchAllParser scrollFileAddressParser
 chatLineParser
  popularity 0.009887
  catchAllAtomType stringAtom
@@ -5678,10 +5690,16 @@ scrollParser
     const {path} = this
     const fs = require("fs")
     const fullPath = path.join(this.folderPath, filename.replace(this.folderPath, ""))
+    try {
     if (fs.existsSync(fullPath))
       return fs.readFileSync(fullPath, "utf8")
     console.error(`File '${filename}' not found`)
     return ""
+    } catch (err) {
+      console.error(`Error in '${this.filePath}' reading file: '${fullPath}'`)
+      console.error(err)
+      return ""
+    }
   }
   alreadyRequired = new Set()
   buildHtmlSnippet(buildSettings) {
@@ -5798,7 +5816,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "164.3.0"
+    return "164.4.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

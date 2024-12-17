@@ -88,6 +88,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 164.4.0 12/17/2024
+🎉 assertions now can also be one liners
+🎉 `inlineJs` and `inlineCss` can now take filenames as subparticles
+🏥 bug fixes in buildCss methods
+
 📦 164.3.0 12/16/2024
 🎉 update ScrollSDK
 

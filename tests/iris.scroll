@@ -2,5 +2,4 @@ buildHtml
 iris
  shuffle
   printTable
-assertHtmlIncludes
- virginica
+assertHtmlIncludes virginica
