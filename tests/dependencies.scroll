@@ -10,16 +10,11 @@ container
 
 dependencies
  printTable
-assertHtmlIncludes
- header.scroll
-assertHtmlIncludes
- changes.parsers
-assertHtmlIncludes
- contacts.csv
-assertHtmlIncludes
- style.css
-assertHtmlIncludes
- particles.png
+assertHtmlIncludes header.scroll
+assertHtmlIncludes changes.parsers
+assertHtmlIncludes contacts.csv
+assertHtmlIncludes style.css
+assertHtmlIncludes particles.png
 
 ../particles.png
 

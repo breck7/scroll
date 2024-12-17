@@ -2,6 +2,7 @@ abstractAssertionParser
  description Test above particle's output.
  extends abstractScrollParser
  string bindTo previous
+ catchAllAtomType codeAtom
  cueFromId
  javascript
   buildHtml() {
@@ -13,12 +14,14 @@ abstractAssertionParser
   }
   get actual() {return this.particleToTest.buildHtml()}
   getErrors() {
-    const {actual} = this
-    const expected = this.subparticlesToString()
+    const {actual, expected} = this
     const errors = super.getErrors()
     if (this.areEqual(actual, expected))
       return errors
     return errors.concat(this.makeError(`'${actual}' did not ${this.kind} '${expected}'`))
+  }
+  get expected() {
+    return this.length ? this.subparticlesToString() : (this.content ? this.content : "")
   }
  catchAllParser htmlLineParser
 

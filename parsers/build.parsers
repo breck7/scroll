@@ -52,3 +52,26 @@ abstractBuildTwoCommandParser
   async buildTwo() {
     await this._buildFileType(this.extension)
   }
+
+scrollFileAddressParser
+ catchAllAtomType filePathAtom
+ catchAllParser scrollFileAddressParser
+
+abstractInlineFileParser
+ extends abstractScrollParser
+ catchAllAtomType filePathAtom
+ catchAllParser scrollFileAddressParser
+ string joinChar ;\n\n
+ string htmlTag script
+ javascript
+  get files() {
+    const inline = this.atoms.slice(1)
+    const children = this.map(particle => particle.cue)
+    return inline.concat(children)
+  }
+  get contents() {
+    return this.files.map(filename => this.root.readFile(filename)).join(this.joinChar)
+  }
+  buildHtml() {
+   return `<${this.htmlTag}>/* ${this.files.join(" ")} */\n${this.contents}</${this.htmlTag}>`
+  }

@@ -9,19 +9,12 @@ quickScriptParser
    return `<script src="${this.filename}"></script>`
   }
 
-inlineJsParser
+scrollInlineJsParser
  description Inline JS from files.
  popularity 0.007211
- extends abstractScrollParser
- cueFromId
- catchAllAtomType filePathAtom
+ extends abstractInlineFileParser
+ cue inlineJs
  javascript
-  buildHtml() {
-   return `<script>/* ${this.content} */\n${this.contents}</script>`
-  }
-  get contents() {
-    return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join(";\n\n")
-  }
   buildJs() {
     return this.contents
   }

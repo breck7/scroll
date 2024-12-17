@@ -16,6 +16,6 @@ hakonParser
     const {hakonParser} = this.root
     return new hakonParser(this.subparticlesToString()).compile()
   }
-  buildCs() {
+  buildCss() {
     return this.css
   }

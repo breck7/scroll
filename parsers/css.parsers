@@ -25,25 +25,20 @@ cssParser
   get css() {
     return this.content ?? this.subparticlesToString()
   }
-  buildCs() {
+  buildCss() {
     return this.css
   }
 
-inlineCssParser
+scrollInlineCssParser
  description Inline CSS from files.
  popularity 0.007211
- extends abstractScrollParser
- cueFromId
- catchAllAtomType filePathAtom
+ extends abstractInlineFileParser
+ cue inlineCss
+ string joinChar \n\n
+ string htmlTag style
  javascript
-  buildHtml() {
-   return `<style>/* ${this.content} */\n${this.css}</style>`
-  }
-  get css() {
-    return this.atoms.slice(1).map(filename => this.root.readFile(filename)).join("\n\n")
-  }
-  buildCs() {
-    return this.css
+  buildCss() {
+    return this.contents
   }
 
 scrollBackgroundColorParser

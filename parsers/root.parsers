@@ -220,10 +220,16 @@ scrollParser
     const {path} = this
     const fs = require("fs")
     const fullPath = path.join(this.folderPath, filename.replace(this.folderPath, ""))
+    try {
     if (fs.existsSync(fullPath))
       return fs.readFileSync(fullPath, "utf8")
     console.error(`File '${filename}' not found`)
     return ""
+    } catch (err) {
+      console.error(`Error in '${this.filePath}' reading file: '${fullPath}'`)
+      console.error(err)
+      return ""
+    }
   }
   alreadyRequired = new Set()
   buildHtmlSnippet(buildSettings) {
@@ -340,7 +346,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "164.3.0"
+    return "164.4.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
