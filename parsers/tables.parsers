@@ -441,11 +441,12 @@ scrollReverseParser
 scrollComposeParser
  extends abstractTableTransformParser
  description Add column using format string.
- catchAllAtomType stringAtom
+ catchAllAtomType codeAtom
  cue compose
+ atoms cueAtom newColumnNameAtom
  example
   table
-   compose My name is {name}
+   compose sentence My name is {name}
     printTable
  javascript
   get coreTable() {
@@ -469,7 +470,6 @@ scrollComposeParser
 scrollComputeParser
  extends scrollComposeParser
  description Add column by evaling format string.
- catchAllAtomType stringAtom
  cue compute
  javascript
   evaluate(str) {
@@ -486,6 +486,7 @@ scrollEvalParser
 scrollRankParser
  extends scrollComposeParser
  description Add rank column.
+ atoms cueAtom
  string newColumnName rank
  cue rank
  javascript
@@ -618,8 +619,8 @@ scrollOrderByParser
 
 scrollRenameParser
  // todo: add support in Parsers for tuple catch alls
-  catchAllAtomType columnNameAtom atomAtom
- catchAllAtomType atomAtom
+  catchAllAtomType columnNameAtom newColumnNameAtom
+ catchAllAtomType newColumnNameAtom
  extends abstractTableTransformParser
  description Rename columns.
  example

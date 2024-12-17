@@ -1,6 +1,27 @@
+reductionTypeAtom
+ enum sum mean max min concat first
+ paint keyword
 scrollGroupByParser
  catchAllAtomType columnNameAtom
  extends abstractTableTransformParser
+ reduceParser
+  description Specify how to aggregate a column when grouping data
+  atoms cueAtom columnNameAtom reductionTypeAtom newColumnNameAtom
+  cue reduce
+  example
+   data.csv
+    groupBy year
+     reduce score sum totalScore
+     reduce name concat names
+     printTable
+  javascript
+   get reduction() {
+     return {
+     source: this.getAtom(1),
+     reduction: this.getAtom(2),
+     name: this.getAtom(3) || this.getAtomsFrom(1).join("_")
+    }
+   }
  description Combine rows with matching values into groups.
  example
   tables posts.csv
@@ -13,13 +34,7 @@ scrollGroupByParser
    const groupByColNames = this.getAtomsFrom(1)
    const {coreTable} = this.parent
    if (!groupByColNames.length) return coreTable
-   const newCols = this.findParticles("reduce").map(reduceParticle => {
-    return {
-     source: reduceParticle.getAtom(1),
-     reduction: reduceParticle.getAtom(2),
-     name: reduceParticle.getAtom(3) || reduceParticle.getAtomsFrom(1).join("_")
-    }
-   })
+   const newCols = this.findParticles("reduce").map(particle => particle.reduction)
    // Pivot is shorthand for group and reduce?
    const makePivotTable = (rows, groupByColumnNames, inputColumnNames, newCols) => {
      const colMap = {}

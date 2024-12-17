@@ -88,6 +88,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 164.2.0 12/16/2024
+🎉 add `reduceParser` to `groupBy`. Functionality was there but Parser was not.
+🎉 atom color fixes
+
 📦 164.1.0 12/16/2024
 🎉 atom color fixes
 

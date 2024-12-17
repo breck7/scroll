@@ -1,4 +1,7 @@
 columnNameAtom
+ paint constant
+newColumnNameAtom
+ description Name a derived column.
  paint variable
 
 constantAtom

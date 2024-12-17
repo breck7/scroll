@@ -1,4 +1,7 @@
 columnNameAtom
+ paint constant
+newColumnNameAtom
+ description Name a derived column.
  paint variable
 constantAtom
  paint constant
@@ -67,6 +70,9 @@ cssAnyAtom
  extends codeAtom
 cssLengthAtom
  extends codeAtom
+reductionTypeAtom
+ enum sum mean max min concat first
+ paint keyword
 inlineMarkupNameAtom
  description Options to turn on some inline markups.
  enum bold italics code katex none
@@ -163,7 +169,7 @@ dateAtom
 stringAtom
  paint string
 atomAtom
- paint string
+ paint constant
  description A non-empty single atom string.
  regex .+
 exampleAnyAtom
@@ -4626,6 +4632,24 @@ scrollSplitDayOfWeekParser
 scrollGroupByParser
  catchAllAtomType columnNameAtom
  extends abstractTableTransformParser
+ reduceParser
+  description Specify how to aggregate a column when grouping data
+  atoms cueAtom columnNameAtom reductionTypeAtom newColumnNameAtom
+  cue reduce
+  example
+   data.csv
+    groupBy year
+     reduce score sum totalScore
+     reduce name concat names
+     printTable
+  javascript
+   get reduction() {
+     return {
+     source: this.getAtom(1),
+     reduction: this.getAtom(2),
+     name: this.getAtom(3) || this.getAtomsFrom(1).join("_")
+    }
+   }
  description Combine rows with matching values into groups.
  example
   tables posts.csv
@@ -4638,13 +4662,7 @@ scrollGroupByParser
    const groupByColNames = this.getAtomsFrom(1)
    const {coreTable} = this.parent
    if (!groupByColNames.length) return coreTable
-   const newCols = this.findParticles("reduce").map(reduceParticle => {
-    return {
-     source: reduceParticle.getAtom(1),
-     reduction: reduceParticle.getAtom(2),
-     name: reduceParticle.getAtom(3) || reduceParticle.getAtomsFrom(1).join("_")
-    }
-   })
+   const newCols = this.findParticles("reduce").map(particle => particle.reduction)
    // Pivot is shorthand for group and reduce?
    const makePivotTable = (rows, groupByColumnNames, inputColumnNames, newCols) => {
      const colMap = {}
@@ -4809,11 +4827,12 @@ scrollReverseParser
 scrollComposeParser
  extends abstractTableTransformParser
  description Add column using format string.
- catchAllAtomType stringAtom
+ catchAllAtomType codeAtom
  cue compose
+ atoms cueAtom newColumnNameAtom
  example
   table
-   compose My name is {name}
+   compose sentence My name is {name}
     printTable
  javascript
   get coreTable() {
@@ -4837,7 +4856,6 @@ scrollComposeParser
 scrollComputeParser
  extends scrollComposeParser
  description Add column by evaling format string.
- catchAllAtomType stringAtom
  cue compute
  javascript
   evaluate(str) {
@@ -4854,6 +4872,7 @@ scrollEvalParser
 scrollRankParser
  extends scrollComposeParser
  description Add rank column.
+ atoms cueAtom
  string newColumnName rank
  cue rank
  javascript
@@ -4979,8 +4998,8 @@ scrollOrderByParser
   }
 scrollRenameParser
  // todo: add support in Parsers for tuple catch alls
-  catchAllAtomType columnNameAtom atomAtom
- catchAllAtomType atomAtom
+  catchAllAtomType columnNameAtom newColumnNameAtom
+ catchAllAtomType newColumnNameAtom
  extends abstractTableTransformParser
  description Rename columns.
  example
@@ -5779,7 +5798,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "164.1.0"
+    return "164.2.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
