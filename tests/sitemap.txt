@@ -9,9 +9,6 @@ https://scroll.pub/theScroll.html
 https://scroll.pub/themes.html
 https://scroll.pub/tufte.html
 https://scroll.pub/video.html
-https://scroll.pub/prestige.html
-https://scroll.pub/push.html
-https://scroll.pub/python.html
 https://scroll.pub/qrcodes.html
 https://scroll.pub/redirectTest.html
 https://scroll.pub/relativeSnippets.html
@@ -23,9 +20,6 @@ https://scroll.pub/settings.html
 https://scroll.pub/slideshowDemo.html
 https://scroll.pub/snippets.html
 https://scroll.pub/source.html
-https://scroll.pub/defs.html
-https://scroll.pub/defsForm.html
-https://scroll.pub/dependencies.html
 https://scroll.pub/disk.html
 https://scroll.pub/edit.html
 https://scroll.pub/favicon.html
@@ -53,6 +47,9 @@ https://scroll.pub/notices.html
 https://scroll.pub/openGraphImages.html
 https://scroll.pub/optionalImport.html
 https://scroll.pub/posts.html
+https://scroll.pub/prestige.html
+https://scroll.pub/push.html
+https://scroll.pub/python.html
 https://scroll.pub/a-review-of-my-sink.html
 https://scroll.pub/aParser.html
 https://scroll.pub/about.html
@@ -74,4 +71,7 @@ https://scroll.pub/dark.html
 https://scroll.pub/dateTransforms.html
 https://scroll.pub/debug.html
 https://scroll.pub/debugging.html
+https://scroll.pub/defs.html
+https://scroll.pub/defsForm.html
+https://scroll.pub/dependencies.html
 https://scroll.pub/top-sinks.html
