@@ -4,7 +4,7 @@ hiddenMessageParser
  cueFromId
  javascript
   buildHtml() {
-    return `<span onclick="alert('${this.get('message')}')">${super.buildHtml()}</span>`
+   return `<span onclick="alert('${this.get("message")}')">${super.buildHtml()}</span>`
   }
 hiddenMessage Click me.
  message Hello world
