@@ -1,9 +1,8 @@
-importParser
+importParser abstractScrollParser
  description Import a file.
  popularity 0.007524
  cueFromId
  atoms preBuildCommandAtom
- extends abstractScrollParser
  catchAllAtomType filePathAtom
  javascript
   buildHtml() {
@@ -12,12 +11,11 @@ importParser
  example
   import header.scroll
 
-scrollImportedParser
+scrollImportedParser abstractScrollParser
  description Inserted at import pass.
  boolean suggestInAutocomplete false
  cue imported
  atoms preBuildCommandAtom
- extends abstractScrollParser
  baseParser blobParser
  catchAllAtomType filePathAtom
  javascript
@@ -35,10 +33,9 @@ scrollFooterParser
  atoms preBuildCommandAtom
  cue footer
 
-quickImportParser
+quickImportParser abstractScrollParser
  popularity 0.007524
  description Import a Scroll or Parsers file.
- extends abstractScrollParser
  boolean isPopular true
  atoms urlAtom
  pattern ^[^\s]+\.(scroll|parsers)$
@@ -49,21 +46,19 @@ quickImportParser
  example
   header.scroll
 
-importOnlyParser
+importOnlyParser abstractTopLevelSingleMetaParser
  popularity 0.033569
  // This line will be not be imported into the importing file.
  description Don't build this file.
  cueFromId
  atoms preBuildCommandAtom
- extends abstractTopLevelSingleMetaParser
  javascript
   buildHtml() {
    return ""
   }
 
-abstractQuickIncludeParser
+abstractQuickIncludeParser abstractScrollParser
  popularity 0.007524
- extends abstractScrollParser
  atoms urlAtom
  javascript
   get dependencies() { return [this.filename]}

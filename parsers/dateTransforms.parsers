@@ -1,5 +1,4 @@
-abstractDateSplitTransformParser
- extends abstractTableTransformParser
+abstractDateSplitTransformParser abstractTableTransformParser
  atoms cueAtom
  catchAllAtomType columnNameAtom
  javascript
@@ -38,43 +37,37 @@ abstractDateSplitTransformParser
     return isInt ? parseInt(formatted) : formatted
   }
 
-scrollSplitYearParser
- extends abstractDateSplitTransformParser
+scrollSplitYearParser abstractDateSplitTransformParser
  description Extract year into new column.
  cue splitYear
  string newColumnName year
  string dateFormat YYYY
 
-scrollSplitDayNameParser
- extends abstractDateSplitTransformParser
+scrollSplitDayNameParser abstractDateSplitTransformParser
  description Extract day name into new column.
  cue splitDayName
  string newColumnName dayName
  string dateFormat dddd
 
-scrollSplitMonthNameParser
- extends abstractDateSplitTransformParser
+scrollSplitMonthNameParser abstractDateSplitTransformParser
  description Extract month name into new column.
  cue splitMonthName
  string newColumnName monthName
  string dateFormat MMMM
 
-scrollSplitMonthParser
- extends abstractDateSplitTransformParser
+scrollSplitMonthParser abstractDateSplitTransformParser
  description Extract month number (1-12) into new column.
  cue splitMonth
  string newColumnName month
  string dateFormat M
 
-scrollSplitDayOfMonthParser
- extends abstractDateSplitTransformParser
+scrollSplitDayOfMonthParser abstractDateSplitTransformParser
  description Extract day of month (1-31) into new column.
  cue splitDayOfMonth
  string newColumnName dayOfMonth
  string dateFormat D
 
-scrollSplitDayOfWeekParser
- extends abstractDateSplitTransformParser
+scrollSplitDayOfWeekParser abstractDateSplitTransformParser
  description Extract day of week (0-6) into new column.
  cue splitDay
  string newColumnName day

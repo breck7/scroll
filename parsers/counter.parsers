@@ -1,6 +1,5 @@
-scrollCounterParser
+scrollCounterParser scrollParagraphParser
  description Visualize the speed of something.
- extends scrollParagraphParser
  cue counter
  example
   counter 4.5 Babies Born

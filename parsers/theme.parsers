@@ -2,11 +2,10 @@ scrollThemeAtom
  enum roboto gazette dark tufte prestige
  paint constant
 
-scrollThemeParser
+scrollThemeParser abstractScrollParser
  popularity 0.007524
  boolean isPopular true
  cue theme
- extends abstractScrollParser
  catchAllAtomType scrollThemeAtom
  description A collection of simple themes.
  string copyFromExternal .gazette.css

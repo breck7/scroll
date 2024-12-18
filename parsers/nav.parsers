@@ -1,6 +1,5 @@
-scrollNavParser
+scrollNavParser printSnippetsParser
  popularity 0.000048
- extends printSnippetsParser
  cue nav
  description Titles and links in group(s).
  joinParser

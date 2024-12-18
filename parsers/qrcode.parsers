@@ -1,5 +1,4 @@
-qrcodeParser
- extends abstractCaptionedParser
+qrcodeParser abstractCaptionedParser
  description Make a QR code from a link.
  example
   qrcode https://scroll.pub

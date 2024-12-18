@@ -1,4 +1,4 @@
-faviconParser
+faviconParser abstractTopLevelSingleMetaParser
  popularity 0.001688
  catchAllAtomType stringAtom
  cue favicon
@@ -7,4 +7,3 @@ faviconParser
   favicon logo.png
   metatags
   buildHtml
- extends abstractTopLevelSingleMetaParser

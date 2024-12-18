@@ -45,7 +45,6 @@ table
   2293 catchAllJavascriptCodeLineParser
   341 catchAllMultilineStringConstantParser
   258 parserDefinitionParser
-  212 extendsParserParser
   184 parserDescriptionParser
   164 javascriptParser
   155 catchAllExampleLineParser
@@ -61,7 +60,6 @@ table
   26 catchAllParserParser
   25 paintParser
   21 inScopeParser
-  21 extendsAtomTypeParser
   12 atomTypeDescriptionParser
   8 patternParser
   7 singleParser

@@ -1,6 +1,5 @@
-helpfulNotFoundParser
+helpfulNotFoundParser abstractScrollWithRequirementsParser
  popularity 0.000048
- extends abstractScrollWithRequirementsParser
  catchAllAtomType filePathAtom
  string copyFromExternal .helpfulNotFound.js
  description Helpful not found widget.

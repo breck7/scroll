@@ -1,6 +1,5 @@
-scrollMusicParser
+scrollMusicParser abstractMediaParser
  popularity 0.000024
- extends abstractMediaParser
  cue music
  description Play sound files.
  example
@@ -10,9 +9,8 @@ scrollMusicParser
     return `<audio controls ${this.getAsHtmlAttributes("loop autoplay".split(" "))}><source src="${this.filename}" type="audio/mpeg"></audio>`
   }
 
-quickSoundParser
+quickSoundParser scrollMusicParser
  popularity 0.000024
- extends scrollMusicParser
  atoms urlAtom
  pattern ^[^\s]+\.(mp3|wav|ogg|aac|m4a|flac)
  int atomIndex 0

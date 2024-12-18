@@ -3,9 +3,8 @@ stumpContentParser
  popularity 0.102322
  catchAllAtomType codeAtom
 
-scrollStumpParser
+scrollStumpParser abstractScrollParser
  cue stump
- extends abstractScrollParser
  description Compile Stump to HTML.
  catchAllParser stumpContentParser
  javascript
@@ -17,10 +16,9 @@ scrollStumpParser
     return this.isNodeJs() ? require("scrollsdk/products/stump.nodejs.js") : stumpParser
   }
 
-stumpNoSnippetParser
+stumpNoSnippetParser scrollStumpParser
  popularity 0.010177
  // todo: make noSnippets an aftertext directive?
- extends scrollStumpParser
  description Compile Stump unless snippet.
  cueFromId
  javascript

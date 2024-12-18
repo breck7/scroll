@@ -1,13 +1,11 @@
-buildJsonParser
+buildJsonParser abstractBuildOneCommandParser
  popularity 0.000096
  description Compile to JSON file.
- extends abstractBuildOneCommandParser
 
-jsonScriptParser
+jsonScriptParser abstractScrollParser
  popularity 0.007524
  cueFromId
  description Include JSON and assign to window.
- extends abstractScrollParser
  atoms cueAtom urlAtom
  javascript
   buildHtml() {

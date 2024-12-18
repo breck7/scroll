@@ -1,7 +1,7 @@
 tileOptionAtom
  enum default light
 
-mapParser
+mapParser abstractTableVisualizationParser
  latParser
   atoms cueAtom floatAtom
   cueFromId
@@ -48,7 +48,6 @@ mapParser
   catchAllAtomType colorAtom
   cueFromId
   single
- extends abstractTableVisualizationParser
  description Map widget.
  string copyFromExternal .leaflet.css .leaflet.js .scrollLibs.js
  string requireOnce

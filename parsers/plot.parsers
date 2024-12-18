@@ -1,22 +1,17 @@
-scrollRadiusParser
+scrollRadiusParser abstractColumnNameParser
  cue radius
- extends abstractColumnNameParser
 
-scrollSymbolParser
+scrollSymbolParser abstractColumnNameParser
  cue symbol
- extends abstractColumnNameParser
 
-scrollFillParser
+scrollFillParser abstractColumnNameParser
  cue fill
- extends abstractColumnNameParser
 
-scrollLabelParser
+scrollLabelParser abstractColumnNameParser
  cue label
- extends abstractColumnNameParser
 
-abstractPlotParser
+abstractPlotParser abstractTableVisualizationParser
  // Observablehq
- extends abstractTableVisualizationParser
  string copyFromExternal .d3.js .plot.js
  string requireOnce
   <script src=".d3.js"></script>
@@ -58,8 +53,7 @@ abstractPlotParser
     }`
   }
 
-scatterplotParser
- extends abstractPlotParser
+scatterplotParser abstractPlotParser
  description Scatterplot Widget.
  // todo: make copyFromExternal work with inheritance
  string copyFromExternal .d3.js .plot.js

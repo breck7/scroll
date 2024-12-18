@@ -1,9 +1,8 @@
 // Contacts: A Microlanguage for Managing Contacts.
 // version 0.1.0
 
-personParser
+personParser abstractIdParser
  cue 👤
- extends abstractIdParser
  description What is their name?
  string measureName name
  atoms stringAtom
@@ -13,11 +12,7 @@ personParser
   email john.doe@example.com
   birthday 2/23/84
   notes Daughter - Samantha.
-phoneParser
- extends abstractStringMeasureParser
-emailParser
- extends abstractStringMeasureParser
-birthdayParser
- extends abstractStringMeasureParser
-notesParser
- extends abstractStringMeasureParser
+phoneParser abstractStringMeasureParser
+emailParser abstractStringMeasureParser
+birthdayParser abstractStringMeasureParser
+notesParser abstractStringMeasureParser

@@ -50,11 +50,9 @@ codeWithHeader planets.scroll
  
  # Measures (aka Header, aka Columns, aka Schema)
  
- idParser
+ idParser abstractIdParser
   // Every concept needs an "id" (or other concept delimiter)
-  extends abstractIdParser
- moonsParser
-  extends abstractIntegerParser
+ moonsParser abstractIntegerParser
  
  # Concepts (aka Rows)
  
@@ -178,41 +176,32 @@ planetMeasures.tsv
 ## Extended Measures Example
 belowAsCodeUntil // end measures
 
-idParser
- extends abstractIdParser
+idParser abstractIdParser
 
-diameterParser
- extends abstractIntegerMeasureParser
+diameterParser abstractIntegerMeasureParser
  description What is the diameter of the planet?
 
-surfaceGravityParser
- extends abstractIntegerMeasureParser
+surfaceGravityParser abstractIntegerMeasureParser
  description What is the surface gravity of the planet?
 
-yearsToOrbitSunParser
- extends abstractFloatMeasureParser
+yearsToOrbitSunParser abstractFloatMeasureParser
  description How many Earth years does it take for the planet to orbit the Sun?
 
-moonsParser
- extends abstractIntegerMeasureParser
+moonsParser abstractIntegerMeasureParser
  description How many moons does the planet have?
  boolean isMeasureRequired true
  float sortIndex 1.1
 
-akaParser
- extends abstractStringMeasureParser
+akaParser abstractStringMeasureParser
  description What are the alternative names for the planet?
 
-ageParser
- extends abstractIntegerMeasureParser
+ageParser abstractIntegerMeasureParser
  description How old is this planet?
 
-hasLifeParser
- extends abstractBooleanMeasureParser
+hasLifeParser abstractBooleanMeasureParser
  description Does this planet have life?
 
-wikipediaParser
- extends abstractUrlMeasureParser
+wikipediaParser abstractUrlMeasureParser
  description URL to the Wikipedia page.
 
 // end measures

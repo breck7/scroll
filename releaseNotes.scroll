@@ -1080,8 +1080,7 @@ Replace: authors $2\n $1 $2
 🏥 blink works for any colors now.
 ⚠️ BREAKING: If you have written your own parsers `keywordAtom` has been replaced by `cueAtom`. You can do a simple find/replace or just add:
 code
- keywordAtom
-  extends cueAtom
+ keywordAtom cueAtom
 
 📦 106.0.1 7/13/2024
 🏥 fix bug where running `scroll build` through passed in SSH command was hanging
@@ -1327,10 +1326,8 @@ sparkline 5 7 27 87 300 17 10 5
 ⚠️ BREAKING: `idParser` and `filenameParser` no longer ship in default grammar. This will allow for useful future dataset features. Instead, add them yourself if you are using Concepts like this:
 
 code
- idParser
-  extends abstractIdParser
- filenameParser
-  extends abstractFilenameParser
+ idParser abstractIdParser
+ filenameParser abstractFilenameParser
 
 📦 89.2.1 5/16/2024
 🏥 fixed required measurements when computeds are involved

@@ -1,5 +1,4 @@
-clocParser
- extends scrollTableParser
+clocParser scrollTableParser
  description Output results of cloc as table.
  cue cloc
  string copyFromExternal .clocLangs.txt

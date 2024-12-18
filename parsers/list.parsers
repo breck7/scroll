@@ -1,6 +1,5 @@
-listAftertextParser
+listAftertextParser abstractIndentableParagraphParser
  popularity 0.014325
- extends abstractIndentableParagraphParser
  example
   - I had a _new_ thought.
  description A list item.
@@ -21,8 +20,7 @@ listAftertextParser
   tag = "li"
   listType = "ul"
 
-abstractCustomListItemParser
- extends listAftertextParser
+abstractCustomListItemParser listAftertextParser
  javascript
   get requireOnce() {
     return `<style>\n.${this.constructor.name} li::marker {content: "${this.cue} ";}\n</style>`
@@ -31,9 +29,8 @@ abstractCustomListItemParser
     return `class="${this.constructor.name}"`
   }
 
-orderedListAftertextParser
+orderedListAftertextParser listAftertextParser
  popularity 0.004485
- extends listAftertextParser
  description A list item.
  example
   1. Hello world

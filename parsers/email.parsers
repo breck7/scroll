@@ -1,14 +1,12 @@
-siteOwnerEmailParser
+siteOwnerEmailParser abstractTopLevelSingleMetaParser
  popularity 0.001302
  description Set email address for site contact.
- extends abstractTopLevelSingleMetaParser
  cue email
  atoms metaCommandAtom emailAddressAtom
 
-emailButtonParser
+emailButtonParser abstractIconButtonParser
  popularity 0.006294
  description Email button.
- extends abstractIconButtonParser
  catchAllAtomType emailAddressAtom
  // todo: should just be "optionalAtomType"
  string style position:relative;

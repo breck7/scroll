@@ -1,7 +1,6 @@
-goodMorningParser
+goodMorningParser abstractScrollParser
  description A test of included custom parsers
  cueFromId
- extends abstractScrollParser
  javascript
   buildHtml() {
     return "Good morning"

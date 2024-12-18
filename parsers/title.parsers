@@ -1,4 +1,4 @@
-scrollTitleParser
+scrollTitleParser abstractTopLevelSingleMetaParser
  popularity 0.007524
  catchAllAtomType stringAtom
  cue title
@@ -6,10 +6,9 @@ scrollTitleParser
  example
   title Eureka
   printTitle
- extends abstractTopLevelSingleMetaParser
  boolean isPopular true
 
-scrollLinkTitleParser
+scrollLinkTitleParser abstractTopLevelSingleMetaParser
  popularity 0.007524
  catchAllAtomType stringAtom
  cue linkTitle
@@ -17,12 +16,10 @@ scrollLinkTitleParser
  example
   title My blog - Eureka
   linkTitle Eureka
- extends abstractTopLevelSingleMetaParser
 
-printTitleParser
+printTitleParser abstractHeaderParser
  popularity 0.007572
  description Print title.
- extends abstractHeaderParser
  boolean isPopular true
  example
   title Eureka

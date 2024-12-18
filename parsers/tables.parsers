@@ -76,26 +76,22 @@ abstractColumnNameParser
    return super.getRunTimeEnumOptions(atom)
   }
 
-scrollXParser
+scrollXParser abstractColumnNameParser
  cue x
- extends abstractColumnNameParser
 
-scrollYParser
+scrollYParser abstractColumnNameParser
  cue y
- extends abstractColumnNameParser
 
-abstractTableVisualizationParser
- extends abstractScrollWithRequirementsParser
+abstractTableVisualizationParser abstractScrollWithRequirementsParser
  boolean isTableVisualization true
  javascript
   get columnNames() {
     return this.parent.columnNames
   }
 
-printColumnParser
+printColumnParser abstractTableVisualizationParser
  popularity 0.000024
  description Print one column
- extends abstractTableVisualizationParser
  example
   printColumn tags
  catchAllAtomType columnNameAtom
@@ -122,11 +118,10 @@ printColumnParser
   }
 
 
-printTableParser
+printTableParser abstractTableVisualizationParser
  popularity 0.001085
  cueFromId
  description Print table.
- extends abstractTableVisualizationParser
  javascript
   get tableHeader() {
    return this.columns.filter(col => !col.isLink).map(column => `<th>${column.name}</th>\n`)
@@ -213,9 +208,8 @@ scrollTableDelimiterParser
     return ""
   }
 
-abstractDatatableProviderParser
+abstractDatatableProviderParser abstractScrollParser
  description A datatable.
- extends abstractScrollParser
  inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser
  javascript
   get visualizations() {
@@ -241,8 +235,7 @@ abstractDatatableProviderParser
     return []
   }
 
-scrollTableParser
- extends abstractDatatableProviderParser
+scrollTableParser abstractDatatableProviderParser
  popularity 0.002133
  cue table
  example
@@ -341,17 +334,15 @@ scrollTableParser
      return  ""
    }
 
-quickTableParser
+quickTableParser scrollTableParser
  popularity 0.000024
- extends scrollTableParser
  atoms urlAtom
  pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)[^\s]*$
  int atomIndex 0
  javascript
   get dependencies() { return [this.cue]}
 
-scrollIrisParser
- extends scrollTableParser
+scrollIrisParser scrollTableParser
  description Iris dataset from R.A. Fisher.
  cue iris
  example
@@ -363,8 +354,7 @@ scrollIrisParser
  javascript
   delimitedData = this.constructor.iris
 
-scrollWhereParser
- extends abstractTableTransformParser
+scrollWhereParser abstractTableTransformParser
  description Filter rows by condition.
  cue where
  atoms cueAtom columnNameAtom comparisonAtom constantAtom
@@ -399,9 +389,8 @@ scrollWhereParser
    return coreTable.filter(filterFn)
   }
 
-scrollSelectParser
+scrollSelectParser abstractTableTransformParser
  catchAllAtomType columnNameAtom
- extends abstractTableTransformParser
  description Drop all columns except these.
  example
   tables
@@ -429,8 +418,7 @@ scrollSelectParser
   }
 
 
-scrollReverseParser
- extends abstractTableTransformParser
+scrollReverseParser abstractTableTransformParser
  description Reverse rows.
  cue reverse
  javascript
@@ -438,8 +426,7 @@ scrollReverseParser
    return this.parent.coreTable.slice().reverse()
   }
 
-scrollComposeParser
- extends abstractTableTransformParser
+scrollComposeParser abstractTableTransformParser
  description Add column using format string.
  catchAllAtomType codeAtom
  cue compose
@@ -467,24 +454,21 @@ scrollComposeParser
   get columnNames() {
     return this.parent.columnNames.concat(this.newColumnName)
   }
-scrollComputeParser
- extends scrollComposeParser
+scrollComputeParser scrollComposeParser
  description Add column by evaling format string.
  cue compute
  javascript
   evaluate(str) {
     return parseFloat(eval(str))
   }
-scrollEvalParser
- extends scrollComputeParser
+scrollEvalParser scrollComputeParser
  description Add column by evaling format string.
  cue eval
  javascript
   evaluate(str) {
     return eval(str)
   }
-scrollRankParser
- extends scrollComposeParser
+scrollRankParser scrollComposeParser
  description Add rank column.
  atoms cueAtom
  string newColumnName rank
@@ -492,8 +476,7 @@ scrollRankParser
  javascript
   evaluate(str, index) { return index + 1 }
 
-scrollLinksParser
- extends abstractTableTransformParser
+scrollLinksParser abstractTableTransformParser
  description Add column with links.
  cue links
  catchAllAtomType columnNameAtom
@@ -523,8 +506,7 @@ scrollLinksParser
     return this.parent.columnNames.filter(name => !linkColumns.includes(name)).concat(this.newColumnName)
   }
 
-scrollLimitParser
- extends abstractTableTransformParser
+scrollLimitParser abstractTableTransformParser
  description Select a subset.
  cue limit
  atoms cueAtom integerAtom integerAtom
@@ -539,8 +521,7 @@ scrollLimitParser
    return this.parent.coreTable.slice(parseInt(start), parseInt(end))
   }
 
-scrollShuffleParser
- extends abstractTableTransformParser
+scrollShuffleParser abstractTableTransformParser
  description Randomly reorder rows.
  cue shuffle
  example
@@ -559,8 +540,7 @@ scrollShuffleParser
    return rows
   }
 
-scrollTransposeParser
- extends abstractTableTransformParser
+scrollTransposeParser abstractTableTransformParser
  description Tranpose table.
  cue transpose
  javascript
@@ -570,8 +550,7 @@ scrollTransposeParser
    return transpose(this.parent.coreTable)
   }
 
-scrollImputeParser
- extends abstractTableTransformParser
+scrollImputeParser abstractTableTransformParser
  description Impute missing values of a columm.
  atoms cueAtom columnNameAtom
  cue impute
@@ -601,8 +580,7 @@ scrollImputeParser
     return this.connectColumnName(this.getAtom(1))
   }
 
-scrollOrderByParser
- extends abstractTableTransformParser
+scrollOrderByParser abstractTableTransformParser
  description Sort rows by column(s).
  catchAllAtomType columnNameAtom
  cue orderBy
@@ -617,11 +595,10 @@ scrollOrderByParser
    return this.root.lodash.orderBy(this.parent.coreTable.slice(), orderBy[0], orderBy[1])
   }
 
-scrollRenameParser
+scrollRenameParser abstractTableTransformParser
  // todo: add support in Parsers for tuple catch alls
   catchAllAtomType columnNameAtom newColumnNameAtom
  catchAllAtomType newColumnNameAtom
- extends abstractTableTransformParser
  description Rename columns.
  example
   tables
@@ -663,9 +640,8 @@ scrollRenameParser
     return this._renamed
   }
 
-tableSearchParser
+tableSearchParser abstractScrollWithRequirementsParser
  popularity 0.000072
- extends abstractScrollWithRequirementsParser
  string copyFromExternal .jquery-3.7.1.min.js .datatables.css .dayjs.min.js .datatables.js .tableSearch.js
  string requireOnce
   <script defer src=".jquery-3.7.1.min.js"></script>
@@ -681,8 +657,7 @@ tableSearchParser
    return ""
   }
 
-scrollSummarizeParser
- extends abstractTableTransformParser
+scrollSummarizeParser abstractTableTransformParser
  description Generate summary statistics for each column.
  cue summarize
  example

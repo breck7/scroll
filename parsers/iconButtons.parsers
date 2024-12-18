@@ -1,5 +1,4 @@
-abstractIconButtonParser
- extends abstractAftertextParser
+abstractIconButtonParser abstractAftertextParser
  cueFromId
  javascript
   buildHtmlSnippet() {

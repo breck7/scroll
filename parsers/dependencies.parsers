@@ -1,5 +1,4 @@
-scrollDependenciesParser
- extends scrollTableParser
+scrollDependenciesParser scrollTableParser
  description Get files this file depends on.
  cue dependencies
  javascript

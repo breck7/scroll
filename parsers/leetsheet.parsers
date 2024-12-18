@@ -1,8 +1,7 @@
-printUsageStatsParser
+printUsageStatsParser abstractScrollParser
  popularity 0.000096
  // todo: if we include the atom "Parser" in a cue, bad things seem to happen.
  description Parser usage stats for folder.
- extends abstractScrollParser
  cueFromId
  javascript
   get stats() {
@@ -32,10 +31,9 @@ printUsageStatsParser
 
 // todo: these should not be parsers in stdlib, but should be made through componsition of more reusable parsers in a dataflow style.
 
-printScrollLeetSheetParser
+printScrollLeetSheetParser abstractScrollParser
  popularity 0.000024
  description Print Scroll parser leet sheet.
- extends abstractScrollParser
  tags experimental
  cueFromId
  javascript
@@ -100,10 +98,9 @@ printScrollLeetSheetParser
     return new Particle(this.root.lodash.sortBy(rows, "isPopular")).asCsv
   }
 
-printparsersLeetSheetParser
+printparsersLeetSheetParser printScrollLeetSheetParser
  popularity 0.000024
  // todo: fix parse bug when atom Parser appears in parserId
- extends printScrollLeetSheetParser
  tags experimental
  description Parsers leetsheet.
  javascript

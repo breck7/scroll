@@ -1,13 +1,10 @@
-tagAtom
- extends permalinkAtom
-tagWithOptionalFolderAtom
+tagAtom permalinkAtom
+tagWithOptionalFolderAtom stringAtom
  description A group name optionally combined with a folder path. Only used when referencing tags, not in posts.
- extends stringAtom
-scrollTagsParser
+scrollTagsParser abstractTopLevelSingleMetaParser
  popularity 0.006801
  cue tags
  description Set tags.
  example
   tags All
- extends abstractTopLevelSingleMetaParser
  catchAllAtomType tagAtom

@@ -1,9 +1,8 @@
 reductionTypeAtom
  enum sum mean max min concat first
  paint keyword
-scrollGroupByParser
+scrollGroupByParser abstractTableTransformParser
  catchAllAtomType columnNameAtom
- extends abstractTableTransformParser
  reduceParser
   description Specify how to aggregate a column when grouping data
   atoms cueAtom columnNameAtom reductionTypeAtom newColumnNameAtom

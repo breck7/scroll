@@ -110,8 +110,7 @@ testParticles.inMemoryFileSystem = async areEqual => {
     "/header.scroll": "settings.scroll",
     "/settings.scroll": "* This should be imported",
     "/pages/about.scroll": `../header.scroll\ntitle About us
-pParser
- extends scrollParagraphParser
+pParser scrollParagraphParser
  cue p
 p A custom parser
 buildHtml`

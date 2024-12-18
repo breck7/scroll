@@ -1,7 +1,6 @@
-debugSourceStackParser
+debugSourceStackParser abstractAftertextParser
  // useful for debugging
  description Print compilation steps.
- extends abstractAftertextParser
  cueFromId
  example
   printOriginalSource
@@ -27,9 +26,8 @@ debugSourceStackParser
    return this.sources.map((pass, index) => `Pass ${index + 1} - ${pass.name}\n========\n${pass.code}`).join("\n\n\n")
   }
 
-debugParsersParser
+debugParsersParser codeParser
  description Print the parsers used.
- extends codeParser
  cueFromId
  javascript
   buildParsers() { return this.code}
@@ -42,9 +40,8 @@ debugParsersParser
     return code
   }
 
-debugBelowParser
+debugBelowParser belowAsCodeParser
  description Inspect particle below.
- extends belowAsCodeParser
  string copyFromExternal .debug.css
  javascript
   get code() {
@@ -64,16 +61,14 @@ debugBelowParser
   }
   buildParsers() {return this.buildTxt()}
 
-debugAboveParser
+debugAboveParser debugBelowParser
  description Inspect particle above.
- extends debugBelowParser
  string bindTo previous
  javascript
   method = "previous"
   reverse = true
 
-debugAllParser
+debugAllParser debugBelowParser
  description Inspect entire document.
- extends debugBelowParser
  javascript
   get selectedParticles() { return this.root.getSubparticles()}

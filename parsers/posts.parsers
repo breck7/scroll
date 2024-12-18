@@ -1,6 +1,5 @@
-abstractPostsParser
+abstractPostsParser abstractDatatableProviderParser
  description Load posts as table.
- extends abstractDatatableProviderParser
  cueFromId
  atoms cueAtom
  catchAllAtomType tagWithOptionalFolderAtom
@@ -38,11 +37,10 @@ abstractPostsParser
   }
   columnNames = "title titleLink text date wordCount minutes".split(" ")
 
-scrollPostsParser
+scrollPostsParser abstractPostsParser
  popularity 0.000024
  cue posts
  description Posts as table.
- extends abstractPostsParser
  example
   // Print a search table:
   posts
@@ -53,11 +51,10 @@ scrollPostsParser
   buildCsv
   buildJson
 
-scrollPostsMetaParser
+scrollPostsMetaParser abstractPostsParser
  popularity 0.000024
  cue postsMeta
  description Post meta as table.
- extends abstractPostsParser
  javascript
   columnNames = ["date", "year", "title", "permalink", "authors", "tags", "wordCount", "minutes"]
   postToRow(file) {

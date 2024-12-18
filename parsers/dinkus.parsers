@@ -1,5 +1,4 @@
-abstractDinkusParser
- extends abstractAftertextParser
+abstractDinkusParser abstractAftertextParser
  boolean isDinkus true
  javascript
   buildHtml() {
@@ -13,33 +12,29 @@ abstractDinkusParser
     return this.content || this.getLine()
   }
 
-horizontalRuleParser
+horizontalRuleParser abstractDinkusParser
  popularity 0.000362
  cue ---
  description A horizontal rule.
- extends abstractDinkusParser
  javascript
   buildHtml() {
    return `<hr>`
   }
 
-scrollDinkusParser
+scrollDinkusParser abstractDinkusParser
  popularity 0.010828
  cue ***
  description A dinkus. Breaks section.
  boolean isPopular true
- extends abstractDinkusParser
  javascript
   dinkus = "*"
 
-customDinkusParser
+customDinkusParser abstractDinkusParser
  cue dinkus
  description A custom dinkus.
- extends abstractDinkusParser
 
-endOfPostDinkusParser
+endOfPostDinkusParser abstractDinkusParser
  popularity 0.005740
- extends abstractDinkusParser
  description End of post dinkus.
  boolean isPopular true
  cue ****

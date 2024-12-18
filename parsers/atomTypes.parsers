@@ -7,17 +7,13 @@ newColumnNameAtom
 constantAtom
  paint constant
 
-percentAtom
+percentAtom stringAtom
  paint constant.numeric.float
- extends stringAtom
  // todo: this currently extends from stringAtom b/c scrollsdk needs to be fixed. seems like if extending from number then the hard coded number typescript regex takes precedence over a custom regex
-countAtom
- extends integerAtom
-yearAtom
- extends integerAtom
+countAtom integerAtom
+yearAtom integerAtom
 
-preBuildCommandAtom
- extends cueAtom
+preBuildCommandAtom cueAtom
  description Give build command atoms their own color.
  paint constant.character.escape
 
@@ -33,8 +29,7 @@ comparisonAtom
  enum < > <= >= = != includes doesNotInclude empty notEmpty startsWith endsWith
  paint constant
 
-personNameAtom
- extends stringAtom
+personNameAtom stringAtom
 
 // Link atom types
 urlAtom
@@ -43,8 +38,7 @@ absoluteUrlAtom
  paint constant.language
  regex (ftp|https?)://.+
 
-emailAddressAtom
- extends stringAtom
+emailAddressAtom stringAtom
  paint constant.language
 
 // File system atom types
@@ -77,11 +71,8 @@ fontFamilyAtom
  enum Arial Helvetica Verdana Georgia Impact Tahoma Slim
  paint constant
 
-javascriptAnyAtom
- extends codeAtom
+javascriptAnyAtom codeAtom
 
-htmlAnyAtom
- extends codeAtom
+htmlAnyAtom codeAtom
 
-colorAtom
- extends codeAtom
+colorAtom codeAtom

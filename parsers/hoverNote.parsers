@@ -2,11 +2,10 @@ lineOfTextParser
  popularity 0.000289
  catchAllAtomType stringAtom
  boolean isTextParser true
-hoverNoteParser
+hoverNoteParser classMarkupParser
  popularity 0.000265
  description Add a caveat viewable on hover on matching text. When you want to be sure you've thoroughly addressed obvious concerns but ones that don't warrant to distract from the main argument of the text.
  cueFromId
- extends classMarkupParser
  catchAllParser lineOfTextParser
  atoms cueAtom
  javascript

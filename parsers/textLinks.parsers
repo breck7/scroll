@@ -1,5 +1,4 @@
-abstractTextLinkParser
- extends abstractAftertextParser
+abstractTextLinkParser abstractAftertextParser
  cueFromId
  javascript
   buildHtmlSnippet() {

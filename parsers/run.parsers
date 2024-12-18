@@ -1,7 +1,6 @@
-runScriptParser
+runScriptParser abstractScrollParser
  popularity 0.000024
  description Run script and dump stdout.
- extends abstractScrollParser
  atoms cueAtom urlAtom
  cue run
  int filenameIndex 1
@@ -39,8 +38,7 @@ runScriptParser
     return this.results.toString().trim()
   }
 
-quickRunScriptParser
- extends runScriptParser
+quickRunScriptParser runScriptParser
  atoms urlAtom
  pattern ^[^\s]+\.(py|pl|sh|rb|php)[^\s]*$
  int filenameIndex 0

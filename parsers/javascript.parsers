@@ -1,7 +1,6 @@
-quickScriptParser
+quickScriptParser abstractQuickIncludeParser
  popularity 0.007524
  description Make a Javascript tag.
- extends abstractQuickIncludeParser
  atoms urlAtom
  pattern ^[^\s]+\.(js)$
  javascript
@@ -9,25 +8,22 @@ quickScriptParser
    return `<script src="${this.filename}"></script>`
   }
 
-scrollInlineJsParser
+scrollInlineJsParser abstractInlineFileParser
  description Inline JS from files.
  popularity 0.007211
- extends abstractInlineFileParser
  cue inlineJs
  javascript
   buildJs() {
     return this.contents
   }
 
-buildJsParser
+buildJsParser abstractBuildTwoCommandParser
  description Compile to JS file.
- extends abstractBuildTwoCommandParser
 
 scriptLineParser
  catchAllAtomType javascriptAnyAtom
  catchAllParser scriptLineParser
-scriptParser
- extends abstractScrollParser
+scriptParser abstractScrollParser
  description Print script tag.
  cueFromId
  catchAllParser scriptLineParser

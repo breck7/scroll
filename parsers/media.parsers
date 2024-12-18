@@ -5,8 +5,7 @@ scrollMediaLoopParser
 scrollAutoplayParser
  cue autoplay
  atoms cueAtom
-abstractMediaParser
- extends scrollParagraphParser
+abstractMediaParser scrollParagraphParser
  inScope scrollMediaLoopParser scrollAutoplayParser
  int atomIndex 1
  javascript

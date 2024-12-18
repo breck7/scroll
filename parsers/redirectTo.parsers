@@ -1,7 +1,6 @@
-redirectToParser
+redirectToParser abstractScrollParser
  popularity 0.000072
  description HTML redirect tag.
- extends abstractScrollParser
  atoms cueAtom urlAtom
  cueFromId
  example

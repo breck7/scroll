@@ -1,7 +1,6 @@
-scrollQuestionParser
+scrollQuestionParser h4Parser
  popularity 0.004244
  description A question.
- extends h4Parser
  cue ?
  example
   ? Why is the sky blue?

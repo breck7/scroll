@@ -1,9 +1,8 @@
 buildHtml
 classicForm
 
-firstNameDefParser
+firstNameDefParser abstractStringMeasureParser
  cue firstName
- extends abstractStringMeasureParser
  description What is your first name?
  float sortIndex 1
  boolean isMeasure true

@@ -1,7 +1,6 @@
-buildHtmlParser
+buildHtmlParser abstractBuildTwoCommandParser
  popularity 0.007645
  description Compile to HTML file.
- extends abstractBuildTwoCommandParser
  boolean isPopular true
  javascript
   async buildTwo(externalFilesCopied) {
@@ -32,10 +31,9 @@ buildHtmlParser
     })
   }
 
-quickIncludeHtmlParser
+quickIncludeHtmlParser abstractQuickIncludeParser
  popularity 0.007524
  description Include an HTML file.
- extends abstractQuickIncludeParser
  atoms urlAtom
  pattern ^[^\s]+\.(html|htm)$
  javascript
@@ -43,8 +41,7 @@ quickIncludeHtmlParser
    return this.root.readFile(this.filename)
   }
 
-abstractHtmlParser
- extends abstractScrollParser
+abstractHtmlParser abstractScrollParser
  catchAllParser htmlLineParser
  catchAllAtomType htmlAnyAtom
  javascript
@@ -55,11 +52,10 @@ abstractHtmlParser
     return ""
   }
 
-scrollBrParser
+scrollBrParser abstractScrollParser
  popularity 0.000096
  cue br
  description A break.
- extends abstractScrollParser
  catchAllAtomType integerAtom
  boolean isHtml true
  javascript
@@ -67,9 +63,8 @@ scrollBrParser
    return `<br>`.repeat(parseInt(this.getAtom(1) || 1))
   }
 
-htmlParser
+htmlParser abstractHtmlParser
  popularity 0.000048
- extends abstractHtmlParser
  description HTML one liners or blocks.
  cueFromId
 
@@ -78,9 +73,8 @@ htmlLineParser
  catchAllAtomType htmlAnyAtom
  catchAllParser htmlLineParser
 
-htmlInlineParser
+htmlInlineParser abstractHtmlParser
  popularity 0.005788
- extends abstractHtmlParser
  atoms htmlAnyAtom
  boolean isHtml true
  pattern ^<

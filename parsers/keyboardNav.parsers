@@ -1,8 +1,7 @@
-scrollLeftRightButtonsParser
+scrollLeftRightButtonsParser abstractScrollParser
  popularity 0.006342
  cue leftRightButtons
  description Previous and next nav buttons.
- extends abstractScrollParser
  javascript
   buildHtmlSnippet() {
    return ""
@@ -14,10 +13,9 @@ scrollLeftRightButtonsParser
     return `<style>${style}</style><a class="keyboardNav doNotPrint" style="left:.5rem;" href="${linkToPrevious}">&lt;</a><a class="keyboardNav doNotPrint" style="right:.5rem;" href="${linkToNext}">&gt;</a>`
   }
 
-keyboardNavParser
+keyboardNavParser abstractScrollParser
  popularity 0.007476
  description Make left and right navigate files.
- extends abstractScrollParser
  cueFromId
  catchAllAtomType urlAtom
  javascript

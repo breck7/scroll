@@ -1,8 +1,7 @@
-printAuthorsParser
+printAuthorsParser abstractPrintMetaParser
  popularity 0.001664
  description Prints author(s) byline.
  boolean isPopular true
- extends abstractPrintMetaParser
  // todo: we need pattern matching added to sdk to support having no params or a url and personNameAtom
  catchAllAtomType stringAtom
  example
@@ -17,11 +16,10 @@ printAuthorsParser
     return this.parent.getParticle("authors")?.buildTxtForPrint()
   }
 
-authorsParser
+authorsParser scrollParagraphParser
  popularity 0.007379
  // multiple authors delimited by " and "
  boolean isPopular true
- extends scrollParagraphParser
  description Set author(s) name(s).
  example
   authors Breck Yunits

@@ -3,7 +3,7 @@ heatrixCatchAllParser
  // todo Fill this out
  catchAllAtomType stringAtom
 
-heatrixParser
+heatrixParser abstractTableVisualizationParser
  cueFromId
  example
   heatrix
@@ -11,7 +11,6 @@ heatrixParser
    4 11 23 37 3 14 12 0 0 0 5 1 2 11 15 10 12 56
  description A heatmap matrix data visualization.
  catchAllParser heatrixCatchAllParser
- extends abstractTableVisualizationParser
  javascript
   buildHtml() {
    // A hacky but simple way to do this for now.
@@ -43,11 +42,10 @@ heatrixParser
     return table
   }
 
-heatrixAdvancedParser
+heatrixAdvancedParser abstractTableVisualizationParser
  popularity 0.000048
  cueFromId
  catchAllParser heatrixCatchAllParser
- extends abstractTableVisualizationParser
  description Advanced heatrix.
  example
   heatrix

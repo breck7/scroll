@@ -1,8 +1,7 @@
-scrollCenterParser
+scrollCenterParser scrollParagraphParser
  popularity 0.006415
  cue center
  description A centered section.
- extends scrollParagraphParser
  example
   center
   This paragraph is centered.

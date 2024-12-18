@@ -1,8 +1,7 @@
-classicFormParser
+classicFormParser abstractAftertextParser
  cue classicForm
  popularity 0.006391
  description Generate input form for ScrollSet.
- extends abstractAftertextParser
  atoms cueAtom
  catchAllAtomType stringAtom
  string script
@@ -70,8 +69,7 @@ classicFormParser
     return ""
   }
 
-scrollFormParser
- extends classicFormParser
+scrollFormParser classicFormParser
  cue scrollForm
  placeholderParser
   atoms cueAtom

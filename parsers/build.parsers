@@ -1,10 +1,8 @@
-buildCommandAtom
- extends cueAtom
+buildCommandAtom cueAtom
  description Give build command atoms their own color.
  paint constant
 
-abstractBuildCommandParser
- extends abstractScrollParser
+abstractBuildCommandParser abstractScrollParser
  cueFromId
  atoms buildCommandAtom
  catchAllAtomType filePathAtom
@@ -40,14 +38,12 @@ abstractBuildCommandParser
     }
   }
 
-abstractBuildOneCommandParser
+abstractBuildOneCommandParser abstractBuildCommandParser
  // buildOne and buildTwo are just a dumb/temporary way to have CSVs/JSONs/TSVs build first. Will be merged at some point.
- extends abstractBuildCommandParser
  javascript
   async buildOne() { await this._buildFileType(this.extension) }
 
-abstractBuildTwoCommandParser
- extends abstractBuildCommandParser
+abstractBuildTwoCommandParser abstractBuildCommandParser
  javascript
   async buildTwo() {
     await this._buildFileType(this.extension)
@@ -57,8 +53,7 @@ scrollFileAddressParser
  catchAllAtomType filePathAtom
  catchAllParser scrollFileAddressParser
 
-abstractInlineFileParser
- extends abstractScrollParser
+abstractInlineFileParser abstractScrollParser
  catchAllAtomType filePathAtom
  catchAllParser scrollFileAddressParser
  string joinChar ;\n\n

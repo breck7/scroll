@@ -1,6 +1,5 @@
-thinColumnsParser
+thinColumnsParser abstractAftertextParser
  popularity 0.003690
- extends abstractAftertextParser
  cueFromId
  catchAllAtomType integerAtom
  description Thin columns.
@@ -21,41 +20,35 @@ thinColumnsParser
     return this.singleColumn ? 1 : parseInt(this.getAtom(1) ?? 10)
   }
 
-wideColumnsParser
+wideColumnsParser thinColumnsParser
  popularity 0.000386
- extends thinColumnsParser
  description Wide columns.
  javascript
   columnWidth = 90
 
-mediumColumnsParser
+mediumColumnsParser thinColumnsParser
  popularity 0.003376
- extends thinColumnsParser
  description Medium width columns.
  javascript
   columnWidth = 65
 
-mediumColumnParser
+mediumColumnParser mediumColumnsParser
  popularity 0.003376
- extends mediumColumnsParser
  description A medium column section.
  boolean singleColumn true
 
-thinColumnParser
+thinColumnParser thinColumnsParser
  popularity 0.003376
- extends thinColumnsParser
  description A thin column section.
  boolean singleColumn true
 
-wideColumnParser
+wideColumnParser wideColumnsParser
  popularity 0.003376
- extends wideColumnsParser
  description A wide column section.
  boolean singleColumn true
 
-endColumnsParser
+endColumnsParser abstractAftertextParser
  popularity 0.007789
- extends abstractAftertextParser
  cueFromId
  description End columns.
  javascript

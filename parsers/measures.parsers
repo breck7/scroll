@@ -1,13 +1,11 @@
-measureNameAtom
- extends cueAtom
+measureNameAtom cueAtom
  // A regex for column names for max compatibility with a broad range of data science tools:
  regex [a-zA-Z][a-zA-Z0-9]*
 
-buildMeasuresParser
+buildMeasuresParser abstractBuildCommandParser
  popularity 0.000024
  cueFromId
  description Write measures to csv+ files.
- extends abstractBuildCommandParser
  sortByParser
   cueFromId
   atoms cueAtom columnNameAtom
@@ -25,14 +23,13 @@ buildMeasuresParser
   }
 
 // The main measure parser. All measures should extend from this.
-abstractMeasureParser
+abstractMeasureParser abstractScrollParser
  atoms measureNameAtom
  cueFromId
  boolean isMeasure true
  float sortIndex 1.9
  boolean isComputed false
  string typeForWebForms text
- extends abstractScrollParser
  javascript
   buildHtmlSnippet() {
    return ""
@@ -48,40 +45,34 @@ abstractMeasureParser
   }
 
 // String Measures
-abstractAtomMeasureParser
+abstractAtomMeasureParser abstractMeasureParser
  description A measure that contains a single atom.
  atoms measureNameAtom atomAtom
- extends abstractMeasureParser
 
-abstractStringMeasureParser
+abstractStringMeasureParser abstractMeasureParser
  catchAllAtomType stringAtom
- extends abstractMeasureParser
 
-abstractTextareaMeasureParser
+abstractTextareaMeasureParser abstractMeasureParser
  string typeForWebForms textarea
- extends abstractMeasureParser
  baseParser blobParser
  javascript
   get measureValue() {
     return this.subparticlesToString().replace(/\n/g, "\\n")
   }
 
-abstractEmailMeasureParser
+abstractEmailMeasureParser abstractAtomMeasureParser
  string typeForWebForms email
  atoms measureNameAtom emailAddressAtom
- extends abstractAtomMeasureParser
 
 // URL Parsers
-abstractUrlMeasureParser
+abstractUrlMeasureParser abstractAtomMeasureParser
  string typeForWebForms url
  atoms measureNameAtom urlAtom
- extends abstractAtomMeasureParser
 
 // Required ID measure which denotes a concept
-abstractIdParser
+abstractIdParser abstractStringMeasureParser
  cue id
  description What is the ID of this concept?
- extends abstractStringMeasureParser
  float sortIndex 1
  boolean isMeasureRequired true
  boolean isConceptDelimiter true
@@ -102,26 +93,22 @@ abstractIdParser
   }
 
 // Numeric Measures
-abstractNumericMeasureParser
+abstractNumericMeasureParser abstractMeasureParser
  string typeForWebForms number
- extends abstractMeasureParser
  javascript
   get measureValue() {
     const {content} = this
     return content === undefined ? "" : parseFloat(content)
   }
 
-abstractIntegerMeasureParser
+abstractIntegerMeasureParser abstractNumericMeasureParser
  atoms measureNameAtom integerAtom
- extends abstractNumericMeasureParser
 
-abstractFloatMeasureParser
+abstractFloatMeasureParser abstractNumericMeasureParser
  atoms measureNameAtom floatAtom
- extends abstractNumericMeasureParser
 
-abstractPercentageMeasureParser
+abstractPercentageMeasureParser abstractNumericMeasureParser
  atoms measureNameAtom percentAtom
- extends abstractNumericMeasureParser
  javascript
   get measureValue() {
     const {content} = this
@@ -129,14 +116,12 @@ abstractPercentageMeasureParser
   }
 
 // Enum Measures
-abstractEnumMeasureParser
+abstractEnumMeasureParser abstractMeasureParser
  atoms measureNameAtom enumAtom
- extends abstractMeasureParser
 
 // Boolean Measures
-abstractBooleanMeasureParser
+abstractBooleanMeasureParser abstractMeasureParser
  atoms measureNameAtom booleanAtom
- extends abstractMeasureParser
  javascript
   get measureValue() {
     const {content} = this

@@ -3,11 +3,10 @@ lineOfCodeParser
  catchAllAtomType codeAtom
  catchAllParser lineOfCodeParser
 
-codeParser
+codeParser abstractScrollParser
  popularity 0.001929
  description A code block.
  catchAllParser lineOfCodeParser
- extends abstractScrollParser
  boolean isPopular true
  example
   code
@@ -24,11 +23,10 @@ codeParser
   }
  cueFromId
 
-codeWithHeaderParser
+codeWithHeaderParser codeParser
  popularity 0.000169
  cueFromId
  catchAllAtomType stringAtom
- extends codeParser
  example
   codeWithHeader math.py
    two = 1 + 1
@@ -40,11 +38,10 @@ codeWithHeaderParser
     return "```" + this.content + "\n" + this.code + "\n```"
   }
 
-codeFromFileParser
+codeFromFileParser codeWithHeaderParser
  popularity 0.000169
  cueFromId
  atoms cueAtom urlAtom
- extends codeWithHeaderParser
  example
   codeFromFile math.py
  javascript
@@ -52,15 +49,13 @@ codeFromFileParser
     return this.root.readSyncFromFileOrUrl(this.content)
   }
 
-codeWithLanguageParser
+codeWithLanguageParser codeParser
  popularity 0.000458
  description Use this to specify the language of the code block, such as csvCode or rustCode.
- extends codeParser
  pattern ^[a-zA-Z0-9_]+Code$
 
-copyButtonsParser
+copyButtonsParser abstractScrollWithRequirementsParser
  popularity 0.001471
- extends abstractScrollWithRequirementsParser
  description Copy code widget.
  javascript
   buildInstance() {

@@ -2,10 +2,9 @@ inlineMarkupNameAtom
  description Options to turn on some inline markups.
  enum bold italics code katex none
 
-inlineMarkupsParser
+inlineMarkupsParser abstractTopLevelSingleMetaParser
  popularity 0.000024
  description Set global inline markups.
- extends abstractTopLevelSingleMetaParser
  cueFromId
  example
   inlineMarkups
@@ -14,14 +13,13 @@ inlineMarkupsParser
    _ u
     // Make _ underline
 
-inlineMarkupsOnParser
+inlineMarkupsOnParser abstractAftertextDirectiveParser
  popularity 0.000024
  cueFromId
  description Enable these inline markups only.
  example
   Hello *world*!
    inlineMarkupsOn bold
- extends abstractAftertextDirectiveParser
  catchAllAtomType inlineMarkupNameAtom
  javascript
   get shouldMatchAll() {
@@ -77,12 +75,11 @@ inlineMarkupsOnParser
    }).filter(i => i)
   }
 
-inlineMarkupParser
+inlineMarkupParser inlineMarkupsOnParser
  popularity 0.000169
  cueFromId
  atoms cueAtom delimiterAtom tagOrUrlAtom
  catchAllAtomType htmlAttributesAtom
- extends inlineMarkupsOnParser
  description Custom inline markup. for
  example
   @This@ will be in italics.

@@ -1,4 +1,3 @@
-counterpointParser
+counterpointParser commentParser
  description Counterpoint comment. Prints nothing.
- extends commentParser
  cue !

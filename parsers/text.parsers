@@ -1,7 +1,6 @@
-buildTxtParser
+buildTxtParser abstractBuildTwoCommandParser
  popularity 0.007596
  description Compile to TXT file.
- extends abstractBuildTwoCommandParser
  boolean isPopular true
 
 plainTextLineParser
@@ -9,10 +8,9 @@ plainTextLineParser
  catchAllAtomType stringAtom
  catchAllParser plainTextLineParser
 
-plainTextParser
+plainTextParser abstractScrollParser
  description Plain text oneliner or block.
  cueFromId
- extends abstractScrollParser
  catchAllParser plainTextLineParser
  catchAllAtomType stringAtom
  javascript
@@ -23,18 +21,16 @@ plainTextParser
     return `${this.content ?? ""}${this.subparticlesToString()}`
   }
 
-plainTextOnlyParser
+plainTextOnlyParser plainTextParser
  popularity 0.000072
- extends plainTextParser
  description Only print for buildTxt.
  javascript
   buildHtml() {
    return ""
   }
 
-printFormatLinksParser
+printFormatLinksParser abstractPrintMetaParser
  description Prints links to other formats.
- extends abstractPrintMetaParser
  example
   printFormatLinks
  javascript

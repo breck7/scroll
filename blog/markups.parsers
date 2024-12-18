@@ -1,8 +1,7 @@
 markupLineParser
  catchAllAtomType anyAtom
  catchAllParser markupLineParser
-abstractMarkupLangParser
- extends abstractScrollParser
+abstractMarkupLangParser abstractScrollParser
  catchAllParser markupLineParser
  javascript
   buildHtml() {
@@ -37,23 +36,20 @@ abstractMarkupLangParser
       return false;
     }
   }
-markdownParser
+markdownParser abstractMarkupLangParser
  description If npm package `marked` is installed globally will compile markdown.
  cueFromId
- extends abstractMarkupLangParser
  javascript
   packageName = "marked"
   importName = "marked"
-textileParser
+textileParser abstractMarkupLangParser
  description If npm package `textile-js` is installed globally will compile textile.
  cueFromId
- extends abstractMarkupLangParser
  javascript
   packageName = "textile-js"
-bbCodeParser
+bbCodeParser abstractMarkupLangParser
  description If npm package `ya-bbcode` is installed globally will compile BBcode.
  cueFromId
- extends abstractMarkupLangParser
  javascript
   packageName = "ya-bbcode"
   buildHtml() {

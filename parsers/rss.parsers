@@ -1,17 +1,14 @@
-buildRssParser
+buildRssParser abstractBuildTwoCommandParser
  popularity 0.000048
  description Write RSS file.
- extends abstractBuildTwoCommandParser
 
-rssFeedUrlParser
+rssFeedUrlParser abstractUrlSettingParser
  popularity 0.008850
  description Set RSS feed URL.
- extends abstractUrlSettingParser
 
-printFeedParser
+printFeedParser abstractPostsParser
  popularity 0.000048
  description Print group to RSS.
- extends abstractPostsParser
  example
   printFeed index
   printFeed cars/index

@@ -1,7 +1,6 @@
 // https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#text
-printSiteMapParser
+printSiteMapParser abstractPostsParser
  popularity 0.000072
- extends abstractPostsParser
  description Print text sitemap.
  example
   baseUrl http://test.com

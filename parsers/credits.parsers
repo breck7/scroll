@@ -1,4 +1,3 @@
-thanksToParser
+thanksToParser abstractCommentParser
  description Acknowledgements comment. Prints nothing.
- extends abstractCommentParser
  cueFromId

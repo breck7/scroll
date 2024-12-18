@@ -1,9 +1,8 @@
-scrollDashboardParser
+scrollDashboardParser abstractScrollParser
  popularity 0.000145
  description Key stats in large font.
  catchAllParser lineOfCodeParser
  cue dashboard
- extends abstractScrollParser
  example
   dashboard
    #2 Popularity

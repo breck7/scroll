@@ -1,5 +1,4 @@
-scrollNoticesParser
- extends abstractAftertextParser
+scrollNoticesParser abstractAftertextParser
  description Display messages in URL query parameters.
  cue notices
  javascript

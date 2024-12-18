@@ -1,11 +1,10 @@
 commentLineParser
  catchAllAtomType commentAtom
 
-abstractCommentParser
+abstractCommentParser abstractScrollParser
  description Prints nothing.
  catchAllAtomType commentAtom
  atoms commentAtom
- extends abstractScrollParser
  baseParser blobParser
  string bindTo next
  javascript
@@ -14,14 +13,12 @@ abstractCommentParser
   }
  catchAllParser commentLineParser
 
-commentParser
+commentParser abstractCommentParser
  popularity 0.000193
- extends abstractCommentParser
  cueFromId
 
-slashCommentParser
+slashCommentParser abstractCommentParser
  popularity 0.005643
- extends abstractCommentParser
  cue //
  boolean isPopular true
  description A comment. Prints nothing.

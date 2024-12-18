@@ -1,7 +1,6 @@
-hamlParser
+hamlParser abstractScrollParser
  popularity 0.007524
  description HTML tag via HAML syntax.
- extends abstractScrollParser
  atoms urlAtom
  catchAllAtomType stringAtom
  pattern ^%?[\w\.]+#[\w\.]+ *
@@ -25,7 +24,6 @@ hamlParser
   buildTxt() {
     return this.content
   }
-hamlTagParser
+hamlTagParser hamlParser
  // Match plain tags like %h1
- extends hamlParser
  pattern ^%[^#]+$

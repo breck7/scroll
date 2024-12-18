@@ -1,8 +1,7 @@
-scrollDefParser
+scrollDefParser abstractScrollParser
  popularity 0.004244
  description Parser short form.
  pattern ^[a-zA-Z0-9_]+Def
- extends abstractScrollParser
  catchAllAtomType stringAtom
  example
   urlDef What is the URL?
@@ -14,15 +13,13 @@ scrollDefParser
     const description = this.content
     const cue = this.cue.replace("Def", "")
     const sortIndex = 1 + index/10
-    return `${cue}DefParser
+    return `${cue}DefParser abstractStringMeasureParser
    cue ${cue}
-   extends abstractStringMeasureParser
    description ${description}
    float sortIndex ${sortIndex}
    ${idStuff}`.trim()
   }
 
-buildParsersParser
+buildParsersParser abstractBuildOneCommandParser
  popularity 0.000096
  description Compile to Parsers file.
- extends abstractBuildOneCommandParser

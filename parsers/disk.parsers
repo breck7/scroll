@@ -1,5 +1,4 @@
-scrollDiskParser
- extends scrollTableParser
+scrollDiskParser scrollTableParser
  description Output file into as table.
  cue disk
  javascript

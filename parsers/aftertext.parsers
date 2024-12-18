@@ -1,9 +1,8 @@
 // Related work:
  CSS is great for text selector ideas: https://www.w3schools.com/cssref/css_selectors.asp
  Roff has a lot of related markup ideas: https://www.systutorials.com/docs/linux/man/7-groff_man/
-abstractAftertextParser
+abstractAftertextParser abstractScrollParser
  description Text followed by markup commands.
- extends abstractScrollParser
  inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser abstractCommentParser
  javascript
   get markupInserts() {
@@ -177,8 +176,7 @@ abstractAftertextDirectiveParser
    return this.tag
   }
 
-abstractMarkupParser
- extends abstractAftertextDirectiveParser
+abstractMarkupParser abstractAftertextDirectiveParser
  inScope abstractMarkupParameterParser
  javascript
   get matchWholeLine() {
@@ -193,12 +191,11 @@ abstractMarkupParameterParser
  atoms cueAtom
  cueFromId
 
-matchAllParser
+matchAllParser abstractMarkupParameterParser
  popularity 0.000024
  description Use this to match all occurrences of the text.
- extends abstractMarkupParameterParser
 
-matchParser
+matchParser abstractMarkupParameterParser
  popularity 0.000048
  catchAllAtomType integerAtom
  description Use this to specify which index(es) to match.
@@ -211,53 +208,46 @@ matchParser
    hello ello ello
    bold ello
     match 0 2
- extends abstractMarkupParameterParser
 
-boldParser
+boldParser abstractMarkupParser
  popularity 0.000096
  cueFromId
  description Bold matching text.
- extends abstractMarkupParser
  javascript
   tag = "b"
 
-italicsParser
+italicsParser abstractMarkupParser
  popularity 0.000241
  cueFromId
  description Italicize matching text.
- extends abstractMarkupParser
  javascript
   tag = "i"
 
-underlineParser
+underlineParser abstractMarkupParser
  popularity 0.000024
  description Underline matching text.
  cueFromId
- extends abstractMarkupParser
  javascript
   tag = "u"
 
-afterTextCenterParser
+afterTextCenterParser abstractMarkupParser
  popularity 0.000193
  description Center paragraph.
  cue center
- extends abstractMarkupParser
  javascript
   tag = "center"
 
-aftertextCodeParser
+aftertextCodeParser abstractMarkupParser
  popularity 0.000145
  description Wrap matching text in code span.
  cue code
- extends abstractMarkupParser
  javascript
   tag = "code"
 
-aftertextStrikeParser
+aftertextStrikeParser abstractMarkupParser
  popularity 0.000048
  description Wrap matching text in s span.
  cue strike
- extends abstractMarkupParser
  javascript
   tag = "s"
 
@@ -267,10 +257,9 @@ abstractHtmlAttributeParser
    return ""
   }
 
-classMarkupParser
+classMarkupParser abstractMarkupParser
  popularity 0.000772
  description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.
- extends abstractMarkupParser
  atoms cueAtom classNameAtom
  cue class
  javascript
@@ -296,8 +285,7 @@ classMarkupParser
    return this.matchWholeLine ? this.parent.content : this.getAtomsFrom(2).join(" ")
   }
 
-classesMarkupParser
- extends classMarkupParser
+classesMarkupParser classMarkupParser
  cue classes
  javascript
   applyToParentElement = true
@@ -305,29 +293,26 @@ classesMarkupParser
    return this.content
   }
 
-aftertextIdParser
+aftertextIdParser abstractAftertextAttributeParser
  popularity 0.000145
  cue id
  description Provide an ID to be output in the generated HTML tag.
- extends abstractAftertextAttributeParser
  atoms cueAtom htmlIdAtom
  single
 
-aftertextStyleParser
+aftertextStyleParser abstractAftertextAttributeParser
  popularity 0.000217
  cue style
  description Set HTML style attribute.
- extends abstractAftertextAttributeParser
  catchAllAtomType cssAnyAtom
  javascript
    htmlAttributes = "" // special case this one
    get css() { return `${this.property}:${this.content};` }
 
-aftertextFontParser
+aftertextFontParser aftertextStyleParser
  popularity 0.000217
  cue font
  description Set font.
- extends aftertextStyleParser
  atoms cueAtom fontFamilyAtom
  catchAllAtomType cssAnyAtom
  string property font-family
@@ -337,24 +322,21 @@ aftertextFontParser
      return super.css
    }
 
-aftertextColorParser
+aftertextColorParser aftertextStyleParser
  popularity 0.000217
  cue color
  description Set font color.
- extends aftertextStyleParser
  catchAllAtomType cssAnyAtom
  string property color
 
-aftertextOnclickParser
+aftertextOnclickParser abstractAftertextAttributeParser
  popularity 0.000217
  cue onclick
  description Set HTML onclick attribute.
- extends abstractAftertextAttributeParser
  catchAllAtomType javascriptAnyAtom
 
-aftertextHiddenParser
+aftertextHiddenParser abstractAftertextAttributeParser
  cue hidden
  atoms cueAtom
  description Do not compile this particle to HTML.
- extends abstractAftertextAttributeParser
  single

@@ -1,8 +1,7 @@
-iframesParser
+iframesParser abstractScrollParser
  popularity 0.000121
  cueFromId
  catchAllAtomType urlAtom
- extends abstractScrollParser
  description An iframe(s).
  example
   iframes frame.html

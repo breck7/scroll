@@ -1,5 +1,4 @@
-abstractVariableParser
- extends abstractScrollParser
+abstractVariableParser abstractScrollParser
  catchAllAtomType stringAtom
  atoms preBuildCommandAtom
  cueFromId
@@ -9,24 +8,21 @@ abstractVariableParser
    return ""
   }
 
-replaceParser
+replaceParser abstractVariableParser
  description Replace this with that.
- extends abstractVariableParser
  baseParser blobParser
  example
   replace YEAR 2022
 
-replaceJsParser
+replaceJsParser replaceParser
  description Replace this with evaled JS.
- extends replaceParser
  catchAllAtomType javascriptAnyAtom
  example
   replaceJs SUM 1+1
   * 1+1 = SUM
 
-replaceNodejsParser
+replaceNodejsParser abstractVariableParser
  description Replace with evaled Node.JS.
- extends abstractVariableParser
  catchAllAtomType javascriptAnyAtom
  baseParser blobParser
  example

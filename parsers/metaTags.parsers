@@ -1,16 +1,13 @@
-canonicalUrlParser
+canonicalUrlParser abstractUrlSettingParser
  description Override canonical URL.
- extends abstractUrlSettingParser
 
-abstractPrintMetaParser
- extends abstractScrollParser
+abstractPrintMetaParser abstractScrollParser
  cueFromId
 
 
-metaTagsParser
+metaTagsParser abstractScrollParser
  popularity 0.007693
  cueFromId
- extends abstractScrollParser
  description Print meta tags including title.
  javascript
   buildHtmlSnippet() {
@@ -44,8 +41,7 @@ metaTagsParser
   <body>`
   }
 
-htmlLangParser
+htmlLangParser abstractTopLevelSingleMetaParser
  atoms metaCommandAtom stringAtom
  // for the <html lang=""> tag. If not specified will be "en". See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
  description Override HTML lang attribute.
- extends abstractTopLevelSingleMetaParser

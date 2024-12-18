@@ -22,9 +22,8 @@ baseParsersAtom
 enumAtom
  paint constant.language
 
-booleanAtom
+booleanAtom enumAtom
  enum true false
- extends enumAtom
 
 atomParserAtom
  enum prefix postfix omnifix
@@ -33,9 +32,8 @@ atomParserAtom
 atomPropertyNameAtom
  paint variable.parameter
 
-atomTypeIdAtom
+atomTypeIdAtom javascriptSafeAlphaNumericIdentifierAtom
  examples integerAtom cueAtom someCustomAtom
- extends javascriptSafeAlphaNumericIdentifierAtom
  enumFromAtomTypes atomTypeIdAtom
  paint storage
 
@@ -67,14 +65,12 @@ fileExtensionAtom
 numberAtom
  paint constant.numeric
 
-floatAtom
- extends numberAtom
+floatAtom numberAtom
  regex \-?[0-9]*\.?[0-9]*
  paint constant.numeric.float
 
-integerAtom
+integerAtom numberAtom
  regex \-?[0-9]+
- extends numberAtom
  paint constant.numeric.integer
 
 cueAtom
@@ -86,11 +82,10 @@ javascriptCodeAtom
 lowercaseAtom
  regex [a-z]+
 
-parserIdAtom
+parserIdAtom javascriptSafeAlphaNumericIdentifierAtom
  examples commentParser addParser
  description This doubles as the class name in Javascript. If this begins with `abstract`, then the parser will be considered an abstract parser, which cannot be used by itself but provides common functionality to parsers that extend it.
  paint variable.parameter
- extends javascriptSafeAlphaNumericIdentifierAtom
  enumFromAtomTypes parserIdAtom
 
 cueAtom
@@ -122,15 +117,14 @@ stringAtom
  paint string
 
 atomAtom
- paint constant
+ paint string
  description A non-empty single atom string.
  regex .+
 
-exampleAnyAtom
+exampleAnyAtom stringAtom
  examples lorem ipsem
  // todo Eventually we want to be able to parse correctly the examples.
  paint comment
- extends stringAtom
 
 blankAtom
 
@@ -147,34 +141,28 @@ abstractCompilerRuleParser
  catchAllAtomType anyAtom
  atoms cueAtom
 
-closeSubparticlesParser
- extends abstractCompilerRuleParser
+closeSubparticlesParser abstractCompilerRuleParser
  description When compiling a parent particle to a string, this string is appended to the compiled and joined subparticles. Default is blank.
  cueFromId
 
-indentCharacterParser
- extends abstractCompilerRuleParser
+indentCharacterParser abstractCompilerRuleParser
  description You can change the indent character for compiled subparticles. Default is a space.
  cueFromId
 
-catchAllAtomDelimiterParser
+catchAllAtomDelimiterParser abstractCompilerRuleParser
  description If a particle has a catchAllAtom, this is the string delimiter that will be used to join those atoms. Default is comma.
- extends abstractCompilerRuleParser
  cueFromId
 
-openSubparticlesParser
- extends abstractCompilerRuleParser
+openSubparticlesParser abstractCompilerRuleParser
  description When compiling a parent particle to a string, this string is prepended to the compiled and joined subparticles. Default is blank.
  cueFromId
 
-stringTemplateParser
- extends abstractCompilerRuleParser
+stringTemplateParser abstractCompilerRuleParser
  description This template string is used to compile this line, and accepts strings of the format: const var = {someAtomId}
  cueFromId
 
-joinSubparticlesWithParser
+joinSubparticlesWithParser abstractCompilerRuleParser
  description When compiling a parent particle to a string, subparticles are compiled to strings and joined by this character. Default is a newline.
- extends abstractCompilerRuleParser
  cueFromId
 
 abstractConstantParser
@@ -184,94 +172,82 @@ abstractConstantParser
  // todo: make tags inherit
  tags actPhase
 
-parsersBooleanParser
+parsersBooleanParser abstractConstantParser
  cue boolean
  atoms cueAtom constantIdentifierAtom
  catchAllAtomType booleanAtom
- extends abstractConstantParser
  tags actPhase
 
-parsersFloatParser
+parsersFloatParser abstractConstantParser
  cue float
  atoms cueAtom constantIdentifierAtom
  catchAllAtomType floatAtom
- extends abstractConstantParser
  tags actPhase
 
-parsersIntParser
+parsersIntParser abstractConstantParser
  cue int
  atoms cueAtom constantIdentifierAtom
  catchAllAtomType integerAtom
  tags actPhase
- extends abstractConstantParser
 
-parsersStringParser
+parsersStringParser abstractConstantParser
  cue string
  atoms cueAtom constantIdentifierAtom
  catchAllAtomType stringAtom
  catchAllParser catchAllMultilineStringConstantParser
- extends abstractConstantParser
  tags actPhase
 
 abstractParserRuleParser
  single
  atoms cueAtom
 
-abstractNonTerminalParserRuleParser
- extends abstractParserRuleParser
+abstractNonTerminalParserRuleParser abstractParserRuleParser
 
-parsersBaseParserParser
+parsersBaseParserParser abstractParserRuleParser
  atoms cueAtom baseParsersAtom
  description Set for blobs or errors. 
  // In rare cases with untyped content you can use a blobParser, for now, to skip parsing for performance gains. The base errorParser will report errors when parsed. Use that if you don't want to implement your own error parser.
- extends abstractParserRuleParser
  cue baseParser
  tags analyzePhase
 
-catchAllAtomTypeParser
+catchAllAtomTypeParser abstractParserRuleParser
  atoms cueAtom atomTypeIdAtom
  description Use for lists.
  // Aka 'listAtomType'. Use this when the value in a key/value pair is a list. If there are extra atoms in the particle's line, parse these atoms as this type. Often used with `listDelimiterParser`.
- extends abstractParserRuleParser
  cueFromId
  tags analyzePhase
 
-atomParserParser
+atomParserParser abstractParserRuleParser
  atoms cueAtom atomParserAtom
  description Set parsing strategy.
  // prefix/postfix/omnifix parsing strategy. If missing, defaults to prefix.
- extends abstractParserRuleParser
  cueFromId
  tags experimental analyzePhase
 
-catchAllParserParser
+catchAllParserParser abstractParserRuleParser
  description Attach this to unmatched lines.
  // If a parser is not found in the inScope list, instantiate this type of particle instead.
  atoms cueAtom parserIdAtom
- extends abstractParserRuleParser
  cueFromId
  tags acquirePhase
 
-parsersAtomsParser
+parsersAtomsParser abstractParserRuleParser
  catchAllAtomType atomTypeIdAtom
  description Set required atomTypes.
- extends abstractParserRuleParser
  cue atoms
  tags analyzePhase
 
-parsersCompilerParser
+parsersCompilerParser abstractParserRuleParser
  // todo Remove this and its subparticles?
  description Deprecated. For simple compilers.
  inScope stringTemplateParser catchAllAtomDelimiterParser openSubparticlesParser closeSubparticlesParser indentCharacterParser joinSubparticlesWithParser
- extends abstractParserRuleParser
  cue compiler
  tags deprecate
  boolean suggestInAutocomplete false
 
-parserDescriptionParser
+parserDescriptionParser abstractParserRuleParser
  description Parser description.
  catchAllAtomType stringAtom
- extends abstractParserRuleParser
  cue description
  tags assemblePhase
 
@@ -281,43 +257,31 @@ atomTypeDescriptionParser
  cue description
  tags assemblePhase
 
-parsersExampleParser
+parsersExampleParser abstractParserRuleParser
  // todo Should this just be a "string" constant on particles?
  description Set example for docs and tests.
  catchAllAtomType exampleAnyAtom
  catchAllParser catchAllExampleLineParser
- extends abstractParserRuleParser
  cue example
  tags assemblePhase
 
-extendsParserParser
- cue extends
- tags assemblePhase
- description Extend another parser.
- // todo: add a catchall that is used for mixins
- atoms cueAtom parserIdAtom
- extends abstractParserRuleParser
-
-parsersPopularityParser
+parsersPopularityParser abstractParserRuleParser
  // todo Remove this parser. Switch to conditional frequencies.
  description Parser popularity.
  atoms cueAtom floatAtom
- extends abstractParserRuleParser
  cue popularity
  tags assemblePhase
 
-inScopeParser
+inScopeParser abstractParserRuleParser
  description Parsers in scope.
  catchAllAtomType parserIdAtom
- extends abstractParserRuleParser
  cueFromId
  tags acquirePhase
 
-parsersJavascriptParser
+parsersJavascriptParser abstractParserRuleParser
  // todo Urgently need to get submode syntax highlighting running! (And eventually LSP)
  description Javascript code for Parser Actions.
  catchAllParser catchAllJavascriptCodeLineParser
- extends abstractParserRuleParser
  tags actPhase
  javascript
   format() {
@@ -336,91 +300,78 @@ parsersJavascriptParser
   }
  cue javascript
 
-abstractParseRuleParser
+abstractParseRuleParser abstractParserRuleParser
  // Each particle should have a pattern that it matches on unless it's a catch all particle.
- extends abstractParserRuleParser
  cueFromId
 
-parsersCueParser
+parsersCueParser abstractParseRuleParser
  atoms cueAtom stringAtom
  description Attach by matching first atom.
- extends abstractParseRuleParser
  tags acquirePhase
  cue cue
 
-cueFromIdParser
+cueFromIdParser abstractParseRuleParser
  atoms cueAtom
  description Derive cue from parserId.
  // for example 'fooParser' would have cue of 'foo'.
- extends abstractParseRuleParser
  tags acquirePhase
 
-parsersPatternParser
+parsersPatternParser abstractParseRuleParser
  catchAllAtomType regexAtom
  description Attach via regex.
- extends abstractParseRuleParser
  tags acquirePhase
  cue pattern
 
-parsersRequiredParser
+parsersRequiredParser abstractParserRuleParser
  description Assert is present at least once.
- extends abstractParserRuleParser
  cue required
  tags analyzePhase
 
-abstractValidationRuleParser
- extends abstractParserRuleParser
+abstractValidationRuleParser abstractParserRuleParser
  cueFromId
  catchAllAtomType booleanAtom
 
-parsersSingleParser
+parsersSingleParser abstractValidationRuleParser
  description Assert used once.
  // Can be overridden by a child class by setting to false.
- extends abstractValidationRuleParser
  tags analyzePhase
  cue single
 
-uniqueLineParser
+uniqueLineParser abstractValidationRuleParser
  description Assert unique lines. For pattern parsers.
  // Can be overridden by a child class by setting to false.
- extends abstractValidationRuleParser
  tags analyzePhase
 
-uniqueCueParser
+uniqueCueParser abstractValidationRuleParser
  description Assert unique first atoms. For pattern parsers.
  // For catch all parsers or pattern particles, use this to indicate the 
- extends abstractValidationRuleParser
  tags analyzePhase
 
-listDelimiterParser
+listDelimiterParser abstractParserRuleParser
  description Split content by this delimiter.
- extends abstractParserRuleParser
  cueFromId
  catchAllAtomType stringAtom
  tags analyzePhase
 
 
-contentKeyParser
+contentKeyParser abstractParserRuleParser
  description Deprecated. For to/from JSON.
  // Advanced keyword to help with isomorphic JSON serialization/deserialization. If present will serialize the particle to an object and set a property with this key and the value set to the particle's content.
- extends abstractParserRuleParser
  cueFromId
  catchAllAtomType stringAtom
  tags deprecate
  boolean suggestInAutocomplete false
-subparticlesKeyParser
+subparticlesKeyParser abstractParserRuleParser
  // todo: deprecate?
  description Deprecated. For to/from JSON.
  // Advanced keyword to help with serialization/deserialization of blobs. If present will serialize the particle to an object and set a property with this key and the value set to the particle's subparticles.
- extends abstractParserRuleParser
  cueFromId
  catchAllAtomType stringAtom
  tags deprecate
  boolean suggestInAutocomplete false
 
-parsersTagsParser
+parsersTagsParser abstractParserRuleParser
  catchAllAtomType stringAtom
- extends abstractParserRuleParser
  description Custom metadata.
  cue tags
  tags assemblePhase
@@ -448,9 +399,10 @@ atomTypeDefinitionParser
  // todo Generate a class for each atom type?
  // todo Allow abstract atom types?
  // todo Change pattern to postfix.
- pattern ^[a-zA-Z0-9_]+Atom$
- inScope parsersPaintParser parsersRegexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser parsersEnumParser slashCommentParser extendsAtomTypeParser parsersExamplesParser atomMinParser atomMaxParser
+ pattern ^[a-zA-Z0-9_]+Atom\b
+ inScope parsersPaintParser parsersRegexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser parsersEnumParser slashCommentParser parsersExamplesParser atomMinParser atomMaxParser
  atoms atomTypeIdAtom
+ catchAllAtomType atomTypeIdAtom
  tags assemblePhase
  javascript
   buildHtml() {return ""}
@@ -500,11 +452,12 @@ parsersPaintParser
 
 parserDefinitionParser
  // todo Add multiple dispatch?
- pattern ^[a-zA-Z0-9_]+Parser$
+ pattern ^[a-zA-Z0-9_]+Parser\b
  description Parser types are a core unit of your language. They translate to 1 class per parser. Examples of parser would be "header", "person", "if", "+", "define", etc.
  catchAllParser catchAllErrorParser
  inScope abstractParserRuleParser abstractConstantParser slashCommentParser parserDefinitionParser
  atoms parserIdAtom
+ catchAllAtomType parserIdAtom
  tags assemblePhase
  javascript
   buildHtml() { return ""}
@@ -526,11 +479,3 @@ reservedAtomsParser
  tags analyzePhase
 
 
-
-extendsAtomTypeParser
- cue extends
- description Extend another atomType.
- // todo Add mixin support in addition to extends?
- atoms cueAtom atomTypeIdAtom
- tags assemblePhase
- single

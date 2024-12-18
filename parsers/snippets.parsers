@@ -1,17 +1,15 @@
-endSnippetParser
+endSnippetParser abstractScrollParser
  popularity 0.004293
  description Cut for snippet here.
- extends abstractScrollParser
  cueFromId
  javascript
   buildHtml() {
    return ""
   }
 
-printSnippetsParser
+printSnippetsParser abstractAftertextParser
  popularity 0.000338
  // todo: why are we extending AT here and not loops? Is it for class/id etc?
- extends abstractAftertextParser
  cueFromId
  atoms cueAtom
  catchAllAtomType tagWithOptionalFolderAtom
@@ -59,9 +57,8 @@ printSnippetsParser
    }).join("\n\n")
   }
 
-printFullSnippetsParser
+printFullSnippetsParser printSnippetsParser
  popularity 0.000048
- extends printSnippetsParser
  cueFromId
  description Print full pages in group(s).
  javascript
@@ -69,9 +66,8 @@ printFullSnippetsParser
    return scrollProgram.buildHtmlSnippet(buildSettings) + scrollProgram.editHtml
   }
 
-printShortSnippetsParser
+printShortSnippetsParser printSnippetsParser
  popularity 0.000048
- extends printSnippetsParser
  cueFromId
  description Titles and descriptions in group(s).
  javascript
@@ -80,10 +76,9 @@ printShortSnippetsParser
    return `<div><a href="${permalink}">${title}</a><div>${description}...</div><div class="subdued" style="text-align:right;">${this.root.dayjs(timestamp * 1000).format(`MMMM D, YYYY`)}</div></div>`
   }
 
-printRelatedParser
+printRelatedParser printSnippetsParser
  popularity 0.001182
  description Print links to related posts.
- extends printSnippetsParser
  cueFromId
  javascript
   buildHtml() {

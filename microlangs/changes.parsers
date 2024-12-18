@@ -1,10 +1,9 @@
 // Changes: A Microlang for Change Logs.
 
-versionParser
+versionParser h1Parser
  cue 📦
  atoms cueAtom semanticVersionAtom dateAtom
  description What is the semantic version number?
- extends h1Parser
  // Todo: mixins in Parsers would make this easier.
  boolean isMeasure true
  boolean isMeasureRequired true
@@ -16,21 +15,16 @@ versionParser
   }
   measureName = "version"
 
-bugFixParser
+bugFixParser abstractCustomListItemParser
  cue 🏥
- extends abstractCustomListItemParser
-newFeatureParser
+newFeatureParser abstractCustomListItemParser
  cue 🎉
- extends abstractCustomListItemParser
-breakingChangeParser
+breakingChangeParser abstractCustomListItemParser
  cue ⚠️
- extends abstractCustomListItemParser
-styleTweakParser
+styleTweakParser abstractCustomListItemParser
  cue 🎨
- extends abstractCustomListItemParser
 
-releaseDateParser
- extends abstractMeasureParser
+releaseDateParser abstractMeasureParser
  boolean isMeasureRequired true
  boolean isComputed true
  float sortIndex 1.1
@@ -39,29 +33,25 @@ releaseDateParser
     return concept.particleAt(0).getAtom(2)
   }
 
-abstractSummaryParser
- extends abstractMeasureParser
+abstractSummaryParser abstractMeasureParser
  boolean isComputed true
  float sortIndex 1.2
 
-bugFixesParser
- extends abstractSummaryParser
+bugFixesParser abstractSummaryParser
  description How many bug fixes in this release?
  javascript
   computeValue(concept) {
     return concept.findParticles("🏥").length
   }
 
-newFeaturesParser
- extends abstractSummaryParser
+newFeaturesParser abstractSummaryParser
  description How many new features in this release?
  javascript
   computeValue(concept) {
     return concept.findParticles("🎉").length
   }
 
-breakingChangesParser
- extends abstractSummaryParser
+breakingChangesParser abstractSummaryParser
  description How many breaking changes in this release?
  javascript
   computeValue(concept) {

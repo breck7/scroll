@@ -3,12 +3,11 @@ quoteLineParser
  catchAllAtomType stringAtom
  catchAllParser quoteLineParser
 
-quoteParser
+quoteParser abstractScrollParser
  popularity 0.001471
  cueFromId
  description A quote.
  catchAllParser quoteLineParser
- extends abstractScrollParser
  javascript
   buildHtml() {
    return `<blockquote class="scrollQuote">${this.subparticlesToString()}</blockquote>`
@@ -17,13 +16,12 @@ quoteParser
     return this.subparticlesToString()
   }
 
-quickQuoteParser
+quickQuoteParser abstractIndentableParagraphParser
  popularity 0.000482
  cue >
  example
   > The only thing we have to fear is fear itself. - FDR
  boolean isPopular true
- extends abstractIndentableParagraphParser
  description A quote.
  javascript
   defaultClassName = "scrollQuote"

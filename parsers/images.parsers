@@ -1,12 +1,10 @@
-captionAftertextParser
+captionAftertextParser scrollParagraphParser
  popularity 0.003207
  description An image caption.
  cue caption
- extends scrollParagraphParser
  boolean isPopular true
 
-abstractCaptionedParser
- extends abstractScrollParser
+abstractCaptionedParser abstractScrollParser
  atoms cueAtom urlAtom
  inScope captionAftertextParser slashCommentParser
  cueFromId
@@ -29,12 +27,11 @@ openGraphParser
  cueFromId
  atoms cueAtom
 
-scrollImageParser
+scrollImageParser abstractCaptionedParser
  cue image
  popularity 0.005908
  description An img tag.
  boolean isPopular true
- extends abstractCaptionedParser
  int atomIndex 1
  example
   image screenshot.png
@@ -88,9 +85,8 @@ scrollImageParser
     return  "[Image Omitted]" + (subparticles ? "\n " + subparticles.replace(/\n/g, "\n ") : "")
   }
 
-quickImageParser
+quickImageParser scrollImageParser
  popularity 0.005788
- extends scrollImageParser
  atoms urlAtom
  pattern ^[^\s]+\.(jpg|jpeg|png|gif|webp|svg|bmp)
  int atomIndex 0

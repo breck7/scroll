@@ -1,6 +1,5 @@
-scrollConceptsParser
+scrollConceptsParser abstractDatatableProviderParser
  description Load concepts as table.
- extends abstractDatatableProviderParser
  cue concepts
  atoms cueAtom
  example
@@ -14,11 +13,10 @@ scrollConceptsParser
     return this.root.measures.map(col => col.Name)
   }
 
-loadConceptsParser
+loadConceptsParser abstractBuildCommandParser
  // todo: clean this up. just add smarter imports with globs?
  // this currently removes any "import" statements.
  description Import all concepts in a folder.
- extends abstractBuildCommandParser
  cueFromId
  atoms preBuildCommandAtom filePathAtom
  javascript
@@ -33,11 +31,10 @@ loadConceptsParser
     return ""
   }
 
-buildConceptsParser
+buildConceptsParser abstractBuildCommandParser
  popularity 0.000024
  cueFromId
  description Write concepts to csv+ files.
- extends abstractBuildCommandParser
  sortByParser
   cueFromId
   atoms cueAtom columnNameAtom

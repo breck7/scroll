@@ -1,5 +1,4 @@
-loremIpsumParser
- extends abstractAftertextParser
+loremIpsumParser abstractAftertextParser
  cueFromId
  description Generate dummy text.
  catchAllAtomType integerAtom
@@ -12,6 +11,5 @@ loremIpsumParser
     return this.getAtom(1) ? parseInt(this.getAtom(1)) : 1
   }
 
-nickelbackIpsumParser
- extends loremIpsumParser
+nickelbackIpsumParser loremIpsumParser
  string placeholder And one day, I’ll be at the door. And lose your wings to fall in love? To the bottom of every bottle. I’m on the ledge of the eighteenth story. Why must the blind always lead the blind?

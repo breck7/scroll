@@ -35,9 +35,8 @@ stampFolderParser
    this.forEach(particle => particle.execute(newPath))
   }
 
-toStampParser
+toStampParser abstractScrollParser
  description Print a directory to stamp.
- extends abstractScrollParser
  catchAllAtomType filePathAtom
  cueFromId
  javascript
@@ -86,9 +85,8 @@ toStampParser
   return stamp.trim();
   }
 
-stampParser
+stampParser abstractScrollParser
  description Expand project template to disk.
- extends abstractScrollParser
  inScope stampFolderParser
  catchAllParser stampFileParser
  example

@@ -1,9 +1,8 @@
-scrollDateParser
+scrollDateParser abstractTopLevelSingleMetaParser
  cue date
  popularity 0.006680
  catchAllAtomType dateAtom
  description Set published date.
- extends abstractTopLevelSingleMetaParser
  boolean isPopular true
  example
   date 1/11/2019
@@ -11,11 +10,10 @@ scrollDateParser
   Hello world
    dateline
 
-datelineParser
+datelineParser abstractAftertextDirectiveParser
  popularity 0.006005
  cueFromId
  description Gives your paragraph a dateline like "December 15, 2021 — The..."
- extends abstractAftertextDirectiveParser
  javascript
   getInserts() {
    const {day} = this
@@ -29,9 +27,8 @@ datelineParser
    return this.root.dayjs(day).format(`MMMM D, YYYY`)
   }
 
-printDateParser
+printDateParser abstractPrintMetaParser
  popularity 0.000434
- extends abstractPrintMetaParser
  // If not present computes the date from the file's ctime.
  description Print published date.
  boolean isPopular true

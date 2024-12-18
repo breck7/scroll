@@ -1,6 +1,5 @@
-scrollVideoParser
+scrollVideoParser abstractMediaParser
  popularity 0.000024
- extends abstractMediaParser
  cue video
  example
   video spirit.mp4
@@ -14,9 +13,8 @@ scrollVideoParser
  javascript
   tag = "video"
 
-quickVideoParser
+quickVideoParser scrollVideoParser
  popularity 0.000024
- extends scrollVideoParser
  atoms urlAtom
  pattern ^[^\s]+\.(mp4|webm|avi|mov)
  int atomIndex 0

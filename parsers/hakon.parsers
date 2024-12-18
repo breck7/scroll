@@ -3,9 +3,8 @@ hakonContentParser
  popularity 0.102322
  catchAllAtomType codeAtom
 
-hakonParser
+hakonParser abstractScrollParser
  cueFromId
- extends abstractScrollParser
  description Compile Hakon to CSS.
  catchAllParser hakonContentParser
  javascript

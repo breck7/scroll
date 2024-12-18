@@ -1,8 +1,7 @@
-belowAsCodeParser
+belowAsCodeParser abstractScrollParser
  popularity 0.000651
  description Print code below.
  string bindTo next
- extends abstractScrollParser
  catchAllAtomType integerAtom
  cueFromId
  javascript
@@ -34,9 +33,8 @@ belowAsCodeParser
    return howMany
   }
 
-belowAsCodeUntilParser
+belowAsCodeUntilParser belowAsCodeParser
  description Print code above until match.
- extends belowAsCodeParser
  catchAllAtomType codeAtom
  example
   belowAsCode
@@ -55,14 +53,13 @@ belowAsCodeUntilParser
     return howMany
   }
 
-aboveAsCodeParser
+aboveAsCodeParser belowAsCodeParser
  popularity 0.000482
  string bindTo previous
  description Print code above.
  example
   counter 1 second
   aboveAsCode
- extends belowAsCodeParser
  javascript
   method = "previous"
   reverse = true

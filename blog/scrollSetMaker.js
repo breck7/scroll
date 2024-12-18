@@ -7,8 +7,7 @@ function convertToScrollset(data, delimiter = "|") {
   // Create parser definitions
   headers.forEach((header, index) => {
     const parserId = header.toLowerCase() + "Parser"
-    scrollset += `${parserId}\n`
-    scrollset += ` extends abstract${capitalizeFirstLetter(getParserType(header))}Parser\n`
+    scrollset += `${parserId} abstract${capitalizeFirstLetter(getParserType(header))}Parser\n`
     scrollset += ` float sortIndex ${1 + (index + 1) / 10}\n\n`
   })
 

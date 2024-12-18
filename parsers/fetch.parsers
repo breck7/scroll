@@ -1,6 +1,5 @@
-fetchParser
+fetchParser abstractBuildCommandParser
  description Download URL to disk.
- extends abstractBuildCommandParser
  cueFromId
  atoms preBuildCommandAtom urlAtom
  example

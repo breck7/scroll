@@ -1,7 +1,6 @@
-dayjsParser
+dayjsParser abstractAftertextDirectiveParser
  description Advanced directive that evals some Javascript code in an environment including "dayjs".
  cueFromId
- extends abstractAftertextDirectiveParser
  javascript
   getInserts() {
    const dayjs = this.root.dayjs

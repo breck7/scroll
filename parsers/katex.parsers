@@ -1,7 +1,6 @@
 // todo: copy the external library to folder so it works offline?
-katexParser
+katexParser abstractScrollWithRequirementsParser
  popularity 0.001592
- extends abstractScrollWithRequirementsParser
  catchAllAtomType codeAtom
  catchAllParser lineOfCodeParser
  example

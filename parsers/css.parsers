@@ -1,19 +1,15 @@
-buildCssParser
+buildCssParser abstractBuildTwoCommandParser
  popularity 0.000048
  description Compile to CSS file.
- extends abstractBuildTwoCommandParser
 
-cssAnyAtom
- extends codeAtom
-cssLengthAtom
- extends codeAtom
+cssAnyAtom codeAtom
+cssLengthAtom codeAtom
 cssLineParser
  popularity 0.002870
  catchAllAtomType cssAnyAtom
  catchAllParser cssLineParser
-cssParser
+cssParser abstractScrollParser
  popularity 0.007211
- extends abstractScrollParser
  description A style tag.
  cueFromId
  catchAllParser cssLineParser
@@ -29,10 +25,9 @@ cssParser
     return this.css
   }
 
-scrollInlineCssParser
+scrollInlineCssParser abstractInlineFileParser
  description Inline CSS from files.
  popularity 0.007211
- extends abstractInlineFileParser
  cue inlineCss
  string joinChar \n\n
  string htmlTag style
@@ -41,10 +36,9 @@ scrollInlineCssParser
     return this.contents
   }
 
-scrollBackgroundColorParser
+scrollBackgroundColorParser abstractScrollParser
  description Quickly set CSS background.
  popularity 0.007211
- extends abstractScrollParser
  cue background
  catchAllAtomType cssAnyAtom
  javascript
@@ -52,10 +46,9 @@ scrollBackgroundColorParser
    return `<style>html, body { background: ${this.content};}</style>`
   }
 
-scrollFontColorParser
+scrollFontColorParser abstractScrollParser
  description Quickly set CSS font-color.
  popularity 0.007211
- extends abstractScrollParser
  cue color
  catchAllAtomType cssAnyAtom
  javascript
@@ -63,10 +56,9 @@ scrollFontColorParser
    return `<style>html, body { color: ${this.content};}</style>`
   }
 
-scrollFontParser
+scrollFontParser abstractScrollParser
  description Quickly set font family.
  popularity 0.007211
- extends abstractScrollParser
  cue font
  atoms cueAtom fontFamilyAtom
  catchAllAtomType cssAnyAtom
@@ -76,10 +68,9 @@ scrollFontParser
    return `<style>html, body, h1,h2,h3 { font-family: ${font};}</style>`
   }
 
-quickCssParser
+quickCssParser abstractQuickIncludeParser
  popularity 0.007524
  description Make a CSS tag.
- extends abstractQuickIncludeParser
  atoms urlAtom
  pattern ^[^\s]+\.(css)$
  javascript

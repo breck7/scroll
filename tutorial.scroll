@@ -200,8 +200,7 @@ You can define your own parsers right in your Scroll documents using `*Parser`.
 Here is a simple example that extends Scroll by making `p` work the same as `*`:
 
 belowAsCode 2
-pParser
- extends scrollParagraphParser
+pParser scrollParagraphParser
  cue p
 p We can then make paragraphs using `p`.
 
@@ -210,8 +209,7 @@ belowAsCode 3
 messageParser
  cueFromId
  catchAllAtomType stringAtom
-hiddenMessageParser
- extends scrollParagraphParser
+hiddenMessageParser scrollParagraphParser
  inScope messageParser
  cueFromId
  javascript

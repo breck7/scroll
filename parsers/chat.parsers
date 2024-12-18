@@ -2,12 +2,11 @@ chatLineParser
  popularity 0.009887
  catchAllAtomType stringAtom
  catchAllParser chatLineParser
-scrollChatParser
+scrollChatParser abstractScrollParser
  popularity 0.000362
  description A faux text chat conversation.
  catchAllParser chatLineParser
  cue chat
- extends abstractScrollParser
  example
   chat
    Hi

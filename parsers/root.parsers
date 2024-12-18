@@ -18,25 +18,22 @@ abstractScrollParser
     return requireOnce + "\n\n"
   }
 
-abstractScrollWithRequirementsParser
- extends abstractScrollParser
+abstractScrollWithRequirementsParser abstractScrollParser
  cueFromId
  javascript
   buildHtml(buildSettings) {
     return this.getHtmlRequirements(buildSettings) + this.buildInstance()
   }
 
-metaCommandAtom
- extends cueAtom
+metaCommandAtom cueAtom
  description Give meta command atoms their own color.
  paint constant.numeric
  // Obviously this is not numeric. But I like the green color for now.
    We need a better design to replace this "paint" concept
    https://github.com/breck7/scrollsdk/issues/186
 
-abstractTopLevelSingleMetaParser
+abstractTopLevelSingleMetaParser abstractScrollParser
  description Use these parsers once per file.
- extends abstractScrollParser
  inScope slashCommentParser
  cueFromId
  atoms metaCommandAtom
@@ -668,8 +665,8 @@ scrollParser
   // todo: clean this up
   const getCueAtoms = rootParserProgram =>
     rootParserProgram
-      .filter(particle => particle.getLine().endsWith("Parser") && !particle.getLine().startsWith("abstract"))
-      .map(particle => particle.get("cue") || particle.getLine())
+      .filter(particle => particle.cue.endsWith("Parser") && !particle.cue.startsWith("abstract"))
+      .map(particle => particle.get("cue") || particle.cue)
       .map(line => line.replace(/Parser$/, ""))
   // Generate a fake program with one of every of the available parsers. Then parse it. Then we can easily access the meta data on the parsers
   const dummyProgram = new parser(
@@ -833,7 +830,6 @@ scrollParser
    // You can add code as well.
    print("Hello world")
 
-abstractUrlSettingParser
- extends abstractTopLevelSingleMetaParser
+abstractUrlSettingParser abstractTopLevelSingleMetaParser
  atoms metaCommandAtom urlAtom
  cueFromId

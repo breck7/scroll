@@ -1,9 +1,7 @@
-buildCsvParser
+buildCsvParser abstractBuildOneCommandParser
  popularity 0.000096
  description Compile to CSV file.
- extends abstractBuildOneCommandParser
 
-buildTsvParser
+buildTsvParser abstractBuildOneCommandParser
  popularity 0.000096
  description Compile to TSV file.
- extends abstractBuildOneCommandParser

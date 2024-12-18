@@ -1,9 +1,8 @@
-scrollContainerParser
+scrollContainerParser abstractAftertextParser
  popularity 0.000096
  cue container
  description A centered HTML div.
  catchAllAtomType cssLengthAtom
- extends abstractAftertextParser
  boolean isHtml true
  javascript
   get maxWidth() {
@@ -21,11 +20,10 @@ scrollContainerParser
   get text() { return ""}
   get closingTag() { return ""}
 
-scrollClearStackParser
+scrollClearStackParser abstractScrollParser
  popularity 0.000096
  cue clearStack
  description Clear body stack.
- extends abstractScrollParser
  boolean isHtml true
  javascript
   buildHtmlSnippet() {

@@ -1,7 +1,6 @@
-catchAllParagraphParser
+catchAllParagraphParser scrollParagraphParser
  popularity 0.115562
  description A paragraph.
- extends scrollParagraphParser
  boolean suggestInAutocomplete false
  boolean isPopular true
  boolean isArticleContent true
@@ -15,6 +14,5 @@ catchAllParagraphParser
    return this.getLine() || ""
   }
 
-testStrictParser
+testStrictParser abstractTopLevelSingleMetaParser
  description Make catchAllParagraphParser = error.
- extends abstractTopLevelSingleMetaParser

@@ -1,5 +1,4 @@
-abstractHeaderParser
- extends scrollParagraphParser
+abstractHeaderParser scrollParagraphParser
  example
   # Hello world
  javascript
@@ -15,46 +14,41 @@ abstractHeaderParser
   }
   isHeader = true
 
-h1Parser
+h1Parser abstractHeaderParser
  popularity 0.017918
  description An html h1 tag.
- extends abstractHeaderParser
  boolean isArticleContent true
  cue #
  boolean isPopular true
  javascript
   tag = "h1"
 
-h2Parser
+h2Parser abstractHeaderParser
  popularity 0.005257
  description An html h2 tag.
- extends abstractHeaderParser
  boolean isArticleContent true
  cue ##
  boolean isPopular true
  javascript
   tag = "h2"
 
-h3Parser
+h3Parser abstractHeaderParser
  popularity 0.001085
  description An html h3 tag.
- extends abstractHeaderParser
  boolean isArticleContent true
  cue ###
  javascript
   tag = "h3"
 
-h4Parser
+h4Parser abstractHeaderParser
  popularity 0.000289
  description An html h4 tag.
- extends abstractHeaderParser
  cue ####
  javascript
   tag = "h4"
 
-h5Parser
+h5Parser abstractHeaderParser
  description An html h5 tag.
- extends abstractHeaderParser
  cue #####
  javascript
   tag = "h5"

@@ -1,6 +1,5 @@
-scrollParagraphParser
+scrollParagraphParser abstractAftertextParser
  // todo Perhaps rewrite this from scratch and move out of aftertext.
- extends abstractAftertextParser
  catchAllAtomType stringAtom
  description A paragraph.
  boolean suggestInAutocomplete false
@@ -21,17 +20,15 @@ scrollParagraphParser
     return (dateline ? dateline.day + "\n\n" : "") + (this.originalText || "") + (subparticles ? "\n " + subparticles.replace(/\n/g, "\n ") : "")
   }
 
-quickParagraphParser
+quickParagraphParser scrollParagraphParser
  popularity 0.001881
  cue *
- extends scrollParagraphParser
  description A paragraph.
  boolean isArticleContent true
  example
   * I had a _new_ idea.
 
-abstractIndentableParagraphParser
- extends scrollParagraphParser
+abstractIndentableParagraphParser scrollParagraphParser
  inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser
  javascript
   compileSubparticles() {

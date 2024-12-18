@@ -1,7 +1,6 @@
-buildPdfParser
+buildPdfParser abstractBuildCommandParser
  popularity 0.000096
  description Compile to PDF file.
- extends abstractBuildCommandParser
  javascript
   async buildTwo() {
     if (!this.isNodeJs()) return "Only works in Node currently."

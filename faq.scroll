@@ -149,8 +149,7 @@ code
   step Enjoy!
 Notice that your post uses the first atom `recipe`, but Scroll does not have a parser for that. No problem, just write a recipe parser yourself using ParsersLinks, extending your dialect of Scroll:
 code
- recipeParser
-  extends abstractScrollParser
+ recipeParser abstractScrollParser
   cue recipe
   javascript
    buildHtml() {
