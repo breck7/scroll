@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 164.5.0 12/19/2024
+🏥 perf fix: reuse same disk cache when doing `scroll list | scroll build`
+
 📦 164.4.0 12/17/2024
 🎉 assertions now can also be one liners
 🎉 `inlineJs` and `inlineCss` can now take filenames as subparticles
