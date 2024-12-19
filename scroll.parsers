@@ -2625,6 +2625,12 @@ abstractPlotParser
  example
   plot
  inScope abstractColumnNameParser
+ widthParser
+  cueFromId
+  atoms cueAtom integerAtom
+ heightParser
+  cueFromId
+  atoms cueAtom integerAtom
  javascript
   buildInstance() {
    const id = "plot" + this._getUid()
@@ -2678,6 +2684,8 @@ abstractPlotParser
       color: {legend: ${this.has("fill")}},
       grid: ${this.get("grid") !== "false"},
       marks: [${this.marks}],
+      width: ${this.get("width") || 640},
+      height: ${this.get("height") || 400},
     }`
   }
 plotScatterplotParser
@@ -5863,7 +5871,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "164.6.0"
+    return "164.7.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

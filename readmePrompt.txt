@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 164.7.0 12/19/2024
+🎉 add width and height parsers to plots
+
 📦 164.6.0 12/19/2024
 🎉 added barchart parser
 🎉 added sort parser to barchart and scatterplot for sorting x axis
