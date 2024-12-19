@@ -2639,6 +2639,28 @@ abstractPlotParser
     }
     </script>`
   }
+  get sortExpression() {
+    const sort = this.get("sort")
+    if (!sort) return ""
+    let sort_expr = ""
+        if (sort.startsWith("-")) {
+          // Sort by a value descending
+          const sortCol = sort.slice(1)
+          sort_expr = `, sort: {x: "y", reverse: true}`
+        } else if (sort.includes(" ")) {
+          // Fixed order specified
+          const order = sort.split(" ")
+          sort_expr = `, sort: {x: (a,b) => {
+            const order = ${JSON.stringify(order)};
+            return order.indexOf(a) - order.indexOf(b)
+          }}`
+        } else if (sort === "asc") {
+          sort_expr = `, sort: {x: "x"}`
+        } else if (sort === "desc") {
+          sort_expr = `, sort: {x: "x", reverse: true}`
+        }
+    return sort_expr
+  }
   get marks() {
     // just for testing purposes
     return `Plot.rectY({length: 10000}, Plot.binX({y: "count"}, {x: d3.randomNormal()}))`
@@ -2658,11 +2680,13 @@ abstractPlotParser
       marks: [${this.marks}],
     }`
   }
-scatterplotParser
+plotScatterplotParser
+ cue scatterplot
  extends abstractPlotParser
  description Scatterplot Widget.
- // todo: make copyFromExternal work with inheritance
- string copyFromExternal .d3.js .plot.js
+ example
+  iris
+   scatterplot
  javascript
   get marks() {
     const x = this.get("x")
@@ -2673,8 +2697,28 @@ scatterplotParser
       y: get("${y}", 1),
       r: get("${this.get("radius")}"),
       fill: get("${this.get("fill")}"),
-      tip: true,
+      tip: true${this.sortExpression},
       symbol: get("${this.get("symbol")}")} ), Plot.text(data, {x: get("${x}",0), y: get("${y}", 1), text: "${text}", dy: -6, lineAnchor: "bottom"})`
+  }
+plotBarchartParser
+ cue barchart
+ extends abstractPlotParser
+ description Bar chart widget.
+ example
+  iris
+   barchart
+ javascript
+  get marks() {
+    const x = this.get("x")
+    const y = this.get("y")
+    const text = this.get("label")
+    const fill = this.get("fill")
+      return `Plot.barY(data, {
+        x: get("${x}", 0),
+        y: get("${y}", 1),
+        fill: get("${fill}"),
+        tip: true${this.sortExpression}
+      }), Plot.ruleY([0])`
   }
 sparklineParser
  popularity 0.000024
@@ -5507,6 +5551,9 @@ scrollFillParser
 scrollLabelParser
  cue label
  extends abstractColumnNameParser
+scrollSortParser
+ cue sort
+ extends abstractColumnNameParser
 scrollXParser
  cue x
  extends abstractColumnNameParser
@@ -5816,7 +5863,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "164.5.0"
+    return "164.6.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

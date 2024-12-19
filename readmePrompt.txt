@@ -88,6 +88,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 164.6.0 12/19/2024
+🎉 added barchart parser
+🎉 added sort parser to barchart and scatterplot for sorting x axis
+🎉 updated Observable plot
+
 📦 164.5.0 12/19/2024
 🏥 perf fix: reuse same disk cache when doing `scroll list | scroll build`
 
