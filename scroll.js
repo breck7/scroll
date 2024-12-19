@@ -83,12 +83,14 @@ footer.scroll`
     return this.log(`\n✅ Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
   }
 
+  sfs = new ScrollFileSystem()
+
   deleteCommand() {
     return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
   }
 
   async getErrorsInFolder(folder) {
-    const fileSystem = new ScrollFileSystem()
+    const fileSystem = this.sfs
     const folderPath = Utils.ensureFolderEndsInSlash(folder)
     const files = await fileSystem.getLoadedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
     const parserErrors = fileSystem.parsers.map(parser => parser.getAllErrors().map(err => err.toObject())).flat()
@@ -131,7 +133,7 @@ footer.scroll`
   }
 
   async formatCommand(cwd) {
-    const fileSystem = new ScrollFileSystem()
+    const fileSystem = this.sfs
     const folder = this.resolvePath(cwd)
     const files = await fileSystem.getLoadedFilesInFolder(folder, ".scroll")
     // .concat(fileSystem.getLoadedFilesInFolder(folder, PARSERS_FILE_EXTENSION)) // todo: should format parser files too.
@@ -145,7 +147,7 @@ footer.scroll`
   }
 
   async buildCommand(cwd) {
-    await this.buildFilesInFolder(new ScrollFileSystem(), this.resolvePath(cwd))
+    await this.buildFilesInFolder(this.sfs, this.resolvePath(cwd))
     return this
   }
 
