@@ -109,6 +109,7 @@ jsonScript - Include JSON and assign to window.
 katex - KaTex widget for typeset math.
 keyboardNav - Make left and right navigate files.
 leftRightButtons - Previous and next nav buttons.
+linechart - Line chart widget.
 linkTitle - Text for links.
 loadConcepts - Import all concepts in a folder.
 loremIpsum - Generate dummy text.
@@ -148,6 +149,7 @@ replaceJs - Replace this with evaled JS.
 replaceNodejs - Replace with evaled Node.JS.
 rssFeedUrl - Set RSS feed URL.
 run - Run script and dump stdout.
+sampleData - Sample dataset from Vega.
 scatterplot - Scatterplot Widget.
 script - Print script tag.
 scrollForm - Generate a Scroll Form.

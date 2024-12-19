@@ -1357,6 +1357,42 @@ stamp
    string newColumnName day
    string dateFormat d
   
+  scrollParseDateParser
+   extends abstractTableTransformParser
+   description Parse dates in a column into standard format.
+   cue parseDate
+   atoms cueAtom columnNameAtom
+   example
+    sampleData stocks.csv
+     parseDate date
+      linechart
+       x date
+       y price
+   javascript
+    get coreTable() {
+     const columnName = this.connectColumnName(this.getAtom(1))
+     const formatOut = this.get("format") || "YYYY-MM-DD"
+     const {dayjs} = this.root
+     return this.parent.coreTable.map(row => {
+       const newRow = {...row}
+       try {
+         const value = row[columnName]
+         if (value) {
+           const date = dayjs(value)
+           if (date.isValid())
+             newRow[columnName] = date.format(formatOut)
+         }
+       } catch (err) {
+         console.error(`Error parsing date in column ${columnName}:`, err)
+       }
+       return newRow
+     })
+    }
+   formatParser
+    description Specify output date format
+    atoms cueAtom stringAtom
+    cueFromId
+    single
  dayjs.parsers
   dayjsParser
    description Advanced directive that evals some Javascript code in an environment including "dayjs".
@@ -4332,6 +4368,10 @@ stamp
    cue fill
    extends abstractColumnNameParser
   
+  scrollStrokeParser
+   cue stroke
+   extends abstractColumnNameParser
+  
   scrollLabelParser
    cue label
    extends abstractColumnNameParser
@@ -4339,6 +4379,11 @@ stamp
   scrollSortParser
    cue sort
    extends abstractColumnNameParser
+  
+  abstractPlotLabelParser
+   cueFromId
+   atoms cueAtom
+   catchAllAtomType stringAtom
   
   abstractPlotParser
    // Observablehq
@@ -4356,6 +4401,12 @@ stamp
    heightParser
     cueFromId
     atoms cueAtom integerAtom
+   titleParser
+    extends abstractPlotLabelParser
+   subtitleParser
+    extends abstractPlotLabelParser
+   captionParser
+    extends abstractPlotLabelParser
    javascript
     buildInstance() {
      const id = "plot" + this._getUid()
@@ -4406,7 +4457,7 @@ stamp
         subtitle: "${this.get("subtitle") || ""}",
         caption: "${this.get("caption") || ""}",
         symbol: {legend: ${this.has("symbol")}},
-        color: {legend: ${this.has("fill")}},
+        color: {legend: ${this.has("fill") || this.has("stroke")}},
         grid: ${this.get("grid") !== "false"},
         marks: [${this.marks}],
         width: ${this.get("width") || 640},
@@ -4454,6 +4505,33 @@ stamp
           fill: get("${fill}"),
           tip: true${this.sortExpression}
         }), Plot.ruleY([0])`
+    }
+  
+  plotLineChartParser
+   cue linechart
+   extends abstractPlotParser
+   description Line chart widget.
+   example
+    iris
+     linechart
+      x SepalLength
+      y SepalWidth
+   javascript
+    get marks() {
+      const x = this.get("x")
+      const y = this.get("y")
+      const stroke = this.get("stroke") || "steelblue"
+      const strokeWidth = this.get("strokeWidth") || 2
+      const strokeLinecap = this.get("strokeLinecap") || "round"
+      const fill = this.get("fill")
+      return `Plot.line(data, {
+        x: get("${x}", 0),
+        y: get("${y}", 1),
+        stroke: "${stroke}",
+        fill: get("${fill}"),
+        strokeWidth: ${strokeWidth},
+        strokeLinecap: "${strokeLinecap}"${this.sortExpression}
+      })`
     }
   
  posts.parsers
@@ -5467,6 +5545,36 @@ stamp
    pattern ^[^\s]+\.(py|pl|sh|rb|php)[^\s]*$
    int filenameIndex 0
   
+ sampleData.parsers
+  scrollIrisParser
+   extends scrollTableParser
+   description Iris dataset from R.A. Fisher.
+   cue iris
+   example
+    iris
+     printTable
+     scatter
+      x SepalLength
+      y SepalWidth
+   javascript
+    delimitedData = this.constructor.iris
+  
+  vegaDataSetAtom
+   paint constant.numeric
+   enum airports.csv anscombe.json barley.json birdstrikes.json budget.json budgets.json burtin.json cars.json climate.json co2-concentration.csv countries.json crimea.json descriptions.json disasters.csv driving.json earthquakes.json flare-dependencies.json flare.json flights-10k.json flights-200k.json flights-20k.json flights-2k.json flights-3m.csv flights-5k.json flights-airport.csv gapminder-health-income.csv gapminder.json github.csv graticule.json income.json iowa-electricity.csv iris.json jobs.json la-riots.csv londonBoroughs.json londonCentroids.json londonTubeLines.json lookup_groups.csv lookup_people.csv miserables.json monarchs.json movies.json normal-2d.json obesity.json points.json population.json population_engineers_hurricanes.csv seattle-temps.csv seattle-weather.csv sf-temps.csv sp500.csv stocks.csv udistrict.json unemployment-across-industries.json unemployment.tsv us-10m.json us-employment.csv us-state-capitals.json weather.csv weather.json weball26.json wheat.json windvectors.csv world-110m.json zipcodes.csv
+  
+  vegaSampleDataParser
+   extends scrollTableParser
+   description Sample dataset from Vega.
+   cue sampleData
+   atoms cueAtom vegaDataSetAtom
+   example
+    sampleData zipcodes.csv
+     printTable
+   javascript
+    get filename() {
+       return "https://ohayo.scroll.pub/ohayo/packages/vega/datasets/" + this.content
+     }
  scrollVersion.parsers
   scrollVersionLinkParser
    popularity 0.006294
@@ -6129,19 +6237,6 @@ stamp
    int atomIndex 0
    javascript
     get dependencies() { return [this.cue]}
-  
-  scrollIrisParser
-   extends scrollTableParser
-   description Iris dataset from R.A. Fisher.
-   cue iris
-   example
-    iris
-     printTable
-     scatter
-      x SepalLength
-      y SepalWidth
-   javascript
-    delimitedData = this.constructor.iris
   
   scrollWhereParser
    extends abstractTableTransformParser

@@ -79,3 +79,40 @@ scrollSplitDayOfWeekParser
  cue splitDay
  string newColumnName day
  string dateFormat d
+
+scrollParseDateParser
+ extends abstractTableTransformParser
+ description Parse dates in a column into standard format.
+ cue parseDate
+ atoms cueAtom columnNameAtom
+ example
+  sampleData stocks.csv
+   parseDate date
+    linechart
+     x date
+     y price
+ javascript
+  get coreTable() {
+   const columnName = this.connectColumnName(this.getAtom(1))
+   const formatOut = this.get("format") || "YYYY-MM-DD"
+   const {dayjs} = this.root
+   return this.parent.coreTable.map(row => {
+     const newRow = {...row}
+     try {
+       const value = row[columnName]
+       if (value) {
+         const date = dayjs(value)
+         if (date.isValid())
+           newRow[columnName] = date.format(formatOut)
+       }
+     } catch (err) {
+       console.error(`Error parsing date in column ${columnName}:`, err)
+     }
+     return newRow
+   })
+  }
+ formatParser
+  description Specify output date format
+  atoms cueAtom stringAtom
+  cueFromId
+  single

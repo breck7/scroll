@@ -1,0 +1,29 @@
+scrollIrisParser
+ extends scrollTableParser
+ description Iris dataset from R.A. Fisher.
+ cue iris
+ example
+  iris
+   printTable
+   scatter
+    x SepalLength
+    y SepalWidth
+ javascript
+  delimitedData = this.constructor.iris
+
+vegaDataSetAtom
+ paint constant.numeric
+ enum airports.csv anscombe.json barley.json birdstrikes.json budget.json budgets.json burtin.json cars.json climate.json co2-concentration.csv countries.json crimea.json descriptions.json disasters.csv driving.json earthquakes.json flare-dependencies.json flare.json flights-10k.json flights-200k.json flights-20k.json flights-2k.json flights-3m.csv flights-5k.json flights-airport.csv gapminder-health-income.csv gapminder.json github.csv graticule.json income.json iowa-electricity.csv iris.json jobs.json la-riots.csv londonBoroughs.json londonCentroids.json londonTubeLines.json lookup_groups.csv lookup_people.csv miserables.json monarchs.json movies.json normal-2d.json obesity.json points.json population.json population_engineers_hurricanes.csv seattle-temps.csv seattle-weather.csv sf-temps.csv sp500.csv stocks.csv udistrict.json unemployment-across-industries.json unemployment.tsv us-10m.json us-employment.csv us-state-capitals.json weather.csv weather.json weball26.json wheat.json windvectors.csv world-110m.json zipcodes.csv
+
+vegaSampleDataParser
+ extends scrollTableParser
+ description Sample dataset from Vega.
+ cue sampleData
+ atoms cueAtom vegaDataSetAtom
+ example
+  sampleData zipcodes.csv
+   printTable
+ javascript
+  get filename() {
+     return "https://ohayo.scroll.pub/ohayo/packages/vega/datasets/" + this.content
+   }
