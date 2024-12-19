@@ -22,8 +22,14 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 164.8.0 12/19/2024
+🎉 added title, subtitle and caption parsers to plots
+🎉 added linechart parser
+🎉 added parseDate parser
+🎉 added sampleData parser
+
 📦 164.7.0 12/19/2024
-🎉 add width and height parsers to plots
+🎉 added width and height parsers to plots
 
 📦 164.6.0 12/19/2024
 🎉 added barchart parser

@@ -350,19 +350,6 @@ quickTableParser
  javascript
   get dependencies() { return [this.cue]}
 
-scrollIrisParser
- extends scrollTableParser
- description Iris dataset from R.A. Fisher.
- cue iris
- example
-  iris
-   printTable
-   scatter
-    x SepalLength
-    y SepalWidth
- javascript
-  delimitedData = this.constructor.iris
-
 scrollWhereParser
  extends abstractTableTransformParser
  description Filter rows by condition.

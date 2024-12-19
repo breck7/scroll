@@ -10,6 +10,10 @@ scrollFillParser
  cue fill
  extends abstractColumnNameParser
 
+scrollStrokeParser
+ cue stroke
+ extends abstractColumnNameParser
+
 scrollLabelParser
  cue label
  extends abstractColumnNameParser
@@ -17,6 +21,11 @@ scrollLabelParser
 scrollSortParser
  cue sort
  extends abstractColumnNameParser
+
+abstractPlotLabelParser
+ cueFromId
+ atoms cueAtom
+ catchAllAtomType stringAtom
 
 abstractPlotParser
  // Observablehq
@@ -34,6 +43,12 @@ abstractPlotParser
  heightParser
   cueFromId
   atoms cueAtom integerAtom
+ titleParser
+  extends abstractPlotLabelParser
+ subtitleParser
+  extends abstractPlotLabelParser
+ captionParser
+  extends abstractPlotLabelParser
  javascript
   buildInstance() {
    const id = "plot" + this._getUid()
@@ -84,7 +99,7 @@ abstractPlotParser
       subtitle: "${this.get("subtitle") || ""}",
       caption: "${this.get("caption") || ""}",
       symbol: {legend: ${this.has("symbol")}},
-      color: {legend: ${this.has("fill")}},
+      color: {legend: ${this.has("fill") || this.has("stroke")}},
       grid: ${this.get("grid") !== "false"},
       marks: [${this.marks}],
       width: ${this.get("width") || 640},
@@ -132,4 +147,31 @@ plotBarchartParser
         fill: get("${fill}"),
         tip: true${this.sortExpression}
       }), Plot.ruleY([0])`
+  }
+
+plotLineChartParser
+ cue linechart
+ extends abstractPlotParser
+ description Line chart widget.
+ example
+  iris
+   linechart
+    x SepalLength
+    y SepalWidth
+ javascript
+  get marks() {
+    const x = this.get("x")
+    const y = this.get("y")
+    const stroke = this.get("stroke") || "steelblue"
+    const strokeWidth = this.get("strokeWidth") || 2
+    const strokeLinecap = this.get("strokeLinecap") || "round"
+    const fill = this.get("fill")
+    return `Plot.line(data, {
+      x: get("${x}", 0),
+      y: get("${y}", 1),
+      stroke: "${stroke}",
+      fill: get("${fill}"),
+      strokeWidth: ${strokeWidth},
+      strokeLinecap: "${strokeLinecap}"${this.sortExpression}
+    })`
   }
