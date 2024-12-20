@@ -23,7 +23,7 @@ abstractBuildCommandParser
   get outputFileNames() {
     return this.content?.split(" ") || [this.root.permalink.replace(".html", "." + this.extension.toLowerCase())]
   }
-  async _buildFileType(extension) {
+  async _buildFileType(extension, options) {
     const {root} = this
     const { fileSystem, folderPath, filename, filePath, path, lodash } = root
     const capitalized = lodash.capitalize(extension)
@@ -44,13 +44,13 @@ abstractBuildOneCommandParser
  // buildOne and buildTwo are just a dumb/temporary way to have CSVs/JSONs/TSVs build first. Will be merged at some point.
  extends abstractBuildCommandParser
  javascript
-  async buildOne() { await this._buildFileType(this.extension) }
+  async buildOne(options) { await this._buildFileType(this.extension, options) }
 
 abstractBuildTwoCommandParser
  extends abstractBuildCommandParser
  javascript
-  async buildTwo() {
-    await this._buildFileType(this.extension)
+  async buildTwo(options) {
+    await this._buildFileType(this.extension, options)
   }
 
 scrollFileAddressParser

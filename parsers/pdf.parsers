@@ -3,7 +3,7 @@ buildPdfParser
  description Compile to PDF file.
  extends abstractBuildCommandParser
  javascript
-  async buildTwo() {
+  async buildTwo(options) {
     if (!this.isNodeJs()) return "Only works in Node currently."
     const {root} = this
     const { filename } = root

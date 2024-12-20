@@ -151,21 +151,21 @@ footer.scroll`
     return this
   }
 
-  async buildFiles(fileSystem, files, folder) {
+  async buildFiles(fileSystem, files, folder, options = {}) {
     const start = Date.now()
     // Run the build loop twice. The first time we build ScrollSets, in case some of the HTML files
     // will depend on csv/tsv/json/etc
     const toBuild = files.filter(file => !file.importOnly)
-    const externalFilesCopied = {}
+    options.externalFilesCopied = {}
     for (const file of toBuild) {
       file.scrollProgram.logger = this
       await file.scrollProgram.load()
     }
     for (const file of toBuild) {
-      await file.scrollProgram.buildOne()
+      await file.scrollProgram.buildOne(options)
     }
     for (const file of toBuild) {
-      await file.scrollProgram.buildTwo(externalFilesCopied)
+      await file.scrollProgram.buildTwo(options)
     }
     const seconds = (Date.now() - start) / 1000
     this.log(``)

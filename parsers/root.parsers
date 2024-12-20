@@ -557,22 +557,22 @@ scrollParser
     return parser.parsersRequiringExternals
   }
   get Disk() { return this.isNodeJs() ? require("scrollsdk/products/Disk.node.js").Disk : {}}
-  async buildAll() {
+  async buildAll(options = {}) {
     await this.load()
-    await this.buildOne()
-    await this.buildTwo()
+    await this.buildOne(options)
+    await this.buildTwo(options)
   }
-  async buildOne() {
+  async buildOne(options) {
     await this.execute()
     const toBuild = this.filter(particle => particle.buildOne)
     for (let particle of toBuild) {
-      await particle.buildOne()
+      await particle.buildOne(options)
     }
   }
-  async buildTwo(externalFilesCopied = {}) {
+  async buildTwo(options) {
     const toBuild = this.filter(particle => particle.buildTwo)
     for (let particle of toBuild) {
-      await particle.buildTwo(externalFilesCopied)
+      await particle.buildTwo(options)
     }
   }
   get outputFileNames() {
