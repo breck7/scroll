@@ -623,7 +623,7 @@ stamp
     get outputFileNames() {
       return this.content?.split(" ") || [this.root.permalink.replace(".html", "." + this.extension.toLowerCase())]
     }
-    async _buildFileType(extension) {
+    async _buildFileType(extension, options) {
       const {root} = this
       const { fileSystem, folderPath, filename, filePath, path, lodash } = root
       const capitalized = lodash.capitalize(extension)
@@ -644,13 +644,13 @@ stamp
    // buildOne and buildTwo are just a dumb/temporary way to have CSVs/JSONs/TSVs build first. Will be merged at some point.
    extends abstractBuildCommandParser
    javascript
-    async buildOne() { await this._buildFileType(this.extension) }
+    async buildOne(options) { await this._buildFileType(this.extension, options) }
   
   abstractBuildTwoCommandParser
    extends abstractBuildCommandParser
    javascript
-    async buildTwo() {
-      await this._buildFileType(this.extension)
+    async buildTwo(options) {
+      await this._buildFileType(this.extension, options)
     }
   
   scrollFileAddressParser
@@ -2485,13 +2485,14 @@ stamp
    extends abstractBuildTwoCommandParser
    boolean isPopular true
    javascript
-    async buildTwo(externalFilesCopied) {
-      await this._copyExternalFiles(externalFilesCopied)
-      await super.buildTwo()
+    async buildTwo(options) {
+      await this._copyExternalFiles(options)
+      await super.buildTwo(options)
     }
-    async _copyExternalFiles(externalFilesCopied = {}) {
+    async _copyExternalFiles(options) {
       if (!this.isNodeJs()) return
       const {root} = this
+      const externalFilesCopied = options.externalFilesCopied || {}
       // If this file uses a parser that has external requirements,
       // copy those from external folder into the destination folder.
       const { parsersRequiringExternals, folderPath, fileSystem, filename, parserIdIndex, path, Disk, externalsPath } = root
@@ -4329,7 +4330,7 @@ stamp
    description Compile to PDF file.
    extends abstractBuildCommandParser
    javascript
-    async buildTwo() {
+    async buildTwo(options) {
       if (!this.isNodeJs()) return "Only works in Node currently."
       const {root} = this
       const { filename } = root
@@ -5193,22 +5194,22 @@ stamp
       return parser.parsersRequiringExternals
     }
     get Disk() { return this.isNodeJs() ? require("scrollsdk/products/Disk.node.js").Disk : {}}
-    async buildAll() {
+    async buildAll(options = {}) {
       await this.load()
-      await this.buildOne()
-      await this.buildTwo()
+      await this.buildOne(options)
+      await this.buildTwo(options)
     }
-    async buildOne() {
+    async buildOne(options) {
       await this.execute()
       const toBuild = this.filter(particle => particle.buildOne)
       for (let particle of toBuild) {
-        await particle.buildOne()
+        await particle.buildOne(options)
       }
     }
-    async buildTwo(externalFilesCopied = {}) {
+    async buildTwo(options) {
       const toBuild = this.filter(particle => particle.buildTwo)
       for (let particle of toBuild) {
-        await particle.buildTwo(externalFilesCopied)
+        await particle.buildTwo(options)
       }
     }
     get outputFileNames() {
