@@ -20,7 +20,7 @@ Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of 
 ##### - An html h5 tag.
 > - A quote.
 aboveAsCode - Print code above.
-aboveAsHtml - displays html output of previous particle in a code block
+aboveAsHtml - Displays html output of previous particle in a code block.
 assertBuildIncludes - Test above particle's output.
 assertHtmlEquals - Test above particle's output.
 assertHtmlExcludes - Test above particle's output.
@@ -32,7 +32,7 @@ barchart - Bar chart widget.
 baseUrl - Required for RSS and OpenGraph.
 belowAsCode - Print code below.
 belowAsCodeUntil - Print code above until match.
-belowAsHtml - displays html output of next particle in a code block
+belowAsHtml - Displays html output of next particle in a code block.
 blankLineParser - Print nothing. Break section.
 blink - Just for fun.
 br - A break.

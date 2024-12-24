@@ -88,6 +88,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 164.9.0 12/24/2024
+🎉 added `belowAsHtml` and `aboveAsHtml` from btheado
+ https://github.com/btheado btheado
+
 📦 164.8.0 12/19/2024
 🎉 added title, subtitle and caption parsers to plots
 🎉 added linechart parser

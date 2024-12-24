@@ -2,15 +2,6 @@
   {
     "date": "12/24/2024",
     "year": 2024,
-    "title": "Search the Official Scroll Blog",
-    "permalink": "search.html",
-    "tags": "",
-    "wordCount": 9162,
-    "minutes": 45.8
-  },
-  {
-    "date": "12/24/2024",
-    "year": 2024,
     "title": "Settings",
     "permalink": "settings.html",
     "tags": "",
@@ -29,17 +20,17 @@
   {
     "date": "12/24/2024",
     "year": 2024,
-    "title": "The Official Scroll Blog",
-    "permalink": "index.html",
+    "title": "Search the Official Scroll Blog",
+    "permalink": "search.html",
     "tags": "",
-    "wordCount": 301,
-    "minutes": 1.5
+    "wordCount": 9162,
+    "minutes": 45.8
   },
   {
     "date": "12/24/2024",
     "year": 2024,
     "title": "The Official Scroll Blog",
-    "permalink": "full.html",
+    "permalink": "index.html",
     "tags": "",
     "wordCount": 301,
     "minutes": 1.5
@@ -51,6 +42,15 @@
     "permalink": "feed.html",
     "tags": "",
     "wordCount": 291,
+    "minutes": 1.5
+  },
+  {
+    "date": "12/24/2024",
+    "year": 2024,
+    "title": "The Official Scroll Blog",
+    "permalink": "full.html",
+    "tags": "",
+    "wordCount": 301,
     "minutes": 1.5
   },
   {

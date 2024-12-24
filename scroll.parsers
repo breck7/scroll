@@ -3243,15 +3243,14 @@ aboveAsCodeParser
   reverse = true
 belowAsHtmlParser
  extends belowAsCodeParser
- description displays html output of next particle in a code block
+ description Displays html output of next particle in a code block.
  cueFromId
  javascript
   get code() {
    return this.selectedParticles.filter(p => p.buildHtml).map(p => p.buildHtml()).join("\n")
   }
 aboveAsHtmlParser
- description displays html output of previous particle in a code block
- cueFromId
+ description Displays html output of previous particle in a code block.
  extends belowAsHtmlParser
  javascript
   method = "previous"
