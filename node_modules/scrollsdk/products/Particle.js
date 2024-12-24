@@ -868,6 +868,15 @@ class Particle extends AbstractParticle {
   subparticlesToString(indentCount = 0) {
     return this._subparticlesToString(indentCount)
   }
+  get murmurHash() {
+    const str = this.toString()
+    let h1 = 0xdeadbeef
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i)
+      h1 = Math.imul(h1 ^ char, 0x5bd1e995)
+    }
+    return (h1 >>> 0).toString(16)
+  }
   // todo: implement
   _getChildJoinCharacter() {
     return "\n"
@@ -2603,7 +2612,7 @@ Particle.iris = `sepal_length,sepal_width,petal_length,petal_width,species
 4.9,2.5,4.5,1.7,virginica
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`
-Particle.getVersion = () => "100.1.1"
+Particle.getVersion = () => "100.2.0"
 class AbstractExtendibleParticle extends Particle {
   _getFromExtended(cuePath) {
     const hit = this._getParticleFromExtended(cuePath)
