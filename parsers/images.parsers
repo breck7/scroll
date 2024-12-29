@@ -39,7 +39,7 @@ scrollImageParser
  example
   image screenshot.png
    caption A caption.
- inScope classMarkupParser aftertextIdParser linkParser linkTargetParser openGraphParser
+ inScope classMarkupParser aftertextIdParser scrollLinkParser linkTargetParser openGraphParser
  javascript
   get dimensions() {
     const width = this.get("width")
@@ -79,7 +79,7 @@ scrollImageParser
    // Todo: can we reuse more code from aftertext?
    const className = this.has("class") ? ` class="${this.get("class")}" ` : ""
    const id = this.has("id") ? ` id="${this.get("id")}" ` : ""
-   const clickLink = this.find(particle => particle.definition.isOrExtendsAParserInScope(["linkParser"])) || linkRelativeToCompileTarget 
+   const clickLink = this.find(particle => particle.definition.isOrExtendsAParserInScope(["scrollLinkParser"])) || linkRelativeToCompileTarget 
    const target = this.has("target") ? this.get("target") : (this.has("link") ? "" : "_blank")
    return `<a href="${clickLink}" target="${target}" ${className} ${id}><img src="${linkRelativeToCompileTarget}" ${dimensionAttributes}loading="lazy"></a>`
   }

@@ -1,0 +1,22 @@
+buildHtml
+
+theme dark
+
+Open modal.
+ link #m1 modal
+
+modal
+ id m1
+# This should be in a modal
+
+
+Open modal 2.
+ link #m2 modal
+
+loremIpsum 20
+
+modal
+ id m2
+# This is modal 2.
+loremIpsum 2
+

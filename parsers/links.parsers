@@ -26,7 +26,7 @@ programLinkParser
  popularity 0.000531
  catchAllAtomType codeAtom
 
-linkParser
+scrollLinkParser
  popularity 0.008706
  extends abstractMarkupParser
  description Put the matching text in an <a> tag.
@@ -41,7 +41,7 @@ linkParser
    get encoded() {
     return encodeURIComponent(this.subparticlesToString())
    }
- cueFromId
+ cue link
  javascript
   tag = "a"
   buildTxt() {
@@ -60,8 +60,11 @@ linkParser
    const relativePath = this.parent.buildSettings?.relativePath || ""
    return relativePath + link
   }
+  get linkAttribute() {
+    return "href"
+  }
   get attributes() {
-   const attrs = [`href="${this.link}"`]
+   const attrs = [`${this.linkAttribute}="${this.link}"`]
    const options = ["title", "target"]
    options.forEach(option => {
     const particle = this.getParticle(option)
@@ -71,11 +74,20 @@ linkParser
   }
   patternStartsAtAtom = 2
 
+scrollClickParser
+ extends scrollLinkParser
+ description An a tag with an onclick.
+ cue click
+ javascript
+  get linkAttribute() {
+    return "onclick"
+  }
+
 emailLinkParser
  popularity 0.000048
  description A mailto link
  cue email
- extends linkParser
+ extends scrollLinkParser
  javascript
   get attributes() {
    return [`href="mailto:${this.link}"`]
@@ -84,7 +96,7 @@ emailLinkParser
 quickLinkParser
  popularity 0.029228
  pattern ^https?\:
- extends linkParser
+ extends scrollLinkParser
  atoms urlAtom
  javascript
   get link() {
@@ -97,7 +109,7 @@ quickRelativeLinkParser
  description Relative links.
  // note: only works if relative link ends in .html
  pattern ^[^\s]+\.(html|htm)
- extends linkParser
+ extends scrollLinkParser
  atoms urlAtom
  javascript
   get link() {
