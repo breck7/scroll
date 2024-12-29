@@ -1930,7 +1930,7 @@ scrollChatParser
 abstractDatatableProviderParser
  description A datatable.
  extends abstractScrollParser
- inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser
+ inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser
  javascript
   get visualizations() {
     return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)
@@ -4712,7 +4712,7 @@ cssLineParser
  catchAllParser cssLineParser
 abstractTableTransformParser
  atoms cueAtom
- inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser
+ inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser
  javascript
   get coreTable() {
     return this.parent.coreTable
@@ -4974,12 +4974,13 @@ scrollGroupByParser
          colsToReduce.forEach((col) => {
            const sourceColName = col.source
            const reduction = col.reduction
+           const newColName = col.name
            if (reduction === "concat") {
-              newRow[col.name] = group.map((row) => row[sourceColName]).join(" ")
+              newRow[newColName] = group.map((row) => row[sourceColName]).join(" ")
               return 
            }
            if (reduction === "first") {
-              newRow[col.name] = group[0][sourceColName]
+              newRow[newColName] = group.find((row) => row[sourceColName] !== "")?.[sourceColName]
               return 
            }
            const values = group.map((row) => row[sourceColName]).filter((val) => typeof val === "number" && !isNaN(val))
@@ -4988,7 +4989,7 @@ scrollGroupByParser
            if (reduction === "max") reducedValue = Math.max(...values)
            if (reduction === "min") reducedValue = Math.min(...values)
            if (reduction === "mean") reducedValue = values.reduce((prev, current) => prev + current, 0) / values.length
-           newRow[col.name] = reducedValue
+           newRow[newColName] = reducedValue
          })
          rows.push(newRow)
        }
@@ -5017,7 +5018,8 @@ scrollWhereParser
  extends abstractTableTransformParser
  description Filter rows by condition.
  cue where
- atoms cueAtom columnNameAtom comparisonAtom constantAtom
+ atoms cueAtom columnNameAtom comparisonAtom
+ catchAllAtomType constantAtom
  example
   table iris.csv
    where Species = setosa
@@ -5029,7 +5031,7 @@ scrollWhereParser
    let untypedScalarValue = this.getAtom(3)
    const typedValue = isNaN(parseFloat(untypedScalarValue)) ? untypedScalarValue : parseFloat(untypedScalarValue)
    const coreTable = this.parent.coreTable
-   if (!columnName || !operator || untypedScalarValue === undefined) return coreTable
+   if (!columnName || !operator || (untypedScalarValue === undefined && !operator.includes("mpty"))) return coreTable
     const filterFn = row => {
       const atom = row[columnName]
       const typedAtom = atom === null ? undefined : atom // convert nulls to undefined
@@ -5043,8 +5045,8 @@ scrollWhereParser
       else if (operator === "<") return typedAtom < typedValue
       else if (operator === ">=") return typedAtom >= typedValue
       else if (operator === "<=") return typedAtom <= typedValue
-      else if (operator === "empty") return atom === "" || atom === undefined
-      else if (operator === "notEmpty") return !(atom === "" || atom === undefined)
+      else if (operator === "empty") return typedAtom === "" || typedAtom === undefined
+      else if (operator === "notEmpty") return typedAtom !== "" && typedAtom !== undefined
     }
    return coreTable.filter(filterFn)
   }
@@ -5255,6 +5257,20 @@ scrollOrderByParser
    }
    const orderBy = makeLodashOrderByParams(this.content)
    return this.root.lodash.orderBy(this.parent.coreTable.slice(), orderBy[0], orderBy[1])
+  }
+assertRowCountParser
+ extends abstractTableTransformParser
+ description Test row count is expected value.
+ atoms cueAtom integerAtom
+ cueFromId
+ javascript
+  getErrors() {
+    const errors = super.getErrors()
+    const actualRows = this.coreTable.length
+    const expectedRows = parseInt(this.content)
+    if (actualRows !== expectedRows)
+      return errors.concat(this.makeError(`Expected '${expectedRows}' rows but got '${actualRows}'.`))
+    return errors
   }
 scrollRenameParser
  // todo: add support in Parsers for tuple catch alls
@@ -6074,7 +6090,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "164.10.0"
+    return "164.11.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

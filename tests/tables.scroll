@@ -138,3 +138,18 @@ iris
 iris
  summarize
   printTable
+
+---
+# Empty and non empty
+table
+ where name notEmpty
+  assertRowCount 2
+ where score empty
+  assertRowCount 0
+ where score notEmpty
+  assertRowCount 3
+ data
+  name,score
+  ,1
+  joe,2
+  frank,4

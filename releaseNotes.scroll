@@ -22,9 +22,17 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 164.11.0 12/29/2024
+🎉 added slashComment support to table flows
+🎉 added assertRowCount parser for fast testing of table transformers
+🏥 fix regression where empty and nonEmpty filters were not working
+🏥 fix "first" reduction to select the first non-blank value
+🏥 fix syntax highlighting in table flows
+
 📦 164.10.0 12/29/2024
 🎉 added scrollModalParser
 🎉 added click afterText parser
+🎉 renamed `linkParser` to `scrollLinkParser` to clean up linkParser for userspace
 
 📦 164.9.0 12/24/2024
 🎉 added `belowAsHtml` and `aboveAsHtml` from btheado
