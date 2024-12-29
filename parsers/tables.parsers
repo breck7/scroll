@@ -1,6 +1,6 @@
 abstractTableTransformParser
  atoms cueAtom
- inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser
+ inScope abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser
  javascript
   get coreTable() {
     return this.parent.coreTable
@@ -216,7 +216,7 @@ scrollTableDelimiterParser
 abstractDatatableProviderParser
  description A datatable.
  extends abstractScrollParser
- inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser
+ inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser
  javascript
   get visualizations() {
     return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)
@@ -354,7 +354,8 @@ scrollWhereParser
  extends abstractTableTransformParser
  description Filter rows by condition.
  cue where
- atoms cueAtom columnNameAtom comparisonAtom constantAtom
+ atoms cueAtom columnNameAtom comparisonAtom
+ catchAllAtomType constantAtom
  example
   table iris.csv
    where Species = setosa
@@ -366,7 +367,7 @@ scrollWhereParser
    let untypedScalarValue = this.getAtom(3)
    const typedValue = isNaN(parseFloat(untypedScalarValue)) ? untypedScalarValue : parseFloat(untypedScalarValue)
    const coreTable = this.parent.coreTable
-   if (!columnName || !operator || untypedScalarValue === undefined) return coreTable
+   if (!columnName || !operator || (untypedScalarValue === undefined && !operator.includes("mpty"))) return coreTable
     const filterFn = row => {
       const atom = row[columnName]
       const typedAtom = atom === null ? undefined : atom // convert nulls to undefined
@@ -380,8 +381,8 @@ scrollWhereParser
       else if (operator === "<") return typedAtom < typedValue
       else if (operator === ">=") return typedAtom >= typedValue
       else if (operator === "<=") return typedAtom <= typedValue
-      else if (operator === "empty") return atom === "" || atom === undefined
-      else if (operator === "notEmpty") return !(atom === "" || atom === undefined)
+      else if (operator === "empty") return typedAtom === "" || typedAtom === undefined
+      else if (operator === "notEmpty") return typedAtom !== "" && typedAtom !== undefined
     }
    return coreTable.filter(filterFn)
   }
@@ -602,6 +603,21 @@ scrollOrderByParser
    }
    const orderBy = makeLodashOrderByParams(this.content)
    return this.root.lodash.orderBy(this.parent.coreTable.slice(), orderBy[0], orderBy[1])
+  }
+
+assertRowCountParser
+ extends abstractTableTransformParser
+ description Test row count is expected value.
+ atoms cueAtom integerAtom
+ cueFromId
+ javascript
+  getErrors() {
+    const errors = super.getErrors()
+    const actualRows = this.coreTable.length
+    const expectedRows = parseInt(this.content)
+    if (actualRows !== expectedRows)
+      return errors.concat(this.makeError(`Expected '${expectedRows}' rows but got '${actualRows}'.`))
+    return errors
   }
 
 scrollRenameParser
