@@ -1,0 +1,87 @@
+scrollModalParser
+ description A modal dialog overlay.
+ extends abstractAftertextParser
+ boolean isHtml true
+ cue modal
+ string requireOnce
+  <style>
+  .scrollModal {
+    display: none;
+    position: fixed;
+    background: transparent;
+    padding: 20px;
+    left: 3rem;
+    top: 3rem;
+    right: 3rem;
+    bottom: 3rem;
+    z-index: 1000;
+    font-family: "IBM Plex Mono", monospace;
+    /* Frosted glass effect */
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .scrollModal .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .scrollModal .closeButton:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+  </style>
+  <script>{
+    window.closeModal = modal => {
+      modal.style.display = 'none';
+      history.pushState("", document.title, window.location.pathname + window.location.search);
+    };
+    window.openModal = (id, event) => {
+      if (event) event.modalJustOpened = true;
+      document.querySelector("#" + id).style.display = 'block';
+    };
+    window.addEventListener('hashchange', () => {
+      const modalId = location.hash.slice(1); window.openModal(modalId);
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') 
+        document.querySelectorAll('.scrollModal').forEach(closeModal);
+    });
+    // Check hash on initial load
+    document.addEventListener("DOMContentLoaded", e => {
+      if (location.hash) 
+        window.openModal(location.hash.slice(1));
+    });
+    // Close on outside click
+    document.addEventListener('click', e => {
+      if (e.modalJustOpened) return;
+      const modals = document.querySelectorAll('.scrollModal');
+      modals.forEach(modal => {
+        if (modal.style.display === 'block' && !modal.contains(e.target)) {
+          closeModal(modal);
+        }
+      });
+    });
+  }</script>
+ javascript
+  buildHtml(buildSettings) {
+    this.parent.sectionStack.push("</div>")
+    return this.getHtmlRequirements(buildSettings) + `<div class="scrollModal" id="${this.htmlId}"><button class="closeButton" onclick="closeModal(this.parentElement)">×</button>`
+  }

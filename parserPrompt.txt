@@ -689,7 +689,7 @@ stamp
     defaultClassName = "scrollButton"
     tag = "button"
     get htmlAttributes() {
-      const link = this.getFromParser("linkParser")
+      const link = this.getFromParser("scrollLinkParser")
       const post = this.getParticle("post")
       if (post) {
         const method = "post"
@@ -2640,7 +2640,7 @@ stamp
    example
     image screenshot.png
      caption A caption.
-   inScope classMarkupParser aftertextIdParser linkParser linkTargetParser openGraphParser
+   inScope classMarkupParser aftertextIdParser scrollLinkParser linkTargetParser openGraphParser
    javascript
     get dimensions() {
       const width = this.get("width")
@@ -2680,7 +2680,7 @@ stamp
      // Todo: can we reuse more code from aftertext?
      const className = this.has("class") ? ` class="${this.get("class")}" ` : ""
      const id = this.has("id") ? ` id="${this.get("id")}" ` : ""
-     const clickLink = this.find(particle => particle.definition.isOrExtendsAParserInScope(["linkParser"])) || linkRelativeToCompileTarget 
+     const clickLink = this.find(particle => particle.definition.isOrExtendsAParserInScope(["scrollLinkParser"])) || linkRelativeToCompileTarget 
      const target = this.has("target") ? this.get("target") : (this.has("link") ? "" : "_blank")
      return ``
     }
@@ -3180,7 +3180,7 @@ stamp
    popularity 0.000531
    catchAllAtomType codeAtom
   
-  linkParser
+  scrollLinkParser
    popularity 0.008706
    extends abstractMarkupParser
    description Put the matching text in an  tag.
@@ -3195,7 +3195,7 @@ stamp
      get encoded() {
       return encodeURIComponent(this.subparticlesToString())
      }
-   cueFromId
+   cue link
    javascript
     tag = "a"
     buildTxt() {
@@ -3214,8 +3214,11 @@ stamp
      const relativePath = this.parent.buildSettings?.relativePath || ""
      return relativePath + link
     }
+    get linkAttribute() {
+      return "href"
+    }
     get attributes() {
-     const attrs = [`href="${this.link}"`]
+     const attrs = [`${this.linkAttribute}="${this.link}"`]
      const options = ["title", "target"]
      options.forEach(option => {
       const particle = this.getParticle(option)
@@ -3225,11 +3228,20 @@ stamp
     }
     patternStartsAtAtom = 2
   
+  scrollClickParser
+   extends scrollLinkParser
+   description An a tag with an onclick.
+   cue click
+   javascript
+    get linkAttribute() {
+      return "onclick"
+    }
+  
   emailLinkParser
    popularity 0.000048
    description A mailto link
    cue email
-   extends linkParser
+   extends scrollLinkParser
    javascript
     get attributes() {
      return [`href="mailto:${this.link}"`]
@@ -3238,7 +3250,7 @@ stamp
   quickLinkParser
    popularity 0.029228
    pattern ^https?\:
-   extends linkParser
+   extends scrollLinkParser
    atoms urlAtom
    javascript
     get link() {
@@ -3251,7 +3263,7 @@ stamp
    description Relative links.
    // note: only works if relative link ends in .html
    pattern ^[^\s]+\.(html|htm)
-   extends linkParser
+   extends scrollLinkParser
    atoms urlAtom
    javascript
     get link() {
@@ -3672,6 +3684,94 @@ stamp
    // for the  tag. If not specified will be "en". See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
    description Override HTML lang attribute.
    extends abstractTopLevelSingleMetaParser
+ modal.parsers
+  scrollModalParser
+   description A modal dialog overlay.
+   extends abstractAftertextParser
+   boolean isHtml true
+   cue modal
+   string requireOnce
+    
+    .scrollModal {
+      display: none;
+      position: fixed;
+      background: transparent;
+      padding: 20px;
+      left: 3rem;
+      top: 3rem;
+      right: 3rem;
+      bottom: 3rem;
+      z-index: 1000;
+      font-family: "IBM Plex Mono", monospace;
+      /* Frosted glass effect */
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .scrollModal .closeButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .scrollModal .closeButton:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+    
+    {
+      window.closeModal = modal => {
+        modal.style.display = 'none';
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+      };
+      window.openModal = (id, event) => {
+        if (event) event.modalJustOpened = true;
+        document.querySelector("#" + id).style.display = 'block';
+      };
+      window.addEventListener('hashchange', () => {
+        const modalId = location.hash.slice(1); window.openModal(modalId);
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') 
+          document.querySelectorAll('.scrollModal').forEach(closeModal);
+      });
+      // Check hash on initial load
+      document.addEventListener("DOMContentLoaded", e => {
+        if (location.hash) 
+          window.openModal(location.hash.slice(1));
+      });
+      // Close on outside click
+      document.addEventListener('click', e => {
+        if (e.modalJustOpened) return;
+        const modals = document.querySelectorAll('.scrollModal');
+        modals.forEach(modal => {
+          if (modal.style.display === 'block' && !modal.contains(e.target)) {
+            closeModal(modal);
+          }
+        });
+      });
+    }
+   javascript
+    buildHtml(buildSettings) {
+      this.parent.sectionStack.push("")
+      return this.getHtmlRequirements(buildSettings) + `×`
+    }
  music.parsers
   scrollMusicParser
    popularity 0.000024
@@ -5002,7 +5102,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "164.7.0"
+      return "164.10.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

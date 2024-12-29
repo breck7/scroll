@@ -10,7 +10,7 @@ scrollButtonParser
   defaultClassName = "scrollButton"
   tag = "button"
   get htmlAttributes() {
-    const link = this.getFromParser("linkParser")
+    const link = this.getFromParser("scrollLinkParser")
     const post = this.getParticle("post")
     if (post) {
       const method = "post"

@@ -88,6 +88,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 164.10.0 12/29/2024
+🎉 added scrollModalParser
+🎉 added click afterText parser
+
 📦 164.9.0 12/24/2024
 🎉 added `belowAsHtml` and `aboveAsHtml` from btheado
  https://github.com/btheado btheado
