@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 164.12.0 1/02/2025
+🎉 added support for URLS with query strings as table data source
+
 📦 164.11.0 12/29/2024
 🎉 added slashComment support to table flows
 🎉 added assertRowCount parser for fast testing of table transformers

@@ -260,7 +260,7 @@ scrollTableParser
      const {filename} = this
      let delimiter = ""
      if (filename) {
-       const extension = filename.split(".").pop()
+       const extension = filename.split('?')[0].split(".").pop()
        if (extension === "json") delimiter = "json"
        if (extension === "particles") delimiter = "particles"
        if (extension === "csv") delimiter = ","

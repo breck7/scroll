@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "marked": "^15.0.4",
+    "marked": "^15.0.5",
     "textile-js": "^2.1.1",
     "ya-bbcode": "^4.0.0"
   }
