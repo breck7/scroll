@@ -4,7 +4,6 @@ title Build Your Own Counters With 3 Words
 
 breckHeader.scroll
 
-mediumColumns 1
 I like collections of interesting numbers, such as BioNumbers. Animated counters provide a useful perspective when pondering large numbers. I wanted to make it as easy as possible for anyone to create these counters.
  dateline
  https://bionumbers.hms.harvard.edu/Search.aspx?task=searchbypop BioNumbers
@@ -86,8 +85,6 @@ counter 6234556543 Transistors made by Nvidia
 counter 61234556543 Transistors made by Intel
  // (2e9*1e10)/3e7
  https://www.intel.com/content/www/us/en/history/museum-transistors-to-transformations-brochure.html
-
-endColumns
 
 ****
 
