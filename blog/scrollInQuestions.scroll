@@ -194,7 +194,7 @@ Parsers does not have enough functionality yet to be able to write parsers that 
 
 The primary implementation of Parsers currently is half Parsers, half Javascript.
 
-? How does Parsers parser Scroll?
+? How does Parsers parse Scroll?
 
 The Parsers program is parsed and compiled by a Javascript implementation of Parsers which generates a Parser and compiler for Scroll programs.
 
