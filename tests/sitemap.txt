@@ -12,7 +12,6 @@ https://scroll.pub/stampTest.html
 https://scroll.pub/stopwatch.html
 https://scroll.pub/stump.html
 https://scroll.pub/style.html
-https://scroll.pub/json.html
 https://scroll.pub/keyboardNav.html
 https://scroll.pub/lists.html
 https://scroll.pub/maps.html
@@ -35,8 +34,6 @@ https://scroll.pub/script.html
 https://scroll.pub/scrollFormsTest.html
 https://scroll.pub/scrollVersion.html
 https://scroll.pub/settings.html
-https://scroll.pub/center.html
-https://scroll.pub/classicFormsTest.html
 https://scroll.pub/cloc.html
 https://scroll.pub/comments.html
 https://scroll.pub/concepts.html
@@ -66,6 +63,7 @@ https://scroll.pub/index.html
 https://scroll.pub/inline.html
 https://scroll.pub/iris.html
 https://scroll.pub/javascript.html
+https://scroll.pub/json.html
 https://scroll.pub/a-review-of-my-sink.html
 https://scroll.pub/aParser.html
 https://scroll.pub/about.html
@@ -76,4 +74,6 @@ https://scroll.pub/blogPost.html
 https://scroll.pub/buildDelimited.html
 https://scroll.pub/bundling.html
 https://scroll.pub/buttons.html
+https://scroll.pub/center.html
+https://scroll.pub/classicFormsTest.html
 https://scroll.pub/top-sinks.html
