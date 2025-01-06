@@ -216,7 +216,7 @@ Yes. Parsers has atom types.
 
 ? Is Scroll like Lisp?
 
-Scroll and Parsers implement many of the best ideas from Lisp, and leave out a lot of bad ideas (like the parens).
+Scroll and Parsers implement many of the best ideas from Lisp, and leave out a lot of unnecessary things (like the parens).
 
 ? Is Scroll designed for humans or AIs?
 
