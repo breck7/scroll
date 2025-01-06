@@ -1,19 +1,10 @@
-authors Breck Yunits
- https://github.com/breck7 Breck Yunits
 date 7/09/2024
 tags All ScrollSets
 title Convert CSVs to ScrollSets
 
-header.scroll
-printTitle
-printAuthors
-keyboardNav
-copyButtons
-
-mediumColumns 1
+breckHeader.scroll
 
 ScrollSets are _very_ useful once you get going. But starting from scratch could be a bit tedious.
- dateline
  https://breckyunits.com/scrollsets.html ScrollSets
 
 Not anymore!
@@ -23,11 +14,8 @@ Just drop your CSV or TSV into the textarea below to generate a ScrollSet.
 (P.S. using LLMs with ScrollSets is another great way to get started)
  https://sets.scroll.pub/ using LLMs with ScrollSets
 
-endColumns
-
 ***
 
-mediumColumns 1
 scrollSetMaker.js
 
 # Your Data:
@@ -51,7 +39,5 @@ script
 
 # Related
 printRelated ScrollSets
-
-endColumns
 
 footer.scroll

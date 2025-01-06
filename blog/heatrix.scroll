@@ -3,8 +3,6 @@ title Heatrix: Heat Maps + Matrix Visualizations
 
 breckHeader.scroll
 
-mediumColumns 1
-
 cancerHeatrix.jpg
  caption A heatrix on CancerDB.
   https://cancerdb.com/blog/cancer-heatmaps.html
@@ -84,7 +82,5 @@ If you like `heatrix` and want to see more stuff like this, but a folder on the 
  https://wws.scroll.pub/ World Wide Scroll beta
 
 ****
-
-endColumns
 
 footer.scroll

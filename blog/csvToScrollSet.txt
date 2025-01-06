@@ -1,8 +1,7 @@
 Convert CSVs to ScrollSets
 ==========================
 by Breck Yunits
- https://github.com/breck7 Breck Yunits
-
+ https://twitter.com/breckyunits Breck Yunits
 July 9, 2024
 
 ScrollSets are _very_ useful once you get going. But starting from scratch could be a bit tedious.

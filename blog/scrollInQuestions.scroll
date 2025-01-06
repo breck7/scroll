@@ -1,17 +1,9 @@
-authors Breck Yunits
- https://twitter.com/breckyunits Breck Yunits
 date 10/28/2024
 tags All
 title Scroll in 50 Questions
 replace MOTTO Scroll is a language for those who believe that what they cannot build with as few pieces as possible they do not understand.
 
-header.scroll
-keyboardNav
-printTitle
-printAuthors
-printDate
-
-mediumColumns 1
+breckHeader.scroll
 
 ? What is Scroll?
 

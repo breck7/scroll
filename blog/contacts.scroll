@@ -1,15 +1,7 @@
-authors Breck Yunits
- https://twitter.com/breckyunits Breck Yunits
 date 7/16/2024
-tags All
 title Contacts: A Microlang for Managing Contacts
 
-header.scroll
-keyboardNav
-printTitle
-printAuthors
-
-mediumColumns 1
+breckHeader.scroll
 
 Imagine a single plain text file named `contacts.scroll` where you stored the contact info for your family, friends, and colleagues, and you could track changes with git, compile it to a beautiful PDF or HTML page with search and sort, and it would also compile to CSV and/or JSON for import into iPhone, Android, Gmail, Outlook, et cetera?
  dateline
@@ -93,7 +85,5 @@ What do you think? Anything that should be added/removed/improved?
  https://x.com/tylertringas/status/1813239718957461528 this tweet from Tyler Tringas
 
 ****
-
-endColumns
 
 footer.scroll

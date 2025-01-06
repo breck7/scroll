@@ -1,0 +1,174 @@
+date 1/06/2025
+title Data Science with Scroll
+description A comprehensive tutorial on using Scroll for data analysis and visualization
+
+breckHeader.scroll
+
+## A Tutorial
+
+This tutorial will walk you through how to use Scroll for data analysis and visualization, from basic concepts to advanced techniques.
+
+? What makes Scroll great for data science?
+Scroll combines the simplicity of markdown-style syntax with powerful data transformation and visualization capabilities. You can:
+- Load data from various sources (CSV, JSON, etc.)
+- Transform and analyze data with simple commands
+- Create beautiful visualizations
+- Publish instantly using ScrollHub
+ https://hub.scroll.pub/ ScrollHub
+- All in a simple, readable format
+
+Let's dive in!
+
+---
+
+# Part 1: Getting Started with Data
+
+## Loading Sample Datasets
+
+Scroll comes with several sample datasets. Let's start with the famous iris dataset:
+
+belowAsCode
+iris
+ printTable
+
+You can also load datasets from Vega's collection:
+
+belowAsCode
+sampleData zipcodes.csv
+ limit 0 5
+  printTable
+
+## Basic Data Operations
+
+Let's explore some basic operations on the iris dataset:
+
+belowAsCode
+iris
+ summarize
+  printTable
+
+This gives us summary statistics for each column.
+
+Let's look at filtering:
+
+belowAsCode
+iris
+ where species = setosa
+  printTable
+
+---
+
+# Part 2: Data Visualization
+
+## Basic Plots
+
+Let's start with a simple scatterplot of the iris data:
+
+belowAsCode
+iris
+ scatterplot
+  x sepal_width
+  y sepal_length
+  title Sepal Length vs Width
+  fill species
+
+## Line Charts
+
+Let's look at some time series data:
+
+belowAsCode
+sampleData seattle-weather.csv
+ parseDate date
+  linechart
+   x date
+   y temp_max
+   title Maximum Temperature in Seattle
+   stroke steelblue
+
+## Bar Charts
+
+Let's create a bar chart showing precipitation:
+
+belowAsCode
+sampleData seattle-weather.csv
+ groupBy weather
+  reduce precipitation mean precip_avg
+  barchart
+   x weather
+   y precip_avg
+   fill teal
+   title Average Precipitation by Weather Type
+
+---
+
+# Part 3: Advanced Data Transformations
+
+## Grouping and Aggregation
+
+Let's look at some more complex transformations:
+
+belowAsCode
+sampleData weather.csv
+ groupBy weather
+  reduce temp_max mean avg_max_temp
+  reduce temp_min mean avg_min_temp
+  orderBy -avg_max_temp
+  printTable
+
+## Creating New Columns
+
+Let's add some computed columns:
+
+belowAsCode
+iris
+ compute ratio {sepal_length}/{sepal_width}
+  where ratio > 2
+   printTable
+
+---
+
+# Part 4: Advanced Visualizations
+
+## Heatmaps
+
+Let's create a heatmap of annual precipitation values:
+
+belowAsCode
+sampleData seattle-weather.csv
+ splitYear
+  groupBy year
+   reduce precipitation mean
+   select year precipitation_mean
+    transpose
+     heatrix
+  
+
+## Multiple Views
+
+You can create multiple visualizations:
+
+belowAsCode
+iris
+ scatterplot
+  x sepal_length
+  y sepal_width
+  fill species
+ barchart
+  x species
+  y sepal_length
+  fill teal
+  title Sepal Length by Species
+
+---
+
+# Conclusion
+
+This tutorial covered the basics of data science with Scroll. Some key takeaways:
+- Scroll makes it easy to load and manipulate data
+- Visualizations are simple to create and customize
+- Complex transformations can be done with simple commands
+- Everything is readable and version-controllable
+
+****
+
+footer.scroll

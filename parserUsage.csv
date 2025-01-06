@@ -26,10 +26,10 @@ buildTxtParser,15
 scrollBrParser,14
 baseUrlParser,14
 buildHtmlParser,13
-homeButtonParser,13
 scrollInlineCssParser,13
 metaTagsParser,13
 editBaseUrlParser,13
+homeButtonParser,13
 scrollVersionLinkParser,12
 emailButtonParser,12
 copyButtonsParser,12
@@ -97,6 +97,7 @@ downloadButtonParser,1
 helpfulNotFoundParser,1
 scrollThemeParser,1
 clocParser,1
+emailLinkParser,1
 debugParsersParser,1
 buildParsersParser,1
 printUsageStatsParser,1
@@ -105,7 +106,6 @@ printparsersLeetSheetParser,1
 scrollPostsMetaParser,1
 scrollOrderByParser,1
 printScrollLeetSheetParser,1
-emailLinkParser,1
 mediumColumnsParser,1
 printSiteMapParser,1
 endOfPostDinkusParser,1

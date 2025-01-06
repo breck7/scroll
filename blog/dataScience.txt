@@ -1,0 +1,152 @@
+Data Science with Scroll
+========================
+by Breck Yunits
+ https://twitter.com/breckyunits Breck Yunits
+January 6, 2025
+
+A Tutorial
+==========
+
+This tutorial will walk you through how to use Scroll for data analysis and visualization, from basic concepts to advanced techniques.
+
+What makes Scroll great for data science?
+=========================================
+Scroll combines the simplicity of markdown-style syntax with powerful data transformation and visualization capabilities. You can:
+- Load data from various sources (CSV, JSON, etc.)
+- Transform and analyze data with simple commands
+- Create beautiful visualizations
+- Publish instantly using ScrollHub
+ https://hub.scroll.pub/ ScrollHub
+- All in a simple, readable format
+
+Let's dive in!
+
+---
+
+Part 1: Getting Started with Data
+=================================
+
+Loading Sample Datasets
+=======================
+
+Scroll comes with several sample datasets. Let's start with the famous iris dataset:
+
+sepal_length,sepal_width,petal_length,petal_width,species
+6.1,3,4.9,1.8,virginica
+5.6,2.7,4.2,1.3,versicolor
+5.6,2.8,4.9,2,virginica
+6.2,2.8,4.8,1.8,virginica
+7.7,3.8,6.7,2.2,virginica
+5.3,3.7,1.5,0.2,setosa
+6.2,3.4,5.4,2.3,virginica
+4.9,2.5,4.5,1.7,virginica
+5.1,3.5,1.4,0.2,setosa
+5,3.4,1.5,0.2,setosa
+
+You can also load datasets from Vega's collection:
+
+zip_code,latitude,longitude,city,state,county
+501,40.922326,-72.637078,Holtsville,NY,Suffolk
+544,40.922326,-72.637078,Holtsville,NY,Suffolk
+601,18.165273,-66.722583,Adjuntas,PR,Adjuntas
+602,18.393103,-67.180953,Aguada,PR,Aguada
+603,18.455913,-67.14578,Aguadilla,PR,Aguadilla
+
+Basic Data Operations
+=====================
+
+Let's explore some basic operations on the iris dataset:
+
+name,type,incompleteCount,uniqueCount,count,sum,median,mean,min,max,mode
+sepal_length,number,0,8,10,57.699999999999996,5.6,5.77,4.9,7.7,5.6
+sepal_width,number,0,8,10,31.599999999999998,3.2,3.1599999999999997,2.5,3.8,2.8
+petal_length,number,0,8,10,39.8,4.65,3.9799999999999995,1.4,6.7,4.9
+petal_width,number,0,7,10,13.699999999999996,1.75,1.3699999999999997,0.2,2.3,0.2
+species,string,0,3,10,null,null,,null,null,virginica
+
+This gives us summary statistics for each column.
+
+Let's look at filtering:
+
+sepal_length,sepal_width,petal_length,petal_width,species
+5.3,3.7,1.5,0.2,setosa
+5.1,3.5,1.4,0.2,setosa
+5,3.4,1.5,0.2,setosa
+
+---
+
+Part 2: Data Visualization
+==========================
+
+Basic Plots
+===========
+
+Let's start with a simple scatterplot of the iris data:
+
+Line Charts
+===========
+
+Let's look at some time series data:
+
+Bar Charts
+==========
+
+Let's create a bar chart showing precipitation:
+
+---
+
+Part 3: Advanced Data Transformations
+=====================================
+
+Grouping and Aggregation
+========================
+
+Let's look at some more complex transformations:
+
+weather,count,avg_max_temp,avg_min_temp
+drizzle,129,18.555813953488368,10.143410852713178
+rain,459,15.535294117647041,9.04727668845315
+sun,1674,18.064157706093184,8.87275985663083
+snow,78,4.528205128205127,-1.4346153846153844
+fog,582,15.261855670103111,8.527319587628869
+
+Creating New Columns
+====================
+
+Let's add some computed columns:
+
+sepal_length,sepal_width,petal_length,petal_width,species,ratio
+6.1,3,4.9,1.8,virginica,2.033333333333333
+5.6,2.7,4.2,1.3,versicolor,2.074074074074074
+6.2,2.8,4.8,1.8,virginica,2.2142857142857144
+7.7,3.8,6.7,2.2,virginica,2.0263157894736845
+
+---
+
+Part 4: Advanced Visualizations
+===============================
+
+Heatmaps
+========
+
+Let's create a heatmap of annual precipitation values:
+
+Multiple Views
+==============
+
+You can create multiple visualizations:
+
+---
+
+Conclusion
+==========
+
+This tutorial covered the basics of data science with Scroll. Some key takeaways:
+- Scroll makes it easy to load and manipulate data
+- Visualizations are simple to create and customize
+- Complex transformations can be done with simple commands
+- Everything is readable and version-controllable
+
+⁂
+
+Built with Scroll v165.0.0

@@ -5,8 +5,8 @@
     "title": "Search the Official Scroll Blog",
     "permalink": "search.html",
     "tags": "",
-    "wordCount": 9162,
-    "minutes": 45.8
+    "wordCount": 9808,
+    "minutes": 49
   },
   {
     "date": "01/06/2025",
@@ -23,7 +23,7 @@
     "title": "Sitemap",
     "permalink": "sitemap.html",
     "tags": "",
-    "wordCount": 151,
+    "wordCount": 157,
     "minutes": 0.8
   },
   {
@@ -32,8 +32,8 @@
     "title": "The Official Scroll Blog",
     "permalink": "index.html",
     "tags": "",
-    "wordCount": 301,
-    "minutes": 1.5
+    "wordCount": 314,
+    "minutes": 1.6
   },
   {
     "date": "01/06/2025",
@@ -41,7 +41,7 @@
     "title": "Feed",
     "permalink": "feed.html",
     "tags": "",
-    "wordCount": 291,
+    "wordCount": 303,
     "minutes": 1.5
   },
   {
@@ -50,8 +50,18 @@
     "title": "The Official Scroll Blog",
     "permalink": "full.html",
     "tags": "",
-    "wordCount": 301,
-    "minutes": 1.5
+    "wordCount": 314,
+    "minutes": 1.6
+  },
+  {
+    "date": "01/06/2025",
+    "year": 2025,
+    "title": "Data Science with Scroll",
+    "permalink": "dataScience.html",
+    "authors": "Breck Yunits",
+    "tags": "All",
+    "wordCount": 632,
+    "minutes": 3.2
   },
   {
     "date": "10/28/2024",
@@ -110,7 +120,7 @@
     "permalink": "counters.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 1026,
+    "wordCount": 1029,
     "minutes": 5.1
   },
   {
@@ -120,8 +130,8 @@
     "permalink": "heatrix.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 467,
-    "minutes": 2.3
+    "wordCount": 470,
+    "minutes": 2.4
   },
   {
     "date": "07/16/2024",
@@ -130,7 +140,7 @@
     "permalink": "contacts.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 371,
+    "wordCount": 374,
     "minutes": 1.9
   },
   {
@@ -140,7 +150,7 @@
     "permalink": "helpful404s.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 546,
+    "wordCount": 547,
     "minutes": 2.7
   },
   {
@@ -149,7 +159,7 @@
     "title": "Convert CSVs to ScrollSets",
     "permalink": "csvToScrollSet.html",
     "authors": "Breck Yunits",
-    "tags": "All ScrollSets",
+    "tags": "All",
     "wordCount": 100,
     "minutes": 0.5
   },
@@ -200,8 +210,8 @@
     "permalink": "scrollsets.html",
     "authors": "Breck Yunits",
     "tags": "All ScrollSets",
-    "wordCount": 1161,
-    "minutes": 5.8
+    "wordCount": 1148,
+    "minutes": 5.7
   },
   {
     "date": "05/08/2023",
@@ -210,7 +220,7 @@
     "permalink": "programLinks.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 507,
+    "wordCount": 510,
     "minutes": 2.5
   },
   {
@@ -220,8 +230,8 @@
     "permalink": "counterpoints.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 388,
-    "minutes": 1.9
+    "wordCount": 391,
+    "minutes": 2
   },
   {
     "date": "10/02/2022",

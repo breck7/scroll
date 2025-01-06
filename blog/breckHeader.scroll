@@ -6,5 +6,8 @@ tags All
 header.scroll
 
 keyboardNav
+
+container 600px
 printTitle
 printAuthors
+printDate

@@ -1,5 +1,10 @@
 The Official Scroll Blog
 ========================
+Data Science with Scroll
+========================
+01/06/2025
+https://scroll.pub/blog/dataScience.html
+
 Scroll in 50 Questions
 ======================
 10/28/2024

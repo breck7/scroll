@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <script src=".d3.js"></script>
 <script src=".plot.js"></script>
 
-<div id="plot39"></div><script>
+<div id="plot50"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
@@ -86,7 +86,7 @@ Uranus,27,null,null,51118,8,null,84.01,false
 Venus,0,null,null,12104,9,null,0.615,false
 Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot39").append(Plot.plot({
+  document.querySelector("#plot50").append(Plot.plot({
     title: "",
     subtitle: "",
     caption: "",
@@ -113,7 +113,7 @@ Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
 <code class="scrollCodeBlock">planets.csv
  scatterplot
   title The Planets</code>
-<div id="plot40"></div><script>
+<div id="plot51"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
@@ -126,7 +126,7 @@ Uranus,27,null,null,51118,8,null,84.01,false
 Venus,0,null,null,12104,9,null,0.615,false
 Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot40").append(Plot.plot({
+  document.querySelector("#plot51").append(Plot.plot({
     title: "The Planets",
     subtitle: "",
     caption: "",
@@ -161,7 +161,7 @@ Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   Homer 39 183
   Bart 10 137
   Lisa 8 120</code>
-<div id="plot41"></div><script>
+<div id="plot52"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`name,age,height
@@ -169,7 +169,7 @@ Homer,39,183
 Bart,10,137
 Lisa,8,120`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot41").append(Plot.plot({
+  document.querySelector("#plot52").append(Plot.plot({
     title: "The Simpson Family",
     subtitle: "",
     caption: "",
@@ -204,7 +204,7 @@ Lisa,8,120`, d3.autoType)
   radius diameter
   label id
   symbol hasLife</code>
-<div id="plot42"></div><script>
+<div id="plot53"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
@@ -217,7 +217,7 @@ Uranus,27,null,null,51118,8,null,84.01,false
 Venus,0,null,null,12104,9,null,0.615,false
 Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot42").append(Plot.plot({
+  document.querySelector("#plot53").append(Plot.plot({
     title: "The Planets in our Solar System",
     subtitle: "Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.",
     caption: "Data from Wikipedia.",

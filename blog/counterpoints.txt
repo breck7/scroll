@@ -1,7 +1,8 @@
 Counterpoints: A new tool for thought in the Scroll Language
 ============================================================
 by Breck Yunits
- https://github.com/breck7 Breck Yunits
+ https://twitter.com/breckyunits Breck Yunits
+April 13, 2023
 
 Improve your writing by welcoming counterarguments
 ==================================================

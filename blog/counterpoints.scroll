@@ -1,16 +1,8 @@
-authors Breck Yunits
- https://github.com/breck7 Breck Yunits
 date 4/13/2023
 tags All
 title Counterpoints: A new tool for thought in the Scroll Language
 
-header.scroll
-printTitle
-printAuthors
-keyboardNav
-copyButtons
-
-container 60ch
+breckHeader.scroll
 
 # Improve your writing by welcoming counterarguments
 

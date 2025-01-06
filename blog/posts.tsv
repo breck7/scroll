@@ -1,26 +1,27 @@
 date	year	title	permalink	authors	tags	wordCount	minutes
-01/06/2025	2025	Search the Official Scroll Blog	search.html			9162	45.8
+01/06/2025	2025	Search the Official Scroll Blog	search.html			9808	49
 01/06/2025	2025	Settings	settings.html			0	0
-01/06/2025	2025	Sitemap	sitemap.html			151	0.8
-01/06/2025	2025	The Official Scroll Blog	index.html			301	1.5
-01/06/2025	2025	Feed	feed.html			291	1.5
-01/06/2025	2025	The Official Scroll Blog	full.html			301	1.5
+01/06/2025	2025	Sitemap	sitemap.html			157	0.8
+01/06/2025	2025	The Official Scroll Blog	index.html			314	1.6
+01/06/2025	2025	Feed	feed.html			303	1.5
+01/06/2025	2025	The Official Scroll Blog	full.html			314	1.6
+01/06/2025	2025	Data Science with Scroll	dataScience.html	Breck Yunits	All	632	3.2
 10/28/2024	2024	Scroll in 50 Questions	scrollInQuestions.html	Breck Yunits	All	1080	5.4
 10/01/2024	2024	Web Forms for Geniuses	forms.html	Breck Yunits	All	369	1.8
 09/02/2024	2024	The Successor to RSS is Git Clone	gitOverRss.html	Breck Yunits	All	224	1.1
 08/30/2024	2024	A New Way to Program	teddyTalk.html	Breck Yunits	All	425	2.1
 08/09/2024	2024	Tables: a microlang for data science	tables.html	Breck Yunits	All	479	2.4
-08/02/2024	2024	Build Your Own Counters With 3 Words	counters.html	Breck Yunits	All	1026	5.1
-07/28/2024	2024	Heatrix: Heat Maps + Matrix Visualizations	heatrix.html	Breck Yunits	All	467	2.3
-07/16/2024	2024	Contacts: A Microlang for Managing Contacts	contacts.html	Breck Yunits	All	371	1.9
-07/12/2024	2024	How I Designed Helpful 404's and Stopped Worrying about Broken Links	helpful404s.html	Breck Yunits	All	546	2.7
-07/09/2024	2024	Convert CSVs to ScrollSets	csvToScrollSet.html	Breck Yunits	All ScrollSets	100	0.5
+08/02/2024	2024	Build Your Own Counters With 3 Words	counters.html	Breck Yunits	All	1029	5.1
+07/28/2024	2024	Heatrix: Heat Maps + Matrix Visualizations	heatrix.html	Breck Yunits	All	470	2.4
+07/16/2024	2024	Contacts: A Microlang for Managing Contacts	contacts.html	Breck Yunits	All	374	1.9
+07/12/2024	2024	How I Designed Helpful 404's and Stopped Worrying about Broken Links	helpful404s.html	Breck Yunits	All	547	2.7
+07/09/2024	2024	Convert CSVs to ScrollSets	csvToScrollSet.html	Breck Yunits	All	100	0.5
 07/01/2024	2024	Changes: A Microlang for Change Logs	changes.html	Breck Yunits	All	431	2.2
 06/24/2024	2024	Write scatterplot to get a scatterplot	plot.html	Breck Yunits	All	342	1.7
 06/23/2024	2024	Stamp: a microlang for project templates	stamp.html	Breck Yunits	All	300	1.5
 04/29/2024	2024	Scroll builds text files	textFiles.html	Breck Yunits	All	175	0.9
-04/21/2024	2024	ScrollSets: source code for CSVs	scrollsets.html	Breck Yunits	All ScrollSets	1161	5.8
-05/08/2023	2023	Introducing Program Links	programLinks.html	Breck Yunits	All	507	2.5
-04/13/2023	2023	Counterpoints: A new tool for thought in the Scroll Language	counterpoints.html	Breck Yunits	All	388	1.9
+04/21/2024	2024	ScrollSets: source code for CSVs	scrollsets.html	Breck Yunits	All ScrollSets	1148	5.7
+05/08/2023	2023	Introducing Program Links	programLinks.html	Breck Yunits	All	510	2.5
+04/13/2023	2023	Counterpoints: A new tool for thought in the Scroll Language	counterpoints.html	Breck Yunits	All	391	2
 10/02/2022	2022	Introducing the Blink Tag	introducingBlink.html	Breck Yunits	All	176	0.9
 08/23/2021	2021	The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping	indented-heredocs.html	Breck Yunits	All	306	1.5
