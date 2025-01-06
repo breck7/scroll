@@ -3180,6 +3180,9 @@ quickCssParser
   buildHtml() {
    return `<link rel="stylesheet" type="text/css" href="${this.filename}">`
   }
+  buildHtmlSnippet() {
+    return ""
+  }
 quickIncludeHtmlParser
  popularity 0.007524
  description Include an HTML file.
@@ -3199,6 +3202,9 @@ quickScriptParser
  javascript
   buildHtml() {
    return `<script src="${this.filename}"></script>`
+  }
+  buildHtmlSnippet() {
+    return ""
   }
 scrollDashboardParser
  popularity 0.000145
@@ -6090,7 +6096,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "164.12.0"
+    return "165.0.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

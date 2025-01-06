@@ -2,15 +2,6 @@ baseUrl https://scroll.pub/
 editBaseUrl https://github.com/breck7/scroll/blob/main
 
 metaTags
-// todo: why do we do this?
-stumpNoSnippet
- link
-  rel stylesheet
-  type text/css
-  href .gazette.css
-stumpNoSnippet
- link
-  rel stylesheet
-  type text/css
-  href .scroll.css
+.gazette.css
+.scroll.css
 inlineCss style.css

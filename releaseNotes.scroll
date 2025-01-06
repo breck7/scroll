@@ -22,6 +22,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 165.0.0 1/05/2025
+🎉 quick css and js tags now compile to blank html snippets
+⚠️ BREAKING: (no one should be affected) CSS and Javascript tags will no longer be included by default when compiling snippets
+
 📦 164.12.0 1/02/2025
 🎉 added support for URLS with query strings as table data source
 

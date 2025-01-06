@@ -86,3 +86,6 @@ quickCssParser
   buildHtml() {
    return `<link rel="stylesheet" type="text/css" href="${this.filename}">`
   }
+  buildHtmlSnippet() {
+    return ""
+  }

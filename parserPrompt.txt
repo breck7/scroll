@@ -1199,6 +1199,9 @@ stamp
     buildHtml() {
      return ``
     }
+    buildHtmlSnippet() {
+      return ""
+    }
   
  dashboard.parsers
   scrollDashboardParser
@@ -2877,6 +2880,9 @@ stamp
    javascript
     buildHtml() {
      return ``
+    }
+    buildHtmlSnippet() {
+      return ""
     }
   
   scrollInlineJsParser
@@ -5103,7 +5109,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "164.12.0"
+      return "165.0.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
