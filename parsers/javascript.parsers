@@ -8,6 +8,9 @@ quickScriptParser
   buildHtml() {
    return `<script src="${this.filename}"></script>`
   }
+  buildHtmlSnippet() {
+    return ""
+  }
 
 scrollInlineJsParser
  description Inline JS from files.
