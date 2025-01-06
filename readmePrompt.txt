@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 165.1.0 1/06/2025
+🎉 support larger data science sessions by using memory if not enough local storage
+
 📦 165.0.0 1/05/2025
 🎉 quick css and js tags now compile to blank html snippets
 ⚠️ BREAKING: (no one should be affected) CSS and Javascript tags will no longer be included by default when compiling snippets

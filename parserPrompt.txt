@@ -4844,10 +4844,13 @@ stamp
       return hakonParser
     }
     readSyncFromFileOrUrl(fileOrUrl) {
-      if (!this.isNodeJs()) return localStorage.getItem(fileOrUrl) || ""
+      if (!this.isNodeJs()) return this.getInBrowser(fileOrUrl)
       const isUrl = fileOrUrl.match(/^https?\:[^ ]+$/)
       if (!isUrl) return this.root.readFile(fileOrUrl)
       return this.readFile(this.makeFullPath(new URL(fileOrUrl).pathname.split('/').pop()))
+    }
+    getInBrowser(key) {
+      return localStorage.getItem(key) || (window.inMemStorage ? window.inMemStorage[key] : "") || ""
     }
     async fetch(url, filename) {
       const isUrl = url.match(/^https?\:[^ ]+$/)
@@ -4962,7 +4965,7 @@ stamp
       if (this.logger) this.logger.log(message)
     }
     async fetchBrowser(url) {
-      const content = localStorage.getItem(url)
+      const content = this.getInBrowser(url)
       if (content) return content
       return this.downloadToLocalStorage(url)
     }
@@ -4976,8 +4979,16 @@ stamp
     async downloadToLocalStorage(url) {
       const response = await fetch(url)
       const blob = await response.blob()
-      localStorage.setItem(url, await blob.text())
-      return localStorage.getItem(url)
+      const text = await blob.text()
+      try {
+        localStorage.setItem(url, text)
+        return localStorage.getItem(url)
+      } catch (err) {
+        if (!window.inMemStorage) window.inMemStorage = {}
+        window.inMemStorage[url] = text
+        console.error(err)
+        return text
+      }
     }
     readFile(filename) {
       const {path} = this
