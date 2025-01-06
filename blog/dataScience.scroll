@@ -13,6 +13,8 @@ Scroll combines the simplicity of markdown-style syntax with powerful data trans
 - Load data from various sources (CSV, JSON, etc.)
 - Transform and analyze data with simple commands
 - Create beautiful visualizations
+- Publish instantly using ScrollHub
+ https://hub.scroll.pub/ ScrollHub
 - All in a simple, readable format
 
 Let's dive in!
@@ -143,17 +145,18 @@ sampleData seattle-weather.csv
 
 ## Multiple Views
 
-You can combine multiple visualizations:
+You can create multiple visualizations:
 
 belowAsCode
 iris
  scatterplot
   x sepal_length
   y sepal_width
-  fill Species
+  fill species
  barchart
   x species
   y sepal_length
+  fill teal
   title Sepal Length by Species
 
 ---
@@ -165,14 +168,6 @@ This tutorial covered the basics of data science with Scroll. Some key takeaways
 - Visualizations are simple to create and customize
 - Complex transformations can be done with simple commands
 - Everything is readable and version-controllable
-
-For more information, check out:
-- The Scroll documentation
- https://scroll.pub/tutorial.html
-- The Scroll data visualization examples
- https://scroll.pub/examples.html
-- The complete sample datasets
- https://github.com/vega/vega-datasets
 
 ****
 
