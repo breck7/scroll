@@ -1,0 +1,15 @@
+<script src="jscroll.js"></script>
+
+<div id="output"></div>
+
+<script type="text/javascript">
+const main = async () => {
+   const program = await jscroll.parseScroll(`https://pldb.io/pldb.json
+ select id rank
+  printTable
+`)
+   document.querySelector("#output").innerHTML = program.asHtml
+   console.log(program.asHtml)
+}
+main()
+</script>
