@@ -4,9 +4,10 @@
 
 <script type="text/javascript">
 const main = async () => {
-   const program = await jscroll.parseScroll(`https://pldb.io/pldb.json
- select id rank
-  printTable
+   const program = await jscroll.parseScroll(`# Hello world
+
+- A test
+- Of JScroll
 `)
    document.querySelector("#output").innerHTML = program.asHtml
    console.log(program.asHtml)

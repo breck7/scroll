@@ -98,10 +98,6 @@ downloadButtonParser,1
 helpfulNotFoundParser,1
 scrollThemeParser,1
 clocParser,1
-scriptLineParser,1
-scriptParser,1
-scrollInlineJsParser,1
-buildJsParser,1
 emailLinkParser,1
 debugParsersParser,1
 buildParsersParser,1
@@ -111,6 +107,10 @@ printparsersLeetSheetParser,1
 scrollPostsMetaParser,1
 scrollOrderByParser,1
 printScrollLeetSheetParser,1
+scriptLineParser,1
+scriptParser,1
+scrollInlineJsParser,1
+buildJsParser,1
 mediumColumnsParser,1
 printSiteMapParser,1
 endOfPostDinkusParser,1

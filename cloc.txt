@@ -16,9 +16,9 @@ files,language,blank,comment,code
 3,CSS,8,0,110
 4,YAML,6,3,65
 2,Markdown,17,0,37
-2,HTML,2,0,18
+2,HTML,3,0,18
 1,Text,0,0,8
 1,Python,0,0,1
-280,SUM,2504,91,13681
+280,SUM,2505,91,13681
 
 Built with Scroll v165.0.0
