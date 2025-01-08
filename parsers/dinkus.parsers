@@ -18,6 +18,8 @@ horizontalRuleParser
  cue ---
  description A horizontal rule.
  extends abstractDinkusParser
+ example
+  ---
  javascript
   buildHtml() {
    return `<hr>`
@@ -28,6 +30,8 @@ scrollDinkusParser
  cue ***
  description A dinkus. Breaks section.
  boolean isPopular true
+ example
+  ***
  extends abstractDinkusParser
  javascript
   dinkus = "*"
@@ -43,5 +47,7 @@ endOfPostDinkusParser
  description End of post dinkus.
  boolean isPopular true
  cue ****
+ example
+  ****
  javascript
   dinkus = "⁂"

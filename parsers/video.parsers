@@ -17,6 +17,8 @@ scrollVideoParser
 quickVideoParser
  popularity 0.000024
  extends scrollVideoParser
+ example
+  spirit.mp4
  atoms urlAtom
  pattern ^[^\s]+\.(mp4|webm|avi|mov)
  int atomIndex 0

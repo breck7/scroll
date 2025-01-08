@@ -344,6 +344,8 @@ aftertextColorParser
  extends aftertextStyleParser
  catchAllAtomType cssAnyAtom
  string property color
+ example
+  color blue
 
 aftertextOnclickParser
  popularity 0.000217

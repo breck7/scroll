@@ -2,6 +2,8 @@ buildCssParser
  popularity 0.000048
  description Compile to CSS file.
  extends abstractBuildTwoCommandParser
+ example
+  buildCss
 
 cssAnyAtom
  extends codeAtom
@@ -15,6 +17,9 @@ cssParser
  popularity 0.007211
  extends abstractScrollParser
  description A style tag.
+ example
+  css
+   body { color: red;}
  cueFromId
  catchAllParser cssLineParser
  catchAllAtomType cssAnyAtom
@@ -47,6 +52,8 @@ scrollBackgroundColorParser
  extends abstractScrollParser
  cue background
  catchAllAtomType cssAnyAtom
+ example
+  background red
  javascript
   buildHtml() {
    return `<style>html, body { background: ${this.content};}</style>`
@@ -70,6 +77,8 @@ scrollFontParser
  cue font
  atoms cueAtom fontFamilyAtom
  catchAllAtomType cssAnyAtom
+ example
+  font Slim
  javascript
   buildHtml() {
    const font = this.content === "Slim" ? "Helvetica Neue; font-weight:100;" : this.content
@@ -80,6 +89,8 @@ quickCssParser
  popularity 0.007524
  description Make a CSS tag.
  extends abstractQuickIncludeParser
+ example
+  style.css
  atoms urlAtom
  pattern ^[^\s]+\.(css)$
  javascript

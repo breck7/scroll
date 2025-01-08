@@ -1,5 +1,7 @@
 buildCsvParser
  popularity 0.000096
+ example
+  buildCsv
  description Compile to CSV file.
  extends abstractBuildOneCommandParser
 

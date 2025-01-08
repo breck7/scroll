@@ -6,6 +6,8 @@ scrollThemeParser
  popularity 0.007524
  boolean isPopular true
  cue theme
+ example
+  theme gazette
  extends abstractScrollParser
  catchAllAtomType scrollThemeAtom
  description A collection of simple themes.

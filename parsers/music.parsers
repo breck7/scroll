@@ -16,3 +16,5 @@ quickSoundParser
  atoms urlAtom
  pattern ^[^\s]+\.(mp3|wav|ogg|aac|m4a|flac)
  int atomIndex 0
+ example
+  sipOfCoffee.m4a

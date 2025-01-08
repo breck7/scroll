@@ -4,6 +4,10 @@ belowAsCodeParser
  string bindTo next
  extends abstractScrollParser
  catchAllAtomType integerAtom
+ example
+  belowAsCode
+  iris
+   printTable
  cueFromId
  javascript
   method = "next"
@@ -71,6 +75,9 @@ belowAsHtmlParser
  extends belowAsCodeParser
  description Displays html output of next particle in a code block.
  cueFromId
+ example
+  belowAsHtml
+  # Hello world
  javascript
   get code() {
    return this.selectedParticles.filter(p => p.buildHtml).map(p => p.buildHtml()).join("\n")
@@ -79,6 +86,9 @@ belowAsHtmlParser
 aboveAsHtmlParser
  description Displays html output of previous particle in a code block.
  extends belowAsHtmlParser
+ example
+  # Hello world
+  aboveAsHtml
  javascript
   method = "previous"
   reverse = true
