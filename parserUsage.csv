@@ -44,8 +44,8 @@ quickImageParser,9
 codeWithLanguageParser,8
 styleTweakParser,8
 chatLineParser,8
-thinColumnsParser,8
 scrollLinkParser,8
+thinColumnsParser,8
 cssParser,8
 horizontalRuleParser,8
 inlineMarkupParser,7
@@ -106,6 +106,7 @@ printparsersLeetSheetParser,1
 scrollPostsMetaParser,1
 scrollOrderByParser,1
 printScrollLeetSheetParser,1
+buildJsonParser,1
 printSiteMapParser,1
 endOfPostDinkusParser,1
 matchParser,1

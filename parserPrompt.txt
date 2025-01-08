@@ -346,6 +346,8 @@ stamp
    extends aftertextStyleParser
    catchAllAtomType cssAnyAtom
    string property color
+   example
+    color blue
   
   aftertextOnclickParser
    popularity 0.000217
@@ -398,6 +400,9 @@ stamp
   assertHtmlEqualsParser
    extends abstractAssertionParser
    string kind equal
+   example
+    
+    assertHtmlEquals 
    javascript
     areEqual(actual, expected) {
       return actual === expected
@@ -408,6 +413,9 @@ stamp
   assertBuildIncludesParser
    extends abstractAssertionParser
    string kind include
+   example
+    buildCsv
+    assertBuildIncludes virginica
    javascript
     areEqual(actual, expected) {
       return actual.includes(expected)
@@ -1047,6 +1055,8 @@ stamp
    popularity 0.000096
    cue container
    description A centered HTML div.
+   example
+    container 600px
    catchAllAtomType cssLengthAtom
    extends abstractAftertextParser
    boolean isHtml true
@@ -1115,6 +1125,8 @@ stamp
    popularity 0.000048
    description Compile to CSS file.
    extends abstractBuildTwoCommandParser
+   example
+    buildCss
   
   cssAnyAtom
    extends codeAtom
@@ -1128,6 +1140,9 @@ stamp
    popularity 0.007211
    extends abstractScrollParser
    description A style tag.
+   example
+    css
+     body { color: red;}
    cueFromId
    catchAllParser cssLineParser
    catchAllAtomType cssAnyAtom
@@ -1160,6 +1175,8 @@ stamp
    extends abstractScrollParser
    cue background
    catchAllAtomType cssAnyAtom
+   example
+    background red
    javascript
     buildHtml() {
      return `html, body { background: ${this.content};}`
@@ -1183,6 +1200,8 @@ stamp
    cue font
    atoms cueAtom fontFamilyAtom
    catchAllAtomType cssAnyAtom
+   example
+    font Slim
    javascript
     buildHtml() {
      const font = this.content === "Slim" ? "Helvetica Neue; font-weight:100;" : this.content
@@ -1193,6 +1212,8 @@ stamp
    popularity 0.007524
    description Make a CSS tag.
    extends abstractQuickIncludeParser
+   example
+    style.css
    atoms urlAtom
    pattern ^[^\s]+\.(css)$
    javascript
@@ -1265,6 +1286,9 @@ stamp
    // If not present computes the date from the file's ctime.
    description Print published date.
    boolean isPopular true
+   example
+    date 1/11/2019
+    printDate
    javascript
     buildHtml() {
      return `${this.day}`
@@ -1520,6 +1544,8 @@ stamp
  delimited.parsers
   buildCsvParser
    popularity 0.000096
+   example
+    buildCsv
    description Compile to CSV file.
    extends abstractBuildOneCommandParser
   
@@ -1559,6 +1585,8 @@ stamp
    cue ---
    description A horizontal rule.
    extends abstractDinkusParser
+   example
+    ---
    javascript
     buildHtml() {
      return ``
@@ -1569,6 +1597,8 @@ stamp
    cue ***
    description A dinkus. Breaks section.
    boolean isPopular true
+   example
+    ***
    extends abstractDinkusParser
    javascript
     dinkus = "*"
@@ -1584,6 +1614,8 @@ stamp
    description End of post dinkus.
    boolean isPopular true
    cue ****
+   example
+    ****
    javascript
     dinkus = "⁂"
  disk.parsers
@@ -1625,6 +1657,10 @@ stamp
    string bindTo next
    extends abstractScrollParser
    catchAllAtomType integerAtom
+   example
+    belowAsCode
+    iris
+     printTable
    cueFromId
    javascript
     method = "next"
@@ -1692,6 +1728,9 @@ stamp
    extends belowAsCodeParser
    description Displays html output of next particle in a code block.
    cueFromId
+   example
+    belowAsHtml
+    # Hello world
    javascript
     get code() {
      return this.selectedParticles.filter(p => p.buildHtml).map(p => p.buildHtml()).join("\n")
@@ -1700,6 +1739,9 @@ stamp
   aboveAsHtmlParser
    description Displays html output of previous particle in a code block.
    extends belowAsHtmlParser
+   example
+    # Hello world
+    aboveAsHtml
    javascript
     method = "previous"
     reverse = true
@@ -2210,6 +2252,8 @@ stamp
    popularity 0.017918
    description An html h1 tag.
    extends abstractHeaderParser
+   example
+    # Hello world
    boolean isArticleContent true
    cue #
    boolean isPopular true
@@ -2220,6 +2264,8 @@ stamp
    popularity 0.005257
    description An html h2 tag.
    extends abstractHeaderParser
+   example
+    ## Hello world
    boolean isArticleContent true
    cue ##
    boolean isPopular true
@@ -2230,6 +2276,8 @@ stamp
    popularity 0.001085
    description An html h3 tag.
    extends abstractHeaderParser
+   example
+    ### Hello world
    boolean isArticleContent true
    cue ###
    javascript
@@ -2238,6 +2286,8 @@ stamp
   h4Parser
    popularity 0.000289
    description An html h4 tag.
+   example
+    #### Hello world
    extends abstractHeaderParser
    cue ####
    javascript
@@ -2246,6 +2296,8 @@ stamp
   h5Parser
    description An html h5 tag.
    extends abstractHeaderParser
+   example
+    ##### Hello world
    cue #####
    javascript
     tag = "h5"
@@ -2539,6 +2591,8 @@ stamp
    popularity 0.007524
    description Include an HTML file.
    extends abstractQuickIncludeParser
+   example
+    body.html
    atoms urlAtom
    pattern ^[^\s]+\.(html|htm)$
    javascript
@@ -2561,6 +2615,8 @@ stamp
   scrollBrParser
    popularity 0.000096
    cue br
+   example
+    br 2
    description A break.
    extends abstractScrollParser
    catchAllAtomType integerAtom
@@ -2586,6 +2642,8 @@ stamp
    extends abstractHtmlParser
    atoms htmlAnyAtom
    boolean isHtml true
+   example
+    Inline HTML
    pattern ^.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}${this.svg}`
     }
   
@@ -2607,6 +2665,9 @@ stamp
    popularity 0.003207
    description An image caption.
    cue caption
+   example
+    map.png
+     caption A map.
    extends scrollParagraphParser
    boolean isPopular true
   
@@ -2696,6 +2757,8 @@ stamp
   quickImageParser
    popularity 0.005788
    extends scrollImageParser
+   example
+    screenshot.png
    atoms urlAtom
    pattern ^[^\s]+\.(jpg|jpeg|png|gif|webp|svg|bmp)
    int atomIndex 0
@@ -2876,6 +2939,8 @@ stamp
    description Make a Javascript tag.
    extends abstractQuickIncludeParser
    atoms urlAtom
+   example
+    script.js
    pattern ^[^\s]+\.(js)$
    javascript
     buildHtml() {
@@ -3102,18 +3167,26 @@ stamp
     getNote() {
       return ""
     }
-    buildCsv() {
+    get docs() {
       const rows = this.sortDocs(this.parsersToDocument).map(obj => {
-        const {id, isPopular, description, popularity, category} = obj
+        const {id, isPopular, description, popularity, category, examples, cue} = obj
+        const example = examples.length ? examples[0].subparticlesToString() : cue
         return {
           id,
           isPopular,
           description,
           popularity,
+          example,
           category
         }
       })
-      return new Particle(this.root.lodash.sortBy(rows, "isPopular")).asCsv
+      return this.root.lodash.sortBy(rows, "isPopular")
+    }
+    buildJson() {
+      return JSON.stringify(this.docs, undefined, 2)
+    }
+    buildCsv() {
+      return new Particle(this.docs).asCsv
     }
   
   printparsersLeetSheetParser
@@ -3800,6 +3873,8 @@ stamp
    atoms urlAtom
    pattern ^[^\s]+\.(mp3|wav|ogg|aac|m4a|flac)
    int atomIndex 0
+   example
+    sipOfCoffee.m4a
  nav.parsers
   scrollNavParser
    popularity 0.000048
@@ -4483,6 +4558,8 @@ stamp
    popularity 0.009188
    description Required for RSS and OpenGraph.
    extends abstractUrlSettingParser
+   example
+    baseUrl https://hub.scroll.pub/
   
   permalinkParser
    popularity 0.000265
@@ -6843,6 +6920,8 @@ stamp
    popularity 0.007524
    boolean isPopular true
    cue theme
+   example
+    theme gazette
    extends abstractScrollParser
    catchAllAtomType scrollThemeAtom
    description A collection of simple themes.
@@ -6933,6 +7012,8 @@ stamp
   quickVideoParser
    popularity 0.000024
    extends scrollVideoParser
+   example
+    spirit.mp4
    atoms urlAtom
    pattern ^[^\s]+\.(mp4|webm|avi|mov)
    int atomIndex 0

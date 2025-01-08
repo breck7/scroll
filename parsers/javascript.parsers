@@ -3,6 +3,8 @@ quickScriptParser
  description Make a Javascript tag.
  extends abstractQuickIncludeParser
  atoms urlAtom
+ example
+  script.js
  pattern ^[^\s]+\.(js)$
  javascript
   buildHtml() {

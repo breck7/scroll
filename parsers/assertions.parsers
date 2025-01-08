@@ -34,6 +34,9 @@ assertIgnoreBelowErrorsParser
 assertHtmlEqualsParser
  extends abstractAssertionParser
  string kind equal
+ example
+  <b></b>
+  assertHtmlEquals <b></b>
  javascript
   areEqual(actual, expected) {
     return actual === expected
@@ -44,6 +47,9 @@ assertHtmlEqualsParser
 assertBuildIncludesParser
  extends abstractAssertionParser
  string kind include
+ example
+  buildCsv
+  assertBuildIncludes virginica
  javascript
   areEqual(actual, expected) {
     return actual.includes(expected)

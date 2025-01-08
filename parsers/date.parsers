@@ -35,6 +35,9 @@ printDateParser
  // If not present computes the date from the file's ctime.
  description Print published date.
  boolean isPopular true
+ example
+  date 1/11/2019
+  printDate
  javascript
   buildHtml() {
    return `<div class="printDateParser">${this.day}</div>`

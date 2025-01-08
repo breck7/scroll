@@ -2,6 +2,8 @@ scrollContainerParser
  popularity 0.000096
  cue container
  description A centered HTML div.
+ example
+  container 600px
  catchAllAtomType cssLengthAtom
  extends abstractAftertextParser
  boolean isHtml true

@@ -1,177 +1,297 @@
-id,isPopular,description,popularity,category
-***,true,A dinkus. Breaks section.,1083,
-****,true,End of post dinkus.,574,
-//,true,A comment. Prints nothing.,565,
-#,true,An html h1 tag.,1792,
-##,true,An html h2 tag.,526,
->,true,A quote.,49,
-authors,true,Set author(s) name(s).,738,
-blankLineParser,true,Print nothing. Break section.,30815,
-buildHtml,true,Compile to HTML file.,765,
-buildTxt,true,Compile to TXT file.,760,
-caption,true,An image caption.,321,
-catchAllParagraph,true,A paragraph.,11557,
-code,true,A code block.,193,
-date,true,Set published date.,668,
-htmlInlineParser,true,Inline HTML.,579,
-image,true,An img tag.,591,
-printAuthors,true,Prints author(s) byline.,167,
-printDate,true,Print published date.,44,
-printTitle,true,Print title.,758,
-theme,true,A collection of simple themes.,753,
-title,true,Set title.,753,
--,,A list item.,1433,
----,,A horizontal rule.,37,
-!,,Counterpoint comment. Prints nothing.,20,
-?,,A question.,425,
-[],,A task todo.,20,
-[x],,A completed task.,8,
-*,,A paragraph.,189,
-###,,An html h3 tag.,109,
-####,,An html h4 tag.,29,
-#####,,An html h5 tag.,0,
-aboveAsCode,,Print code above.,49,
-aboveAsHtml,,Displays html output of previous particle in a code block.,66,
-assertBuildIncludes,,Test above particle's output.,0,
-assertHtmlEquals,,Test above particle's output.,0,
-assertHtmlExcludes,,Test above particle's output.,0,
-assertHtmlIncludes,,Test above particle's output.,0,
-assertIgnoreBelowErrors,,If you want to ignore any errors in the below particle in automated tests.,0,
-background,,Quickly set CSS background.,722,
-barchart,,Bar chart widget.,0,
-baseUrl,,Required for RSS and OpenGraph.,919,
-belowAsCode,,Print code below.,66,
-belowAsCodeUntil,,Print code above until match.,66,
-belowAsHtml,,Displays html output of next particle in a code block.,66,
-blink,,Just for fun.,0,
-br,,A break.,10,
-buildConcepts,,Write concepts to csv+ files.,3,
-buildCss,,Compile to CSS file.,5,
-buildCsv,,Compile to CSV file.,10,
-buildJs,,Compile to JS file.,0,
-buildJson,,Compile to JSON file.,10,
-buildMeasures,,Write measures to csv+ files.,3,
-buildParsers,,Compile to Parsers file.,10,
-buildPdf,,Compile to PDF file.,10,
-buildRss,,Write RSS file.,5,
-buildTsv,,Compile to TSV file.,10,
-button,,A button.,0,
-canonicalUrl,,Override canonical URL.,0,
-center,,A centered section.,642,
-chat,,A faux text chat conversation.,37,
-classicForm,,Generate input form for ScrollSet.,640,
-clearStack,,Clear body stack.,10,
-cloc,,Output results of cloc as table.,214,
-codeFromFile,,A code block.,17,
-codeWithHeader,,A code block.,17,
-color,,Quickly set CSS font-color.,722,
-comment,,Prints nothing.,20,
-concepts,,Load concepts as table.,0,
-container,,A centered HTML div.,10,
-copyButtons,,Copy code widget.,148,
-counter,,Visualize the speed of something.,0,
-css,,A style tag.,722,
-dashboard,,Key stats in large font.,15,
-debugAbove,,Inspect particle above.,66,
-debugAll,,Inspect entire document.,66,
-debugBelow,,Inspect particle below.,66,
-debugParsers,,Print the parsers used.,193,
-debugSourceStack,,Print compilation steps.,0,
-dependencies,,Get files this file depends on.,214,
-description,,Description for SEO meta tag.,169,
-dinkus,,A custom dinkus.,0,
-disk,,Output file into as table.,214,
-downloadButton,,Link to download/WWS page.,630,
-editBaseUrl,,Override edit link baseUrl.,784,
-editButton,,Print badge top right.,1397,
-editLink,,"Print ""Edit"" link.",121,
-editUrl,,Override edit link.,0,
-email,,Set email address for site contact.,131,
-emailButton,,Email button.,630,
-endColumns,,End columns.,779,
-endSnippet,,Cut for snippet here.,430,
-expander,,An collapsible HTML details tag.,8,
-favicon,,Favicon file.,169,
-fetch,,Download URL to disk.,0,
-font,,Quickly set font family.,722,
-hakon,,Compile Hakon to CSS.,0,
-heatrix,,A heatmap matrix data visualization.,0,
-heatrixAdvanced,,Advanced heatrix.,5,
-helpfulNotFound,,Helpful not found widget.,5,
-homeButton,,Home button.,640,
-html,,HTML one liners or blocks.,5,
-htmlLang,,Override HTML lang attribute.,0,
-iframes,,An iframe(s).,13,
-import,,Import a file.,753,
-importOnly,,Don't build this file.,3357,
-inlineCss,,Inline CSS from files.,722,
-inlineJs,,Inline JS from files.,722,
-inlineMarkups,,Set global inline markups.,3,
-iris,,Iris dataset from R.A. Fisher.,214,
-jsonScript,,Include JSON and assign to window.,753,
-katex,,KaTex widget for typeset math.,160,
-keyboardNav,,Make left and right navigate files.,748,
-keywords,,Keywords for SEO meta tag.,169,
-leftRightButtons,,Previous and next nav buttons.,635,
-linechart,,Line chart widget.,0,
-linkTitle,,Text for links.,753,
-loadConcepts,,Import all concepts in a folder.,0,
-loremIpsum,,Generate dummy text.,0,
-map,,Map widget.,0,
-mediumColumn,,A medium column section.,338,
-mediumColumns,,Medium width columns.,338,
-metaTags,,Print meta tags including title.,770,
-modal,,A modal dialog overlay.,0,
-music,,Play sound files.,3,
-nav,,Titles and links in group(s).,5,
-nickelbackIpsum,,Generate dummy text.,0,
-notices,,Display messages in URL query parameters.,0,
-openGraphImage,,Override Open Graph Image.,80,
-permalink,,Override output filename.,27,
-plainText,,Plain text oneliner or block.,0,
-plainTextOnly,,Only print for buildTxt.,8,
-posts,,Posts as table.,3,
-postsMeta,,Post meta as table.,3,
-printColumn,,Print one column,3,
-printFeed,,Print group to RSS.,5,
-printFormatLinks,,Prints links to other formats.,0,
-printFullSnippets,,Print full pages in group(s).,5,
-printRelated,,Print links to related posts.,119,
-printShortSnippets,,Titles and descriptions in group(s).,5,
-printSiteMap,,Print text sitemap.,8,
-printSnippets,,Prints snippets matching tag(s).,34,
-printSource,,Print source for files in group(s).,3,
-printTable,,Print table.,109,
-printUsageStats,,Parser usage stats for folder.,10,
-qrcode,,Make a QR code from a link.,0,
-quote,,A quote.,148,
-redirectTo,,HTML redirect tag.,8,
-replace,,Replace this with that.,0,
-replaceJs,,Replace this with evaled JS.,0,
-replaceNodejs,,Replace with evaled Node.JS.,0,
-rssFeedUrl,,Set RSS feed URL.,885,
-run,,Run script and dump stdout.,3,
-sampleData,,Sample dataset from Vega.,214,
-scatterplot,,Scatterplot Widget.,0,
-script,,Print script tag.,0,
-scrollForm,,Generate a Scroll Form.,640,
-scrollVersionLink,,Print Scroll version.,630,
-slideshow,,Slideshow widget. *** delimits slides.,0,
-sparkline,,Sparkline widget.,3,
-stamp,,Expand project template to disk.,0,
-stopwatch,,A stopwatch.,0,
-stump,,Compile Stump to HTML.,0,
-stumpNoSnippet,,Compile Stump unless snippet.,1018,
-table,,A datatable.,214,
-tableSearch,,Table search and sort widget.,8,
-tags,,Set tags.,681,
-testStrict,,Make catchAllParagraphParser = error.,0,
-thanksTo,,Acknowledgements comment. Prints nothing.,0,
-theScrollButton,,WWS button.,630,
-thinColumn,,A thin column section.,338,
-thinColumns,,Thin columns.,369,
-toStamp,,Print a directory to stamp.,0,
-video,,Play video files.,3,
-wideColumn,,A wide column section.,338,
-wideColumns,,Wide columns.,39,
-youtube,,A YouTube video widget.,13,
+id,isPopular,description,popularity,example,category
+***,true,A dinkus. Breaks section.,1083,***,
+****,true,End of post dinkus.,574,****,
+//,true,A comment. Prints nothing.,565,,
+#,true,An html h1 tag.,1792,# Hello world,
+##,true,An html h2 tag.,526,## Hello world,
+>,true,A quote.,49,> The only thing we have to fear is fear itself. - FDR,
+authors,true,Set author(s) name(s).,738,"authors Breck Yunits
+https://breckyunits.com Breck Yunits",
+blankLineParser,true,Print nothing. Break section.,30815,,
+buildHtml,true,Compile to HTML file.,765,,
+buildTxt,true,Compile to TXT file.,760,,
+caption,true,An image caption.,321,"map.png
+caption A map.",
+catchAllParagraph,true,A paragraph.,11557,,
+code,true,A code block.,193,"code
+two = 1 + 1",
+date,true,Set published date.,668,"date 1/11/2019
+printDate
+Hello world
+dateline",
+htmlInlineParser,true,Inline HTML.,579,<h1>Inline HTML</h1>,
+image,true,An img tag.,591,"image screenshot.png
+caption A caption.",
+printAuthors,true,Prints author(s) byline.,167,"authors Breck Yunits
+https://breckyunits.com
+printAuthors",
+printDate,true,Print published date.,44,"date 1/11/2019
+printDate",
+printTitle,true,Print title.,758,"title Eureka
+printTitle",
+theme,true,A collection of simple themes.,753,theme gazette,
+title,true,Set title.,753,"title Eureka
+printTitle",
+-,,A list item.,1433,- I had a _new_ thought.,
+---,,A horizontal rule.,37,---,
+!,,Counterpoint comment. Prints nothing.,20,,
+?,,A question.,425,? Why is the sky blue?,
+[],,A task todo.,20,[] Get milk,
+[x],,A completed task.,8,[x] get milk,
+*,,A paragraph.,189,* I had a _new_ idea.,
+###,,An html h3 tag.,109,### Hello world,
+####,,An html h4 tag.,29,#### Hello world,
+#####,,An html h5 tag.,0,##### Hello world,
+aboveAsCode,,Print code above.,49,"counter 1 second
+aboveAsCode",
+aboveAsHtml,,Displays html output of previous particle in a code block.,66,"# Hello world
+aboveAsHtml",
+assertBuildIncludes,,Test above particle's output.,0,"buildCsv
+assertBuildIncludes virginica",
+assertHtmlEquals,,Test above particle's output.,0,"<b></b>
+assertHtmlEquals <b></b>",
+assertHtmlExcludes,,Test above particle's output.,0,,
+assertHtmlIncludes,,Test above particle's output.,0,,
+assertIgnoreBelowErrors,,If you want to ignore any errors in the below particle in automated tests.,0,,
+background,,Quickly set CSS background.,722,background red,
+barchart,,Bar chart widget.,0,"iris
+barchart",
+baseUrl,,Required for RSS and OpenGraph.,919,baseUrl https://hub.scroll.pub/,
+belowAsCode,,Print code below.,66,"belowAsCode
+iris
+printTable",
+belowAsCodeUntil,,Print code above until match.,66,"belowAsCode
+counter 1 second",
+belowAsHtml,,Displays html output of next particle in a code block.,66,"belowAsHtml
+# Hello world",
+blink,,Just for fun.,0,blink Carpe diem!,
+br,,A break.,10,br 2,
+buildConcepts,,Write concepts to csv+ files.,3,,
+buildCss,,Compile to CSS file.,5,buildCss,
+buildCsv,,Compile to CSV file.,10,buildCsv,
+buildJs,,Compile to JS file.,0,,
+buildJson,,Compile to JSON file.,10,,
+buildMeasures,,Write measures to csv+ files.,3,,
+buildParsers,,Compile to Parsers file.,10,,
+buildPdf,,Compile to PDF file.,10,,
+buildRss,,Write RSS file.,5,,
+buildTsv,,Compile to TSV file.,10,,
+button,,A button.,0,button Click me,
+canonicalUrl,,Override canonical URL.,0,,
+center,,A centered section.,642,"center
+This paragraph is centered.",
+chat,,A faux text chat conversation.,37,"chat
+Hi
+👋",
+classicForm,,Generate input form for ScrollSet.,640,,
+clearStack,,Clear body stack.,10,,
+cloc,,Output results of cloc as table.,214,"table
+printTable
+data
+ year,count
+ 1900,10
+ 2000,122
+ 2020,23",
+codeFromFile,,A code block.,17,codeFromFile math.py,
+codeWithHeader,,A code block.,17,"codeWithHeader math.py
+two = 1 + 1",
+color,,Quickly set CSS font-color.,722,,
+comment,,Prints nothing.,20,,
+concepts,,Load concepts as table.,0,"concepts
+printTable",
+container,,A centered HTML div.,10,container 600px,
+copyButtons,,Copy code widget.,148,,
+counter,,Visualize the speed of something.,0,counter 4.5 Babies Born,
+css,,A style tag.,722,"css
+body { color: red;}",
+dashboard,,Key stats in large font.,15,"dashboard
+#2 Popularity
+30 Years Old
+$456 Revenue",
+debugAbove,,Inspect particle above.,66,"belowAsCode
+iris
+printTable",
+debugAll,,Inspect entire document.,66,"belowAsCode
+iris
+printTable",
+debugBelow,,Inspect particle below.,66,"belowAsCode
+iris
+printTable",
+debugParsers,,Print the parsers used.,193,"code
+two = 1 + 1",
+debugSourceStack,,Print compilation steps.,0,printOriginalSource,
+dependencies,,Get files this file depends on.,214,"table
+printTable
+data
+ year,count
+ 1900,10
+ 2000,122
+ 2020,23",
+description,,Description for SEO meta tag.,169,,
+dinkus,,A custom dinkus.,0,,
+disk,,Output file into as table.,214,"table
+printTable
+data
+ year,count
+ 1900,10
+ 2000,122
+ 2020,23",
+downloadButton,,Link to download/WWS page.,630,,
+editBaseUrl,,Override edit link baseUrl.,784,,
+editButton,,Print badge top right.,1397,,
+editLink,,"Print ""Edit"" link.",121,,
+editUrl,,Override edit link.,0,,
+email,,Set email address for site contact.,131,,
+emailButton,,Email button.,630,,
+endColumns,,End columns.,779,,
+endSnippet,,Cut for snippet here.,430,,
+expander,,An collapsible HTML details tag.,8,"expander Knock Knock
+Who's there?",
+favicon,,Favicon file.,169,"favicon logo.png
+metatags
+buildHtml",
+fetch,,Download URL to disk.,0,"fetch https://breckyunits.com/posts.csv
+fetch https://breckyunits.com/posts.csv renamed.csv",
+font,,Quickly set font family.,722,font Slim,
+hakon,,Compile Hakon to CSS.,0,,
+heatrix,,A heatmap matrix data visualization.,0,"heatrix
+'2007 '2008 '2009 '2010 '2011 '2012 '2013 '2014 '2015 '2016 '2017 '2018 '2019 '2020 '2021 '2022 '2023 '2024
+4 11 23 37 3 14 12 0 0 0 5 1 2 11 15 10 12 56",
+heatrixAdvanced,,Advanced heatrix.,5,"heatrix
+table
+  
+ %h10; '2007 '2008 '2009
+  12 4 323
+scale
+ #ebedf0 0
+ #c7e9c0 100
+ #a1d99b 400
+ #74c476 1600",
+helpfulNotFound,,Helpful not found widget.,5,,
+homeButton,,Home button.,640,,
+html,,HTML one liners or blocks.,5,,
+htmlLang,,Override HTML lang attribute.,0,,
+iframes,,An iframe(s).,13,iframes frame.html,
+import,,Import a file.,753,import header.scroll,
+importOnly,,Don't build this file.,3357,,
+inlineCss,,Inline CSS from files.,722,,
+inlineJs,,Inline JS from files.,722,,
+inlineMarkups,,Set global inline markups.,3,"inlineMarkups
+* 
+ // Disable * for bold
+_ u
+ // Make _ underline",
+iris,,Iris dataset from R.A. Fisher.,214,"iris
+printTable
+scatter
+ x SepalLength
+ y SepalWidth",
+jsonScript,,Include JSON and assign to window.,753,,
+katex,,KaTex widget for typeset math.,160,"katex
+\text{E} = \text{T} / \text{A}!",
+keyboardNav,,Make left and right navigate files.,748,,
+keywords,,Keywords for SEO meta tag.,169,,
+leftRightButtons,,Previous and next nav buttons.,635,,
+linechart,,Line chart widget.,0,"iris
+linechart
+ x SepalLength
+ y SepalWidth",
+linkTitle,,Text for links.,753,"title My blog - Eureka
+linkTitle Eureka",
+loadConcepts,,Import all concepts in a folder.,0,,
+loremIpsum,,Generate dummy text.,0,,
+map,,Map widget.,0,,
+mediumColumn,,A medium column section.,338,,
+mediumColumns,,Medium width columns.,338,,
+metaTags,,Print meta tags including title.,770,,
+modal,,A modal dialog overlay.,0,,
+music,,Play sound files.,3,music sipOfCoffee.m4a,
+nav,,Titles and links in group(s).,5,printSnippets index,
+nickelbackIpsum,,Generate dummy text.,0,,
+notices,,Display messages in URL query parameters.,0,,
+openGraphImage,,Override Open Graph Image.,80,,
+permalink,,Override output filename.,27,,
+plainText,,Plain text oneliner or block.,0,,
+plainTextOnly,,Only print for buildTxt.,8,,
+posts,,Posts as table.,3,"// Print a search table:
+posts
+printTable
+tableSearch
+// Dump a CSV of blog:
+buildHtml
+buildCsv
+buildJson",
+postsMeta,,Post meta as table.,3,,
+printColumn,,Print one column,3,printColumn tags,
+printFeed,,Print group to RSS.,5,"printFeed index
+printFeed cars/index
+buildRss",
+printFormatLinks,,Prints links to other formats.,0,printFormatLinks,
+printFullSnippets,,Print full pages in group(s).,5,printSnippets index,
+printRelated,,Print links to related posts.,119,printSnippets index,
+printShortSnippets,,Titles and descriptions in group(s).,5,printSnippets index,
+printSiteMap,,Print text sitemap.,8,"baseUrl http://test.com
+printSiteMap",
+printSnippets,,Prints snippets matching tag(s).,34,printSnippets index,
+printSource,,Print source for files in group(s).,3,"printSource index
+buildTxt source.txt",
+printTable,,Print table.,109,,
+printUsageStats,,Parser usage stats for folder.,10,,
+qrcode,,Make a QR code from a link.,0,qrcode https://scroll.pub,
+quote,,A quote.,148,,
+redirectTo,,HTML redirect tag.,8,redirectTo https://scroll.pub/releaseNotes.html,
+replace,,Replace this with that.,0,replace YEAR 2022,
+replaceJs,,Replace this with evaled JS.,0,"replaceJs SUM 1+1
+* 1+1 = SUM",
+replaceNodejs,,Replace with evaled Node.JS.,0,"replaceNodejs
+module.exports = {SCORE : 1 + 2}
+* The score is SCORE",
+rssFeedUrl,,Set RSS feed URL.,885,,
+run,,Run script and dump stdout.,3,,
+sampleData,,Sample dataset from Vega.,214,"sampleData zipcodes.csv
+printTable",
+scatterplot,,Scatterplot Widget.,0,"iris
+scatterplot",
+script,,Print script tag.,0,,
+scrollForm,,Generate a Scroll Form.,640,,
+scrollVersionLink,,Print Scroll version.,630,,
+slideshow,,Slideshow widget. *** delimits slides.,0,"slideshow
+Why did the cow cross the road?
+***
+Because it wanted to go to the MOOOO-vies.
+***
+THE END
+****",
+sparkline,,Sparkline widget.,3,sparkline 1 2 3 4 5,
+stamp,,Expand project template to disk.,0,"stamp
+.gitignore
+ *.html
+readme.scroll
+ # Hello world
+ <script src=""scripts/nested/hello.js""></script>
+scripts/
+ nested/
+  hello.js
+   console.log(""Hello world"")",
+stopwatch,,A stopwatch.,0,stopwatch,
+stump,,Compile Stump to HTML.,0,,
+stumpNoSnippet,,Compile Stump unless snippet.,1018,,
+table,,A datatable.,214,"table
+printTable
+data
+ year,count
+ 1900,10
+ 2000,122
+ 2020,23",
+tableSearch,,Table search and sort widget.,8,,
+tags,,Set tags.,681,tags All,
+testStrict,,Make catchAllParagraphParser = error.,0,,
+thanksTo,,Acknowledgements comment. Prints nothing.,0,,
+theScrollButton,,WWS button.,630,,
+thinColumn,,A thin column section.,338,,
+thinColumns,,Thin columns.,369,,
+toStamp,,Print a directory to stamp.,0,,
+video,,Play video files.,3,video spirit.mp4,
+wideColumn,,A wide column section.,338,,
+wideColumns,,Wide columns.,39,,
+youtube,,A YouTube video widget.,13,youtube https://www.youtube.com/watch?v=lO8blNtYYBA,

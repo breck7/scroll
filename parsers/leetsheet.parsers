@@ -86,18 +86,26 @@ printScrollLeetSheetParser
   getNote() {
     return ""
   }
-  buildCsv() {
+  get docs() {
     const rows = this.sortDocs(this.parsersToDocument).map(obj => {
-      const {id, isPopular, description, popularity, category} = obj
+      const {id, isPopular, description, popularity, category, examples, cue} = obj
+      const example = examples.length ? examples[0].subparticlesToString() : cue
       return {
         id,
         isPopular,
         description,
         popularity,
+        example,
         category
       }
     })
-    return new Particle(this.root.lodash.sortBy(rows, "isPopular")).asCsv
+    return this.root.lodash.sortBy(rows, "isPopular")
+  }
+  buildJson() {
+    return JSON.stringify(this.docs, undefined, 2)
+  }
+  buildCsv() {
+    return new Particle(this.docs).asCsv
   }
 
 printparsersLeetSheetParser
