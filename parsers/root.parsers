@@ -357,7 +357,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "165.0.0"
+    return "165.2.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -366,6 +366,14 @@ scrollParser
     const description = this.getFromParserId("openGraphDescriptionParser")
     if (description) return description
     return this.generatedDescription
+  }
+  get keywords() {
+    if (this.has("keywords"))
+    return this.get("keywords")
+    const tags = this.get("tags")
+    if (tags)
+      return tags.split(" ").join(", ")
+    return ""
   }
   get generatedDescription() {
     const firstParagraph = this.find(particle => particle.isArticleContent)

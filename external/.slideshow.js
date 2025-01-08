@@ -10,11 +10,14 @@ class SlideShow {
 
   renderSlide() {
     jQuery(this.slides[this.page - 1]).show()
+    jQuery(this.slides[this.page - 1])
+      .children()
+      .show()
     jQuery(".abstractDinkusParser").hide()
   }
 
   hideAll() {
-    jQuery("div,p,figure,code,pre").hide()
+    jQuery("div,p,figure,code,pre,li").hide()
   }
 
   get slides() {

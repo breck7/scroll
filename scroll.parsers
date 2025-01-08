@@ -1876,7 +1876,13 @@ openGraphDescriptionParser
  popularity 0.001688
  catchAllAtomType stringAtom
  cue description
- description Meta tag description.
+ description Description for SEO meta tag.
+ extends abstractTopLevelSingleMetaParser
+openGraphKeywordsParser
+ popularity 0.001688
+ catchAllAtomType stringAtom
+ cue keywords
+ description Keywords for SEO meta tag.
  extends abstractTopLevelSingleMetaParser
 permalinkParser
  popularity 0.000265
@@ -3947,10 +3953,11 @@ metaTagsParser
   }
   buildHtml() {
    const {root} = this
-   const { title, description, canonicalUrl, gitRepo, scrollVersion, openGraphImage } = root
+   const { title, description, canonicalUrl, gitRepo, scrollVersion, openGraphImage, keywords } = root
    const rssFeedUrl = root.get("rssFeedUrl")
    const favicon = root.get("favicon")
    const faviconTag = favicon ? `<link rel="icon" href="${favicon}">` : ""
+   const keywordsTag = keywords ? `<meta name="keywords" content="${keywords}">` : ""
    const rssTag = rssFeedUrl ? `<link rel="alternate" type="application/rss+xml" title="${title}" href="${rssFeedUrl}">` : ""
    const gitTag = gitRepo ? `<link rel="source" type="application/git" title="Source Code Repository" href="${gitRepo}">` : ""
    return `<head>
@@ -3961,6 +3968,7 @@ metaTagsParser
    <link rel="canonical" href="${canonicalUrl}">
    <meta name="viewport" content="width=device-width,initial-scale=1">
    <meta name="description" content="${description}">
+   ${keywordsTag}
    <meta name="generator" content="Scroll v${scrollVersion}">
    <meta property="og:title" content="${title}">
    <meta property="og:description" content="${description}">
@@ -6107,7 +6115,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "165.0.0"
+    return "165.2.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6116,6 +6124,14 @@ scrollParser
     const description = this.getFromParserId("openGraphDescriptionParser")
     if (description) return description
     return this.generatedDescription
+  }
+  get keywords() {
+    if (this.has("keywords"))
+    return this.get("keywords")
+    const tags = this.get("tags")
+    if (tags)
+      return tags.split(" ").join(", ")
+    return ""
   }
   get generatedDescription() {
     const firstParagraph = this.find(particle => particle.isArticleContent)
