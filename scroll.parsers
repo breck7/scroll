@@ -439,7 +439,7 @@ scrollCenterParser
   }
 abstractIndentableParagraphParser
  extends scrollParagraphParser
- inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser
+ inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser scrollParagraphParser
  javascript
   get htmlContents() {
     return this.text + this.map(particle => particle.buildHtml())
@@ -472,6 +472,19 @@ checklistDoneParser
  cue [x]
  example
   [x] get milk
+scrollDivParser
+ popularity 0.007524
+ description HTML div tag.
+ extends abstractIndentableParagraphParser
+ cue div
+ example
+  div
+   # Hello world
+   p This is a test
+   div
+    # Deeper
+ javascript
+  tag = "div"
 listAftertextParser
  popularity 0.014325
  extends abstractIndentableParagraphParser
@@ -513,6 +526,14 @@ orderedListAftertextParser
  javascript
   listType = "ol"
   get attributes() { return ` start="${this.getAtom(0)}"`}
+pParagraphParser
+ popularity 0.001881
+ cue p
+ extends abstractIndentableParagraphParser
+ description A paragraph.
+ boolean isArticleContent true
+ example
+  p I had a _new_ idea.
 quickQuoteParser
  popularity 0.000482
  cue >
@@ -528,7 +549,6 @@ scrollSectionParser
  popularity 0.007524
  description HTML section tag.
  extends abstractIndentableParagraphParser
- inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser scrollParagraphParser
  cue section
  example
   section
@@ -636,6 +656,9 @@ h1Parser
  boolean isPopular true
  javascript
   tag = "h1"
+h1LiteralParser
+ extends h1Parser
+ cue h1
 h2Parser
  popularity 0.005257
  description An html h2 tag.
@@ -647,6 +670,9 @@ h2Parser
  boolean isPopular true
  javascript
   tag = "h2"
+h2LiteralParser
+ extends h2Parser
+ cue h2
 h3Parser
  popularity 0.001085
  description An html h3 tag.
@@ -657,6 +683,9 @@ h3Parser
  cue ###
  javascript
   tag = "h3"
+h3LiteralParser
+ extends h3Parser
+ cue h3
 h4Parser
  popularity 0.000289
  description An html h4 tag.
@@ -795,14 +824,6 @@ quickParagraphParser
  boolean isArticleContent true
  example
   * I had a _new_ idea.
-pParagraphParser
- popularity 0.001881
- cue p
- extends scrollParagraphParser
- description A paragraph.
- boolean isArticleContent true
- example
-  p I had a _new_ idea.
 scrollStopwatchParser
  description A stopwatch.
  extends scrollParagraphParser
@@ -6218,7 +6239,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "165.3.0"
+    return "165.4.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

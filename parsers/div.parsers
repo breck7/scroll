@@ -1,13 +1,13 @@
-scrollSectionParser
+scrollDivParser
  popularity 0.007524
- description HTML section tag.
+ description HTML div tag.
  extends abstractIndentableParagraphParser
- cue section
+ cue div
  example
-  section
+  div
    # Hello world
    p This is a test
-   section
+   div
     # Deeper
  javascript
-  tag = "section"
+  tag = "div"

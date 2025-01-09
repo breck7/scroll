@@ -78,6 +78,7 @@ dependencies - Get files this file depends on.
 description - Description for SEO meta tag.
 dinkus - A custom dinkus.
 disk - Output file into as table.
+div - HTML div tag.
 downloadButton - Link to download/WWS page.
 editBaseUrl - Override edit link baseUrl.
 editButton - Print badge top right.
@@ -91,6 +92,9 @@ expander - An collapsible HTML details tag.
 favicon - Favicon file.
 fetch - Download URL to disk.
 font - Quickly set font family.
+h1 - An html h1 tag.
+h2 - An html h2 tag.
+h3 - An html h3 tag.
 hakon - Compile Hakon to CSS.
 heatrix - A heatmap matrix data visualization.
 heatrixAdvanced - Advanced heatrix.
@@ -194,4 +198,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v165.3.0
+Built with Scroll v165.4.0

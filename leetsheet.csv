@@ -136,6 +136,11 @@ data
  1900,10
  2000,122
  2020,23",
+div,,HTML div tag.,753,"div
+# Hello world
+p This is a test
+div
+ # Deeper",
 downloadButton,,Link to download/WWS page.,630,,
 editBaseUrl,,Override edit link baseUrl.,784,,
 editButton,,Print badge top right.,1397,,
@@ -153,6 +158,9 @@ buildHtml",
 fetch,,Download URL to disk.,0,"fetch https://breckyunits.com/posts.csv
 fetch https://breckyunits.com/posts.csv renamed.csv",
 font,,Quickly set font family.,722,font Slim,
+h1,,An html h1 tag.,1792,# Hello world,
+h2,,An html h2 tag.,526,## Hello world,
+h3,,An html h3 tag.,109,### Hello world,
 hakon,,Compile Hakon to CSS.,0,,
 heatrix,,A heatmap matrix data visualization.,0,"heatrix
 '2007 '2008 '2009 '2010 '2011 '2012 '2013 '2014 '2015 '2016 '2017 '2018 '2019 '2020 '2021 '2022 '2023 '2024
