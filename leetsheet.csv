@@ -210,6 +210,7 @@ nav,,Titles and links in group(s).,5,printSnippets index,
 nickelbackIpsum,,Generate dummy text.,0,,
 notices,,Display messages in URL query parameters.,0,,
 openGraphImage,,Override Open Graph Image.,80,,
+p,,A paragraph.,189,p I had a _new_ idea.,
 permalink,,Override output filename.,27,,
 plainText,,Plain text oneliner or block.,0,,
 plainTextOnly,,Only print for buildTxt.,8,,
@@ -255,6 +256,11 @@ scatterplot",
 script,,Print script tag.,0,,
 scrollForm,,Generate a Scroll Form.,640,,
 scrollVersionLink,,Print Scroll version.,630,,
+section,,HTML section tag.,753,"section
+# Hello world
+p This is a test
+section
+ # Deeper",
 slideshow,,Slideshow widget. *** delimits slides.,0,"slideshow
 Why did the cow cross the road?
 ***

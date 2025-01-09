@@ -88,6 +88,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 165.3.0 1/09/2025
+🎉 added sectionParser
+🎉 added pParser
+
 📦 165.2.0 1/08/2025
 🎉 added `keywords` parser because AI keeps trying to use it.
 🏥 slideshow fixes

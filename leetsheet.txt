@@ -126,6 +126,7 @@ nav - Titles and links in group(s).
 nickelbackIpsum - Generate dummy text.
 notices - Display messages in URL query parameters.
 openGraphImage - Override Open Graph Image.
+p - A paragraph.
 permalink - Override output filename.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
@@ -158,6 +159,7 @@ scatterplot - Scatterplot Widget.
 script - Print script tag.
 scrollForm - Generate a Scroll Form.
 scrollVersionLink - Print Scroll version.
+section - HTML section tag.
 slideshow - Slideshow widget. *** delimits slides.
 sparkline - Sparkline widget.
 stamp - Expand project template to disk.
@@ -192,4 +194,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v165.2.0
+Built with Scroll v165.3.0

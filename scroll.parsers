@@ -291,7 +291,10 @@ abstractAftertextParser
    if (tag === "none") // Allow no tag for aftertext in tables
      return this.text
    const id = this.has("id") ? "" : `id="${this.htmlId}" ` // always add an html id
-   return this.getHtmlRequirements(buildSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}>${this.text}${this.closingTag}`
+   return this.getHtmlRequirements(buildSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}>${this.htmlContents}${this.closingTag}`
+  }
+  get htmlContents() {
+    return this.text
   }
   get closingTag() {
     const tag = this.get("tag") || this.tag
@@ -438,13 +441,10 @@ abstractIndentableParagraphParser
  extends scrollParagraphParser
  inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser
  javascript
-  compileSubparticles() {
-    return this.map(particle => particle.buildHtml())
+  get htmlContents() {
+    return this.text + this.map(particle => particle.buildHtml())
      .join("\n")
      .trim()
-  }
-  buildHtml() {
-   return super.buildHtml() + this.compileSubparticles()
   }
   buildTxt() {
     return this.getAtom(0) + " " + super.buildTxt()
@@ -524,6 +524,20 @@ quickQuoteParser
  javascript
   defaultClassName = "scrollQuote"
   tag = "blockquote"
+scrollSectionParser
+ popularity 0.007524
+ description HTML section tag.
+ extends abstractIndentableParagraphParser
+ inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser scrollParagraphParser
+ cue section
+ example
+  section
+   # Hello world
+   p This is a test
+   section
+    # Deeper
+ javascript
+  tag = "section"
 scrollCounterParser
  description Visualize the speed of something.
  extends scrollParagraphParser
@@ -781,6 +795,14 @@ quickParagraphParser
  boolean isArticleContent true
  example
   * I had a _new_ idea.
+pParagraphParser
+ popularity 0.001881
+ cue p
+ extends scrollParagraphParser
+ description A paragraph.
+ boolean isArticleContent true
+ example
+  p I had a _new_ idea.
 scrollStopwatchParser
  description A stopwatch.
  extends scrollParagraphParser
@@ -6196,7 +6218,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "165.2.0"
+    return "165.3.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

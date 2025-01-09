@@ -15,6 +15,7 @@ https://scroll.pub/settings.html
 https://scroll.pub/slideshowDemo.html
 https://scroll.pub/snippets.html
 https://scroll.pub/source.html
+https://scroll.pub/full.html
 https://scroll.pub/gazette.html
 https://scroll.pub/hakon.html
 https://scroll.pub/haml.html
@@ -75,5 +76,4 @@ https://scroll.pub/favicon.html
 https://scroll.pub/feed.html
 https://scroll.pub/fetchTest.html
 https://scroll.pub/footer.html
-https://scroll.pub/full.html
 https://scroll.pub/top-sinks.html

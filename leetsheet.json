@@ -733,6 +733,12 @@
     "popularity": 80
   },
   {
+    "id": "p",
+    "description": "A paragraph.",
+    "popularity": 189,
+    "example": "p I had a _new_ idea."
+  },
+  {
     "id": "permalink",
     "description": "Override output filename.",
     "popularity": 27
@@ -893,6 +899,12 @@
     "id": "scrollVersionLink",
     "description": "Print Scroll version.",
     "popularity": 630
+  },
+  {
+    "id": "section",
+    "description": "HTML section tag.",
+    "popularity": 753,
+    "example": "section\n # Hello world\n p This is a test\n section\n  # Deeper"
   },
   {
     "id": "slideshow",
