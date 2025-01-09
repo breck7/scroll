@@ -1,0 +1,14 @@
+scrollSectionParser
+ popularity 0.007524
+ description HTML section tag.
+ extends abstractIndentableParagraphParser
+ inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser scrollParagraphParser
+ cue section
+ example
+  section
+   # Hello world
+   p This is a test
+   section
+    # Deeper
+ javascript
+  tag = "section"

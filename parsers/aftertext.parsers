@@ -73,7 +73,10 @@ abstractAftertextParser
    if (tag === "none") // Allow no tag for aftertext in tables
      return this.text
    const id = this.has("id") ? "" : `id="${this.htmlId}" ` // always add an html id
-   return this.getHtmlRequirements(buildSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}>${this.text}${this.closingTag}`
+   return this.getHtmlRequirements(buildSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}>${this.htmlContents}${this.closingTag}`
+  }
+  get htmlContents() {
+    return this.text
   }
   get closingTag() {
     const tag = this.get("tag") || this.tag
