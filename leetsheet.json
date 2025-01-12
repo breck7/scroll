@@ -289,7 +289,7 @@
   },
   {
     "id": "buildConcepts",
-    "description": "Write concepts to csv+ files.",
+    "description": "Compile concepts to delimited files.",
     "popularity": 3
   },
   {
@@ -316,7 +316,7 @@
   },
   {
     "id": "buildMeasures",
-    "description": "Write measures to csv+ files.",
+    "description": "Compile measures to delimited files.",
     "popularity": 3
   },
   {
@@ -331,7 +331,7 @@
   },
   {
     "id": "buildRss",
-    "description": "Write RSS file.",
+    "description": "Compile to RSS file.",
     "popularity": 5
   },
   {

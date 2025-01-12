@@ -36,16 +36,16 @@ belowAsHtml - Displays html output of next particle in a code block.
 blankLineParser - Print nothing. Break section.
 blink - Just for fun.
 br - A break.
-buildConcepts - Write concepts to csv+ files.
+buildConcepts - Compile concepts to delimited files.
 buildCss - Compile to CSS file.
 buildCsv - Compile to CSV file.
 buildHtml - Compile to HTML file.
 buildJs - Compile to JS file.
 buildJson - Compile to JSON file.
-buildMeasures - Write measures to csv+ files.
+buildMeasures - Compile measures to delimited files.
 buildParsers - Compile to Parsers file.
 buildPdf - Compile to PDF file.
-buildRss - Write RSS file.
+buildRss - Compile to RSS file.
 buildTsv - Compile to TSV file.
 buildTxt - Compile to TXT file.
 button - A button.
