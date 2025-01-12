@@ -137,7 +137,7 @@ belowAsCode
 sampleData seattle-weather.csv
  splitYear
   groupBy year
-   reduce precipitation mean
+   reduce precipitation mean precipitation_mean
    select year precipitation_mean
     transpose
      heatrix

@@ -62,6 +62,9 @@ htmlAnyAtom
  extends codeAtom
 colorAtom
  extends codeAtom
+namedColorAtom
+ extends colorAtom
+ enum aliceblue antiquewhite aqua aquamarine azure beige bisque black blanchedalmond blue blueviolet brown burlywood cadetblue chartreuse chocolate coral cornflowerblue cornsilk crimson cyan darkblue darkcyan darkgoldenrod darkgray darkgreen darkkhaki darkmagenta darkolivegreen darkorange darkorchid darkred darksalmon darkseagreen darkslateblue darkslategray darkturquoise darkviolet deeppink deepskyblue dimgray dodgerblue firebrick floralwhite forestgreen fuchsia gainsboro ghostwhite gold goldenrod gray green greenyellow honeydew hotpink indianred indigo ivory khaki lavender lavenderblush lawngreen lemonchiffon lightblue lightcoral lightcyan lightgoldenrodyellow lightgray lightgreen lightpink lightsalmon lightseagreen lightskyblue lightslategray lightsteelblue lightyellow lime limegreen linen magenta maroon mediumaquamarine mediumblue mediumorchid mediumpurple mediumseagreen mediumslateblue mediumspringgreen mediumturquoise mediumvioletred midnightblue mintcream mistyrose moccasin navajowhite navy oldlace olive olivedrab orange orangered orchid palegoldenrod palegreen paleturquoise palevioletred papayawhip peachpuff peru pink plum powderblue purple rebeccapurple red rosybrown royalblue saddlebrown salmon sandybrown seagreen seashell sienna silver skyblue slateblue slategray snow springgreen steelblue tan teal thistle tomato turquoise violet wheat white whitesmoke yellow yellowgreen
 buildCommandAtom
  extends cueAtom
  description Give build command atoms their own color.
@@ -182,6 +185,8 @@ commentAtom
  paint comment
 codeAtom
  paint comment
+columnNameOrColorAtom
+ extends columnNameAtom
 metaCommandAtom
  extends cueAtom
  description Give meta command atoms their own color.
@@ -485,6 +490,72 @@ scrollDivParser
     # Deeper
  javascript
   tag = "div"
+htmlSectionParser
+ description HTML section tag.
+ extends abstractIndentableParagraphParser
+ cue section
+ example
+  section
+   # Hello world
+   p This is a test
+   section
+    # Deeper
+ javascript
+  tag = "section"
+htmlHeaderParser
+ description HTML header tag.
+ extends abstractIndentableParagraphParser
+ cue header
+ example
+  header
+   # Title
+ javascript
+  tag = "header"
+htmlFooterParser
+ description HTML footer tag.
+ extends abstractIndentableParagraphParser
+ cue footer
+ example
+  footer
+   p Made with love
+ javascript
+  tag = "footer"
+htmlMainParser
+ description HTML main tag.
+ extends abstractIndentableParagraphParser
+ cue main
+ example
+  main
+   # Title
+ javascript
+  tag = "main"
+htmlNavParser
+ description HTML nav tag.
+ extends abstractIndentableParagraphParser
+ cue nav
+ example
+  nav
+   a Home
+    href /
+ javascript
+  tag = "nav"
+htmlPreParser
+ description HTML pre tag.
+ extends abstractIndentableParagraphParser
+ cue pre
+ example
+  pre
+ javascript
+  tag = "pre"
+htmlAParser
+ description HTML a tag.
+ extends abstractIndentableParagraphParser
+ cue a
+ example
+  a Home
+   href /
+ javascript
+  tag = "a"
 listAftertextParser
  popularity 0.014325
  extends abstractIndentableParagraphParser
@@ -545,19 +616,6 @@ quickQuoteParser
  javascript
   defaultClassName = "scrollQuote"
   tag = "blockquote"
-scrollSectionParser
- popularity 0.007524
- description HTML section tag.
- extends abstractIndentableParagraphParser
- cue section
- example
-  section
-   # Hello world
-   p This is a test
-   section
-    # Deeper
- javascript
-  tag = "section"
 scrollCounterParser
  description Visualize the speed of something.
  extends scrollParagraphParser
@@ -1398,7 +1456,7 @@ printSnippetsParser
 scrollNavParser
  popularity 0.000048
  extends printSnippetsParser
- cue nav
+ cue fileNav
  description Titles and links in group(s).
  joinParser
   boolean allowTrailingWhitespace true
@@ -3739,6 +3797,7 @@ quickImportParser
  description Import a Scroll or Parsers file.
  extends abstractScrollParser
  boolean isPopular true
+ inScope importToFooterParser abstractCommentParser
  atoms urlAtom
  pattern ^[^\s]+\.(scroll|parsers)$
  javascript
@@ -4157,6 +4216,11 @@ replaceNodejsParser
   replaceNodejs
    module.exports = {SCORE : 1 + 2}
   * The score is SCORE
+toFooterParser
+ extends abstractScrollParser
+ description Experimental way to move a section to the footer.
+ atoms preBuildCommandAtom
+ cueFromId
 runScriptParser
  popularity 0.000024
  description Run script and dump stdout.
@@ -4397,6 +4461,12 @@ aftertextColorParser
  string property color
  example
   color blue
+aftertextHrefParser
+ popularity 0.000217
+ cue href
+ description Set HTML href attribute.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom urlAtom
 aftertextOnclickParser
  popularity 0.000217
  cue onclick
@@ -5530,7 +5600,7 @@ openGraphParser
  description Add this line to make this the open graph image.
  cueFromId
  atoms cueAtom
-scrollFooterParser
+importToFooterParser
  description Import to bottom of file.
  atoms preBuildCommandAtom
  cue footer
@@ -5903,12 +5973,23 @@ scrollRadiusParser
 scrollSymbolParser
  cue symbol
  extends abstractColumnNameParser
+abstractColumnNameOrColorParser
+ extends abstractColumnNameParser
+ atoms cueAtom columnNameOrColorAtom
+ javascript
+  //todo: cleanup
+  colorOptions = "aliceblue antiquewhite aqua aquamarine azure beige bisque black blanchedalmond blue blueviolet brown burlywood cadetblue chartreuse chocolate coral cornflowerblue cornsilk crimson cyan darkblue darkcyan darkgoldenrod darkgray darkgreen darkkhaki darkmagenta darkolivegreen darkorange darkorchid darkred darksalmon darkseagreen darkslateblue darkslategray darkturquoise darkviolet deeppink deepskyblue dimgray dodgerblue firebrick floralwhite forestgreen fuchsia gainsboro ghostwhite gold goldenrod gray green greenyellow honeydew hotpink indianred indigo ivory khaki lavender lavenderblush lawngreen lemonchiffon lightblue lightcoral lightcyan lightgoldenrodyellow lightgray lightgreen lightpink lightsalmon lightseagreen lightskyblue lightslategray lightsteelblue lightyellow lime limegreen linen magenta maroon mediumaquamarine mediumblue mediumorchid mediumpurple mediumseagreen mediumslateblue mediumspringgreen mediumturquoise mediumvioletred midnightblue mintcream mistyrose moccasin navajowhite navy oldlace olive olivedrab orange orangered orchid palegoldenrod palegreen paleturquoise palevioletred papayawhip peachpuff peru pink plum powderblue purple rebeccapurple red rosybrown royalblue saddlebrown salmon sandybrown seagreen seashell sienna silver skyblue slateblue slategray snow springgreen steelblue tan teal thistle tomato turquoise violet wheat white whitesmoke yellow yellowgreen".split(" ")
+  getRunTimeEnumOptions(atom) {
+   if (atom.atomTypeId === "columnNameOrColorAtom")
+      return this.parent.columnNames.join(this.colorOptions)
+   return super.getRunTimeEnumOptions(atom)
+  }
 scrollFillParser
  cue fill
- extends abstractColumnNameParser
+ extends abstractColumnNameOrColorParser
 scrollStrokeParser
  cue stroke
- extends abstractColumnNameParser
+ extends abstractColumnNameOrColorParser
 scrollLabelParser
  cue label
  extends abstractColumnNameParser
@@ -6239,7 +6320,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "165.4.0"
+    return "166.0.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6678,7 +6759,7 @@ scrollParser
     let code = fusedCode
     const absolutePath = filePath
     // note: the 2 params above are not used in this method, but may be used in user eval code. (todo: cleanup)
-    const regex = /^(replace|footer$)/gm
+    const regex = /^(replace|toFooter$)/gm
     if (!regex.test(code)) return code
     const particle = new Particle(code) // todo: this can be faster. a more lightweight particle class?
     // Process macros
@@ -6701,8 +6782,8 @@ scrollParser
         }
         particle.destroy() // Destroy definitions after eval
       })
-    if (particle.has("footer")) {
-      const pushes = particle.getParticles("footer")
+    if (particle.has("toFooter")) {
+      const pushes = particle.getParticles("toFooter")
       const append = pushes.map(push => push.section.join("\n")).join("\n")
       pushes.forEach(push => {
         push.section.forEach(particle => particle.destroy())

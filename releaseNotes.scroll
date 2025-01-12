@@ -22,6 +22,19 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 166.0.0 1/12/2025
+🎉 added htmlNavParser
+🎉 added htmlAParser
+🎉 added htmlSectionParser
+🎉 added htmlFooterParser
+🎉 added htmlMainParser
+🎉 added htmlPreParser
+🎉 added namedColorAtom
+🎉 added abstractColumnNameOrColorParser
+🎉 added aftertextHrefParser
+⚠️ BREAKING: `nav` now makes an HTML nav; for older behavior use `fileNav`
+⚠️ BREAKING: old `footer` behavior is now `toFooter`
+
 📦 165.4.0 1/09/2025
 🎉 added divParser
 🎉 added h1Parser, h2Parser, and h3Parser

@@ -30,7 +30,7 @@ scrollImportedParser
     return []
   }
 
-scrollFooterParser
+importToFooterParser
  description Import to bottom of file.
  atoms preBuildCommandAtom
  cue footer
@@ -40,6 +40,7 @@ quickImportParser
  description Import a Scroll or Parsers file.
  extends abstractScrollParser
  boolean isPopular true
+ inScope importToFooterParser abstractCommentParser
  atoms urlAtom
  pattern ^[^\s]+\.(scroll|parsers)$
  javascript

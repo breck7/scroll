@@ -33,3 +33,9 @@ replaceNodejsParser
   replaceNodejs
    module.exports = {SCORE : 1 + 2}
   * The score is SCORE
+
+toFooterParser
+ extends abstractScrollParser
+ description Experimental way to move a section to the footer.
+ atoms preBuildCommandAtom
+ cueFromId

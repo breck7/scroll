@@ -201,6 +201,12 @@
     "example": "##### Hello world"
   },
   {
+    "id": "a",
+    "description": "HTML a tag.",
+    "popularity": 0,
+    "example": "a Home\n href /"
+  },
+  {
     "id": "aboveAsCode",
     "description": "Print code above.",
     "popularity": 49,
@@ -557,10 +563,22 @@
     "example": "fetch https://breckyunits.com/posts.csv\nfetch https://breckyunits.com/posts.csv renamed.csv"
   },
   {
+    "id": "fileNav",
+    "description": "Titles and links in group(s).",
+    "popularity": 5,
+    "example": "printSnippets index"
+  },
+  {
     "id": "font",
     "description": "Quickly set font family.",
     "popularity": 722,
     "example": "font Slim"
+  },
+  {
+    "id": "footer",
+    "description": "HTML footer tag.",
+    "popularity": 0,
+    "example": "footer\n p Made with love"
   },
   {
     "id": "h1",
@@ -584,6 +602,12 @@
     "id": "hakon",
     "description": "Compile Hakon to CSS.",
     "popularity": 0
+  },
+  {
+    "id": "header",
+    "description": "HTML header tag.",
+    "popularity": 0,
+    "example": "header\n # Title"
   },
   {
     "id": "heatrix",
@@ -705,6 +729,12 @@
     "popularity": 0
   },
   {
+    "id": "main",
+    "description": "HTML main tag.",
+    "popularity": 0,
+    "example": "main\n # Title"
+  },
+  {
     "id": "map",
     "description": "Map widget.",
     "popularity": 0
@@ -737,9 +767,9 @@
   },
   {
     "id": "nav",
-    "description": "Titles and links in group(s).",
-    "popularity": 5,
-    "example": "printSnippets index"
+    "description": "HTML nav tag.",
+    "popularity": 0,
+    "example": "nav\n a Home\n  href /"
   },
   {
     "id": "nickelbackIpsum",
@@ -787,6 +817,12 @@
     "id": "postsMeta",
     "description": "Post meta as table.",
     "popularity": 3
+  },
+  {
+    "id": "pre",
+    "description": "HTML pre tag.",
+    "popularity": 0,
+    "example": "pre"
   },
   {
     "id": "printColumn",
@@ -927,7 +963,7 @@
   {
     "id": "section",
     "description": "HTML section tag.",
-    "popularity": 753,
+    "popularity": 0,
     "example": "section\n # Hello world\n p This is a test\n section\n  # Deeper"
   },
   {
@@ -1005,6 +1041,11 @@
     "id": "thinColumns",
     "description": "Thin columns.",
     "popularity": 369
+  },
+  {
+    "id": "toFooter",
+    "description": "Experimental way to move a section to the footer.",
+    "popularity": 0
   },
   {
     "id": "toStamp",

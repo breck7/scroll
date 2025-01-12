@@ -19,6 +19,7 @@ Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of 
 #### - An html h4 tag.
 ##### - An html h5 tag.
 > - A quote.
+a - HTML a tag.
 aboveAsCode - Print code above.
 aboveAsHtml - Displays html output of previous particle in a code block.
 assertBuildIncludes - Test above particle's output.
@@ -91,11 +92,14 @@ endSnippet - Cut for snippet here.
 expander - An collapsible HTML details tag.
 favicon - Favicon file.
 fetch - Download URL to disk.
+fileNav - Titles and links in group(s).
 font - Quickly set font family.
+footer - HTML footer tag.
 h1 - An html h1 tag.
 h2 - An html h2 tag.
 h3 - An html h3 tag.
 hakon - Compile Hakon to CSS.
+header - HTML header tag.
 heatrix - A heatmap matrix data visualization.
 heatrixAdvanced - Advanced heatrix.
 helpfulNotFound - Helpful not found widget.
@@ -120,13 +124,14 @@ linechart - Line chart widget.
 linkTitle - Text for links.
 loadConcepts - Import all concepts in a folder.
 loremIpsum - Generate dummy text.
+main - HTML main tag.
 map - Map widget.
 mediumColumn - A medium column section.
 mediumColumns - Medium width columns.
 metaTags - Print meta tags including title.
 modal - A modal dialog overlay.
 music - Play sound files.
-nav - Titles and links in group(s).
+nav - HTML nav tag.
 nickelbackIpsum - Generate dummy text.
 notices - Display messages in URL query parameters.
 openGraphImage - Override Open Graph Image.
@@ -136,6 +141,7 @@ plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
 posts - Posts as table.
 postsMeta - Post meta as table.
+pre - HTML pre tag.
 printAuthors - Prints author(s) byline.
 printColumn - Print one column
 printDate - Print published date.
@@ -180,6 +186,7 @@ theScrollButton - WWS button.
 thinColumn - A thin column section.
 thinColumns - Thin columns.
 title - Set title.
+toFooter - Experimental way to move a section to the footer.
 toStamp - Print a directory to stamp.
 video - Play video files.
 wideColumn - A wide column section.
@@ -198,4 +205,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v165.4.0
+Built with Scroll v166.0.0

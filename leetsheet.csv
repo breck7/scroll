@@ -42,6 +42,8 @@ printTitle",
 ###,,An html h3 tag.,109,### Hello world,
 ####,,An html h4 tag.,29,#### Hello world,
 #####,,An html h5 tag.,0,##### Hello world,
+a,,HTML a tag.,0,"a Home
+href /",
 aboveAsCode,,Print code above.,49,"counter 1 second
 aboveAsCode",
 aboveAsHtml,,Displays html output of previous particle in a code block.,66,"# Hello world
@@ -157,11 +159,16 @@ metatags
 buildHtml",
 fetch,,Download URL to disk.,0,"fetch https://breckyunits.com/posts.csv
 fetch https://breckyunits.com/posts.csv renamed.csv",
+fileNav,,Titles and links in group(s).,5,printSnippets index,
 font,,Quickly set font family.,722,font Slim,
+footer,,HTML footer tag.,0,"footer
+p Made with love",
 h1,,An html h1 tag.,1792,# Hello world,
 h2,,An html h2 tag.,526,## Hello world,
 h3,,An html h3 tag.,109,### Hello world,
 hakon,,Compile Hakon to CSS.,0,,
+header,,HTML header tag.,0,"header
+# Title",
 heatrix,,A heatmap matrix data visualization.,0,"heatrix
 '2007 '2008 '2009 '2010 '2011 '2012 '2013 '2014 '2015 '2016 '2017 '2018 '2019 '2020 '2021 '2022 '2023 '2024
 4 11 23 37 3 14 12 0 0 0 5 1 2 11 15 10 12 56",
@@ -208,13 +215,17 @@ linkTitle,,Text for links.,753,"title My blog - Eureka
 linkTitle Eureka",
 loadConcepts,,Import all concepts in a folder.,0,,
 loremIpsum,,Generate dummy text.,0,,
+main,,HTML main tag.,0,"main
+# Title",
 map,,Map widget.,0,,
 mediumColumn,,A medium column section.,338,,
 mediumColumns,,Medium width columns.,338,,
 metaTags,,Print meta tags including title.,770,,
 modal,,A modal dialog overlay.,0,,
 music,,Play sound files.,3,music sipOfCoffee.m4a,
-nav,,Titles and links in group(s).,5,printSnippets index,
+nav,,HTML nav tag.,0,"nav
+a Home
+ href /",
 nickelbackIpsum,,Generate dummy text.,0,,
 notices,,Display messages in URL query parameters.,0,,
 openGraphImage,,Override Open Graph Image.,80,,
@@ -231,6 +242,7 @@ buildHtml
 buildCsv
 buildJson",
 postsMeta,,Post meta as table.,3,,
+pre,,HTML pre tag.,0,pre,
 printColumn,,Print one column,3,printColumn tags,
 printFeed,,Print group to RSS.,5,"printFeed index
 printFeed cars/index
@@ -264,7 +276,7 @@ scatterplot",
 script,,Print script tag.,0,,
 scrollForm,,Generate a Scroll Form.,640,,
 scrollVersionLink,,Print Scroll version.,630,,
-section,,HTML section tag.,753,"section
+section,,HTML section tag.,0,"section
 # Hello world
 p This is a test
 section
@@ -304,6 +316,7 @@ thanksTo,,Acknowledgements comment. Prints nothing.,0,,
 theScrollButton,,WWS button.,630,,
 thinColumn,,A thin column section.,338,,
 thinColumns,,Thin columns.,369,,
+toFooter,,Experimental way to move a section to the footer.,0,,
 toStamp,,Print a directory to stamp.,0,,
 video,,Play video files.,3,video spirit.mp4,
 wideColumn,,A wide column section.,338,,

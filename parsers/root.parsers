@@ -357,7 +357,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "165.4.0"
+    return "166.0.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -796,7 +796,7 @@ scrollParser
     let code = fusedCode
     const absolutePath = filePath
     // note: the 2 params above are not used in this method, but may be used in user eval code. (todo: cleanup)
-    const regex = /^(replace|footer$)/gm
+    const regex = /^(replace|toFooter$)/gm
     if (!regex.test(code)) return code
     const particle = new Particle(code) // todo: this can be faster. a more lightweight particle class?
     // Process macros
@@ -819,8 +819,8 @@ scrollParser
         }
         particle.destroy() // Destroy definitions after eval
       })
-    if (particle.has("footer")) {
-      const pushes = particle.getParticles("footer")
+    if (particle.has("toFooter")) {
+      const pushes = particle.getParticles("toFooter")
       const append = pushes.map(push => push.section.join("\n")).join("\n")
       pushes.forEach(push => {
         push.section.forEach(particle => particle.destroy())
