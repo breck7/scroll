@@ -97,3 +97,76 @@ htmlInlineParser
   buildHtml() {
    return `${this.getLine() ?? ""}${this.subparticlesToString()}`
   }
+
+htmlSectionParser
+ description HTML section tag.
+ extends abstractIndentableParagraphParser
+ cue section
+ example
+  section
+   # Hello world
+   p This is a test
+   section
+    # Deeper
+ javascript
+  tag = "section"
+
+htmlHeaderParser
+ description HTML header tag.
+ extends abstractIndentableParagraphParser
+ cue header
+ example
+  header
+   # Title
+ javascript
+  tag = "header"
+
+htmlFooterParser
+ description HTML footer tag.
+ extends abstractIndentableParagraphParser
+ cue footer
+ example
+  footer
+   p Made with love
+ javascript
+  tag = "footer"
+
+htmlMainParser
+ description HTML main tag.
+ extends abstractIndentableParagraphParser
+ cue main
+ example
+  main
+   # Title
+ javascript
+  tag = "main"
+
+htmlNavParser
+ description HTML nav tag.
+ extends abstractIndentableParagraphParser
+ cue nav
+ example
+  nav
+   a Home
+    href /
+ javascript
+  tag = "nav"
+
+htmlPreParser
+ description HTML pre tag.
+ extends abstractIndentableParagraphParser
+ cue pre
+ example
+  pre
+ javascript
+  tag = "pre"
+
+htmlAParser
+ description HTML a tag.
+ extends abstractIndentableParagraphParser
+ cue a
+ example
+  a Home
+   href /
+ javascript
+  tag = "a"

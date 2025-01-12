@@ -1,7 +1,7 @@
 scrollNavParser
  popularity 0.000048
  extends printSnippetsParser
- cue nav
+ cue fileNav
  description Titles and links in group(s).
  joinParser
   boolean allowTrailingWhitespace true

@@ -350,6 +350,13 @@ aftertextColorParser
  example
   color blue
 
+aftertextHrefParser
+ popularity 0.000217
+ cue href
+ description Set HTML href attribute.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom urlAtom
+
 aftertextOnclickParser
  popularity 0.000217
  cue onclick
