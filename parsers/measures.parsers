@@ -6,7 +6,7 @@ measureNameAtom
 buildMeasuresParser
  popularity 0.000024
  cueFromId
- description Write measures to csv+ files.
+ description Compile measures to delimited files.
  extends abstractBuildCommandParser
  sortByParser
   cueFromId
