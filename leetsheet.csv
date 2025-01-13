@@ -207,6 +207,8 @@ katex,,KaTex widget for typeset math.,160,"katex
 keyboardNav,,Make left and right navigate files.,748,,
 keywords,,Keywords for SEO meta tag.,169,,
 leftRightButtons,,Previous and next nav buttons.,635,,
+li,,HTML li tag.,0,"ol
+li A list",
 linechart,,Line chart widget.,0,"iris
 linechart
  x SepalLength
@@ -228,6 +230,8 @@ a Home
  href /",
 nickelbackIpsum,,Generate dummy text.,0,,
 notices,,Display messages in URL query parameters.,0,,
+ol,,HTML ol tag.,0,"ol
+li A list",
 openGraphImage,,Override Open Graph Image.,80,,
 p,,A paragraph.,189,p I had a _new_ idea.,
 permalink,,Override output filename.,27,,
@@ -318,6 +322,8 @@ thinColumn,,A thin column section.,338,,
 thinColumns,,Thin columns.,369,,
 toFooter,,Experimental way to move a section to the footer.,0,,
 toStamp,,Print a directory to stamp.,0,,
+ul,,HTML ul tag.,0,"ul
+li A list",
 video,,Play video files.,3,video spirit.mp4,
 wideColumn,,A wide column section.,338,,
 wideColumns,,Wide columns.,39,,

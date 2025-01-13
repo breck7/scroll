@@ -120,6 +120,7 @@ katex - KaTex widget for typeset math.
 keyboardNav - Make left and right navigate files.
 keywords - Keywords for SEO meta tag.
 leftRightButtons - Previous and next nav buttons.
+li - HTML li tag.
 linechart - Line chart widget.
 linkTitle - Text for links.
 loadConcepts - Import all concepts in a folder.
@@ -134,6 +135,7 @@ music - Play sound files.
 nav - HTML nav tag.
 nickelbackIpsum - Generate dummy text.
 notices - Display messages in URL query parameters.
+ol - HTML ol tag.
 openGraphImage - Override Open Graph Image.
 p - A paragraph.
 permalink - Override output filename.
@@ -188,6 +190,7 @@ thinColumns - Thin columns.
 title - Set title.
 toFooter - Experimental way to move a section to the footer.
 toStamp - Print a directory to stamp.
+ul - HTML ul tag.
 video - Play video files.
 wideColumn - A wide column section.
 wideColumns - Wide columns.
@@ -205,4 +208,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v166.0.0
+Built with Scroll v166.1.0

@@ -707,6 +707,12 @@
     "popularity": 635
   },
   {
+    "id": "li",
+    "description": "HTML li tag.",
+    "popularity": 0,
+    "example": "ol\n li A list"
+  },
+  {
     "id": "linechart",
     "description": "Line chart widget.",
     "popularity": 0,
@@ -780,6 +786,12 @@
     "id": "notices",
     "description": "Display messages in URL query parameters.",
     "popularity": 0
+  },
+  {
+    "id": "ol",
+    "description": "HTML ol tag.",
+    "popularity": 0,
+    "example": "ol\n li A list"
   },
   {
     "id": "openGraphImage",
@@ -1051,6 +1063,12 @@
     "id": "toStamp",
     "description": "Print a directory to stamp.",
     "popularity": 0
+  },
+  {
+    "id": "ul",
+    "description": "HTML ul tag.",
+    "popularity": 0,
+    "example": "ul\n li A list"
   },
   {
     "id": "video",
