@@ -161,6 +161,36 @@ htmlPreParser
  javascript
   tag = "pre"
 
+htmlUlParser
+ description HTML ul tag.
+ extends abstractIndentableParagraphParser
+ cue ul
+ example
+  ul
+   li A list
+ javascript
+  tag = "ul"
+
+htmlOlParser
+ description HTML ol tag.
+ extends abstractIndentableParagraphParser
+ cue ol
+ example
+  ol
+   li A list
+ javascript
+  tag = "ol"
+
+htmlLiParser
+ description HTML li tag.
+ extends abstractIndentableParagraphParser
+ cue li
+ example
+  ol
+   li A list
+ javascript
+  tag = "li"
+
 htmlAParser
  description HTML a tag.
  extends abstractIndentableParagraphParser

@@ -22,6 +22,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 166.1.0 1/13/2025
+🎉 added htmlUlParser
+🎉 added htmlOlParser
+🎉 added htmlLiParser
+
 📦 166.0.0 1/12/2025
 🎉 added htmlNavParser
 🎉 added htmlAParser
