@@ -648,6 +648,12 @@
     "example": "iframes frame.html"
   },
   {
+    "id": "img",
+    "description": "HTML img tag.",
+    "popularity": 0,
+    "example": "img foo.png"
+  },
+  {
     "id": "import",
     "description": "Import a file.",
     "popularity": 753,

@@ -574,6 +574,14 @@ htmlLiParser
    li A list
  javascript
   tag = "li"
+htmlImgParser
+ description HTML img tag.
+ extends abstractIndentableParagraphParser
+ cue img
+ example
+  img foo.png
+ javascript
+  tag = "img"
 htmlAParser
  description HTML a tag.
  extends abstractIndentableParagraphParser
@@ -6347,7 +6355,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "166.1.0"
+    return "166.2.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

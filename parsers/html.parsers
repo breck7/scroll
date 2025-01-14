@@ -191,6 +191,15 @@ htmlLiParser
  javascript
   tag = "li"
 
+htmlImgParser
+ description HTML img tag.
+ extends abstractIndentableParagraphParser
+ cue img
+ example
+  img foo.png
+ javascript
+  tag = "img"
+
 htmlAParser
  description HTML a tag.
  extends abstractIndentableParagraphParser

@@ -2,17 +2,17 @@ Scroll Tutorial
 ===============
 Scroll Roadmap
 ==============
-01/13/2025
+01/14/2025
 https://scroll.pub/roadmap.html
 
 Scroll Release Notes
 ====================
-01/13/2025
+01/14/2025
 https://scroll.pub/releaseNotes.html
 
 Scroll FAQ
 ==========
-01/13/2025
+01/14/2025
 https://scroll.pub/faq.html
 
 Video walkthrough of this tutorial | Edit this file on try.scroll.pub
@@ -227,4 +227,4 @@ You probably also can see that the Parsers code is powerful but has lots of shar
 
 While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
 
-Built with Scroll v166.1.0
+Built with Scroll v166.2.0

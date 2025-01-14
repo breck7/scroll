@@ -39,8 +39,6 @@ https://scroll.pub/script.html
 https://scroll.pub/scrollFormsTest.html
 https://scroll.pub/scrollVersion.html
 https://scroll.pub/settings.html
-https://scroll.pub/blogPost.html
-https://scroll.pub/buildDelimited.html
 https://scroll.pub/bundling.html
 https://scroll.pub/buttons.html
 https://scroll.pub/center.html
@@ -76,4 +74,6 @@ https://scroll.pub/about.html
 https://scroll.pub/all.html
 https://scroll.pub/autoTitle.html
 https://scroll.pub/background.html
+https://scroll.pub/blogPost.html
+https://scroll.pub/buildDelimited.html
 https://scroll.pub/top-sinks.html
