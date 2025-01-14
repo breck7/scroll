@@ -42,5 +42,5 @@ runScriptParser
 quickRunScriptParser
  extends runScriptParser
  atoms urlAtom
- pattern ^[^\s]+\.(py|pl|sh|rb|php)[^\s]*$
+ pattern ^[^\s]+\.(py|pl|sh|rb|php)$
  int filenameIndex 0
