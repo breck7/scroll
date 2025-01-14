@@ -292,16 +292,18 @@ abstractAftertextParser
    this.buildSettings = buildSettings
    const { className, styles } = this
    const classAttr = className ? `class="${this.className}"` : ""
+   const selfClose = this.isSelfClosing ? " /" : ""
    const tag = this.get("tag") || this.tag
    if (tag === "none") // Allow no tag for aftertext in tables
      return this.text
    const id = this.has("id") ? "" : `id="${this.htmlId}" ` // always add an html id
-   return this.getHtmlRequirements(buildSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}>${this.htmlContents}${this.closingTag}`
+   return this.getHtmlRequirements(buildSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}${selfClose}>${this.htmlContents}${this.closingTag}`
   }
   get htmlContents() {
     return this.text
   }
   get closingTag() {
+    if (this.isSelfClosing) return ""
     const tag = this.get("tag") || this.tag
     return `</${tag}>`
   }
@@ -490,9 +492,13 @@ scrollDivParser
     # Deeper
  javascript
   tag = "div"
+abstractHtmlElementParser
+ extends abstractIndentableParagraphParser
+ javascript
+  defaultClassName = ""
 htmlSectionParser
  description HTML section tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue section
  example
   section
@@ -504,7 +510,7 @@ htmlSectionParser
   tag = "section"
 htmlHeaderParser
  description HTML header tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue header
  example
   header
@@ -513,7 +519,7 @@ htmlHeaderParser
   tag = "header"
 htmlFooterParser
  description HTML footer tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue footer
  example
   footer
@@ -522,7 +528,7 @@ htmlFooterParser
   tag = "footer"
 htmlMainParser
  description HTML main tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue main
  example
   main
@@ -531,7 +537,7 @@ htmlMainParser
   tag = "main"
 htmlNavParser
  description HTML nav tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue nav
  example
   nav
@@ -541,7 +547,7 @@ htmlNavParser
   tag = "nav"
 htmlPreParser
  description HTML pre tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue pre
  example
   pre
@@ -549,7 +555,7 @@ htmlPreParser
   tag = "pre"
 htmlUlParser
  description HTML ul tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue ul
  example
   ul
@@ -558,7 +564,7 @@ htmlUlParser
   tag = "ul"
 htmlOlParser
  description HTML ol tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue ol
  example
   ol
@@ -567,7 +573,7 @@ htmlOlParser
   tag = "ol"
 htmlLiParser
  description HTML li tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue li
  example
   ol
@@ -576,15 +582,16 @@ htmlLiParser
   tag = "li"
 htmlImgParser
  description HTML img tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue img
  example
   img foo.png
  javascript
   tag = "img"
+  isSelfClosing = true
 htmlAParser
  description HTML a tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue a
  example
   a Home
@@ -4502,6 +4509,10 @@ aftertextHrefParser
  description Set HTML href attribute.
  extends abstractAftertextAttributeParser
  atoms cueAtom urlAtom
+aftertextSrcParser
+ extends aftertextHrefParser
+ cue src
+ description Set HTML src attribute.
 aftertextOnclickParser
  popularity 0.000217
  cue onclick
@@ -6355,7 +6366,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "166.2.0"
+    return "166.3.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

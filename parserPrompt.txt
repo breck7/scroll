@@ -71,6 +71,7 @@ stamp
      this.buildSettings = buildSettings
      const { className, styles } = this
      const classAttr = className ? `class="${this.className}"` : ""
+     const selfClose = this.isSelfClosing ? " /" : ""
      const tag = this.get("tag") || this.tag
      if (tag === "none") // Allow no tag for aftertext in tables
        return this.text
@@ -81,6 +82,7 @@ stamp
       return this.text
     }
     get closingTag() {
+      if (this.isSelfClosing) return ""
       const tag = this.get("tag") || this.tag
       return ``
     }
@@ -358,6 +360,11 @@ stamp
    description Set HTML href attribute.
    extends abstractAftertextAttributeParser
    atoms cueAtom urlAtom
+  
+  aftertextSrcParser
+   extends aftertextHrefParser
+   cue src
+   description Set HTML src attribute.
   
   aftertextOnclickParser
    popularity 0.000217
@@ -5275,7 +5282,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "166.2.0"
+      return "166.3.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

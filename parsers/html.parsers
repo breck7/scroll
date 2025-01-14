@@ -98,9 +98,14 @@ htmlInlineParser
    return `${this.getLine() ?? ""}${this.subparticlesToString()}`
   }
 
+abstractHtmlElementParser
+ extends abstractIndentableParagraphParser
+ javascript
+  defaultClassName = ""
+
 htmlSectionParser
  description HTML section tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue section
  example
   section
@@ -113,7 +118,7 @@ htmlSectionParser
 
 htmlHeaderParser
  description HTML header tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue header
  example
   header
@@ -123,7 +128,7 @@ htmlHeaderParser
 
 htmlFooterParser
  description HTML footer tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue footer
  example
   footer
@@ -133,7 +138,7 @@ htmlFooterParser
 
 htmlMainParser
  description HTML main tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue main
  example
   main
@@ -143,7 +148,7 @@ htmlMainParser
 
 htmlNavParser
  description HTML nav tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue nav
  example
   nav
@@ -154,7 +159,7 @@ htmlNavParser
 
 htmlPreParser
  description HTML pre tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue pre
  example
   pre
@@ -163,7 +168,7 @@ htmlPreParser
 
 htmlUlParser
  description HTML ul tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue ul
  example
   ul
@@ -173,7 +178,7 @@ htmlUlParser
 
 htmlOlParser
  description HTML ol tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue ol
  example
   ol
@@ -183,7 +188,7 @@ htmlOlParser
 
 htmlLiParser
  description HTML li tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue li
  example
   ol
@@ -193,16 +198,17 @@ htmlLiParser
 
 htmlImgParser
  description HTML img tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue img
  example
   img foo.png
  javascript
   tag = "img"
+  isSelfClosing = true
 
 htmlAParser
  description HTML a tag.
- extends abstractIndentableParagraphParser
+ extends abstractHtmlElementParser
  cue a
  example
   a Home

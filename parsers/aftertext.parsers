@@ -69,16 +69,18 @@ abstractAftertextParser
    this.buildSettings = buildSettings
    const { className, styles } = this
    const classAttr = className ? `class="${this.className}"` : ""
+   const selfClose = this.isSelfClosing ? " /" : ""
    const tag = this.get("tag") || this.tag
    if (tag === "none") // Allow no tag for aftertext in tables
      return this.text
    const id = this.has("id") ? "" : `id="${this.htmlId}" ` // always add an html id
-   return this.getHtmlRequirements(buildSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}>${this.htmlContents}${this.closingTag}`
+   return this.getHtmlRequirements(buildSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}${selfClose}>${this.htmlContents}${this.closingTag}`
   }
   get htmlContents() {
     return this.text
   }
   get closingTag() {
+    if (this.isSelfClosing) return ""
     const tag = this.get("tag") || this.tag
     return `</${tag}>`
   }
@@ -356,6 +358,11 @@ aftertextHrefParser
  description Set HTML href attribute.
  extends abstractAftertextAttributeParser
  atoms cueAtom urlAtom
+
+aftertextSrcParser
+ extends aftertextHrefParser
+ cue src
+ description Set HTML src attribute.
 
 aftertextOnclickParser
  popularity 0.000217
