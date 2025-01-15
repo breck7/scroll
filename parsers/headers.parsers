@@ -68,15 +68,3 @@ h5Parser
  cue #####
  javascript
   tag = "h5"
-
-h1LiteralParser
- extends h1Parser
- cue h1
-
-h2LiteralParser
- extends h2Parser
- cue h2
-
-h3LiteralParser
- extends h3Parser
- cue h3
