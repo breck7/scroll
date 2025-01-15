@@ -237,9 +237,8 @@ Scroll articles are written as Scroll files with the file extension scroll. The 
  https://github.com/breck7/scroll/tree/main/parsers here
 
 ? What language is Scroll written in?
-Scroll is written in Particles, ParsersLinks, and Javascript. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a few other microlangs written in Parsers. The CSS for the default theme _Gazette_ is written in Hakon. The HTML is written in stump.
- https://sdk.scroll.pub/designer/#standard%20hakon Hakon
- https://sdk.scroll.pub/designer/#standard%20stump stump
+Scroll is written in Particles, ParsersLinks, and Javascript. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a few other microlangs written in Parsers.
+
 TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.
 
 ? How does versioning of articles work?
