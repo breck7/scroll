@@ -671,6 +671,14 @@ htmlLabelParser
    for username
  javascript
   tag = "label"
+htmlSpanParser
+ description HTML span tag.
+ extends abstractHtmlElementParser
+ cue span
+ example
+  span Hello
+ javascript
+  tag = "span"
 h1LiteralParser
  description HTML h1 tag.
  extends abstractHtmlElementParser
@@ -6556,7 +6564,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "167.2.0"
+    return "167.3.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

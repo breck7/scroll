@@ -1033,6 +1033,12 @@
     "example": "slideshow\nWhy did the cow cross the road?\n***\nBecause it wanted to go to the MOOOO-vies.\n***\nTHE END\n****"
   },
   {
+    "id": "span",
+    "description": "HTML span tag.",
+    "popularity": 0,
+    "example": "span Hello"
+  },
+  {
     "id": "sparkline",
     "description": "Sparkline widget.",
     "popularity": 3,

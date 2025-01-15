@@ -181,6 +181,7 @@ scrollVersionLink - Print Scroll version.
 section - HTML section tag.
 select - HTML select tag.
 slideshow - Slideshow widget. *** delimits slides.
+span - HTML span tag.
 sparkline - Sparkline widget.
 stamp - Expand project template to disk.
 stopwatch - A stopwatch.
@@ -217,4 +218,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v167.2.0
+Built with Scroll v167.3.0

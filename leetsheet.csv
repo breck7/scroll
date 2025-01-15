@@ -313,6 +313,7 @@ Because it wanted to go to the MOOOO-vies.
 ***
 THE END
 ****",
+span,,HTML span tag.,0,span Hello,
 sparkline,,Sparkline widget.,3,sparkline 1 2 3 4 5,
 stamp,,Expand project template to disk.,0,"stamp
 .gitignore
