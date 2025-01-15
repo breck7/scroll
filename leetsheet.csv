@@ -48,6 +48,8 @@ aboveAsCode,,Print code above.,49,"counter 1 second
 aboveAsCode",
 aboveAsHtml,,Displays html output of previous particle in a code block.,66,"# Hello world
 aboveAsHtml",
+article,,HTML article tag.,0,"article
+h1 My article",
 assertBuildIncludes,,Test above particle's output.,0,"buildCsv
 assertBuildIncludes virginica",
 assertHtmlEquals,,Test above particle's output.,0,"<b></b>

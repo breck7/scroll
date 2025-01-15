@@ -136,6 +136,16 @@ htmlFooterParser
  javascript
   tag = "footer"
 
+htmlArticleParser
+ description HTML article tag.
+ extends abstractHtmlElementParser
+ cue article
+ example
+  article
+   h1 My article
+ javascript
+  tag = "article"
+
 htmlMainParser
  description HTML main tag.
  extends abstractHtmlElementParser

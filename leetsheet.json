@@ -219,6 +219,12 @@
     "example": "# Hello world\naboveAsHtml"
   },
   {
+    "id": "article",
+    "description": "HTML article tag.",
+    "popularity": 0,
+    "example": "article\n h1 My article"
+  },
+  {
     "id": "assertBuildIncludes",
     "description": "Test above particle's output.",
     "popularity": 0,
