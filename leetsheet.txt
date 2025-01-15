@@ -96,9 +96,10 @@ fileNav - Titles and links in group(s).
 font - Quickly set font family.
 footer - HTML footer tag.
 form - HTML form tag.
-h1 - An html h1 tag.
-h2 - An html h2 tag.
-h3 - An html h3 tag.
+h1 - HTML h1 tag.
+h2 - HTML h2 tag.
+h3 - HTML h3 tag.
+h4 - HTML h4 tag.
 hakon - Compile Hakon to CSS.
 header - HTML header tag.
 heatrix - A heatmap matrix data visualization.
@@ -216,4 +217,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v167.0.0
+Built with Scroll v167.1.0

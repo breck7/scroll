@@ -671,6 +671,42 @@ htmlLabelParser
    for username
  javascript
   tag = "label"
+h1LiteralParser
+ description HTML h1 tag.
+ extends abstractHtmlElementParser
+ cue h1
+ example
+  main
+   h1 Title
+ javascript
+  tag = "h1"
+h2LiteralParser
+ description HTML h2 tag.
+ extends abstractHtmlElementParser
+ cue h2
+ example
+  main
+   h2 Title
+ javascript
+  tag = "h2"
+h3LiteralParser
+ description HTML h3 tag.
+ extends abstractHtmlElementParser
+ cue h3
+ example
+  main
+   h3 Title
+ javascript
+  tag = "h3"
+h4LiteralParser
+ description HTML h4 tag.
+ extends abstractHtmlElementParser
+ cue h4
+ example
+  main
+   h4 Title
+ javascript
+  tag = "h4"
 listAftertextParser
  popularity 0.014325
  extends abstractIndentableParagraphParser
@@ -829,9 +865,6 @@ h1Parser
  boolean isPopular true
  javascript
   tag = "h1"
-h1LiteralParser
- extends h1Parser
- cue h1
 h2Parser
  popularity 0.005257
  description An html h2 tag.
@@ -843,9 +876,6 @@ h2Parser
  boolean isPopular true
  javascript
   tag = "h2"
-h2LiteralParser
- extends h2Parser
- cue h2
 h3Parser
  popularity 0.001085
  description An html h3 tag.
@@ -856,9 +886,6 @@ h3Parser
  cue ###
  javascript
   tag = "h3"
-h3LiteralParser
- extends h3Parser
- cue h3
 h4Parser
  popularity 0.000289
  description An html h4 tag.
@@ -6469,7 +6496,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "167.0.0"
+    return "167.1.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

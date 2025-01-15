@@ -25,6 +25,11 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+167.1.0 1/14/2025
+=================
+🎉 added h4LiteralParser
+🏥 fixed bug with h1LiteralParser and similar
+
 167.0.0 1/14/2025
 =================
 🎉 added aftertextValueParser
@@ -932,21 +937,21 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 01/15/2025,2025,Scroll Tutorial,tutorial.html,,main,949,4.7
 01/15/2025,2025,Wws,wws.html,,,35,0.2
 01/15/2025,2025,Wws Redirect,wws.html,,,0,0
-01/15/2025,2025,Scroll Release Notes,releaseNotes.html,,main,15944,79.7
-01/15/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
 01/15/2025,2025,Scroll Prompt,scrollPrompt.html,,,4480,22.4
 01/15/2025,2025,Settings,settings.html,,,0,0
 01/15/2025,2025,Sitemap,sitemap.html,,,115,0.6
 01/15/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
 01/15/2025,2025,Scroll is a language for scientists of all ages,index.html,,,168,0.8
-01/15/2025,2025,Readme Prompt,readmePrompt.html,,,20701,103.5
-01/15/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,295,1.5
-01/15/2025,2025,Parser Prompt,parserPrompt.html,,,22546,112.7
-01/15/2025,2025,Parser Usage,parserUsage.html,,,272,1.4
-01/15/2025,2025,Parsers,parsers.html,,,22466,112.3
-01/15/2025,2025,Scroll FAQ,faq.html,,main,3274,16.4
+01/15/2025,2025,Readme Prompt,readmePrompt.html,,,20715,103.6
+01/15/2025,2025,Scroll Release Notes,releaseNotes.html,,main,15958,79.8
+01/15/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
 01/15/2025,2025,Header,header.html,,,0,0
-01/15/2025,2025,Scroll LeetSheet,leetsheet.html,,,1070,5.3
+01/15/2025,2025,Scroll LeetSheet,leetsheet.html,,,1071,5.4
+01/15/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,295,1.5
+01/15/2025,2025,Parser Prompt,parserPrompt.html,,,22531,112.7
+01/15/2025,2025,Parser Usage,parserUsage.html,,,272,1.4
+01/15/2025,2025,Parsers,parsers.html,,,22515,112.6
+01/15/2025,2025,Scroll FAQ,faq.html,,main,3274,16.4
 01/15/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
 01/15/2025,2025,Scroll Cloc Stats,cloc.html,,,66,0.3
 01/15/2025,2025,Download Scroll.pub,download.html,,,49,0.2
@@ -3584,4 +3589,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v167.0.0
+Built with Scroll v167.1.0

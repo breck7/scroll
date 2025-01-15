@@ -166,9 +166,14 @@ footer,,HTML footer tag.,0,"footer
 p Made with love",
 form,,HTML form tag.,0,"form
 input",
-h1,,An html h1 tag.,1792,# Hello world,
-h2,,An html h2 tag.,526,## Hello world,
-h3,,An html h3 tag.,109,### Hello world,
+h1,,HTML h1 tag.,0,"main
+h1 Title",
+h2,,HTML h2 tag.,0,"main
+h2 Title",
+h3,,HTML h3 tag.,0,"main
+h3 Title",
+h4,,HTML h4 tag.,0,"main
+h4 Title",
 hakon,,Compile Hakon to CSS.,0,,
 header,,HTML header tag.,0,"header
 # Title",

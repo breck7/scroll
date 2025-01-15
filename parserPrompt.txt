@@ -2377,18 +2377,6 @@ stamp
    javascript
     tag = "h5"
   
-  h1LiteralParser
-   extends h1Parser
-   cue h1
-  
-  h2LiteralParser
-   extends h2Parser
-   cue h2
-  
-  h3LiteralParser
-   extends h3Parser
-   cue h3
-  
  heatrix.parsers
   heatrixCatchAllParser
    popularity 0.000193
@@ -5322,7 +5310,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "167.0.0"
+      return "167.1.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
