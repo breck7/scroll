@@ -88,6 +88,18 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 167.2.0 1/14/2025
+🎉 added aftertextAltParser
+🎉 added aftertextTitleParser
+🎉 added aftertextNameParser
+🎉 added aftertextMaxlengthParser
+🎉 added aftertextPatternParser
+🎉 added aftertextRequiredParser
+🎉 added aftertextDisabledParser
+🎉 added aftertextReadonlyParser
+🎉 added aftertextAriaLabelParser
+🎉 added aftertextTargetParser
+
 📦 167.1.0 1/14/2025
 🎉 added h4LiteralParser
 🏥 fixed bug with h1LiteralParser and similar

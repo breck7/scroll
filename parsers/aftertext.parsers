@@ -412,3 +412,73 @@ aftertextTypeParser
  description Set HTML type attribute.
  extends abstractAftertextAttributeParser
  atoms cueAtom htmlTypeAtom
+
+aftertextAltParser
+ popularity 0.000217
+ cue alt
+ description Set HTML alt attribute for images.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType htmlAnyAtom
+
+aftertextTitleParser
+ popularity 0.000217
+ cue title
+ description Set HTML title attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType htmlAnyAtom
+
+aftertextNameParser
+ popularity 0.000217
+ cue name
+ description Set HTML name attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType htmlAnyAtom
+
+aftertextMaxlengthParser
+ popularity 0.000217
+ cue maxlength
+ description Set HTML maxlength attribute.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom integerAtom
+
+aftertextPatternParser
+ popularity 0.000217
+ cue pattern
+ description Set HTML pattern attribute for input validation.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType htmlAnyAtom
+
+aftertextRequiredParser
+ popularity 0.000217
+ cue required
+ description Set HTML required attribute.
+ extends abstractAftertextAttributeParser
+ single
+
+aftertextDisabledParser
+ popularity 0.000217
+ cue disabled
+ description Set HTML disabled attribute.
+ extends abstractAftertextAttributeParser
+ single
+
+aftertextReadonlyParser
+ popularity 0.000217
+ cue readonly
+ description Set HTML readonly attribute.
+ extends abstractAftertextAttributeParser
+ single
+
+aftertextAriaLabelParser
+ popularity 0.000217
+ cue aria-label
+ description Set ARIA label for accessibility.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType htmlAnyAtom
+
+aftertextTargetParser
+ popularity 0.000217
+ cue target
+ description Set HTML target attribute for links.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom htmlAnyAtom
