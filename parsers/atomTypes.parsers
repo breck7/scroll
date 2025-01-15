@@ -67,6 +67,12 @@ htmlTagAtom
  paint constant.language
  enum div span p a img ul ol li h1 h2 h3 h4 h5 h6 header nav section article aside main footer input button form label select option textarea table tr td th tbody thead tfoot br hr meta link script style title code
 
+htmlTypeAtom
+ extends stringAtom
+ paint constant.language
+ enum text password email number tel url search date time datetime-local week month color checkbox radio file submit reset button hidden range
+ description HTML input type attribute values.
+
 classNameAtom
  paint constant
 

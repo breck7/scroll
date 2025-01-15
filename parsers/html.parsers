@@ -215,3 +215,78 @@ htmlAParser
    href /
  javascript
   tag = "a"
+
+htmlFormParser
+ description HTML form tag.
+ extends abstractHtmlElementParser
+ cue form
+ example
+  form
+   input
+ javascript
+  tag = "form"
+
+htmlInputParser
+ description HTML input tag.
+ extends abstractHtmlElementParser
+ cue input
+ example
+  input
+   type text
+   placeholder Enter your name
+ javascript
+  tag = "input"
+  isSelfClosing = true
+
+htmlSelectParser
+ description HTML select tag.
+ extends abstractHtmlElementParser
+ cue select
+ example
+  select
+   option Value 1
+   option Value 2
+ javascript
+  tag = "select"
+
+htmlOptionParser
+ description HTML option tag.
+ extends abstractHtmlElementParser
+ cue option
+ example
+  select
+   option Choose an option
+   option First Option
+ javascript
+  tag = "option"
+
+htmlTextareaParser
+ description HTML textarea tag.
+ extends abstractHtmlElementParser
+ cue textarea
+ example
+  textarea
+   placeholder Enter your message
+   rows 4
+ javascript
+  tag = "textarea"
+
+htmlButtonParser
+ description HTML button tag.
+ extends abstractHtmlElementParser
+ cue button
+ example
+  button Submit
+   type submit
+ javascript
+  tag = "button"
+
+htmlLabelParser
+ description HTML label tag.
+ extends abstractHtmlElementParser
+ cue label
+ example
+  label Name
+   for username
+ javascript
+  tag = "label"

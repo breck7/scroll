@@ -377,3 +377,38 @@ aftertextHiddenParser
  description Do not compile this particle to HTML.
  extends abstractAftertextAttributeParser
  single
+
+aftertextValueParser
+ popularity 0.000217
+ cue value
+ description Set HTML value attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType htmlAnyAtom
+
+aftertextForParser
+ popularity 0.000217
+ cue for
+ description Set HTML for attribute.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom htmlAnyAtom
+
+aftertextPlaceholderParser
+ popularity 0.000217
+ cue placeholder
+ description Set HTML placeholder attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType htmlAnyAtom
+
+aftertextRowsParser
+ popularity 0.000217
+ cue rows
+ description Set HTML rows attribute.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom integerAtom
+
+aftertextTypeParser
+ popularity 0.000217
+ cue type
+ description Set HTML type attribute.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom htmlTypeAtom
