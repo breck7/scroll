@@ -291,6 +291,15 @@ htmlLabelParser
  javascript
   tag = "label"
 
+htmlSpanParser
+ description HTML span tag.
+ extends abstractHtmlElementParser
+ cue span
+ example
+  span Hello
+ javascript
+  tag = "span"
+
 h1LiteralParser
  description HTML h1 tag.
  extends abstractHtmlElementParser
