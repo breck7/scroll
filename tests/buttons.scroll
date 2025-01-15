@@ -2,10 +2,10 @@ buildHtml
 
 theme gazette
 
-button A link
+scrollButton A link
  https://scroll.pub
 
-button A Post
+scrollButton A Post
  link https://hub.scroll.pub/echo.htm
  post
   hello world

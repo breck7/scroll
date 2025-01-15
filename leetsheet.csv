@@ -78,7 +78,8 @@ buildParsers,,Compile to Parsers file.,10,,
 buildPdf,,Compile to PDF file.,10,,
 buildRss,,Compile to RSS file.,5,,
 buildTsv,,Compile to TSV file.,10,,
-button,,A button.,0,button Click me,
+button,,HTML button tag.,0,"button Submit
+type submit",
 canonicalUrl,,Override canonical URL.,0,,
 center,,A centered section.,642,"center
 This paragraph is centered.",
@@ -163,6 +164,8 @@ fileNav,,Titles and links in group(s).,5,printSnippets index,
 font,,Quickly set font family.,722,font Slim,
 footer,,HTML footer tag.,0,"footer
 p Made with love",
+form,,HTML form tag.,0,"form
+input",
 h1,,An html h1 tag.,1792,# Hello world,
 h2,,An html h2 tag.,526,## Hello world,
 h3,,An html h3 tag.,109,### Hello world,
@@ -197,6 +200,9 @@ inlineMarkups,,Set global inline markups.,3,"inlineMarkups
  // Disable * for bold
 _ u
  // Make _ underline",
+input,,HTML input tag.,0,"input
+type text
+placeholder Enter your name",
 iris,,Iris dataset from R.A. Fisher.,214,"iris
 printTable
 scatter
@@ -207,6 +213,8 @@ katex,,KaTex widget for typeset math.,160,"katex
 \text{E} = \text{T} / \text{A}!",
 keyboardNav,,Make left and right navigate files.,748,,
 keywords,,Keywords for SEO meta tag.,169,,
+label,,HTML label tag.,0,"label Name
+for username",
 leftRightButtons,,Previous and next nav buttons.,635,,
 li,,HTML li tag.,0,"ol
 li A list",
@@ -234,6 +242,9 @@ notices,,Display messages in URL query parameters.,0,,
 ol,,HTML ol tag.,0,"ol
 li A list",
 openGraphImage,,Override Open Graph Image.,80,,
+option,,HTML option tag.,0,"select
+option Choose an option
+option First Option",
 p,,A paragraph.,189,p I had a _new_ idea.,
 permalink,,Override output filename.,27,,
 plainText,,Plain text oneliner or block.,0,,
@@ -279,6 +290,7 @@ printTable",
 scatterplot,,Scatterplot Widget.,0,"iris
 scatterplot",
 script,,Print script tag.,0,,
+scrollButton,,A button.,0,scrollButton Click me,
 scrollForm,,Generate a Scroll Form.,640,,
 scrollVersionLink,,Print Scroll version.,630,,
 section,,HTML section tag.,0,"section
@@ -286,6 +298,9 @@ section,,HTML section tag.,0,"section
 p This is a test
 section
  # Deeper",
+select,,HTML select tag.,0,"select
+option Value 1
+option Value 2",
 slideshow,,Slideshow widget. *** delimits slides.,0,"slideshow
 Why did the cow cross the road?
 ***
@@ -317,6 +332,9 @@ data
 tableSearch,,Table search and sort widget.,8,,
 tags,,Set tags.,681,tags All,
 testStrict,,Make catchAllParagraphParser = error.,0,,
+textarea,,HTML textarea tag.,0,"textarea
+placeholder Enter your message
+rows 4",
 thanksTo,,Acknowledgements comment. Prints nothing.,0,,
 theScrollButton,,WWS button.,630,,
 thinColumn,,A thin column section.,338,,

@@ -1,11 +1,11 @@
 scrollButtonParser
  extends scrollParagraphParser
- cue button
+ cueFromId
  description A button.
  postParser
   description Post a particle.
  example
-  button Click me
+  scrollButton Click me
  javascript
   defaultClassName = "scrollButton"
   tag = "button"

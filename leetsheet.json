@@ -347,9 +347,9 @@
   },
   {
     "id": "button",
-    "description": "A button.",
+    "description": "HTML button tag.",
     "popularity": 0,
-    "example": "button Click me"
+    "example": "button Submit\n type submit"
   },
   {
     "id": "canonicalUrl",
@@ -581,6 +581,12 @@
     "example": "footer\n p Made with love"
   },
   {
+    "id": "form",
+    "description": "HTML form tag.",
+    "popularity": 0,
+    "example": "form\n input"
+  },
+  {
     "id": "h1",
     "description": "An html h1 tag.",
     "popularity": 1792,
@@ -681,6 +687,12 @@
     "example": "inlineMarkups\n * \n  // Disable * for bold\n _ u\n  // Make _ underline"
   },
   {
+    "id": "input",
+    "description": "HTML input tag.",
+    "popularity": 0,
+    "example": "input\n type text\n placeholder Enter your name"
+  },
+  {
     "id": "iris",
     "description": "Iris dataset from R.A. Fisher.",
     "popularity": 214,
@@ -706,6 +718,12 @@
     "id": "keywords",
     "description": "Keywords for SEO meta tag.",
     "popularity": 169
+  },
+  {
+    "id": "label",
+    "description": "HTML label tag.",
+    "popularity": 0,
+    "example": "label Name\n for username"
   },
   {
     "id": "leftRightButtons",
@@ -803,6 +821,12 @@
     "id": "openGraphImage",
     "description": "Override Open Graph Image.",
     "popularity": 80
+  },
+  {
+    "id": "option",
+    "description": "HTML option tag.",
+    "popularity": 0,
+    "example": "select\n option Choose an option\n option First Option"
   },
   {
     "id": "p",
@@ -969,6 +993,12 @@
     "popularity": 0
   },
   {
+    "id": "scrollButton",
+    "description": "A button.",
+    "popularity": 0,
+    "example": "scrollButton Click me"
+  },
+  {
     "id": "scrollForm",
     "description": "Generate a Scroll Form.",
     "popularity": 640
@@ -983,6 +1013,12 @@
     "description": "HTML section tag.",
     "popularity": 0,
     "example": "section\n # Hello world\n p This is a test\n section\n  # Deeper"
+  },
+  {
+    "id": "select",
+    "description": "HTML select tag.",
+    "popularity": 0,
+    "example": "select\n option Value 1\n option Value 2"
   },
   {
     "id": "slideshow",
@@ -1039,6 +1075,12 @@
     "id": "testStrict",
     "description": "Make catchAllParagraphParser = error.",
     "popularity": 0
+  },
+  {
+    "id": "textarea",
+    "description": "HTML textarea tag.",
+    "popularity": 0,
+    "example": "textarea\n placeholder Enter your message\n rows 4"
   },
   {
     "id": "thanksTo",

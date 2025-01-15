@@ -88,6 +88,21 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 167.0.0 1/14/2025
+🎉 added aftertextValueParser
+🎉 added aftertextForParser
+🎉 added aftertextPlaceholderParser
+🎉 added aftertextRowsParser
+🎉 added aftertextTypeParser
+🎉 added htmlFormParser
+🎉 added htmlInputParser
+🎉 added htmlSelectParser
+🎉 added htmlOptionParser
+🎉 added htmlTextareaParser
+🎉 added htmlButtonParser
+🎉 added htmlLabelParser
+⚠️ BREAKING: old `button` is now `scrollButton`
+
 📦 166.3.1 1/14/2025
 🏥 quickRunScriptParser was matching too much
 
