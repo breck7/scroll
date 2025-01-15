@@ -364,23 +364,23 @@ scrollWhereParser
    // todo: use atoms here.
    const columnName = this.connectColumnName(this.getAtom(1))
    const operator = this.getAtom(2)
-   let untypedScalarValue = this.getAtom(3)
-   const typedValue = isNaN(parseFloat(untypedScalarValue)) ? untypedScalarValue : parseFloat(untypedScalarValue)
+   let untypedComparisonValue = this.getAtom(3)
+   const typedComparisonValue = isNaN(parseFloat(untypedComparisonValue)) ? untypedComparisonValue : parseFloat(untypedComparisonValue)
    const coreTable = this.parent.coreTable
-   if (!columnName || !operator || (untypedScalarValue === undefined && !operator.includes("mpty"))) return coreTable
+   if (!columnName || !operator || (untypedComparisonValue === undefined && !operator.includes("mpty"))) return coreTable
     const filterFn = row => {
       const atom = row[columnName]
       const typedAtom = atom === null ? undefined : atom // convert nulls to undefined
-      if (operator === "=") return typedValue === typedAtom
-      else if (operator === "!=") return typedValue !== typedAtom
-      else if (operator === "includes") return typedAtom !== undefined && typedAtom.includes(typedValue)
-      else if (operator === "startsWith") return typedAtom !== undefined && typedAtom.toString().startsWith(typedValue)
-      else if (operator === "endsWith") return typedAtom !== undefined && typedAtom.toString().endsWith(typedValue)
-      else if (operator === "doesNotInclude") return typedAtom === undefined || !typedAtom.includes(typedValue)
-      else if (operator === ">") return typedAtom > typedValue
-      else if (operator === "<") return typedAtom < typedValue
-      else if (operator === ">=") return typedAtom >= typedValue
-      else if (operator === "<=") return typedAtom <= typedValue
+      if (operator === "=") return typedComparisonValue === typedAtom
+      else if (operator === "!=") return typedComparisonValue !== typedAtom
+      else if (operator === "includes") return typedAtom !== undefined && typedAtom.includes(typedComparisonValue)
+      else if (operator === "startsWith") return typedAtom !== undefined && typedAtom.toString().startsWith(typedComparisonValue)
+      else if (operator === "endsWith") return typedAtom !== undefined && typedAtom.toString().endsWith(typedComparisonValue)
+      else if (operator === "doesNotInclude") return typedAtom === undefined || !typedAtom.includes(typedComparisonValue)
+      else if (operator === ">") return typedAtom > typedComparisonValue
+      else if (operator === "<") return typedAtom < typedComparisonValue
+      else if (operator === ">=") return typedAtom >= typedComparisonValue
+      else if (operator === "<=") return typedAtom <= typedComparisonValue
       else if (operator === "empty") return typedAtom === "" || typedAtom === undefined
       else if (operator === "notEmpty") return typedAtom !== "" && typedAtom !== undefined
     }

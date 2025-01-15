@@ -3710,9 +3710,9 @@ stamp
       }
     }
   
-  // The main measure parser. All measures should extend from this.
   abstractMeasureParser
    atoms measureNameAtom
+   description Base parser all measures extend.
    cueFromId
    boolean isMeasure true
    float sortIndex 1.9
@@ -3735,16 +3735,34 @@ stamp
   
   // String Measures
   abstractAtomMeasureParser
-   description A measure that contains a single atom.
+   description Contains a single word.
    atoms measureNameAtom atomAtom
+   example
+    nicknameParser
+     extends abstractAtomMeasureParser
+    id Breck
+    nickname breck
    extends abstractMeasureParser
   
   abstractStringMeasureParser
+   description General text data with no specific format.
    catchAllAtomType stringAtom
+   example
+    titleParser
+     extends abstractStringMeasureParser
+    id Breck
+    title I build languages for scientists of all ages
    extends abstractMeasureParser
   
   abstractTextareaMeasureParser
    string typeForWebForms textarea
+   example
+    bioParser
+     extends abstractTextareaMeasureParser
+    id Breck
+    bio
+     I build languages for scientists of all ages
+   description Long-form text content with preserved line breaks.
    extends abstractMeasureParser
    baseParser blobParser
    javascript
@@ -3753,21 +3771,38 @@ stamp
     }
   
   abstractEmailMeasureParser
+   description Email address.
+   example
+    emailParser
+     extends abstractEmailMeasureParser
+    id Breck
+    email breck7@gmail.com
    string typeForWebForms email
    atoms measureNameAtom emailAddressAtom
    extends abstractAtomMeasureParser
   
   // URL Parsers
   abstractUrlMeasureParser
+   description A single url.
+   example
+    homepageParser
+     extends abstractUrlMeasureParser
+    id Breck
+    homepage https://breckyunits.com
    string typeForWebForms url
    atoms measureNameAtom urlAtom
    extends abstractAtomMeasureParser
+  
   
   // Required ID measure which denotes a concept
   abstractIdParser
    cue id
    description What is the ID of this concept?
    extends abstractStringMeasureParser
+   example
+    idParser
+     extends abstractIdParser
+    id breck
    float sortIndex 1
    boolean isMeasureRequired true
    boolean isConceptDelimiter true
@@ -3787,46 +3822,137 @@ stamp
       return errors
     }
   
+  abstractIdMeasureParser
+   description Alias for abstractIdParser.
+   extends abstractIdParser
+  
   // Numeric Measures
   abstractNumericMeasureParser
    string typeForWebForms number
+   description Base number type.
    extends abstractMeasureParser
    javascript
     get measureValue() {
       const {content} = this
       return content === undefined ? "" : parseFloat(content)
     }
-  
-  abstractIntegerMeasureParser
-   atoms measureNameAtom integerAtom
+  abstractNumberMeasureParser
+   description Alias to abstractNumericMeasureParser.
    extends abstractNumericMeasureParser
   
+  abstractIntegerMeasureParser
+   description An integer.
+   example
+    ageParser
+     extends abstractIntegerMeasureParser
+    id Breck
+    age 40
+   atoms measureNameAtom integerAtom
+   extends abstractNumericMeasureParser
+   javascript
+    get measureValue() {
+      const {content} = this
+      return content === undefined ? "" : parseInt(content)
+    }
+  abstractIntMeasureParser
+   description Alias to abstractIntegerMeasureParser.
+   extends abstractIntegerMeasureParser
+  
   abstractFloatMeasureParser
+   description A float.
+   example
+    temperatureParser
+     extends abstractFloatMeasureParser
+    id Breck
+    temperature 31.8
    atoms measureNameAtom floatAtom
    extends abstractNumericMeasureParser
   
   abstractPercentageMeasureParser
+   description A percentage.
    atoms measureNameAtom percentAtom
    extends abstractNumericMeasureParser
+   example
+    ownershipParser
+     extends abstractPercentageMeasureParser
+    id Breck
+    ownership 31.8
    javascript
     get measureValue() {
       const {content} = this
       return content === undefined ? "" : parseFloat(content)
     }
   
+  
   // Enum Measures
   abstractEnumMeasureParser
+   description A single enum.
    atoms measureNameAtom enumAtom
    extends abstractMeasureParser
+   example
+    favoriteHtmlTagParser
+     extends abstractEnumMeasureParser
+     atoms measureNameAtom htmlTagAtom
+    id Breck
+    favoriteHtmlTag 2020
   
   // Boolean Measures
   abstractBooleanMeasureParser
+   description A single boolean.
    atoms measureNameAtom booleanAtom
    extends abstractMeasureParser
+   example
+    hasBillOfRightsParser
+     extends abstractBooleanMeasureParser
+    id USA
+    hasBillOfRights true
    javascript
     get measureValue() {
       const {content} = this
       return content === undefined ? "" : content == "true"
+    }
+  
+  // Date and time measures
+  abstractDateMeasureParser
+   description Year/month/day in ISO 8601, US, European formats.
+   atoms measureNameAtom dateAtom
+   extends abstractMeasureParser
+   string typeForWebForms date
+   javascript
+    get measureValue() {
+      const {content} = this
+      if (!content) return ""
+      const {dayjs} = this.root
+      try {
+        // First try parsing with dayjs
+        const parsed = dayjs(content)
+        if (parsed.isValid())
+          return parsed.format("YYYY-MM-DD")
+        // Try parsing other common formats
+        const formats = [
+          "MM/DD/YYYY",
+          "DD/MM/YYYY", 
+          "YYYY/MM/DD",
+          "MM-DD-YYYY",
+          "DD-MM-YYYY",
+          "YYYY-MM-DD",
+          "DD.MM.YYYY",
+          "YYYY.MM.DD"
+        ]
+        for (const format of formats) {
+          const attempt = dayjs(content, format)
+          if (attempt.isValid())
+            return attempt.format("YYYY-MM-DD")
+        }
+      } catch (err) {
+        console.error(err)
+        return ""
+      }
+      return ""
+    }
+    get valueAsTimestamp() {
+      const {measureValue} = this
+      return measureValue ? this.root.dayjs(measureValue).unix() : ""
     }
   
  media.parsers
@@ -5380,7 +5506,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "167.3.0"
+      return "167.4.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6656,21 +6782,21 @@ stamp
      // todo: use atoms here.
      const columnName = this.connectColumnName(this.getAtom(1))
      const operator = this.getAtom(2)
-     let untypedScalarValue = this.getAtom(3)
-     const typedValue = isNaN(parseFloat(untypedScalarValue)) ? untypedScalarValue : parseFloat(untypedScalarValue)
+     let untypedComparisonValue = this.getAtom(3)
+     const typedComparisonValue = isNaN(parseFloat(untypedComparisonValue)) ? untypedComparisonValue : parseFloat(untypedComparisonValue)
      const coreTable = this.parent.coreTable
-     if (!columnName || !operator || (untypedScalarValue === undefined && !operator.includes("mpty"))) return coreTable
+     if (!columnName || !operator || (untypedComparisonValue === undefined && !operator.includes("mpty"))) return coreTable
       const filterFn = row => {
         const atom = row[columnName]
         const typedAtom = atom === null ? undefined : atom // convert nulls to undefined
-        if (operator === "=") return typedValue === typedAtom
-        else if (operator === "!=") return typedValue !== typedAtom
-        else if (operator === "includes") return typedAtom !== undefined && typedAtom.includes(typedValue)
-        else if (operator === "startsWith") return typedAtom !== undefined && typedAtom.toString().startsWith(typedValue)
-        else if (operator === "endsWith") return typedAtom !== undefined && typedAtom.toString().endsWith(typedValue)
-        else if (operator === "doesNotInclude") return typedAtom === undefined || !typedAtom.includes(typedValue)
-        else if (operator === ">") return typedAtom > typedValue
-        else if (operator === "=") return typedAtom >= typedValue
+        if (operator === "=") return typedComparisonValue === typedAtom
+        else if (operator === "!=") return typedComparisonValue !== typedAtom
+        else if (operator === "includes") return typedAtom !== undefined && typedAtom.includes(typedComparisonValue)
+        else if (operator === "startsWith") return typedAtom !== undefined && typedAtom.toString().startsWith(typedComparisonValue)
+        else if (operator === "endsWith") return typedAtom !== undefined && typedAtom.toString().endsWith(typedComparisonValue)
+        else if (operator === "doesNotInclude") return typedAtom === undefined || !typedAtom.includes(typedComparisonValue)
+        else if (operator === ">") return typedAtom > typedComparisonValue
+        else if (operator === "=") return typedAtom >= typedComparisonValue
         else if (operator === " Object.fromEntries(columnNames.map(colName => [colName, row[colName]])))
     }
     get columnNames() {
