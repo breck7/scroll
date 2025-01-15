@@ -357,7 +357,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "167.3.0"
+    return "167.4.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

@@ -22,6 +22,14 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 167.4.0 1/15/2025
+🎉 added abstractDateMeasureParser
+🎉 added examples and better docs to measures
+🎉 abstractIntegerMeasureParser now parsers to int
+🎉 added abstractIdMeasureParser alias
+🎉 added abstractNumberMeasureParser alias
+🎉 added abstractIntMeasureParser alias
+
 📦 167.3.0 1/14/2025
 🎉 added htmlSpanParser
 
