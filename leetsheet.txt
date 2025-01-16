@@ -23,6 +23,7 @@ a - HTML a tag.
 aboveAsCode - Print code above.
 aboveAsHtml - Displays html output of previous particle in a code block.
 article - HTML article tag.
+aside - HTML aside tag.
 assertBuildIncludes - Test above particle's output.
 assertHtmlEquals - Test above particle's output.
 assertHtmlExcludes - Test above particle's output.
@@ -221,4 +222,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v167.6.0
+Built with Scroll v167.7.0

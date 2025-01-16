@@ -50,6 +50,8 @@ aboveAsHtml,,Displays html output of previous particle in a code block.,66,"# He
 aboveAsHtml",
 article,,HTML article tag.,0,"article
 h1 My article",
+aside,,HTML aside tag.,0,"aside
+h1 Some notes",
 assertBuildIncludes,,Test above particle's output.,0,"buildCsv
 assertBuildIncludes virginica",
 assertHtmlEquals,,Test above particle's output.,0,"<b></b>

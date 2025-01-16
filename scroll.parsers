@@ -531,6 +531,15 @@ htmlFooterParser
    p Made with love
  javascript
   tag = "footer"
+htmlAsideParser
+ description HTML aside tag.
+ extends abstractHtmlElementParser
+ cue aside
+ example
+  aside
+   h1 Some notes
+ javascript
+  tag = "aside"
 htmlArticleParser
  description HTML article tag.
  extends abstractHtmlElementParser
@@ -6711,7 +6720,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "167.6.0"
+    return "167.7.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

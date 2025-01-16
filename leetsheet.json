@@ -225,6 +225,12 @@
     "example": "article\n h1 My article"
   },
   {
+    "id": "aside",
+    "description": "HTML aside tag.",
+    "popularity": 0,
+    "example": "aside\n h1 Some notes"
+  },
+  {
     "id": "assertBuildIncludes",
     "description": "Test above particle's output.",
     "popularity": 0,
