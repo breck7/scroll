@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 168.1.0 1/16/2025
+🎉 add support for importing mjs files with correct module syntax
+
 📦 168.0.0 1/16/2025
 The advanced `class` aftertext parser was causing confusion versus a simple HTML class attribute.
 This release adds a simple `class` parser, and renames the existing advanced one to `addClass`.

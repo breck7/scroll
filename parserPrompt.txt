@@ -3095,12 +3095,22 @@ stamp
     script.js
    pattern ^[^\s]+\.(js)$
    javascript
+    attr = ""
     buildHtml() {
      return ``
     }
     buildHtmlSnippet() {
       return ""
     }
+  
+  quickModuleScriptParser
+   description Make a Javascript module tag.
+   extends quickScriptParser
+   example
+    script.mjs
+   pattern ^[^\s]+\.(mjs)$
+   javascript
+    attr = 'type="module"'
   
   scrollInlineJsParser
    description Inline JS from files.
@@ -5511,7 +5521,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "168.0.0"
+      return "168.1.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
