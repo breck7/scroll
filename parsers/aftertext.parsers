@@ -487,3 +487,10 @@ aftertextTargetParser
  description Set HTML target attribute for links.
  extends abstractAftertextAttributeParser
  atoms cueAtom htmlAnyAtom
+
+aftertextContentParser
+ popularity 0.000217
+ cue content
+ description Set HTML content attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType htmlAnyAtom

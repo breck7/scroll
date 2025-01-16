@@ -88,6 +88,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 168.2.0 1/16/2025
+🎉 added htmlMetaTagParser
+🎉 added aftertextContentParser
+
 📦 168.1.0 1/16/2025
 🎉 add support for importing mjs files with correct module syntax
 

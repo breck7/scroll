@@ -489,6 +489,14 @@ stamp
    description Set HTML target attribute for links.
    extends abstractAftertextAttributeParser
    atoms cueAtom htmlAnyAtom
+  
+  aftertextContentParser
+   popularity 0.000217
+   cue content
+   description Set HTML content attribute.
+   extends abstractAftertextAttributeParser
+   catchAllAtomType htmlAnyAtom
+  
  assertions.parsers
   abstractAssertionParser
    description Test above particle's output.
@@ -5521,7 +5529,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "168.1.0"
+      return "168.2.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

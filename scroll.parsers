@@ -749,6 +749,17 @@ h4LiteralParser
    h4 Title
  javascript
   tag = "h4"
+htmlMetaTagParser
+ description HTML meta tag.
+ extends abstractHtmlElementParser
+ cue meta
+ example
+  meta
+   name description
+   content A great page about meta tags
+ javascript
+  tag = "meta"
+  isSelfClosing = true
 listAftertextParser
  popularity 0.014325
  extends abstractIndentableParagraphParser
@@ -4900,6 +4911,12 @@ aftertextTargetParser
  description Set HTML target attribute for links.
  extends abstractAftertextAttributeParser
  atoms cueAtom htmlAnyAtom
+aftertextContentParser
+ popularity 0.000217
+ cue content
+ description Set HTML content attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType htmlAnyAtom
 aftertextTagParser
  atoms cueAtom htmlTagAtom
  description Override the HTML tag that the compiled particle will use.
@@ -6733,7 +6750,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "168.1.0"
+    return "168.2.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

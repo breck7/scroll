@@ -242,6 +242,9 @@ main,,HTML main tag.,0,"main
 map,,Map widget.,0,,
 mediumColumn,,A medium column section.,338,,
 mediumColumns,,Medium width columns.,338,,
+meta,,HTML meta tag.,0,"meta
+name description
+content A great page about meta tags",
 metaTags,,Print meta tags including title.,770,,
 modal,,A modal dialog overlay.,0,,
 music,,Play sound files.,3,music sipOfCoffee.m4a,

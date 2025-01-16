@@ -138,6 +138,7 @@ main - HTML main tag.
 map - Map widget.
 mediumColumn - A medium column section.
 mediumColumns - Medium width columns.
+meta - HTML meta tag.
 metaTags - Print meta tags including title.
 modal - A modal dialog overlay.
 music - Play sound files.
@@ -222,4 +223,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v168.1.0
+Built with Scroll v168.2.0

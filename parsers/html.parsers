@@ -377,3 +377,15 @@ h4LiteralParser
    h4 Title
  javascript
   tag = "h4"
+
+htmlMetaTagParser
+ description HTML meta tag.
+ extends abstractHtmlElementParser
+ cue meta
+ example
+  meta
+   name description
+   content A great page about meta tags
+ javascript
+  tag = "meta"
+  isSelfClosing = true

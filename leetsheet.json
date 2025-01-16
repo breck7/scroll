@@ -810,6 +810,12 @@
     "popularity": 338
   },
   {
+    "id": "meta",
+    "description": "HTML meta tag.",
+    "popularity": 0,
+    "example": "meta\n name description\n content A great page about meta tags"
+  },
+  {
     "id": "metaTags",
     "description": "Print meta tags including title.",
     "popularity": 770
