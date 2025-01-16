@@ -310,6 +310,24 @@ htmlSpanParser
  javascript
   tag = "span"
 
+htmlCanvasParser
+ description HTML canvas tag.
+ extends abstractHtmlElementParser
+ cue canvas
+ example
+  canvas
+ javascript
+  tag = "canvas"
+
+htmlIframeParser
+ description HTML iframe tag.
+ extends abstractHtmlElementParser
+ cue iframe
+ example
+  iframe
+ javascript
+  tag = "iframe"
+
 h1LiteralParser
  description HTML h1 tag.
  extends abstractHtmlElementParser
