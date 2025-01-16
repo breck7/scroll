@@ -136,6 +136,16 @@ htmlFooterParser
  javascript
   tag = "footer"
 
+htmlAsideParser
+ description HTML aside tag.
+ extends abstractHtmlElementParser
+ cue aside
+ example
+  aside
+   h1 Some notes
+ javascript
+  tag = "aside"
+
 htmlArticleParser
  description HTML article tag.
  extends abstractHtmlElementParser
