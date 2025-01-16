@@ -83,6 +83,7 @@ buildTsv,,Compile to TSV file.,10,,
 button,,HTML button tag.,0,"button Submit
 type submit",
 canonicalUrl,,Override canonical URL.,0,,
+canvas,,HTML canvas tag.,0,canvas,
 center,,A centered section.,642,"center
 This paragraph is centered.",
 chat,,A faux text chat conversation.,37,"chat
@@ -196,6 +197,7 @@ helpfulNotFound,,Helpful not found widget.,5,,
 homeButton,,Home button.,640,,
 html,,HTML one liners or blocks.,5,,
 htmlLang,,Override HTML lang attribute.,0,,
+iframe,,HTML iframe tag.,0,iframe,
 iframes,,An iframe(s).,13,iframes frame.html,
 img,,HTML img tag.,0,img foo.png,
 import,,Import a file.,753,import header.scroll,

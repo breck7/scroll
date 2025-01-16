@@ -363,6 +363,12 @@
     "popularity": 0
   },
   {
+    "id": "canvas",
+    "description": "HTML canvas tag.",
+    "popularity": 0,
+    "example": "canvas"
+  },
+  {
     "id": "center",
     "description": "A centered section.",
     "popularity": 642,
@@ -658,6 +664,12 @@
     "id": "htmlLang",
     "description": "Override HTML lang attribute.",
     "popularity": 0
+  },
+  {
+    "id": "iframe",
+    "description": "HTML iframe tag.",
+    "popularity": 0,
+    "example": "iframe"
   },
   {
     "id": "iframes",

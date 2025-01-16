@@ -688,6 +688,22 @@ htmlSpanParser
   span Hello
  javascript
   tag = "span"
+htmlCanvasParser
+ description HTML canvas tag.
+ extends abstractHtmlElementParser
+ cue canvas
+ example
+  canvas
+ javascript
+  tag = "canvas"
+htmlIframeParser
+ description HTML iframe tag.
+ extends abstractHtmlElementParser
+ cue iframe
+ example
+  iframe
+ javascript
+  tag = "iframe"
 h1LiteralParser
  description HTML h1 tag.
  extends abstractHtmlElementParser
@@ -6695,7 +6711,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "167.5.0"
+    return "167.6.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

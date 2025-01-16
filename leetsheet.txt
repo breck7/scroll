@@ -52,6 +52,7 @@ buildTsv - Compile to TSV file.
 buildTxt - Compile to TXT file.
 button - HTML button tag.
 canonicalUrl - Override canonical URL.
+canvas - HTML canvas tag.
 caption - An image caption.
 catchAllParagraph - A paragraph.
 center - A centered section.
@@ -110,6 +111,7 @@ homeButton - Home button.
 html - HTML one liners or blocks.
 htmlInlineParser - Inline HTML.
 htmlLang - Override HTML lang attribute.
+iframe - HTML iframe tag.
 iframes - An iframe(s).
 image - An img tag.
 img - HTML img tag.
@@ -219,4 +221,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v167.5.0
+Built with Scroll v167.6.0
