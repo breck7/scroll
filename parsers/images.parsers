@@ -42,7 +42,7 @@ scrollImageParser
  example
   image screenshot.png
    caption A caption.
- inScope classMarkupParser aftertextIdParser scrollLinkParser linkTargetParser openGraphParser
+ inScope addClassMarkupParser aftertextIdParser scrollLinkParser linkTargetParser openGraphParser
  javascript
   get dimensions() {
     const width = this.get("width")

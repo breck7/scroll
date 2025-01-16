@@ -133,7 +133,7 @@ For CSS, use the `css` parser:
 belowAsCode 2
 css .green {color: green;}
 This text should be green.
- class green
+ addClass green
 
 ---
 

@@ -1,6 +1,6 @@
 buildHtml
 
 ? Hello world
- class aClass
+ addClass aClass
  foo.html
 inspectAbove

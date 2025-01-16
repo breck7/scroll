@@ -54,9 +54,9 @@ abstractAftertextParser
   }
   tag = "p"
   get className() {
-   if (this.get("classes"))
-     return this.get("classes")
-   const classLine = this.getParticle("class")
+   if (this.get("class"))
+     return this.get("class")
+   const classLine = this.getParticle("addClass")
    if (classLine && classLine.applyToParentElement) return classLine.content
    return this.defaultClassName
   }
@@ -272,12 +272,12 @@ abstractHtmlAttributeParser
    return ""
   }
 
-classMarkupParser
+addClassMarkupParser
  popularity 0.000772
- description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.
+ description Add a custom class to parent element. Provide query to add span matching text.
  extends abstractMarkupParser
  atoms cueAtom classNameAtom
- cue class
+ cue addClass
  javascript
   tag = "span"
   get applyToParentElement() {
@@ -299,15 +299,6 @@ classMarkupParser
   }
   get pattern() {
    return this.matchWholeLine ? this.parent.content : this.getAtomsFrom(2).join(" ")
-  }
-
-classesMarkupParser
- extends classMarkupParser
- cue classes
- javascript
-  applyToParentElement = true
-  get className() {
-   return this.content
   }
 
 aftertextIdParser
@@ -433,6 +424,20 @@ aftertextNameParser
  description Set HTML name attribute.
  extends abstractAftertextAttributeParser
  catchAllAtomType htmlAnyAtom
+
+aftertextOnsubmitParser
+ popularity 0.000217
+ cue onsubmit
+ description Set HTML onsubmit attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType javascriptAnyAtom
+
+aftertextClassParser
+ popularity 0.000217
+ cue class
+ description Set HTML class attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType classNameAtom
 
 aftertextMaxlengthParser
  popularity 0.000217
