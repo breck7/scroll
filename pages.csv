@@ -3,22 +3,22 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 01/16/2025,2025,Scroll Tutorial,tutorial.html,,main,949,4.7
 01/16/2025,2025,Wws,wws.html,,,35,0.2
 01/16/2025,2025,Wws Redirect,wws.html,,,0,0
-01/16/2025,2025,Sitemap,sitemap.html,,,115,0.6
-01/16/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-01/16/2025,2025,Scroll is a language for scientists of all ages,index.html,,,168,0.8
-01/16/2025,2025,Readme Prompt,readmePrompt.html,,,20878,104.4
-01/16/2025,2025,Scroll Release Notes,releaseNotes.html,,main,16121,80.6
+01/16/2025,2025,Scroll Release Notes,releaseNotes.html,,main,16129,80.6
 01/16/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
 01/16/2025,2025,Scroll Prompt,scrollPrompt.html,,,4480,22.4
 01/16/2025,2025,Settings,settings.html,,,0,0
-01/16/2025,2025,Scroll LeetSheet,leetsheet.html,,,1095,5.5
-01/16/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,295,1.5
-01/16/2025,2025,Parser Prompt,parserPrompt.html,,,23033,115.2
-01/16/2025,2025,Parser Usage,parserUsage.html,,,272,1.4
-01/16/2025,2025,Parsers,parsers.html,,,23125,115.6
+01/16/2025,2025,Sitemap,sitemap.html,,,115,0.6
+01/16/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
+01/16/2025,2025,Scroll is a language for scientists of all ages,index.html,,,168,0.8
+01/16/2025,2025,Readme Prompt,readmePrompt.html,,,20886,104.4
 01/16/2025,2025,Scroll FAQ,faq.html,,main,3274,16.4
 01/16/2025,2025,Header,header.html,,,0,0
+01/16/2025,2025,Scroll LeetSheet,leetsheet.html,,,1095,5.5
+01/16/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,295,1.5
+01/16/2025,2025,Parser Prompt,parserPrompt.html,,,23057,115.3
+01/16/2025,2025,Parser Usage,parserUsage.html,,,272,1.4
+01/16/2025,2025,Parsers,parsers.html,,,23149,115.7
+01/16/2025,2025,Download Scroll.pub,download.html,,,49,0.2
 01/16/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
 01/16/2025,2025,Scroll Cloc Stats,cloc.html,,,66,0.3
-01/16/2025,2025,Download Scroll.pub,download.html,,,49,0.2
 01/16/2025,2025,Animation,animation.html,,,13,0.1

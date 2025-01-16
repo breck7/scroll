@@ -497,6 +497,17 @@ stamp
    extends abstractAftertextAttributeParser
    catchAllAtomType htmlAnyAtom
   
+  aftertextDataParser
+   popularity 0.000217
+   pattern ^data\-
+   description Set HTML data- attribute.
+   extends abstractAftertextAttributeParser
+   atoms cueAtom
+   catchAllAtomType htmlAnyAtom
+   example
+    div My score
+     data-score 100
+  
  assertions.parsers
   abstractAssertionParser
    description Test above particle's output.
@@ -5529,7 +5540,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "168.2.0"
+      return "168.3.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

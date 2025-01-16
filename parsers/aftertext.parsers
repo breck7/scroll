@@ -494,3 +494,14 @@ aftertextContentParser
  description Set HTML content attribute.
  extends abstractAftertextAttributeParser
  catchAllAtomType htmlAnyAtom
+
+aftertextDataParser
+ popularity 0.000217
+ pattern ^data\-
+ description Set HTML data- attribute.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom
+ catchAllAtomType htmlAnyAtom
+ example
+  div My score
+   data-score 100
