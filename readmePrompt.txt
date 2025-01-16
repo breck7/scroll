@@ -10,7 +10,7 @@ header.scroll
 
 # Scroll is a language for scientists of all ages
  style font-weight: 300; font-size: 200%;
- class printTitleParser
+ addClass printTitleParser
 
 ## Publish and evolve your most intelligent ideas
  style font-weight: 300;
@@ -25,9 +25,9 @@ animation.scroll
 ScrollHub &nbsp;&nbsp; Try now
  center
  http://hub.scroll.pub/ ScrollHub
- class scrollButton ScrollHub
+ addClass scrollButton ScrollHub
  https://try.scroll.pub/ Try now
- class scrollButton Try now
+ addClass scrollButton Try now
 
 LeetSheet · Blog · Release Notes · FAQ · Tutorial
  center
@@ -87,6 +87,14 @@ ciBadges.scroll
 
 br
 thinColumns
+
+📦 168.0.0 1/16/2025
+The advanced `class` aftertext parser was causing confusion versus a simple HTML class attribute.
+This release adds a simple `class` parser, and renames the existing advanced one to `addClass`.
+🎉 added simple aftertextClassParser
+🎉 added aftertextOnsubmitParser
+⚠️ BREAKING: old `class` parser is now `addClass`
+⚠️ BREAKING: removed `classes` parser. Use new `class` parser instead.
 
 📦 167.6.0 1/15/2025
 🎉 added htmlCanvasParser
@@ -1867,7 +1875,7 @@ Above is a dinkus.
 🎉 tweaked default styling of images and captions
 
 This paragraph has a dropcap. It can be a useful visual aid for the reader to break up sections. You can read more about dropcaps on Wikipedia.
- class dropcap
+ addClass dropcap
  https://en.wikipedia.org/wiki/Initial dropcaps on Wikipedia
 
 📦 72.3.0 6/13/2023
@@ -2124,7 +2132,7 @@ loop
 
 📦 57.0.0 2/8/2023
 🎉 added support for `css` one liners
- class blueOneLiner
+ addClass blueOneLiner
 css .blueOneLiner { color: blue;}
 aboveAsCode 2
 
@@ -2181,7 +2189,7 @@ css
 aboveAsCode
 belowAsCode
 This whole text will be blue.
- class classDemo
+ addClass classDemo
 
 📦 55.2.0 1/26/2023
 🏥 upgrade jtree
@@ -2797,7 +2805,7 @@ To migrate and keep your existing datelines use the command scroll migrate.
 How much wood can a woodchuck chuck if a woodchuck could chuck wood?
  https://en.wikipedia.org/wiki/Groundhog woodchuck
   matchAll
- class standout wood
+ addClass standout wood
   match 0 3
 aboveAsCode
 
@@ -3676,7 +3684,7 @@ For CSS, use the `css` parser:
 belowAsCode 2
 css .green {color: green;}
 This text should be green.
- class green
+ addClass green
 
 ---
 

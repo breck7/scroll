@@ -282,9 +282,9 @@ abstractAftertextParser
   }
   tag = "p"
   get className() {
-   if (this.get("classes"))
-     return this.get("classes")
-   const classLine = this.getParticle("class")
+   if (this.get("class"))
+     return this.get("class")
+   const classLine = this.getParticle("addClass")
    if (classLine && classLine.applyToParentElement) return classLine.content
    return this.defaultClassName
   }
@@ -3854,7 +3854,7 @@ scrollImageParser
  example
   image screenshot.png
    caption A caption.
- inScope classMarkupParser aftertextIdParser scrollLinkParser linkTargetParser openGraphParser
+ inScope addClassMarkupParser aftertextIdParser scrollLinkParser linkTargetParser openGraphParser
  javascript
   get dimensions() {
     const width = this.get("width")
@@ -4837,6 +4837,18 @@ aftertextNameParser
  description Set HTML name attribute.
  extends abstractAftertextAttributeParser
  catchAllAtomType htmlAnyAtom
+aftertextOnsubmitParser
+ popularity 0.000217
+ cue onsubmit
+ description Set HTML onsubmit attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType javascriptAnyAtom
+aftertextClassParser
+ popularity 0.000217
+ cue class
+ description Set HTML class attribute.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType classNameAtom
 aftertextMaxlengthParser
  popularity 0.000217
  cue maxlength
@@ -5001,12 +5013,12 @@ aftertextStrikeParser
  extends abstractMarkupParser
  javascript
   tag = "s"
-classMarkupParser
+addClassMarkupParser
  popularity 0.000772
- description Add a custom class to the parent element instead. If matching text provided, a span with the class will be added around the matching text.
+ description Add a custom class to parent element. Provide query to add span matching text.
  extends abstractMarkupParser
  atoms cueAtom classNameAtom
- cue class
+ cue addClass
  javascript
   tag = "span"
   get applyToParentElement() {
@@ -5029,19 +5041,11 @@ classMarkupParser
   get pattern() {
    return this.matchWholeLine ? this.parent.content : this.getAtomsFrom(2).join(" ")
   }
-classesMarkupParser
- extends classMarkupParser
- cue classes
- javascript
-  applyToParentElement = true
-  get className() {
-   return this.content
-  }
 hoverNoteParser
  popularity 0.000265
  description Add a caveat viewable on hover on matching text. When you want to be sure you've thoroughly addressed obvious concerns but ones that don't warrant to distract from the main argument of the text.
  cueFromId
- extends classMarkupParser
+ extends addClassMarkupParser
  catchAllParser lineOfTextParser
  atoms cueAtom
  javascript
@@ -6720,7 +6724,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "167.7.0"
+    return "168.0.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

@@ -140,7 +140,7 @@ For CSS, use the `css` parser:
 belowAsCode 2
 css .green {color: green;}
 This text should be green.
- class green
+ addClass green
 
 ---
 
@@ -245,7 +245,7 @@ header.scroll
 
 # Scroll is a language for scientists of all ages
  style font-weight: 300; font-size: 200%;
- class printTitleParser
+ addClass printTitleParser
 
 ## Publish and evolve your most intelligent ideas
  style font-weight: 300;
@@ -260,9 +260,9 @@ animation.scroll
 ScrollHub &nbsp;&nbsp; Try now
  center
  http://hub.scroll.pub/ ScrollHub
- class scrollButton ScrollHub
+ addClass scrollButton ScrollHub
  https://try.scroll.pub/ Try now
- class scrollButton Try now
+ addClass scrollButton Try now
 
 LeetSheet · Blog · Release Notes · FAQ · Tutorial
  center

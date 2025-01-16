@@ -25,6 +25,15 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+168.0.0 1/16/2025
+=================
+The advanced `class` aftertext parser was causing confusion versus a simple HTML class attribute.
+This release adds a simple `class` parser, and renames the existing advanced one to `addClass`.
+🎉 added simple aftertextClassParser
+🎉 added aftertextOnsubmitParser
+⚠️ BREAKING: old `class` parser is now `addClass`
+⚠️ BREAKING: removed `classes` parser. Use new `class` parser instead.
+
 167.6.0 1/15/2025
 =================
 🎉 added htmlCanvasParser
@@ -972,24 +981,24 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 01/16/2025,2025,Scroll Tutorial,tutorial.html,,main,949,4.7
 01/16/2025,2025,Wws,wws.html,,,35,0.2
 01/16/2025,2025,Wws Redirect,wws.html,,,0,0
-01/16/2025,2025,Scroll Release Notes,releaseNotes.html,,main,16039,80.2
-01/16/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
-01/16/2025,2025,Scroll Prompt,scrollPrompt.html,,,4480,22.4
-01/16/2025,2025,Settings,settings.html,,,0,0
 01/16/2025,2025,Sitemap,sitemap.html,,,115,0.6
 01/16/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
 01/16/2025,2025,Scroll is a language for scientists of all ages,index.html,,,168,0.8
-01/16/2025,2025,Readme Prompt,readmePrompt.html,,,20796,104
-01/16/2025,2025,Parser Prompt,parserPrompt.html,,,22992,115
+01/16/2025,2025,Readme Prompt,readmePrompt.html,,,20852,104.3
+01/16/2025,2025,Scroll Release Notes,releaseNotes.html,,main,16095,80.5
+01/16/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
+01/16/2025,2025,Scroll Prompt,scrollPrompt.html,,,4480,22.4
+01/16/2025,2025,Settings,settings.html,,,0,0
+01/16/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,295,1.5
+01/16/2025,2025,Parser Prompt,parserPrompt.html,,,22998,115
 01/16/2025,2025,Parser Usage,parserUsage.html,,,272,1.4
-01/16/2025,2025,Parsers,parsers.html,,,23059,115.3
+01/16/2025,2025,Parsers,parsers.html,,,23065,115.3
 01/16/2025,2025,Scroll FAQ,faq.html,,main,3274,16.4
 01/16/2025,2025,Header,header.html,,,0,0
 01/16/2025,2025,Scroll LeetSheet,leetsheet.html,,,1091,5.5
-01/16/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,295,1.5
-01/16/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
 01/16/2025,2025,Scroll Cloc Stats,cloc.html,,,66,0.3
 01/16/2025,2025,Download Scroll.pub,download.html,,,49,0.2
+01/16/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
 01/16/2025,2025,Animation,animation.html,,,13,0.1
 
 127.0.0 9/4/2024
@@ -3624,4 +3633,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v167.7.0
+Built with Scroll v168.0.0

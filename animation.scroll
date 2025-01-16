@@ -3,15 +3,15 @@ br 1
 div#theAnimation
 With Scroll your
 Words become Atoms
- class atomToDot Words
- class atomToDot become
- class atomToDot Atoms
- class animationLine
+ addClass atomToDot Words
+ addClass atomToDot become
+ addClass atomToDot Atoms
+ addClass animationLine
 Consumed by Parsers
- class atomToDot2 Consumed
- class atomToDot2 by
- class atomToDot2 Parsers
- class animationLine
+ addClass atomToDot2 Consumed
+ addClass atomToDot2 by
+ addClass atomToDot2 Parsers
+ addClass animationLine
 To guide the world
 
 animation.css
