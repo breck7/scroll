@@ -280,7 +280,7 @@ abstractAftertextParser
    })
    return newText
   }
-  tag = "p"
+  get tag() {return "p"}
   get className() {
    if (this.get("class"))
      return this.get("class")
@@ -484,25 +484,13 @@ checklistDoneParser
  cue [x]
  example
   [x] get milk
-scrollDivParser
- popularity 0.007524
- description HTML div tag.
- extends abstractIndentableParagraphParser
- cue div
- example
-  div
-   # Hello world
-   p This is a test
-   div
-    # Deeper
- javascript
-  tag = "div"
 abstractHtmlElementParser
+ description HTML tag.
  extends abstractIndentableParagraphParser
  javascript
   defaultClassName = ""
+  get tag() { return this.cue}
 htmlSectionParser
- description HTML section tag.
  extends abstractHtmlElementParser
  cue section
  example
@@ -511,255 +499,186 @@ htmlSectionParser
    p This is a test
    section
     # Deeper
- javascript
-  tag = "section"
 htmlHeaderParser
- description HTML header tag.
  extends abstractHtmlElementParser
  cue header
  example
   header
    # Title
- javascript
-  tag = "header"
 htmlFooterParser
- description HTML footer tag.
  extends abstractHtmlElementParser
  cue footer
  example
   footer
    p Made with love
- javascript
-  tag = "footer"
 htmlAsideParser
- description HTML aside tag.
  extends abstractHtmlElementParser
  cue aside
  example
   aside
    h1 Some notes
- javascript
-  tag = "aside"
 htmlArticleParser
- description HTML article tag.
  extends abstractHtmlElementParser
  cue article
  example
   article
    h1 My article
- javascript
-  tag = "article"
 htmlMainParser
- description HTML main tag.
  extends abstractHtmlElementParser
  cue main
  example
   main
    # Title
- javascript
-  tag = "main"
 htmlNavParser
- description HTML nav tag.
  extends abstractHtmlElementParser
  cue nav
  example
   nav
    a Home
     href /
- javascript
-  tag = "nav"
 htmlPreParser
- description HTML pre tag.
  extends abstractHtmlElementParser
  cue pre
  example
   pre
- javascript
-  tag = "pre"
 htmlUlParser
- description HTML ul tag.
  extends abstractHtmlElementParser
  cue ul
  example
   ul
    li A list
- javascript
-  tag = "ul"
 htmlOlParser
- description HTML ol tag.
  extends abstractHtmlElementParser
  cue ol
  example
   ol
    li A list
- javascript
-  tag = "ol"
 htmlLiParser
- description HTML li tag.
  extends abstractHtmlElementParser
  cue li
  example
   ol
    li A list
- javascript
-  tag = "li"
 htmlImgParser
- description HTML img tag.
  extends abstractHtmlElementParser
  cue img
+ boolean isSelfClosing true
  example
   img foo.png
- javascript
-  tag = "img"
-  isSelfClosing = true
 htmlAParser
- description HTML a tag.
  extends abstractHtmlElementParser
  cue a
  example
   a Home
    href /
- javascript
-  tag = "a"
 htmlFormParser
- description HTML form tag.
  extends abstractHtmlElementParser
  cue form
  example
   form
    input
- javascript
-  tag = "form"
 htmlInputParser
- description HTML input tag.
  extends abstractHtmlElementParser
  cue input
+ boolean isSelfClosing true
  example
   input
    type text
    placeholder Enter your name
- javascript
-  tag = "input"
-  isSelfClosing = true
 htmlSelectParser
- description HTML select tag.
  extends abstractHtmlElementParser
  cue select
  example
   select
    option Value 1
    option Value 2
- javascript
-  tag = "select"
 htmlOptionParser
- description HTML option tag.
  extends abstractHtmlElementParser
  cue option
  example
   select
    option Choose an option
    option First Option
- javascript
-  tag = "option"
 htmlTextareaParser
- description HTML textarea tag.
  extends abstractHtmlElementParser
  cue textarea
  example
   textarea
    placeholder Enter your message
    rows 4
- javascript
-  tag = "textarea"
 htmlButtonParser
- description HTML button tag.
  extends abstractHtmlElementParser
  cue button
  example
   button Submit
    type submit
- javascript
-  tag = "button"
 htmlLabelParser
- description HTML label tag.
  extends abstractHtmlElementParser
  cue label
  example
   label Name
    for username
- javascript
-  tag = "label"
 htmlSpanParser
- description HTML span tag.
  extends abstractHtmlElementParser
  cue span
  example
   span Hello
- javascript
-  tag = "span"
 htmlCanvasParser
- description HTML canvas tag.
  extends abstractHtmlElementParser
  cue canvas
  example
   canvas
- javascript
-  tag = "canvas"
 htmlIframeParser
- description HTML iframe tag.
  extends abstractHtmlElementParser
  cue iframe
  example
   iframe
- javascript
-  tag = "iframe"
 h1LiteralParser
- description HTML h1 tag.
  extends abstractHtmlElementParser
  cue h1
  example
   main
    h1 Title
- javascript
-  tag = "h1"
 h2LiteralParser
- description HTML h2 tag.
  extends abstractHtmlElementParser
  cue h2
  example
   main
    h2 Title
- javascript
-  tag = "h2"
 h3LiteralParser
- description HTML h3 tag.
  extends abstractHtmlElementParser
  cue h3
  example
   main
    h3 Title
- javascript
-  tag = "h3"
 h4LiteralParser
- description HTML h4 tag.
  extends abstractHtmlElementParser
  cue h4
  example
   main
    h4 Title
- javascript
-  tag = "h4"
+htmlKbdParser
+ extends abstractHtmlElementParser
+ cue kbd
+ example
+  main
+   kbd Ctrl+→
 htmlMetaTagParser
- description HTML meta tag.
  extends abstractHtmlElementParser
  cue meta
+ boolean isSelfClosing true
  example
   meta
    name description
    content A great page about meta tags
- javascript
-  tag = "meta"
-  isSelfClosing = true
+htmlDivParser
+ extends abstractHtmlElementParser
+ cue div
+ example
+  div
+   # Hello world
+   div
+    # Deeper
 listAftertextParser
  popularity 0.014325
  extends abstractIndentableParagraphParser
@@ -6760,7 +6679,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "168.3.0"
+    return "168.4.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

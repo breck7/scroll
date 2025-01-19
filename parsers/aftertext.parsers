@@ -52,7 +52,7 @@ abstractAftertextParser
    })
    return newText
   }
-  tag = "p"
+  get tag() {return "p"}
   get className() {
    if (this.get("class"))
      return this.get("class")

@@ -88,6 +88,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 168.4.0 1/18/2025
+🎉 added htmlKbdParser
+
 📦 168.3.0 1/16/2025
 🎉 added aftertextDataParser
 

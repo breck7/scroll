@@ -202,7 +202,7 @@
   },
   {
     "id": "a",
-    "description": "HTML a tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "a Home\n href /"
   },
@@ -220,13 +220,13 @@
   },
   {
     "id": "article",
-    "description": "HTML article tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "article\n h1 My article"
   },
   {
     "id": "aside",
-    "description": "HTML aside tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "aside\n h1 Some notes"
   },
@@ -359,7 +359,7 @@
   },
   {
     "id": "button",
-    "description": "HTML button tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "button Submit\n type submit"
   },
@@ -370,7 +370,7 @@
   },
   {
     "id": "canvas",
-    "description": "HTML canvas tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "canvas"
   },
@@ -513,9 +513,9 @@
   },
   {
     "id": "div",
-    "description": "HTML div tag.",
-    "popularity": 753,
-    "example": "div\n # Hello world\n p This is a test\n div\n  # Deeper"
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "div\n # Hello world\n div\n  # Deeper"
   },
   {
     "id": "downloadButton",
@@ -594,37 +594,37 @@
   },
   {
     "id": "footer",
-    "description": "HTML footer tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "footer\n p Made with love"
   },
   {
     "id": "form",
-    "description": "HTML form tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "form\n input"
   },
   {
     "id": "h1",
-    "description": "HTML h1 tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "main\n h1 Title"
   },
   {
     "id": "h2",
-    "description": "HTML h2 tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "main\n h2 Title"
   },
   {
     "id": "h3",
-    "description": "HTML h3 tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "main\n h3 Title"
   },
   {
     "id": "h4",
-    "description": "HTML h4 tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "main\n h4 Title"
   },
@@ -635,7 +635,7 @@
   },
   {
     "id": "header",
-    "description": "HTML header tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "header\n # Title"
   },
@@ -673,7 +673,7 @@
   },
   {
     "id": "iframe",
-    "description": "HTML iframe tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "iframe"
   },
@@ -685,7 +685,7 @@
   },
   {
     "id": "img",
-    "description": "HTML img tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "img foo.png"
   },
@@ -718,7 +718,7 @@
   },
   {
     "id": "input",
-    "description": "HTML input tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "input\n type text\n placeholder Enter your name"
   },
@@ -740,6 +740,12 @@
     "example": "katex\n \\text{E} = \\text{T} / \\text{A}!"
   },
   {
+    "id": "kbd",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "main\n kbd Ctrl+→"
+  },
+  {
     "id": "keyboardNav",
     "description": "Make left and right navigate files.",
     "popularity": 748
@@ -751,7 +757,7 @@
   },
   {
     "id": "label",
-    "description": "HTML label tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "label Name\n for username"
   },
@@ -762,7 +768,7 @@
   },
   {
     "id": "li",
-    "description": "HTML li tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "ol\n li A list"
   },
@@ -790,7 +796,7 @@
   },
   {
     "id": "main",
-    "description": "HTML main tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "main\n # Title"
   },
@@ -811,7 +817,7 @@
   },
   {
     "id": "meta",
-    "description": "HTML meta tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "meta\n name description\n content A great page about meta tags"
   },
@@ -833,7 +839,7 @@
   },
   {
     "id": "nav",
-    "description": "HTML nav tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "nav\n a Home\n  href /"
   },
@@ -849,7 +855,7 @@
   },
   {
     "id": "ol",
-    "description": "HTML ol tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "ol\n li A list"
   },
@@ -860,7 +866,7 @@
   },
   {
     "id": "option",
-    "description": "HTML option tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "select\n option Choose an option\n option First Option"
   },
@@ -898,7 +904,7 @@
   },
   {
     "id": "pre",
-    "description": "HTML pre tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "pre"
   },
@@ -1046,13 +1052,13 @@
   },
   {
     "id": "section",
-    "description": "HTML section tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "section\n # Hello world\n p This is a test\n section\n  # Deeper"
   },
   {
     "id": "select",
-    "description": "HTML select tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "select\n option Value 1\n option Value 2"
   },
@@ -1064,7 +1070,7 @@
   },
   {
     "id": "span",
-    "description": "HTML span tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "span Hello"
   },
@@ -1120,7 +1126,7 @@
   },
   {
     "id": "textarea",
-    "description": "HTML textarea tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "textarea\n placeholder Enter your message\n rows 4"
   },
@@ -1156,7 +1162,7 @@
   },
   {
     "id": "ul",
-    "description": "HTML ul tag.",
+    "description": "HTML tag.",
     "popularity": 0,
     "example": "ul\n li A list"
   },

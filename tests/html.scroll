@@ -5,3 +5,12 @@ assertHtmlEquals <b></b>
 
 The background should be green
 htmlInclude.html
+
+section
+assertHtmlIncludes section
+
+meta
+ name selfclosing
+ content tag
+assertHtmlIncludes />
+

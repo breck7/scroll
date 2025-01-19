@@ -19,11 +19,11 @@ Scroll builds blogs, websites, knowledge bases, and more. Scroll is composed of 
 #### - An html h4 tag.
 ##### - An html h5 tag.
 > - A quote.
-a - HTML a tag.
+a - HTML tag.
 aboveAsCode - Print code above.
 aboveAsHtml - Displays html output of previous particle in a code block.
-article - HTML article tag.
-aside - HTML aside tag.
+article - HTML tag.
+aside - HTML tag.
 assertBuildIncludes - Test above particle's output.
 assertHtmlEquals - Test above particle's output.
 assertHtmlExcludes - Test above particle's output.
@@ -51,9 +51,9 @@ buildPdf - Compile to PDF file.
 buildRss - Compile to RSS file.
 buildTsv - Compile to TSV file.
 buildTxt - Compile to TXT file.
-button - HTML button tag.
+button - HTML tag.
 canonicalUrl - Override canonical URL.
-canvas - HTML canvas tag.
+canvas - HTML tag.
 caption - An image caption.
 catchAllParagraph - A paragraph.
 center - A centered section.
@@ -82,7 +82,7 @@ dependencies - Get files this file depends on.
 description - Description for SEO meta tag.
 dinkus - A custom dinkus.
 disk - Output file into as table.
-div - HTML div tag.
+div - HTML tag.
 downloadButton - Link to download/WWS page.
 editBaseUrl - Override edit link baseUrl.
 editButton - Print badge top right.
@@ -97,14 +97,14 @@ favicon - Favicon file.
 fetch - Download URL to disk.
 fileNav - Titles and links in group(s).
 font - Quickly set font family.
-footer - HTML footer tag.
-form - HTML form tag.
-h1 - HTML h1 tag.
-h2 - HTML h2 tag.
-h3 - HTML h3 tag.
-h4 - HTML h4 tag.
+footer - HTML tag.
+form - HTML tag.
+h1 - HTML tag.
+h2 - HTML tag.
+h3 - HTML tag.
+h4 - HTML tag.
 hakon - Compile Hakon to CSS.
-header - HTML header tag.
+header - HTML tag.
 heatrix - A heatmap matrix data visualization.
 heatrixAdvanced - Advanced heatrix.
 helpfulNotFound - Helpful not found widget.
@@ -112,49 +112,50 @@ homeButton - Home button.
 html - HTML one liners or blocks.
 htmlInlineParser - Inline HTML.
 htmlLang - Override HTML lang attribute.
-iframe - HTML iframe tag.
+iframe - HTML tag.
 iframes - An iframe(s).
 image - An img tag.
-img - HTML img tag.
+img - HTML tag.
 import - Import a file.
 importOnly - Don't build this file.
 inlineCss - Inline CSS from files.
 inlineJs - Inline JS from files.
 inlineMarkups - Set global inline markups.
-input - HTML input tag.
+input - HTML tag.
 iris - Iris dataset from R.A. Fisher.
 jsonScript - Include JSON and assign to window.
 katex - KaTex widget for typeset math.
+kbd - HTML tag.
 keyboardNav - Make left and right navigate files.
 keywords - Keywords for SEO meta tag.
-label - HTML label tag.
+label - HTML tag.
 leftRightButtons - Previous and next nav buttons.
-li - HTML li tag.
+li - HTML tag.
 linechart - Line chart widget.
 linkTitle - Text for links.
 loadConcepts - Import all concepts in a folder.
 loremIpsum - Generate dummy text.
-main - HTML main tag.
+main - HTML tag.
 map - Map widget.
 mediumColumn - A medium column section.
 mediumColumns - Medium width columns.
-meta - HTML meta tag.
+meta - HTML tag.
 metaTags - Print meta tags including title.
 modal - A modal dialog overlay.
 music - Play sound files.
-nav - HTML nav tag.
+nav - HTML tag.
 nickelbackIpsum - Generate dummy text.
 notices - Display messages in URL query parameters.
-ol - HTML ol tag.
+ol - HTML tag.
 openGraphImage - Override Open Graph Image.
-option - HTML option tag.
+option - HTML tag.
 p - A paragraph.
 permalink - Override output filename.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
 posts - Posts as table.
 postsMeta - Post meta as table.
-pre - HTML pre tag.
+pre - HTML tag.
 printAuthors - Prints author(s) byline.
 printColumn - Print one column
 printDate - Print published date.
@@ -183,10 +184,10 @@ script - Print script tag.
 scrollButton - A button.
 scrollForm - Generate a Scroll Form.
 scrollVersionLink - Print Scroll version.
-section - HTML section tag.
-select - HTML select tag.
+section - HTML tag.
+select - HTML tag.
 slideshow - Slideshow widget. *** delimits slides.
-span - HTML span tag.
+span - HTML tag.
 sparkline - Sparkline widget.
 stamp - Expand project template to disk.
 stopwatch - A stopwatch.
@@ -196,7 +197,7 @@ table - A datatable.
 tableSearch - Table search and sort widget.
 tags - Set tags.
 testStrict - Make catchAllParagraphParser = error.
-textarea - HTML textarea tag.
+textarea - HTML tag.
 thanksTo - Acknowledgements comment. Prints nothing.
 theme - A collection of simple themes.
 theScrollButton - WWS button.
@@ -205,7 +206,7 @@ thinColumns - Thin columns.
 title - Set title.
 toFooter - Experimental way to move a section to the footer.
 toStamp - Print a directory to stamp.
-ul - HTML ul tag.
+ul - HTML tag.
 video - Play video files.
 wideColumn - A wide column section.
 wideColumns - Wide columns.
@@ -223,4 +224,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v168.3.0
+Built with Scroll v168.4.0

@@ -42,15 +42,15 @@ printTitle",
 ###,,An html h3 tag.,109,### Hello world,
 ####,,An html h4 tag.,29,#### Hello world,
 #####,,An html h5 tag.,0,##### Hello world,
-a,,HTML a tag.,0,"a Home
+a,,HTML tag.,0,"a Home
 href /",
 aboveAsCode,,Print code above.,49,"counter 1 second
 aboveAsCode",
 aboveAsHtml,,Displays html output of previous particle in a code block.,66,"# Hello world
 aboveAsHtml",
-article,,HTML article tag.,0,"article
+article,,HTML tag.,0,"article
 h1 My article",
-aside,,HTML aside tag.,0,"aside
+aside,,HTML tag.,0,"aside
 h1 Some notes",
 assertBuildIncludes,,Test above particle's output.,0,"buildCsv
 assertBuildIncludes virginica",
@@ -82,10 +82,10 @@ buildParsers,,Compile to Parsers file.,10,,
 buildPdf,,Compile to PDF file.,10,,
 buildRss,,Compile to RSS file.,5,,
 buildTsv,,Compile to TSV file.,10,,
-button,,HTML button tag.,0,"button Submit
+button,,HTML tag.,0,"button Submit
 type submit",
 canonicalUrl,,Override canonical URL.,0,,
-canvas,,HTML canvas tag.,0,canvas,
+canvas,,HTML tag.,0,canvas,
 center,,A centered section.,642,"center
 This paragraph is centered.",
 chat,,A faux text chat conversation.,37,"chat
@@ -144,9 +144,8 @@ data
  1900,10
  2000,122
  2020,23",
-div,,HTML div tag.,753,"div
+div,,HTML tag.,0,"div
 # Hello world
-p This is a test
 div
  # Deeper",
 downloadButton,,Link to download/WWS page.,630,,
@@ -167,20 +166,20 @@ fetch,,Download URL to disk.,0,"fetch https://breckyunits.com/posts.csv
 fetch https://breckyunits.com/posts.csv renamed.csv",
 fileNav,,Titles and links in group(s).,5,printSnippets index,
 font,,Quickly set font family.,722,font Slim,
-footer,,HTML footer tag.,0,"footer
+footer,,HTML tag.,0,"footer
 p Made with love",
-form,,HTML form tag.,0,"form
+form,,HTML tag.,0,"form
 input",
-h1,,HTML h1 tag.,0,"main
+h1,,HTML tag.,0,"main
 h1 Title",
-h2,,HTML h2 tag.,0,"main
+h2,,HTML tag.,0,"main
 h2 Title",
-h3,,HTML h3 tag.,0,"main
+h3,,HTML tag.,0,"main
 h3 Title",
-h4,,HTML h4 tag.,0,"main
+h4,,HTML tag.,0,"main
 h4 Title",
 hakon,,Compile Hakon to CSS.,0,,
-header,,HTML header tag.,0,"header
+header,,HTML tag.,0,"header
 # Title",
 heatrix,,A heatmap matrix data visualization.,0,"heatrix
 '2007 '2008 '2009 '2010 '2011 '2012 '2013 '2014 '2015 '2016 '2017 '2018 '2019 '2020 '2021 '2022 '2023 '2024
@@ -199,9 +198,9 @@ helpfulNotFound,,Helpful not found widget.,5,,
 homeButton,,Home button.,640,,
 html,,HTML one liners or blocks.,5,,
 htmlLang,,Override HTML lang attribute.,0,,
-iframe,,HTML iframe tag.,0,iframe,
+iframe,,HTML tag.,0,iframe,
 iframes,,An iframe(s).,13,iframes frame.html,
-img,,HTML img tag.,0,img foo.png,
+img,,HTML tag.,0,img foo.png,
 import,,Import a file.,753,import header.scroll,
 importOnly,,Don't build this file.,3357,,
 inlineCss,,Inline CSS from files.,722,,
@@ -211,7 +210,7 @@ inlineMarkups,,Set global inline markups.,3,"inlineMarkups
  // Disable * for bold
 _ u
  // Make _ underline",
-input,,HTML input tag.,0,"input
+input,,HTML tag.,0,"input
 type text
 placeholder Enter your name",
 iris,,Iris dataset from R.A. Fisher.,214,"iris
@@ -222,12 +221,14 @@ scatter
 jsonScript,,Include JSON and assign to window.,753,,
 katex,,KaTex widget for typeset math.,160,"katex
 \text{E} = \text{T} / \text{A}!",
+kbd,,HTML tag.,0,"main
+kbd Ctrl+→",
 keyboardNav,,Make left and right navigate files.,748,,
 keywords,,Keywords for SEO meta tag.,169,,
-label,,HTML label tag.,0,"label Name
+label,,HTML tag.,0,"label Name
 for username",
 leftRightButtons,,Previous and next nav buttons.,635,,
-li,,HTML li tag.,0,"ol
+li,,HTML tag.,0,"ol
 li A list",
 linechart,,Line chart widget.,0,"iris
 linechart
@@ -237,26 +238,26 @@ linkTitle,,Text for links.,753,"title My blog - Eureka
 linkTitle Eureka",
 loadConcepts,,Import all concepts in a folder.,0,,
 loremIpsum,,Generate dummy text.,0,,
-main,,HTML main tag.,0,"main
+main,,HTML tag.,0,"main
 # Title",
 map,,Map widget.,0,,
 mediumColumn,,A medium column section.,338,,
 mediumColumns,,Medium width columns.,338,,
-meta,,HTML meta tag.,0,"meta
+meta,,HTML tag.,0,"meta
 name description
 content A great page about meta tags",
 metaTags,,Print meta tags including title.,770,,
 modal,,A modal dialog overlay.,0,,
 music,,Play sound files.,3,music sipOfCoffee.m4a,
-nav,,HTML nav tag.,0,"nav
+nav,,HTML tag.,0,"nav
 a Home
  href /",
 nickelbackIpsum,,Generate dummy text.,0,,
 notices,,Display messages in URL query parameters.,0,,
-ol,,HTML ol tag.,0,"ol
+ol,,HTML tag.,0,"ol
 li A list",
 openGraphImage,,Override Open Graph Image.,80,,
-option,,HTML option tag.,0,"select
+option,,HTML tag.,0,"select
 option Choose an option
 option First Option",
 p,,A paragraph.,189,p I had a _new_ idea.,
@@ -272,7 +273,7 @@ buildHtml
 buildCsv
 buildJson",
 postsMeta,,Post meta as table.,3,,
-pre,,HTML pre tag.,0,pre,
+pre,,HTML tag.,0,pre,
 printColumn,,Print one column,3,printColumn tags,
 printFeed,,Print group to RSS.,5,"printFeed index
 printFeed cars/index
@@ -307,12 +308,12 @@ script,,Print script tag.,0,,
 scrollButton,,A button.,0,scrollButton Click me,
 scrollForm,,Generate a Scroll Form.,640,,
 scrollVersionLink,,Print Scroll version.,630,,
-section,,HTML section tag.,0,"section
+section,,HTML tag.,0,"section
 # Hello world
 p This is a test
 section
  # Deeper",
-select,,HTML select tag.,0,"select
+select,,HTML tag.,0,"select
 option Value 1
 option Value 2",
 slideshow,,Slideshow widget. *** delimits slides.,0,"slideshow
@@ -322,7 +323,7 @@ Because it wanted to go to the MOOOO-vies.
 ***
 THE END
 ****",
-span,,HTML span tag.,0,span Hello,
+span,,HTML tag.,0,span Hello,
 sparkline,,Sparkline widget.,3,sparkline 1 2 3 4 5,
 stamp,,Expand project template to disk.,0,"stamp
 .gitignore
@@ -347,7 +348,7 @@ data
 tableSearch,,Table search and sort widget.,8,,
 tags,,Set tags.,681,tags All,
 testStrict,,Make catchAllParagraphParser = error.,0,,
-textarea,,HTML textarea tag.,0,"textarea
+textarea,,HTML tag.,0,"textarea
 placeholder Enter your message
 rows 4",
 thanksTo,,Acknowledgements comment. Prints nothing.,0,,
@@ -356,7 +357,7 @@ thinColumn,,A thin column section.,338,,
 thinColumns,,Thin columns.,369,,
 toFooter,,Experimental way to move a section to the footer.,0,,
 toStamp,,Print a directory to stamp.,0,,
-ul,,HTML ul tag.,0,"ul
+ul,,HTML tag.,0,"ul
 li A list",
 video,,Play video files.,3,video spirit.mp4,
 wideColumn,,A wide column section.,338,,
