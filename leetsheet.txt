@@ -38,6 +38,7 @@ belowAsCodeUntil - Print code above until match.
 belowAsHtml - Displays html output of next particle in a code block.
 blankLineParser - Print nothing. Break section.
 blink - Just for fun.
+blockquote - HTML tag.
 br - A break.
 buildConcepts - Compile concepts to delimited files.
 buildCss - Compile to CSS file.
@@ -88,6 +89,7 @@ editBaseUrl - Override edit link baseUrl.
 editButton - Print badge top right.
 editLink - Print "Edit" link.
 editUrl - Override edit link.
+em - HTML tag.
 email - Set email address for site contact.
 emailButton - Email button.
 endColumns - End columns.
@@ -191,6 +193,7 @@ span - HTML tag.
 sparkline - Sparkline widget.
 stamp - Expand project template to disk.
 stopwatch - A stopwatch.
+strong - HTML tag.
 stump - Compile Stump to HTML.
 stumpNoSnippet - Compile Stump unless snippet.
 table - A datatable.
@@ -224,4 +227,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v168.7.0
+Built with Scroll v168.8.0

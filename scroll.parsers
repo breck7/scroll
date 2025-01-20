@@ -687,6 +687,22 @@ htmlDivParser
    # Hello world
    div
     # Deeper
+htmlStrongParser
+ extends abstractHtmlElementParser
+ cue strong
+ example
+  strong Important text
+htmlEmParser
+ extends abstractHtmlElementParser
+ cue em
+ example
+  em Emphasized text
+htmlBlockquoteParser
+ extends abstractHtmlElementParser
+ cue blockquote
+ example
+  blockquote
+   p A wise quote
 listAftertextParser
  popularity 0.014325
  extends abstractIndentableParagraphParser
@@ -6786,7 +6802,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "168.7.0"
+    return "168.8.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

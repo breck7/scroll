@@ -71,6 +71,8 @@ counter 1 second",
 belowAsHtml,,Displays html output of next particle in a code block.,66,"belowAsHtml
 # Hello world",
 blink,,Just for fun.,0,blink Carpe diem!,
+blockquote,,HTML tag.,0,"blockquote
+p A wise quote",
 br,,A break.,10,br 2,
 buildConcepts,,Compile concepts to delimited files.,3,,
 buildCss,,Compile to CSS file.,5,buildCss,
@@ -153,6 +155,7 @@ editBaseUrl,,Override edit link baseUrl.,784,,
 editButton,,Print badge top right.,1397,,
 editLink,,"Print ""Edit"" link.",121,,
 editUrl,,Override edit link.,0,,
+em,,HTML tag.,0,em Emphasized text,
 email,,Set email address for site contact.,131,,
 emailButton,,Email button.,630,,
 endColumns,,End columns.,779,,
@@ -336,6 +339,7 @@ scripts/
   hello.js
    console.log(""Hello world"")",
 stopwatch,,A stopwatch.,0,stopwatch,
+strong,,HTML tag.,0,strong Important text,
 stump,,Compile Stump to HTML.,0,,
 stumpNoSnippet,,Compile Stump unless snippet.,1018,,
 table,,A datatable.,214,"table

@@ -300,6 +300,12 @@
     "example": "blink Carpe diem!"
   },
   {
+    "id": "blockquote",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "blockquote\n p A wise quote"
+  },
+  {
     "id": "br",
     "description": "A break.",
     "popularity": 10,
@@ -541,6 +547,12 @@
     "id": "editUrl",
     "description": "Override edit link.",
     "popularity": 0
+  },
+  {
+    "id": "em",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "em Emphasized text"
   },
   {
     "id": "email",
@@ -1091,6 +1103,12 @@
     "description": "A stopwatch.",
     "popularity": 0,
     "example": "stopwatch"
+  },
+  {
+    "id": "strong",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "strong Important text"
   },
   {
     "id": "stump",
