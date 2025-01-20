@@ -4661,6 +4661,7 @@ scrollThemeParser
 abstractAftertextAttributeParser
  atoms cueAtom
  boolean isAttribute true
+ description Set HTML attribute.
  javascript
   get htmlAttributes() {
    return `${this.cue}="${this.content}"`
@@ -4836,6 +4837,22 @@ aftertextContentParser
  description Set HTML content attribute.
  extends abstractAftertextAttributeParser
  catchAllAtomType htmlAnyAtom
+aftertextMinParser
+ cue min
+ extends abstractAftertextAttributeParser
+ atoms cueAtom numberAtom
+aftertextMaxParser
+ cue max
+ extends abstractAftertextAttributeParser
+ atoms cueAtom numberAtom
+aftertextWidthParser
+ cue width
+ extends abstractAftertextAttributeParser
+ catchAllAtomType cssAnyAtom
+aftertextHeightParser
+ cue height
+ extends abstractAftertextAttributeParser
+ catchAllAtomType cssAnyAtom
 aftertextDataParser
  popularity 0.000217
  pattern ^data\-
@@ -6679,7 +6696,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "168.5.0"
+    return "168.6.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

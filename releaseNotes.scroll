@@ -22,6 +22,12 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 168.6.0 1/20/2025
+🎉 added aftertextMinParser
+🎉 added aftertextMaxParser
+🎉 added aftertextWidthParser
+🎉 added aftertextHeightParser
+
 📦 168.5.0 1/19/2025
 🎉 put source filename in output message
 
