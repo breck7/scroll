@@ -506,6 +506,11 @@ aftertextMaxParser
  extends abstractAftertextAttributeParser
  atoms cueAtom numberAtom
 
+aftertextStepParser
+ cue step
+ extends abstractAftertextAttributeParser
+ atoms cueAtom numberAtom
+
 aftertextWidthParser
  cue width
  extends abstractAftertextAttributeParser
@@ -526,3 +531,94 @@ aftertextDataParser
  example
   div My score
    data-score 100
+
+aftertextRoleParser
+ popularity 0.000217
+ cue role
+ description Set ARIA role attribute for accessibility.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom htmlAnyAtom
+
+aftertextTabindexParser
+ popularity 0.000217
+ cue tabindex
+ description Set tabindex attribute for keyboard navigation.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom integerAtom
+
+aftertextColspanParser
+ popularity 0.000217
+ cue colspan
+ description Set colspan attribute for table cells.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom integerAtom
+
+aftertextRowspanParser
+ popularity 0.000217
+ cue rowspan
+ description Set rowspan attribute for table cells.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom integerAtom
+
+aftertextMethodParser
+ popularity 0.000217
+ cue method
+ description Set form method attribute (GET/POST).
+ extends abstractAftertextAttributeParser
+ atoms cueAtom htmlMethodAtom
+
+aftertextActionParser
+ popularity 0.000217
+ cue action
+ description Set form action URL.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom urlAtom
+
+aftertextAutocompleteParser
+ popularity 0.000217
+ cue autocomplete
+ description Set form autocomplete attribute.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom htmlAnyAtom
+
+aftertextMultipleParser
+ popularity 0.000217
+ cue multiple
+ description Allow multiple selections or files.
+ extends abstractAftertextAttributeParser
+ single
+
+aftertextSelectedParser
+ popularity 0.000217
+ cue selected
+ description Set selected state for options.
+ extends abstractAftertextAttributeParser
+ single
+
+aftertextCheckedParser
+ popularity 0.000217
+ cue checked
+ description Set checked state for inputs.
+ extends abstractAftertextAttributeParser
+ single
+
+aftertextRelParser
+ popularity 0.000217
+ cue rel
+ description Set rel attribute for links.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom htmlAnyAtom
+
+aftertextEnctypeParser
+ popularity 0.000217
+ cue enctype
+ description Set form enctype for file uploads.
+ extends abstractAftertextAttributeParser
+ atoms cueAtom htmlAnyAtom
+
+aftertextAcceptParser
+ popularity 0.000217
+ cue accept
+ description Set accepted file types for file inputs.
+ extends abstractAftertextAttributeParser
+ catchAllAtomType mimeTypeAtom

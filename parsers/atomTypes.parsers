@@ -63,6 +63,10 @@ tagOrUrlAtom
 htmlAttributesAtom
  paint constant
 
+htmlMethodAtom
+ paint constant
+ enum get post
+
 htmlTagAtom
  paint constant.language
  enum div span p a img ul ol li h1 h2 h3 h4 h5 h6 header nav section article aside main footer input button form label select option textarea table tr td th tbody thead tfoot br hr meta link script style title code
@@ -95,3 +99,9 @@ colorAtom
 namedColorAtom
  extends colorAtom
  enum aliceblue antiquewhite aqua aquamarine azure beige bisque black blanchedalmond blue blueviolet brown burlywood cadetblue chartreuse chocolate coral cornflowerblue cornsilk crimson cyan darkblue darkcyan darkgoldenrod darkgray darkgreen darkkhaki darkmagenta darkolivegreen darkorange darkorchid darkred darksalmon darkseagreen darkslateblue darkslategray darkturquoise darkviolet deeppink deepskyblue dimgray dodgerblue firebrick floralwhite forestgreen fuchsia gainsboro ghostwhite gold goldenrod gray green greenyellow honeydew hotpink indianred indigo ivory khaki lavender lavenderblush lawngreen lemonchiffon lightblue lightcoral lightcyan lightgoldenrodyellow lightgray lightgreen lightpink lightsalmon lightseagreen lightskyblue lightslategray lightsteelblue lightyellow lime limegreen linen magenta maroon mediumaquamarine mediumblue mediumorchid mediumpurple mediumseagreen mediumslateblue mediumspringgreen mediumturquoise mediumvioletred midnightblue mintcream mistyrose moccasin navajowhite navy oldlace olive olivedrab orange orangered orchid palegoldenrod palegreen paleturquoise palevioletred papayawhip peachpuff peru pink plum powderblue purple rebeccapurple red rosybrown royalblue saddlebrown salmon sandybrown seagreen seashell sienna silver skyblue slateblue slategray snow springgreen steelblue tan teal thistle tomato turquoise violet wheat white whitesmoke yellow yellowgreen
+
+mimeTypeAtom
+ extends stringAtom
+ paint constant.language
+ description File MIME types (e.g. 'image/*', 'application/pdf')
+ enum image/* image/jpeg image/png image/gif image/webp image/svg+xml application/pdf text/plain text/html text/css text/javascript text/csv application/json application/xml application/zip application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet audio/* audio/mpeg audio/wav audio/ogg video/* video/mp4 video/webm video/ogg
