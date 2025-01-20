@@ -88,6 +88,22 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 168.7.0 1/20/2025
+🎉 added aftertextRoleParser
+🎉 added aftertextStepParser
+🎉 added aftertextTabindexParser
+🎉 added aftertextColspanParser
+🎉 added aftertextRowspanParser
+🎉 added aftertextMethodParser
+🎉 added aftertextActionParser
+🎉 added aftertextAutocompleteParser
+🎉 added aftertextMultipleParser
+🎉 added aftertextSelectedParser
+🎉 added aftertextCheckedParser
+🎉 added aftertextRelParser
+🎉 added aftertextEnctypeParser
+🎉 added aftertextAcceptParser
+
 📦 168.6.0 1/20/2025
 🎉 added aftertextMinParser
 🎉 added aftertextMaxParser
