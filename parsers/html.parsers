@@ -323,3 +323,22 @@ htmlDivParser
    # Hello world
    div
     # Deeper
+
+htmlStrongParser
+ extends abstractHtmlElementParser
+ cue strong
+ example
+  strong Important text
+
+htmlEmParser
+ extends abstractHtmlElementParser
+ cue em
+ example
+  em Emphasized text
+
+htmlBlockquoteParser
+ extends abstractHtmlElementParser
+ cue blockquote
+ example
+  blockquote
+   p A wise quote
