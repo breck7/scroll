@@ -1,0 +1,822 @@
+You are an expert scientist and knowledge base developer. Create a knowledge base using ScrollSets based on my request.
+
+ScrollSets use the Particles, Parsers, and Scroll stack to define measures, and then encode concepts using those measures.
+
+- Create at least 7 measures. The most important things about this topic.
+- Try to write at least 10 concepts. The most important concepts in this topic.
+- Don't give me anything except measures and concepts.
+- Remember Particle Syntax is strict white space based, every particle is a line, and a line under a line indented by one is a subparticle of the parent line.
+- Follow the exact spacing and line syntax as I use in the example.
+
+An example ScrollSet:
+
+```organelles.scroll
+// Measures:
+
+idParser
+ extends abstractIdParser
+organismParser
+ extends abstractStringMeasureParser
+ description The organism name mainly associated with the organelle such as human, plant, whale, etc.
+diameterParser
+ extends abstractIntegerMeasureParser
+ description The diameter of the organelle in nanometers
+lowParser
+ extends abstractIntegerMeasureParser
+ description For cells that have this kind of organelle, how many are usually found on the low end?
+medianParser
+ extends abstractIntegerMeasureParser
+ description For cells that have this kind of organelle, how many are usually found in the median?
+highParser
+ extends abstractIntegerMeasureParser
+ description For cells that have this kind of organelle, how many are usually found on the high end?
+
+// Concepts:
+
+id Mitochondria
+organism human
+diameter 1000
+low 200
+median 500
+high 2000
+
+id Chloroplast
+organism plant
+diameter 6000
+low 20
+median 40
+high 100
+
+id Nucleus
+organism human
+diameter 6000
+low 1
+median 1
+high 2
+
+```
+---
+
+Here is a blog post about ScrollSets:
+
+```blog/scrollsets.scroll
+authors Breck Yunits
+ https://breckyunits.com Breck Yunits
+buildConcepts planets.csv planets.json planets.tsv
+buildMeasures planetMeasures.tsv
+ sortBy -Values
+date 4/21/2024
+tags All ScrollSets
+title ScrollSets: source code for CSVs
+
+header.scroll
+keyboardNav
+mediumColumns 1
+printTitle
+printAuthors
+
+scrollsets.png
+ caption More examples of ScrollSets from sets.scroll.pub.
+  https://sets.scroll.pub/ sets.scroll.pub
+
+The source code for this blog post contains a ScrollSet about the planets and generates this HTML file as well as a CSV, a TSV, and a JSON file. This page demonstrates *ScrollSets*.
+ dateline
+ link scrollsets.scroll source code for this blog post
+ link planets.csv CSV
+ link planets.tsv TSV
+ link planets.json JSON
+
+ScrollSets are useful for small single day projects and large multi-year projects with thousands of concepts like PLDB (a Programming Language Database).
+ https://pldb.io PLDB
+
+***
+
+ScrollSets are normal plain text files written in Scroll that also contain measurements of concepts and output that data into formats ready for data visualization and analysis tools.
+ https://scroll.pub/ Scroll
+  match 1
+
+ScrollSets are line oriented but represent a table(s). You might call them _deconstructed csvs_ or _deconstructed spreadsheets_.
+
+- Use LLMs to *instantly generate ScrollSets* that are ready for human verification and improvement.
+- Intermingle structured data with markup to *annotate any and every part of a ScrollSets* while still generating strict tabular files for data analysis tools.
+- Put data, schema, citations, and documentation *all* in one (or more) plain text file(s) to easily share, collaborate on, and improve, all *tracked by git for trust*.
+- Add unlimited citations (or none) to *every* measurement.
+
+# Quick Code Example:
+
+codeWithHeader planets.scroll
+ 
+ This ScrollSets has 2 measures (columns) and 2 concepts (rows).
+ 
+ Documentation, column definitions, rows and *any notes/markup/content* can go in the same file.
+ 
+ # Measures (aka Header, aka Columns, aka Schema)
+ 
+ idParser
+  // Every concept needs an "id" (or other concept delimiter)
+  extends abstractIdParser
+ moonsParser
+  extends abstractIntegerParser
+ 
+ # Concepts (aka Rows)
+ 
+ id mars
+ moons 2
+  // I verified moon count with Google. - BY
+ 
+ id jupiter
+ moons 63
+  // Note: the moons of Jupiter have their own Wikipedia Page
+   https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
+ 
+ buildConcepts demo.csv
+ 
+
+# The code above generates an HTML page and this:
+
+codeWithHeader demo.csv
+ id,moons
+ mars,2
+ jupiter,63
+
+# Overview:
+- ScrollSets are built from 4 atomic elements:
+ - concepts
+  - think of rows in a spreadsheet
+  - denoted by a line starting with `id `
+  - concepts are multiple lines of measurements
+ - measures
+  - think of these as the column names in a spreadsheet, along with meta information about the column
+  - aka "parsers"
+  - measures are defined in Parsers that start with a line like `moonsParser`
+ - values
+  - these are just the values of the measurements
+ - measurements
+  - concept & measure & value = measurement
+  - 1 measurement = 1 line
+  - measurements can have nested comments that are stripped when compiling to TSV/CSV
+
+# How to use
+- A concept is like a row in a database. All concepts need an id (or other concept delimiter). When you write `id [conceptId]`, Scroll knows that is the beginning of a new concept.
+- Measure definitions (aka "parsers") must come before the first concept and are written as Parsers, just like any other Scroll Parser. Measure parsers need to extend one of the abstract measure parser classes defined in `measures.scroll`.
+ // A schema is a set of measure definitions. You can think of measures as columns. Measure names (currently) can only contain [a-zA-Z0-9_]. They cannot contain spaces or periods (the period is reserved for nested measures).
+- Measurements are then done like this `appeared 2024`
+
+# FAQ
+? Isn't the better idea to enhance existing spreadsheet GUIs with LLM generation capabilities?
+Almost certainly. Using ScrollSets will be much slower and worse than future spreadsheet apps with carefully crafted LLM integrations.
+
+However, it's important to also have simple, lower tech, timeless tools and ScrollSets is one of those.
+
+? Can't you do this same thing with YAML and/or Markdown?
+Yes! You can easily achieve the same thing as LLMs & ScrollSets using LLMs & YAML, or LLMs & YAML & Markdown.
+ https://yaml.org/ YAML
+ https://github.github.com/gfm/ Markdown
+
+For YAML, just put your documentation and schema in YAML comments up top and then have a tiny script to read that YAML and dump CSV/TSV/JSON or whatever. YAML gives you loads of data structures to use and is widely supported in many languages. But generating HTML from the same file would require more work.
+
+If you want to intermix markup content with your data, you can use Markdown to add the marked up content and then have code sections embedding the YAML and a tiny script to parse out those YAML blocks and write your data to disk.
+
+? So, why use Scroll for storing data instead of YAML?
+Either can do the job. I expect the Scroll design to end up being more ergonomic, but that might not be true or may be unimportant.
+ // ergonomic: relating to or designed for efficiency and comfort in the working environment.
+
+If you don't like Scroll's (evolving) version and want to switch it will always be straightforward to automatically refactor to YAML.
+
+? What other related work is out there?
+This is a simple pattern to implement, so I'm sure it is likely it has been done a few times before. Please let me know so I can include links to--and learn from--any other prior art.
+
+? What are the advanced features?
+- Types correctly exported in JSON
+- Supports nested measures
+- Support for computed measures
+- Autojoins across files on ids^roadmap
+- Auto generates normalized tables for array measures^roadmap
+- Support for text blobs^roadmap
+^roadmap Planned.
+ label +
+
+? What is the origin of ScrollSets?
+LLM dataset generation is a _major_ breakthrough in datasets. ScrollSets are, at best, a minor improvement. They are designed to work alongside LLMs to help solve the Dataset Needed problem.
+ https://breckyunits.com/dataset-needed.html Dataset Needed
+
+ScrollSets evolved out of TrueBase. ScrollSets have eliminated the need for the TrueBase software (and existing TrueBase sites should be migrated to ScrollSets), but were informed by the TrueBase build experience.
+ https://truebase.treenotation.org TrueBase
+
+Although ScrollSets are designed for a world with LLMs, the design is meant to be useful without them as well, and would also have been mildly useful 30 years ago.
+
+? What were the design goals?
+- Have an LLM do the bulk of the work while humans supervise to remove hallucinations.
+- Can store everything (documentation, schema, all concepts) in 1 clean plain text file or split into many files (using the `import` parser).
+- The ScrollSet syntax balances _looseness_ useful in creative thinking with the _tightness_ needed by tabular data visualization and analysis tools.
+
+? Why are measures and concepts root-level features and not indented?
+The normal way to implement this in Scroll would be something like:
+code
+ measures
+  id string
+  moons int
+ concept
+  id mars
+  moons 2
+ concept
+  id jupiter
+  moons 63
+
+The flat design was chosen for ergonomic reasons. ScrollSets seem like they might be useful enough to be worth breaking from Scroll convention a bit. Like all things in Scroll, ScrollSets are an experiment, and maybe this design will evolve.
+
+# Extended Example: a Planets ScrollSet
+
+Below is the ScrollSet embedded in this Scroll file.
+
+planets.csv
+ printTable
+tableSearch
+
+# Measurements of the measures
+planetMeasures.tsv
+ printTable
+
+## Extended Measures Example
+belowAsCodeUntil // end measures
+
+idParser
+ extends abstractIdParser
+
+diameterParser
+ extends abstractIntegerMeasureParser
+ description What is the diameter of the planet?
+
+surfaceGravityParser
+ extends abstractIntegerMeasureParser
+ description What is the surface gravity of the planet?
+
+yearsToOrbitSunParser
+ extends abstractFloatMeasureParser
+ description How many Earth years does it take for the planet to orbit the Sun?
+
+moonsParser
+ extends abstractIntegerMeasureParser
+ description How many moons does the planet have?
+ boolean isMeasureRequired true
+ float sortIndex 1.1
+
+akaParser
+ extends abstractStringMeasureParser
+ description What are the alternative names for the planet?
+
+ageParser
+ extends abstractIntegerMeasureParser
+ description How old is this planet?
+
+hasLifeParser
+ extends abstractBooleanMeasureParser
+ description Does this planet have life?
+
+wikipediaParser
+ extends abstractUrlMeasureParser
+ description URL to the Wikipedia page.
+
+// end measures
+
+# Extended Concepts Example
+
+belowAsCodeUntil // end concepts
+
+id Mars
+moons 2
+ // Til Mars has 2 moons!
+diameter 6794
+surfaceGravity 4
+yearsToOrbitSun 1.881
+hasLife false
+
+id Jupiter
+moons 63
+ // The moons of Jupiter have their own Wikipedia Page
+  https://en.wikipedia.org/wiki/Moons_of_Jupiter moons of Jupiter
+diameter 142984
+surfaceGravity 25
+yearsToOrbitSun 11.86
+hasLife false
+
+id Earth
+moons 1
+diameter 12756
+surfaceGravity 10
+yearsToOrbitSun 1
+aka Pale Blue Dot
+hasLife true
+wikipedia https://en.wikipedia.org/wiki/Earth
+age 4500000000
+ // Note: It was only during the 19th century that geologists realized Earth's age was at least many millions of years.
+
+id Mercury
+moons 0
+diameter 4879
+surfaceGravity 4
+yearsToOrbitSun 0.241
+hasLife false
+
+id Saturn
+moons 64
+diameter 120536
+surfaceGravity 9
+yearsToOrbitSun 29.46
+hasLife false
+
+id Uranus
+moons 27
+diameter 51118
+surfaceGravity 8
+yearsToOrbitSun 84.01
+hasLife false
+
+id Venus
+moons 0
+diameter 12104
+surfaceGravity 9
+yearsToOrbitSun 0.615
+hasLife false
+
+id Neptune
+moons 14
+diameter 49572
+surfaceGravity 11
+yearsToOrbitSun 164.79
+hasLife false
+
+// end concepts
+
+# Related
+printRelated ScrollSets
+
+footer.scroll
+
+```
+
+Here is another blog post about ScrollSets:
+
+```breckyunits.com/scrollsets.scroll
+date 2024-05-21
+tags All Scroll Programming Data Life ScrollSets ScrollPapers AllPapers
+title ScrollSets: A New Way to Store Knowledge
+
+header.scroll
+printTitle
+
+HTML | TXT | PDF
+ class scrollDateline
+ style text-align: center;
+ scrollsets.html HTML
+ link scrollsets.txt TXT
+ link scrollsets.pdf PDF
+
+printAuthors
+printDate
+
+// thinColumns 3
+ // use 2 columns for pdf. 1 for html. todo: automate pdf generation.
+mediumColumns 1
+
+All tabular knowledge can be stored in a single long plain text file.
+ // Anything that traditionally has been stored in tables, spreadsheets, etc.
+
+The only syntax characters needed are spaces and newlines.
+
+This has many advantages over existing binary storage formats.
+
+Using the method below, a very long scroll could be made containing all tabular scientific knowledge in a computable form.
+
+***
+
+There are four concepts to understand:
+- measures
+- concepts
+- measurements
+- comments
+
+# Measures
+First we create measures by writing parsers. The parser contains information about the measure.
+
+The only required information for a measure is an id, such as `temperature`.
+
+An example measure:
+
+code
+ temperatureParser
+
+# Concepts and Measurements
+Next we create concepts by writing measurements.
+
+The only required measurement for a concept is an id. A line that starts with an id measurement is the start of a new concept.
+
+A measurement is a single line of text with the measure id, a space, and then the measurement value.
+
+Multiple sequential lines of measurements form a concept.
+
+An example concept:
+
+code
+ id Earth
+ temperature 14
+
+# Comments
+Unlimited comments can be attached under any measurement using the indentation trick.
+
+An example comment:
+
+code
+ temperature 14
+  > The global mean surface air temperature for that period was 14°C (57°F), with an uncertainty of several tenths of a degree.
+   - NASA
+    https://earthobservatory.nasa.gov/world-of-change/global-temperatures
+
+***
+
+# The Complete Example
+Putting this all together, all tabular knowledge can be stored in a single plain text file using this pattern:
+code
+ idParser
+ temperatureParser
+ 
+ id Earth
+ temperature 14
+  > The global mean surface air temperature for that period was 14°C (57°F), with an uncertainty of several tenths of a degree.
+   - NASA
+    https://earthobservatory.nasa.gov/world-of-change/global-temperatures
+***
+
+Once your knowledge is stored in this format, it is ready to be read—_and written_—by humans, traditional software, and artificial neural networks, to power understanding and decision making.
+
+Edit history can be tracked by git.
+
+***
+
+# A Visualization
+
+scrollsets.png
+ openGraph
+ caption Dark blue dots are measure ids. The first sections are measure definitions (aka parsers). The next sections are concepts. The red dots are measurement values. The blue-red pairs are measurements. The light blue dots are comments/code. View Source
+  https://www.tldraw.com/ro/oUE--5xFwQOv5x1VtTkj_?d=v-705.-318.3370.1887.page View Source
+
+***
+
+# Prior Art
+Modern databases^sql were designed before git^git, fast filesystems^apple, and the Scroll stack^scrollStack, all requirements of this system.
+
+GNU Recutils^recutils deserves credit as the closest precursor to our system. If Recutils were to adopt some designs from our system it would be capable of supporting larger databases.
+ https://www.gnu.org/software/recutils/
+
+***
+
+# Initial Implementation and Experimental Evidence
+ScrollSets is the name of the first implementation of the system above. It is open source and public domain.
+ https://scroll.pub/ ScrollSets
+
+ScrollSets are used to power the open source website PLDB.io. PLDB currently has over 300 measures, over 4,000 concepts and over 150,000 measurements, contributed by over 100 people, dozens of software crawlers, and a couple of artificial neural networks.
+ https://pldb.io PLDB.io
+
+If printed on a single scroll, the PLDB ScrollSet would be over one kilometer long.
+ // ~162,000 lines. 50 lines per page. 1 foot per page. ~3248 feet. ~1km.
+
+***
+
+# Enhancements
+- For pragmatic reasons, it is best to split your data into 1 file per concept and combine concept files at runtime.
+- The utility and joy of this system improves as your parser language improves. The parser language powering ScrollSets is currently called Parsers, and is largely influenced by ANTLR^antlr and Racket^racket.
+
+- It is _very_ helpful to have a `sortIndex` attribute on your measures to automatically prioritize^prettier the measurements in your source and output files. The impact of this simple enhancement hints at interesting signs of dense information packing achieved by this method, which may have implications for the weights and training of artificial neural networks.
+- Computed measures are measurements not stored statically, but derived at runtime from other measurements. They are very useful and easy to add with a few lines of parser code.
+- You generally always want to add a type attribute to your measures, which gives you error checking, among other things.
+- Measures can be nested. This means it is best to be restrictive in what characters are allowed in measure ids to integrate with a broad set of software tools. For example, you can nest a `minParser` under `temperatureParser` to generate a `temperature_min` column name in a generated TSV.
+- It is useful to have measures whose values are foreign keys, such as a list of `ids`.
+
+***
+
+# Conclusion
+Measurements loosely map to nucleotides; concepts to genes; parsers to ribosomes.
+
+This system might also have broad use.
+
+You can read more about ScrollSets on the Scroll blog, see small demos at sets.scroll.pub, and see the large implementation at PLDB.io.
+ https://scroll.pub/blog/scrollsets.html read more about ScrollSets on the Scroll blog
+ https://sets.scroll.pub small demos at sets.scroll.pub
+ https://pldb.io PLDB.io
+
+***
+
+# Citations
+^sql SQL: Donald D. Chamberlin and Raymond F. Boyce
+ https://en.wikipedia.org/wiki/SQL SQL
+^git Git: Linus Torvalds, Junio Hamano, et al
+ https://en.wikipedia.org/wiki/Git Git
+^apple M1: Apple
+ https://en.wikipedia.org/wiki/Apple_M1 M1
+- The M1 laptop was the first consumer machine where the performance of this system wasn't abysmal.
+ https://breckyunits.com/building-a-treebase-with-6.5-million-files.html abysmal
+^scrollStack Particles: Breck Yunits et al (formerly called Tree Notation)
+ https://github.com/breck7/research/blob/master/papers/paper3/countingComplexity.pdf Particles
+^recutils GNU Recutils: Jose E. Marchesi
+ https://www.gnu.org/software/recutils/ GNU Recutils
+- Recutils and our system have debatable syntactic differences, but our system solves a few clear problems described in the Recutils docs:
+ - "difficult to manage hierarchies". Hierarchies are painless in our system through nested parsers, parser inheritance, parser mixins, and nested measurements.
+ - "tedious to manually encode...several lines". No encoding is needed in our system thanks to the indentation trick.
+ - In Recutils comments are "completely ignored by processing tools and can only be seen by looking at the recfile itself". Our system supports first class comments which are bound to measurements using the indentation trick, or by setting a binding in the parser.
+ - "It is difficult to manually maintain the integrity of data stored in the data base." In our system advances parsers provides unlimited capabilities for maintaining data integrity.
+^antlr ANTLR: Terence Parr et al
+ https://www.antlr.org/ ANTLR
+^racket Racket: Matthias Felleisen, Matthew Flatt, Robert Bruce Findler, Shriram Krishnamurthi, et al.
+ // As well as other lisps
+ https://racket-lang.org/ Racket
+^prettier Prettier: James Long et al
+ https://archive.jlongster.com/ Prettier
+
+***
+
+# Thanks
+Thank you to everyone who helped me evolve this idea into its simplest form, including but not limited to, A, Alex, Andy, Ben, Brian, C, Culi, Dan, G, Greg, Jack, Jeff, John, L, Liam, Hari, Hassam, Jose, Matthieu, Ned, Nick, Nikolai, Pavel, Steph, Tom, Zach, Zohaib.
+// thanks to https://github.com/rakoo for pointing our GNU Recutils
+****
+
+# Related Posts
+printRelated ScrollSets
+
+footer.scroll
+```
+
+---
+
+Here are all the built in measures available:
+
+```parsers/measures.parsers
+measureNameAtom
+ extends cueAtom
+ // A regex for column names for max compatibility with a broad range of data science tools:
+ regex [a-zA-Z][a-zA-Z0-9]*
+
+buildMeasuresParser
+ popularity 0.000024
+ cueFromId
+ description Compile measures to delimited files.
+ extends abstractBuildCommandParser
+ sortByParser
+  cueFromId
+  atoms cueAtom columnNameAtom
+ javascript
+  async buildOne() {
+    const {root} = this
+    const { fileSystem, folderPath, filename, path, permalink } = root
+    const files = this.getAtomsFrom(1)
+    if (!files.length) files.push(permalink.replace(".html", ".csv"))
+    const sortBy = this.get("sortBy")
+    for (let link of files) {
+      await fileSystem.writeProduct(path.join(folderPath, link), root.compileMeasures(link, sortBy))
+      root.log(`💾 Built measures in ${filename} to ${link}`)
+    }
+  }
+
+abstractMeasureParser
+ atoms measureNameAtom
+ description Base parser all measures extend.
+ cueFromId
+ boolean isMeasure true
+ float sortIndex 1.9
+ boolean isComputed false
+ string typeForWebForms text
+ extends abstractScrollParser
+ javascript
+  buildHtmlSnippet() {
+   return ""
+  }
+  buildHtml() {
+   return ""
+  }
+  get measureValue() {
+    return this.content ?? ""
+  }
+  get measureName() {
+    return this.getCuePath().replace(/ /g, "_")
+  }
+
+// String Measures
+abstractAtomMeasureParser
+ description Contains a single word.
+ atoms measureNameAtom atomAtom
+ example
+  nicknameParser
+   extends abstractAtomMeasureParser
+  id Breck
+  nickname breck
+ extends abstractMeasureParser
+
+abstractStringMeasureParser
+ description General text data with no specific format.
+ catchAllAtomType stringAtom
+ example
+  titleParser
+   extends abstractStringMeasureParser
+  id Breck
+  title I build languages for scientists of all ages
+ extends abstractMeasureParser
+
+abstractTextareaMeasureParser
+ string typeForWebForms textarea
+ example
+  bioParser
+   extends abstractTextareaMeasureParser
+  id Breck
+  bio
+   I build languages for scientists of all ages
+ description Long-form text content with preserved line breaks.
+ extends abstractMeasureParser
+ baseParser blobParser
+ javascript
+  get measureValue() {
+    return this.subparticlesToString().replace(/\n/g, "\\n")
+  }
+
+abstractEmailMeasureParser
+ description Email address.
+ example
+  emailParser
+   extends abstractEmailMeasureParser
+  id Breck
+  email breck7@gmail.com
+ string typeForWebForms email
+ atoms measureNameAtom emailAddressAtom
+ extends abstractAtomMeasureParser
+
+// URL Parsers
+abstractUrlMeasureParser
+ description A single url.
+ example
+  homepageParser
+   extends abstractUrlMeasureParser
+  id Breck
+  homepage https://breckyunits.com
+ string typeForWebForms url
+ atoms measureNameAtom urlAtom
+ extends abstractAtomMeasureParser
+
+// Required ID measure which denotes a concept
+abstractIdParser
+ cue id
+ description What is the ID of this concept?
+ extends abstractStringMeasureParser
+ example
+  idParser
+   extends abstractIdParser
+  id breck
+ float sortIndex 1
+ boolean isMeasureRequired true
+ boolean isConceptDelimiter true
+ javascript
+  getErrors() {
+    const errors = super.getErrors()
+    let requiredMeasureNames = this.root.measures.filter(measure => measure.isMeasureRequired).map(measure => measure.Name).filter(name => name !== "id")
+    if (!requiredMeasureNames.length) return errors
+    let next = this.next
+    while (requiredMeasureNames.length && next.cue !== "id" && next.index !== 0) {
+      requiredMeasureNames = requiredMeasureNames.filter(i => i !== next.cue)
+      next = next.next
+    }
+    requiredMeasureNames.forEach(name =>
+      errors.push(this.makeError(`Concept "${this.content}" is missing required measure "${name}".`))
+    )
+    return errors
+  }
+
+abstractIdMeasureParser
+ description Alias for abstractIdParser.
+ extends abstractIdParser
+
+// Numeric Measures
+abstractNumericMeasureParser
+ string typeForWebForms number
+ description Base number type.
+ extends abstractMeasureParser
+ javascript
+  get measureValue() {
+    const {content} = this
+    return content === undefined ? "" : parseFloat(content)
+  }
+abstractNumberMeasureParser
+ description Alias to abstractNumericMeasureParser.
+ extends abstractNumericMeasureParser
+
+abstractIntegerMeasureParser
+ description An integer.
+ example
+  ageParser
+   extends abstractIntegerMeasureParser
+  id Breck
+  age 40
+ atoms measureNameAtom integerAtom
+ extends abstractNumericMeasureParser
+ javascript
+  get measureValue() {
+    const {content} = this
+    return content === undefined ? "" : parseInt(content)
+  }
+abstractIntMeasureParser
+ description Alias to abstractIntegerMeasureParser.
+ extends abstractIntegerMeasureParser
+
+abstractFloatMeasureParser
+ description A float.
+ example
+  temperatureParser
+   extends abstractFloatMeasureParser
+  id Breck
+  temperature 31.8
+ atoms measureNameAtom floatAtom
+ extends abstractNumericMeasureParser
+
+abstractPercentageMeasureParser
+ description A percentage.
+ atoms measureNameAtom percentAtom
+ extends abstractNumericMeasureParser
+ example
+  ownershipParser
+   extends abstractPercentageMeasureParser
+  id Breck
+  ownership 31.8
+ javascript
+  get measureValue() {
+    const {content} = this
+    return content === undefined ? "" : parseFloat(content)
+  }
+
+// Enum Measures
+abstractEnumMeasureParser
+ description A single enum.
+ atoms measureNameAtom enumAtom
+ extends abstractMeasureParser
+ example
+  favoriteHtmlTagParser
+   extends abstractEnumMeasureParser
+   atoms measureNameAtom htmlTagAtom
+  id Breck
+  favoriteHtmlTag 2020
+
+// Boolean Measures
+abstractBooleanMeasureParser
+ description A single boolean.
+ atoms measureNameAtom booleanAtom
+ extends abstractMeasureParser
+ example
+  hasBillOfRightsParser
+   extends abstractBooleanMeasureParser
+  id USA
+  hasBillOfRights true
+ javascript
+  get measureValue() {
+    const {content} = this
+    return content === undefined ? "" : content == "true"
+  }
+
+// Date and time measures
+abstractDateMeasureParser
+ description Year/month/day in ISO 8601, US, European formats.
+ atoms measureNameAtom dateAtom
+ extends abstractMeasureParser
+ string typeForWebForms date
+ javascript
+  get measureValue() {
+    const {content} = this
+    if (!content) return ""
+    const {dayjs} = this.root
+    try {
+      // First try parsing with dayjs
+      const parsed = dayjs(content)
+      if (parsed.isValid())
+        return parsed.format("YYYY-MM-DD")
+      // Try parsing other common formats
+      const formats = [
+        "MM/DD/YYYY",
+        "DD/MM/YYYY", 
+        "YYYY/MM/DD",
+        "MM-DD-YYYY",
+        "DD-MM-YYYY",
+        "YYYY-MM-DD",
+        "DD.MM.YYYY",
+        "YYYY.MM.DD"
+      ]
+      for (const format of formats) {
+        const attempt = dayjs(content, format)
+        if (attempt.isValid())
+          return attempt.format("YYYY-MM-DD")
+      }
+    } catch (err) {
+      console.error(err)
+      return ""
+    }
+    return ""
+  }
+  get valueAsTimestamp() {
+    const {measureValue} = this
+    return measureValue ? this.root.dayjs(measureValue).unix() : ""
+  }
+
+```

@@ -287,10 +287,11 @@ npm package · Tests · Parser Designer
  https://sdk.scroll.pub/designer#url%20https%3A%2F%2Fscroll.pub%2Fscroll.parsers Parser Designer
  style margin:15px;
 
-scroll prompt · parser prompt
+scroll prompt · parsers prompt · scrollset prompt
  center
  link scrollPrompt.txt scroll prompt
- link parserPrompt.txt parser prompt
+ link parserPrompt.txt parsers prompt
+ link scrollsetPrompt.txt scrollset prompt
  style margin:15px;
 
 endColumns

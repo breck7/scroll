@@ -30,8 +30,9 @@ npm package · Tests · Parser Designer
  https://scroll.pub/tests/index.html Tests
  https://sdk.scroll.pub/designer#url%20https%3A%2F%2Fscroll.pub%2Fscroll.parsers Parser Designer
 
-scroll prompt · parser prompt
+scroll prompt · parsers prompt · scrollset prompt
  https://scroll.pub/scrollPrompt.txt scroll prompt
- https://scroll.pub/parserPrompt.txt parser prompt
+ https://scroll.pub/parserPrompt.txt parsers prompt
+ https://scroll.pub/scrollsetPrompt.txt scrollset prompt
 
 Built with Scroll v168.8.0
