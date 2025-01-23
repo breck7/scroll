@@ -38,7 +38,7 @@ br
 thinColumns 1
 expander Parser usage rankings
 A rough _estimate_ of parser usage in Parsers.
-table
+datatable
  printTable
  data
   count id

@@ -125,7 +125,7 @@ printColumnParser
 printTableParser
  popularity 0.001085
  cueFromId
- description Print table.
+ description Print datatable.
  extends abstractTableVisualizationParser
  javascript
   get tableHeader() {
@@ -244,9 +244,9 @@ abstractDatatableProviderParser
 scrollTableParser
  extends abstractDatatableProviderParser
  popularity 0.002133
- cue table
+ cue datatable
  example
-  table
+  datatable
    printTable
    data
     year,count
@@ -357,7 +357,7 @@ scrollWhereParser
  atoms cueAtom columnNameAtom comparisonAtom
  catchAllAtomType constantAtom
  example
-  table iris.csv
+  datatable iris.csv
    where Species = setosa
  javascript
   get coreTable() {
@@ -433,7 +433,7 @@ scrollComposeParser
  cue compose
  atoms cueAtom newColumnNameAtom
  example
-  table
+  datatable
    compose sentence My name is {name}
     printTable
  javascript
@@ -532,12 +532,12 @@ scrollShuffleParser
  description Randomly reorder rows.
  cue shuffle
  example
-  table data.csv
+  datatable data.csv
    shuffle
     printTable
  javascript
   get coreTable() {
-   // Create a copy of the table to avoid modifying original
+   // Create a copy of the datatable to avoid modifying original
    const rows = this.parent.coreTable.slice()
    // Fisher-Yates shuffle algorithm
    for (let i = rows.length - 1; i > 0; i--) {
@@ -549,7 +549,7 @@ scrollShuffleParser
 
 scrollTransposeParser
  extends abstractTableTransformParser
- description Tranpose table.
+ description Tranpose datatable.
  cue transpose
  javascript
   get coreTable() {
@@ -689,7 +689,7 @@ scrollSummarizeParser
  description Generate summary statistics for each column.
  cue summarize
  example
-  table data.csv
+  datatable data.csv
    summarize
     printTable
  javascript

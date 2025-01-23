@@ -59,7 +59,7 @@ aboveAsCode
 
 ## Use your own custom color palettes and set your own thresholds:
 heatrixAdvanced
- table
+ datatable
    
   h10;w30 '2015 '2016 '2017 '2018 '2019 '2020 '2021 '2022 '2023 '2024
   h30;w30; 0 0 5 1 2 11 15 10 12 56

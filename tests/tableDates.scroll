@@ -6,7 +6,7 @@ container
 # Date tests
 
 tableSearch
-table
+datatable
  printTable
  data
   lastChanged

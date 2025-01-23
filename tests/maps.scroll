@@ -8,7 +8,7 @@ map
 
 # Custom
 
-table
+datatable
  delimiter particles
  map
   lat 37.0854

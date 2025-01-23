@@ -6,7 +6,7 @@ title My Contacts
 theme gazette
 mediumColumns 1
 printTitle
-table
+datatable
  printTable
 tableSearch
 

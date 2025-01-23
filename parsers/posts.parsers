@@ -1,5 +1,5 @@
 abstractPostsParser
- description Load posts as table.
+ description Load posts as datatable.
  extends abstractDatatableProviderParser
  cueFromId
  atoms cueAtom
@@ -41,10 +41,10 @@ abstractPostsParser
 scrollPostsParser
  popularity 0.000024
  cue posts
- description Posts as table.
+ description Posts as datatable.
  extends abstractPostsParser
  example
-  // Print a search table:
+  // Print a search datatable:
   posts
    printTable
   tableSearch
@@ -56,7 +56,7 @@ scrollPostsParser
 scrollPostsMetaParser
  popularity 0.000024
  cue postsMeta
- description Post meta as table.
+ description Post meta as datatable.
  extends abstractPostsParser
  javascript
   columnNames = ["date", "year", "title", "permalink", "authors", "tags", "wordCount", "minutes"]
