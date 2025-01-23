@@ -12,7 +12,7 @@ A test of TSV data
 
 endSnippet
 
-table
+datatable
  printTable
  data
   Index	Name	Diameter	Height	Covered	5	10	15	20	25	30	35	40	45	50	55
@@ -22,8 +22,8 @@ table
   4	SF	4	4.5	FALSE	128.8	113.9	102.5	95.9	90.5	86.3	83.6	81.6	79.8	78.2	76.6
   5	Aruba	3	3.75	FALSE	130.8	114.6	104.9	98.9	92.3	87.6	85.4	82.9	81.1	80.2	78
 
-## Putting print table after a table:
-table
+## Putting printTable after a datatable:
+datatable
  data
   name	score
   joe	2
@@ -32,7 +32,7 @@ table
 # Dropdown sections
 
 expander Full Table
-table
+datatable
  printTable
  data
   Rows	LogLinear	Quadratic	Before	After

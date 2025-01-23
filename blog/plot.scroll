@@ -64,7 +64,7 @@ planets.csv
 
 # Step 3: Add inline data
 belowAsCode
-table
+datatable
  scatterplot
   title The Simpson Family
   x age

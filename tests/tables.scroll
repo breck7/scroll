@@ -10,10 +10,10 @@ sparkline 5 7 27 87 300 17 10 5
 
 ---
 
-# Sparkline from table
-table
+# Sparkline from datatable
+datatable
  delimiter ,
- ? Whats in table?
+ ? Whats in datatable?
  printTable
  ? Show a sparkline?
  sparkline
@@ -22,7 +22,7 @@ table
  ? What if we add a filter?
  where score > 4
   heatrix
-  ? Whats left in table?
+  ? Whats left in datatable?
   printTable
  data
   score
@@ -40,7 +40,7 @@ contacts.csv
 ---
 
 # Transforms
-table
+datatable
  printTable
  orderBy -score -types
   rank
@@ -63,7 +63,7 @@ table
 
 # Impute
 
-table
+datatable
  impute year
   printTable
   sparkline
@@ -78,7 +78,7 @@ table
 
 # Timestamps
 
-table
+datatable
  printTable
  compose statement The name of the folder is {folder}
   printTable
@@ -110,7 +110,7 @@ contacts.json
 
 # Where tests
 
-table
+datatable
  where year startsWith 20
   printTable
  where year endsWith 20
@@ -141,7 +141,7 @@ iris
 
 ---
 # Empty and non empty
-table
+datatable
  where name notEmpty
   assertRowCount 2
  where score empty

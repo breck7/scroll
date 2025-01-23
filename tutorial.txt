@@ -111,7 +111,7 @@ Below is the code for a checklist and its rendered version:
 
 5. Tables
 =========
-Use the `table` parser to make tables:
+Use the `datatable` parser to make tables:
 Name,Rank
 Scroll,#1
 Markdown,#2
@@ -227,4 +227,4 @@ You probably also can see that the Parsers code is powerful but has lots of shar
 
 While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
 
-Built with Scroll v168.8.0
+Built with Scroll v169.0.0

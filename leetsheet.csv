@@ -95,7 +95,7 @@ Hi
 👋",
 classicForm,,Generate input form for ScrollSet.,640,,
 clearStack,,Clear body stack.,10,,
-cloc,,Output results of cloc as table.,214,"table
+cloc,,Output results of cloc as table.,214,"datatable
 printTable
 data
  year,count
@@ -107,7 +107,7 @@ codeWithHeader,,A code block.,17,"codeWithHeader math.py
 two = 1 + 1",
 color,,Quickly set CSS font-color.,722,,
 comment,,Prints nothing.,20,,
-concepts,,Load concepts as table.,0,"concepts
+concepts,,Load concepts as datatable.,0,"concepts
 printTable",
 container,,A centered HTML div.,10,container 600px,
 copyButtons,,Copy code widget.,148,,
@@ -118,6 +118,13 @@ dashboard,,Key stats in large font.,15,"dashboard
 #2 Popularity
 30 Years Old
 $456 Revenue",
+datatable,,A datatable.,214,"datatable
+printTable
+data
+ year,count
+ 1900,10
+ 2000,122
+ 2020,23",
 debugAbove,,Inspect particle above.,66,"belowAsCode
 iris
 printTable",
@@ -130,7 +137,7 @@ printTable",
 debugParsers,,Print the parsers used.,193,"code
 two = 1 + 1",
 debugSourceStack,,Print compilation steps.,0,printOriginalSource,
-dependencies,,Get files this file depends on.,214,"table
+dependencies,,Get files this file depends on.,214,"datatable
 printTable
 data
  year,count
@@ -139,7 +146,7 @@ data
  2020,23",
 description,,Description for SEO meta tag.,169,,
 dinkus,,A custom dinkus.,0,,
-disk,,Output file into as table.,214,"table
+disk,,Output file into as datatable.,214,"datatable
 printTable
 data
  year,count
@@ -188,7 +195,7 @@ heatrix,,A heatmap matrix data visualization.,0,"heatrix
 '2007 '2008 '2009 '2010 '2011 '2012 '2013 '2014 '2015 '2016 '2017 '2018 '2019 '2020 '2021 '2022 '2023 '2024
 4 11 23 37 3 14 12 0 0 0 5 1 2 11 15 10 12 56",
 heatrixAdvanced,,Advanced heatrix.,5,"heatrix
-table
+datatable
   
  %h10; '2007 '2008 '2009
   12 4 323
@@ -267,7 +274,7 @@ p,,A paragraph.,189,p I had a _new_ idea.,
 permalink,,Override output filename.,27,,
 plainText,,Plain text oneliner or block.,0,,
 plainTextOnly,,Only print for buildTxt.,8,,
-posts,,Posts as table.,3,"// Print a search table:
+posts,,Posts as datatable.,3,"// Print a search datatable:
 posts
 printTable
 tableSearch
@@ -275,7 +282,7 @@ tableSearch
 buildHtml
 buildCsv
 buildJson",
-postsMeta,,Post meta as table.,3,,
+postsMeta,,Post meta as datatable.,3,,
 pre,,HTML tag.,0,pre,
 printColumn,,Print one column,3,printColumn tags,
 printFeed,,Print group to RSS.,5,"printFeed index
@@ -290,7 +297,7 @@ printSiteMap",
 printSnippets,,Prints snippets matching tag(s).,34,printSnippets index,
 printSource,,Print source for files in group(s).,3,"printSource index
 buildTxt source.txt",
-printTable,,Print table.,109,,
+printTable,,Print datatable.,109,,
 printUsageStats,,Parser usage stats for folder.,10,,
 qrcode,,Make a QR code from a link.,0,qrcode https://scroll.pub,
 quote,,A quote.,148,,
@@ -342,25 +349,35 @@ stopwatch,,A stopwatch.,0,stopwatch,
 strong,,HTML tag.,0,strong Important text,
 stump,,Compile Stump to HTML.,0,,
 stumpNoSnippet,,Compile Stump unless snippet.,1018,,
-table,,A datatable.,214,"table
-printTable
-data
- year,count
- 1900,10
- 2000,122
- 2020,23",
+table,,HTML tag.,0,"table
+tr
+ th Header 1
+ th Header 2
+tr
+ td Cell 1
+ td Cell 2",
 tableSearch,,Table search and sort widget.,8,,
 tags,,Set tags.,681,tags All,
+tbody,,HTML tag.,0,"tbody
+tr
+ td Cell 1",
+td,,HTML tag.,0,td Cell content,
 testStrict,,Make catchAllParagraphParser = error.,0,,
 textarea,,HTML tag.,0,"textarea
 placeholder Enter your message
 rows 4",
+th,,HTML tag.,0,th Header content,
 thanksTo,,Acknowledgements comment. Prints nothing.,0,,
+thead,,HTML tag.,0,"thead
+tr
+ th Header 1",
 theScrollButton,,WWS button.,630,,
 thinColumn,,A thin column section.,338,,
 thinColumns,,Thin columns.,369,,
 toFooter,,Experimental way to move a section to the footer.,0,,
-toStamp,,Print a directory to stamp.,0,,
+toStamp,,Print a directory to stamp with configurable filters.,0,,
+tr,,HTML tag.,0,"tr
+td Cell 1",
 ul,,HTML tag.,0,"ul
 li A list",
 video,,Play video files.,3,video spirit.mp4,

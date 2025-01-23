@@ -1,5 +1,5 @@
 scrollConceptsParser
- description Load concepts as table.
+ description Load concepts as datatable.
  extends abstractDatatableProviderParser
  cue concepts
  atoms cueAtom

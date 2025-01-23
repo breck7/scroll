@@ -406,7 +406,7 @@
     "id": "cloc",
     "description": "Output results of cloc as table.",
     "popularity": 214,
-    "example": "table\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
+    "example": "datatable\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
   },
   {
     "id": "codeFromFile",
@@ -432,7 +432,7 @@
   },
   {
     "id": "concepts",
-    "description": "Load concepts as table.",
+    "description": "Load concepts as datatable.",
     "popularity": 0,
     "example": "concepts\n printTable"
   },
@@ -464,6 +464,12 @@
     "description": "Key stats in large font.",
     "popularity": 15,
     "example": "dashboard\n #2 Popularity\n 30 Years Old\n $456 Revenue"
+  },
+  {
+    "id": "datatable",
+    "description": "A datatable.",
+    "popularity": 214,
+    "example": "datatable\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
   },
   {
     "id": "debugAbove",
@@ -499,7 +505,7 @@
     "id": "dependencies",
     "description": "Get files this file depends on.",
     "popularity": 214,
-    "example": "table\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
+    "example": "datatable\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
   },
   {
     "id": "description",
@@ -513,9 +519,9 @@
   },
   {
     "id": "disk",
-    "description": "Output file into as table.",
+    "description": "Output file into as datatable.",
     "popularity": 214,
-    "example": "table\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
+    "example": "datatable\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
   },
   {
     "id": "div",
@@ -661,7 +667,7 @@
     "id": "heatrixAdvanced",
     "description": "Advanced heatrix.",
     "popularity": 5,
-    "example": "heatrix\n table\n   \n  %h10; '2007 '2008 '2009\n   12 4 323\n scale\n  #ebedf0 0\n  #c7e9c0 100\n  #a1d99b 400\n  #74c476 1600"
+    "example": "heatrix\n datatable\n   \n  %h10; '2007 '2008 '2009\n   12 4 323\n scale\n  #ebedf0 0\n  #c7e9c0 100\n  #a1d99b 400\n  #74c476 1600"
   },
   {
     "id": "helpfulNotFound",
@@ -905,13 +911,13 @@
   },
   {
     "id": "posts",
-    "description": "Posts as table.",
+    "description": "Posts as datatable.",
     "popularity": 3,
-    "example": "// Print a search table:\nposts\n printTable\ntableSearch\n// Dump a CSV of blog:\nbuildHtml\nbuildCsv\nbuildJson"
+    "example": "// Print a search datatable:\nposts\n printTable\ntableSearch\n// Dump a CSV of blog:\nbuildHtml\nbuildCsv\nbuildJson"
   },
   {
     "id": "postsMeta",
-    "description": "Post meta as table.",
+    "description": "Post meta as datatable.",
     "popularity": 3
   },
   {
@@ -976,7 +982,7 @@
   },
   {
     "id": "printTable",
-    "description": "Print table.",
+    "description": "Print datatable.",
     "popularity": 109
   },
   {
@@ -1122,9 +1128,9 @@
   },
   {
     "id": "table",
-    "description": "A datatable.",
-    "popularity": 214,
-    "example": "table\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "table\n tr\n  th Header 1\n  th Header 2\n tr\n  td Cell 1\n  td Cell 2"
   },
   {
     "id": "tableSearch",
@@ -1138,6 +1144,18 @@
     "example": "tags All"
   },
   {
+    "id": "tbody",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "tbody\n tr\n  td Cell 1"
+  },
+  {
+    "id": "td",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "td Cell content"
+  },
+  {
     "id": "testStrict",
     "description": "Make catchAllParagraphParser = error.",
     "popularity": 0
@@ -1149,9 +1167,21 @@
     "example": "textarea\n placeholder Enter your message\n rows 4"
   },
   {
+    "id": "th",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "th Header content"
+  },
+  {
     "id": "thanksTo",
     "description": "Acknowledgements comment. Prints nothing.",
     "popularity": 0
+  },
+  {
+    "id": "thead",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "thead\n tr\n  th Header 1"
   },
   {
     "id": "theScrollButton",
@@ -1175,8 +1205,14 @@
   },
   {
     "id": "toStamp",
-    "description": "Print a directory to stamp.",
+    "description": "Print a directory to stamp with configurable filters.",
     "popularity": 0
+  },
+  {
+    "id": "tr",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "tr\n td Cell 1"
   },
   {
     "id": "ul",

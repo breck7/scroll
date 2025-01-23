@@ -23,7 +23,7 @@ posts index subfolder/index
 
 ---
 
-table
+datatable
  data
   color
   #2a2d34ff

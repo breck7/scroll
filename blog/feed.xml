@@ -4,7 +4,7 @@
  <title>Feed</title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Thu, 23 Jan 2025 02:15:40 +0000</lastBuildDate>
+ <lastBuildDate>Thu, 23 Jan 2025 18:06:03 +0000</lastBuildDate>
  <language>en-us</language>
  <item>
 <title>Data Science with Scroll</title>
@@ -32,7 +32,7 @@
 <pubDate>Invalid Date</pubDate>
 </item>
  <item>
-<title>Tables: a microlang for data science</title>
+<title>Datatables: a microlang for data science</title>
 <link>https://scroll.pub/blog/tables.html</link>
 <pubDate>Invalid Date</pubDate>
 </item>

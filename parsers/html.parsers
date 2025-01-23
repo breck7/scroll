@@ -342,3 +342,50 @@ htmlBlockquoteParser
  example
   blockquote
    p A wise quote
+
+htmlTableParser
+ extends abstractHtmlElementParser
+ cue table
+ example
+  table
+   tr
+    th Header 1
+    th Header 2
+   tr
+    td Cell 1
+    td Cell 2
+
+htmlTrParser
+ extends abstractHtmlElementParser
+ cue tr
+ example
+  tr
+   td Cell 1
+
+htmlTdParser
+ extends abstractHtmlElementParser
+ cue td
+ example
+  td Cell content
+
+htmlThParser
+ extends abstractHtmlElementParser
+ cue th
+ example
+  th Header content
+
+htmlTheadParser
+ extends abstractHtmlElementParser
+ cue thead
+ example
+  thead
+   tr
+    th Header 1
+
+htmlTbodyParser
+ extends abstractHtmlElementParser
+ cue tbody
+ example
+  tbody
+   tr
+    td Cell 1

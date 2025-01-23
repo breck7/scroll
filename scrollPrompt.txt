@@ -103,9 +103,9 @@ belowAsCode 2
  [x] Learn that checklists support nesting
 
 ## 5. Tables
-Use the `table` parser to make tables:
+Use the `datatable` parser to make tables:
 belowAsCode
-table
+datatable
  printTable
  data
   Name,Rank

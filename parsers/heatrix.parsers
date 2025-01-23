@@ -16,7 +16,7 @@ heatrixParser
   buildHtml() {
    // A hacky but simple way to do this for now.
    const advanced = new Particle("heatrixAdvanced")
-   advanced.appendLineAndSubparticles("table", "\n " + this.tableData.replace(/\n/g, "\n "))
+   advanced.appendLineAndSubparticles("datatable", "\n " + this.tableData.replace(/\n/g, "\n "))
    const particle = this.appendSibling("heatrixAdvanced", advanced.subparticlesToString())
    const html = particle.buildHtml()
    particle.destroy()
@@ -51,7 +51,7 @@ heatrixAdvancedParser
  description Advanced heatrix.
  example
   heatrix
-   table
+   datatable
      
     %h10; '2007 '2008 '2009
      12 4 323
@@ -94,7 +94,7 @@ heatrixAdvancedParser
         numbers.unshift(0)
         return generateColorBinningString(numbers, colors);
       }
-      const table = particle.getParticle("table").subparticlesToString()
+      const table = particle.getParticle("datatable").subparticlesToString()
       const scale = particle.getParticle("scale")?.subparticlesToString() || buildScale(table)
       const thresholds = []
       const colors = []

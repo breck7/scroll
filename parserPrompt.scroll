@@ -6,5 +6,6 @@ After listing all the source code, I will tell you about the new Parser I want y
 Do not use React. Make the Parser just like these other parsers.
 
 toStamp ./parsers/
+ gitOnly true
 
 PLEASE GENERATE A NEW PARSER THAT:

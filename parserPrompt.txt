@@ -1277,7 +1277,7 @@ stamp
    description A comment. Prints nothing.
  concepts.parsers
   scrollConceptsParser
-   description Load concepts as table.
+   description Load concepts as datatable.
    extends abstractDatatableProviderParser
    cue concepts
    atoms cueAtom
@@ -1902,7 +1902,7 @@ stamp
  disk.parsers
   scrollDiskParser
    extends scrollTableParser
-   description Output file into as table.
+   description Output file into as datatable.
    cue disk
    javascript
     delimiter = "json"
@@ -2602,7 +2602,7 @@ stamp
     buildHtml() {
      // A hacky but simple way to do this for now.
      const advanced = new Particle("heatrixAdvanced")
-     advanced.appendLineAndSubparticles("table", "\n " + this.tableData.replace(/\n/g, "\n "))
+     advanced.appendLineAndSubparticles("datatable", "\n " + this.tableData.replace(/\n/g, "\n "))
      const particle = this.appendSibling("heatrixAdvanced", advanced.subparticlesToString())
      const html = particle.buildHtml()
      particle.destroy()
@@ -2637,7 +2637,7 @@ stamp
    description Advanced heatrix.
    example
     heatrix
-     table
+     datatable
        
       %h10; '2007 '2008 '2009
        12 4 323
@@ -2676,7 +2676,7 @@ stamp
           numbers.unshift(0)
           return generateColorBinningString(numbers, colors);
         }
-        const table = particle.getParticle("table").subparticlesToString()
+        const table = particle.getParticle("datatable").subparticlesToString()
         const scale = particle.getParticle("scale")?.subparticlesToString() || buildScale(table)
         const thresholds = []
         const colors = []
@@ -3388,7 +3388,7 @@ stamp
     }
     buildHtml() {
       // A hacky but simple way to do this for now.
-     const particle = this.appendSibling("table")
+     const particle = this.appendSibling("datatable")
      particle.appendLine("delimiter  ")
      particle.appendLine("printTable")
      const dataParticle = particle.appendLine("data")
@@ -5188,7 +5188,7 @@ stamp
   
  posts.parsers
   abstractPostsParser
-   description Load posts as table.
+   description Load posts as datatable.
    extends abstractDatatableProviderParser
    cueFromId
    atoms cueAtom
@@ -5652,7 +5652,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "168.8.0"
+      return "169.0.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6484,54 +6484,94 @@ stamp
     }
   
   toStampParser
-   description Print a directory to stamp.
+   description Print a directory to stamp with configurable filters.
    extends abstractScrollParser
    catchAllAtomType filePathAtom
    cueFromId
+   gitOnlyParser
+    description Only include git-tracked files
+    atoms cueAtom
+    single
+   excludeParser
+    description Exclude files/directories matching these glob patterns
+    atoms cueAtom
+    catchAllAtomType stringAtom
+   maxDepthParser
+    description Maximum directory depth to traverse
+    atoms cueAtom integerAtom
    javascript
     buildTxt() {
       return this.makeStamp(this.content)
     }
     buildHtml() {
-      return `${this.buildTxt()}`
+      return this.buildTxt()
     }
     makeStamp(dir) {
-    const fs = require('fs');
-    const path = require('path');
-    const { execSync } = require('child_process');
-    let stamp = 'stamp\n';
-    const handleFile = (indentation, relativePath, itemPath, ) => {
+      const fs = require('fs');
+      const path = require('path');
+      const { execSync } = require('child_process');
+      let stamp = 'stamp\n';
+      const gitOnly = this.has("gitOnly");
+      const excludePatterns = this.get("exclude")?.split(" ") || [".git/**", "node_modules/**"];
+      const maxDepth = parseInt(this.get("maxDepth")) || Infinity;
+      const gitTrackedFiles = new Set(
+        gitOnly ? execSync('git ls-files', { cwd: dir, encoding: 'utf-8' })
+          .split('\n')
+          .filter(Boolean) 
+          : []
+      );
+      // Convert glob patterns to RegExp
+      const excludeRegexes = excludePatterns.map(pattern => 
+        new RegExp('^' + pattern.replace(/\*\*/g, '.*').replace(/\*/g, '[^/]*') + '$')
+      );
+      const shouldInclude = (relativePath, isDirectory) => {
+        if (excludeRegexes.some(regex => regex.test(relativePath)))
+          return false;
+        if (isDirectory)
+          return true
+        if (gitOnly && !gitTrackedFiles.has(relativePath))
+          return false;
+        return true;
+      };
+      const handleFile = (indentation, relativePath, itemPath) => {
+        if (!shouldInclude(relativePath)) return;
         stamp += `${indentation}${relativePath}\n`;
-        const content = fs.readFileSync(itemPath, 'utf8');
-        stamp += `${indentation} ${content.replace(/\n/g, `\n${indentation} `)}\n`;
-    }
-    let gitTrackedFiles
-    function processDirectory(currentPath, depth) {
-      const items = fs.readdirSync(currentPath);
-      items.forEach(item => {
-        const itemPath = path.join(currentPath, item);
-        const relativePath = path.relative(dir, itemPath);
-        //if (!gitTrackedFiles.has(item)) return
-        const stats = fs.statSync(itemPath);
-        const indentation = ' '.repeat(depth);
-        if (stats.isDirectory()) {
-          stamp += `${indentation}${relativePath}/\n`;
-          processDirectory(itemPath, depth + 1);
-        } else if (stats.isFile())
-          handleFile(indentation, relativePath, itemPath)
-      });
-    }
-    const stats = fs.statSync(dir);
-    if (stats.isDirectory()) {
-       // Get list of git-tracked files
-      gitTrackedFiles = new Set(execSync('git ls-files', { cwd: dir, encoding: 'utf-8' })
-      .split('\n')
-      .filter(Boolean))
-      processDirectory(dir, 1)
-    }
-    else
-      handleFile(" ", dir, dir)
-    return stamp.trim();
+        try {
+          const content = fs.readFileSync(itemPath, { encoding: 'utf8', flag: 'r' });
+          // Skip if file appears to be binary
+          if (content.includes('\0') || /[\x00-\x08\x0E-\x1F]/.test(content)) return;
+          stamp += `${indentation} ${content.replace(/\n/g, `\n${indentation} `)}\n`;
+        } catch (err) {
+          // Skip files that can't be read as utf8
+          console.error(`Error reading ${itemPath}: ${err.message}`);
+          return;
+        }
+      };
+      function processDirectory(currentPath, depth = 0) {
+        if (depth > maxDepth) return;
+        const items = fs.readdirSync(currentPath);
+        items.forEach(item => {
+          const itemPath = path.join(currentPath, item);
+          const relativePath = path.relative(dir, itemPath);
+          const stats = fs.statSync(itemPath);
+          const isDirectory = stats.isDirectory()
+          if (!shouldInclude(relativePath, isDirectory)) return;
+          const indentation = ' '.repeat(depth);
+          if (isDirectory) {
+            stamp += `${indentation}${relativePath}/\n`;
+            processDirectory(itemPath, depth + 1);
+          } else if (stats.isFile()) {
+            handleFile(indentation, relativePath, itemPath);
+          }
+        });
+      }
+      const stats = fs.statSync(dir);
+      if (stats.isDirectory()) {
+        processDirectory(dir, 1);
+      } else {
+        handleFile(" ", dir, dir);
+      }
+      return stamp.trim();
     }
   
   stampParser
@@ -6699,7 +6739,7 @@ stamp
   printTableParser
    popularity 0.001085
    cueFromId
-   description Print table.
+   description Print datatable.
    extends abstractTableVisualizationParser
    javascript
     get tableHeader() {
@@ -6808,9 +6848,9 @@ stamp
   scrollTableParser
    extends abstractDatatableProviderParser
    popularity 0.002133
-   cue table
+   cue datatable
    example
-    table
+    datatable
      printTable
      data
       year,count
@@ -6921,7 +6961,7 @@ stamp
    atoms cueAtom columnNameAtom comparisonAtom
    catchAllAtomType constantAtom
    example
-    table iris.csv
+    datatable iris.csv
      where Species = setosa
    javascript
     get coreTable() {
@@ -6971,7 +7011,7 @@ stamp
    cue compose
    atoms cueAtom newColumnNameAtom
    example
-    table
+    datatable
      compose sentence My name is {name}
       printTable
    javascript
@@ -7070,12 +7110,12 @@ stamp
    description Randomly reorder rows.
    cue shuffle
    example
-    table data.csv
+    datatable data.csv
      shuffle
       printTable
    javascript
     get coreTable() {
-     // Create a copy of the table to avoid modifying original
+     // Create a copy of the datatable to avoid modifying original
      const rows = this.parent.coreTable.slice()
      // Fisher-Yates shuffle algorithm
      for (let i = rows.length - 1; i > 0; i--) {
@@ -7087,7 +7127,7 @@ stamp
   
   scrollTransposeParser
    extends abstractTableTransformParser
-   description Tranpose table.
+   description Tranpose datatable.
    cue transpose
    javascript
     get coreTable() {
@@ -7227,7 +7267,7 @@ stamp
    description Generate summary statistics for each column.
    cue summarize
    example
-    table data.csv
+    datatable data.csv
      summarize
       printTable
    javascript

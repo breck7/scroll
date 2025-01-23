@@ -33,7 +33,7 @@ ScrollSets are normal plain text files written in Scroll that also contain measu
  https://scroll.pub/ Scroll
   match 1
 
-ScrollSets are line oriented but represent a table(s). You might call them _deconstructed csvs_ or _deconstructed spreadsheets_.
+ScrollSets are line oriented but represent a datatable(s). You might call them _deconstructed csvs_ or _deconstructed spreadsheets_.
 
 - Use LLMs to *instantly generate ScrollSets* that are ready for human verification and improvement.
 - Intermingle structured data with markup to *annotate any and every part of a ScrollSets* while still generating strict tabular files for data analysis tools.

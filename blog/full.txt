@@ -25,8 +25,8 @@ A New Way to Program
 08/30/2024
 https://scroll.pub/blog/teddyTalk.html
 
-Tables: a microlang for data science
-====================================
+Datatables: a microlang for data science
+========================================
 08/09/2024
 https://scroll.pub/blog/tables.html
 
@@ -100,4 +100,4 @@ The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with n
 08/23/2021
 https://scroll.pub/blog/indented-heredocs.html
 
-Built with Scroll v168.8.0
+Built with Scroll v169.0.0

@@ -68,7 +68,7 @@ testParticles.endSnippet = async areEqual => {
 testParticles.tableWithLinks = async areEqual => {
   const tests = [
     {
-      text: `table
+      text: `datatable
  delimiter ,
  printTable
  data

@@ -3,10 +3,10 @@ Simple sparkline with inline data
 
 ---
 
-Sparkline from table
-====================
-Whats in table?
-===============
+Sparkline from datatable
+========================
+Whats in datatable?
+===================
 score
 1
 5
@@ -21,8 +21,8 @@ How about a heatrix?
 What if we add a filter?
 ========================
 
-Whats left in table?
-====================
+Whats left in datatable?
+========================
 score
 5
 432

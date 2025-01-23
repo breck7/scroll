@@ -2,6 +2,15 @@
   {
     "date": "01/23/2025",
     "year": 2025,
+    "title": "Search the Official Scroll Blog",
+    "permalink": "search.html",
+    "tags": "",
+    "wordCount": 9810,
+    "minutes": 49
+  },
+  {
+    "date": "01/23/2025",
+    "year": 2025,
     "title": "Settings",
     "permalink": "settings.html",
     "tags": "",
@@ -16,15 +25,6 @@
     "tags": "",
     "wordCount": 157,
     "minutes": 0.8
-  },
-  {
-    "date": "01/23/2025",
-    "year": 2025,
-    "title": "Search the Official Scroll Blog",
-    "permalink": "search.html",
-    "tags": "",
-    "wordCount": 9810,
-    "minutes": 49
   },
   {
     "date": "01/23/2025",
@@ -106,7 +106,7 @@
   {
     "date": "08/09/2024",
     "year": 2024,
-    "title": "Tables: a microlang for data science",
+    "title": "Datatables: a microlang for data science",
     "permalink": "tables.html",
     "authors": "Breck Yunits",
     "tags": "All",

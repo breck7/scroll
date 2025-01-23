@@ -1,6 +1,6 @@
 scrollDiskParser
  extends scrollTableParser
- description Output file into as table.
+ description Output file into as datatable.
  cue disk
  javascript
   delimiter = "json"

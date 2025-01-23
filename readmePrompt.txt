@@ -89,6 +89,22 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 169.0.0 1/23/2025
+Usage shows users expect HTML to just work in Scroll, so I am moving all Scroll cues with namespace conflicts to new available words and adding all HTML cues as parsers.
+
+This release moves `table` to `datatable`, so now `table` refers to the HTML element.
+
+To upgrade, just rename all uses of `table` to `datatable`. Or you can always just add an alias Parser if you don't want to do that for some reason.
+
+🎉 added htmlTableParser
+🎉 added htmlTrParser
+🎉 added htmlTdParser
+🎉 added htmlThParser
+🎉 added htmlTheadParser
+🎉 added htmlTbodyParser
+🎉 improvements to `toStamp` parser
+⚠️ BREAKING: renamed the old `table` parser to `datatable`
+
 📦 168.8.0 1/20/2025
 🎉 added htmlStrongParser
 🎉 added htmlEmParser
@@ -240,14 +256,14 @@ This release adds a simple `class` parser, and renames the existing advanced one
 ⚠️ BREAKING: (no one should be affected) CSS and Javascript tags will no longer be included by default when compiling snippets
 
 📦 164.12.0 1/02/2025
-🎉 added support for URLS with query strings as table data source
+🎉 added support for URLS with query strings as datatable data source
 
 📦 164.11.0 12/29/2024
-🎉 added slashComment support to table flows
-🎉 added assertRowCount parser for fast testing of table transformers
+🎉 added slashComment support to datatable flows
+🎉 added assertRowCount parser for fast testing of datatable transformers
 🏥 fix regression where empty and nonEmpty filters were not working
 🏥 fix "first" reduction to select the first non-blank value
-🏥 fix syntax highlighting in table flows
+🏥 fix syntax highlighting in datatable flows
 
 📦 164.10.0 12/29/2024
 🎉 added scrollModalParser
@@ -302,7 +318,7 @@ This release adds a simple `class` parser, and renames the existing advanced one
 🎉 added `summarize` parser
 
 📦 163.1.0 12/15/2024
-🎉 column names in table particles now try to match users intent (case insensitive and close match).
+🎉 column names in datatable particles now try to match users intent (case insensitive and close match).
 🎉 new `assertIgnoreBelowErrorsParser` for automated testing purposes
 
 📦 163.0.0 12/13/2024
@@ -437,7 +453,7 @@ So we use the hidden file convention for separating files you want to track from
 🎉 Upgraded ScrollSDK
 
 📦 154.1.0 11/15/2024
-🎉 JSON table parser now handles more common kinds of json data
+🎉 JSON datatable parser now handles more common kinds of json data
  - Thanks TBD!
   https://x.com/tbdr/status/1857446832923652190
 
@@ -467,7 +483,7 @@ So we use the hidden file convention for separating files you want to track from
 🏥 fixed regression where parsers were printing
 
 📦 150.0.0 11/13/2024
-🎉 added `concepts` parser for loading concepts in a file into a table
+🎉 added `concepts` parser for loading concepts in a file into a datatable
 ⚠️ BREAKING: (no one should be affected) nearly all Scroll code is now available to Scroll in the browser. Some internal APIs may have changed if using Scroll programmatically.
 
 This is prep work for the major release coming imminently which brings the full power of PPS to the browser, including ability to write Parsers, fully user Scrollsets, and more, dynamically, clientside in browser.
@@ -500,11 +516,11 @@ This is prep work for the major release coming imminently which brings the full 
 
 🎉 added `buildTsv` parser
 🎉 added `buildJson` parser
-🎉 added `posts` parser for iterating over posts as a table
-🎉 added `postsMeta` parser for iterating over post metadata as a table
+🎉 added `posts` parser for iterating over posts as a datatable
+🎉 added `postsMeta` parser for iterating over post metadata as a datatable
 🎉 added `assertBuildIncludes`
-🎉 `printTable` combined with `buildTsv/Csv/Json` will now save the table to disk.
-⚠️ BREAKING: removed `loop`. `tables` can do everything loops could, much better.
+🎉 `printTable` combined with `buildTsv/Csv/Json` will now save the datatable to disk.
+⚠️ BREAKING: removed `loop`. `datatables` can do everything loops could, much better.
 ⚠️ BREAKING: removed `printCsv` parser
 ⚠️ BREAKING: removed `printSearchTable` parser. Can now be done with:
 
@@ -515,14 +531,14 @@ code
 
 📦 147.1.0 11/11/2024
 🎉 added `shuffle` parser
-🎉 added `iris` parser for easier quick testing/demoing of scroll tables
+🎉 added `iris` parser for easier quick testing/demoing of scroll datatables
 
 📦 147.0.0 11/09/2024
 🎉 added `quickRunScriptParser` to run python, php, ruby, perl, and sh scripts and include output in compiled output
  - Thanks to TBD for the idea
   https://x.com/tbdr TBD
   https://x.com/tbdr/status/1855391565373641140 idea
-🏥 match less in quick tables
+🏥 match less in quick datatables
 ⚠️ BREAKING: (no one should be affected) if you have a line that is just a filename like *.(py|rb|sh|php|pl), it will now attempt to run that script
 
 📦 146.4.0 11/09/2024
@@ -576,10 +592,10 @@ Expect Def parsers to evolve quickly.
 🎉 improved how long ago magic column to handle timestamps better and also show original date on hover
 
 📦 145.6.0 10/27/2024
-🎉 added magic `last[Verbed]` columns to tables which now renders a "how long ago" value
+🎉 added magic `last[Verbed]` columns to datatables which now renders a "how long ago" value
 
 📦 145.5.1 10/26/2024
-🏥 table fix for missing values
+🏥 datatable fix for missing values
 
 📦 145.5.0 10/25/2024
 🎉 new internal build API to support single file building
@@ -650,7 +666,7 @@ Expect Def parsers to evolve quickly.
 
 📦 141.0.0 10/12/2024
 🎉 updated ScrollSDK
-🏥 bug fix in maps nested under tables. Thanks TD for the report!
+🏥 bug fix in maps nested under datatables. Thanks TD for the report!
 ⚠️ BREAKING: `firstAtom` is now `cue` everywhere
 
 📦 140.0.0 10/12/2024
@@ -661,7 +677,7 @@ Expect Def parsers to evolve quickly.
 🎉 added qrcode parser
 
 📦 139.0.1 10/11/2024
-🏥 bug fix in quick tables. Thanks TD for the report!
+🏥 bug fix in quick datatables. Thanks TD for the report!
 
 📦 139.0.0 10/11/2024
 🎉 the quickTable parser now works with JSON files as well.
@@ -702,21 +718,21 @@ code
 🎉 added `tiles` parser to maps
 
 📦 137.1.0 10/05/2024
-🎉 added `rank` parser to tables
+🎉 added `rank` parser to datatables
 
 📦 137.0.0 10/04/2024
-🎉 maps now takes a table
+🎉 maps now takes a datatable
 🎉 maps now supports fullscreen
 🎉 maps now supports custom hover template strings
 🎉 maps now supports color
 🎉 maps now supports fillColor
 🎉 maps now supports radius
 🎉 maps now supports fillOpacity
-🎉 added `compute` table parser
-⚠️ BREAKING: remove "points" parser. maps now takes a table as input.
+🎉 added `compute` datatable parser
+⚠️ BREAKING: remove "points" parser. maps now takes a datatable as input.
 
 📦 136.12.0 10/04/2024
-🎉 `table` now accepts urls
+🎉 `datatable` now accepts urls
 🎉 build now works in web version
 
 📦 136.11.1 10/02/2024
@@ -741,10 +757,10 @@ code
 🎉 added `printColumn` parser
 
 📦 136.5.0 9/27/2024
-🎉 added `disk` parser which generates a table from local disk contents
+🎉 added `disk` parser which generates a datatable from local disk contents
 
 📦 136.4.1 9/27/2024
-🏥 type fix in table links
+🏥 type fix in datatable links
 
 📦 136.4.0 9/27/2024
 🎉 new aftertext relative link parser. relative links with 33% fewer words.
@@ -757,9 +773,9 @@ code
   $1.html
 
 📦 136.3.0 9/27/2024
-🎉 new expand/collapse button on tables and removed confusing zoom in/zoom out
-🎉 copy button on tables now generates just data, no more header/footer cruft
-🎉 removed rarely used csv button on tables in favor of better copy button
+🎉 new expand/collapse button on datatables and removed confusing zoom in/zoom out
+🎉 copy button on datatables now generates just data, no more header/footer cruft
+🎉 removed rarely used csv button on datatables in favor of better copy button
 
 📦 136.2.1 9/26/2024
 🏥 container style fix when in snippets
@@ -787,17 +803,17 @@ code
 ⚠️ BREAKING: (no one should be affected) if you have lines starting with a sequence like tag#id or tag.someClassName, they will now get matched to HAML parser.
 
 📦 133.6.0 9/24/2024
-🎉 added `links` parser to tables
+🎉 added `links` parser to datatables
 
 📦 133.5.0 9/24/2024
-🎉 added `compose` parser to tables
+🎉 added `compose` parser to datatables
 
 📦 133.4.0 9/24/2024
 🎉 added `quickIncludeJsonParser` parser
 
 📦 133.3.0 9/24/2024
 🎉 added `cloc` parser
-🎉 you can now use quickHtml in table flows
+🎉 you can now use quickHtml in datatable flows
 
 📦 133.2.0 9/22/2024
 🎉 added `favIcon` parser
@@ -864,12 +880,12 @@ code
 🎉 upstream ScrollSetCLI
 
 📦 130.2.1 9/8/2024
-🏥 table loop fixes
-🏥 table json parsing fixes
+🏥 datatable loop fixes
+🏥 datatable json parsing fixes
 
 📦 130.2.0 9/8/2024
-🎉 added `limit` parser to tables
-🎉 `loop` parser can now loop over tables
+🎉 added `limit` parser to datatables
+🎉 `loop` parser can now loop over datatables
 
 📦 130.1.1 9/5/2024
 🎉 oneTextarea max height
@@ -886,7 +902,7 @@ code
 ⚠️ BREAKING: (no one should be effected) if you had any lines that were just [filename].(scroll|parser), those will now be parsed as imports
 
 📦 128.0.1 9/4/2024
-🏥 better handling of circular dependencies with tables
+🏥 better handling of circular dependencies with datatables
 
 📦 128.0.0 9/4/2024
 🎉 added `quickVideo` parser for including videos.
@@ -967,12 +983,12 @@ chat
 🎉 switch `youTube` parser to `youtube` (all lowercase). Deprecate old spelling.
 
 📦 125.0.1 8/29/2024
-🏥 particles table fix
+🏥 particles datatable fix
 
 📦 125.0.0 8/29/2024
 🎉 upgraded ScrollSDK to 84
 ⚠️ BREAKING: ScrollSDK updates require updating any Parsers with new "Particle" nomenclature
-⚠️ BREAKING: `tree` is no longer a table format. Use `particles` instead.
+⚠️ BREAKING: `tree` is no longer a datatable format. Use `particles` instead.
 
 📦 124.1.0 8/28/2024
 🎉 added `buildPdf` parser. Currently requires MacOS + Chrome.
@@ -990,11 +1006,11 @@ codeWithHeader contacts.scroll
 After:
 codeWithHeader contacts.scroll
  buildConcepts
- table
+ datatable
   printTable
 
 📦 123.3.0 8/27/2024
-🎉 ending a column with "Url" in tables will now print the column name linked rather than url
+🎉 ending a column with "Url" in datatables will now print the column name linked rather than url
 
 📦 123.2.0 8/26/2024
 🎉 added popularity table to leetsheet
@@ -1108,7 +1124,7 @@ music tests/sipOfCoffee.m4a
 
 📦 118.3.0 8/6/2024
 🎉 `fetch` now writes to localStorage in browser environment.
-🎉 `table` now can read from localStorage in browser environment.
+🎉 `datatable` now can read from localStorage in browser environment.
 🏥 handle empty values in `groupBy` parser
 
 📦 118.2.2 8/6/2024
@@ -1124,28 +1140,28 @@ music tests/sipOfCoffee.m4a
 🎉 `tableSearch` now adds copy and CSV buttons.
 
 📦 118.0.0 8/6/2024
-🎉 tables: added delimiter autodetection
-🎉 tables: added columnName autocomplete
-🎉 tables: added `transpose` parser
+🎉 datatables: added delimiter autodetection
+🎉 datatables: added columnName autocomplete
+🎉 datatables: added `transpose` parser
 🎉 scatterplot: added x, y, and other autocompletes
 ⚠️ BREAKING: `sparkline [columnName]` is now `sparkline\n y [columnName]`
 
 📦 117.1.0 8/5/2024
-🎉 tables: added `groupBy` parser for "pivot tables"
+🎉 datatables: added `groupBy` parser for "pivot tables"
 
 📦 117.0.1 8/5/2024
 🏥 fix highlight bug in where parser
 
 📦 117.0.0 8/5/2024
-🎉 tables: added `select` parser
-🎉 tables: added `orderBy` parser
-🎉 tables: added `rename` parser
-🎉 tables: added `reverse` parser
+🎉 datatables: added `select` parser
+🎉 datatables: added `orderBy` parser
+🎉 datatables: added `rename` parser
+🎉 datatables: added `reverse` parser
 🎉 added `fetch` parser
 ⚠️ BREAKING: (no one should be affected) Scroll now requires NodeJS >= 18.0.0.
 
 📦 116.0.0 8/3/2024
-⚠️ BREAKING: `scatterplot` now gets data from `table`.
+⚠️ BREAKING: `scatterplot` now gets data from `datatable`.
 
 📦 115.2.0 8/3/2024
 🏥 fix extra space in related snippets
@@ -1157,24 +1173,24 @@ music tests/sipOfCoffee.m4a
 🏥 more regression fixes.
 
 📦 115.0.1 8/3/2024
-🏥 fix table regression.
+🏥 fix datatable regression.
 
 📦 115.0.0 8/3/2024
-🎉 `table [filename].[json|tsv|csv]` to load and print a table from disk
-🎉 `sparkline` now can take a table as input:
+🎉 `datatable [filename].[json|tsv|csv]` to load and print a datatable from disk
+🎉 `sparkline` now can take a datatable as input:
 code
- table posts.csv
+ datatable posts.csv
   sparkline
    y wordCount
-⚠️ BREAKING: removed support for root level TSV. Not useful enough. Convert any root TSV to a standard table.
-⚠️ BREAKING: removed `printTable` at root level. Now works nested under table
+⚠️ BREAKING: removed support for root level TSV. Not useful enough. Convert any root TSV to a standard datatable.
+⚠️ BREAKING: removed `printTable` at root level. Now works nested under datatable
 ⚠️ BREAKING: removed `spaceTable`. See below to migrate.
 ⚠️ BREAKING: removed `tabTable`. See below to migrate.
 ⚠️ BREAKING: removed `treeTable`. See below to migrate.
 ⚠️ BREAKING: removed `commaTable`. See below to migrate.
 ⚠️ BREAKING: removed `pipeTable`. See below to migrate.
-⚠️ BREAKING: `table` now takes delimiter and data parsers. Usage:
-table
+⚠️ BREAKING: `datatable` now takes delimiter and data parsers. Usage:
+datatable
  delimiter ,
  printTable
  data
@@ -1309,7 +1325,7 @@ Replace: authors $2\n $1 $2
 🎉 added `center` parser! first blink, now center!
 
 📦 108.1.0 7/15/2024
-🎉 table style improvements
+🎉 datatable style improvements
 
 📦 108.0.0 7/15/2024
 ⚠️ BREAKING: (no one should be affected) Renamed `printCheatSheet` to `printLeetSheet`
@@ -1375,7 +1391,7 @@ code
 🎉 build scrollsets first and so the outputs can be used to build html files
 
 📦 102.1.0 7/07/2024
-🎉 integrate feedback from h4l to make tables expand on click
+🎉 integrate feedback from h4l to make datatables expand on click
  https://www.reddit.com/r/programming/comments/1dwvezp/comment/lc0ytu6/ feedback from h4l
 
 📦 102.0.0 7/06/2024
@@ -2217,7 +2233,7 @@ belowAsCode 3
 📦 55.4.0 1/30/2023
 🎉 added `table` parser which supports custom delimiters:
 
-table
+datatable
  delimiter &&
  data
   name&&score
@@ -2706,7 +2722,7 @@ code
 🎉 added `treeTable`
 
 belowAsCode
-table
+datatable
  delimiter particles
  printTable
  data
@@ -2819,7 +2835,7 @@ code
 ⚠️ if you have tables with a column ending in "Link" beware the new behavior
 
 belowAsCode
-table
+datatable
  delimiter |
  printTable
  data
@@ -2988,7 +3004,7 @@ code
 📦 17.1.0 05/25/2021
 🎉 pipeTable
 
-table
+datatable
  delimiter |
  printTable
  data
@@ -3691,9 +3707,9 @@ belowAsCode 2
  [x] Learn that checklists support nesting
 
 ## 5. Tables
-Use the `table` parser to make tables:
+Use the `datatable` parser to make tables:
 belowAsCode
-table
+datatable
  printTable
  data
   Name,Rank

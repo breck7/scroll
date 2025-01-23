@@ -14,7 +14,7 @@ printUsageStatsParser
   }
   buildHtml() {
     // A hacky but simple way to do this for now.
-   const particle = this.appendSibling("table")
+   const particle = this.appendSibling("datatable")
    particle.appendLine("delimiter  ")
    particle.appendLine("printTable")
    const dataParticle = particle.appendLine("data")
