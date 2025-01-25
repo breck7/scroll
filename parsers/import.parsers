@@ -25,6 +25,8 @@ scrollImportedParser
    return ""
   }
   getErrors() {
+    if (this.has("circularImportError"))
+      return [this.makeError(this.get("circularImportError"))]
     if (this.get("exists") === "false" && this.previous.getLine() !== "// optional")
       return [this.makeError(`File '${this.atoms[1]}' does not exist.`)]
     return []
