@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 169.0.1 1/24/2025
+🏥 upgrade ScrollSDK to catch circular imports causing infinite loops
+
 📦 169.0.0 1/23/2025
 Usage shows users expect HTML to just work in Scroll, so I am moving all Scroll cues with namespace conflicts to new available words and adding all HTML cues as parsers.
 
