@@ -40,7 +40,7 @@ quickIncludeHtmlParser
  example
   body.html
  atoms urlAtom
- pattern ^[^\s]+\.(html|htm)$
+ pattern ^[^\s]+\.(html|htm)(?:\?[^\s]*)?$
  javascript
   buildHtml() {
    return this.root.readFile(this.filename)

@@ -14,7 +14,7 @@ quickSoundParser
  popularity 0.000024
  extends scrollMusicParser
  atoms urlAtom
- pattern ^[^\s]+\.(mp3|wav|ogg|aac|m4a|flac)
+ pattern ^[^\s]+\.(mp3|wav|ogg|aac|m4a|flac)(?:\?[^\s]*)?$
  int atomIndex 0
  example
   sipOfCoffee.m4a

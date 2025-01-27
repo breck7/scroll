@@ -5,7 +5,7 @@ quickScriptParser
  atoms urlAtom
  example
   script.js
- pattern ^[^\s]+\.(js)$
+ pattern ^[^\s]+\.(js)(?:\?[^\s]*)?$
  javascript
   attr = ""
   buildHtml() {
@@ -20,7 +20,7 @@ quickModuleScriptParser
  extends quickScriptParser
  example
   script.mjs
- pattern ^[^\s]+\.(mjs)$
+ pattern ^[^\s]+\.(mjs)(?:\?[^\s]*)?$
  javascript
   attr = 'type="module"'
 

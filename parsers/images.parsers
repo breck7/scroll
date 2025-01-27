@@ -97,5 +97,5 @@ quickImageParser
  example
   screenshot.png
  atoms urlAtom
- pattern ^[^\s]+\.(jpg|jpeg|png|gif|webp|svg|bmp)
+ pattern ^[^\s]+\.(jpg|jpeg|png|gif|webp|svg|bmp)(?:\?[^\s]*)?$
  int atomIndex 0

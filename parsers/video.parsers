@@ -20,5 +20,5 @@ quickVideoParser
  example
   spirit.mp4
  atoms urlAtom
- pattern ^[^\s]+\.(mp4|webm|avi|mov)
+ pattern ^[^\s]+\.(mp4|webm|avi|mov)(?:\?[^\s]*)?$
  int atomIndex 0
