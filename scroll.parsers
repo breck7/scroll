@@ -1026,7 +1026,7 @@ quickSoundParser
  popularity 0.000024
  extends scrollMusicParser
  atoms urlAtom
- pattern ^[^\s]+\.(mp3|wav|ogg|aac|m4a|flac)
+ pattern ^[^\s]+\.(mp3|wav|ogg|aac|m4a|flac)(?:\?[^\s]*)?$
  int atomIndex 0
  example
   sipOfCoffee.m4a
@@ -1051,7 +1051,7 @@ quickVideoParser
  example
   spirit.mp4
  atoms urlAtom
- pattern ^[^\s]+\.(mp4|webm|avi|mov)
+ pattern ^[^\s]+\.(mp4|webm|avi|mov)(?:\?[^\s]*)?$
  int atomIndex 0
 quickParagraphParser
  popularity 0.001881
@@ -2463,7 +2463,7 @@ quickTableParser
  popularity 0.000024
  extends scrollTableParser
  atoms urlAtom
- pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)[^\s]*$
+ pattern ^[^\s]+\.(tsv|csv|ssv|psv|json)(?:\?[^\s]*)?$
  int atomIndex 0
  javascript
   get dependencies() { return [this.cue]}
@@ -3510,7 +3510,7 @@ quickCssParser
  example
   style.css
  atoms urlAtom
- pattern ^[^\s]+\.(css)$
+ pattern ^[^\s]+\.(css)(?:\?[^\s]*)?$
  javascript
   buildHtml() {
    return `<link rel="stylesheet" type="text/css" href="${this.filename}">`
@@ -3525,7 +3525,7 @@ quickIncludeHtmlParser
  example
   body.html
  atoms urlAtom
- pattern ^[^\s]+\.(html|htm)$
+ pattern ^[^\s]+\.(html|htm)(?:\?[^\s]*)?$
  javascript
   buildHtml() {
    return this.root.readFile(this.filename)
@@ -3537,7 +3537,7 @@ quickScriptParser
  atoms urlAtom
  example
   script.js
- pattern ^[^\s]+\.(js)$
+ pattern ^[^\s]+\.(js)(?:\?[^\s]*)?$
  javascript
   attr = ""
   buildHtml() {
@@ -3551,7 +3551,7 @@ quickModuleScriptParser
  extends quickScriptParser
  example
   script.mjs
- pattern ^[^\s]+\.(mjs)$
+ pattern ^[^\s]+\.(mjs)(?:\?[^\s]*)?$
  javascript
   attr = 'type="module"'
 scrollDashboardParser
@@ -3912,7 +3912,7 @@ quickImageParser
  example
   screenshot.png
  atoms urlAtom
- pattern ^[^\s]+\.(jpg|jpeg|png|gif|webp|svg|bmp)
+ pattern ^[^\s]+\.(jpg|jpeg|png|gif|webp|svg|bmp)(?:\?[^\s]*)?$
  int atomIndex 0
 qrcodeParser
  extends abstractCaptionedParser
@@ -6885,7 +6885,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "169.0.0"
+    return "169.0.2"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

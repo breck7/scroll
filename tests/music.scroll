@@ -5,3 +5,15 @@ music sipOfCoffee.m4a
 # With loop
 music sipOfCoffee.m4a
  loop
+
+# Quick audio
+sipOfCoffee.m4a
+assertHtmlIncludes <audio
+
+# Quick audio with query string
+sipOfCoffee.m4a?t=1
+assertHtmlIncludes <audio
+
+# Do not match quick audio
+sipOfCoffee.m4a is an audio file
+assertHtmlExcludes <audio

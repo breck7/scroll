@@ -92,7 +92,7 @@ quickCssParser
  example
   style.css
  atoms urlAtom
- pattern ^[^\s]+\.(css)$
+ pattern ^[^\s]+\.(css)(?:\?[^\s]*)?$
  javascript
   buildHtml() {
    return `<link rel="stylesheet" type="text/css" href="${this.filename}">`
