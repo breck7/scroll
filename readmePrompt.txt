@@ -89,6 +89,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 169.0.3 1/28/2025
+🏥 HTML elements should not emit txt
+
 📦 169.0.2 1/27/2025
 🏥 fixed quick imports to also support query strings and to not match when there are multiple words
 

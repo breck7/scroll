@@ -104,6 +104,9 @@ abstractHtmlElementParser
  javascript
   defaultClassName = ""
   get tag() { return this.cue}
+  buildTxt() {
+    return ""
+  }
 
 htmlSectionParser
  extends abstractHtmlElementParser
