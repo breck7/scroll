@@ -25,11 +25,15 @@ abstractAssertionParser
   }
  catchAllParser htmlLineParser
 
-assertIgnoreBelowErrorsParser
- description If you want to ignore any errors in the below particle in automated tests.
+assertSilenceBelowErrorsParser
+ description Silence errors in the below particle in automated tests.
  extends abstractScrollParser
  string bindTo next
  cueFromId
+ javascript
+  load() {
+    this.next.topDownArray.forEach(part => part.silenceErrors = true)
+  }
 
 assertHtmlEqualsParser
  extends abstractAssertionParser
@@ -41,8 +45,6 @@ assertHtmlEqualsParser
   areEqual(actual, expected) {
     return actual === expected
   }
-  // todo: why are we having to super here?
-  getErrors() { return super.getErrors()}
 
 assertBuildIncludesParser
  extends abstractAssertionParser
@@ -55,7 +57,6 @@ assertBuildIncludesParser
     return actual.includes(expected)
   }
   get actual() { return this.particleToTest.buildOutput()}
-  getErrors() { return super.getErrors()}
 
 assertHtmlIncludesParser
  extends abstractAssertionParser
@@ -64,7 +65,6 @@ assertHtmlIncludesParser
   areEqual(actual, expected) {
     return actual.includes(expected)
   }
-  getErrors() { return super.getErrors()}
 
 assertHtmlExcludesParser
  extends abstractAssertionParser
@@ -73,4 +73,3 @@ assertHtmlExcludesParser
   areEqual(actual, expected) {
     return !actual.includes(expected)
   }
-  getErrors() { return super.getErrors()}

@@ -130,6 +130,7 @@ abstractAftertextDirectiveParser
    return ""
   }
   getErrors() {
+    if (this.silenceErrors) return [] // todo: generalize this?
     const errors = super.getErrors()
     if (!this.isMarkup || this.matchWholeLine) return errors
     const inserts = this.getInserts(this.parent.originalTextPostLinkify)

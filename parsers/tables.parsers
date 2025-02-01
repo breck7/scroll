@@ -50,10 +50,8 @@ abstractTableTransformParser
     return this.connectColumnNames([name])[name]
   }
   getErrors() {
-    const errors = super.getErrors()
-    if (errors.length && this.previous.cue !== "assertIgnoreBelowErrors")
-      return errors
-    return []
+    if (this.silenceErrors) return [] // todo: generalize this?
+    return super.getErrors()
   }
   getRunTimeEnumOptions(atom) {
    if (atom.atomTypeId === "columnNameAtom")
