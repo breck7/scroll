@@ -132,6 +132,7 @@ stamp
      return ""
     }
     getErrors() {
+      if (this.silenceErrors) return [] // todo: generalize this?
       const errors = super.getErrors()
       if (!this.isMarkup || this.matchWholeLine) return errors
       const inserts = this.getInserts(this.parent.originalTextPostLinkify)
@@ -652,11 +653,18 @@ stamp
     }
    catchAllParser htmlLineParser
   
-  assertIgnoreBelowErrorsParser
-   description If you want to ignore any errors in the below particle in automated tests.
+  assertSilenceBelowErrorsParser
+   description Silence errors in the below particle in automated tests.
    extends abstractScrollParser
    string bindTo next
    cueFromId
+   javascript
+    getErrors() {
+      if (!this.next) return []
+      this.next.silenceErrors = true
+      this.next.topDownArray.forEach(part => part.silenceErrors = true)
+      return []
+    }
   
   assertHtmlEqualsParser
    extends abstractAssertionParser
@@ -668,8 +676,6 @@ stamp
     areEqual(actual, expected) {
       return actual === expected
     }
-    // todo: why are we having to super here?
-    getErrors() { return super.getErrors()}
   
   assertBuildIncludesParser
    extends abstractAssertionParser
@@ -682,7 +688,6 @@ stamp
       return actual.includes(expected)
     }
     get actual() { return this.particleToTest.buildOutput()}
-    getErrors() { return super.getErrors()}
   
   assertHtmlIncludesParser
    extends abstractAssertionParser
@@ -691,7 +696,6 @@ stamp
     areEqual(actual, expected) {
       return actual.includes(expected)
     }
-    getErrors() { return super.getErrors()}
   
   assertHtmlExcludesParser
    extends abstractAssertionParser
@@ -700,7 +704,6 @@ stamp
     areEqual(actual, expected) {
       return !actual.includes(expected)
     }
-    getErrors() { return super.getErrors()}
   
  atomTypes.parsers
   columnNameAtom
@@ -1756,6 +1759,17 @@ stamp
       // Remove blank lines
       code = code.toString().replace(/^\n/gm, "")
       return code
+    }
+  
+  debugSourceMapParser
+   description Print the source map.
+   extends codeParser
+   cueFromId
+   javascript
+    get code() {
+      const {root} = this
+      const {fileSystem, file, filePath} = root
+      return fileSystem.makeSourceMap(filePath, root.toString())
     }
   
   debugBelowParser
@@ -5654,7 +5668,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "169.0.3"
+      return "170.0.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6822,7 +6836,7 @@ stamp
   abstractDatatableProviderParser
    description A datatable.
    extends abstractScrollParser
-   inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser
+   inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser assertSilenceBelowErrorsParser
    javascript
     get visualizations() {
       return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)

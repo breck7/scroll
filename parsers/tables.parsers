@@ -50,10 +50,8 @@ abstractTableTransformParser
     return this.connectColumnNames([name])[name]
   }
   getErrors() {
-    const errors = super.getErrors()
-    if (errors.length && this.previous.cue !== "assertIgnoreBelowErrors")
-      return errors
-    return []
+    if (this.silenceErrors) return [] // todo: generalize this?
+    return super.getErrors()
   }
   getRunTimeEnumOptions(atom) {
    if (atom.atomTypeId === "columnNameAtom")
@@ -216,7 +214,7 @@ scrollTableDelimiterParser
 abstractDatatableProviderParser
  description A datatable.
  extends abstractScrollParser
- inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser
+ inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser assertSilenceBelowErrorsParser
  javascript
   get visualizations() {
     return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)

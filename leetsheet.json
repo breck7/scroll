@@ -253,8 +253,8 @@
     "popularity": 0
   },
   {
-    "id": "assertIgnoreBelowErrors",
-    "description": "If you want to ignore any errors in the below particle in automated tests.",
+    "id": "assertSilenceBelowErrors",
+    "description": "Silence errors in the below particle in automated tests.",
     "popularity": 0
   },
   {
@@ -492,6 +492,12 @@
   {
     "id": "debugParsers",
     "description": "Print the parsers used.",
+    "popularity": 193,
+    "example": "code\n two = 1 + 1"
+  },
+  {
+    "id": "debugSourceMap",
+    "description": "Print the source map.",
     "popularity": 193,
     "example": "code\n two = 1 + 1"
   },

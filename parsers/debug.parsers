@@ -42,6 +42,17 @@ debugParsersParser
     return code
   }
 
+debugSourceMapParser
+ description Print the source map.
+ extends codeParser
+ cueFromId
+ javascript
+  get code() {
+    const {root} = this
+    const {fileSystem, file, filePath} = root
+    return fileSystem.makeSourceMap(filePath, root.toString())
+  }
+
 debugBelowParser
  description Inspect particle below.
  extends belowAsCodeParser

@@ -6,10 +6,10 @@
   const { ParserBackedParticle } = require("./Parsers.js")
 
   class swarmParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(
+    createParserPool() {
+      return new Particle.ParserPool(
         errorParser,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), { test: testParser, testOnly: testOnlyParser, skipTest: skipTestParser, "#!": hashbangParser, arrange: arrangeParser }),
+        Object.assign(Object.assign({}, super.createParserPool()._getCueMapAsObject()), { test: testParser, testOnly: testOnlyParser, skipTest: skipTestParser, "#!": hashbangParser, arrange: arrangeParser }),
         undefined
       )
     }
@@ -408,8 +408,8 @@ todoParser
   }
 
   class assertParagraphIsParser extends abstractAssertionParser {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(paragraphLineParser, undefined, undefined)
+    createParserPool() {
+      return new Particle.ParserPool(paragraphLineParser, undefined, undefined)
     }
     getExpected() {
       return this.subparticlesToString()
@@ -499,8 +499,8 @@ todoParser
   class arrangeStaticParser extends abstractArrangeFlagParser {}
 
   class abstractTestBlockParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(actParser, Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), { arrange: arrangeParser }), undefined)
+    createParserPool() {
+      return new Particle.ParserPool(actParser, Object.assign(Object.assign({}, super.createParserPool()._getCueMapAsObject()), { arrange: arrangeParser }), undefined)
     }
     get cueAtom() {
       return this.getAtom(0)
@@ -563,10 +563,10 @@ todoParser
   }
 
   class arrangeParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(
+    createParserPool() {
+      return new Particle.ParserPool(
         undefined,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserPool()._getCueMapAsObject()), {
           async: arrangeAsyncParser,
           require: arrangeRequireParser,
           static: arrangeStaticParser,
@@ -606,8 +606,8 @@ todoParser
   }
 
   class withParagraphParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(paragraphLineParser, undefined, undefined)
+    createParserPool() {
+      return new Particle.ParserPool(paragraphLineParser, undefined, undefined)
     }
     get parameterKeywordAtom() {
       return this.getAtom(0)
@@ -616,10 +616,10 @@ todoParser
   }
 
   class actParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(
+    createParserPool() {
+      return new Particle.ParserPool(
         actParser,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserPool()._getCueMapAsObject()), {
           assertParagraphIs: assertParagraphIsParser,
           assertLengthIs: assertLengthIsParser,
           assertStringExcludes: assertStringExcludesParser,
@@ -666,8 +666,8 @@ todoParser
   }
 
   class constructWithParagraphParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(paragraphLineParser, undefined, undefined)
+    createParserPool() {
+      return new Particle.ParserPool(paragraphLineParser, undefined, undefined)
     }
     get cueAtom() {
       return this.getAtom(0)
@@ -682,8 +682,8 @@ todoParser
   }
 
   class paragraphLineParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(paragraphLineParser, undefined, undefined)
+    createParserPool() {
+      return new Particle.ParserPool(paragraphLineParser, undefined, undefined)
     }
     get anyAtom() {
       return this.getAtom(0)
@@ -694,8 +694,8 @@ todoParser
   }
 
   class todoParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(todoParser, undefined, undefined)
+    createParserPool() {
+      return new Particle.ParserPool(todoParser, undefined, undefined)
     }
     get todoKeywordAtom() {
       return this.getAtom(0)

@@ -6,10 +6,10 @@
   const { ParserBackedParticle } = require("./Parsers.js")
 
   class stumpParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(
+    createParserPool() {
+      return new Particle.ParserPool(
         errorParser,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserPool()._getCueMapAsObject()), {
           blockquote: htmlTagParser,
           colgroup: htmlTagParser,
           datalist: htmlTagParser,
@@ -420,10 +420,10 @@ bernParser
   }
 
   class htmlTagParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(
+    createParserPool() {
+      return new Particle.ParserPool(
         undefined,
-        Object.assign(Object.assign({}, super.createParserCombinator()._getCueMapAsObject()), {
+        Object.assign(Object.assign({}, super.createParserPool()._getCueMapAsObject()), {
           blockquote: htmlTagParser,
           colgroup: htmlTagParser,
           datalist: htmlTagParser,
@@ -894,8 +894,8 @@ bernParser
   }
 
   class htmlAttributeParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(errorParser, undefined, undefined)
+    createParserPool() {
+      return new Particle.ParserPool(errorParser, undefined, undefined)
     }
     get htmlAttributeNameAtom() {
       return this.getAtom(0)
@@ -927,8 +927,8 @@ bernParser
   }
 
   class lineOfHtmlContentParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(lineOfHtmlContentParser, undefined, undefined)
+    createParserPool() {
+      return new Particle.ParserPool(lineOfHtmlContentParser, undefined, undefined)
     }
     get anyHtmlContentAtom() {
       return this.getAtomsFrom(0)
@@ -942,8 +942,8 @@ bernParser
   }
 
   class bernParser extends ParserBackedParticle {
-    createParserCombinator() {
-      return new Particle.ParserCombinator(lineOfHtmlContentParser, undefined, undefined)
+    createParserPool() {
+      return new Particle.ParserPool(lineOfHtmlContentParser, undefined, undefined)
     }
     get bernKeywordAtom() {
       return this.getAtom(0)

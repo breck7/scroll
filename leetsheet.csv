@@ -58,7 +58,7 @@ assertHtmlEquals,,Test above particle's output.,0,"<b></b>
 assertHtmlEquals <b></b>",
 assertHtmlExcludes,,Test above particle's output.,0,,
 assertHtmlIncludes,,Test above particle's output.,0,,
-assertIgnoreBelowErrors,,If you want to ignore any errors in the below particle in automated tests.,0,,
+assertSilenceBelowErrors,,Silence errors in the below particle in automated tests.,0,,
 background,,Quickly set CSS background.,722,background red,
 barchart,,Bar chart widget.,0,"iris
 barchart",
@@ -135,6 +135,8 @@ debugBelow,,Inspect particle below.,66,"belowAsCode
 iris
 printTable",
 debugParsers,,Print the parsers used.,193,"code
+two = 1 + 1",
+debugSourceMap,,Print the source map.,193,"code
 two = 1 + 1",
 debugSourceStack,,Print compilation steps.,0,printOriginalSource,
 dependencies,,Get files this file depends on.,214,"datatable
