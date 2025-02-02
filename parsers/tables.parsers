@@ -214,7 +214,7 @@ scrollTableDelimiterParser
 abstractDatatableProviderParser
  description A datatable.
  extends abstractScrollParser
- inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser
+ inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser assertSilenceBelowErrorsParser
  javascript
   get visualizations() {
     return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)

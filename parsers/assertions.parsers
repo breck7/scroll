@@ -31,8 +31,11 @@ assertSilenceBelowErrorsParser
  string bindTo next
  cueFromId
  javascript
-  load() {
+  getErrors() {
+    if (!this.next) return []
+    this.next.silenceErrors = true
     this.next.topDownArray.forEach(part => part.silenceErrors = true)
+    return []
   }
 
 assertHtmlEqualsParser

@@ -1,0 +1,12 @@
+empty.scroll
+# Source Maps tests
+
+## Include header.scroll:
+header.scroll
+
+## Now include footer.scroll:
+footer.scroll
+
+## Now print source map:
+debugSourceMap
+

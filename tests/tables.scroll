@@ -126,7 +126,7 @@ datatable
 
 # Case insensitive
 iris
- assertIgnoreBelowErrors
+ assertSilenceBelowErrors
  select SpEcies
   printTable
  select species
