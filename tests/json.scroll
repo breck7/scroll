@@ -4,3 +4,11 @@ jsonScript ../package.json
 window.package.description says:
 script
  document.write(window.package.description)
+
+../package.json
+ path devDependencies
+ printTable
+
+../package.json
+ path prettier
+ printTable
