@@ -387,6 +387,9 @@ scrollWhereParser
    // todo: use atoms here.
    const columnName = this.connectColumnName(this.getAtom(1))
    const operator = this.getAtom(2)
+   let comparisonSet
+   if (operator === "oneOf")
+    comparisonSet = new Set(this.atoms.slice(3))
    let untypedComparisonValue = this.getAtom(3)
    const typedComparisonValue = isNaN(parseFloat(untypedComparisonValue)) ? untypedComparisonValue : parseFloat(untypedComparisonValue)
    const coreTable = this.parent.coreTable
@@ -400,6 +403,7 @@ scrollWhereParser
       else if (operator === "startsWith") return typedAtom !== undefined && typedAtom.toString().startsWith(typedComparisonValue)
       else if (operator === "endsWith") return typedAtom !== undefined && typedAtom.toString().endsWith(typedComparisonValue)
       else if (operator === "doesNotInclude") return typedAtom === undefined || !typedAtom.includes(typedComparisonValue)
+      else if (operator === "oneOf") return typedAtom !== undefined && comparisonSet.has(typedAtom.toString())
       else if (operator === ">") return typedAtom > typedComparisonValue
       else if (operator === "<") return typedAtom < typedComparisonValue
       else if (operator === ">=") return typedAtom >= typedComparisonValue

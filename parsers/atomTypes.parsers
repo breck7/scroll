@@ -30,7 +30,7 @@ bulletPointAtom
  paint keyword
 
 comparisonAtom
- enum < > <= >= = != includes doesNotInclude empty notEmpty startsWith endsWith
+ enum < > <= >= = != includes doesNotInclude empty notEmpty startsWith endsWith oneOf
  paint constant
 
 personNameAtom
