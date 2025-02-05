@@ -194,6 +194,13 @@ printTableParser
     return this.parent.delimitedData || new Particle(this.coreTable).asCsv
   }
 
+abstractTableOptionsParser
+ atoms cueAtom stringAtom
+ javascript
+  buildHtml() {
+    return ""
+  }
+
 scrollTableDataParser
  popularity 0.001061
  cue data
@@ -201,20 +208,22 @@ scrollTableDataParser
  description Table from inline delimited data.
  baseParser blobParser
 
+scrollJsonPathParser
+ popularity 0.001037
+ description Specify dot path to data.
+ cue path
+ extends abstractTableOptionsParser
+
 scrollTableDelimiterParser
  popularity 0.001037
  description Set the delimiter.
  cue delimiter
- atoms cueAtom stringAtom
- javascript
-  buildHtml() {
-    return ""
-  }
+ extends abstractTableOptionsParser
 
 abstractDatatableProviderParser
  description A datatable.
  extends abstractScrollParser
- inScope scrollTableDataParser scrollTableDelimiterParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser assertSilenceBelowErrorsParser
+ inScope scrollTableDataParser abstractTableOptionsParser abstractTableVisualizationParser abstractTableTransformParser h1Parser h2Parser scrollQuestionParser htmlInlineParser scrollBrParser slashCommentParser assertSilenceBelowErrorsParser
  javascript
   get visualizations() {
     return this.topDownArray.filter(particle => particle.isTableVisualization || particle.isHeader || particle.isHtml)
@@ -282,27 +291,43 @@ scrollTableParser
    get filename() {
      return this.getAtom(this.atomIndex)
    }
+   parseJson() {
+     const {delimitedData} = this
+     let obj = JSON.parse(delimitedData)
+     let rows = []
+     const dotPath = this.get("path")
+     if (dotPath) {
+       function getValueFromPath(obj, path) {
+        return path.split('.').reduce((current, key) => 
+          current && current[key] !== undefined ? current[key] : undefined, 
+          obj
+        );
+      }
+      obj = getValueFromPath(obj, dotPath)
+     }
+     // Optimal case: Array of objects
+     if (Array.isArray(obj)) { rows = obj}
+     else if (!Array.isArray(obj) && typeof obj === "object") {
+        // Case 2: Nested array under a key
+       const arrayKey = Object.keys(obj).find(key => Array.isArray(obj[key]))
+       if (arrayKey) rows = obj[arrayKey]
+       else {
+         rows = Object.keys(obj).map(key => {return { key, value: obj[key]}})
+       }
+     }
+     // Case 3: Array of primitive values
+     else if (Array.isArray(obj) && obj.length && typeof obj[0] !== "object") {
+         rows = obj.map(value => ({ value }))
+     }
+     this._columnNames = rows.length ? Object.keys(rows[0]) : []
+     this._coreTable = rows
+     return rows
+   }
    get coreTable() {
     if (this._coreTable) return this._coreTable
     const {delimiter, delimitedData} = this
-    if (delimiter === "json") {
-       const obj = JSON.parse(delimitedData)
-       let rows = []
-       // Optimal case: Array of objects
-       if (Array.isArray(obj)) { rows = obj}
-       else if (!Array.isArray(obj) && typeof obj === "object") {
-          // Case 2: Nested array under a key
-         const arrayKey = Object.keys(obj).find(key => Array.isArray(obj[key]))
-         if (arrayKey) rows = obj[arrayKey]
-       }
-       // Case 3: Array of primitive values
-       else if (Array.isArray(obj) && obj.length && typeof obj[0] !== "object") {
-           rows = obj.map(value => ({ value }))
-       }
-       this._columnNames = rows.length ? Object.keys(rows[0]) : []
-       this._coreTable = rows
-       return rows
-    }
+    if (delimiter === "json")
+      return this.parseJson()
     else if (delimiter === "particles") {
        const d3lib = this.root.d3
        this._coreTable = d3lib.dsvFormat(",").parse(new Particle(delimitedData).asCsv, d3lib.autoType)
@@ -362,6 +387,9 @@ scrollWhereParser
    // todo: use atoms here.
    const columnName = this.connectColumnName(this.getAtom(1))
    const operator = this.getAtom(2)
+   let comparisonSet
+   if (operator === "oneOf")
+    comparisonSet = new Set(this.atoms.slice(3))
    let untypedComparisonValue = this.getAtom(3)
    const typedComparisonValue = isNaN(parseFloat(untypedComparisonValue)) ? untypedComparisonValue : parseFloat(untypedComparisonValue)
    const coreTable = this.parent.coreTable
@@ -375,6 +403,7 @@ scrollWhereParser
       else if (operator === "startsWith") return typedAtom !== undefined && typedAtom.toString().startsWith(typedComparisonValue)
       else if (operator === "endsWith") return typedAtom !== undefined && typedAtom.toString().endsWith(typedComparisonValue)
       else if (operator === "doesNotInclude") return typedAtom === undefined || !typedAtom.includes(typedComparisonValue)
+      else if (operator === "oneOf") return typedAtom !== undefined && comparisonSet.has(typedAtom.toString())
       else if (operator === ">") return typedAtom > typedComparisonValue
       else if (operator === "<") return typedAtom < typedComparisonValue
       else if (operator === ">=") return typedAtom >= typedComparisonValue

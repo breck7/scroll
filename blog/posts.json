@@ -1,15 +1,15 @@
 [
   {
-    "date": "02/02/2025",
+    "date": "02/05/2025",
     "year": 2025,
     "title": "Search the Official Scroll Blog",
     "permalink": "search.html",
     "tags": "",
-    "wordCount": 9810,
-    "minutes": 49
+    "wordCount": 9893,
+    "minutes": 49.5
   },
   {
-    "date": "02/02/2025",
+    "date": "02/05/2025",
     "year": 2025,
     "title": "Settings",
     "permalink": "settings.html",
@@ -18,7 +18,7 @@
     "minutes": 0
   },
   {
-    "date": "02/02/2025",
+    "date": "02/05/2025",
     "year": 2025,
     "title": "Sitemap",
     "permalink": "sitemap.html",
@@ -27,7 +27,7 @@
     "minutes": 0.8
   },
   {
-    "date": "02/02/2025",
+    "date": "02/05/2025",
     "year": 2025,
     "title": "The Official Scroll Blog",
     "permalink": "index.html",
@@ -36,7 +36,7 @@
     "minutes": 1.6
   },
   {
-    "date": "02/02/2025",
+    "date": "02/05/2025",
     "year": 2025,
     "title": "Feed",
     "permalink": "feed.html",
@@ -45,7 +45,7 @@
     "minutes": 1.5
   },
   {
-    "date": "02/02/2025",
+    "date": "02/05/2025",
     "year": 2025,
     "title": "The Official Scroll Blog",
     "permalink": "full.html",
@@ -60,8 +60,8 @@
     "permalink": "dataScience.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 632,
-    "minutes": 3.2
+    "wordCount": 715,
+    "minutes": 3.6
   },
   {
     "date": "10/28/2024",

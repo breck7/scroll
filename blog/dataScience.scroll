@@ -55,6 +55,8 @@ belowAsCode
 iris
  where species = setosa
   printTable
+ where species oneOf setosa virginica
+  printTable
 
 ---
 

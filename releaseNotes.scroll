@@ -22,6 +22,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 170.1.0 2/04/2025
+🎉 added scrollJsonPathParser
+🎉 added oneOf comparison operator
+
 📦 170.0.0 2/01/2025
 🎉 added debugSourceMapParser
 🎉 upgraded ScrollSDK
