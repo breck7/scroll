@@ -47,7 +47,7 @@ Edit the source and the link will update accordingly. Scroll handles the `encode
 
 Why not use HTML directly?
 ==========================
-Modern browsers do their best to make URLs well-formed and you will notice that they auto encode certain characters like spaces.
+Modern browsers do their best to make URLs well-formed and you will notice that they auto encode certain characters like <a href="https://www.google.com/search?q=Spaces are encoded">spaces</a>.
 
 But by the HTML spec newlines are not a URL code point and generally are stripped and collapsed.
  https://url.spec.whatwg.org/#url-code-points URL code point
@@ -55,4 +55,4 @@ But by the HTML spec newlines are not a URL code point and generally are strippe
 
 Program Links in Scroll handle encoding newlines and any other special characters so you can focus on your content and not the encoding.
 
-Built with Scroll v170.1.0
+Built with Scroll v170.1.1

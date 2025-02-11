@@ -153,7 +153,7 @@ Here's how to *bold*, _italicize_, or denote `code`.
 ## HTML markups
 You can use also markup text using HTML.
 belowAsCode
-Here's how to bold.
+Here's how to <b>bold</b>.
 
 ## Aftertext
 Scroll invented something called aftertext, where you put markup after the text.
@@ -223,7 +223,7 @@ hiddenMessageParser
  cueFromId
  javascript
   buildHtml() {
-   return `${super.buildHtml()}`
+   return `<span onclick="alert('${this.get("message")}')">${super.buildHtml()}</span>`
   }
 hiddenMessage Click me.
  message Hello world
@@ -300,8 +300,8 @@ footer.scroll
 
 ```
 ```faq.scroll
-replace ParsersLinks Parsers
-replace ParticlesLinked Particles
+replace ParsersLinks <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a>
+replace ParticlesLinked <a href="https://particles.scroll.pub">Particles</a>
 title Scroll FAQ
 linkTitle FAQ
 
@@ -457,7 +457,7 @@ code
   javascript
    buildHtml() {
      const addYourSpecialMagic = ""
-     return `${addYourSpecialMagic}`
+     return `<div>${addYourSpecialMagic}</div>`
    }
 Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine microlanguages in a simple and non-conflicting way. What you do with those languages is up to you.
 For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
@@ -672,7 +672,7 @@ bashCode
  alias watch="nodemon -e scroll -x 'scroll build'"
 You can also add the following code to the page(s) you are working on to have them reload without manually refreshing the browser:
 scrollCode
- html 
+ html <meta http-equiv="refresh" content="1;">
 
 ? How can I track web traffic?
 Scroll emits HTML with zero Javascript and does not have any tracking or cookies. You can easily add your own tracking tag if you want.

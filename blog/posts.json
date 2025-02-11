@@ -1,15 +1,15 @@
 [
   {
-    "date": "02/05/2025",
+    "date": "02/11/2025",
     "year": 2025,
     "title": "Search the Official Scroll Blog",
     "permalink": "search.html",
     "tags": "",
-    "wordCount": 9893,
-    "minutes": 49.5
+    "wordCount": 10111,
+    "minutes": 50.6
   },
   {
-    "date": "02/05/2025",
+    "date": "02/11/2025",
     "year": 2025,
     "title": "Settings",
     "permalink": "settings.html",
@@ -18,7 +18,7 @@
     "minutes": 0
   },
   {
-    "date": "02/05/2025",
+    "date": "02/11/2025",
     "year": 2025,
     "title": "Sitemap",
     "permalink": "sitemap.html",
@@ -27,7 +27,7 @@
     "minutes": 0.8
   },
   {
-    "date": "02/05/2025",
+    "date": "02/11/2025",
     "year": 2025,
     "title": "The Official Scroll Blog",
     "permalink": "index.html",
@@ -36,16 +36,16 @@
     "minutes": 1.6
   },
   {
-    "date": "02/05/2025",
+    "date": "02/11/2025",
     "year": 2025,
     "title": "Feed",
     "permalink": "feed.html",
     "tags": "",
-    "wordCount": 303,
-    "minutes": 1.5
+    "wordCount": 488,
+    "minutes": 2.4
   },
   {
-    "date": "02/05/2025",
+    "date": "02/11/2025",
     "year": 2025,
     "title": "The Official Scroll Blog",
     "permalink": "full.html",
@@ -90,8 +90,8 @@
     "permalink": "gitOverRss.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 224,
-    "minutes": 1.1
+    "wordCount": 255,
+    "minutes": 1.3
   },
   {
     "date": "08/30/2024",
@@ -190,7 +190,7 @@
     "permalink": "stamp.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 300,
+    "wordCount": 306,
     "minutes": 1.5
   },
   {
@@ -220,8 +220,8 @@
     "permalink": "programLinks.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 510,
-    "minutes": 2.5
+    "wordCount": 522,
+    "minutes": 2.6
   },
   {
     "date": "04/13/2023",
@@ -250,7 +250,7 @@
     "permalink": "indented-heredocs.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 306,
-    "minutes": 1.5
+    "wordCount": 455,
+    "minutes": 2.3
   }
 ]

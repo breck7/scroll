@@ -35,7 +35,7 @@ stamp
   *.html
  readme.scroll
   # My First Stamp
-  
+  <script src="scripts/hello.js"></script>
  scripts/
   hello.js
    console.log("Hello world")
@@ -78,4 +78,4 @@ Prior Art
 - Wikipedia list of archive formats
  https://en.wikipedia.org/wiki/List_of_archive_formats Wikipedia list of archive formats
 
-Built with Scroll v170.1.0
+Built with Scroll v170.1.1

@@ -2,17 +2,17 @@ Scroll Release Notes
 ====================
 Scroll Tutorial
 ===============
-02/05/2025
+02/11/2025
 https://scroll.pub/tutorial.html
 
 Scroll Roadmap
 ==============
-02/05/2025
+02/11/2025
 https://scroll.pub/roadmap.html
 
 Scroll FAQ
 ==========
-02/05/2025
+02/11/2025
 https://scroll.pub/faq.html
 
 A list of what has changed in Scroll releases.
@@ -24,6 +24,11 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.json JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
+
+170.1.1 2/11/2025
+=================
+🏥 buildTxt was stripping HTML in places where it should have been kept.
+ - still had some legacy behavior from before we had individual buildTxt methods.
 
 170.1.0 2/04/2025
 =================
@@ -1069,30 +1074,30 @@ Demos
 =====
 
 date,year,title,permalink,authors,tags,wordCount,minutes
-02/05/2025,2025,Top Buttons,topButtons.html,,,0,0
-02/05/2025,2025,Scroll Tutorial,tutorial.html,,main,949,4.7
-02/05/2025,2025,Wws,wws.html,,,35,0.2
-02/05/2025,2025,Wws Redirect,wws.html,,,0,0
-02/05/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-02/05/2025,2025,Scroll is a language for scientists of all ages,index.html,,,177,0.9
-02/05/2025,2025,Readme Prompt,readmePrompt.html,,,21172,105.9
-02/05/2025,2025,Scroll Release Notes,releaseNotes.html,,main,16408,82
-02/05/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
-02/05/2025,2025,Scroll Prompt,scrollPrompt.html,,,4487,22.4
-02/05/2025,2025,Scrollset Prompt,scrollsetPrompt.html,,,3714,18.6
-02/05/2025,2025,Settings,settings.html,,,0,0
-02/05/2025,2025,Sitemap,sitemap.html,,,120,0.6
-02/05/2025,2025,Scroll LeetSheet,leetsheet.html,,,1099,5.5
-02/05/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,295,1.5
-02/05/2025,2025,Parser Prompt,parserPrompt.html,,,23656,118.3
-02/05/2025,2025,Parser Usage,parserUsage.html,,,272,1.4
-02/05/2025,2025,Parsers,parsers.html,,,23687,118.4
-02/05/2025,2025,Scroll FAQ,faq.html,,main,3274,16.4
-02/05/2025,2025,Header,header.html,,,0,0
-02/05/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
-02/05/2025,2025,Scroll Cloc Stats,cloc.html,,,66,0.3
-02/05/2025,2025,Download Scroll.pub,download.html,,,49,0.2
-02/05/2025,2025,Animation,animation.html,,,13,0.1
+02/11/2025,2025,Wws,wws.html,,,35,0.2
+02/11/2025,2025,Wws Redirect,wws.html,,,0,0
+02/11/2025,2025,Top Buttons,topButtons.html,,,0,0
+02/11/2025,2025,Scroll Tutorial,tutorial.html,,main,951,4.8
+02/11/2025,2025,Scrollset Prompt,scrollsetPrompt.html,,,3714,18.6
+02/11/2025,2025,Settings,settings.html,,,0,0
+02/11/2025,2025,Sitemap,sitemap.html,,,120,0.6
+02/11/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
+02/11/2025,2025,Scroll is a language for scientists of all ages,index.html,,,177,0.9
+02/11/2025,2025,Readme Prompt,readmePrompt.html,,,21304,106.5
+02/11/2025,2025,Scroll Release Notes,releaseNotes.html,,main,16503,82.5
+02/11/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
+02/11/2025,2025,Scroll Prompt,scrollPrompt.html,,,4521,22.6
+02/11/2025,2025,Scroll LeetSheet,leetsheet.html,,,1099,5.5
+02/11/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,295,1.5
+02/11/2025,2025,Parser Prompt,parserPrompt.html,,,27621,138.1
+02/11/2025,2025,Parser Usage,parserUsage.html,,,272,1.4
+02/11/2025,2025,Parsers,parsers.html,,,27143,135.7
+02/11/2025,2025,Scroll FAQ,faq.html,,main,3349,16.7
+02/11/2025,2025,Header,header.html,,,0,0
+02/11/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
+02/11/2025,2025,Scroll Cloc Stats,cloc.html,,,66,0.3
+02/11/2025,2025,Download Scroll.pub,download.html,,,49,0.2
+02/11/2025,2025,Animation,animation.html,,,13,0.1
 
 127.0.0 9/4/2024
 ================
@@ -1818,11 +1823,11 @@ gazetteCss
 
 93.6.0 5/28/2024
 ================
-🎉 clean up generated html (add a  tag).
+🎉 clean up generated html (add a <body> tag).
 
 93.5.0 5/27/2024
 ================
-🎉 clean up generated html (add a  tag, for instance).
+🎉 clean up generated html (add a <head> tag, for instance).
 
 93.4.0 5/27/2024
 ================
@@ -2313,7 +2318,7 @@ Above is a dinkus.
 
 72.4.1 11/04/2023
 =================
-🏥 fixed regression where `` was present in RSS pages. Thank you to Joao for the report.
+🏥 fixed regression where `<!DOCTYPE html>` was present in RSS pages. Thank you to Joao for the report.
 
 72.4.0 6/27/2023
 ================
@@ -2505,7 +2510,7 @@ canonicalUrl https://scroll.pub/tests/maps.html?canonLinkTest=true
 
 62.1.0 3/13/2023
 ================
-🎉 Added `nodejs` node for including small node.js scripts inside a Scroll file, similar to a PHP snippet. . The snippet is written to disk and then require is used to run it. Exports variables are then replaced throughout the script.
+🎉 Added `nodejs` node for including small node.js scripts inside a Scroll file, similar to a PHP snippet. <?php ?>. The snippet is written to disk and then require is used to run it. Exports variables are then replaced throughout the script.
 
 62.0.1 3/13/2023
 ================
@@ -2523,8 +2528,11 @@ canonicalUrl https://scroll.pub/tests/maps.html?canonLinkTest=true
 
 60.0.0 3/10/2023
 ================
-🎉 Added `quickHtml` node. A line starting with `
+🎉 Added `quickHtml` node. A line starting with `<` will be treated as an `html` node. So these are the same:
 
+```
+html <hr>
+<hr>
 ```
 
 ⚠️ BREAKING: (no one should be affected). The default _catch all_ node will still report as an error but will now behave as if it's a paragraph (`*`) node.
@@ -2615,7 +2623,7 @@ Scroll now has checklists!
 
 loop
  atoms #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
- javascript `&nbsp;`
+ javascript `<span style="background-color: ${item}; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>`
 
 58.0.1 2/9/2023
 ===============
@@ -2716,7 +2724,7 @@ alias watch="nodemon -e scroll -x 'scroll build'"
 You can add the following code to the page(s) you are working on to have them reload without manually refreshing the browser:
 
 ```
-html 
+html <meta http-equiv="refresh" content="1;">
 ```
 
 54.1.0 1/19/2023
@@ -2854,7 +2862,7 @@ This release simplifies and removes things from the default install.
 This is a major breaking refactor. Scroll now generates flat html. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out.
 
 ⚠️ BREAKING: removed automatic meta tag generation. You now need to explicitly add a `metaTags` parser.
-⚠️ BREAKING: removed ``, ``, ``, and `` tags. Unnecessary. Modern browsers don't need them. HTML never should have had head/body split.
+⚠️ BREAKING: removed `<!doctype>`, `<html>`, `<head>`, and `<body>` tags. Unnecessary. Modern browsers don't need them. HTML never should have had head/body split.
 ⚠️ BREAKING: removed `SCROLL_CSS` export.
 
 46.2.0 11/27/2022
@@ -2989,7 +2997,7 @@ rssFeedUrl feed.xml
 ⚠️ BREAKING: Removed basic `list` node.
 ⚠️ BREAKING: Removed basic `orderedList` node.
 ⚠️ BREAKING: Removed basic `unorderedList` node.
-⚠️ BREAKING: Removed support for 🔗 links. Regex [search replace] to upgrade: ` ([^ ]+)🔗([^ ]+)` ` $1`
+⚠️ BREAKING: Removed support for 🔗 links. Regex [search replace] to upgrade: ` ([^ ]+)🔗([^ ]+)` ` <a href="https://$2">$1</a>`
 
 The goal of this release is to simplify and speed up Scroll by removing legacy features.
 This is a major release that removes a bunch of the original parsers in favor of the newer more advanced aftertext nodes.
@@ -3281,7 +3289,7 @@ row
 
 25.1.0 6/19/2022
 ================
-🎉 if scroll has an rss feed add a  tag to built pages
+🎉 if scroll has an rss feed add a <link> tag to built pages
 
 25.0.0 6/15/2022
 ================
@@ -3340,7 +3348,7 @@ This report showed the treatment had a big impact.
 
 24.2.0 1/18/2022
 ================
-🎉 added 'id' directive to aftertext for adding ids to paragraphs 
+🎉 added 'id' directive to aftertext for adding ids to paragraphs <p id="foo"></p>
 🎉 added 'loremIpsum' nodeType to help in testing and exploring
 
 Example demonstrating the above:
@@ -3615,12 +3623,12 @@ QuickParagraphs are now an error. When you want to drop in some HTML, do so with
 
 ```
 html
- anything goes here
+ <b>anything goes here</b>
 ```
 
 13.2.0 05/18/2021
 =================
-🎉 Added scroll check command
+🎉 Added <code>scroll check</code> command
 
 13.1.0 05/18/2021
 =================
@@ -3641,10 +3649,10 @@ paragraph
  This is a link🔗example.com
 ```
 
-Below is a regex for migrating existing *.scroll files.
+Below is a regex for migrating existing <code>*.scroll</code> files.
 
 ```
-([^ ]+)
+<a href="https://([^"]+)">([^ ]+)</a>
 $2🔗$1
 ```
 
@@ -3654,7 +3662,7 @@ How do I use the 🔗link tag with multiatom links?
 The 🔗link tag only supports single atom links. Like everything with ScrollScript, you have a number of options if the conventional design doesn't work for you. Your options are:
 
 - 1. Link just one atom. If you need more, perhaps camelCase or snake_case your atoms together into one concept.
-- 2. Repeat the link twice foo 🔗link bar 🔗link
+- 2. Repeat the link twice <code>foo 🔗link bar 🔗link</code>
 - 3. Use &lt;a> tags.
 - 4. Extend the ScrollScript grammar for your site.
 
@@ -3726,4 +3734,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v170.1.0
+Built with Scroll v170.1.1

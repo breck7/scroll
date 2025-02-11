@@ -89,6 +89,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 170.1.1 2/11/2025
+🏥 buildTxt was stripping HTML in places where it should have been kept.
+ - still had some legacy behavior from before we had individual buildTxt methods.
+
 📦 170.1.0 2/04/2025
 🎉 added scrollJsonPathParser
 🎉 added oneOf comparison operator
@@ -1547,10 +1551,10 @@ sparkline 5 7 27 87 300 17 10 5
 🏥 upgrade JTree to try and get Scroll working on Windows
 
 📦 93.6.0 5/28/2024
-🎉 clean up generated html (add a  tag).
+🎉 clean up generated html (add a <body> tag).
 
 📦 93.5.0 5/27/2024
-🎉 clean up generated html (add a  tag, for instance).
+🎉 clean up generated html (add a <head> tag, for instance).
 
 📦 93.4.0 5/27/2024
 🎉 improved meta tags
@@ -1947,7 +1951,7 @@ Above is a dinkus.
 🏥 do not compile aftertext nodes having the "hidden" attribute
 
 📦 72.4.1 11/04/2023
-🏥 fixed regression where `` was present in RSS pages. Thank you to Joao for the report.
+🏥 fixed regression where `<!DOCTYPE html>` was present in RSS pages. Thank you to Joao for the report.
 
 📦 72.4.0 6/27/2023
 🎉 provide "dropcap" CSS class.
@@ -2106,7 +2110,7 @@ code
 🎉 Added `copyButtons` parser. Use that to give code blocks a copy-to-clipboard button on hover.
 
 📦 62.1.0 3/13/2023
-🎉 Added `nodejs` node for including small node.js scripts inside a Scroll file, similar to a PHP snippet. . The snippet is written to disk and then require is used to run it. Exports variables are then replaced throughout the script.
+🎉 Added `nodejs` node for including small node.js scripts inside a Scroll file, similar to a PHP snippet. <?php ?>. The snippet is written to disk and then require is used to run it. Exports variables are then replaced throughout the script.
 
 📦 62.0.1 3/13/2023
 🏥 fixes bug when using custom grammars with in memory node types.
@@ -2120,8 +2124,11 @@ code
 ⚠️ BREAKING: (no one should be affected). Removed `buildNeeded` method only used programmatically by PLDB. Switching that to dynamic generation which is a better pattern.
 
 📦 60.0.0 3/10/2023
-🎉 Added `quickHtml` node. A line starting with `
- 
+🎉 Added `quickHtml` node. A line starting with `<` will be treated as an `html` node. So these are the same:
+
+code
+ html <hr>
+ <hr>
 
 ⚠️ BREAKING: (no one should be affected). The default _catch all_ node will still report as an error but will now behave as if it's a paragraph (`*`) node.
 
@@ -2196,7 +2203,7 @@ code
 belowAsCode
 loop
  atoms #2a2d34ff #009ddcff #f26430ff #6761a8ff #009b72ff
- javascript `&nbsp;`
+ javascript `<span style="background-color: ${item}; width: 30px; height: 30px; display: inline-block;">&nbsp;</span>`
 
 📦 58.0.1 2/9/2023
 🏥 made `startColumns` clear the section stack. Simpler behavior.
@@ -2295,7 +2302,7 @@ bashCode
 You can add the following code to the page(s) you are working on to have them reload without manually refreshing the browser:
 
 scrollCode
- html 
+ html <meta http-equiv="refresh" content="1;">
 
 📦 54.1.0 1/19/2023
 🏥 `scroll init` no longer starts with a `viewSourceBaseUrl`. If not provided then the View Source link is to the scroll file, so new sites don't start with broken links.
@@ -2327,7 +2334,7 @@ aboveAsCode
 🎉 `html` now also supports quick oneliners:
 
 belowAsCode
-html here is some html
+html <b>here is some html</b>
 
 📦 52.1.1 1/12/2023
 🏥 fix: getFilesWithTag was including files marked with `importOnly`
@@ -2412,7 +2419,7 @@ This release simplifies and removes things from the default install.
 This is a major breaking refactor. Scroll now generates flat html. This release is NOT recommended for the feint of heart. Wait a day or two until the bugs are ironed out.
 
 ⚠️ BREAKING: removed automatic meta tag generation. You now need to explicitly add a `metaTags` parser.
-⚠️ BREAKING: removed ``, ``, ``, and `` tags. Unnecessary. Modern browsers don't need them. HTML never should have had head/body split.
+⚠️ BREAKING: removed `<!doctype>`, `<html>`, `<head>`, and `<body>` tags. Unnecessary. Modern browsers don't need them. HTML never should have had head/body split.
 ⚠️ BREAKING: removed `SCROLL_CSS` export.
 
 📦 46.2.0 11/27/2022
@@ -2522,7 +2529,7 @@ code
 ⚠️ BREAKING: Removed basic `list` node.
 ⚠️ BREAKING: Removed basic `orderedList` node.
 ⚠️ BREAKING: Removed basic `unorderedList` node.
-⚠️ BREAKING: Removed support for 🔗 links. Regex [search replace] to upgrade: ` ([^ ]+)🔗([^ ]+)` ` $1`
+⚠️ BREAKING: Removed support for 🔗 links. Regex [search replace] to upgrade: ` ([^ ]+)🔗([^ ]+)` ` <a href="https://$2">$1</a>`
 
 The goal of this release is to simplify and speed up Scroll by removing legacy features.
 This is a major release that removes a bunch of the original parsers in favor of the newer more advanced aftertext nodes.
@@ -2762,7 +2769,7 @@ datatable
 🎉 added `htmlTitle` and `sourceLink` parsers so an article can override the defaults
 
 📦 25.1.0 6/19/2022
-🎉 if scroll has an rss feed add a  tag to built pages
+🎉 if scroll has an rss feed add a <link> tag to built pages
 
 📦 25.0.0 6/15/2022
 ⚠️ on single article pages, the header will now span across all columns.
@@ -2823,7 +2830,7 @@ This report showed the treatment had a big impact.
 aboveAsCode
 
 📦 24.2.0 1/18/2022
-🎉 added 'id' directive to aftertext for adding ids to paragraphs 
+🎉 added 'id' directive to aftertext for adding ids to paragraphs <p id="foo"></p>
 🎉 added 'loremIpsum' nodeType to help in testing and exploring
 
 Example demonstrating the above:
@@ -3073,10 +3080,10 @@ QuickParagraphs are now an error. When you want to drop in some HTML, do so with
 
 code
  html
-  anything goes here
+  <b>anything goes here</b>
 
 📦 13.2.0 05/18/2021
-🎉 Added scroll check command
+🎉 Added <code>scroll check</code> command
 
 📦 13.1.0 05/18/2021
 🎉 🔗links in lists as well as paragraphs
@@ -3093,10 +3100,10 @@ code
  paragraph
   This is a link🔗example.com
 
-Below is a regex for migrating existing *.scroll files.
+Below is a regex for migrating existing <code>*.scroll</code> files.
 
 code
- ([^ ]+)
+ <a href="https://([^"]+)">([^ ]+)</a>
  $2🔗$1
 
 ? How do I use the 🔗link tag with multiatom links?
@@ -3104,7 +3111,7 @@ code
 The 🔗link tag only supports single atom links. Like everything with ScrollScript, you have a number of options if the conventional design doesn't work for you. Your options are:
 
 - 1. Link just one atom. If you need more, perhaps camelCase or snake_case your atoms together into one concept.
-- 2. Repeat the link twice foo 🔗link bar 🔗link
+- 2. Repeat the link twice <code>foo 🔗link bar 🔗link</code>
 - 3. Use &lt;a> tags.
 - 4. Extend the ScrollScript grammar for your site.
 
@@ -3171,8 +3178,8 @@ footer.scroll
 
 ```
 ```faq.scroll
-replace ParsersLinks Parsers
-replace ParticlesLinked Particles
+replace ParsersLinks <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a>
+replace ParticlesLinked <a href="https://particles.scroll.pub">Particles</a>
 title Scroll FAQ
 linkTitle FAQ
 
@@ -3328,7 +3335,7 @@ code
   javascript
    buildHtml() {
      const addYourSpecialMagic = ""
-     return `${addYourSpecialMagic}`
+     return `<div>${addYourSpecialMagic}</div>`
    }
 Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine microlanguages in a simple and non-conflicting way. What you do with those languages is up to you.
 For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
@@ -3543,7 +3550,7 @@ bashCode
  alias watch="nodemon -e scroll -x 'scroll build'"
 You can also add the following code to the page(s) you are working on to have them reload without manually refreshing the browser:
 scrollCode
- html 
+ html <meta http-equiv="refresh" content="1;">
 
 ? How can I track web traffic?
 Scroll emits HTML with zero Javascript and does not have any tracking or cookies. You can easily add your own tracking tag if you want.
@@ -3776,7 +3783,7 @@ Here's how to *bold*, _italicize_, or denote `code`.
 ## HTML markups
 You can use also markup text using HTML.
 belowAsCode
-Here's how to bold.
+Here's how to <b>bold</b>.
 
 ## Aftertext
 Scroll invented something called aftertext, where you put markup after the text.
@@ -3846,7 +3853,7 @@ hiddenMessageParser
  cueFromId
  javascript
   buildHtml() {
-   return `${super.buildHtml()}`
+   return `<span onclick="alert('${this.get("message")}')">${super.buildHtml()}</span>`
   }
 hiddenMessage Click me.
  message Hello world

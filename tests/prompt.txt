@@ -4,23 +4,28 @@ Below are the files in a blog. I want you to read them, and then perform the fol
 Tasks:
 
 The Files:
-
- Source
- https://scroll.pub/tests/
- Kitchen sink test site.
- Wed, 05 Feb 2025 01:11:37 +0000
- en-us
- 
-Tabular data test
-https://scroll.pub/tests/tabularData.html
-Invalid Date
-
- 
-A review of my sink
-https://scroll.pub/tests/a-review-of-my-sink.html
-Invalid Date
-
- 
-Top Sinks
-https://scroll.pub/tests/top-sinks.html
-Invalid Date
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<rss version="2.0">
+<channel>
+ <title>Source</title>
+ <link>https://scroll.pub/tests/</link>
+ <description>Kitchen sink test site.</description>
+ <lastBuildDate>Tue, 11 Feb 2025 16:10:18 +0000</lastBuildDate>
+ <language>en-us</language>
+ <item>
+<title>Tabular data test</title>
+<link>https://scroll.pub/tests/tabularData.html</link>
+<pubDate>Invalid Date</pubDate>
+</item>
+ <item>
+<title>A review of my sink</title>
+<link>https://scroll.pub/tests/a-review-of-my-sink.html</link>
+<pubDate>Invalid Date</pubDate>
+</item>
+ <item>
+<title>Top Sinks</title>
+<link>https://scroll.pub/tests/top-sinks.html</link>
+<pubDate>Invalid Date</pubDate>
+</item>
+</channel>
+</rss>

@@ -26,10 +26,16 @@ stamp
     }
     get originalTextPostLinkify() {
      const { originalText } = this
-     const shouldLinkify = this.get("linkify") === "false" || originalText.includes(" {
+     const shouldLinkify = this.get("linkify") === "false" || originalText.includes("<a ") ? false : true
+     return shouldLinkify ? this.replaceNotes(Utils.linkify(originalText)) : originalText
+    }
+    replaceNotes(originalText) {
+     // Skip the replacements if there are no footnotes or the text has none.
+     if (!this.root.footnotes.length || !originalText.includes("^")) return originalText
+     this.root.footnotes.forEach((note, index) => {
       const needle = note.cue
       const {linkBack} = note
-      if (originalText.includes(needle)) originalText = originalText.replace(new RegExp("\\" + needle + "\\b"), `${note.label}`)
+      if (originalText.includes(needle)) originalText = originalText.replace(new RegExp("\\" + needle + "\\b"), `<a href="#${note.htmlId}" class="scrollNoteLink" id="${linkBack}"><sup>${note.label}</sup></a>`)
      })
      return originalText
     }
@@ -76,7 +82,7 @@ stamp
      if (tag === "none") // Allow no tag for aftertext in tables
        return this.text
      const id = this.has("id") ? "" : `id="${this.htmlId}" ` // always add an html id
-     return this.getHtmlRequirements(buildSettings) + `${this.htmlContents}${this.closingTag}`
+     return this.getHtmlRequirements(buildSettings) + `<${tag} ${id}${this.htmlAttributes}${classAttr}${styles}${selfClose}>${this.htmlContents}${this.closingTag}`
     }
     get htmlContents() {
       return this.text
@@ -84,7 +90,7 @@ stamp
     get closingTag() {
       if (this.isSelfClosing) return ""
       const tag = this.get("tag") || this.tag
-      return ``
+      return `</${tag}>`
     }
     get htmlAttributes() {
      const attrs = this.filter(particle => particle.isAttribute)
@@ -155,8 +161,8 @@ stamp
       const { index } = match
       const endIndex = index + pattern.length
       return [
-       { index, string: ``, endIndex },
-       { index: endIndex, endIndex, string: `` }
+       { index, string: `<${this.openTag}${this.allAttributes}>`, endIndex },
+       { index: endIndex, endIndex, string: `</${this.closeTag}>` }
       ]
      })
     }
@@ -670,8 +676,8 @@ stamp
    extends abstractAssertionParser
    string kind equal
    example
-    
-    assertHtmlEquals 
+    <b></b>
+    assertHtmlEquals <b></b>
    javascript
     areEqual(actual, expected) {
       return actual === expected
@@ -738,7 +744,7 @@ stamp
    paint keyword
   
   comparisonAtom
-   enum  = = != includes doesNotInclude empty notEmpty startsWith endsWith oneOf
+   enum < > <= >= = != includes doesNotInclude empty notEmpty startsWith endsWith oneOf
    paint constant
   
   personNameAtom
@@ -886,8 +892,8 @@ stamp
    cue blink
    javascript
     buildHtml() {
-     return `${super.buildHtml()}
-      setInterval(()=>{ Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden") }, 500)`
+     return `<span class="scrollBlink">${super.buildHtml()}</span>
+      <script>setInterval(()=>{ Array.from(document.getElementsByClassName("scrollBlink")).forEach(el => el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden") }, 500)</script>`
     }
  build.parsers
   buildCommandAtom
@@ -965,7 +971,7 @@ stamp
       return this.files.map(filename => this.root.readFile(filename)).join(this.joinChar)
     }
     buildHtml() {
-     return `/* ${this.files.join(" ")} */\n${this.contents}`
+     return `<${this.htmlTag}>/* ${this.files.join(" ")} */\n${this.contents}</${this.htmlTag}>`
     }
   
  buttons.parsers
@@ -1027,8 +1033,8 @@ stamp
     This paragraph is centered.
    javascript
     buildHtml() {
-     this.parent.sectionStack.push("")
-     return `${super.buildHtml()}`
+     this.parent.sectionStack.push("</center>")
+     return `<center>${super.buildHtml()}`
     }
     buildTxt() {
       return this.content
@@ -1050,7 +1056,7 @@ stamp
      👋
    javascript
     buildHtml() {
-     return this.map((line, index) => line.asString ? `${line.asString}` : "").join("")
+     return this.map((line, index) => line.asString ? `<div style="text-align: ${index % 2 ? "right" : "left"};" class="scrollChat ${index % 2 ? "scrollChatRight" : "scrollChatLeft"}"><span>${line.asString}</span></div>` : "").join("")
     }
     buildTxt() {
       return this.subparticlesToString()
@@ -1066,7 +1072,7 @@ stamp
    string checked 
    javascript
     get text() {
-     return `` + super.text + ``
+     return `<div style="text-indent:${(this.getIndentLevel() - 1) * 20}px;"><input type="checkbox" ${this.checked} id="${this.id}"><label for="${this.id}">` + super.text + `</label></div>`
     }
     get id() {
      return this.get("id") || "item" + this._getUid()
@@ -1113,7 +1119,7 @@ stamp
      two = 1 + 1
    javascript
     buildHtml() {
-     return `${this.code.replace(/\`
+     return `<code class="scrollCodeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
     }
     buildTxt() {
       return "```\n" + this.code + "\n```"
@@ -1133,7 +1139,7 @@ stamp
      two = 1 + 1
    javascript
     buildHtml() {
-     return `${this.content}${super.buildHtml()}`
+     return `<div class="codeWithHeader"><div class="codeHeader">${this.content}</div>${super.buildHtml()}</div>`
     }
     buildTxt() {
       return "```" + this.content + "\n" + this.code + "\n```"
@@ -1166,7 +1172,7 @@ stamp
      return ""
     }
    string requireOnce
-    
+    <script>
     document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollCodeBlock").forEach(block =>
      {
       if (!navigator.clipboard) return
@@ -1179,7 +1185,7 @@ stamp
       })
      }
     ))
-    
+    </script>
   
   
  columns.parsers
@@ -1199,8 +1205,8 @@ stamp
      const {columnWidth, columnGap, maxColumns} = this
      const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * columnGap
      const stackContents = this.parent.clearSectionStack() // Starting columns always first clears the section stack.
-     if (this.singleColumn) this.parent.sectionStack.push("") // Single columns are self-closing after section break.
-     return stackContents + ``
+     if (this.singleColumn) this.parent.sectionStack.push("</div>") // Single columns are self-closing after section break.
+     return stackContents + `<div class="scrollColumns" style="column-width:${columnWidth}ch;column-count:${maxColumns};max-width:${maxTotalWidth}ch;">`
     }
     get maxColumns() {
       return this.singleColumn ? 1 : parseInt(this.getAtom(1) ?? 10)
@@ -1245,7 +1251,7 @@ stamp
    description End columns.
    javascript
     buildHtml() {
-     return ""
+     return "</div>"
     }
     buildHtmlSnippet() {
      return ""
@@ -1354,8 +1360,8 @@ stamp
     tag = "div"
     defaultClassName = "scrollContainerParser"
     buildHtml() {
-     this.parent.bodyStack.push("")
-     return `.scrollContainerParser{width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;}` + super.buildHtml()
+     this.parent.bodyStack.push("</div>")
+     return `<style>.scrollContainerParser{width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;}</style>` + super.buildHtml()
     }
     get text() { return ""}
     get closingTag() { return ""}
@@ -1389,7 +1395,7 @@ stamp
      const perSecond = parseFloat(atoms.shift()) // get number
      const increment = perSecond/10
      const id = this._getUid()
-     this.setLine(`* 0setInterval(()=>{ const el = document.getElementById('counter${id}'); el.title = parseFloat(el.title) + ${increment}; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100) ` + atoms.join(" "))
+     this.setLine(`* <span id="counter${id}" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter${id}'); el.title = parseFloat(el.title) + ${increment}; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> ` + atoms.join(" "))
      const html = super.buildHtml()
      this.setLine(line)
      return html
@@ -1432,7 +1438,7 @@ stamp
    catchAllAtomType cssAnyAtom
    javascript
     buildHtml() {
-     return `${this.css}`
+     return `<style>${this.css}</style>`
     }
     get css() {
       return this.content ?? this.subparticlesToString()
@@ -1463,7 +1469,7 @@ stamp
     background red
    javascript
     buildHtml() {
-     return `html, body { background: ${this.content};}`
+     return `<style>html, body { background: ${this.content};}</style>`
     }
   
   scrollFontColorParser
@@ -1474,7 +1480,7 @@ stamp
    catchAllAtomType cssAnyAtom
    javascript
     buildHtml() {
-     return `html, body { color: ${this.content};}`
+     return `<style>html, body { color: ${this.content};}</style>`
     }
   
   scrollFontParser
@@ -1489,7 +1495,7 @@ stamp
    javascript
     buildHtml() {
      const font = this.content === "Slim" ? "Helvetica Neue; font-weight:100;" : this.content
-     return `html, body, h1,h2,h3 { font-family: ${font};}`
+     return `<style>html, body, h1,h2,h3 { font-family: ${font};}</style>`
     }
   
   quickCssParser
@@ -1502,7 +1508,7 @@ stamp
    pattern ^[^\s]+\.(css)(?:\?[^\s]*)?$
    javascript
     buildHtml() {
-     return ``
+     return `<link rel="stylesheet" type="text/css" href="${this.filename}">`
     }
     buildHtmlSnippet() {
       return ""
@@ -1524,10 +1530,16 @@ stamp
     get tableBody() {
      const items = this.topDownArray
      let str = ""
-     for (let i = 0; i ` + items.map(particle => `${particle.cue}${particle.content}`).join("\n") + `\n`
+     for (let i = 0; i < items.length; i = i + 3) {
+      str += this.makeRow(items.slice(i, i + 3))
+     }
+     return str
+    }
+    makeRow(items) {
+     return `<tr>` + items.map(particle => `<td>${particle.cue}<span>${particle.content}</span></td>`).join("\n") + `</tr>\n`
     }
     buildHtml() {
-     return `${this.tableBody}`
+     return `<table class="scrollDashboard">${this.tableBody}</table>`
     }
     buildTxt() {
       return this.subparticlesToString()
@@ -1555,7 +1567,7 @@ stamp
     getInserts() {
      const {day} = this
      if (!day) return false
-     return [{ index: 0, string: `${day} — ` }]
+     return [{ index: 0, string: `<span class="scrollDateline">${day} — </span>` }]
     }
     matchWholeLine = true
     get day() {
@@ -1575,7 +1587,7 @@ stamp
     printDate
    javascript
     buildHtml() {
-     return `${this.day}`
+     return `<div class="printDateParser">${this.day}</div>`
     }
     get day() {
      let day = this.content || this.root.date
@@ -1740,7 +1752,7 @@ stamp
       }})
     }
     buildHtml() {
-     return `${this.buildTxt().replace(/\`
+     return `<code class="scrollCodeBlock">${this.buildTxt().replace(/\</g, "&lt;")}</code>`
     }
     buildTxt() {
      return this.sources.map((pass, index) => `Pass ${index + 1} - ${pass.name}\n========\n${pass.code}`).join("\n\n\n")
@@ -1780,11 +1792,11 @@ stamp
     get code() {
       const mapFn = particle => {
       const atomTypes = particle.lineAtomTypes.split(" ")
-      return `${particle.constructor.name}${particle.atoms.map((atom, index) => `${atom}${atomTypes[index]}`).join(" ")}${(particle.length ? `` + particle.map(mapFn).join("") + `` : "")}`}
-     return this.selectedParticles.map(mapFn).join("")
+      return `<div class="debugParticle"><span class="debugParticleId">${particle.constructor.name}</span>${particle.atoms.map((atom, index) => `<span class="debugAtom">${atom}<span class="debugAtomType">${atomTypes[index]}</span></span>`).join(" ")}${(particle.length ? `<br><div class="debugSubparticles">` + particle.map(mapFn).join("<br>") + `</div>` : "")}</div>`}
+     return this.selectedParticles.map(mapFn).join("<br>")
     }
     buildHtml() {
-     return `` + this.code
+     return `<link rel="stylesheet" href=".debug.css">` + this.code
     }
     buildTxt() {
       const mapFn = particle => {
@@ -1865,7 +1877,7 @@ stamp
    boolean isDinkus true
    javascript
     buildHtml() {
-     return `${this.dinkus}`
+     return `<div class="${this.defaultClass}"><span>${this.dinkus}</span></div>`
     }
     defaultClass = "abstractDinkusParser"
     buildTxt() {
@@ -1884,7 +1896,7 @@ stamp
     ---
    javascript
     buildHtml() {
-     return ``
+     return `<hr>`
     }
   
   scrollDinkusParser
@@ -1978,7 +1990,7 @@ stamp
     }
     reverse = false
     buildHtml() {
-     return `${this.code.replace(/\`
+     return `<code class="scrollCodeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
     }
     get howMany() {
       let howMany = parseInt(this.getAtom(1))
@@ -2048,7 +2060,7 @@ stamp
    extends abstractIconButtonParser
    catchAllAtomType urlAtom
    string style position:relative;
-   string svg 
+   string svg <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve"><path d="M38.6,20.4c-1-6.5-6.7-11.5-13.5-11.5c-7.6,0-13.7,6.1-13.7,13.7c0,0.3,0,0.7,0.1,1c-5,0.4-8.9,4.6-8.9,9.6 c0,5.4,4.3,9.7,9.7,9.7h11.5c-0.8-0.8-8.1-8.1-8.1-8.1c-0.4-0.4-0.4-0.9,0-1.3l1.3-1.3c0.4-0.4,0.9-0.4,1.3,0l3.5,3.5 c0.4,0.4,1.1,0.1,1.1-0.4V21.8c0-0.4,0.5-0.9,1-0.9h1.9c0.5,0,0.9,0.4,0.9,0.9v13.4c0,0.6,0.8,0.8,1.1,0.4l3.5-3.5 c0.4-0.4,0.9-0.4,1.3,0l1.3,1.3c0.4,0.4,0.4,0.9,0,1.3L26,42.9h12.3v0c6.1-0.1,11-5.1,11-11.3C49.4,25.5,44.6,20.6,38.6,20.4z"/></svg><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
    javascript
     get link() {
       return this.content
@@ -2080,7 +2092,7 @@ stamp
    extends abstractIconButtonParser
    catchAllAtomType urlAtom
    // SVG from https://github.com/32pixelsCo/zest-icons
-   string svg 
+   string svg <svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z"/></svg>
    javascript
     get link() {
       return this.content || this.root.editUrl || ""
@@ -2103,7 +2115,7 @@ stamp
    catchAllAtomType emailAddressAtom
    // todo: should just be "optionalAtomType"
    string style position:relative;
-   string svg 
+   string svg <svg viewBox="3 5 24 20" width="24" height="20" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(1, 0, 0, 1, 0, -289.0625)"><path style="opacity:1;stroke:none;stroke-width:0.49999997;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 5 5 C 4.2955948 5 3.6803238 5.3628126 3.3242188 5.9101562 L 14.292969 16.878906 C 14.696939 17.282876 15.303061 17.282876 15.707031 16.878906 L 26.675781 5.9101562 C 26.319676 5.3628126 25.704405 5 25 5 L 5 5 z M 3 8.4140625 L 3 23 C 3 24.108 3.892 25 5 25 L 25 25 C 26.108 25 27 24.108 27 23 L 27 8.4140625 L 17.121094 18.292969 C 15.958108 19.455959 14.041892 19.455959 12.878906 18.292969 L 3 8.4140625 z " transform="translate(0,289.0625)" id="rect4592"/></g></svg>
    javascript
     get link() {
       const email = this.content || this.parent.get("email")
@@ -2123,8 +2135,8 @@ stamp
     Who's there?
    javascript
     buildHtml() {
-     this.parent.sectionStack.push("")
-     return `${super.buildHtml()}`
+     this.parent.sectionStack.push("</details>")
+     return `<details>${super.buildHtml()}`
     }
     buildTxt() {
       return this.content
@@ -2190,7 +2202,7 @@ stamp
      return `noteUsage${this.noteDefinitionIndex}`
     }
     get text() {
-     return `${this.label} ${super.text}`
+     return `<a class="scrollFootNoteUsageLink" href="#noteUsage${this.noteDefinitionIndex}">${this.label}</a> ${super.text}`
     }
     get noteDefinitionIndex() {
      return this.parent.footnotes.indexOf(this) + 1
@@ -2207,7 +2219,7 @@ stamp
    atoms cueAtom
    catchAllAtomType stringAtom
    string script
-    
+    <script>
     sendFormViaEmail = form => {
       const mailto = new URL("mailto:")
       const params = []
@@ -2220,9 +2232,9 @@ stamp
       mailto.search = params.join("&")
       window.open(mailto.href, '_blank')
     }
-    
+    </script>
    string style
-     .scrollFormParser {
+    <style> .scrollFormParser {
         font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;
       }
     .scrollFormParser input , .scrollFormParser textarea{
@@ -2234,7 +2246,7 @@ stamp
       display: block;
       margin-bottom: 5px;
     }
-    
+    </style>
    javascript
     get inputs() {
       return this.root.measures.filter(measure => !measure.IsComputed).map((measure, index) => {
@@ -2245,15 +2257,15 @@ stamp
         // ${index ? "" : "autofocus"}
         let tag = ""
         if (Type === "textarea")
-          tag = ``
+          tag = `<textarea placeholder="${placeholder}" id="${Name}" name="${Name}" ${IsRequired ? "required" : ""}></textarea>`
         else
-          tag = ``
-        return `${ucFirst}${IsRequired ? "*" : ""}:${tag}`
+          tag = `<input placeholder="${placeholder}" type="${type}" id="${Name}" name="${Name}" ${IsRequired ? "required" : ""}>`
+        return `<div><label for="${Name}" title="${IsRequired ? "Required" : ""}">${ucFirst}${IsRequired ? "*" : ""}:</label>${tag}</div>`
       }).join("\n")
     }
     buildHtml() {
       const {isEmail, formDestination, callToAction, subject} = this
-      return `${this.script}${this.style}${this.inputs}${callToAction}${this.footer}`
+      return `${this.script}${this.style}<form ${isEmail ? "onsubmit='sendFormViaEmail(this); return false;'" : ` method='post' action='${formDestination}'`} class="scrollFormParser">${this.inputs}<button value="${subject}" title="${formDestination}" class="scrollButton" type="submit">${callToAction}</button>${this.footer}</form>`
     }
     get callToAction() {
       return (this.isEmail ? "Submit via email" : (this.subject || "Post"))
@@ -2292,9 +2304,9 @@ stamp
    description Generate a Scroll Form.
    string copyFromExternal .codeMirror.css .scrollLibs.js .constants.js
    string requireOnce
-    
-    
-    
+    <link rel="stylesheet" href=".codeMirror.css">
+    <script src=".scrollLibs.js"></script>
+    <script src=".constants.js"></script>
    javascript
     get placeholder() {
       return this.getParticle("placeholder")?.subparticlesToString() || ""
@@ -2319,9 +2331,9 @@ stamp
     }
     get inputs() {
       const Name = this.name
-      return `
-      ${this.parsersBundle}
-      {
+      return `<textarea title="oneTextarea" rows="${Math.min(this.root.measures.length * 2, 30)}" placeholder="${this.placeholder}" id="${Name}" name="${Name}"></textarea>
+      <script id="${Name}Parsers" type="text/plain">${this.parsersBundle}</script>
+      <script>{
       const parserRegex = /^[a-zA-Z0-9_]+Parser$/gm
       let {width, height} = document.getElementById('${Name}').getBoundingClientRect();
       const sp = new Particle(AppConstants.parsers)
@@ -2334,7 +2346,7 @@ stamp
         lineNumbers: false
       })
       codeMirrorInstance.setSize(width, height);
-      codeMirrorInstance.setValue(\`${this.value}\`); }`
+      codeMirrorInstance.setValue(\`${this.value}\`); }</script>`
     }
     buildHtml(buildSettings) {
       return this.getHtmlRequirements(buildSettings) + super.buildHtml()
@@ -2483,7 +2495,7 @@ stamp
    catchAllParser hakonContentParser
    javascript
     buildHtml() {
-     return `${this.css}`
+     return `<style>${this.css}</style>`
     }
     get css() {
       const {hakonParser} = this.root
@@ -2514,9 +2526,9 @@ stamp
     }
     buildHtml() {
      const {htmlId, htmlClasses, content, tag} = this
-     this.parent.sectionStack.unshift(``)
+     this.parent.sectionStack.unshift(`</${tag}>`)
      const attrs = [htmlId ? ' id="' + htmlId + '"' : "", htmlClasses.length ? ' class="' + htmlClasses.join(" ") + '"' : ""].join(" ").trim()
-     return `${content || ""}`
+     return `<${tag}${attrs ? " " + attrs : ""}>${content || ""}`
     }
     buildTxt() {
       return this.content
@@ -2534,8 +2546,8 @@ stamp
     buildHtml(buildSettings) {
      if (this.isHidden) return ""
      if (this.parent.sectionStack)
-      this.parent.sectionStack.push("")
-     return `` + super.buildHtml(buildSettings)
+      this.parent.sectionStack.push("</div>")
+     return `<div class="scrollSection">` + super.buildHtml(buildSettings)
     }
     buildTxt() {
       const line = super.buildTxt()
@@ -2675,7 +2687,11 @@ stamp
          const numBins = colors.length;
          // Calculate the indices for each quantile
          const indices = [];
-         for (let i = 1; i  Math.round(sortedData[index]));
+         for (let i = 1; i < numBins; i++) {
+           indices.push(Math.floor((i / numBins) * n));
+         }
+         // Get the quantile values and round them
+         const thresholds = indices.map(index => Math.round(sortedData[index]));
          // Generate the string
          let result = '';
          colors.forEach((color, index) => {
@@ -2702,7 +2718,14 @@ stamp
         const colorCount = colors.length
         const colorFunction = (value) => {
           if (isNaN(value)) return "" // #ebedf0
-          for (let index = 0; index 
+          for (let index = 0; index < colorCount; index++) {
+            const threshold = thresholds[index]
+            if (value <= threshold) return colors[index]
+          }
+          return colors[colorCount - 1]
+        }
+        const directiveDelimiter = ";"
+        const getSize = (directives, letter) =>
           directives
             .filter((directive) => directive.startsWith(letter))
             .map((dir) => dir.replace(letter, "") + "px")[0] ?? ""
@@ -2753,7 +2776,7 @@ stamp
         const defaultHeight = "40px"
         const fontSize = "10px"
         const lineHeight = defaultHeight
-        const style = `
+        const style = `<style>
         .heatrixContainer {
           margin: auto;
         }.heatrixRow {white-space: nowrap;}
@@ -2777,15 +2800,15 @@ stamp
      font-size: ${fontSize};
      line-height: ${lineHeight};
     }
-    `
+    </style>`
         const firstRow = this.table[0]
         return (
-          `${style}` +
+          `<div class="heatrixContainer" id="heatrix${this.uid}">${style}` +
           this.table
             .map((row, rowIndex) => {
               if (!rowIndex) return ""
               const rowStyle = row[0].style
-              return `${row
+              return `<div class="heatrixRow heatrixRow${rowIndex}">${row
                 .map((atom, columnIndex) => {
                   if (!columnIndex) return ""
                   const columnStyle = firstRow[columnIndex]?.style || {}
@@ -2801,12 +2824,12 @@ stamp
                     .join("")
                   let valueClass = value ? " valueAtom" : ""
                   const href = link ? ` href="${link}"` : ""
-                  return `${label}`
+                  return `<div class="heatrixAtom heatrixColumn${columnIndex}${valueClass}" style="${inlineStyle}"><a title="${label}" ${href}>${label}</a></div>`
                 })
-                .join("")}`
+                .join("")}</div>`
             })
             .join("\n") +
-          ""
+          "</div>"
         ).replace(/\n/g, "")
       }
     }
@@ -2820,7 +2843,7 @@ stamp
    extends abstractIconButtonParser
    catchAllAtomType urlAtom
    string style left:2rem;
-   string svg 
+   string svg <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.7166 3.79541C12.2835 3.49716 11.7165 3.49716 11.2834 3.79541L4.14336 8.7121C3.81027 8.94146 3.60747 9.31108 3.59247 9.70797C3.54064 11.0799 3.4857 13.4824 3.63658 15.1877C3.7504 16.4742 4.05336 18.1747 4.29944 19.4256C4.41371 20.0066 4.91937 20.4284 5.52037 20.4284H8.84433C8.98594 20.4284 9.10074 20.3111 9.10074 20.1665V15.9754C9.10074 14.9627 9.90433 14.1417 10.8956 14.1417H13.4091C14.4004 14.1417 15.204 14.9627 15.204 15.9754V20.1665C15.204 20.3111 15.3188 20.4284 15.4604 20.4284H18.4796C19.0806 20.4284 19.5863 20.0066 19.7006 19.4256C19.9466 18.1747 20.2496 16.4742 20.3634 15.1877C20.5143 13.4824 20.4594 11.0799 20.4075 9.70797C20.3925 9.31108 20.1897 8.94146 19.8566 8.7121L12.7166 3.79541ZM10.4235 2.49217C11.3764 1.83602 12.6236 1.83602 13.5765 2.49217L20.7165 7.40886C21.4457 7.91098 21.9104 8.73651 21.9448 9.64736C21.9966 11.0178 22.0564 13.5119 21.8956 15.3292C21.7738 16.7067 21.4561 18.4786 21.2089 19.7353C20.9461 21.0711 19.7924 22.0001 18.4796 22.0001H15.4604C14.4691 22.0001 13.6655 21.1791 13.6655 20.1665V15.9754C13.6655 15.8307 13.5507 15.7134 13.4091 15.7134H10.8956C10.754 15.7134 10.6392 15.8307 10.6392 15.9754V20.1665C10.6392 21.1791 9.83561 22.0001 8.84433 22.0001H5.52037C4.20761 22.0001 3.05389 21.0711 2.79113 19.7353C2.54392 18.4786 2.22624 16.7067 2.10437 15.3292C1.94358 13.5119 2.00338 11.0178 2.05515 9.64736C2.08957 8.73652 2.55427 7.91098 3.28346 7.40886L10.4235 2.49217Z"/></svg>
    javascript
     get link() {
       return this.content || this.get("link") || "index.html"
@@ -2919,7 +2942,7 @@ stamp
    boolean isHtml true
    javascript
     buildHtml() {
-     return ``.repeat(parseInt(this.getAtom(1) || 1))
+     return `<br>`.repeat(parseInt(this.getAtom(1) || 1))
     }
   
   htmlParser
@@ -2939,8 +2962,319 @@ stamp
    atoms htmlAnyAtom
    boolean isHtml true
    example
-    Inline HTML
-   pattern ^.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}${this.svg}`
+    <h1>Inline HTML</h1>
+   pattern ^<
+   description Inline HTML.
+   boolean isPopular true
+   javascript
+    buildHtml() {
+     return `${this.getLine() ?? ""}${this.subparticlesToString()}`
+    }
+  
+  abstractHtmlElementParser
+   description HTML tag.
+   extends abstractIndentableParagraphParser
+   javascript
+    defaultClassName = ""
+    get tag() { return this.cue}
+    buildTxt() {
+      return ""
+    }
+  
+  htmlSectionParser
+   extends abstractHtmlElementParser
+   cue section
+   example
+    section
+     # Hello world
+     p This is a test
+     section
+      # Deeper
+  
+  htmlHeaderParser
+   extends abstractHtmlElementParser
+   cue header
+   example
+    header
+     # Title
+  
+  htmlFooterParser
+   extends abstractHtmlElementParser
+   cue footer
+   example
+    footer
+     p Made with love
+  
+  htmlAsideParser
+   extends abstractHtmlElementParser
+   cue aside
+   example
+    aside
+     h1 Some notes
+  
+  htmlArticleParser
+   extends abstractHtmlElementParser
+   cue article
+   example
+    article
+     h1 My article
+  
+  htmlMainParser
+   extends abstractHtmlElementParser
+   cue main
+   example
+    main
+     # Title
+  
+  htmlNavParser
+   extends abstractHtmlElementParser
+   cue nav
+   example
+    nav
+     a Home
+      href /
+  
+  htmlPreParser
+   extends abstractHtmlElementParser
+   cue pre
+   example
+    pre
+  
+  htmlUlParser
+   extends abstractHtmlElementParser
+   cue ul
+   example
+    ul
+     li A list
+  
+  htmlOlParser
+   extends abstractHtmlElementParser
+   cue ol
+   example
+    ol
+     li A list
+  
+  htmlLiParser
+   extends abstractHtmlElementParser
+   cue li
+   example
+    ol
+     li A list
+  
+  htmlImgParser
+   extends abstractHtmlElementParser
+   cue img
+   boolean isSelfClosing true
+   example
+    img foo.png
+  
+  htmlAParser
+   extends abstractHtmlElementParser
+   cue a
+   example
+    a Home
+     href /
+  
+  htmlFormParser
+   extends abstractHtmlElementParser
+   cue form
+   example
+    form
+     input
+  
+  htmlInputParser
+   extends abstractHtmlElementParser
+   cue input
+   boolean isSelfClosing true
+   example
+    input
+     type text
+     placeholder Enter your name
+  
+  htmlSelectParser
+   extends abstractHtmlElementParser
+   cue select
+   example
+    select
+     option Value 1
+     option Value 2
+  
+  htmlOptionParser
+   extends abstractHtmlElementParser
+   cue option
+   example
+    select
+     option Choose an option
+     option First Option
+  
+  htmlTextareaParser
+   extends abstractHtmlElementParser
+   cue textarea
+   example
+    textarea
+     placeholder Enter your message
+     rows 4
+  
+  htmlButtonParser
+   extends abstractHtmlElementParser
+   cue button
+   example
+    button Submit
+     type submit
+  
+  htmlLabelParser
+   extends abstractHtmlElementParser
+   cue label
+   example
+    label Name
+     for username
+  
+  htmlSpanParser
+   extends abstractHtmlElementParser
+   cue span
+   example
+    span Hello
+  
+  htmlCanvasParser
+   extends abstractHtmlElementParser
+   cue canvas
+   example
+    canvas
+  
+  htmlIframeParser
+   extends abstractHtmlElementParser
+   cue iframe
+   example
+    iframe
+  
+  h1LiteralParser
+   extends abstractHtmlElementParser
+   cue h1
+   example
+    main
+     h1 Title
+  
+  h2LiteralParser
+   extends abstractHtmlElementParser
+   cue h2
+   example
+    main
+     h2 Title
+  
+  h3LiteralParser
+   extends abstractHtmlElementParser
+   cue h3
+   example
+    main
+     h3 Title
+  
+  h4LiteralParser
+   extends abstractHtmlElementParser
+   cue h4
+   example
+    main
+     h4 Title
+  
+  htmlKbdParser
+   extends abstractHtmlElementParser
+   cue kbd
+   example
+    main
+     kbd Ctrl+→
+  
+  htmlMetaTagParser
+   extends abstractHtmlElementParser
+   cue meta
+   boolean isSelfClosing true
+   example
+    meta
+     name description
+     content A great page about meta tags
+  
+  htmlDivParser
+   extends abstractHtmlElementParser
+   cue div
+   example
+    div
+     # Hello world
+     div
+      # Deeper
+  
+  htmlStrongParser
+   extends abstractHtmlElementParser
+   cue strong
+   example
+    strong Important text
+  
+  htmlEmParser
+   extends abstractHtmlElementParser
+   cue em
+   example
+    em Emphasized text
+  
+  htmlBlockquoteParser
+   extends abstractHtmlElementParser
+   cue blockquote
+   example
+    blockquote
+     p A wise quote
+  
+  htmlTableParser
+   extends abstractHtmlElementParser
+   cue table
+   example
+    table
+     tr
+      th Header 1
+      th Header 2
+     tr
+      td Cell 1
+      td Cell 2
+  
+  htmlTrParser
+   extends abstractHtmlElementParser
+   cue tr
+   example
+    tr
+     td Cell 1
+  
+  htmlTdParser
+   extends abstractHtmlElementParser
+   cue td
+   example
+    td Cell content
+  
+  htmlThParser
+   extends abstractHtmlElementParser
+   cue th
+   example
+    th Header content
+  
+  htmlTheadParser
+   extends abstractHtmlElementParser
+   cue thead
+   example
+    thead
+     tr
+      th Header 1
+  
+  htmlTbodyParser
+   extends abstractHtmlElementParser
+   cue tbody
+   example
+    tbody
+     tr
+      td Cell 1
+ iconButtons.parsers
+  abstractIconButtonParser
+   extends abstractAftertextParser
+   cueFromId
+   javascript
+    buildHtmlSnippet() {
+     return ""
+    }
+    buildHtml() {
+      return `<style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="${this.link}" class="doNotPrint abstractIconButtonParser" style="${this.style}">${this.svg}</a>`
     }
   
  iframe.parsers
@@ -2954,7 +3288,7 @@ stamp
     iframes frame.html
    javascript
     buildHtml() {
-     return this.atoms.slice(1).map(url => ``).join("\n")
+     return this.atoms.slice(1).map(url => `<iframe src="${url}" frameborder="0"></iframe>`).join("\n")
     }
  images.parsers
   captionAftertextParser
@@ -2975,11 +3309,11 @@ stamp
    javascript
     buildHtml(buildSettings) {
      const caption = this.getParticle("caption")
-     const captionFig = caption ? `${caption.buildHtml()}` : ""
+     const captionFig = caption ? `<figcaption>${caption.buildHtml()}</figcaption>` : ""
      const {figureWidth} = this
      const widthStyle = figureWidth ? `width:${figureWidth}px; margin: auto;` : ""
      const float = this.has("float") ? `margin: 20px; float: ${this.get("float")};` : ""
-     return `${this.getFigureContent(buildSettings)}${captionFig}`
+     return `<figure class="scrollCaptionedFigure" style="${widthStyle + float}">${this.getFigureContent(buildSettings)}${captionFig}</figure>`
     }
     get figureWidth() {
       return this.get("width")
@@ -3043,7 +3377,7 @@ stamp
      const id = this.has("id") ? ` id="${this.get("id")}" ` : ""
      const clickLink = this.find(particle => particle.definition.isOrExtendsAParserInScope(["scrollLinkParser"])) || linkRelativeToCompileTarget 
      const target = this.has("target") ? this.get("target") : (this.has("link") ? "" : "_blank")
-     return ``
+     return `<a href="${clickLink}" target="${target}" ${className} ${id}><img src="${linkRelativeToCompileTarget}" ${dimensionAttributes}loading="lazy"></a>`
     }
     buildTxt() {
       const subparticles = this.filter(particle => particle.buildTxt).map(particle => particle.buildTxt()).filter(i => i).join("\n")
@@ -3203,8 +3537,13 @@ stamp
       // The exclusive idea is to not try and apply bold or italic styles inside a TeX or code inline style.
       // Note that the way this is currently implemented any TeX in an inline code will get rendered, but code
       // inline of TeX will not. Seems like an okay tradeoff until a proper refactor and cleanup can be done.
-      if (exclusives.some(exclusive => index >= exclusive[0] && index `, endIndex, consumeStartCharacters: delimiterLength },
-       { index: endIndex, endIndex, string: ``, consumeEndCharacters: delimiterLength }
+      if (exclusives.some(exclusive => index >= exclusive[0] && index <= exclusive[1]))
+        return undefined
+      if (markup.exclusive)
+        exclusives.push([index, endIndex])
+      return [
+       { index, string: `<${tag + (attributes ? " " + attributes : "")}>`, endIndex, consumeStartCharacters: delimiterLength },
+       { index: endIndex, endIndex, string: `</${tag}>`, consumeEndCharacters: delimiterLength }
       ]
      }).filter(i => i)
     }
@@ -3244,7 +3583,7 @@ stamp
    javascript
     attr = ""
     buildHtml() {
-     return ``
+     return `<script ${this.attr} src="${this.filename}"></script>`
     }
     buildHtmlSnippet() {
       return ""
@@ -3284,7 +3623,7 @@ stamp
    catchAllAtomType javascriptAnyAtom
    javascript
     buildHtml() {
-     return `${this.scriptContent}`
+     return `<script>${this.scriptContent}</script>`
     }
     get scriptContent() {
       return this.content ?? this.subparticlesToString()
@@ -3307,7 +3646,7 @@ stamp
    javascript
     buildHtml() {
      const varName = this.filename.split("/").pop().replace(".json", "")
-     return `window.${varName} = ${this.root.readFile(this.filename)}`
+     return `<script>window.${varName} = ${this.root.readFile(this.filename)}</script>`
     }
     get filename() {
        return this.getAtom(1)
@@ -3325,9 +3664,9 @@ stamp
    description KaTex widget for typeset math.
    string copyFromExternal .katex.min.css .katex.min.js
    string requireOnce
-    
-    
-    
+    <link rel="stylesheet" href=".katex.min.css">
+    <script defer src=".katex.min.js"></script>
+    <script>
     document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".scrollKatex").forEach(el =>
      {
       katex.render(el.innerText, el, {
@@ -3335,12 +3674,12 @@ stamp
       });
      }
     ))
-    
+    </script>
    javascript
     buildInstance() {
      const id = this._getUid()
      const content = this.content === undefined ? "" : this.content
-     return `${content + this.subparticlesToString()}`
+     return `<div class="scrollKatex" id="${id}">${content + this.subparticlesToString()}</div>`
     }
     buildTxt() {
       return ( this.content ? this.content : "" )+ this.subparticlesToString()
@@ -3359,7 +3698,7 @@ stamp
       const { linkToPrevious, linkToNext } = this.root
       if (!linkToPrevious) return ""
       const style = `a.keyboardNav {display:block;position:absolute;top:0.25rem; color: rgba(204,204,204,.8); font-size: 1.875rem; line-height: 1.7rem;}a.keyboardNav:hover{color: #333;text-decoration: none;}`
-      return `${style}&lt;&gt;`
+      return `<style>${style}</style><a class="keyboardNav doNotPrint" style="left:.5rem;" href="${linkToPrevious}">&lt;</a><a class="keyboardNav doNotPrint" style="right:.5rem;" href="${linkToNext}">&gt;</a>`
     }
   
   keyboardNavParser
@@ -3376,7 +3715,7 @@ stamp
      const {root} = this
      const linkToPrevious = this.getAtom(1) ?? root.linkToPrevious
      const linkToNext = this.getAtom(2) ?? root.linkToNext
-     const script = `document.addEventListener('keydown', function(event) {
+     const script = `<script>document.addEventListener('keydown', function(event) {
       if (document.activeElement !== document.body) return
       if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return // dont interfere with keyboard back button shortcut
       const getLinks = () => document.getElementsByClassName("scrollKeyboardNav")[0].getElementsByTagName("a")
@@ -3384,8 +3723,8 @@ stamp
         getLinks()[0].click()
       else if (event.key === "ArrowRight")
         getLinks()[1].click()
-     });`
-     return `${linkToPrevious} · ${root.permalink} · ${linkToNext}${script}`
+     });</script>`
+     return `<div class="scrollKeyboardNav" style="display:none;"><a href="${linkToPrevious}">${linkToPrevious}</a> · ${root.permalink} · <a href="${linkToNext}">${linkToNext}</a>${script}</div>`
     }
  leetsheet.parsers
   printUsageStatsParser
@@ -3435,7 +3774,7 @@ stamp
       const atoms = clone.getAutocompleteResultsAt(0,0).matches.map(a => a.text)
       atoms.push("blankline") // manually add blank line
       atoms.push("Catch All Paragraph.") // manually add catch all paragraph
-      atoms.push("") // manually add html
+      atoms.push("<h></h>") // manually add html
       atoms.sort()
       clone.setSubparticles(atoms.join("\n").replace(/blankline/, "")) // insert blank line in right spot
       return clone
@@ -3462,7 +3801,7 @@ stamp
     }
     docToHtml(doc) {
      const css = `#scrollLeetSheet {color: grey;} #scrollLeetSheet a {color: #3498db; }`
-     return `${css}` + doc.map(obj => `${obj.isPopular ? "" : ""}${obj.id} ${obj.description}${obj.isPopular ? "" : ""}${obj.note}`).join("\n") + ""
+     return `<style>${css}</style><div id="scrollLeetSheet">` + doc.map(obj => `<div class="${obj.category}"><a href="${this.makeLink(obj.examples, obj.id)}">${obj.isPopular ? "<b>" : ""}${obj.id}</a> ${obj.description}${obj.isPopular ? "</b>" : ""}${obj.note}</div>`).join("\n") + "</div>"
     }
     buildHtml() {
       return this.docToHtml(this.sortDocs(this.parsersToDocument))
@@ -3506,7 +3845,7 @@ stamp
    description Parsers leetsheet.
    javascript
     buildHtml() {
-      return "Parser Definition Parsers define parsers that acquire, analyze and act on code." + this.docToHtml(this.sortDocs(this.parsersToDocument)) + "Atom Definition Parsers analyze the atoms in a line." + this.docToHtml(this.sortDocs(this.atomParsersToDocument))
+      return "<p><b>Parser Definition Parsers</b> define parsers that acquire, analyze and act on code.</p>" + this.docToHtml(this.sortDocs(this.parsersToDocument)) + "<p><b>Atom Definition Parsers</b> analyze the atoms in a line.</p>" + this.docToHtml(this.sortDocs(this.atomParsersToDocument))
     }
     makeLink() {
       return ""
@@ -3516,7 +3855,7 @@ stamp
       return tags.split(" ").filter(w => w.endsWith("Phase"))[0]
     }
     getNote(category) {
-      return ` A${category.replace("Phase", "").substr(1)}Time.`
+      return ` <span class="note">A${category.replace("Phase", "").substr(1)}Time.</span>`
     }
     get atomParsersToDocument() {
       const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
@@ -3572,7 +3911,7 @@ stamp
   scrollLinkParser
    popularity 0.008706
    extends abstractMarkupParser
-   description Put the matching text in an  tag.
+   description Put the matching text in an <a> tag.
    atoms cueAtom urlAtom
    inScope linkTitleParser linkTargetParser abstractCommentParser
    programParser
@@ -3676,7 +4015,7 @@ stamp
      const isStartOfList = index === 0 || !(parent.particleAt(index - 1) instanceof particleClass)
      const isEndOfList = parent.length === index + 1 || !(parent.particleAt(index + 1) instanceof particleClass)
      const { listType } = this
-     return (isStartOfList ? `` : "") + `${super.buildHtml()}` + (isEndOfList ? `` : "")
+     return (isStartOfList ? `<${listType} ${this.attributes}>` : "") + `${super.buildHtml()}` + (isEndOfList ? `</${listType}>` : "")
     }
     get attributes() {
       return ""
@@ -3688,7 +4027,7 @@ stamp
    extends listAftertextParser
    javascript
     get requireOnce() {
-      return `\n.${this.constructor.name} li::marker {content: "${this.cue} ";}\n`
+      return `<style>\n.${this.constructor.name} li::marker {content: "${this.cue} ";}\n</style>`
     }
     get attributes() {
       return `class="${this.constructor.name}"`
@@ -3777,9 +4116,9 @@ stamp
    description Map widget.
    string copyFromExternal .leaflet.css .leaflet.js .scrollLibs.js
    string requireOnce
-    
-    
-    
+    <link rel="stylesheet" href=".leaflet.css">
+    <script src=".leaflet.js"></script>
+    <script src=".scrollLibs.js"></script>
    javascript
     buildInstance() {
      const height = this.get("height") || 500
@@ -3792,8 +4131,8 @@ stamp
       strs.filter(i => obj[i]).forEach(i => template[i] = obj[i])
       nums.filter(i => obj[i]).forEach(i => template[i] = parseFloat(obj[i]))
       const mapId = `map${id}`
-     return `
-    
+     return `<div id="${mapId}" style="${style}"></div>
+    <script>
      {
         if (!window.maps) window.maps = {}
          const moveToMyLocation = () => {
@@ -3815,7 +4154,7 @@ stamp
           moveToMyLocation()
       }
       const zoomLevel = ${this.get("zoom") ?? 4}
-      const hover = '${this.get("hover") || "{title}{description}"}'
+      const hover = '${this.get("hover") || "<b>{title}</b><br>{description}"}'
       const template = ${JSON.stringify(template)}
       const points = ${JSON.stringify((this.parent.coreTable || []).filter(point => point.lat && point.long), undefined, 2)}
       window.maps.${mapId} = L.map("map${id}").setView([lat, long], zoomLevel)
@@ -3823,11 +4162,11 @@ stamp
       const tileOptions = {
       "default": {
           baseLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          attribution: 'OpenStreetMap contributors'
+          attribution: '<a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
       },
       light: {
           baseLayer: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-          attribution: 'OpenStreetMap contributors CARTO'
+          attribution: '<a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors <a href="https://carto.com/    attributions">CARTO</a>'
       },
       }
       const {baseLayer, attribution} = tileOptions.${this.get("tiles") || "default"}
@@ -3843,7 +4182,7 @@ stamp
         .bindPopup(new Particle(point).evalTemplateString(hover))
       })
      }
-    `
+    </script>`
     }
  measures.parsers
   measureNameAtom
@@ -4145,7 +4484,7 @@ stamp
       return list.map(atom => this.getAsHtmlAttribute(atom)).filter(i => i).join(" ")
     }
     buildHtml() {
-      return ``
+      return `<${this.tag} src="${this.filename}" controls ${this.getAsHtmlAttributes("width height loop autoplay".split(" "))}></${this.tag}>`
     }
  metaTags.parsers
   canonicalUrlParser
@@ -4171,34 +4510,34 @@ stamp
      const { title, description, canonicalUrl, gitRepo, scrollVersion, openGraphImage, keywords, filename } = root
      const rssFeedUrl = root.get("rssFeedUrl")
      const favicon = root.get("favicon")
-     const faviconTag = favicon ? `` : ""
-     const keywordsTag = keywords ? `` : ""
-     const rssTag = rssFeedUrl ? `` : ""
-     const gitTag = gitRepo ? `` : ""
-     return `
-     
-     ${title}
-     /* This HTML was generated from ${filename} by 📜 Scroll v${scrollVersion}. https://scroll.pub */
-     @media print {.doNotPrint {display: none !important;}}
-     
-     
-     
+     const faviconTag = favicon ? `<link rel="icon" href="${favicon}">` : ""
+     const keywordsTag = keywords ? `<meta name="keywords" content="${keywords}">` : ""
+     const rssTag = rssFeedUrl ? `<link rel="alternate" type="application/rss+xml" title="${title}" href="${rssFeedUrl}">` : ""
+     const gitTag = gitRepo ? `<link rel="source" type="application/git" title="Source Code Repository" href="${gitRepo}">` : ""
+     return `<head>
+     <meta charset="utf-8">
+     <title>${title}</title>
+     <script>/* This HTML was generated from ${filename} by 📜 Scroll v${scrollVersion}. https://scroll.pub */</script>
+     <style>@media print {.doNotPrint {display: none !important;}}</style>
+     <link rel="canonical" href="${canonicalUrl}">
+     <meta name="viewport" content="width=device-width,initial-scale=1">
+     <meta name="description" content="${description}">
      ${keywordsTag}
-     
-     
-     
-     
+     <meta name="generator" content="Scroll v${scrollVersion}">
+     <meta property="og:title" content="${title}">
+     <meta property="og:description" content="${description}">
+     <meta property="og:image" content="${openGraphImage}">
      ${faviconTag}
      ${gitTag}
      ${rssTag}
-     
-    
-    `
+     <meta name="twitter:card" content="summary_large_image">
+    </head>
+    <body>`
     }
   
   htmlLangParser
    atoms metaCommandAtom stringAtom
-   // for the  tag. If not specified will be "en". See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
+   // for the <html lang=""> tag. If not specified will be "en". See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
    description Override HTML lang attribute.
    extends abstractTopLevelSingleMetaParser
  modal.parsers
@@ -4208,7 +4547,7 @@ stamp
    boolean isHtml true
    cue modal
    string requireOnce
-    
+    <style>
     .scrollModal {
       display: none;
       position: fixed;
@@ -4251,8 +4590,8 @@ stamp
       background: rgba(255, 255, 255, 0.2);
       color: white;
     }
-    
-    {
+    </style>
+    <script>{
       window.closeModal = modal => {
         modal.style.display = 'none';
         history.pushState("", document.title, window.location.pathname + window.location.search);
@@ -4283,11 +4622,11 @@ stamp
           }
         });
       });
-    }
+    }</script>
    javascript
     buildHtml(buildSettings) {
-      this.parent.sectionStack.push("")
-      return this.getHtmlRequirements(buildSettings) + `×`
+      this.parent.sectionStack.push("</div>")
+      return this.getHtmlRequirements(buildSettings) + `<div class="scrollModal" id="${this.htmlId}"><button class="closeButton" onclick="closeModal(this.parentElement)">×</button>`
     }
  music.parsers
   scrollMusicParser
@@ -4299,7 +4638,7 @@ stamp
     music sipOfCoffee.m4a
    javascript
     buildHtml() {
-      return ``
+      return `<audio controls ${this.getAsHtmlAttributes("loop autoplay".split(" "))}><source src="${this.filename}" type="audio/mpeg"></audio>`
     }
   
   quickSoundParser
@@ -4323,10 +4662,10 @@ stamp
     catchAllAtomType stringAtom
    javascript
     buildHtml() {
-      return `` + this.root.getFilesByTags(this.content).map(file => {
+      return `<nav class="scrollNavParser">` + this.root.getFilesByTags(this.content).map(file => {
           const { linkTitle, permalink } = file.file.scrollProgram
-          return `${linkTitle}` 
-      }).join(this.get("join") || " ") + ``
+          return `<a href="${permalink}">${linkTitle}</a>` 
+      }).join(this.get("join") || " ") + `</nav>`
     }
  notFound.parsers
   helpfulNotFoundParser
@@ -4337,7 +4676,7 @@ stamp
    description Helpful not found widget.
    javascript
     buildInstance() {
-     return `#helpfulNotFound{margin: 100px 0;}document.addEventListener("DOMContentLoaded", () => new NotFoundApp('${this.content}'))`
+     return `<style>#helpfulNotFound{margin: 100px 0;}</style><h1 id="helpfulNotFound"></h1><script defer src="/.helpfulNotFound.js"></script><script>document.addEventListener("DOMContentLoaded", () => new NotFoundApp('${this.content}'))</script>`
     }
   
  notice.parsers
@@ -4348,18 +4687,18 @@ stamp
    javascript
     buildHtml() {
      const id = this.htmlId
-     return `(function(){
+     return `<div id="${id}" class="scrollNoticesParser" style="display:none;"></div><script>(function(){
        const params = new URLSearchParams(window.location.search)
        if (!params.size) return
        document.getElementById('${id}').innerHTML = Array.from(params.entries()).map(([key, value]) => {
         if (key === "error") 
-          return 'Error: ' + value + ''
+          return '<div style="color:red">Error: ' + value + '</div>'
         if (key === "success")
-          return 'Success: ' + value + ''
-        return '' + key + ': ' + value + ''
+          return '<div style="color:green">Success: ' + value + '</div>'
+        return '<div>' + key + ': ' + value + '</div>'
        }).join("") || "No query parameters found"
        document.getElementById('${id}').style.display = "block"
-     })()`
+     })()</script>`
     }
  openGraph.parsers
   openGraphDescriptionParser
@@ -5058,8 +5397,8 @@ stamp
    extends abstractTableVisualizationParser
    string copyFromExternal .d3.js .plot.js
    string requireOnce
-    
-    
+    <script src=".d3.js"></script>
+    <script src=".plot.js"></script>
    example
     plot
    inScope abstractColumnNameParser
@@ -5078,7 +5417,7 @@ stamp
    javascript
     buildInstance() {
      const id = "plot" + this._getUid()
-     return `
+     return `<div id="${id}"></div><script>
      {
       let loadChart = async () => {
       const data = ${this.dataCode}
@@ -5087,7 +5426,7 @@ stamp
       }
       loadChart()
       }
-      `
+      </script>`
     }
     get sortExpression() {
       const sort = this.get("sort")
@@ -5236,7 +5575,87 @@ stamp
       const {relativePath} = file
       const {scrollProgram} = file.file
       const {title, permalink, asTxt, date, wordCount, minutes} = scrollProgram
-      const text = asTxt.replace(/(\t|\n)/g, " ").replace(/${this.subparticlesToString()}`
+      const text = asTxt.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
+      return {
+        title, titleLink: relativePath + permalink, text, date, wordCount, minutes
+      }
+    }
+    columnNames = "title titleLink text date wordCount minutes".split(" ")
+  
+  scrollPostsParser
+   popularity 0.000024
+   cue posts
+   description Posts as datatable.
+   extends abstractPostsParser
+   example
+    // Print a search datatable:
+    posts
+     printTable
+    tableSearch
+    // Dump a CSV of blog:
+    buildHtml
+    buildCsv
+    buildJson
+  
+  scrollPostsMetaParser
+   popularity 0.000024
+   cue postsMeta
+   description Post meta as datatable.
+   extends abstractPostsParser
+   javascript
+    columnNames = ["date", "year", "title", "permalink", "authors", "tags", "wordCount", "minutes"]
+    postToRow(file) {
+      const {date, year, title, permalink, authors, tags, wordCount, minutes} = file.file.scrollProgram
+      return {
+        date, year, title, permalink, authors, tags, wordCount, minutes
+      }
+    }
+ qrcode.parsers
+  qrcodeParser
+   extends abstractCaptionedParser
+   description Make a QR code from a link.
+   example
+    qrcode https://scroll.pub
+   javascript
+    getFigureContent() {
+      const url = this.atoms[1]
+      const isNode = this.isNodeJs()
+      if (isNode) {
+        const {externalsPath} = this.root
+        const path = require("path")
+        const {qrcodegen, toSvgString} = require(path.join(externalsPath, ".qrcodegen.js"))
+        const QRC = qrcodegen.QrCode;
+        const qr0 = QRC.encodeText(url, QRC.Ecc.MEDIUM);
+        const svg = toSvgString(qr0, 4);  // See qrcodegen-input-demo
+        return svg
+      }
+      return `Not yet supported in browser.`
+    }
+ question.parsers
+  scrollQuestionParser
+   popularity 0.004244
+   description A question.
+   extends h4Parser
+   cue ?
+   example
+    ? Why is the sky blue?
+   javascript
+    defaultClassName = "scrollQuestion"
+ quotes.parsers
+  quoteLineParser
+   popularity 0.004172
+   catchAllAtomType stringAtom
+   catchAllParser quoteLineParser
+  
+  quoteParser
+   popularity 0.001471
+   cueFromId
+   description A quote.
+   catchAllParser quoteLineParser
+   extends abstractScrollParser
+   javascript
+    buildHtml() {
+     return `<blockquote class="scrollQuote">${this.subparticlesToString()}</blockquote>`
     }
     buildTxt() {
       return this.subparticlesToString()
@@ -5264,7 +5683,7 @@ stamp
     redirectTo https://scroll.pub/releaseNotes.html
    javascript
     buildHtml() {
-     return ``
+     return `<meta http-equiv="Refresh" content="0; url='${this.getAtom(1)}'" />`
     }
  replace.parsers
   abstractVariableParser
@@ -5605,7 +6024,7 @@ stamp
       return this.has("keyboardNav")
     }
     get editHtml() {
-      return `Edit`
+      return `<a href="${this.editUrl}" class="abstractTextLinkParser">Edit</a>`
     }
     get externalsPath() {
       return this.file.EXTERNALS_PATH
@@ -5668,7 +6087,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "170.1.0"
+      return "170.1.1"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -5688,7 +6107,7 @@ stamp
     }
     get generatedDescription() {
       const firstParagraph = this.find(particle => particle.isArticleContent)
-      return firstParagraph ? firstParagraph.originalText.substr(0, 100).replace(/[&"']/g, "") : ""
+      return firstParagraph ? firstParagraph.originalText.substr(0, 100).replace(/[&"<>']/g, "") : ""
     }
     get titleFromFilename() {
       const unCamelCase = str => str.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, match => match.toUpperCase())
@@ -5724,7 +6143,6 @@ stamp
             return ""
           })
           .join("")
-          .replace(/]*>/g, "")
           .replace(/\n\n\n+/g, "\n\n") // Maximum 2 newlines in a row
           .trim() + "\n" // Always end in a newline, Posix style
       )
@@ -5748,8 +6166,10 @@ stamp
         const { permalink, buildsHtml } = this
         const content = (this.buildHtml() + this.clearBodyStack()).trim()
         // Don't add html tags to CSV feeds. A little hacky as calling a getter named _html_ to get _xml_ is not ideal. But
-        // \n"
-        this._compiledHtml = wrapWithHtmlTags ? `\n\n${bodyTag}${content}\n\n` : content
+        // <1% of use case so might be good enough.
+        const wrapWithHtmlTags = buildsHtml
+        const bodyTag = this.has("metaTags") ? "" : "<body>\n"
+        this._compiledHtml = wrapWithHtmlTags ? `<!DOCTYPE html>\n<html lang="${this.lang}">\n${bodyTag}${content}\n</body>\n</html>` : content
       }
       return this._compiledHtml
     }
@@ -5921,7 +6341,23 @@ stamp
       const m = a.length
       const n = b.length
       const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0))
-      for (let i = 0; i  (col.startsWith("-") ? "desc" : "asc"))
+      for (let i = 0; i <= m; i++) {
+        dp[i][0] = i
+      }
+      for (let j = 0; j <= n; j++) {
+        dp[0][j] = j
+      }
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1
+          dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost)
+        }
+      }
+      return dp[m][n]
+    }
+    makeLodashOrderByParams(str) {
+    const part1 = str.split(" ")
+    const part2 = part1.map(col => (col.startsWith("-") ? "desc" : "asc"))
     return [part1.map(col => col.replace(/^\-/, "")), part2]
     }
     arrayToCSV(data, delimiter = ",") {
@@ -6130,11 +6566,11 @@ stamp
     }
     toRss() {
       const { title, canonicalUrl } = this
-      return ` 
-    ${title}
-    ${canonicalUrl}
-    ${this.dayjs(this.timestamp * 1000).format("ddd, DD MMM YYYY HH:mm:ss ZZ")}
-    `
+      return ` <item>
+    <title>${title}</title>
+    <link>${canonicalUrl}</link>
+    <pubDate>${this.dayjs(this.timestamp * 1000).format("ddd, DD MMM YYYY HH:mm:ss ZZ")}</pubDate>
+    </item>`
     }
    example
     # Hello world
@@ -6174,17 +6610,17 @@ stamp
      const {dayjs} = this.root
      const scrollPrograms = this.files.map(file => file.file.scrollProgram)
      const { title, baseUrl, description } = this.root
-     return `
-    
-    
-     ${title}
-     ${baseUrl}
-     ${description}
-     ${dayjs().format("ddd, DD MMM YYYY HH:mm:ss ZZ")}
-     en-us
+     return `<?xml version="1.0" encoding="ISO-8859-1" ?>
+    <rss version="2.0">
+    <channel>
+     <title>${title}</title>
+     <link>${baseUrl}</link>
+     <description>${description}</description>
+     <lastBuildDate>${dayjs().format("ddd, DD MMM YYYY HH:mm:ss ZZ")}</lastBuildDate>
+     <language>en-us</language>
     ${scrollPrograms.map(program => program.toRss()).join("\n")}
-    
-    `
+    </channel>
+    </rss>`
     }
     buildTxt() {
       return this.buildRss()
@@ -6312,7 +6748,7 @@ stamp
     ****
    javascript
     buildHtml() {
-     return `html {font-size: var(--scrollBaseFontSize, 28px);} body {margin: auto; width: 500px;}.slideshowNav{text-align: center; margin-bottom:20px; font-size: 24px;color: rgba(204,204,204,.8);} a{text-decoration: none; color: rgba(204,204,204,.8);}`
+     return `<style>html {font-size: var(--scrollBaseFontSize, 28px);} body {margin: auto; width: 500px;}.slideshowNav{text-align: center; margin-bottom:20px; font-size: 24px;color: rgba(204,204,204,.8);} a{text-decoration: none; color: rgba(204,204,204,.8);}</style><script defer src=".jquery-3.7.1.min.js"></script><div class="slideshowNav"></div><script defer src=".slideshow.js"></script>`
     }
  snippets.parsers
   endSnippetParser
@@ -6346,7 +6782,7 @@ stamp
           .filter(i => i)
           .join(joinChar)
           .trim() +
-        `Continue reading...`
+        `<a class="scrollContinueReadingLink" href="${linkRelativeToCompileTarget}">Continue reading...</a>`
       return html
     }
     get files() {
@@ -6362,9 +6798,9 @@ stamp
      const alreadyRequired = this.root.alreadyRequired
      const snippets = this.files.map(file => {
       const buildSettings = {relativePath: file.relativePath, alreadyRequired }
-      return `${this.makeSnippet(file.file.scrollProgram, buildSettings)}`
+      return `<div class="scrollSnippetContainer">${this.makeSnippet(file.file.scrollProgram, buildSettings)}</div>`
       }).join("\n\n")
-     return `${snippets}`
+     return `<div class="scrollColumns" style="column-width:35ch;">${snippets}</div>`
     }
     buildTxt() {
      return this.files.map(file =>  {
@@ -6394,7 +6830,7 @@ stamp
    javascript
     makeSnippet(scrollProgram, buildSettings) {
      const { title, permalink, description, timestamp } = scrollProgram
-     return `${title}${description}...${this.root.dayjs(timestamp * 1000).format(`MMMM D, YYYY`)}`
+     return `<div><a href="${permalink}">${title}</a><div>${description}...</div><div class="subdued" style="text-align:right;">${this.root.dayjs(timestamp * 1000).format(`MMMM D, YYYY`)}</div></div>`
     }
   
   printRelatedParser
@@ -6437,7 +6873,7 @@ stamp
    example
     sparkline 1 2 3 4 5
    string copyFromExternal .sparkline.js
-   string requireOnce 
+   string requireOnce <script src=".sparkline.js"></script>
    catchAllAtomType numberAtom
    // we need pattern matching
    inScope scrollYParser
@@ -6449,7 +6885,7 @@ stamp
      const width = this.get("width") || 100
      const height = this.get("height") || 30
      const lineColor = this.get("color") || "black"
-     return `new Sparkline(document.getElementById("${id}"), {dotRadius: 0, width: ${width}, height: ${height}, lineColor: "${lineColor}", tooltip: (value,index) => ${start} + index + ": " + value}).draw(${JSON.stringify(columnValues)})`
+     return `<span id="${id}"></span><script>new Sparkline(document.getElementById("${id}"), {dotRadius: 0, width: ${width}, height: ${height}, lineColor: "${lineColor}", tooltip: (value,index) => ${start} + index + ": " + value}).draw(${JSON.stringify(columnValues)})</script>`
     }
     get columnValues() {
       if (this.content)
@@ -6601,7 +7037,7 @@ stamp
       *.html
      readme.scroll
       # Hello world
-      
+      <script src="scripts/nested/hello.js"></script>
      scripts/
       nested/
        hello.js
@@ -6627,7 +7063,7 @@ stamp
     buildHtml() {
      const line = this.getLine()
      const id = this._getUid()
-     this.setLine(`* 0.0{let startTime = parseFloat(new URLSearchParams(window.location.search).get('start') || 0); document.getElementById('stopwatch${id}').title = startTime; setInterval(()=>{ const el = document.getElementById('stopwatch${id}'); el.title = parseFloat(el.title) + .1; el.textContent = (parseFloat(el.title)).toFixed(1)}, 100)} `)
+     this.setLine(`* <span class="scrollStopwatchParser" id="stopwatch${id}">0.0</span><script>{let startTime = parseFloat(new URLSearchParams(window.location.search).get('start') || 0); document.getElementById('stopwatch${id}').title = startTime; setInterval(()=>{ const el = document.getElementById('stopwatch${id}'); el.title = parseFloat(el.title) + .1; el.textContent = (parseFloat(el.title)).toFixed(1)}, 100)}</script> `)
      const html = super.buildHtml()
      this.setLine(line)
      return html
@@ -6691,9 +7127,42 @@ stamp
           return
         }
         // Strategy 3: Levenshtein distance match
-        const THRESHOLD = 2 // Consider matches with distance  {
+        const THRESHOLD = 2 // Consider matches with distance <= 2 as "very close"
+        let bestMatch = null
+        let bestDistance = Infinity
+        availableColumnNames.forEach(col => {
           const distance = this.root.levenshteinDistance(userColumn, col)
-          if (distance  "-" + c)) // Add reverse names
+          if (distance < bestDistance) {
+            bestDistance = distance
+            bestMatch = col
+          }
+        })
+        // Only use Levenshtein match if it's very close
+        if (bestDistance <= THRESHOLD) {
+          result[userColumn] = bestMatch
+          return
+        }
+        // Strategy 4: Fallback - use original unmatched name
+        result[userColumn] = userColumn
+      })
+      return result
+    }
+    connectColumnName(name) {
+      return this.connectColumnNames([name])[name]
+    }
+    getErrors() {
+      if (this.silenceErrors) return [] // todo: generalize this?
+      return super.getErrors()
+    }
+    getRunTimeEnumOptions(atom) {
+     if (atom.atomTypeId === "columnNameAtom")
+        return this.parent.columnNames
+     return super.getRunTimeEnumOptions(atom)
+    }
+    getRunTimeEnumOptionsForValidation(atom) {
+      // Note: this will fail if the CSV file hasnt been built yet.
+      if (atom.atomTypeId === "columnNameAtom")
+        return this.parent.columnNames.concat(this.parent.columnNames.map(c => "-" + c)) // Add reverse names
      return super.getRunTimeEnumOptions(atom)
     }
   
@@ -6759,7 +7228,7 @@ stamp
    extends abstractTableVisualizationParser
    javascript
     get tableHeader() {
-     return this.columns.filter(col => !col.isLink).map(column => `${column.name}\n`)
+     return this.columns.filter(col => !col.isLink).map(column => `<th>${column.name}</th>\n`)
     }
     get columnNames() {
      return this.parent.columnNames
@@ -6791,10 +7260,20 @@ stamp
      let str = ""
      let column = 0
      const columnCount = columns.length
-     while (column  -1 && link) tagged = `${text}`
-      else if (col.name.endsWith("Url")) tagged = `${col.name.replace("Url", "")}`
-      else if (isUrl) tagged = `${text}`
-      str += `${tagged}\n`
+     while (column < columnCount) {
+      const col = columns[column]
+      column++
+      const content = ((columnCount === column ? atoms.slice(columnCount - 1).join(" ") : atoms[column - 1]) ?? "").toString()
+      if (col.isLink) continue
+      const isTimestamp = col.name.toLowerCase().includes("time") && /^\d{10}(\d{3})?$/.test(content)
+      const text =  isTimestamp ? new Date(parseInt(content.length === 10 ? content * 1000 : content)).toLocaleString() : content
+      let tagged = text
+      const link = atoms[col.linkIndex]
+      const isUrl = content.match(/^https?\:[^ ]+$/)
+      if (col.linkIndex > -1 && link) tagged = `<a href="${link}">${text}</a>`
+      else if (col.name.endsWith("Url")) tagged = `<a href="${content}">${col.name.replace("Url", "")}</a>`
+      else if (isUrl) tagged = `<a href="${content}">${text}</a>`
+      str += `<td>${tagged}</td>\n`
      }
      return str
     }
@@ -6803,14 +7282,14 @@ stamp
     }
     get tableBody() {
      return this.coreTable
-      .map(row => `${this.toRow(row)}`)
+      .map(row => `<tr>${this.toRow(row)}</tr>`)
       .join("\n")
     }
     buildHtml() {
-     return `
-     ${this.tableHeader.join("\n")}
-     ${this.tableBody}
-     `
+     return `<table id="table${this._getUid()}" class="scrollTable">
+     <thead><tr>${this.tableHeader.join("\n")}</tr></thead>
+     <tbody>${this.tableBody}</tbody>
+     </table>`
     }
     buildTxt() {
       return this.parent.delimitedData || new Particle(this.coreTable).asCsv
@@ -7027,8 +7506,34 @@ stamp
         else if (operator === "doesNotInclude") return typedAtom === undefined || !typedAtom.includes(typedComparisonValue)
         else if (operator === "oneOf") return typedAtom !== undefined && comparisonSet.has(typedAtom.toString())
         else if (operator === ">") return typedAtom > typedComparisonValue
-        else if (operator === "=") return typedAtom >= typedComparisonValue
-        else if (operator === " Object.fromEntries(columnNames.map(colName => [colName, row[colName]])))
+        else if (operator === "<") return typedAtom < typedComparisonValue
+        else if (operator === ">=") return typedAtom >= typedComparisonValue
+        else if (operator === "<=") return typedAtom <= typedComparisonValue
+        else if (operator === "empty") return typedAtom === "" || typedAtom === undefined
+        else if (operator === "notEmpty") return typedAtom !== "" && typedAtom !== undefined
+      }
+     return coreTable.filter(filterFn)
+    }
+  
+  scrollSelectParser
+   catchAllAtomType columnNameAtom
+   extends abstractTableTransformParser
+   description Drop all columns except these.
+   example
+    tables
+     data
+      name,year,count
+      index,2022,2
+      about,2023,4
+     select name year
+      printTable
+   cue select
+   javascript
+    get coreTable() {
+     const {coreTable} = this.parent
+     const {columnNames} = this
+     if (!columnNames.length) return coreTable
+     return coreTable.map(row => Object.fromEntries(columnNames.map(colName => [colName, row[colName]])))
     }
     get columnNames() {
       if (!this._columnNames) {
@@ -7117,7 +7622,7 @@ stamp
        linkColumns.forEach(name => {
          const value = newRow[name]
          delete newRow[name]
-         if (value) newValue.push(`${name}`)
+         if (value) newValue.push(`<a href="${value.includes("@") ? "mailto:" : ""}${value}">${name}</a>`)
        })
        newRow[newColumnName] = newValue.join(" ")
        return newRow
@@ -7294,12 +7799,12 @@ stamp
    extends abstractScrollWithRequirementsParser
    string copyFromExternal .jquery-3.7.1.min.js .datatables.css .dayjs.min.js .datatables.js .tableSearch.js
    string requireOnce
-    
-    .dt-search{font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";}
-    
-    
-    
-    
+    <script defer src=".jquery-3.7.1.min.js"></script>
+    <style>.dt-search{font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial";}</style>
+    <link rel="stylesheet" href=".datatables.css">
+    <script defer src=".datatables.js"></script>
+    <script defer src=".dayjs.min.js"></script>
+    <script defer src=".tableSearch.js"></script>
    // adds to all tables on page
    description Table search and sort widget.
    javascript
@@ -7439,7 +7944,7 @@ stamp
       return this.text
     }
     buildHtml() {
-     return `${this.text}`
+     return `<div class="abstractTextLinkParser"><a href="${this.link}">${this.text}</a></div>`
     }
   
  theme.parsers
@@ -7466,7 +7971,7 @@ stamp
       return this.atoms.slice(1).map(name => `.${name}.css`).concat([".scroll.css"])
     }
     buildHtml() {
-     return this.files.map(name => ``).join("\n")
+     return this.files.map(name => `<link rel="stylesheet" type="text/css" href="${name}">`).join("\n")
     }
   
  title.parsers
@@ -7554,7 +8059,7 @@ stamp
    description WWS button.
    extends abstractIconButtonParser
    string style position:relative;
-   string svg 
+   string svg <svg xmlns="http://www.w3.org/2000/svg" direction="ltr" width="231.52568231268793" height="249.33156169975996" viewBox="297.27169239534896 1273.121785992385 231.52568231268793 249.33156169975996" stroke-linecap="round" stroke-linejoin="round" data-color-mode="dark" class="tl-container tl-theme__force-sRGB tl-theme__dark" ><defs/><g transform="matrix(1, 0, 0, 1, 395.9682, 1413.3618)" opacity="1"><g transform="scale(1)"><path d="M-5.7342,-1.1484 T-5.0182,-4.6536 -2.6672,-12.9768 1.7374,-22.3903 8.4597,-30.0892 16.5455,-35.2796 25.3478,-37.8247 34.4641,-37.2199 43.0676,-33.4606 50.27,-27.1118 55.7861,-19.7972 59.8042,-11.6764 61.6844,-2.3157 60.8049,7.9615 57.3259,17.5954 51.2605,25.5515 41.9451,31.9237 30.6489,36.2084 18.9812,37.6038 8.4915,36.637 -1.3063,34.5174 -10.6869,31.6604 -19.0463,27.0252 -26.0612,20.1562 -31.864,11.1271 -35.2772,1.0066 -35.7963,-9.1933 -35.203,-19.2337 -32.52,-28.3259 -27.3388,-37.4245 -20.2857,-45.7085 -11.787,-53.0395 -2.4314,-58.4864 7.1724,-61.8739 17.5002,-65.6025 28.2859,-68.1034 38.514,-69.1081 48.1844,-69.9134 57.9136,-70.1787 67.4056,-69.5971 76.297,-67.7446 84.5233,-63.97 92.0158,-57.5003 98.1976,-48.5614 102.8839,-38.056 105.9936,-27.6097 107.074,-18.168 107.175,-8.2882 106.6452,1.9768 105.4734,11.7698 104.0279,21.1013 101.7439,31.0445 98.0977,40.6386 92.7822,49.1039 86.2847,57.2337 78.6099,64.7113 69.8339,70.974 61.2863,75.092 52.4283,78.2186 42.5338,80.7945 32.7733,82.6629 22.8568,83.6574 12.2803,83.3538 2.4971,81.4828 -6.3367,78.789 -15.1061,75.8011 -24.259,72.3779 -33.2286,68.991 -41.5707,64.8363 -49.153,59.1909 -55.8375,52.2938 -62.9311,43.9553 -68.4604,34.4882 -71.2761,23.5855 -72.748,12.7452 -73.7673,2.0453 -74.1187,-8.7386 -72.293,-19.3856 -68.7376,-30.4053 -64.12,-39.7852 -59.1825,-47.8931 -53.7695,-56.4512 -48.1998,-65.7676 -43.1389,-74.401 -36.9006,-81.0179 -28.4317,-86.2639 -18.3342,-90.3521 -8.9259,-93.9355 0.1927,-98.7179 9.3551,-103.3537 18.7651,-106.7552 29.7482,-110.3584 40.9287,-113.446 50.87,-115.2231 57.8279,-116.0074 60.4065,-116.0632 A7.8326,7.8326 0 0 1 61.1735,-100.4168 T58.6018,-100.2201 51.1634,-99.3008 41.695,-96.884 32.4044,-94.0187 22.65,-91.382 13.4974,-87.3756 5.0519,-83.1026 -5.0443,-78.6175 -15.7236,-74.4743 -24.6193,-70.2681 -31.274,-62.5903 -36.3827,-53.9362 -41.2833,-46.2905 -46.0679,-38.5161 -50.639,-30.6576 -54.6876,-22.4063 -57.6038,-12.3346 -58.5104,-1.8678 -57.6022,9.4969 -56.0628,20.477 -53.6434,29.0487 -48.8908,36.7517 -42.4075,43.9784 -35.3064,50.6236 -27.3553,55.2062 -17.6884,59.4064 -7.6442,63.6638 2.4427,67.0449 12.7308,69.4843 22.9294,70.2171 33.2547,69.3921 42.4972,67.7384 52.2753,64.8425 61.8649,60.9142 69.5292,56.0828 76.3604,49.5927 82.431,42.3194 87.219,34.619 90.6076,25.5217 92.547,16.0352 93.8703,7.1315 94.4972,-2.5268 94.3672,-13.3681 93.3204,-24.4252 90.5377,-34.1656 85.7321,-43.6441 78.7334,-51.8057 68.7542,-56.0559 57.9857,-57.2713 48.079,-57.0198 38.4535,-56.3204 28.5246,-55.0036 18.6104,-52.4796 9.6402,-49.559 0.7193,-46.2981 -7.1531,-41.3715 -13.708,-34.8957 -19.5435,-26.853 -22.8356,-17.0622 -23.363,-6.5446 -21.9969,3.1439 -17.1086,11.9113 -9.276,18.744 -0.0685,22.6058 9.3636,24.796 19.2422,25.8817 29.052,25.0411 37.9338,21.3502 45.6819,13.8498 49.6675,4.5228 49.2802,-5.1854 45.3277,-14.4455 38.8603,-21.7879 30.5488,-25.7753 21.3356,-24.3975 13.6687,-19.2391 8.8217,-10.9919 6.423,-2.3609 5.7342,1.1484 A5.8481,5.8481 0 0 1 -5.7342,-1.1484 Z" stroke-linecap="round"/></g></g></svg>
    javascript
     get link() {
       return "https://wws.scroll.pub"
@@ -7570,7 +8075,7 @@ stamp
    javascript
     getFigureContent() {
      const url = this.getAtom(1).replace("youtube.com/watch?v=", "youtube.com/embed/")
-     return ``
+     return `<div class="scrollYouTubeHolder"><iframe class="scrollYouTubeEmbed" src="${url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
     }
   youTubeParser
    extends youtubeParser

@@ -22,6 +22,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 170.1.1 2/11/2025
+🏥 buildTxt was stripping HTML in places where it should have been kept.
+ - still had some legacy behavior from before we had individual buildTxt methods.
+
 📦 170.1.0 2/04/2025
 🎉 added scrollJsonPathParser
 🎉 added oneOf comparison operator

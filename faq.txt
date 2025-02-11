@@ -2,17 +2,17 @@ Scroll FAQ
 ==========
 Scroll Tutorial
 ===============
-02/05/2025
+02/11/2025
 https://scroll.pub/tutorial.html
 
 Scroll Roadmap
 ==============
-02/05/2025
+02/11/2025
 https://scroll.pub/roadmap.html
 
 Scroll Release Notes
 ====================
-02/05/2025
+02/11/2025
 https://scroll.pub/releaseNotes.html
 
 A list of Frequently Asked Questions
@@ -120,7 +120,7 @@ You can stick to the basics or define new parsers to extend Scroll to better fit
 
 Your parsers can be simple or as complex as any programming language, and a simple indent is all you need to make sure your parser won't interfere with other parsers.
 
-Parsers in Scroll are written in a mini language called Parsers and both Scroll and Parsers are built on the syntax called Particles.
+Parsers in Scroll are written in a mini language called <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> and both Scroll and Parsers are built on the syntax called <a href="https://particles.scroll.pub">Particles</a>.
 
 How does Scroll improve over the latest incarnations of Markdown?
 =================================================================
@@ -130,7 +130,7 @@ Thus, Scroll is designed to be easy to extend.
 
 You can see this in the Scroll source code.
 
-Scroll is a collection of Parsers and there are currently dozens of `.parsers` files in the base distribution.
+Scroll is a collection of <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> and there are currently dozens of `.parsers` files in the base distribution.
 
 Each Parser can define a mini language of its own. You can simply add (or remove) Parsers to generate your own custom dialects to better fit your domains.
 
@@ -173,7 +173,7 @@ recipe
  step Combine and mix salad and dressing!
  step Enjoy!
 ```
-Notice that your post uses the first atom `recipe`, but Scroll does not have a parser for that. No problem, just write a recipe parser yourself using Parsers, extending your dialect of Scroll:
+Notice that your post uses the first atom `recipe`, but Scroll does not have a parser for that. No problem, just write a recipe parser yourself using <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a>, extending your dialect of Scroll:
 ```
 recipeParser
  extends abstractScrollParser
@@ -181,7 +181,7 @@ recipeParser
  javascript
   buildHtml() {
     const addYourSpecialMagic = ""
-    return `${addYourSpecialMagic}`
+    return `<div>${addYourSpecialMagic}</div>`
   }
 ```
 Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine microlanguages in a simple and non-conflicting way. What you do with those languages is up to you.
@@ -191,7 +191,7 @@ For an extended example of extending Scroll check out this one which adds node t
 What is the biggest downside to Scroll?
 =======================================
 Compared to Markdown there is very little tooling and the ecosystem is currently very small.
-Also, although it is simple to write your own parsers in Parsers once you know what you're doing, documentation for Parsers is still poor and tooling isn't great yet.
+Also, although it is simple to write your own parsers in <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> once you know what you're doing, documentation for <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> is still poor and tooling isn't great yet.
 
 What kind of sites can I use Scroll to build?
 =============================================
@@ -277,7 +277,7 @@ Scroll articles are written as Scroll files with the file extension scroll. The 
 
 What language is Scroll written in?
 ===================================
-Scroll is written in Particles, Parsers, and Javascript. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a few other microlangs written in Parsers.
+Scroll is written in Particles, <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a>, and Javascript. The Scroll CLI app is written in plain Javascript and runs in Node.js. Scroll also uses a few other microlangs written in Parsers.
 
 TypeScript is not used in the Scroll repo and because the Javascript is only ~1kloc that likely will not be necessary.
 
@@ -436,7 +436,7 @@ alias watch="nodemon -e scroll -x 'scroll build'"
 ```
 You can also add the following code to the page(s) you are working on to have them reload without manually refreshing the browser:
 ```
-html 
+html <meta http-equiv="refresh" content="1;">
 ```
 
 How can I track web traffic?
@@ -535,4 +535,4 @@ Why the name Scroll?
 ====================
 The scroll was invented thousands of years ago and scrolls are still useful today. Scroll has been designed with a focus on simplicity and a goal of making something that would have been useful decades ago, with the hope that this will make it useful decades into the future.
 
-Built with Scroll v170.1.0
+Built with Scroll v170.1.1
