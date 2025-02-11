@@ -89,6 +89,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 170.2.0 2/11/2025
+🎉 Added an optional filename(s) param to scroll `build`, `format`, and `test` commands
+ - For large projects like PLDB, it can be helpful to build/test/format 1 file via cli.
+ - I've resisted cli parameters to encourage simplicity but it was time to relax this one ;).
+
 📦 170.1.1 2/11/2025
 🏥 buildTxt was stripping HTML in places where it should have been kept.
  - still had some legacy behavior from before we had individual buildTxt methods.
