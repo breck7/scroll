@@ -94,25 +94,37 @@ footer.scroll`
     const folderPath = Utils.ensureFolderEndsInSlash(folder)
     const files = await fileSystem.getLoadedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
     const parserErrors = fileSystem.parsers.map(parser => parser.getAllErrors().map(err => err.toObject())).flat()
-    // load all files
-    for (let file of files) {
-      await file.scrollProgram.load()
-    }
-    const scrollErrors = files
+    const scrollErrors = await this.getErrorsInFiles(files)
+    return { parserErrors, scrollErrors }
+  }
+
+  async getErrorsInFiles(files) {
+    // todo: what about parser errors?
+    for (let file of files) await file.scrollProgram.load()
+    return files
       .map(file =>
         file.scrollProgram.getAllErrors().map(err => {
           return { filename: file.filename, ...err.toObject() }
         })
       )
       .flat()
-
-    return { parserErrors, scrollErrors }
   }
 
-  async testCommand(cwd) {
+  async testCommand(cwd, filenames) {
     const start = Date.now()
     const folder = this.resolvePath(cwd)
-    const { parserErrors, scrollErrors } = await this.getErrorsInFolder(folder)
+    let target = cwd
+    let parserErrors = []
+    let scrollErrors = []
+    if (filenames && filenames.length) {
+      const files = await this.getFiles(cwd, filenames)
+      scrollErrors = await this.getErrorsInFiles(files)
+      target = filenames.join(" ")
+    } else {
+      const results = await this.getErrorsInFolder(folder)
+      parserErrors = results.parserErrors
+      scrollErrors = results.scrollErrors
+    }
 
     const seconds = (Date.now() - start) / 1000
 
@@ -128,25 +140,48 @@ footer.scroll`
       this.log(new Particle(scrollErrors).toFormattedTable(100))
       this.log(``)
     }
-    if (!parserErrors.length && !scrollErrors.length) return this.log(`✅ 0 errors in "${cwd}". Tests took ${seconds} seconds.`)
+    if (!parserErrors.length && !scrollErrors.length) return this.log(`✅ 0 errors in "${target}". Tests took ${seconds} seconds.`)
     return `${parserErrors.length + scrollErrors.length} Errors`
   }
 
-  async formatCommand(cwd) {
-    const fileSystem = this.sfs
-    const folder = this.resolvePath(cwd)
-    const files = await fileSystem.getLoadedFilesInFolder(folder, ".scroll")
+  async formatCommand(cwd, filenames) {
+    let files = []
+    if (filenames && filenames.length) files = await this.getFiles(cwd, filenames)
+    else files = await this.sfs.getLoadedFilesInFolder(this.resolvePath(cwd), ".scroll")
     // .concat(fileSystem.getLoadedFilesInFolder(folder, PARSERS_FILE_EXTENSION)) // todo: should format parser files too.
     for (let file of files) {
-      const { formatted } = file.scrollProgram
-      const { codeAtStart } = file
-      if (codeAtStart === formatted) continue
-      await fileSystem.write(file.filePath, formatted)
-      this.log(`💾 formatted ${file.filename}`)
+      this.formatFile(file)
     }
   }
 
-  async buildCommand(cwd) {
+  async formatFile(file) {
+    const { formatted } = file.scrollProgram
+    const { codeAtStart } = file
+    if (codeAtStart === formatted) return
+    await this.sfs.write(file.filePath, formatted)
+    this.log(`💾 formatted ${file.filename}`)
+  }
+
+  // A user provides a list of filenames such as 'index.scroll ../foobar.scroll' and we
+  // know the cwd, turn them into absolute file paths
+  resolveFilenames(cwd, filenames) {
+    return filenames
+      .filter(filename => filename.length > 0) // Remove empty strings
+      .map(filename => path.resolve(cwd, filename)) // Convert to absolute paths
+  }
+
+  async getFiles(cwd, filenames) {
+    const fullPaths = this.resolveFilenames(cwd, filenames)
+    const files = await Promise.all(fullPaths.map(fp => this.sfs.getLoadedFile(fp)))
+    return files
+  }
+
+  async buildCommand(cwd, filenames) {
+    if (filenames && filenames.length) {
+      const files = await this.getFiles(cwd, filenames)
+      this.log(`Building ${filenames.length} scroll files\n`)
+      return await this.buildFiles(this.sfs, files, cwd)
+    }
     await this.buildFilesInFolder(this.sfs, this.resolvePath(cwd))
     return this
   }
