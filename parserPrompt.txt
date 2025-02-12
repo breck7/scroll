@@ -1314,7 +1314,6 @@ stamp
      const folder = path.join(this.root.folderPath, this.getAtom(1))
      const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).join("\n\n").replace(importRegex, "")
       this.parent.concat(ONE_BIG_FILE)
-     //console.log(ONE_BIG_FILE)
     }
     buildHtml() {
       return ""
@@ -1331,13 +1330,14 @@ stamp
    javascript
     async buildOne() {
       const {root} = this
-      const { fileSystem, folderPath, filename, path, permalink } = root
+      const { fileSystem, folderPath, filename, path, permalink, concepts } = root
       const files = this.getAtomsFrom(1)
       if (!files.length) files.push(permalink.replace(".html", ".csv"))
       const sortBy = this.get("sortBy")
+      const conceptCount = concepts.length
       for (let link of files) {
         await fileSystem.writeProduct(path.join(folderPath, link), root.compileConcepts(link, sortBy))
-        root.log(`💾 Built concepts in ${filename} to ${link}`)
+        root.log(`💾 Built ${conceptCount} concepts in ${filename} to ${link}`)
       }
     }
  container.parsers
@@ -4201,13 +4201,13 @@ stamp
    javascript
     async buildOne() {
       const {root} = this
-      const { fileSystem, folderPath, filename, path, permalink } = root
+      const { fileSystem, folderPath, filename, path, permalink, measures } = root
       const files = this.getAtomsFrom(1)
       if (!files.length) files.push(permalink.replace(".html", ".csv"))
       const sortBy = this.get("sortBy")
       for (let link of files) {
         await fileSystem.writeProduct(path.join(folderPath, link), root.compileMeasures(link, sortBy))
-        root.log(`💾 Built measures in ${filename} to ${link}`)
+        root.log(`💾 Built ${measures.length} measures in ${filename} to ${link}`)
       }
     }
   
@@ -6087,7 +6087,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "170.3.0"
+      return "170.4.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

@@ -89,6 +89,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 170.4.0 2/11/2025
+🎉 better log messages when using buildConcepts and buildMeasures
+🏥 Updated ScrollSDK
+
 📦 170.3.0 2/11/2025
 🎉 Updated ScrollSDK
 

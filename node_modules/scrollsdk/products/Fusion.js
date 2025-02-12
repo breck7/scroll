@@ -438,9 +438,9 @@ class Fusion {
     )
       .filter(result => result.hasParser)
       .map(result => result.filename)
+    // todo: add tests for this
     if (importFilepathsWithParserDefinitions.length) {
-      filepathsWithParserDefinitions = filepathsWithParserDefinitions || []
-      filepathsWithParserDefinitions.concat(importFilepathsWithParserDefinitions)
+      filepathsWithParserDefinitions = (filepathsWithParserDefinitions || []).concat(importFilepathsWithParserDefinitions)
     }
     return {
       importFilePaths,

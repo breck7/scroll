@@ -68,16 +68,6 @@ bbCode
 
 Emits this:
 
-markdown
- ### Markdown is best
-
-textile
- *No!* _textile is best_
-
-```
-[u]bbCode rules![/u]
-```
-
 More extensive examples are pasted below. Source is here.
  https://github.com/breck7/scroll/blob/main/blog/indented-heredocs.scroll here
 
@@ -93,87 +83,11 @@ Extended Examples
 
 Markdown
 ========
-markdown
- Marked - Markdown Parser
- ========================
- [Marked] lets you convert [Markdown] into HTML.  Markdown is a simple text format whose goal is to be very easy to read and write, even when not converted to HTML.  This demo page will let you type anything you like and see how it gets converted.  Live.  No more waiting around.
- How To Use The Demo
- -------------------
- 1. Type in stuff on the left.
- 2. See the live updates on the right.
- That's it.  Pretty simple.  There's also a drop-down option in the upper right to switch between various views:
- - **Preview:**  A live display of the generated HTML as it would render in a browser.
- - **HTML Source:**  The generated HTML before your browser makes it pretty.
- - **Lexer Data:**  What [marked] uses internally, in case you like gory stuff like this.
- - **Quick Reference:**  A brief run-down of how to format things using markdown.
- Why Markdown?
- -------------
- It's easy.  It's not overly bloated, unlike HTML.  Also, as the creator of [markdown] says,
- > The overriding design goal for Markdown's
- > formatting syntax is to make it as readable
- > as possible. The idea is that a
- > Markdown-formatted document should be
- > publishable as-is, as plain text, without
- > looking like it's been marked up with tags
- > or formatting instructions.
- Ready to start writing?  Either start changing stuff on the left or
- [clear everything](/demo/?text=) with a simple click.
- [Marked]: https://github.com/markedjs/marked/
- [Markdown]: http://daringfireball.net/projects/markdown/
 
 Textile
 =======
-textile
- h1. level 1 heading
- h2. level 2 heading
- h3. level 3 heading
- h4. level 4 heading
- bq. this is blockquoted text
- fn1. footnote 1
- fn2. footnote 2
- This text refernces a footnote[1]
- # numbered list item 1
- # numbered list item 2
- * bulleted list first item
- * bulleted list second item
- _emphasis_
- *strong*
- ??citation??
- -deleted text-
- +inserted text+
- ^superscript^
- ~subscript~
- %span%
- p(class). paragraph with a classname
- p(#id). paragraph with an ID
- p{color:red}. paragrah with a CSS style
- p[fr]. paragraphe en français
- p<. left aligned paragraph
- p>. right aligned paragraph
- p=. centered aligned paragraph
- p<>. justified text paragraph
- |_. head |_. table |_. row |
- | a | table | row 1 |
- | a | table | row 2 |
- "linktext":url
- !imageurl!
- ABBR(Abbreviation)
 
 BBCode
 ======
-```
-[b]bolded text[/b]
-[i]italicized text[/i]
-[u]underlined text[/u]
-[url]https://en.wikipedia.org[/url]
-[url=https://en.wikipedia.org]English Wikipedia[/url]
-[img]https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png[/img]
-[quote]quoted text[/quote]
-[code]monospaced text[/code]
-[list]
- [*]Entry A
- [*]Entry B
-[/list]
-```
 
-Built with Scroll v170.3.0
+Built with Scroll v170.4.0
