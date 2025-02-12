@@ -1,0 +1,103 @@
+:root {
+  /* Base Colors */
+  --scrollPrimaryRgb: 51, 51, 51;
+  --scrollSurfaceRgb: 204, 204, 204;
+  --scrollTextBase: 51, 51, 51;
+  --scrollLinkBase: 0, 0, 0;
+
+  /* Semantic Colors */
+  --scrollColorBackground: rgb(250, 250, 250);
+  --scrollColorText: rgba(var(--scrollTextBase), 1);
+  --scrollColorLink: rgb(var(--scrollLinkBase), 1);
+  --scrollColorSubdued: rgb(102, 102, 102);
+
+  /* Typography */
+  --scrollFontPrimary: "Georgia", "Times New Roman", serif;
+  --scrollFontUi: "Baskerville", "Times New Roman", serif;
+  --scrollFontMono: monospace;
+  --scrollBaseFontSize: 17.6px;
+  --scrollLineHeight: 1.8;
+}
+
+/* Title Styling */
+h1 {
+  font-family: var(--scrollFontUi);
+  font-size: 2.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--scrollColorLink);
+  margin-bottom: 1rem;
+}
+
+/* Subtitle Styling */
+h2,
+.printDateParser,
+.printAuthorsParser {
+  font-size: 1.25rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555555;
+  margin-bottom: 1rem;
+}
+
+.printAuthorsParser {
+  font-weight: bold;
+}
+
+.printTitleParser a {
+  text-decoration: none;
+  color: var(--scrollColorLink);
+}
+
+a {
+  color: var(--scrollColorLink);
+  text-decoration-color: transparent;
+}
+a:hover {
+  text-decoration-color: unset;
+}
+
+/* Drop Cap Styling */
+.dropcap::first-letter {
+  font-family: var(--scrollFontPrimary);
+  font-size: 4rem;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.5rem;
+  margin-top: 0.2rem;
+  font-weight: bold;
+  color: var(--scrollColorLink);
+}
+
+/* Paragraph Styling */
+p {
+  font-size: var(--scrollBaseFontSize);
+  text-align: justify;
+  margin-bottom: 1.5rem;
+}
+
+/* Blockquote Styling */
+blockquote {
+  font-style: italic;
+  color: var(--scrollColorSubdued);
+  border-left: 4px solid rgba(var(--scrollSurfaceRgb), 1);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* Additional Fine-Tuning */
+h1,
+h2 {
+  margin-top: 0;
+}
+
+.abstractDinkusParser {
+  text-align: center;
+  padding: 1rem;
+}
+
+.abstractDinkusParser span {
+  vertical-align: sub;
+}

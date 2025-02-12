@@ -31,9 +31,6 @@ score
 
 Visualizations from CSV
 =======================
-name,email,phone,birthday,notes
-Jack Doe,john.doe@example.com,+1 (555) 123-4567,2/23/84,Daughter - Samantha.
-Jill Smith,jill@gmail.com,+1 (555) 123-4562,1/23/80,
 
 ---
 
@@ -218,21 +215,7 @@ Quick Table
 Quick JSON Table
 ================
 
-[
-  {
-    "name": "Jack Doe",
-    "email": "john.doe@example.com",
-    "phone": "+1 (555) 123-4567",
-    "birthday": "2/23/84",
-    "notes": "Daughter - Samantha."
-  },
-  {
-    "name": "Jill Smith",
-    "email": "jill@gmail.com",
-    "phone": "+1 (555) 123-4562",
-    "birthday": "1/23/80"
-  }
-]
+[]
 
 ⁂
 

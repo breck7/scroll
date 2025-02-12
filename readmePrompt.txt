@@ -89,6 +89,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 170.3.0 2/11/2025
+🎉 Updated ScrollSDK
+
 📦 170.2.0 2/11/2025
 🎉 Added an optional filename(s) param to scroll `build`, `format`, and `test` commands
  - For large projects like PLDB, it can be helpful to build/test/format 1 file via cli.

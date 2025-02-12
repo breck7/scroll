@@ -3508,10 +3508,9 @@ textile
 bbCode
  [u]bbCode rules![/u]</code>
 <p id="particle62" class="scrollParagraph">Emits this:</p>
-<h3>Markdown is best</h3>
-
-<p><strong>No!</strong> <em>textile is best</em></p>
-[u]bbCode rules![/u]
+<p id="particle64" class="scrollParagraph">markdown</p>
+<p id="particle66" class="scrollParagraph">textile</p>
+<code class="scrollCodeBlock">[u]bbCode rules![/u]</code>
 <p id="particle70" class="scrollParagraph">More extensive examples are pasted below. Source is <a href="https://github.com/breck7/scroll/blob/main/blog/indented-heredocs.scroll">here</a>.</p>
 <div class="scrollSection"><h1 id="particle72" class="scrollParagraph">Summary</h1>
 </div>
@@ -3556,34 +3555,7 @@ bbCode
  
  [Marked]: https://github.com/markedjs/marked/
  [Markdown]: http://daringfireball.net/projects/markdown/</code>
-<h1>Marked - Markdown Parser</h1>
-<p><a href="https://github.com/markedjs/marked/">Marked</a> lets you convert <a href="http://daringfireball.net/projects/markdown/">Markdown</a> into HTML.  Markdown is a simple text format whose goal is to be very easy to read and write, even when not converted to HTML.  This demo page will let you type anything you like and see how it gets converted.  Live.  No more waiting around.</p>
-<h2>How To Use The Demo</h2>
-<ol>
-<li>Type in stuff on the left.</li>
-<li>See the live updates on the right.</li>
-</ol>
-<p>That&#39;s it.  Pretty simple.  There&#39;s also a drop-down option in the upper right to switch between various views:</p>
-<ul>
-<li><strong>Preview:</strong>  A live display of the generated HTML as it would render in a browser.</li>
-<li><strong>HTML Source:</strong>  The generated HTML before your browser makes it pretty.</li>
-<li><strong>Lexer Data:</strong>  What <a href="https://github.com/markedjs/marked/">marked</a> uses internally, in case you like gory stuff like this.</li>
-<li><strong>Quick Reference:</strong>  A brief run-down of how to format things using markdown.</li>
-</ul>
-<h2>Why Markdown?</h2>
-<p>It&#39;s easy.  It&#39;s not overly bloated, unlike HTML.  Also, as the creator of <a href="http://daringfireball.net/projects/markdown/">markdown</a> says,</p>
-<blockquote>
-<p>The overriding design goal for Markdown&#39;s
-formatting syntax is to make it as readable
-as possible. The idea is that a
-Markdown-formatted document should be
-publishable as-is, as plain text, without
-looking like it&#39;s been marked up with tags
-or formatting instructions.</p>
-</blockquote>
-<p>Ready to start writing?  Either start changing stuff on the left or
-<a href="/demo/?text=">clear everything</a> with a simple click.</p>
-
+<p id="particle80" class="scrollParagraph">markdown</p>
 </div>
 <div class="scrollSection"><h2 id="particle82" class="scrollParagraph">Textile</h2>
 <code class="scrollCodeBlock">textile
@@ -3643,60 +3615,7 @@ or formatting instructions.</p>
  !imageurl!
  
  ABBR(Abbreviation)</code>
-<h1>level 1 heading</h1>
-<h2>level 2 heading</h2>
-<h3>level 3 heading</h3>
-<h4>level 4 heading</h4>
-<blockquote>
-<p>this is blockquoted text</p>
-</blockquote>
-<p class="footnote" id="fn1"><a href="#fnr1"><sup>1</sup></a> footnote 1</p>
-<p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> footnote 2</p>
-<p>This text refernces a footnote<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup></p>
-<ol>
-	<li>numbered list item 1</li>
-	<li>numbered list item 2</li>
-</ol>
-<ul>
-	<li>bulleted list first item</li>
-	<li>bulleted list second item</li>
-</ul>
-<p><em>emphasis</em><br />
-<strong>strong</strong><br />
-<cite>citation</cite><br />
-<del>deleted text</del><br />
-<ins>inserted text</ins><br />
-<sup>superscript</sup><br />
-<sub>subscript</sub><br />
-<span>span</span></p>
-<p class="class">paragraph with a classname</p>
-<p id="id">paragraph with an ID</p>
-<p style="color:red">paragrah with a <span class="caps">CSS</span> style</p>
-<p lang="fr">paragraphe en français</p>
-<p style="text-align:left">left aligned paragraph</p>
-<p style="text-align:right">right aligned paragraph</p>
-<p style="text-align:center">centered aligned paragraph</p>
-<p style="text-align:justify">justified text paragraph</p>
-<table>
-	<tr>
-		<th>head </th>
-		<th>table </th>
-		<th>row </th>
-	</tr>
-	<tr>
-		<td> a </td>
-		<td> table </td>
-		<td> row 1 </td>
-	</tr>
-	<tr>
-		<td> a </td>
-		<td> table </td>
-		<td> row 2 </td>
-	</tr>
-</table>
-<p><a href="url">linktext</a></p>
-<p><img src="imageurl" alt="" /></p>
-<p><acronym title="Abbreviation"><span class="caps">ABBR</span></acronym></p>
+<p id="particle84" class="scrollParagraph">textile</p>
 </div>
 <div class="scrollSection"><h2 id="particle86" class="scrollParagraph">BBCode</h2>
 <code class="scrollCodeBlock">bbCode
@@ -3712,7 +3631,7 @@ or formatting instructions.</p>
   [*]Entry A
   [*]Entry B
  [/list]</code>
-[b]bolded text[/b]
+<code class="scrollCodeBlock">[b]bolded text[/b]
 [i]italicized text[/i]
 [u]underlined text[/u]
 [url]https://en.wikipedia.org[/url]
@@ -3723,7 +3642,7 @@ or formatting instructions.</p>
 [list]
  [*]Entry A
  [*]Entry B
-[/list]
+[/list]</code>
 </div>
 <center><p id="particle95" class="scrollParagraph"></p>
 </center><a href="https://github.com/breck7/scroll/blob/main/blog/indented-heredocs.scroll" class="abstractTextLinkParser">Edit</a></div></div>
