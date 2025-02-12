@@ -8,6 +8,7 @@ mediumColumns 1
 printTitle
 datatable
  printTable
+ assertRowCount 2
 tableSearch
 
 👤 Jack Doe

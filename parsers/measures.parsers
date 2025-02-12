@@ -14,13 +14,13 @@ buildMeasuresParser
  javascript
   async buildOne() {
     const {root} = this
-    const { fileSystem, folderPath, filename, path, permalink } = root
+    const { fileSystem, folderPath, filename, path, permalink, measures } = root
     const files = this.getAtomsFrom(1)
     if (!files.length) files.push(permalink.replace(".html", ".csv"))
     const sortBy = this.get("sortBy")
     for (let link of files) {
       await fileSystem.writeProduct(path.join(folderPath, link), root.compileMeasures(link, sortBy))
-      root.log(`💾 Built measures in ${filename} to ${link}`)
+      root.log(`💾 Built ${measures.length} measures in ${filename} to ${link}`)
     }
   }
 
