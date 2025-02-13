@@ -8,3 +8,9 @@ replace Turkey Mexico
 I went to south of the border and end up in Turkey.
 assertHtmlIncludes Mexico
 
+
+replaceNodejs
+ module.exports = {ECHO: "Dolphin"}
+
+Echo is an ECHO
+assertHtmlIncludes Dolphin

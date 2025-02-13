@@ -60,7 +60,6 @@ replaceNodejsParser
   * The score is SCORE
  javascript
   wake() {
-    return ""
     const {filePath, Disk} = this.root
     const tempPath = filePath + ".js"
     if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)

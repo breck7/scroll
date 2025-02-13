@@ -282,7 +282,7 @@ scrollParser
     return this.file.fileSystem
   }
   get filePath() {
-    return this.file.filePath
+    return this.getLine() || this.file.filePath
   }
   get folderPath() {
     return this.file.folderPath
@@ -695,7 +695,7 @@ scrollParser
       new Set(
         getCueAtoms(parser.cachedHandParsersProgramRoot) // is there a better method name than this?
       )
-    ).join("\n")
+    ).join("\n"), this.filePath
   )
   // Delete any particles that are not measures
   dummyProgram.filter(particle => !particle.isMeasure).forEach(particle => particle.destroy())
