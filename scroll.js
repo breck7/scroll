@@ -7,38 +7,14 @@ const lodash = require("lodash")
 // Particles Includes
 const { Particle } = require("scrollsdk/products/Particle.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
-const { Utils } = require("scrollsdk/products/Utils.js")
-const { Fusion, FusionFile } = require("scrollsdk/products/Fusion.js")
+const { Fusion } = require("scrollsdk/products/Fusion.js")
 const { SimpleCLI } = require("./simpleCli.js")
 const packageJson = require("./package.json")
 
-// Constants
-const SCROLL_VERSION = packageJson.version
-const SCROLL_FILE_EXTENSION = ".scroll"
-const PARSERS_FILE_EXTENSION = ".parsers"
-const EXTERNALS_PATH = path.join(__dirname, "external")
-
-// todo: remove
-class ScrollFileSystem extends Fusion {
-  defaultFileClass = ScrollFile
-}
-
-const defaultParserFiles = Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION))
-const defaultParser = Fusion.combineParsers(
-  defaultParserFiles,
-  defaultParserFiles.map(filePath => Disk.read(filePath))
-)
-const DefaultScrollParser = defaultParser.parser
-
-// todo: remove
-class ScrollFile extends FusionFile {
-  EXTERNALS_PATH = EXTERNALS_PATH
-  defaultParserCode = defaultParser.parsersCode
-  defaultParser = DefaultScrollParser
-}
+const ensureFolderEndsInSlash = folder => folder.replace(/\/$/, "") + "/"
 
 class ScrollCli extends SimpleCLI {
-  welcomeMessage = `\n📜 WELCOME TO SCROLL (v${SCROLL_VERSION})`
+  welcomeMessage = `\n📜 WELCOME TO SCROLL (v${packageJson.version})`
   async initCommand(cwd) {
     // todo: use stamp for this.
     const initFolder = {
@@ -83,7 +59,7 @@ footer.scroll`
     return this.log(`\n✅ Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
   }
 
-  sfs = new ScrollFileSystem()
+  sfs = new Fusion(undefined, path.join(__dirname, "parsers"))
 
   deleteCommand() {
     return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
@@ -91,7 +67,7 @@ footer.scroll`
 
   async getErrorsInFolder(folder) {
     const fileSystem = this.sfs
-    const folderPath = Utils.ensureFolderEndsInSlash(folder)
+    const folderPath = ensureFolderEndsInSlash(folder)
     const files = await fileSystem.getLoadedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
     const parserErrors = fileSystem.parsers.map(parser => parser.getAllErrors().map(err => err.toObject())).flat()
     const scrollErrors = await this.getErrorsInFiles(files)
@@ -148,7 +124,7 @@ footer.scroll`
     let files = []
     if (filenames && filenames.length) files = await this.getFiles(cwd, filenames)
     else files = await this.sfs.getLoadedFilesInFolder(this.resolvePath(cwd), ".scroll")
-    // .concat(fileSystem.getLoadedFilesInFolder(folder, PARSERS_FILE_EXTENSION)) // todo: should format parser files too.
+    // .concat(fileSystem.getLoadedFilesInFolder(folder, ".parsers")) // todo: should format parser files too.
     for (let file of files) {
       this.formatFile(file)
     }
@@ -204,19 +180,20 @@ footer.scroll`
     }
     const seconds = (Date.now() - start) / 1000
     this.log(``)
-    const outputExtensions = Object.keys(fileSystem.productCache).map(filename => filename.split(".").pop())
+    const { productCache } = fileSystem
+    const outputExtensions = productCache.map(filename => filename.split(".").pop())
     const buildStats = lodash.map(lodash.orderBy(lodash.toPairs(lodash.countBy(outputExtensions)), 1, "desc"), ([extension, count]) => ({ extension, count }))
     this.log(
-      `⌛️ Read ${files.length} scroll files and wrote ${Object.keys(fileSystem.productCache).length} files (${buildStats.map(i => i.extension + ":" + i.count).join(" ")}) in ${seconds} seconds. Processed ${lodash.round(
+      `⌛️ Read ${files.length} scroll files and wrote ${productCache.length} files (${buildStats.map(i => i.extension + ":" + i.count).join(" ")}) in ${seconds} seconds. Processed ${lodash.round(
         files.length / seconds
       )} scroll files per second\n`
     )
 
-    return fileSystem.productCache
+    return productCache
   }
 
   async buildFilesInFolder(fileSystem, folder = "/") {
-    folder = Utils.ensureFolderEndsInSlash(folder)
+    folder = ensureFolderEndsInSlash(folder)
     const files = await fileSystem.getLoadedFilesInFolder(folder, ".scroll")
     this.log(`Found ${files.length} scroll files in '${folder}'\n`)
     return await this.buildFiles(fileSystem, files, folder)
@@ -229,7 +206,7 @@ footer.scroll`
   findScrollsInDirRecursive(dir) {
     const folders = {}
     Disk.recursiveReaddirSync(dir, filename => {
-      if (!filename.endsWith(SCROLL_FILE_EXTENSION)) return
+      if (!filename.endsWith(".scroll")) return
 
       const folder = path.dirname(filename)
       if (!folders[folder]) {
@@ -248,4 +225,4 @@ footer.scroll`
 
 if (module && !module.parent) new ScrollCli().executeUsersInstructionsFromShell()
 
-module.exports = { ScrollFile, ScrollCli, SimpleCLI, ScrollFileSystem, DefaultScrollParser }
+module.exports = { ScrollCli, SimpleCLI }

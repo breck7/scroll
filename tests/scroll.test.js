@@ -3,12 +3,18 @@
 const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
-const { ScrollCli, ScrollFile, ScrollFileSystem, DefaultScrollParser } = require("../scroll.js")
+const { ScrollCli } = require("../scroll.js")
+const { Fusion } = require("scrollsdk/products/Fusion.js")
 const { ScrollSetCLI } = require("../ScrollSetCLI.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { TestRacer } = require("scrollsdk/products/TestRacer.js")
 const parsersParser = require("scrollsdk/products/parsers.nodejs.js")
 const shell = require("child_process").execSync
+const parsersDir = path.join(__dirname, "..", "parsers")
+
+const sfs = new Fusion(undefined, parsersDir)
+const ScrollFile = sfs.defaultFileClass
+const DefaultScrollParser = sfs.defaultParser.parser
 
 const testParticles = {}
 
@@ -118,7 +124,7 @@ buildHtml`
   }
   // Act
   const cli = new ScrollCli().silence()
-  const fileSystem = new ScrollFileSystem(files)
+  const fileSystem = new Fusion(files, parsersDir)
   await cli.buildFilesInFolder(fileSystem, "/")
   await cli.buildFilesInFolder(fileSystem, "/pages/")
 
@@ -129,7 +135,7 @@ buildHtml`
 
 testParticles.file = async areEqual => {
   const rootFolder = path.join(__dirname, "..")
-  const fileSystem = new ScrollFileSystem()
+  const fileSystem = new Fusion(undefined, parsersDir)
   const files = await fileSystem.getLoadedFilesInFolder(rootFolder, ".scroll")
   const releaseNotesFile = files.find(file => file.scrollProgram.permalink === "releaseNotes.html").scrollProgram
 
@@ -257,7 +263,7 @@ testParticles.initCommand = async areEqual => {
   try {
     fs.mkdirSync(tempFolder)
     const cli = new ScrollCli()
-    const fileSystem = new ScrollFileSystem()
+    const fileSystem = new Fusion(undefined, parsersDir)
     cli.verbose = false
 
     // Act
@@ -267,9 +273,9 @@ testParticles.initCommand = async areEqual => {
     const products = await cli.buildFilesInFolder(fileSystem, tempFolder)
 
     // Assert
-    areEqual(Object.values(products)[3].includes("Built with Scroll"), true, "has message")
-    areEqual(Object.keys(products).filter(name => name.endsWith(".html")).length, 2, "should have 2 html pages")
-    areEqual(Object.values(products).length, 7, "should have 6 total generated files")
+    areEqual(Disk.read(products[3]).includes("Built with Scroll"), true, "has message")
+    areEqual(products.filter(name => name.endsWith(".html")).length, 2, "should have 2 html pages")
+    areEqual(new Set(products).size, 7, "should have 7 unique files")
 
     const { scrollErrors, parserErrors } = await cli.getErrorsInFolder(tempFolder)
     areEqual(scrollErrors.length, 0)
@@ -284,7 +290,7 @@ testParticles.hodgePodge = async areEqual => {
   try {
     // Arrange/act
     const cli = new ScrollCli().silence()
-    const fileSystem = new ScrollFileSystem()
+    const fileSystem = new Fusion(undefined, parsersDir)
     await cli.buildFilesInFolder(fileSystem, testsFolder)
     const groupPage = Disk.read(path.join(testsFolder, "all.html"))
     const autoPage = Disk.read(path.join(testsFolder, "autoTitle.html"))

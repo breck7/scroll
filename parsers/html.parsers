@@ -27,8 +27,8 @@ buildHtmlParser
           root.log(`💾 Copied external file needed by ${filename} to ${name}`)
         })
       })
-      if (parserId !== "scrollThemeParser")
-        // todo: generalize when not to cache
+      if (parserId !== "scrollThemeParser") // why are we not copying this one?
+        // todo: generalize when not to cache.
         externalFilesCopied[folderPath][parserId] = true
     })
   }

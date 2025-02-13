@@ -4,8 +4,9 @@ const lodash = require("lodash")
 const { Particle } = require("scrollsdk/products/Particle.js")
 const { Utils } = require("scrollsdk/products/Utils.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
-const { ScrollFile, ScrollFileSystem } = require("./scroll.js")
-const scrollFs = new ScrollFileSystem()
+const { Fusion } = require("scrollsdk/products/Fusion.js")
+const scrollFs = new Fusion(undefined, path.join(__dirname, "parsers"))
+const ScrollFile = scrollFs.defaultFileClass
 
 class ScrollSetCLI {
   constructor() {
