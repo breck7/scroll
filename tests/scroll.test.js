@@ -99,12 +99,13 @@ testParticles.test = async areEqual => {
 
 testParticles.testAllScrollsInThisRepo = async areEqual => {
   const cli = new ScrollCli()
-  cli.verbose = false
+  cli.verbose = true
   const result = await cli.listCommand(path.join(__dirname, ".."))
   const dirs = Object.keys(result)
   for (let dir of dirs) {
     const result = await cli.testCommand(dir)
-    areEqual(result.includes("0 errors"), true, `No errors in '${dir}'`)
+    console.log(result, dir)
+    areEqual(result.includes("0 errors"), true, `'scroll test' should find no errors in folder '${dir}'`)
   }
 }
 
