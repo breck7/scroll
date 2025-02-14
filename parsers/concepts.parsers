@@ -23,7 +23,8 @@ loadConceptsParser
  atoms preBuildCommandAtom filePathAtom
  javascript
   async load() {
-   const { Disk, path, importRegex } = this.root
+   const importRegex = /^(import |[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$|https?:\/\/.+\.(scroll|parsers)$)/gm
+   const { Disk, path } = this.root
    const folder = path.join(this.root.folderPath, this.getAtom(1))
    const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).join("\n\n").replace(importRegex, "")
     this.parent.concat(ONE_BIG_FILE)

@@ -55,8 +55,6 @@ scrollParser
  javascript
   setFile(file) {
    this.file = file
-   const date = this.get("date")
-   if (date) this.file.timestamp = this.dayjs(this.get("date")).unix()
    return this
   }
   buildHtml(buildSettings) {
@@ -127,7 +125,6 @@ scrollParser
     }
     return file.scrollProgram.permalink
   }
-  importRegex = /^(import |[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$|https?:\/\/.+\.(scroll|parsers)$)/gm
   get linkToNext() {
     if (!this.hasKeyboardNav)
       // Dont provide link to next unless keyboard nav is on
@@ -188,7 +185,7 @@ scrollParser
       })
       arr = arr.concat(filtered.slice(0, limit))
     })
-    return this.lodash.sortBy(arr, file => file.file.timestamp).reverse()
+    return this.lodash.sortBy(arr, file => file.file.scrollProgram.timestamp).reverse()
   }
   async fetchNode(url, filename) {
     filename = filename || new URL(url).pathname.split('/').pop()
@@ -282,7 +279,12 @@ scrollParser
     return this.file.fileSystem
   }
   get filePath() {
-    return this.getLine()
+    return this.cue
+  }
+  get timestamp() {
+    const date = this.get("date")
+    if (date) return this.dayjs(date).unix()
+    return parseInt(this.atoms[1])
   }
   get folderPath() {
     return Utils.posix.dirname(this.filePath) + "/"
@@ -450,7 +452,7 @@ scrollParser
     return parseFloat((this.wordCount / 200).toFixed(1))
   }
   get date() {
-    const date = this.get("date") || (this.file.timestamp ? this.file.timestamp : 0)
+    const date = this.get("date") || (this.timestamp ? this.timestamp : 0)
     return this.dayjs(date).format(`MM/DD/YYYY`)
   }
   get year() {
