@@ -1,0 +1,13 @@
+buildConcepts csv.csv
+assertBuildIncludes
+ id,string
+ Java,""""
+
+idParser
+ extends abstractIdParser
+
+stringParser
+ extends abstractStringMeasureParser
+
+id Java
+string "

@@ -89,6 +89,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 170.4.1 2/17/2025
+🏥 Fix quote escaping bug reported by Swapnil. Thank you for your help Swapnil!
+ https://github.com/breck7/pldb/issues/622 bug
+ https://github.com/swaptr Swapnil
+
 📦 170.4.0 2/11/2025
 🎉 better log messages when using buildConcepts and buildMeasures
 🏥 Updated ScrollSDK

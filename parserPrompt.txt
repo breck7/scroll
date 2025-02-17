@@ -1328,14 +1328,24 @@ stamp
     cueFromId
     atoms cueAtom columnNameAtom
    javascript
-    async buildOne() {
-      const {root} = this
-      const { fileSystem, folderPath, filename, path, permalink, concepts } = root
+    buildOutput() {
+      // For testing
+      return this.root.compileConcepts(this.outputFiles[0], this.sortBy)
+    }
+    get sortBy() {
+      return this.get("sortBy")
+    }
+    get outputFiles() {
+      const {permalink} = this
       const files = this.getAtomsFrom(1)
       if (!files.length) files.push(permalink.replace(".html", ".csv"))
-      const sortBy = this.get("sortBy")
+      return files
+    }
+    async buildOne() {
+      const {root, sortBy, outputFiles} = this
+      const { fileSystem, folderPath, filename, path, concepts } = root
       const conceptCount = concepts.length
-      for (let link of files) {
+      for (let link of outputFiles) {
         await fileSystem.writeProduct(path.join(folderPath, link), root.compileConcepts(link, sortBy))
         root.log(`💾 Built ${conceptCount} concepts in ${filename} to ${link}`)
       }
@@ -6087,7 +6097,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "170.4.0"
+      return "170.4.1"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6369,7 +6379,7 @@ stamp
          .map(fieldName => {
            const fieldValue = row[fieldName]
            // Escape commas if the value is a string
-           if (typeof fieldValue === "string" && fieldValue.includes(delimiter)) {
+           if (typeof fieldValue === "string" && (fieldValue.includes(delimiter) || fieldValue.includes('"'))) {
              return `"${fieldValue.replace(/"/g, '""')}"` // Escape double quotes and wrap in double quotes
            }
            return fieldValue
