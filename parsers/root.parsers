@@ -282,13 +282,14 @@ scrollParser
     return this.file.fileSystem
   }
   get filePath() {
-    return this.file.filePath
+    // Note: we currently do not support files with spaces in their filepaths
+    return this.cue
   }
   get folderPath() {
-    return this.file.folderPath
+    return Utils.posix.dirname(this.filePath) + "/"
   }
   get filename() {
-    return this.file.filename || ""
+    return Utils.posix.basename(this.filePath)
   }
   get hasKeyboardNav() {
     return this.has("keyboardNav")
@@ -357,7 +358,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "170.4.1"
+    return "170.5.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -695,7 +696,7 @@ scrollParser
       new Set(
         getCueAtoms(parser.cachedHandParsersProgramRoot) // is there a better method name than this?
       )
-    ).join("\n")
+    ).join("\n"), this.getLine()
   )
   // Delete any particles that are not measures
   dummyProgram.filter(particle => !particle.isMeasure).forEach(particle => particle.destroy())
