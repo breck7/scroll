@@ -102,11 +102,12 @@ footer.scroll`
     // todo: what about parser errors?
     for (let file of files) await file.scrollProgram.load()
     return files
-      .map(file =>
-        file.scrollProgram.getAllErrors().map(err => {
-          return { filename: file.filename, ...err.toObject() }
+      .map(file => {
+        const { scrollProgram } = file
+        return scrollProgram.getAllErrors().map(err => {
+          return { filename: scrollProgram.filename, ...err.toObject() }
         })
-      )
+      })
       .flat()
   }
 
@@ -155,11 +156,11 @@ footer.scroll`
   }
 
   async formatFile(file) {
-    const { formatted } = file.scrollProgram
+    const { formatted, filePath, filename } = file.scrollProgram
     const { codeAtStart } = file
     if (codeAtStart === formatted) return
-    await this.sfs.write(file.filePath, formatted)
-    this.log(`💾 formatted ${file.filename}`)
+    await this.sfs.write(filePath, formatted)
+    this.log(`💾 formatted ${filename}`)
   }
 
   // A user provides a list of filenames such as 'index.scroll ../foobar.scroll' and we

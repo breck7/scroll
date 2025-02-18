@@ -357,7 +357,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "170.4.0"
+    return "170.4.1"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -639,7 +639,7 @@ scrollParser
        .map(fieldName => {
          const fieldValue = row[fieldName]
          // Escape commas if the value is a string
-         if (typeof fieldValue === "string" && fieldValue.includes(delimiter)) {
+         if (typeof fieldValue === "string" && (fieldValue.includes(delimiter) || fieldValue.includes('"'))) {
            return `"${fieldValue.replace(/"/g, '""')}"` // Escape double quotes and wrap in double quotes
          }
          return fieldValue

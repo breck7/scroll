@@ -1,6 +1,6 @@
 {
   "name": "scrollsdk",
-  "version": "101.2.1",
+  "version": "102.0.0",
   "description": "This npm package includes the Particles class, the Parsers compiler-compiler, a Parsers IDE, and more, all implemented in Particles, Parsers, and TypeScript.",
   "types": "./built/scrollsdk.node.d.ts",
   "main": "./products/Particle.js",
@@ -20,7 +20,6 @@
     "products/ParsersCompiler.js",
     "products/Parsers.js",
     "products/hakon.nodejs.js",
-    "products/Path.js",
     "products/stamp.nodejs.js",
     "products/stump.nodejs.js",
     "products/swarm.nodejs.js",

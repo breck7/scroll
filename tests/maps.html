@@ -3,13 +3,13 @@
 <head>
  <meta charset="utf-8">
  <title>Maps</title>
- <script>/* This HTML was generated from maps.scroll by 📜 Scroll v170.4.1. https://scroll.pub */</script>
+ <script>/* This HTML was generated from maps.scroll by 📜 Scroll v170.5.0. https://scroll.pub */</script>
  <style>@media print {.doNotPrint {display: none !important;}}</style>
  <link rel="canonical" href="https://scroll.pub/tests/maps.html?canonLinkTest=true">
  <meta name="viewport" content="width=device-width,initial-scale=1">
  <meta name="description" content="Kitchen sink test site.">
  
- <meta name="generator" content="Scroll v170.4.1">
+ <meta name="generator" content="Scroll v170.5.0">
  <meta property="og:title" content="Maps">
  <meta property="og:description" content="Kitchen sink test site.">
  <meta property="og:image" content="">
@@ -28,7 +28,7 @@
 <script src=".leaflet.js"></script>
 <script src=".scrollLibs.js"></script>
 
-<div id="map93" style="height: 500px;"></div>
+<div id="map90" style="height: 500px;"></div>
 <script>
  {
     if (!window.maps) window.maps = {}
@@ -36,13 +36,13 @@
       if (!navigator.geolocation) return
       navigator.geolocation.getCurrentPosition((position) => {
           const { latitude, longitude } = position.coords
-          window.maps.map93.setView([latitude, longitude])
+          window.maps.map90.setView([latitude, longitude])
           L.circleMarker([latitude, longitude], {
               fillOpacity: 0.8,
               radius: 20,
               weight: 4
           })
-          .addTo(window.maps.map93)
+          .addTo(window.maps.map90)
       }, () => {})
     }
   const lat = 37.8
@@ -54,8 +54,8 @@
   const hover = '<b>{title}</b><br>{description}'
   const template = {}
   const points = []
-  window.maps.map93 = L.map("map93").setView([lat, long], zoomLevel)
-  const map = window.maps.map93
+  window.maps.map90 = L.map("map90").setView([lat, long], zoomLevel)
+  const map = window.maps.map90
   const tileOptions = {
   "default": {
       baseLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -83,7 +83,7 @@
 </div>
 <div class="scrollSection"><h1 id="particle24" class="scrollParagraph">Custom</h1>
 </div>
-<div id="map94" style="height: 500px;"></div>
+<div id="map91" style="height: 500px;"></div>
 <script>
  {
     if (!window.maps) window.maps = {}
@@ -91,13 +91,13 @@
       if (!navigator.geolocation) return
       navigator.geolocation.getCurrentPosition((position) => {
           const { latitude, longitude } = position.coords
-          window.maps.map94.setView([latitude, longitude])
+          window.maps.map91.setView([latitude, longitude])
           L.circleMarker([latitude, longitude], {
               fillOpacity: 0.8,
               radius: 20,
               weight: 4
           })
-          .addTo(window.maps.map94)
+          .addTo(window.maps.map91)
       }, () => {})
     }
   const lat = 37.0854
@@ -210,8 +210,8 @@
     "fillOpacity": null
   }
 ]
-  window.maps.map94 = L.map("map94").setView([lat, long], zoomLevel)
-  const map = window.maps.map94
+  window.maps.map91 = L.map("map91").setView([lat, long], zoomLevel)
+  const map = window.maps.map91
   const tileOptions = {
   "default": {
       baseLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -236,7 +236,7 @@
   })
  }
 </script>
-<div id="map95" style="height: 500px;"></div>
+<div id="map92" style="height: 500px;"></div>
 <script>
  {
     if (!window.maps) window.maps = {}
@@ -244,13 +244,13 @@
       if (!navigator.geolocation) return
       navigator.geolocation.getCurrentPosition((position) => {
           const { latitude, longitude } = position.coords
-          window.maps.map95.setView([latitude, longitude])
+          window.maps.map92.setView([latitude, longitude])
           L.circleMarker([latitude, longitude], {
               fillOpacity: 0.8,
               radius: 20,
               weight: 4
           })
-          .addTo(window.maps.map95)
+          .addTo(window.maps.map92)
       }, () => {})
     }
   const lat = 37.0854
@@ -363,8 +363,8 @@
     "fillOpacity": null
   }
 ]
-  window.maps.map95 = L.map("map95").setView([lat, long], zoomLevel)
-  const map = window.maps.map95
+  window.maps.map92 = L.map("map92").setView([lat, long], zoomLevel)
+  const map = window.maps.map92
   const tileOptions = {
   "default": {
       baseLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
