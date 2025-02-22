@@ -1,0 +1,51 @@
+prismParser
+ popularity 0.001929
+ description A code block with syntax highlighting.
+ catchAllParser lineOfCodeParser
+ cueFromId
+ extends codeWithHeaderParser
+ string copyFromExternal .prism.css .prism.js
+ string requireOnce
+  <link rel="stylesheet" href=".prism.css">
+  <script defer src=".prism.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof Prism !== 'undefined') {
+      Prism.highlightAll();
+    }
+  });
+  </script>
+ example
+  prism javascript
+   const hello = "world";
+   console.log(hello);
+ javascript
+  buildHtml(buildSettings) {
+   const content = this.content || "text"
+   const language = content.split(".").pop()
+   const header = content.includes(".") ? content : ""
+   const languageClass = `language-${language}`;
+   const prefix = this.getHtmlRequirements(buildSettings)
+   const body = `<pre><code class="${languageClass}">${this.code.replace(/\</g, "&lt;")}</code></pre>`
+   if (!header)
+    return prefix + body
+   return prefix + `<div class="codeWithHeader"><div class="codeHeader">${header}</div>` + body + "</div>"
+  }
+  buildTxt() {
+    return "```" + (this.content || "") + "\n" + this.code + "\n```";
+  }
+
+prismFromFileParser
+ cueFromId
+ atoms cueAtom urlAtom
+ extends prismParser
+ example
+  prismFromFile math.py
+ javascript
+  get code() {
+    return this.root.readSyncFromFileOrUrl(this.content)
+  }
+  get dependencies() { return [this.cue]}
+  async load() {
+    await this.root.fetch(this.content)
+  }

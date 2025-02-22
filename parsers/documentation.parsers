@@ -80,6 +80,7 @@ belowAsHtmlParser
   # Hello world
  javascript
   get code() {
+   // Todo: fix the bug where this will prevent buildRequirements from triggering. Refactor the requireOnce code.
    return this.selectedParticles.filter(p => p.buildHtml).map(p => p.buildHtml()).join("\n")
   }
 

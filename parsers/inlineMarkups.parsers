@@ -29,7 +29,7 @@ inlineMarkupsOnParser
   }
   get markups() {
     const {root} = this
-    let markups = [{delimiter: "`", tag: "code", exclusive: true, name: "code"},{delimiter: "*", tag: "strong", name: "bold"}, {delimiter: "_", tag: "em", name: "italics"}]
+    let markups = [{delimiter: "`", tag: "code", exclusive: true, name: "code", attributes: 'class="scrollInlineCode"'},{delimiter: "*", tag: "strong", name: "bold"}, {delimiter: "_", tag: "em", name: "italics"}]
     // only add katex markup if the root doc has katex.
     if (root.has("katex"))
       markups.unshift({delimiter: "$", tag: "span", attributes: ' class="scrollKatex"', exclusive: true, name: "katex"})
