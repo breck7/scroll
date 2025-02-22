@@ -267,6 +267,7 @@ stamp
    extends abstractMarkupParser
    javascript
     tag = "code"
+    get allAttributes() {return `class="scrollInlineCode"` }
   
   aftertextStrikeParser
    popularity 0.000048
@@ -2050,6 +2051,7 @@ stamp
     # Hello world
    javascript
     get code() {
+     // Todo: fix the bug where this will prevent buildRequirements from triggering. Refactor the requireOnce code.
      return this.selectedParticles.filter(p => p.buildHtml).map(p => p.buildHtml()).join("\n")
     }
   
@@ -3510,7 +3512,7 @@ stamp
     }
     get markups() {
       const {root} = this
-      let markups = [{delimiter: "`", tag: "code", exclusive: true, name: "code"},{delimiter: "*", tag: "strong", name: "bold"}, {delimiter: "_", tag: "em", name: "italics"}]
+      let markups = [{delimiter: "`", tag: "code", exclusive: true, name: "code", attributes: 'class="scrollInlineCode"'},{delimiter: "*", tag: "strong", name: "bold"}, {delimiter: "_", tag: "em", name: "italics"}]
       // only add katex markup if the root doc has katex.
       if (root.has("katex"))
         markups.unshift({delimiter: "$", tag: "span", attributes: ' class="scrollKatex"', exclusive: true, name: "katex"})
@@ -5620,6 +5622,58 @@ stamp
         date, year, title, permalink, authors, tags, wordCount, minutes
       }
     }
+ prism.parsers
+  prismParser
+   popularity 0.001929
+   description A code block with syntax highlighting.
+   catchAllParser lineOfCodeParser
+   cueFromId
+   extends codeWithHeaderParser
+   string copyFromExternal .prism.css .prism.js
+   string requireOnce
+    <link rel="stylesheet" href=".prism.css">
+    <script defer src=".prism.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof Prism !== 'undefined') {
+        Prism.highlightAll();
+      }
+    });
+    </script>
+   example
+    prism javascript
+     const hello = "world";
+     console.log(hello);
+   javascript
+    buildHtml(buildSettings) {
+     const content = this.content || "text"
+     const language = content.split(".").pop()
+     const header = content.includes(".") ? content : ""
+     const languageClass = `language-${language}`;
+     const prefix = this.getHtmlRequirements(buildSettings)
+     const body = `<pre><code class="${languageClass}">${this.code.replace(/\</g, "&lt;")}</code></pre>`
+     if (!header)
+      return prefix + body
+     return prefix + `<div class="codeWithHeader"><div class="codeHeader">${header}</div>` + body + "</div>"
+    }
+    buildTxt() {
+      return "```" + (this.content || "") + "\n" + this.code + "\n```";
+    }
+  
+  prismFromFileParser
+   cueFromId
+   atoms cueAtom urlAtom
+   extends prismParser
+   example
+    prismFromFile math.py
+   javascript
+    get code() {
+      return this.root.readSyncFromFileOrUrl(this.content)
+    }
+    get dependencies() { return [this.cue]}
+    async load() {
+      await this.root.fetch(this.content)
+    }
  qrcode.parsers
   qrcodeParser
    extends abstractCaptionedParser
@@ -6098,7 +6152,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "170.5.0"
+      return "171.0.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

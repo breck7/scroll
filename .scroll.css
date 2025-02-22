@@ -231,7 +231,7 @@ p {
   border-left: 0.5rem solid var(--scrollColorBorder);
 }
 
-code {
+.scrollInlineCode {
   font-family: var(--scrollFontMono);
   font-size: 0.9rem;
   background-color: var(--scrollColorSurface);

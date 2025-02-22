@@ -259,6 +259,7 @@ aftertextCodeParser
  extends abstractMarkupParser
  javascript
   tag = "code"
+  get allAttributes() {return `class="scrollInlineCode"` }
 
 aftertextStrikeParser
  popularity 0.000048
