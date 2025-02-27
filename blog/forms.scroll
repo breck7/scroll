@@ -37,7 +37,7 @@ And guess what? You can still also compile to a one-field-at-a-time HTML form an
 # You can use this TODAY!
 
 This now ships in Scroll. Here is a test form. You can also see it in use in many of our products.
- ../tests/forms.html a test form
+ ../tests/scrollFormsTest.html a test form
 
 Because this is new technology, it is not for those that need spoon feeding. Believe it or not, making web forms also used to be complicated.
 
