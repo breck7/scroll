@@ -1,9 +1,76 @@
 [
   {
+    "id": "***",
+    "isPopular": true,
+    "description": "A dinkus. Breaks section.",
+    "popularity": 1083,
+    "example": "***"
+  },
+  {
+    "id": "****",
+    "isPopular": true,
+    "description": "End of post dinkus.",
+    "popularity": 574,
+    "example": "****"
+  },
+  {
+    "id": "//",
+    "isPopular": true,
+    "description": "A comment. Prints nothing.",
+    "popularity": 565
+  },
+  {
+    "id": "#",
+    "isPopular": true,
+    "description": "An html h1 tag.",
+    "popularity": 1792,
+    "example": "# Hello world"
+  },
+  {
+    "id": "##",
+    "isPopular": true,
+    "description": "An html h2 tag.",
+    "popularity": 526,
+    "example": "## Hello world"
+  },
+  {
+    "id": ">",
+    "isPopular": true,
+    "description": "A quote.",
+    "popularity": 49,
+    "example": "> The only thing we have to fear is fear itself. - FDR"
+  },
+  {
+    "id": "authors",
+    "isPopular": true,
+    "description": "Set author(s) name(s).",
+    "popularity": 738,
+    "example": "authors Breck Yunits\n https://breckyunits.com Breck Yunits"
+  },
+  {
     "id": "blankLineParser",
     "isPopular": true,
     "description": "Print nothing. Break section.",
     "popularity": 30815
+  },
+  {
+    "id": "buildHtml",
+    "isPopular": true,
+    "description": "Compile to HTML file.",
+    "popularity": 765
+  },
+  {
+    "id": "buildTxt",
+    "isPopular": true,
+    "description": "Compile to TXT file.",
+    "popularity": 760
+  },
+  {
+    "id": "caption",
+    "isPopular": true,
+    "description": "An image caption.",
+    "popularity": 321,
+    "example": "map.png\n caption A map."
   },
   {
     "id": "catchAllParagraph",
@@ -12,11 +79,1186 @@
     "popularity": 11557
   },
   {
+    "id": "code",
+    "isPopular": true,
+    "description": "A code block.",
+    "popularity": 193,
+    "example": "code\n two = 1 + 1"
+  },
+  {
+    "id": "date",
+    "isPopular": true,
+    "description": "Set published date.",
+    "popularity": 668,
+    "example": "date 1/11/2019\nprintDate\nHello world\n dateline"
+  },
+  {
     "id": "htmlInlineParser",
     "isPopular": true,
     "description": "Inline HTML.",
     "popularity": 579,
     "example": "<h1>Inline HTML</h1>"
+  },
+  {
+    "id": "image",
+    "isPopular": true,
+    "description": "An img tag.",
+    "popularity": 591,
+    "example": "image screenshot.png\n caption A caption."
+  },
+  {
+    "id": "printAuthors",
+    "isPopular": true,
+    "description": "Prints author(s) byline.",
+    "popularity": 167,
+    "example": "authors Breck Yunits\n https://breckyunits.com\nprintAuthors"
+  },
+  {
+    "id": "printDate",
+    "isPopular": true,
+    "description": "Print published date.",
+    "popularity": 44,
+    "example": "date 1/11/2019\nprintDate"
+  },
+  {
+    "id": "printTitle",
+    "isPopular": true,
+    "description": "Print title.",
+    "popularity": 758,
+    "example": "title Eureka\nprintTitle"
+  },
+  {
+    "id": "theme",
+    "isPopular": true,
+    "description": "A collection of simple themes.",
+    "popularity": 753,
+    "example": "theme gazette"
+  },
+  {
+    "id": "title",
+    "isPopular": true,
+    "description": "Set title.",
+    "popularity": 753,
+    "example": "title Eureka\nprintTitle"
+  },
+  {
+    "id": "-",
+    "description": "A list item.",
+    "popularity": 1433,
+    "example": "- I had a _new_ thought."
+  },
+  {
+    "id": "---",
+    "description": "A horizontal rule.",
+    "popularity": 37,
+    "example": "---"
+  },
+  {
+    "id": "!",
+    "description": "Counterpoint comment. Prints nothing.",
+    "popularity": 20
+  },
+  {
+    "id": "?",
+    "description": "A question.",
+    "popularity": 425,
+    "example": "? Why is the sky blue?"
+  },
+  {
+    "id": "[]",
+    "description": "A task todo.",
+    "popularity": 20,
+    "example": "[] Get milk"
+  },
+  {
+    "id": "[x]",
+    "description": "A completed task.",
+    "popularity": 8,
+    "example": "[x] get milk"
+  },
+  {
+    "id": "*",
+    "description": "A paragraph.",
+    "popularity": 189,
+    "example": "* I had a _new_ idea."
+  },
+  {
+    "id": "###",
+    "description": "An html h3 tag.",
+    "popularity": 109,
+    "example": "### Hello world"
+  },
+  {
+    "id": "####",
+    "description": "An html h4 tag.",
+    "popularity": 29,
+    "example": "#### Hello world"
+  },
+  {
+    "id": "#####",
+    "description": "An html h5 tag.",
+    "popularity": 0,
+    "example": "##### Hello world"
+  },
+  {
+    "id": "a",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "a Home\n href /"
+  },
+  {
+    "id": "aboveAsCode",
+    "description": "Print code above.",
+    "popularity": 49,
+    "example": "counter 1 second\naboveAsCode"
+  },
+  {
+    "id": "aboveAsHtml",
+    "description": "Displays html output of previous particle in a code block.",
+    "popularity": 66,
+    "example": "# Hello world\naboveAsHtml"
+  },
+  {
+    "id": "article",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "article\n h1 My article"
+  },
+  {
+    "id": "aside",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "aside\n h1 Some notes"
+  },
+  {
+    "id": "assertBuildIncludes",
+    "description": "Test above particle's output.",
+    "popularity": 0,
+    "example": "buildCsv\nassertBuildIncludes virginica"
+  },
+  {
+    "id": "assertHtmlEquals",
+    "description": "Test above particle's output.",
+    "popularity": 0,
+    "example": "<b></b>\nassertHtmlEquals <b></b>"
+  },
+  {
+    "id": "assertHtmlExcludes",
+    "description": "Test above particle's output.",
+    "popularity": 0
+  },
+  {
+    "id": "assertHtmlIncludes",
+    "description": "Test above particle's output.",
+    "popularity": 0
+  },
+  {
+    "id": "assertSilenceBelowErrors",
+    "description": "Silence errors in the below particle in automated tests.",
+    "popularity": 0
+  },
+  {
+    "id": "background",
+    "description": "Quickly set CSS background.",
+    "popularity": 722,
+    "example": "background red"
+  },
+  {
+    "id": "barchart",
+    "description": "Bar chart widget.",
+    "popularity": 0,
+    "example": "iris\n barchart"
+  },
+  {
+    "id": "baseUrl",
+    "description": "Required for RSS and OpenGraph.",
+    "popularity": 919,
+    "example": "baseUrl https://hub.scroll.pub/"
+  },
+  {
+    "id": "belowAsCode",
+    "description": "Print code below.",
+    "popularity": 66,
+    "example": "belowAsCode\niris\n printTable"
+  },
+  {
+    "id": "belowAsCodeUntil",
+    "description": "Print code above until match.",
+    "popularity": 66,
+    "example": "belowAsCode\ncounter 1 second"
+  },
+  {
+    "id": "belowAsHtml",
+    "description": "Displays html output of next particle in a code block.",
+    "popularity": 66,
+    "example": "belowAsHtml\n# Hello world"
+  },
+  {
+    "id": "blink",
+    "description": "Just for fun.",
+    "popularity": 0,
+    "example": "blink Carpe diem!"
+  },
+  {
+    "id": "blockquote",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "blockquote\n p A wise quote"
+  },
+  {
+    "id": "br",
+    "description": "A break.",
+    "popularity": 10,
+    "example": "br 2"
+  },
+  {
+    "id": "buildConcepts",
+    "description": "Compile concepts to delimited files.",
+    "popularity": 3
+  },
+  {
+    "id": "buildCss",
+    "description": "Compile to CSS file.",
+    "popularity": 5,
+    "example": "buildCss"
+  },
+  {
+    "id": "buildCsv",
+    "description": "Compile to CSV file.",
+    "popularity": 10,
+    "example": "buildCsv"
+  },
+  {
+    "id": "buildJs",
+    "description": "Compile to JS file.",
+    "popularity": 0
+  },
+  {
+    "id": "buildJson",
+    "description": "Compile to JSON file.",
+    "popularity": 10
+  },
+  {
+    "id": "buildMeasures",
+    "description": "Compile measures to delimited files.",
+    "popularity": 3
+  },
+  {
+    "id": "buildParsers",
+    "description": "Compile to Parsers file.",
+    "popularity": 10
+  },
+  {
+    "id": "buildPdf",
+    "description": "Compile to PDF file.",
+    "popularity": 10
+  },
+  {
+    "id": "buildRss",
+    "description": "Compile to RSS file.",
+    "popularity": 5
+  },
+  {
+    "id": "buildTsv",
+    "description": "Compile to TSV file.",
+    "popularity": 10
+  },
+  {
+    "id": "button",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "button Submit\n type submit"
+  },
+  {
+    "id": "canonicalUrl",
+    "description": "Override canonical URL.",
+    "popularity": 0
+  },
+  {
+    "id": "canvas",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "canvas"
+  },
+  {
+    "id": "center",
+    "description": "A centered section.",
+    "popularity": 642,
+    "example": "center\nThis paragraph is centered."
+  },
+  {
+    "id": "chat",
+    "description": "A faux text chat conversation.",
+    "popularity": 37,
+    "example": "chat\n Hi\n 👋"
+  },
+  {
+    "id": "classicForm",
+    "description": "Generate input form for ScrollSet.",
+    "popularity": 640
+  },
+  {
+    "id": "clearStack",
+    "description": "Clear body stack.",
+    "popularity": 10
+  },
+  {
+    "id": "cloc",
+    "description": "Output results of cloc as table.",
+    "popularity": 214,
+    "example": "datatable\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
+  },
+  {
+    "id": "codeFromFile",
+    "description": "A code block.",
+    "popularity": 17,
+    "example": "codeFromFile math.py"
+  },
+  {
+    "id": "codeWithHeader",
+    "description": "A code block.",
+    "popularity": 17,
+    "example": "codeWithHeader math.py\n two = 1 + 1"
+  },
+  {
+    "id": "color",
+    "description": "Quickly set CSS font-color.",
+    "popularity": 722
+  },
+  {
+    "id": "comment",
+    "description": "Prints nothing.",
+    "popularity": 20
+  },
+  {
+    "id": "concepts",
+    "description": "Load concepts as datatable.",
+    "popularity": 0,
+    "example": "concepts\n printTable"
+  },
+  {
+    "id": "container",
+    "description": "A centered HTML div.",
+    "popularity": 10,
+    "example": "container 600px"
+  },
+  {
+    "id": "copyButtons",
+    "description": "Copy code widget.",
+    "popularity": 148
+  },
+  {
+    "id": "counter",
+    "description": "Visualize the speed of something.",
+    "popularity": 0,
+    "example": "counter 4.5 Babies Born"
+  },
+  {
+    "id": "css",
+    "description": "A style tag.",
+    "popularity": 722,
+    "example": "css\n body { color: red;}"
+  },
+  {
+    "id": "dashboard",
+    "description": "Key stats in large font.",
+    "popularity": 15,
+    "example": "dashboard\n #2 Popularity\n 30 Years Old\n $456 Revenue"
+  },
+  {
+    "id": "datatable",
+    "description": "A datatable.",
+    "popularity": 214,
+    "example": "datatable\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
+  },
+  {
+    "id": "debugAbove",
+    "description": "Inspect particle above.",
+    "popularity": 66,
+    "example": "belowAsCode\niris\n printTable"
+  },
+  {
+    "id": "debugAll",
+    "description": "Inspect entire document.",
+    "popularity": 66,
+    "example": "belowAsCode\niris\n printTable"
+  },
+  {
+    "id": "debugBelow",
+    "description": "Inspect particle below.",
+    "popularity": 66,
+    "example": "belowAsCode\niris\n printTable"
+  },
+  {
+    "id": "debugParsers",
+    "description": "Print the parsers used.",
+    "popularity": 193,
+    "example": "code\n two = 1 + 1"
+  },
+  {
+    "id": "debugSourceMap",
+    "description": "Print the source map.",
+    "popularity": 193,
+    "example": "code\n two = 1 + 1"
+  },
+  {
+    "id": "debugSourceStack",
+    "description": "Print compilation steps.",
+    "popularity": 0,
+    "example": "printOriginalSource"
+  },
+  {
+    "id": "dependencies",
+    "description": "Get files this file depends on.",
+    "popularity": 214,
+    "example": "datatable\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
+  },
+  {
+    "id": "description",
+    "description": "Description for SEO meta tag.",
+    "popularity": 169
+  },
+  {
+    "id": "dinkus",
+    "description": "A custom dinkus.",
+    "popularity": 0
+  },
+  {
+    "id": "disk",
+    "description": "Output file into as datatable.",
+    "popularity": 214,
+    "example": "datatable\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
+  },
+  {
+    "id": "div",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "div\n # Hello world\n div\n  # Deeper"
+  },
+  {
+    "id": "downloadButton",
+    "description": "Link to download/WWS page.",
+    "popularity": 630
+  },
+  {
+    "id": "editBaseUrl",
+    "description": "Override edit link baseUrl.",
+    "popularity": 784
+  },
+  {
+    "id": "editButton",
+    "description": "Print badge top right.",
+    "popularity": 1397
+  },
+  {
+    "id": "editLink",
+    "description": "Print \"Edit\" link.",
+    "popularity": 121
+  },
+  {
+    "id": "editUrl",
+    "description": "Override edit link.",
+    "popularity": 0
+  },
+  {
+    "id": "em",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "em Emphasized text"
+  },
+  {
+    "id": "email",
+    "description": "Set email address for site contact.",
+    "popularity": 131
+  },
+  {
+    "id": "emailButton",
+    "description": "Email button.",
+    "popularity": 630
+  },
+  {
+    "id": "endColumns",
+    "description": "End columns.",
+    "popularity": 779
+  },
+  {
+    "id": "endSnippet",
+    "description": "Cut for snippet here.",
+    "popularity": 430
+  },
+  {
+    "id": "expander",
+    "description": "An collapsible HTML details tag.",
+    "popularity": 8,
+    "example": "expander Knock Knock\nWho's there?"
+  },
+  {
+    "id": "favicon",
+    "description": "Favicon file.",
+    "popularity": 169,
+    "example": "favicon logo.png\nmetatags\nbuildHtml"
+  },
+  {
+    "id": "fetch",
+    "description": "Download URL to disk.",
+    "popularity": 0,
+    "example": "fetch https://breckyunits.com/posts.csv\nfetch https://breckyunits.com/posts.csv renamed.csv"
+  },
+  {
+    "id": "fileNav",
+    "description": "Titles and links in group(s).",
+    "popularity": 5,
+    "example": "printSnippets index"
+  },
+  {
+    "id": "font",
+    "description": "Quickly set font family.",
+    "popularity": 722,
+    "example": "font Slim"
+  },
+  {
+    "id": "footer",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "footer\n p Made with love"
+  },
+  {
+    "id": "form",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "form\n input"
+  },
+  {
+    "id": "h1",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "main\n h1 Title"
+  },
+  {
+    "id": "h2",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "main\n h2 Title"
+  },
+  {
+    "id": "h3",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "main\n h3 Title"
+  },
+  {
+    "id": "h4",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "main\n h4 Title"
+  },
+  {
+    "id": "hakon",
+    "description": "Compile Hakon to CSS.",
+    "popularity": 0
+  },
+  {
+    "id": "header",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "header\n # Title"
+  },
+  {
+    "id": "heatrix",
+    "description": "A heatmap matrix data visualization.",
+    "popularity": 0,
+    "example": "heatrix\n '2007 '2008 '2009 '2010 '2011 '2012 '2013 '2014 '2015 '2016 '2017 '2018 '2019 '2020 '2021 '2022 '2023 '2024\n 4 11 23 37 3 14 12 0 0 0 5 1 2 11 15 10 12 56"
+  },
+  {
+    "id": "heatrixAdvanced",
+    "description": "Advanced heatrix.",
+    "popularity": 5,
+    "example": "heatrix\n datatable\n   \n  %h10; '2007 '2008 '2009\n   12 4 323\n scale\n  #ebedf0 0\n  #c7e9c0 100\n  #a1d99b 400\n  #74c476 1600"
+  },
+  {
+    "id": "helpfulNotFound",
+    "description": "Helpful not found widget.",
+    "popularity": 5
+  },
+  {
+    "id": "homeButton",
+    "description": "Home button.",
+    "popularity": 640
+  },
+  {
+    "id": "html",
+    "description": "HTML one liners or blocks.",
+    "popularity": 5
+  },
+  {
+    "id": "htmlLang",
+    "description": "Override HTML lang attribute.",
+    "popularity": 0
+  },
+  {
+    "id": "iframe",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "iframe"
+  },
+  {
+    "id": "iframes",
+    "description": "An iframe(s).",
+    "popularity": 13,
+    "example": "iframes frame.html"
+  },
+  {
+    "id": "img",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "img foo.png"
+  },
+  {
+    "id": "import",
+    "description": "Import a file.",
+    "popularity": 753,
+    "example": "import header.scroll"
+  },
+  {
+    "id": "importOnly",
+    "description": "Don't build this file.",
+    "popularity": 3357
+  },
+  {
+    "id": "inlineCss",
+    "description": "Inline CSS from files.",
+    "popularity": 722
+  },
+  {
+    "id": "inlineJs",
+    "description": "Inline JS from files.",
+    "popularity": 722
+  },
+  {
+    "id": "inlineMarkups",
+    "description": "Set global inline markups.",
+    "popularity": 3,
+    "example": "inlineMarkups\n * \n  // Disable * for bold\n _ u\n  // Make _ underline"
+  },
+  {
+    "id": "input",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "input\n type text\n placeholder Enter your name"
+  },
+  {
+    "id": "iris",
+    "description": "Iris dataset from R.A. Fisher.",
+    "popularity": 214,
+    "example": "iris\n printTable\n scatter\n  x SepalLength\n  y SepalWidth"
+  },
+  {
+    "id": "jsonScript",
+    "description": "Include JSON and assign to window.",
+    "popularity": 753
+  },
+  {
+    "id": "katex",
+    "description": "KaTex widget for typeset math.",
+    "popularity": 160,
+    "example": "katex\n \\text{E} = \\text{T} / \\text{A}!"
+  },
+  {
+    "id": "kbd",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "main\n kbd Ctrl+→"
+  },
+  {
+    "id": "keyboardNav",
+    "description": "Make left and right navigate files.",
+    "popularity": 748
+  },
+  {
+    "id": "keywords",
+    "description": "Keywords for SEO meta tag.",
+    "popularity": 169
+  },
+  {
+    "id": "label",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "label Name\n for username"
+  },
+  {
+    "id": "leftRightButtons",
+    "description": "Previous and next nav buttons.",
+    "popularity": 635
+  },
+  {
+    "id": "li",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "ol\n li A list"
+  },
+  {
+    "id": "linechart",
+    "description": "Line chart widget.",
+    "popularity": 0,
+    "example": "iris\n linechart\n  x SepalLength\n  y SepalWidth"
+  },
+  {
+    "id": "linkTitle",
+    "description": "Text for links.",
+    "popularity": 753,
+    "example": "title My blog - Eureka\nlinkTitle Eureka"
+  },
+  {
+    "id": "loadConcepts",
+    "description": "Import all concepts in a folder.",
+    "popularity": 0
+  },
+  {
+    "id": "loremIpsum",
+    "description": "Generate dummy text.",
+    "popularity": 0
+  },
+  {
+    "id": "main",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "main\n # Title"
+  },
+  {
+    "id": "map",
+    "description": "Map widget.",
+    "popularity": 0
+  },
+  {
+    "id": "mediumColumn",
+    "description": "A medium column section.",
+    "popularity": 338
+  },
+  {
+    "id": "mediumColumns",
+    "description": "Medium width columns.",
+    "popularity": 338
+  },
+  {
+    "id": "meta",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "meta\n name description\n content A great page about meta tags"
+  },
+  {
+    "id": "metaTags",
+    "description": "Print meta tags including title.",
+    "popularity": 770
+  },
+  {
+    "id": "modal",
+    "description": "A modal dialog overlay.",
+    "popularity": 0
+  },
+  {
+    "id": "music",
+    "description": "Play sound files.",
+    "popularity": 3,
+    "example": "music sipOfCoffee.m4a"
+  },
+  {
+    "id": "nav",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "nav\n a Home\n  href /"
+  },
+  {
+    "id": "nickelbackIpsum",
+    "description": "Generate dummy text.",
+    "popularity": 0
+  },
+  {
+    "id": "notices",
+    "description": "Display messages in URL query parameters.",
+    "popularity": 0
+  },
+  {
+    "id": "ol",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "ol\n li A list"
+  },
+  {
+    "id": "openGraphImage",
+    "description": "Override Open Graph Image.",
+    "popularity": 80
+  },
+  {
+    "id": "option",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "select\n option Choose an option\n option First Option"
+  },
+  {
+    "id": "p",
+    "description": "A paragraph.",
+    "popularity": 189,
+    "example": "p I had a _new_ idea."
+  },
+  {
+    "id": "permalink",
+    "description": "Override output filename.",
+    "popularity": 27
+  },
+  {
+    "id": "plainText",
+    "description": "Plain text oneliner or block.",
+    "popularity": 0
+  },
+  {
+    "id": "plainTextOnly",
+    "description": "Only print for buildTxt.",
+    "popularity": 8
+  },
+  {
+    "id": "posts",
+    "description": "Posts as datatable.",
+    "popularity": 3,
+    "example": "// Print a search datatable:\nposts\n printTable\ntableSearch\n// Dump a CSV of blog:\nbuildHtml\nbuildCsv\nbuildJson"
+  },
+  {
+    "id": "postsMeta",
+    "description": "Post meta as datatable.",
+    "popularity": 3
+  },
+  {
+    "id": "pre",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "pre"
+  },
+  {
+    "id": "printColumn",
+    "description": "Print one column",
+    "popularity": 3,
+    "example": "printColumn tags"
+  },
+  {
+    "id": "printFeed",
+    "description": "Print group to RSS.",
+    "popularity": 5,
+    "example": "printFeed index\nprintFeed cars/index\nbuildRss"
+  },
+  {
+    "id": "printFormatLinks",
+    "description": "Prints links to other formats.",
+    "popularity": 0,
+    "example": "printFormatLinks"
+  },
+  {
+    "id": "printFullSnippets",
+    "description": "Print full pages in group(s).",
+    "popularity": 5,
+    "example": "printSnippets index"
+  },
+  {
+    "id": "printRelated",
+    "description": "Print links to related posts.",
+    "popularity": 119,
+    "example": "printSnippets index"
+  },
+  {
+    "id": "printShortSnippets",
+    "description": "Titles and descriptions in group(s).",
+    "popularity": 5,
+    "example": "printSnippets index"
+  },
+  {
+    "id": "printSiteMap",
+    "description": "Print text sitemap.",
+    "popularity": 8,
+    "example": "baseUrl http://test.com\nprintSiteMap"
+  },
+  {
+    "id": "printSnippets",
+    "description": "Prints snippets matching tag(s).",
+    "popularity": 34,
+    "example": "printSnippets index"
+  },
+  {
+    "id": "printSource",
+    "description": "Print source for files in group(s).",
+    "popularity": 3,
+    "example": "printSource index\nbuildTxt source.txt"
+  },
+  {
+    "id": "printTable",
+    "description": "Print datatable.",
+    "popularity": 109
+  },
+  {
+    "id": "printUsageStats",
+    "description": "Parser usage stats for folder.",
+    "popularity": 10
+  },
+  {
+    "id": "prism",
+    "description": "A code block with syntax highlighting.",
+    "popularity": 193,
+    "example": "prism javascript\n const hello = \"world\";\n console.log(hello);"
+  },
+  {
+    "id": "prismFromFile",
+    "description": "A code block with syntax highlighting.",
+    "popularity": 193,
+    "example": "prismFromFile math.py"
+  },
+  {
+    "id": "qrcode",
+    "description": "Make a QR code from a link.",
+    "popularity": 0,
+    "example": "qrcode https://scroll.pub"
+  },
+  {
+    "id": "quote",
+    "description": "A quote.",
+    "popularity": 148
+  },
+  {
+    "id": "redirectTo",
+    "description": "HTML redirect tag.",
+    "popularity": 8,
+    "example": "redirectTo https://scroll.pub/releaseNotes.html"
+  },
+  {
+    "id": "replace",
+    "description": "Replace this with that.",
+    "popularity": 0,
+    "example": "replace YEAR 2022"
+  },
+  {
+    "id": "replaceJs",
+    "description": "Replace this with evaled JS.",
+    "popularity": 0,
+    "example": "replaceJs SUM 1+1\n* 1+1 = SUM"
+  },
+  {
+    "id": "replaceNodejs",
+    "description": "Replace with evaled Node.JS.",
+    "popularity": 0,
+    "example": "replaceNodejs\n module.exports = {SCORE : 1 + 2}\n* The score is SCORE"
+  },
+  {
+    "id": "rssFeedUrl",
+    "description": "Set RSS feed URL.",
+    "popularity": 885
+  },
+  {
+    "id": "run",
+    "description": "Run script and dump stdout.",
+    "popularity": 3
+  },
+  {
+    "id": "sampleData",
+    "description": "Sample dataset from Vega.",
+    "popularity": 214,
+    "example": "sampleData zipcodes.csv\n printTable"
+  },
+  {
+    "id": "scatterplot",
+    "description": "Scatterplot Widget.",
+    "popularity": 0,
+    "example": "iris\n scatterplot"
+  },
+  {
+    "id": "script",
+    "description": "Print script tag.",
+    "popularity": 0
+  },
+  {
+    "id": "scrollButton",
+    "description": "A button.",
+    "popularity": 0,
+    "example": "scrollButton Click me"
+  },
+  {
+    "id": "scrollForm",
+    "description": "Generate a Scroll Form.",
+    "popularity": 640
+  },
+  {
+    "id": "scrollVersionLink",
+    "description": "Print Scroll version.",
+    "popularity": 630
+  },
+  {
+    "id": "section",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "section\n # Hello world\n p This is a test\n section\n  # Deeper"
+  },
+  {
+    "id": "select",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "select\n option Value 1\n option Value 2"
+  },
+  {
+    "id": "slideshow",
+    "description": "Slideshow widget. *** delimits slides.",
+    "popularity": 0,
+    "example": "slideshow\nWhy did the cow cross the road?\n***\nBecause it wanted to go to the MOOOO-vies.\n***\nTHE END\n****"
+  },
+  {
+    "id": "span",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "span Hello"
+  },
+  {
+    "id": "sparkline",
+    "description": "Sparkline widget.",
+    "popularity": 3,
+    "example": "sparkline 1 2 3 4 5"
+  },
+  {
+    "id": "stamp",
+    "description": "Expand project template to disk.",
+    "popularity": 0,
+    "example": "stamp\n .gitignore\n  *.html\n readme.scroll\n  # Hello world\n  <script src=\"scripts/nested/hello.js\"></script>\n scripts/\n  nested/\n   hello.js\n    console.log(\"Hello world\")"
+  },
+  {
+    "id": "stopwatch",
+    "description": "A stopwatch.",
+    "popularity": 0,
+    "example": "stopwatch"
+  },
+  {
+    "id": "strong",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "strong Important text"
+  },
+  {
+    "id": "stump",
+    "description": "Compile Stump to HTML.",
+    "popularity": 0
+  },
+  {
+    "id": "stumpNoSnippet",
+    "description": "Compile Stump unless snippet.",
+    "popularity": 1018
+  },
+  {
+    "id": "table",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "table\n tr\n  th Header 1\n  th Header 2\n tr\n  td Cell 1\n  td Cell 2"
+  },
+  {
+    "id": "tableSearch",
+    "description": "Table search and sort widget.",
+    "popularity": 8
+  },
+  {
+    "id": "tags",
+    "description": "Set tags.",
+    "popularity": 681,
+    "example": "tags All"
+  },
+  {
+    "id": "tbody",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "tbody\n tr\n  td Cell 1"
+  },
+  {
+    "id": "td",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "td Cell content"
+  },
+  {
+    "id": "testStrict",
+    "description": "Make catchAllParagraphParser = error.",
+    "popularity": 0
+  },
+  {
+    "id": "textarea",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "textarea\n placeholder Enter your message\n rows 4"
+  },
+  {
+    "id": "th",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "th Header content"
+  },
+  {
+    "id": "thanksTo",
+    "description": "Acknowledgements comment. Prints nothing.",
+    "popularity": 0
+  },
+  {
+    "id": "thead",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "thead\n tr\n  th Header 1"
+  },
+  {
+    "id": "theScrollButton",
+    "description": "WWS button.",
+    "popularity": 630
+  },
+  {
+    "id": "thinColumn",
+    "description": "A thin column section.",
+    "popularity": 338
+  },
+  {
+    "id": "thinColumns",
+    "description": "Thin columns.",
+    "popularity": 369
+  },
+  {
+    "id": "toFooter",
+    "description": "Experimental way to move a section to the footer.",
+    "popularity": 0
+  },
+  {
+    "id": "toStamp",
+    "description": "Print a directory to stamp with configurable filters.",
+    "popularity": 0
+  },
+  {
+    "id": "tr",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "tr\n td Cell 1"
+  },
+  {
+    "id": "ul",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "ul\n li A list"
+  },
+  {
+    "id": "video",
+    "description": "Play video files.",
+    "popularity": 3,
+    "example": "video spirit.mp4"
+  },
+  {
+    "id": "wideColumn",
+    "description": "A wide column section.",
+    "popularity": 338
+  },
+  {
+    "id": "wideColumns",
+    "description": "Wide columns.",
+    "popularity": 39
+  },
+  {
+    "id": "youtube",
+    "description": "A YouTube video widget.",
+    "popularity": 13,
+    "example": "youtube https://www.youtube.com/watch?v=lO8blNtYYBA"
   }
 ]
 []

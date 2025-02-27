@@ -89,6 +89,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 171.0.1 2/27/2025
+🏥 fix regression in LeetSheet. getAutocompleteResultsAt in sdk returns different results after adding the filepath to the line of a Scroll particle.
+🏥 when building a single file silence errors about keyboard nav links
+
 📦 171.0.0 2/22/2025
 🎉 Add `prism` parsers for code syntax highlighting
 

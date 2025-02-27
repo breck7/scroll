@@ -4199,6 +4199,7 @@ printScrollLeetSheetParser
   get parsersToDocument() {
     const clone = this.root.clone()
     clone.setSubparticles("")
+    clone.appendLine("")
     const atoms = clone.getAutocompleteResultsAt(0,0).matches.map(a => a.text)
     atoms.push("blankline") // manually add blank line
     atoms.push("Catch All Paragraph.") // manually add catch all paragraph
@@ -6733,7 +6734,7 @@ scrollParser
     }
   }
   // keyboard nav is always in the same folder. does not currently support cross folder
-  includeFileInKeyboardNav(file) {
+  _includeFileInKeyboardNav(file) {
     const { scrollProgram } = file
     return scrollProgram.buildsHtml && scrollProgram.hasKeyboardNav && scrollProgram.tags.includes(this.primaryTag)
   }
@@ -6746,7 +6747,8 @@ scrollParser
       return undefined
     const {allScrollFiles} = this
     let file = this._nextAndPrevious(allScrollFiles, this.timeIndex).previous
-    while (!this.includeFileInKeyboardNav(file)) {
+    if (!file) return undefined
+    while (!this._includeFileInKeyboardNav(file)) {
       file = this._nextAndPrevious(allScrollFiles, file.timeIndex).previous
     }
     return file.scrollProgram.permalink
@@ -6758,7 +6760,8 @@ scrollParser
       return undefined
     const {allScrollFiles} = this
     let file = this._nextAndPrevious(allScrollFiles, this.timeIndex).next
-    while (!this.includeFileInKeyboardNav(file)) {
+    if (!file) return undefined
+    while (!this._includeFileInKeyboardNav(file)) {
       file = this._nextAndPrevious(allScrollFiles, file.timeIndex).next
     }
     return file.scrollProgram.permalink
@@ -6982,7 +6985,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "171.0.0"
+    return "171.0.1"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

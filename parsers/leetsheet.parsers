@@ -42,6 +42,7 @@ printScrollLeetSheetParser
   get parsersToDocument() {
     const clone = this.root.clone()
     clone.setSubparticles("")
+    clone.appendLine("")
     const atoms = clone.getAutocompleteResultsAt(0,0).matches.map(a => a.text)
     atoms.push("blankline") // manually add blank line
     atoms.push("Catch All Paragraph.") // manually add catch all paragraph
