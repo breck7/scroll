@@ -15,6 +15,7 @@ br
 thinColumns 4
 
 printScrollLeetSheet
+assertHtmlIncludes ollection of simple t
 
 endColumns
 
