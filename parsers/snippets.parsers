@@ -76,8 +76,8 @@ printShortSnippetsParser
  description Titles and descriptions in group(s).
  javascript
   makeSnippet(scrollProgram, buildSettings) {
-   const { title, permalink, description, timestamp } = scrollProgram
-   return `<div><a href="${permalink}">${title}</a><div>${description}...</div><div class="subdued" style="text-align:right;">${this.root.dayjs(timestamp * 1000).format(`MMMM D, YYYY`)}</div></div>`
+   const { title, permalink, description, dateObject } = scrollProgram
+   return `<div><a href="${permalink}">${title}</a><div>${description}...</div><div class="subdued" style="text-align:right;">${dateObject.format(`MMMM D, YYYY`)}</div></div>`
   }
 
 printRelatedParser

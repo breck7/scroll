@@ -355,7 +355,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "172.0.0"
+    return "173.0.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -448,8 +448,11 @@ scrollParser
     return parseFloat((this.wordCount / 200).toFixed(1))
   }
   get date() {
+    return this.dateObject.format(`MM/DD/YYYY`)
+  }
+  get dateObject() {
     const date = this.get("date") || (this.file.timestamp ? this.file.timestamp : 0)
-    return this.dayjs(date).format(`MM/DD/YYYY`)
+    return this.dayjs(date)
   }
   get year() {
     return parseInt(this.dayjs(this.date).format(`YYYY`))

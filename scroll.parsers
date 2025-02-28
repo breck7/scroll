@@ -263,6 +263,10 @@ abstractAftertextParser
     .filter(i => i)
     .flat()
   }
+  buildHtmlSnippet(buildSettings) {
+   if (this.has("noSnippet")) return ""
+   return super.buildHtmlSnippet(buildSettings)
+  }
   get originalText() {
    return this.content ?? ""
   }
@@ -1682,8 +1686,8 @@ printShortSnippetsParser
  description Titles and descriptions in group(s).
  javascript
   makeSnippet(scrollProgram, buildSettings) {
-   const { title, permalink, description, timestamp } = scrollProgram
-   return `<div><a href="${permalink}">${title}</a><div>${description}...</div><div class="subdued" style="text-align:right;">${this.root.dayjs(timestamp * 1000).format(`MMMM D, YYYY`)}</div></div>`
+   const { title, permalink, description, dateObject } = scrollProgram
+   return `<div><a href="${permalink}">${title}</a><div>${description}...</div><div class="subdued" style="text-align:right;">${dateObject.format(`MMMM D, YYYY`)}</div></div>`
   }
 printRelatedParser
  popularity 0.001182
@@ -4860,29 +4864,6 @@ stampParser
     const dir = this.root.folderPath
     this.forEach(particle => particle.execute(dir))
   }
-scrollStumpParser
- cue stump
- extends abstractScrollParser
- description Compile Stump to HTML.
- catchAllParser stumpContentParser
- javascript
-  buildHtml() {
-   const {stumpParser} = this
-   return new stumpParser(this.subparticlesToString()).compile()
-  }
-  get stumpParser() {
-    return this.isNodeJs() ? require("scrollsdk/products/stump.nodejs.js") : stumpParser
-  }
-stumpNoSnippetParser
- popularity 0.010177
- // todo: make noSnippets an aftertext directive?
- extends scrollStumpParser
- description Compile Stump unless snippet.
- cueFromId
- javascript
-  buildHtmlSnippet() {
-   return ""
-  }
 plainTextParser
  description Plain text oneliner or block.
  cueFromId
@@ -5084,6 +5065,11 @@ aftertextReadonlyParser
  popularity 0.000217
  cue readonly
  description Set HTML readonly attribute.
+ extends abstractAftertextAttributeParser
+ single
+aftertextNoSnippetParser
+ cue noSnippet
+ description Generate no HTML snippet.
  extends abstractAftertextAttributeParser
  single
 aftertextAriaLabelParser
@@ -7044,7 +7030,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "172.0.0"
+    return "173.0.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -7137,8 +7123,11 @@ scrollParser
     return parseFloat((this.wordCount / 200).toFixed(1))
   }
   get date() {
+    return this.dateObject.format(`MM/DD/YYYY`)
+  }
+  get dateObject() {
     const date = this.get("date") || (this.file.timestamp ? this.file.timestamp : 0)
-    return this.dayjs(date).format(`MM/DD/YYYY`)
+    return this.dayjs(date)
   }
   get year() {
     return parseInt(this.dayjs(this.date).format(`YYYY`))
@@ -7567,9 +7556,6 @@ stampFolderParser
    fs.mkdirSync(newPath, {recursive: true})
    this.forEach(particle => particle.execute(newPath))
   }
-stumpContentParser
- popularity 0.102322
- catchAllAtomType codeAtom
 abstractTableOptionsParser
  atoms cueAtom stringAtom
  javascript

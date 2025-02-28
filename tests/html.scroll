@@ -14,3 +14,7 @@ meta
  content tag
 assertHtmlIncludes />
 
+
+ol
+ li A list item
+assertHtmlIncludes </ol>

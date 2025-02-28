@@ -352,8 +352,6 @@ scripts/
    console.log(""Hello world"")",
 stopwatch,,A stopwatch.,0,stopwatch,
 strong,,HTML tag.,0,strong Important text,
-stump,,Compile Stump to HTML.,0,,
-stumpNoSnippet,,Compile Stump unless snippet.,1018,,
 styles,,Write CSS with Particle Syntax.,0,"styles
 .styleTest
  h1

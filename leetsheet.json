@@ -1130,16 +1130,6 @@
     "example": "strong Important text"
   },
   {
-    "id": "stump",
-    "description": "Compile Stump to HTML.",
-    "popularity": 0
-  },
-  {
-    "id": "stumpNoSnippet",
-    "description": "Compile Stump unless snippet.",
-    "popularity": 1018
-  },
-  {
     "id": "styles",
     "description": "Write CSS with Particle Syntax.",
     "popularity": 0,

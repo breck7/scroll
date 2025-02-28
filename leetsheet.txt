@@ -197,8 +197,6 @@ sparkline - Sparkline widget.
 stamp - Expand project template to disk.
 stopwatch - A stopwatch.
 strong - HTML tag.
-stump - Compile Stump to HTML.
-stumpNoSnippet - Compile Stump unless snippet.
 styles - Write CSS with Particle Syntax.
 table - HTML tag.
 tableSearch - Table search and sort widget.
@@ -236,4 +234,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v172.0.0
+Built with Scroll v173.0.0

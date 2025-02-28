@@ -22,6 +22,19 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 173.0.0 2/28/2025
+🎉 Added `noSnippet` parser that can be used in all aftertext parsers to prevent HTML generation of that particle when generating a snippet.
+🏥 fix bug with date printing in short snippets.
+⚠️ BREAKING: removed stump parsers. if you were using `stump` parsers, just unnest subparticles under stump and delete stump atom.
+
+codeWithHeader Before:
+ stump
+  ol
+   li A list item
+codeWithHeader After:
+ ol
+  li A list item
+
 📦 172.0.0 2/28/2025
 🎉 Added `styles` parser, which allows you to use Particle Syntax for generating CSS.
 ⚠️ BREAKING: if you were using `hakon` just rename to `styles`

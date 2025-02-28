@@ -13,6 +13,10 @@ abstractAftertextParser
     .filter(i => i)
     .flat()
   }
+  buildHtmlSnippet(buildSettings) {
+   if (this.has("noSnippet")) return ""
+   return super.buildHtmlSnippet(buildSettings)
+  }
   get originalText() {
    return this.content ?? ""
   }
@@ -474,6 +478,12 @@ aftertextReadonlyParser
  popularity 0.000217
  cue readonly
  description Set HTML readonly attribute.
+ extends abstractAftertextAttributeParser
+ single
+
+aftertextNoSnippetParser
+ cue noSnippet
+ description Generate no HTML snippet.
  extends abstractAftertextAttributeParser
  single
 

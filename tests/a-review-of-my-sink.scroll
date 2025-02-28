@@ -14,6 +14,9 @@ thinColumns 1
 
 I have been using my sink for one year, and this is what I have learned.
 
+h1 This should appear on the page, but not in the snippet
+ noSnippet
+
 endSnippet
 
 I have learned that a sink is a sink.

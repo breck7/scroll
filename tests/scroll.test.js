@@ -286,16 +286,16 @@ testParticles.hodgePodge = async areEqual => {
     const cli = new ScrollCli().silence()
     const fileSystem = new ScrollFileSystem()
     await cli.buildFilesInFolder(fileSystem, testsFolder)
-    const groupPage = Disk.read(path.join(testsFolder, "all.html"))
+    const groupPage = Disk.read(path.join(testsFolder, "snippets.html"))
     const autoPage = Disk.read(path.join(testsFolder, "autoTitle.html"))
     const sitemap = Disk.read(path.join(testsFolder, "sitemap.txt"))
 
     // Assert
     areEqual(groupPage.includes("NUM_SINKS"), false, "var substitution worked")
-    areEqual(fs.existsSync(path.join(testsFolder, "full.html")), true, "should have full page")
+    areEqual(fs.existsSync(path.join(testsFolder, "snippets.html")), true, "should have snippets page")
     areEqual(autoPage.includes("2024"), true, "should have year 2024")
     areEqual(autoPage.includes("Auto Title"), true, "should have un camel cased title")
-    areEqual(sitemap.includes("full.html"), true, "should have a sitemap")
+    areEqual(sitemap.includes("snippets.html"), true, "should have a sitemap")
 
     areEqual(fs.readFileSync(path.join(stampFolder, "scripts", "nested", "hello.js"), "utf8"), `console.log("Hello world")`)
   } catch (err) {
