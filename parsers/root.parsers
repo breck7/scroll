@@ -75,11 +75,6 @@ scrollParser
    this.bodyStack = []
    return result
   }
-  get hakonParser() {
-    if (this.isNodeJs())
-      return require("scrollsdk/products/hakon.nodejs.js")
-    return hakonParser
-  }
   readSyncFromFileOrUrl(fileOrUrl) {
     if (!this.isNodeJs()) return this.getInBrowser(fileOrUrl)
     const isUrl = fileOrUrl.match(/^https?\:[^ ]+$/)
@@ -360,7 +355,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "171.0.1"
+    return "172.0.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
