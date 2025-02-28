@@ -3,4 +3,25 @@ buildHtml
 theme gazette
 settings.scroll
 
+# Regular Snippets
+## Test regular snippet printing.
+printSnippets all
+
+---
+
+# Short Snippets
+## Test very concise snippets.
 printShortSnippets all
+assertHtmlExcludes Invalid Date
+
+---
+
+# Full Snippets
+## Test printing full posts on one page.
+printFullSnippets index
+
+---
+
+# Relative Snippets
+## Test that you can print snippets of posts in other folders.
+printSnippets index subfolder/index
