@@ -190,7 +190,6 @@ h3,,HTML tag.,0,"main
 h3 Title",
 h4,,HTML tag.,0,"main
 h4 Title",
-hakon,,Compile Hakon to CSS.,0,,
 header,,HTML tag.,0,"header
 # Title",
 heatrix,,A heatmap matrix data visualization.,0,"heatrix
@@ -355,6 +354,13 @@ stopwatch,,A stopwatch.,0,stopwatch,
 strong,,HTML tag.,0,strong Important text,
 stump,,Compile Stump to HTML.,0,,
 stumpNoSnippet,,Compile Stump unless snippet.,1018,,
+styles,,Write CSS with Particle Syntax.,0,"styles
+.styleTest
+ h1
+  color blue
+div
+class styleTest
+h1 Hello world",
 table,,HTML tag.,0,"table
 tr
  th Header 1

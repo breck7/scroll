@@ -107,7 +107,6 @@ h1 - HTML tag.
 h2 - HTML tag.
 h3 - HTML tag.
 h4 - HTML tag.
-hakon - Compile Hakon to CSS.
 header - HTML tag.
 heatrix - A heatmap matrix data visualization.
 heatrixAdvanced - Advanced heatrix.
@@ -200,6 +199,7 @@ stopwatch - A stopwatch.
 strong - HTML tag.
 stump - Compile Stump to HTML.
 stumpNoSnippet - Compile Stump unless snippet.
+styles - Write CSS with Particle Syntax.
 table - HTML tag.
 tableSearch - Table search and sort widget.
 tags - Set tags.
@@ -236,4 +236,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v171.0.1
+Built with Scroll v172.0.0

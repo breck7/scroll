@@ -89,6 +89,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 172.0.0 2/28/2025
+🎉 Added `styles` parser, which allows you to use Particle Syntax for generating CSS.
+⚠️ BREAKING: if you were using `hakon` just rename to `styles`
+
 📦 171.0.1 2/27/2025
 🏥 fix regression in LeetSheet. getAutocompleteResultsAt in sdk returns different results after adding the filepath to the line of a Scroll particle.
 🏥 when building a single file silence errors about keyboard nav links

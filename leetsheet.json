@@ -653,11 +653,6 @@
     "example": "main\n h4 Title"
   },
   {
-    "id": "hakon",
-    "description": "Compile Hakon to CSS.",
-    "popularity": 0
-  },
-  {
     "id": "header",
     "description": "HTML tag.",
     "popularity": 0,
@@ -1143,6 +1138,12 @@
     "id": "stumpNoSnippet",
     "description": "Compile Stump unless snippet.",
     "popularity": 1018
+  },
+  {
+    "id": "styles",
+    "description": "Write CSS with Particle Syntax.",
+    "popularity": 0,
+    "example": "styles\n .styleTest\n  h1\n   color blue\ndiv\n class styleTest\n h1 Hello world"
   },
   {
     "id": "table",
