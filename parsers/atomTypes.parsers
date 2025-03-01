@@ -55,6 +55,10 @@ permalinkAtom
 filePathAtom
  paint constant.language
 
+outputFileExtensionAtom
+ extends fileExtensionAtom
+ enum html txt css js json pdf tsv csv parsers rss
+
 // HTML atom types
 tagOrUrlAtom
  description An HTML tag or a url.

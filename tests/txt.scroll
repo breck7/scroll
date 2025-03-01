@@ -1,0 +1,6 @@
+Hello world
+assert txt includes Hello
+assert txt excludes hola
+assert txt equals Hello world
+assert txt excludes <
+assert html includes <
