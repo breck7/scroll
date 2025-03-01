@@ -12,7 +12,13 @@ abstractAssertionParser
     // If the previous particle is also an assertion particle, use the one before that.
     return this.previous.particleToTest ? this.previous.particleToTest : this.previous
   }
-  get actual() {return this.particleToTest.buildHtml()}
+  get format() { return "html"}
+  get actual() {
+    let {format} = this
+    format = format.substr(0, 1).toUpperCase() + format.substr(1)
+    const methodName = `build${format}`
+    return this.particleToTest[methodName]()
+   }
   getErrors() {
     const {actual, expected} = this
     const errors = super.getErrors()
@@ -36,6 +42,34 @@ assertSilenceBelowErrorsParser
     this.next.silenceErrors = true
     this.next.topDownArray.forEach(part => part.silenceErrors = true)
     return []
+  }
+
+assertionKindAtom
+ enum includes excludes equals
+ paint constant
+
+assertParser
+ extends abstractAssertionParser
+ atoms cueAtom outputFileExtensionAtom assertionKindAtom
+ catchAllAtomType stringAtom
+ example
+  Hello
+  assert txt includes Hello
+ javascript
+  get format() {
+    return this.atoms[1]
+  }
+  get expected() {
+    return this.length ? this.subparticlesToString() : this.getAtomsFrom(3).join(" ")
+  }
+  get kind() {
+    return this.atoms[2]
+  }
+  areEqual(actual, expected) {
+    const operator = this.kind
+    if (operator === "includes") return actual.includes(expected)
+    if (operator === "excludes") return !actual.includes(expected)
+    if (operator === "equals") return actual === expected
   }
 
 assertHtmlEqualsParser

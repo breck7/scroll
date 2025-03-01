@@ -231,6 +231,12 @@
     "example": "aside\n h1 Some notes"
   },
   {
+    "id": "assert",
+    "description": "Test above particle's output.",
+    "popularity": 0,
+    "example": "Hello\nassert txt includes Hello"
+  },
+  {
     "id": "assertBuildIncludes",
     "description": "Test above particle's output.",
     "popularity": 0,

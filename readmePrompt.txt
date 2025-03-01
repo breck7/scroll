@@ -89,6 +89,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 173.1.0 2/28/2025
+🎉 Added `assert` parser.
+
 📦 173.0.0 2/28/2025
 🎉 Added `noSnippet` parser that can be used in all aftertext parsers to prevent HTML generation of that particle when generating a snippet.
 🏥 fix bug with date printing in short snippets.

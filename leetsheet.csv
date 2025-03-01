@@ -52,6 +52,8 @@ article,,HTML tag.,0,"article
 h1 My article",
 aside,,HTML tag.,0,"aside
 h1 Some notes",
+assert,,Test above particle's output.,0,"Hello
+assert txt includes Hello",
 assertBuildIncludes,,Test above particle's output.,0,"buildCsv
 assertBuildIncludes virginica",
 assertHtmlEquals,,Test above particle's output.,0,"<b></b>

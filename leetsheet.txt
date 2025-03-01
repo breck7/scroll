@@ -24,6 +24,7 @@ aboveAsCode - Print code above.
 aboveAsHtml - Displays html output of previous particle in a code block.
 article - HTML tag.
 aside - HTML tag.
+assert - Test above particle's output.
 assertBuildIncludes - Test above particle's output.
 assertHtmlEquals - Test above particle's output.
 assertHtmlExcludes - Test above particle's output.
