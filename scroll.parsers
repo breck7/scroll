@@ -6976,7 +6976,14 @@ scrollParser
   alreadyRequired = new Set()
   buildHtmlSnippet(buildSettings) {
    this.sectionStack = []
-   return this.map(subparticle => (subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : subparticle.buildHtml(buildSettings)))
+   return this.map(subparticle => {
+   try {
+   return subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : subparticle.buildHtml(buildSettings)} catch (err) {
+     console.error(`Error building snippet in file '${this.filename}' in particle '${subparticle.toString()}'`)
+     console.error(err)
+     return ""
+   }
+   })
      .filter(i => i)
      .join("\n")
      .trim() + this.clearSectionStack()
@@ -7089,7 +7096,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "174.1.0"
+    return "174.1.1"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

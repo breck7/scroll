@@ -89,6 +89,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 174.1.1 3/13/2025
+🏥 gracefully handle errors when building snippets
+
 📦 174.1.0 3/13/2025
 🎉 Added `right` aftertext parser.
 belowAsCode
