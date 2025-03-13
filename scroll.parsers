@@ -7649,3 +7649,5 @@ plainTextLineParser
  popularity 0.000121
  catchAllAtomType stringAtom
  catchAllParser plainTextLineParser
+BlobParser
+ baseParser blobParser
