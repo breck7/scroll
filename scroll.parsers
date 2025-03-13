@@ -353,7 +353,7 @@ abstractAftertextParser
    const attrs = this.filter(particle => particle.isAttribute)
    return attrs.length ? attrs.map(particle => particle.htmlAttributes).join(" ") + " " : ""
   }
-  get styles() {
+  get inlineStyles() {
     // Todo: cleanup
     const style = this.getParticle("style")
     const fontFamily = this.getParticle("font")
@@ -361,7 +361,11 @@ abstractAftertextParser
     const right = this.getParticle("right")
     if (!style && !fontFamily && !color && !right)
       return ""
-    return ` style="${style?.content};${fontFamily?.css};${color?.css};${right?.css}"`
+    return `${style?.content};${fontFamily?.css};${color?.css};${right?.css}`
+  }
+  get styles() {
+    const {inlineStyles} = this
+    return inlineStyles ? ` style="${inlineStyles}"` : ""
   }
   get htmlId() {
    return this.get("id") || "particle" + this.index
@@ -1183,17 +1187,14 @@ scrollContainerParser
  extends abstractAftertextParser
  boolean isHtml true
  javascript
-  get maxWidth() {
-    return this.atoms[1] || "1200px"
-  }
-  buildHtmlSnippet() {
-   return ""
-  }
+  get maxWidth() { return this.atoms[1] || "1200px"}
+  buildHtmlSnippet() {return ""}
   tag = "div"
   defaultClassName = "scrollContainerParser"
+  get inlineStyles() { return `width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;` + super.inlineStyles}
   buildHtml() {
    this.parent.bodyStack.push("</div>")
-   return `<style>.scrollContainerParser{width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;}</style>` + super.buildHtml()
+   return super.buildHtml()
   }
   get text() { return ""}
   get closingTag() { return ""}
@@ -7096,7 +7097,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "174.1.1"
+    return "174.2.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -7648,5 +7649,3 @@ plainTextLineParser
  popularity 0.000121
  catchAllAtomType stringAtom
  catchAllParser plainTextLineParser
-BlobParser
- baseParser blobParser

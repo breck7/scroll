@@ -8,17 +8,14 @@ scrollContainerParser
  extends abstractAftertextParser
  boolean isHtml true
  javascript
-  get maxWidth() {
-    return this.atoms[1] || "1200px"
-  }
-  buildHtmlSnippet() {
-   return ""
-  }
+  get maxWidth() { return this.atoms[1] || "1200px"}
+  buildHtmlSnippet() {return ""}
   tag = "div"
   defaultClassName = "scrollContainerParser"
+  get inlineStyles() { return `width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;` + super.inlineStyles}
   buildHtml() {
    this.parent.bodyStack.push("</div>")
-   return `<style>.scrollContainerParser{width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;}</style>` + super.buildHtml()
+   return super.buildHtml()
   }
   get text() { return ""}
   get closingTag() { return ""}

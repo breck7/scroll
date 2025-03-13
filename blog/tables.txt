@@ -35,4 +35,4 @@ Datatables evolved over the past decade primarily by:
 - thinking about what would be the best tool for Max Roser and Hannah Ritchie.
  https://ourworldindata.org/ Max Roser and Hannah Ritchie
 
-Built with Scroll v174.1.1
+Built with Scroll v174.2.0
