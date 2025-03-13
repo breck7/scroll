@@ -235,4 +235,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v174.0.0
+Built with Scroll v174.1.0

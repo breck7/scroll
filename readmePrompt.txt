@@ -89,6 +89,12 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 174.1.0 3/13/2025
+🎉 Added `right` aftertext parser.
+belowAsCode
+This text should be aligned right.
+ right
+
 📦 174.0.0 3/13/2025
 🎉 Added ability to set type of measures in Def parsers
 ⚠️ BREAKING: the 2nd atom in Defs is now an enum that sets the type of the def

@@ -1,0 +1,26 @@
+buildHtml
+
+theme gazette
+container
+
+# Center Tests
+
+center Hello world
+
+center Hello *world*
+
+center
+This should be centered
+
+This should not be centered.
+
+This should be centered
+ center
+assertHtmlIncludes center
+
+# Right Tests
+
+> Veni. Vidi. Vici.
+ Julius caesar
+  right
+assertHtmlIncludes text-align: right;
