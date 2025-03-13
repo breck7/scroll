@@ -225,6 +225,9 @@ abstractBooleanMeasureParser
     const {content} = this
     return content === undefined ? "" : content == "true"
   }
+abstractBoolMeasureParser
+ description Alias to abstractBooleanMeasureParser.
+ extends abstractBooleanMeasureParser
 
 // Date and time measures
 abstractDateMeasureParser

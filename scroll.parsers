@@ -106,6 +106,11 @@ cssPropertyNameAtom
  paint variable.function
  // todo Where are these coming from? Can we add a url link
  enum align-content align-items align-self all animation animation-delay animation-direction animation-duration animation-fill-mode animation-iteration-count animation-name animation-play-state animation-timing-function backface-visibility background background-attachment background-blend-mode background-clip background-color background-image background-origin background-position background-repeat background-size border border-bottom border-bottom-color border-bottom-left-radius border-bottom-right-radius border-bottom-style border-bottom-width border-collapse border-color border-image border-image-outset border-image-repeat border-image-slice border-image-source border-image-width border-left border-left-color border-left-style border-left-width border-radius border-right border-right-color border-right-style border-right-width border-spacing border-style border-top border-top-color border-top-left-radius border-top-right-radius border-top-style border-top-width border-width bottom box-shadow box-sizing break-inside caption-side clear clip color column-count column-fill column-gap column-rule column-rule-color column-rule-style column-rule-width column-span column-width columns content counter-increment counter-reset cursor direction display empty-atoms fill filter flex flex-basis flex-direction flex-flow flex-grow flex-shrink flex-wrap float font @font-face font-family font-size font-size-adjust font-stretch font-style font-variant font-weight  hanging-punctuation height hyphens justify-content @keyframes left letter-spacing line-height list-style list-style-image list-style-position list-style-type margin margin-bottom margin-left margin-right margin-top max-height max-width @media min-height min-width nav-down nav-index nav-left nav-right nav-up opacity order outline outline-color outline-offset outline-style outline-width overflow overflow-x overflow-y padding padding-bottom padding-left padding-right padding-top page-break-after page-break-before page-break-inside perspective perspective-origin position quotes resize right tab-size table-layout text-align text-align-last text-decoration text-decoration-color text-decoration-line text-decoration-style text-indent text-justify text-overflow text-shadow text-transform top transform transform-origin transform-style transition transition-delay transition-duration transition-property transition-timing-function unicode-bidi vertical-align visibility white-space width atom-break atom-spacing atom-wrap z-index overscroll-behavior-x user-select -ms-touch-action -webkit-user-select -webkit-touch-callout -moz-user-select touch-action -ms-user-select -khtml-user-select gap grid-auto-flow grid-column grid-column-end grid-column-gap grid-column-start grid-gap grid-row grid-row-end grid-row-gap grid-row-start grid-template-columns grid-template-rows justify-items justify-self
+measureTypeAtom
+ extends stringAtom
+ paint constant.language
+ description Type of the measure
+ enum string url float int bool date
 reductionTypeAtom
  enum sum mean max min concat first
  paint keyword
@@ -3923,22 +3928,26 @@ aboveAsHtmlParser
 scrollDefParser
  popularity 0.004244
  description Parser short form.
- pattern ^[a-zA-Z0-9_]+Def
+ pattern ^[a-zA-Z0-9_]+Def[ ]
  extends abstractScrollParser
+ atoms cueAtom measureTypeAtom
  catchAllAtomType stringAtom
  example
-  urlDef What is the URL?
+  urlDef url What is the URL?
  javascript
   buildParsers(index) {
+   // Make the first def the id particle
    const idStuff = index ? "" : `boolean isMeasure true
    boolean isMeasureRequired true
    boolean isConceptDelimiter true`
-    const description = this.content
+    const description = this.getAtomsFrom(2).join(" ")
     const cue = this.cue.replace("Def", "")
     const sortIndex = 1 + index/10
+    const type = this.atoms[1]
+    const ucFirst = type.substr(0, 1).toUpperCase() + type.substr(1)
     return `${cue}DefParser
    cue ${cue}
-   extends abstractStringMeasureParser
+   extends abstract${ucFirst}MeasureParser
    description ${description}
    float sortIndex ${sortIndex}
    ${idStuff}`.trim()
@@ -4591,6 +4600,9 @@ abstractBooleanMeasureParser
     const {content} = this
     return content === undefined ? "" : content == "true"
   }
+abstractBoolMeasureParser
+ description Alias to abstractBooleanMeasureParser.
+ extends abstractBooleanMeasureParser
 abstractDateMeasureParser
  description Year/month/day in ISO 8601, US, European formats.
  atoms measureNameAtom dateAtom
@@ -7065,7 +7077,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "173.0.0"
+    return "174.0.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

@@ -1,6 +1,6 @@
 urlDefParser
  cue url
- extends abstractStringMeasureParser
+ extends abstractUrlMeasureParser
  description URL to the creation being tried?
  float sortIndex 1
  boolean isMeasure true
@@ -13,17 +13,17 @@ creationDefParser
  float sortIndex 1.1
 tryDefParser
  cue try
- extends abstractStringMeasureParser
+ extends abstractUrlMeasureParser
  description URL to the builder test video?
  float sortIndex 1.2
 rankDefParser
  cue rank
- extends abstractStringMeasureParser
+ extends abstractIntMeasureParser
  description What is the current rank?
  float sortIndex 1.3
 dateDefParser
  cue date
- extends abstractStringMeasureParser
+ extends abstractDateMeasureParser
  description When did they try?
  float sortIndex 1.4
 tryerDefParser

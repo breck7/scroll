@@ -1,22 +1,32 @@
+measureTypeAtom
+ extends stringAtom
+ paint constant.language
+ description Type of the measure
+ enum string url float int bool date
+
 scrollDefParser
  popularity 0.004244
  description Parser short form.
- pattern ^[a-zA-Z0-9_]+Def
+ pattern ^[a-zA-Z0-9_]+Def[ ]
  extends abstractScrollParser
+ atoms cueAtom measureTypeAtom
  catchAllAtomType stringAtom
  example
-  urlDef What is the URL?
+  urlDef url What is the URL?
  javascript
   buildParsers(index) {
+   // Make the first def the id particle
    const idStuff = index ? "" : `boolean isMeasure true
    boolean isMeasureRequired true
    boolean isConceptDelimiter true`
-    const description = this.content
+    const description = this.getAtomsFrom(2).join(" ")
     const cue = this.cue.replace("Def", "")
     const sortIndex = 1 + index/10
+    const type = this.atoms[1]
+    const ucFirst = type.substr(0, 1).toUpperCase() + type.substr(1)
     return `${cue}DefParser
    cue ${cue}
-   extends abstractStringMeasureParser
+   extends abstract${ucFirst}MeasureParser
    description ${description}
    float sortIndex ${sortIndex}
    ${idStuff}`.trim()

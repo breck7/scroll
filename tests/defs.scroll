@@ -1,14 +1,14 @@
 buildParsers
 assertBuildIncludes URL to the creation
 
-urlDef URL to the creation being tried?
+urlDef url URL to the creation being tried?
 
-creationDef What is the title of the creation?
+creationDef string What is the title of the creation?
 
-tryDef URL to the builder test video?
+tryDef url URL to the builder test video?
 
-rankDef What is the current rank?
+rankDef int What is the current rank?
 
-dateDef When did they try?
+dateDef date When did they try?
 
-tryerDef Name of the tryer?
+tryerDef string Name of the tryer?
