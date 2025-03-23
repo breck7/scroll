@@ -205,10 +205,10 @@ footer.scroll`
     }
     const seconds = (Date.now() - start) / 1000
     this.log(``)
-    const outputExtensions = Object.keys(fileSystem.productCache).map(filename => filename.split(".").pop())
+    const outputExtensions = fileSystem.productCache.map(filename => filename.split(".").pop())
     const buildStats = lodash.map(lodash.orderBy(lodash.toPairs(lodash.countBy(outputExtensions)), 1, "desc"), ([extension, count]) => ({ extension, count }))
     this.log(
-      `⌛️ Read ${files.length} scroll files and wrote ${Object.keys(fileSystem.productCache).length} files (${buildStats.map(i => i.extension + ":" + i.count).join(" ")}) in ${seconds} seconds. Processed ${lodash.round(
+      `⌛️ Read ${files.length} scroll files and wrote ${fileSystem.productCache.length} files (${buildStats.map(i => i.extension + ":" + i.count).join(" ")}) in ${seconds} seconds. Processed ${lodash.round(
         files.length / seconds
       )} scroll files per second\n`
     )

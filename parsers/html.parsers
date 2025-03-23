@@ -17,18 +17,24 @@ buildHtmlParser
     const { parsersRequiringExternals, folderPath, fileSystem, filename, parserIdIndex, path, Disk, externalsPath } = root
     if (!externalFilesCopied[folderPath]) externalFilesCopied[folderPath] = {}
     parsersRequiringExternals.forEach(parserId => {
+      // If we have already copied external files for that parser return
       if (externalFilesCopied[folderPath][parserId]) return
+      // If parser does not exist for some reason return
       if (!parserIdIndex[parserId]) return
       parserIdIndex[parserId].map(particle => {
         const externalFiles = particle.copyFromExternal.split(" ")
         externalFiles.forEach(name => {
           const newPath = path.join(folderPath, name)
+          // If we have already copied that file return. We use the same hash since parserIds wont conflict with name, the latter always having a "."
+          if (externalFilesCopied[name]) return
           fileSystem.writeProduct(newPath, Disk.read(path.join(externalsPath, name)))
-          root.log(`💾 Copied external file needed by ${filename} to ${name}`)
+          root.log(`💾 Copied external file needed by ${parserId} in ${filename} to ${name}`)
+          externalFilesCopied[name] = true
         })
       })
       if (parserId !== "scrollThemeParser")
-        // todo: generalize when not to cache
+        // todo: this is a hack that we dont cache scrollThemeParser since the external files
+        // may be dynamic.
         externalFilesCopied[folderPath][parserId] = true
     })
   }
