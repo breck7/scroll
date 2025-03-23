@@ -30,6 +30,7 @@ authorsParser
  atoms metaCommandAtom
  boolean isTopMatter true
  boolean isSetterParser true
+ string defaultClassName printAuthorsParser
  javascript
   buildHtmlForPrint() {
     // hacky. todo: cleanup
@@ -45,4 +46,3 @@ authorsParser
   buildTxt() {
     return ""
   }
-  defaultClassName = "printAuthorsParser"

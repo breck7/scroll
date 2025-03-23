@@ -2,6 +2,7 @@ abstractHeaderParser
  extends scrollParagraphParser
  example
   # Hello world
+ boolean isHeader true
  javascript
   buildHtml(buildSettings) {
    if (this.isHidden) return ""
@@ -13,7 +14,6 @@ abstractHeaderParser
     const line = super.buildTxt()
     return line + "\n" + "=".repeat(line.length)
   }
-  isHeader = true
 
 h1Parser
  popularity 0.017918

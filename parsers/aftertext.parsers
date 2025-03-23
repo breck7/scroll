@@ -5,6 +5,7 @@ abstractAftertextParser
  description Text followed by markup commands.
  extends abstractScrollParser
  inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser abstractCommentParser
+ string defaultClassName scrollParagraph
  javascript
   get markupInserts() {
    const { originalTextPostLinkify } = this
@@ -64,7 +65,6 @@ abstractAftertextParser
    if (classLine && classLine.applyToParentElement) return classLine.content
    return this.defaultClassName
   }
-  defaultClassName = "scrollParagraph"
   get isHidden() {
     return this.has("hidden")
   }

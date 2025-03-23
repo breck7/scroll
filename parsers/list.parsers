@@ -5,6 +5,8 @@ listAftertextParser
   - I had a _new_ thought.
  description A list item.
  cue -
+ string tag li
+ string listType ul
  javascript
   defaultClassName = ""
   buildHtml() {
@@ -18,8 +20,6 @@ listAftertextParser
   get attributes() {
     return ""
   }
-  tag = "li"
-  listType = "ul"
 
 abstractCustomListItemParser
  extends listAftertextParser
@@ -38,6 +38,6 @@ orderedListAftertextParser
  example
   1. Hello world
  pattern ^\d+\. 
+ string listType ol
  javascript
-  listType = "ol"
   get attributes() { return ` start="${this.getAtom(0)}"`}

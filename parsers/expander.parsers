@@ -3,6 +3,7 @@ expanderParser
  cueFromId
  description An collapsible HTML details tag.
  extends scrollParagraphParser
+ string tag summary
  example
   expander Knock Knock
   Who's there?
@@ -14,5 +15,4 @@ expanderParser
   buildTxt() {
     return this.content
   }
-  tag = "summary"
   defaultClassName = ""

@@ -28,6 +28,8 @@ printTitleParser
   title Eureka
   printTitle
  cueFromId
+ string defaultClassName printTitleParser
+ string tag h1
  javascript
   buildHtml(buildSettings) {
    // Hacky, I know.
@@ -48,5 +50,3 @@ printTitleParser
   get originalText() {
    return this.content ?? this.root.title ?? ""
   }
-  defaultClassName = "printTitleParser"
-  tag = "h1"
