@@ -24,8 +24,7 @@ h1Parser
  boolean isArticleContent true
  cue #
  boolean isPopular true
- javascript
-  tag = "h1"
+ string tag h1
 
 h2Parser
  popularity 0.005257
@@ -36,8 +35,7 @@ h2Parser
  boolean isArticleContent true
  cue ##
  boolean isPopular true
- javascript
-  tag = "h2"
+ string tag h2
 
 h3Parser
  popularity 0.001085
@@ -47,8 +45,7 @@ h3Parser
   ### Hello world
  boolean isArticleContent true
  cue ###
- javascript
-  tag = "h3"
+ string tag h3
 
 h4Parser
  popularity 0.000289
@@ -57,8 +54,7 @@ h4Parser
   #### Hello world
  extends abstractHeaderParser
  cue ####
- javascript
-  tag = "h4"
+ string tag h4
 
 h5Parser
  description An html h5 tag.
@@ -66,5 +62,4 @@ h5Parser
  example
   ##### Hello world
  cue #####
- javascript
-  tag = "h5"
+ string tag h5

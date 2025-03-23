@@ -5,5 +5,4 @@ scrollQuestionParser
  cue ?
  example
   ? Why is the sky blue?
- javascript
-  defaultClassName = "scrollQuestion"
+ string defaultClassName scrollQuestion

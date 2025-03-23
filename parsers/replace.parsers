@@ -3,11 +3,7 @@ abstractVariableParser
  catchAllAtomType stringAtom
  atoms preBuildCommandAtom
  cueFromId
- javascript
-  isTopMatter = true
-  buildHtml() {
-   return ""
-  }
+ boolean isTopMatter true
 
 replaceParser
  description Replace this with that.

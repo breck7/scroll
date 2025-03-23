@@ -196,10 +196,6 @@ printTableParser
 
 abstractTableOptionsParser
  atoms cueAtom stringAtom
- javascript
-  buildHtml() {
-    return ""
-  }
 
 scrollTableDataParser
  popularity 0.001061

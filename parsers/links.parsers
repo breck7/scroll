@@ -42,8 +42,8 @@ scrollLinkParser
     return encodeURIComponent(this.subparticlesToString())
    }
  cue link
+ string tag a
  javascript
-  tag = "a"
   buildTxt() {
     return this.root.ensureAbsoluteLink(this.link) + " " + this.pattern
   }

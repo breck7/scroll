@@ -2,8 +2,8 @@ scrollDependenciesParser
  extends scrollTableParser
  description Get files this file depends on.
  cue dependencies
+ string delimiter ,
  javascript
-  delimiter = ","
   get delimitedData() {
    return `file\n` + this.root.dependencies.join("\n")
   }

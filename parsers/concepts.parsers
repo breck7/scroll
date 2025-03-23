@@ -28,9 +28,6 @@ loadConceptsParser
    const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).join("\n\n").replace(importRegex, "")
     this.parent.concat(ONE_BIG_FILE)
   }
-  buildHtml() {
-    return ""
-  }
 
 buildConceptsParser
  popularity 0.000024

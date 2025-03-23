@@ -16,6 +16,3 @@ fetchParser
   async load() {
    await this.root.fetch(this.url, this.filename)
   }
-  buildHtml() {
-    return ""
-  }

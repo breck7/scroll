@@ -9,8 +9,9 @@ belowAsCodeParser
   iris
    printTable
  cueFromId
+ string method next
+ boolean reverse false
  javascript
-  method = "next"
   get selectedParticles() {
     const { method } = this
    let code = ""
@@ -28,7 +29,6 @@ belowAsCodeParser
   get code() {
    return this.selectedParticles.map(particle => particle.asString).join("\n")
   }
-  reverse = false
   buildHtml() {
    return `<code class="scrollCodeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
   }
@@ -67,9 +67,8 @@ aboveAsCodeParser
   counter 1 second
   aboveAsCode
  extends belowAsCodeParser
- javascript
-  method = "previous"
-  reverse = true
+ string method previous
+ boolean reverse true
 
 belowAsHtmlParser
  extends belowAsCodeParser
@@ -90,6 +89,5 @@ aboveAsHtmlParser
  example
   # Hello world
   aboveAsHtml
- javascript
-  method = "previous"
-  reverse = true
+ string method previous
+ boolean reverse true

@@ -9,11 +9,8 @@ abstractBuildCommandParser
  atoms buildCommandAtom
  catchAllAtomType filePathAtom
  inScope slashCommentParser
+ boolean isTopMatter true
  javascript
-  isTopMatter = true
-  buildHtml() {
-   return ""
-  }
   get extension() {
     return this.cue.replace("build", "")
   }

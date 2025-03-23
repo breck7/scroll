@@ -4,12 +4,12 @@ thinColumnsParser
  cueFromId
  catchAllAtomType integerAtom
  description Thin columns.
+ int columnWidth 35
+ int columnGap 20
  javascript
   buildHtmlSnippet() {
    return ""
   }
-  columnWidth = 35
-  columnGap = 20
   buildHtml() {
    const {columnWidth, columnGap, maxColumns} = this
    const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * columnGap
@@ -25,15 +25,13 @@ wideColumnsParser
  popularity 0.000386
  extends thinColumnsParser
  description Wide columns.
- javascript
-  columnWidth = 90
+ int columnWidth 90
 
 mediumColumnsParser
  popularity 0.003376
  extends thinColumnsParser
  description Medium width columns.
- javascript
-  columnWidth = 65
+ int columnWidth 65
 
 mediumColumnParser
  popularity 0.003376
