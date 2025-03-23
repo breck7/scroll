@@ -267,9 +267,9 @@ testParticles.initCommand = async areEqual => {
     const products = await cli.buildFilesInFolder(fileSystem, tempFolder)
 
     // Assert
-    areEqual(Object.values(products)[3].includes("Built with Scroll"), true, "has message")
-    areEqual(Object.keys(products).filter(name => name.endsWith(".html")).length, 2, "should have 2 html pages")
-    areEqual(Object.values(products).length, 7, "should have 6 total generated files")
+    areEqual(Disk.read(products[3]).includes("Built with Scroll"), true, "has message")
+    areEqual(products.filter(name => name.endsWith(".html")).length, 2, "should have 2 html pages")
+    areEqual(products.length, 7, "should have 7 total generated files")
 
     const { scrollErrors, parserErrors } = await cli.getErrorsInFolder(tempFolder)
     areEqual(scrollErrors.length, 0)
