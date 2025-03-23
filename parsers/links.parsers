@@ -43,6 +43,7 @@ scrollLinkParser
    }
  cue link
  string tag a
+ string linkAttribute href
  int patternStartsAtAtom 2
  javascript
   buildTxt() {
@@ -61,9 +62,6 @@ scrollLinkParser
    const relativePath = this.parent.buildSettings?.relativePath || ""
    return relativePath + link
   }
-  get linkAttribute() {
-    return "href"
-  }
   get attributes() {
    const attrs = [`${this.linkAttribute}="${this.link}"`]
    const options = ["title", "target"]
@@ -78,10 +76,7 @@ scrollClickParser
  extends scrollLinkParser
  description An a tag with an onclick.
  cue click
- javascript
-  get linkAttribute() {
-    return "onclick"
-  }
+ string linkAttribute onclick
 
 emailLinkParser
  popularity 0.000048

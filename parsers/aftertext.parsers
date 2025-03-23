@@ -254,8 +254,7 @@ aftertextCodeParser
  cue code
  extends abstractMarkupParser
  string tag code
- javascript
-  get allAttributes() {return `class="scrollInlineCode"` }
+ string allAttributes class="scrollInlineCode"
 
 aftertextStrikeParser
  popularity 0.000048
@@ -345,8 +344,7 @@ aftertextRightParser
   > Veni. Vidi. Vici.
    Julius caesar
     right
- javascript
-  get css() { return "text-align: right;" }
+ string css text-align: right;
 
 aftertextHrefParser
  popularity 0.000217

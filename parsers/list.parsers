@@ -7,8 +7,9 @@ listAftertextParser
  cue -
  string tag li
  string listType ul
+ string defaultClassName 
+ string attributes 
  javascript
-  defaultClassName = ""
   buildHtml() {
    const {index, parent} = this
    const particleClass = this.constructor
@@ -16,9 +17,6 @@ listAftertextParser
    const isEndOfList = parent.length === index + 1 || !(parent.particleAt(index + 1) instanceof particleClass)
    const { listType } = this
    return (isStartOfList ? `<${listType} ${this.attributes}>` : "") + `${super.buildHtml()}` + (isEndOfList ? `</${listType}>` : "")
-  }
-  get attributes() {
-    return ""
   }
 
 abstractCustomListItemParser
