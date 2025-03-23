@@ -30,8 +30,12 @@ authorsParser
  atoms metaCommandAtom
  boolean isTopMatter true
  boolean isSetterParser true
+ boolean noSnippet true
  string defaultClassName printAuthorsParser
  javascript
+  buildHtml() {
+    return ""
+  }
   buildHtmlForPrint() {
     // hacky. todo: cleanup
     const originalContent = this.content
