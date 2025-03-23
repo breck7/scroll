@@ -196,10 +196,6 @@ printTableParser
 
 abstractTableOptionsParser
  atoms cueAtom stringAtom
- javascript
-  buildHtml() {
-    return ""
-  }
 
 scrollTableDataParser
  popularity 0.001061
@@ -512,6 +508,7 @@ scrollLinksParser
  description Add column with links.
  cue links
  catchAllAtomType columnNameAtom
+ string newColumnName links
  javascript
   get coreTable() {
    const {newColumnName, linkColumns} = this
@@ -526,9 +523,6 @@ scrollLinksParser
      newRow[newColumnName] = newValue.join(" ")
      return newRow
    })
-  }
-  get newColumnName() {
-    return "links"
   }
   get linkColumns() {
     return this.getAtomsFrom(1)

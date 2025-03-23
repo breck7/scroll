@@ -95,12 +95,10 @@ quickCssParser
   style.css
  atoms urlAtom
  pattern ^[^\s]+\.(css)(?:\?[^\s]*)?$
+ boolean noSnippet true
  javascript
   buildHtml() {
    return `<link rel="stylesheet" type="text/css" href="${this.filename}">`
-  }
-  buildHtmlSnippet() {
-    return ""
   }
 
 cssSelectorAtom

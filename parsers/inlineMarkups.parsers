@@ -23,6 +23,7 @@ inlineMarkupsOnParser
    inlineMarkupsOn bold
  extends abstractAftertextDirectiveParser
  catchAllAtomType inlineMarkupNameAtom
+ boolean matchWholeLine true
  javascript
   get shouldMatchAll() {
    return true
@@ -49,7 +50,6 @@ inlineMarkupsOnParser
     }
     return markups
   }
-  matchWholeLine = true
   getMatches(text) {
    const exclusives = []
    return this.markups.map(markup => this.applyMarkup(text, markup, exclusives)).filter(i => i).flat()

@@ -16,13 +16,13 @@ datelineParser
  cueFromId
  description Gives your paragraph a dateline like "December 15, 2021 — The..."
  extends abstractAftertextDirectiveParser
+ boolean matchWholeLine true
  javascript
   getInserts() {
    const {day} = this
    if (!day) return false
    return [{ index: 0, string: `<span class="scrollDateline">${day} — </span>` }]
   }
-  matchWholeLine = true
   get day() {
    let day = this.content || this.root.date
    if (!day) return ""

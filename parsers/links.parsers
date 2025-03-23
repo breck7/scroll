@@ -42,8 +42,10 @@ scrollLinkParser
     return encodeURIComponent(this.subparticlesToString())
    }
  cue link
+ string tag a
+ string linkAttribute href
+ int patternStartsAtAtom 2
  javascript
-  tag = "a"
   buildTxt() {
     return this.root.ensureAbsoluteLink(this.link) + " " + this.pattern
   }
@@ -60,9 +62,6 @@ scrollLinkParser
    const relativePath = this.parent.buildSettings?.relativePath || ""
    return relativePath + link
   }
-  get linkAttribute() {
-    return "href"
-  }
   get attributes() {
    const attrs = [`${this.linkAttribute}="${this.link}"`]
    const options = ["title", "target"]
@@ -72,16 +71,12 @@ scrollLinkParser
    })
    return attrs
   }
-  patternStartsAtAtom = 2
 
 scrollClickParser
  extends scrollLinkParser
  description An a tag with an onclick.
  cue click
- javascript
-  get linkAttribute() {
-    return "onclick"
-  }
+ string linkAttribute onclick
 
 emailLinkParser
  popularity 0.000048
@@ -98,11 +93,11 @@ quickLinkParser
  pattern ^https?\:
  extends scrollLinkParser
  atoms urlAtom
+ int patternStartsAtAtom 1
  javascript
   get link() {
    return this.cue
   }
-  patternStartsAtAtom = 1
 
 quickRelativeLinkParser
  popularity 0.029228
@@ -111,8 +106,8 @@ quickRelativeLinkParser
  pattern ^[^\s]+\.(html|htm)
  extends scrollLinkParser
  atoms urlAtom
+ int patternStartsAtAtom 1
  javascript
   get link() {
    return this.cue
   }
-  patternStartsAtAtom = 1

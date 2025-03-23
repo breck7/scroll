@@ -3,10 +3,8 @@ scrollLeftRightButtonsParser
  cue leftRightButtons
  description Previous and next nav buttons.
  extends abstractScrollParser
+ boolean noSnippet true
  javascript
-  buildHtmlSnippet() {
-   return ""
-  }
   buildHtml() {
     const { linkToPrevious, linkToNext } = this.root
     if (!linkToPrevious) return ""
@@ -20,10 +18,8 @@ keyboardNavParser
  extends abstractScrollParser
  cueFromId
  catchAllAtomType urlAtom
+ boolean noSnippet true
  javascript
-  buildHtmlSnippet() {
-   return ""
-  }
   buildHtml() {
    const {root} = this
    const linkToPrevious = this.getAtom(1) ?? root.linkToPrevious

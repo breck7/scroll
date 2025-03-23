@@ -6,13 +6,11 @@ quickScriptParser
  example
   script.js
  pattern ^[^\s]+\.(js)(?:\?[^\s]*)?$
+ boolean noSnippet true
+ string attr 
  javascript
-  attr = ""
   buildHtml() {
    return `<script ${this.attr} src="${this.filename}"></script>`
-  }
-  buildHtmlSnippet() {
-    return ""
   }
 
 quickModuleScriptParser
@@ -21,8 +19,7 @@ quickModuleScriptParser
  example
   script.mjs
  pattern ^[^\s]+\.(mjs)(?:\?[^\s]*)?$
- javascript
-  attr = 'type="module"'
+ string attr type="module"
 
 scrollInlineJsParser
  description Inline JS from files.

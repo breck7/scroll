@@ -5,6 +5,8 @@ abstractAftertextParser
  description Text followed by markup commands.
  extends abstractScrollParser
  inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser abstractCommentParser
+ string defaultClassName scrollParagraph
+ string tag p
  javascript
   get markupInserts() {
    const { originalTextPostLinkify } = this
@@ -56,7 +58,6 @@ abstractAftertextParser
    })
    return newText
   }
-  get tag() {return "p"}
   get className() {
    if (this.get("class"))
      return this.get("class")
@@ -64,7 +65,6 @@ abstractAftertextParser
    if (classLine && classLine.applyToParentElement) return classLine.content
    return this.defaultClassName
   }
-  defaultClassName = "scrollParagraph"
   get isHidden() {
     return this.has("hidden")
   }
@@ -118,27 +118,17 @@ abstractAftertextAttributeParser
   get htmlAttributes() {
    return `${this.cue}="${this.content}"`
   }
-  buildHtml() {
-   return ""
-  }
 
 aftertextTagParser
  atoms cueAtom htmlTagAtom
  description Override the HTML tag that the compiled particle will use.
  cue tag
- javascript
-  buildHtml() {
-   return ""
-  }
 
 abstractAftertextDirectiveParser
  atoms cueAtom
  catchAllAtomType stringAtom
+ boolean isMarkup true
  javascript
-  isMarkup = true
-  buildHtml() {
-   return ""
-  }
   getErrors() {
     if (this.silenceErrors) return [] // todo: generalize this?
     const errors = super.getErrors()
@@ -197,6 +187,7 @@ abstractAftertextDirectiveParser
 abstractMarkupParser
  extends abstractAftertextDirectiveParser
  inScope abstractMarkupParameterParser
+ int patternStartsAtAtom 1
  javascript
   get matchWholeLine() {
     return this.getAtomsFrom(this.patternStartsAtAtom).length === 0
@@ -204,7 +195,6 @@ abstractMarkupParser
   get pattern() {
    return this.matchWholeLine ? this.parent.originalText : this.getAtomsFrom(this.patternStartsAtAtom).join(" ")
   }
-  patternStartsAtAtom = 1
 
 abstractMarkupParameterParser
  atoms cueAtom
@@ -235,55 +225,45 @@ boldParser
  cueFromId
  description Bold matching text.
  extends abstractMarkupParser
- javascript
-  tag = "b"
+ string tag b
 
 italicsParser
  popularity 0.000241
  cueFromId
  description Italicize matching text.
  extends abstractMarkupParser
- javascript
-  tag = "i"
+ string tag i
 
 underlineParser
  popularity 0.000024
  description Underline matching text.
  cueFromId
  extends abstractMarkupParser
- javascript
-  tag = "u"
+ string tag u
 
 afterTextCenterParser
  popularity 0.000193
  description Center paragraph.
  cue center
  extends abstractMarkupParser
- javascript
-  tag = "center"
+ string tag center
 
 aftertextCodeParser
  popularity 0.000145
  description Wrap matching text in code span.
  cue code
  extends abstractMarkupParser
- javascript
-  tag = "code"
-  get allAttributes() {return `class="scrollInlineCode"` }
+ string tag code
+ string allAttributes class="scrollInlineCode"
 
 aftertextStrikeParser
  popularity 0.000048
  description Wrap matching text in s span.
  cue strike
  extends abstractMarkupParser
- javascript
-  tag = "s"
+ string tag s
 
 abstractHtmlAttributeParser
- javascript
-  buildHtml() {
-   return ""
-  }
 
 addClassMarkupParser
  popularity 0.000772
@@ -291,8 +271,8 @@ addClassMarkupParser
  extends abstractMarkupParser
  atoms cueAtom classNameAtom
  cue addClass
+ string tag span
  javascript
-  tag = "span"
   get applyToParentElement() {
    return this.atoms.length === 2
   }
@@ -364,8 +344,7 @@ aftertextRightParser
   > Veni. Vidi. Vici.
    Julius caesar
     right
- javascript
-  get css() { return "text-align: right;" }
+ string css text-align: right;
 
 aftertextHrefParser
  popularity 0.000217

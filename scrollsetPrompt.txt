@@ -586,12 +586,6 @@ abstractMeasureParser
  string typeForWebForms text
  extends abstractScrollParser
  javascript
-  buildHtmlSnippet() {
-   return ""
-  }
-  buildHtml() {
-   return ""
-  }
   get measureValue() {
     return this.content ?? ""
   }

@@ -8,7 +8,7 @@ Code
 ====
 
 files,language,blank,comment,code
-109,Parsers,455,0,7837
+109,Parsers,455,0,7704
 140,Scroll,2098,0,5885
 12,JavaScript,167,90,855
 2,SVG,0,0,226
@@ -19,6 +19,6 @@ files,language,blank,comment,code
 1,Text,0,0,8
 1,HTML,0,0,5
 1,Python,0,0,1
-277,SUM,2751,93,15141
+277,SUM,2751,93,15008
 
 Built with Scroll v174.2.0

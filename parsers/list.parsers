@@ -5,8 +5,11 @@ listAftertextParser
   - I had a _new_ thought.
  description A list item.
  cue -
+ string tag li
+ string listType ul
+ string defaultClassName 
+ string attributes 
  javascript
-  defaultClassName = ""
   buildHtml() {
    const {index, parent} = this
    const particleClass = this.constructor
@@ -15,11 +18,6 @@ listAftertextParser
    const { listType } = this
    return (isStartOfList ? `<${listType} ${this.attributes}>` : "") + `${super.buildHtml()}` + (isEndOfList ? `</${listType}>` : "")
   }
-  get attributes() {
-    return ""
-  }
-  tag = "li"
-  listType = "ul"
 
 abstractCustomListItemParser
  extends listAftertextParser
@@ -38,6 +36,6 @@ orderedListAftertextParser
  example
   1. Hello world
  pattern ^\d+\. 
+ string listType ol
  javascript
-  listType = "ol"
   get attributes() { return ` start="${this.getAtom(0)}"`}

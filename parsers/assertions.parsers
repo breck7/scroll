@@ -5,9 +5,6 @@ abstractAssertionParser
  catchAllAtomType codeAtom
  cueFromId
  javascript
-  buildHtml() {
-   return ``
-  }
   get particleToTest() {
     // If the previous particle is also an assertion particle, use the one before that.
     return this.previous.particleToTest ? this.previous.particleToTest : this.previous

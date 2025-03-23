@@ -25,6 +25,5 @@ quickQuoteParser
  boolean isPopular true
  extends abstractIndentableParagraphParser
  description A quote.
- javascript
-  defaultClassName = "scrollQuote"
-  tag = "blockquote"
+ string defaultClassName scrollQuote
+ string tag blockquote

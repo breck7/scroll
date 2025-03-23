@@ -79,9 +79,8 @@ debugAboveParser
  description Inspect particle above.
  extends debugBelowParser
  string bindTo previous
- javascript
-  method = "previous"
-  reverse = true
+ string method previous
+ boolean reverse true
 
 debugAllParser
  description Inspect entire document.

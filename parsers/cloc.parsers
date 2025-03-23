@@ -3,8 +3,8 @@ clocParser
  description Output results of cloc as table.
  cue cloc
  string copyFromExternal .clocLangs.txt
+ string delimiter ,
  javascript
-  delimiter = ","
   get delimitedData() {
    const { execSync } = require("child_process")
    const results = execSync(this.command).toString().trim()

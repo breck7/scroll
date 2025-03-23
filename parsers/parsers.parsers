@@ -452,8 +452,6 @@ atomTypeDefinitionParser
  inScope parsersPaintParser parsersRegexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser parsersEnumParser slashCommentParser extendsAtomTypeParser parsersExamplesParser atomMinParser atomMaxParser
  atoms atomTypeIdAtom
  tags assemblePhase
- javascript
-  buildHtml() {return ""}
 
 // Enums
 enumFromAtomTypesParser
@@ -506,8 +504,6 @@ parserDefinitionParser
  inScope abstractParserRuleParser abstractConstantParser slashCommentParser parserDefinitionParser
  atoms parserIdAtom
  tags assemblePhase
- javascript
-  buildHtml() { return ""}
 
 parsersRegexParser
  catchAllAtomType regexAtom

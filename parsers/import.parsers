@@ -5,10 +5,6 @@ importParser
  atoms preBuildCommandAtom
  extends abstractScrollParser
  catchAllAtomType filePathAtom
- javascript
-  buildHtml() {
-   return ""
-  }
  example
   import header.scroll
 
@@ -21,9 +17,6 @@ scrollImportedParser
  baseParser blobParser
  catchAllAtomType filePathAtom
  javascript
-  buildHtml() {
-   return ""
-  }
   getErrors() {
     if (this.has("circularImportError"))
       return [this.makeError(this.get("circularImportError"))]
@@ -45,10 +38,6 @@ quickImportParser
  inScope importToFooterParser abstractCommentParser
  atoms urlAtom
  pattern ^[^\s]+\.(scroll|parsers)$
- javascript
-  buildHtml() {
-   return ""
-  }
  example
   header.scroll
 
@@ -59,10 +48,6 @@ importOnlyParser
  cueFromId
  atoms preBuildCommandAtom
  extends abstractTopLevelSingleMetaParser
- javascript
-  buildHtml() {
-   return ""
-  }
 
 abstractQuickIncludeParser
  popularity 0.007524

@@ -1,10 +1,8 @@
 abstractTextLinkParser
  extends abstractAftertextParser
  cueFromId
+ boolean noSnippet true
  javascript
-  buildHtmlSnippet() {
-   return ""
-  }
   buildTxt() {
     return this.text
   }

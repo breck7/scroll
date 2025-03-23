@@ -6,9 +6,9 @@ scrollButtonParser
   description Post a particle.
  example
   scrollButton Click me
+ string defaultClassName scrollButton
+ string tag button
  javascript
-  defaultClassName = "scrollButton"
-  tag = "button"
   get htmlAttributes() {
     const link = this.getFromParser("scrollLinkParser")
     const post = this.getParticle("post")

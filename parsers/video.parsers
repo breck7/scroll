@@ -11,8 +11,7 @@ scrollVideoParser
  heightParser
   cueFromId
   atoms cueAtom integerAtom
- javascript
-  tag = "video"
+ string tag video
 
 quickVideoParser
  popularity 0.000024

@@ -8,10 +8,6 @@ abstractCommentParser
  extends abstractScrollParser
  baseParser blobParser
  string bindTo next
- javascript
-  buildHtml() {
-   return ``
-  }
  catchAllParser commentLineParser
 
 commentParser

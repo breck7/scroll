@@ -13,6 +13,8 @@ stamp
    description Text followed by markup commands.
    extends abstractScrollParser
    inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser abstractCommentParser
+   string defaultClassName scrollParagraph
+   string tag p
    javascript
     get markupInserts() {
      const { originalTextPostLinkify } = this
@@ -64,7 +66,6 @@ stamp
      })
      return newText
     }
-    get tag() {return "p"}
     get className() {
      if (this.get("class"))
        return this.get("class")
@@ -72,7 +73,6 @@ stamp
      if (classLine && classLine.applyToParentElement) return classLine.content
      return this.defaultClassName
     }
-    defaultClassName = "scrollParagraph"
     get isHidden() {
       return this.has("hidden")
     }
@@ -126,27 +126,17 @@ stamp
     get htmlAttributes() {
      return `${this.cue}="${this.content}"`
     }
-    buildHtml() {
-     return ""
-    }
   
   aftertextTagParser
    atoms cueAtom htmlTagAtom
    description Override the HTML tag that the compiled particle will use.
    cue tag
-   javascript
-    buildHtml() {
-     return ""
-    }
   
   abstractAftertextDirectiveParser
    atoms cueAtom
    catchAllAtomType stringAtom
+   boolean isMarkup true
    javascript
-    isMarkup = true
-    buildHtml() {
-     return ""
-    }
     getErrors() {
       if (this.silenceErrors) return [] // todo: generalize this?
       const errors = super.getErrors()
@@ -205,6 +195,7 @@ stamp
   abstractMarkupParser
    extends abstractAftertextDirectiveParser
    inScope abstractMarkupParameterParser
+   int patternStartsAtAtom 1
    javascript
     get matchWholeLine() {
       return this.getAtomsFrom(this.patternStartsAtAtom).length === 0
@@ -212,7 +203,6 @@ stamp
     get pattern() {
      return this.matchWholeLine ? this.parent.originalText : this.getAtomsFrom(this.patternStartsAtAtom).join(" ")
     }
-    patternStartsAtAtom = 1
   
   abstractMarkupParameterParser
    atoms cueAtom
@@ -243,55 +233,45 @@ stamp
    cueFromId
    description Bold matching text.
    extends abstractMarkupParser
-   javascript
-    tag = "b"
+   string tag b
   
   italicsParser
    popularity 0.000241
    cueFromId
    description Italicize matching text.
    extends abstractMarkupParser
-   javascript
-    tag = "i"
+   string tag i
   
   underlineParser
    popularity 0.000024
    description Underline matching text.
    cueFromId
    extends abstractMarkupParser
-   javascript
-    tag = "u"
+   string tag u
   
   afterTextCenterParser
    popularity 0.000193
    description Center paragraph.
    cue center
    extends abstractMarkupParser
-   javascript
-    tag = "center"
+   string tag center
   
   aftertextCodeParser
    popularity 0.000145
    description Wrap matching text in code span.
    cue code
    extends abstractMarkupParser
-   javascript
-    tag = "code"
-    get allAttributes() {return `class="scrollInlineCode"` }
+   string tag code
+   string allAttributes class="scrollInlineCode"
   
   aftertextStrikeParser
    popularity 0.000048
    description Wrap matching text in s span.
    cue strike
    extends abstractMarkupParser
-   javascript
-    tag = "s"
+   string tag s
   
   abstractHtmlAttributeParser
-   javascript
-    buildHtml() {
-     return ""
-    }
   
   addClassMarkupParser
    popularity 0.000772
@@ -299,8 +279,8 @@ stamp
    extends abstractMarkupParser
    atoms cueAtom classNameAtom
    cue addClass
+   string tag span
    javascript
-    tag = "span"
     get applyToParentElement() {
      return this.atoms.length === 2
     }
@@ -372,8 +352,7 @@ stamp
     > Veni. Vidi. Vici.
      Julius caesar
       right
-   javascript
-    get css() { return "text-align: right;" }
+   string css text-align: right;
   
   aftertextHrefParser
    popularity 0.000217
@@ -667,9 +646,6 @@ stamp
    catchAllAtomType codeAtom
    cueFromId
    javascript
-    buildHtml() {
-     return ``
-    }
     get particleToTest() {
       // If the previous particle is also an assertion particle, use the one before that.
       return this.previous.particleToTest ? this.previous.particleToTest : this.previous
@@ -916,9 +892,10 @@ stamp
      https://breckyunits.com Breck Yunits
    // note: once we have mixins in Parsers, lets mixin the below from abstractTopLevelSingleMetaParser
    atoms metaCommandAtom
+   boolean isTopMatter true
+   boolean isSetterParser true
+   string defaultClassName printAuthorsParser
    javascript
-    isTopMatter = true
-    isSetterParser = true
     buildHtmlForPrint() {
       // hacky. todo: cleanup
       const originalContent = this.content
@@ -930,13 +907,9 @@ stamp
     buildTxtForPrint() {
       return 'by ' + super.buildTxt()
     }
-    buildHtml() {
-     return ""
-    }
     buildTxt() {
       return ""
     }
-    defaultClassName = "printAuthorsParser"
  blankLine.parsers
   blankLineParser
    popularity 0.308149
@@ -973,11 +946,8 @@ stamp
    atoms buildCommandAtom
    catchAllAtomType filePathAtom
    inScope slashCommentParser
+   boolean isTopMatter true
    javascript
-    isTopMatter = true
-    buildHtml() {
-     return ""
-    }
     get extension() {
       return this.cue.replace("build", "")
     }
@@ -1049,9 +1019,9 @@ stamp
     description Post a particle.
    example
     scrollButton Click me
+   string defaultClassName scrollButton
+   string tag button
    javascript
-    defaultClassName = "scrollButton"
-    tag = "button"
     get htmlAttributes() {
       const link = this.getFromParser("scrollLinkParser")
       const post = this.getParticle("post")
@@ -1157,8 +1127,8 @@ stamp
    description Output results of cloc as table.
    cue cloc
    string copyFromExternal .clocLangs.txt
+   string delimiter ,
    javascript
-    delimiter = ","
     get delimitedData() {
      const { execSync } = require("child_process")
      const results = execSync(this.command).toString().trim()
@@ -1261,12 +1231,10 @@ stamp
    cueFromId
    catchAllAtomType integerAtom
    description Thin columns.
+   int columnWidth 35
+   int columnGap 20
+   boolean noSnippet true
    javascript
-    buildHtmlSnippet() {
-     return ""
-    }
-    columnWidth = 35
-    columnGap = 20
     buildHtml() {
      const {columnWidth, columnGap, maxColumns} = this
      const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * columnGap
@@ -1282,15 +1250,13 @@ stamp
    popularity 0.000386
    extends thinColumnsParser
    description Wide columns.
-   javascript
-    columnWidth = 90
+   int columnWidth 90
   
   mediumColumnsParser
    popularity 0.003376
    extends thinColumnsParser
    description Medium width columns.
-   javascript
-    columnWidth = 65
+   int columnWidth 65
   
   mediumColumnParser
    popularity 0.003376
@@ -1315,12 +1281,10 @@ stamp
    extends abstractAftertextParser
    cueFromId
    description End columns.
+   boolean noSnippet true
    javascript
     buildHtml() {
      return "</div>"
-    }
-    buildHtmlSnippet() {
-     return ""
     }
  comments.parsers
   commentLineParser
@@ -1333,10 +1297,6 @@ stamp
    extends abstractScrollParser
    baseParser blobParser
    string bindTo next
-   javascript
-    buildHtml() {
-     return ``
-    }
    catchAllParser commentLineParser
   
   commentParser
@@ -1381,9 +1341,6 @@ stamp
      const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).join("\n\n").replace(importRegex, "")
       this.parent.concat(ONE_BIG_FILE)
     }
-    buildHtml() {
-      return ""
-    }
   
   buildConceptsParser
    popularity 0.000024
@@ -1426,18 +1383,18 @@ stamp
    catchAllAtomType cssLengthAtom
    extends abstractAftertextParser
    boolean isHtml true
+   string tag div
+   string defaultClassName scrollContainerParser
+   string closingTag 
+   string text 
+   boolean noSnippet true
    javascript
     get maxWidth() { return this.atoms[1] || "1200px"}
-    buildHtmlSnippet() {return ""}
-    tag = "div"
-    defaultClassName = "scrollContainerParser"
     get inlineStyles() { return `width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;` + super.inlineStyles}
     buildHtml() {
      this.parent.bodyStack.push("</div>")
      return super.buildHtml()
     }
-    get text() { return ""}
-    get closingTag() { return ""}
   
   scrollClearStackParser
    popularity 0.000096
@@ -1445,10 +1402,8 @@ stamp
    description Clear body stack.
    extends abstractScrollParser
    boolean isHtml true
+   boolean noSnippet true
    javascript
-    buildHtmlSnippet() {
-     return ""
-    }
     buildHtml() {
       return this.root.clearBodyStack().trim()
     }
@@ -1581,12 +1536,10 @@ stamp
     style.css
    atoms urlAtom
    pattern ^[^\s]+\.(css)(?:\?[^\s]*)?$
+   boolean noSnippet true
    javascript
     buildHtml() {
      return `<link rel="stylesheet" type="text/css" href="${this.filename}">`
-    }
-    buildHtmlSnippet() {
-      return ""
     }
   
   cssSelectorAtom
@@ -1721,13 +1674,13 @@ stamp
    cueFromId
    description Gives your paragraph a dateline like "December 15, 2021 — The..."
    extends abstractAftertextDirectiveParser
+   boolean matchWholeLine true
    javascript
     getInserts() {
      const {day} = this
      if (!day) return false
      return [{ index: 0, string: `<span class="scrollDateline">${day} — </span>` }]
     }
-    matchWholeLine = true
     get day() {
      let day = this.content || this.root.date
      if (!day) return ""
@@ -1968,9 +1921,8 @@ stamp
    description Inspect particle above.
    extends debugBelowParser
    string bindTo previous
-   javascript
-    method = "previous"
-    reverse = true
+   string method previous
+   boolean reverse true
   
   debugAllParser
    description Inspect entire document.
@@ -2034,8 +1986,8 @@ stamp
    extends scrollTableParser
    description Get files this file depends on.
    cue dependencies
+   string delimiter ,
    javascript
-    delimiter = ","
     get delimitedData() {
      return `file\n` + this.root.dependencies.join("\n")
     }
@@ -2043,11 +1995,11 @@ stamp
   abstractDinkusParser
    extends abstractAftertextParser
    boolean isDinkus true
+   string defaultClass abstractDinkusParser
    javascript
     buildHtml() {
      return `<div class="${this.defaultClass}"><span>${this.dinkus}</span></div>`
     }
-    defaultClass = "abstractDinkusParser"
     buildTxt() {
       return this.dinkus
     }
@@ -2075,8 +2027,7 @@ stamp
    example
     ***
    extends abstractDinkusParser
-   javascript
-    dinkus = "*"
+   string dinkus *
   
   customDinkusParser
    cue dinkus
@@ -2091,15 +2042,14 @@ stamp
    cue ****
    example
     ****
-   javascript
-    dinkus = "⁂"
+   string dinkus ⁂
  disk.parsers
   scrollDiskParser
    extends scrollTableParser
    description Output file into as datatable.
    cue disk
+   string delimiter json
    javascript
-    delimiter = "json"
     get delimitedData() {
      return this.isNodeJs() ? this.delimitedDataNodeJs : ""
     }
@@ -2137,8 +2087,9 @@ stamp
     iris
      printTable
    cueFromId
+   string method next
+   boolean reverse false
    javascript
-    method = "next"
     get selectedParticles() {
       const { method } = this
      let code = ""
@@ -2156,7 +2107,6 @@ stamp
     get code() {
      return this.selectedParticles.map(particle => particle.asString).join("\n")
     }
-    reverse = false
     buildHtml() {
      return `<code class="scrollCodeBlock">${this.code.replace(/\</g, "&lt;")}</code>`
     }
@@ -2195,9 +2145,8 @@ stamp
     counter 1 second
     aboveAsCode
    extends belowAsCodeParser
-   javascript
-    method = "previous"
-    reverse = true
+   string method previous
+   boolean reverse true
   
   belowAsHtmlParser
    extends belowAsCodeParser
@@ -2218,9 +2167,8 @@ stamp
    example
     # Hello world
     aboveAsHtml
-   javascript
-    method = "previous"
-    reverse = true
+   string method previous
+   boolean reverse true
   
  download.parsers
   downloadButtonParser
@@ -2299,6 +2247,8 @@ stamp
    cueFromId
    description An collapsible HTML details tag.
    extends scrollParagraphParser
+   string tag summary
+   string defaultClassName 
    example
     expander Knock Knock
     Who's there?
@@ -2310,8 +2260,6 @@ stamp
     buildTxt() {
       return this.content
     }
-    tag = "summary"
-    defaultClassName = ""
  favicon.parsers
   faviconParser
    popularity 0.001688
@@ -2341,9 +2289,6 @@ stamp
     }
     async load() {
      await this.root.fetch(this.url, this.filename)
-    }
-    buildHtml() {
-      return ""
     }
  footnotes.parsers
   footnoteDefinitionParser
@@ -2416,6 +2361,7 @@ stamp
       margin-bottom: 5px;
     }
     </style>
+   string footer 
    javascript
     get inputs() {
       return this.root.measures.filter(measure => !measure.IsComputed).map((measure, index) => {
@@ -2448,9 +2394,6 @@ stamp
     get subject() {
       return this.getAtomsFrom(2)?.join(" ") || ""
     }
-    get footer() {
-      return ""
-    }
   
   scrollFormParser
    extends classicFormParser
@@ -2476,15 +2419,13 @@ stamp
     <link rel="stylesheet" href=".codeMirror.css">
     <script src=".scrollLibs.js"></script>
     <script src=".constants.js"></script>
+   string footer 
    javascript
     get placeholder() {
       return this.getParticle("placeholder")?.subparticlesToString() || ""
     }
     get value() {
       return this.getParticle("value")?.subparticlesToString() || ""
-    }
-    get footer() {
-      return ""
     }
     get name() {
       return this.get("name") || "particles"
@@ -2688,6 +2629,7 @@ stamp
    extends scrollParagraphParser
    example
     # Hello world
+   boolean isHeader true
    javascript
     buildHtml(buildSettings) {
      if (this.isHidden) return ""
@@ -2699,7 +2641,6 @@ stamp
       const line = super.buildTxt()
       return line + "\n" + "=".repeat(line.length)
     }
-    isHeader = true
   
   h1Parser
    popularity 0.017918
@@ -2710,8 +2651,7 @@ stamp
    boolean isArticleContent true
    cue #
    boolean isPopular true
-   javascript
-    tag = "h1"
+   string tag h1
   
   h2Parser
    popularity 0.005257
@@ -2722,8 +2662,7 @@ stamp
    boolean isArticleContent true
    cue ##
    boolean isPopular true
-   javascript
-    tag = "h2"
+   string tag h2
   
   h3Parser
    popularity 0.001085
@@ -2733,8 +2672,7 @@ stamp
     ### Hello world
    boolean isArticleContent true
    cue ###
-   javascript
-    tag = "h3"
+   string tag h3
   
   h4Parser
    popularity 0.000289
@@ -2743,8 +2681,7 @@ stamp
     #### Hello world
    extends abstractHeaderParser
    cue ####
-   javascript
-    tag = "h4"
+   string tag h4
   
   h5Parser
    description An html h5 tag.
@@ -2752,8 +2689,7 @@ stamp
    example
     ##### Hello world
    cue #####
-   javascript
-    tag = "h5"
+   string tag h5
   
  heatrix.parsers
   heatrixCatchAllParser
@@ -3421,10 +3357,8 @@ stamp
   abstractIconButtonParser
    extends abstractAftertextParser
    cueFromId
+   boolean noSnippet true
    javascript
-    buildHtmlSnippet() {
-     return ""
-    }
     buildHtml() {
       return `<style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="${this.link}" class="doNotPrint abstractIconButtonParser" style="${this.style}">${this.svg}</a>`
     }
@@ -3552,10 +3486,6 @@ stamp
    atoms preBuildCommandAtom
    extends abstractScrollParser
    catchAllAtomType filePathAtom
-   javascript
-    buildHtml() {
-     return ""
-    }
    example
     import header.scroll
   
@@ -3568,9 +3498,6 @@ stamp
    baseParser blobParser
    catchAllAtomType filePathAtom
    javascript
-    buildHtml() {
-     return ""
-    }
     getErrors() {
       if (this.has("circularImportError"))
         return [this.makeError(this.get("circularImportError"))]
@@ -3592,10 +3519,6 @@ stamp
    inScope importToFooterParser abstractCommentParser
    atoms urlAtom
    pattern ^[^\s]+\.(scroll|parsers)$
-   javascript
-    buildHtml() {
-     return ""
-    }
    example
     header.scroll
   
@@ -3606,10 +3529,6 @@ stamp
    cueFromId
    atoms preBuildCommandAtom
    extends abstractTopLevelSingleMetaParser
-   javascript
-    buildHtml() {
-     return ""
-    }
   
   abstractQuickIncludeParser
    popularity 0.007524
@@ -3646,6 +3565,7 @@ stamp
      inlineMarkupsOn bold
    extends abstractAftertextDirectiveParser
    catchAllAtomType inlineMarkupNameAtom
+   boolean matchWholeLine true
    javascript
     get shouldMatchAll() {
      return true
@@ -3672,7 +3592,6 @@ stamp
       }
       return markups
     }
-    matchWholeLine = true
     getMatches(text) {
      const exclusives = []
      return this.markups.map(markup => this.applyMarkup(text, markup, exclusives)).filter(i => i).flat()
@@ -3732,13 +3651,11 @@ stamp
    example
     script.js
    pattern ^[^\s]+\.(js)(?:\?[^\s]*)?$
+   boolean noSnippet true
+   string attr 
    javascript
-    attr = ""
     buildHtml() {
      return `<script ${this.attr} src="${this.filename}"></script>`
-    }
-    buildHtmlSnippet() {
-      return ""
     }
   
   quickModuleScriptParser
@@ -3747,8 +3664,7 @@ stamp
    example
     script.mjs
    pattern ^[^\s]+\.(mjs)(?:\?[^\s]*)?$
-   javascript
-    attr = 'type="module"'
+   string attr type="module"
   
   scrollInlineJsParser
    description Inline JS from files.
@@ -3842,10 +3758,8 @@ stamp
    cue leftRightButtons
    description Previous and next nav buttons.
    extends abstractScrollParser
+   boolean noSnippet true
    javascript
-    buildHtmlSnippet() {
-     return ""
-    }
     buildHtml() {
       const { linkToPrevious, linkToNext } = this.root
       if (!linkToPrevious) return ""
@@ -3859,10 +3773,8 @@ stamp
    extends abstractScrollParser
    cueFromId
    catchAllAtomType urlAtom
+   boolean noSnippet true
    javascript
-    buildHtmlSnippet() {
-     return ""
-    }
     buildHtml() {
      const {root} = this
      const linkToPrevious = this.getAtom(1) ?? root.linkToPrevious
@@ -4077,8 +3989,10 @@ stamp
       return encodeURIComponent(this.subparticlesToString())
      }
    cue link
+   string tag a
+   string linkAttribute href
+   int patternStartsAtAtom 2
    javascript
-    tag = "a"
     buildTxt() {
       return this.root.ensureAbsoluteLink(this.link) + " " + this.pattern
     }
@@ -4095,9 +4009,6 @@ stamp
      const relativePath = this.parent.buildSettings?.relativePath || ""
      return relativePath + link
     }
-    get linkAttribute() {
-      return "href"
-    }
     get attributes() {
      const attrs = [`${this.linkAttribute}="${this.link}"`]
      const options = ["title", "target"]
@@ -4107,16 +4018,12 @@ stamp
      })
      return attrs
     }
-    patternStartsAtAtom = 2
   
   scrollClickParser
    extends scrollLinkParser
    description An a tag with an onclick.
    cue click
-   javascript
-    get linkAttribute() {
-      return "onclick"
-    }
+   string linkAttribute onclick
   
   emailLinkParser
    popularity 0.000048
@@ -4133,11 +4040,11 @@ stamp
    pattern ^https?\:
    extends scrollLinkParser
    atoms urlAtom
+   int patternStartsAtAtom 1
    javascript
     get link() {
      return this.cue
     }
-    patternStartsAtAtom = 1
   
   quickRelativeLinkParser
    popularity 0.029228
@@ -4146,11 +4053,11 @@ stamp
    pattern ^[^\s]+\.(html|htm)
    extends scrollLinkParser
    atoms urlAtom
+   int patternStartsAtAtom 1
    javascript
     get link() {
      return this.cue
     }
-    patternStartsAtAtom = 1
   
  list.parsers
   listAftertextParser
@@ -4160,8 +4067,11 @@ stamp
     - I had a _new_ thought.
    description A list item.
    cue -
+   string tag li
+   string listType ul
+   string defaultClassName 
+   string attributes 
    javascript
-    defaultClassName = ""
     buildHtml() {
      const {index, parent} = this
      const particleClass = this.constructor
@@ -4170,11 +4080,6 @@ stamp
      const { listType } = this
      return (isStartOfList ? `<${listType} ${this.attributes}>` : "") + `${super.buildHtml()}` + (isEndOfList ? `</${listType}>` : "")
     }
-    get attributes() {
-      return ""
-    }
-    tag = "li"
-    listType = "ul"
   
   abstractCustomListItemParser
    extends listAftertextParser
@@ -4193,8 +4098,8 @@ stamp
    example
     1. Hello world
    pattern ^\d+\. 
+   string listType ol
    javascript
-    listType = "ol"
     get attributes() { return ` start="${this.getAtom(0)}"`}
  loremIpsum.parsers
   loremIpsumParser
@@ -4374,12 +4279,6 @@ stamp
    string typeForWebForms text
    extends abstractScrollParser
    javascript
-    buildHtmlSnippet() {
-     return ""
-    }
-    buildHtml() {
-     return ""
-    }
     get measureValue() {
       return this.content ?? ""
     }
@@ -4657,10 +4556,8 @@ stamp
    cueFromId
    extends abstractScrollParser
    description Print meta tags including title.
+   boolean noSnippet true
    javascript
-    buildHtmlSnippet() {
-     return ""
-    }
     buildHtml() {
      const {root} = this
      const { title, description, canonicalUrl, gitRepo, scrollVersion, openGraphImage, keywords, filename } = root
@@ -4915,7 +4812,7 @@ stamp
    inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser scrollParagraphParser
    javascript
     get htmlContents() {
-      return this.text + this.map(particle => particle.buildHtml())
+      return this.text + this.filter(particle => particle.buildHtml).map(particle => particle.buildHtml())
        .join("\n")
        .trim()
     }
@@ -5387,8 +5284,6 @@ stamp
    inScope parsersPaintParser parsersRegexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser parsersEnumParser slashCommentParser extendsAtomTypeParser parsersExamplesParser atomMinParser atomMaxParser
    atoms atomTypeIdAtom
    tags assemblePhase
-   javascript
-    buildHtml() {return ""}
   
   // Enums
   enumFromAtomTypesParser
@@ -5441,8 +5336,6 @@ stamp
    inScope abstractParserRuleParser abstractConstantParser slashCommentParser parserDefinitionParser
    atoms parserIdAtom
    tags assemblePhase
-   javascript
-    buildHtml() { return ""}
   
   parsersRegexParser
    catchAllAtomType regexAtom
@@ -5847,8 +5740,7 @@ stamp
    cue ?
    example
     ? Why is the sky blue?
-   javascript
-    defaultClassName = "scrollQuestion"
+   string defaultClassName scrollQuestion
  quotes.parsers
   quoteLineParser
    popularity 0.004172
@@ -5877,9 +5769,8 @@ stamp
    boolean isPopular true
    extends abstractIndentableParagraphParser
    description A quote.
-   javascript
-    defaultClassName = "scrollQuote"
-    tag = "blockquote"
+   string defaultClassName scrollQuote
+   string tag blockquote
  redirectTo.parsers
   redirectToParser
    popularity 0.000072
@@ -5899,11 +5790,7 @@ stamp
    catchAllAtomType stringAtom
    atoms preBuildCommandAtom
    cueFromId
-   javascript
-    isTopMatter = true
-    buildHtml() {
-     return ""
-    }
+   boolean isTopMatter true
   
   replaceParser
    description Replace this with that.
@@ -5939,6 +5826,9 @@ stamp
   abstractScrollParser
    atoms cueAtom
    javascript
+    buildHtml() {
+      return ""
+    }
     buildHtmlSnippet(buildSettings) {
      return this.buildHtml(buildSettings)
     }
@@ -5978,12 +5868,8 @@ stamp
    inScope slashCommentParser
    cueFromId
    atoms metaCommandAtom
-   javascript
-    isTopMatter = true
-    isSetterParser = true
-    buildHtml() {
-     return ""
-    }
+   boolean isTopMatter true
+   boolean isSetterParser true
   
   scrollParser
    description Scroll is a language for scientists of all ages. Refine, share and collaborate on ideas.
@@ -6182,7 +6068,8 @@ stamp
      this.sectionStack = []
      return this.map(subparticle => {
      try {
-     return subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : subparticle.buildHtml(buildSettings)} catch (err) {
+     if (subparticle.noSnippet) return ""
+     return subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : (subparticle.buildHtml ? subparticle.buildHtml(buildSettings) : "")} catch (err) {
        console.error(`Error building snippet in file '${this.filename}' in particle '${subparticle.toString()}'`)
        console.error(err)
        return ""
@@ -6972,10 +6859,6 @@ stamp
    description Cut for snippet here.
    extends abstractScrollParser
    cueFromId
-   javascript
-    buildHtml() {
-     return ""
-    }
   
   printSnippetsParser
    popularity 0.000338
@@ -6994,7 +6877,7 @@ stamp
       const linkRelativeToCompileTarget = buildSettings.relativePath + scrollProgram.permalink
       const joinChar = "\n"
       const html = scrollProgram
-          .map((subparticle, index) => (index >= endSnippetIndex ? "" : subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : subparticle.buildHtml(buildSettings)))
+          .map((subparticle, index) => (index >= endSnippetIndex || subparticle.noSnippet ? "" : subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : (subparticle.buildHtml ? subparticle.buildHtml(buildSettings) : "") ))
           .filter(i => i)
           .join(joinChar)
           .trim() +
@@ -7483,10 +7366,6 @@ stamp
   
   abstractTableOptionsParser
    atoms cueAtom stringAtom
-   javascript
-    buildHtml() {
-      return ""
-    }
   
   scrollTableDataParser
    popularity 0.001061
@@ -7799,6 +7678,7 @@ stamp
    description Add column with links.
    cue links
    catchAllAtomType columnNameAtom
+   string newColumnName links
    javascript
     get coreTable() {
      const {newColumnName, linkColumns} = this
@@ -7813,9 +7693,6 @@ stamp
        newRow[newColumnName] = newValue.join(" ")
        return newRow
      })
-    }
-    get newColumnName() {
-      return "links"
     }
     get linkColumns() {
       return this.getAtomsFrom(1)
@@ -8095,10 +7972,6 @@ stamp
    popularity 0.000072
    extends plainTextParser
    description Only print for buildTxt.
-   javascript
-    buildHtml() {
-     return ""
-    }
   
   printFormatLinksParser
    description Prints links to other formats.
@@ -8122,10 +7995,8 @@ stamp
   abstractTextLinkParser
    extends abstractAftertextParser
    cueFromId
+   boolean noSnippet true
    javascript
-    buildHtmlSnippet() {
-     return ""
-    }
     buildTxt() {
       return this.text
     }
@@ -8191,6 +8062,8 @@ stamp
     title Eureka
     printTitle
    cueFromId
+   string defaultClassName printTitleParser
+   string tag h1
    javascript
     buildHtml(buildSettings) {
      // Hacky, I know.
@@ -8211,9 +8084,6 @@ stamp
     get originalText() {
      return this.content ?? this.root.title ?? ""
     }
-    defaultClassName = "printTitleParser"
-    tag = "h1"
-  
  video.parsers
   scrollVideoParser
    popularity 0.000024
@@ -8228,8 +8098,7 @@ stamp
    heightParser
     cueFromId
     atoms cueAtom integerAtom
-   javascript
-    tag = "video"
+   string tag video
   
   quickVideoParser
    popularity 0.000024
@@ -8246,10 +8115,7 @@ stamp
    extends abstractIconButtonParser
    string style position:relative;
    string svg <svg xmlns="http://www.w3.org/2000/svg" direction="ltr" width="231.52568231268793" height="249.33156169975996" viewBox="297.27169239534896 1273.121785992385 231.52568231268793 249.33156169975996" stroke-linecap="round" stroke-linejoin="round" data-color-mode="dark" class="tl-container tl-theme__force-sRGB tl-theme__dark" ><defs/><g transform="matrix(1, 0, 0, 1, 395.9682, 1413.3618)" opacity="1"><g transform="scale(1)"><path d="M-5.7342,-1.1484 T-5.0182,-4.6536 -2.6672,-12.9768 1.7374,-22.3903 8.4597,-30.0892 16.5455,-35.2796 25.3478,-37.8247 34.4641,-37.2199 43.0676,-33.4606 50.27,-27.1118 55.7861,-19.7972 59.8042,-11.6764 61.6844,-2.3157 60.8049,7.9615 57.3259,17.5954 51.2605,25.5515 41.9451,31.9237 30.6489,36.2084 18.9812,37.6038 8.4915,36.637 -1.3063,34.5174 -10.6869,31.6604 -19.0463,27.0252 -26.0612,20.1562 -31.864,11.1271 -35.2772,1.0066 -35.7963,-9.1933 -35.203,-19.2337 -32.52,-28.3259 -27.3388,-37.4245 -20.2857,-45.7085 -11.787,-53.0395 -2.4314,-58.4864 7.1724,-61.8739 17.5002,-65.6025 28.2859,-68.1034 38.514,-69.1081 48.1844,-69.9134 57.9136,-70.1787 67.4056,-69.5971 76.297,-67.7446 84.5233,-63.97 92.0158,-57.5003 98.1976,-48.5614 102.8839,-38.056 105.9936,-27.6097 107.074,-18.168 107.175,-8.2882 106.6452,1.9768 105.4734,11.7698 104.0279,21.1013 101.7439,31.0445 98.0977,40.6386 92.7822,49.1039 86.2847,57.2337 78.6099,64.7113 69.8339,70.974 61.2863,75.092 52.4283,78.2186 42.5338,80.7945 32.7733,82.6629 22.8568,83.6574 12.2803,83.3538 2.4971,81.4828 -6.3367,78.789 -15.1061,75.8011 -24.259,72.3779 -33.2286,68.991 -41.5707,64.8363 -49.153,59.1909 -55.8375,52.2938 -62.9311,43.9553 -68.4604,34.4882 -71.2761,23.5855 -72.748,12.7452 -73.7673,2.0453 -74.1187,-8.7386 -72.293,-19.3856 -68.7376,-30.4053 -64.12,-39.7852 -59.1825,-47.8931 -53.7695,-56.4512 -48.1998,-65.7676 -43.1389,-74.401 -36.9006,-81.0179 -28.4317,-86.2639 -18.3342,-90.3521 -8.9259,-93.9355 0.1927,-98.7179 9.3551,-103.3537 18.7651,-106.7552 29.7482,-110.3584 40.9287,-113.446 50.87,-115.2231 57.8279,-116.0074 60.4065,-116.0632 A7.8326,7.8326 0 0 1 61.1735,-100.4168 T58.6018,-100.2201 51.1634,-99.3008 41.695,-96.884 32.4044,-94.0187 22.65,-91.382 13.4974,-87.3756 5.0519,-83.1026 -5.0443,-78.6175 -15.7236,-74.4743 -24.6193,-70.2681 -31.274,-62.5903 -36.3827,-53.9362 -41.2833,-46.2905 -46.0679,-38.5161 -50.639,-30.6576 -54.6876,-22.4063 -57.6038,-12.3346 -58.5104,-1.8678 -57.6022,9.4969 -56.0628,20.477 -53.6434,29.0487 -48.8908,36.7517 -42.4075,43.9784 -35.3064,50.6236 -27.3553,55.2062 -17.6884,59.4064 -7.6442,63.6638 2.4427,67.0449 12.7308,69.4843 22.9294,70.2171 33.2547,69.3921 42.4972,67.7384 52.2753,64.8425 61.8649,60.9142 69.5292,56.0828 76.3604,49.5927 82.431,42.3194 87.219,34.619 90.6076,25.5217 92.547,16.0352 93.8703,7.1315 94.4972,-2.5268 94.3672,-13.3681 93.3204,-24.4252 90.5377,-34.1656 85.7321,-43.6441 78.7334,-51.8057 68.7542,-56.0559 57.9857,-57.2713 48.079,-57.0198 38.4535,-56.3204 28.5246,-55.0036 18.6104,-52.4796 9.6402,-49.559 0.7193,-46.2981 -7.1531,-41.3715 -13.708,-34.8957 -19.5435,-26.853 -22.8356,-17.0622 -23.363,-6.5446 -21.9969,3.1439 -17.1086,11.9113 -9.276,18.744 -0.0685,22.6058 9.3636,24.796 19.2422,25.8817 29.052,25.0411 37.9338,21.3502 45.6819,13.8498 49.6675,4.5228 49.2802,-5.1854 45.3277,-14.4455 38.8603,-21.7879 30.5488,-25.7753 21.3356,-24.3975 13.6687,-19.2391 8.8217,-10.9919 6.423,-2.3609 5.7342,1.1484 A5.8481,5.8481 0 0 1 -5.7342,-1.1484 Z" stroke-linecap="round"/></g></g></svg>
-   javascript
-    get link() {
-      return "https://wws.scroll.pub"
-    }
+   string link https://wws.scroll.pub
  youTube.parsers
   youtubeParser
    popularity 0.000121

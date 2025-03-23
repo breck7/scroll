@@ -3,10 +3,6 @@ endSnippetParser
  description Cut for snippet here.
  extends abstractScrollParser
  cueFromId
- javascript
-  buildHtml() {
-   return ""
-  }
 
 printSnippetsParser
  popularity 0.000338
@@ -25,7 +21,7 @@ printSnippetsParser
     const linkRelativeToCompileTarget = buildSettings.relativePath + scrollProgram.permalink
     const joinChar = "\n"
     const html = scrollProgram
-        .map((subparticle, index) => (index >= endSnippetIndex ? "" : subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : subparticle.buildHtml(buildSettings)))
+        .map((subparticle, index) => (index >= endSnippetIndex || subparticle.noSnippet ? "" : subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : (subparticle.buildHtml ? subparticle.buildHtml(buildSettings) : "") ))
         .filter(i => i)
         .join(joinChar)
         .trim() +

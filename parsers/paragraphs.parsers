@@ -35,7 +35,7 @@ abstractIndentableParagraphParser
  inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser abstractIndentableParagraphParser scrollParagraphParser
  javascript
   get htmlContents() {
-    return this.text + this.map(particle => particle.buildHtml())
+    return this.text + this.filter(particle => particle.buildHtml).map(particle => particle.buildHtml())
      .join("\n")
      .trim()
   }
