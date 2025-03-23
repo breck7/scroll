@@ -34,6 +34,7 @@ classicFormParser
     margin-bottom: 5px;
   }
   </style>
+ string footer 
  javascript
   get inputs() {
     return this.root.measures.filter(measure => !measure.IsComputed).map((measure, index) => {
@@ -66,9 +67,6 @@ classicFormParser
   get subject() {
     return this.getAtomsFrom(2)?.join(" ") || ""
   }
-  get footer() {
-    return ""
-  }
 
 scrollFormParser
  extends classicFormParser
@@ -94,15 +92,13 @@ scrollFormParser
   <link rel="stylesheet" href=".codeMirror.css">
   <script src=".scrollLibs.js"></script>
   <script src=".constants.js"></script>
+ string footer 
  javascript
   get placeholder() {
     return this.getParticle("placeholder")?.subparticlesToString() || ""
   }
   get value() {
     return this.getParticle("value")?.subparticlesToString() || ""
-  }
-  get footer() {
-    return ""
   }
   get name() {
     return this.get("name") || "particles"

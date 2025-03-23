@@ -6,6 +6,7 @@ abstractAftertextParser
  extends abstractScrollParser
  inScope abstractAftertextDirectiveParser abstractAftertextAttributeParser aftertextTagParser abstractCommentParser
  string defaultClassName scrollParagraph
+ string tag p
  javascript
   get markupInserts() {
    const { originalTextPostLinkify } = this
@@ -57,7 +58,6 @@ abstractAftertextParser
    })
    return newText
   }
-  get tag() {return "p"}
   get className() {
    if (this.get("class"))
      return this.get("class")

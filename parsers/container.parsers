@@ -9,6 +9,8 @@ scrollContainerParser
  boolean isHtml true
  string tag div
  string defaultClassName scrollContainerParser
+ string closingTag 
+ string text 
  boolean noSnippet true
  javascript
   get maxWidth() { return this.atoms[1] || "1200px"}
@@ -17,8 +19,6 @@ scrollContainerParser
    this.parent.bodyStack.push("</div>")
    return super.buildHtml()
   }
-  get text() { return ""}
-  get closingTag() { return ""}
 
 scrollClearStackParser
  popularity 0.000096
