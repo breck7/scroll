@@ -6,10 +6,8 @@ thinColumnsParser
  description Thin columns.
  int columnWidth 35
  int columnGap 20
+ boolean noSnippet true
  javascript
-  buildHtmlSnippet() {
-   return ""
-  }
   buildHtml() {
    const {columnWidth, columnGap, maxColumns} = this
    const maxTotalWidth = maxColumns * columnWidth + (maxColumns - 1) * columnGap
@@ -56,10 +54,8 @@ endColumnsParser
  extends abstractAftertextParser
  cueFromId
  description End columns.
+ boolean noSnippet true
  javascript
   buildHtml() {
    return "</div>"
-  }
-  buildHtmlSnippet() {
-   return ""
   }

@@ -243,6 +243,7 @@ scrollParser
    this.sectionStack = []
    return this.map(subparticle => {
    try {
+   if (subparticle.noSnippet) return ""
    return subparticle.buildHtmlSnippet ? subparticle.buildHtmlSnippet(buildSettings) : (subparticle.buildHtml ? subparticle.buildHtml(buildSettings) : "")} catch (err) {
      console.error(`Error building snippet in file '${this.filename}' in particle '${subparticle.toString()}'`)
      console.error(err)

@@ -12,10 +12,8 @@ metaTagsParser
  cueFromId
  extends abstractScrollParser
  description Print meta tags including title.
+ boolean noSnippet true
  javascript
-  buildHtmlSnippet() {
-   return ""
-  }
   buildHtml() {
    const {root} = this
    const { title, description, canonicalUrl, gitRepo, scrollVersion, openGraphImage, keywords, filename } = root

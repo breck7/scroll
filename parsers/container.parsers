@@ -9,9 +9,9 @@ scrollContainerParser
  boolean isHtml true
  string tag div
  string defaultClassName scrollContainerParser
+ boolean noSnippet true
  javascript
   get maxWidth() { return this.atoms[1] || "1200px"}
-  buildHtmlSnippet() {return ""}
   get inlineStyles() { return `width: 100%; box-sizing: border-box; max-width: ${this.maxWidth}; margin: 0 auto;` + super.inlineStyles}
   buildHtml() {
    this.parent.bodyStack.push("</div>")
@@ -26,10 +26,8 @@ scrollClearStackParser
  description Clear body stack.
  extends abstractScrollParser
  boolean isHtml true
+ boolean noSnippet true
  javascript
-  buildHtmlSnippet() {
-   return ""
-  }
   buildHtml() {
     return this.root.clearBodyStack().trim()
   }
