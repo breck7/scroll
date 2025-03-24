@@ -464,9 +464,9 @@ class Fusion {
       .sort()
       .join("\n")
     const hit = _parserCache[key]
-    if (hit) return hit
-    _parserCache[key] = await this._getOneParsersParserFromFiles(filePaths, baseParsersCode)
-    return _parserCache[key]
+    if (hit) return await hit
+    _parserCache[key] = this._getOneParsersParserFromFiles(filePaths, baseParsersCode)
+    return await _parserCache[key]
   }
   static combineParsers(filePaths, fileContents, baseParsersCode = "") {
     const parserDefinitionRegex = /^[a-zA-Z0-9_]+Parser$/

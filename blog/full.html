@@ -3,13 +3,13 @@
 <head>
  <meta charset="utf-8">
  <title>The Official Scroll Blog</title>
- <script>/* This HTML was generated from full.scroll by 📜 Scroll v175.0.2. https://scroll.pub */</script>
+ <script>/* This HTML was generated from full.scroll by 📜 Scroll v175.1.0. https://scroll.pub */</script>
  <style>@media print {.doNotPrint {display: none !important;}}</style>
  <link rel="canonical" href="https://scroll.pub/blog/full.html">
  <meta name="viewport" content="width=device-width,initial-scale=1">
  <meta name="description" content="Official blog for Scroll">
  
- <meta name="generator" content="Scroll v175.0.2">
+ <meta name="generator" content="Scroll v175.1.0">
  <meta property="og:title" content="The Official Scroll Blog">
  <meta property="og:description" content="Official blog for Scroll">
  <meta property="og:image" content="">
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p id="particle59" class="scrollParagraph">Scroll comes with several sample datasets. Let's start with the famous iris dataset:</p>
 <code class="scrollCodeBlock">iris
  printTable</code>
-<table id="table18" class="scrollTable">
+<table id="table34" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <code class="scrollCodeBlock">sampleData zipcodes.csv
  limit 0 5
   printTable</code>
-<table id="table19" class="scrollTable">
+<table id="table35" class="scrollTable">
  <thead><tr><th>zip_code</th>
 
 <th>latitude</th>
@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <code class="scrollCodeBlock">iris
  summarize
   printTable</code>
-<table id="table20" class="scrollTable">
+<table id="table36" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>type</th>
@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
   printTable
  where species oneOf setosa virginica
   printTable</code>
-<table id="table21" class="scrollTable">
+<table id="table37" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <td>setosa</td>
 </tr></tbody>
  </table>
-<table id="table22" class="scrollTable">
+<table id="table38" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -399,7 +399,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <script src=".d3.js"></script>
 <script src=".plot.js"></script>
 
-<div id="plot23"></div><script>
+<div id="plot39"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -414,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot23").append(Plot.plot({
+  document.querySelector("#plot39").append(Plot.plot({
     title: "Sepal Length vs Width",
     subtitle: "",
     caption: "",
@@ -445,7 +445,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
    y temp_max
    title Maximum Temperature in Seattle
    stroke steelblue</code>
-<div id="plot24"></div><script>
+<div id="plot40"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`date,precipitation,temp_max,temp_min,wind,weather
@@ -1911,7 +1911,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 2015-12-30,0,5.6,-1,3.4,sun
 2015-12-31,0,5.6,-2.1,3.5,sun`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot24").append(Plot.plot({
+  document.querySelector("#plot40").append(Plot.plot({
     title: "Maximum Temperature in Seattle",
     subtitle: "",
     caption: "",
@@ -1944,7 +1944,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
    y precip_avg
    fill teal
    title Average Precipitation by Weather Type</code>
-<div id="plot25"></div><script>
+<div id="plot41"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`weather,count,precip_avg
@@ -1954,7 +1954,7 @@ sun,714,0.335294117647059
 snow,23,9.04782608695652
 fog,411,6.461557177615568`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot25").append(Plot.plot({
+  document.querySelector("#plot41").append(Plot.plot({
     title: "Average Precipitation by Weather Type",
     subtitle: "",
     caption: "",
@@ -1986,7 +1986,7 @@ fog,411,6.461557177615568`, d3.autoType)
   reduce temp_min mean avg_min_temp
   orderBy -avg_max_temp
   printTable</code>
-<table id="table26" class="scrollTable">
+<table id="table42" class="scrollTable">
  <thead><tr><th>count</th>
 
 <th>weather</th>
@@ -2028,7 +2028,7 @@ fog,411,6.461557177615568`, d3.autoType)
  compute ratio {sepal_length}/{sepal_width}
   where ratio > 2
    printTable</code>
-<table id="table27" class="scrollTable">
+<table id="table43" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -2098,7 +2098,7 @@ fog,411,6.461557177615568`, d3.autoType)
   y sepal_length
   fill teal
   title Sepal Length by Species</code>
-<div id="plot28"></div><script>
+<div id="plot44"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -2113,7 +2113,7 @@ fog,411,6.461557177615568`, d3.autoType)
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot28").append(Plot.plot({
+  document.querySelector("#plot44").append(Plot.plot({
     title: "",
     subtitle: "",
     caption: "",
@@ -2134,7 +2134,7 @@ fog,411,6.461557177615568`, d3.autoType)
   loadChart()
   }
   </script>
-<div id="plot29"></div><script>
+<div id="plot45"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -2149,7 +2149,7 @@ fog,411,6.461557177615568`, d3.autoType)
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot29").append(Plot.plot({
+  document.querySelector("#plot45").append(Plot.plot({
     title: "Sepal Length by Species",
     subtitle: "",
     caption: "",
@@ -2497,39 +2497,39 @@ fog,411,6.461557177615568`, d3.autoType)
 <div class="scrollSection"><h1 id="particle53" class="scrollParagraph"><center>Since you loaded this page...</center></h1>
 </div>
 <div class="scrollSection"><h2 id="particle57" class="scrollParagraph">World Population</h2>
-<p id="particle58" class="scrollParagraph"><a href="https://ourworldindata.org/births-and-deaths"><span id="counter30" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter30'); el.title = parseFloat(el.title) + 0.45; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Babies Born</a></p>
-<p id="particle59" class="scrollParagraph"><a href="https://ourworldindata.org/births-and-deaths"><span id="counter31" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter31'); el.title = parseFloat(el.title) + 0.16999999999999998; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Human Deaths</a></p>
-<p id="particle60" class="scrollParagraph"><a href="https://ourworldindata.org/grapher/population"><span id="counter32" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter32'); el.title = parseFloat(el.title) + 812345678.9; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> heart beats</a></p>
+<p id="particle58" class="scrollParagraph"><a href="https://ourworldindata.org/births-and-deaths"><span id="counter46" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter46'); el.title = parseFloat(el.title) + 0.45; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Babies Born</a></p>
+<p id="particle59" class="scrollParagraph"><a href="https://ourworldindata.org/births-and-deaths"><span id="counter47" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter47'); el.title = parseFloat(el.title) + 0.16999999999999998; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Human Deaths</a></p>
+<p id="particle60" class="scrollParagraph"><a href="https://ourworldindata.org/grapher/population"><span id="counter48" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter48'); el.title = parseFloat(el.title) + 812345678.9; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> heart beats</a></p>
 </div>
 <div class="scrollSection"><h2 id="particle62" class="scrollParagraph">In Your Body</h2>
-<p id="particle63" class="scrollParagraph"><a href="https://www.ncbi.nlm.nih.gov/books/NBK2263/"><span id="counter33" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter33'); el.title = parseFloat(el.title) + 311212.3; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Red Blood Cells Made</a></p>
-<p id="particle64" class="scrollParagraph"><a href="https://www.ncbi.nlm.nih.gov/books/NBK2263/"><span id="counter34" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter34'); el.title = parseFloat(el.title) + 381212.3; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Cells Made</a></p>
-<p id="particle65" class="scrollParagraph"><a href="https://bio.libretexts.org/Bookshelves/Human_Biology/Human_Biology_(Wakim_and_Grewal)/05%3A_Cells/5.09%3A_Cellular_Respiration"><span id="counter35" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter35'); el.title = parseFloat(el.title) + 212345678912345670000; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> ATP molecules made</a></p>
+<p id="particle63" class="scrollParagraph"><a href="https://www.ncbi.nlm.nih.gov/books/NBK2263/"><span id="counter49" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter49'); el.title = parseFloat(el.title) + 311212.3; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Red Blood Cells Made</a></p>
+<p id="particle64" class="scrollParagraph"><a href="https://www.ncbi.nlm.nih.gov/books/NBK2263/"><span id="counter50" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter50'); el.title = parseFloat(el.title) + 381212.3; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Cells Made</a></p>
+<p id="particle65" class="scrollParagraph"><a href="https://bio.libretexts.org/Bookshelves/Human_Biology/Human_Biology_(Wakim_and_Grewal)/05%3A_Cells/5.09%3A_Cellular_Respiration"><span id="counter51" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter51'); el.title = parseFloat(el.title) + 212345678912345670000; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> ATP molecules made</a></p>
 </div>
 <div class="scrollSection"><h2 id="particle67" class="scrollParagraph">In Your Brain</h2>
-<p id="particle68" class="scrollParagraph"><a href="https://www.khanacademy.org/test-prep/mcat/organ-systems/neural-synapses/a/signal-propagation-the-movement-of-signals-between-neurons"><span id="counter36" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter36'); el.title = parseFloat(el.title) + 120000000000; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Action Potentials Fired</a></p>
-<p id="particle69" class="scrollParagraph"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7699472/"><span id="counter37" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter37'); el.title = parseFloat(el.title) + 364000000000000000; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Ketones Consumed (Ketosis)</a></p>
-<p id="particle70" class="scrollParagraph"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3900881/"><span id="counter38" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter38'); el.title = parseFloat(el.title) + 464000000000000000; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Glucose Molecules Consumed</a></p>
+<p id="particle68" class="scrollParagraph"><a href="https://www.khanacademy.org/test-prep/mcat/organ-systems/neural-synapses/a/signal-propagation-the-movement-of-signals-between-neurons"><span id="counter52" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter52'); el.title = parseFloat(el.title) + 120000000000; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Action Potentials Fired</a></p>
+<p id="particle69" class="scrollParagraph"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7699472/"><span id="counter53" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter53'); el.title = parseFloat(el.title) + 364000000000000000; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Ketones Consumed (Ketosis)</a></p>
+<p id="particle70" class="scrollParagraph"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3900881/"><span id="counter54" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter54'); el.title = parseFloat(el.title) + 464000000000000000; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Glucose Molecules Consumed</a></p>
 </div>
 <div class="scrollSection"><h2 id="particle72" class="scrollParagraph">World Economy</h2>
-<p id="particle73" class="scrollParagraph"><a href="https://www.statista.com/statistics/262747/worldwide-automobile-production-since-2000/"><span id="counter39" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter39'); el.title = parseFloat(el.title) + 0.25; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Cars Made</a></p>
-<p id="particle74" class="scrollParagraph"><a href="https://www.rgare.com/knowledge-center/article/coffee-consumption-how-much-is-too-much-and-how-little-is-not-enough"><span id="counter40" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter40'); el.title = parseFloat(el.title) + 2601.2; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Cups of Coffee Consumed</a></p>
-<p id="particle75" class="scrollParagraph"><a href="https://thesocialshepherd.com/blog/youtube-statistics"><span id="counter41" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter41'); el.title = parseFloat(el.title) + 5932.1; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> YouTubes Watched</a></p>
+<p id="particle73" class="scrollParagraph"><a href="https://www.statista.com/statistics/262747/worldwide-automobile-production-since-2000/"><span id="counter55" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter55'); el.title = parseFloat(el.title) + 0.25; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Cars Made</a></p>
+<p id="particle74" class="scrollParagraph"><a href="https://www.rgare.com/knowledge-center/article/coffee-consumption-how-much-is-too-much-and-how-little-is-not-enough"><span id="counter56" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter56'); el.title = parseFloat(el.title) + 2601.2; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Cups of Coffee Consumed</a></p>
+<p id="particle75" class="scrollParagraph"><a href="https://thesocialshepherd.com/blog/youtube-statistics"><span id="counter57" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter57'); el.title = parseFloat(el.title) + 5932.1; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> YouTubes Watched</a></p>
 </div>
 <div class="scrollSection"><h2 id="particle77" class="scrollParagraph">Flight</h2>
-<p id="particle78" class="scrollParagraph"><a href="https://ourworldindata.org/grapher/yearly-number-of-objects-launched-into-outer-space"><span id="counter42" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter42'); el.title = parseFloat(el.title) + 0.000008000000000000001; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Objects Launched into Space</a></p>
-<p id="particle79" class="scrollParagraph"><a href="https://www.ibisworld.com/global/market-research-reports/global-commercial-aircraft-manufacturing-industry/"><span id="counter43" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter43'); el.title = parseFloat(el.title) + 0.000004000000000000001; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Planes Built</a></p>
-<p id="particle80" class="scrollParagraph"><a href="https://www.faa.gov/air_traffic/by_the_numbers"><span id="counter44" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter44'); el.title = parseFloat(el.title) + 0.11699999999999999; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Planes Landed</a></p>
+<p id="particle78" class="scrollParagraph"><a href="https://ourworldindata.org/grapher/yearly-number-of-objects-launched-into-outer-space"><span id="counter58" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter58'); el.title = parseFloat(el.title) + 0.000008000000000000001; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Objects Launched into Space</a></p>
+<p id="particle79" class="scrollParagraph"><a href="https://www.ibisworld.com/global/market-research-reports/global-commercial-aircraft-manufacturing-industry/"><span id="counter59" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter59'); el.title = parseFloat(el.title) + 0.000004000000000000001; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Planes Built</a></p>
+<p id="particle80" class="scrollParagraph"><a href="https://www.faa.gov/air_traffic/by_the_numbers"><span id="counter60" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter60'); el.title = parseFloat(el.title) + 0.11699999999999999; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Planes Landed</a></p>
 </div>
 <div class="scrollSection"><h2 id="particle82" class="scrollParagraph">Animals</h2>
-<p id="particle83" class="scrollParagraph"><a href="https://www.marinemammalcenter.org/animal-care/learn-about-marine-mammals/cetaceans/blue-whale"><span id="counter45" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter45'); el.title = parseFloat(el.title) + 0.000004000000000000001; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Blue Whales Born</a></p>
-<p id="particle84" class="scrollParagraph"><a href="https://elephantconservation.org/about-elephants/25-things-to-know/"><span id="counter46" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter46'); el.title = parseFloat(el.title) + 0.0001; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Elephants Born</a></p>
-<p id="particle85" class="scrollParagraph"><a href="https://privateexterminator.com/are-all-the-ants-as-heavy-as-all-the-humans"><span id="counter47" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter47'); el.title = parseFloat(el.title) + 3100000000; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Ants Born</a></p>
+<p id="particle83" class="scrollParagraph"><a href="https://www.marinemammalcenter.org/animal-care/learn-about-marine-mammals/cetaceans/blue-whale"><span id="counter61" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter61'); el.title = parseFloat(el.title) + 0.000004000000000000001; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Blue Whales Born</a></p>
+<p id="particle84" class="scrollParagraph"><a href="https://elephantconservation.org/about-elephants/25-things-to-know/"><span id="counter62" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter62'); el.title = parseFloat(el.title) + 0.0001; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Elephants Born</a></p>
+<p id="particle85" class="scrollParagraph"><a href="https://privateexterminator.com/are-all-the-ants-as-heavy-as-all-the-humans"><span id="counter63" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter63'); el.title = parseFloat(el.title) + 3100000000; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Ants Born</a></p>
 </div>
 <div class="scrollSection"><h2 id="particle87" class="scrollParagraph">Computer Chips</h2>
-<p id="particle88" class="scrollParagraph"><a href="https://www.intel.com/content/www/us/en/architecture-and-technology/global-manufacturing.html"><span id="counter48" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter48'); el.title = parseFloat(el.title) + 6.67; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> CPUS made by Intel</a></p>
-<p id="particle89" class="scrollParagraph"><a href="https://nvidianews.nvidia.com/news/nvidia-announces-hopper-architecture-the-next-generation-of-accelerated-computing"><span id="counter49" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter49'); el.title = parseFloat(el.title) + 623455654.3; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Transistors made by Nvidia</a></p>
-<p id="particle90" class="scrollParagraph"><a href="https://www.intel.com/content/www/us/en/history/museum-transistors-to-transformations-brochure.html"><span id="counter50" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter50'); el.title = parseFloat(el.title) + 6123455654.3; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Transistors made by Intel</a></p>
+<p id="particle88" class="scrollParagraph"><a href="https://www.intel.com/content/www/us/en/architecture-and-technology/global-manufacturing.html"><span id="counter64" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter64'); el.title = parseFloat(el.title) + 6.67; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> CPUS made by Intel</a></p>
+<p id="particle89" class="scrollParagraph"><a href="https://nvidianews.nvidia.com/news/nvidia-announces-hopper-architecture-the-next-generation-of-accelerated-computing"><span id="counter65" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter65'); el.title = parseFloat(el.title) + 623455654.3; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Transistors made by Nvidia</a></p>
+<p id="particle90" class="scrollParagraph"><a href="https://www.intel.com/content/www/us/en/history/museum-transistors-to-transformations-brochure.html"><span id="counter66" title="0">0</span><script>setInterval(()=>{ const el = document.getElementById('counter66'); el.title = parseFloat(el.title) + 6123455654.3; el.textContent = Math.floor(parseFloat(el.title)).toLocaleString()}, 100)</script> Transistors made by Intel</a></p>
 </div>
 <div class="abstractDinkusParser"><span>⁂</span></div>
 <center><p id="particle97" class="scrollParagraph"></p>
@@ -2830,7 +2830,7 @@ endColumns</code></div>
 <div class="scrollSection"><h1 id="particle59" class="scrollParagraph">Step 1: Generate a scatterplot with 2 words</h1>
 <code class="scrollCodeBlock">planets.csv
  scatterplot</code>
-<div id="plot51"></div><script>
+<div id="plot67"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
@@ -2843,7 +2843,7 @@ Uranus,27,null,null,51118,8,null,84.01,false
 Venus,0,null,null,12104,9,null,0.615,false
 Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot51").append(Plot.plot({
+  document.querySelector("#plot67").append(Plot.plot({
     title: "",
     subtitle: "",
     caption: "",
@@ -2870,7 +2870,7 @@ Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
 <code class="scrollCodeBlock">planets.csv
  scatterplot
   title The Planets</code>
-<div id="plot52"></div><script>
+<div id="plot68"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
@@ -2883,7 +2883,7 @@ Uranus,27,null,null,51118,8,null,84.01,false
 Venus,0,null,null,12104,9,null,0.615,false
 Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot52").append(Plot.plot({
+  document.querySelector("#plot68").append(Plot.plot({
     title: "The Planets",
     subtitle: "",
     caption: "",
@@ -2918,7 +2918,7 @@ Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   Homer 39 183
   Bart 10 137
   Lisa 8 120</code>
-<div id="plot53"></div><script>
+<div id="plot69"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`name,age,height
@@ -2926,7 +2926,7 @@ Homer,39,183
 Bart,10,137
 Lisa,8,120`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot53").append(Plot.plot({
+  document.querySelector("#plot69").append(Plot.plot({
     title: "The Simpson Family",
     subtitle: "",
     caption: "",
@@ -2961,7 +2961,7 @@ Lisa,8,120`, d3.autoType)
   radius diameter
   label id
   symbol hasLife</code>
-<div id="plot54"></div><script>
+<div id="plot70"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`id,moons,wikipedia,aka,diameter,surfaceGravity,age,yearsToOrbitSun,hasLife
@@ -2974,7 +2974,7 @@ Uranus,27,null,null,51118,8,null,84.01,false
 Venus,0,null,null,12104,9,null,0.615,false
 Neptune,14,null,null,49572,11,null,164.79,false`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot54").append(Plot.plot({
+  document.querySelector("#plot70").append(Plot.plot({
     title: "The Planets in our Solar System",
     subtitle: "Note: This chart is not designed to be pretty but to show all the current features in the Scroll/Plot integration.",
     caption: "Data from Wikipedia.",
@@ -3194,7 +3194,7 @@ concept
 <div class="scrollSection"><h1 id="particle114" class="scrollParagraph">Extended Example: a Planets ScrollSet</h1>
 </div>
 <p id="particle116" class="scrollParagraph">Below is the ScrollSet embedded in this Scroll file.</p>
-<table id="table55" class="scrollTable">
+<table id="table71" class="scrollTable">
  <thead><tr></tr></thead>
  <tbody></tbody>
  </table>
@@ -3207,7 +3207,7 @@ concept
 
 
 <div class="scrollSection"><h1 id="particle121" class="scrollParagraph">Measurements of the measures</h1>
-<table id="table56" class="scrollTable">
+<table id="table72" class="scrollTable">
  <thead><tr></tr></thead>
  <tbody></tbody>
  </table>
@@ -3732,7 +3732,7 @@ or formatting instructions.</p>
 <style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="mailto:feedback@scroll.pub" class="doNotPrint abstractIconButtonParser" style="position:relative;"><svg viewBox="3 5 24 20" width="24" height="20" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(1, 0, 0, 1, 0, -289.0625)"><path style="opacity:1;stroke:none;stroke-width:0.49999997;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 5 5 C 4.2955948 5 3.6803238 5.3628126 3.3242188 5.9101562 L 14.292969 16.878906 C 14.696939 17.282876 15.303061 17.282876 15.707031 16.878906 L 26.675781 5.9101562 C 26.319676 5.3628126 25.704405 5 25 5 L 5 5 z M 3 8.4140625 L 3 23 C 3 24.108 3.892 25 5 25 L 25 25 C 26.108 25 27 24.108 27 23 L 27 8.4140625 L 17.121094 18.292969 C 15.958108 19.455959 14.041892 19.455959 12.878906 18.292969 L 3 8.4140625 z " transform="translate(0,289.0625)" id="rect4592"/></g></svg></a>
 <style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="../download.html" class="doNotPrint abstractIconButtonParser" style="position:relative;"><svg fill="#000000" xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve"><path d="M38.6,20.4c-1-6.5-6.7-11.5-13.5-11.5c-7.6,0-13.7,6.1-13.7,13.7c0,0.3,0,0.7,0.1,1c-5,0.4-8.9,4.6-8.9,9.6 c0,5.4,4.3,9.7,9.7,9.7h11.5c-0.8-0.8-8.1-8.1-8.1-8.1c-0.4-0.4-0.4-0.9,0-1.3l1.3-1.3c0.4-0.4,0.9-0.4,1.3,0l3.5,3.5 c0.4,0.4,1.1,0.1,1.1-0.4V21.8c0-0.4,0.5-0.9,1-0.9h1.9c0.5,0,0.9,0.4,0.9,0.9v13.4c0,0.6,0.8,0.8,1.1,0.4l3.5-3.5 c0.4-0.4,0.9-0.4,1.3,0l1.3,1.3c0.4,0.4,0.4,0.9,0,1.3L26,42.9h12.3v0c6.1-0.1,11-5.1,11-11.3C49.4,25.5,44.6,20.6,38.6,20.4z"/></svg><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --></a>
 <style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="https://github.com/breck7/scroll/blob/main/blog/full.scroll" class="doNotPrint abstractIconButtonParser" style="position:relative;"><svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z"/></svg></a>
-<div class="abstractTextLinkParser"><a href="https://scroll.pub">Built with Scroll v175.0.2</a></div>
+<div class="abstractTextLinkParser"><a href="https://scroll.pub">Built with Scroll v175.1.0</a></div>
 </center>
 </body>
 </html>

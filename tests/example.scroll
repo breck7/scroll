@@ -1,0 +1,9 @@
+This was a nasty little bug.
+
+Basically when using macros if the replacement string contained $&, and was nested, then the replacement would contain the match, and then since it was nested we'd encounter it again, leading to max call stack exceeded.
+
+replace DEMO
+ //
+  $&
+
+DEMO

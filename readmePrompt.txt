@@ -89,6 +89,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 175.1.0 3/24/2025
+🎉 added evalNodejs parser
+🏥 fix stack overflow bug with macros
+🏥 get perf fix in new ScrollSDK
+
 📦 175.0.2 3/24/2025
 🏥 don't wake replaceNodejs in browser env
 

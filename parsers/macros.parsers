@@ -18,7 +18,10 @@ abstractMacroParser
     this.addFn(search, replacement)
   }
   addFn(search, replacement) {
-    this.root.addTransformer(block => block.replace(search, replacement))
+    // Note that we don't return replacement directly, because it may contain $&
+    // which is a special string in JS replace. "a".replace("a", `$&`).
+    // PLDB actually contains that sequence.
+    this.root.addTransformer(block => block.replace(search, () => replacement))
   }
 
 replaceParser
@@ -40,35 +43,6 @@ replaceJsParser
   get replacement() {
     const particle = this
     return eval(super.replacement)
-  }
-
-replaceNodejsParser
- description Replace with evaled Node.JS.
- extends abstractMacroParser
- catchAllAtomType javascriptAnyAtom
- baseParser blobParser
- example
-  replaceNodejs
-   module.exports = {SCORE : 1 + 2}
-  * The score is SCORE
- javascript
-  wake() {
-    if (!this.isNodeJs()) return
-    const {filePath, Disk} = this.root
-    const tempPath = filePath + ".js"
-    if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)
-    try {
-      Disk.write(tempPath, this.subparticlesToString())
-      const replacements = require(tempPath)
-      Object.keys(replacements).forEach(needle => {
-        this.addFn(needle, replacements[needle])
-      })
-    } catch (err) {
-      console.error(`Error in replaceNodejsParser in file '${filePath}'`)
-      console.error(err)
-    } finally {
-      Disk.rm(tempPath)
-    }
   }
 
 toFooterParser

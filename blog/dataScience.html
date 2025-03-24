@@ -3,13 +3,13 @@
 <head>
  <meta charset="utf-8">
  <title>Data Science with Scroll</title>
- <script>/* This HTML was generated from dataScience.scroll by 📜 Scroll v175.0.2. https://scroll.pub */</script>
+ <script>/* This HTML was generated from dataScience.scroll by 📜 Scroll v175.1.0. https://scroll.pub */</script>
  <style>@media print {.doNotPrint {display: none !important;}}</style>
  <link rel="canonical" href="https://scroll.pub/blog/dataScience.html">
  <meta name="viewport" content="width=device-width,initial-scale=1">
  <meta name="description" content="A comprehensive tutorial on using Scroll for data analysis and visualization">
  <meta name="keywords" content="All">
- <meta name="generator" content="Scroll v175.0.2">
+ <meta name="generator" content="Scroll v175.1.0">
  <meta property="og:title" content="Data Science with Scroll">
  <meta property="og:description" content="A comprehensive tutorial on using Scroll for data analysis and visualization">
  <meta property="og:image" content="">
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p id="particle59" class="scrollParagraph">Scroll comes with several sample datasets. Let's start with the famous iris dataset:</p>
 <code class="scrollCodeBlock">iris
  printTable</code>
-<table id="table18" class="scrollTable">
+<table id="table34" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <code class="scrollCodeBlock">sampleData zipcodes.csv
  limit 0 5
   printTable</code>
-<table id="table19" class="scrollTable">
+<table id="table35" class="scrollTable">
  <thead><tr><th>zip_code</th>
 
 <th>latitude</th>
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <code class="scrollCodeBlock">iris
  summarize
   printTable</code>
-<table id="table20" class="scrollTable">
+<table id="table36" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>type</th>
@@ -297,7 +297,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
   printTable
  where species oneOf setosa virginica
   printTable</code>
-<table id="table21" class="scrollTable">
+<table id="table37" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <td>setosa</td>
 </tr></tbody>
  </table>
-<table id="table22" class="scrollTable">
+<table id="table38" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -408,7 +408,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <script src=".d3.js"></script>
 <script src=".plot.js"></script>
 
-<div id="plot23"></div><script>
+<div id="plot39"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -423,7 +423,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot23").append(Plot.plot({
+  document.querySelector("#plot39").append(Plot.plot({
     title: "Sepal Length vs Width",
     subtitle: "",
     caption: "",
@@ -454,7 +454,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
    y temp_max
    title Maximum Temperature in Seattle
    stroke steelblue</code>
-<div id="plot24"></div><script>
+<div id="plot40"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`date,precipitation,temp_max,temp_min,wind,weather
@@ -1920,7 +1920,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 2015-12-30,0,5.6,-1,3.4,sun
 2015-12-31,0,5.6,-2.1,3.5,sun`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot24").append(Plot.plot({
+  document.querySelector("#plot40").append(Plot.plot({
     title: "Maximum Temperature in Seattle",
     subtitle: "",
     caption: "",
@@ -1953,7 +1953,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
    y precip_avg
    fill teal
    title Average Precipitation by Weather Type</code>
-<div id="plot25"></div><script>
+<div id="plot41"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`weather,count,precip_avg
@@ -1963,7 +1963,7 @@ sun,714,0.335294117647059
 snow,23,9.04782608695652
 fog,411,6.461557177615568`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot25").append(Plot.plot({
+  document.querySelector("#plot41").append(Plot.plot({
     title: "Average Precipitation by Weather Type",
     subtitle: "",
     caption: "",
@@ -1995,7 +1995,7 @@ fog,411,6.461557177615568`, d3.autoType)
   reduce temp_min mean avg_min_temp
   orderBy -avg_max_temp
   printTable</code>
-<table id="table26" class="scrollTable">
+<table id="table42" class="scrollTable">
  <thead><tr><th>count</th>
 
 <th>weather</th>
@@ -2037,7 +2037,7 @@ fog,411,6.461557177615568`, d3.autoType)
  compute ratio {sepal_length}/{sepal_width}
   where ratio > 2
    printTable</code>
-<table id="table27" class="scrollTable">
+<table id="table43" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -2107,7 +2107,7 @@ fog,411,6.461557177615568`, d3.autoType)
   y sepal_length
   fill teal
   title Sepal Length by Species</code>
-<div id="plot28"></div><script>
+<div id="plot44"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -2122,7 +2122,7 @@ fog,411,6.461557177615568`, d3.autoType)
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot28").append(Plot.plot({
+  document.querySelector("#plot44").append(Plot.plot({
     title: "",
     subtitle: "",
     caption: "",
@@ -2143,7 +2143,7 @@ fog,411,6.461557177615568`, d3.autoType)
   loadChart()
   }
   </script>
-<div id="plot29"></div><script>
+<div id="plot45"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -2158,7 +2158,7 @@ fog,411,6.461557177615568`, d3.autoType)
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot29").append(Plot.plot({
+  document.querySelector("#plot45").append(Plot.plot({
     title: "Sepal Length by Species",
     subtitle: "",
     caption: "",
@@ -2191,7 +2191,7 @@ fog,411,6.461557177615568`, d3.autoType)
 <style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="mailto:feedback@scroll.pub" class="doNotPrint abstractIconButtonParser" style="position:relative;"><svg viewBox="3 5 24 20" width="24" height="20" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(1, 0, 0, 1, 0, -289.0625)"><path style="opacity:1;stroke:none;stroke-width:0.49999997;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 5 5 C 4.2955948 5 3.6803238 5.3628126 3.3242188 5.9101562 L 14.292969 16.878906 C 14.696939 17.282876 15.303061 17.282876 15.707031 16.878906 L 26.675781 5.9101562 C 26.319676 5.3628126 25.704405 5 25 5 L 5 5 z M 3 8.4140625 L 3 23 C 3 24.108 3.892 25 5 25 L 25 25 C 26.108 25 27 24.108 27 23 L 27 8.4140625 L 17.121094 18.292969 C 15.958108 19.455959 14.041892 19.455959 12.878906 18.292969 L 3 8.4140625 z " transform="translate(0,289.0625)" id="rect4592"/></g></svg></a>
 <style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="../download.html" class="doNotPrint abstractIconButtonParser" style="position:relative;"><svg fill="#000000" xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve"><path d="M38.6,20.4c-1-6.5-6.7-11.5-13.5-11.5c-7.6,0-13.7,6.1-13.7,13.7c0,0.3,0,0.7,0.1,1c-5,0.4-8.9,4.6-8.9,9.6 c0,5.4,4.3,9.7,9.7,9.7h11.5c-0.8-0.8-8.1-8.1-8.1-8.1c-0.4-0.4-0.4-0.9,0-1.3l1.3-1.3c0.4-0.4,0.9-0.4,1.3,0l3.5,3.5 c0.4,0.4,1.1,0.1,1.1-0.4V21.8c0-0.4,0.5-0.9,1-0.9h1.9c0.5,0,0.9,0.4,0.9,0.9v13.4c0,0.6,0.8,0.8,1.1,0.4l3.5-3.5 c0.4-0.4,0.9-0.4,1.3,0l1.3,1.3c0.4,0.4,0.4,0.9,0,1.3L26,42.9h12.3v0c6.1-0.1,11-5.1,11-11.3C49.4,25.5,44.6,20.6,38.6,20.4z"/></svg><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --></a>
 <style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="https://github.com/breck7/scroll/blob/main/blog/dataScience.scroll" class="doNotPrint abstractIconButtonParser" style="position:relative;"><svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z"/></svg></a>
-<div class="abstractTextLinkParser"><a href="https://scroll.pub">Built with Scroll v175.0.2</a></div>
+<div class="abstractTextLinkParser"><a href="https://scroll.pub">Built with Scroll v175.1.0</a></div>
 </center></div>
 </body>
 </html>

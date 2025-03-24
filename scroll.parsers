@@ -4375,7 +4375,10 @@ abstractMacroParser
     this.addFn(search, replacement)
   }
   addFn(search, replacement) {
-    this.root.addTransformer(block => block.replace(search, replacement))
+    // Note that we don't return replacement directly, because it may contain $&
+    // which is a special string in JS replace. "a".replace("a", `$&`).
+    // PLDB actually contains that sequence.
+    this.root.addTransformer(block => block.replace(search, () => replacement))
   }
 replaceParser
  description Replace this with that.
@@ -4407,22 +4410,11 @@ replaceNodejsParser
   * The score is SCORE
  javascript
   wake() {
-    if (!this.isNodeJs()) return
-    const {filePath, Disk} = this.root
-    const tempPath = filePath + ".js"
-    if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)
-    try {
-      Disk.write(tempPath, this.subparticlesToString())
-      const replacements = require(tempPath)
-      Object.keys(replacements).forEach(needle => {
-        this.addFn(needle, replacements[needle])
-      })
-    } catch (err) {
-      console.error(`Error in replaceNodejsParser in file '${filePath}'`)
-      console.error(err)
-    } finally {
-      Disk.rm(tempPath)
-    }
+    const replacements = this.root.evalNodeJs(this)
+    if (replacements)
+    Object.keys(replacements).forEach(needle => {
+      this.addFn(needle, replacements[needle])
+    })
   }
 toFooterParser
  extends abstractScrollParser
@@ -4693,6 +4685,22 @@ metaTagsParser
    <meta name="twitter:card" content="summary_large_image">
   </head>
   <body>`
+  }
+evalNodejsParser
+ description Replace with evaled Node.JS.
+ extends abstractScrollParser
+ catchAllAtomType javascriptAnyAtom
+ baseParser blobParser
+ atoms preBuildCommandAtom
+ cueFromId
+ example
+  evalNodejs
+   module.exports = "# Hello world"
+ javascript
+  wake() {
+    const evaled = this.root.evalNodeJs(this)
+    if (evaled !== false)
+    this.replaceParticle(() => evaled)
   }
 quoteParser
  popularity 0.001471
@@ -7030,7 +7038,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "175.0.2"
+    return "175.1.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -7450,6 +7458,23 @@ scrollParser
     if (!sortBy) return this._compileArray(filename, withStats)
     const orderBy = this.makeLodashOrderByParams(sortBy)
     return this._compileArray(filename, this.lodash.orderBy(withStats, orderBy[0], orderBy[1]))
+  }
+  evalNodeJs(particle) {
+    if (!this.isNodeJs()) return false
+    const {filePath, Disk} = this
+    const uid = particle._getUid()
+    const tempPath = filePath + `.${uid}.js`
+    if (Disk.exists(tempPath)) throw new Error(`Failed to write/require nodejs snippet since '${tempPath}' already exists.`)
+    try {
+      Disk.write(tempPath, particle.subparticlesToString())
+      return require(tempPath)
+    } catch (err) {
+      console.error(`Error in ${particle.cue} in file '${filePath}'`)
+      console.error(err)
+      return false
+    } finally {
+      Disk.rm(tempPath)
+    }
   }
   toRss() {
     const { title, canonicalUrl } = this

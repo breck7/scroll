@@ -23,8 +23,7 @@ https://scroll.pub/slideshowDemo.html
 https://scroll.pub/snippets.html
 https://scroll.pub/source.html
 https://scroll.pub/sourcemaps.html
-https://scroll.pub/edit.html
-https://scroll.pub/empty.html
+https://scroll.pub/example.html
 https://scroll.pub/favicon.html
 https://scroll.pub/feed.html
 https://scroll.pub/fetchTest.html
@@ -80,4 +79,6 @@ https://scroll.pub/defs.html
 https://scroll.pub/defsForm.html
 https://scroll.pub/dependencies.html
 https://scroll.pub/disk.html
+https://scroll.pub/edit.html
+https://scroll.pub/empty.html
 https://scroll.pub/top-sinks.html
