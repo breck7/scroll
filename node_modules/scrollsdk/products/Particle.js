@@ -19,6 +19,10 @@ class AbstractParticleEvent {
     this.targetParticle = targetParticle
   }
 }
+function splitBlocks(str, edgeSymbol, particleBreakSymbol) {
+  const regex = new RegExp(`\\${particleBreakSymbol}(?!\\${edgeSymbol})`, "g")
+  return str.split(regex)
+}
 function _getIndentCount(str, edgeSymbol) {
   let level = 0
   const edgeChar = edgeSymbol
@@ -108,7 +112,15 @@ class ParserPool {
   }
   createParticle(parentParticle, block, index) {
     const rootParticle = parentParticle.root
-    if (rootParticle.particleTransformers) block = rootParticle._transformStrings(block)
+    if (rootParticle.particleTransformers) {
+      // A macro may return multiple new blocks.
+      const blocks = splitBlocks(rootParticle._transformBlock(block), SUBPARTICLE_MEMBRANE, PARTICLE_MEMBRANE)
+      const newParticles = blocks.map((block, newBlockIndex) => this._createParticle(parentParticle, block, index === undefined ? undefined : index + newBlockIndex))
+      return newParticles[0]
+    } else return this._createParticle(parentParticle, block, index)
+  }
+  _createParticle(parentParticle, block, index) {
+    index = index === undefined ? parentParticle.length : index
     const parser = this._getMatchingParser(block, parentParticle, index)
     const { particleBreakSymbol } = parentParticle
     const lines = block.split(particleBreakSymbol)
@@ -134,7 +146,7 @@ class Particle extends AbstractParticle {
   wake() {}
   execute() {}
   // todo: perhaps if needed in the future we can add more contextual params here
-  _transformStrings(block) {
+  _transformBlock(block) {
     this.particleTransformers.forEach(fn => {
       block = fn(block)
     })
@@ -1466,10 +1478,10 @@ class Particle extends AbstractParticle {
     }
     this._insertBlock(this._makeBlock(line, subparticles))
   }
-  _insertBlock(block, index = this.length) {
-    const adjustedIndex = index < 0 ? this.length + index : index
+  _insertBlock(block, index) {
+    if (index !== undefined) index = index < 0 ? this.length + index : index
     const newParticle = this._getParserPool().createParticle(this, block, index)
-    if (this._cueIndex) this._makeCueIndex(adjustedIndex)
+    if (this._cueIndex) this._makeCueIndex(index)
     this.clearQuickCache()
     return newParticle
   }
@@ -1488,11 +1500,9 @@ class Particle extends AbstractParticle {
   }
   _appendSubparticlesFromString(str) {
     const { edgeSymbol, particleBreakSymbol } = this
-    const regex = new RegExp(`\\${particleBreakSymbol}(?!\\${edgeSymbol})`, "g")
-    const blocks = str.split(regex)
+    const blocks = splitBlocks(str, edgeSymbol, particleBreakSymbol)
     const parserPool = this._getParserPool()
-    const startIndex = this._getSubparticlesArray().length
-    blocks.forEach((block, index) => parserPool.createParticle(this, block, startIndex + index))
+    blocks.forEach((block, index) => parserPool.createParticle(this, block))
   }
   _getCueIndex() {
     // StringMap<int> {cue: index}
@@ -2633,7 +2643,7 @@ Particle.iris = `sepal_length,sepal_width,petal_length,petal_width,species
 4.9,2.5,4.5,1.7,virginica
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`
-Particle.getVersion = () => "105.0.1"
+Particle.getVersion = () => "105.1.0"
 class AbstractExtendibleParticle extends Particle {
   _getFromExtended(cuePath) {
     const hit = this._getParticleFromExtended(cuePath)
