@@ -4407,6 +4407,7 @@ replaceNodejsParser
   * The score is SCORE
  javascript
   wake() {
+    if (!this.isNodeJs()) return
     const {filePath, Disk} = this.root
     const tempPath = filePath + ".js"
     if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)
@@ -7029,7 +7030,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "175.0.1"
+    return "175.0.2"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
