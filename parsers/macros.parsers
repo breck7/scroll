@@ -21,7 +21,7 @@ abstractMacroParser
     // Note that we don't return replacement directly, because it may contain $&
     // which is a special string in JS replace. "a".replace("a", `$&`).
     // PLDB actually contains that sequence.
-    this.root.addTransformer(block => block.replace(search, () => replacement))
+    this.root.addTransformer(block => block.replaceAll(search, () => replacement))
   }
 
 replaceParser

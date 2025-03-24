@@ -54,3 +54,24 @@ scriptParser
   buildJs() {
     return this.scriptContent
   }
+
+evalJsParser
+ description Replace this with evaled JS.
+ extends abstractScrollParser
+ baseParser blobParser
+ cueFromId
+ atoms preBuildCommandAtom
+ catchAllAtomType javascriptAnyAtom
+ example
+  evalJs "# The sum of 1 + 1 is " + 1 + 1
+ javascript
+  wake() {
+    try {
+      const script = (this.content === undefined ? "" : this.content) + "\n" + this.subparticlesToString()
+      const evaled = eval(script)
+      if (evaled)
+        this.replaceParticle(() => evaled.toString())
+    } catch (err) {
+      console.error(err)
+    }
+  }
