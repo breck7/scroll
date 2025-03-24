@@ -85,8 +85,8 @@ class ParserPool {
     }
     return obj
   }
-  _getMatchingParser(line, contextParticle, lineNumber, atomBreakSymbol = ATOM_MEMBRANE) {
-    return this._getCueMap().get(this._getCue(line, atomBreakSymbol)) || this._getParserFromRegexTests(line) || this._getCatchAllParser(contextParticle)
+  _getMatchingParser(block, parentParticle, lineNumber, atomBreakSymbol = ATOM_MEMBRANE) {
+    return this._getCueMap().get(this._getCue(block, atomBreakSymbol)) || this._getParserFromRegexTests(block) || this._getCatchAllParser(parentParticle)
   }
   _getCatchAllParser(contextParticle) {
     if (this._catchAllParser) return this._catchAllParser
@@ -94,21 +94,29 @@ class ParserPool {
     if (parent) return parent._getParserPool()._getCatchAllParser(parent)
     return contextParticle.constructor
   }
-  _getParserFromRegexTests(line) {
+  _getParserFromRegexTests(block) {
     if (!this._regexTests) return undefined
+    const line = block.split(/\n/)[0]
     const hit = this._regexTests.find(test => test.regex.test(line))
     if (hit) return hit.parser
     return undefined
   }
-  _getCue(line, atomBreakSymbol) {
+  _getCue(block, atomBreakSymbol) {
+    const line = block.split(/\n/)[0]
     const firstBreak = line.indexOf(atomBreakSymbol)
     return line.substr(0, firstBreak > -1 ? firstBreak : undefined)
   }
-  createParticle(parentParticle, line, index, subparticles) {
+  createParticle(parentParticle, block, index) {
     const rootParticle = parentParticle.root
-    if (rootParticle.particleTransformers) [line, subparticles] = rootParticle._transformStrings(line, subparticles)
-    const parser = this._getMatchingParser(line, parentParticle, index)
-    return new parser(subparticles, line, parentParticle, index)
+    if (rootParticle.particleTransformers) block = rootParticle._transformStrings(block)
+    const parser = this._getMatchingParser(block, parentParticle, index)
+    const { particleBreakSymbol } = parentParticle
+    const lines = block.split(particleBreakSymbol)
+    const subparticles = lines
+      .slice(1)
+      .map(line => line.substr(1))
+      .join(particleBreakSymbol)
+    return new parser(subparticles, lines[0], parentParticle, index)
   }
 }
 class Particle extends AbstractParticle {
@@ -126,11 +134,11 @@ class Particle extends AbstractParticle {
   wake() {}
   execute() {}
   // todo: perhaps if needed in the future we can add more contextual params here
-  _transformStrings(line, subparticles) {
+  _transformStrings(block) {
     this.particleTransformers.forEach(fn => {
-      ;[line, subparticles] = fn(line, subparticles)
+      block = fn(block)
     })
-    return [line, subparticles]
+    return block
   }
   addTransformer(fn) {
     if (!this.particleTransformers) this.particleTransformers = []
@@ -273,6 +281,9 @@ class Particle extends AbstractParticle {
   }
   toString(indentCount = 0, language = this) {
     if (this.isRoot()) return this._subparticlesToString(indentCount, language)
+    return this._toStringWithLine(indentCount, language)
+  }
+  _toStringWithLine(indentCount = 0, language = this) {
     return language.edgeSymbol.repeat(indentCount) + this.getLine(language) + (this.length ? language.particleBreakSymbol + this._subparticlesToString(indentCount + 1, language) : "")
   }
   get asString() {
@@ -1332,7 +1343,7 @@ class Particle extends AbstractParticle {
     return output
   }
   copyTo(particle, index) {
-    return particle._insertLineAndSubparticles(this.getLine(), this.subparticlesToString(), index)
+    return particle._insertBlock(this.toString(), index)
   }
   // Note: Splits using a positive lookahead
   // this.split("foo").join("\n") === this.toString()
@@ -1412,7 +1423,7 @@ class Particle extends AbstractParticle {
     }
     // set from particle
     if (content instanceof Particle) {
-      content.forEach(particle => this._insertLineAndSubparticles(particle.getLine(), particle.subparticlesToString()))
+      content.forEach(particle => this._insertBlock(particle.toString()))
       return this
     }
     // If we set from object, create an array of inserted objects to avoid circular loops
@@ -1453,11 +1464,11 @@ class Particle extends AbstractParticle {
       // iirc this is return early from circular
       return
     }
-    this._insertLineAndSubparticles(line, subparticles)
+    this._insertBlock(this._makeBlock(line, subparticles))
   }
-  _insertLineAndSubparticles(line, subparticles, index = this.length) {
+  _insertBlock(block, index = this.length) {
     const adjustedIndex = index < 0 ? this.length + index : index
-    const newParticle = this._getParserPool().createParticle(this, line, index, subparticles)
+    const newParticle = this._getParserPool().createParticle(this, block, index)
     if (this._cueIndex) this._makeCueIndex(adjustedIndex)
     this.clearQuickCache()
     return newParticle
@@ -1481,12 +1492,7 @@ class Particle extends AbstractParticle {
     const blocks = str.split(regex)
     const parserPool = this._getParserPool()
     const startIndex = this._getSubparticlesArray().length
-    blocks.forEach((block, index) => {
-      const lines = block.split(particleBreakSymbol)
-      const firstLine = lines.shift()
-      const subs = lines.map(line => line.substr(1)).join(particleBreakSymbol)
-      parserPool.createParticle(this, firstLine, startIndex + index, subs)
-    })
+    blocks.forEach((block, index) => parserPool.createParticle(this, block, startIndex + index))
   }
   _getCueIndex() {
     // StringMap<int> {cue: index}
@@ -1861,7 +1867,7 @@ class Particle extends AbstractParticle {
     return this
   }
   duplicate() {
-    return this.parent._insertLineAndSubparticles(this.getLine(), this.subparticlesToString(), this.index + 1)
+    return this.parent._insertBlock(this.toString(), this.index + 1)
   }
   trim() {
     // todo: could do this so only the trimmed rows are deleted.
@@ -1898,14 +1904,19 @@ class Particle extends AbstractParticle {
   }
   // todo: throw error if line contains a \n
   appendLine(line) {
-    return this._insertLineAndSubparticles(line)
+    return this._insertBlock(line)
   }
   appendUniqueLine(line) {
     if (!this.hasLine(line)) return this.appendLine(line)
     return this.findLine(line)
   }
   appendLineAndSubparticles(line, subparticles) {
-    return this._insertLineAndSubparticles(line, subparticles)
+    return this._insertBlock(this._makeBlock(line, subparticles))
+  }
+  _makeBlock(line, subparticles) {
+    if (subparticles === undefined) return line
+    const particle = new Particle(subparticles, line)
+    return particle._toStringWithLine()
   }
   getParticlesByRegex(regex) {
     const matches = []
@@ -1934,7 +1945,7 @@ class Particle extends AbstractParticle {
   }
   concat(particle) {
     if (typeof particle === "string") particle = new Particle(particle)
-    return particle.map(particle => this._insertLineAndSubparticles(particle.getLine(), particle.subparticlesToString()))
+    return particle.map(particle => this._insertBlock(particle.toString()))
   }
   _deleteByIndexes(indexesToDelete) {
     if (!indexesToDelete.length) return this
@@ -2030,14 +2041,13 @@ class Particle extends AbstractParticle {
     return returnedParticles
   }
   insertLineAndSubparticles(line, subparticles, index) {
-    return this._insertLineAndSubparticles(line, subparticles, index)
+    return this._insertBlock(this._makeBlock(line, subparticles), index)
   }
   insertLine(line, index) {
-    return this._insertLineAndSubparticles(line, undefined, index)
+    return this._insertBlock(line, index)
   }
   insertSection(lines, index) {
-    const particle = new Particle(lines)
-    this._insertLineAndSubparticles(line, subparticles)
+    return this._insertBlock(lines, index)
   }
   prependLine(line) {
     return this.insertLine(line, 0)
@@ -2623,7 +2633,7 @@ Particle.iris = `sepal_length,sepal_width,petal_length,petal_width,species
 4.9,2.5,4.5,1.7,virginica
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`
-Particle.getVersion = () => "104.0.0"
+Particle.getVersion = () => "105.0.0"
 class AbstractExtendibleParticle extends Particle {
   _getFromExtended(cuePath) {
     const hit = this._getParticleFromExtended(cuePath)

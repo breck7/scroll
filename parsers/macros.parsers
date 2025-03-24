@@ -18,12 +18,7 @@ abstractMacroParser
     this.addFn(search, replacement)
   }
   addFn(search, replacement) {
-    this.root.addTransformer((line, subparticles) => {
-        line = line.replace(search, replacement)
-        if (subparticles !== undefined)
-            subparticles = subparticles.replace(search, replacement)
-        return [line, subparticles]
-    })
+    this.root.addTransformer(block => block.replace(search, replacement))
   }
 
 replaceParser
@@ -58,13 +53,11 @@ replaceNodejsParser
   * The score is SCORE
  javascript
   wake() {
-    return ""
     const {filePath, Disk} = this.root
     const tempPath = filePath + ".js"
     if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)
-    const {value} = this
     try {
-      Disk.write(tempPath, value)
+      Disk.write(tempPath, this.subparticlesToString())
       const replacements = require(tempPath)
       Object.keys(replacements).forEach(needle => {
         this.addFn(needle, replacements[needle])

@@ -25,6 +25,10 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+175.0.1 3/24/2025
+=================
+🏥 fix replaceNodejs
+
 175.0.0 3/24/2025
 =================
 🎉 upgraded ScrollSDK to get new simpler macro code
@@ -1170,24 +1174,24 @@ Demos
 =====
 
 date,year,title,permalink,authors,tags,wordCount,minutes
+03/24/2025,2025,Wws Redirect,wws.html,,,0,0
 03/24/2025,2025,Top Buttons,topButtons.html,,,0,0
 03/24/2025,2025,Scroll Tutorial,tutorial.html,,main,951,4.8
 03/24/2025,2025,Wws,wws.html,,,35,0.2
-03/24/2025,2025,Wws Redirect,wws.html,,,0,0
+03/24/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
+03/24/2025,2025,Scroll is a language for scientists of all ages,index.html,,,177,0.9
+03/24/2025,2025,Readme Prompt,readmePrompt.html,,,21734,108.7
+03/24/2025,2025,Scroll Release Notes,releaseNotes.html,,main,16928,84.6
 03/24/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
 03/24/2025,2025,Scroll Prompt,scrollPrompt.html,,,4521,22.6
 03/24/2025,2025,Scrollset Prompt,scrollsetPrompt.html,,,3720,18.6
 03/24/2025,2025,Settings,settings.html,,,0,0
 03/24/2025,2025,Sitemap,sitemap.html,,,120,0.6
-03/24/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-03/24/2025,2025,Scroll is a language for scientists of all ages,index.html,,,177,0.9
-03/24/2025,2025,Readme Prompt,readmePrompt.html,,,21726,108.6
-03/24/2025,2025,Scroll Release Notes,releaseNotes.html,,main,16920,84.6
 03/24/2025,2025,Scroll LeetSheet,leetsheet.html,,,1110,5.5
 03/24/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,182,0.9
-03/24/2025,2025,Parser Prompt,parserPrompt.html,,,28564,142.8
+03/24/2025,2025,Parser Prompt,parserPrompt.html,,,28548,142.7
 03/24/2025,2025,Parser Usage,parserUsage.html,,,278,1.4
-03/24/2025,2025,Parsers,parsers.html,,,28108,140.5
+03/24/2025,2025,Parsers,parsers.html,,,28092,140.5
 03/24/2025,2025,Scroll FAQ,faq.html,,main,3339,16.7
 03/24/2025,2025,Header,header.html,,,0,0
 03/24/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
@@ -3830,4 +3834,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v175.0.0
+Built with Scroll v175.0.1
