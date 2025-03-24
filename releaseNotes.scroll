@@ -22,6 +22,15 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 175.0.0 3/24/2025
+🎉 upgraded ScrollSDK to get new simpler macro code
+⚠️ BREAKING: macros are now done in a single pass so will not affect lines above them.
+
+code
+ // In the past the line below would be changed by the macro after. Now a macro only affects lines after it.
+ Hello world
+ replace world Kaia
+
 📦 174.4.0 3/23/2025
 🎉 code cleanup
 

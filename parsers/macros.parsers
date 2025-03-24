@@ -29,6 +29,7 @@ abstractMacroParser
 replaceParser
  description Replace this with that.
  extends abstractMacroParser
+ atoms preBuildCommandAtom codeAtom
  baseParser blobParser
  example
   replace YEAR 2022
