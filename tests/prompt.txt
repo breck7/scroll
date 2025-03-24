@@ -10,7 +10,7 @@ The Files:
  <title>Source</title>
  <link>https://scroll.pub/tests/</link>
  <description>Kitchen sink test site.</description>
- <lastBuildDate>Sun, 23 Mar 2025 20:41:47 +0000</lastBuildDate>
+ <lastBuildDate>Mon, 24 Mar 2025 12:07:58 +0000</lastBuildDate>
  <language>en-us</language>
  <item>
 <title>Tabular data test</title>
@@ -20,11 +20,6 @@ The Files:
  <item>
 <title>A review of my sink</title>
 <link>https://scroll.pub/tests/a-review-of-my-sink.html</link>
-<pubDate>Invalid Date</pubDate>
-</item>
- <item>
-<title>Top Sinks</title>
-<link>https://scroll.pub/tests/top-sinks.html</link>
 <pubDate>Invalid Date</pubDate>
 </item>
 </channel>

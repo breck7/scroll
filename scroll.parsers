@@ -1196,10 +1196,10 @@ debugSourceStackParser
  javascript
   get sources() {
     const {file} = this.root
-    const passNames = ["codeAtStart", "fusedCode", "codeAfterMacroPass"]
+    const passNames = ["codeAtStart", "fusedCode", "codeAfterMacros"]
     let lastCode = ""
     return passNames.map(name => {
-      let code = file[name]
+      let code = name === "codeAfterMacros" ? this.root.toString() : file[name]
       if (lastCode === code)
         code = "[Unchanged]"
       lastCode = file[name]
@@ -4355,6 +4355,97 @@ printparsersLeetSheetParser
     clone.appendLine("myAtom")
     return parserParticle
   }
+abstractMacroParser
+ extends abstractScrollParser
+ catchAllAtomType stringAtom
+ atoms preBuildCommandAtom
+ cueFromId
+ javascript
+  get search() {
+    return this.atoms[1]
+  }
+  get replacement() {
+    return this.value
+  }
+  get value() {
+    return this.length ? this.subparticlesToString() : this.getAtomsFrom(2).join(" ")
+  }
+  wake() {
+    const {search, replacement} = this
+    this.addFn(search, replacement)
+  }
+  addFn(search, replacement) {
+    this.root.addTransformer((line, subparticles) => {
+        line = line.replace(search, replacement)
+        if (subparticles !== undefined)
+            subparticles = subparticles.replace(search, replacement)
+        return [line, subparticles]
+    })
+  }
+replaceParser
+ description Replace this with that.
+ extends abstractMacroParser
+ atoms preBuildCommandAtom codeAtom
+ baseParser blobParser
+ example
+  replace YEAR 2022
+replaceJsParser
+ description Replace this with evaled JS.
+ extends replaceParser
+ catchAllAtomType javascriptAnyAtom
+ example
+  replaceJs SUM 1+1
+  * 1+1 = SUM
+ javascript
+  get replacement() {
+    const particle = this
+    return eval(super.replacement)
+  }
+replaceNodejsParser
+ description Replace with evaled Node.JS.
+ extends abstractMacroParser
+ catchAllAtomType javascriptAnyAtom
+ baseParser blobParser
+ example
+  replaceNodejs
+   module.exports = {SCORE : 1 + 2}
+  * The score is SCORE
+ javascript
+  wake() {
+    return ""
+    const {filePath, Disk} = this.root
+    const tempPath = filePath + ".js"
+    if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)
+    const {value} = this
+    try {
+      Disk.write(tempPath, value)
+      const replacements = require(tempPath)
+      Object.keys(replacements).forEach(needle => {
+        this.addFn(needle, replacements[needle])
+      })
+    } catch (err) {
+      console.error(`Error in replaceNodejsParser in file '${filePath}'`)
+      console.error(err)
+    } finally {
+      Disk.rm(tempPath)
+    }
+  }
+toFooterParser
+ extends abstractScrollParser
+ description Experimental way to move a section to the footer.
+ atoms preBuildCommandAtom
+ cueFromId
+ javascript
+  buildHtml() {
+    // todo: very hacky! fix.
+    this.section.forEach(particle => {
+        const clone = particle.clone()
+        this.root.appendParticle(clone)
+        particle.destroy()
+    })
+    this.destroy()
+    return ""
+  }
 abstractMeasureParser
  atoms measureNameAtom
  description Base parser all measures extend.
@@ -4634,39 +4725,6 @@ redirectToParser
   buildHtml() {
    return `<meta http-equiv="Refresh" content="0; url='${this.getAtom(1)}'" />`
   }
-abstractVariableParser
- extends abstractScrollParser
- catchAllAtomType stringAtom
- atoms preBuildCommandAtom
- cueFromId
- boolean isTopMatter true
-replaceParser
- description Replace this with that.
- extends abstractVariableParser
- baseParser blobParser
- example
-  replace YEAR 2022
-replaceJsParser
- description Replace this with evaled JS.
- extends replaceParser
- catchAllAtomType javascriptAnyAtom
- example
-  replaceJs SUM 1+1
-  * 1+1 = SUM
-replaceNodejsParser
- description Replace with evaled Node.JS.
- extends abstractVariableParser
- catchAllAtomType javascriptAnyAtom
- baseParser blobParser
- example
-  replaceNodejs
-   module.exports = {SCORE : 1 + 2}
-  * The score is SCORE
-toFooterParser
- extends abstractScrollParser
- description Experimental way to move a section to the footer.
- atoms preBuildCommandAtom
- cueFromId
 runScriptParser
  popularity 0.000024
  description Run script and dump stdout.
@@ -6978,7 +7036,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "174.4.0"
+    return "175.0.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -7398,65 +7456,6 @@ scrollParser
     if (!sortBy) return this._compileArray(filename, withStats)
     const orderBy = this.makeLodashOrderByParams(sortBy)
     return this._compileArray(filename, this.lodash.orderBy(withStats, orderBy[0], orderBy[1]))
-  }
-  evalNodeJsMacros(value, macroMap, filePath) {
-    const tempPath = filePath + ".js"
-    const {Disk} = this
-    if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)
-    try {
-      Disk.write(tempPath, value)
-      const results = require(tempPath)
-      Object.keys(results).forEach(key => (macroMap[key] = results[key]))
-    } catch (err) {
-      console.error(`Error in evalMacros in file '${filePath}'`)
-      console.error(err)
-    } finally {
-      Disk.rm(tempPath)
-    }
-  }
-  evalMacros(fusedFile) {
-    const {fusedCode, codeAtStart, filePath} = fusedFile
-    let code = fusedCode
-    const absolutePath = filePath
-    // note: the 2 params above are not used in this method, but may be used in user eval code. (todo: cleanup)
-    const regex = /^(replace|toFooter$)/gm
-    if (!regex.test(code)) return code
-    const particle = new Particle(code) // todo: this can be faster. a more lightweight particle class?
-    // Process macros
-    const macroMap = {}
-    particle
-      .filter(particle => {
-        const parserAtom = particle.cue
-        return parserAtom === "replace" || parserAtom === "replaceJs" || parserAtom === "replaceNodejs"
-      })
-      .forEach(particle => {
-        let value = particle.length ? particle.subparticlesToString() : particle.getAtomsFrom(2).join(" ")
-        const kind = particle.cue
-        try {
-        if (kind === "replaceJs") value = eval(value)
-        if (this.isNodeJs() && kind === "replaceNodejs")
-          this.evalNodeJsMacros(value, macroMap, absolutePath)
-        else macroMap[particle.getAtom(1)] = value
-        } catch (err) {
-          console.error(err)
-        }
-        particle.destroy() // Destroy definitions after eval
-      })
-    if (particle.has("toFooter")) {
-      const pushes = particle.getParticles("toFooter")
-      const append = pushes.map(push => push.section.join("\n")).join("\n")
-      pushes.forEach(push => {
-        push.section.forEach(particle => particle.destroy())
-        push.destroy()
-      })
-      code = particle.asString + append
-    }
-    const keys = Object.keys(macroMap)
-    if (!keys.length) return code
-    let codeAfterMacroSubstitution = particle.asString
-    // Todo: speed up. build a template?
-    Object.keys(macroMap).forEach(key => (codeAfterMacroSubstitution = codeAfterMacroSubstitution.replace(new RegExp(key, "g"), macroMap[key])))
-    return codeAfterMacroSubstitution
   }
   toRss() {
     const { title, canonicalUrl } = this

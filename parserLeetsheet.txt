@@ -5,30 +5,6 @@ Parsers LeetSheet
  https://parsers.breckyunits.com/ Parsers Explained
 
 // - A comment.
-atoms - Set required atomTypes.
-baseParser - Set for blobs or errors. 
-boolean - A constant.
-catchAllAtomType - Use for lists.
-catchAllParser - Attach this to unmatched lines.
-cue - Attach by matching first atom.
-cueFromId - Derive cue from parserId.
-description - Parser description.
-example - Set example for docs and tests.
-extends - Extend another parser.
-float - A constant.
-inScope - Parsers in scope.
-int - A constant.
-javascript - Javascript code for Parser Actions.
-listDelimiter - Split content by this delimiter.
-pattern - Attach via regex.
-popularity - Parser popularity.
-required - Assert is present at least once.
-root - Set root parser.
-single - Assert used once.
-string - A constant.
-tags - Custom metadata.
-uniqueCue - Assert unique first atoms. For pattern parsers.
-uniqueLine - Assert unique lines. For pattern parsers.
 
 Parser Phases: Assemble -> Acquire -> Analyze -> Act
 
@@ -74,4 +50,4 @@ count id
 1 tagsParser
 1 rootFlagParser
 
-Built with Scroll v174.4.0
+Built with Scroll v175.0.0

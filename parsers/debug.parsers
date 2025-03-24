@@ -8,10 +8,10 @@ debugSourceStackParser
  javascript
   get sources() {
     const {file} = this.root
-    const passNames = ["codeAtStart", "fusedCode", "codeAfterMacroPass"]
+    const passNames = ["codeAtStart", "fusedCode", "codeAfterMacros"]
     let lastCode = ""
     return passNames.map(name => {
-      let code = file[name]
+      let code = name === "codeAfterMacros" ? this.root.toString() : file[name]
       if (lastCode === code)
         code = "[Unchanged]"
       lastCode = file[name]

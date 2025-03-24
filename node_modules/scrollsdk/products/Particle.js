@@ -19,6 +19,14 @@ class AbstractParticleEvent {
     this.targetParticle = targetParticle
   }
 }
+function _getIndentCount(str, edgeSymbol) {
+  let level = 0
+  const edgeChar = edgeSymbol
+  while (str[level] === edgeChar) {
+    level++
+  }
+  return level
+}
 class ChildAddedParticleEvent extends AbstractParticleEvent {}
 class ChildRemovedParticleEvent extends AbstractParticleEvent {}
 class DescendantChangedParticleEvent extends AbstractParticleEvent {}
@@ -96,17 +104,39 @@ class ParserPool {
     const firstBreak = line.indexOf(atomBreakSymbol)
     return line.substr(0, firstBreak > -1 ? firstBreak : undefined)
   }
+  createParticle(parentParticle, line, index, subparticles) {
+    const rootParticle = parentParticle.root
+    if (rootParticle.particleTransformers) [line, subparticles] = rootParticle._transformStrings(line, subparticles)
+    const parser = this._getMatchingParser(line, parentParticle, index)
+    return new parser(subparticles, line, parentParticle, index)
+  }
 }
 class Particle extends AbstractParticle {
-  constructor(subparticles, line, parent) {
+  constructor(subparticles, line, parent, index) {
     super()
     // BEGIN MUTABLE METHODS BELOw
     this._particleCreationTime = this._getProcessTimeInMilliseconds()
     this._parent = parent
     this._setLine(line)
     this._setSubparticles(subparticles)
+    if (index !== undefined) parent._getSubparticlesArray().splice(index, 0, this)
+    else if (parent) parent._getSubparticlesArray().push(this)
+    this.wake()
   }
+  wake() {}
   execute() {}
+  // todo: perhaps if needed in the future we can add more contextual params here
+  _transformStrings(line, subparticles) {
+    this.particleTransformers.forEach(fn => {
+      ;[line, subparticles] = fn(line, subparticles)
+    })
+    return [line, subparticles]
+  }
+  addTransformer(fn) {
+    if (!this.particleTransformers) this.particleTransformers = []
+    this.particleTransformers.push(fn)
+    return this
+  }
   async loadRequirements(context) {
     // todo: remove
     await Promise.all(this.map(particle => particle.loadRequirements(context)))
@@ -1426,10 +1456,8 @@ class Particle extends AbstractParticle {
     this._insertLineAndSubparticles(line, subparticles)
   }
   _insertLineAndSubparticles(line, subparticles, index = this.length) {
-    const parser = this._getParserPool()._getMatchingParser(line, this, index)
-    const newParticle = new parser(subparticles, line, this)
     const adjustedIndex = index < 0 ? this.length + index : index
-    this._getSubparticlesArray().splice(adjustedIndex, 0, newParticle)
+    const newParticle = this._getParserPool().createParticle(this, line, index, subparticles)
     if (this._cueIndex) this._makeCueIndex(adjustedIndex)
     this.clearQuickCache()
     return newParticle
@@ -1448,28 +1476,16 @@ class Particle extends AbstractParticle {
     return this.parent._insertLines(lines, this.index + 1)
   }
   _appendSubparticlesFromString(str) {
-    const lines = str.split(this.particleBreakSymbolRegex)
-    const parentStack = []
-    let currentIndentCount = -1
-    let lastParticle = this
-    lines.forEach(line => {
-      const indentCount = this._getIndentCount(line)
-      if (indentCount > currentIndentCount) {
-        currentIndentCount++
-        parentStack.push(lastParticle)
-      } else if (indentCount < currentIndentCount) {
-        // pop things off stack
-        while (indentCount < currentIndentCount) {
-          parentStack.pop()
-          currentIndentCount--
-        }
-      }
-      const lineContent = line.substr(currentIndentCount)
-      const parent = parentStack[parentStack.length - 1]
-      const subparticles = parent._getSubparticlesArray()
-      const parser = parent._getParserPool()._getMatchingParser(lineContent, parent, subparticles.length)
-      lastParticle = new parser(undefined, lineContent, parent)
-      subparticles.push(lastParticle)
+    const { edgeSymbol, particleBreakSymbol } = this
+    const regex = new RegExp(`\\${particleBreakSymbol}(?!\\${edgeSymbol})`, "g")
+    const blocks = str.split(regex)
+    const parserPool = this._getParserPool()
+    const startIndex = this._getSubparticlesArray().length
+    blocks.forEach((block, index) => {
+      const lines = block.split(particleBreakSymbol)
+      const firstLine = lines.shift()
+      const subs = lines.map(line => line.substr(1)).join(particleBreakSymbol)
+      parserPool.createParticle(this, firstLine, startIndex + index, subs)
     })
   }
   _getCueIndex() {
@@ -1525,14 +1541,6 @@ class Particle extends AbstractParticle {
   }
   _subparticlesToXml(indentCount) {
     return this.map(particle => particle._toXml(indentCount)).join("")
-  }
-  _getIndentCount(str) {
-    let level = 0
-    const edgeChar = this.edgeSymbol
-    while (str[level] === edgeChar) {
-      level++
-    }
-    return level
   }
   clone(subparticles = this.subparticlesToString(), line = this.getLine()) {
     return new this.constructor(subparticles, line)
@@ -2615,7 +2623,7 @@ Particle.iris = `sepal_length,sepal_width,petal_length,petal_width,species
 4.9,2.5,4.5,1.7,virginica
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`
-Particle.getVersion = () => "103.0.0"
+Particle.getVersion = () => "104.0.0"
 class AbstractExtendibleParticle extends Particle {
   _getFromExtended(cuePath) {
     const hit = this._getParticleFromExtended(cuePath)

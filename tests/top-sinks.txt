@@ -8,17 +8,29 @@ by Breck Yunits
 $0 budget
 3 countries
 
-sinkManufacturer|country
-Blue|USA
-Red|Canada
-sinkManufacturer|country
-Blue|USA
-Red|Canada
-sinkManufacturer|country
-Blue|USA
-Red|Canada
+datatable
+ delimiter |
+ printTable
+ data
+  sinkManufacturer|country
+  Blue|USA
+  Red|Canada
+datatable
+ delimiter |
+ printTable
+ data
+  sinkManufacturer|country
+  Blue|USA
+  Red|Canada
+datatable
+ delimiter |
+ printTable
+ data
+  sinkManufacturer|country
+  Blue|USA
+  Red|Canada
 
-Today is Sun Mar 23 2025 20:41:47 GMT+0000 (Coordinated Universal Time)
+Today is Mon Mar 24 2025 12:07:57 GMT+0000 (Coordinated Universal Time)
 
 1+1 = 2
 
@@ -26,4 +38,4 @@ January 11, 2019 was a great day
 
 There are 283 in my list.
 
-This file is in dir: /home/runner/work/scroll/scroll/tests
+This file is in dir: DIRNAME
