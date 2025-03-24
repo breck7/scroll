@@ -171,6 +171,7 @@ email,,Set email address for site contact.,131,,
 emailButton,,Email button.,630,,
 endColumns,,End columns.,779,,
 endSnippet,,Cut for snippet here.,430,,
+evalJs,,Replace this with evaled JS.,0,"evalJs ""# The sum of 1 + 1 is "" + 1 + 1",
 expander,,An collapsible HTML details tag.,8,"expander Knock Knock
 Who's there?",
 favicon,,Favicon file.,169,"favicon logo.png

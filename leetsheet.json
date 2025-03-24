@@ -593,6 +593,12 @@
     "popularity": 430
   },
   {
+    "id": "evalJs",
+    "description": "Replace this with evaled JS.",
+    "popularity": 0,
+    "example": "evalJs \"# The sum of 1 + 1 is \" + 1 + 1"
+  },
+  {
     "id": "expander",
     "description": "An collapsible HTML details tag.",
     "popularity": 8,

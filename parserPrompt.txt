@@ -3703,6 +3703,28 @@ stamp
     buildJs() {
       return this.scriptContent
     }
+  
+  evalJsParser
+   description Replace this with evaled JS.
+   extends abstractScrollParser
+   baseParser blobParser
+   cueFromId
+   atoms preBuildCommandAtom
+   catchAllAtomType javascriptAnyAtom
+   example
+    evalJs "# The sum of 1 + 1 is " + 1 + 1
+   javascript
+    wake() {
+      try {
+        const script = (this.content === undefined ? "" : this.content) + "\n" + this.subparticlesToString()
+        const evaled = eval(script)
+        if (evaled)
+          this.replaceParticle(() => evaled.toString())
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  
  json.parsers
   buildJsonParser
    popularity 0.000096
@@ -4147,7 +4169,7 @@ stamp
       // Note that we don't return replacement directly, because it may contain $&
       // which is a special string in JS replace. "a".replace("a", `$&`).
       // PLDB actually contains that sequence.
-      this.root.addTransformer(block => block.replace(search, () => replacement))
+      this.root.addTransformer(block => block.replaceAll(search, () => replacement))
     }
   
   replaceParser
@@ -6253,7 +6275,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "175.1.1"
+      return "175.2.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

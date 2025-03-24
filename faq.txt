@@ -191,7 +191,7 @@ For an extended example of extending Scroll check out this one which adds node t
 What is the biggest downside to Scroll?
 =======================================
 Compared to Markdown there is very little tooling and the ecosystem is currently very small.
-Also, although it is simple to write your own parsers in <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> once you know what you're doing, documentation for ParsersLinks is still poor and tooling isn't great yet.
+Also, although it is simple to write your own parsers in <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> once you know what you're doing, documentation for <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a> is still poor and tooling isn't great yet.
 
 What kind of sites can I use Scroll to build?
 =============================================
@@ -535,4 +535,4 @@ Why the name Scroll?
 ====================
 The scroll was invented thousands of years ago and scrolls are still useful today. Scroll has been designed with a focus on simplicity and a goal of making something that would have been useful decades ago, with the hope that this will make it useful decades into the future.
 
-Built with Scroll v175.1.1
+Built with Scroll v175.2.0

@@ -89,6 +89,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 175.2.0 3/24/2025
+🎉 added evalJsParser
+🏥 macros should replace all
+
 📦 175.1.1 3/24/2025
 🏥 multline macro fix
 
