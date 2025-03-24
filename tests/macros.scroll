@@ -8,3 +8,12 @@ replace Turkey Mexico
 
 I went to south of the border and end up in Turkey.
 assertHtmlIncludes Mexico
+
+# Multiline macros
+
+replace POEM
+ Two roads diverged and I
+ I took the one less travelled by.
+
+POEM
+assertHtmlIncludes travelled
