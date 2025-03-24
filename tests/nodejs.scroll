@@ -1,5 +1,7 @@
+buildHtml
+
 replaceNodejs
-   module.exports = {SCORE : 1 + 2, HEADER: "# A header\n bold"}
+ module.exports = {SCORE : 1 + 2, HEADER: "# A header\n bold"}
 
 The score is SCORE
 assertHtmlIncludes 3
@@ -7,3 +9,6 @@ assertHtmlIncludes 3
 HEADER
 assertHtmlIncludes h1
 assertHtmlIncludes <b>
+
+evalNodejs
+ module.exports = `## This should be a subheader`

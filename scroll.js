@@ -93,7 +93,11 @@ footer.scroll`
     const fileSystem = this.sfs
     const folderPath = Utils.ensureFolderEndsInSlash(folder)
     const files = await fileSystem.getLoadedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
-    const parserErrors = fileSystem.parsers.map(parser => parser.getAllErrors().map(err => err.toObject())).flat()
+
+    // todo: cleanup
+    const parsers = await Promise.all(Object.values(fileSystem._parserCache))
+    const parserErrors = parsers.map(parser => parser.parsersParser.getAllErrors().map(err => err.toObject())).flat()
+
     const scrollErrors = await this.getErrorsInFiles(files)
     return { parserErrors, scrollErrors }
   }

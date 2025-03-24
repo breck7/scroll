@@ -1,0 +1,34 @@
+replaceNodejsParser
+ description Replace with evaled Node.JS.
+ extends abstractMacroParser
+ catchAllAtomType javascriptAnyAtom
+ baseParser blobParser
+ example
+  replaceNodejs
+   module.exports = {SCORE : 1 + 2}
+  * The score is SCORE
+ javascript
+  wake() {
+    const replacements = this.root.evalNodeJs(this)
+    if (replacements)
+    Object.keys(replacements).forEach(needle => {
+      this.addFn(needle, replacements[needle])
+    })
+  }
+
+evalNodejsParser
+ description Replace with evaled Node.JS.
+ extends abstractScrollParser
+ catchAllAtomType javascriptAnyAtom
+ baseParser blobParser
+ atoms preBuildCommandAtom
+ cueFromId
+ example
+  evalNodejs
+   module.exports = "# Hello world"
+ javascript
+  wake() {
+    const evaled = this.root.evalNodeJs(this)
+    if (evaled !== false)
+    this.replaceParticle(() => evaled)
+  }
