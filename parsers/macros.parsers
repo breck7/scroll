@@ -1,0 +1,94 @@
+abstractMacroParser
+ extends abstractScrollParser
+ catchAllAtomType stringAtom
+ atoms preBuildCommandAtom
+ cueFromId
+ javascript
+  get search() {
+    return this.atoms[1]
+  }
+  get replacement() {
+    return this.value
+  }
+  get value() {
+    return this.length ? this.subparticlesToString() : this.getAtomsFrom(2).join(" ")
+  }
+  wake() {
+    const {search, replacement} = this
+    this.addFn(search, replacement)
+  }
+  addFn(search, replacement) {
+    this.root.addTransformer((line, subparticles) => {
+        line = line.replace(search, replacement)
+        if (subparticles !== undefined)
+            subparticles = subparticles.replace(search, replacement)
+        return [line, subparticles]
+    })
+  }
+
+replaceParser
+ description Replace this with that.
+ extends abstractMacroParser
+ baseParser blobParser
+ example
+  replace YEAR 2022
+
+replaceJsParser
+ description Replace this with evaled JS.
+ extends replaceParser
+ catchAllAtomType javascriptAnyAtom
+ example
+  replaceJs SUM 1+1
+  * 1+1 = SUM
+ javascript
+  get replacement() {
+    const particle = this
+    return eval(super.replacement)
+  }
+
+replaceNodejsParser
+ description Replace with evaled Node.JS.
+ extends abstractMacroParser
+ catchAllAtomType javascriptAnyAtom
+ baseParser blobParser
+ example
+  replaceNodejs
+   module.exports = {SCORE : 1 + 2}
+  * The score is SCORE
+ javascript
+  wake() {
+    return ""
+    const {filePath, Disk} = this.root
+    const tempPath = filePath + ".js"
+    if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)
+    const {value} = this
+    try {
+      Disk.write(tempPath, value)
+      const replacements = require(tempPath)
+      Object.keys(replacements).forEach(needle => {
+        this.addFn(needle, replacements[needle])
+      })
+    } catch (err) {
+      console.error(`Error in replaceNodejsParser in file '${filePath}'`)
+      console.error(err)
+    } finally {
+      Disk.rm(tempPath)
+    }
+  }
+
+toFooterParser
+ extends abstractScrollParser
+ description Experimental way to move a section to the footer.
+ atoms preBuildCommandAtom
+ cueFromId
+ javascript
+  buildHtml() {
+    // todo: very hacky! fix.
+    this.section.forEach(particle => {
+        const clone = particle.clone()
+        this.root.appendParticle(clone)
+        particle.destroy()
+    })
+    this.destroy()
+    return ""
+  }

@@ -783,65 +783,6 @@ scrollParser
     const orderBy = this.makeLodashOrderByParams(sortBy)
     return this._compileArray(filename, this.lodash.orderBy(withStats, orderBy[0], orderBy[1]))
   }
-  evalNodeJsMacros(value, macroMap, filePath) {
-    const tempPath = filePath + ".js"
-    const {Disk} = this
-    if (Disk.exists(tempPath)) throw new Error(`Failed to write/require replaceNodejs snippet since '${tempPath}' already exists.`)
-    try {
-      Disk.write(tempPath, value)
-      const results = require(tempPath)
-      Object.keys(results).forEach(key => (macroMap[key] = results[key]))
-    } catch (err) {
-      console.error(`Error in evalMacros in file '${filePath}'`)
-      console.error(err)
-    } finally {
-      Disk.rm(tempPath)
-    }
-  }
-  evalMacros(fusedFile) {
-    const {fusedCode, codeAtStart, filePath} = fusedFile
-    let code = fusedCode
-    const absolutePath = filePath
-    // note: the 2 params above are not used in this method, but may be used in user eval code. (todo: cleanup)
-    const regex = /^(replace|toFooter$)/gm
-    if (!regex.test(code)) return code
-    const particle = new Particle(code) // todo: this can be faster. a more lightweight particle class?
-    // Process macros
-    const macroMap = {}
-    particle
-      .filter(particle => {
-        const parserAtom = particle.cue
-        return parserAtom === "replace" || parserAtom === "replaceJs" || parserAtom === "replaceNodejs"
-      })
-      .forEach(particle => {
-        let value = particle.length ? particle.subparticlesToString() : particle.getAtomsFrom(2).join(" ")
-        const kind = particle.cue
-        try {
-        if (kind === "replaceJs") value = eval(value)
-        if (this.isNodeJs() && kind === "replaceNodejs")
-          this.evalNodeJsMacros(value, macroMap, absolutePath)
-        else macroMap[particle.getAtom(1)] = value
-        } catch (err) {
-          console.error(err)
-        }
-        particle.destroy() // Destroy definitions after eval
-      })
-    if (particle.has("toFooter")) {
-      const pushes = particle.getParticles("toFooter")
-      const append = pushes.map(push => push.section.join("\n")).join("\n")
-      pushes.forEach(push => {
-        push.section.forEach(particle => particle.destroy())
-        push.destroy()
-      })
-      code = particle.asString + append
-    }
-    const keys = Object.keys(macroMap)
-    if (!keys.length) return code
-    let codeAfterMacroSubstitution = particle.asString
-    // Todo: speed up. build a template?
-    Object.keys(macroMap).forEach(key => (codeAfterMacroSubstitution = codeAfterMacroSubstitution.replace(new RegExp(key, "g"), macroMap[key])))
-    return codeAfterMacroSubstitution
-  }
   toRss() {
     const { title, canonicalUrl } = this
     return ` <item>
