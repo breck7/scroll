@@ -42,7 +42,12 @@ replaceJsParser
  javascript
   get replacement() {
     const particle = this
-    return eval(super.replacement)
+    try {
+      return eval(super.replacement)
+    } catch (err) {
+      console.error(err)
+    }
+    return this.search
   }
 
 toFooterParser
