@@ -191,8 +191,14 @@ scrollParser
     const fullpath = this.makeFullPath(filename)
     if (require("fs").existsSync(fullpath)) return this.readFile(fullpath)
     this.log(`🛜 fetching ${url} to ${fullpath} `)
+    try {
     await this.downloadToDisk(url, fullpath)
     return this.readFile(fullpath)
+    } catch (err) {
+      console.error(`fetching ${url} failed`)
+      console.error(err)
+      return ""
+    }
   }
   log(message) {
     if (this.logger) this.logger.log(message)
