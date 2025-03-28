@@ -122,7 +122,6 @@ scrollParser
     }
     return file.scrollProgram.permalink
   }
-  importRegex = /^(import |[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$|https?:\/\/.+\.(scroll|parsers)$)/gm
   get linkToNext() {
     if (!this.hasKeyboardNav)
       // Dont provide link to next unless keyboard nav is on
