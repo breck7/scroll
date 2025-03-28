@@ -16,7 +16,6 @@ const testsFolder = path.join(__dirname)
 const stampFolder = path.join(testsFolder, "testOutput")
 const cli = new ScrollCli()
 const ScrollFile = cli.sfs.defaultFileClass
-const DefaultScrollParser = cli.sfs.defaultParser.parser
 
 // cleanup in case it was built earlier:
 if (Disk.exists(stampFolder)) fs.rmSync(stampFolder, { recursive: true })
@@ -34,38 +33,30 @@ testParticles.compileAftertext = async areEqual => {
   ]
 
   tests.forEach(async example => {
-    const program = new DefaultScrollParser(example.text)
-    const result = program.buildHtml()
+    const result = await cli.scrollToHtml(example.text)
     areEqual(result, example.expected)
   })
 }
 
 testParticles.scrollParagraphParser = async areEqual => {
-  // Arrange
-  const program = new DefaultScrollParser(`* foo`)
-
-  // Act
-  const result = program.buildHtml()
-
-  areEqual(result, `<p id="particle0" class="scrollParagraph">foo</p>`)
+  // Arrange/Act
+  const program = await cli.scrollToHtml(`* foo`)
+  // Assert
+  areEqual(program, `<p id="particle0" class="scrollParagraph">foo</p>`)
 }
 
 testParticles.linkOnly = async areEqual => {
-  // Arrange
-  const program = new DefaultScrollParser(`* https://particles.scroll.pub`)
-
-  // Act
-  const result = program.buildHtml()
-
-  areEqual(result, `<p id="particle0" class="scrollParagraph"><a href="https://particles.scroll.pub" target="_blank">https://particles.scroll.pub</a></p>`)
+  // Arrange/Act
+  const program = await cli.scrollToHtml(`* https://particles.scroll.pub`)
+  // Assert
+  areEqual(program, `<p id="particle0" class="scrollParagraph"><a href="https://particles.scroll.pub" target="_blank">https://particles.scroll.pub</a></p>`)
 }
 
 testParticles.endSnippet = async areEqual => {
-  // Arrange
-  const program = new DefaultScrollParser(`Hi\nendSnippet`)
-
-  // Act/Assert
-  areEqual(program.buildHtml().includes("endSnippet"), false, "should not print endSnippet")
+  // Arrange/Act
+  const program = await cli.scrollToHtml(`Hi\nendSnippet`)
+  // Assert
+  areEqual(program.includes("endSnippet"), false, "should not print endSnippet")
 }
 
 testParticles.tableWithLinks = async areEqual => {
@@ -81,8 +72,8 @@ testParticles.tableWithLinks = async areEqual => {
     }
   ]
 
-  tests.forEach(example => {
-    const result = new DefaultScrollParser(example.text).buildHtml()
+  tests.forEach(async example => {
+    const result = await cli.scrollToHtml(example.text)
     areEqual(result.includes(example.contains), true)
   })
 }
@@ -143,6 +134,7 @@ testParticles.file = async areEqual => {
 }
 
 testParticles.ensureNoErrorsInParser = async areEqual => {
+  const DefaultScrollParser = cli.sfs.defaultParser.parser
   const parserErrors = new parsersParser(new DefaultScrollParser().definition.asString).getAllErrors().map(err => err.toObject())
   if (parserErrors.length) console.log(parserErrors)
   areEqual(parserErrors.length, 0, "no errors in scroll standard library parsers")
@@ -184,30 +176,26 @@ printTitle
 }
 
 testParticles.aBlankPage = async areEqual => {
-  // Arrange
-  const page = new ScrollFile(``)
-  // Act/Assert
-  await page.fuse()
-  areEqual(page.scrollProgram.asHtml, ``)
+  // Arrange/Act
+  const html = await cli.scrollToHtml("")
+  // Assert
+  areEqual(html, ``)
 
   // Arrange
-  const testHidden = new ScrollFile(`permalink blank.html
+  const testHidden = await cli.scrollToHtml(`permalink blank.html
 # Hello world
  hidden`)
   // Act/Assert
-  await testHidden.fuse()
-  areEqual(testHidden.scrollProgram.asHtml, `<!DOCTYPE html>\n<html lang="en">\n<body>\n\n</body>\n</html>`)
+  areEqual(testHidden, `<!DOCTYPE html>\n<html lang="en">\n<body>\n\n</body>\n</html>`)
 }
 
 testParticles.baseUrl = async areEqual => {
   // Arrange
-  const page = new ScrollFile(`baseUrl http://test.com/
+  const page = await cli.scrollToHtml(`baseUrl http://test.com/
 metaTags
 blog/screenshot.png`)
   // Act/Assert
-  await page.fuse()
-  const { asHtml } = page.scrollProgram
-  areEqual(asHtml.includes("http://test.com/blog/screenshot.png"), true)
+  areEqual(page.includes("http://test.com/blog/screenshot.png"), true)
 }
 
 testParticles.scrollsetCli = areEqual => {

@@ -59,6 +59,13 @@ footer.scroll`
     return this.log(`\n✅ Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
   }
 
+  async scrollToHtml(scrollCode) {
+    const ScrollFile = this.sfs.defaultFileClass
+    const page = new ScrollFile(scrollCode)
+    await page.fuse()
+    return page.scrollProgram.asHtml
+  }
+
   sfs = new ScrollFileSystem(undefined, path.join(__dirname, "parsers"))
   initFs(obj) {
     // for testing
