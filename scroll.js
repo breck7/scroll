@@ -7,34 +7,11 @@ const lodash = require("lodash")
 // Particles Includes
 const { Particle } = require("scrollsdk/products/Particle.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
-const { Utils } = require("scrollsdk/products/Utils.js")
-const { Fusion, FusionFile } = require("scrollsdk/products/Fusion.js")
+const { ScrollFileSystem } = require("scrollsdk/products/ScrollFileSystem.js")
 const { SimpleCLI } = require("./simpleCli.js")
 const packageJson = require("./package.json")
 
-// Constants
-const SCROLL_FILE_EXTENSION = ".scroll"
-const PARSERS_FILE_EXTENSION = ".parsers"
-const EXTERNALS_PATH = path.join(__dirname, "external")
-
-// todo: remove
-class ScrollFileSystem extends Fusion {
-  defaultFileClass = ScrollFile
-}
-
-const defaultParserFiles = Disk.getFiles(path.join(__dirname, "parsers")).filter(file => file.endsWith(PARSERS_FILE_EXTENSION))
-const defaultParser = Fusion.combineParsers(
-  defaultParserFiles,
-  defaultParserFiles.map(filePath => Disk.read(filePath))
-)
-const DefaultScrollParser = defaultParser.parser
-
-// todo: remove
-class ScrollFile extends FusionFile {
-  EXTERNALS_PATH = EXTERNALS_PATH
-  defaultParserCode = defaultParser.parsersCode
-  defaultParser = DefaultScrollParser
-}
+const ensureFolderEndsInSlash = folder => folder.replace(/\/$/, "") + "/"
 
 class ScrollCli extends SimpleCLI {
   welcomeMessage = `\n📜 WELCOME TO SCROLL (v${packageJson.version})`
@@ -82,7 +59,12 @@ footer.scroll`
     return this.log(`\n✅ Initialized new scroll in '${cwd}'. Build your new site with: scroll build`)
   }
 
-  sfs = new ScrollFileSystem()
+  sfs = new ScrollFileSystem(undefined, path.join(__dirname, "parsers"))
+  initFs(obj) {
+    // for testing
+    this.sfs = new ScrollFileSystem(obj, path.join(__dirname, "parsers"))
+    return this.sfs
+  }
 
   deleteCommand() {
     return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
@@ -90,7 +72,7 @@ footer.scroll`
 
   async getErrorsInFolder(folder) {
     const fileSystem = this.sfs
-    const folderPath = Utils.ensureFolderEndsInSlash(folder)
+    const folderPath = ensureFolderEndsInSlash(folder)
     const files = await fileSystem.getLoadedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
 
     // todo: cleanup
@@ -152,7 +134,7 @@ footer.scroll`
     let files = []
     if (filenames && filenames.length) files = await this.getFiles(cwd, filenames)
     else files = await this.sfs.getLoadedFilesInFolder(this.resolvePath(cwd), ".scroll")
-    // .concat(fileSystem.getLoadedFilesInFolder(folder, PARSERS_FILE_EXTENSION)) // todo: should format parser files too.
+    // .concat(fileSystem.getLoadedFilesInFolder(folder, ".parsers")) // todo: should format parser files too.
     for (let file of files) {
       this.formatFile(file)
     }
@@ -186,7 +168,7 @@ footer.scroll`
       this.log(`Building ${filenames.length} scroll files\n`)
       return await this.buildFiles(this.sfs, files, cwd)
     }
-    await this.buildFilesInFolder(this.sfs, this.resolvePath(cwd))
+    await this.buildFilesInFolder(this.resolvePath(cwd))
     return this
   }
 
@@ -219,8 +201,8 @@ footer.scroll`
     return fileSystem.productCache
   }
 
-  async buildFilesInFolder(fileSystem, folder = "/") {
-    folder = Utils.ensureFolderEndsInSlash(folder)
+  async buildFilesInFolder(folder = "/", fileSystem = this.sfs) {
+    folder = ensureFolderEndsInSlash(folder)
     const files = await fileSystem.getLoadedFilesInFolder(folder, ".scroll")
     this.log(`Found ${files.length} scroll files in '${folder}'\n`)
     return await this.buildFiles(fileSystem, files, folder)
@@ -233,7 +215,7 @@ footer.scroll`
   findScrollsInDirRecursive(dir) {
     const folders = {}
     Disk.recursiveReaddirSync(dir, filename => {
-      if (!filename.endsWith(SCROLL_FILE_EXTENSION)) return
+      if (!filename.endsWith(".scroll")) return
 
       const folder = path.dirname(filename)
       if (!folders[folder]) {
@@ -252,4 +234,4 @@ footer.scroll`
 
 if (module && !module.parent) new ScrollCli().executeUsersInstructionsFromShell()
 
-module.exports = { ScrollFile, ScrollCli, SimpleCLI, ScrollFileSystem, DefaultScrollParser }
+module.exports = { ScrollCli, SimpleCLI }

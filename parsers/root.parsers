@@ -308,7 +308,7 @@ scrollParser
     return `<a href="${this.editUrl}" class="abstractTextLinkParser">Edit</a>`
   }
   get externalsPath() {
-    return this.file.EXTERNALS_PATH
+    return this.path.join(this.fileSystem.standardParserDirectory, "..", "external")
   }
   get endSnippetIndex() {
     // Get the line number that the snippet should stop at.

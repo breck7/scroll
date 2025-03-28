@@ -3,7 +3,7 @@
 const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
-const { ScrollCli, ScrollFile, ScrollFileSystem, DefaultScrollParser } = require("../scroll.js")
+const { ScrollCli } = require("../scroll.js")
 const { ScrollSetCLI } = require("../ScrollSetCLI.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { TestRacer } = require("scrollsdk/products/TestRacer.js")
@@ -14,6 +14,9 @@ const testParticles = {}
 
 const testsFolder = path.join(__dirname)
 const stampFolder = path.join(testsFolder, "testOutput")
+const cli = new ScrollCli()
+const ScrollFile = cli.sfs.defaultFileClass
+const DefaultScrollParser = cli.sfs.defaultParser.parser
 
 // cleanup in case it was built earlier:
 if (Disk.exists(stampFolder)) fs.rmSync(stampFolder, { recursive: true })
@@ -118,9 +121,9 @@ buildHtml`
   }
   // Act
   const cli = new ScrollCli().silence()
-  const fileSystem = new ScrollFileSystem(files)
-  await cli.buildFilesInFolder(fileSystem, "/")
-  await cli.buildFilesInFolder(fileSystem, "/pages/")
+  cli.initFs(files)
+  await cli.buildFilesInFolder("/")
+  await cli.buildFilesInFolder("/pages/")
 
   // Assert
   areEqual(files["/pages/about.html"].includes("This should be imported"), true, "In memory file system worked")
@@ -129,8 +132,8 @@ buildHtml`
 
 testParticles.file = async areEqual => {
   const rootFolder = path.join(__dirname, "..")
-  const fileSystem = new ScrollFileSystem()
-  const files = await fileSystem.getLoadedFilesInFolder(rootFolder, ".scroll")
+  const cli = new ScrollCli().silence()
+  const files = await cli.sfs.getLoadedFilesInFolder(rootFolder, ".scroll")
   const releaseNotesFile = files.find(file => file.scrollProgram.permalink === "releaseNotes.html").scrollProgram
 
   areEqual(releaseNotesFile.permalink, "releaseNotes.html")
@@ -257,14 +260,13 @@ testParticles.initCommand = async areEqual => {
   try {
     fs.mkdirSync(tempFolder)
     const cli = new ScrollCli()
-    const fileSystem = new ScrollFileSystem()
     cli.verbose = false
 
     // Act
     const result = await cli.initCommand(tempFolder)
     areEqual(fs.existsSync(path.join(tempFolder, "header.scroll")), true, "has header")
 
-    const products = await cli.buildFilesInFolder(fileSystem, tempFolder)
+    const products = await cli.buildFilesInFolder(tempFolder)
 
     // Assert
     areEqual(Disk.read(products[3]).includes("Built with Scroll"), true, "has message")
@@ -284,8 +286,7 @@ testParticles.hodgePodge = async areEqual => {
   try {
     // Arrange/act
     const cli = new ScrollCli().silence()
-    const fileSystem = new ScrollFileSystem()
-    await cli.buildFilesInFolder(fileSystem, testsFolder)
+    await cli.buildFilesInFolder(testsFolder)
     const groupPage = Disk.read(path.join(testsFolder, "snippets.html"))
     const autoPage = Disk.read(path.join(testsFolder, "autoTitle.html"))
     const sitemap = Disk.read(path.join(testsFolder, "sitemap.txt"))

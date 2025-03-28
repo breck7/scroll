@@ -22,6 +22,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 176.0.0 3/28/2025
+⚠️ BREAKING: (no one should be affected) updated ScrollSDK
+⚠️ BREAKING: (no one should be affected) flipped buildFilesInFolder params to make 2nd optional
+
 📦 175.3.0 3/28/2025
 🎉 added assertHtmlMatchesParser and debugTestParser
 
