@@ -42,17 +42,6 @@ debugParsersParser
     return code
   }
 
-debugSourceMapParser
- description Print the source map.
- extends codeParser
- cueFromId
- javascript
-  get code() {
-    const {root} = this
-    const {fileSystem, file, filePath} = root
-    return fileSystem.makeSourceMap(filePath, root.toString())
-  }
-
 debugBelowParser
  description Inspect particle below.
  extends belowAsCodeParser
@@ -87,3 +76,16 @@ debugAllParser
  extends debugBelowParser
  javascript
   get selectedParticles() { return this.root.getSubparticles()}
+
+debugTestParser
+ description Inspect entire document during test.
+ extends debugAllParser
+ example
+  // Test with "scroll test"
+  # Hello world
+  debugTest
+ javascript
+  getErrors() {
+    console.log(this.buildTxt())
+    return super.getErrors()
+  }

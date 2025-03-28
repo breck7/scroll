@@ -1,0 +1,39 @@
+debugSourceMapParser
+ description Print the source map.
+ extends codeParser
+ cueFromId
+ javascript
+  get code() {
+    const {root} = this
+    const {file, filePath} = root
+    return this.makeSourceMap(filePath, root.toString())
+  }
+  makeSourceMap(fileName, fusedCode) {
+    // Note this has tight integration with import parsers. If we change those, need to update this.
+    const fileStack = [{ fileName, lineNumber: 0, linesLeft: fusedCode.split("\n").length }]
+    return new Particle(fusedCode)
+      .map(particle => {
+        const currentFile = fileStack[fileStack.length - 1]
+        currentFile.lineNumber++
+        currentFile.linesLeft--
+        if (particle.cue === "imported") {
+          const linesLeft = parseInt(particle.get("lines"))
+          const original = particle.get("original")
+          fileStack.push({ fileName: particle.atoms[1], lineNumber: 0, linesLeft })
+          return `${currentFile.fileName}:${currentFile.lineNumber} ${original}\n` + particle.map(line => `${currentFile.fileName}:${currentFile.lineNumber}  ${line}`).join("\n")
+        }
+        if (!currentFile.linesLeft) fileStack.pop()
+        return particle
+          .toString()
+          .split("\n")
+          .map((line, index) => {
+            if (index) {
+              currentFile.lineNumber++
+              currentFile.linesLeft--
+            }
+            return `${currentFile.fileName}:${currentFile.lineNumber} ${line}`
+          })
+          .join("\n")
+      })
+      .join("\n")
+  }

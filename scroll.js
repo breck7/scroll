@@ -13,7 +13,6 @@ const { SimpleCLI } = require("./simpleCli.js")
 const packageJson = require("./package.json")
 
 // Constants
-const SCROLL_VERSION = packageJson.version
 const SCROLL_FILE_EXTENSION = ".scroll"
 const PARSERS_FILE_EXTENSION = ".parsers"
 const EXTERNALS_PATH = path.join(__dirname, "external")
@@ -38,7 +37,7 @@ class ScrollFile extends FusionFile {
 }
 
 class ScrollCli extends SimpleCLI {
-  welcomeMessage = `\n📜 WELCOME TO SCROLL (v${SCROLL_VERSION})`
+  welcomeMessage = `\n📜 WELCOME TO SCROLL (v${packageJson.version})`
   async initCommand(cwd) {
     // todo: use stamp for this.
     const initFolder = {
