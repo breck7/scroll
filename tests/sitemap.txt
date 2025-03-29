@@ -11,6 +11,7 @@ https://scroll.pub/themes.html
 https://scroll.pub/tufte.html
 https://scroll.pub/txt.html
 https://scroll.pub/video.html
+https://scroll.pub/push.html
 https://scroll.pub/python.html
 https://scroll.pub/qrcodes.html
 https://scroll.pub/redirectTest.html
@@ -23,6 +24,8 @@ https://scroll.pub/slideshowDemo.html
 https://scroll.pub/snippets.html
 https://scroll.pub/source.html
 https://scroll.pub/sourcemaps.html
+https://scroll.pub/empty.html
+https://scroll.pub/example.html
 https://scroll.pub/favicon.html
 https://scroll.pub/feed.html
 https://scroll.pub/fetchTest.html
@@ -51,7 +54,6 @@ https://scroll.pub/openGraphImages.html
 https://scroll.pub/optionalImport.html
 https://scroll.pub/posts.html
 https://scroll.pub/prestige.html
-https://scroll.pub/push.html
 https://scroll.pub/a-review-of-my-sink.html
 https://scroll.pub/aParser.html
 https://scroll.pub/about.html
@@ -79,6 +81,4 @@ https://scroll.pub/defsForm.html
 https://scroll.pub/dependencies.html
 https://scroll.pub/disk.html
 https://scroll.pub/edit.html
-https://scroll.pub/empty.html
-https://scroll.pub/example.html
 https://scroll.pub/top-sinks.html
