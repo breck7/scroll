@@ -10,7 +10,7 @@ const { spawn } = require("child_process")
 // Particles Includes
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { Particle } = require("scrollsdk/products/Particle.js")
-const { ScrollCli, ScrollFile, ScrollFileSystem, SimpleCLI } = require("./scroll.js")
+const { ScrollCli, SimpleCLI } = require("./scroll.js")
 const packageJson = require("./package.json")
 
 class CloneCli extends SimpleCLI {

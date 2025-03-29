@@ -29,6 +29,7 @@ assertBuildIncludes - Test above particle's output.
 assertHtmlEquals - Test above particle's output.
 assertHtmlExcludes - Test above particle's output.
 assertHtmlIncludes - Test above particle's output.
+assertHtmlMatches - Test above particle's output.
 assertSilenceBelowErrors - Silence errors in the below particle in automated tests.
 authors - Set author(s) name(s).
 background - Quickly set CSS background.
@@ -82,6 +83,7 @@ debugBelow - Inspect particle below.
 debugParsers - Print the parsers used.
 debugSourceMap - Print the source map.
 debugSourceStack - Print compilation steps.
+debugTest - Inspect entire document during test.
 dependencies - Get files this file depends on.
 description - Description for SEO meta tag.
 dinkus - A custom dinkus.

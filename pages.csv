@@ -1,25 +1,25 @@
 date,year,title,permalink,authors,tags,wordCount,minutes
-03/25/2025,2025,Top Buttons,topButtons.html,,,0,0
-03/25/2025,2025,Scroll Tutorial,tutorial.html,,main,951,4.8
-03/25/2025,2025,Wws,wws.html,,,35,0.2
-03/25/2025,2025,Wws Redirect,wws.html,,,0,0
-03/25/2025,2025,Scroll Release Notes,releaseNotes.html,,main,16993,85
-03/25/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
-03/25/2025,2025,Scroll Prompt,scrollPrompt.html,,,4521,22.6
-03/25/2025,2025,Scrollset Prompt,scrollsetPrompt.html,,,3720,18.6
-03/25/2025,2025,Settings,settings.html,,,0,0
-03/25/2025,2025,Sitemap,sitemap.html,,,120,0.6
-03/25/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-03/25/2025,2025,Scroll is a language for scientists of all ages,index.html,,,177,0.9
-03/25/2025,2025,Readme Prompt,readmePrompt.html,,,21799,109
-03/25/2025,2025,Header,header.html,,,0,0
-03/25/2025,2025,Scroll LeetSheet,leetsheet.html,,,1116,5.6
-03/25/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,182,0.9
-03/25/2025,2025,Parser Prompt,parserPrompt.html,,,28698,143.5
-03/25/2025,2025,Parser Usage,parserUsage.html,,,278,1.4
-03/25/2025,2025,Parsers,parsers.html,,,28240,141.2
-03/25/2025,2025,Scroll FAQ,faq.html,,main,3349,16.7
-03/25/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
-03/25/2025,2025,Scroll Cloc Stats,cloc.html,,,66,0.3
-03/25/2025,2025,Download Scroll.pub,download.html,,,49,0.2
-03/25/2025,2025,Animation,animation.html,,,13,0.1
+03/29/2025,2025,Scroll Tutorial,tutorial.html,,main,951,4.8
+03/29/2025,2025,Wws,wws.html,,,35,0.2
+03/29/2025,2025,Wws Redirect,wws.html,,,0,0
+03/29/2025,2025,Top Buttons,topButtons.html,,,0,0
+03/29/2025,2025,Sitemap,sitemap.html,,,120,0.6
+03/29/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
+03/29/2025,2025,Scroll is a language for scientists of all ages,index.html,,,177,0.9
+03/29/2025,2025,Readme Prompt,readmePrompt.html,,,21836,109.2
+03/29/2025,2025,Scroll Release Notes,releaseNotes.html,,main,17030,85.2
+03/29/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
+03/29/2025,2025,Scroll Prompt,scrollPrompt.html,,,4521,22.6
+03/29/2025,2025,Scrollset Prompt,scrollsetPrompt.html,,,3720,18.6
+03/29/2025,2025,Settings,settings.html,,,0,0
+03/29/2025,2025,Scroll LeetSheet,leetsheet.html,,,1128,5.6
+03/29/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,182,0.9
+03/29/2025,2025,Parser Prompt,parserPrompt.html,,,28858,144.3
+03/29/2025,2025,Parser Usage,parserUsage.html,,,278,1.4
+03/29/2025,2025,Parsers,parsers.html,,,28398,142
+03/29/2025,2025,Scroll FAQ,faq.html,,main,3349,16.7
+03/29/2025,2025,Header,header.html,,,0,0
+03/29/2025,2025,Scroll Cloc Stats,cloc.html,,,66,0.3
+03/29/2025,2025,Download Scroll.pub,download.html,,,49,0.2
+03/29/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
+03/29/2025,2025,Animation,animation.html,,,13,0.1

@@ -1,6 +1,6 @@
 Name	Values	Coverage	Question	Example	Type	Source	SortIndex	IsComputed	IsRequired	IsConceptDelimiter	Cue
-version	685	100%	What is the semantic version number?	175.2.1	string		1		true	true	📦
-releaseDate	685	100%	Base parser all measures extend.	3/24/2025	string		1.1	true	true		
-bugFixes	685	100%	How many bug fixes in this release?	1	number		1.2	true			
-newFeatures	685	100%	How many new features in this release?	0	number		1.2	true			
-breakingChanges	685	100%	How many breaking changes in this release?	0	number		1.2	true			
+version	687	100%	What is the semantic version number?	176.0.0	string		1		true	true	📦
+releaseDate	687	100%	Base parser all measures extend.	3/28/2025	string		1.1	true	true		
+bugFixes	687	100%	How many bug fixes in this release?	0	number		1.2	true			
+newFeatures	687	100%	How many new features in this release?	0	number		1.2	true			
+breakingChanges	687	100%	How many breaking changes in this release?	2	number		1.2	true			

@@ -1796,6 +1796,13 @@ assertHtmlIncludesParser
   areEqual(actual, expected) {
     return actual.includes(expected)
   }
+assertHtmlMatchesParser
+ extends abstractAssertionParser
+ string kind matches
+ javascript
+  areEqual(actual, expected) {
+    return actual.match(new RegExp(expected))
+  }
 assertHtmlExcludesParser
  extends abstractAssertionParser
  string kind exclude
@@ -2546,7 +2553,7 @@ abstractPostsParser
     const dependsOn = this.tags.map(tag => this.root.parseNestedTag(tag)).filter(i => i).map(i => i.folderPath)
     const {fileSystem} = this.root
     for (let folderPath of dependsOn) {
-      // console.log(`${this.root.filePath} is loading: ${folderPath} in id '${fileSystem.fusionId}'`)
+      // console.log(`${this.root.filePath} is loading: ${folderPath} in id '${fileSystem.scrollFileSystemIdNumber}'`)
       await fileSystem.getLoadedFilesInFolder(folderPath,  ".scroll")
     }
   }
@@ -2779,8 +2786,37 @@ debugSourceMapParser
  javascript
   get code() {
     const {root} = this
-    const {fileSystem, file, filePath} = root
-    return fileSystem.makeSourceMap(filePath, root.toString())
+    const {file, filePath} = root
+    return this.makeSourceMap(filePath, root.toString())
+  }
+  makeSourceMap(fileName, fusedCode) {
+    // Note this has tight integration with import parsers. If we change those, need to update this.
+    const fileStack = [{ fileName, lineNumber: 0, linesLeft: fusedCode.split("\n").length }]
+    return new Particle(fusedCode)
+      .map(particle => {
+        const currentFile = fileStack[fileStack.length - 1]
+        currentFile.lineNumber++
+        currentFile.linesLeft--
+        if (particle.cue === "imported") {
+          const linesLeft = parseInt(particle.get("lines"))
+          const original = particle.get("original")
+          fileStack.push({ fileName: particle.atoms[1], lineNumber: 0, linesLeft })
+          return `${currentFile.fileName}:${currentFile.lineNumber} ${original}\n` + particle.map(line => `${currentFile.fileName}:${currentFile.lineNumber}  ${line}`).join("\n")
+        }
+        if (!currentFile.linesLeft) fileStack.pop()
+        return particle
+          .toString()
+          .split("\n")
+          .map((line, index) => {
+            if (index) {
+              currentFile.lineNumber++
+              currentFile.linesLeft--
+            }
+            return `${currentFile.fileName}:${currentFile.lineNumber} ${line}`
+          })
+          .join("\n")
+      })
+      .join("\n")
   }
 abstractScrollWithRequirementsParser
  extends abstractScrollParser
@@ -3825,6 +3861,18 @@ debugAllParser
  extends debugBelowParser
  javascript
   get selectedParticles() { return this.root.getSubparticles()}
+debugTestParser
+ description Inspect entire document during test.
+ extends debugAllParser
+ example
+  // Test with "scroll test"
+  # Hello world
+  debugTest
+ javascript
+  getErrors() {
+    console.log(this.buildTxt())
+    return super.getErrors()
+  }
 belowAsCodeUntilParser
  description Print code above until match.
  extends belowAsCodeParser
@@ -6823,7 +6871,6 @@ scrollParser
     }
     return file.scrollProgram.permalink
   }
-  importRegex = /^(import |[a-zA-Z\_\-\.0-9\/]+\.(scroll|parsers)$|https?:\/\/.+\.(scroll|parsers)$)/gm
   get linkToNext() {
     if (!this.hasKeyboardNav)
       // Dont provide link to next unless keyboard nav is on
@@ -6892,8 +6939,14 @@ scrollParser
     const fullpath = this.makeFullPath(filename)
     if (require("fs").existsSync(fullpath)) return this.readFile(fullpath)
     this.log(`🛜 fetching ${url} to ${fullpath} `)
+    try {
     await this.downloadToDisk(url, fullpath)
     return this.readFile(fullpath)
+    } catch (err) {
+      console.error(`fetching ${url} failed`)
+      console.error(err)
+      return ""
+    }
   }
   log(message) {
     if (this.logger) this.logger.log(message)
@@ -7003,7 +7056,7 @@ scrollParser
     return `<a href="${this.editUrl}" class="abstractTextLinkParser">Edit</a>`
   }
   get externalsPath() {
-    return this.file.EXTERNALS_PATH
+    return this.path.join(this.fileSystem.standardParserDirectory, "..", "external")
   }
   get endSnippetIndex() {
     // Get the line number that the snippet should stop at.

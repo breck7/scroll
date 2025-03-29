@@ -4,8 +4,9 @@ const lodash = require("lodash")
 const { Particle } = require("scrollsdk/products/Particle.js")
 const { Utils } = require("scrollsdk/products/Utils.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
-const { ScrollFile, ScrollFileSystem } = require("./scroll.js")
-const scrollFs = new ScrollFileSystem()
+const { ScrollCli } = require("./scroll.js")
+const scrollFs = new ScrollCli().sfs
+const ScrollFile = scrollFs.defaultFileClass
 
 class ScrollSetCLI {
   constructor() {
@@ -44,7 +45,8 @@ class ScrollSetCLI {
       return
     }
     console.log(`Patching ${id}`)
-    return new ScrollFile(new Particle(Disk.read(target)).patch(patch).toString(), target, scrollFs).formatAndSave()
+    const particle = new Particle(Disk.read(target)).patch(patch)
+    return this._formatAndSave(target, particle)
   }
 
   async setAndSave(file, measurementPath, measurementValue) {
@@ -54,12 +56,16 @@ class ScrollSetCLI {
     return result
   }
 
-  async formatAndSave(file, particle = this.getParticle(file)) {
-    const fusedFile = new ScrollFile(particle.toString(), this.makeFilePath(file.id), scrollFs)
+  async _formatAndSave(filePath, particle) {
+    const fusedFile = new ScrollFile(particle.toString(), filePath, scrollFs)
     await fusedFile.fuse()
     // force a write
-    const result = await scrollFs.write(this.makeFilePath(file.id), fusedFile.scrollProgram.formatted)
+    const result = await scrollFs.write(filePath, fusedFile.scrollProgram.formatted)
     return result
+  }
+
+  async formatAndSave(file, particle = this.getParticle(file)) {
+    return this._formatAndSave(this.makeFilePath(file.id), particle)
   }
 
   makeNameSearchIndex(files = this.concepts.slice(0).reverse()) {

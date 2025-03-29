@@ -100,6 +100,14 @@ assertHtmlIncludesParser
     return actual.includes(expected)
   }
 
+assertHtmlMatchesParser
+ extends abstractAssertionParser
+ string kind matches
+ javascript
+  areEqual(actual, expected) {
+    return actual.match(new RegExp(expected))
+  }
+
 assertHtmlExcludesParser
  extends abstractAssertionParser
  string kind exclude

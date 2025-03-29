@@ -9,4 +9,5 @@ footer.scroll
 
 ## Now print source map:
 debugSourceMap
-
+assertHtmlMatches settings.scroll:\d extension.parsers
+// Test this using assertHtmlMatches rather than assertHtmlIncludes because a simple string search of the source would just match the string in the source.

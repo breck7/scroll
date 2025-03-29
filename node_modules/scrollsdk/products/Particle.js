@@ -145,6 +145,10 @@ class Particle extends AbstractParticle {
   }
   wake() {}
   execute() {}
+  // If you want to link a particle to a file on the filesystem.
+  setFile(file) {
+    this.file = file
+  }
   // todo: perhaps if needed in the future we can add more contextual params here
   _transformBlock(block) {
     this.particleTransformers.forEach(fn => {
@@ -2643,7 +2647,7 @@ Particle.iris = `sepal_length,sepal_width,petal_length,petal_width,species
 4.9,2.5,4.5,1.7,virginica
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`
-Particle.getVersion = () => "105.1.0"
+Particle.getVersion = () => "106.0.0"
 class AbstractExtendibleParticle extends Particle {
   _getFromExtended(cuePath) {
     const hit = this._getParticleFromExtended(cuePath)

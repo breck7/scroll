@@ -259,6 +259,11 @@
     "popularity": 0
   },
   {
+    "id": "assertHtmlMatches",
+    "description": "Test above particle's output.",
+    "popularity": 0
+  },
+  {
     "id": "assertSilenceBelowErrors",
     "description": "Silence errors in the below particle in automated tests.",
     "popularity": 0
@@ -512,6 +517,12 @@
     "description": "Print compilation steps.",
     "popularity": 0,
     "example": "printOriginalSource"
+  },
+  {
+    "id": "debugTest",
+    "description": "Inspect entire document during test.",
+    "popularity": 66,
+    "example": "// Test with \"scroll test\"\n# Hello world\ndebugTest"
   },
   {
     "id": "dependencies",
