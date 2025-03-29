@@ -8,6 +8,28 @@ importParser
  example
   import header.scroll
 
+scrollImportationParser
+ description Import a file.
+ cue importation
+ atoms preBuildCommandAtom
+ extends abstractScrollParser
+ catchAllAtomType filePathAtom
+ example
+  importation header.scroll
+ javascript
+  wake() {
+    this.root._hasImportParticles = true
+    this.isWrappedImport = true
+  }
+  get filename() {
+    return this.atoms[1]
+  }
+  getSubparticlesToImport() {
+    const {path, folderPath, Disk} = this.root
+    const fullImportPath = path.join(folderPath, this.filename)
+    return new (this.root.constructor)(Disk.read(fullImportPath)).getSubparticles()
+  }
+
 scrollImportedParser
  description Inserted at import pass.
  boolean suggestInAutocomplete false
