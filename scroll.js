@@ -62,7 +62,7 @@ footer.scroll`
   async scrollToHtml(scrollCode) {
     const ScrollFile = this.sfs.defaultFileClass
     const page = new ScrollFile(scrollCode)
-    await page.fuse()
+    await page.singlePassFuse()
     return page.scrollProgram.asHtml
   }
 
@@ -80,10 +80,10 @@ footer.scroll`
   async getErrorsInFolder(folder) {
     const fileSystem = this.sfs
     const folderPath = ensureFolderEndsInSlash(folder)
-    const files = await fileSystem.getLoadedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
+    const files = await fileSystem.getFusedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
 
     // todo: cleanup
-    const parsers = await Promise.all(Object.values(fileSystem._parserCache))
+    const parsers = await fileSystem.getAllParsers()
     const parserErrors = parsers.map(parser => parser.parsersParser.getAllErrors().map(err => err.toObject())).flat()
 
     const scrollErrors = await this.getErrorsInFiles(files)
@@ -140,8 +140,8 @@ footer.scroll`
   async formatCommand(cwd, filenames) {
     let files = []
     if (filenames && filenames.length) files = await this.getFiles(cwd, filenames)
-    else files = await this.sfs.getLoadedFilesInFolder(this.resolvePath(cwd), ".scroll")
-    // .concat(fileSystem.getLoadedFilesInFolder(folder, ".parsers")) // todo: should format parser files too.
+    else files = await this.sfs.getFusedFilesInFolder(this.resolvePath(cwd), ".scroll")
+    // .concat(fileSystem.getFusedFilesInFolder(folder, ".parsers")) // todo: should format parser files too.
     for (let file of files) {
       this.formatFile(file)
     }
@@ -165,7 +165,7 @@ footer.scroll`
 
   async getFiles(cwd, filenames) {
     const fullPaths = this.resolveFilenames(cwd, filenames)
-    const files = await Promise.all(fullPaths.map(fp => this.sfs.getLoadedFile(fp)))
+    const files = await Promise.all(fullPaths.map(fp => this.sfs.getFusedFile(fp)))
     return files
   }
 
@@ -210,7 +210,7 @@ footer.scroll`
 
   async buildFilesInFolder(folder = "/", fileSystem = this.sfs) {
     folder = ensureFolderEndsInSlash(folder)
-    const files = await fileSystem.getLoadedFilesInFolder(folder, ".scroll")
+    const files = await fileSystem.getFusedFilesInFolder(folder, ".scroll")
     this.log(`Found ${files.length} scroll files in '${folder}'\n`)
     return await this.buildFiles(fileSystem, files, folder)
   }

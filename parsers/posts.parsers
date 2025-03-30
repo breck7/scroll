@@ -10,7 +10,7 @@ abstractPostsParser
     const {fileSystem} = this.root
     for (let folderPath of dependsOn) {
       // console.log(`${this.root.filePath} is loading: ${folderPath} in id '${fileSystem.scrollFileSystemIdNumber}'`)
-      await fileSystem.getLoadedFilesInFolder(folderPath,  ".scroll")
+      await fileSystem.getFusedFilesInFolder(folderPath,  ".scroll")
     }
   }
   get tags() {

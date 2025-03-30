@@ -3,6 +3,7 @@
 const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
+const { Particle } = require("scrollsdk/products/Particle.js")
 const { ScrollCli } = require("../scroll.js")
 const { ScrollSetCLI } = require("../ScrollSetCLI.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
@@ -124,7 +125,7 @@ buildHtml`
 testParticles.file = async areEqual => {
   const rootFolder = path.join(__dirname, "..")
   const cli = new ScrollCli().silence()
-  const files = await cli.sfs.getLoadedFilesInFolder(rootFolder, ".scroll")
+  const files = await cli.sfs.getFusedFilesInFolder(rootFolder, ".scroll")
   const releaseNotesFile = files.find(file => file.scrollProgram.permalink === "releaseNotes.html").scrollProgram
 
   areEqual(releaseNotesFile.permalink, "releaseNotes.html")
@@ -169,7 +170,7 @@ testParticles.standalonePage = async areEqual => {
 printTitle
 * Blue sky`)
   // Act/Assert
-  await page.fuse()
+  await page.singlePassFuse()
   const { asHtml, asTxt } = page.scrollProgram
   areEqual(asHtml.includes("Blue sky"), true)
   areEqual(asTxt.includes("A standalone page"), true)
@@ -215,12 +216,12 @@ testParticles.format = async areEqual => {
   // Arrange
   const page = new ScrollFile(``)
   // Act/Assert
-  await page.fuse()
+  await page.singlePassFuse()
   areEqual(page.scrollProgram.formatted, "", "format works")
 
   const page2 = new ScrollFile(`# hi`)
   // Act/Assert
-  await page2.fuse()
+  await page2.singlePassFuse()
   areEqual(page2.scrollProgram.formatted, "# hi\n", "format works")
 }
 
@@ -228,7 +229,7 @@ testParticles.outputFileNames = async areEqual => {
   // Arrange
   const page = new ScrollFile(``)
   // Act
-  await page.fuse()
+  await page.singlePassFuse()
   // Assert
   areEqual(page.scrollProgram.outputFileNames.length, 0, "no outputFileNames in a blank file")
 
@@ -237,7 +238,7 @@ testParticles.outputFileNames = async areEqual => {
 buildTxt foo.txt
 `)
   // Act
-  await page2.fuse()
+  await page2.singlePassFuse()
   // Assert
   areEqual(page2.scrollProgram.outputFileNames[1], "foo.txt")
 }
@@ -297,6 +298,133 @@ testParticles.hodgePodge = async areEqual => {
     .forEach(file => fs.unlinkSync(path.join(testsFolder, file)))
 
   fs.rmSync(stampFolder, { recursive: true })
+}
+
+const stripImported = str => {
+  const particle = new Particle(str)
+  particle.getParticles("imported").forEach(particle => particle.destroy())
+  return particle.toString()
+}
+
+testParticles.inMemory = async equal => {
+  // Arrange/Act/Assert
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/hello.scroll": "world",
+    "/main.scroll": "import hello.scroll\nimport nested/test.scroll",
+    "/nested/test.scroll": "ciao",
+    "/nested/deep/relative.scroll": "import ../../hello.scroll\nimport ../test.scroll"
+  }
+  cli.initFs(files)
+  const fused = await cli.sfs.getFusedFilesInFolder("/", "scroll")
+  const mainResult = fused.find(file => file.filePath === "/main.scroll")
+  equal(stripImported(mainResult.scrollProgram), "world\nciao")
+  equal(mainResult.scrollProgram.toString().includes("exists true"), true)
+
+  const relativeResult = await cli.sfs.getFusedFile("/nested/deep/relative.scroll")
+  equal(stripImported(relativeResult.scrollProgram), "world\nciao")
+}
+
+testParticles.empty = async equal => {
+  // Arrange
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/hello.scroll": "",
+    "/main.scroll": "import hello.scroll\nhi"
+  }
+  cli.initFs(files)
+
+  // Act
+  const fused = await cli.sfs.getFusedFilesInFolder("/", "scroll")
+  const mainResult = await cli.sfs.getFusedFile("/main.scroll")
+  // Assert
+  equal(stripImported(mainResult.scrollProgram), `\nhi`)
+}
+
+testParticles.nonExistant = async equal => {
+  // Arrange/Act/Assert
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/main.scroll": "import env.scroll"
+  }
+  cli.initFs(files)
+  const fused = await cli.sfs.getFusedFilesInFolder("/", "scroll")
+  const result = await cli.sfs.getFusedFile("/main.scroll")
+  equal(stripImported(result.scrollProgram.toString()), "")
+  equal(result.scrollProgram.toString().includes("exists false"), true)
+}
+
+testParticles.footers = async equal => {
+  // Arrange/Act/Assert
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/hello.scroll": `headerAndFooter.scroll
+title Hello world
+This is my content
+`,
+    "/headerAndFooter.scroll": "header.scroll\nfooter.scroll\n footer",
+    "/header.scroll": "printTitle",
+    "/footer.scroll": "The end."
+  }
+  cli.initFs(files)
+  await cli.sfs.getFusedFilesInFolder("/", "scroll")
+  const result = await cli.sfs.getFusedFile("/hello.scroll")
+  equal(result.scrollProgram.toString().includes("This is my content"), true)
+  equal(result.scrollProgram.toString().endsWith("The end."), true, "ends with footer")
+}
+
+// todo: this is not working
+testParticles.circularImports = async equal => {
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/a.scroll": "b.scroll",
+    "/b.scroll": "a.scroll",
+    "/c.scroll": "c.scroll",
+    "/d.scroll": "e.scroll\nf.scroll",
+    "/e.scroll": "f.scroll",
+    "/f.scroll": "g.scroll",
+    "/g.scroll": ""
+  }
+  cli.initFs(files)
+  const sfs = cli.sfs
+  await sfs.getFusedFilesInFolder("/", "scroll")
+  const result2 = await sfs.getFusedFile("/c.scroll")
+  equal(result2.scrollProgram.toString().includes("Circular import detected"), true, "Should have detected circularImports")
+  const result = await sfs.getFusedFile("/a.scroll")
+  equal(result.scrollProgram.toString().includes("Circular import detected"), true, "Should have detected circularImports")
+  const result3 = await sfs.getFusedFile("/d.scroll")
+  equal(result3.scrollProgram.toString().includes("Circular import detected"), false, "No circularImports detected")
+}
+
+testParticles.quickImports = async equal => {
+  // Arrange/Act/Assert
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/hello.scroll": "world",
+    "/main": "hello.scroll\nnested/test.scroll",
+    "/nested/test.scroll": "ciao",
+    "/nested/a": "test.scroll",
+    "/nested/deep/relative": "../../hello.scroll\n../test.scroll"
+  }
+  cli.initFs(files)
+  const sfs = cli.sfs
+  equal(sfs.dirname("/"), "/")
+
+  const [aResult, mainResult, relativeResult] = await Promise.all([sfs.getFusedFile("/nested/a"), sfs.getFusedFile("/main"), sfs.getFusedFile("/nested/deep/relative")])
+
+  equal(stripImported(aResult.scrollProgram.toString()), "ciao")
+  equal(stripImported(mainResult.scrollProgram.toString()), "world\nciao")
+  equal(stripImported(relativeResult.scrollProgram.toString()), "world\nciao")
+
+  // FileAPI
+  // Arrange
+  const file = new ScrollFile(files["/main"], "/main", sfs)
+  equal(file.fusedCode, undefined)
+  // Act
+  // TODO: make this singlePassFuse
+  await file.fuse()
+  // Assert
+  equal(stripImported(file.fusedCode), "world\nciao")
 }
 
 if (module && !module.parent) TestRacer.testSingleFile(__filename, testParticles)

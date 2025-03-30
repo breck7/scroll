@@ -54,8 +54,6 @@ scrollParser
  javascript
   setFile(file) {
    this.file = file
-   const date = this.get("date")
-   if (date) this.file.timestamp = this.dayjs(this.get("date")).unix()
    return this
   }
   buildHtml(buildSettings) {
@@ -109,6 +107,15 @@ scrollParser
   }
   get timeIndex() {
     return this.file.timeIndex || 0
+  }
+  _timestamp
+  get timestamp() {
+   if (!this._timestamp) {
+    this._timestamp = this.file.timestamp
+    const date = this.get("date")
+    if (date) this._timestamp = this.dayjs(date).unix()
+   }
+   return this._timestamp
   }
   get linkToPrevious() {
     if (!this.hasKeyboardNav)
@@ -174,7 +181,7 @@ scrollParser
       const {folderPath, group, relativePath} = this.parseNestedTag(tag)
       let files = []
       try {
-      files = this.fileSystem.getCachedLoadedFilesInFolder(folderPath, this)
+      files = this.fileSystem.getFusedFilesInFolderIfCached(folderPath, this)
       } catch (err) {
         console.error(err)
       }
@@ -183,7 +190,7 @@ scrollParser
       })
       arr = arr.concat(filtered.slice(0, limit))
     })
-    return this.lodash.sortBy(arr, file => file.file.timestamp).reverse()
+    return this.lodash.sortBy(arr, file => file.file.scrollProgram.timestamp).reverse()
   }
   async fetchNode(url, filename) {
     filename = filename || new URL(url).pathname.split('/').pop()
@@ -268,7 +275,7 @@ scrollParser
   }
   get allScrollFiles() {
     try {
-    return this.fileSystem.getCachedLoadedFilesInFolder(this.folderPath, this)
+    return this.fileSystem.getFusedFilesInFolderIfCached(this.folderPath, this)
     } catch (err) {
       console.error(err)
       return []
@@ -463,7 +470,7 @@ scrollParser
     return this.dateObject.format(`MM/DD/YYYY`)
   }
   get dateObject() {
-    const date = this.get("date") || (this.file.timestamp ? this.file.timestamp : 0)
+    const date = this.get("date") || (this.timestamp || 0)
     return this.dayjs(date)
   }
   get year() {
