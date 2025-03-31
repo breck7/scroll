@@ -373,7 +373,6 @@ This is my content
   equal(result.scrollProgram.toString().endsWith("The end."), true, "ends with footer")
 }
 
-// todo: this is not working
 testParticles.circularImports = async equal => {
   const cli = new ScrollCli().silence()
   const files = {
