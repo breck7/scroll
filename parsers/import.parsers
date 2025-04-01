@@ -30,7 +30,11 @@ importParser
     if (this.has("footer"))
       newParticle.particleAt(0).set("moveToFooter", "true")
     await this.root.appendFromStream(newParticle.toString())
-    await this.root.appendFromStream(file.scrollProgram.toString())
+    // Don't import importOnly lines
+    // todo: look at perf
+    const block = new Particle(file.scrollProgram.toString())
+    block.delete("importOnly")
+    await this.root.appendFromStream(block.toString())
     this.destroy()
   }
   async getFile() {
@@ -50,6 +54,13 @@ scrollImportedParser
  catchAllAtomType filePathAtom
  javascript
   async wake() {
+    this.checkForFooterMoves()
+  }
+  checkForFooterMoves() {
+    // If a particle was imported with the "footer" subparticle set, then that means we want
+    // to move those imported particles to the end of the document. We added a handleFooterMoves
+    // method to the root particle that gets called and will check if there are any footer moves
+    // to be made.
     if (!this.has("moveToFooter"))
       return
     if (!this.root.footerMoves)
@@ -57,6 +68,8 @@ scrollImportedParser
     this.root.footerMoves.push(this)
   }
   moveToFooter() {
+    // We move the imported particle along with the number of lines originally imported
+    // to the bottom of the document. Note: I have not looked into perf yet.
     const particleCount = parseInt(this.get("particles"))
     const index = this.index
     const particles = this.root.slice(index, index + particleCount + 1)

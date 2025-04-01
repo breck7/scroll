@@ -295,6 +295,9 @@ scrollParser
     return this.parserIdIndex[parserId]?.[0].content
   }
   wake() {
+    this.handleFooterMoves()
+  }
+  handleFooterMoves() {
     if (this.footerMoves)
       this.footerMoves.forEach(footerMoves => footerMoves.moveToFooter())
   }
@@ -443,9 +446,12 @@ scrollParser
       const files = this.topDownArray.filter(particle => particle.dependencies).map(particle => particle.dependencies).flat()
       return dependencies.concat(files)
   }
+  get importOnly() {
+    return this.has("importOnly")
+  }
   get buildsHtml() {
     const { permalink } = this
-    return !this.file.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
+    return !this.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
   }
   // Without specifying the language hyphenation will not work.
   get lang() {

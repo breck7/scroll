@@ -182,7 +182,7 @@ footer.scroll`
     const start = Date.now()
     // Run the build loop twice. The first time we build ScrollSets, in case some of the HTML files
     // will depend on csv/tsv/json/etc
-    const toBuild = files.filter(file => !file.importOnly)
+    const toBuild = files.filter(file => !file.scrollProgram.importOnly)
     options.externalFilesCopied = {}
     for (const file of toBuild) {
       file.scrollProgram.logger = this
