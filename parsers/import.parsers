@@ -5,8 +5,40 @@ importParser
  atoms preBuildCommandAtom
  extends abstractScrollParser
  catchAllAtomType filePathAtom
+ int filenameAt 1
  example
   import header.scroll
+ javascript
+  get filename() {
+    return this.getAtom(this.filenameAt)
+  }
+  get fullpath() {
+    const {fileSystem, filePath} = this.root
+    return fileSystem.makeRelativePath(filePath, this.filename)
+  }
+  async wake() {
+    const absoluteImportFilePath = this.fullpath
+    const originalLine = this.getLine()
+    const file = await this.getFile()
+    const particleCount = file.scrollProgram.length
+    const circularImportError = false
+    const newParticle = new Particle(`imported ${absoluteImportFilePath}\n exists ${file.exists}\n original ${originalLine}\n particles ${particleCount}`)
+    if (circularImportError) {
+      hasCircularImportError = true
+      newParticle.particleAt(0).set("circularImportError", circularImportError)
+    }
+    if (this.has("footer"))
+      newParticle.particleAt(0).set("moveToFooter", "true")
+    await this.root.appendFromStream(newParticle.toString())
+    await this.root.appendFromStream(file.scrollProgram.toString())
+    this.destroy()
+  }
+  async getFile() {
+    const {Disk, fileSystem} = this.root
+    const file = await fileSystem.getFile(this.fullpath)
+    await file.singlePassFuse()
+    return file
+  }
 
 scrollImportedParser
  description Inserted at import pass.
@@ -17,6 +49,21 @@ scrollImportedParser
  baseParser blobParser
  catchAllAtomType filePathAtom
  javascript
+  async wake() {
+    if (!this.has("moveToFooter"))
+      return
+    if (!this.root.footerMoves)
+      this.root.footerMoves = []
+    this.root.footerMoves.push(this)
+  }
+  moveToFooter() {
+    const particleCount = parseInt(this.get("particles"))
+    const index = this.index
+    const particles = this.root.slice(index, index + particleCount + 1)
+    const str = particles.map(part => part.toString()).join("\n")
+    this.root.appendBlocks(str)
+    particles.forEach(particle => particle.destroy())
+  }
   getErrors() {
     if (this.has("circularImportError"))
       return [this.makeError(this.get("circularImportError"))]
@@ -33,8 +80,9 @@ importToFooterParser
 quickImportParser
  popularity 0.007524
  description Import a Scroll or Parsers file.
- extends abstractScrollParser
+ extends importParser
  boolean isPopular true
+ int filenameAt 0
  inScope importToFooterParser abstractCommentParser
  atoms urlAtom
  pattern ^[^\s]+\.(scroll|parsers)$

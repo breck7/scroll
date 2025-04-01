@@ -294,6 +294,10 @@ scrollParser
   getFromParserId(parserId) {
     return this.parserIdIndex[parserId]?.[0].content
   }
+  wake() {
+    if (this.footerMoves)
+      this.footerMoves.forEach(footerMoves => footerMoves.moveToFooter())
+  }
   get fileSystem() {
     return this.file.fileSystem
   }

@@ -60,10 +60,9 @@ footer.scroll`
   }
 
   async scrollToHtml(scrollCode) {
-    const ScrollFile = this.sfs.defaultFileClass
-    const page = new ScrollFile(scrollCode)
-    await page.singlePassFuse()
-    return page.scrollProgram.asHtml
+    const file = this.sfs.newFile(scrollCode)
+    await file.singlePassFuse()
+    return file.scrollProgram.asHtml
   }
 
   sfs = new ScrollFileSystem(undefined, path.join(__dirname, "parsers"))
