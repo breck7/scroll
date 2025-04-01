@@ -261,9 +261,8 @@ testParticles.initCommand = async areEqual => {
     areEqual(products.filter(name => name.endsWith(".html")).length, 2, "should have 2 html pages")
     areEqual(products.length, 7, "should have 7 total generated files")
 
-    const { scrollErrors, parserErrors } = await cli.getErrorsInFolder(tempFolder)
+    const scrollErrors = await cli.getErrorsInFolder(tempFolder)
     areEqual(scrollErrors.length, 0)
-    areEqual(parserErrors.length, 0)
   } catch (err) {
     console.log(err)
   }

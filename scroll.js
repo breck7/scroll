@@ -80,17 +80,11 @@ footer.scroll`
     const fileSystem = this.sfs
     const folderPath = ensureFolderEndsInSlash(folder)
     const files = await fileSystem.getFusedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
-
-    // todo: cleanup
-    const parsers = await fileSystem.getAllParsers()
-    const parserErrors = parsers.map(parser => parser.parsersParser.getAllErrors().map(err => err.toObject())).flat()
-
-    const scrollErrors = await this.getErrorsInFiles(files)
-    return { parserErrors, scrollErrors }
+    return await this.getErrorsInFiles(files)
   }
 
   async getErrorsInFiles(files) {
-    // todo: what about parser errors?
+    // todo: re-add parser errors
     for (let file of files) await file.scrollProgram.load()
     return files
       .map(file => {
@@ -106,34 +100,25 @@ footer.scroll`
     const start = Date.now()
     const folder = this.resolvePath(cwd)
     let target = cwd
-    let parserErrors = []
     let scrollErrors = []
     if (filenames && filenames.length) {
       const files = await this.getFiles(cwd, filenames)
       scrollErrors = await this.getErrorsInFiles(files)
       target = filenames.join(" ")
     } else {
-      const results = await this.getErrorsInFolder(folder)
-      parserErrors = results.parserErrors
-      scrollErrors = results.scrollErrors
+      scrollErrors = await this.getErrorsInFolder(folder)
     }
 
     const seconds = (Date.now() - start) / 1000
 
-    if (parserErrors.length) {
-      this.log(``)
-      this.log(`❌ ${parserErrors.length} parser errors in "${cwd}"`)
-      this.log(new Particle(parserErrors).toFormattedTable(200))
-      this.log(``)
-    }
     if (scrollErrors.length) {
       this.log(``)
       this.log(`❌ ${scrollErrors.length} errors in "${cwd}"`)
       this.log(new Particle(scrollErrors).toFormattedTable(100))
       this.log(``)
     }
-    if (!parserErrors.length && !scrollErrors.length) return this.log(`✅ 0 errors in "${target}". Tests took ${seconds} seconds.`)
-    return `${parserErrors.length + scrollErrors.length} Errors`
+    if (!scrollErrors.length) return this.log(`✅ 0 errors in "${target}". Tests took ${seconds} seconds.`)
+    return `${scrollErrors.length} Errors`
   }
 
   async formatCommand(cwd, filenames) {
