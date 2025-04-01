@@ -1,3 +1,4 @@
+buildHtml
 hiddenMessageParser
  extends scrollParagraphParser
  inScope messageParser
