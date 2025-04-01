@@ -388,11 +388,11 @@ testParticles.circularImports = async equal => {
   const sfs = cli.sfs
   await sfs.getFusedFilesInFolder("/", "scroll")
   const result2 = await sfs.getFusedFile("/c.scroll")
-  equal(result2.scrollProgram.toString().includes("circularImportError true"), true, "Should have detected circularImports")
+  equal(result2.scrollProgram.toString().includes("circularImportError"), true, "Should have detected circularImports")
   const result = await sfs.getFusedFile("/a.scroll")
-  equal(result.scrollProgram.toString().includes("circularImportError true"), true, "Should have detected circularImports")
+  equal(result.scrollProgram.toString().includes("circularImportError"), true, "Should have detected circularImports")
   const result3 = await sfs.getFusedFile("/d.scroll")
-  equal(result3.scrollProgram.toString().includes("circularImportError true"), false, "No circularImports detected")
+  equal(result3.scrollProgram.toString().includes("circularImportError"), false, "No circularImports detected")
 }
 
 testParticles.quickImports = async equal => {

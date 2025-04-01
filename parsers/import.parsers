@@ -24,7 +24,7 @@ importParser
     file.importsFiles.add(fullpath)
     const hasCircular = await this.hasCircularImports(this.root.filePath, fullpath)
     if (hasCircular)
-      return await this.handleCircularImport()
+      return await this.handleCircularImport(hasCircular)
     return await this.handleImport()
   }
   async handleImport() {
@@ -41,26 +41,26 @@ importParser
     await this.root.appendFromStream(block.toString())
     this.destroy()
   }
-  async handleCircularImport() {
-    const newParticle = new Particle(`imported ${this.fullpath}\n exists true\n original ${this.getLine()}\n particles 0\n circularImportError true`)
+  async handleCircularImport(hasCircular) {
+    const newParticle = new Particle(`imported ${this.fullpath}\n exists true\n original ${this.getLine()}\n particles 0\n circularImportError Circular import error in ${hasCircular}`)
     await this.root.appendFromStream(newParticle.toString())
     this.destroy()
   }
   async hasCircularImports(importer, importee) {
     // if a.scroll requires a.scroll
     if (importer === importee)
-      return true
+      return importee
     const {fileSystem} = this.root
     // Now check the files that the importee is importing
     const importeeFile = await fileSystem.getFile(importee)
     if (!importeeFile.importsFiles)
       return false
     if (importeeFile.importsFiles.has(importer))
-      return true
+      return importee
     for (let importPath of importeeFile.importsFiles) {
       // console.log(`Checking if ${importPath} imports ${importer}`)
       if (await this.hasCircularImports(importPath, importer))
-        return true
+        return importPath
     }
     return false
   }
