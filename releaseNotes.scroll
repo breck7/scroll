@@ -22,6 +22,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 177.0.0 4/06/2025
+🎉 Scroll is now a single-pass language!
+🏥 fixed regression in concept building
+🏥 fixed bug in custom dinkus
+
 📦 176.0.1 3/29/2025
 🏥 update ScrollSDK
 
