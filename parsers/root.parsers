@@ -630,6 +630,27 @@ scrollParser
       await particle.buildTwo(options)
     }
   }
+  stackParserCode(parser) {
+    this.runtimeParsers.push(parser)
+    // Add top level parsers only which will add their nested parsers.
+    if (parser.parent !== this) return
+    // Perf hack until we can refactor ParserPool and add incremental addition of parsers.
+    // What we see in the wild is that frequently you'll have parser definitions one after
+    // the other, separated by blank lines or comments. So we stack up those parsers and
+    // dont add them until we are done with that section.
+    if (this._parsersToRegister === undefined)
+        this._parsersToRegister = ""
+    this._parsersToRegister += parser.toString() + "\n"
+    if (!this._beforeAppend)
+        this._beforeAppend = (block) => {
+          const line1 = block.split(/\n/)[0]
+          if (line1 === "" || line1.endsWith("Parser") || line1.startsWith("//"))
+            return
+          this.registerParsers(this._parsersToRegister)
+          delete this._beforeAppend
+          this._parsersToRegister = ""
+        }
+  }
   get outputFileNames() {
     return this.filter(p => p.outputFileNames).map(p => p.outputFileNames).flat()
   }

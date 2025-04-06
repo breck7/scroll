@@ -1,0 +1,7 @@
+buildParsers dumpParsers.txt
+assertBuildIncludes Carpe diem!
+// Just test to ensure some source code from a parser is included
+
+// This prints all parsers.
+// We use it to dump all parsers to a single file to power try.scroll.pub
+debugParsers

@@ -42,6 +42,7 @@ replaceJsParser
  javascript
   get replacement() {
     const particle = this
+    const codeAtStart = this.root.file.codeAtStart || ""
     try {
       return eval(super.replacement)
     } catch (err) {

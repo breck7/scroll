@@ -28,16 +28,13 @@ debugSourceStackParser
   }
 
 debugParsersParser
- description Print the parsers used.
+ description Print source code of all parsers used.
  extends codeParser
  cueFromId
  javascript
   buildParsers() { return this.code}
-  get parserDefinitions() {
-    return new Particle(this.root.definition.toString()).filter((line) => line.getLine().match(/^[a-zA-Z0-9_]+Parser$/))
-  }
   get code() {
-    return this.parserDefinitions.map(part => part.cue).join(" ")
+    return this.root.definition.toString()
   }
 
 debugBelowParser
