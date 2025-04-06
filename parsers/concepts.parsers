@@ -46,7 +46,7 @@ buildConceptsParser
     return this.get("sortBy")
   }
   get outputFiles() {
-    const {permalink} = this
+    const {permalink} = this.root
     const files = this.getAtomsFrom(1)
     if (!files.length) files.push(permalink.replace(".html", ".csv"))
     return files

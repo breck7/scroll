@@ -91,6 +91,7 @@ This text should be aligned right.
 🎉 Added `noSnippet` parser that can be used in all aftertext parsers to prevent HTML generation of that particle when generating a snippet.
 🏥 fix bug with date printing in short snippets.
 ⚠️ BREAKING: removed stump parsers. if you were using `stump` parsers, just unnest subparticles under stump and delete stump atom.
+⚠️ BREAKING: remove `stumpNoSnippet`
 
 codeWithHeader Before:
  stump
