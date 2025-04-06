@@ -83,6 +83,7 @@ scrollImportedParser
   async wake() {
     this.checkForFooterMoves()
   }
+  get dependencies() { return [this.atoms[1]]}
   checkForFooterMoves() {
     // If a particle was imported with the "footer" subparticle set, then that means we want
     // to move those imported particles to the end of the document. We added a handleFooterMoves
