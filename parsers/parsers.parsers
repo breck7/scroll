@@ -508,6 +508,10 @@ parserDefinitionParser
  tags assemblePhase
  javascript
   buildHtml() { return ""}
+  async wake() {
+    this.registerParser(this.toString())
+    this.root.runtimeParsers.push(this)
+  }
 
 parsersRegexParser
  catchAllAtomType regexAtom

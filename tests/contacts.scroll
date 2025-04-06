@@ -1,11 +1,14 @@
+container
+theme gazette
+../microlangs/contacts.parsers
+
 buildConcepts contacts.csv contacts.json contacts.tsv
 buildHtml
 title My Contacts
 
-../microlangs/contacts.parsers
-theme gazette
 mediumColumns 1
 printTitle
+// This is a little confusing. This datatable is fed by the csv's generated above (I think.). Datatable looks at permalink name for a matching csv.
 datatable
  printTable
  assertRowCount 2

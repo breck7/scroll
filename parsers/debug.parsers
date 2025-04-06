@@ -33,13 +33,11 @@ debugParsersParser
  cueFromId
  javascript
   buildParsers() { return this.code}
+  get parserDefinitions() {
+    return new Particle(this.root.definition.toString()).filter((line) => line.getLine().match(/^[a-zA-Z0-9_]+Parser$/))
+  }
   get code() {
-    let code = new Particle(this.root.definition.toString())
-      // Remove comments
-    code.filter((line) => line.getLine().startsWith("//")).forEach((particle) => particle.destroy())
-    // Remove blank lines
-    code = code.toString().replace(/^\n/gm, "")
-    return code
+    return this.parserDefinitions.map(part => part.cue).join(" ")
   }
 
 debugBelowParser

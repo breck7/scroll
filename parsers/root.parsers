@@ -707,26 +707,14 @@ scrollParser
     return measure
   })
   }
-  parseMeasures(parser) {
-  if (!Particle.measureCache)
-    Particle.measureCache = new Map()
-  const measureCache = Particle.measureCache
-  if (measureCache.get(parser)) return measureCache.get(parser)
+  runtimeParsers = []
+  _parseMeasures() {
   const {lodash} = this
   // todo: clean this up
-  const getCueAtoms = rootParserProgram =>
-    rootParserProgram
-      .filter(particle => particle.getLine().endsWith("Parser") && !particle.getLine().startsWith("abstract"))
-      .map(particle => particle.get("cue") || particle.getLine())
-      .map(line => line.replace(/Parser$/, ""))
   // Generate a fake program with one of every of the available parsers. Then parse it. Then we can easily access the meta data on the parsers
-  const dummyProgram = new parser(
-    Array.from(
-      new Set(
-        getCueAtoms(parser.cachedHandParsersProgramRoot) // is there a better method name than this?
-      )
-    ).join("\n"), this.getLine()
-  )
+  const dummyCode = this.runtimeParsers.map(particle => particle.get("cue") || particle.getLine().replace(/Parser$/, "")).join("\n")
+  const parser = this._modifiedConstructor || this.constructor
+  const dummyProgram = new parser(dummyCode, this.getLine())
   // Delete any particles that are not measures
   dummyProgram.filter(particle => !particle.isMeasure).forEach(particle => particle.destroy())
   dummyProgram.forEach(particle => {
@@ -752,22 +740,21 @@ scrollParser
       Cue: particle.definition.get("cue")
     }
   })
-  measureCache.set(parser, lodash.sortBy(measures, "SortIndex"))
-  return measureCache.get(parser)
+  return lodash.sortBy(measures, "SortIndex")
   }
   _concepts
   get concepts() {
-    if (this._concepts) return this._concepts
-    this._concepts = this.parseConcepts(this, this.measures)
+    if (!this._concepts) this._concepts = this._parseConcepts()
     return this._concepts
   }
   _measures
   get measures() {
-    if (this._measures) return this._measures
-    this._measures = this.parseMeasures(this.parser)
+    if (!this._measures) return this._measures = this._parseMeasures()
     return this._measures
   }
-  parseConcepts(parsedProgram, measures){
+  _parseConcepts(){
+  const parsedProgram = this
+  const measures = this.measures
   // Todo: might be a perf/memory/simplicity win to have a "segment" method in ScrollSDK, where you could
   // virtually split a Particle into multiple segments, and then query on those segments.
   // So we would "segment" on "id ", and then not need to create a bunch of new objects, and the original
