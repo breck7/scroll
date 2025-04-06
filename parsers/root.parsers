@@ -105,9 +105,6 @@ scrollParser
     const { scrollProgram } = file
     return scrollProgram.buildsHtml && scrollProgram.hasKeyboardNav && scrollProgram.tags.includes(this.primaryTag)
   }
-  get timeIndex() {
-    return this.file.timeIndex || 0
-  }
   _timestamp
   get timestamp() {
    if (!this._timestamp) {
@@ -125,7 +122,7 @@ scrollParser
     let file = this._nextAndPrevious(allScrollFiles, this.timeIndex).previous
     if (!file) return undefined
     while (!this._includeFileInKeyboardNav(file)) {
-      file = this._nextAndPrevious(allScrollFiles, file.timeIndex).previous
+      file = this._nextAndPrevious(allScrollFiles, file.scrollProgram.timeIndex).previous
     }
     return file.scrollProgram.permalink
   }
@@ -137,7 +134,7 @@ scrollParser
     let file = this._nextAndPrevious(allScrollFiles, this.timeIndex).next
     if (!file) return undefined
     while (!this._includeFileInKeyboardNav(file)) {
-      file = this._nextAndPrevious(allScrollFiles, file.timeIndex).next
+      file = this._nextAndPrevious(allScrollFiles, file.scrollProgram.timeIndex).next
     }
     return file.scrollProgram.permalink
   }
@@ -273,9 +270,19 @@ scrollParser
   get authors() {
     return this.get("authors")
   }
+  _addTimeIndexes(files) {
+    // A little hacky but ah well.
+    // For blogs, we want to sort posts in a folder in order of the date property.
+    // If the date property is not set, we use the file timestamp from disk.
+    const sorted = files.sort((a, b) => b.scrollProgram.timestamp - a.scrollProgram.timestamp)
+    sorted.forEach((file, index) => (file.scrollProgram.timeIndex = index))
+  }
   get allScrollFiles() {
     try {
-    return this.fileSystem.getFusedFilesInFolderIfCached(this.folderPath, this)
+    const files = this.fileSystem.getFusedFilesInFolderIfCached(this.folderPath, this)
+    if (this.timeIndex === undefined)
+      this._addTimeIndexes(files)
+    return files
     } catch (err) {
       console.error(err)
       return []
