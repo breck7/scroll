@@ -509,8 +509,24 @@ parserDefinitionParser
  javascript
   buildHtml() { return ""}
   async wake() {
-    this.registerParser(this.toString())
-    this.root.runtimeParsers.push(this)
+    const {root} = this
+    root.runtimeParsers.push(this)
+    // Perf hack until we can refactor ParserPool and add incremental addition of parsers.
+    // What we see in the wild is that frequently you'll have parser definitions one after
+    // the other, separated by blank lines or comments. So we stack up those parsers and
+    // dont add them until we are done with that section.
+    if (root._parsersToRegister === undefined)
+        root._parsersToRegister = ""
+    root._parsersToRegister += this.toString() + "\n"
+    if (!root._beforeAppend)
+        root._beforeAppend = (block) => {
+          const line1 = block.split(/\n/)[0]
+          if (line1 === "" || line1.endsWith("Parser") || line1.startsWith("// "))
+            return
+          this.registerParsers(root._parsersToRegister)
+          delete root._beforeAppend
+          root._parsersToRegister = ""
+        }
   }
 
 parsersRegexParser
