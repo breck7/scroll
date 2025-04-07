@@ -752,7 +752,7 @@ scrollParser
   const {lodash} = this
   // todo: clean this up
   // Generate a fake program with one of every of the available parsers. Then parse it. Then we can easily access the meta data on the parsers
-  const dummyCode = this.customParsers.map(particle => particle.get("cue") || particle.getLine().replace(/Parser$/, "")).join("\n")
+  const dummyCode = Array.from(new Set(this.customParsers.map(particle => particle.get("cue") || particle.getLine().replace(/Parser$/, "")))).join("\n")
   const parser = this._modifiedConstructor || this.constructor
   const dummyProgram = new parser(dummyCode, this.getLine())
   // Delete any particles that are not measures
