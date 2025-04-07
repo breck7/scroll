@@ -71,7 +71,7 @@ evalJsParser
       const script = (this.content === undefined ? "" : this.content) + "\n" + this.subparticlesToString()
       const evaled = eval(script)
       if (evaled)
-        this.replaceParticle(() => evaled.toString())
+        this.replaceWith(evaled.toString())
     } catch (err) {
       console.error(err)
     }

@@ -541,7 +541,7 @@ scrollParser
         })
         .join("\n")
       concept.forEach((particle, index) => (index ? particle.destroy() : ""))
-      concept[0].replaceParticle(() => newCode)
+      concept[0].replaceWith(newCode)
     })
   }
   get formatted() {
@@ -779,6 +779,9 @@ scrollParser
   get concepts() {
     if (!this._concepts) this._concepts = this._parseConcepts()
     return this._concepts
+  }
+  get concept() {
+    return this.concepts[0]
   }
   _measures
   get measures() {

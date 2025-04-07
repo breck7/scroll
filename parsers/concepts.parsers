@@ -29,6 +29,41 @@ loadConceptsParser
     this.parent.concat(ONE_BIG_FILE)
   }
 
+conceptTemplateParser
+ extends abstractScrollParser
+ description Loads a template after document is parsed.
+ example
+  conceptTemplate
+   # This is a page for {name}
+   His phone is {phone}
+ cueFromId
+ javascript
+  async wake() {
+    this.root.notifyOnReady(this)
+  }
+  onReady() {
+    if (this.root.has("importOnly")) return // Don't run on import only pages.
+    const concept = this.root.concept
+    const templateString = new Particle(this.subparticlesToString())
+    const newCode = templateString.templateToString(concept)
+    this.replaceWith(newCode)
+  }
+
+dumpConceptParser
+ popularity 0.000169
+ cueFromId
+ atoms cueAtom
+ extends codeWithHeaderParser
+ example
+  dumpConcept
+ javascript
+  get code() {
+    return new Particle(this.root.concept).toString()
+  }
+  get header() {
+    return this.root.filename
+  }
+
 buildConceptsParser
  popularity 0.000024
  cueFromId

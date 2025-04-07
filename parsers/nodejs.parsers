@@ -30,5 +30,5 @@ evalNodejsParser
   wake() {
     const evaled = this.root.evalNodeJs(this)
     if (evaled !== false)
-    this.replaceParticle(() => evaled)
+    this.replaceWith(evaled)
   }
