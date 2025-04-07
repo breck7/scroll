@@ -307,6 +307,8 @@ scrollParser
     this._toNotify.push(particle)
   }
   wake() {
+    // In case the file ended on a parser definition, refresh parser pool
+    this._refreshParserPool()
     if (this._toNotify)
       this._toNotify.forEach(particle => particle.onReady())
   }
@@ -650,10 +652,14 @@ scrollParser
           const line1 = block.split(/\n/)[0]
           if (line1 === "" || line1.endsWith("Parser") || line1.startsWith("//"))
             return
-          this.registerParsers(this._parsersToRegister.map(p => p.toString()).join("\n"), this.filePath)
-          delete this._beforeAppend
-          delete this._parsersToRegister
+          this._refreshParserPool()
         }
+  }
+  _refreshParserPool() {
+    if (!this._parsersToRegister) return
+    this.registerParsers(this._parsersToRegister.map(p => p.toString()).join("\n"), this.filePath)
+    delete this._beforeAppend
+    delete this._parsersToRegister
   }
   get outputFileNames() {
     return this.filter(p => p.outputFileNames).map(p => p.outputFileNames).flat()
