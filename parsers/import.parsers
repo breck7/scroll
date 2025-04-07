@@ -22,13 +22,13 @@ importParser
     if (!file.importsFiles)
      file.importsFiles = new Set()
     file.importsFiles.add(fullpath)
-    const hasCircular = await this.hasCircularImports(this.root.filePath, fullpath)
-    if (hasCircular)
-      return await this.handleCircularImport(hasCircular)
-    return await this.handleImport()
+    return await this._handleImport()
   }
-  async handleImport() {
-    const file = await this.getFile()
+  async _handleImport() {
+    const hasCircular = await this._hasCircularImports(this.root.filePath, this.fullpath)
+    if (hasCircular)
+      return await this._handleCircularImport(hasCircular)
+    const file = await this._getFile()
     const particleCount = file.scrollProgram.length
     const newParticle = new Particle(`imported ${this.fullpath}\n exists ${file.exists}\n original ${this.getLine()}\n particles ${particleCount}`)
     if (this.has("footer"))
@@ -41,12 +41,12 @@ importParser
     await this.root.appendFromStream(block.toString())
     this.destroy()
   }
-  async handleCircularImport(hasCircular) {
+  async _handleCircularImport(hasCircular) {
     const newParticle = new Particle(`imported ${this.fullpath}\n exists true\n original ${this.getLine()}\n particles 0\n circularImportError Circular import error in ${hasCircular}`)
     await this.root.appendFromStream(newParticle.toString())
     this.destroy()
   }
-  async hasCircularImports(importer, importee) {
+  async _hasCircularImports(importer, importee) {
     // if a.scroll requires a.scroll
     if (importer === importee)
       return importee
@@ -59,12 +59,12 @@ importParser
       return importee
     for (let importPath of importeeFile.importsFiles) {
       // console.log(`Checking if ${importPath} imports ${importer}`)
-      if (await this.hasCircularImports(importPath, importer))
+      if (await this._hasCircularImports(importPath, importer))
         return importPath
     }
     return false
   }
-  async getFile() {
+  async _getFile() {
     const {fileSystem, file} = this.root
     const fileToImport = await fileSystem.getFile(this.fullpath)
     await fileToImport.singlePassFuse()
@@ -118,15 +118,40 @@ importToFooterParser
 
 quickImportParser
  popularity 0.007524
- description Import a Scroll or Parsers file.
+ description Import a Scroll file.
  extends importParser
  boolean isPopular true
  int filenameAt 0
  inScope importToFooterParser abstractCommentParser
  atoms urlAtom
- pattern ^[^\s]+\.(scroll|parsers)$
+ pattern ^[^\s]+\.scroll$
  example
   header.scroll
+
+useParserPoolParser
+ cueFromId
+ description Load a cached parser pool.
+ extends abstractScrollParser
+ atoms cueAtom urlAtom
+ javascript
+  async wake() {
+    this.switchParserPool(this.atoms[1])
+  }
+
+parsersImportParser
+ description Import a Parsers file.
+ extends quickImportParser
+ inScope abstractCommentParser
+ pattern ^[^\s]+\.parsers$
+ example
+  measures.parsers
+ javascript
+  async _handleImport() {
+    await this._getFile()
+    // todo: cleanup
+    const newp = this.replaceWith(`useParserPool ${this.fullpath}`)
+    await newp[0].wake()
+  }
 
 importOnlyParser
  popularity 0.033569

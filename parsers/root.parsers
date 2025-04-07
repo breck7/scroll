@@ -636,7 +636,6 @@ scrollParser
     }
   }
   stackParserCode(parser) {
-    this.runtimeParsers.push(parser)
     // Add top level parsers only which will add their nested parsers.
     if (parser.parent !== this) return
     // Perf hack until we can refactor ParserPool and add incremental addition of parsers.
@@ -644,16 +643,16 @@ scrollParser
     // the other, separated by blank lines or comments. So we stack up those parsers and
     // dont add them until we are done with that section.
     if (this._parsersToRegister === undefined)
-        this._parsersToRegister = ""
-    this._parsersToRegister += parser.toString() + "\n"
+        this._parsersToRegister = []
+    this._parsersToRegister.push(parser)
     if (!this._beforeAppend)
         this._beforeAppend = (block) => {
           const line1 = block.split(/\n/)[0]
           if (line1 === "" || line1.endsWith("Parser") || line1.startsWith("//"))
             return
-          this.registerParsers(this._parsersToRegister)
+          this.registerParsers(this._parsersToRegister.map(p => p.toString()).join("\n"), this.filePath)
           delete this._beforeAppend
-          this._parsersToRegister = ""
+          delete this._parsersToRegister
         }
   }
   get outputFileNames() {
@@ -740,12 +739,14 @@ scrollParser
     return measure
   })
   }
-  runtimeParsers = []
+  get customParsers() {
+    return this.definition
+  }
   _parseMeasures() {
   const {lodash} = this
   // todo: clean this up
   // Generate a fake program with one of every of the available parsers. Then parse it. Then we can easily access the meta data on the parsers
-  const dummyCode = this.runtimeParsers.map(particle => particle.get("cue") || particle.getLine().replace(/Parser$/, "")).join("\n")
+  const dummyCode = this.customParsers.map(particle => particle.get("cue") || particle.getLine().replace(/Parser$/, "")).join("\n")
   const parser = this._modifiedConstructor || this.constructor
   const dummyProgram = new parser(dummyCode, this.getLine())
   // Delete any particles that are not measures
