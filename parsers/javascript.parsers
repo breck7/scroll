@@ -60,13 +60,14 @@ evalJsParser
  extends abstractScrollParser
  baseParser blobParser
  cueFromId
- atoms preBuildCommandAtom
+ atoms parseTimeCommandAtom
  catchAllAtomType javascriptAnyAtom
  example
   evalJs "# The sum of 1 + 1 is " + 1 + 1
  javascript
   wake() {
     try {
+      const particle = this
       const script = (this.content === undefined ? "" : this.content) + "\n" + this.subparticlesToString()
       const evaled = eval(script)
       if (evaled)

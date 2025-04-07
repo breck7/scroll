@@ -20,7 +20,7 @@ loadConceptsParser
  description Import all concepts in a folder.
  extends abstractBuildCommandParser
  cueFromId
- atoms preBuildCommandAtom filePathAtom
+ atoms parseTimeCommandAtom filePathAtom
  javascript
   async load() {
    const { Disk, path, importRegex } = this.root

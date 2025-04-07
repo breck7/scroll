@@ -132,8 +132,7 @@ footer.scroll`
   }
 
   async formatFile(file) {
-    const { formatted, filePath, filename } = file.scrollProgram
-    const { codeAtStart } = file
+    const { formatted, filePath, filename, codeAtStart } = file.scrollProgram
     if (codeAtStart === formatted) return
     await this.sfs.write(filePath, formatted)
     this.log(`💾 formatted ${filename}`)

@@ -24,8 +24,10 @@ thinColumns
 
 📦 177.0.0 4/06/2025
 🎉 Scroll is now a single-pass language!
+🎉 added assertBuildEndsWithParser
 🏥 fixed regression in concept building
 🏥 fixed bug in custom dinkus
+⚠️ BREAKING: `toFooter` is now `moveToFooter`
 
 📦 176.0.1 3/29/2025
 🏥 update ScrollSDK

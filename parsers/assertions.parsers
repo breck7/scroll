@@ -92,6 +92,18 @@ assertBuildIncludesParser
   }
   get actual() { return this.particleToTest.buildOutput()}
 
+assertBuildEndsWithParser
+ extends assertBuildIncludesParser
+ string kind endsWith
+ example
+  buildCsv
+  assertBuildEndsWith virginica
+ javascript
+  areEqual(actual, expected) {
+    // Note that this does do a trim on both.
+    return actual.trim().endsWith(expected.trim())
+  }
+
 assertHtmlIncludesParser
  extends abstractAssertionParser
  string kind include

@@ -301,12 +301,14 @@ scrollParser
   getFromParserId(parserId) {
     return this.parserIdIndex[parserId]?.[0].content
   }
-  wake() {
-    this.handleFooterMoves()
+  notifyOnReady(particle) {
+    if (!this._toNotify)
+     this._toNotify = []
+    this._toNotify.push(particle)
   }
-  handleFooterMoves() {
-    if (this.footerMoves)
-      this.footerMoves.forEach(footerMoves => footerMoves.moveToFooter())
+  wake() {
+    if (this._toNotify)
+      this._toNotify.forEach(particle => particle.onReady())
   }
   get fileSystem() {
     return this.file.fileSystem
@@ -543,7 +545,7 @@ scrollParser
     })
   }
   get formatted() {
-    return this.getFormatted(this.file.codeAtStart)
+    return this.getFormatted(this.codeAtStart)
   }
   get lastCommitTime() {
     // todo: speed this up and do a proper release. also could add more metrics like this.
@@ -555,6 +557,9 @@ scrollParser
       }
     }
     return this._lastCommitTime
+  }
+  get codeAtStart() {
+    return this.file.codeAtStart
   }
   getFormatted(codeAtStart = this.toString()) {
     let formatted = codeAtStart.replace(/\r/g, "") // remove all carriage returns if there are any

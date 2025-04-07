@@ -2,7 +2,7 @@ importParser
  description Import a file.
  popularity 0.007524
  cueFromId
- atoms preBuildCommandAtom
+ atoms parseTimeCommandAtom
  extends abstractScrollParser
  catchAllAtomType filePathAtom
  int filenameAt 1
@@ -75,7 +75,7 @@ scrollImportedParser
  description Inserted at import pass.
  boolean suggestInAutocomplete false
  cue imported
- atoms preBuildCommandAtom
+ atoms parseTimeCommandAtom
  extends abstractScrollParser
  baseParser blobParser
  catchAllAtomType filePathAtom
@@ -91,11 +91,9 @@ scrollImportedParser
     // to be made.
     if (!this.has("moveToFooter"))
       return
-    if (!this.root.footerMoves)
-      this.root.footerMoves = []
-    this.root.footerMoves.push(this)
+    this.root.notifyOnReady(this)
   }
-  moveToFooter() {
+  onReady() {
     // We move the imported particle along with the number of lines originally imported
     // to the bottom of the document. Note: I have not looked into perf yet.
     const particleCount = parseInt(this.get("particles"))
@@ -115,7 +113,7 @@ scrollImportedParser
 
 importToFooterParser
  description Import to bottom of file.
- atoms preBuildCommandAtom
+ atoms parseTimeCommandAtom
  cue footer
 
 quickImportParser
@@ -135,7 +133,7 @@ importOnlyParser
  // This line will be not be imported into the importing file.
  description Don't build this file.
  cueFromId
- atoms preBuildCommandAtom
+ atoms parseTimeCommandAtom
  extends abstractTopLevelSingleMetaParser
 
 abstractQuickIncludeParser
