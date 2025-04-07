@@ -31,7 +31,7 @@ importParser
     const file = await this._getFile()
     const particleCount = file.scrollProgram.length
     const newParticle = new Particle(`imported ${this.fullpath}\n exists ${file.exists}\n original ${this.getLine()}\n particles ${particleCount}`)
-    if (this.has("footer"))
+    if (this.has("moveToFooter"))
       newParticle.particleAt(0).set("moveToFooter", "true")
     await this.root.appendFromStream(newParticle.toString())
     // Don't import importOnly lines
@@ -85,10 +85,8 @@ scrollImportedParser
   }
   get dependencies() { return [this.atoms[1]]}
   checkForFooterMoves() {
-    // If a particle was imported with the "footer" subparticle set, then that means we want
-    // to move those imported particles to the end of the document. We added a handleFooterMoves
-    // method to the root particle that gets called and will check if there are any footer moves
-    // to be made.
+    // If a particle was imported with the "moveToFooter" subparticle set, then that means we want
+    // to move those imported particles to the end of the document.
     if (!this.has("moveToFooter"))
       return
     this.root.notifyOnReady(this)
@@ -114,7 +112,7 @@ scrollImportedParser
 importToFooterParser
  description Import to bottom of file.
  atoms parseTimeCommandAtom
- cue footer
+ cue moveToFooter
 
 quickImportParser
  popularity 0.007524

@@ -363,7 +363,7 @@ This is my content
 `,
     "/headerAndFooter.scroll": `header.scroll
 footer.scroll
- footer`,
+ moveToFooter`,
     "/header.scroll": "printTitle",
     "/footer.scroll": "The end."
   }
