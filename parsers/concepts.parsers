@@ -18,7 +18,7 @@ loadConceptsParser
  // todo: clean this up. just add smarter imports with globs?
  // this currently removes first line of each (to ditch the imports).
  description Import all concepts in a folder.
- extends abstractBuildCommandParser
+ extends abstractScrollParser
  cueFromId
  atoms parseTimeCommandAtom filePathAtom
  javascript
@@ -26,7 +26,7 @@ loadConceptsParser
    const { Disk, path } = this.root
    const folder = path.join(this.root.folderPath, this.getAtom(1))
    const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).map(content => content.split("\n").slice(1).join("\n")).join("\n\n")
-    this.parent.concat(ONE_BIG_FILE)
+   this.parent.concat(ONE_BIG_FILE)
   }
 
 conceptTemplateParser
