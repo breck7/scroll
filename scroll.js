@@ -127,12 +127,15 @@ footer.scroll`
     else files = await this.sfs.getFusedFilesInFolder(this.resolvePath(cwd), ".scroll")
     // .concat(fileSystem.getFusedFilesInFolder(folder, ".parsers")) // todo: should format parser files too.
     for (let file of files) {
-      this.formatFile(file)
+      this.formatFile(file.scrollProgram)
     }
   }
 
-  async formatFile(file) {
-    const { formatted, filePath, filename, codeAtStart } = file.scrollProgram
+  // Formatting is currently defined as formatting the entire original source file
+  // using the last parser present.
+  async formatFile(scrollProgram) {
+    await scrollProgram.ensureFileLoaded()
+    const { formatted, filePath, filename, codeAtStart } = scrollProgram
     if (codeAtStart === formatted) return
     await this.sfs.write(filePath, formatted)
     this.log(`💾 formatted ${filename}`)

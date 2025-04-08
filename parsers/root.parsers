@@ -563,9 +563,14 @@ scrollParser
   get codeAtStart() {
     return this.file.codeAtStart
   }
+  async ensureFileLoaded() {
+    // todo: cleanup
+    if (!this.codeAtStart)
+      await this.file._readCodeFromStorage()
+  }
   getFormatted(codeAtStart = this.toString()) {
     let formatted = codeAtStart.replace(/\r/g, "") // remove all carriage returns if there are any
-    const parsed = new this.constructor(formatted)
+    const parsed = new this.latestConstructor(formatted)
     parsed.topDownArray.forEach(subparticle => {
       subparticle.format()
       const original = subparticle.getLine()
@@ -745,6 +750,10 @@ scrollParser
     return measure
   })
   }
+  get latestConstructor() {
+    // todo: cleanup
+    return this._modifiedConstructor || this.constructor
+  }
   _parseMeasures() {
   const {lodash, definition} = this
   // cache measures on the _Parser_, since they are unique to a parser.
@@ -753,7 +762,7 @@ scrollParser
   // todo: clean this up
   // Generate a fake program with one of every of the available parsers. Then parse it. Then we can easily access the meta data on the parsers
   const dummyCode = Array.from(new Set(definition.map(particle => particle.get("cue") || particle.getLine().replace(/Parser$/, "")))).join("\n")
-  const parser = this._modifiedConstructor || this.constructor
+  const parser = this.latestConstructor
   const dummyProgram = new parser(dummyCode, this.getLine())
   // Delete any particles that are not measures
   dummyProgram.filter(particle => !particle.isMeasure).forEach(particle => particle.destroy())
