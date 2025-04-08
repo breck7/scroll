@@ -16,3 +16,8 @@ lightParser
 
 light red
 assertHtmlIncludes color:red
+
+// Test overwriting an atom. The original atomType should still be used above.
+streetLightAtom
+ extends stringAtom
+ enum orange purple
