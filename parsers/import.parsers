@@ -30,7 +30,9 @@ importParser
       return await this._handleCircularImport(hasCircular)
     const file = await this._getFile()
     const particleCount = file.scrollProgram.length
-    const newParticle = new Particle(`imported ${this.fullpath}\n exists ${file.exists}\n original ${this.getLine()}\n particles ${particleCount}`)
+    if (!file.exists)
+      return await this._handleFileDoesNotExist()
+    const newParticle = new Particle(`imported ${this.fullpath}\n exists true\n original ${this.getLine()}\n particles ${particleCount}`)
     if (this.has("moveToFooter"))
       newParticle.particleAt(0).set("moveToFooter", "true")
     await this.root.appendFromStream(newParticle.toString())
@@ -39,6 +41,11 @@ importParser
     const block = new Particle(file.scrollProgram.toString())
     block.delete("importOnly")
     await this.root.appendFromStream(block.toString())
+    this.destroy()
+  }
+  async _handleFileDoesNotExist() {
+    const newParticle = new Particle(`imported ${this.fullpath}\n exists false\n original ${this.getLine()}\n particles 0`)
+    await this.root.appendFromStream(newParticle.toString())
     this.destroy()
   }
   async _handleCircularImport(hasCircular) {
@@ -147,7 +154,9 @@ parsersImportParser
   measures.parsers
  javascript
   async _handleImport() {
-    await this._getFile()
+    const file = await this._getFile()
+    if (!file.exists)
+      return await this._handleFileDoesNotExist()
     // todo: cleanup
     const newp = this.replaceWith(`useParserPool ${this.fullpath}`)
     await newp[0].wake()
