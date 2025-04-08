@@ -28,6 +28,7 @@ thinColumns
 🎉 added conceptTemplateParser
 🎉 added dumpConceptParser
 🎉 added noFormatParser
+🏥 update ScrollSDK to 107
 🏥 fixed regression in concept building
 🏥 fixed bug in custom dinkus
 ⚠️ BREAKING: `toFooter` is now `moveToFooter`
