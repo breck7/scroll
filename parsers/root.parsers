@@ -292,6 +292,7 @@ scrollParser
     await Promise.all(this.filter(particle => particle[thing]).map(async particle => particle[thing]()))
   }
   async load() {
+    // todo: document when to use load instead of wake? do we need both?
     await this.doThing("load")
   }
   async execute() {

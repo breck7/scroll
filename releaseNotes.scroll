@@ -33,6 +33,7 @@ thinColumns
 🏥 fixed bug in custom dinkus
 ⚠️ BREAKING: `toFooter` is now `moveToFooter`
 ⚠️ BREAKING: `footer` in an import block is now `moveToFooter`
+⚠️ BREAKING: `preBuildCommandAtom` is now `parseTimeCommandAtom`
 
 📦 176.0.1 3/29/2025
 🏥 update ScrollSDK
