@@ -18,5 +18,3 @@ The below should be parsed by the parser above
 hiddenMessage Click me.
  message Hello world
 assertHtmlIncludes onclick="ale
-
-

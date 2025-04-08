@@ -587,7 +587,13 @@ scrollParser
       if (particle.bindTo === "next") particle.binding = particle.next
       if (particle.bindTo === "previous") particle.binding = particle.previous
     })
+    let noFormat = false
     parsed.forEach(particle => {
+      if (noFormat) return allElse.push(particle)
+      if (particle.getLine() === "noFormat") {
+         noFormat = true
+         return allElse.push(particle)
+      }
       if (particle.getLine() === "importOnly") importOnlys.push(particle)
       else if (particle.isTopMatter) topMatter.push(particle)
       else allElse.push(particle)

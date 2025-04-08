@@ -2,6 +2,8 @@ authors Breck Yunits
  https://breckyunits.com Breck Yunits
 buildTxt
 date 1/11/2019
+tags index all
+title Top Sinks
 replace NUM_SINKS 283
 replace TABLE
  datatable
@@ -16,8 +18,6 @@ replaceJs THE_DAY require("dayjs")(particle.parent.get("date")).format(`MMMM D, 
 replaceJs TODAYS_DATE Date()
 replaceNodejs
  module.exports = {DIRNAME: __dirname}
-tags index all
-title Top Sinks
 
 header.scroll
 

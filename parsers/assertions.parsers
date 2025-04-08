@@ -9,11 +9,11 @@ abstractAssertionParser
     // If the previous particle is also an assertion particle, use the one before that.
     return this.previous.particleToTest ? this.previous.particleToTest : this.previous
   }
-  get format() { return "html"}
+  get outputFormat() { return "html"}
   get actual() {
-    let {format} = this
-    format = format.substr(0, 1).toUpperCase() + format.substr(1)
-    const methodName = `build${format}`
+    let {outputFormat} = this
+    outputFormat = outputFormat.substr(0, 1).toUpperCase() + outputFormat.substr(1)
+    const methodName = `build${outputFormat}`
     return this.particleToTest[methodName]()
    }
   getErrors() {
@@ -53,7 +53,7 @@ assertParser
   Hello
   assert txt includes Hello
  javascript
-  get format() {
+  get outputFormat() {
     return this.atoms[1]
   }
   get expected() {

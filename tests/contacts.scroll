@@ -1,10 +1,9 @@
-container
-theme gazette
-../microlangs/contacts.parsers
-
 buildConcepts contacts.csv contacts.json contacts.tsv
 buildHtml
 title My Contacts
+container
+theme gazette
+../microlangs/contacts.parsers
 
 mediumColumns 1
 printTitle
