@@ -1,6 +1,7 @@
 buildHtml
 replace TITLE Debug tools tests
 replaceJs SUM 1+1
+noFormat
 title TITLE
 
 theme gazette

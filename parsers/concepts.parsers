@@ -16,17 +16,52 @@ scrollConceptsParser
 
 loadConceptsParser
  // todo: clean this up. just add smarter imports with globs?
- // this currently removes any "import" statements.
+ // this currently removes first line of each (to ditch the imports).
  description Import all concepts in a folder.
- extends abstractBuildCommandParser
+ extends abstractScrollParser
  cueFromId
- atoms preBuildCommandAtom filePathAtom
+ atoms parseTimeCommandAtom filePathAtom
  javascript
-  async load() {
-   const { Disk, path, importRegex } = this.root
+  async wake() {
+   const { Disk, path } = this.root
    const folder = path.join(this.root.folderPath, this.getAtom(1))
-   const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).join("\n\n").replace(importRegex, "")
-    this.parent.concat(ONE_BIG_FILE)
+   const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).map(content => content.split("\n").slice(1).join("\n")).join("\n\n")
+   this.parent.concat(ONE_BIG_FILE)
+  }
+
+conceptTemplateParser
+ extends abstractScrollParser
+ description Loads a template after document is parsed.
+ example
+  conceptTemplate
+   # This is a page for {name}
+   His phone is {phone}
+ cueFromId
+ javascript
+  async wake() {
+    this.root.notifyOnReady(this)
+  }
+  onReady() {
+    if (this.root.has("importOnly")) return // Don't run on import only pages.
+    const concept = this.root.concept
+    const templateString = new Particle(this.subparticlesToString())
+    const newCode = templateString.templateToString(concept)
+    this.replaceWith(newCode)
+  }
+
+dumpConceptParser
+ popularity 0.000169
+ cueFromId
+ atoms cueAtom
+ extends codeWithHeaderParser
+ example
+  dumpConcept
+ javascript
+  get code() {
+    return new Particle(this.root.concept).toString()
+  }
+  get header() {
+    return this.root.filename
   }
 
 buildConceptsParser
@@ -46,7 +81,7 @@ buildConceptsParser
     return this.get("sortBy")
   }
   get outputFiles() {
-    const {permalink} = this
+    const {permalink} = this.root
     const files = this.getAtomsFrom(1)
     if (!files.length) files.push(permalink.replace(".html", ".csv"))
     return files

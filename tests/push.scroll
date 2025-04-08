@@ -1,5 +1,0 @@
-buildHtml
-toFooter
-This is my footer. It is moved to end of file before compilation.
-
-This is my body. This should be above the footer.

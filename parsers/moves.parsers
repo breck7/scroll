@@ -1,0 +1,18 @@
+moveToFooterParser
+ extends abstractScrollParser
+ description Move a section to the footer.
+ atoms parseTimeCommandAtom
+ cueFromId
+ javascript
+  async wake() {
+    this.root.notifyOnReady(this)
+  }
+  onReady() {
+    this.section.forEach(particle => {
+        const clone = particle.clone()
+        this.root.appendParticle(clone)
+        particle.destroy()
+    })
+    this.destroy()
+    return ""
+  }

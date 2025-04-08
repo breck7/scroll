@@ -1,0 +1,11 @@
+buildHtml
+
+extension.parsers
+
+// This should not trigger an uncaught error
+assertSilenceBelowErrors
+fileDoesNotExist.parsers
+
+goodMorning
+assertHtmlIncludes Good morning
+

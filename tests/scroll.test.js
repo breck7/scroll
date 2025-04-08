@@ -3,6 +3,7 @@
 const tap = require("tap")
 const fs = require("fs")
 const path = require("path")
+const { Particle } = require("scrollsdk/products/Particle.js")
 const { ScrollCli } = require("../scroll.js")
 const { ScrollSetCLI } = require("../ScrollSetCLI.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
@@ -15,7 +16,6 @@ const testParticles = {}
 const testsFolder = path.join(__dirname)
 const stampFolder = path.join(testsFolder, "testOutput")
 const cli = new ScrollCli()
-const ScrollFile = cli.sfs.defaultFileClass
 
 // cleanup in case it was built earlier:
 if (Disk.exists(stampFolder)) fs.rmSync(stampFolder, { recursive: true })
@@ -124,7 +124,7 @@ buildHtml`
 testParticles.file = async areEqual => {
   const rootFolder = path.join(__dirname, "..")
   const cli = new ScrollCli().silence()
-  const files = await cli.sfs.getLoadedFilesInFolder(rootFolder, ".scroll")
+  const files = await cli.sfs.getFusedFilesInFolder(rootFolder, ".scroll")
   const releaseNotesFile = files.find(file => file.scrollProgram.permalink === "releaseNotes.html").scrollProgram
 
   areEqual(releaseNotesFile.permalink, "releaseNotes.html")
@@ -134,7 +134,7 @@ testParticles.file = async areEqual => {
 }
 
 testParticles.ensureNoErrorsInParser = async areEqual => {
-  const DefaultScrollParser = cli.sfs.defaultParser.parser
+  const DefaultScrollParser = cli.sfs.defaultParser
   const parserErrors = new parsersParser(new DefaultScrollParser().definition.asString).getAllErrors().map(err => err.toObject())
   if (parserErrors.length) console.log(parserErrors)
   areEqual(parserErrors.length, 0, "no errors in scroll standard library parsers")
@@ -165,12 +165,12 @@ testParticles.cli = async areEqual => {
 
 testParticles.standalonePage = async areEqual => {
   // Arrange
-  const page = new ScrollFile(`title A standalone page
+  const file = cli.sfs.newFile(`title A standalone page
 printTitle
 * Blue sky`)
   // Act/Assert
-  await page.fuse()
-  const { asHtml, asTxt } = page.scrollProgram
+  await file.singlePassFuse()
+  const { asHtml, asTxt } = file.scrollProgram
   areEqual(asHtml.includes("Blue sky"), true)
   areEqual(asTxt.includes("A standalone page"), true)
 }
@@ -213,33 +213,33 @@ testParticles.scrollsetCli = areEqual => {
 
 testParticles.format = async areEqual => {
   // Arrange
-  const page = new ScrollFile(``)
+  const file = cli.sfs.newFile("")
   // Act/Assert
-  await page.fuse()
-  areEqual(page.scrollProgram.formatted, "", "format works")
+  await file.singlePassFuse()
+  areEqual(file.scrollProgram.formatted, "", "format works")
 
-  const page2 = new ScrollFile(`# hi`)
+  const file2 = cli.sfs.newFile(`# hi`)
   // Act/Assert
-  await page2.fuse()
-  areEqual(page2.scrollProgram.formatted, "# hi\n", "format works")
+  await file2.singlePassFuse()
+  areEqual(file2.scrollProgram.formatted, "# hi\n", "format works")
 }
 
 testParticles.outputFileNames = async areEqual => {
   // Arrange
-  const page = new ScrollFile(``)
+  const file = cli.sfs.newFile("")
   // Act
-  await page.fuse()
+  await file.singlePassFuse()
   // Assert
-  areEqual(page.scrollProgram.outputFileNames.length, 0, "no outputFileNames in a blank file")
+  areEqual(file.scrollProgram.outputFileNames.length, 0, "no outputFileNames in a blank file")
 
   // Arrange
-  const page2 = new ScrollFile(`buildHtml foo.html
+  const file2 = cli.sfs.newFile(`buildHtml foo.html
 buildTxt foo.txt
 `)
   // Act
-  await page2.fuse()
+  await file2.singlePassFuse()
   // Assert
-  areEqual(page2.scrollProgram.outputFileNames[1], "foo.txt")
+  areEqual(file2.scrollProgram.outputFileNames[1], "foo.txt")
 }
 
 testParticles.initCommand = async areEqual => {
@@ -257,13 +257,13 @@ testParticles.initCommand = async areEqual => {
     const products = await cli.buildFilesInFolder(tempFolder)
 
     // Assert
-    areEqual(Disk.read(products[3]).includes("Built with Scroll"), true, "has message")
+    const helloWorldPath = path.join(tempFolder, "helloWorld.html")
+    areEqual(Disk.read(helloWorldPath).includes("Built with Scroll"), true, "has message")
     areEqual(products.filter(name => name.endsWith(".html")).length, 2, "should have 2 html pages")
     areEqual(products.length, 7, "should have 7 total generated files")
 
-    const { scrollErrors, parserErrors } = await cli.getErrorsInFolder(tempFolder)
+    const scrollErrors = await cli.getErrorsInFolder(tempFolder)
     areEqual(scrollErrors.length, 0)
-    areEqual(parserErrors.length, 0)
   } catch (err) {
     console.log(err)
   }
@@ -297,6 +297,133 @@ testParticles.hodgePodge = async areEqual => {
     .forEach(file => fs.unlinkSync(path.join(testsFolder, file)))
 
   fs.rmSync(stampFolder, { recursive: true })
+}
+
+const stripImported = str => {
+  const particle = new Particle(str)
+  particle.getParticles("imported").forEach(particle => particle.destroy())
+  return particle.toString()
+}
+
+testParticles.inMemory = async equal => {
+  // Arrange/Act/Assert
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/hello.scroll": "world",
+    "/main.scroll": "import hello.scroll\nimport nested/test.scroll",
+    "/nested/test.scroll": "ciao",
+    "/nested/deep/relative.scroll": "import ../../hello.scroll\nimport ../test.scroll"
+  }
+  cli.initFs(files)
+  const fused = await cli.sfs.getFusedFilesInFolder("/", "scroll")
+  const mainResult = fused.find(file => file.filePath === "/main.scroll")
+  equal(stripImported(mainResult.scrollProgram), "world\nciao")
+  equal(mainResult.scrollProgram.toString().includes("exists true"), true)
+
+  const relativeResult = await cli.sfs.getFusedFile("/nested/deep/relative.scroll")
+  equal(stripImported(relativeResult.scrollProgram), "world\nciao")
+}
+
+testParticles.empty = async equal => {
+  // Arrange
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/hello.scroll": "",
+    "/main.scroll": "import hello.scroll\nhi"
+  }
+  cli.initFs(files)
+
+  // Act
+  const fused = await cli.sfs.getFusedFilesInFolder("/", "scroll")
+  const mainResult = await cli.sfs.getFusedFile("/main.scroll")
+  // Assert
+  equal(stripImported(mainResult.scrollProgram), `\nhi`)
+}
+
+testParticles.nonExistant = async equal => {
+  // Arrange/Act/Assert
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/main.scroll": "import env.scroll"
+  }
+  cli.initFs(files)
+  const fused = await cli.sfs.getFusedFilesInFolder("/", "scroll")
+  const result = await cli.sfs.getFusedFile("/main.scroll")
+  equal(stripImported(result.scrollProgram.toString()), "")
+  equal(result.scrollProgram.toString().includes("exists false"), true)
+}
+
+testParticles.footers = async equal => {
+  // Arrange/Act/Assert
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/hello.scroll": `headerAndFooter.scroll
+title Hello world
+This is my content
+`,
+    "/headerAndFooter.scroll": `header.scroll
+footer.scroll
+ moveToFooter`,
+    "/header.scroll": "printTitle",
+    "/footer.scroll": "The end."
+  }
+  cli.initFs(files)
+  await cli.sfs.getFusedFilesInFolder("/", "scroll")
+  const result = await cli.sfs.getFusedFile("/hello.scroll")
+  equal(result.scrollProgram.toString().includes("This is my content"), true)
+  equal(result.scrollProgram.toString().endsWith("The end."), true, "ends with footer")
+}
+
+testParticles.circularImports = async equal => {
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/a.scroll": "b.scroll",
+    "/b.scroll": "a.scroll",
+    "/c.scroll": "c.scroll",
+    "/d.scroll": "e.scroll\nf.scroll",
+    "/e.scroll": "f.scroll",
+    "/f.scroll": "g.scroll",
+    "/g.scroll": ""
+  }
+  cli.initFs(files)
+  const sfs = cli.sfs
+  await sfs.getFusedFilesInFolder("/", "scroll")
+  const result2 = await sfs.getFusedFile("/c.scroll")
+  equal(result2.scrollProgram.toString().includes("circularImportError"), true, "Should have detected circularImports")
+  const result = await sfs.getFusedFile("/a.scroll")
+  equal(result.scrollProgram.toString().includes("circularImportError"), true, "Should have detected circularImports")
+  const result3 = await sfs.getFusedFile("/d.scroll")
+  equal(result3.scrollProgram.toString().includes("circularImportError"), false, "No circularImports detected")
+}
+
+testParticles.quickImports = async equal => {
+  // Arrange/Act/Assert
+  const cli = new ScrollCli().silence()
+  const files = {
+    "/hello.scroll": "world",
+    "/main": "hello.scroll\nnested/test.scroll",
+    "/nested/test.scroll": "ciao",
+    "/nested/a": "test.scroll",
+    "/nested/deep/relative": "../../hello.scroll\n../test.scroll"
+  }
+  cli.initFs(files)
+  const sfs = cli.sfs
+  equal(sfs.dirname("/"), "/")
+
+  const [aResult, mainResult, relativeResult] = await Promise.all([sfs.getFusedFile("/nested/a"), sfs.getFusedFile("/main"), sfs.getFusedFile("/nested/deep/relative")])
+  equal(stripImported(aResult.scrollProgram.toString()), "ciao")
+  equal(stripImported(mainResult.scrollProgram.toString()), "world\nciao")
+  equal(stripImported(relativeResult.scrollProgram.toString()), "world\nciao")
+
+  // FileAPI
+  // Arrange
+  const file = sfs.newFile(files["/main"], "/main")
+  equal(file.scrollProgram.toString(), "")
+  // Act
+  // TODO: make this singlePassFuse
+  await file.singlePassFuse()
+  // Assert
+  equal(stripImported(file.scrollProgram.toString()), "world\nciao")
 }
 
 if (module && !module.parent) TestRacer.testSingleFile(__filename, testParticles)

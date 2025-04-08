@@ -122,7 +122,7 @@ stringAtom
  paint string
 
 atomAtom
- paint constant
+ paint string
  description A non-empty single atom string.
  regex .+
 
@@ -452,6 +452,11 @@ atomTypeDefinitionParser
  inScope parsersPaintParser parsersRegexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser parsersEnumParser slashCommentParser extendsAtomTypeParser parsersExamplesParser atomMinParser atomMaxParser
  atoms atomTypeIdAtom
  tags assemblePhase
+ javascript
+  buildHtml() {return ""}
+  async wake() {
+    this.root.stackParserCode(this)
+  }
 
 // Enums
 enumFromAtomTypesParser
@@ -504,6 +509,11 @@ parserDefinitionParser
  inScope abstractParserRuleParser abstractConstantParser slashCommentParser parserDefinitionParser
  atoms parserIdAtom
  tags assemblePhase
+ javascript
+  buildHtml() { return ""}
+  async wake() {
+    this.root.stackParserCode(this)
+  }
 
 parsersRegexParser
  catchAllAtomType regexAtom

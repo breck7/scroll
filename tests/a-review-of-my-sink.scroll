@@ -1,10 +1,10 @@
+tags index all
+title A review of my sink
 replace SOME_DATA
  - foo
   link bar.html
  - bar
   link bam.html
-tags index all
-title A review of my sink
 
 header.scroll
 

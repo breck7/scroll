@@ -17,7 +17,7 @@ debugSourceMapParser
         currentFile.lineNumber++
         currentFile.linesLeft--
         if (particle.cue === "imported") {
-          const linesLeft = parseInt(particle.get("lines"))
+          const linesLeft = parseInt(particle.get("particles"))
           const original = particle.get("original")
           fileStack.push({ fileName: particle.atoms[1], lineNumber: 0, linesLeft })
           return `${currentFile.fileName}:${currentFile.lineNumber} ${original}\n` + particle.map(line => `${currentFile.fileName}:${currentFile.lineNumber}  ${line}`).join("\n")
