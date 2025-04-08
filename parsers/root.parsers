@@ -584,8 +584,8 @@ scrollParser
     let allElse = []
     // Create any bindings
     parsed.forEach(particle => {
-      if (particle.bindTo === "next") particle.binding = particle.next
-      if (particle.bindTo === "previous") particle.binding = particle.previous
+      if (particle.bindTo === "next" && !particle.isLast) particle.binding = particle.next
+      if (particle.bindTo === "previous" && !particle.isFirst) particle.binding = particle.previous
     })
     let noFormat = false
     parsed.forEach(particle => {
@@ -601,7 +601,7 @@ scrollParser
     const combined = importOnlys.concat(topMatter, allElse)
     // Move any bound particles
     combined
-      .filter(particle => particle.bindTo)
+      .filter(particle => particle.binding)
       .forEach(particle => {
         // First remove the particle from its current position
         const originalIndex = combined.indexOf(particle)

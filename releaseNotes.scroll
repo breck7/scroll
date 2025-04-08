@@ -27,6 +27,7 @@ thinColumns
 🎉 added assertBuildEndsWithParser
 🎉 added conceptTemplateParser
 🎉 added dumpConceptParser
+🎉 added noFormatParser
 🏥 fixed regression in concept building
 🏥 fixed bug in custom dinkus
 ⚠️ BREAKING: `toFooter` is now `moveToFooter`
