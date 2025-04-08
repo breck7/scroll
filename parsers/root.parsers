@@ -745,14 +745,14 @@ scrollParser
     return measure
   })
   }
-  get customParsers() {
-    return this.definition
-  }
   _parseMeasures() {
-  const {lodash} = this
+  const {lodash, definition} = this
+  // cache measures on the _Parser_, since they are unique to a parser.
+  if (definition._measures)
+    return definition._measures
   // todo: clean this up
   // Generate a fake program with one of every of the available parsers. Then parse it. Then we can easily access the meta data on the parsers
-  const dummyCode = Array.from(new Set(this.customParsers.map(particle => particle.get("cue") || particle.getLine().replace(/Parser$/, "")))).join("\n")
+  const dummyCode = Array.from(new Set(definition.map(particle => particle.get("cue") || particle.getLine().replace(/Parser$/, "")))).join("\n")
   const parser = this._modifiedConstructor || this.constructor
   const dummyProgram = new parser(dummyCode, this.getLine())
   // Delete any particles that are not measures
@@ -780,7 +780,8 @@ scrollParser
       Cue: particle.definition.get("cue")
     }
   })
-  return lodash.sortBy(measures, "SortIndex")
+  definition._measures = lodash.sortBy(measures, "SortIndex")
+  return definition._measures
   }
   _concepts
   get concepts() {
