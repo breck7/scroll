@@ -22,7 +22,10 @@ ciBadges.scroll
 br
 thinColumns
 
-📦 177.0.0 4/06/2025
+📦 177.0.1 4/09/2025
+🏥 minor updates and codemirror fix
+
+📦 177.0.0 4/08/2025
 🎉 Scroll is now a single-pass language!
 🎉 added assertBuildEndsWithParser
 🎉 added conceptTemplateParser
