@@ -60,10 +60,9 @@ footer.scroll`
   }
 
   async scrollToHtml(scrollCode) {
-    const ScrollFile = this.sfs.defaultFileClass
-    const page = new ScrollFile(scrollCode)
-    await page.fuse()
-    return page.scrollProgram.asHtml
+    const file = this.sfs.newFile(scrollCode)
+    await file.singlePassFuse()
+    return file.scrollProgram.asHtml
   }
 
   sfs = new ScrollFileSystem(undefined, path.join(__dirname, "parsers"))
@@ -80,18 +79,12 @@ footer.scroll`
   async getErrorsInFolder(folder) {
     const fileSystem = this.sfs
     const folderPath = ensureFolderEndsInSlash(folder)
-    const files = await fileSystem.getLoadedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
-
-    // todo: cleanup
-    const parsers = await Promise.all(Object.values(fileSystem._parserCache))
-    const parserErrors = parsers.map(parser => parser.parsersParser.getAllErrors().map(err => err.toObject())).flat()
-
-    const scrollErrors = await this.getErrorsInFiles(files)
-    return { parserErrors, scrollErrors }
+    const files = await fileSystem.getFusedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
+    return await this.getErrorsInFiles(files)
   }
 
   async getErrorsInFiles(files) {
-    // todo: what about parser errors?
+    // todo: re-add parser errors
     for (let file of files) await file.scrollProgram.load()
     return files
       .map(file => {
@@ -107,49 +100,42 @@ footer.scroll`
     const start = Date.now()
     const folder = this.resolvePath(cwd)
     let target = cwd
-    let parserErrors = []
     let scrollErrors = []
     if (filenames && filenames.length) {
       const files = await this.getFiles(cwd, filenames)
       scrollErrors = await this.getErrorsInFiles(files)
       target = filenames.join(" ")
     } else {
-      const results = await this.getErrorsInFolder(folder)
-      parserErrors = results.parserErrors
-      scrollErrors = results.scrollErrors
+      scrollErrors = await this.getErrorsInFolder(folder)
     }
 
     const seconds = (Date.now() - start) / 1000
 
-    if (parserErrors.length) {
-      this.log(``)
-      this.log(`❌ ${parserErrors.length} parser errors in "${cwd}"`)
-      this.log(new Particle(parserErrors).toFormattedTable(200))
-      this.log(``)
-    }
     if (scrollErrors.length) {
       this.log(``)
       this.log(`❌ ${scrollErrors.length} errors in "${cwd}"`)
       this.log(new Particle(scrollErrors).toFormattedTable(100))
       this.log(``)
     }
-    if (!parserErrors.length && !scrollErrors.length) return this.log(`✅ 0 errors in "${target}". Tests took ${seconds} seconds.`)
-    return `${parserErrors.length + scrollErrors.length} Errors`
+    if (!scrollErrors.length) return this.log(`✅ 0 errors in "${target}". Tests took ${seconds} seconds.`)
+    return `${scrollErrors.length} Errors`
   }
 
   async formatCommand(cwd, filenames) {
     let files = []
     if (filenames && filenames.length) files = await this.getFiles(cwd, filenames)
-    else files = await this.sfs.getLoadedFilesInFolder(this.resolvePath(cwd), ".scroll")
-    // .concat(fileSystem.getLoadedFilesInFolder(folder, ".parsers")) // todo: should format parser files too.
+    else files = await this.sfs.getFusedFilesInFolder(this.resolvePath(cwd), ".scroll")
+    // .concat(fileSystem.getFusedFilesInFolder(folder, ".parsers")) // todo: should format parser files too.
     for (let file of files) {
-      this.formatFile(file)
+      this.formatFile(file.scrollProgram)
     }
   }
 
-  async formatFile(file) {
-    const { formatted, filePath, filename } = file.scrollProgram
-    const { codeAtStart } = file
+  // Formatting is currently defined as formatting the entire original source file
+  // using the last parser present.
+  async formatFile(scrollProgram) {
+    await scrollProgram.ensureFileLoaded()
+    const { formatted, filePath, filename, codeAtStart } = scrollProgram
     if (codeAtStart === formatted) return
     await this.sfs.write(filePath, formatted)
     this.log(`💾 formatted ${filename}`)
@@ -165,7 +151,7 @@ footer.scroll`
 
   async getFiles(cwd, filenames) {
     const fullPaths = this.resolveFilenames(cwd, filenames)
-    const files = await Promise.all(fullPaths.map(fp => this.sfs.getLoadedFile(fp)))
+    const files = await Promise.all(fullPaths.map(fp => this.sfs.getFusedFile(fp)))
     return files
   }
 
@@ -183,7 +169,7 @@ footer.scroll`
     const start = Date.now()
     // Run the build loop twice. The first time we build ScrollSets, in case some of the HTML files
     // will depend on csv/tsv/json/etc
-    const toBuild = files.filter(file => !file.importOnly)
+    const toBuild = files.filter(file => !file.scrollProgram.importOnly)
     options.externalFilesCopied = {}
     for (const file of toBuild) {
       file.scrollProgram.logger = this
@@ -210,7 +196,7 @@ footer.scroll`
 
   async buildFilesInFolder(folder = "/", fileSystem = this.sfs) {
     folder = ensureFolderEndsInSlash(folder)
-    const files = await fileSystem.getLoadedFilesInFolder(folder, ".scroll")
+    const files = await fileSystem.getFusedFilesInFolder(folder, ".scroll")
     this.log(`Found ${files.length} scroll files in '${folder}'\n`)
     return await this.buildFiles(fileSystem, files, folder)
   }

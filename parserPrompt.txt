@@ -650,11 +650,11 @@ stamp
       // If the previous particle is also an assertion particle, use the one before that.
       return this.previous.particleToTest ? this.previous.particleToTest : this.previous
     }
-    get format() { return "html"}
+    get outputFormat() { return "html"}
     get actual() {
-      let {format} = this
-      format = format.substr(0, 1).toUpperCase() + format.substr(1)
-      const methodName = `build${format}`
+      let {outputFormat} = this
+      outputFormat = outputFormat.substr(0, 1).toUpperCase() + outputFormat.substr(1)
+      const methodName = `build${outputFormat}`
       return this.particleToTest[methodName]()
      }
     getErrors() {
@@ -694,7 +694,7 @@ stamp
     Hello
     assert txt includes Hello
    javascript
-    get format() {
+    get outputFormat() {
       return this.atoms[1]
     }
     get expected() {
@@ -732,6 +732,18 @@ stamp
       return actual.includes(expected)
     }
     get actual() { return this.particleToTest.buildOutput()}
+  
+  assertBuildEndsWithParser
+   extends assertBuildIncludesParser
+   string kind endsWith
+   example
+    buildCsv
+    assertBuildEndsWith virginica
+   javascript
+    areEqual(actual, expected) {
+      // Note that this does do a trim on both.
+      return actual.trim().endsWith(expected.trim())
+    }
   
   assertHtmlIncludesParser
    extends abstractAssertionParser
@@ -776,9 +788,9 @@ stamp
   yearAtom
    extends integerAtom
   
-  preBuildCommandAtom
+  parseTimeCommandAtom
    extends cueAtom
-   description Give build command atoms their own color.
+   description Give parse time command atoms their own color.
    paint constant.character.escape
   
   delimiterAtom
@@ -1187,10 +1199,13 @@ stamp
      two = 1 + 1
    javascript
     buildHtml() {
-     return `<div class="codeWithHeader"><div class="codeHeader">${this.content}</div>${super.buildHtml()}</div>`
+     return `<div class="codeWithHeader"><div class="codeHeader">${this.header}</div>${super.buildHtml()}</div>`
     }
     buildTxt() {
-      return "```" + this.content + "\n" + this.code + "\n```"
+      return "```" + this.header + "\n" + this.code + "\n```"
+    }
+    get header() {
+      return this.content
     }
   
   codeFromFileParser
@@ -1341,17 +1356,52 @@ stamp
   
   loadConceptsParser
    // todo: clean this up. just add smarter imports with globs?
-   // this currently removes any "import" statements.
+   // this currently removes first line of each (to ditch the imports).
    description Import all concepts in a folder.
-   extends abstractBuildCommandParser
+   extends abstractScrollParser
    cueFromId
-   atoms preBuildCommandAtom filePathAtom
+   atoms parseTimeCommandAtom filePathAtom
    javascript
-    async load() {
-     const { Disk, path, importRegex } = this.root
+    async wake() {
+     const { Disk, path } = this.root
      const folder = path.join(this.root.folderPath, this.getAtom(1))
-     const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).join("\n\n").replace(importRegex, "")
-      this.parent.concat(ONE_BIG_FILE)
+     const ONE_BIG_FILE = Disk.getFiles(folder).filter(file => file.endsWith(".scroll")).map(Disk.read).map(content => content.split("\n").slice(1).join("\n")).join("\n\n")
+     this.parent.concat(ONE_BIG_FILE)
+    }
+  
+  conceptTemplateParser
+   extends abstractScrollParser
+   description Loads a template after document is parsed.
+   example
+    conceptTemplate
+     # This is a page for {name}
+     His phone is {phone}
+   cueFromId
+   javascript
+    async wake() {
+      this.root.notifyOnReady(this)
+    }
+    onReady() {
+      if (this.root.has("importOnly")) return // Don't run on import only pages.
+      const concept = this.root.concept
+      const templateString = new Particle(this.subparticlesToString())
+      const newCode = templateString.templateToString(concept)
+      this.replaceWith(newCode)
+    }
+  
+  dumpConceptParser
+   popularity 0.000169
+   cueFromId
+   atoms cueAtom
+   extends codeWithHeaderParser
+   example
+    dumpConcept
+   javascript
+    get code() {
+      return new Particle(this.root.concept).toString()
+    }
+    get header() {
+      return this.root.filename
     }
   
   buildConceptsParser
@@ -1371,7 +1421,7 @@ stamp
       return this.get("sortBy")
     }
     get outputFiles() {
-      const {permalink} = this
+      const {permalink} = this.root
       const files = this.getAtomsFrom(1)
       if (!files.length) files.push(permalink.replace(".html", ".csv"))
       return files
@@ -1882,18 +1932,13 @@ stamp
     }
   
   debugParsersParser
-   description Print the parsers used.
+   description Print source code of all parsers used.
    extends codeParser
    cueFromId
    javascript
     buildParsers() { return this.code}
     get code() {
-      let code = new Particle(this.root.definition.toString())
-        // Remove comments
-      code.filter((line) => line.getLine().startsWith("//")).forEach((particle) => particle.destroy())
-      // Remove blank lines
-      code = code.toString().replace(/^\n/gm, "")
-      return code
+      return this.root.definition.toString()
     }
   
   debugBelowParser
@@ -1911,10 +1956,7 @@ stamp
      return `<link rel="stylesheet" href=".debug.css">` + this.code
     }
     buildTxt() {
-      const mapFn = particle => {
-      const atomTypes = particle.lineAtomTypes.split(" ")
-      return `${particle.constructor.name} ${particle.atoms.map((atom, index) => `${atomTypes[index]}:${atom}`).join(" ")}${(particle.length ? `\n ` + particle.map(mapFn).join("\n") + `` : "")}`}
-     return this.selectedParticles.map(mapFn).join("\n")
+      return this.root.inspect(this.selectedParticles)
     }
     buildParsers() {return this.buildTxt()}
   
@@ -2046,6 +2088,7 @@ stamp
   customDinkusParser
    cue dinkus
    description A custom dinkus.
+   atoms cueAtom stringAtom
    extends abstractDinkusParser
   
   endOfPostDinkusParser
@@ -2290,7 +2333,7 @@ stamp
    description Download URL to disk.
    extends abstractBuildCommandParser
    cueFromId
-   atoms preBuildCommandAtom urlAtom
+   atoms parseTimeCommandAtom urlAtom
    example
     fetch https://breckyunits.com/posts.csv
     fetch https://breckyunits.com/posts.csv renamed.csv
@@ -2338,6 +2381,12 @@ stamp
     buildTxt() {
       return this.getAtom(0) + ": " + super.buildTxt()
     }
+ format.parsers
+  scrollNoFormatParser
+   description Don't format below this line.
+   cue noFormat
+   atoms parseTimeCommandAtom
+   extends abstractTopLevelSingleMetaParser
  forms.parsers
   classicFormParser
    cue classicForm
@@ -3497,21 +3546,112 @@ stamp
    description Import a file.
    popularity 0.007524
    cueFromId
-   atoms preBuildCommandAtom
+   atoms parseTimeCommandAtom
    extends abstractScrollParser
    catchAllAtomType filePathAtom
+   int filenameAt 1
    example
     import header.scroll
+   javascript
+    get filename() {
+      return this.getAtom(this.filenameAt)
+    }
+    get fullpath() {
+      const {fileSystem, filePath} = this.root
+      return fileSystem.makeRelativePath(filePath, this.filename)
+    }
+    async wake() {
+      const {fullpath} = this
+      const {file} = this.root
+      if (!file.importsFiles)
+       file.importsFiles = new Set()
+      file.importsFiles.add(fullpath)
+      return await this._handleImport()
+    }
+    async _handleImport() {
+      const hasCircular = await this._hasCircularImports(this.root.filePath, this.fullpath)
+      if (hasCircular)
+        return await this._handleCircularImport(hasCircular)
+      const file = await this._getFile()
+      const particleCount = file.scrollProgram.length
+      if (!file.exists)
+        return await this._handleFileDoesNotExist()
+      const newParticle = new Particle(`imported ${this.fullpath}\n exists true\n original ${this.getLine()}\n particles ${particleCount}`)
+      if (this.has("moveToFooter"))
+        newParticle.particleAt(0).set("moveToFooter", "true")
+      await this.root.appendFromStream(newParticle.toString())
+      // Don't import importOnly lines
+      // todo: look at perf
+      const block = new Particle(file.scrollProgram.toString())
+      block.delete("importOnly")
+      await this.root.appendFromStream(block.toString())
+      this.destroy()
+    }
+    async _handleFileDoesNotExist() {
+      const newParticle = new Particle(`imported ${this.fullpath}\n exists false\n original ${this.getLine()}\n particles 0`)
+      await this.root.appendFromStream(newParticle.toString())
+      this.destroy()
+    }
+    async _handleCircularImport(hasCircular) {
+      const newParticle = new Particle(`imported ${this.fullpath}\n exists true\n original ${this.getLine()}\n particles 0\n circularImportError Circular import error: ${hasCircular}`)
+      await this.root.appendFromStream(newParticle.toString())
+      this.destroy()
+    }
+    async _hasCircularImports(importer, importee) {
+      // if a.scroll requires a.scroll
+      if (importer === importee)
+        return `${importee} imports itself`
+      const {fileSystem} = this.root
+      // Now check the files that the importee is importing
+      const importeeFile = await fileSystem.getFile(importee)
+      if (!importeeFile.importsFiles)
+        return false
+      if (importeeFile.importsFiles.has(importer))
+        return `${importee} imports ${importer}`
+      for (let importPath of importeeFile.importsFiles) {
+        // console.log(`Checking if ${importPath} imports ${importer}`)
+        if (await this._hasCircularImports(importPath, importer))
+          return `${importPath} and ${importer}`
+      }
+      return false
+    }
+    async _getFile() {
+      const {fileSystem, file} = this.root
+      const fileToImport = await fileSystem.getFile(this.fullpath)
+      await fileToImport.singlePassFuse()
+      return fileToImport
+    }
   
   scrollImportedParser
    description Inserted at import pass.
    boolean suggestInAutocomplete false
    cue imported
-   atoms preBuildCommandAtom
+   atoms parseTimeCommandAtom
    extends abstractScrollParser
    baseParser blobParser
    catchAllAtomType filePathAtom
    javascript
+    async wake() {
+      this.checkForFooterMoves()
+    }
+    get dependencies() { return [this.atoms[1]]}
+    checkForFooterMoves() {
+      // If a particle was imported with the "moveToFooter" subparticle set, then that means we want
+      // to move those imported particles to the end of the document.
+      if (!this.has("moveToFooter"))
+        return
+      this.root.notifyOnReady(this)
+    }
+    onReady() {
+      // We move the imported particle along with the number of lines originally imported
+      // to the bottom of the document. Note: I have not looked into perf yet.
+      const particleCount = parseInt(this.get("particles"))
+      const index = this.index
+      const particles = this.root.slice(index, index + particleCount + 1)
+      const str = particles.map(part => part.toString()).join("\n")
+      this.root.appendBlocks(str)
+      particles.forEach(particle => particle.destroy())
+    }
     getErrors() {
       if (this.has("circularImportError"))
         return [this.makeError(this.get("circularImportError"))]
@@ -3522,26 +3662,56 @@ stamp
   
   importToFooterParser
    description Import to bottom of file.
-   atoms preBuildCommandAtom
-   cue footer
+   atoms parseTimeCommandAtom
+   cue moveToFooter
   
   quickImportParser
    popularity 0.007524
-   description Import a Scroll or Parsers file.
-   extends abstractScrollParser
+   description Import a Scroll file.
+   extends importParser
    boolean isPopular true
+   int filenameAt 0
    inScope importToFooterParser abstractCommentParser
    atoms urlAtom
-   pattern ^[^\s]+\.(scroll|parsers)$
+   pattern ^[^\s]+\.scroll$
    example
     header.scroll
+  
+  useParserPoolParser
+   cueFromId
+   description Load a cached parser pool.
+   extends abstractScrollParser
+   atoms cueAtom urlAtom
+   javascript
+    async wake() {
+      this.switchParserPool(this.filename)
+    }
+    get filename() { return this.atoms[1]}
+    get dependencies() { return [this.filename]}
+  
+  parsersImportParser
+   description Import a Parsers file.
+   extends quickImportParser
+   inScope abstractCommentParser
+   pattern ^[^\s]+\.parsers$
+   example
+    measures.parsers
+   javascript
+    async _handleImport() {
+      const file = await this._getFile()
+      if (!file.exists)
+        return await this._handleFileDoesNotExist()
+      // todo: cleanup
+      const newp = this.replaceWith(`useParserPool ${this.fullpath}`)
+      await newp[0].wake()
+    }
   
   importOnlyParser
    popularity 0.033569
    // This line will be not be imported into the importing file.
    description Don't build this file.
    cueFromId
-   atoms preBuildCommandAtom
+   atoms parseTimeCommandAtom
    extends abstractTopLevelSingleMetaParser
   
   abstractQuickIncludeParser
@@ -3719,17 +3889,17 @@ stamp
    extends abstractScrollParser
    baseParser blobParser
    cueFromId
-   atoms preBuildCommandAtom
+   atoms parseTimeCommandAtom
    catchAllAtomType javascriptAnyAtom
    example
     evalJs "# The sum of 1 + 1 is " + 1 + 1
    javascript
-    wake() {
+    async wake() {
       try {
+        const particle = this
         const script = (this.content === undefined ? "" : this.content) + "\n" + this.subparticlesToString()
         const evaled = eval(script)
-        if (evaled)
-          this.replaceParticle(() => evaled.toString())
+        await this.root.appendFromStream(evaled)
       } catch (err) {
         console.error(err)
       }
@@ -4159,7 +4329,7 @@ stamp
   abstractMacroParser
    extends abstractScrollParser
    catchAllAtomType stringAtom
-   atoms preBuildCommandAtom
+   atoms parseTimeCommandAtom
    cueFromId
    javascript
     get search() {
@@ -4185,7 +4355,7 @@ stamp
   replaceParser
    description Replace this with that.
    extends abstractMacroParser
-   atoms preBuildCommandAtom codeAtom
+   atoms parseTimeCommandAtom codeAtom
    baseParser blobParser
    example
     replace YEAR 2022
@@ -4200,29 +4370,13 @@ stamp
    javascript
     get replacement() {
       const particle = this
+      const codeAtStart = this.root.codeAtStart || ""
       try {
         return eval(super.replacement)
       } catch (err) {
         console.error(err)
       }
       return this.search
-    }
-  
-  toFooterParser
-   extends abstractScrollParser
-   description Experimental way to move a section to the footer.
-   atoms preBuildCommandAtom
-   cueFromId
-   javascript
-    buildHtml() {
-      // todo: very hacky! fix.
-      this.section.forEach(particle => {
-          const clone = particle.clone()
-          this.root.appendParticle(clone)
-          particle.destroy()
-      })
-      this.destroy()
-      return ""
     }
   
  maps.parsers
@@ -4787,6 +4941,26 @@ stamp
       this.parent.sectionStack.push("</div>")
       return this.getHtmlRequirements(buildSettings) + `<div class="scrollModal" id="${this.htmlId}"><button class="closeButton" onclick="closeModal(this.parentElement)">×</button>`
     }
+ moves.parsers
+  moveToFooterParser
+   extends abstractScrollParser
+   description Move a section to the footer.
+   atoms parseTimeCommandAtom
+   cueFromId
+   javascript
+    async wake() {
+      this.root.notifyOnReady(this)
+    }
+    onReady() {
+      this.section.forEach(particle => {
+          const clone = particle.clone()
+          this.root.appendParticle(clone)
+          particle.destroy()
+      })
+      this.destroy()
+      return ""
+    }
+  
  music.parsers
   scrollMusicParser
    popularity 0.000024
@@ -4850,7 +5024,7 @@ stamp
    extends abstractScrollParser
    catchAllAtomType javascriptAnyAtom
    baseParser blobParser
-   atoms preBuildCommandAtom
+   atoms parseTimeCommandAtom
    cueFromId
    example
     evalNodejs
@@ -4859,7 +5033,7 @@ stamp
     wake() {
       const evaled = this.root.evalNodeJs(this)
       if (evaled !== false)
-      this.replaceParticle(() => evaled)
+      this.replaceWith(evaled)
     }
  notFound.parsers
   helpfulNotFoundParser
@@ -5095,7 +5269,7 @@ stamp
    paint string
   
   atomAtom
-   paint constant
+   paint string
    description A non-empty single atom string.
    regex .+
   
@@ -5425,6 +5599,11 @@ stamp
    inScope parsersPaintParser parsersRegexParser reservedAtomsParser enumFromAtomTypesParser atomTypeDescriptionParser parsersEnumParser slashCommentParser extendsAtomTypeParser parsersExamplesParser atomMinParser atomMaxParser
    atoms atomTypeIdAtom
    tags assemblePhase
+   javascript
+    buildHtml() {return ""}
+    async wake() {
+      this.root.stackParserCode(this)
+    }
   
   // Enums
   enumFromAtomTypesParser
@@ -5477,6 +5656,11 @@ stamp
    inScope abstractParserRuleParser abstractConstantParser slashCommentParser parserDefinitionParser
    atoms parserIdAtom
    tags assemblePhase
+   javascript
+    buildHtml() { return ""}
+    async wake() {
+      this.root.stackParserCode(this)
+    }
   
   parsersRegexParser
    catchAllAtomType regexAtom
@@ -5744,7 +5928,7 @@ stamp
       const {fileSystem} = this.root
       for (let folderPath of dependsOn) {
         // console.log(`${this.root.filePath} is loading: ${folderPath} in id '${fileSystem.scrollFileSystemIdNumber}'`)
-        await fileSystem.getLoadedFilesInFolder(folderPath,  ".scroll")
+        await fileSystem.getFusedFilesInFolder(folderPath,  ".scroll")
       }
     }
     get tags() {
@@ -5982,8 +6166,6 @@ stamp
    javascript
     setFile(file) {
      this.file = file
-     const date = this.get("date")
-     if (date) this.file.timestamp = this.dayjs(this.get("date")).unix()
      return this
     }
     buildHtml(buildSettings) {
@@ -6035,8 +6217,14 @@ stamp
       const { scrollProgram } = file
       return scrollProgram.buildsHtml && scrollProgram.hasKeyboardNav && scrollProgram.tags.includes(this.primaryTag)
     }
-    get timeIndex() {
-      return this.file.timeIndex || 0
+    _timestamp
+    get timestamp() {
+     if (!this._timestamp) {
+      this._timestamp = this.file.timestamp
+      const date = this.get("date")
+      if (date) this._timestamp = this.dayjs(date).unix()
+     }
+     return this._timestamp
     }
     get linkToPrevious() {
       if (!this.hasKeyboardNav)
@@ -6046,7 +6234,7 @@ stamp
       let file = this._nextAndPrevious(allScrollFiles, this.timeIndex).previous
       if (!file) return undefined
       while (!this._includeFileInKeyboardNav(file)) {
-        file = this._nextAndPrevious(allScrollFiles, file.timeIndex).previous
+        file = this._nextAndPrevious(allScrollFiles, file.scrollProgram.timeIndex).previous
       }
       return file.scrollProgram.permalink
     }
@@ -6058,7 +6246,7 @@ stamp
       let file = this._nextAndPrevious(allScrollFiles, this.timeIndex).next
       if (!file) return undefined
       while (!this._includeFileInKeyboardNav(file)) {
-        file = this._nextAndPrevious(allScrollFiles, file.timeIndex).next
+        file = this._nextAndPrevious(allScrollFiles, file.scrollProgram.timeIndex).next
       }
       return file.scrollProgram.permalink
     }
@@ -6102,7 +6290,7 @@ stamp
         const {folderPath, group, relativePath} = this.parseNestedTag(tag)
         let files = []
         try {
-        files = this.fileSystem.getCachedLoadedFilesInFolder(folderPath, this)
+        files = this.fileSystem.getFusedFilesInFolderIfCached(folderPath, this)
         } catch (err) {
           console.error(err)
         }
@@ -6111,7 +6299,7 @@ stamp
         })
         arr = arr.concat(filtered.slice(0, limit))
       })
-      return this.lodash.sortBy(arr, file => file.file.timestamp).reverse()
+      return this.lodash.sortBy(arr, file => file.file.scrollProgram.timestamp).reverse()
     }
     async fetchNode(url, filename) {
       filename = filename || new URL(url).pathname.split('/').pop()
@@ -6194,9 +6382,19 @@ stamp
     get authors() {
       return this.get("authors")
     }
+    _addTimeIndexes(files) {
+      // A little hacky but ah well.
+      // For blogs, we want to sort posts in a folder in order of the date property.
+      // If the date property is not set, we use the file timestamp from disk.
+      const sorted = files.sort((a, b) => b.scrollProgram.timestamp - a.scrollProgram.timestamp)
+      sorted.forEach((file, index) => (file.scrollProgram.timeIndex = index))
+    }
     get allScrollFiles() {
       try {
-      return this.fileSystem.getCachedLoadedFilesInFolder(this.folderPath, this)
+      const files = this.fileSystem.getFusedFilesInFolderIfCached(this.folderPath, this)
+      if (this.timeIndex === undefined)
+        this._addTimeIndexes(files)
+      return files
       } catch (err) {
         console.error(err)
         return []
@@ -6206,6 +6404,7 @@ stamp
       await Promise.all(this.filter(particle => particle[thing]).map(async particle => particle[thing]()))
     }
     async load() {
+      // todo: document when to use load instead of wake? do we need both?
       await this.doThing("load")
     }
     async execute() {
@@ -6214,6 +6413,17 @@ stamp
     file = {}
     getFromParserId(parserId) {
       return this.parserIdIndex[parserId]?.[0].content
+    }
+    notifyOnReady(particle) {
+      if (!this._toNotify)
+       this._toNotify = []
+      this._toNotify.push(particle)
+    }
+    wake() {
+      // In case the file ended on a parser definition, refresh parser pool
+      this._refreshParserPool()
+      if (this._toNotify)
+        this._toNotify.forEach(particle => particle.onReady())
     }
     get fileSystem() {
       return this.file.fileSystem
@@ -6295,7 +6505,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "176.0.1"
+      return "177.0.1"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6360,9 +6570,12 @@ stamp
         const files = this.topDownArray.filter(particle => particle.dependencies).map(particle => particle.dependencies).flat()
         return dependencies.concat(files)
     }
+    get importOnly() {
+      return this.has("importOnly")
+    }
     get buildsHtml() {
       const { permalink } = this
-      return !this.file.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
+      return !this.importOnly && (permalink.endsWith(".html") || permalink.endsWith(".htm"))
     }
     // Without specifying the language hyphenation will not work.
     get lang() {
@@ -6391,7 +6604,7 @@ stamp
       return this.dateObject.format(`MM/DD/YYYY`)
     }
     get dateObject() {
-      const date = this.get("date") || (this.file.timestamp ? this.file.timestamp : 0)
+      const date = this.get("date") || (this.timestamp || 0)
       return this.dayjs(date)
     }
     get year() {
@@ -6443,11 +6656,11 @@ stamp
           })
           .join("\n")
         concept.forEach((particle, index) => (index ? particle.destroy() : ""))
-        concept[0].replaceParticle(() => newCode)
+        concept[0].replaceWith(newCode)
       })
     }
     get formatted() {
-      return this.getFormatted(this.file.codeAtStart)
+      return this.getFormatted(this.codeAtStart)
     }
     get lastCommitTime() {
       // todo: speed this up and do a proper release. also could add more metrics like this.
@@ -6460,9 +6673,17 @@ stamp
       }
       return this._lastCommitTime
     }
+    get codeAtStart() {
+      return this.file.codeAtStart
+    }
+    async ensureFileLoaded() {
+      // todo: cleanup
+      if (!this.codeAtStart)
+        await this.file._readCodeFromStorage()
+    }
     getFormatted(codeAtStart = this.toString()) {
       let formatted = codeAtStart.replace(/\r/g, "") // remove all carriage returns if there are any
-      const parsed = new this.constructor(formatted)
+      const parsed = new this.latestConstructor(formatted)
       parsed.topDownArray.forEach(subparticle => {
         subparticle.format()
         const original = subparticle.getLine()
@@ -6476,10 +6697,16 @@ stamp
       let allElse = []
       // Create any bindings
       parsed.forEach(particle => {
-        if (particle.bindTo === "next") particle.binding = particle.next
-        if (particle.bindTo === "previous") particle.binding = particle.previous
+        if (particle.bindTo === "next" && !particle.isLast) particle.binding = particle.next
+        if (particle.bindTo === "previous" && !particle.isFirst) particle.binding = particle.previous
       })
+      let noFormat = false
       parsed.forEach(particle => {
+        if (noFormat) return allElse.push(particle)
+        if (particle.getLine() === "noFormat") {
+           noFormat = true
+           return allElse.push(particle)
+        }
         if (particle.getLine() === "importOnly") importOnlys.push(particle)
         else if (particle.isTopMatter) topMatter.push(particle)
         else allElse.push(particle)
@@ -6487,7 +6714,7 @@ stamp
       const combined = importOnlys.concat(topMatter, allElse)
       // Move any bound particles
       combined
-        .filter(particle => particle.bindTo)
+        .filter(particle => particle.binding)
         .forEach(particle => {
           // First remove the particle from its current position
           const originalIndex = combined.indexOf(particle)
@@ -6534,6 +6761,30 @@ stamp
         await particle.buildTwo(options)
       }
     }
+    stackParserCode(parser) {
+      // Add top level parsers only which will add their nested parsers.
+      if (parser.parent !== this) return
+      // Perf hack until we can refactor ParserPool and add incremental addition of parsers.
+      // What we see in the wild is that frequently you'll have parser definitions one after
+      // the other, separated by blank lines or comments. So we stack up those parsers and
+      // dont add them until we are done with that section.
+      if (this._parsersToRegister === undefined)
+          this._parsersToRegister = []
+      this._parsersToRegister.push(parser)
+      if (!this._beforeAppend)
+          this._beforeAppend = (block) => {
+            const line1 = block.split(/\n/)[0]
+            if (line1 === "" || line1.endsWith("Parser") || line1.startsWith("//"))
+              return
+            this._refreshParserPool()
+          }
+    }
+    _refreshParserPool() {
+      if (!this._parsersToRegister) return
+      this.registerParsers(this._parsersToRegister.map(p => p.toString()).join("\n"), this.filePath)
+      delete this._beforeAppend
+      delete this._parsersToRegister
+    }
     get outputFileNames() {
       return this.filter(p => p.outputFileNames).map(p => p.outputFileNames).flat()
     }
@@ -6547,6 +6798,12 @@ stamp
       if (format === "tsv") return this.arrayToCSV(arr, "\t")
       if (format === "particles") return particles.toString()
       return particles.toString()
+    }
+    inspect(particles = this.getSubparticles()) {
+      const mapFn = particle => {
+      const atomTypes = particle.lineAtomTypes.split(" ")
+      return `${particle.constructor.name} ${particle.atoms.map((atom, index) => `${atomTypes[index]}:${atom}`).join(" ")}${(particle.length ? `\n ` + particle.map(mapFn).join("\n") + `` : "")}`}
+     return particles.map(mapFn).join("\n")
     }
     levenshteinDistance(a, b) {
       const m = a.length
@@ -6618,26 +6875,20 @@ stamp
       return measure
     })
     }
-    parseMeasures(parser) {
-    if (!Particle.measureCache)
-      Particle.measureCache = new Map()
-    const measureCache = Particle.measureCache
-    if (measureCache.get(parser)) return measureCache.get(parser)
-    const {lodash} = this
+    get latestConstructor() {
+      // todo: cleanup
+      return this._modifiedConstructor || this.constructor
+    }
+    _parseMeasures() {
+    const {lodash, definition} = this
+    // cache measures on the _Parser_, since they are unique to a parser.
+    if (definition._measures)
+      return definition._measures
     // todo: clean this up
-    const getCueAtoms = rootParserProgram =>
-      rootParserProgram
-        .filter(particle => particle.getLine().endsWith("Parser") && !particle.getLine().startsWith("abstract"))
-        .map(particle => particle.get("cue") || particle.getLine())
-        .map(line => line.replace(/Parser$/, ""))
     // Generate a fake program with one of every of the available parsers. Then parse it. Then we can easily access the meta data on the parsers
-    const dummyProgram = new parser(
-      Array.from(
-        new Set(
-          getCueAtoms(parser.cachedHandParsersProgramRoot) // is there a better method name than this?
-        )
-      ).join("\n"), this.getLine()
-    )
+    const dummyCode = Array.from(new Set(definition.map(particle => particle.get("cue") || particle.getLine().replace(/Parser$/, "")))).join("\n")
+    const parser = this.latestConstructor
+    const dummyProgram = new parser(dummyCode, this.getLine())
     // Delete any particles that are not measures
     dummyProgram.filter(particle => !particle.isMeasure).forEach(particle => particle.destroy())
     dummyProgram.forEach(particle => {
@@ -6663,22 +6914,25 @@ stamp
         Cue: particle.definition.get("cue")
       }
     })
-    measureCache.set(parser, lodash.sortBy(measures, "SortIndex"))
-    return measureCache.get(parser)
+    definition._measures = lodash.sortBy(measures, "SortIndex")
+    return definition._measures
     }
     _concepts
     get concepts() {
-      if (this._concepts) return this._concepts
-      this._concepts = this.parseConcepts(this, this.measures)
+      if (!this._concepts) this._concepts = this._parseConcepts()
       return this._concepts
+    }
+    get concept() {
+      return this.concepts[0]
     }
     _measures
     get measures() {
-      if (this._measures) return this._measures
-      this._measures = this.parseMeasures(this.parser)
+      if (!this._measures) return this._measures = this._parseMeasures()
       return this._measures
     }
-    parseConcepts(parsedProgram, measures){
+    _parseConcepts(){
+    const parsedProgram = this
+    const measures = this.measures
     // Todo: might be a perf/memory/simplicity win to have a "segment" method in ScrollSDK, where you could
     // virtually split a Particle into multiple segments, and then query on those segments.
     // So we would "segment" on "id ", and then not need to create a bunch of new objects, and the original
@@ -7027,7 +7281,7 @@ stamp
    javascript
     buildHtml() {
      const files = this.root.getFilesByTags(this.content).map(file => file.file)
-     return `${files.map(file => file.scrollProgram.filePath + "\n " + file.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
+     return `${files.map(file => file.scrollProgram).map(scrollProgram => scrollProgram.filePath + "\n " + scrollProgram.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
     }
   
  sourcemap.parsers
@@ -7050,7 +7304,7 @@ stamp
           currentFile.lineNumber++
           currentFile.linesLeft--
           if (particle.cue === "imported") {
-            const linesLeft = parseInt(particle.get("lines"))
+            const linesLeft = parseInt(particle.get("particles"))
             const original = particle.get("original")
             fileStack.push({ fileName: particle.atoms[1], lineNumber: 0, linesLeft })
             return `${currentFile.fileName}:${currentFile.lineNumber} ${original}\n` + particle.map(line => `${currentFile.fileName}:${currentFile.lineNumber}  ${line}`).join("\n")
@@ -7248,7 +7502,7 @@ stamp
        hello.js
         console.log("Hello world")
    cueFromId
-   atoms preBuildCommandAtom
+   atoms parseTimeCommandAtom
    javascript
     execute() {
       const dir = this.root.folderPath

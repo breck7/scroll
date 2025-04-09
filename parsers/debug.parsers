@@ -28,18 +28,13 @@ debugSourceStackParser
   }
 
 debugParsersParser
- description Print the parsers used.
+ description Print source code of all parsers used.
  extends codeParser
  cueFromId
  javascript
   buildParsers() { return this.code}
   get code() {
-    let code = new Particle(this.root.definition.toString())
-      // Remove comments
-    code.filter((line) => line.getLine().startsWith("//")).forEach((particle) => particle.destroy())
-    // Remove blank lines
-    code = code.toString().replace(/^\n/gm, "")
-    return code
+    return this.root.definition.toString()
   }
 
 debugBelowParser
@@ -57,10 +52,7 @@ debugBelowParser
    return `<link rel="stylesheet" href=".debug.css">` + this.code
   }
   buildTxt() {
-    const mapFn = particle => {
-    const atomTypes = particle.lineAtomTypes.split(" ")
-    return `${particle.constructor.name} ${particle.atoms.map((atom, index) => `${atomTypes[index]}:${atom}`).join(" ")}${(particle.length ? `\n ` + particle.map(mapFn).join("\n") + `` : "")}`}
-   return this.selectedParticles.map(mapFn).join("\n")
+    return this.root.inspect(this.selectedParticles)
   }
   buildParsers() {return this.buildTxt()}
 

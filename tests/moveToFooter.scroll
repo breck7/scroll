@@ -1,0 +1,8 @@
+buildHtml
+buildTxt
+assertBuildEndsWith The End.
+
+moveToFooter
+This is my footer. It is moved to end of file before compilation. The End.
+
+This is my body. This should be above the footer.

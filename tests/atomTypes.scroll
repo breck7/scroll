@@ -1,0 +1,23 @@
+buildHtml
+
+streetLightAtom
+ extends stringAtom
+ enum red green yellow
+ paint constant
+
+lightParser
+ cueFromId
+ extends abstractScrollParser
+ atoms cueAtom streetLightAtom
+ javascript
+  buildHtml() {
+   return `<span style="color:${this.atoms[1]}">[0]</span>`
+  }
+
+light red
+assertHtmlIncludes color:red
+
+// Test overwriting an atom. The original atomType should still be used above.
+streetLightAtom
+ extends stringAtom
+ enum orange purple

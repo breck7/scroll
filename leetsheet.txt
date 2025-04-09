@@ -25,6 +25,7 @@ aboveAsHtml - Displays html output of previous particle in a code block.
 article - HTML tag.
 aside - HTML tag.
 assert - Test above particle's output.
+assertBuildEndsWith - Test above particle's output.
 assertBuildIncludes - Test above particle's output.
 assertHtmlEquals - Test above particle's output.
 assertHtmlExcludes - Test above particle's output.
@@ -70,6 +71,7 @@ codeWithHeader - A code block.
 color - Quickly set CSS font-color.
 comment - Prints nothing.
 concepts - Load concepts as datatable.
+conceptTemplate - Loads a template after document is parsed.
 container - A centered HTML div.
 copyButtons - Copy code widget.
 counter - Visualize the speed of something.
@@ -80,7 +82,7 @@ date - Set published date.
 debugAbove - Inspect particle above.
 debugAll - Inspect entire document.
 debugBelow - Inspect particle below.
-debugParsers - Print the parsers used.
+debugParsers - Print source code of all parsers used.
 debugSourceMap - Print the source map.
 debugSourceStack - Print compilation steps.
 debugTest - Inspect entire document during test.
@@ -90,6 +92,7 @@ dinkus - A custom dinkus.
 disk - Output file into as datatable.
 div - HTML tag.
 downloadButton - Link to download/WWS page.
+dumpConcept - A code block.
 editBaseUrl - Override edit link baseUrl.
 editButton - Print badge top right.
 editLink - Print "Edit" link.
@@ -100,6 +103,7 @@ emailButton - Email button.
 endColumns - End columns.
 endSnippet - Cut for snippet here.
 evalJs - Replace this with evaled JS.
+evalNodejs - Replace with evaled Node.JS.
 expander - An collapsible HTML details tag.
 favicon - Favicon file.
 fetch - Download URL to disk.
@@ -149,9 +153,11 @@ mediumColumns - Medium width columns.
 meta - HTML tag.
 metaTags - Print meta tags including title.
 modal - A modal dialog overlay.
+moveToFooter - Move a section to the footer.
 music - Play sound files.
 nav - HTML tag.
 nickelbackIpsum - Generate dummy text.
+noFormat - Don't format below this line.
 notices - Display messages in URL query parameters.
 ol - HTML tag.
 openGraphImage - Override Open Graph Image.
@@ -217,10 +223,10 @@ theScrollButton - WWS button.
 thinColumn - A thin column section.
 thinColumns - Thin columns.
 title - Set title.
-toFooter - Experimental way to move a section to the footer.
 toStamp - Print a directory to stamp with configurable filters.
 tr - HTML tag.
 ul - HTML tag.
+useParserPool - Load a cached parser pool.
 video - Play video files.
 wideColumn - A wide column section.
 wideColumns - Wide columns.
@@ -238,4 +244,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v176.0.1
+Built with Scroll v177.0.1

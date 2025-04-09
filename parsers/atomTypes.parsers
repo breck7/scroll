@@ -16,9 +16,9 @@ countAtom
 yearAtom
  extends integerAtom
 
-preBuildCommandAtom
+parseTimeCommandAtom
  extends cueAtom
- description Give build command atoms their own color.
+ description Give parse time command atoms their own color.
  paint constant.character.escape
 
 delimiterAtom

@@ -3,13 +3,13 @@
 <head>
  <meta charset="utf-8">
  <title>Data Science with Scroll</title>
- <script>/* This HTML was generated from dataScience.scroll by 📜 Scroll v176.0.1. https://scroll.pub */</script>
+ <script>/* This HTML was generated from dataScience.scroll by 📜 Scroll v177.0.1. https://scroll.pub */</script>
  <style>@media print {.doNotPrint {display: none !important;}}</style>
  <link rel="canonical" href="https://scroll.pub/blog/dataScience.html">
  <meta name="viewport" content="width=device-width,initial-scale=1">
  <meta name="description" content="A comprehensive tutorial on using Scroll for data analysis and visualization">
  <meta name="keywords" content="All">
- <meta name="generator" content="Scroll v176.0.1">
+ <meta name="generator" content="Scroll v177.0.1">
  <meta property="og:title" content="Data Science with Scroll">
  <meta property="og:description" content="A comprehensive tutorial on using Scroll for data analysis and visualization">
  <meta property="og:image" content="">
@@ -50,32 +50,32 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
   else if (event.key === "ArrowRight")
     getLinks()[1].click()
  });</script></div>
-<div id="particle33" class="scrollContainerParser" style="width: 100%; box-sizing: border-box; max-width: 600px; margin: 0 auto;">
-<div class="scrollSection"><h1 id="particle34" class="printTitleParser"><a href="dataScience.html">Data Science with Scroll</a></h1>
-<p id="particle6" class="printAuthorsParser">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></p>
+<div id="particle31" class="scrollContainerParser" style="width: 100%; box-sizing: border-box; max-width: 600px; margin: 0 auto;">
+<div class="scrollSection"><h1 id="particle32" class="printTitleParser"><a href="dataScience.html">Data Science with Scroll</a></h1>
+<p id="particle5" class="printAuthorsParser">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></p>
 <div class="printDateParser">January 6, 2025</div>
 </div>
-<div class="scrollSection"><h2 id="particle39" class="scrollParagraph">A Tutorial</h2>
+<div class="scrollSection"><h2 id="particle37" class="scrollParagraph">A Tutorial</h2>
 </div>
-<p id="particle41" class="scrollParagraph">This tutorial will walk you through how to use Scroll for data analysis and visualization, from basic concepts to advanced techniques.</p>
-<div class="scrollSection"><h4 id="particle43" class="scrollQuestion">What makes Scroll great for data science?</h4>
-<p id="particle44" class="scrollParagraph">Scroll combines the simplicity of markdown-style syntax with powerful data transformation and visualization capabilities. You can:</p>
-<ul ><li id="particle45" >Load data from various sources (CSV, JSON, etc.)</li>
-<li id="particle46" >Transform and analyze data with simple commands</li>
-<li id="particle47" >Create beautiful visualizations</li>
-<li id="particle48" >Publish instantly using <a href="https://hub.scroll.pub/">ScrollHub</a></li>
-<li id="particle49" >All in a simple, readable format</li></ul>
+<p id="particle39" class="scrollParagraph">This tutorial will walk you through how to use Scroll for data analysis and visualization, from basic concepts to advanced techniques.</p>
+<div class="scrollSection"><h4 id="particle41" class="scrollQuestion">What makes Scroll great for data science?</h4>
+<p id="particle42" class="scrollParagraph">Scroll combines the simplicity of markdown-style syntax with powerful data transformation and visualization capabilities. You can:</p>
+<ul ><li id="particle43" >Load data from various sources (CSV, JSON, etc.)</li>
+<li id="particle44" >Transform and analyze data with simple commands</li>
+<li id="particle45" >Create beautiful visualizations</li>
+<li id="particle46" >Publish instantly using <a href="https://hub.scroll.pub/">ScrollHub</a></li>
+<li id="particle47" >All in a simple, readable format</li></ul>
 </div>
-<p id="particle51" class="scrollParagraph">Let's dive in!</p>
+<p id="particle49" class="scrollParagraph">Let's dive in!</p>
 <hr>
-<div class="scrollSection"><h1 id="particle55" class="scrollParagraph">Part 1: Getting Started with Data</h1>
+<div class="scrollSection"><h1 id="particle53" class="scrollParagraph">Part 1: Getting Started with Data</h1>
 </div>
-<div class="scrollSection"><h2 id="particle57" class="scrollParagraph">Loading Sample Datasets</h2>
+<div class="scrollSection"><h2 id="particle55" class="scrollParagraph">Loading Sample Datasets</h2>
 </div>
-<p id="particle59" class="scrollParagraph">Scroll comes with several sample datasets. Let's start with the famous iris dataset:</p>
+<p id="particle57" class="scrollParagraph">Scroll comes with several sample datasets. Let's start with the famous iris dataset:</p>
 <code class="scrollCodeBlock">iris
  printTable</code>
-<table id="table34" class="scrollTable">
+<table id="table38" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -147,11 +147,11 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <td>setosa</td>
 </tr></tbody>
  </table>
-<p id="particle64" class="scrollParagraph">You can also load datasets from Vega's collection:</p>
+<p id="particle62" class="scrollParagraph">You can also load datasets from Vega's collection:</p>
 <code class="scrollCodeBlock">sampleData zipcodes.csv
  limit 0 5
   printTable</code>
-<table id="table35" class="scrollTable">
+<table id="table39" class="scrollTable">
  <thead><tr><th>zip_code</th>
 
 <th>latitude</th>
@@ -200,13 +200,13 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <td>Aguadilla</td>
 </tr></tbody>
  </table>
-<div class="scrollSection"><h2 id="particle69" class="scrollParagraph">Basic Data Operations</h2>
+<div class="scrollSection"><h2 id="particle67" class="scrollParagraph">Basic Data Operations</h2>
 </div>
-<p id="particle71" class="scrollParagraph">Let's explore some basic operations on the iris dataset:</p>
+<p id="particle69" class="scrollParagraph">Let's explore some basic operations on the iris dataset:</p>
 <code class="scrollCodeBlock">iris
  summarize
   printTable</code>
-<table id="table36" class="scrollTable">
+<table id="table40" class="scrollTable">
  <thead><tr><th>name</th>
 
 <th>type</th>
@@ -290,14 +290,14 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <td>virginica</td>
 </tr></tbody>
  </table>
-<p id="particle76" class="scrollParagraph">This gives us summary statistics for each column.</p>
-<p id="particle78" class="scrollParagraph">Let's look at filtering:</p>
+<p id="particle74" class="scrollParagraph">This gives us summary statistics for each column.</p>
+<p id="particle76" class="scrollParagraph">Let's look at filtering:</p>
 <code class="scrollCodeBlock">iris
  where species = setosa
   printTable
  where species oneOf setosa virginica
   printTable</code>
-<table id="table37" class="scrollTable">
+<table id="table41" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <td>setosa</td>
 </tr></tbody>
  </table>
-<table id="table38" class="scrollTable">
+<table id="table42" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -394,11 +394,11 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 </tr></tbody>
  </table>
 <hr>
-<div class="scrollSection"><h1 id="particle85" class="scrollParagraph">Part 2: Data Visualization</h1>
+<div class="scrollSection"><h1 id="particle83" class="scrollParagraph">Part 2: Data Visualization</h1>
 </div>
-<div class="scrollSection"><h2 id="particle87" class="scrollParagraph">Basic Plots</h2>
+<div class="scrollSection"><h2 id="particle85" class="scrollParagraph">Basic Plots</h2>
 </div>
-<p id="particle89" class="scrollParagraph">Let's start with a simple scatterplot of the iris data:</p>
+<p id="particle87" class="scrollParagraph">Let's start with a simple scatterplot of the iris data:</p>
 <code class="scrollCodeBlock">iris
  scatterplot
   x sepal_width
@@ -408,7 +408,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <script src=".d3.js"></script>
 <script src=".plot.js"></script>
 
-<div id="plot39"></div><script>
+<div id="plot43"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -423,7 +423,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot39").append(Plot.plot({
+  document.querySelector("#plot43").append(Plot.plot({
     title: "Sepal Length vs Width",
     subtitle: "",
     caption: "",
@@ -444,9 +444,9 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
   loadChart()
   }
   </script>
-<div class="scrollSection"><h2 id="particle94" class="scrollParagraph">Line Charts</h2>
+<div class="scrollSection"><h2 id="particle92" class="scrollParagraph">Line Charts</h2>
 </div>
-<p id="particle96" class="scrollParagraph">Let's look at some time series data:</p>
+<p id="particle94" class="scrollParagraph">Let's look at some time series data:</p>
 <code class="scrollCodeBlock">sampleData seattle-weather.csv
  parseDate date
   linechart
@@ -454,7 +454,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
    y temp_max
    title Maximum Temperature in Seattle
    stroke steelblue</code>
-<div id="plot40"></div><script>
+<div id="plot44"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`date,precipitation,temp_max,temp_min,wind,weather
@@ -1920,7 +1920,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 2015-12-30,0,5.6,-1,3.4,sun
 2015-12-31,0,5.6,-2.1,3.5,sun`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot40").append(Plot.plot({
+  document.querySelector("#plot44").append(Plot.plot({
     title: "Maximum Temperature in Seattle",
     subtitle: "",
     caption: "",
@@ -1942,9 +1942,9 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
   loadChart()
   }
   </script>
-<div class="scrollSection"><h2 id="particle101" class="scrollParagraph">Bar Charts</h2>
+<div class="scrollSection"><h2 id="particle99" class="scrollParagraph">Bar Charts</h2>
 </div>
-<p id="particle103" class="scrollParagraph">Let's create a bar chart showing precipitation:</p>
+<p id="particle101" class="scrollParagraph">Let's create a bar chart showing precipitation:</p>
 <code class="scrollCodeBlock">sampleData seattle-weather.csv
  groupBy weather
   reduce precipitation mean precip_avg
@@ -1953,7 +1953,7 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
    y precip_avg
    fill teal
    title Average Precipitation by Weather Type</code>
-<div id="plot41"></div><script>
+<div id="plot45"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`weather,count,precip_avg
@@ -1963,7 +1963,7 @@ sun,714,0.335294117647059
 snow,23,9.04782608695652
 fog,411,6.461557177615568`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot41").append(Plot.plot({
+  document.querySelector("#plot45").append(Plot.plot({
     title: "Average Precipitation by Weather Type",
     subtitle: "",
     caption: "",
@@ -1984,18 +1984,18 @@ fog,411,6.461557177615568`, d3.autoType)
   }
   </script>
 <hr>
-<div class="scrollSection"><h1 id="particle110" class="scrollParagraph">Part 3: Advanced Data Transformations</h1>
+<div class="scrollSection"><h1 id="particle108" class="scrollParagraph">Part 3: Advanced Data Transformations</h1>
 </div>
-<div class="scrollSection"><h2 id="particle112" class="scrollParagraph">Grouping and Aggregation</h2>
+<div class="scrollSection"><h2 id="particle110" class="scrollParagraph">Grouping and Aggregation</h2>
 </div>
-<p id="particle114" class="scrollParagraph">Let's look at some more complex transformations:</p>
+<p id="particle112" class="scrollParagraph">Let's look at some more complex transformations:</p>
 <code class="scrollCodeBlock">sampleData weather.csv
  groupBy weather
   reduce temp_max mean avg_max_temp
   reduce temp_min mean avg_min_temp
   orderBy -avg_max_temp
   printTable</code>
-<table id="table42" class="scrollTable">
+<table id="table46" class="scrollTable">
  <thead><tr><th>count</th>
 
 <th>weather</th>
@@ -2030,14 +2030,14 @@ fog,411,6.461557177615568`, d3.autoType)
 <td>8.527319587628869</td>
 </tr></tbody>
  </table>
-<div class="scrollSection"><h2 id="particle119" class="scrollParagraph">Creating New Columns</h2>
+<div class="scrollSection"><h2 id="particle117" class="scrollParagraph">Creating New Columns</h2>
 </div>
-<p id="particle121" class="scrollParagraph">Let's add some computed columns:</p>
+<p id="particle119" class="scrollParagraph">Let's add some computed columns:</p>
 <code class="scrollCodeBlock">iris
  compute ratio {sepal_length}/{sepal_width}
   where ratio > 2
    printTable</code>
-<table id="table43" class="scrollTable">
+<table id="table47" class="scrollTable">
  <thead><tr><th>sepal_length</th>
 
 <th>sepal_width</th>
@@ -2080,11 +2080,11 @@ fog,411,6.461557177615568`, d3.autoType)
 </tr></tbody>
  </table>
 <hr>
-<div class="scrollSection"><h1 id="particle128" class="scrollParagraph">Part 4: Advanced Visualizations</h1>
+<div class="scrollSection"><h1 id="particle126" class="scrollParagraph">Part 4: Advanced Visualizations</h1>
 </div>
-<div class="scrollSection"><h2 id="particle130" class="scrollParagraph">Heatmaps</h2>
+<div class="scrollSection"><h2 id="particle128" class="scrollParagraph">Heatmaps</h2>
 </div>
-<p id="particle132" class="scrollParagraph">Let's create a heatmap of annual precipitation values:</p>
+<p id="particle130" class="scrollParagraph">Let's create a heatmap of annual precipitation values:</p>
 <code class="scrollCodeBlock">sampleData seattle-weather.csv
  splitYear
   groupBy year
@@ -2094,9 +2094,9 @@ fog,411,6.461557177615568`, d3.autoType)
      heatrix
   </code>
 <div class="heatrixContainer" id="heatrix0"><style>    .heatrixContainer {      margin: auto;    }.heatrixRow {white-space: nowrap;}#heatrix0 .heatrixAtom {  font-family: arial;  border-radius: 2px;  border: 1px solid transparent;  display: inline-block;  margin: 1px;  text-align: center;  vertical-align: middle;  overflow: hidden;  text-overflow: ellipsis;}.heatrixAtom a {  color: black;}#heatrix0 .heatrixAtom{ width: 40px; height: 40px; font-size: 10px; line-height: 40px;}</style><div class="heatrixRow heatrixRow1"><div class="heatrixAtom heatrixColumn1" style=""><a title="year" >year</a></div><div class="heatrixAtom heatrixColumn2" style=""><a title="2012" >2012</a></div><div class="heatrixAtom heatrixColumn3" style=""><a title="2013" >2013</a></div><div class="heatrixAtom heatrixColumn4" style=""><a title="2014" >2014</a></div><div class="heatrixAtom heatrixColumn5" style=""><a title="2015" >2015</a></div></div><div class="heatrixRow heatrixRow2"><div class="heatrixAtom heatrixColumn1" style=""><a title="precipitation_mean" >precipitation_mean</a></div><div class="heatrixAtom heatrixColumn2 valueAtom" style="background-color:#005a32;"><a title="3.349726775956281" >3.349726775956281</a></div><div class="heatrixAtom heatrixColumn3 valueAtom" style="background-color:#a1d99b;"><a title="2.26849315068493" >2.26849315068493</a></div><div class="heatrixAtom heatrixColumn4 valueAtom" style="background-color:#005a32;"><a title="3.37753424657534" >3.37753424657534</a></div><div class="heatrixAtom heatrixColumn5 valueAtom" style="background-color:#005a32;"><a title="3.121095890410958" >3.121095890410958</a></div></div></div>
-<div class="scrollSection"><h2 id="particle137" class="scrollParagraph">Multiple Views</h2>
+<div class="scrollSection"><h2 id="particle135" class="scrollParagraph">Multiple Views</h2>
 </div>
-<p id="particle139" class="scrollParagraph">You can create multiple visualizations:</p>
+<p id="particle137" class="scrollParagraph">You can create multiple visualizations:</p>
 <code class="scrollCodeBlock">iris
  scatterplot
   x sepal_length
@@ -2107,7 +2107,7 @@ fog,411,6.461557177615568`, d3.autoType)
   y sepal_length
   fill teal
   title Sepal Length by Species</code>
-<div id="plot44"></div><script>
+<div id="plot48"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -2122,7 +2122,7 @@ fog,411,6.461557177615568`, d3.autoType)
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot44").append(Plot.plot({
+  document.querySelector("#plot48").append(Plot.plot({
     title: "",
     subtitle: "",
     caption: "",
@@ -2143,7 +2143,7 @@ fog,411,6.461557177615568`, d3.autoType)
   loadChart()
   }
   </script>
-<div id="plot45"></div><script>
+<div id="plot49"></div><script>
  {
   let loadChart = async () => {
   const data = d3.csvParse(`sepal_length,sepal_width,petal_length,petal_width,species
@@ -2158,7 +2158,7 @@ fog,411,6.461557177615568`, d3.autoType)
 5.1,3.5,1.4,0.2,setosa
 5,3.4,1.5,0.2,setosa`, d3.autoType)
   const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
-  document.querySelector("#plot45").append(Plot.plot({
+  document.querySelector("#plot49").append(Plot.plot({
     title: "Sepal Length by Species",
     subtitle: "",
     caption: "",
@@ -2179,19 +2179,19 @@ fog,411,6.461557177615568`, d3.autoType)
   }
   </script>
 <hr>
-<div class="scrollSection"><h1 id="particle146" class="scrollParagraph">Conclusion</h1>
+<div class="scrollSection"><h1 id="particle144" class="scrollParagraph">Conclusion</h1>
 </div>
-<p id="particle148" class="scrollParagraph">This tutorial covered the basics of data science with Scroll. Some key takeaways:</p>
-<ul ><li id="particle149" >Scroll makes it easy to load and manipulate data</li>
-<li id="particle150" >Visualizations are simple to create and customize</li>
-<li id="particle151" >Complex transformations can be done with simple commands</li>
-<li id="particle152" >Everything is readable and version-controllable</li></ul>
+<p id="particle146" class="scrollParagraph">This tutorial covered the basics of data science with Scroll. Some key takeaways:</p>
+<ul ><li id="particle147" >Scroll makes it easy to load and manipulate data</li>
+<li id="particle148" >Visualizations are simple to create and customize</li>
+<li id="particle149" >Complex transformations can be done with simple commands</li>
+<li id="particle150" >Everything is readable and version-controllable</li></ul>
 <div class="abstractDinkusParser"><span>⁂</span></div>
-<center><p id="particle159" class="scrollParagraph"></p>
+<center><p id="particle156" class="scrollParagraph"></p>
 <style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="mailto:feedback@scroll.pub" class="doNotPrint abstractIconButtonParser" style="position:relative;"><svg viewBox="3 5 24 20" width="24" height="20" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(1, 0, 0, 1, 0, -289.0625)"><path style="opacity:1;stroke:none;stroke-width:0.49999997;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 5 5 C 4.2955948 5 3.6803238 5.3628126 3.3242188 5.9101562 L 14.292969 16.878906 C 14.696939 17.282876 15.303061 17.282876 15.707031 16.878906 L 26.675781 5.9101562 C 26.319676 5.3628126 25.704405 5 25 5 L 5 5 z M 3 8.4140625 L 3 23 C 3 24.108 3.892 25 5 25 L 25 25 C 26.108 25 27 24.108 27 23 L 27 8.4140625 L 17.121094 18.292969 C 15.958108 19.455959 14.041892 19.455959 12.878906 18.292969 L 3 8.4140625 z " transform="translate(0,289.0625)" id="rect4592"/></g></svg></a>
 <style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="../download.html" class="doNotPrint abstractIconButtonParser" style="position:relative;"><svg fill="#000000" xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve"><path d="M38.6,20.4c-1-6.5-6.7-11.5-13.5-11.5c-7.6,0-13.7,6.1-13.7,13.7c0,0.3,0,0.7,0.1,1c-5,0.4-8.9,4.6-8.9,9.6 c0,5.4,4.3,9.7,9.7,9.7h11.5c-0.8-0.8-8.1-8.1-8.1-8.1c-0.4-0.4-0.4-0.9,0-1.3l1.3-1.3c0.4-0.4,0.9-0.4,1.3,0l3.5,3.5 c0.4,0.4,1.1,0.1,1.1-0.4V21.8c0-0.4,0.5-0.9,1-0.9h1.9c0.5,0,0.9,0.4,0.9,0.9v13.4c0,0.6,0.8,0.8,1.1,0.4l3.5-3.5 c0.4-0.4,0.9-0.4,1.3,0l1.3,1.3c0.4,0.4,0.4,0.9,0,1.3L26,42.9h12.3v0c6.1-0.1,11-5.1,11-11.3C49.4,25.5,44.6,20.6,38.6,20.4z"/></svg><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --></a>
 <style>.abstractIconButtonParser {position:absolute;top:0.25rem; }.abstractIconButtonParser svg {fill: rgba(204,204,204,.8);width:1.875rem;height:1.875rem; padding: 0 7px;} .abstractIconButtonParser:hover svg{fill: #333;}</style><a href="https://github.com/breck7/scroll/blob/main/blog/dataScience.scroll" class="doNotPrint abstractIconButtonParser" style="position:relative;"><svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z"/></svg></a>
-<div class="abstractTextLinkParser"><a href="https://scroll.pub">Built with Scroll v176.0.1</a></div>
+<div class="abstractTextLinkParser"><a href="https://scroll.pub">Built with Scroll v177.0.1</a></div>
 </center></div>
 </body>
 </html>

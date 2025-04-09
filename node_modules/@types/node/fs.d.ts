@@ -581,7 +581,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function truncate(path: PathLike, len: number | undefined | null, callback: NoParamCallback): void;
+    export function truncate(path: PathLike, len: number | undefined, callback: NoParamCallback): void;
     /**
      * Asynchronous truncate(2) - Truncate a file to a specified length.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -593,7 +593,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param len If not specified, defaults to `0`.
          */
-        function __promisify__(path: PathLike, len?: number | null): Promise<void>;
+        function __promisify__(path: PathLike, len?: number): Promise<void>;
     }
     /**
      * Truncates the file. Returns `undefined`. A file descriptor can also be
@@ -604,7 +604,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function truncateSync(path: PathLike, len?: number | null): void;
+    export function truncateSync(path: PathLike, len?: number): void;
     /**
      * Truncates the file descriptor. No arguments other than a possible exception are
      * given to the completion callback.
@@ -648,7 +648,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function ftruncate(fd: number, len: number | undefined | null, callback: NoParamCallback): void;
+    export function ftruncate(fd: number, len: number | undefined, callback: NoParamCallback): void;
     /**
      * Asynchronous ftruncate(2) - Truncate a file to a specified length.
      * @param fd A file descriptor.
@@ -660,7 +660,7 @@ declare module "fs" {
          * @param fd A file descriptor.
          * @param len If not specified, defaults to `0`.
          */
-        function __promisify__(fd: number, len?: number | null): Promise<void>;
+        function __promisify__(fd: number, len?: number): Promise<void>;
     }
     /**
      * Truncates the file descriptor. Returns `undefined`.
@@ -670,7 +670,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function ftruncateSync(fd: number, len?: number | null): void;
+    export function ftruncateSync(fd: number, len?: number): void;
     /**
      * Asynchronously changes owner and group of a file. No arguments other than a
      * possible exception are given to the completion callback.
@@ -4272,7 +4272,7 @@ declare module "fs" {
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 
-    interface GlobOptionsBase {
+    interface _GlobOptions<T extends Dirent | string> {
         /**
          * Current working directory.
          * @default process.cwd()
@@ -4285,20 +4285,19 @@ declare module "fs" {
          */
         withFileTypes?: boolean | undefined;
         /**
-         * Function to filter out files/directories. Return true to exclude the item, false to include it.
+         * Function to filter out files/directories or a
+         * list of glob patterns to be excluded. If a function is provided, return
+         * `true` to exclude the item, `false` to include it.
+         * @default undefined
          */
-        exclude?: ((fileName: any) => boolean) | undefined;
+        exclude?: ((fileName: T) => boolean) | readonly string[] | undefined;
     }
-    export interface GlobOptionsWithFileTypes extends GlobOptionsBase {
-        exclude?: ((fileName: Dirent) => boolean) | undefined;
+    export interface GlobOptions extends _GlobOptions<Dirent | string> {}
+    export interface GlobOptionsWithFileTypes extends _GlobOptions<Dirent> {
         withFileTypes: true;
     }
-    export interface GlobOptionsWithoutFileTypes extends GlobOptionsBase {
-        exclude?: ((fileName: string) => boolean) | undefined;
+    export interface GlobOptionsWithoutFileTypes extends _GlobOptions<string> {
         withFileTypes?: false | undefined;
-    }
-    export interface GlobOptions extends GlobOptionsBase {
-        exclude?: ((fileName: Dirent | string) => boolean) | undefined;
     }
 
     /**

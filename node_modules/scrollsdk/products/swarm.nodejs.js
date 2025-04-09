@@ -4,7 +4,6 @@
   const { Particle } = require("./Particle.js")
   const { HandParsersProgram } = require("./Parsers.js")
   const { ParserBackedParticle } = require("./Parsers.js")
-
   class swarmParser extends ParserBackedParticle {
     createParserPool() {
       return new Particle.ParserPool(
@@ -31,7 +30,7 @@
       files[filepath] = testBlocks
       return files
     }
-    static cachedHandParsersProgramRoot = new HandParsersProgram(`// todo Add comments?
+    static _parserSourceCode = `// todo Add comments?
 // todo Make run in browser
 // todo Add print or tracer type of intermediate element. debugger?
 
@@ -359,7 +358,8 @@ todoParser
  catchAllAtomType todoAtom
  catchAllParser todoParser
  cue todo
- atoms todoKeywordAtom`)
+ atoms todoKeywordAtom`
+    static cachedHandParsersProgramRoot = new HandParsersProgram(this._parserSourceCode)
     get handParsersProgram() {
       return this.constructor.cachedHandParsersProgramRoot
     }

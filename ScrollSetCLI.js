@@ -6,7 +6,6 @@ const { Utils } = require("scrollsdk/products/Utils.js")
 const { Disk } = require("scrollsdk/products/Disk.node.js")
 const { ScrollCli } = require("./scroll.js")
 const scrollFs = new ScrollCli().sfs
-const ScrollFile = scrollFs.defaultFileClass
 
 class ScrollSetCLI {
   constructor() {
@@ -57,7 +56,7 @@ class ScrollSetCLI {
   }
 
   async _formatAndSave(filePath, particle) {
-    const fusedFile = new ScrollFile(particle.toString(), filePath, scrollFs)
+    const fusedFile = scrollFs.newFile(particle.toString(), filePath)
     await fusedFile.fuse()
     // force a write
     const result = await scrollFs.write(filePath, fusedFile.scrollProgram.formatted)

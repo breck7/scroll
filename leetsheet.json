@@ -237,6 +237,12 @@
     "example": "Hello\nassert txt includes Hello"
   },
   {
+    "id": "assertBuildEndsWith",
+    "description": "Test above particle's output.",
+    "popularity": 0,
+    "example": "buildCsv\nassertBuildEndsWith virginica"
+  },
+  {
     "id": "assertBuildIncludes",
     "description": "Test above particle's output.",
     "popularity": 0,
@@ -448,6 +454,12 @@
     "example": "concepts\n printTable"
   },
   {
+    "id": "conceptTemplate",
+    "description": "Loads a template after document is parsed.",
+    "popularity": 0,
+    "example": "conceptTemplate\n # This is a page for {name}\n His phone is {phone}"
+  },
+  {
     "id": "container",
     "description": "A centered HTML div.",
     "popularity": 10,
@@ -502,7 +514,7 @@
   },
   {
     "id": "debugParsers",
-    "description": "Print the parsers used.",
+    "description": "Print source code of all parsers used.",
     "popularity": 193,
     "example": "code\n two = 1 + 1"
   },
@@ -558,6 +570,12 @@
     "popularity": 630
   },
   {
+    "id": "dumpConcept",
+    "description": "A code block.",
+    "popularity": 17,
+    "example": "dumpConcept"
+  },
+  {
     "id": "editBaseUrl",
     "description": "Override edit link baseUrl.",
     "popularity": 784
@@ -608,6 +626,12 @@
     "description": "Replace this with evaled JS.",
     "popularity": 0,
     "example": "evalJs \"# The sum of 1 + 1 is \" + 1 + 1"
+  },
+  {
+    "id": "evalNodejs",
+    "description": "Replace with evaled Node.JS.",
+    "popularity": 0,
+    "example": "evalNodejs\n module.exports = \"# Hello world\""
   },
   {
     "id": "expander",
@@ -874,6 +898,11 @@
     "popularity": 0
   },
   {
+    "id": "moveToFooter",
+    "description": "Move a section to the footer.",
+    "popularity": 0
+  },
+  {
     "id": "music",
     "description": "Play sound files.",
     "popularity": 3,
@@ -888,6 +917,11 @@
   {
     "id": "nickelbackIpsum",
     "description": "Generate dummy text.",
+    "popularity": 0
+  },
+  {
+    "id": "noFormat",
+    "description": "Don't format below this line.",
     "popularity": 0
   },
   {
@@ -1231,11 +1265,6 @@
     "popularity": 369
   },
   {
-    "id": "toFooter",
-    "description": "Experimental way to move a section to the footer.",
-    "popularity": 0
-  },
-  {
     "id": "toStamp",
     "description": "Print a directory to stamp with configurable filters.",
     "popularity": 0
@@ -1251,6 +1280,11 @@
     "description": "HTML tag.",
     "popularity": 0,
     "example": "ul\n li A list"
+  },
+  {
+    "id": "useParserPool",
+    "description": "Load a cached parser pool.",
+    "popularity": 0
   },
   {
     "id": "video",

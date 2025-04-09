@@ -2,17 +2,17 @@ Scroll Roadmap
 ==============
 Scroll Tutorial
 ===============
-03/29/2025
+04/09/2025
 https://scroll.pub/tutorial.html
 
 Scroll Release Notes
 ====================
-03/29/2025
+04/09/2025
 https://scroll.pub/releaseNotes.html
 
 Scroll FAQ
 ==========
-03/29/2025
+04/09/2025
 https://scroll.pub/faq.html
 
 What major improvements are coming next?
@@ -38,4 +38,4 @@ In addition to the above, Scroll is written in Parsers and will get all the plan
 
 ⁂
 
-Built with Scroll v176.0.1
+Built with Scroll v177.0.1

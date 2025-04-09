@@ -4,107 +4,107 @@
  <title>Feed</title>
  <link>https://scroll.pub/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Sat, 29 Mar 2025 19:54:37 +0000</lastBuildDate>
+ <lastBuildDate>Wed, 09 Apr 2025 12:16:11 +0000</lastBuildDate>
  <language>en-us</language>
  <item>
 <title>Data Science with Scroll</title>
 <link>https://scroll.pub/blog/dataScience.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Mon, 06 Jan 2025 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Scroll in 50 Questions</title>
 <link>https://scroll.pub/blog/scrollInQuestions.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Mon, 28 Oct 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Web Forms for Geniuses</title>
 <link>https://scroll.pub/blog/forms.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Tue, 01 Oct 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>The Successor to RSS is Git Clone</title>
 <link>https://scroll.pub/blog/gitOverRss.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Mon, 02 Sep 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>A New Way to Program</title>
 <link>https://scroll.pub/blog/teddyTalk.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Fri, 30 Aug 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Datatables: a microlang for data science</title>
 <link>https://scroll.pub/blog/tables.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Fri, 09 Aug 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Build Your Own Counters With 3 Words</title>
 <link>https://scroll.pub/blog/counters.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Fri, 02 Aug 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Heatrix: Heat Maps + Matrix Visualizations</title>
 <link>https://scroll.pub/blog/heatrix.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Sun, 28 Jul 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Contacts: A Microlang for Managing Contacts</title>
 <link>https://scroll.pub/blog/contacts.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Tue, 16 Jul 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>How I Designed Helpful 404's and Stopped Worrying about Broken Links</title>
 <link>https://scroll.pub/blog/helpful404s.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Fri, 12 Jul 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Convert CSVs to ScrollSets</title>
 <link>https://scroll.pub/blog/csvToScrollSet.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Tue, 09 Jul 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Changes: A Microlang for Change Logs</title>
 <link>https://scroll.pub/blog/changes.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Mon, 01 Jul 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Write scatterplot to get a scatterplot</title>
 <link>https://scroll.pub/blog/plot.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Mon, 24 Jun 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Stamp: a microlang for project templates</title>
 <link>https://scroll.pub/blog/stamp.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Sun, 23 Jun 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Scroll builds text files</title>
 <link>https://scroll.pub/blog/textFiles.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Mon, 29 Apr 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>ScrollSets: source code for CSVs</title>
 <link>https://scroll.pub/blog/scrollsets.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Sun, 21 Apr 2024 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Introducing Program Links</title>
 <link>https://scroll.pub/blog/programLinks.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Mon, 08 May 2023 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Counterpoints: A new tool for thought in the Scroll Language</title>
 <link>https://scroll.pub/blog/counterpoints.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Thu, 13 Apr 2023 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>Introducing the Blink Tag</title>
 <link>https://scroll.pub/blog/introducingBlink.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Sun, 02 Oct 2022 00:00:00 +0000</pubDate>
 </item>
  <item>
 <title>The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping</title>
 <link>https://scroll.pub/blog/indented-heredocs.html</link>
-<pubDate>Invalid Date</pubDate>
+<pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
 </item>
 </channel>
 </rss>

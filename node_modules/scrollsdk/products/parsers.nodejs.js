@@ -4,7 +4,6 @@
   const { Particle } = require("./Particle.js")
   const { HandParsersProgram } = require("./Parsers.js")
   const { ParserBackedParticle } = require("./Parsers.js")
-
   class parsersParser extends ParserBackedParticle {
     createParserPool() {
       return new Particle.ParserPool(catchAllErrorParser, Object.assign(Object.assign({}, super.createParserPool()._getCueMapAsObject()), { "//": slashCommentParser }), [
@@ -13,8 +12,7 @@
         { regex: /^[a-zA-Z0-9_]+Parser$/, parser: parserDefinitionParser }
       ])
     }
-    static cachedHandParsersProgramRoot =
-      new HandParsersProgram(`// todo Add imports parsers, along with source maps, so we can correctly support parsers split across multiple files, and better enable parsers from compositions of reusable bits?
+    static _parserSourceCode = `// todo Add imports parsers, along with source maps, so we can correctly support parsers split across multiple files, and better enable parsers from compositions of reusable bits?
 // todo Do error checking for if you have a firstatomAtomType, atoms, and/or catchAllAtomType with same name.
 // todo Add enumOption root level type?
 // todo compile atoms. add javascript property. move getRunTimeEnumOptions to atoms.
@@ -580,7 +578,8 @@ extendsAtomTypeParser
  // todo Add mixin support in addition to extends?
  atoms cueAtom atomTypeIdAtom
  tags assemblePhase
- single`)
+ single`
+    static cachedHandParsersProgramRoot = new HandParsersProgram(this._parserSourceCode)
     get handParsersProgram() {
       return this.constructor.cachedHandParsersProgramRoot
     }

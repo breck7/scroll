@@ -18,3 +18,7 @@ notes Daughter - Samantha.
 phone +1 (555) 123-4562
 email jill@gmail.com
 birthday 1/23/80
+
+conceptTemplate
+ # This is a page for {name}
+ His phone is {phone}

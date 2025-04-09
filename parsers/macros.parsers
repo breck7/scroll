@@ -1,7 +1,7 @@
 abstractMacroParser
  extends abstractScrollParser
  catchAllAtomType stringAtom
- atoms preBuildCommandAtom
+ atoms parseTimeCommandAtom
  cueFromId
  javascript
   get search() {
@@ -27,7 +27,7 @@ abstractMacroParser
 replaceParser
  description Replace this with that.
  extends abstractMacroParser
- atoms preBuildCommandAtom codeAtom
+ atoms parseTimeCommandAtom codeAtom
  baseParser blobParser
  example
   replace YEAR 2022
@@ -42,27 +42,11 @@ replaceJsParser
  javascript
   get replacement() {
     const particle = this
+    const codeAtStart = this.root.codeAtStart || ""
     try {
       return eval(super.replacement)
     } catch (err) {
       console.error(err)
     }
     return this.search
-  }
-
-toFooterParser
- extends abstractScrollParser
- description Experimental way to move a section to the footer.
- atoms preBuildCommandAtom
- cueFromId
- javascript
-  buildHtml() {
-    // todo: very hacky! fix.
-    this.section.forEach(particle => {
-        const clone = particle.clone()
-        this.root.appendParticle(clone)
-        particle.destroy()
-    })
-    this.destroy()
-    return ""
   }

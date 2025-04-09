@@ -1,3 +1,10 @@
+buildHtml
+
+The below should just be parsed as text:
+hiddenMessage Click me.
+ message Hello world
+assertHtmlExcludes onclick="ale
+
 hiddenMessageParser
  extends scrollParagraphParser
  inScope messageParser
@@ -6,5 +13,8 @@ hiddenMessageParser
   buildHtml() {
    return `<span onclick="alert('${this.get("message")}')">${super.buildHtml()}</span>`
   }
+
+The below should be parsed by the parser above
 hiddenMessage Click me.
  message Hello world
+assertHtmlIncludes onclick="ale

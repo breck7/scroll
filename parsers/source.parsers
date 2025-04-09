@@ -8,5 +8,5 @@ printSourceParser
  javascript
   buildHtml() {
    const files = this.root.getFilesByTags(this.content).map(file => file.file)
-   return `${files.map(file => file.scrollProgram.filePath + "\n " + file.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
+   return `${files.map(file => file.scrollProgram).map(scrollProgram => scrollProgram.filePath + "\n " + scrollProgram.codeAtStart.replace(/\n/g, "\n ") ).join("\n")}`
   }

@@ -1,9 +1,9 @@
-id	moons	wikipedia	aka	diameter	surfaceGravity	age	yearsToOrbitSun	hasLife
-Mars	2			6794	4		1.881	false
-Jupiter	63			142984	25		11.86	false
-Earth	1	https://en.wikipedia.org/wiki/Earth	Pale Blue Dot	12756	10	4500000000	1	true
-Mercury	0			4879	4		0.241	false
-Saturn	64			120536	9		29.46	false
-Uranus	27			51118	8		84.01	false
-Venus	0			12104	9		0.615	false
-Neptune	14			49572	11		164.79	false
+id	moons	diameter	surfaceGravity	yearsToOrbitSun	aka	age	hasLife	wikipedia
+Mars	2	6794	4	1.881			false	
+Jupiter	63	142984	25	11.86			false	
+Earth	1	12756	10	1	Pale Blue Dot	4500000000	true	https://en.wikipedia.org/wiki/Earth
+Mercury	0	4879	4	0.241			false	
+Saturn	64	120536	9	29.46			false	
+Uranus	27	51118	8	84.01			false	
+Venus	0	12104	9	0.615			false	
+Neptune	14	49572	11	164.79			false	

@@ -2,7 +2,7 @@ importOnly
 buildHtml
 header.scroll
 footer.scroll
- footer
+ moveToFooter
 
 printTitle
 

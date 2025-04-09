@@ -18,13 +18,13 @@
   {
     "id": "Earth",
     "moons": 1,
-    "wikipedia": "https://en.wikipedia.org/wiki/Earth",
-    "aka": "Pale Blue Dot",
     "diameter": 12756,
     "surfaceGravity": 10,
-    "age": 4500000000,
     "yearsToOrbitSun": 1,
-    "hasLife": true
+    "aka": "Pale Blue Dot",
+    "age": 4500000000,
+    "hasLife": true,
+    "wikipedia": "https://en.wikipedia.org/wiki/Earth"
   },
   {
     "id": "Mercury",

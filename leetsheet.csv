@@ -54,6 +54,8 @@ aside,,HTML tag.,0,"aside
 h1 Some notes",
 assert,,Test above particle's output.,0,"Hello
 assert txt includes Hello",
+assertBuildEndsWith,,Test above particle's output.,0,"buildCsv
+assertBuildEndsWith virginica",
 assertBuildIncludes,,Test above particle's output.,0,"buildCsv
 assertBuildIncludes virginica",
 assertHtmlEquals,,Test above particle's output.,0,"<b></b>
@@ -112,6 +114,9 @@ color,,Quickly set CSS font-color.,722,,
 comment,,Prints nothing.,20,,
 concepts,,Load concepts as datatable.,0,"concepts
 printTable",
+conceptTemplate,,Loads a template after document is parsed.,0,"conceptTemplate
+# This is a page for {name}
+His phone is {phone}",
 container,,A centered HTML div.,10,container 600px,
 copyButtons,,Copy code widget.,148,,
 counter,,Visualize the speed of something.,0,counter 4.5 Babies Born,
@@ -137,7 +142,7 @@ printTable",
 debugBelow,,Inspect particle below.,66,"belowAsCode
 iris
 printTable",
-debugParsers,,Print the parsers used.,193,"code
+debugParsers,,Print source code of all parsers used.,193,"code
 two = 1 + 1",
 debugSourceMap,,Print the source map.,193,"code
 two = 1 + 1",
@@ -166,6 +171,7 @@ div,,HTML tag.,0,"div
 div
  # Deeper",
 downloadButton,,Link to download/WWS page.,630,,
+dumpConcept,,A code block.,17,dumpConcept,
 editBaseUrl,,Override edit link baseUrl.,784,,
 editButton,,Print badge top right.,1397,,
 editLink,,"Print ""Edit"" link.",121,,
@@ -176,6 +182,8 @@ emailButton,,Email button.,630,,
 endColumns,,End columns.,779,,
 endSnippet,,Cut for snippet here.,430,,
 evalJs,,Replace this with evaled JS.,0,"evalJs ""# The sum of 1 + 1 is "" + 1 + 1",
+evalNodejs,,Replace with evaled Node.JS.,0,"evalNodejs
+module.exports = ""# Hello world""",
 expander,,An collapsible HTML details tag.,8,"expander Knock Knock
 Who's there?",
 favicon,,Favicon file.,169,"favicon logo.png
@@ -266,11 +274,13 @@ name description
 content A great page about meta tags",
 metaTags,,Print meta tags including title.,770,,
 modal,,A modal dialog overlay.,0,,
+moveToFooter,,Move a section to the footer.,0,,
 music,,Play sound files.,3,music sipOfCoffee.m4a,
 nav,,HTML tag.,0,"nav
 a Home
  href /",
 nickelbackIpsum,,Generate dummy text.,0,,
+noFormat,,Don't format below this line.,0,,
 notices,,Display messages in URL query parameters.,0,,
 ol,,HTML tag.,0,"ol
 li A list",
@@ -391,12 +401,12 @@ tr
 theScrollButton,,WWS button.,630,,
 thinColumn,,A thin column section.,338,,
 thinColumns,,Thin columns.,369,,
-toFooter,,Experimental way to move a section to the footer.,0,,
 toStamp,,Print a directory to stamp with configurable filters.,0,,
 tr,,HTML tag.,0,"tr
 td Cell 1",
 ul,,HTML tag.,0,"ul
 li A list",
+useParserPool,,Load a cached parser pool.,0,,
 video,,Play video files.,3,video spirit.mp4,
 wideColumn,,A wide column section.,338,,
 wideColumns,,Wide columns.,39,,

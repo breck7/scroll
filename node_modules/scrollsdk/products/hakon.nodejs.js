@@ -4,7 +4,6 @@
   const { Particle } = require("./Particle.js")
   const { HandParsersProgram } = require("./Parsers.js")
   const { ParserBackedParticle } = require("./Parsers.js")
-
   class hakonParser extends ParserBackedParticle {
     createParserPool() {
       return new Particle.ParserPool(selectorParser, Object.assign(Object.assign({}, super.createParserPool()._getCueMapAsObject()), { comment: commentParser }), undefined)
@@ -18,7 +17,7 @@
         .map(subparticle => subparticle.compile())
         .join("")
     }
-    static cachedHandParsersProgramRoot = new HandParsersProgram(`// Atom Parsers
+    static _parserSourceCode = `// Atom Parsers
 anyAtom
 cueAtom
 commentKeywordAtom
@@ -118,7 +117,8 @@ selectorParser
   \${propertyParsers.map(subparticle => subparticle.compile(spaces)).join("\\n")}
   }\\n\`
   }
- atoms selectorAtom`)
+ atoms selectorAtom`
+    static cachedHandParsersProgramRoot = new HandParsersProgram(this._parserSourceCode)
     get handParsersProgram() {
       return this.constructor.cachedHandParsersProgramRoot
     }

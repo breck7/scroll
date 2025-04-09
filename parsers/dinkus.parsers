@@ -38,6 +38,7 @@ scrollDinkusParser
 customDinkusParser
  cue dinkus
  description A custom dinkus.
+ atoms cueAtom stringAtom
  extends abstractDinkusParser
 
 endOfPostDinkusParser
