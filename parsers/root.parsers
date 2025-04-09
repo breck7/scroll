@@ -687,6 +687,12 @@ scrollParser
     if (format === "particles") return particles.toString()
     return particles.toString()
   }
+  inspect(particles = this.getSubparticles()) {
+    const mapFn = particle => {
+    const atomTypes = particle.lineAtomTypes.split(" ")
+    return `${particle.constructor.name} ${particle.atoms.map((atom, index) => `${atomTypes[index]}:${atom}`).join(" ")}${(particle.length ? `\n ` + particle.map(mapFn).join("\n") + `` : "")}`}
+   return particles.map(mapFn).join("\n")
+  }
   levenshteinDistance(a, b) {
     const m = a.length
     const n = b.length
