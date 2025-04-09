@@ -4,7 +4,7 @@ Scroll is a language for scientists of all ages
 Publish and evolve your most intelligent ideas
 ==============================================
 
-With Scroll your
+With Scroll
 Words become Particles
 Connected by Parsers
 To guide the world
