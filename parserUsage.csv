@@ -82,8 +82,8 @@ checklistDoneParser,3
 replaceParser,3
 heatrixParser,2
 scrollTransposeParser,2
-scrollWhereParser,2
 importOnlyParser,2
+scrollWhereParser,2
 hamlParser,2
 hoverNoteParser,2
 linkTitleParser,2
