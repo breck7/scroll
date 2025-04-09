@@ -2,13 +2,13 @@ br 1
 
 div#theAnimation
 With Scroll your
-Words become Atoms
+Words become Particles
  addClass atomToDot Words
  addClass atomToDot become
- addClass atomToDot Atoms
+ addClass atomToDot Particles
  addClass animationLine
-Consumed by Parsers
- addClass atomToDot2 Consumed
+Connected by Parsers
+ addClass atomToDot2 Connected
  addClass atomToDot2 by
  addClass atomToDot2 Parsers
  addClass animationLine
