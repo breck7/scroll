@@ -2,17 +2,17 @@ Scroll FAQ
 ==========
 Scroll Tutorial
 ===============
-04/09/2025
+04/10/2025
 https://scroll.pub/tutorial.html
 
 Scroll Roadmap
 ==============
-04/09/2025
+04/10/2025
 https://scroll.pub/roadmap.html
 
 Scroll Release Notes
 ====================
-04/09/2025
+04/10/2025
 https://scroll.pub/releaseNotes.html
 
 A list of Frequently Asked Questions

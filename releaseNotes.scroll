@@ -26,6 +26,7 @@ thinColumns
 🏥 minor updates and codemirror fix
 
 📦 177.0.0 4/08/2025
+## 🚨 MAJOR RELEASE
 🎉 Scroll is now a single-pass language!
 🎉 added assertBuildEndsWithParser
 🎉 added conceptTemplateParser
