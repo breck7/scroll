@@ -27,6 +27,7 @@ thinColumns
 
 📦 177.0.0 4/08/2025
 ## 🚨 MAJOR RELEASE
+🎉 Imports, macros, and parser definitions are now defined in Scroll rather than the SDK!
 🎉 Scroll is now a single-pass language!
 🎉 added assertBuildEndsWithParser
 🎉 added conceptTemplateParser
