@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "177.0.1",
+  "version": "177.0.2",
   "description": "A language for scientists of all ages. A curated collection of tools for refining and sharing thoughts.",
   "main": "scroll.js",
   "engines": {
@@ -14,7 +14,8 @@
     "open": "open index.html",
     "debug": "node --inspect tests/scroll.test.js;",
     "test": "node tests/scroll.test.js",
-    "up": "npm install scrollsdk@latest"
+    "up": "npm install scrollsdk@latest",
+    "libs": "cp ~/tryscroll/dist/libs.js external/.scrollLibs.js"
   },
   "bin": {
     "scroll": "./scroll.js",

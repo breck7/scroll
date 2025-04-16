@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<div class="scrollSection"><h1 id="particle2" class="scrollParagraph">ScrollSet Form Maker</h1>
 <link rel="stylesheet" type="text/css" href=".gazette.css">
 <link rel="stylesheet" type="text/css" href=".scroll.css">
+<div class="scrollSection"><h1 id="particle4" class="scrollParagraph">ScrollSet Form Maker</h1>
 </div>
 <style>body {font-family: "Gill Sans", "Bitstream Vera Sans", sans-serif;}</style>
-<div id="particle7" class="scrollContainerParser" style="width: 100%; box-sizing: border-box; max-width: 600px; margin: 0 auto;">
-<div class="scrollSection"><h3 id="particle9" class="scrollParagraph">Past: to generate a classic form write "classicForm"</h3>
+<div id="particle8" class="scrollContainerParser" style="width: 100%; box-sizing: border-box; max-width: 600px; margin: 0 auto;">
+<div class="scrollSection"><h3 id="particle10" class="scrollParagraph">Past: to generate a classic form write "classicForm"</h3>
 </div>
 <script>
 sendFormViaEmail = form => {
@@ -38,7 +38,7 @@ box-sizing: border-box;
 <div><label for="emailAddress" title="">EmailAddress:</label><input placeholder="What is your email address?" type="email" id="emailAddress" name="emailAddress" ></div>
 <div><label for="homepage" title="">Homepage:</label><input placeholder="What is your homepage?" type="url" id="homepage" name="homepage" ></div>
 <div><label for="biography" title="">Biography:</label><textarea placeholder="What is your bio?" id="biography" name="biography" ></textarea></div><button value="Classic form test" title="breck7+classicForm@gmail.com" class="scrollButton" type="submit">Submit via email</button></form>
-<div class="scrollSection"><h3 id="particle13" class="scrollParagraph">Future: to generate a Scroll Form write "scrollForm"</h3>
+<div class="scrollSection"><h3 id="particle14" class="scrollParagraph">Future: to generate a Scroll Form write "scrollForm"</h3>
 </div>
 <link rel="stylesheet" href=".codeMirror.css">
 <script src=".scrollLibs.js"></script>
@@ -105,7 +105,7 @@ biographyParser
   part.appendLine("boolean suggestInAutocomplete false")
   })
   const customScrollParser = new HandParsersProgram(sp.toString() + document.getElementById("particlesParsers").textContent).compileAndReturnRootParser()
-  codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => customScrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("particles"), {
+  codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => new customScrollParser(codeMirrorInstance.getValue()), CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("particles"), {
     lineWrapping: false,
     lineNumbers: false
   })

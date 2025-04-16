@@ -2,17 +2,17 @@ Scroll Roadmap
 ==============
 Scroll Tutorial
 ===============
-04/14/2025
+04/16/2025
 https://scroll.pub/tutorial.html
 
 Scroll Release Notes
 ====================
-04/14/2025
+04/16/2025
 https://scroll.pub/releaseNotes.html
 
 Scroll FAQ
 ==========
-04/14/2025
+04/16/2025
 https://scroll.pub/faq.html
 
 What major improvements are coming next?

@@ -1989,7 +1989,7 @@ scrollFormParser
     part.appendLine("boolean suggestInAutocomplete false")
     })
     const customScrollParser = new HandParsersProgram(sp.toString() + document.getElementById("${Name}Parsers").textContent).compileAndReturnRootParser()
-    codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => customScrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("${Name}"), {
+    codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => new customScrollParser(codeMirrorInstance.getValue()), CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("${Name}"), {
       lineWrapping: false,
       lineNumbers: false
     })

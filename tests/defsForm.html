@@ -45,7 +45,7 @@ box-sizing: border-box;
   part.appendLine("boolean suggestInAutocomplete false")
   })
   const customScrollParser = new HandParsersProgram(sp.toString() + document.getElementById("particlesParsers").textContent).compileAndReturnRootParser()
-  codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => customScrollParser, undefined, CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("particles"), {
+  codeMirrorInstance = new ParsersCodeMirrorMode("custom", () => new customScrollParser(codeMirrorInstance.getValue()), CodeMirror).register().fromTextAreaWithAutocomplete(document.getElementById("particles"), {
     lineWrapping: false,
     lineNumbers: false
   })

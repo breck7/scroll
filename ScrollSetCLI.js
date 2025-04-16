@@ -57,7 +57,7 @@ class ScrollSetCLI {
 
   async _formatAndSave(filePath, particle) {
     const fusedFile = scrollFs.newFile(particle.toString(), filePath)
-    await fusedFile.fuse()
+    await fusedFile.singlePassFuse()
     // force a write
     const result = await scrollFs.write(filePath, fusedFile.scrollProgram.formatted)
     return result
