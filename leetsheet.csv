@@ -182,8 +182,7 @@ emailButton,,Email button.,630,,
 endColumns,,End columns.,779,,
 endSnippet,,Cut for snippet here.,430,,
 evalJs,,Replace this with evaled JS.,0,"evalJs ""# The sum of 1 + 1 is "" + 1 + 1",
-evalNodejs,,Replace with evaled Node.JS.,0,"evalNodejs
-module.exports = ""# Hello world""",
+evalNodeJs,,Replace with evaled JS when NodeJS only.,0,"evalJs ""# The sum of 1 + 1 is "" + 1 + 1",
 expander,,An collapsible HTML details tag.,8,"expander Knock Knock
 Who's there?",
 favicon,,Favicon file.,169,"favicon logo.png
@@ -292,6 +291,7 @@ p,,A paragraph.,189,p I had a _new_ idea.,
 permalink,,Override output filename.,27,,
 plainText,,Plain text oneliner or block.,0,,
 plainTextOnly,,Only print for buildTxt.,8,,
+popMacros,,Clear 1 or more macros.,0,,
 posts,,Posts as datatable.,3,"// Print a search datatable:
 posts
 printTable
@@ -332,6 +332,8 @@ module.exports = {SCORE : 1 + 2}
 * The score is SCORE",
 rssFeedUrl,,Set RSS feed URL.,885,,
 run,,Run script and dump stdout.,3,,
+runNodejs,,Run as a Node.JS module.,0,"runNodejs
+module.exports = ""# Hello world""",
 sampleData,,Sample dataset from Vega.,214,"sampleData zipcodes.csv
 printTable",
 scatterplot,,Scatterplot Widget.,0,"iris

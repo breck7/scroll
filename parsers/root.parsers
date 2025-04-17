@@ -393,7 +393,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "177.0.1"
+    return "178.0.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -858,7 +858,7 @@ scrollParser
     const orderBy = this.makeLodashOrderByParams(sortBy)
     return this._compileArray(filename, this.lodash.orderBy(withStats, orderBy[0], orderBy[1]))
   }
-  evalNodeJs(particle) {
+  runNodeJs(particle) {
     if (!this.isNodeJs()) return false
     const {filePath, Disk} = this
     const uid = particle._getUid()

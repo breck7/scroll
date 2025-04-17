@@ -24,6 +24,29 @@ abstractMacroParser
     this.root.addTransformer(block => block.replaceAll(search, () => replacement))
   }
 
+popMacrosParser
+ extends abstractScrollParser
+ description Clear 1 or more macros.
+ cueFromId
+ catchAllAtomType integerAtom
+ javascript
+  wake() {
+    if (!this.root.particleTransformers)
+      return
+    let count = this.atoms[1]
+    if (count === undefined)
+      delete this.root.particleTransformers
+    else {
+      count = parseInt(count)
+      while (count) {
+        this.root.particleTransformers.pop()
+        count--
+        if (!this.root.particleTransformers.length)
+          return
+      }
+    }
+  }
+
 replaceParser
  description Replace this with that.
  extends abstractMacroParser

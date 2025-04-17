@@ -9,26 +9,26 @@ replaceNodejsParser
   * The score is SCORE
  javascript
   wake() {
-    const replacements = this.root.evalNodeJs(this)
+    const replacements = this.root.runNodeJs(this)
     if (replacements)
     Object.keys(replacements).forEach(needle => {
       this.addFn(needle, replacements[needle])
     })
   }
 
-evalNodejsParser
- description Replace with evaled Node.JS.
+runNodejsParser
+ description Run as a Node.JS module.
  extends abstractScrollParser
  catchAllAtomType javascriptAnyAtom
  baseParser blobParser
  atoms parseTimeCommandAtom
  cueFromId
  example
-  evalNodejs
+  runNodejs
    module.exports = "# Hello world"
  javascript
   wake() {
-    const evaled = this.root.evalNodeJs(this)
+    const evaled = this.root.runNodeJs(this)
     if (evaled !== false)
     this.replaceWith(evaled)
   }

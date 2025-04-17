@@ -103,7 +103,7 @@ emailButton - Email button.
 endColumns - End columns.
 endSnippet - Cut for snippet here.
 evalJs - Replace this with evaled JS.
-evalNodejs - Replace with evaled Node.JS.
+evalNodeJs - Replace with evaled JS when NodeJS only.
 expander - An collapsible HTML details tag.
 favicon - Favicon file.
 fetch - Download URL to disk.
@@ -166,6 +166,7 @@ p - A paragraph.
 permalink - Override output filename.
 plainText - Plain text oneliner or block.
 plainTextOnly - Only print for buildTxt.
+popMacros - Clear 1 or more macros.
 posts - Posts as datatable.
 postsMeta - Post meta as datatable.
 pre - HTML tag.
@@ -193,6 +194,7 @@ replaceJs - Replace this with evaled JS.
 replaceNodejs - Replace with evaled Node.JS.
 rssFeedUrl - Set RSS feed URL.
 run - Run script and dump stdout.
+runNodejs - Run as a Node.JS module.
 sampleData - Sample dataset from Vega.
 scatterplot - Scatterplot Widget.
 script - Print script tag.
@@ -244,4 +246,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v177.0.1
+Built with Scroll v178.0.0

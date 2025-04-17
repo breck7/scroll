@@ -3899,10 +3899,19 @@ stamp
         const particle = this
         const script = (this.content === undefined ? "" : this.content) + "\n" + this.subparticlesToString()
         const evaled = eval(script)
-        await this.root.appendFromStream(evaled)
+        await this.root.appendFromStream(evaled.toString())
       } catch (err) {
         console.error(err)
       }
+    }
+  
+  evalNodeJsParser
+   description Replace with evaled JS when NodeJS only.
+   extends evalJsParser
+   javascript
+    async wake() {
+      if (!this.isNodeJs()) return
+      return await super.wake()
     }
   
  json.parsers
@@ -4350,6 +4359,29 @@ stamp
       // which is a special string in JS replace. "a".replace("a", `$&`).
       // PLDB actually contains that sequence.
       this.root.addTransformer(block => block.replaceAll(search, () => replacement))
+    }
+  
+  popMacrosParser
+   extends abstractScrollParser
+   description Clear 1 or more macros.
+   cueFromId
+   catchAllAtomType integerAtom
+   javascript
+    wake() {
+      if (!this.root.particleTransformers)
+        return
+      let count = this.atoms[1]
+      if (count === undefined)
+        delete this.root.particleTransformers
+      else {
+        count = parseInt(count)
+        while (count) {
+          this.root.particleTransformers.pop()
+          count--
+          if (!this.root.particleTransformers.length)
+            return
+        }
+      }
     }
   
   replaceParser
@@ -5012,26 +5044,26 @@ stamp
     * The score is SCORE
    javascript
     wake() {
-      const replacements = this.root.evalNodeJs(this)
+      const replacements = this.root.runNodeJs(this)
       if (replacements)
       Object.keys(replacements).forEach(needle => {
         this.addFn(needle, replacements[needle])
       })
     }
   
-  evalNodejsParser
-   description Replace with evaled Node.JS.
+  runNodejsParser
+   description Run as a Node.JS module.
    extends abstractScrollParser
    catchAllAtomType javascriptAnyAtom
    baseParser blobParser
    atoms parseTimeCommandAtom
    cueFromId
    example
-    evalNodejs
+    runNodejs
      module.exports = "# Hello world"
    javascript
     wake() {
-      const evaled = this.root.evalNodeJs(this)
+      const evaled = this.root.runNodeJs(this)
       if (evaled !== false)
       this.replaceWith(evaled)
     }
@@ -6505,7 +6537,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "177.0.1"
+      return "178.0.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -6970,7 +7002,7 @@ stamp
       const orderBy = this.makeLodashOrderByParams(sortBy)
       return this._compileArray(filename, this.lodash.orderBy(withStats, orderBy[0], orderBy[1]))
     }
-    evalNodeJs(particle) {
+    runNodeJs(particle) {
       if (!this.isNodeJs()) return false
       const {filePath, Disk} = this
       const uid = particle._getUid()

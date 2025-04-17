@@ -628,10 +628,10 @@
     "example": "evalJs \"# The sum of 1 + 1 is \" + 1 + 1"
   },
   {
-    "id": "evalNodejs",
-    "description": "Replace with evaled Node.JS.",
+    "id": "evalNodeJs",
+    "description": "Replace with evaled JS when NodeJS only.",
     "popularity": 0,
-    "example": "evalNodejs\n module.exports = \"# Hello world\""
+    "example": "evalJs \"# The sum of 1 + 1 is \" + 1 + 1"
   },
   {
     "id": "expander",
@@ -968,6 +968,11 @@
     "popularity": 8
   },
   {
+    "id": "popMacros",
+    "description": "Clear 1 or more macros.",
+    "popularity": 0
+  },
+  {
     "id": "posts",
     "description": "Posts as datatable.",
     "popularity": 3,
@@ -1104,6 +1109,12 @@
     "id": "run",
     "description": "Run script and dump stdout.",
     "popularity": 3
+  },
+  {
+    "id": "runNodejs",
+    "description": "Run as a Node.JS module.",
+    "popularity": 0,
+    "example": "runNodejs\n module.exports = \"# Hello world\""
   },
   {
     "id": "sampleData",
