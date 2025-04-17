@@ -70,8 +70,17 @@ evalJsParser
       const particle = this
       const script = (this.content === undefined ? "" : this.content) + "\n" + this.subparticlesToString()
       const evaled = eval(script)
-      await this.root.appendFromStream(evaled)
+      await this.root.appendFromStream(evaled.toString())
     } catch (err) {
       console.error(err)
     }
+  }
+
+evalNodeJsParser
+ description Replace with evaled JS when NodeJS only.
+ extends evalJsParser
+ javascript
+  async wake() {
+    if (!this.isNodeJs()) return
+    return await super.wake()
   }

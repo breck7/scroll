@@ -10,5 +10,5 @@ HEADER
 assertHtmlIncludes h1
 assertHtmlIncludes <b>
 
-evalNodejs
+runNodejs
  module.exports = `## This should be a subheader`
