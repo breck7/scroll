@@ -89,6 +89,10 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 178.1.0 4/21/2025
+🎉 added `scrollUnselectParser`
+🎉 `posts` parser now includes authors and year columns.
+
 📦 178.0.0 4/16/2025
 🎉 added `evalNodeJs` that is same as `evalJs` but only runs when in Node
 🎉 added popMacrosParser

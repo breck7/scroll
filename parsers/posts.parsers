@@ -30,13 +30,13 @@ abstractPostsParser
   postToRow(file) {
     const {relativePath} = file
     const {scrollProgram} = file.file
-    const {title, permalink, asTxt, date, wordCount, minutes} = scrollProgram
+    const {title, permalink, asTxt, authors, date, year, wordCount, minutes} = scrollProgram
     const text = asTxt.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
     return {
-      title, titleLink: relativePath + permalink, text, date, wordCount, minutes
+      title, titleLink: relativePath + permalink, text, authors, date, year, wordCount, minutes
     }
   }
-  columnNames = "title titleLink text date wordCount minutes".split(" ")
+  columnNames = "title titleLink text authors date year wordCount minutes".split(" ")
 
 scrollPostsParser
  popularity 0.000024

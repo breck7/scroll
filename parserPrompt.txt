@@ -5980,13 +5980,13 @@ stamp
     postToRow(file) {
       const {relativePath} = file
       const {scrollProgram} = file.file
-      const {title, permalink, asTxt, date, wordCount, minutes} = scrollProgram
+      const {title, permalink, asTxt, authors, date, year, wordCount, minutes} = scrollProgram
       const text = asTxt.replace(/(\t|\n)/g, " ").replace(/</g, "&lt;")
       return {
-        title, titleLink: relativePath + permalink, text, date, wordCount, minutes
+        title, titleLink: relativePath + permalink, text, authors, date, year, wordCount, minutes
       }
     }
-    columnNames = "title titleLink text date wordCount minutes".split(" ")
+    columnNames = "title titleLink text authors date year wordCount minutes".split(" ")
   
   scrollPostsParser
    popularity 0.000024
@@ -6537,7 +6537,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "178.0.0"
+      return "178.1.0"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -8001,6 +8001,22 @@ stamp
       return this._columnNames
     }
   
+  scrollUnselectParser
+   extends scrollSelectParser
+   cue unselect
+   example
+    iris
+     unselect species
+      printTable
+   javascript
+    get columnNames() {
+      if (!this._columnNames) {
+        const names = this.getAtomsFrom(1)
+       this._columnNamesMap = this.connectColumnNames(names)
+       this._columnNames = this.parent.columnNames.filter(name => !this._columnNamesMap[name])
+      }
+      return this._columnNames
+    }
   
   scrollReverseParser
    extends abstractTableTransformParser

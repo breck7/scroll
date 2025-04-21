@@ -45,13 +45,6 @@ sepal_length,sepal_width,petal_length,petal_width,species
 
 You can also load datasets from Vega's collection:
 
-zip_code,latitude,longitude,city,state,county
-501,40.922326,-72.637078,Holtsville,NY,Suffolk
-544,40.922326,-72.637078,Holtsville,NY,Suffolk
-601,18.165273,-66.722583,Adjuntas,PR,Adjuntas
-602,18.393103,-67.180953,Aguada,PR,Aguada
-603,18.455913,-67.14578,Aguadilla,PR,Aguadilla
-
 Basic Data Operations
 =====================
 
@@ -113,13 +106,6 @@ Grouping and Aggregation
 
 Let's look at some more complex transformations:
 
-weather,count,avg_max_temp,avg_min_temp
-drizzle,129,18.555813953488368,10.143410852713178
-rain,459,15.535294117647041,9.04727668845315
-sun,1674,18.064157706093184,8.87275985663083
-snow,78,4.528205128205127,-1.4346153846153844
-fog,582,15.261855670103111,8.527319587628869
-
 Creating New Columns
 ====================
 
@@ -159,4 +145,4 @@ This tutorial covered the basics of data science with Scroll. Some key takeaways
 
 ⁂
 
-Built with Scroll v178.0.0
+Built with Scroll v178.1.0
