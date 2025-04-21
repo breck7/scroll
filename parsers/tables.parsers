@@ -439,6 +439,22 @@ scrollSelectParser
     return this._columnNames
   }
 
+scrollUnselectParser
+ extends scrollSelectParser
+ cue unselect
+ example
+  iris
+   unselect species
+    printTable
+ javascript
+  get columnNames() {
+    if (!this._columnNames) {
+      const names = this.getAtomsFrom(1)
+     this._columnNamesMap = this.connectColumnNames(names)
+     this._columnNames = this.parent.columnNames.filter(name => !this._columnNamesMap[name])
+    }
+    return this._columnNames
+  }
 
 scrollReverseParser
  extends abstractTableTransformParser
