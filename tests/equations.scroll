@@ -1,0 +1,74 @@
+buildHtml
+metaTags
+
+y= 5000000000 * Math.exp(0.015 * (x - 2000))
+ range 1800 2025 226
+ linechart
+  x x
+  y y
+  title World Population (1800-2025)
+  subtitle Exponential Growth Model
+
+y= (11000000000 / 0.015) * (Math.exp(0.015 * x) - 1)
+ range -50000 2025 1000
+ linechart
+  x x
+  y y
+  title Cumulative Humans Ever Lived
+  subtitle From 50,000 BCE to 2025 CE
+
+y= 12000000000 / (1 + Math.exp(-0.02 * (x - 2000)))
+ range 1800 2200 401
+ linechart
+  x x
+  y y
+  title Logistic Population Growth
+  subtitle Carrying Capacity at 12 Billion
+
+y= 15 + 10 * Math.sin(2 * Math.PI * x / 365)
+ range 0 365 366
+ linechart
+  x x
+  y y
+  title Daily Temperature Variation
+  subtitle Annual Cycle in Degrees Celsius
+
+y= 100 * Math.exp(-0.0693 * x)
+ range 0 100 101
+ linechart
+  x x
+  y y
+  title Radioactive Decay
+  subtitle Carbon-14 (Half-life ~5730 years)
+
+y= 1000000 * (x - 2000) * (x - 2000)
+ range 2000 2025 26
+ barchart
+  x x
+  y y
+  title Smartphone Adoption
+  subtitle Quadratic Growth Model
+
+y= 1000 * Math.pow(1 + 0.05, x)
+ range 0 50 51
+ linechart
+  x x
+  y y
+  title Compound Interest
+  subtitle 5% Annual Rate
+
+y= 1000 * Math.sin(x / 2) + 2000
+ range 0 50 201
+ linechart
+  x x
+  y y
+  title Prey Population
+  subtitle Simplified Lotka-Volterra Model
+
+y= Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI)
+ range -5 5 201
+ linechart
+  x x
+  y y
+  title Standard Normal Distribution
+  subtitle Probability Density
