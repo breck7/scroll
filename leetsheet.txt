@@ -232,6 +232,7 @@ useParserPool - Load a cached parser pool.
 video - Play video files.
 wideColumn - A wide column section.
 wideColumns - Wide columns.
+y= - Generate tabular dataset from equation.
 youtube - A YouTube video widget.
 
 Commonly used parsers are *bolded*. CSV version.
@@ -246,4 +247,4 @@ Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Par
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v178.1.0
+Built with Scroll v178.2.0

@@ -1314,6 +1314,12 @@
     "popularity": 39
   },
   {
+    "id": "y=",
+    "description": "Generate tabular dataset from equation.",
+    "popularity": 214,
+    "example": "y= Math.sin(x)\n range -6.28 6.28 100\n printTable\n linechart\n  x x\n  y y"
+  },
+  {
     "id": "youtube",
     "description": "A YouTube video widget.",
     "popularity": 13,

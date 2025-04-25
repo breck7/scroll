@@ -3009,6 +3009,81 @@ scrollDiskParser
    }
    return JSON.stringify(getDirectoryContents(folder))
   }
+scrollEquationTableParser
+ extends scrollTableParser
+ cue y=
+ description Generate tabular dataset from equation.
+ catchAllAtomType codeAtom
+ rangeParser
+  description Specify the x range and number of points
+  atoms cueAtom floatAtom floatAtom integerAtom
+  cue range
+  single
+ javascript
+   get coreTable() {
+     if (this._coreTable) return this._coreTable
+     const equation = this.content || "x"
+     const range = this.getParticle("range")
+     const start = range ? parseFloat(range.getAtom(1)) : 0
+     const end = range ? parseFloat(range.getAtom(2)) : 10
+     const points = range ? parseInt(range.getAtom(3)) : 100
+     const step = (end - start) / (points - 1)
+     this._coreTable = Array.from({ length: points }, (_, i) => {
+       const x = start + i * step
+       let y
+       try {
+         // Safely evaluate the equation with x
+         y = eval(equation.replace(/\bx\b/g, `(${x})`))
+         if (isNaN(y) || !isFinite(y)) {
+           y = null
+         }
+       } catch (err) {
+         console.error(`Error evaluating equation at x=${x}:`, err)
+         y = null
+       }
+       return { x, y }
+     })
+     return this._coreTable
+   }
+   get columnNames() {
+     return ["x", "y"]
+   }
+   getErrors() {
+     const errors = super.getErrors()
+     const equation = this.content
+     if (!equation) {
+       errors.push(this.makeError("Equation must be provided"))
+     }
+     try {
+       // Test equation with a sample value
+       eval(equation.replace(/\bx\b/g, "(0)"))
+     } catch (err) {
+       errors.push(this.makeError(`Invalid equation: ${err.message}`))
+     }
+     const range = this.getParticle("range")
+     if (range) {
+       const start = parseFloat(range.getAtom(1))
+       const end = parseFloat(range.getAtom(2))
+       const points = parseInt(range.getAtom(3))
+       if (isNaN(start) || isNaN(end)) {
+         errors.push(this.makeError("Range start and end must be valid numbers"))
+       }
+       if (start >= end) {
+         errors.push(this.makeError("Range start must be less than end"))
+       }
+       if (isNaN(points) || points < 1) {
+         errors.push(this.makeError("Number of points must be a positive integer"))
+       }
+     }
+     return errors
+   }
+ example
+  y= Math.sin(x)
+   range -6.28 6.28 100
+   printTable
+   linechart
+    x x
+    y y
 scrollIrisParser
  extends scrollTableParser
  description Iris dataset from R.A. Fisher.
@@ -7876,7 +7951,7 @@ scrollParser
   }
   get scrollVersion() {
     // currently manually updated
-    return "178.1.0"
+    return "178.2.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

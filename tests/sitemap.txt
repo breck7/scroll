@@ -1,3 +1,4 @@
+https://scroll.pub/stampTest.html
 https://scroll.pub/stopwatch.html
 https://scroll.pub/style.html
 https://scroll.pub/styles.html
@@ -14,7 +15,7 @@ https://scroll.pub/slideshowDemo.html
 https://scroll.pub/snippets.html
 https://scroll.pub/source.html
 https://scroll.pub/sourcemaps.html
-https://scroll.pub/stampTest.html
+https://scroll.pub/javascript.html
 https://scroll.pub/json.html
 https://scroll.pub/keyboardNav.html
 https://scroll.pub/lists.html
@@ -59,6 +60,7 @@ https://scroll.pub/disk.html
 https://scroll.pub/dumpParsers.html
 https://scroll.pub/edit.html
 https://scroll.pub/empty.html
+https://scroll.pub/equations.html
 https://scroll.pub/example.html
 https://scroll.pub/favicon.html
 https://scroll.pub/feed.html
@@ -71,7 +73,6 @@ https://scroll.pub/html.html
 https://scroll.pub/index.html
 https://scroll.pub/inline.html
 https://scroll.pub/iris.html
-https://scroll.pub/javascript.html
 https://scroll.pub/a-review-of-my-sink.html
 https://scroll.pub/aParser.html
 https://scroll.pub/about.html

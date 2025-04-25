@@ -412,4 +412,10 @@ useParserPool,,Load a cached parser pool.,0,,
 video,,Play video files.,3,video spirit.mp4,
 wideColumn,,A wide column section.,338,,
 wideColumns,,Wide columns.,39,,
+y=,,Generate tabular dataset from equation.,214,"y= Math.sin(x)
+range -6.28 6.28 100
+printTable
+linechart
+ x x
+ y y",
 youtube,,A YouTube video widget.,13,youtube https://www.youtube.com/watch?v=lO8blNtYYBA,
