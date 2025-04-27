@@ -1,15 +1,15 @@
 [
   {
-    "date": "04/25/2025",
+    "date": "04/27/2025",
     "year": 2025,
     "title": "Search the Official Scroll Blog",
     "permalink": "search.html",
     "tags": "",
-    "wordCount": 10093,
-    "minutes": 50.5
+    "wordCount": 10054,
+    "minutes": 50.3
   },
   {
-    "date": "04/25/2025",
+    "date": "04/27/2025",
     "year": 2025,
     "title": "Settings",
     "permalink": "settings.html",
@@ -18,7 +18,7 @@
     "minutes": 0
   },
   {
-    "date": "04/25/2025",
+    "date": "04/27/2025",
     "year": 2025,
     "title": "Sitemap",
     "permalink": "sitemap.html",
@@ -27,7 +27,7 @@
     "minutes": 0.8
   },
   {
-    "date": "04/25/2025",
+    "date": "04/27/2025",
     "year": 2025,
     "title": "The Official Scroll Blog",
     "permalink": "index.html",
@@ -36,7 +36,7 @@
     "minutes": 1.6
   },
   {
-    "date": "04/25/2025",
+    "date": "04/27/2025",
     "year": 2025,
     "title": "Feed",
     "permalink": "feed.html",
@@ -45,7 +45,7 @@
     "minutes": 3
   },
   {
-    "date": "04/25/2025",
+    "date": "04/27/2025",
     "year": 2025,
     "title": "The Official Scroll Blog",
     "permalink": "full.html",
@@ -80,8 +80,8 @@
     "permalink": "forms.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 369,
-    "minutes": 1.8
+    "wordCount": 330,
+    "minutes": 1.6
   },
   {
     "date": "09/02/2024",
