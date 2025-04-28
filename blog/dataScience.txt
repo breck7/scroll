@@ -45,6 +45,13 @@ sepal_length,sepal_width,petal_length,petal_width,species
 
 You can also load datasets from Vega's collection:
 
+<style>body
+{  font-family: -apple-system
+{  max-width: 600px;
+{  margin: 40px auto;
+{  padding: 20px;
+{  line-height: 1.6;
+
 Basic Data Operations
 =====================
 
@@ -106,6 +113,9 @@ Grouping and Aggregation
 
 Let's look at some more complex transformations:
 
+count,avg_max_temp,avg_min_temp
+13,NaN,NaN
+
 Creating New Columns
 ====================
 
@@ -145,4 +155,4 @@ This tutorial covered the basics of data science with Scroll. Some key takeaways
 
 ⁂
 
-Built with Scroll v178.2.0
+Built with Scroll v178.2.1

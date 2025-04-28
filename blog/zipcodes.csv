@@ -1,0 +1,14 @@
+<style>body {
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+ max-width: 600px;
+ margin: 40px auto;
+ padding: 20px;
+ line-height: 1.6;
+}
+h1 { color: #333; }
+.message { color: #666; }
+.suggestion { margin-top: 20px; color: #0066cc; }</style>
+<div class="scrollSection"><h1 id="particle4" class="scrollParagraph">Folder Not Found</h1>
+</div>
+<p id="particle6" class="message" class="message">The folder "ohayo.scroll.pub" does not exist on this <a href="https://github.com/breck7/ScrollHub">ScrollHub</a> instance.</p>
+<p id="particle8" class="suggestion" class="suggestion">If you'd like to create this folder, visit <a href="https://hub.scroll.pub">our main site</a> to get started.</p>

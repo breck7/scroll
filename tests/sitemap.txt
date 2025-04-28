@@ -7,6 +7,7 @@ https://scroll.pub/themes.html
 https://scroll.pub/tufte.html
 https://scroll.pub/txt.html
 https://scroll.pub/video.html
+https://scroll.pub/slideshowDemo.html
 https://scroll.pub/snippets.html
 https://scroll.pub/source.html
 https://scroll.pub/sourcemaps.html
@@ -14,6 +15,7 @@ https://scroll.pub/stampTest.html
 https://scroll.pub/stopwatch.html
 https://scroll.pub/style.html
 https://scroll.pub/styles.html
+https://scroll.pub/meta.html
 https://scroll.pub/modal.html
 https://scroll.pub/moveToFooter.html
 https://scroll.pub/music.html
@@ -33,7 +35,8 @@ https://scroll.pub/script.html
 https://scroll.pub/scrollFormsTest.html
 https://scroll.pub/scrollVersion.html
 https://scroll.pub/settings.html
-https://scroll.pub/slideshowDemo.html
+https://scroll.pub/customMarkups.html
+https://scroll.pub/dark.html
 https://scroll.pub/dateTransforms.html
 https://scroll.pub/debug.html
 https://scroll.pub/debugging.html
@@ -64,7 +67,6 @@ https://scroll.pub/lists.html
 https://scroll.pub/macros.html
 https://scroll.pub/maps.html
 https://scroll.pub/markups.html
-https://scroll.pub/meta.html
 https://scroll.pub/a-review-of-my-sink.html
 https://scroll.pub/aParser.html
 https://scroll.pub/about.html
@@ -83,6 +85,4 @@ https://scroll.pub/concepts.html
 https://scroll.pub/contacts.html
 https://scroll.pub/css.html
 https://scroll.pub/csv.html
-https://scroll.pub/customMarkups.html
-https://scroll.pub/dark.html
 https://scroll.pub/top-sinks.html

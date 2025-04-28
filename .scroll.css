@@ -267,6 +267,11 @@ center .scrollParagraph {
   text-align: justify;
 }
 
+.scrollContainerParser {
+  padding: 0 1rem;
+}
+
+
 h1,
 h2,
 h3,
