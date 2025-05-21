@@ -76,10 +76,24 @@ footer.scroll`
     return this.log(`\n💡 To delete a Scroll just delete the folder\n`)
   }
 
-  async getErrorsInFolder(folder) {
-    const fileSystem = this.sfs
+  async _getFilesInFolder(folder) {
     const folderPath = ensureFolderEndsInSlash(folder)
-    const files = await fileSystem.getFusedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
+    const sfs = this.sfs
+
+    // todo: fix this! getFusedFilesInFolder does not always seem to be working.
+    // (wanted to remove that anyway)
+    // const allFiles = (await sfs.list(folder)).filter(file => file.endsWith(".scroll"))
+    // const loadedFiles = []
+    // for (let filePath of allFiles) {
+    //   loadedFiles.push(await sfs.getFusedFile(filePath))
+    // }
+    // return loadedFiles
+
+    return await this.sfs.getFusedFilesInFolder(folderPath, ".scroll") // Init/cache all parsers
+  }
+
+  async getErrorsInFolder(folder) {
+    const files = await this._getFilesInFolder(folder)
     return await this.getErrorsInFiles(files)
   }
 
