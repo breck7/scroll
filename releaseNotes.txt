@@ -2,17 +2,17 @@ Scroll Release Notes
 ====================
 Scroll Tutorial
 ===============
-04/28/2025
+05/21/2025
 https://scroll.pub/tutorial.html
 
 Scroll Roadmap
 ==============
-04/28/2025
+05/21/2025
 https://scroll.pub/roadmap.html
 
 Scroll FAQ
 ==========
-04/28/2025
+05/21/2025
 https://scroll.pub/faq.html
 
 A list of what has changed in Scroll releases.
@@ -24,6 +24,10 @@ Download as CSV | TSV | JSON
  https://scroll.pub/releaseNotes.json JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
+
+178.2.2 5/21/2025
+=================
+🏥 fix regression in plainTextOnly
 
 178.2.1 4/28/2025
 =================
@@ -1258,30 +1262,30 @@ Demos
 =====
 
 date,year,title,permalink,authors,tags,wordCount,minutes
-04/28/2025,2025,Top Buttons,topButtons.html,,,0,0
-04/28/2025,2025,Scroll Tutorial,tutorial.html,,main,951,4.8
-04/28/2025,2025,Wws,wws.html,,,35,0.2
-04/28/2025,2025,Wws Redirect,wws.html,,,0,0
-04/28/2025,2025,Scroll Release Notes,releaseNotes.html,,main,17219,86.1
-04/28/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
-04/28/2025,2025,Scroll Prompt,scrollPrompt.html,,,4521,22.6
-04/28/2025,2025,Scrollset Prompt,scrollsetPrompt.html,,,3720,18.6
-04/28/2025,2025,Settings,settings.html,,,0,0
-04/28/2025,2025,Sitemap,sitemap.html,,,120,0.6
-04/28/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-04/28/2025,2025,Scroll is a language for scientists of all ages,index.html,,,176,0.9
-04/28/2025,2025,Readme Prompt,readmePrompt.html,,,22025,110.1
-04/28/2025,2025,Scroll LeetSheet,leetsheet.html,,,1186,5.9
-04/28/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,182,0.9
-04/28/2025,2025,Parser Prompt,parserPrompt.html,,,30190,150.9
-04/28/2025,2025,Parser Usage,parserUsage.html,,,280,1.4
-04/28/2025,2025,Parsers,parsers.html,,,29925,149.6
-04/28/2025,2025,Scroll FAQ,faq.html,,main,3349,16.7
-04/28/2025,2025,Header,header.html,,,0,0
-04/28/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
-04/28/2025,2025,Scroll Cloc Stats,cloc.html,,,66,0.3
-04/28/2025,2025,Download Scroll.pub,download.html,,,49,0.2
-04/28/2025,2025,Animation,animation.html,,,12,0.1
+05/21/2025,2025,Top Buttons,topButtons.html,,,0,0
+05/21/2025,2025,Scroll Tutorial,tutorial.html,,main,951,4.8
+05/21/2025,2025,Wws,wws.html,,,35,0.2
+05/21/2025,2025,Wws Redirect,wws.html,,,0,0
+05/21/2025,2025,Scroll Prompt,scrollPrompt.html,,,4521,22.6
+05/21/2025,2025,Scrollset Prompt,scrollsetPrompt.html,,,3720,18.6
+05/21/2025,2025,Settings,settings.html,,,0,0
+05/21/2025,2025,Sitemap,sitemap.html,,,120,0.6
+05/21/2025,2025,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
+05/21/2025,2025,Scroll is a language for scientists of all ages,index.html,,,176,0.9
+05/21/2025,2025,Readme Prompt,readmePrompt.html,,,22035,110.2
+05/21/2025,2025,Scroll Release Notes,releaseNotes.html,,main,17229,86.1
+05/21/2025,2025,Scroll Roadmap,roadmap.html,,main,137,0.7
+05/21/2025,2025,Scroll LeetSheet,leetsheet.html,,,1186,5.9
+05/21/2025,2025,Parsers LeetSheet,parserLeetsheet.html,,,182,0.9
+05/21/2025,2025,Parser Prompt,parserPrompt.html,,,30199,151
+05/21/2025,2025,Parser Usage,parserUsage.html,,,280,1.4
+05/21/2025,2025,Parsers,parsers.html,,,29934,149.7
+05/21/2025,2025,Scroll FAQ,faq.html,,main,3349,16.7
+05/21/2025,2025,Header,header.html,,,0,0
+05/21/2025,2025,Ci Badges,ciBadges.html,,,12,0.1
+05/21/2025,2025,Scroll Cloc Stats,cloc.html,,,66,0.3
+05/21/2025,2025,Download Scroll.pub,download.html,,,49,0.2
+05/21/2025,2025,Animation,animation.html,,,12,0.1
 
 127.0.0 9/4/2024
 ================
@@ -3918,4 +3922,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v178.2.1
+Built with Scroll v178.2.2

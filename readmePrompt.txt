@@ -89,6 +89,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 178.2.2 5/21/2025
+🏥 fix regression in plainTextOnly
+
 📦 178.2.1 4/28/2025
 🏥 add padding to container on mobile. Thanks tbd!
  https://x.com/tbdr tbd

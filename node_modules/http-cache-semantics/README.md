@@ -1,10 +1,12 @@
-# Can I cache this? [![Build Status](https://travis-ci.org/kornelski/http-cache-semantics.svg?branch=master)](https://travis-ci.org/kornelski/http-cache-semantics)
+# Can I cache this?
 
-`CachePolicy` tells when responses can be reused from a cache, taking into account [HTTP RFC 7234](http://httpwg.org/specs/rfc7234.html) rules for user agents and shared caches.
-It also implements [RFC 5861](https://tools.ietf.org/html/rfc5861), implementing `stale-if-error` and `stale-while-revalidate`.
+This library tells when responses can be reused from a cache, taking into account [HTTP RFC 7234/9111](http://httpwg.org/specs/rfc9111.html) rules for user agents and shared caches.
+It also implements `stale-if-error` and `stale-while-revalidate` from [RFC 5861](https://tools.ietf.org/html/rfc5861).
 It's aware of many tricky details such as the `Vary` header, proxy revalidation, and authenticated responses.
 
-## Usage
+## Basic Usage
+
+`CachePolicy` is a metadata object that is meant to be stored in the cache, and it will keep track of cacheability of the response.
 
 Cacheability of an HTTP response depends on how it was requested, so both `request` and `response` are required to create the policy.
 
@@ -20,22 +22,26 @@ if (!policy.storable()) {
 // (this is pseudocode, roll your own cache (lru-cache package works))
 letsPretendThisIsSomeCache.set(
     request.url,
-    { policy, response },
+    { policy, body: response.body }, // you only need to store the response body. CachePolicy holds the headers.
     policy.timeToLive()
 );
 ```
 
 ```js
 // And later, when you receive a new request:
-const { policy, response } = letsPretendThisIsSomeCache.get(newRequest.url);
+const { policy, body } = letsPretendThisIsSomeCache.get(newRequest.url);
 
 // It's not enough that it exists in the cache, it has to match the new request, too:
 if (policy && policy.satisfiesWithoutRevalidation(newRequest)) {
     // OK, the previous response can be used to respond to the `newRequest`.
     // Response headers have to be updated, e.g. to add Age and remove uncacheable headers.
-    response.headers = policy.responseHeaders();
-    return response;
+    return {
+        headers: policy.responseHeaders(),
+        body,
+    }
 }
+
+// Cache miss. See revalidationHeaders() and revalidatedPolicy() for advanced usage.
 ```
 
 It may be surprising, but it's not enough for an HTTP response to be [fresh](#yo-fresh) to satisfy a request. It may need to match request headers specified in `Vary`. Even a matching fresh response may still not be usable if the new request restricted cacheability, etc.
@@ -84,7 +90,7 @@ Returns `true` if the response can be stored in a cache. If it's `false` then yo
 
 ### `satisfiesWithoutRevalidation(newRequest)`
 
-This is the most important method. Use this method to check whether the cached response is still fresh in the context of the new request.
+Use this method to check whether the cached response is still fresh in the context of the new request.
 
 If it returns `true`, then the given `request` matches the original response this cache policy has been created with, and the response can be reused without contacting the server. Note that the old response can't be returned without being updated, see `responseHeaders()`.
 
@@ -95,19 +101,109 @@ If it returns `false`, then the response may not be matching at all (e.g. it's f
 Returns updated, filtered set of response headers to return to clients receiving the cached response. This function is necessary, because proxies MUST always remove hop-by-hop headers (such as `TE` and `Connection`) and update response's `Age` to avoid doubling cache time.
 
 ```js
-cachedResponse.headers = cachePolicy.responseHeaders(cachedResponse);
+cachedResponse.headers = cachePolicy.responseHeaders();
 ```
 
 ### `timeToLive()`
 
-Returns approximate time in _milliseconds_ until the response becomes stale (i.e. not fresh).
+Suggests a time in _milliseconds_ for how long this cache entry may be useful. This is not freshness, so always check with `satisfiesWithoutRevalidation()`. This time may be longer than response's `max-age` to allow for `stale-if-error` and `stale-while-revalidate`.
 
-After that time (when `timeToLive() <= 0`) the response might not be usable without revalidation. However, there are exceptions, e.g. a client can explicitly allow stale responses, so always check with `satisfiesWithoutRevalidation()`.
-`stale-if-error` and `stale-while-revalidate` extend the time to live of the cache, that can still be used if stale.
+After that time (when `timeToLive() <= 0`) the response may still be usable in certain cases, e.g. if client can explicitly allows stale responses.
 
 ### `toObject()`/`fromObject(json)`
 
-Chances are you'll want to store the `CachePolicy` object along with the cached response. `obj = policy.toObject()` gives a plain JSON-serializable object. `policy = CachePolicy.fromObject(obj)` creates an instance from it.
+You'll want to store the `CachePolicy` object along with the cached response. `obj = policy.toObject()` gives a plain JSON-serializable object. `policy = CachePolicy.fromObject(obj)` creates an instance from it.
+
+## Complete Usage
+
+### `evaluateRequest(newRequest)`
+
+Returns an object telling what to do next — optional `revalidation`, and optional `response` from cache. Either one of these properties will be present. Both may be present at the same time.
+
+```js
+{
+    // If defined, you must send a request to the server.
+    revalidation: {
+        headers: {}, // HTTP headers to use when sending the revalidation response
+        // If true, you MUST wait for a response from the server before using the cache
+        // If false, this is stale-while-revalidate. The cache is stale, but you can use it while you update it asynchronously.
+        synchronous: bool,
+    },
+    // If defined, you can use this cached response.
+    response: {
+        headers: {}, // Updated cached HTTP headers you must use when responding to the client
+    },
+}
+```
+
+### Example
+
+```js
+let cached = cacheStorage.get(incomingRequest.url);
+
+// Cache miss - make a request to the origin and cache it
+if (!cached) {
+    const newResponse = await makeRequest(incomingRequest);
+    const policy = new CachePolicy(incomingRequest, newResponse);
+
+    cacheStorage.set(
+        incomingRequest.url,
+        { policy, body: newResponse.body },
+        policy.timeToLive()
+    );
+
+    return {
+        // use responseHeaders() to remove hop-by-hop headers that should not be passed through proxies
+        headers: policy.responseHeaders(),
+        body: newResponse.body,
+    }
+}
+
+// There's something cached, see if it's a hit
+let { revalidation, response } = cached.policy.evaluateRequest(incomingRequest);
+
+// Revalidation always goes first
+if (revalidation) {
+    // It's very important to update the request headers to make a correct revalidation request
+    incomingRequest.headers = revalidation.headers; // Same as cached.policy.revalidationHeaders()
+
+    // The cache may be updated immediately or in the background,
+    // so use a Promise to optionally defer the update
+    const updatedResponsePromise = makeRequest(incomingRequest).then(() => {
+        // Refresh the old response with the new information, if applicable
+        const { policy, modified } = cached.policy.revalidatedPolicy(incomingRequest, newResponse);
+
+        const body = modified ? newResponse.body : cached.body;
+
+        // Update the cache with the newer response
+        if (policy.storable()) {
+            cacheStorage.set(
+                incomingRequest.url,
+                { policy, body },
+                policy.timeToLive()
+            );
+        }
+
+        return {
+            headers: policy.responseHeaders(), // these are from the new revalidated policy
+            body,
+        }
+    });
+
+    if (revalidation.synchronous) {
+        // If synchronous, then you MUST get a reply from the server first
+        return await updatedResponsePromise;
+    }
+
+    // If not synchronous, it can fall thru to returning the cached response,
+    // while the request to the server is happening in the background.
+}
+
+return {
+    headers: response.headers, // Same as cached.policy.responseHeaders()
+    body: cached.body,
+}
+```
 
 ### Refreshing stale cache (revalidation)
 
@@ -119,7 +215,7 @@ The following methods help perform the update efficiently and correctly.
 
 Returns updated, filtered set of request headers to send to the origin server to check if the cached response can be reused. These headers allow the origin server to return status 304 indicating the response is still fresh. All headers unrelated to caching are passed through as-is.
 
-Use this method when updating cache from the origin server.
+Use this method when updating cache from the origin server. Also available in `evaluateRequest(newRequest).revalidation.headers`.
 
 ```js
 updateRequest.headers = cachePolicy.revalidationHeaders(updateRequest);
@@ -130,42 +226,9 @@ updateRequest.headers = cachePolicy.revalidationHeaders(updateRequest);
 Use this method to update the cache after receiving a new response from the origin server. It returns an object with two keys:
 
 -   `policy` — A new `CachePolicy` with HTTP headers updated from `revalidationResponse`. You can always replace the old cached `CachePolicy` with the new one.
--   `modified` — Boolean indicating whether the response body has changed.
-    -   If `false`, then a valid 304 Not Modified response has been received, and you can reuse the old cached response body. This is also affected by `stale-if-error`.
-    -   If `true`, you should use new response's body (if present), or make another request to the origin server without any conditional headers (i.e. don't use `revalidationHeaders()` this time) to get the new resource.
-
-```js
-// When serving requests from cache:
-const { oldPolicy, oldResponse } = letsPretendThisIsSomeCache.get(
-    newRequest.url
-);
-
-if (!oldPolicy.satisfiesWithoutRevalidation(newRequest)) {
-    // Change the request to ask the origin server if the cached response can be used
-    newRequest.headers = oldPolicy.revalidationHeaders(newRequest);
-
-    // Send request to the origin server. The server may respond with status 304
-    const newResponse = await makeRequest(newRequest);
-
-    // Create updated policy and combined response from the old and new data
-    const { policy, modified } = oldPolicy.revalidatedPolicy(
-        newRequest,
-        newResponse
-    );
-    const response = modified ? newResponse : oldResponse;
-
-    // Update the cache with the newer/fresher response
-    letsPretendThisIsSomeCache.set(
-        newRequest.url,
-        { policy, response },
-        policy.timeToLive()
-    );
-
-    // And proceed returning cached response as usual
-    response.headers = policy.responseHeaders();
-    return response;
-}
-```
+-   `modified` — Boolean indicating whether the response body has changed, and you should use the new response body sent by the server.
+    -   If `true`, you should use the new response body, and you can replace the old cached response with the updated one.
+    -   If `false`, then you should reuse the old cached response body. Either a valid 304 Not Modified response has been received, or an error happened and `stale-if-error` allows falling back to the cache.
 
 # Yo, FRESH
 
@@ -174,6 +237,7 @@ if (!oldPolicy.satisfiesWithoutRevalidation(newRequest)) {
 ## Used by
 
 -   [ImageOptim API](https://imageoptim.com/api), [make-fetch-happen](https://github.com/zkat/make-fetch-happen), [cacheable-request](https://www.npmjs.com/package/cacheable-request) ([got](https://www.npmjs.com/package/got)), [npm/registry-fetch](https://github.com/npm/registry-fetch), [etc.](https://github.com/kornelski/http-cache-semantics/network/dependents)
+-   [Rust version of this library](https://lib.rs/crates/http-cache-semantics).
 
 ## Implemented
 
@@ -187,6 +251,7 @@ if (!oldPolicy.satisfiesWithoutRevalidation(newRequest)) {
 -   Filtering of hop-by-hop headers.
 -   Basic revalidation request
 -   `stale-if-error`
+-   `stale-while-revalidate`
 
 ## Unimplemented
 

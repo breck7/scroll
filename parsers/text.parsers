@@ -27,6 +27,11 @@ plainTextOnlyParser
  popularity 0.000072
  extends plainTextParser
  description Only print for buildTxt.
+ javascript
+  buildHtml() {
+   // Do not emit anything for html.
+   return ""
+  }
 
 printFormatLinksParser
  description Prints links to other formats.

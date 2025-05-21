@@ -6613,7 +6613,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "178.2.1"
+      return "178.2.2"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)
@@ -8456,6 +8456,11 @@ stamp
    popularity 0.000072
    extends plainTextParser
    description Only print for buildTxt.
+   javascript
+    buildHtml() {
+     // Do not emit anything for html.
+     return ""
+    }
   
   printFormatLinksParser
    description Prints links to other formats.
