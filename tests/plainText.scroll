@@ -1,0 +1,3 @@
+plainTextOnly foobar
+assert html excludes foobar
+assert txt includes foobar
