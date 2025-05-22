@@ -109,6 +109,7 @@ scrollImportedParser
     particles.forEach(particle => particle.destroy())
   }
   getErrors() {
+    if (this.silenceErrors) return [] // todo: generalize this?
     if (this.has("circularImportError"))
       return [this.makeError(this.get("circularImportError"))]
     if (this.get("exists") === "false" && this.previous.getLine() !== "// optional")
