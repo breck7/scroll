@@ -1,27 +1,27 @@
 date	year	title	permalink	authors	tags	wordCount	minutes
-05/21/2025	2025	Search the Official Scroll Blog	search.html			10134	50.7
-05/21/2025	2025	Settings	settings.html			0	0
-05/21/2025	2025	Sitemap	sitemap.html			157	0.8
-05/21/2025	2025	The Official Scroll Blog	index.html			314	1.6
-05/21/2025	2025	Feed	feed.html			608	3
-05/21/2025	2025	The Official Scroll Blog	full.html			314	1.6
-01/06/2025	2025	Data Science with Scroll	dataScience.html	Breck Yunits	All	715	3.6
-10/28/2024	2024	Scroll in 50 Questions	scrollInQuestions.html	Breck Yunits	All	1082	5.4
-10/01/2024	2024	Web Forms for Geniuses	forms.html	Breck Yunits	All	330	1.6
-09/02/2024	2024	The Successor to RSS is Git Clone	gitOverRss.html	Breck Yunits	All	255	1.3
-08/30/2024	2024	A New Way to Program	teddyTalk.html	Breck Yunits	All	425	2.1
-08/09/2024	2024	Datatables: a microlang for data science	tables.html	Breck Yunits	All	479	2.4
-08/02/2024	2024	Build Your Own Counters With 3 Words	counters.html	Breck Yunits	All	1029	5.1
-07/28/2024	2024	Heatrix: Heat Maps + Matrix Visualizations	heatrix.html	Breck Yunits	All	470	2.4
-07/16/2024	2024	Contacts: A Microlang for Managing Contacts	contacts.html	Breck Yunits	All	374	1.9
-07/12/2024	2024	How I Designed Helpful 404's and Stopped Worrying about Broken Links	helpful404s.html	Breck Yunits	All	547	2.7
-07/09/2024	2024	Convert CSVs to ScrollSets	csvToScrollSet.html	Breck Yunits	All	100	0.5
 07/01/2024	2024	Changes: A Microlang for Change Logs	changes.html	Breck Yunits	All	431	2.2
-06/24/2024	2024	Write scatterplot to get a scatterplot	plot.html	Breck Yunits	All	342	1.7
-06/23/2024	2024	Stamp: a microlang for project templates	stamp.html	Breck Yunits	All	306	1.5
-04/29/2024	2024	Scroll builds text files	textFiles.html	Breck Yunits	All	175	0.9
-04/21/2024	2024	ScrollSets: source code for CSVs	scrollsets.html	Breck Yunits	All ScrollSets	1148	5.7
-05/08/2023	2023	Introducing Program Links	programLinks.html	Breck Yunits	All	522	2.6
+07/16/2024	2024	Contacts: A Microlang for Managing Contacts	contacts.html	Breck Yunits	All	374	1.9
 04/13/2023	2023	Counterpoints: A new tool for thought in the Scroll Language	counterpoints.html	Breck Yunits	All	391	2
-10/02/2022	2022	Introducing the Blink Tag	introducingBlink.html	Breck Yunits	All	176	0.9
+08/02/2024	2024	Build Your Own Counters With 3 Words	counters.html	Breck Yunits	All	1029	5.1
+07/09/2024	2024	Convert CSVs to ScrollSets	csvToScrollSet.html	Breck Yunits	All	100	0.5
+01/06/2025	2025	Data Science with Scroll	dataScience.html	Breck Yunits	All	715	3.6
+05/23/2025	2025	Feed	feed.html			608	3
+10/01/2024	2024	Web Forms for Geniuses	forms.html	Breck Yunits	All	330	1.6
+05/23/2025	2025	The Official Scroll Blog	full.html			314	1.6
+09/02/2024	2024	The Successor to RSS is Git Clone	gitOverRss.html	Breck Yunits	All	255	1.3
+07/28/2024	2024	Heatrix: Heat Maps + Matrix Visualizations	heatrix.html	Breck Yunits	All	470	2.4
+07/12/2024	2024	How I Designed Helpful 404's and Stopped Worrying about Broken Links	helpful404s.html	Breck Yunits	All	547	2.7
 08/23/2021	2021	The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping	indented-heredocs.html	Breck Yunits	All	455	2.3
+05/23/2025	2025	The Official Scroll Blog	index.html			314	1.6
+10/02/2022	2022	Introducing the Blink Tag	introducingBlink.html	Breck Yunits	All	176	0.9
+06/24/2024	2024	Write scatterplot to get a scatterplot	plot.html	Breck Yunits	All	342	1.7
+05/08/2023	2023	Introducing Program Links	programLinks.html	Breck Yunits	All	522	2.6
+10/28/2024	2024	Scroll in 50 Questions	scrollInQuestions.html	Breck Yunits	All	1082	5.4
+04/21/2024	2024	ScrollSets: source code for CSVs	scrollsets.html	Breck Yunits	All ScrollSets	1148	5.7
+05/23/2025	2025	Search the Official Scroll Blog	search.html			10134	50.7
+05/23/2025	2025	Settings	settings.html			0	0
+05/23/2025	2025	Sitemap	sitemap.html			157	0.8
+06/23/2024	2024	Stamp: a microlang for project templates	stamp.html	Breck Yunits	All	306	1.5
+08/09/2024	2024	Datatables: a microlang for data science	tables.html	Breck Yunits	All	479	2.4
+08/30/2024	2024	A New Way to Program	teddyTalk.html	Breck Yunits	All	425	2.1
+04/29/2024	2024	Scroll builds text files	textFiles.html	Breck Yunits	All	175	0.9

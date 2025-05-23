@@ -3729,6 +3729,7 @@ stamp
       particles.forEach(particle => particle.destroy())
     }
     getErrors() {
+      if (this.silenceErrors) return [] // todo: generalize this?
       if (this.has("circularImportError"))
         return [this.makeError(this.get("circularImportError"))]
       if (this.get("exists") === "false" && this.previous.getLine() !== "// optional")
@@ -6494,8 +6495,8 @@ stamp
       // A little hacky but ah well.
       // For blogs, we want to sort posts in a folder in order of the date property.
       // If the date property is not set, we use the file timestamp from disk.
-      const sorted = files.sort((a, b) => b.scrollProgram.timestamp - a.scrollProgram.timestamp)
-      sorted.forEach((file, index) => (file.scrollProgram.timeIndex = index))
+      const sorted = this.lodash.sortBy(files.map(a => a.scrollProgram), "timestamp")
+      sorted.forEach((scrollProgram, index) => (scrollProgram.timeIndex = index))
     }
     get allScrollFiles() {
       try {
@@ -6613,7 +6614,7 @@ stamp
     }
     get scrollVersion() {
       // currently manually updated
-      return "178.2.2"
+      return "178.2.3"
     }
     // Use the first paragraph for the description
     // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

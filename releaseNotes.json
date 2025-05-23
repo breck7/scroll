@@ -1,5 +1,12 @@
 [
   {
+    "version": "178.2.3",
+    "releaseDate": "5/22/2025",
+    "bugFixes": 1,
+    "newFeatures": 0,
+    "breakingChanges": 0
+  },
+  {
     "version": "178.2.2",
     "releaseDate": "5/21/2025",
     "bugFixes": 1,

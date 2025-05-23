@@ -22,6 +22,12 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 178.2.3 5/22/2025
+🏥 fix regression where a cached array was being modified accidentally.
+ // This was causing odd behavior in tests. _addTimeIndexes was resorting an array that
+ // tests were iterating over. Really tricky little bug to track down but obvious once I saw that.
+ // That whole section of code is a bit rotten and could be replaced by a simple pattern.
+
 📦 178.2.2 5/21/2025
 🏥 fix regression in plainTextOnly
 
