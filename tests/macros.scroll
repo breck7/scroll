@@ -16,4 +16,4 @@ replace POEM
  I took the one less travelled by.
 
 POEM
-assertHtmlIncludes travelled
+assert html includes travelled
