@@ -32,13 +32,8 @@ parser.registerTag('url', {
 parser.clearTags();
 ```
 
-### Why another BBCode Parser?
- - Supports nested BBCode
- - Has no dependencies
- - All BBCode is replaced in a nested format, meaning that parent nodes are parsed before children.
- - Allows custom tags to be replaced or added.
-
-#### Roadmap
- - Performance improvements
- - Clean code up for improved readability
- - Improve docs
+### Why ya-bbcode?
+ - **Supports nested BBCode**: Properly handles complex nested structures
+ - **Zero dependencies**: Lightweight with no external dependencies
+ - **Correct parsing**: Parent nodes are parsed before children in nested format
+ - **Customizable**: Easy to add or override tags

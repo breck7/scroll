@@ -6,7 +6,7 @@ A Minipass stream that calls a flush function before emitting 'end'
 
 ```js
 const Flush = require('minipass-flush')
-cons f = new Flush({
+const f = new Flush({
   flush (cb) {
     // call the cb when done, or return a promise
     // the 'end' event will wait for it, along with
