@@ -62,7 +62,7 @@ codeWithHeader 404.scroll
 That's it! The `helpfulNotFound` parser in Scroll will add Javascript to the 404 page that fetches all the urls found in the sitemap and shows the user the closest match. As a bonus, you also get a `sitemap.txt` file great for Google SEO and other uses.
 
 See it in action here by clicking on this intentionally broken link:
- https://scroll.pub/blog/helpful_404s.html intentionally broken link
+ helpful_404s.html intentionally broken link
 
 ***
 
