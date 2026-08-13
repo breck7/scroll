@@ -2,7 +2,7 @@ qrcodeParser
  extends abstractCaptionedParser
  description Make a QR code from a link.
  example
-  qrcode https://scroll.pub
+  qrcode https://scroll.surf
  javascript
   getFigureContent() {
     const url = this.atoms[1]

@@ -3,9 +3,9 @@ buildHtml
 theme gazette
 
 scrollButton A link
- https://scroll.pub
+ https://scroll.surf
 
 scrollButton A Post
- link https://hub.scroll.pub/echo.htm
+ link https://hub.scroll.surf/echo.htm
  post
   hello world

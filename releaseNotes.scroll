@@ -22,6 +22,9 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 178.3.0 8/12/2026
+🏥 scroll.pub to scroll.surf
+
 📦 178.2.3 5/22/2025
 🏥 fix regression where a cached array was being modified accidentally.
  // This was causing odd behavior in tests. _addTimeIndexes was resorting an array that
@@ -581,7 +584,7 @@ So we use the hidden file convention for separating files you want to track from
 🎉 lorem ipsum parsers now extend aftertext properly
 
 📦 153.0.0 11/14/2024
-🎉 refactored build system so try.scroll.pub can access all build outputs, not just HTML
+🎉 refactored build system so try.scroll.surf can access all build outputs, not just HTML
 ⚠️ BREAKING: (no one should be affected) low level internal build APIs have changed
 
 📦 152.0.0 11/13/2024
@@ -591,7 +594,7 @@ So we use the hidden file convention for separating files you want to track from
 📦 151.0.0 11/13/2024
 
 ## 🚨 MAJOR RELEASE
-- try.scroll.pub now supports writing parsers!
+- try.scroll.surf now supports writing parsers!
 
 🎉 moved code from desktop to parsers
 🏥 fixed regression where parsers were printing
@@ -603,7 +606,7 @@ So we use the hidden file convention for separating files you want to track from
 This is prep work for the major release coming imminently which brings the full power of PPS to the browser, including ability to write Parsers, fully user Scrollsets, and more, dynamically, clientside in browser.
 
 📦 149.0.0 11/13/2024
-🎉 `parsers.parsers` now ships with Scroll! Syntax highlighting, autocomplete, and other tools for writing parsers in try.scroll.pub.
+🎉 `parsers.parsers` now ships with Scroll! Syntax highlighting, autocomplete, and other tools for writing parsers in try.scroll.surf.
  - Note: compiling these Parsers still requires desktop Scroll. Not everything runs in browser...yet
 ⚠️ BREAKING: (no one should be affected) any custom parsers in your Scroll files will now be fully parsed. So previously undetected errors will now be caught. There may also be some namespace conflicts as we cleanup the Parser code.
 
@@ -1693,8 +1696,8 @@ sparkline 5 7 27 87 300 17 10 5
 🏥 fixed Grammar method name conflict with measures. Now they should be `isMeasureRequired`.
 
 📦 90.2.1 5/18/2024
-🏥 fixed `metaTags` from breaking try.scroll.pub
-🏥 got `slideshow` working on try.scroll.pub
+🏥 fixed `metaTags` from breaking try.scroll.surf
+🏥 got `slideshow` working on try.scroll.surf
 
 📦 90.2.0 5/18/2024
 🎉 added `slideshow` parser
@@ -2188,7 +2191,7 @@ This was a big internal refactor to remove the outdated concept of `ScrollFolder
 🎉 New parser `canonicalUrl` if you need to include query strings in canonical link.
 
 code
- canonicalUrl https://scroll.pub/tests/maps.html?canonLinkTest=true
+ canonicalUrl https://scroll.surf/tests/maps.html?canonLinkTest=true
 
 📦 62.4.0 3/23/2023
 🏥 SEO fix: metaTags now sets canonical link
@@ -2249,7 +2252,7 @@ code
 📦 59.0.0 3/3/2023
 🎉 `image` parser now supports `class` and `id` tags
 🎉 `class` tag with just a class will now apply to the whole parent element and not insert a span
-🏥 fix so image tag works in try.scroll.pub
+🏥 fix so image tag works in try.scroll.surf
 
 📦 58.5.1 3/2/2023
 🏥 don't compile linkify node to HTML
@@ -2400,7 +2403,7 @@ scrollCode
 
 📦 54.0.0 1/19/2023
 🎉 `link` nodes can now have `target`. This link will open in blank tab.
- https://scroll.pub This link
+ https://scroll.surf This link
   target _blank
   title Title can also be set.
 aboveAsCode
@@ -2563,7 +2566,7 @@ This is the `title` simplification refactor release.
 🏥 list element (`- some item`) compiler was generating an extra `p` tag.
 
 📦 43.0.0 11/12/2022
-🎉 New: Linkify! Links like https://breckyunits.com and email addresses like feedback@scroll.pub are now compiled to HTML `a` tags automatically. Note: if an `a` tag is detected in the node Linkify will be DISABLED for that node.
+🎉 New: Linkify! Links like https://breckyunits.com and email addresses like breck7@gmail.com are now compiled to HTML `a` tags automatically. Note: if an `a` tag is detected in the node Linkify will be DISABLED for that node.
 ⚠️ BREAKING: (no one should be affected) slim chance linkify may insert links where you previously did not want them.
 
 📦 42.0.0 11/09/2022

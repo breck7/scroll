@@ -179,7 +179,7 @@ codeWithHeader breckyunits.com/scrollsets.scroll
  
  # Initial Implementation and Experimental Evidence
  ScrollSets is the name of the first implementation of the system above. It is open source and public domain.
-  https://scroll.pub/ ScrollSets
+  https://scroll.surf/ ScrollSets
  
  ScrollSets are used to power the open source website PLDB.io. PLDB currently has over 300 measures, over 4,000 concepts and over 150,000 measurements, contributed by over 100 people, dozens of software crawlers, and a couple of artificial neural networks.
   https://pldb.io PLDB.io
@@ -206,9 +206,9 @@ codeWithHeader breckyunits.com/scrollsets.scroll
  
  This system might also have broad use.
  
- You can read more about ScrollSets on the Scroll blog, see small demos at sets.scroll.pub, and see the large implementation at PLDB.io.
-  https://scroll.pub/blog/scrollsets.html read more about ScrollSets on the Scroll blog
-  https://sets.scroll.pub small demos at sets.scroll.pub
+ You can read more about ScrollSets on the Scroll blog, see small demos at sets.scroll.surf, and see the large implementation at PLDB.io.
+  https://scroll.surf/blog/scrollsets.html read more about ScrollSets on the Scroll blog
+  https://sets.scroll.surf small demos at sets.scroll.surf
   https://pldb.io PLDB.io
  
  ***

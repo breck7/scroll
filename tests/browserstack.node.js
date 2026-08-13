@@ -8,7 +8,7 @@ const { version } = require("../package.json")
 
 const browserstackURL = "https://" + userName + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub"
 
-const homePageUrl = "https://scroll.pub"
+const homePageUrl = "https://scroll.surf"
 
 async function runTestWithCaps(capabilities) {
   try {

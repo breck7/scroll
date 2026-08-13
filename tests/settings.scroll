@@ -1,4 +1,4 @@
-baseUrl https://scroll.pub/tests/
+baseUrl https://scroll.surf/tests/
 description Kitchen sink test site.
 editBaseUrl https://github.com/breck7/scroll/blob/main/tests/
 
