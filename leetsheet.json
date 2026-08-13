@@ -290,7 +290,7 @@
     "id": "baseUrl",
     "description": "Required for RSS and OpenGraph.",
     "popularity": 919,
-    "example": "baseUrl https://hub.scroll.pub/"
+    "example": "baseUrl https://hub.scroll.surf/"
   },
   {
     "id": "belowAsCode",
@@ -1069,7 +1069,7 @@
     "id": "qrcode",
     "description": "Make a QR code from a link.",
     "popularity": 0,
-    "example": "qrcode https://scroll.pub"
+    "example": "qrcode https://scroll.surf"
   },
   {
     "id": "quote",
@@ -1080,7 +1080,7 @@
     "id": "redirectTo",
     "description": "HTML redirect tag.",
     "popularity": 8,
-    "example": "redirectTo https://scroll.pub/releaseNotes.html"
+    "example": "redirectTo https://scroll.surf/releaseNotes.html"
   },
   {
     "id": "replace",

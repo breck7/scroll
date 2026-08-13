@@ -4,16 +4,16 @@ by Breck Yunits
  https://breckyunits.com Breck Yunits
 
 [Image Omitted]
- More examples of ScrollSets from sets.scroll.pub.
-  https://sets.scroll.pub/ sets.scroll.pub
+ More examples of ScrollSets from sets.scroll.surf.
+  https://sets.scroll.surf/ sets.scroll.surf
 
 April 21, 2024
 
 The source code for this blog post contains a ScrollSet about the planets and generates this HTML file as well as a CSV, a TSV, and a JSON file. This page demonstrates *ScrollSets*.
- https://scroll.pub/blog/scrollsets.scroll source code for this blog post
- https://scroll.pub/blog/planets.csv CSV
- https://scroll.pub/blog/planets.tsv TSV
- https://scroll.pub/blog/planets.json JSON
+ https://scroll.surf/blog/scrollsets.scroll source code for this blog post
+ https://scroll.surf/blog/planets.csv CSV
+ https://scroll.surf/blog/planets.tsv TSV
+ https://scroll.surf/blog/planets.json JSON
 
 ScrollSets are useful for small single day projects and large multi-year projects with thousands of concepts like PLDB (a Programming Language Database).
  https://pldb.io PLDB
@@ -21,7 +21,7 @@ ScrollSets are useful for small single day projects and large multi-year project
 *
 
 ScrollSets are normal plain text files written in Scroll that also contain measurements of concepts and output that data into formats ready for data visualization and analysis tools.
- https://scroll.pub/ Scroll
+ https://scroll.surf/ Scroll
 
 ScrollSets are line oriented but represent a datatable(s). You might call them _deconstructed csvs_ or _deconstructed spreadsheets_.
 
@@ -203,4 +203,4 @@ Extended Concepts Example
 Related
 =======
 
-Built with Scroll v178.2.3
+Built with Scroll v178.3.0

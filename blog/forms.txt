@@ -33,7 +33,7 @@ You Can Start Using This TODAY!
 ===============================
 
 This ships with Scroll. Here's a test form you can try. It's also used across many of our products.
- https://scroll.pub/blog/../tests/scrollFormsTest.html a test form
+ https://scroll.surf/blog/../tests/scrollFormsTest.html a test form
 
 This is new technology, so it’s best suited for those ready to think ahead. Just like web forms themselves once required pioneers.
 
@@ -54,4 +54,4 @@ If you're excited to build, to innovate, to make a mark — join us on GitHub or
 
 ⁂
 
-Built with Scroll v178.2.3
+Built with Scroll v178.3.0

@@ -76,8 +76,8 @@ printTitle
 printAuthors
 
 scrollsets.png
- caption More examples of ScrollSets from sets.scroll.pub.
-  https://sets.scroll.pub/ sets.scroll.pub
+ caption More examples of ScrollSets from sets.scroll.surf.
+  https://sets.scroll.surf/ sets.scroll.surf
 
 The source code for this blog post contains a ScrollSet about the planets and generates this HTML file as well as a CSV, a TSV, and a JSON file. This page demonstrates *ScrollSets*.
  dateline
@@ -92,7 +92,7 @@ ScrollSets are useful for small single day projects and large multi-year project
 ***
 
 ScrollSets are normal plain text files written in Scroll that also contain measurements of concepts and output that data into formats ready for data visualization and analysis tools.
- https://scroll.pub/ Scroll
+ https://scroll.surf/ Scroll
   match 1
 
 ScrollSets are line oriented but represent a datatable(s). You might call them _deconstructed csvs_ or _deconstructed spreadsheets_.
@@ -472,7 +472,7 @@ GNU Recutils^recutils deserves credit as the closest precursor to our system. If
 
 # Initial Implementation and Experimental Evidence
 ScrollSets is the name of the first implementation of the system above. It is open source and public domain.
- https://scroll.pub/ ScrollSets
+ https://scroll.surf/ ScrollSets
 
 ScrollSets are used to power the open source website PLDB.io. PLDB currently has over 300 measures, over 4,000 concepts and over 150,000 measurements, contributed by over 100 people, dozens of software crawlers, and a couple of artificial neural networks.
  https://pldb.io PLDB.io
@@ -499,9 +499,9 @@ Measurements loosely map to nucleotides; concepts to genes; parsers to ribosomes
 
 This system might also have broad use.
 
-You can read more about ScrollSets on the Scroll blog, see small demos at sets.scroll.pub, and see the large implementation at PLDB.io.
- https://scroll.pub/blog/scrollsets.html read more about ScrollSets on the Scroll blog
- https://sets.scroll.pub small demos at sets.scroll.pub
+You can read more about ScrollSets on the Scroll blog, see small demos at sets.scroll.surf, and see the large implementation at PLDB.io.
+ https://scroll.surf/blog/scrollsets.html read more about ScrollSets on the Scroll blog
+ https://sets.scroll.surf small demos at sets.scroll.surf
  https://pldb.io PLDB.io
 
 ***

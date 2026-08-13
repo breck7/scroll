@@ -1,6 +1,6 @@
 {
   "name": "scroll-cli",
-  "version": "178.2.3",
+  "version": "178.3.0",
   "description": "A language for scientists of all ages. A curated collection of tools for refining and sharing thoughts.",
   "main": "scroll.js",
   "engines": {
@@ -46,7 +46,7 @@
     "arrowParens": "avoid",
     "quoteProps": "as-needed"
   },
-  "homepage": "https://scroll.pub",
+  "homepage": "https://scroll.surf",
   "dependencies": {
     "d3": "^6.7.0",
     "dayjs": "^1.11.7",

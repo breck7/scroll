@@ -9,7 +9,7 @@ Today on HackerNews Kevin Damm had a great idea: put a `&lt;link&gt;` tag on blo
  https://news.ycombinator.com/item?id=41427044 great idea
 
 I've added this feature to Scroll and it's live now. If you View Source of this page, you'll see:
- https://scroll.pub/blog/../index.html Scroll
+ https://scroll.surf/blog/../index.html Scroll
 
 ```
 <link rel="source" type="application/git" title="Source Code Repository" href="https://github.com/breck7/scroll">
@@ -42,4 +42,4 @@ Notes
 vladimyr on bluesky dug up a couple of cool examples of prior art.
  https://bsky.app/profile/vladimyr.bsky.social/post/3l3anievhnm2t vladimyr on bluesky
 
-Built with Scroll v178.2.3
+Built with Scroll v178.3.0

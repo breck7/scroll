@@ -1,4 +1,4 @@
-baseUrl https://scroll.pub/
+baseUrl https://scroll.surf/
 buildHtml
 
 metaTags
@@ -17,4 +17,4 @@ thinColumns 1
 # Not this one
 ../blog/scrollsets.png
  caption A caption
- https://scroll.pub/blog/scrollsets.html
+ https://scroll.surf/blog/scrollsets.html

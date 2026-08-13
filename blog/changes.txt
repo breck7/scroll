@@ -36,7 +36,7 @@ Example
 =======
 
 We use Changes for the Scroll Release Notes.
- https://scroll.pub/blog/../releaseNotes.html Scroll Release Notes
+ https://scroll.surf/blog/../releaseNotes.html Scroll Release Notes
 
 Be sure to check out the source code that generates that HTML.
  https://github.com/breck7/scroll/blob/main/releaseNotes.scroll check out the source code
@@ -91,4 +91,4 @@ Related
 - What can we learn from programming language version numbers?
  https://breckyunits.com/versionNumbers.html What can we learn from programming language version numbers?
 
-Built with Scroll v178.2.3
+Built with Scroll v178.3.0

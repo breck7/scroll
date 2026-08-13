@@ -11,8 +11,8 @@ HTML | TXT
 April 29, 2024
 
 Scroll is a new language for building HTML and CSV files that powers blogs, websites and knowledge bases.
- https://scroll.pub/blog/scrollsets.html knowledge bases
- https://scroll.pub/blog/../index.html Scroll
+ https://scroll.surf/blog/scrollsets.html knowledge bases
+ https://scroll.surf/blog/../index.html Scroll
 
 *
 
@@ -50,4 +50,4 @@ Hope you enjoy it as much as I have!
 
 ⁂
 
-Built with Scroll v178.2.3
+Built with Scroll v178.3.0

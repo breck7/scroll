@@ -2,21 +2,21 @@ Scroll Tutorial
 ===============
 Scroll Roadmap
 ==============
-08/10/2026
-https://scroll.pub/roadmap.html
+08/13/2026
+https://scroll.surf/roadmap.html
 
 Scroll Release Notes
 ====================
-08/10/2026
-https://scroll.pub/releaseNotes.html
+08/13/2026
+https://scroll.surf/releaseNotes.html
 
 Scroll FAQ
 ==========
-08/10/2026
-https://scroll.pub/faq.html
+08/13/2026
+https://scroll.surf/faq.html
 
-Video walkthrough of this tutorial | Edit this file on try.scroll.pub
- https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll Edit this file on try.scroll.pub
+Video walkthrough of this tutorial | Edit this file on try.scroll.surf
+ https://try.scroll.surf/index.html#url%20https%3A%2F%2Fscroll.surf%2Ftutorial.scroll Edit this file on try.scroll.surf
  https://www.youtube.com/watch?v=IE3lHAmMqC4 Video walkthrough of this tutorial
 
 What is Scroll?
@@ -67,10 +67,10 @@ Parsers
 Every line in a Scroll document matches and is parsed by a Parser.
 
 You can see all the available parsers in the Scroll Leet Sheet.
- https://scroll.pub/leetsheet.html Scroll Leet Sheet
+ https://scroll.surf/leetsheet.html Scroll Leet Sheet
 
 (Advanced users who want to write their own parsers might want to checkout the Parsers Leet Sheet.)
- https://scroll.pub/parserLeetsheet.html Parsers Leet Sheet
+ https://scroll.surf/parserLeetsheet.html Parsers Leet Sheet
 
 Let's walk through some of the most common parsers.
 
@@ -178,7 +178,7 @@ Advanced
 Variables
 =========
 Use the `replace` parser to define macros. Macros definitions are parsed and removed on the first compiler pass.
-Our domain is: *scroll.pub*
+Our domain is: *scroll.surf*
 
 Import statements
 =================
@@ -227,4 +227,4 @@ You probably also can see that the Parsers code is powerful but has lots of shar
 
 While the documentation on Parsers evolves, feel free to get in touch for help in adding your own parsers.
 
-Built with Scroll v178.2.3
+Built with Scroll v178.3.0

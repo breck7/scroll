@@ -24,9 +24,9 @@ animation.scroll
 
 ScrollHub &nbsp;&nbsp; Try now
  center
- http://hub.scroll.pub/ ScrollHub
+ http://hub.scroll.surf/ ScrollHub
  addClass scrollButton ScrollHub
- https://try.scroll.pub/ Try now
+ https://try.scroll.surf/ Try now
  addClass scrollButton Try now
 
 LeetSheet · Blog · Release Notes · FAQ · Tutorial
@@ -49,7 +49,7 @@ npm package · Tests · Parser Designer
  center
  https://www.npmjs.com/package/scroll-cli npm package
  tests/index.html Tests
- https://sdk.scroll.pub/designer#url%20https%3A%2F%2Fscroll.pub%2Fscroll.parsers Parser Designer
+ https://sdk.scroll.surf/designer#url%20https%3A%2F%2Fscroll.surf%2Fscroll.parsers Parser Designer
  style margin:15px;
 
 scroll prompt · parsers prompt · scrollset prompt
@@ -88,6 +88,9 @@ ciBadges.scroll
 
 br
 thinColumns
+
+📦 178.3.0 8/12/2026
+🏥 scroll.pub to scroll.surf
 
 📦 178.2.3 5/22/2025
 🏥 fix regression where a cached array was being modified accidentally.
@@ -648,7 +651,7 @@ So we use the hidden file convention for separating files you want to track from
 🎉 lorem ipsum parsers now extend aftertext properly
 
 📦 153.0.0 11/14/2024
-🎉 refactored build system so try.scroll.pub can access all build outputs, not just HTML
+🎉 refactored build system so try.scroll.surf can access all build outputs, not just HTML
 ⚠️ BREAKING: (no one should be affected) low level internal build APIs have changed
 
 📦 152.0.0 11/13/2024
@@ -658,7 +661,7 @@ So we use the hidden file convention for separating files you want to track from
 📦 151.0.0 11/13/2024
 
 ## 🚨 MAJOR RELEASE
-- try.scroll.pub now supports writing parsers!
+- try.scroll.surf now supports writing parsers!
 
 🎉 moved code from desktop to parsers
 🏥 fixed regression where parsers were printing
@@ -670,7 +673,7 @@ So we use the hidden file convention for separating files you want to track from
 This is prep work for the major release coming imminently which brings the full power of PPS to the browser, including ability to write Parsers, fully user Scrollsets, and more, dynamically, clientside in browser.
 
 📦 149.0.0 11/13/2024
-🎉 `parsers.parsers` now ships with Scroll! Syntax highlighting, autocomplete, and other tools for writing parsers in try.scroll.pub.
+🎉 `parsers.parsers` now ships with Scroll! Syntax highlighting, autocomplete, and other tools for writing parsers in try.scroll.surf.
  - Note: compiling these Parsers still requires desktop Scroll. Not everything runs in browser...yet
 ⚠️ BREAKING: (no one should be affected) any custom parsers in your Scroll files will now be fully parsed. So previously undetected errors will now be caught. There may also be some namespace conflicts as we cleanup the Parser code.
 
@@ -1760,8 +1763,8 @@ sparkline 5 7 27 87 300 17 10 5
 🏥 fixed Grammar method name conflict with measures. Now they should be `isMeasureRequired`.
 
 📦 90.2.1 5/18/2024
-🏥 fixed `metaTags` from breaking try.scroll.pub
-🏥 got `slideshow` working on try.scroll.pub
+🏥 fixed `metaTags` from breaking try.scroll.surf
+🏥 got `slideshow` working on try.scroll.surf
 
 📦 90.2.0 5/18/2024
 🎉 added `slideshow` parser
@@ -2255,7 +2258,7 @@ This was a big internal refactor to remove the outdated concept of `ScrollFolder
 🎉 New parser `canonicalUrl` if you need to include query strings in canonical link.
 
 code
- canonicalUrl https://scroll.pub/tests/maps.html?canonLinkTest=true
+ canonicalUrl https://scroll.surf/tests/maps.html?canonLinkTest=true
 
 📦 62.4.0 3/23/2023
 🏥 SEO fix: metaTags now sets canonical link
@@ -2316,7 +2319,7 @@ code
 📦 59.0.0 3/3/2023
 🎉 `image` parser now supports `class` and `id` tags
 🎉 `class` tag with just a class will now apply to the whole parent element and not insert a span
-🏥 fix so image tag works in try.scroll.pub
+🏥 fix so image tag works in try.scroll.surf
 
 📦 58.5.1 3/2/2023
 🏥 don't compile linkify node to HTML
@@ -2467,7 +2470,7 @@ scrollCode
 
 📦 54.0.0 1/19/2023
 🎉 `link` nodes can now have `target`. This link will open in blank tab.
- https://scroll.pub This link
+ https://scroll.surf This link
   target _blank
   title Title can also be set.
 aboveAsCode
@@ -2630,7 +2633,7 @@ This is the `title` simplification refactor release.
 🏥 list element (`- some item`) compiler was generating an extra `p` tag.
 
 📦 43.0.0 11/12/2022
-🎉 New: Linkify! Links like https://breckyunits.com and email addresses like feedback@scroll.pub are now compiled to HTML `a` tags automatically. Note: if an `a` tag is detected in the node Linkify will be DISABLED for that node.
+🎉 New: Linkify! Links like https://breckyunits.com and email addresses like breck7@gmail.com are now compiled to HTML `a` tags automatically. Note: if an `a` tag is detected in the node Linkify will be DISABLED for that node.
 ⚠️ BREAKING: (no one should be affected) slim chance linkify may insert links where you previously did not want them.
 
 📦 42.0.0 11/09/2022
@@ -3336,8 +3339,8 @@ footer.scroll
 
 ```
 ```faq.scroll
-replace ParsersLinks <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a>
-replace ParticlesLinked <a href="https://particles.scroll.pub">Particles</a>
+replace ParsersLinks <a href="https://sdk.scroll.surf/designer/#standard%20parsers">Parsers</a>
+replace ParticlesLinked <a href="https://particles.scroll.surf">Particles</a>
 title Scroll FAQ
 linkTitle FAQ
 
@@ -3349,7 +3352,7 @@ nav.scroll
 
 thinColumns
 
-Have a question not answered here? Email feedback@scroll.pub.
+Have a question not answered here? Email breck7@gmail.com.
 
 ? Any more docs?
 - Tutorial
@@ -3428,7 +3431,7 @@ Scroll is different than other static site generators because it is also *an ext
 The basics of Scroll are even simpler than Markdown. For example, you can make a whole paragraph a link like this:
 
 This is a link
- https://scroll.pub
+ https://scroll.surf
 aboveAsCode
 
 You can stick to the basics or define new parsers to extend Scroll to better fit your content and workflows.
@@ -3497,7 +3500,7 @@ code
    }
 Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine microlanguages in a simple and non-conflicting way. What you do with those languages is up to you.
 For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
- https://scroll.pub/blog/indented-heredocs.html one
+ https://scroll.surf/blog/indented-heredocs.html one
 
 ? What is the biggest downside to Scroll?
 Compared to Markdown there is very little tooling and the ecosystem is currently very small.
@@ -3505,8 +3508,8 @@ Also, although it is simple to write your own parsers in ParsersLinks once you k
 
 ? What kind of sites can I use Scroll to build?
 Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
- https://scroll.pub one page
- https://scroll.pub/blog/ a few pages
+ https://scroll.surf one page
+ https://scroll.surf/blog/ a few pages
  https://breckyunits.com/code/ tens of pages
  https://breckyunits.com/ hundreds of pages
  https://pldb.io/ thousands of pages
@@ -3538,12 +3541,12 @@ code
 
 ? Where do I get help?
 Post an issue in this GitHub or email us.
- email feedback@scroll.pub us
+ email breck7@gmail.com us
 
 ? What are some example sites using Scroll?
 Scroll currently powers blog and sites of one page, a few pages, tens of pages, hundreds of pages, and even thousands of pages.
- https://scroll.pub one page
- https://scroll.pub/blog/ a few pages
+ https://scroll.surf one page
+ https://scroll.surf/blog/ a few pages
  https://breckyunits.com/code/ tens of pages
  https://breckyunits.com/ hundreds of pages
  https://pldb.io/ thousands of pages
@@ -3657,14 +3660,14 @@ Scroll does not check for broken links. For that, try linkinator.
  https://github.com/JustinBeckwith/linkinator linkinator
 code
  # npm install -g linkinator
- linkinator https://scroll.pub > brokenLinks.txt
+ linkinator https://scroll.surf > brokenLinks.txt
 
 ? How do I check browser performance?
 Scroll does not have browser perf tools built in. For that, try lighthouse.
  https://github.com/GoogleChrome/lighthouse lighthouse
 code
  # npm install -g lighthouse
- lighthouse https://scroll.pub --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
+ lighthouse https://scroll.surf --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
 
 ? Where should I host my site?
 Any web server works. You can even host your scroll for free using GitHub Pages, just like this site.
@@ -3690,7 +3693,7 @@ code
 
 ? Does Scroll compile to plain text as well as HTML?
 Yes! Support for plain text outputs as added in April, 2024.
- https://scroll.pub/blog/textFiles.html
+ https://scroll.surf/blog/textFiles.html
 
 ? How can I output my Scroll to an EPUB file?
 Pandoc is one way to do it. If you are on a Mac and have Homebrew installed:
@@ -3793,7 +3796,7 @@ footer.scroll
 
 ```
 ```tutorial.scroll
-replace DOMAIN scroll.pub
+replace DOMAIN scroll.surf
 title Scroll Tutorial
 linkTitle Tutorial
 
@@ -3804,8 +3807,8 @@ container 800px
 printTitle
 nav.scroll
 center
-Video walkthrough of this tutorial | Edit this file on try.scroll.pub
- https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll Edit this file on try.scroll.pub
+Video walkthrough of this tutorial | Edit this file on try.scroll.surf
+ https://try.scroll.surf/index.html#url%20https%3A%2F%2Fscroll.surf%2Ftutorial.scroll Edit this file on try.scroll.surf
  https://www.youtube.com/watch?v=IE3lHAmMqC4 Video walkthrough of this tutorial
 
 ? What is Scroll?
@@ -3903,7 +3906,7 @@ datatable
 ## 6. Images
 To add an image use the `image` parser:
 belowAsCode 2
-https://scroll.pub/blog/screenshot.png
+https://scroll.surf/blog/screenshot.png
  caption An image with a caption
 
 ## 7. Footnotes

@@ -1,5 +1,5 @@
-replace ParsersLinks <a href="https://sdk.scroll.pub/designer/#standard%20parsers">Parsers</a>
-replace ParticlesLinked <a href="https://particles.scroll.pub">Particles</a>
+replace ParsersLinks <a href="https://sdk.scroll.surf/designer/#standard%20parsers">Parsers</a>
+replace ParticlesLinked <a href="https://particles.scroll.surf">Particles</a>
 title Scroll FAQ
 linkTitle FAQ
 
@@ -11,7 +11,7 @@ nav.scroll
 
 thinColumns
 
-Have a question not answered here? Email feedback@scroll.pub.
+Have a question not answered here? Email breck7@gmail.com.
 
 ? Any more docs?
 - Tutorial
@@ -90,7 +90,7 @@ Scroll is different than other static site generators because it is also *an ext
 The basics of Scroll are even simpler than Markdown. For example, you can make a whole paragraph a link like this:
 
 This is a link
- https://scroll.pub
+ https://scroll.surf
 aboveAsCode
 
 You can stick to the basics or define new parsers to extend Scroll to better fit your content and workflows.
@@ -159,7 +159,7 @@ code
    }
 Your extension might generate beautiful custom HTML for that recipe section and also perhaps allow users to vote on it, or include it in a CSV export, et cetera. Scroll let's you combine microlanguages in a simple and non-conflicting way. What you do with those languages is up to you.
 For an extended example of extending Scroll check out this one which adds node types for Markdown, Textile, and BBCode.
- https://scroll.pub/blog/indented-heredocs.html one
+ https://scroll.surf/blog/indented-heredocs.html one
 
 ? What is the biggest downside to Scroll?
 Compared to Markdown there is very little tooling and the ecosystem is currently very small.
@@ -167,8 +167,8 @@ Also, although it is simple to write your own parsers in ParsersLinks once you k
 
 ? What kind of sites can I use Scroll to build?
 Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
- https://scroll.pub one page
- https://scroll.pub/blog/ a few pages
+ https://scroll.surf one page
+ https://scroll.surf/blog/ a few pages
  https://breckyunits.com/code/ tens of pages
  https://breckyunits.com/ hundreds of pages
  https://pldb.io/ thousands of pages
@@ -200,12 +200,12 @@ code
 
 ? Where do I get help?
 Post an issue in this GitHub or email us.
- email feedback@scroll.pub us
+ email breck7@gmail.com us
 
 ? What are some example sites using Scroll?
 Scroll currently powers blog and sites of one page, a few pages, tens of pages, hundreds of pages, and even thousands of pages.
- https://scroll.pub one page
- https://scroll.pub/blog/ a few pages
+ https://scroll.surf one page
+ https://scroll.surf/blog/ a few pages
  https://breckyunits.com/code/ tens of pages
  https://breckyunits.com/ hundreds of pages
  https://pldb.io/ thousands of pages
@@ -319,14 +319,14 @@ Scroll does not check for broken links. For that, try linkinator.
  https://github.com/JustinBeckwith/linkinator linkinator
 code
  # npm install -g linkinator
- linkinator https://scroll.pub > brokenLinks.txt
+ linkinator https://scroll.surf > brokenLinks.txt
 
 ? How do I check browser performance?
 Scroll does not have browser perf tools built in. For that, try lighthouse.
  https://github.com/GoogleChrome/lighthouse lighthouse
 code
  # npm install -g lighthouse
- lighthouse https://scroll.pub --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
+ lighthouse https://scroll.surf --output-path scrollBrowserPerf.html; open scrollBrowserPerf.html
 
 ? Where should I host my site?
 Any web server works. You can even host your scroll for free using GitHub Pages, just like this site.
@@ -352,7 +352,7 @@ code
 
 ? Does Scroll compile to plain text as well as HTML?
 Yes! Support for plain text outputs as added in April, 2024.
- https://scroll.pub/blog/textFiles.html
+ https://scroll.surf/blog/textFiles.html
 
 ? How can I output my Scroll to an EPUB file?
 Pandoc is one way to do it. If you are on a Mac and have Homebrew installed:

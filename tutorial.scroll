@@ -1,4 +1,4 @@
-replace DOMAIN scroll.pub
+replace DOMAIN scroll.surf
 title Scroll Tutorial
 linkTitle Tutorial
 
@@ -9,8 +9,8 @@ container 800px
 printTitle
 nav.scroll
 center
-Video walkthrough of this tutorial | Edit this file on try.scroll.pub
- https://try.scroll.pub/index.html#url%20https%3A%2F%2Fscroll.pub%2Ftutorial.scroll Edit this file on try.scroll.pub
+Video walkthrough of this tutorial | Edit this file on try.scroll.surf
+ https://try.scroll.surf/index.html#url%20https%3A%2F%2Fscroll.surf%2Ftutorial.scroll Edit this file on try.scroll.surf
  https://www.youtube.com/watch?v=IE3lHAmMqC4 Video walkthrough of this tutorial
 
 ? What is Scroll?
@@ -108,7 +108,7 @@ datatable
 ## 6. Images
 To add an image use the `image` parser:
 belowAsCode 2
-https://scroll.pub/blog/screenshot.png
+https://scroll.surf/blog/screenshot.png
  caption An image with a caption
 
 ## 7. Footnotes

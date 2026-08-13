@@ -22,10 +22,10 @@ Parser Phases: Assemble -> Acquire -> Analyze -> Act
 
 center
 Links - Parser Designer · Particles Sandbox · r/WorldWideScroll · Release Notes & Roadmap · Scroll LeetSheet · Particles LeetSheet
- https://sdk.scroll.pub/designer/index.html Parser Designer
- https://sdk.scroll.pub/sandbox/index.html Particles Sandbox
+ https://sdk.scroll.surf/designer/index.html Parser Designer
+ https://sdk.scroll.surf/sandbox/index.html Particles Sandbox
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
- https://sdk.scroll.pub/langs/parsers/ Release Notes & Roadmap
+ https://sdk.scroll.surf/langs/parsers/ Release Notes & Roadmap
  leetsheet.html Scroll LeetSheet
  particlesLeetsheet.html Particles LeetSheet
 br
@@ -34,7 +34,7 @@ br
  1. Open Scroll parsers in Parser Designer
  2. Copy/paste Scroll parsers into Program side, and switch language side to Parsers
  3. In DevTools run: copy(app.program.topDownArray.map(a => a.definition.id).join("\n"))
- 4. In try.scroll.pub paste data, add header, and use Tables groupBy to get counts.
+ 4. In try.scroll.surf paste data, add header, and use Tables groupBy to get counts.
 thinColumns 1
 expander Parser usage rankings
 A rough _estimate_ of parser usage in Parsers.

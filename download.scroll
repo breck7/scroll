@@ -1,4 +1,4 @@
-title Download Scroll.pub
+title Download scroll.surf
 
 header.scroll
 printTitle
@@ -6,7 +6,7 @@ printTitle
 container 40ch
 
 The best way to download this site is via the WWS:
- https://wws.scroll.pub WWS
+ https://wws.scroll.surf WWS
 
 code
  wws fetch scroll

@@ -19,9 +19,9 @@ animation.scroll
 
 ScrollHub &nbsp;&nbsp; Try now
  center
- http://hub.scroll.pub/ ScrollHub
+ http://hub.scroll.surf/ ScrollHub
  addClass scrollButton ScrollHub
- https://try.scroll.pub/ Try now
+ https://try.scroll.surf/ Try now
  addClass scrollButton Try now
 
 LeetSheet · Blog · Release Notes · FAQ · Tutorial
@@ -44,7 +44,7 @@ npm package · Tests · Parser Designer
  center
  https://www.npmjs.com/package/scroll-cli npm package
  tests/index.html Tests
- https://sdk.scroll.pub/designer#url%20https%3A%2F%2Fscroll.pub%2Fscroll.parsers Parser Designer
+ https://sdk.scroll.surf/designer#url%20https%3A%2F%2Fscroll.surf%2Fscroll.parsers Parser Designer
  style margin:15px;
 
 scroll prompt · parsers prompt · scrollset prompt

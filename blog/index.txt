@@ -3,101 +3,101 @@ The Official Scroll Blog
 Data Science with Scroll
 ========================
 01/06/2025
-https://scroll.pub/blog/dataScience.html
+https://scroll.surf/blog/dataScience.html
 
 Scroll in 50 Questions
 ======================
 10/28/2024
-https://scroll.pub/blog/scrollInQuestions.html
+https://scroll.surf/blog/scrollInQuestions.html
 
 Web Forms for Geniuses
 ======================
 10/01/2024
-https://scroll.pub/blog/forms.html
+https://scroll.surf/blog/forms.html
 
 The Successor to RSS is Git Clone
 =================================
 09/02/2024
-https://scroll.pub/blog/gitOverRss.html
+https://scroll.surf/blog/gitOverRss.html
 
 A New Way to Program
 ====================
 08/30/2024
-https://scroll.pub/blog/teddyTalk.html
+https://scroll.surf/blog/teddyTalk.html
 
 Datatables: a microlang for data science
 ========================================
 08/09/2024
-https://scroll.pub/blog/tables.html
+https://scroll.surf/blog/tables.html
 
 Build Your Own Counters With 3 Words
 ====================================
 08/02/2024
-https://scroll.pub/blog/counters.html
+https://scroll.surf/blog/counters.html
 
 Heatrix: Heat Maps + Matrix Visualizations
 ==========================================
 07/28/2024
-https://scroll.pub/blog/heatrix.html
+https://scroll.surf/blog/heatrix.html
 
 Contacts: A Microlang for Managing Contacts
 ===========================================
 07/16/2024
-https://scroll.pub/blog/contacts.html
+https://scroll.surf/blog/contacts.html
 
 How I Designed Helpful 404's and Stopped Worrying about Broken Links
 ====================================================================
 07/12/2024
-https://scroll.pub/blog/helpful404s.html
+https://scroll.surf/blog/helpful404s.html
 
 Convert CSVs to ScrollSets
 ==========================
 07/09/2024
-https://scroll.pub/blog/csvToScrollSet.html
+https://scroll.surf/blog/csvToScrollSet.html
 
 Changes: A Microlang for Change Logs
 ====================================
 07/01/2024
-https://scroll.pub/blog/changes.html
+https://scroll.surf/blog/changes.html
 
 Write scatterplot to get a scatterplot
 ======================================
 06/24/2024
-https://scroll.pub/blog/plot.html
+https://scroll.surf/blog/plot.html
 
 Stamp: a microlang for project templates
 ========================================
 06/23/2024
-https://scroll.pub/blog/stamp.html
+https://scroll.surf/blog/stamp.html
 
 Scroll builds text files
 ========================
 04/29/2024
-https://scroll.pub/blog/textFiles.html
+https://scroll.surf/blog/textFiles.html
 
 ScrollSets: source code for CSVs
 ================================
 04/21/2024
-https://scroll.pub/blog/scrollsets.html
+https://scroll.surf/blog/scrollsets.html
 
 Introducing Program Links
 =========================
 05/08/2023
-https://scroll.pub/blog/programLinks.html
+https://scroll.surf/blog/programLinks.html
 
 Counterpoints: A new tool for thought in the Scroll Language
 ============================================================
 04/13/2023
-https://scroll.pub/blog/counterpoints.html
+https://scroll.surf/blog/counterpoints.html
 
 Introducing the Blink Tag
 =========================
 10/02/2022
-https://scroll.pub/blog/introducingBlink.html
+https://scroll.surf/blog/introducingBlink.html
 
 The Power of Indented Heredocs: Markdown, Textile, and BBCode in one file with no escaping
 ==========================================================================================
 08/23/2021
-https://scroll.pub/blog/indented-heredocs.html
+https://scroll.surf/blog/indented-heredocs.html
 
-Built with Scroll v178.2.3
+Built with Scroll v178.3.0

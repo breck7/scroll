@@ -12,7 +12,7 @@ Not anymore!
 Just drop your CSV or TSV into the textarea below to generate a ScrollSet.
 
 (P.S. using LLMs with ScrollSets is another great way to get started)
- https://sets.scroll.pub/ using LLMs with ScrollSets
+ https://sets.scroll.surf/ using LLMs with ScrollSets
 
 *
 
@@ -27,6 +27,6 @@ Related
 ScrollSets: source code for CSVs
 ================================
 04/21/2024
-https://scroll.pub/blog/scrollsets.html
+https://scroll.surf/blog/scrollsets.html
 
-Built with Scroll v178.2.3
+Built with Scroll v178.3.0

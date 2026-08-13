@@ -25,5 +25,5 @@ vegaSampleDataParser
    printTable
  javascript
   get filename() {
-     return "https://ohayo.scroll.pub/ohayo/packages/vega/datasets/" + this.content
+     return "https://ohayo.scroll.surf/ohayo/packages/vega/datasets/" + this.content
    }

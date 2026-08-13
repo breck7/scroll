@@ -67,7 +67,7 @@ assertSilenceBelowErrors,,Silence errors in the below particle in automated test
 background,,Quickly set CSS background.,722,background red,
 barchart,,Bar chart widget.,0,"iris
 barchart",
-baseUrl,,Required for RSS and OpenGraph.,919,baseUrl https://hub.scroll.pub/,
+baseUrl,,Required for RSS and OpenGraph.,919,baseUrl https://hub.scroll.surf/,
 belowAsCode,,Print code below.,66,"belowAsCode
 iris
 printTable",
@@ -321,9 +321,9 @@ prism,,A code block with syntax highlighting.,193,"prism javascript
 const hello = ""world"";
 console.log(hello);",
 prismFromFile,,A code block with syntax highlighting.,193,prismFromFile math.py,
-qrcode,,Make a QR code from a link.,0,qrcode https://scroll.pub,
+qrcode,,Make a QR code from a link.,0,qrcode https://scroll.surf,
 quote,,A quote.,148,,
-redirectTo,,HTML redirect tag.,8,redirectTo https://scroll.pub/releaseNotes.html,
+redirectTo,,HTML redirect tag.,8,redirectTo https://scroll.surf/releaseNotes.html,
 replace,,Replace this with that.,0,replace YEAR 2022,
 replaceJs,,Replace this with evaled JS.,0,"replaceJs SUM 1+1
 * 1+1 = SUM",

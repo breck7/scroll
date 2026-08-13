@@ -1,4 +1,4 @@
-baseUrl https://scroll.pub/blog/
+baseUrl https://scroll.surf/blog/
 description Official blog for Scroll
 rssFeedUrl feed.xml
 editBaseUrl https://github.com/breck7/scroll/blob/main/blog

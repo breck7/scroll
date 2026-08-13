@@ -47,9 +47,9 @@ testParticles.scrollParagraphParser = async areEqual => {
 
 testParticles.linkOnly = async areEqual => {
   // Arrange/Act
-  const program = await cli.scrollToHtml(`* https://particles.scroll.pub`)
+  const program = await cli.scrollToHtml(`* https://particles.scroll.surf`)
   // Assert
-  areEqual(program, `<p id="particle0" class="scrollParagraph"><a href="https://particles.scroll.pub" target="_blank">https://particles.scroll.pub</a></p>`)
+  areEqual(program, `<p id="particle0" class="scrollParagraph"><a href="https://particles.scroll.surf" target="_blank">https://particles.scroll.surf</a></p>`)
 }
 
 testParticles.endSnippet = async areEqual => {

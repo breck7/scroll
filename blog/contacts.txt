@@ -73,7 +73,7 @@ birthday 1/23/80
 2. Run `scroll build`
 
 Done! You should now see a contacts.html file for display and printing as well as TSV, CSV, and JSON files.
- https://scroll.pub/blog/../tests/contacts.html contacts.html
+ https://scroll.surf/blog/../tests/contacts.html contacts.html
 
 *
 
@@ -93,4 +93,4 @@ Notes
 
 ⁂
 
-Built with Scroll v178.2.3
+Built with Scroll v178.3.0

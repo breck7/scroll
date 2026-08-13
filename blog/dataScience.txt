@@ -16,7 +16,7 @@ Scroll combines the simplicity of markdown-style syntax with powerful data trans
 - Transform and analyze data with simple commands
 - Create beautiful visualizations
 - Publish instantly using ScrollHub
- https://hub.scroll.pub/ ScrollHub
+ https://hub.scroll.surf/ ScrollHub
 - All in a simple, readable format
 
 Let's dive in!
@@ -145,4 +145,4 @@ This tutorial covered the basics of data science with Scroll. Some key takeaways
 
 ⁂
 
-Built with Scroll v178.2.3
+Built with Scroll v178.3.0
