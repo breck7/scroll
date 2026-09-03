@@ -9,7 +9,7 @@ for (let i = 0; i < chars.length; i++) {
   intToChar[i] = c;
   charToInt[c] = i;
 }
-function decodeInteger(reader, relative) {
+function decodeInteger(reader) {
   let value = 0;
   let shift = 0;
   let integer = 0;
@@ -19,23 +19,21 @@ function decodeInteger(reader, relative) {
     value |= (integer & 31) << shift;
     shift += 5;
   } while (integer & 32);
-  const shouldNegate = value & 1;
-  value >>>= 1;
-  if (shouldNegate) {
-    value = -2147483648 | -value;
-  }
-  return relative + value;
+  return value;
 }
-function encodeInteger(builder, num, relative) {
-  let delta = num - relative;
-  delta = delta < 0 ? -delta << 1 | 1 : delta << 1;
+function decodeSign(num) {
+  return num & 1 ? -2147483648 | -(num >>> 1) : num >>> 1;
+}
+function encodeInteger(builder, num) {
   do {
-    let clamped = delta & 31;
-    delta >>>= 5;
-    if (delta > 0) clamped |= 32;
+    let clamped = num & 31;
+    num >>>= 5;
+    if (num > 0) clamped |= 32;
     builder.write(intToChar[clamped]);
-  } while (delta > 0);
-  return num;
+  } while (num > 0);
+}
+function encodeSign(num) {
+  return num < 0 ? -num << 1 | 1 : num << 1;
 }
 function hasMoreVlq(reader, max) {
   if (reader.pos >= max) return false;
@@ -104,23 +102,23 @@ function decodeOriginalScopes(input) {
   const stack = [];
   let line = 0;
   for (; reader.pos < length; reader.pos++) {
-    line = decodeInteger(reader, line);
-    const column = decodeInteger(reader, 0);
+    line += decodeSign(decodeInteger(reader));
+    const column = decodeSign(decodeInteger(reader));
     if (!hasMoreVlq(reader, length)) {
       const last = stack.pop();
       last[2] = line;
       last[3] = column;
       continue;
     }
-    const kind = decodeInteger(reader, 0);
-    const fields = decodeInteger(reader, 0);
+    const kind = decodeSign(decodeInteger(reader));
+    const fields = decodeSign(decodeInteger(reader));
     const hasName = fields & 1;
-    const scope = hasName ? [line, column, 0, 0, kind, decodeInteger(reader, 0)] : [line, column, 0, 0, kind];
+    const scope = hasName ? [line, column, 0, 0, kind, decodeSign(decodeInteger(reader))] : [line, column, 0, 0, kind];
     let vars = EMPTY;
     if (hasMoreVlq(reader, length)) {
       vars = [];
       do {
-        const varsIndex = decodeInteger(reader, 0);
+        const varsIndex = decodeSign(decodeInteger(reader));
         vars.push(varsIndex);
       } while (hasMoreVlq(reader, length));
     }
@@ -141,14 +139,15 @@ function _encodeOriginalScopes(scopes, index, writer, state) {
   const scope = scopes[index];
   const { 0: startLine, 1: startColumn, 2: endLine, 3: endColumn, 4: kind, vars } = scope;
   if (index > 0) writer.write(comma);
-  state[0] = encodeInteger(writer, startLine, state[0]);
-  encodeInteger(writer, startColumn, 0);
-  encodeInteger(writer, kind, 0);
+  encodeInteger(writer, encodeSign(startLine - state[0]));
+  state[0] = startLine;
+  encodeInteger(writer, encodeSign(startColumn));
+  encodeInteger(writer, encodeSign(kind));
   const fields = scope.length === 6 ? 1 : 0;
-  encodeInteger(writer, fields, 0);
-  if (scope.length === 6) encodeInteger(writer, scope[5], 0);
+  encodeInteger(writer, encodeSign(fields));
+  if (scope.length === 6) encodeInteger(writer, encodeSign(scope[5]));
   for (const v of vars) {
-    encodeInteger(writer, v, 0);
+    encodeInteger(writer, encodeSign(v));
   }
   for (index++; index < scopes.length; ) {
     const next = scopes[index];
@@ -159,8 +158,9 @@ function _encodeOriginalScopes(scopes, index, writer, state) {
     index = _encodeOriginalScopes(scopes, index, writer, state);
   }
   writer.write(comma);
-  state[0] = encodeInteger(writer, endLine, state[0]);
-  encodeInteger(writer, endColumn, 0);
+  encodeInteger(writer, encodeSign(endLine - state[0]));
+  state[0] = endLine;
+  encodeInteger(writer, encodeSign(endColumn));
   return index;
 }
 function decodeGeneratedRanges(input) {
@@ -180,14 +180,14 @@ function decodeGeneratedRanges(input) {
     const semi = reader.indexOf(";");
     let genColumn = 0;
     for (; reader.pos < semi; reader.pos++) {
-      genColumn = decodeInteger(reader, genColumn);
+      genColumn += decodeSign(decodeInteger(reader));
       if (!hasMoreVlq(reader, semi)) {
         const last = stack.pop();
         last[2] = genLine;
         last[3] = genColumn;
         continue;
       }
-      const fields = decodeInteger(reader, 0);
+      const fields = decodeSign(decodeInteger(reader));
       const hasDefinition = fields & 1;
       const hasCallsite = fields & 2;
       const hasScope = fields & 4;
@@ -195,11 +195,8 @@ function decodeGeneratedRanges(input) {
       let bindings = EMPTY;
       let range;
       if (hasDefinition) {
-        const defSourcesIndex = decodeInteger(reader, definitionSourcesIndex);
-        definitionScopeIndex = decodeInteger(
-          reader,
-          definitionSourcesIndex === defSourcesIndex ? definitionScopeIndex : 0
-        );
+        const defSourcesIndex = definitionSourcesIndex + decodeSign(decodeInteger(reader));
+        definitionScopeIndex = decodeSign(decodeInteger(reader)) + (definitionSourcesIndex === defSourcesIndex ? definitionScopeIndex : 0);
         definitionSourcesIndex = defSourcesIndex;
         range = [genLine, genColumn, 0, 0, defSourcesIndex, definitionScopeIndex];
       } else {
@@ -209,13 +206,10 @@ function decodeGeneratedRanges(input) {
       if (hasCallsite) {
         const prevCsi = callsiteSourcesIndex;
         const prevLine = callsiteLine;
-        callsiteSourcesIndex = decodeInteger(reader, callsiteSourcesIndex);
+        callsiteSourcesIndex += decodeSign(decodeInteger(reader));
         const sameSource = prevCsi === callsiteSourcesIndex;
-        callsiteLine = decodeInteger(reader, sameSource ? callsiteLine : 0);
-        callsiteColumn = decodeInteger(
-          reader,
-          sameSource && prevLine === callsiteLine ? callsiteColumn : 0
-        );
+        callsiteLine = (sameSource ? callsiteLine : 0) + decodeSign(decodeInteger(reader));
+        callsiteColumn = (sameSource && prevLine === callsiteLine ? callsiteColumn : 0) + decodeSign(decodeInteger(reader));
         callsite = [callsiteSourcesIndex, callsiteLine, callsiteColumn];
       }
       range.callsite = callsite;
@@ -224,15 +218,15 @@ function decodeGeneratedRanges(input) {
         do {
           bindingLine = genLine;
           bindingColumn = genColumn;
-          const expressionsCount = decodeInteger(reader, 0);
+          const expressionsCount = decodeSign(decodeInteger(reader));
           let expressionRanges;
           if (expressionsCount < -1) {
-            expressionRanges = [[decodeInteger(reader, 0)]];
+            expressionRanges = [[decodeSign(decodeInteger(reader))]];
             for (let i = -1; i > expressionsCount; i--) {
               const prevBl = bindingLine;
-              bindingLine = decodeInteger(reader, bindingLine);
-              bindingColumn = decodeInteger(reader, bindingLine === prevBl ? bindingColumn : 0);
-              const expression = decodeInteger(reader, 0);
+              bindingLine += decodeSign(decodeInteger(reader));
+              bindingColumn = (bindingLine === prevBl ? bindingColumn : 0) + decodeSign(decodeInteger(reader));
+              const expression = decodeSign(decodeInteger(reader));
               expressionRanges.push([expression, bindingLine, bindingColumn]);
             }
           } else {
@@ -276,16 +270,19 @@ function _encodeGeneratedRanges(ranges, index, writer, state) {
   } else if (index > 0) {
     writer.write(comma);
   }
-  state[1] = encodeInteger(writer, range[1], state[1]);
+  encodeInteger(writer, encodeSign(range[1] - state[1]));
+  state[1] = range[1];
   const fields = (range.length === 6 ? 1 : 0) | (callsite ? 2 : 0) | (isScope ? 4 : 0);
-  encodeInteger(writer, fields, 0);
+  encodeInteger(writer, encodeSign(fields));
   if (range.length === 6) {
     const { 4: sourcesIndex, 5: scopesIndex } = range;
     if (sourcesIndex !== state[2]) {
       state[3] = 0;
     }
-    state[2] = encodeInteger(writer, sourcesIndex, state[2]);
-    state[3] = encodeInteger(writer, scopesIndex, state[3]);
+    encodeInteger(writer, encodeSign(sourcesIndex - state[2]));
+    state[2] = sourcesIndex;
+    encodeInteger(writer, encodeSign(scopesIndex - state[3]));
+    state[3] = scopesIndex;
   }
   if (callsite) {
     const { 0: sourcesIndex, 1: callLine, 2: callColumn } = range.callsite;
@@ -295,22 +292,27 @@ function _encodeGeneratedRanges(ranges, index, writer, state) {
     } else if (callLine !== state[5]) {
       state[6] = 0;
     }
-    state[4] = encodeInteger(writer, sourcesIndex, state[4]);
-    state[5] = encodeInteger(writer, callLine, state[5]);
-    state[6] = encodeInteger(writer, callColumn, state[6]);
+    encodeInteger(writer, encodeSign(sourcesIndex - state[4]));
+    state[4] = sourcesIndex;
+    encodeInteger(writer, encodeSign(callLine - state[5]));
+    state[5] = callLine;
+    encodeInteger(writer, encodeSign(callColumn - state[6]));
+    state[6] = callColumn;
   }
   if (bindings) {
     for (const binding of bindings) {
-      if (binding.length > 1) encodeInteger(writer, -binding.length, 0);
+      if (binding.length > 1) encodeInteger(writer, encodeSign(-binding.length));
       const expression = binding[0][0];
-      encodeInteger(writer, expression, 0);
+      encodeInteger(writer, encodeSign(expression));
       let bindingStartLine = startLine;
       let bindingStartColumn = startColumn;
       for (let i = 1; i < binding.length; i++) {
         const expRange = binding[i];
-        bindingStartLine = encodeInteger(writer, expRange[1], bindingStartLine);
-        bindingStartColumn = encodeInteger(writer, expRange[2], bindingStartColumn);
-        encodeInteger(writer, expRange[0], 0);
+        encodeInteger(writer, encodeSign(expRange[1] - bindingStartLine));
+        bindingStartLine = expRange[1];
+        encodeInteger(writer, encodeSign(expRange[2] - bindingStartColumn));
+        bindingStartColumn = expRange[2];
+        encodeInteger(writer, encodeSign(expRange[0]));
       }
     }
   }
@@ -329,13 +331,48 @@ function _encodeGeneratedRanges(ranges, index, writer, state) {
   } else {
     writer.write(comma);
   }
-  state[1] = encodeInteger(writer, endColumn, state[1]);
+  encodeInteger(writer, encodeSign(endColumn - state[1]));
+  state[1] = endColumn;
   return index;
 }
 function catchupLine(writer, lastLine, line) {
   do {
     writer.write(semicolon);
   } while (++lastLine < line);
+}
+
+// src/range-mappings.ts
+function decodeRangeMappings(input) {
+  const { length } = input;
+  const reader = new StringReader(input);
+  const rangeMappings = [];
+  do {
+    const semi = reader.indexOf(";");
+    const indices = [];
+    let index = 0;
+    while (reader.pos < semi) {
+      index += decodeInteger(reader);
+      indices.push(index);
+    }
+    rangeMappings.push(indices);
+    reader.pos = semi + 1;
+  } while (reader.pos <= length);
+  return rangeMappings;
+}
+function encodeRangeMappings(decoded) {
+  if (decoded.length === 0) return "";
+  const writer = new StringWriter();
+  for (let i = 0; i < decoded.length; i++) {
+    const indices = decoded[i];
+    if (i > 0) writer.write(semicolon);
+    let index = 0;
+    for (let j = 0; j < indices.length; j++) {
+      const offset = indices[j];
+      encodeInteger(writer, offset - index);
+      index = offset;
+    }
+  }
+  return writer.flush();
 }
 
 // src/sourcemap-codec.ts
@@ -356,15 +393,15 @@ function decode(mappings) {
     genColumn = 0;
     while (reader.pos < semi) {
       let seg;
-      genColumn = decodeInteger(reader, genColumn);
+      genColumn += decodeSign(decodeInteger(reader));
       if (genColumn < lastCol) sorted = false;
       lastCol = genColumn;
       if (hasMoreVlq(reader, semi)) {
-        sourcesIndex = decodeInteger(reader, sourcesIndex);
-        sourceLine = decodeInteger(reader, sourceLine);
-        sourceColumn = decodeInteger(reader, sourceColumn);
+        sourcesIndex += decodeSign(decodeInteger(reader));
+        sourceLine += decodeSign(decodeInteger(reader));
+        sourceColumn += decodeSign(decodeInteger(reader));
         if (hasMoreVlq(reader, semi)) {
-          namesIndex = decodeInteger(reader, namesIndex);
+          namesIndex += decodeSign(decodeInteger(reader));
           seg = [genColumn, sourcesIndex, sourceLine, sourceColumn, namesIndex];
         } else {
           seg = [genColumn, sourcesIndex, sourceLine, sourceColumn];
@@ -401,13 +438,18 @@ function encode(decoded) {
     for (let j = 0; j < line.length; j++) {
       const segment = line[j];
       if (j > 0) writer.write(comma);
-      genColumn = encodeInteger(writer, segment[0], genColumn);
+      encodeInteger(writer, encodeSign(segment[0] - genColumn));
+      genColumn = segment[0];
       if (segment.length === 1) continue;
-      sourcesIndex = encodeInteger(writer, segment[1], sourcesIndex);
-      sourceLine = encodeInteger(writer, segment[2], sourceLine);
-      sourceColumn = encodeInteger(writer, segment[3], sourceColumn);
+      encodeInteger(writer, encodeSign(segment[1] - sourcesIndex));
+      encodeInteger(writer, encodeSign(segment[2] - sourceLine));
+      encodeInteger(writer, encodeSign(segment[3] - sourceColumn));
+      sourcesIndex = segment[1];
+      sourceLine = segment[2];
+      sourceColumn = segment[3];
       if (segment.length === 4) continue;
-      namesIndex = encodeInteger(writer, segment[4], namesIndex);
+      encodeInteger(writer, encodeSign(segment[4] - namesIndex));
+      namesIndex = segment[4];
     }
   }
   return writer.flush();
@@ -416,8 +458,10 @@ export {
   decode,
   decodeGeneratedRanges,
   decodeOriginalScopes,
+  decodeRangeMappings,
   encode,
   encodeGeneratedRanges,
-  encodeOriginalScopes
+  encodeOriginalScopes,
+  encodeRangeMappings
 };
 //# sourceMappingURL=sourcemap-codec.mjs.map

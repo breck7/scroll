@@ -1,4 +1,12 @@
-import { comma, decodeInteger, encodeInteger, hasMoreVlq, semicolon } from './vlq';
+import {
+  comma,
+  decodeInteger,
+  decodeSign,
+  encodeInteger,
+  encodeSign,
+  hasMoreVlq,
+  semicolon,
+} from './vlq';
 import { StringWriter, StringReader } from './strings';
 
 export {
@@ -8,6 +16,9 @@ export {
   encodeGeneratedRanges,
 } from './scopes';
 export type { OriginalScope, GeneratedRange, CallSite, BindingExpressionRange } from './scopes';
+
+export { decodeRangeMappings, encodeRangeMappings } from './range-mappings';
+export type { MappingIndex, RangeMappings } from './range-mappings';
 
 export type SourceMapSegment =
   | [number]
@@ -36,17 +47,17 @@ export function decode(mappings: string): SourceMapMappings {
     while (reader.pos < semi) {
       let seg: SourceMapSegment;
 
-      genColumn = decodeInteger(reader, genColumn);
+      genColumn += decodeSign(decodeInteger(reader));
       if (genColumn < lastCol) sorted = false;
       lastCol = genColumn;
 
       if (hasMoreVlq(reader, semi)) {
-        sourcesIndex = decodeInteger(reader, sourcesIndex);
-        sourceLine = decodeInteger(reader, sourceLine);
-        sourceColumn = decodeInteger(reader, sourceColumn);
+        sourcesIndex += decodeSign(decodeInteger(reader));
+        sourceLine += decodeSign(decodeInteger(reader));
+        sourceColumn += decodeSign(decodeInteger(reader));
 
         if (hasMoreVlq(reader, semi)) {
-          namesIndex = decodeInteger(reader, namesIndex);
+          namesIndex += decodeSign(decodeInteger(reader));
           seg = [genColumn, sourcesIndex, sourceLine, sourceColumn, namesIndex];
         } else {
           seg = [genColumn, sourcesIndex, sourceLine, sourceColumn];
@@ -95,15 +106,20 @@ export function encode(decoded: Readonly<SourceMapMappings>): string {
       const segment = line[j];
       if (j > 0) writer.write(comma);
 
-      genColumn = encodeInteger(writer, segment[0], genColumn);
+      encodeInteger(writer, encodeSign(segment[0] - genColumn));
+      genColumn = segment[0];
 
       if (segment.length === 1) continue;
-      sourcesIndex = encodeInteger(writer, segment[1], sourcesIndex);
-      sourceLine = encodeInteger(writer, segment[2], sourceLine);
-      sourceColumn = encodeInteger(writer, segment[3], sourceColumn);
+      encodeInteger(writer, encodeSign(segment[1] - sourcesIndex));
+      encodeInteger(writer, encodeSign(segment[2] - sourceLine));
+      encodeInteger(writer, encodeSign(segment[3] - sourceColumn));
+      sourcesIndex = segment[1];
+      sourceLine = segment[2];
+      sourceColumn = segment[3];
 
       if (segment.length === 4) continue;
-      namesIndex = encodeInteger(writer, segment[4], namesIndex);
+      encodeInteger(writer, encodeSign(segment[4] - namesIndex));
+      namesIndex = segment[4];
     }
   }
 

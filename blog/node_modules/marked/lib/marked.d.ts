@@ -536,6 +536,8 @@ declare class _Lexer<ParserOutput = string, RendererOutput = string> {
 	state: {
 		inLink: boolean;
 		inRawBlock: boolean;
+		/** a link was produced in the inline run currently being scanned */
+		linkEmitted: boolean;
 		top: boolean;
 	};
 	inlineQueue: {
@@ -614,6 +616,11 @@ declare class _Lexer<ParserOutput = string, RendererOutput = string> {
 	blockTokens(src: string, tokens?: Token[], lastParagraphClipped?: boolean): Token[];
 	blockTokens(src: string, tokens?: TokensList, lastParagraphClipped?: boolean): TokensList;
 	inline(src: string, tokens?: Token[]): Token[];
+	/**
+	 * Does this link text hold a link already? An image does not count: an image
+	 * may hold a link, a link may not.
+	 */
+	private linkInText;
 	/**
 	 * Lexing/Compiling
 	 */

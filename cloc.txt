@@ -9,16 +9,16 @@ Code
 
 files,language,blank,comment,code
 114,Parsers,463,0,8178
-149,Scroll,2152,0,6109
+149,Scroll,2155,0,6125
 12,JavaScript,173,102,943
 2,SVG,0,0,226
 2,JSON,0,0,113
 3,CSS,8,0,110
 4,YAML,6,3,65
-2,Markdown,17,0,37
 1,Text,0,0,8
 1,HTML,0,0,5
+1,Markdown,1,0,5
 1,Python,0,0,1
-291,SUM,2819,105,15795
+290,SUM,2806,105,15779
 
 Built with Scroll v178.3.0

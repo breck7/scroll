@@ -13,7 +13,7 @@ for (let i = 0; i < chars.length; i++) {
   charToInt[c] = i;
 }
 
-export function decodeInteger(reader: StringReader, relative: number): number {
+export function decodeInteger(reader: StringReader): number {
   let value = 0;
   let shift = 0;
   let integer = 0;
@@ -25,28 +25,24 @@ export function decodeInteger(reader: StringReader, relative: number): number {
     shift += 5;
   } while (integer & 32);
 
-  const shouldNegate = value & 1;
-  value >>>= 1;
-
-  if (shouldNegate) {
-    value = -0x80000000 | -value;
-  }
-
-  return relative + value;
+  return value;
 }
 
-export function encodeInteger(builder: StringWriter, num: number, relative: number): number {
-  let delta = num - relative;
+export function decodeSign(num: number): number {
+  return num & 1 ? -0x80000000 | -(num >>> 1) : num >>> 1;
+}
 
-  delta = delta < 0 ? (-delta << 1) | 1 : delta << 1;
+export function encodeInteger(builder: StringWriter, num: number) {
   do {
-    let clamped = delta & 0b011111;
-    delta >>>= 5;
-    if (delta > 0) clamped |= 0b100000;
+    let clamped = num & 0b011111;
+    num >>>= 5;
+    if (num > 0) clamped |= 0b100000;
     builder.write(intToChar[clamped]);
-  } while (delta > 0);
+  } while (num > 0);
+}
 
-  return num;
+export function encodeSign(num: number): number {
+  return num < 0 ? (-num << 1) | 1 : num << 1;
 }
 
 export function hasMoreVlq(reader: StringReader, max: number) {

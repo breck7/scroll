@@ -1,3 +1,22 @@
+// Hello, fellow human!
+
+// This is a scroll file that generates our homepage
+// and serves as a readme.
+//
+// Scroll works GREAT with AI, but it also works
+// GREAT by hand. Even works great on pen and paper!
+//
+// We designed Scroll to be useful in the year 1800
+// so that it may remain useful in the year 2200.
+//
+// It's been a real team effort over the years.
+// Thanks for checking us out. And please, if there
+// are things that are confusing or could be improved,
+// go ahead and do it! Copy away.
+//
+// - Breck
+
+
 permalink index.html
 title Scroll is a language for scientists of all ages
 

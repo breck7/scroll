@@ -1,5 +1,5 @@
 parserId,uses
-blankLineParser,1220
+blankLineParser,1223
 versionParser,698
 newFeatureParser,685
 lineOfCodeParser,452
@@ -13,13 +13,13 @@ listAftertextParser,57
 codeParser,50
 scrollImportedParser,49
 h2Parser,44
+slashCommentParser,39
 belowAsCodeParser,31
 quickCssParser,28
 quickRelativeLinkParser,26
 scrollCenterParser,26
 editButtonParser,25
 addClassMarkupParser,24
-slashCommentParser,23
 aboveAsCodeParser,18
 buildTxtParser,16
 scrollBrParser,14
