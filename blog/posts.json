@@ -2,11 +2,11 @@
   {
     "date": "09/05/2026",
     "year": 2026,
-    "title": "Introducing Based64: ASCII art that compiles to binary images and more",
+    "title": "Introducing Based64: Base64 as ASCII art",
     "permalink": "based64.html",
     "authors": "Breck Yunits",
     "tags": "All",
-    "wordCount": 654,
+    "wordCount": 650,
     "minutes": 3.3
   },
   {
@@ -75,7 +75,7 @@
     "title": "Feed",
     "permalink": "feed.html",
     "tags": "",
-    "wordCount": 641,
+    "wordCount": 636,
     "minutes": 3.2
   },
   {
@@ -94,8 +94,8 @@
     "title": "The Official Scroll Blog",
     "permalink": "full.html",
     "tags": "",
-    "wordCount": 334,
-    "minutes": 1.7
+    "wordCount": 329,
+    "minutes": 1.6
   },
   {
     "date": "09/02/2024",
@@ -143,8 +143,8 @@
     "title": "The Official Scroll Blog",
     "permalink": "index.html",
     "tags": "",
-    "wordCount": 334,
-    "minutes": 1.7
+    "wordCount": 329,
+    "minutes": 1.6
   },
   {
     "date": "10/02/2022",
@@ -202,8 +202,8 @@
     "title": "Search the Official Scroll Blog",
     "permalink": "search.html",
     "tags": "",
-    "wordCount": 10756,
-    "minutes": 53.8
+    "wordCount": 10747,
+    "minutes": 53.7
   },
   {
     "date": "09/05/2026",

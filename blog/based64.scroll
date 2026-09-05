@@ -1,4 +1,4 @@
-title Introducing Based64: ASCII art that compiles to binary images and more
+title Introducing Based64: Base64 as ASCII art
 date 9/5/2026
 openGraphImage based64-open-graph.png
 
@@ -80,7 +80,7 @@ Choose an image, GIF, video, or audio file. Edit the text and watch it change. E
 
 based64Studio
 
-# Less media, same idea
+# Enough to communicate the idea
 
 Based64 keeps at most 64×64 pixels and 64 colors per frame. Enough for a face, a diagram, or a short instructional animation.
 

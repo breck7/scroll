@@ -1,7 +1,7 @@
 The Official Scroll Blog
 ========================
-Introducing Based64: ASCII art that compiles to binary images and more
-======================================================================
+Introducing Based64: Base64 as ASCII art
+========================================
 09/05/2026
 https://scroll.surf/blog/based64.html
 
