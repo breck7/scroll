@@ -6,7 +6,7 @@ id,isPopular,description,popularity,example,category
 ##,true,An html h2 tag.,526,## Hello world,
 >,true,A quote.,49,> The only thing we have to fear is fear itself. - FDR,
 authors,true,Set author(s) name(s).,738,"authors Breck Yunits
-https://breckyunits.com Breck Yunits",
+https://breck.lol Breck Yunits",
 blankLineParser,true,Print nothing. Break section.,30815,,
 buildHtml,true,Compile to HTML file.,765,,
 buildTxt,true,Compile to TXT file.,760,,
@@ -23,7 +23,7 @@ htmlInlineParser,true,Inline HTML.,579,<h1>Inline HTML</h1>,
 image,true,An img tag.,591,"image screenshot.png
 caption A caption.",
 printAuthors,true,Prints author(s) byline.,167,"authors Breck Yunits
-https://breckyunits.com
+https://breck.lol
 printAuthors",
 printDate,true,Print published date.,44,"date 1/11/2019
 printDate",
@@ -188,8 +188,8 @@ Who's there?",
 favicon,,Favicon file.,169,"favicon logo.png
 metatags
 buildHtml",
-fetch,,Download URL to disk.,0,"fetch https://breckyunits.com/posts.csv
-fetch https://breckyunits.com/posts.csv renamed.csv",
+fetch,,Download URL to disk.,0,"fetch https://breck.lol/posts.csv
+fetch https://breck.lol/posts.csv renamed.csv",
 fileNav,,Titles and links in group(s).,5,printSnippets index,
 font,,Quickly set font family.,722,font Slim,
 footer,,HTML tag.,0,"footer

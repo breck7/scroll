@@ -2,17 +2,17 @@ Scroll Tutorial
 ===============
 Scroll Roadmap
 ==============
-09/03/2026
+09/05/2026
 https://scroll.surf/roadmap.html
 
 Scroll Release Notes
 ====================
-09/03/2026
+09/05/2026
 https://scroll.surf/releaseNotes.html
 
 Scroll FAQ
 ==========
-09/03/2026
+09/05/2026
 https://scroll.surf/faq.html
 
 Video walkthrough of this tutorial | Edit this file on try.scroll.surf
@@ -158,7 +158,7 @@ Here's how to <b>bold</b>.
 Aftertext
 =========
 Scroll invented something called aftertext, where you put markup after the text.
- https://breckyunits.com/aftertext.html Scroll invented something called aftertext, where you put markup after the text.
+ https://breck.lol/aftertext.html Scroll invented something called aftertext, where you put markup after the text.
 
 For example, instead of mixing in the link with the content, you put the link _after the text_ along with the text you want the link to match against. For example:
 A link to Wikipedia

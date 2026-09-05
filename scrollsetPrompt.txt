@@ -61,7 +61,7 @@ Here is a blog post about ScrollSets:
 
 ```blog/scrollsets.scroll
 authors Breck Yunits
- https://breckyunits.com Breck Yunits
+ https://breck.lol Breck Yunits
 buildConcepts planets.csv planets.json planets.tsv
 buildMeasures planetMeasures.tsv
  sortBy -Values
@@ -198,7 +198,7 @@ This is a simple pattern to implement, so I'm sure it is likely it has been done
 
 ? What is the origin of ScrollSets?
 LLM dataset generation is a _major_ breakthrough in datasets. ScrollSets are, at best, a minor improvement. They are designed to work alongside LLMs to help solve the Dataset Needed problem.
- https://breckyunits.com/dataset-needed.html Dataset Needed
+ https://breck.lol/dataset-needed.html Dataset Needed
 
 ScrollSets evolved out of TrueBase. ScrollSets have eliminated the need for the TrueBase software (and existing TrueBase sites should be migrated to ScrollSets), but were informed by the TrueBase build experience.
  https://truebase.treenotation.org TrueBase
@@ -357,7 +357,7 @@ footer.scroll
 
 Here is another blog post about ScrollSets:
 
-```breckyunits.com/scrollsets.scroll
+```breck.lol/scrollsets.scroll
 date 2024-05-21
 tags All Scroll Programming Data Life ScrollSets ScrollPapers AllPapers
 title ScrollSets: A New Way to Store Knowledge
@@ -514,7 +514,7 @@ You can read more about ScrollSets on the Scroll blog, see small demos at sets.s
 ^apple M1: Apple
  https://en.wikipedia.org/wiki/Apple_M1 M1
 - The M1 laptop was the first consumer machine where the performance of this system wasn't abysmal.
- https://breckyunits.com/building-a-treebase-with-6.5-million-files.html abysmal
+ https://breck.lol/building-a-treebase-with-6.5-million-files.html abysmal
 ^scrollStack Particles: Breck Yunits et al (formerly called Tree Notation)
  https://github.com/breck7/research/blob/master/papers/paper3/countingComplexity.pdf Particles
 ^recutils GNU Recutils: Jose E. Marchesi
@@ -648,7 +648,7 @@ abstractUrlMeasureParser
   homepageParser
    extends abstractUrlMeasureParser
   id Breck
-  homepage https://breckyunits.com
+  homepage https://breck.lol
  string typeForWebForms url
  atoms measureNameAtom urlAtom
  extends abstractAtomMeasureParser

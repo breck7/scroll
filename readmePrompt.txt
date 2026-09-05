@@ -1133,7 +1133,7 @@ particles.png
 
 📦 126.1.0 9/3/2024
 🎉 `scrollForm` now implements the One Textarea design pattern. Thanks Alejandro for your help!
- https://breckyunits.com/oneTextarea.html One Textarea design pattern
+ https://breck.lol/oneTextarea.html One Textarea design pattern
 
 📦 126.0.1 9/3/2024
 🏥 column stack fix
@@ -2651,7 +2651,7 @@ This is the `title` simplification refactor release.
 🏥 list element (`- some item`) compiler was generating an extra `p` tag.
 
 📦 43.0.0 11/12/2022
-🎉 New: Linkify! Links like https://breckyunits.com and email addresses like breck7@gmail.com are now compiled to HTML `a` tags automatically. Note: if an `a` tag is detected in the node Linkify will be DISABLED for that node.
+🎉 New: Linkify! Links like https://breck.lol and email addresses like breck7@gmail.com are now compiled to HTML `a` tags automatically. Note: if an `a` tag is detected in the node Linkify will be DISABLED for that node.
 ⚠️ BREAKING: (no one should be affected) slim chance linkify may insert links where you previously did not want them.
 
 📦 42.0.0 11/09/2022
@@ -3387,9 +3387,9 @@ Scroll powers an ever increasing number of blogs like this one.
 blog/screenshot.png
  width 200
  float right
- link https://breckyunits.com/
+ link https://breck.lol/
  caption This screenshot is from a blog powered by Scroll.
-  https://breckyunits.com/ a blog powered by Scroll
+  https://breck.lol/ a blog powered by Scroll
 
 ### Knowledge Bases
 Scroll powers PLDB, a knowledge base with over 100 contributors who have added over 100,000 atoms of structured data and thousands of pages.
@@ -3430,7 +3430,7 @@ code
 
 ? Is Scroll open source?
 Yes. Breck's Lab publishes Scroll to the public domain.
- https://breckyunits.com/lab.html Breck's Lab
+ https://breck.lol/lab.html Breck's Lab
 
 The source code is hosted on GitHub.
  https://github.com/breck7/scroll source code
@@ -3528,8 +3528,8 @@ Also, although it is simple to write your own parsers in ParsersLinks once you k
 Scroll is a great solution for blogs and sites of one page, a few pages, tens of pages, hundreds of pages, or even thousands of pages.
  https://scroll.surf one page
  https://scroll.surf/blog/ a few pages
- https://breckyunits.com/code/ tens of pages
- https://breckyunits.com/ hundreds of pages
+ https://breck.lol/code/ tens of pages
+ https://breck.lol/ hundreds of pages
  https://pldb.io/ thousands of pages
 
 ? How do I get Scroll?
@@ -3565,8 +3565,8 @@ Post an issue in this GitHub or email us.
 Scroll currently powers blog and sites of one page, a few pages, tens of pages, hundreds of pages, and even thousands of pages.
  https://scroll.surf one page
  https://scroll.surf/blog/ a few pages
- https://breckyunits.com/code/ tens of pages
- https://breckyunits.com/ hundreds of pages
+ https://breck.lol/code/ tens of pages
+ https://breck.lol/ hundreds of pages
  https://pldb.io/ thousands of pages
 
 ? What does a typical project folder look like?
@@ -3966,7 +3966,7 @@ Here's how to <b>bold</b>.
 
 ## Aftertext
 Scroll invented something called aftertext, where you put markup after the text.
- https://breckyunits.com/aftertext.html
+ https://breck.lol/aftertext.html
 
 For example, instead of mixing in the link with the content, you put the link _after the text_ along with the text you want the link to match against. For example:
 belowAsCode

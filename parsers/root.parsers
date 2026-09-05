@@ -387,8 +387,8 @@ scrollParser
     return (editBaseUrl ? editBaseUrl.replace(/\/$/, "") + "/" : "") + this.filename
   }
   get gitRepo() {
-    // given https://github.com/breck7/breckyunits.com/blob/main/four-tips-to-improve-communication.scroll
-    // return https://github.com/breck7/breckyunits.com
+    // given https://github.com/breck7/breck.lol/blob/main/four-tips-to-improve-communication.scroll
+    // return https://github.com/breck7/breck.lol
     return this.editUrl.split("/").slice(0, 5).join("/")
   }
   get scrollVersion() {

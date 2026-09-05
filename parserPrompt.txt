@@ -891,7 +891,7 @@ stamp
    catchAllAtomType stringAtom
    example
     authors Breck Yunits
-     https://breckyunits.com
+     https://breck.lol
     printAuthors
    javascript
     buildHtml() {
@@ -909,7 +909,7 @@ stamp
    description Set author(s) name(s).
    example
     authors Breck Yunits
-     https://breckyunits.com Breck Yunits
+     https://breck.lol Breck Yunits
    // note: once we have mixins in Parsers, lets mixin the below from abstractTopLevelSingleMetaParser
    atoms metaCommandAtom
    boolean isTopMatter true
@@ -2411,8 +2411,8 @@ stamp
    cueFromId
    atoms parseTimeCommandAtom urlAtom
    example
-    fetch https://breckyunits.com/posts.csv
-    fetch https://breckyunits.com/posts.csv renamed.csv
+    fetch https://breck.lol/posts.csv
+    fetch https://breck.lol/posts.csv renamed.csv
    javascript
     get url() {
       return this.getAtom(1)
@@ -4710,7 +4710,7 @@ stamp
     homepageParser
      extends abstractUrlMeasureParser
     id Breck
-    homepage https://breckyunits.com
+    homepage https://breck.lol
    string typeForWebForms url
    atoms measureNameAtom urlAtom
    extends abstractAtomMeasureParser
@@ -6608,8 +6608,8 @@ stamp
       return (editBaseUrl ? editBaseUrl.replace(/\/$/, "") + "/" : "") + this.filename
     }
     get gitRepo() {
-      // given https://github.com/breck7/breckyunits.com/blob/main/four-tips-to-improve-communication.scroll
-      // return https://github.com/breck7/breckyunits.com
+      // given https://github.com/breck7/breck.lol/blob/main/four-tips-to-improve-communication.scroll
+      // return https://github.com/breck7/breck.lol
       return this.editUrl.split("/").slice(0, 5).join("/")
     }
     get scrollVersion() {

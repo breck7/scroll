@@ -1048,7 +1048,7 @@ particles.png
 
 📦 126.1.0 9/3/2024
 🎉 `scrollForm` now implements the One Textarea design pattern. Thanks Alejandro for your help!
- https://breckyunits.com/oneTextarea.html One Textarea design pattern
+ https://breck.lol/oneTextarea.html One Textarea design pattern
 
 📦 126.0.1 9/3/2024
 🏥 column stack fix
@@ -2566,7 +2566,7 @@ This is the `title` simplification refactor release.
 🏥 list element (`- some item`) compiler was generating an extra `p` tag.
 
 📦 43.0.0 11/12/2022
-🎉 New: Linkify! Links like https://breckyunits.com and email addresses like breck7@gmail.com are now compiled to HTML `a` tags automatically. Note: if an `a` tag is detected in the node Linkify will be DISABLED for that node.
+🎉 New: Linkify! Links like https://breck.lol and email addresses like breck7@gmail.com are now compiled to HTML `a` tags automatically. Note: if an `a` tag is detected in the node Linkify will be DISABLED for that node.
 ⚠️ BREAKING: (no one should be affected) slim chance linkify may insert links where you previously did not want them.
 
 📦 42.0.0 11/09/2022

@@ -45,7 +45,7 @@
     "isPopular": true,
     "description": "Set author(s) name(s).",
     "popularity": 738,
-    "example": "authors Breck Yunits\n https://breckyunits.com Breck Yunits"
+    "example": "authors Breck Yunits\n https://breck.lol Breck Yunits"
   },
   {
     "id": "blankLineParser",
@@ -111,7 +111,7 @@
     "isPopular": true,
     "description": "Prints author(s) byline.",
     "popularity": 167,
-    "example": "authors Breck Yunits\n https://breckyunits.com\nprintAuthors"
+    "example": "authors Breck Yunits\n https://breck.lol\nprintAuthors"
   },
   {
     "id": "printDate",
@@ -649,7 +649,7 @@
     "id": "fetch",
     "description": "Download URL to disk.",
     "popularity": 0,
-    "example": "fetch https://breckyunits.com/posts.csv\nfetch https://breckyunits.com/posts.csv renamed.csv"
+    "example": "fetch https://breck.lol/posts.csv\nfetch https://breck.lol/posts.csv renamed.csv"
   },
   {
     "id": "fileNav",
