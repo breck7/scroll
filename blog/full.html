@@ -42,6 +42,639 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--scrollBaseFontSize, 16px);}</style>
 <div class="scrollSection"><h1 id="particle22" class="printTitleParser"><a href="full.html">The Official Scroll Blog</a></h1>
 <div class="scrollColumns" style="column-width:35ch;"><div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--scrollBaseFontSize, 16px);}</style>
+<div class="scrollSection"><h1 id="particle31" class="printTitleParser"><a href="based64.html">Introducing Based64: ASCII art that compiles to binary images and more</a></h1>
+<p id="particle4" class="printAuthorsParser">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></p>
+<div class="printDateParser">September 5, 2026</div>
+</div>
+<figure class="based64"><div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><pre aria-label="ASCII preview" style="margin:0;font:6px/4px monospace;white-space:pre;background:white;color:black">..............&quot;&quot;,,,,&quot;&quot;&quot;&quot;&quot;&quot;&quot;,&quot;&quot;&quot;&#39;&#39;&quot;&#39;.&#39;&quot;&#39;&#39;..&#39;.&#39;``&quot;,..&#39;,,&quot;&quot;`.......
+................&#39;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;&#39;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;.&#39;&quot;,&#39;&#39;.&quot;&quot;&quot;,&#39;&quot;&quot;``...........
+............`&quot;&quot;&quot;&quot;&quot;&quot;&quot;,,&quot;&quot;&quot;&quot;&quot;,&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;.&quot;&#39;&#39;&quot;...&quot;&quot;&#39;&#39;&#39;...............
+.......&#39;....&#39;&#39;.&#39;&quot;&quot;&quot;&quot;,&quot;&quot;&quot;&quot;&quot;&quot;,,,,&quot;&quot;&quot;&quot;&quot;&quot;,,&quot;&quot;&quot;,&quot;&quot;,,,&quot;&#39;`&quot;&quot;&#39;&quot;.........
+.......&#39;..`&quot;`&quot;&#39;&quot;&quot;&#39;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;.&#39;&quot;&quot;&quot;&quot;,,,&quot;`&quot;&quot;&#39;&#39;&#39;........
+.......&#39;....&quot;&quot;&#39;&quot;&quot;&quot;,&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;&quot;&quot;&#39;&quot;&quot;&#39;&#39;&quot;&#39;&#39;&#39;&quot;&quot;&quot;&quot;&#39;...........
+............&quot;,&quot;,&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;&#39;&#39;&#39;&#39;&#39;&quot;&quot;&quot;&quot;&#39;&quot;&quot;...&#39;...........
+.........&quot;&quot;,,,&quot;,,,,,,,,,,,,&quot;&quot;&quot;&quot;&quot;,&quot;,,&quot;&quot;&quot;&quot;&quot;&#39;&quot;&quot;&quot;&quot;&#39;&#39;`.&#39;&quot;,&quot;&#39;&#39;........
+.........&quot;&quot;&quot;,,,,,,,,,,,,,&quot;,+~ii:.&quot;&lt;i.,&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;....&#39;..........
+.....&#39;&#39;&quot;,,,,,,,,,,,,,,,i)-m8&amp;W&amp;oUmjj)i,,,,,,,,,,&quot;&quot;&quot;&quot;...`........
+.``&quot;,&quot;,,,,,,,,,,,,,,,,id8%BBB@BBBB%8&amp;j,,,,,,,,,,,,&quot;&quot;&quot;&quot;&quot;&quot;&#39;.......
+&#39;&#39;&quot;`,,,,,,,,,,,,,liiijWBBBBBBBB@BB%%8#i,,,,,,,,,,,&quot;&quot;............
+``,,,,,,,,,,,,,,iiii+WBBB$BBBB$$$BB%%8J+,,,,,,,,,,,,&quot;&quot;``........
+&quot;`&quot;,,,,,,,,,,liiiii+J%BBB$BB$BBB$$%BB%Boi,,,,,,,,,,,,,,&quot;`.......
+``&quot;,,,,,,,,,,liiii+)#BBBBBBB$$B@$$BBBBB%XiiII,,,,,,,,,&quot;&quot;`..`....
+,,,,,,,,,,,iiiii&gt;++)#BB$$@$BBBB%&amp;8%%BBBBoiiii,,,,,,,,,,&quot;`..`....
+,,,,,,,,,,,iiii++))m8B@B&amp;hq00qwQvvLw*%BBW{iiiii,,,,,,,,,,&quot;&quot;&quot;``&quot;.
+,,,,,,,,,,iiii++))j8B%h0Lx|||?|||||xCw&amp;@@diiiii,,,,,,&quot;,&quot;&quot;&#39;.`....
+,,,,,,,,,,iii+++))oBBazvx\||]__|]?]|\xQ8B&amp;+iiii:,,,,,,,&quot;&quot;&quot;`&quot;....
+,,,,,,,,,,ii+++-))WB8pvx\|??________|\xb%%J&lt;&lt;iii,,,,,,,,,``&quot;&quot;.``
+,,,,,,,,!iii+++)))oB80v\\|??____??_?|\\L&amp;%k+~&lt;iii,,,,,,,,&quot;`&quot;````
+&quot;,,,,,,,iii&lt;+++-))oB&amp;Qxx\|]?____??(|||\vh%#+&lt;&lt;iii,,,,,,,,&quot;`..`.`
+,,,,,,,:iii~+++)))#B&amp;Qvx\|]______?_?||\\p%&amp;)+~iii:,,,,,,&quot;&quot;..&quot;...
+,,,,,,,!iii~++-)))#B&amp;Qv\\|?________?||\\0%8)+~iii!,,,,,&quot;&quot;&quot;```...
+&quot;&quot;,,,,,!iii~++-)))WB&amp;Qvx\r\??_?_?\LwLv\\0%8)+~iii!,,,,,,&quot;``&quot;....
+&quot;,,,,,:!iii&lt;++-)))#B80vvQ0ppC\|?|w*apq0vv8W+++&lt;ii!,,,,,,&quot;```....
+&quot;,,,,,:!iii~+++)))k@%QzphphapQ|_xwpqLL00v&amp;#++~iii!!,,,,&quot;&quot;``.....
+,,,,,,,!iii&lt;+++)))j8%0Qp0qobwwx|v0q&amp;opzvv8o+~~iii!I,,,,&quot;&quot;&quot;......
+&quot;&quot;,,,,:!iii&lt;~++1)))WB0vzaooqQQv|xLL0zQv]v*w{+~iiiiI,,,,,&quot;&quot;```...
+&quot;&quot;&quot;,,,,!iii&lt;+++-))fp%pvvQvuvCQx||Cv\(?||\0x/+~&lt;iii:,,,,,&quot;&quot;````..
+&quot;,,,,,,!iii&lt;~++-))fCppv\\xxrrvx||x||||?]\0r{+~iii!,,,,,&quot;&quot;&quot;``&quot;&quot;..
+&quot;&quot;&quot;,,,,:iii&lt;~+++1))Cwpx\\\|?\Cx_|x|___]]\wC&gt;+~iiii!,,,,,,`&quot;&quot;&quot;&quot;..
+&quot;&quot;&quot;,,,,!!ii&lt;~+++1))uQpv\|__\Cx\__|\r___|\wx++~iii!!,,,,,&quot;``&quot;&quot;...
+&quot;&quot;&quot;,,,,:!iii&lt;~++1))fQpv\__|vCQL\\Lxx\__]xQ\++~iii!,,,,,&quot;`..`....
+&quot;&quot;&quot;&quot;,,,,!iii&lt;~++-)))vpQx||xCwppwwpwvr\]\vz++~~iiii!,,,,,&quot;``...`.
+&#39;&quot;&quot;&quot;,,,:!!iii~+++1)))wQv\\Q000QQLLQQQQ\\vf~+~&lt;iii!:,,,&quot;&quot;```..``.
+&#39;&#39;&quot;&quot;,,,,!!!ii~+++1)))j0v\vQwwvx\\ruwwQx\vf~~iiiii!!,,,&quot;&quot;`.......
+&quot;&#39;&quot;&quot;,,,,!!!iii~+++-)))0Qv\vwq?&gt;^^lfhCv\vv{~~~iiii!:,,,,&quot;```.`.`.
+..&#39;&quot;&quot;,,,:!!iii&lt;+++-)))0QzurxQwwLuLQx\v\vz{~~~iiii!,,,,,&quot;&quot;```....
+..&#39;&quot;,,,,:!!!iii~++-)))Y00zv\xxr|((|\rvvzz+~iiiii!!,,,&quot;&quot;``.......
+...&quot;&quot;&quot;,,:!!iiii&lt;+++)))j0000vrvvruvr|vQL0f~~~iiii!:,,,,&quot;``.......
+...&#39;&quot;&quot;,,,:!!iii~+++))))Ypwq0xrLw0Q\\Q00Q}+~~iiii!!:,,,,&quot;`.......
+....&quot;&quot;,,,:!!iii&lt;+++1)))f0pppQvvxrxvL0qQx{+~~iiii!!:,,&quot;&quot;`........
+...&quot;&quot;,,,:!!!ii&lt;&lt;++-))))Yv0pb0Qv||rL0p0rx0+++~iii!!:,,&quot;&quot;`........
+...&#39;&quot;,,,,:!!iii~++1)))Javv0hb0LvvL0bpv\\hX~+~iii!!:,,,&quot;``.......
+....&quot;,,,,:!!ii~~+-))))d*xxv0aapppbhpv\|\hO++~~iii!I,,,&quot;`........
+...&quot;&quot;,,,,:!ii&lt;+++1))))d&amp;x\\vQph**b0v\\|\hY}++~~ii!!,,,,&quot;`.......
+....&quot;&quot;,,,!!i&lt;+++-1)))jY*v\|\vuuzzz\\|(|xhtt)++~~ii!I,,,&quot;``......
+....&quot;&quot;,,,iii~++-)))tjXXq0r|?\\(__?(\((\Qhtttt}+~ii!I,,,,``````..
+.``&quot;&quot;,,,!ii~++))))tXJXjXqC\?(\\|_(|((|vaYtttX{{}~iiiII,,,,^``...
+.``,,,,,iii++)))tttjOXXXXpv(?\\ur\(((rpot/{tXtt{}}&gt;iiI,,,,,^^``.
+`,,,,,liii++))))fftfYYXXXXqv??\\\\\(\w&amp;X}tttXtttttt+ilI,,,,,^```
+,,,,,liii++)))tt)fttXXXXXfXqv??((\\\w&amp;otfXtfJtt}ttttt+iI,,,,,,^^
+,,,,liii+{)tttftff{tjXftttttbv(\\\v0*#OtfttfXttttttttt{&gt;l,,,,,^^
+,,lllii++)fft{jftfttfXXfjXfUdOv\\vQhokJtt/tXX}tttt}tttt{}&gt;I,,,,^
+,llii&gt;+{)tfftttttfttttXXXXmkmdYvvQwqOk#Ot}{Xtttttttttttt{{}i,,,,
+llii++)ttt{ftttttftttXXXXOkdOOXzw0QcXm##Jtttttttttttf)tt/{{}i,,,
+li&gt;++{tttt}tfttttftttXXfXmOXUUXOhwwXOUmdkjttttt{}tttttttt{}}+il,
+i+++){tt{tttXttfff}tttjtXXXXXXUYap0XXUXXUXttttt/ttttttft}{{{ti!I
++++)t{t}ttttf/tttfttttttfftXtXXX*pXXXtXt}tttt}/ttt/}fftt}/{{t}ii
+++{t)tt}tttttftfttttt}ttttf}XXtOOXtcXtttttttt/ttttt}fXttt//t}{!!
+++tfttttttttcctttt{tt}tttttttXOdtXtttttttt/tttt/tttttt{tttttttiI
++}fftttttt&gt;tXff/tttt{tttttttttOOttttt}tttt}&gt;t/tt&gt;/t{c/}ttt{tttiI
++{XXt/ttttttcXtfft{ttttt}tttttXXXttt)tttt/t/{/t{/t/tttttcttttf}I</pre><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAABAS0lEQVR4AQFAQL+/AN3dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMu//MzMz/zMzM/8zMzP/M3cz/zN3M/8zMzP/M3cz/3d3M/8zdzP/MzMz/zN3M/8zdzP/d3cz/3d3M/8zdzP/d3cz/zN3M/93MzP/dzMz/zMzM/8zMu//d3cz/3d3M/8zdzP/MzLv/zMy7/8zMzP/MzMz/3czM/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/8zdzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zN3M/8zdzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zN3M/93dzP/M3cz/zMzM/8zMu//M3cz/zN3M/93dzP/MzMz/zMzM/8zMzP/MzLv/zN3M/8zMzP/MzMz/3czM/93MzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/dzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMu//MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zdzP/d3cz/zMzM/8zdzP/M3cz/zMzM/93dzP/d3cz/3d3M/8zMzP/MzMz/zN3M/8zdzP/M3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/M3cz/3d3M/93dzP/d3cz/3d3M/8zdzP/M3cz/3d3M/8zdzP/MzMz/zMzM/8zMzP/MzMz/zMy7/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzLv/zMy7/8zMzP/MzMz/zMzM/8zMu//MzMz/zMzM/8zMu//MzLv/zMy7/8zMzP/M3cz/3czM/8zMzP/MzMz/zN3M/8zMzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/8zdzP/d3cz/3d3M/93MzP/MzMz/3czM/8zMzP/M3cz/zMzM/8zMzP/M3cz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zN3M/93dzP/M3cz/zMzM/8zMzP/MzMz/zMzM/8zMu//MzLv/zMy7/8zMzP/dzMz/zMzM/8zMzP/M3cz/zN3M/8zdzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/zN3M/93dzP/d3cz/3d3M/93dzP/MzMz/zMzM/8zdzP/MzMz/zMzM/8zMzP/MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/M3cz/zMzM/8zMzP/M3cz/zMzM/8zMzP/M3cz/zN3M/8zMzP/M3cz/zN3M/8zdzP/MzMz/zMzM/8zMzP/MzMz/zN3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/8zMzP/MzLv/zMzM/8zMu//MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zdzP/M3cz/zN3M/8zdzP/M3cz/zN3M/8zMzP/MzMz/zMzM/8zMzP/M3cz/zMzM/8zMzP/d3cz/3d3M/93dzP/M3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzLv/zMzM/8zMu//MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/M3cz/zMzM/8zMzP/MzMz/zMzM/8zdzP/M3cz/3czM/93dzP/M3cz/zMzM/8zMu//MzMz/zN3M/8zdzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/MzMz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/8zMu/+qqpn/qqqq/7u7qv+7u6r/u8y7/93dzP/MzMz/qruq/7u7qv/d3cz/zMy7/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/3d3M/93dzP/d3cz/3d3M/8zdzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/d3cz/zN3M/8zdzP/MzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/u7uq/5mZiP+Zqpn/ZmZm/zMzIv9EMzP/REQz/0QzM/9VRET/d3d3/2ZmZv+IiHf/iIh3/5mZiP+7u6r/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/MzMz/zMzM/8zMzP/d3cz/3d3M/93dzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93MzP/dzMz/zMzM/8zMu//MzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/7u7qv9mVVX/MzMi/zMiIv8iIiL/IiIi/yIiIv8iIhH/IiIi/yIiIv8iIiL/IiIi/zMiIv8zMyL/RDMz/4iId//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/M3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDM3cz/zN3M/8zMzP/dzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8y7qv+7u6r/u7uq/7u7qv+IiHf/REQz/yIiIv8iIiL/IiIi/yIiIv8iIiL/IiIi/yIiIv8iIiL/IiIR/yIiIv8iIiL/MyIi/zMiIv8zMyL/RERE/7u7qv/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/MzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3MzP/dzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu/+7u6r/u7uq/7u7qv+7u6r/qqqZ/0REM/8iIiL/IiIi/yIiIv8iERH/IiIi/yIiIv8iIiL/IiIi/yIREf8iERH/IhER/yIiIv8iIiL/MyIi/zMiIv8zMyL/d3dm/6qqmf/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/93MzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8AzMzM/93MzP/MzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8y7qv+7u6r/u7uq/7u7qv+7u6r/u7uq/6qqmf93d2b/MyIi/yIiIv8iIiL/IiIi/yIREf8iIiL/IiIi/yIREf8iIiL/IiIi/yIiIv8iERH/IhER/zMiIv8iIiL/IiIi/zMiIv8iIiL/VURE/7u7qv/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDdzMz/3czM/8zMzP/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zLuq/7u7qv+7u6r/u7uq/7u7qv+qqpn/mZmI/0RERP8iIiL/IiIi/yIiIv8iIiL/IiIi/yIiIv8iIiL/IhER/yIREf8iIiL/IiIR/yIREf8iERH/IiIi/yIiIv8iIiL/IiIi/yIiIv8zIiL/iHd3/7u7qv+7u6r/zLu7/8y7u//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/93MzP/d3cz/3d3M/93MzP/d3cz/3d3M/93dzP/d3cz/AMzMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/u7uq/7u7qv+7u6r/u7uq/7u7qv+7qpn/qqqZ/6qqmf+ZmYj/RERE/yIiIv8iIiL/IhER/yIREf8iIhH/IhER/yIiIv8iIiL/IiIi/yIiIv8zIiL/RDMz/zMzIv8zIiL/MyIi/yIiIv8iIiL/IiIi/yIiIv9VRET/u7uq/7u7qv+7u6r/u7uq/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/3czM/93dzP/d3cz/3czM/93dzP/d3cz/3d3M/93dzP8AzMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu/+7u6r/u7uq/7u7qv+7u6r/qqqZ/6qqmf+ZmYj/mZmI/2ZmZv8zMyL/IiIi/yIiEf8iIiL/RDMz/2ZERP93VVX/iGZV/4hmVf93VVX/iFVV/5lmVf+qd2b/qndm/5lmZv+IVVX/VUQz/zMiIv8iIiL/IiIi/0REM/+qmYj/u7uq/7u7qv+7u6r/u7uq/7u7qv/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/MzMz/3czM/93MzP/MzMz/3d3M/wDMzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/u7uq/7u7qv+7u6r/u7uq/6qqmf+qqpn/mZmI/5mZiP+IiHf/MzMi/yIiIv8zIiL/ZkRE/4hmVf+ZZmb/u3dm/8yId//MiHf/zIh3/8yZiP/MiHf/zIh3/8yId//MiHf/zIh3/7t3Zv+qZmb/iFVV/0QzM/8iIhH/IiIR/2ZVVf+7u6r/u7uq/7u7qv+7u6r/u7uq/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/MzLv/zMzM/8zMzP/M3cz/3d3M/93MzP/d3cz/3d3M/93dzP/d3cz/AMzMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu/+7u6r/u7uq/7u7qv+qqpn/qqqZ/6qqmf+ZmYj/mZmI/1VERP8iIiL/IiIi/2ZEM/+Zd2b/qndm/7t3Zv+7iHf/zIh3/8yId//MmXf/3ZmI/92ZiP/MiHf/zJl3/8yZiP/MmXf/zIh3/7uId/+7d2b/mWZV/zMzIv8iIiL/RDMz/6qqmf+7u6r/u7uq/7u7qv+7u6r/u8y7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/8zMzP/dzMz/zMzM/93dzP/d3cz/3d3M/93dzP8AzMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/7u7qv+7u6r/qqqZ/6qqmf+qqpn/maqZ/5mZiP+ZmYj/REQz/yIiIv8zMyL/d1VE/6p3Zv+7d2b/u4h3/8yId//MmYj/zJmI/92ZiP/dmYj/3ZmI/92ZiP/dmYj/3ZmI/92ZiP/dmYj/zIh3/7uId/+7d2b/ZlVE/zMiIv8zIiL/d3dm/6q7qv+qu6r/u7uq/7u7qv+7u6r/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/3czM/93MzP/MzMz/zMzM/93dzP/dzMz/3czM/wDMzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/7u7u/+7u6r/u7uq/7u7qv+qqpn/qqqZ/6qqmf+ZmYj/mZmI/5mZiP9VRET/IiIi/zMzIv+IZlX/qndm/7uId/+7iHf/zIh3/8yZiP/MmYj/3ZmI/92ZiP/dmYj/3ZmI/8yZiP/MmYj/3ZmI/8yZiP/MiHf/u4h3/7uId/+ZZmb/RDMz/zMiIv9VVVX/qqqZ/6qqqv+qu6r/u7uq/7u7qv+7u6r/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/3czM/8zMzP/dzMz/3czM/93MzP/dzMz/AMzMzP/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/u7uq/7u7qv+7u6r/qruq/6qqmf+qqpn/qqqZ/5mqmf+ZmYj/mZmI/1VERP8iIiL/RDMz/5lmVf+7d2b/u3dm/7uId//MiHf/zJl3/8yZiP/dmYj/3ZmI/92ZiP/dmYj/zJmI/8yZiP/MiIj/zIh3/8yId//MiHf/u4h3/6p3Zv9mRET/MyIi/0RERP+qqpn/qruq/6q7qv+7u6r/u7uq/7u7qv/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/dzMz/3d3M/93dzP/dzMz/3d3M/93MzP8AzMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/7vMu/+7u6r/u7uq/7u7qv+qqqr/qqqZ/6qqmf+qqpn/mZmI/5mZiP+ZmYj/RERE/yIiIv9EMzP/mWZV/6p3Zv+7d2b/u4h3/8yId//MmXf/3ZmI/92ZiP/dmYj/3ZmI/92ZiP/dmYj/zJmI/92ZiP/MmYj/zIh3/8yId/+7iHf/u4h3/3dVRP8zIiL/RDMz/5mZiP+qqpn/qqqq/7u7qv+7u6r/u7uq/7vMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/93dzP/d3cz/zMzM/93dzP/d3cz/3d3M/wDMzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/u7u7/7u7qv+7u6r/u7uq/6qqqv+qqpn/qqqZ/5mqmf+ZmYj/mZmI/5mZiP9ERET/IiIi/0QzM/+ZZlX/qndm/7uId/+7iHf/zIh3/8yZiP/dmYj/3ZmI/92ZiP/dmYj/3ZmI/92ZiP/dmYj/3ZmI/8yZiP/MiHf/zIh3/7uId/+7iHf/iGZV/zMiIv8zMyL/mZmI/6qqmf+qqqr/u7uq/7u7qv+7u6r/u7u7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/MzMz/3czM/93MzP/dzMz/3d3M/93dzP/d3cz/AMzMzP/MzMz/zMy7/8zMu//MzLv/zMy7/8zMu/+7u7v/u7uq/7u7qv+7u6r/qqqq/6qqmf+qqpn/maqZ/5mZiP+ZmYj/mZmI/0REM/8iIiL/RDMz/5lmVf+qd2b/u3dm/7uId/+7d3f/u4h3/8yZiP/MmYj/3ZmI/8yZiP/dmYj/zJmI/7uId/+ZZmb/iFVV/5lmZv+qd2b/u4h3/7uId/+IZlX/MyIi/zMzIv+ZmYj/qqqZ/6qqqv+7u6r/u7uq/7u7qv+7u7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/93MzP/dzMz/zMzM/93dzP/d3cz/3d3M/93dzP8AzMzM/8zMu//MzLv/zMy7/8zMu//MzLv/u8y7/7u7u/+7u6r/u7uq/7u7qv+qu6r/qqqZ/6qqmf+Zqpn/mZmI/5mZiP+ZmYj/RERE/yIiIv8zMyL/iGZV/6p3Zv+qd2b/mWZV/4hmVf93VUT/d1VE/6pmZv+7iHf/zIh3/8yZiP/MiHf/iFVV/1VEM/9mRDP/d1VE/3dVVf+IZlX/qndm/6p3Zv8zMyL/REQz/6qqmf+qqpn/qqqZ/6q7qv+7u6r/u7uq/7u7u//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/3czM/93MzP/dzMz/3d3M/93dzP/d3cz/3d3M/wDMzMz/zMy7/8zMu//MzLv/zMy7/8zMu/+7zLv/u7u7/7u7qv+7u6r/u7uq/6qqqv+qqpn/qqqZ/6qqmf+ZmYj/mZmI/5mZiP9VVVX/IiIR/zMiIv+ZZlX/mXdm/3dVRP9mRET/d1VE/2ZERP9mRDP/d1VE/5lmVf/MiHf/3ZmI/7t3Zv+IVVX/d1VE/3dVVf+ZZmb/mWZm/4hmVf+IZlX/qndm/0QzM/9ERET/qqqZ/6qqmf+qqqr/u7uq/7u7qv+7u6r/u7u7/7u7u//MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/dzMz/3czM/93dzP/d3cz/3d3M/93dzP/d3cz/AMzMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu/+7u7v/u7uq/7u7qv+7u6r/qruq/6qqmf+qqpn/qqqZ/5mZiP+ZmYj/mZmI/4iId/8zMyL/MyIi/4hmVf+ZZlX/d1VE/4hmVf93VVX/VURE/2ZVRP+IVVX/iFVV/7t3Zv/MiHf/qndm/4hmVf93VVX/RDMz/1VERP93VUT/mXdm/6p3Zv+qd2b/MzMi/1VERP+qqpn/qqqq/6qqqv+7u6r/u7uq/7u7qv+7u7v/zLu7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/8zMzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8AzMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/u8y7/7u7u/+7u6r/u7uq/7u7qv+qu6r/qqqq/6qqmf+qqpn/mZmZ/5mZiP+ZmYj/mZmI/0REM/8iIiL/iGZV/6p3Zv+Zd2b/ZkQz/1VERP9VRET/d1VV/5lmVf+ZZlX/qndm/8yId/+7d2b/mWZm/5lmZv+IZlX/mXdm/5lmVf+qd2b/zJl3/6p3Zv9VRDP/iFVV/6qZiP+qqpn/qqqq/7u7qv+7u6r/u7uq/7u7qv/Mu7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/93MzP/dzMz/3czM/93dzP/d3cz/3d3M/wDMzMz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/u7u7/7u7qv+7u6r/u7uq/6q7qv+qqpn/qqqZ/6qqmf+Zqpn/mZmI/5mZiP+ZiHf/d1VE/zMiIv93VUT/qndm/6p3Zv+ZZlX/qndm/6p3d/+qd2b/qmZm/5lmVf+7d2b/zIh3/8yId/+qZmb/qndm/7uId//MiIj/zJmI/8yId//MiHf/u4h3/4hmVf+7d2b/qoiI/6qqmf+qqqr/qruq/7u7qv+7u6r/u7uq/7vMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/MzMz/3czM/93MzP/dzMz/3czM/93dzP/d3cz/AMzMzP/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu/+7u7v/u7uq/7u7qv+7u6r/qruq/6qqqv+qqpn/qqqZ/5mqmf+ZmYj/mZmI/5mId/+qZmb/d1VE/3dVRP+qd2b/u4h3/7uId/+7d2b/u3dm/7t3d/+7d3f/qndm/7t3Zv/MiHf/zIh3/7t3Zv/MiHf/zIh3/8yId//MiHf/zJmI/8yZd/+7iHf/iGZV/7t3d/+qmYj/qqqZ/6qqqv+7u6r/u7uq/7u7qv+7u7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/8zMzP/dzMz/3czM/8zMzP/MzMz/3d3M/93dzP8AzMzM/8zMzP/MzMz/zMy7/8zMu//MzLv/zMy7/7vMu/+7u6r/u7uq/7u7qv+qu6r/qqqq/6qqmf+qqpn/qqqZ/5mZmf+ZmYj/mZmI/6pmZv+IVVX/d1VE/7t3Zv+7iHf/u4h3/7uId//MiHf/zJmI/7uId/+qZmb/u3dm/92ZiP/MiHf/u3dm/8yId//dmYj/3ZmI/92ZiP/MmXf/zJl3/7uId/+IVVX/qmZm/7uqmf+qqpn/qqqq/7u7qv+7u6r/u7uq/7u7qv+7u7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/3czM/8zMzP/MzMz/zMzM/8zMzP/d3cz/3d3M/wDMzMz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/u7u7/7u7u/+7u6r/u7uq/6q7qv+qqqr/qqqZ/6qqmf+qqpn/mZmZ/5mZiP+ZmYj/qnd3/5lmVf93VUT/qndm/7uId//MiHf/3ZmI/92ZiP+7iHf/qmZm/7t3Zv+7iHf/3ZmI/92ZiP/MiHf/u4h3/7t3d//dmYj/3ZmI/92ZiP/MiHf/u4h3/4hVVf+7d2b/qqqZ/6qqmf+qqqr/u7uq/7u7qv+7u6r/u7u7/7u7u//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/dzMz/3czM/8zMzP/MzMz/3d3M/93dzP/d3cz/AMzMzP/MzMz/zMzM/8zMu//MzLv/zMy7/8zMu/+7zLv/u7u7/7u7qv+7u6r/u7uq/6q7qv+qqqr/qqqZ/6qqmf+ZmZn/mZmI/5mZiP+ZiHf/mWZV/3dVRP+qd2b/u4h3/92ZiP/dmYj/zIh3/6p3Zv+qZmb/mWZV/5lmZv+7iHf/u4h3/5lmZv+7d2b/u3dm/7uId//dmYj/3ZmI/8yZd/+7d2b/mWZV/7uId/+qqpn/qqqZ/6qqqv+7u6r/u7uq/7u7qv+7u7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/3czM/93dzP/d3cz/3czM/93dzP/d3cz/3d3M/93dzP8AzMzM/8zMzP/MzMz/zMzM/8zMu//MzLv/zMy7/8zMu/+7u7v/u7uq/7u7qv+7u6r/qruq/6qqqv+qqpn/qqqZ/5mqmf+ZmYj/mZmI/5mZiP+qd2b/d1VE/5lmVf+7d2b/zIh3/8yId/+7d2b/qmZm/4hVVf93VUT/d1VE/4hVVf+IVVX/d1VE/4hVVf+qd2b/u3d3/7uId//MmXf/u4h3/6p3Zv+Zd2b/qqqZ/6qqmf+qqqr/qqqq/7u7qv+7u6r/u7uq/7u7qv+7u7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/3czM/93MzP/d3cz/3d3M/93dzP/dzMz/3d3M/wDM3cz/zMzM/8zMzP/MzMz/zMy7/8zMu//MzLv/u8y7/7u7u/+7u7v/u7uq/7u7qv+7u6r/qqqq/6qqmf+qqpn/qqqZ/5mZmf+ZmYj/mZmI/5mZiP+IVVX/mWZV/6p3Zv+7iHf/u4h3/5lmVf+IZlX/iGZV/4hmVf+ZZlX/mWZV/5lmZv+ZZmb/mWZV/5lmVf+ZZlX/mWZV/7uId/+7iHf/qndm/5mId/+qqqr/qqqZ/6qqqv+qu6r/u7uq/7u7qv+7u6r/u7u7/7vMu//MzLv/zMy7/8zMu//MzMz/zMzM/93MzP/dzMz/3czM/93dzP/d3cz/3czM/93MzP/d3cz/AMzdzP/M3cz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/u7u7/7u7u/+7u7v/u7uq/7u7qv+qqqr/qqqZ/6qqmf+qqpn/mZmZ/5mZiP+ZmYj/mZmI/4iId/+IZlX/qndm/7uId/+qd2b/mWZV/4hVVf+IVVX/qndm/7t3Zv+7iHf/u4h3/7t3d/+qd3f/iFVV/4hVVf+ZZlX/u3dm/7uId/+qd2b/mYh3/6qqqv+qqqr/u7uq/7u7qv+7u6r/u7uq/7u7qv+7u7v/u7u7/8zMu//MzLv/zMy7/8zMzP/MzMz/3czM/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8AzMzM/8zdzP/MzMz/zMzM/8zMu//MzLv/zMy7/8zMu/+7u7v/u7u7/7u7u/+7u6r/u7uq/7u7qv+qqqr/qqqZ/6qqmf+qqpn/maqZ/5mZiP+ZmYj/mZmI/4hmVf+ZZlX/qndm/7uId/+qd2b/iFVV/3dVVf/MmYj/u6qZ/93Mu//dzLv/zLuq/5mId/9mRET/qmZm/6p3Zv+7iHf/qndm/6p3Zv+qmYj/qqqq/6qqqv+qqqr/u7uq/7u7qv+7u6r/u7uq/7u7u/+7zLv/zMy7/8zMu//MzLv/zMy7/8zMzP/dzMz/3czM/93MzP/d3cz/3czM/93dzP/dzMz/3d3M/wDd3cz/3d3M/8zdzP/MzMz/zMzM/8zMu//MzLv/zMy7/7vMu/+7u7v/u7u7/7u7qv+7u6r/u7uq/6q7qv+qqpn/qqqZ/6qqmf+Zqpn/mZmI/5mZiP+ZmYj/iGZV/5lmVf+Zd2b/qnd3/7t3d/+7d2b/mWZV/4hVVf+IVVX/mWZm/6p3d/+ZZmb/mWZV/7t3Zv+7iHf/qndm/7uId/+qd2b/mXdm/6qZiP+qqqr/qqqq/6qqqv+7u6r/u7uq/7u7qv+7u6r/u7u7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/dzMz/3czM/93MzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/zN3M/8zMzP/MzLv/zMy7/8zMu//MzLv/u8y7/7u7u/+7u7v/u7u7/7u7qv+7u6r/u7uq/6qqqv+qqpn/qqqZ/5mqmf+ZmYj/mZmI/5mZiP+Id2b/iGZV/4hmVf+Zd2b/qndm/7uId/+7d2b/u3dm/7t3d//MiHf/zIiI/8yIiP/MiHf/u4h3/7t3d/+qd2b/qndm/5l3Zv+Zd2b/qqqZ/6qqqv+7u6r/u7uq/7u7qv+7u6r/u7uq/7u7u/+7u7v/zMy7/8zMu//MzLv/zMzM/8zMzP/dzMz/3czM/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/zMzM/8zMzP/MzMz/zMy7/8zMu/+7zLv/u7u7/7u7u/+7u6r/u7uq/7u7qv+7u6r/qruq/6qqmf+qqpn/qqqZ/5mZiP+ZmYj/mZmI/4iId/+IZlX/iGZV/4hmVf+IZlX/qndm/7t3d/+qd2b/qndm/7t3d/+qd3f/qndm/7t3d//MiHf/qndm/5lmVf+ZZmb/iGZV/5mId/+qqqr/qqqq/6qqqv+7u6r/u7uq/7u7qv+7u6r/u7u7/7vMu//MzLv/zMy7/8zMu//MzLv/zMzM/93MzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/M3cz/zMzM/8zMzP/MzLv/zMy7/8zMu/+7zLv/u7u7/7u7u/+7u6r/u7uq/7u7qv+qqqr/qqqZ/6qqmf+qqpn/mZmI/5mZiP+ZmYj/mZmI/4h3Zv93VUT/iFVV/3dVVf+IZlX/u3dm/7t3d/+ZZmb/iFVV/4hmVf+ZZlX/u4h3/7uId/+ZZlX/iGZV/4hmVf+ZZlX/qpmZ/6qqmf+qqqr/qqqq/7u7qv+7u6r/u7uq/7u7qv+7u7v/u7u7/7vMu//MzLv/zMy7/8zMu//MzLv/zMzM/93MzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/MzMz/zMzM/8zMu//MzLv/zMy7/7vMu/+7u7v/u7u7/7u7qv+7u6r/u7uq/6q7qv+qqpn/qqqZ/6qqmf+ZmZn/mZmI/5mZiP+ZmYj/mYh3/4hmVf93VUT/d1VE/3dVRP+ZZlX/qndm/6p3Zv+7d2b/u3d3/7t3Zv+qd2b/mWZm/4hmVf93VVX/mWZV/7t3Zv+qmYj/qqqZ/6qqqv+qqqr/u7uq/7u7qv+7u6r/u7uq/7u7u/+7u7v/u8y7/8zMu//MzLv/zMzM/8zMzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/zMzM/8zMzP/MzLv/zMy7/8zMu/+7zLv/u7u7/7u7u/+7u7v/u7uq/7u7qv+qu6r/qruq/6qqmf+qqpn/maqZ/5mZiP+ZmYj/mZmI/5mZiP+Id2b/qndm/4hmVf93VUT/ZlVE/4hmVf+ZZlX/qndm/8yId//MiHf/u3d3/5lmZv+IZlX/d1VE/4hmVf+7d3f/u3dm/4hmVf+qqpn/qqqZ/6qqmf+qqqr/u7uq/7u7qv+7u6r/u7u7/7u7u/+7zLv/zMy7/8zMu//MzMz/zMzM/93MzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/M3cz/zMzM/8zMu//MzLv/zMy7/8zMu/+7zLv/u7u7/7u7u/+7u6r/u7uq/7u7qv+qqqr/qqqZ/6qqmf+ZmZn/mZmI/5mZiP+ZmYj/d3dm/2ZEM/+qd2b/qndm/4hmVf9mRET/ZlVE/4hmVf+ZZmb/qndm/6p3Zv+ZZmb/iGZV/2ZVRP93VUT/qndm/7uId/+7iHf/ZkRE/4h3d/+qqqr/qqqZ/6qqqv+7u6r/u7uq/7u7qv+7u7v/u7u7/7vMu//MzLv/zMy7/8zMu//MzMz/3czM/93MzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/MzMz/zMy7/8zMu//MzLv/zMy7/7vMu/+7u7v/u7u7/7u7qv+7u6r/qqqq/6qqqv+qqpn/maqZ/5mZiP+ZmYj/mZmI/5mZiP9mVVX/VUQz/7t3Zv+7d2b/qndm/4hmVf9mRDP/ZkQz/3dVRP93VUT/d1VE/2ZVRP9mRET/d1VE/6p3Zv+7iHf/zIh3/7uId/9mRET/d2Zm/6qqmf+qqpn/qqqq/6qqqv+7u6r/u7uq/7u7qv+7u7v/zLu7/8zMu//MzLv/zMy7/8zMzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/u8y7/7u7u/+7u6r/u7uq/6q7qv+qqpn/qqqZ/6qqmf+ZmZn/mZmI/5mZiP+ZmYj/mZmI/2ZVVf9EMzP/u3dm/7uId/+7iHf/qndm/5lmVf93VUT/ZkRE/1VEM/9VRDP/ZlVE/4hmVf+qd2b/u4h3/7uId//MiHf/u4h3/2ZERP+Id2b/qpmZ/6qqmf+qqpn/qqqq/6qqqv+7u6r/u7uq/7u7u/+7u7v/zMy7/8zMu//MzLv/zMy7/8zMzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/d3cz/zMzM/8zMzP/MzLv/zMy7/8zMu/+7u7v/u7u7/7u7qv+qu6r/qqqZ/6qqmf+qqpn/maqZ/5mZmf+ZmYj/mZmI/5mZiP+IiHf/iHdm/1VEM/+qd2b/u4h3/8yId/+7iHf/qndm/6p3d/+qd3f/mXdm/5l3Zv+Zd2b/u4h3/7uId//MiHf/zIiI/8yId/+7d2b/ZkRE/5mIiP+ZiIj/mZmI/6qqmf+qqpn/qqqq/6qqqv+7u6r/u7uq/7u7u//Mu7v/zMy7/8zMu//MzLv/zMzM/93MzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/MzMz/zMzM/8zMu//MzLv/zMy7/7u7qv+7u6r/u7uq/6qqqv+qqpn/qqqZ/5mqmf+ZmYj/mZmI/5mZiP+ZiIj/iIh3/4h3d/+Id3f/d1VV/4hmVf+7d3f/zIh3/8yZiP+7iHf/u4h3/8yIiP/dmYj/3ZmI/8yZiP/MiIj/u4h3/8yIiP/MiIj/u4h3/5lmVf9mRET/mYiI/5mIiP+ZiIj/mYiI/6qZmf+qqpn/qqqq/7u7qv+7u6r/u7u7/8y7u//MzLv/zMy7/8zMu//MzLv/3czM/93MzP/dzMz/3czM/93MzP/dzMz/3d3M/93dzP8A3d3M/93MzP/dzMz/zMzM/8zMzP/MzLv/zMy7/8zMu/+7u7v/u7uq/7u7qv+qqqr/qqqZ/6qqmf+ZmYj/mZmI/5mZiP+ZmYj/mYiI/4h3d/93d2b/iHd3/4iId/+Id3f/d1VV/6pmZv+7iHf/zJmI/8yIiP+7iHf/u4h3/8yId//dmYj/zIiI/8yId//MiIj/zIiI/8yId/+qd2b/ZkQz/4h3Zv+ZiIj/mYiI/5mIiP+Id3f/qpmI/6qZiP+qmZn/qqqq/7u7qv+7u6r/u7uq/8y7u//Mu7v/zMy7/8zMu//MzLv/zMy7/93Mu//dzMz/3czM/93dzP/d3cz/3d3M/wDd3cz/3czM/93MzP/MzLv/zMy7/8zMu//MzLv/zMy7/7u7qv+7u6r/u7uq/6qqmf+qqpn/mZmI/5mZiP+ZmYj/mYiI/5mIiP+ZiIj/iIh3/3dmZv+Id3f/iHd3/4h3d/+Id3f/d1VE/6p3Zv/MiIj/zJmI/7uId/+7iHf/qnd3/7t3d/+7iHf/zIiI/8yIiP/MiIj/u3d3/3dVRP9VRET/mYiI/6qIiP+qmYj/mYiI/4h3d/+ZiIj/mYiI/6qZiP+qmZn/qpmZ/7uqmf+7u6r/u7uq/8y7u//MzLv/zMy7/8zMu//MzLv/zMy7/93Mu//dzLv/3czM/93MzP/d3cz/AN3MzP/MzLv/zMy7/8zMu//MzLv/zMy7/8y7qv+7u6r/u7uq/7u7qv+qqpn/qqqZ/5mZiP+ZmYj/mZmI/5mZiP+ZiHf/mYh3/5mIiP+ZiHf/iHdm/4h3Zv+Id3f/iHd3/4h3d/+Id3f/d1VV/6p3Zv/MmYj/zJmI/7uId/+7iHf/u4h3/7uId/+7iHf/zIiI/7uId/+IVVX/RDMz/4h3d/+qmZn/mYiI/5mIiP+ZiIj/iHd3/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qqmf+7u6r/zLuq/8y7u//MzLv/zMy7/8zMu//MzLv/zMy7/93Mu//dzMz/3czM/93MzP8AzMy7/8zMu//MzLv/zMy7/8zMu//Mu6r/u7uq/7u7qv+7u6r/qqqZ/6qqmf+ZmYj/mZmI/5mZiP+ZiIj/mYiI/5mZiP+ZiHf/mYiI/5mIiP+Id3f/iHd3/4h3d/+Id3f/iHd3/5mId/+Id3f/d1VV/6p3Zv/MmYj/zJmI/8yIiP/MiIj/u4h3/7uId/+7iHf/iFVV/0QzM/9VRET/mYiI/5mId/+Id3f/mYiI/5mId/93d2b/mYiI/5mIiP+qmZn/mYiI/5mIiP+ZiIj/mYiI/5mIiP+qqpn/u7uq/8y7u//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//dzLv/3cy7/wDMzLv/zMy7/8zMu//MzLv/zLuq/7u7qv+7u6r/u7uq/6qqmf+qmYj/mZmI/5mIiP+ZiIj/mYiI/5mId/+ZiIj/mYh3/5mId/+qmYj/mYiI/4iId/+Id3f/mYh3/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/ZlVE/6p3Zv/MiIj/u4h3/7uId/+7iHf/qndm/4hmVf9VRDP/RERE/3dmZv+ZiIj/mYh3/5mIiP+ZiIj/mYh3/4h3d/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+qmYj/u6qZ/8y7qv/MzLv/zMy7/8zMu//MzLv/zMy7/93Mu//dzLv/AMzMu//MzLv/zLuq/8y7qv/Mu6r/u7uq/7u7qv+qqpn/qqqZ/5mZiP+ZiHf/mYh3/5mIiP+qmYj/iIh3/5mId/+ZiIj/mYh3/5mIiP+ZiIj/mYh3/4h3d/+Id3f/mYh3/4iId/+Id3f/mYh3/3d3d/9mVVX/d2Zm/6p3Zv+7iHf/u4h3/6p3Zv+ZZlX/ZkRE/1VERP9VVVX/d3dm/5mIiP+ZiIj/qoiI/5mIiP+Id3f/iHd3/6qZmf+ZiIj/mYiI/5mIiP+ZiIj/qpmZ/5mIiP+ZiIj/mYiI/5mIiP+qmYj/qpmZ/7uqmf/Mu7v/zMy7/8zMu//MzLv/zMy7/93Mu/8AzMy7/8y7qv/Mu6r/u7uq/7u7qv+7qpn/qqqZ/6qZiP+ZmYj/mYiI/5mId/+ZiHf/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiHf/mYiI/5mIiP+ZiIj/mYiI/4h3d/+Id3f/iHd3/4h3d/9mZmb/VVVV/2ZmZv9mVVX/iHdm/6p3Zv+qd2b/mWZV/4hVVf93VVX/d2Zm/1VVVf9ERET/d2Zm/5mIiP+qmZn/qpmI/4h3d/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+qmYj/qpmI/6qZmf+7u6r/zMy7/8zMu//MzLv/zMy7/wDMu6r/zLuq/7u7qv+7u6r/qqqZ/6qqmf+ZmYj/mYiI/5mIiP+ZiIj/qpmI/5mId/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mId/+ZiIj/mYiI/5mIiP+Id3f/iHd3/4h3d/+Id3f/d2Zm/1VVVf9mVVX/d2Zm/3dmZv+Id3f/mXdm/4hVVf+IZlX/mWZV/5l3d/+Id3f/ZmZm/0RERP9ERET/d3dm/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYh3/5mZiP+ZiIj/mYiI/6qIiP+qmYj/qpmI/6qZmf+7u6r/zMy7/8zMu//MzLv/AMy7qv+7u6r/u6qZ/6qqmf+qqpn/qpmI/5mIiP+ZiIj/mYiI/5mIiP+qmZn/mYiI/5mId/+ZiIj/mYiI/5mIiP+ZiIj/mYh3/5mIiP+ZiIj/mYiI/4h3d/+Id3f/mYh3/4h3d/9mZmb/d2Zm/4h3d/93d3f/d3d3/4h3d/93Zmb/ZkRE/4hVVf+IVVX/iHd3/3dmZv93d3f/ZmZm/2ZVVf9VVVX/iIh3/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/qpmI/6qZmf+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qZiP+qmZn/qpmZ/6qqmf+7u6r/zLuq/8zMu/8Au7uq/6qqmf+qqpn/qqqZ/5mZiP+qmYj/mYiI/5mIiP+qmYj/mYiI/5mIiP+ZiIj/iHd3/5mIiP+ZiIj/mYh3/5mId/+ZiHf/qpmZ/5mIiP+ZiIj/mYiI/4iId/+ZiIj/iHd3/4h3d/+Id3f/iHd3/4h3d/+Id3f/d3d3/4h3Zv9mRDP/d1VE/4hmVf+Id3f/iHd3/3d3d/+Id3f/iHd3/3d3d/+Id3f/mYiI/5mIiP+ZiIj/mYiI/5mIiP+qiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYh3/5mIiP+qmZn/qpmI/6qZiP+qmYj/mYiI/7u7qv+7u7v/zLu7/wCqqpn/qqqZ/6qqmf+ZmYj/mYiI/6qZiP+ZiIj/qpmZ/5mIiP+ZiIj/mYiI/5mIiP+ZiHf/qoiI/5mIiP+ZiIj/mYiI/5mId/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiHf/mYh3/5mIiP+Id3f/mYiI/4h3d/+Id3f/iHd3/1VEM/93VUT/iHd3/4h3d/+Id3f/mYiI/4h3d/+ZiIj/qpmZ/5mIiP+ZiIj/mYiI/5mIiP+qmZn/qoiI/5mIiP+ZiIj/mYiI/6qIiP+qmZn/mYh3/5mId/+ZiIj/mYiI/6qZmf+qiIj/qpmI/6qZiP+ZiIj/qpmZ/7u7qv+7u6r/AKqqmf+qqpn/qpmI/5mIiP+ZmYj/mYiI/5mIiP+qmZn/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiHf/mYiI/5mId/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qZmf+ZiIj/mYiI/5mIiP+ZiIj/mYh3/6qZmf+Id3f/iHd3/5mIiP93Zmb/d2Zm/4h3d/+ZiIj/mXd3/4h3d/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qZmf+ZiHf/iHd3/5mIiP+ZiIj/mYiI/6qIiP+qiIj/mYiI/6qZmf+qmYj/u7u7/7u7u/8AqqqZ/6qqmf+ZiIj/mYh3/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mXd3/5l3d/+ZiIj/mYiI/5mIiP+ZiIj/qpmI/5mIiP+ZiIj/qpmZ/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+Id3f/d2Zm/2ZVVf+ZiIj/iHd3/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/qoiI/5mIiP+ZiIj/mYiI/5mIiP+qiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/qpmI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+7u6r/zLu7/wCqqpn/qpmZ/5mId/+ZiHf/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/u6qZ/5mIiP+Id3f/mYh3/5mId/+qiIj/mYiI/5mIiP+ZiIj/mYiI/6qZiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP93Zmb/d2Zm/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/qpmZ/5mIiP+ZiIj/mYiI/5mIiP+qmZn/u6qZ/5mIiP+qiIj/mYiI/5mIiP+7qpn/qoiI/5mIiP+qmYj/mXd3/6qIiP+qmZn/mYiI/5mIiP+ZiIj/qpmI/5mIiP+ZiIj/mYiI/7u7qv/Mu7v/AKqqmf+qmYj/iHd3/4h3d/+ZiIj/qoiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5l3d/+Id3f/mYiI/5mId/+ZiHf/mYiI/6qZiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qZmf+ZiIj/mYiI/5mIiP+ZiIj/mYiI/4h3d/+Id3f/iHd3/5mIiP+ZiIj/mYiI/5mZiP+ZiIj/mYiI/5mIiP+ZiIj/qoiI/5mIiP+qiIj/qpmI/6qIiP+ZiIj/qpmI/6qIiP+ZiIj/qoiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mXd3/5mIiP+ZiIj/mYiI/5mIiP+ZiHf/qpmZ/8y7u//kaCmwsTH3tAAAAABJRU5ErkJggg==" alt="Decoded based64 image" style="image-rendering:pixelated;width:256px;max-width:100%"></div><figcaption><a download="based64.png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAABAS0lEQVR4AQFAQL+/AN3dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMu//MzMz/zMzM/8zMzP/M3cz/zN3M/8zMzP/M3cz/3d3M/8zdzP/MzMz/zN3M/8zdzP/d3cz/3d3M/8zdzP/d3cz/zN3M/93MzP/dzMz/zMzM/8zMu//d3cz/3d3M/8zdzP/MzLv/zMy7/8zMzP/MzMz/3czM/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/8zdzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zN3M/8zdzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zN3M/93dzP/M3cz/zMzM/8zMu//M3cz/zN3M/93dzP/MzMz/zMzM/8zMzP/MzLv/zN3M/8zMzP/MzMz/3czM/93MzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/dzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMu//MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zdzP/d3cz/zMzM/8zdzP/M3cz/zMzM/93dzP/d3cz/3d3M/8zMzP/MzMz/zN3M/8zdzP/M3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/M3cz/3d3M/93dzP/d3cz/3d3M/8zdzP/M3cz/3d3M/8zdzP/MzMz/zMzM/8zMzP/MzMz/zMy7/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzLv/zMy7/8zMzP/MzMz/zMzM/8zMu//MzMz/zMzM/8zMu//MzLv/zMy7/8zMzP/M3cz/3czM/8zMzP/MzMz/zN3M/8zMzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/8zdzP/d3cz/3d3M/93MzP/MzMz/3czM/8zMzP/M3cz/zMzM/8zMzP/M3cz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zN3M/93dzP/M3cz/zMzM/8zMzP/MzMz/zMzM/8zMu//MzLv/zMy7/8zMzP/dzMz/zMzM/8zMzP/M3cz/zN3M/8zdzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/zN3M/93dzP/d3cz/3d3M/93dzP/MzMz/zMzM/8zdzP/MzMz/zMzM/8zMzP/MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/M3cz/zMzM/8zMzP/M3cz/zMzM/8zMzP/M3cz/zN3M/8zMzP/M3cz/zN3M/8zdzP/MzMz/zMzM/8zMzP/MzMz/zN3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/8zMzP/MzLv/zMzM/8zMu//MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zdzP/M3cz/zN3M/8zdzP/M3cz/zN3M/8zMzP/MzMz/zMzM/8zMzP/M3cz/zMzM/8zMzP/d3cz/3d3M/93dzP/M3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzLv/zMzM/8zMu//MzLv/zMzM/8zMzP/MzMz/zMzM/8zMzP/M3cz/zMzM/8zMzP/MzMz/zMzM/8zdzP/M3cz/3czM/93dzP/M3cz/zMzM/8zMu//MzMz/zN3M/8zdzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/MzMz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/8zMu/+qqpn/qqqq/7u7qv+7u6r/u8y7/93dzP/MzMz/qruq/7u7qv/d3cz/zMy7/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/3d3M/93dzP/d3cz/3d3M/8zdzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/d3cz/zN3M/8zdzP/MzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/u7uq/5mZiP+Zqpn/ZmZm/zMzIv9EMzP/REQz/0QzM/9VRET/d3d3/2ZmZv+IiHf/iIh3/5mZiP+7u6r/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/MzMz/zMzM/8zMzP/d3cz/3d3M/93dzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93MzP/dzMz/zMzM/8zMu//MzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/7u7qv9mVVX/MzMi/zMiIv8iIiL/IiIi/yIiIv8iIhH/IiIi/yIiIv8iIiL/IiIi/zMiIv8zMyL/RDMz/4iId//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/M3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDM3cz/zN3M/8zMzP/dzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8y7qv+7u6r/u7uq/7u7qv+IiHf/REQz/yIiIv8iIiL/IiIi/yIiIv8iIiL/IiIi/yIiIv8iIiL/IiIR/yIiIv8iIiL/MyIi/zMiIv8zMyL/RERE/7u7qv/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/MzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3MzP/dzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu/+7u6r/u7uq/7u7qv+7u6r/qqqZ/0REM/8iIiL/IiIi/yIiIv8iERH/IiIi/yIiIv8iIiL/IiIi/yIREf8iERH/IhER/yIiIv8iIiL/MyIi/zMiIv8zMyL/d3dm/6qqmf/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/93MzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8AzMzM/93MzP/MzMz/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8y7qv+7u6r/u7uq/7u7qv+7u6r/u7uq/6qqmf93d2b/MyIi/yIiIv8iIiL/IiIi/yIREf8iIiL/IiIi/yIREf8iIiL/IiIi/yIiIv8iERH/IhER/zMiIv8iIiL/IiIi/zMiIv8iIiL/VURE/7u7qv/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDdzMz/3czM/8zMzP/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zLuq/7u7qv+7u6r/u7uq/7u7qv+qqpn/mZmI/0RERP8iIiL/IiIi/yIiIv8iIiL/IiIi/yIiIv8iIiL/IhER/yIREf8iIiL/IiIR/yIREf8iERH/IiIi/yIiIv8iIiL/IiIi/yIiIv8zIiL/iHd3/7u7qv+7u6r/zLu7/8y7u//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/93MzP/d3cz/3d3M/93MzP/d3cz/3d3M/93dzP/d3cz/AMzMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/u7uq/7u7qv+7u6r/u7uq/7u7qv+7qpn/qqqZ/6qqmf+ZmYj/RERE/yIiIv8iIiL/IhER/yIREf8iIhH/IhER/yIiIv8iIiL/IiIi/yIiIv8zIiL/RDMz/zMzIv8zIiL/MyIi/yIiIv8iIiL/IiIi/yIiIv9VRET/u7uq/7u7qv+7u6r/u7uq/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/3czM/93dzP/d3cz/3czM/93dzP/d3cz/3d3M/93dzP8AzMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu/+7u6r/u7uq/7u7qv+7u6r/qqqZ/6qqmf+ZmYj/mZmI/2ZmZv8zMyL/IiIi/yIiEf8iIiL/RDMz/2ZERP93VVX/iGZV/4hmVf93VVX/iFVV/5lmVf+qd2b/qndm/5lmZv+IVVX/VUQz/zMiIv8iIiL/IiIi/0REM/+qmYj/u7uq/7u7qv+7u6r/u7uq/7u7qv/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/MzMz/3czM/93MzP/MzMz/3d3M/wDMzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/u7uq/7u7qv+7u6r/u7uq/6qqmf+qqpn/mZmI/5mZiP+IiHf/MzMi/yIiIv8zIiL/ZkRE/4hmVf+ZZmb/u3dm/8yId//MiHf/zIh3/8yZiP/MiHf/zIh3/8yId//MiHf/zIh3/7t3Zv+qZmb/iFVV/0QzM/8iIhH/IiIR/2ZVVf+7u6r/u7uq/7u7qv+7u6r/u7uq/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/MzLv/zMzM/8zMzP/M3cz/3d3M/93MzP/d3cz/3d3M/93dzP/d3cz/AMzMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu/+7u6r/u7uq/7u7qv+qqpn/qqqZ/6qqmf+ZmYj/mZmI/1VERP8iIiL/IiIi/2ZEM/+Zd2b/qndm/7t3Zv+7iHf/zIh3/8yId//MmXf/3ZmI/92ZiP/MiHf/zJl3/8yZiP/MmXf/zIh3/7uId/+7d2b/mWZV/zMzIv8iIiL/RDMz/6qqmf+7u6r/u7uq/7u7qv+7u6r/u8y7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/8zMzP/dzMz/zMzM/93dzP/d3cz/3d3M/93dzP8AzMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/7u7qv+7u6r/qqqZ/6qqmf+qqpn/maqZ/5mZiP+ZmYj/REQz/yIiIv8zMyL/d1VE/6p3Zv+7d2b/u4h3/8yId//MmYj/zJmI/92ZiP/dmYj/3ZmI/92ZiP/dmYj/3ZmI/92ZiP/dmYj/zIh3/7uId/+7d2b/ZlVE/zMiIv8zIiL/d3dm/6q7qv+qu6r/u7uq/7u7qv+7u6r/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/3czM/93MzP/MzMz/zMzM/93dzP/dzMz/3czM/wDMzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/7u7u/+7u6r/u7uq/7u7qv+qqpn/qqqZ/6qqmf+ZmYj/mZmI/5mZiP9VRET/IiIi/zMzIv+IZlX/qndm/7uId/+7iHf/zIh3/8yZiP/MmYj/3ZmI/92ZiP/dmYj/3ZmI/8yZiP/MmYj/3ZmI/8yZiP/MiHf/u4h3/7uId/+ZZmb/RDMz/zMiIv9VVVX/qqqZ/6qqqv+qu6r/u7uq/7u7qv+7u6r/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/3czM/8zMzP/dzMz/3czM/93MzP/dzMz/AMzMzP/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/u7uq/7u7qv+7u6r/qruq/6qqmf+qqpn/qqqZ/5mqmf+ZmYj/mZmI/1VERP8iIiL/RDMz/5lmVf+7d2b/u3dm/7uId//MiHf/zJl3/8yZiP/dmYj/3ZmI/92ZiP/dmYj/zJmI/8yZiP/MiIj/zIh3/8yId//MiHf/u4h3/6p3Zv9mRET/MyIi/0RERP+qqpn/qruq/6q7qv+7u6r/u7uq/7u7qv/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/dzMz/3d3M/93dzP/dzMz/3d3M/93MzP8AzMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMy7/7vMu/+7u6r/u7uq/7u7qv+qqqr/qqqZ/6qqmf+qqpn/mZmI/5mZiP+ZmYj/RERE/yIiIv9EMzP/mWZV/6p3Zv+7d2b/u4h3/8yId//MmXf/3ZmI/92ZiP/dmYj/3ZmI/92ZiP/dmYj/zJmI/92ZiP/MmYj/zIh3/8yId/+7iHf/u4h3/3dVRP8zIiL/RDMz/5mZiP+qqpn/qqqq/7u7qv+7u6r/u7uq/7vMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/93dzP/d3cz/zMzM/93dzP/d3cz/3d3M/wDMzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/u7u7/7u7qv+7u6r/u7uq/6qqqv+qqpn/qqqZ/5mqmf+ZmYj/mZmI/5mZiP9ERET/IiIi/0QzM/+ZZlX/qndm/7uId/+7iHf/zIh3/8yZiP/dmYj/3ZmI/92ZiP/dmYj/3ZmI/92ZiP/dmYj/3ZmI/8yZiP/MiHf/zIh3/7uId/+7iHf/iGZV/zMiIv8zMyL/mZmI/6qqmf+qqqr/u7uq/7u7qv+7u6r/u7u7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/MzMz/3czM/93MzP/dzMz/3d3M/93dzP/d3cz/AMzMzP/MzMz/zMy7/8zMu//MzLv/zMy7/8zMu/+7u7v/u7uq/7u7qv+7u6r/qqqq/6qqmf+qqpn/maqZ/5mZiP+ZmYj/mZmI/0REM/8iIiL/RDMz/5lmVf+qd2b/u3dm/7uId/+7d3f/u4h3/8yZiP/MmYj/3ZmI/8yZiP/dmYj/zJmI/7uId/+ZZmb/iFVV/5lmZv+qd2b/u4h3/7uId/+IZlX/MyIi/zMzIv+ZmYj/qqqZ/6qqqv+7u6r/u7uq/7u7qv+7u7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/93MzP/dzMz/zMzM/93dzP/d3cz/3d3M/93dzP8AzMzM/8zMu//MzLv/zMy7/8zMu//MzLv/u8y7/7u7u/+7u6r/u7uq/7u7qv+qu6r/qqqZ/6qqmf+Zqpn/mZmI/5mZiP+ZmYj/RERE/yIiIv8zMyL/iGZV/6p3Zv+qd2b/mWZV/4hmVf93VUT/d1VE/6pmZv+7iHf/zIh3/8yZiP/MiHf/iFVV/1VEM/9mRDP/d1VE/3dVVf+IZlX/qndm/6p3Zv8zMyL/REQz/6qqmf+qqpn/qqqZ/6q7qv+7u6r/u7uq/7u7u//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/3czM/93MzP/dzMz/3d3M/93dzP/d3cz/3d3M/wDMzMz/zMy7/8zMu//MzLv/zMy7/8zMu/+7zLv/u7u7/7u7qv+7u6r/u7uq/6qqqv+qqpn/qqqZ/6qqmf+ZmYj/mZmI/5mZiP9VVVX/IiIR/zMiIv+ZZlX/mXdm/3dVRP9mRET/d1VE/2ZERP9mRDP/d1VE/5lmVf/MiHf/3ZmI/7t3Zv+IVVX/d1VE/3dVVf+ZZmb/mWZm/4hmVf+IZlX/qndm/0QzM/9ERET/qqqZ/6qqmf+qqqr/u7uq/7u7qv+7u6r/u7u7/7u7u//MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/dzMz/3czM/93dzP/d3cz/3d3M/93dzP/d3cz/AMzMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu/+7u7v/u7uq/7u7qv+7u6r/qruq/6qqmf+qqpn/qqqZ/5mZiP+ZmYj/mZmI/4iId/8zMyL/MyIi/4hmVf+ZZlX/d1VE/4hmVf93VVX/VURE/2ZVRP+IVVX/iFVV/7t3Zv/MiHf/qndm/4hmVf93VVX/RDMz/1VERP93VUT/mXdm/6p3Zv+qd2b/MzMi/1VERP+qqpn/qqqq/6qqqv+7u6r/u7uq/7u7qv+7u7v/zLu7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/8zMzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8AzMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/u8y7/7u7u/+7u6r/u7uq/7u7qv+qu6r/qqqq/6qqmf+qqpn/mZmZ/5mZiP+ZmYj/mZmI/0REM/8iIiL/iGZV/6p3Zv+Zd2b/ZkQz/1VERP9VRET/d1VV/5lmVf+ZZlX/qndm/8yId/+7d2b/mWZm/5lmZv+IZlX/mXdm/5lmVf+qd2b/zJl3/6p3Zv9VRDP/iFVV/6qZiP+qqpn/qqqq/7u7qv+7u6r/u7uq/7u7qv/Mu7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/93MzP/dzMz/3czM/93dzP/d3cz/3d3M/wDMzMz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/u7u7/7u7qv+7u6r/u7uq/6q7qv+qqpn/qqqZ/6qqmf+Zqpn/mZmI/5mZiP+ZiHf/d1VE/zMiIv93VUT/qndm/6p3Zv+ZZlX/qndm/6p3d/+qd2b/qmZm/5lmVf+7d2b/zIh3/8yId/+qZmb/qndm/7uId//MiIj/zJmI/8yId//MiHf/u4h3/4hmVf+7d2b/qoiI/6qqmf+qqqr/qruq/7u7qv+7u6r/u7uq/7vMu//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/MzMz/3czM/93MzP/dzMz/3czM/93dzP/d3cz/AMzMzP/MzLv/zMy7/8zMu//MzLv/zMy7/8zMu/+7u7v/u7uq/7u7qv+7u6r/qruq/6qqqv+qqpn/qqqZ/5mqmf+ZmYj/mZmI/5mId/+qZmb/d1VE/3dVRP+qd2b/u4h3/7uId/+7d2b/u3dm/7t3d/+7d3f/qndm/7t3Zv/MiHf/zIh3/7t3Zv/MiHf/zIh3/8yId//MiHf/zJmI/8yZd/+7iHf/iGZV/7t3d/+qmYj/qqqZ/6qqqv+7u6r/u7uq/7u7qv+7u7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/zMzM/8zMzP/dzMz/3czM/8zMzP/MzMz/3d3M/93dzP8AzMzM/8zMzP/MzMz/zMy7/8zMu//MzLv/zMy7/7vMu/+7u6r/u7uq/7u7qv+qu6r/qqqq/6qqmf+qqpn/qqqZ/5mZmf+ZmYj/mZmI/6pmZv+IVVX/d1VE/7t3Zv+7iHf/u4h3/7uId//MiHf/zJmI/7uId/+qZmb/u3dm/92ZiP/MiHf/u3dm/8yId//dmYj/3ZmI/92ZiP/MmXf/zJl3/7uId/+IVVX/qmZm/7uqmf+qqpn/qqqq/7u7qv+7u6r/u7uq/7u7qv+7u7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzLv/3czM/8zMzP/MzMz/zMzM/8zMzP/d3cz/3d3M/wDMzMz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/u7u7/7u7u/+7u6r/u7uq/6q7qv+qqqr/qqqZ/6qqmf+qqpn/mZmZ/5mZiP+ZmYj/qnd3/5lmVf93VUT/qndm/7uId//MiHf/3ZmI/92ZiP+7iHf/qmZm/7t3Zv+7iHf/3ZmI/92ZiP/MiHf/u4h3/7t3d//dmYj/3ZmI/92ZiP/MiHf/u4h3/4hVVf+7d2b/qqqZ/6qqmf+qqqr/u7uq/7u7qv+7u6r/u7u7/7u7u//MzLv/zMy7/8zMu//MzLv/zMy7/8zMzP/dzMz/3czM/8zMzP/MzMz/3d3M/93dzP/d3cz/AMzMzP/MzMz/zMzM/8zMu//MzLv/zMy7/8zMu/+7zLv/u7u7/7u7qv+7u6r/u7uq/6q7qv+qqqr/qqqZ/6qqmf+ZmZn/mZmI/5mZiP+ZiHf/mWZV/3dVRP+qd2b/u4h3/92ZiP/dmYj/zIh3/6p3Zv+qZmb/mWZV/5lmZv+7iHf/u4h3/5lmZv+7d2b/u3dm/7uId//dmYj/3ZmI/8yZd/+7d2b/mWZV/7uId/+qqpn/qqqZ/6qqqv+7u6r/u7uq/7u7qv+7u7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/3czM/93dzP/d3cz/3czM/93dzP/d3cz/3d3M/93dzP8AzMzM/8zMzP/MzMz/zMzM/8zMu//MzLv/zMy7/8zMu/+7u7v/u7uq/7u7qv+7u6r/qruq/6qqqv+qqpn/qqqZ/5mqmf+ZmYj/mZmI/5mZiP+qd2b/d1VE/5lmVf+7d2b/zIh3/8yId/+7d2b/qmZm/4hVVf93VUT/d1VE/4hVVf+IVVX/d1VE/4hVVf+qd2b/u3d3/7uId//MmXf/u4h3/6p3Zv+Zd2b/qqqZ/6qqmf+qqqr/qqqq/7u7qv+7u6r/u7uq/7u7qv+7u7v/zMy7/8zMu//MzLv/zMy7/8zMu//MzMz/3czM/93MzP/d3cz/3d3M/93dzP/dzMz/3d3M/wDM3cz/zMzM/8zMzP/MzMz/zMy7/8zMu//MzLv/u8y7/7u7u/+7u7v/u7uq/7u7qv+7u6r/qqqq/6qqmf+qqpn/qqqZ/5mZmf+ZmYj/mZmI/5mZiP+IVVX/mWZV/6p3Zv+7iHf/u4h3/5lmVf+IZlX/iGZV/4hmVf+ZZlX/mWZV/5lmZv+ZZmb/mWZV/5lmVf+ZZlX/mWZV/7uId/+7iHf/qndm/5mId/+qqqr/qqqZ/6qqqv+qu6r/u7uq/7u7qv+7u6r/u7u7/7vMu//MzLv/zMy7/8zMu//MzMz/zMzM/93MzP/dzMz/3czM/93dzP/d3cz/3czM/93MzP/d3cz/AMzdzP/M3cz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/u7u7/7u7u/+7u7v/u7uq/7u7qv+qqqr/qqqZ/6qqmf+qqpn/mZmZ/5mZiP+ZmYj/mZmI/4iId/+IZlX/qndm/7uId/+qd2b/mWZV/4hVVf+IVVX/qndm/7t3Zv+7iHf/u4h3/7t3d/+qd3f/iFVV/4hVVf+ZZlX/u3dm/7uId/+qd2b/mYh3/6qqqv+qqqr/u7uq/7u7qv+7u6r/u7uq/7u7qv+7u7v/u7u7/8zMu//MzLv/zMy7/8zMzP/MzMz/3czM/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8AzMzM/8zdzP/MzMz/zMzM/8zMu//MzLv/zMy7/8zMu/+7u7v/u7u7/7u7u/+7u6r/u7uq/7u7qv+qqqr/qqqZ/6qqmf+qqpn/maqZ/5mZiP+ZmYj/mZmI/4hmVf+ZZlX/qndm/7uId/+qd2b/iFVV/3dVVf/MmYj/u6qZ/93Mu//dzLv/zLuq/5mId/9mRET/qmZm/6p3Zv+7iHf/qndm/6p3Zv+qmYj/qqqq/6qqqv+qqqr/u7uq/7u7qv+7u6r/u7uq/7u7u/+7zLv/zMy7/8zMu//MzLv/zMy7/8zMzP/dzMz/3czM/93MzP/d3cz/3czM/93dzP/dzMz/3d3M/wDd3cz/3d3M/8zdzP/MzMz/zMzM/8zMu//MzLv/zMy7/7vMu/+7u7v/u7u7/7u7qv+7u6r/u7uq/6q7qv+qqpn/qqqZ/6qqmf+Zqpn/mZmI/5mZiP+ZmYj/iGZV/5lmVf+Zd2b/qnd3/7t3d/+7d2b/mWZV/4hVVf+IVVX/mWZm/6p3d/+ZZmb/mWZV/7t3Zv+7iHf/qndm/7uId/+qd2b/mXdm/6qZiP+qqqr/qqqq/6qqqv+7u6r/u7uq/7u7qv+7u6r/u7u7/8zMu//MzLv/zMy7/8zMu//MzLv/zMzM/8zMzP/dzMz/3czM/93MzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/zN3M/8zMzP/MzLv/zMy7/8zMu//MzLv/u8y7/7u7u/+7u7v/u7u7/7u7qv+7u6r/u7uq/6qqqv+qqpn/qqqZ/5mqmf+ZmYj/mZmI/5mZiP+Id2b/iGZV/4hmVf+Zd2b/qndm/7uId/+7d2b/u3dm/7t3d//MiHf/zIiI/8yIiP/MiHf/u4h3/7t3d/+qd2b/qndm/5l3Zv+Zd2b/qqqZ/6qqqv+7u6r/u7uq/7u7qv+7u6r/u7uq/7u7u/+7u7v/zMy7/8zMu//MzLv/zMzM/8zMzP/dzMz/3czM/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/zMzM/8zMzP/MzMz/zMy7/8zMu/+7zLv/u7u7/7u7u/+7u6r/u7uq/7u7qv+7u6r/qruq/6qqmf+qqpn/qqqZ/5mZiP+ZmYj/mZmI/4iId/+IZlX/iGZV/4hmVf+IZlX/qndm/7t3d/+qd2b/qndm/7t3d/+qd3f/qndm/7t3d//MiHf/qndm/5lmVf+ZZmb/iGZV/5mId/+qqqr/qqqq/6qqqv+7u6r/u7uq/7u7qv+7u6r/u7u7/7vMu//MzLv/zMy7/8zMu//MzLv/zMzM/93MzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/M3cz/zMzM/8zMzP/MzLv/zMy7/8zMu/+7zLv/u7u7/7u7u/+7u6r/u7uq/7u7qv+qqqr/qqqZ/6qqmf+qqpn/mZmI/5mZiP+ZmYj/mZmI/4h3Zv93VUT/iFVV/3dVVf+IZlX/u3dm/7t3d/+ZZmb/iFVV/4hmVf+ZZlX/u4h3/7uId/+ZZlX/iGZV/4hmVf+ZZlX/qpmZ/6qqmf+qqqr/qqqq/7u7qv+7u6r/u7uq/7u7qv+7u7v/u7u7/7vMu//MzLv/zMy7/8zMu//MzLv/zMzM/93MzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/MzMz/zMzM/8zMu//MzLv/zMy7/7vMu/+7u7v/u7u7/7u7qv+7u6r/u7uq/6q7qv+qqpn/qqqZ/6qqmf+ZmZn/mZmI/5mZiP+ZmYj/mYh3/4hmVf93VUT/d1VE/3dVRP+ZZlX/qndm/6p3Zv+7d2b/u3d3/7t3Zv+qd2b/mWZm/4hmVf93VVX/mWZV/7t3Zv+qmYj/qqqZ/6qqqv+qqqr/u7uq/7u7qv+7u6r/u7uq/7u7u/+7u7v/u8y7/8zMu//MzLv/zMzM/8zMzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/zMzM/8zMzP/MzLv/zMy7/8zMu/+7zLv/u7u7/7u7u/+7u7v/u7uq/7u7qv+qu6r/qruq/6qqmf+qqpn/maqZ/5mZiP+ZmYj/mZmI/5mZiP+Id2b/qndm/4hmVf93VUT/ZlVE/4hmVf+ZZlX/qndm/8yId//MiHf/u3d3/5lmZv+IZlX/d1VE/4hmVf+7d3f/u3dm/4hmVf+qqpn/qqqZ/6qqmf+qqqr/u7uq/7u7qv+7u6r/u7u7/7u7u/+7zLv/zMy7/8zMu//MzMz/zMzM/93MzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/M3cz/zMzM/8zMu//MzLv/zMy7/8zMu/+7zLv/u7u7/7u7u/+7u6r/u7uq/7u7qv+qqqr/qqqZ/6qqmf+ZmZn/mZmI/5mZiP+ZmYj/d3dm/2ZEM/+qd2b/qndm/4hmVf9mRET/ZlVE/4hmVf+ZZmb/qndm/6p3Zv+ZZmb/iGZV/2ZVRP93VUT/qndm/7uId/+7iHf/ZkRE/4h3d/+qqqr/qqqZ/6qqqv+7u6r/u7uq/7u7qv+7u7v/u7u7/7vMu//MzLv/zMy7/8zMu//MzMz/3czM/93MzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/MzMz/zMy7/8zMu//MzLv/zMy7/7vMu/+7u7v/u7u7/7u7qv+7u6r/qqqq/6qqqv+qqpn/maqZ/5mZiP+ZmYj/mZmI/5mZiP9mVVX/VUQz/7t3Zv+7d2b/qndm/4hmVf9mRDP/ZkQz/3dVRP93VUT/d1VE/2ZVRP9mRET/d1VE/6p3Zv+7iHf/zIh3/7uId/9mRET/d2Zm/6qqmf+qqpn/qqqq/6qqqv+7u6r/u7uq/7u7qv+7u7v/zLu7/8zMu//MzLv/zMy7/8zMzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/93dzP8A3d3M/93dzP/d3cz/zMzM/8zMzP/MzLv/zMy7/8zMu//MzLv/u8y7/7u7u/+7u6r/u7uq/6q7qv+qqpn/qqqZ/6qqmf+ZmZn/mZmI/5mZiP+ZmYj/mZmI/2ZVVf9EMzP/u3dm/7uId/+7iHf/qndm/5lmVf93VUT/ZkRE/1VEM/9VRDP/ZlVE/4hmVf+qd2b/u4h3/7uId//MiHf/u4h3/2ZERP+Id2b/qpmZ/6qqmf+qqpn/qqqq/6qqqv+7u6r/u7uq/7u7u/+7u7v/zMy7/8zMu//MzLv/zMy7/8zMzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/3d3M/wDd3cz/3d3M/93dzP/d3cz/zMzM/8zMzP/MzLv/zMy7/8zMu/+7u7v/u7u7/7u7qv+qu6r/qqqZ/6qqmf+qqpn/maqZ/5mZmf+ZmYj/mZmI/5mZiP+IiHf/iHdm/1VEM/+qd2b/u4h3/8yId/+7iHf/qndm/6p3d/+qd3f/mXdm/5l3Zv+Zd2b/u4h3/7uId//MiHf/zIiI/8yId/+7d2b/ZkRE/5mIiP+ZiIj/mZmI/6qqmf+qqpn/qqqq/6qqqv+7u6r/u7uq/7u7u//Mu7v/zMy7/8zMu//MzLv/zMzM/93MzP/dzMz/3d3M/93dzP/d3cz/3d3M/93dzP/d3cz/AN3dzP/d3cz/3d3M/93dzP/MzMz/zMzM/8zMu//MzLv/zMy7/7u7qv+7u6r/u7uq/6qqqv+qqpn/qqqZ/5mqmf+ZmYj/mZmI/5mZiP+ZiIj/iIh3/4h3d/+Id3f/d1VV/4hmVf+7d3f/zIh3/8yZiP+7iHf/u4h3/8yIiP/dmYj/3ZmI/8yZiP/MiIj/u4h3/8yIiP/MiIj/u4h3/5lmVf9mRET/mYiI/5mIiP+ZiIj/mYiI/6qZmf+qqpn/qqqq/7u7qv+7u6r/u7u7/8y7u//MzLv/zMy7/8zMu//MzLv/3czM/93MzP/dzMz/3czM/93MzP/dzMz/3d3M/93dzP8A3d3M/93MzP/dzMz/zMzM/8zMzP/MzLv/zMy7/8zMu/+7u7v/u7uq/7u7qv+qqqr/qqqZ/6qqmf+ZmYj/mZmI/5mZiP+ZmYj/mYiI/4h3d/93d2b/iHd3/4iId/+Id3f/d1VV/6pmZv+7iHf/zJmI/8yIiP+7iHf/u4h3/8yId//dmYj/zIiI/8yId//MiIj/zIiI/8yId/+qd2b/ZkQz/4h3Zv+ZiIj/mYiI/5mIiP+Id3f/qpmI/6qZiP+qmZn/qqqq/7u7qv+7u6r/u7uq/8y7u//Mu7v/zMy7/8zMu//MzLv/zMy7/93Mu//dzMz/3czM/93dzP/d3cz/3d3M/wDd3cz/3czM/93MzP/MzLv/zMy7/8zMu//MzLv/zMy7/7u7qv+7u6r/u7uq/6qqmf+qqpn/mZmI/5mZiP+ZmYj/mYiI/5mIiP+ZiIj/iIh3/3dmZv+Id3f/iHd3/4h3d/+Id3f/d1VE/6p3Zv/MiIj/zJmI/7uId/+7iHf/qnd3/7t3d/+7iHf/zIiI/8yIiP/MiIj/u3d3/3dVRP9VRET/mYiI/6qIiP+qmYj/mYiI/4h3d/+ZiIj/mYiI/6qZiP+qmZn/qpmZ/7uqmf+7u6r/u7uq/8y7u//MzLv/zMy7/8zMu//MzLv/zMy7/93Mu//dzLv/3czM/93MzP/d3cz/AN3MzP/MzLv/zMy7/8zMu//MzLv/zMy7/8y7qv+7u6r/u7uq/7u7qv+qqpn/qqqZ/5mZiP+ZmYj/mZmI/5mZiP+ZiHf/mYh3/5mIiP+ZiHf/iHdm/4h3Zv+Id3f/iHd3/4h3d/+Id3f/d1VV/6p3Zv/MmYj/zJmI/7uId/+7iHf/u4h3/7uId/+7iHf/zIiI/7uId/+IVVX/RDMz/4h3d/+qmZn/mYiI/5mIiP+ZiIj/iHd3/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qqmf+7u6r/zLuq/8y7u//MzLv/zMy7/8zMu//MzLv/zMy7/93Mu//dzMz/3czM/93MzP8AzMy7/8zMu//MzLv/zMy7/8zMu//Mu6r/u7uq/7u7qv+7u6r/qqqZ/6qqmf+ZmYj/mZmI/5mZiP+ZiIj/mYiI/5mZiP+ZiHf/mYiI/5mIiP+Id3f/iHd3/4h3d/+Id3f/iHd3/5mId/+Id3f/d1VV/6p3Zv/MmYj/zJmI/8yIiP/MiIj/u4h3/7uId/+7iHf/iFVV/0QzM/9VRET/mYiI/5mId/+Id3f/mYiI/5mId/93d2b/mYiI/5mIiP+qmZn/mYiI/5mIiP+ZiIj/mYiI/5mIiP+qqpn/u7uq/8y7u//MzLv/zMy7/8zMu//MzLv/zMy7/8zMu//dzLv/3cy7/wDMzLv/zMy7/8zMu//MzLv/zLuq/7u7qv+7u6r/u7uq/6qqmf+qmYj/mZmI/5mIiP+ZiIj/mYiI/5mId/+ZiIj/mYh3/5mId/+qmYj/mYiI/4iId/+Id3f/mYh3/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/ZlVE/6p3Zv/MiIj/u4h3/7uId/+7iHf/qndm/4hmVf9VRDP/RERE/3dmZv+ZiIj/mYh3/5mIiP+ZiIj/mYh3/4h3d/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+qmYj/u6qZ/8y7qv/MzLv/zMy7/8zMu//MzLv/zMy7/93Mu//dzLv/AMzMu//MzLv/zLuq/8y7qv/Mu6r/u7uq/7u7qv+qqpn/qqqZ/5mZiP+ZiHf/mYh3/5mIiP+qmYj/iIh3/5mId/+ZiIj/mYh3/5mIiP+ZiIj/mYh3/4h3d/+Id3f/mYh3/4iId/+Id3f/mYh3/3d3d/9mVVX/d2Zm/6p3Zv+7iHf/u4h3/6p3Zv+ZZlX/ZkRE/1VERP9VVVX/d3dm/5mIiP+ZiIj/qoiI/5mIiP+Id3f/iHd3/6qZmf+ZiIj/mYiI/5mIiP+ZiIj/qpmZ/5mIiP+ZiIj/mYiI/5mIiP+qmYj/qpmZ/7uqmf/Mu7v/zMy7/8zMu//MzLv/zMy7/93Mu/8AzMy7/8y7qv/Mu6r/u7uq/7u7qv+7qpn/qqqZ/6qZiP+ZmYj/mYiI/5mId/+ZiHf/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiHf/mYiI/5mIiP+ZiIj/mYiI/4h3d/+Id3f/iHd3/4h3d/9mZmb/VVVV/2ZmZv9mVVX/iHdm/6p3Zv+qd2b/mWZV/4hVVf93VVX/d2Zm/1VVVf9ERET/d2Zm/5mIiP+qmZn/qpmI/4h3d/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+qmYj/qpmI/6qZmf+7u6r/zMy7/8zMu//MzLv/zMy7/wDMu6r/zLuq/7u7qv+7u6r/qqqZ/6qqmf+ZmYj/mYiI/5mIiP+ZiIj/qpmI/5mId/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mId/+ZiIj/mYiI/5mIiP+Id3f/iHd3/4h3d/+Id3f/d2Zm/1VVVf9mVVX/d2Zm/3dmZv+Id3f/mXdm/4hVVf+IZlX/mWZV/5l3d/+Id3f/ZmZm/0RERP9ERET/d3dm/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYh3/5mZiP+ZiIj/mYiI/6qIiP+qmYj/qpmI/6qZmf+7u6r/zMy7/8zMu//MzLv/AMy7qv+7u6r/u6qZ/6qqmf+qqpn/qpmI/5mIiP+ZiIj/mYiI/5mIiP+qmZn/mYiI/5mId/+ZiIj/mYiI/5mIiP+ZiIj/mYh3/5mIiP+ZiIj/mYiI/4h3d/+Id3f/mYh3/4h3d/9mZmb/d2Zm/4h3d/93d3f/d3d3/4h3d/93Zmb/ZkRE/4hVVf+IVVX/iHd3/3dmZv93d3f/ZmZm/2ZVVf9VVVX/iIh3/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/qpmI/6qZmf+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qZiP+qmZn/qpmZ/6qqmf+7u6r/zLuq/8zMu/8Au7uq/6qqmf+qqpn/qqqZ/5mZiP+qmYj/mYiI/5mIiP+qmYj/mYiI/5mIiP+ZiIj/iHd3/5mIiP+ZiIj/mYh3/5mId/+ZiHf/qpmZ/5mIiP+ZiIj/mYiI/4iId/+ZiIj/iHd3/4h3d/+Id3f/iHd3/4h3d/+Id3f/d3d3/4h3Zv9mRDP/d1VE/4hmVf+Id3f/iHd3/3d3d/+Id3f/iHd3/3d3d/+Id3f/mYiI/5mIiP+ZiIj/mYiI/5mIiP+qiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYh3/5mIiP+qmZn/qpmI/6qZiP+qmYj/mYiI/7u7qv+7u7v/zLu7/wCqqpn/qqqZ/6qqmf+ZmYj/mYiI/6qZiP+ZiIj/qpmZ/5mIiP+ZiIj/mYiI/5mIiP+ZiHf/qoiI/5mIiP+ZiIj/mYiI/5mId/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiHf/mYh3/5mIiP+Id3f/mYiI/4h3d/+Id3f/iHd3/1VEM/93VUT/iHd3/4h3d/+Id3f/mYiI/4h3d/+ZiIj/qpmZ/5mIiP+ZiIj/mYiI/5mIiP+qmZn/qoiI/5mIiP+ZiIj/mYiI/6qIiP+qmZn/mYh3/5mId/+ZiIj/mYiI/6qZmf+qiIj/qpmI/6qZiP+ZiIj/qpmZ/7u7qv+7u6r/AKqqmf+qqpn/qpmI/5mIiP+ZmYj/mYiI/5mIiP+qmZn/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiHf/mYiI/5mId/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qZmf+ZiIj/mYiI/5mIiP+ZiIj/mYh3/6qZmf+Id3f/iHd3/5mIiP93Zmb/d2Zm/4h3d/+ZiIj/mXd3/4h3d/+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qZmf+ZiHf/iHd3/5mIiP+ZiIj/mYiI/6qIiP+qiIj/mYiI/6qZmf+qmYj/u7u7/7u7u/8AqqqZ/6qqmf+ZiIj/mYh3/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mXd3/5l3d/+ZiIj/mYiI/5mIiP+ZiIj/qpmI/5mIiP+ZiIj/qpmZ/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+Id3f/d2Zm/2ZVVf+ZiIj/iHd3/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/qoiI/5mIiP+ZiIj/mYiI/5mIiP+qiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/qpmI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+7u6r/zLu7/wCqqpn/qpmZ/5mId/+ZiHf/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/u6qZ/5mIiP+Id3f/mYh3/5mId/+qiIj/mYiI/5mIiP+ZiIj/mYiI/6qZiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5mIiP93Zmb/d2Zm/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/qpmZ/5mIiP+ZiIj/mYiI/5mIiP+qmZn/u6qZ/5mIiP+qiIj/mYiI/5mIiP+7qpn/qoiI/5mIiP+qmYj/mXd3/6qIiP+qmZn/mYiI/5mIiP+ZiIj/qpmI/5mIiP+ZiIj/mYiI/7u7qv/Mu7v/AKqqmf+qmYj/iHd3/4h3d/+ZiIj/qoiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/5l3d/+Id3f/mYiI/5mId/+ZiHf/mYiI/6qZiP+ZiIj/mYiI/5mIiP+ZiIj/mYiI/6qZmf+ZiIj/mYiI/5mIiP+ZiIj/mYiI/4h3d/+Id3f/iHd3/5mIiP+ZiIj/mYiI/5mZiP+ZiIj/mYiI/5mIiP+ZiIj/qoiI/5mIiP+qiIj/qpmI/6qIiP+ZiIj/qpmI/6qIiP+ZiIj/qoiI/5mIiP+ZiIj/mYiI/5mIiP+ZiIj/mXd3/5mIiP+ZiIj/mYiI/5mIiP+ZiHf/qpmZ/8y7u//kaCmwsTH3tAAAAABJRU5ErkJggg==">Download png</a></figcaption><details><summary>Source</summary><pre style="font:12px/1 monospace;overflow:auto">based64
+ colors ddddccff ccddccff ddccccff ddccbbff ccccccff ccccbbff bbccbbff ccbbbbff ccbbaaff bbbbbbff bbbbaaff aabbaaff bbaa99ff aaaaaaff aaaa99ff dd9988ff 99aa99ff cc9988ff cc9977ff aa9999ff aa9988ff 999999ff 999988ff cc8888ff cc8877ff bb8877ff aa8888ff 998888ff 998877ff 888877ff bb7777ff bb7766ff aa7777ff aa7766ff 997777ff 997766ff 887777ff 887766ff 777777ff 777766ff aa6666ff 996666ff 996655ff 886655ff 776666ff 666666ff 885555ff 775555ff 775544ff 665555ff 665544ff 555555ff 664444ff 664433ff 554444ff 554433ff 444444ff 444433ff 443333ff 333322ff 332222ff 222222ff 222211ff 221111ff
+ ..............&quot;&quot;,,,,&quot;&quot;&quot;&quot;&quot;&quot;&quot;,&quot;&quot;&quot;&#39;&#39;&quot;&#39;.&#39;&quot;&#39;&#39;..&#39;.&#39;``&quot;,..&#39;,,&quot;&quot;`.......
+ ................&#39;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;&#39;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;.&#39;&quot;,&#39;&#39;.&quot;&quot;&quot;,&#39;&quot;&quot;``...........
+ ............`&quot;&quot;&quot;&quot;&quot;&quot;&quot;,,&quot;&quot;&quot;&quot;&quot;,&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;.&quot;&#39;&#39;&quot;...&quot;&quot;&#39;&#39;&#39;...............
+ .......&#39;....&#39;&#39;.&#39;&quot;&quot;&quot;&quot;,&quot;&quot;&quot;&quot;&quot;&quot;,,,,&quot;&quot;&quot;&quot;&quot;&quot;,,&quot;&quot;&quot;,&quot;&quot;,,,&quot;&#39;`&quot;&quot;&#39;&quot;.........
+ .......&#39;..`&quot;`&quot;&#39;&quot;&quot;&#39;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;.&#39;&quot;&quot;&quot;&quot;,,,&quot;`&quot;&quot;&#39;&#39;&#39;........
+ .......&#39;....&quot;&quot;&#39;&quot;&quot;&quot;,&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;&quot;&quot;&#39;&quot;&quot;&#39;&#39;&quot;&#39;&#39;&#39;&quot;&quot;&quot;&quot;&#39;...........
+ ............&quot;,&quot;,&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#39;&#39;&#39;&#39;&#39;&#39;&quot;&quot;&quot;&quot;&#39;&quot;&quot;...&#39;...........
+ .........&quot;&quot;,,,&quot;,,,,,,,,,,,,&quot;&quot;&quot;&quot;&quot;,&quot;,,&quot;&quot;&quot;&quot;&quot;&#39;&quot;&quot;&quot;&quot;&#39;&#39;`.&#39;&quot;,&quot;&#39;&#39;........
+ .........&quot;&quot;&quot;,,,,,,,,,,,,,&quot;,+~ii:.&quot;&lt;i.,&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;....&#39;..........
+ .....&#39;&#39;&quot;,,,,,,,,,,,,,,,i)-m8&amp;W&amp;oUmjj)i,,,,,,,,,,&quot;&quot;&quot;&quot;...`........
+ .``&quot;,&quot;,,,,,,,,,,,,,,,,id8%BBB@BBBB%8&amp;j,,,,,,,,,,,,&quot;&quot;&quot;&quot;&quot;&quot;&#39;.......
+ &#39;&#39;&quot;`,,,,,,,,,,,,,liiijWBBBBBBBB@BB%%8#i,,,,,,,,,,,&quot;&quot;............
+ ``,,,,,,,,,,,,,,iiii+WBBB$BBBB$$$BB%%8J+,,,,,,,,,,,,&quot;&quot;``........
+ &quot;`&quot;,,,,,,,,,,liiiii+J%BBB$BB$BBB$$%BB%Boi,,,,,,,,,,,,,,&quot;`.......
+ ``&quot;,,,,,,,,,,liiii+)#BBBBBBB$$B@$$BBBBB%XiiII,,,,,,,,,&quot;&quot;`..`....
+ ,,,,,,,,,,,iiiii&gt;++)#BB$$@$BBBB%&amp;8%%BBBBoiiii,,,,,,,,,,&quot;`..`....
+ ,,,,,,,,,,,iiii++))m8B@B&amp;hq00qwQvvLw*%BBW{iiiii,,,,,,,,,,&quot;&quot;&quot;``&quot;.
+ ,,,,,,,,,,iiii++))j8B%h0Lx|||?|||||xCw&amp;@@diiiii,,,,,,&quot;,&quot;&quot;&#39;.`....
+ ,,,,,,,,,,iii+++))oBBazvx\||]__|]?]|\xQ8B&amp;+iiii:,,,,,,,&quot;&quot;&quot;`&quot;....
+ ,,,,,,,,,,ii+++-))WB8pvx\|??________|\xb%%J&lt;&lt;iii,,,,,,,,,``&quot;&quot;.``
+ ,,,,,,,,!iii+++)))oB80v\\|??____??_?|\\L&amp;%k+~&lt;iii,,,,,,,,&quot;`&quot;````
+ &quot;,,,,,,,iii&lt;+++-))oB&amp;Qxx\|]?____??(|||\vh%#+&lt;&lt;iii,,,,,,,,&quot;`..`.`
+ ,,,,,,,:iii~+++)))#B&amp;Qvx\|]______?_?||\\p%&amp;)+~iii:,,,,,,&quot;&quot;..&quot;...
+ ,,,,,,,!iii~++-)))#B&amp;Qv\\|?________?||\\0%8)+~iii!,,,,,&quot;&quot;&quot;```...
+ &quot;&quot;,,,,,!iii~++-)))WB&amp;Qvx\r\??_?_?\LwLv\\0%8)+~iii!,,,,,,&quot;``&quot;....
+ &quot;,,,,,:!iii&lt;++-)))#B80vvQ0ppC\|?|w*apq0vv8W+++&lt;ii!,,,,,,&quot;```....
+ &quot;,,,,,:!iii~+++)))k@%QzphphapQ|_xwpqLL00v&amp;#++~iii!!,,,,&quot;&quot;``.....
+ ,,,,,,,!iii&lt;+++)))j8%0Qp0qobwwx|v0q&amp;opzvv8o+~~iii!I,,,,&quot;&quot;&quot;......
+ &quot;&quot;,,,,:!iii&lt;~++1)))WB0vzaooqQQv|xLL0zQv]v*w{+~iiiiI,,,,,&quot;&quot;```...
+ &quot;&quot;&quot;,,,,!iii&lt;+++-))fp%pvvQvuvCQx||Cv\(?||\0x/+~&lt;iii:,,,,,&quot;&quot;````..
+ &quot;,,,,,,!iii&lt;~++-))fCppv\\xxrrvx||x||||?]\0r{+~iii!,,,,,&quot;&quot;&quot;``&quot;&quot;..
+ &quot;&quot;&quot;,,,,:iii&lt;~+++1))Cwpx\\\|?\Cx_|x|___]]\wC&gt;+~iiii!,,,,,,`&quot;&quot;&quot;&quot;..
+ &quot;&quot;&quot;,,,,!!ii&lt;~+++1))uQpv\|__\Cx\__|\r___|\wx++~iii!!,,,,,&quot;``&quot;&quot;...
+ &quot;&quot;&quot;,,,,:!iii&lt;~++1))fQpv\__|vCQL\\Lxx\__]xQ\++~iii!,,,,,&quot;`..`....
+ &quot;&quot;&quot;&quot;,,,,!iii&lt;~++-)))vpQx||xCwppwwpwvr\]\vz++~~iiii!,,,,,&quot;``...`.
+ &#39;&quot;&quot;&quot;,,,:!!iii~+++1)))wQv\\Q000QQLLQQQQ\\vf~+~&lt;iii!:,,,&quot;&quot;```..``.
+ &#39;&#39;&quot;&quot;,,,,!!!ii~+++1)))j0v\vQwwvx\\ruwwQx\vf~~iiiii!!,,,&quot;&quot;`.......
+ &quot;&#39;&quot;&quot;,,,,!!!iii~+++-)))0Qv\vwq?&gt;^^lfhCv\vv{~~~iiii!:,,,,&quot;```.`.`.
+ ..&#39;&quot;&quot;,,,:!!iii&lt;+++-)))0QzurxQwwLuLQx\v\vz{~~~iiii!,,,,,&quot;&quot;```....
+ ..&#39;&quot;,,,,:!!!iii~++-)))Y00zv\xxr|((|\rvvzz+~iiiii!!,,,&quot;&quot;``.......
+ ...&quot;&quot;&quot;,,:!!iiii&lt;+++)))j0000vrvvruvr|vQL0f~~~iiii!:,,,,&quot;``.......
+ ...&#39;&quot;&quot;,,,:!!iii~+++))))Ypwq0xrLw0Q\\Q00Q}+~~iiii!!:,,,,&quot;`.......
+ ....&quot;&quot;,,,:!!iii&lt;+++1)))f0pppQvvxrxvL0qQx{+~~iiii!!:,,&quot;&quot;`........
+ ...&quot;&quot;,,,:!!!ii&lt;&lt;++-))))Yv0pb0Qv||rL0p0rx0+++~iii!!:,,&quot;&quot;`........
+ ...&#39;&quot;,,,,:!!iii~++1)))Javv0hb0LvvL0bpv\\hX~+~iii!!:,,,&quot;``.......
+ ....&quot;,,,,:!!ii~~+-))))d*xxv0aapppbhpv\|\hO++~~iii!I,,,&quot;`........
+ ...&quot;&quot;,,,,:!ii&lt;+++1))))d&amp;x\\vQph**b0v\\|\hY}++~~ii!!,,,,&quot;`.......
+ ....&quot;&quot;,,,!!i&lt;+++-1)))jY*v\|\vuuzzz\\|(|xhtt)++~~ii!I,,,&quot;``......
+ ....&quot;&quot;,,,iii~++-)))tjXXq0r|?\\(__?(\((\Qhtttt}+~ii!I,,,,``````..
+ .``&quot;&quot;,,,!ii~++))))tXJXjXqC\?(\\|_(|((|vaYtttX{{}~iiiII,,,,^``...
+ .``,,,,,iii++)))tttjOXXXXpv(?\\ur\(((rpot/{tXtt{}}&gt;iiI,,,,,^^``.
+ `,,,,,liii++))))fftfYYXXXXqv??\\\\\(\w&amp;X}tttXtttttt+ilI,,,,,^```
+ ,,,,,liii++)))tt)fttXXXXXfXqv??((\\\w&amp;otfXtfJtt}ttttt+iI,,,,,,^^
+ ,,,,liii+{)tttftff{tjXftttttbv(\\\v0*#OtfttfXttttttttt{&gt;l,,,,,^^
+ ,,lllii++)fft{jftfttfXXfjXfUdOv\\vQhokJtt/tXX}tttt}tttt{}&gt;I,,,,^
+ ,llii&gt;+{)tfftttttfttttXXXXmkmdYvvQwqOk#Ot}{Xtttttttttttt{{}i,,,,
+ llii++)ttt{ftttttftttXXXXOkdOOXzw0QcXm##Jtttttttttttf)tt/{{}i,,,
+ li&gt;++{tttt}tfttttftttXXfXmOXUUXOhwwXOUmdkjttttt{}tttttttt{}}+il,
+ i+++){tt{tttXttfff}tttjtXXXXXXUYap0XXUXXUXttttt/ttttttft}{{{ti!I
+ +++)t{t}ttttf/tttfttttttfftXtXXX*pXXXtXt}tttt}/ttt/}fftt}/{{t}ii
+ ++{t)tt}tttttftfttttt}ttttf}XXtOOXtcXtttttttt/ttttt}fXttt//t}{!!
+ ++tfttttttttcctttt{tt}tttttttXOdtXtttttttt/tttt/tttttt{tttttttiI
+ +}fftttttt&gt;tXff/tttt{tttttttttOOttttt}tttt}&gt;t/tt&gt;/t{c/}ttt{tttiI
+ +{XXt/ttttttcXtfft{ttttt}tttttXXXttt)tttt/t/{/t{/t/tttttcttttf}I</pre></details></figure>
+<p id="particle64" class="scrollParagraph">That's my photo, reduced to 64×64 pixels and written as text. The ASCII is the image: compile it to a PNG, or change the characters to change the picture.</p>
+<div class="scrollSection"><h1 id="particle66" class="scrollParagraph">Try Now</h1>
+</div>
+<p id="particle68" class="scrollParagraph">Choose an image, GIF, video, or audio file. Then edit the text and watch it change. Everything happens locally.</p>
+<section class="based64Studio"></section><script>(async function(element, B) {
+  element.innerHTML = `<p><label>Choose file <input type="file" accept="image/*,video/*,audio/*"></label></p><details><summary>Advanced settings</summary><p><label>Maximum edge <input class="edge" type="number" min="8" max="64" value="64"></label> <label>Start (seconds) <input class="start" type="number" min="0" value="0"></label> <label>Clip (seconds) <input class="duration" type="number" min="1" max="10" value="4"></label> <label>Frames/second <select class="fps"><option>1</option><option selected>2</option><option>4</option><option>8</option></select></label></p><button class="save">Save text</button></details><p role="status"></p><textarea aria-label="based64 source" placeholder="Choose a file, or draw here…" spellcheck="false" rows="20" style="box-sizing:border-box;width:100%;white-space:pre;overflow:auto;font:12px/1 monospace;background:white;color:black"></textarea><div class="result"></div>`
+  const $ = selector => element.querySelector(selector),
+    status = $("[role=status]"),
+    text = $("textarea"),
+    result = $(".result")
+  const report = error => {
+    status.textContent = error.message
+  }
+  const render = () => {
+    const decoded = B.decode(text.value)
+    result.innerHTML = B.html(text.value, false)
+    status.textContent = `${decoded.width ? decoded.width + "×" + decoded.height + " · " : ""}${text.value.length.toLocaleString()} characters. Edit the text to change the result.`
+  }
+  let revision = 0,
+    timer
+  text.oninput = () => {
+    revision++
+    clearTimeout(timer)
+    timer = setTimeout(render, 100)
+  }
+  $(".save").onclick = () => {
+    try {
+      B.decode(text.value)
+      const url = URL.createObjectURL(new Blob([text.value + "\n"], { type: "text/plain" }))
+      const link = document.createElement("a")
+      link.href = url
+      link.download = "based64.scroll"
+      link.click()
+      setTimeout(() => URL.revokeObjectURL(url), 1000)
+    } catch (error) {
+      report(error)
+    }
+  }
+  const event = (target, name, action) =>
+    new Promise((resolve, reject) => {
+      const cleanup = () => {
+        clearTimeout(timer)
+        target.removeEventListener(name, done)
+        target.removeEventListener("error", fail)
+      }
+      const done = () => {
+          cleanup()
+          resolve()
+        },
+        fail = () => {
+          cleanup()
+          reject(new Error("Browser could not decode this media"))
+        }
+      const timer = setTimeout(() => {
+        cleanup()
+        reject(new Error("Media preview timed out"))
+      }, 15000)
+      target.addEventListener(name, done, { once: true })
+      target.addEventListener("error", fail, { once: true })
+      try {
+        action()
+      } catch (error) {
+        cleanup()
+        reject(error)
+      }
+    })
+  const encode = async () => {
+    const request = ++revision
+    clearTimeout(timer)
+    if (!$("input[type=file]").files[0]) return
+    let url, media, context, decoder
+    try {
+      const file = $("input[type=file]").files[0]
+      B.check(file && file.size > 0 && file.size <= B.maxBytes, "choose a file of 1 byte to 20 MiB")
+      const mime = file.type || { gif: "image/gif", png: "image/png", jpg: "image/jpeg", mp4: "video/mp4", wav: "audio/wav", mp3: "audio/mpeg" }[file.name.split(".").pop().toLowerCase()]
+      B.check(mime && /^(image|audio|video)\//.test(mime), "choose an image, video, or audio file")
+      const edge = B.integer($(".edge").value, 8, 64),
+        start = Number($(".start").value),
+        duration = B.integer($(".duration").value, 1, 10),
+        fps = Number($(".fps").value)
+      B.check(Number.isFinite(start) && start >= 0, "start must be nonnegative")
+      status.textContent = "Simplifying media locally…"
+      const bytes = new Uint8Array(await file.arrayBuffer())
+      const canvas = document.createElement("canvas"),
+        ctx = canvas.getContext("2d", { willReadFrequently: true })
+      const size = (w, h) => {
+        const scale = Math.min(1, edge / Math.max(w, h))
+        canvas.width = Math.max(1, Math.round(w * scale))
+        canvas.height = Math.max(1, Math.round(h * scale))
+      }
+      const draw = frame => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(frame, 0, 0, canvas.width, canvas.height)
+        return ctx.getImageData(0, 0, canvas.width, canvas.height).data
+      }
+      let source
+      if (mime.startsWith("audio/")) {
+        context = new AudioContext()
+        const audio = await context.decodeAudioData(bytes.buffer.slice(0))
+        B.check(start < audio.duration, "start is past the end of the audio")
+        const length = Math.max(1, Math.floor(Math.min(duration, audio.duration - start) * 8000))
+        const offline = new OfflineAudioContext(1, length, 8000),
+          node = offline.createBufferSource()
+        node.buffer = audio
+        node.connect(offline.destination)
+        node.start(0, start)
+        const downsampled = await offline.startRendering()
+        source = B.encodeAudio(downsampled.getChannelData(0), 8000, 64)
+      } else if (mime === "image/gif") {
+        B.check(typeof ImageDecoder !== "undefined" && (await ImageDecoder.isTypeSupported(mime)), "Animated GIF sampling requires ImageDecoder (try Chrome); convert the source to MP4 otherwise")
+        decoder = new ImageDecoder({ data: bytes, type: mime })
+        await decoder.tracks.ready
+        const track = decoder.tracks.selectedTrack,
+          frames = []
+        let time = 0,
+          next = start,
+          scanned = 0
+        // Decode sequentially so disposal/compositing and variable source timing are respected.
+        for (let i = 0; i < track.frameCount && next < start + duration; i++) {
+          B.check(++scanned <= 600, "GIF has too many source frames; trim it first")
+          const { image } = await decoder.decode({ frameIndex: i })
+          try {
+            if (!frames.length) size(image.displayWidth, image.displayHeight)
+            const end = time + Math.max(0.01, (image.duration || 100000) / 1e6)
+            while (next < end && next < start + duration) {
+              frames.push(draw(image))
+              next += 1 / fps
+            }
+            time = end
+          } finally {
+            image.close()
+          }
+        }
+        B.check(frames.length, "start is past the end of the GIF")
+        source = B.encodeAnimation(frames, canvas.width, canvas.height, Math.round(100 / fps) * 10)
+      } else {
+        url = URL.createObjectURL(file)
+        media = document.createElement(mime.startsWith("image/") ? "img" : "video")
+        media.preload = "auto"
+        media.muted = true
+        await event(media, media.tagName === "IMG" ? "load" : "loadeddata", () => {
+          media.src = url
+        })
+        size(media.naturalWidth || media.videoWidth, media.naturalHeight || media.videoHeight)
+        if (media.tagName === "VIDEO") {
+          B.check(Number.isFinite(media.duration) && start < media.duration, "start is past the end or video duration is unavailable")
+          const frames = [],
+            end = Math.min(start + duration, media.duration)
+          for (let t = start; t < end && frames.length < 80; t += 1 / fps) {
+            if (Math.abs(media.currentTime - t) > 0.001)
+              await event(media, "seeked", () => {
+                media.currentTime = t
+              })
+            frames.push(draw(media))
+          }
+          source = B.encodeAnimation(frames, canvas.width, canvas.height, Math.round(100 / fps) * 10)
+        } else source = B.encodeRaster(draw(media), canvas.width, canvas.height)
+      }
+      if (request !== revision) return
+      text.value = source
+      render()
+    } catch (error) {
+      if (request === revision) report(error)
+    } finally {
+      if (media && media.tagName === "VIDEO") {
+        media.pause()
+        media.removeAttribute("src")
+        media.load()
+      }
+      if (url) URL.revokeObjectURL(url)
+      if (context) await context.close()
+      if (decoder) decoder.close()
+    }
+  }
+  $("input[type=file]").onchange = encode
+  for (const selector of [".edge", ".start", ".duration", ".fps"]) $(selector).onchange = encode
+})(document.currentScript.previousElementSibling, (function() {
+  // This class is also serialized into the studio: no Node-only dependencies.
+  return class Based64 {
+    static alphabet = ".'`^\",:Il!i<>~+_-?]}{1)(|\\/tfjrxuvczXYUJCLQ0Omwqpdbkhao*#W&8%B@$"
+    static maxBytes = 20 * 1024 * 1024
+    static maxPixels = 1024 * 1024
+    static types = { "image/png": "png", "image/gif": "gif", "audio/wav": "wav" }
+    static check(ok, message) {
+      if (!ok) throw new Error("based64: " + message)
+    }
+    static integer(text, min, max) {
+      this.check(/^(0|[1-9][0-9]*)$/.test(String(text)), "expected canonical integer")
+      const n = Number(text)
+      this.check(Number.isSafeInteger(n) && n >= min && n <= max, "integer out of range")
+      return n
+    }
+    static crc(bytes) {
+      let crc = 0xffffffff
+      for (const byte of bytes) {
+        crc ^= byte
+        for (let bit = 0; bit < 8; bit++) crc = (crc >>> 1) ^ (crc & 1 ? 0xedb88320 : 0)
+      }
+      return ((crc ^ 0xffffffff) >>> 0).toString(16).padStart(8, "0")
+    }
+    static escape(text) {
+      return text.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]))
+    }
+    static base64(bytes) {
+      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+      let out = ""
+      for (let i = 0; i < bytes.length; i += 3) {
+        const n = bytes[i] * 65536 + (bytes[i + 1] || 0) * 256 + (bytes[i + 2] || 0)
+        out += alphabet[n >>> 18] + alphabet[(n >>> 12) & 63] + (i + 1 < bytes.length ? alphabet[(n >>> 6) & 63] : "=") + (i + 2 < bytes.length ? alphabet[n & 63] : "=")
+      }
+      return out
+    }
+    static join(parts) {
+      const out = new Uint8Array(parts.reduce((n, p) => n + p.length, 0))
+      let offset = 0
+      for (const part of parts) {
+        out.set(part, offset)
+        offset += part.length
+      }
+      return out
+    }
+    static u32(n) {
+      return Uint8Array.of(n >>> 24, n >>> 16, n >>> 8, n)
+    }
+    static png(width, height, rgba) {
+      // PNG RGBA8, filter 0, zlib stored blocks. Deliberately portable, not a PNG optimizer.
+      const scan = new Uint8Array(height * (width * 4 + 1))
+      for (let y = 0; y < height; y++) scan.set(rgba.subarray(y * width * 4, (y + 1) * width * 4), y * (width * 4 + 1) + 1)
+      const blocks = [Uint8Array.of(0x78, 0x01)]
+      for (let i = 0; i < scan.length; i += 65535) {
+        const block = scan.subarray(i, i + 65535),
+          n = block.length
+        blocks.push(Uint8Array.of(i + n === scan.length ? 1 : 0, n & 255, n >>> 8, ~n & 255, (~n >>> 8) & 255), block)
+      }
+      let a = 1,
+        b = 0
+      for (const byte of scan) {
+        a = (a + byte) % 65521
+        b = (b + a) % 65521
+      }
+      blocks.push(this.u32((b * 65536 + a) >>> 0))
+      const chunk = (type, data) => {
+        const body = this.join([Uint8Array.from(type, c => c.charCodeAt(0)), data])
+        return this.join([this.u32(data.length), body, this.u32(parseInt(this.crc(body), 16))])
+      }
+      return this.join([Uint8Array.of(137, 80, 78, 71, 13, 10, 26, 10), chunk("IHDR", this.join([this.u32(width), this.u32(height), Uint8Array.of(8, 6, 0, 0, 0)])), chunk("IDAT", this.join(blocks)), chunk("IEND", new Uint8Array())])
+    }
+    static palette(spec) {
+      if (spec === "gray")
+        return Array.from({ length: 64 }, (_, i) => {
+          const n = Math.round(255 * (1 - i / 63))
+          return [n, n, n, 255]
+        })
+      const colors = spec.split(",").map(hex => {
+        this.check(/^[0-9a-f]{8}$/.test(hex), "palette colors must be lowercase RRGGBBAA")
+        return [0, 2, 4, 6].map(i => parseInt(hex.slice(i, i + 2), 16))
+      })
+      this.check(colors.length > 0 && colors.length <= 64, "palette needs 1 to 64 colors")
+      return colors
+    }
+    static gif(width, height, frames, colors, delay) {
+      // Fixed 7-bit LZW codes; clear before the dictionary reaches 128 entries.
+      const le = n => [n & 255, n >>> 8]
+      const ascii = s => Array.from(s, c => c.charCodeAt(0))
+      const table = Array.from({ length: 64 }, (_, i) => {
+        const c = colors[Math.round((i * (colors.length - 1)) / 63)]
+        return c.slice(0, 3).map(n => Math.round((n * c[3]) / 255 + 255 - c[3]))
+      }).flat()
+      const parts = [Uint8Array.from([...ascii("GIF89a"), ...le(width), ...le(height), 0xf5, 0, 0, ...table, 33, 255, 11, ...ascii("NETSCAPE2.0"), 3, 1, 0, 0, 0])]
+      for (const frame of frames) {
+        parts.push(Uint8Array.from([33, 249, 4, 4, ...le(delay / 10), 0, 0, 44, 0, 0, 0, 0, ...le(width), ...le(height), 0, 6]))
+        const data = []
+        let buffer = 0,
+          count = 0
+        const code = value => {
+          buffer |= value << count
+          count += 7
+          while (count >= 8) {
+            data.push(buffer & 255)
+            buffer >>>= 8
+            count -= 8
+          }
+        }
+        for (let i = 0; i < frame.length; i++) {
+          if (i % 60 === 0) code(64)
+          code(frame[i])
+        }
+        code(65)
+        if (count) data.push(buffer & 255)
+        for (let i = 0; i < data.length; i += 255) parts.push(Uint8Array.from([Math.min(255, data.length - i), ...data.slice(i, i + 255)]))
+        parts.push(Uint8Array.of(0))
+      }
+      parts.push(Uint8Array.of(59))
+      return this.join(parts)
+    }
+    static wav(samples, rate) {
+      const bytes = new Uint8Array(44 + samples.length + (samples.length % 2)),
+        view = new DataView(bytes.buffer)
+      const str = (offset, s) => {
+        for (let i = 0; i < s.length; i++) bytes[offset + i] = s.charCodeAt(i)
+      }
+      str(0, "RIFF")
+      view.setUint32(4, bytes.length - 8, true)
+      str(8, "WAVEfmt ")
+      view.setUint32(16, 16, true)
+      view.setUint16(20, 1, true)
+      view.setUint16(22, 1, true)
+      view.setUint32(24, rate, true)
+      view.setUint32(28, rate, true)
+      view.setUint16(32, 1, true)
+      view.setUint16(34, 8, true)
+      str(36, "data")
+      view.setUint32(40, samples.length, true)
+      bytes.set(samples, 44)
+      return bytes
+    }
+    static sample(code) {
+      const magnitude = (Math.pow(256, (code & 7) / 7) - 1) / 255
+      return code & 8 ? -magnitude : magnitude
+    }
+    static decode(source) {
+      // Editing is always renderable. Bound work, repair metadata, and pad/crop the drawing.
+      const lines = String(source ?? "")
+        .slice(0, 3 * this.maxPixels + 10000)
+        .replace(/\r\n?/g, "\n")
+        .replace(/\n$/, "")
+        .split("\n")
+      const header = /^based64(?:\s|$)/.test(lines[0]) ? lines.shift().trim().split(/\s+/) : []
+      const mode = header[1] === "audio" ? "audio" : header[1] === "animation" ? "animation" : "image"
+      let colors = this.palette("gray"),
+        delay = 500,
+        rate = 8000
+      const groups = [[]]
+      const number = (value, fallback, min, max) => (Number.isFinite(Number(value)) && String(value).trim() !== "" ? Math.min(max, Math.max(min, Math.round(Number(value)))) : fallback)
+      for (const raw of lines.slice(0, mode === "audio" ? this.maxPixels : 8000)) {
+        const line = raw.replace(/^ /, "")
+        if (/^colors(?:\s|$)/.test(line)) {
+          const hexes = line
+            .slice(6)
+            .trim()
+            .split(/[\s,]+/)
+            .filter(hex => /^[0-9a-f]{6}([0-9a-f]{2})?$/i.test(hex))
+            .slice(0, 64)
+          colors = hexes.length ? this.palette(hexes.map(hex => hex.toLowerCase() + (hex.length === 6 ? "ff" : "")).join(",")) : this.palette("gray")
+        } else if (/^delay(?:\s|$)/.test(line)) delay = Math.round(number(line.slice(5), 500, 20, 10000) / 10) * 10
+        else if (/^rate(?:\s|$)/.test(line)) rate = number(line.slice(4), 8000, 4000, 16000)
+        else if (mode === "animation" && line.trim() === "frame") {
+          if (groups[groups.length - 1].length || groups.length > 1) groups.push([])
+        } else groups[groups.length - 1].push(mode === "animation" ? line.replace(/^ /, "") : line)
+      }
+      const index = c => {
+        if (/\s/.test(c)) return 0
+        const known = this.alphabet.indexOf(c)
+        return known === -1 ? c.codePointAt(0) % 64 : known
+      }
+      if (mode === "audio") {
+        const text = groups.flat().join("").slice(0, this.maxPixels) || "."
+        const samples = Uint8Array.from(text, c => Math.round(128 + 127 * this.sample(index(c) & 15)))
+        return { mime: "audio/wav", bytes: this.wav(samples, rate), rows: groups.flat(), samples, rate }
+      }
+      const selected = (mode === "animation" ? groups.slice(0, 120) : [groups[0]]).map(rows => rows.slice(0, 64).map(row => Array.from(row).slice(0, 64)))
+      const width = Math.max(1, ...selected.flat().map(row => row.length)),
+        height = Math.max(1, ...selected.map(rows => rows.length))
+      const frames = selected.map(rows => Uint8Array.from({ length: width * height }, (_, i) => index(rows[Math.floor(i / width)]?.[i % width] || ".")))
+      const rgba = new Uint8Array(width * height * 4)
+      frames[0].forEach((value, i) => rgba.set(colors[Math.round((value * (colors.length - 1)) / 63)], i * 4))
+      const rows = selected[0].map(row => row.join(""))
+      return mode === "animation" ? { mime: "image/gif", bytes: this.gif(width, height, frames, colors, delay), width, height, frames, rows, delay } : { mime: "image/png", bytes: this.png(width, height, rgba), width, height, rgba, rows }
+    }
+    static encodeAudio(samples, rate = 8000, width = 64) {
+      this.integer(rate, 4000, 16000)
+      this.integer(width, 1, 64)
+      this.check(samples.length > 0 && samples.length <= this.maxPixels && Array.from(samples).every(Number.isFinite), "invalid audio samples")
+      // Each glyph carries one 4-bit logarithmic PCM sample. Its high two bits draw a waveform.
+      const peaks = new Float32Array(width),
+        tileHeight = Math.min(32, Math.ceil(samples.length / width))
+      for (let x = 0; x < width; x++) {
+        const start = Math.floor((x * samples.length) / width),
+          end = Math.floor(((x + 1) * samples.length) / width)
+        for (let i = start; i < end; i++) peaks[x] = Math.max(peaks[x], Math.min(1, Math.abs(samples[i])))
+      }
+      let out = "based64 audio" + (rate === 8000 ? "" : `\n rate ${rate}`)
+      for (let i = 0; i < samples.length; i++) {
+        const value = Math.max(-1, Math.min(1, samples[i]))
+        const code = (value < 0 ? 8 : 0) + Math.round((Math.log1p(255 * Math.abs(value)) / Math.log(256)) * 7)
+        const y = tileHeight === 1 ? 0 : ((Math.floor(i / width) % tileHeight) / (tileHeight - 1)) * 2 - 1
+        const group = Math.abs(y) <= peaks[i % width] ? 3 : 0
+        if (i % width === 0) out += "\n "
+        out += this.alphabet[group * 16 + code]
+      }
+      return out
+    }
+    static encodeAnimation(frames, width, height, delay = 500) {
+      this.integer(width, 1, 64)
+      this.integer(height, 1, 64)
+      this.integer(delay, 20, 10000)
+      this.check(delay % 10 === 0 && frames.length > 0 && frames.length <= 120 && width * height * frames.length <= this.maxPixels, "invalid animation size or delay")
+      this.check(
+        frames.every(frame => frame.length === width * height * 4),
+        "frame size mismatch"
+      )
+      const raster = this.rasterText(this.join(frames), width, height * frames.length)
+      const lines = raster.split("\n")
+      lines.shift()
+      const palette = lines.shift()
+      let out = "based64 animation\n" + palette + (delay === 500 ? "" : `\n delay ${delay}`)
+      for (let frame = 0; frame < frames.length; frame++)
+        out +=
+          "\n frame\n" +
+          lines
+            .slice(frame * height, (frame + 1) * height)
+            .map(line => " " + line)
+            .join("\n")
+      return out
+    }
+    static encodeRaster(rgba, width, height) {
+      this.integer(width, 1, 64)
+      this.integer(height, 1, 64)
+      return this.rasterText(rgba, width, height)
+    }
+    static rasterText(rgba, width, height) {
+      this.integer(width, 1, 64)
+      this.integer(height, 1, 7680)
+      this.check(width * height <= this.maxPixels && rgba.length === width * height * 4, "invalid raster")
+      // Keep the 64 most frequent RGBA4444 colors, then nearest-color quantize.
+      const histogram = new Map()
+      for (let i = 0; i < rgba.length; i += 4) {
+        const color = Array.from(rgba.slice(i, i + 4), n => Math.round(n / 17) * 17)
+        const key = color.join(",")
+        histogram.set(key, (histogram.get(key) || 0) + 1)
+      }
+      const darkness = c => 1 - (((0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) * c[3]) / 255 + 255 - c[3]) / 255
+      const palette = [...histogram]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 64)
+        .map(([key]) => key.split(",").map(Number))
+        .sort((a, b) => darkness(a) - darkness(b))
+      // Spread small palettes over all 64 glyphs, retaining recognizable light/dark extremes.
+      const colors = palette
+      let out = `based64\n colors ${colors.map(c => c.map(n => n.toString(16).padStart(2, "0")).join("")).join(" ")}`
+      const cache = new Map()
+      for (let i = 0; i < width * height; i++) {
+        const pixel = Array.from(rgba.slice(i * 4, i * 4 + 4)),
+          key = pixel.join(",")
+        let best = cache.get(key)
+        if (best === undefined) {
+          let distance = Infinity
+          colors.forEach((color, index) => {
+            const d = color.reduce((sum, n, j) => sum + (n - pixel[j]) ** 2, 0)
+            if (d < distance) {
+              distance = d
+              best = index
+            }
+          })
+          cache.set(key, best)
+        }
+        if (i % width === 0) out += "\n "
+        out += this.alphabet[colors.length === 1 ? Math.round(darkness(colors[0]) * 63) : Math.round((best * 63) / (colors.length - 1))]
+      }
+      return out
+    }
+    static html(source, showSource = true) {
+      const result = this.decode(source),
+        url = `data:${result.mime};base64,${this.base64(result.bytes)}`
+      const player = result.mime.startsWith("audio/")
+        ? `<audio controls preload="metadata" src="${url}"></audio>`
+        : `<img src="${url}" alt="Decoded based64 image" style="image-rendering:pixelated;width:${Math.min(256, result.width * 4)}px;max-width:100%">`
+      const preview = showSource && result.width ? `<pre aria-label="ASCII preview" style="margin:0;font:6px/4px monospace;white-space:pre;background:white;color:black">${this.escape(result.rows.join("\n"))}</pre>` : ""
+      return `<figure class="based64"><div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">${preview}${player}</div><figcaption><a download="based64.${this.types[result.mime]}" href="${url}">Download ${
+        this.types[result.mime]
+      }</a></figcaption>${showSource ? `<details><summary>Source</summary><pre style="font:12px/1 monospace;overflow:auto">${this.escape(String(source ?? ""))}</pre></details>` : ""}</figure>`
+    }
+  }
+})())</script>
+<div class="scrollSection"><h1 id="particle72" class="scrollParagraph">Less media, same idea</h1>
+</div>
+<p id="particle74" class="scrollParagraph">Based64 keeps at most 64×64 pixels and 64 colors per frame. Enough for a face, a diagram, or a short instructional animation. Crop around what matters; put explanations in ordinary text.</p>
+<p id="particle76" class="scrollParagraph">Images become PNGs, GIFs and videos become silent GIFs, and audio becomes a small mono WAV. GIF import needs a browser with ImageDecoder support. Short clips work best.</p>
+<div class="scrollSection"><h1 id="particle78" class="scrollParagraph">Simple example:</h1>
+</div>
+<p id="particle80" class="scrollParagraph">Below is an image of an arrow:</p>
+<figure class="based64"><div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><pre aria-label="ASCII preview" style="margin:0;font:6px/4px monospace;white-space:pre;background:white;color:black">...$...
+..$$$..
+.$$$$$.
+...$...</pre><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAECAYAAABCxiV9AAAAf0lEQVR4AQF0AIv/AP///////////////wAAAP////////////////8A//////////8AAAD/AAAA/wAAAP///////////wD/////AAAA/wAAAP8AAAD/AAAA/wAAAP//////AP///////////////wAAAP/////////////////KplGvDhk1pQAAAABJRU5ErkJggg==" alt="Decoded based64 image" style="image-rendering:pixelated;width:28px;max-width:100%"></div><figcaption><a download="based64.png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAECAYAAABCxiV9AAAAf0lEQVR4AQF0AIv/AP///////////////wAAAP////////////////8A//////////8AAAD/AAAA/wAAAP///////////wD/////AAAA/wAAAP8AAAD/AAAA/wAAAP//////AP///////////////wAAAP/////////////////KplGvDhk1pQAAAABJRU5ErkJggg==">Download png</a></figcaption><details><summary>Source</summary><pre style="font:12px/1 monospace;overflow:auto">based64
+ ...$...
+ ..$$$..
+ .$$$$$.
+ ...$...</pre></details></figure>
+<p id="particle84" class="scrollParagraph">Use <code class="scrollInlineCode">based64 animation</code> for a flipbook or <code class="scrollInlineCode">based64 audio</code> for sound. Dimensions are inferred. Optional <code class="scrollInlineCode">colors</code>, <code class="scrollInlineCode">delay</code>, and <code class="scrollInlineCode">rate</code> settings live inside the block; animation frames start with <code class="scrollInlineCode">frame</code>.</p>
+<p id="particle86" class="scrollParagraph">Spaces, unfamiliar characters, ragged rows—even an empty drawing—still render. Short rows get padded; oversized drawings get cropped. Scramble away.</p>
+<p id="particle88" class="scrollParagraph">One character per pixel keeps the source readable. A shared palette keeps animations small. We deliberately throw away detail instead of preserving the original file. The test is whether the instruction still makes sense.</p>
+<p id="particle90" class="scrollParagraph">The parser and tests are single Scroll files. Introduced in Scroll 179.0.0.</p>
+<div class="scrollSection"><h1 id="particle92" class="scrollParagraph">Thanks</h1>
+</div>
+<p id="particle94" class="scrollParagraph">Thanks to Sam Altman and the ChatGPT/Astra team for making this possible.</p>
+<center><p id="particle98" class="scrollParagraph"></p>
+</center><a href="https://github.com/breck7/scroll/blob/main/blog/based64.scroll" class="abstractTextLinkParser">Edit</a></div>
+
+<div class="scrollSnippetContainer"><style>html {font-family: "SF Pro", "Helvetica Neue", "Segoe UI", "Arial"; font-size: var(--scrollBaseFontSize, 16px);}</style>
 <div class="scrollSection"><h1 id="particle32" class="printTitleParser"><a href="dataScience.html">Data Science with Scroll</a></h1>
 <p id="particle5" class="printAuthorsParser">by <a href="https://twitter.com/breckyunits">Breck Yunits</a></p>
 <div class="printDateParser">January 6, 2025</div>

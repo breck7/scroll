@@ -25,6 +25,12 @@ Download as CSV | TSV | JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
 
+179.0.0 9/5/2026
+================
+🎉 Added based64: visual text for lossy rasters up to 64×64, sparse animations, and audio, with a local browser encoder.
+
+This is fun! Thanks to Sam Altman and the Astra/ChatGPT team for making this possible.
+
 178.3.0 8/12/2026
 =================
 🏥 scroll.pub to scroll.surf
@@ -1283,8 +1289,8 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 09/05/2026,2026,Parsers,parsers.html,,,29939,149.7
 09/05/2026,2026,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
 09/05/2026,2026,Scroll is a language for scientists of all ages,index.html,,,176,0.9
-09/05/2026,2026,Readme Prompt,readmePrompt.html,,,22201,111
-09/05/2026,2026,Scroll Release Notes,releaseNotes.html,,main,17256,86.3
+09/05/2026,2026,Readme Prompt,readmePrompt.html,,,22243,111.2
+09/05/2026,2026,Scroll Release Notes,releaseNotes.html,,main,17298,86.5
 09/05/2026,2026,Scroll Roadmap,roadmap.html,,main,137,0.7
 09/05/2026,2026,Scroll Prompt,scrollPrompt.html,,,4613,23.1
 09/05/2026,2026,Scrollset Prompt,scrollsetPrompt.html,,,3720,18.6

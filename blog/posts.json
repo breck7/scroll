@@ -1,5 +1,15 @@
 [
   {
+    "date": "09/05/2026",
+    "year": 2026,
+    "title": "Introducing Based64: ASCII art that compiles to binary images and more",
+    "permalink": "based64.html",
+    "authors": "Breck Yunits",
+    "tags": "All",
+    "wordCount": 690,
+    "minutes": 3.5
+  },
+  {
     "date": "07/01/2024",
     "year": 2024,
     "title": "Changes: A Microlang for Change Logs",
@@ -65,8 +75,8 @@
     "title": "Feed",
     "permalink": "feed.html",
     "tags": "",
-    "wordCount": 608,
-    "minutes": 3
+    "wordCount": 641,
+    "minutes": 3.2
   },
   {
     "date": "10/01/2024",
@@ -84,8 +94,8 @@
     "title": "The Official Scroll Blog",
     "permalink": "full.html",
     "tags": "",
-    "wordCount": 314,
-    "minutes": 1.6
+    "wordCount": 334,
+    "minutes": 1.7
   },
   {
     "date": "09/02/2024",
@@ -133,8 +143,8 @@
     "title": "The Official Scroll Blog",
     "permalink": "index.html",
     "tags": "",
-    "wordCount": 314,
-    "minutes": 1.6
+    "wordCount": 334,
+    "minutes": 1.7
   },
   {
     "date": "10/02/2022",
@@ -192,8 +202,8 @@
     "title": "Search the Official Scroll Blog",
     "permalink": "search.html",
     "tags": "",
-    "wordCount": 10054,
-    "minutes": 50.3
+    "wordCount": 10792,
+    "minutes": 54
   },
   {
     "date": "09/05/2026",
@@ -210,7 +220,7 @@
     "title": "Sitemap",
     "permalink": "sitemap.html",
     "tags": "",
-    "wordCount": 157,
+    "wordCount": 163,
     "minutes": 0.8
   },
   {

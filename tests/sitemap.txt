@@ -5,6 +5,7 @@ https://scroll.surf/atomTypes.html
 https://scroll.surf/authors.html
 https://scroll.surf/autoTitle.html
 https://scroll.surf/background.html
+https://scroll.surf/based64.html
 https://scroll.surf/blogPost.html
 https://scroll.surf/buildDelimited.html
 https://scroll.surf/bundling.html

@@ -1,0 +1,566 @@
+based64ModeAtom
+ enum image animation audio
+ description Optional media kind. Defaults to image.
+ paint constant
+
+based64ColorAtom
+ regex (?:[0-9a-fA-F]{6}(?:[0-9a-fA-F]{2})?|gray)
+ description An RGB or RGBA hex color, or gray for grayscale.
+ paint string
+
+based64DelayAtom
+ extends integerAtom
+ description Milliseconds per animation frame; defaults to 500.
+
+based64RateAtom
+ extends integerAtom
+ description Audio samples per second; defaults to 8000.
+
+based64RowParser
+ baseParser blobParser
+ catchAllAtomType stringAtom
+ catchAllParser based64RowParser
+
+based64ColorsParser
+ cue colors
+ atoms cueAtom
+ catchAllAtomType based64ColorAtom
+
+based64DelayParser
+ cue delay
+ atoms cueAtom based64DelayAtom
+
+based64RateParser
+ cue rate
+ atoms cueAtom based64RateAtom
+
+based64FrameParser
+ cue frame
+ atoms cueAtom
+ catchAllParser based64RowParser
+
+// based64 v1: intentionally lossy media with a readable visual preview.
+// Import this file for based64 and based64Studio. See blog/based64.scroll.
+
+based64Parser
+ extends abstractScrollParser
+ cue based64
+ atoms cueAtom based64ModeAtom
+ inScope based64ColorsParser based64DelayParser based64RateParser based64FrameParser
+ catchAllParser based64RowParser
+ javascript
+  static createCodec() {
+    // This class is also serialized into the studio: no Node-only dependencies.
+    return class Based64 {
+      static alphabet = ".'`^\",:Il!i<>~+_-?]}{1)(|\\/tfjrxuvczXYUJCLQ0Omwqpdbkhao*#W&8%B@$"
+      static maxBytes = 20 * 1024 * 1024
+      static maxPixels = 1024 * 1024
+      static types = { "image/png": "png", "image/gif": "gif", "audio/wav": "wav" }
+      static check(ok, message) {
+        if (!ok) throw new Error("based64: " + message)
+      }
+      static integer(text, min, max) {
+        this.check(/^(0|[1-9][0-9]*)$/.test(String(text)), "expected canonical integer")
+        const n = Number(text)
+        this.check(Number.isSafeInteger(n) && n >= min && n <= max, "integer out of range")
+        return n
+      }
+      static crc(bytes) {
+        let crc = 0xffffffff
+        for (const byte of bytes) {
+          crc ^= byte
+          for (let bit = 0; bit < 8; bit++) crc = (crc >>> 1) ^ (crc & 1 ? 0xedb88320 : 0)
+        }
+        return ((crc ^ 0xffffffff) >>> 0).toString(16).padStart(8, "0")
+      }
+      static escape(text) {
+        return text.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]))
+      }
+      static base64(bytes) {
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+        let out = ""
+        for (let i = 0; i < bytes.length; i += 3) {
+          const n = bytes[i] * 65536 + (bytes[i + 1] || 0) * 256 + (bytes[i + 2] || 0)
+          out += alphabet[n >>> 18] + alphabet[(n >>> 12) & 63] + (i + 1 < bytes.length ? alphabet[(n >>> 6) & 63] : "=") + (i + 2 < bytes.length ? alphabet[n & 63] : "=")
+        }
+        return out
+      }
+      static join(parts) {
+        const out = new Uint8Array(parts.reduce((n, p) => n + p.length, 0))
+        let offset = 0
+        for (const part of parts) {
+          out.set(part, offset)
+          offset += part.length
+        }
+        return out
+      }
+      static u32(n) {
+        return Uint8Array.of(n >>> 24, n >>> 16, n >>> 8, n)
+      }
+      static png(width, height, rgba) {
+        // PNG RGBA8, filter 0, zlib stored blocks. Deliberately portable, not a PNG optimizer.
+        const scan = new Uint8Array(height * (width * 4 + 1))
+        for (let y = 0; y < height; y++) scan.set(rgba.subarray(y * width * 4, (y + 1) * width * 4), y * (width * 4 + 1) + 1)
+        const blocks = [Uint8Array.of(0x78, 0x01)]
+        for (let i = 0; i < scan.length; i += 65535) {
+          const block = scan.subarray(i, i + 65535),
+            n = block.length
+          blocks.push(Uint8Array.of(i + n === scan.length ? 1 : 0, n & 255, n >>> 8, ~n & 255, (~n >>> 8) & 255), block)
+        }
+        let a = 1,
+          b = 0
+        for (const byte of scan) {
+          a = (a + byte) % 65521
+          b = (b + a) % 65521
+        }
+        blocks.push(this.u32((b * 65536 + a) >>> 0))
+        const chunk = (type, data) => {
+          const body = this.join([Uint8Array.from(type, c => c.charCodeAt(0)), data])
+          return this.join([this.u32(data.length), body, this.u32(parseInt(this.crc(body), 16))])
+        }
+        return this.join([Uint8Array.of(137, 80, 78, 71, 13, 10, 26, 10), chunk("IHDR", this.join([this.u32(width), this.u32(height), Uint8Array.of(8, 6, 0, 0, 0)])), chunk("IDAT", this.join(blocks)), chunk("IEND", new Uint8Array())])
+      }
+      static palette(spec) {
+        if (spec === "gray")
+          return Array.from({ length: 64 }, (_, i) => {
+            const n = Math.round(255 * (1 - i / 63))
+            return [n, n, n, 255]
+          })
+        const colors = spec.split(",").map(hex => {
+          this.check(/^[0-9a-f]{8}$/.test(hex), "palette colors must be lowercase RRGGBBAA")
+          return [0, 2, 4, 6].map(i => parseInt(hex.slice(i, i + 2), 16))
+        })
+        this.check(colors.length > 0 && colors.length <= 64, "palette needs 1 to 64 colors")
+        return colors
+      }
+      static gif(width, height, frames, colors, delay) {
+        // Fixed 7-bit LZW codes; clear before the dictionary reaches 128 entries.
+        const le = n => [n & 255, n >>> 8]
+        const ascii = s => Array.from(s, c => c.charCodeAt(0))
+        const table = Array.from({ length: 64 }, (_, i) => {
+          const c = colors[Math.round((i * (colors.length - 1)) / 63)]
+          return c.slice(0, 3).map(n => Math.round((n * c[3]) / 255 + 255 - c[3]))
+        }).flat()
+        const parts = [Uint8Array.from([...ascii("GIF89a"), ...le(width), ...le(height), 0xf5, 0, 0, ...table, 33, 255, 11, ...ascii("NETSCAPE2.0"), 3, 1, 0, 0, 0])]
+        for (const frame of frames) {
+          parts.push(Uint8Array.from([33, 249, 4, 4, ...le(delay / 10), 0, 0, 44, 0, 0, 0, 0, ...le(width), ...le(height), 0, 6]))
+          const data = []
+          let buffer = 0,
+            count = 0
+          const code = value => {
+            buffer |= value << count
+            count += 7
+            while (count >= 8) {
+              data.push(buffer & 255)
+              buffer >>>= 8
+              count -= 8
+            }
+          }
+          for (let i = 0; i < frame.length; i++) {
+            if (i % 60 === 0) code(64)
+            code(frame[i])
+          }
+          code(65)
+          if (count) data.push(buffer & 255)
+          for (let i = 0; i < data.length; i += 255) parts.push(Uint8Array.from([Math.min(255, data.length - i), ...data.slice(i, i + 255)]))
+          parts.push(Uint8Array.of(0))
+        }
+        parts.push(Uint8Array.of(59))
+        return this.join(parts)
+      }
+      static wav(samples, rate) {
+        const bytes = new Uint8Array(44 + samples.length + (samples.length % 2)),
+          view = new DataView(bytes.buffer)
+        const str = (offset, s) => {
+          for (let i = 0; i < s.length; i++) bytes[offset + i] = s.charCodeAt(i)
+        }
+        str(0, "RIFF")
+        view.setUint32(4, bytes.length - 8, true)
+        str(8, "WAVEfmt ")
+        view.setUint32(16, 16, true)
+        view.setUint16(20, 1, true)
+        view.setUint16(22, 1, true)
+        view.setUint32(24, rate, true)
+        view.setUint32(28, rate, true)
+        view.setUint16(32, 1, true)
+        view.setUint16(34, 8, true)
+        str(36, "data")
+        view.setUint32(40, samples.length, true)
+        bytes.set(samples, 44)
+        return bytes
+      }
+      static sample(code) {
+        const magnitude = (Math.pow(256, (code & 7) / 7) - 1) / 255
+        return code & 8 ? -magnitude : magnitude
+      }
+      static decode(source) {
+        // Editing is always renderable. Bound work, repair metadata, and pad/crop the drawing.
+        const lines = String(source ?? "")
+          .slice(0, 3 * this.maxPixels + 10000)
+          .replace(/\r\n?/g, "\n")
+          .replace(/\n$/, "")
+          .split("\n")
+        const header = /^based64(?:\s|$)/.test(lines[0]) ? lines.shift().trim().split(/\s+/) : []
+        const mode = header[1] === "audio" ? "audio" : header[1] === "animation" ? "animation" : "image"
+        let colors = this.palette("gray"),
+          delay = 500,
+          rate = 8000
+        const groups = [[]]
+        const number = (value, fallback, min, max) => (Number.isFinite(Number(value)) && String(value).trim() !== "" ? Math.min(max, Math.max(min, Math.round(Number(value)))) : fallback)
+        for (const raw of lines.slice(0, mode === "audio" ? this.maxPixels : 8000)) {
+          const line = raw.replace(/^ /, "")
+          if (/^colors(?:\s|$)/.test(line)) {
+            const hexes = line
+              .slice(6)
+              .trim()
+              .split(/[\s,]+/)
+              .filter(hex => /^[0-9a-f]{6}([0-9a-f]{2})?$/i.test(hex))
+              .slice(0, 64)
+            colors = hexes.length ? this.palette(hexes.map(hex => hex.toLowerCase() + (hex.length === 6 ? "ff" : "")).join(",")) : this.palette("gray")
+          } else if (/^delay(?:\s|$)/.test(line)) delay = Math.round(number(line.slice(5), 500, 20, 10000) / 10) * 10
+          else if (/^rate(?:\s|$)/.test(line)) rate = number(line.slice(4), 8000, 4000, 16000)
+          else if (mode === "animation" && line.trim() === "frame") {
+            if (groups[groups.length - 1].length || groups.length > 1) groups.push([])
+          } else groups[groups.length - 1].push(mode === "animation" ? line.replace(/^ /, "") : line)
+        }
+        const index = c => {
+          if (/\s/.test(c)) return 0
+          const known = this.alphabet.indexOf(c)
+          return known === -1 ? c.codePointAt(0) % 64 : known
+        }
+        if (mode === "audio") {
+          const text = groups.flat().join("").slice(0, this.maxPixels) || "."
+          const samples = Uint8Array.from(text, c => Math.round(128 + 127 * this.sample(index(c) & 15)))
+          return { mime: "audio/wav", bytes: this.wav(samples, rate), rows: groups.flat(), samples, rate }
+        }
+        const selected = (mode === "animation" ? groups.slice(0, 120) : [groups[0]]).map(rows => rows.slice(0, 64).map(row => Array.from(row).slice(0, 64)))
+        const width = Math.max(1, ...selected.flat().map(row => row.length)),
+          height = Math.max(1, ...selected.map(rows => rows.length))
+        const frames = selected.map(rows => Uint8Array.from({ length: width * height }, (_, i) => index(rows[Math.floor(i / width)]?.[i % width] || ".")))
+        const rgba = new Uint8Array(width * height * 4)
+        frames[0].forEach((value, i) => rgba.set(colors[Math.round((value * (colors.length - 1)) / 63)], i * 4))
+        const rows = selected[0].map(row => row.join(""))
+        return mode === "animation" ? { mime: "image/gif", bytes: this.gif(width, height, frames, colors, delay), width, height, frames, rows, delay } : { mime: "image/png", bytes: this.png(width, height, rgba), width, height, rgba, rows }
+      }
+      static encodeAudio(samples, rate = 8000, width = 64) {
+        this.integer(rate, 4000, 16000)
+        this.integer(width, 1, 64)
+        this.check(samples.length > 0 && samples.length <= this.maxPixels && Array.from(samples).every(Number.isFinite), "invalid audio samples")
+        // Each glyph carries one 4-bit logarithmic PCM sample. Its high two bits draw a waveform.
+        const peaks = new Float32Array(width),
+          tileHeight = Math.min(32, Math.ceil(samples.length / width))
+        for (let x = 0; x < width; x++) {
+          const start = Math.floor((x * samples.length) / width),
+            end = Math.floor(((x + 1) * samples.length) / width)
+          for (let i = start; i < end; i++) peaks[x] = Math.max(peaks[x], Math.min(1, Math.abs(samples[i])))
+        }
+        let out = "based64 audio" + (rate === 8000 ? "" : `\n rate ${rate}`)
+        for (let i = 0; i < samples.length; i++) {
+          const value = Math.max(-1, Math.min(1, samples[i]))
+          const code = (value < 0 ? 8 : 0) + Math.round((Math.log1p(255 * Math.abs(value)) / Math.log(256)) * 7)
+          const y = tileHeight === 1 ? 0 : ((Math.floor(i / width) % tileHeight) / (tileHeight - 1)) * 2 - 1
+          const group = Math.abs(y) <= peaks[i % width] ? 3 : 0
+          if (i % width === 0) out += "\n "
+          out += this.alphabet[group * 16 + code]
+        }
+        return out
+      }
+      static encodeAnimation(frames, width, height, delay = 500) {
+        this.integer(width, 1, 64)
+        this.integer(height, 1, 64)
+        this.integer(delay, 20, 10000)
+        this.check(delay % 10 === 0 && frames.length > 0 && frames.length <= 120 && width * height * frames.length <= this.maxPixels, "invalid animation size or delay")
+        this.check(
+          frames.every(frame => frame.length === width * height * 4),
+          "frame size mismatch"
+        )
+        const raster = this.rasterText(this.join(frames), width, height * frames.length)
+        const lines = raster.split("\n")
+        lines.shift()
+        const palette = lines.shift()
+        let out = "based64 animation\n" + palette + (delay === 500 ? "" : `\n delay ${delay}`)
+        for (let frame = 0; frame < frames.length; frame++)
+          out +=
+            "\n frame\n" +
+            lines
+              .slice(frame * height, (frame + 1) * height)
+              .map(line => " " + line)
+              .join("\n")
+        return out
+      }
+      static encodeRaster(rgba, width, height) {
+        this.integer(width, 1, 64)
+        this.integer(height, 1, 64)
+        return this.rasterText(rgba, width, height)
+      }
+      static rasterText(rgba, width, height) {
+        this.integer(width, 1, 64)
+        this.integer(height, 1, 7680)
+        this.check(width * height <= this.maxPixels && rgba.length === width * height * 4, "invalid raster")
+        // Keep the 64 most frequent RGBA4444 colors, then nearest-color quantize.
+        const histogram = new Map()
+        for (let i = 0; i < rgba.length; i += 4) {
+          const color = Array.from(rgba.slice(i, i + 4), n => Math.round(n / 17) * 17)
+          const key = color.join(",")
+          histogram.set(key, (histogram.get(key) || 0) + 1)
+        }
+        const darkness = c => 1 - (((0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) * c[3]) / 255 + 255 - c[3]) / 255
+        const palette = [...histogram]
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 64)
+          .map(([key]) => key.split(",").map(Number))
+          .sort((a, b) => darkness(a) - darkness(b))
+        // Spread small palettes over all 64 glyphs, retaining recognizable light/dark extremes.
+        const colors = palette
+        let out = `based64\n colors ${colors.map(c => c.map(n => n.toString(16).padStart(2, "0")).join("")).join(" ")}`
+        const cache = new Map()
+        for (let i = 0; i < width * height; i++) {
+          const pixel = Array.from(rgba.slice(i * 4, i * 4 + 4)),
+            key = pixel.join(",")
+          let best = cache.get(key)
+          if (best === undefined) {
+            let distance = Infinity
+            colors.forEach((color, index) => {
+              const d = color.reduce((sum, n, j) => sum + (n - pixel[j]) ** 2, 0)
+              if (d < distance) {
+                distance = d
+                best = index
+              }
+            })
+            cache.set(key, best)
+          }
+          if (i % width === 0) out += "\n "
+          out += this.alphabet[colors.length === 1 ? Math.round(darkness(colors[0]) * 63) : Math.round((best * 63) / (colors.length - 1))]
+        }
+        return out
+      }
+      static html(source, showSource = true) {
+        const result = this.decode(source),
+          url = `data:${result.mime};base64,${this.base64(result.bytes)}`
+        const player = result.mime.startsWith("audio/")
+          ? `<audio controls preload="metadata" src="${url}"></audio>`
+          : `<img src="${url}" alt="Decoded based64 image" style="image-rendering:pixelated;width:${Math.min(256, result.width * 4)}px;max-width:100%">`
+        const preview = showSource && result.width ? `<pre aria-label="ASCII preview" style="margin:0;font:6px/4px monospace;white-space:pre;background:white;color:black">${this.escape(result.rows.join("\n"))}</pre>` : ""
+        return `<figure class="based64"><div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">${preview}${player}</div><figcaption><a download="based64.${this.types[result.mime]}" href="${url}">Download ${
+          this.types[result.mime]
+        }</a></figcaption>${showSource ? `<details><summary>Source</summary><pre style="font:12px/1 monospace;overflow:auto">${this.escape(String(source ?? ""))}</pre></details>` : ""}</figure>`
+      }
+    }
+  }
+  get codec() {
+    return this.constructor.createCodec()
+  }
+  get source() {
+    return (
+      this.getLine() +
+      "\n" +
+      this.subparticlesToString()
+        .split("\n")
+        .map(line => " " + line)
+        .join("\n")
+    )
+  }
+  getErrors() {
+    const errors = super.getErrors().filter(error => !(this.atoms.length === 1 && error.toObject().type === "MissingAtom" && error.toObject().atom === 1))
+    try {
+      this.codec.decode(this.source)
+    } catch (error) {
+      errors.push(this.makeError(error.message))
+    }
+    return errors
+  }
+  buildHtml() {
+    return this.codec.html(this.source)
+  }
+  buildTxt() {
+    return this.source
+  }
+
+based64StudioParser
+ extends based64Parser
+ cue based64Studio
+ description Simplify local media into visual text.
+ javascript
+  static async studio(element, B) {
+    element.innerHTML = `<p><label>Choose file <input type="file" accept="image/*,video/*,audio/*"></label></p><details><summary>Advanced settings</summary><p><label>Maximum edge <input class="edge" type="number" min="8" max="64" value="64"></label> <label>Start (seconds) <input class="start" type="number" min="0" value="0"></label> <label>Clip (seconds) <input class="duration" type="number" min="1" max="10" value="4"></label> <label>Frames/second <select class="fps"><option>1</option><option selected>2</option><option>4</option><option>8</option></select></label></p><button class="save">Save text</button></details><p role="status"></p><textarea aria-label="based64 source" placeholder="Choose a file, or draw here…" spellcheck="false" rows="20" style="box-sizing:border-box;width:100%;white-space:pre;overflow:auto;font:12px/1 monospace;background:white;color:black"></textarea><div class="result"></div>`
+    const $ = selector => element.querySelector(selector),
+      status = $("[role=status]"),
+      text = $("textarea"),
+      result = $(".result")
+    const report = error => {
+      status.textContent = error.message
+    }
+    const render = () => {
+      const decoded = B.decode(text.value)
+      result.innerHTML = B.html(text.value, false)
+      status.textContent = `${decoded.width ? decoded.width + "×" + decoded.height + " · " : ""}${text.value.length.toLocaleString()} characters. Edit the text to change the result.`
+    }
+    let revision = 0,
+      timer
+    text.oninput = () => {
+      revision++
+      clearTimeout(timer)
+      timer = setTimeout(render, 100)
+    }
+    $(".save").onclick = () => {
+      try {
+        B.decode(text.value)
+        const url = URL.createObjectURL(new Blob([text.value + "\n"], { type: "text/plain" }))
+        const link = document.createElement("a")
+        link.href = url
+        link.download = "based64.scroll"
+        link.click()
+        setTimeout(() => URL.revokeObjectURL(url), 1000)
+      } catch (error) {
+        report(error)
+      }
+    }
+    const event = (target, name, action) =>
+      new Promise((resolve, reject) => {
+        const cleanup = () => {
+          clearTimeout(timer)
+          target.removeEventListener(name, done)
+          target.removeEventListener("error", fail)
+        }
+        const done = () => {
+            cleanup()
+            resolve()
+          },
+          fail = () => {
+            cleanup()
+            reject(new Error("Browser could not decode this media"))
+          }
+        const timer = setTimeout(() => {
+          cleanup()
+          reject(new Error("Media preview timed out"))
+        }, 15000)
+        target.addEventListener(name, done, { once: true })
+        target.addEventListener("error", fail, { once: true })
+        try {
+          action()
+        } catch (error) {
+          cleanup()
+          reject(error)
+        }
+      })
+    const encode = async () => {
+      const request = ++revision
+      clearTimeout(timer)
+      if (!$("input[type=file]").files[0]) return
+      let url, media, context, decoder
+      try {
+        const file = $("input[type=file]").files[0]
+        B.check(file && file.size > 0 && file.size <= B.maxBytes, "choose a file of 1 byte to 20 MiB")
+        const mime = file.type || { gif: "image/gif", png: "image/png", jpg: "image/jpeg", mp4: "video/mp4", wav: "audio/wav", mp3: "audio/mpeg" }[file.name.split(".").pop().toLowerCase()]
+        B.check(mime && /^(image|audio|video)\//.test(mime), "choose an image, video, or audio file")
+        const edge = B.integer($(".edge").value, 8, 64),
+          start = Number($(".start").value),
+          duration = B.integer($(".duration").value, 1, 10),
+          fps = Number($(".fps").value)
+        B.check(Number.isFinite(start) && start >= 0, "start must be nonnegative")
+        status.textContent = "Simplifying media locally…"
+        const bytes = new Uint8Array(await file.arrayBuffer())
+        const canvas = document.createElement("canvas"),
+          ctx = canvas.getContext("2d", { willReadFrequently: true })
+        const size = (w, h) => {
+          const scale = Math.min(1, edge / Math.max(w, h))
+          canvas.width = Math.max(1, Math.round(w * scale))
+          canvas.height = Math.max(1, Math.round(h * scale))
+        }
+        const draw = frame => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height)
+          ctx.drawImage(frame, 0, 0, canvas.width, canvas.height)
+          return ctx.getImageData(0, 0, canvas.width, canvas.height).data
+        }
+        let source
+        if (mime.startsWith("audio/")) {
+          context = new AudioContext()
+          const audio = await context.decodeAudioData(bytes.buffer.slice(0))
+          B.check(start < audio.duration, "start is past the end of the audio")
+          const length = Math.max(1, Math.floor(Math.min(duration, audio.duration - start) * 8000))
+          const offline = new OfflineAudioContext(1, length, 8000),
+            node = offline.createBufferSource()
+          node.buffer = audio
+          node.connect(offline.destination)
+          node.start(0, start)
+          const downsampled = await offline.startRendering()
+          source = B.encodeAudio(downsampled.getChannelData(0), 8000, 64)
+        } else if (mime === "image/gif") {
+          B.check(typeof ImageDecoder !== "undefined" && (await ImageDecoder.isTypeSupported(mime)), "Animated GIF sampling requires ImageDecoder (try Chrome); convert the source to MP4 otherwise")
+          decoder = new ImageDecoder({ data: bytes, type: mime })
+          await decoder.tracks.ready
+          const track = decoder.tracks.selectedTrack,
+            frames = []
+          let time = 0,
+            next = start,
+            scanned = 0
+          // Decode sequentially so disposal/compositing and variable source timing are respected.
+          for (let i = 0; i < track.frameCount && next < start + duration; i++) {
+            B.check(++scanned <= 600, "GIF has too many source frames; trim it first")
+            const { image } = await decoder.decode({ frameIndex: i })
+            try {
+              if (!frames.length) size(image.displayWidth, image.displayHeight)
+              const end = time + Math.max(0.01, (image.duration || 100000) / 1e6)
+              while (next < end && next < start + duration) {
+                frames.push(draw(image))
+                next += 1 / fps
+              }
+              time = end
+            } finally {
+              image.close()
+            }
+          }
+          B.check(frames.length, "start is past the end of the GIF")
+          source = B.encodeAnimation(frames, canvas.width, canvas.height, Math.round(100 / fps) * 10)
+        } else {
+          url = URL.createObjectURL(file)
+          media = document.createElement(mime.startsWith("image/") ? "img" : "video")
+          media.preload = "auto"
+          media.muted = true
+          await event(media, media.tagName === "IMG" ? "load" : "loadeddata", () => {
+            media.src = url
+          })
+          size(media.naturalWidth || media.videoWidth, media.naturalHeight || media.videoHeight)
+          if (media.tagName === "VIDEO") {
+            B.check(Number.isFinite(media.duration) && start < media.duration, "start is past the end or video duration is unavailable")
+            const frames = [],
+              end = Math.min(start + duration, media.duration)
+            for (let t = start; t < end && frames.length < 80; t += 1 / fps) {
+              if (Math.abs(media.currentTime - t) > 0.001)
+                await event(media, "seeked", () => {
+                  media.currentTime = t
+                })
+              frames.push(draw(media))
+            }
+            source = B.encodeAnimation(frames, canvas.width, canvas.height, Math.round(100 / fps) * 10)
+          } else source = B.encodeRaster(draw(media), canvas.width, canvas.height)
+        }
+        if (request !== revision) return
+        text.value = source
+        render()
+      } catch (error) {
+        if (request === revision) report(error)
+      } finally {
+        if (media && media.tagName === "VIDEO") {
+          media.pause()
+          media.removeAttribute("src")
+          media.load()
+        }
+        if (url) URL.revokeObjectURL(url)
+        if (context) await context.close()
+        if (decoder) decoder.close()
+      }
+    }
+    $("input[type=file]").onchange = encode
+    for (const selector of [".edge", ".start", ".duration", ".fps"]) $(selector).onchange = encode
+  }
+  getErrors() {
+    return []
+  }
+  buildHtml() {
+    const code = `(${this.constructor.studio.toString().replace(/^async studio/, "async function")})(document.currentScript.previousElementSibling, (${this.constructor.createCodec.toString().replace(/^createCodec/, "function")})())`
+    return `<section class="based64Studio"></section><script>${code.replace(/<\/script/gi, "<\\/script")}</script>`
+  }
+  buildTxt() {
+    return "based64Studio"
+  }

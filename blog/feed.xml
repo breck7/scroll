@@ -4,8 +4,13 @@
  <title>Feed</title>
  <link>https://scroll.surf/blog/</link>
  <description>Official blog for Scroll</description>
- <lastBuildDate>Sat, 05 Sep 2026 04:31:36 +0000</lastBuildDate>
+ <lastBuildDate>Sat, 05 Sep 2026 16:33:52 +0000</lastBuildDate>
  <language>en-us</language>
+ <item>
+<title>Introducing Based64: ASCII art that compiles to binary images and more</title>
+<link>https://scroll.surf/blog/based64.html</link>
+<pubDate>Sat, 05 Sep 2026 00:00:00 +0000</pubDate>
+</item>
  <item>
 <title>Data Science with Scroll</title>
 <link>https://scroll.surf/blog/dataScience.html</link>

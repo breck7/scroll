@@ -107,6 +107,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 179.0.0 9/5/2026
+🎉 Added based64: visual text for lossy rasters up to 64×64, sparse animations, and audio, with a local browser encoder.
+
+This is fun! Thanks to Sam Altman and the Astra/ChatGPT team for making this possible.
+
 📦 178.3.0 8/12/2026
 🏥 scroll.pub to scroll.surf
 
