@@ -64,7 +64,7 @@ codeFromFile blog/scrollsets.scroll
 
 Here is another blog post about ScrollSets:
 
-codeWithHeader breckyunits.com/scrollsets.scroll
+codeWithHeader breck.lol/scrollsets.scroll
  date 2024-05-21
  tags All Scroll Programming Data Life ScrollSets ScrollPapers AllPapers
  title ScrollSets: A New Way to Store Knowledge
@@ -221,7 +221,7 @@ codeWithHeader breckyunits.com/scrollsets.scroll
  ^apple M1: Apple
   https://en.wikipedia.org/wiki/Apple_M1 M1
  - The M1 laptop was the first consumer machine where the performance of this system wasn't abysmal.
-  https://breckyunits.com/building-a-treebase-with-6.5-million-files.html abysmal
+  https://breck.lol/building-a-treebase-with-6.5-million-files.html abysmal
  ^scrollStack Particles: Breck Yunits et al (formerly called Tree Notation)
   https://github.com/breck7/research/blob/master/papers/paper3/countingComplexity.pdf Particles
  ^recutils GNU Recutils: Jose E. Marchesi

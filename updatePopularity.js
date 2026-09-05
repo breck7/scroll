@@ -91,7 +91,7 @@ function main(csvFilePaths, parsersDir) {
 // Usage example
 const csvFilePaths = [
   "/Users/breck/scroll/parserUsage.csv",
-  "/Users/breck/breckster/breckyunits.com/parserUsage.csv",
+  "/Users/breck/breckster/breck.lol/parserUsage.csv",
   "/Users/breck/pldb/blog/parserUsage.csv"
   // Add more CSV file paths as needed
 ]
