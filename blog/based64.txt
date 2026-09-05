@@ -71,21 +71,19 @@ based64
  +}fftttttt>tXff/tttt{tttttttttOOttttt}tttt}>t/tt>/t{c/}ttt{tttiI
  +{XXt/ttttttcXtfft{ttttt}tttttXXXttt)tttt/t/{/t{/t/tttttcttttf}I
 
-That's my photo, reduced to 64×64 pixels and written as text. The ASCII is the image: compile it to a PNG, or change the characters to change the picture.
+That's my photo, reduced to 64×64 pixels and compiled to Based64, a Base64 + ASCII combination. The text not only compresses the images, it provides a preview of the image, and editing it edits the images.
 
 Try Now
 =======
 
-Choose an image, GIF, video, or audio file. Then edit the text and watch it change. Everything happens locally.
+Choose an image, GIF, video, or audio file. Edit the text and watch it change. Everything happens locally.
 
 based64Studio
 
 Less media, same idea
 =====================
 
-Based64 keeps at most 64×64 pixels and 64 colors per frame. Enough for a face, a diagram, or a short instructional animation. Crop around what matters; put explanations in ordinary text.
-
-Images become PNGs, GIFs and videos become silent GIFs, and audio becomes a small mono WAV. GIF import needs a browser with ImageDecoder support. Short clips work best.
+Based64 keeps at most 64×64 pixels and 64 colors per frame. Enough for a face, a diagram, or a short instructional animation.
 
 Simple example:
 ===============
@@ -102,11 +100,17 @@ Use `based64 animation` for a flipbook or `based64 audio` for sound. Dimensions 
 
 Spaces, unfamiliar characters, ragged rows—even an empty drawing—still render. Short rows get padded; oversized drawings get cropped. Scramble away.
 
-One character per pixel keeps the source readable. A shared palette keeps animations small. We deliberately throw away detail instead of preserving the original file. The test is whether the instruction still makes sense.
+One character per pixel. A shared palette keeps animations small. We deliberately throw away detail instead of preserving the original file.
 
-The parser and tests are single Scroll files. Introduced in Scroll 179.0.0.
+The parser and tests are single Scroll files.
  ../microlangs/based64.scroll parser
  ../tests/based64.scroll tests
+
+Now ships in Scroll 179.0.0.
+
+```
+npm install -g http://github.com/breck7/scroll
+```
 
 Thanks
 ======
