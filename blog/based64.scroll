@@ -1,5 +1,6 @@
 title Introducing Based64: ASCII art that compiles to binary images and more
 date 9/5/2026
+openGraphImage based64-open-graph.png
 
 breckHeader.scroll
 ../microlangs/based64.scroll
