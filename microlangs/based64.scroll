@@ -382,7 +382,7 @@ based64StudioParser
  description Simplify local media into visual text.
  javascript
   static async studio(element, B) {
-    element.innerHTML = `<p><label>Choose file <input type="file" accept="image/*,video/*,audio/*"></label></p><details><summary>Advanced settings</summary><p><label>Maximum edge <input class="edge" type="number" min="8" max="64" value="64"></label> <label>Start (seconds) <input class="start" type="number" min="0" value="0"></label> <label>Clip (seconds) <input class="duration" type="number" min="1" max="10" value="4"></label> <label>Frames/second <select class="fps"><option>1</option><option selected>2</option><option>4</option><option>8</option></select></label></p><button class="save">Save text</button></details><p role="status"></p><textarea aria-label="based64 source" placeholder="Choose a file, or draw here…" spellcheck="false" rows="20" style="box-sizing:border-box;width:100%;white-space:pre;overflow:auto;font:12px/1 monospace;background:white;color:black"></textarea><div class="result"></div>`
+    element.innerHTML = `<style>.based64Studio .dropzone { display:block; padding:28px; margin:16px 0; border:2px dashed #aaa; border-radius:12px; text-align:center; cursor:pointer; transition:background .15s,border-color .15s; } .based64Studio .dropzone:hover,.based64Studio .dropzone:focus-within,.based64Studio.dragging .dropzone { background:#eef6ff; border-color:#357abd; } .based64Studio .dropzone input { display:block; margin:12px auto 0; max-width:100%; }</style><label class="dropzone">Drop an image, video, or audio file here<br><small>or choose a file · up to 20 MiB · processed locally</small><input type="file" accept="image/*,video/*,audio/*"></label><details><summary>Advanced settings</summary><p><label>Maximum edge <input class="edge" type="number" min="8" max="64" value="64"></label> <label>Start (seconds) <input class="start" type="number" min="0" value="0"></label> <label>Clip (seconds) <input class="duration" type="number" min="1" max="10" value="4"></label> <label>Frames/second <select class="fps"><option>1</option><option selected>2</option><option>4</option><option>8</option></select></label></p><button class="save">Save text</button></details><p role="status"></p><textarea aria-label="based64 source" placeholder="Drop a file, or draw here…" spellcheck="false" rows="20" style="box-sizing:border-box;width:100%;white-space:pre;overflow:auto;font:12px/1 monospace;background:white;color:black"></textarea><div class="result"></div>`
     const $ = selector => element.querySelector(selector),
       status = $("[role=status]"),
       text = $("textarea"),
@@ -395,7 +395,7 @@ based64StudioParser
       result.innerHTML = B.html(text.value, false)
       status.textContent = `${decoded.width ? decoded.width + "×" + decoded.height + " · " : ""}${text.value.length.toLocaleString()} characters. Edit the text to change the result.`
     }
-    let revision = 0,
+    let file, revision = 0,
       timer
     text.oninput = () => {
       revision++
@@ -446,10 +446,9 @@ based64StudioParser
     const encode = async () => {
       const request = ++revision
       clearTimeout(timer)
-      if (!$("input[type=file]").files[0]) return
+      if (!file) return
       let url, media, context, decoder
       try {
-        const file = $("input[type=file]").files[0]
         B.check(file && file.size > 0 && file.size <= B.maxBytes, "choose a file of 1 byte to 20 MiB")
         const mime = file.type || { gif: "image/gif", png: "image/png", jpg: "image/jpeg", mp4: "video/mp4", wav: "audio/wav", mp3: "audio/mpeg" }[file.name.split(".").pop().toLowerCase()]
         B.check(mime && /^(image|audio|video)\//.test(mime), "choose an image, video, or audio file")
@@ -551,7 +550,26 @@ based64StudioParser
         if (decoder) decoder.close()
       }
     }
-    $("input[type=file]").onchange = encode
+    $("input[type=file]").onchange = e => {
+      file = e.target.files[0]
+      encode()
+    }
+    element.ondragover = e => {
+      if (!e.dataTransfer.types.includes("Files")) return
+      e.preventDefault()
+      e.dataTransfer.dropEffect = "copy"
+      element.classList.add("dragging")
+    }
+    element.ondragleave = e => {
+      if (!element.contains(e.relatedTarget)) element.classList.remove("dragging")
+    }
+    element.ondrop = e => {
+      e.preventDefault()
+      element.classList.remove("dragging")
+      if (!e.dataTransfer.files.length) return
+      file = e.dataTransfer.files[0]
+      encode()
+    }
     for (const selector of [".edge", ".start", ".duration", ".fps"]) $(selector).onchange = encode
   }
   getErrors() {
