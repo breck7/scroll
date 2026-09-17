@@ -282,7 +282,8 @@ testParticles.hodgePodge = async areEqual => {
     // Assert
     areEqual(groupPage.includes("NUM_SINKS"), false, "var substitution worked")
     areEqual(fs.existsSync(path.join(testsFolder, "snippets.html")), true, "should have snippets page")
-    areEqual(autoPage.includes("2024"), true, "should have year 2024")
+    const expectedDate = require("dayjs")(fs.statSync(path.join(testsFolder, "autoTitle.scroll")).ctimeMs).format("MMMM D, YYYY")
+    areEqual(autoPage.includes(`<div class="printDateParser">${expectedDate}</div>`), true, "should derive the date from the source file timestamp")
     areEqual(autoPage.includes("Auto Title"), true, "should have un camel cased title")
     areEqual(sitemap.includes("snippets.html"), true, "should have a sitemap")
 

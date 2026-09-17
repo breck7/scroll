@@ -31,7 +31,7 @@ Introducing Stamp, a microlang (only 60 lines of code, including comments) that 
 
 1. Install Scroll
 code
- npm install -g scroll-cli
+ npm install -g github:breck7/scroll
 
 2. Create `myFirstStamp.scroll`
 code
