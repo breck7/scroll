@@ -20,6 +20,13 @@ const cli = new ScrollCli()
 // cleanup in case it was built earlier:
 if (Disk.exists(stampFolder)) fs.rmSync(stampFolder, { recursive: true })
 
+testParticles.scrollVersion = async areEqual => {
+  const version = require("../package.json").version
+  const html = await cli.scrollToHtml("metaTags\nscrollVersionLink")
+  areEqual(html.includes(`Built with Scroll v${version}`), true, "footer version matches package.json")
+  areEqual(html.includes(`<meta name="generator" content="Scroll v${version}">`), true, "generator version matches package.json")
+}
+
 testParticles.compileAftertext = async areEqual => {
   const tests = [
     {
