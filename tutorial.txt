@@ -2,17 +2,17 @@ Scroll Tutorial
 ===============
 Scroll Roadmap
 ==============
-09/05/2026
+09/17/2026
 https://scroll.surf/roadmap.html
 
 Scroll Release Notes
 ====================
-09/05/2026
+09/17/2026
 https://scroll.surf/releaseNotes.html
 
 Scroll FAQ
 ==========
-09/05/2026
+09/17/2026
 https://scroll.surf/faq.html
 
 Video walkthrough of this tutorial | Edit this file on try.scroll.surf
@@ -210,7 +210,7 @@ This page uses the Gazette theme.
 
 Expert: Adding your own parsers
 ===============================
-_Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom parsers_.
+_Note: Custom Parsers are currently only supported using the locally installed Scroll CLI. The web editor does *not* currently support custom parsers_.
 
 You can define your own parsers right in your Scroll documents using `*Parser`.
 

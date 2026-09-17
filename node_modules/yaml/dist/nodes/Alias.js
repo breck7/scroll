@@ -45,38 +45,40 @@ class Alias extends Node.NodeBase {
             if (node.anchor === this.source)
                 found = node;
         }
+        if (found && ctx) {
+            const { anchors, doc, maxAliasCount } = ctx;
+            let data = anchors.get(found);
+            if (!data) {
+                // Resolve anchors for Node.prototype.toJS()
+                toJS.toJS(found, null, ctx);
+                data = anchors.get(found);
+            }
+            /* istanbul ignore if */
+            if (data?.res === undefined) {
+                const msg = 'This should not happen: Alias anchor was not resolved?';
+                throw new ReferenceError(msg);
+            }
+            if (maxAliasCount >= 0) {
+                data.count += 1;
+                if (data.aliasCount === 0)
+                    data.aliasCount = getAliasCount(doc, found, anchors);
+                if (data.count * data.aliasCount > maxAliasCount) {
+                    const msg = 'Excessive alias count indicates a resource exhaustion attack';
+                    throw new ReferenceError(msg);
+                }
+            }
+        }
         return found;
     }
     toJSON(_arg, ctx) {
         if (!ctx)
             return { source: this.source };
-        const { anchors, doc, maxAliasCount } = ctx;
-        const source = this.resolve(doc, ctx);
+        const source = this.resolve(ctx.doc, ctx);
         if (!source) {
             const msg = `Unresolved alias (the anchor must be set before the alias): ${this.source}`;
             throw new ReferenceError(msg);
         }
-        let data = anchors.get(source);
-        if (!data) {
-            // Resolve anchors for Node.prototype.toJS()
-            toJS.toJS(source, null, ctx);
-            data = anchors.get(source);
-        }
-        /* istanbul ignore if */
-        if (data?.res === undefined) {
-            const msg = 'This should not happen: Alias anchor was not resolved?';
-            throw new ReferenceError(msg);
-        }
-        if (maxAliasCount >= 0) {
-            data.count += 1;
-            if (data.aliasCount === 0)
-                data.aliasCount = getAliasCount(doc, source, anchors);
-            if (data.count * data.aliasCount > maxAliasCount) {
-                const msg = 'Excessive alias count indicates a resource exhaustion attack';
-                throw new ReferenceError(msg);
-            }
-        }
-        return data.res;
+        return ctx.anchors.get(source).res;
     }
     toString(ctx, _onComment, _onChompKeep) {
         const src = `*${this.source}`;

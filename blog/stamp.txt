@@ -25,7 +25,7 @@ How to use
 
 1. Install Scroll
 ```
-npm install -g scroll-cli
+npm install -g github:breck7/scroll
 ```
 
 2. Create `myFirstStamp.scroll`

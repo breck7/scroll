@@ -63,9 +63,9 @@ Videos · GitHub · Subreddit
  https://www.reddit.com/r/WorldWideScroll/ Subreddit
  style margin:15px;
 
-npm package · Tests · Parser Designer
+GitHub · Tests · Parser Designer
  center
- https://www.npmjs.com/package/scroll-cli npm package
+ https://github.com/breck7/scroll GitHub
  tests/index.html Tests
  https://sdk.scroll.surf/designer#url%20https%3A%2F%2Fscroll.surf%2Fscroll.parsers Parser Designer
  style margin:15px;
@@ -106,6 +106,11 @@ ciBadges.scroll
 
 br
 thinColumns
+
+📦 180.0.0 9/17/2026
+⚠️ BREAKING: Requires Node.js 24 or newer.
+🎉 Uses ScrollSDK 108 from GitHub and supports installing Scroll directly from GitHub.
+🏥 Removed the old Scroll CLI self-dependency and included the clone command in the package.
 
 📦 179.0.0 9/5/2026
 🎉 Added based64: visual text for lossy rasters up to 64×64, sparse animations, and audio, with a local browser encoder.
@@ -1977,7 +1982,7 @@ Anything in the section will show up here. A blank line ends a section.
 🎉 pruned more files from `npm install`
 
 📦 82.1.0 5/03/2024
-🎉 pruned dependencies to make `npm install -g scroll-cli --production` fast
+🎉 pruned dependencies to make `npm install -g github:breck7/scroll --omit=dev` fast
 
 📦 82.0.1 5/01/2024
 🏥 fixed regression where `endSnippet` was showing up in html
@@ -3415,12 +3420,11 @@ The command line app builds static blogs, websites, CSVs, text files, and more.
  index.html websites
 
 ? How do I install the command line app?
-Scroll currently requires Node.js.
+Scroll currently requires Node.js 24 or newer and Git.
  https://nodejs.org/ Node.js
-After Node.js is installed, install the npm package with:
- https://www.npmjs.com/package/scroll-cli npm package
+After Node.js is installed, install Scroll directly from GitHub with:
 code
- npm install -g scroll-cli
+ npm install -g github:breck7/scroll
 
 ? How do I install the developer version?
 code
@@ -3538,21 +3542,20 @@ Scroll is a great solution for blogs and sites of one page, a few pages, tens of
  https://pldb.io/ thousands of pages
 
 ? How do I get Scroll?
-Scroll is a language and command line app you install on your local machine. Scroll requires basic familiarity with the command line and NodeJs >=18. If you do not have NodeJs, Mac/Linux users can install NodeJs with #n# (make sure to install with `--arch arm64` flag for M1s+) and Windows users can install NodeJs with Scoop.
+Scroll is a language and command line app you install on your local machine. Scroll requires basic familiarity with the command line and NodeJs >=24. If you do not have NodeJs, Mac/Linux users can install NodeJs with #n# (make sure to install with `--arch arm64` flag for M1s+) and Windows users can install NodeJs with Scoop.
  https://nodejs.org NodeJs
  inlineMarkup # https://github.com/tj/n
  https://scoop.sh/ Scoop
 If you would like to use Scroll but aren't familiar with the command line, please open an issue and we may be able to help.
-Once you have NodeJs installed you can install from GitHub or npm. Scroll is scroll-cli on npm.
- https://www.npmjs.com/package/scroll-cli scroll-cli
+Once you have NodeJs and Git installed you can install from GitHub.
 You can install from GitHub:
 code
  git clone https://github.com/breck7/scroll
  cd scroll
  npm install -g .
-Or you can install Scroll with npm by typing:
+Or install directly from GitHub by typing:
 code
- npm install -g scroll-cli --production
+ npm install -g github:breck7/scroll --omit=dev
 
 One way to try the Scroll command line app without installing is with GitPod.
  https://gitpod.io/#https://github.com/breck7/scroll GitPod
@@ -3658,7 +3661,7 @@ code
          uses: actions/checkout@v2.3.1
        - name: Install and Build
          run: |
-           npm install -g scroll-cli --production
+           npm install -g github:breck7/scroll --omit=dev
            scroll build
            # The line below is needed if you have *.html in your gitignore file
            rm .gitignore
@@ -4014,7 +4017,7 @@ code
 ---
 
 # Expert: Adding your own parsers
-_Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom parsers_.
+_Note: Custom Parsers are currently only supported using the locally installed Scroll CLI. The web editor does *not* currently support custom parsers_.
 
 You can define your own parsers right in your Scroll documents using `*Parser`.
 

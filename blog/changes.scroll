@@ -56,7 +56,7 @@ Be sure to check out the source code that generates that HTML.
 
 1. Install Scroll
 code
- npm install -g scroll-cli
+ npm install -g github:breck7/scroll
 
 2. Create a release notes file:
 codeWithHeader releaseNotes.scroll

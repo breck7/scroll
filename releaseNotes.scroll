@@ -22,6 +22,11 @@ ciBadges.scroll
 br
 thinColumns
 
+📦 180.0.0 9/17/2026
+⚠️ BREAKING: Requires Node.js 24 or newer.
+🎉 Uses ScrollSDK 108 from GitHub and supports installing Scroll directly from GitHub.
+🏥 Removed the old Scroll CLI self-dependency and included the clone command in the package.
+
 📦 179.0.0 9/5/2026
 🎉 Added based64: visual text for lossy rasters up to 64×64, sparse animations, and audio, with a local browser encoder.
 
@@ -1892,7 +1897,7 @@ Anything in the section will show up here. A blank line ends a section.
 🎉 pruned more files from `npm install`
 
 📦 82.1.0 5/03/2024
-🎉 pruned dependencies to make `npm install -g scroll-cli --production` fast
+🎉 pruned dependencies to make `npm install -g github:breck7/scroll --omit=dev` fast
 
 📦 82.0.1 5/01/2024
 🏥 fixed regression where `endSnippet` was showing up in html

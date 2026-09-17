@@ -25,8 +25,8 @@ Videos · GitHub · Subreddit
  https://github.com/breck7/scroll GitHub
  https://www.reddit.com/r/WorldWideScroll/ Subreddit
 
-npm package · Tests · Parser Designer
- https://www.npmjs.com/package/scroll-cli npm package
+GitHub · Tests · Parser Designer
+ https://github.com/breck7/scroll GitHub
  https://scroll.surf/tests/index.html Tests
  https://sdk.scroll.surf/designer#url%20https%3A%2F%2Fscroll.surf%2Fscroll.parsers Parser Designer
 

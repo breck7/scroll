@@ -193,7 +193,7 @@ code
 ---
 
 # Expert: Adding your own parsers
-_Note: Custom Parsers are currently only supported using the `npm` package. The web editor does *not* currently support custom parsers_.
+_Note: Custom Parsers are currently only supported using the locally installed Scroll CLI. The web editor does *not* currently support custom parsers_.
 
 You can define your own parsers right in your Scroll documents using `*Parser`.
 

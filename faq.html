@@ -77,9 +77,9 @@ document.addEventListener("DOMContentLoaded", () => document.querySelectorAll(".
 <p id="particle56" class="scrollParagraph">The command line app builds <a href="blog/index.html">static blogs</a>, <a href="index.html">websites</a>, <a href="blog/scrollsets.html">CSVs</a>, <a href="blog/textFiles.html">text files</a>, and more.</p>
 </div>
 <div class="scrollSection"><h4 id="particle58" class="scrollQuestion">How do I install the command line app?</h4>
-<p id="particle59" class="scrollParagraph">Scroll currently requires <a href="https://nodejs.org/">Node.js</a>.</p>
-<p id="particle60" class="scrollParagraph">After Node.js is installed, install the <a href="https://www.npmjs.com/package/scroll-cli">npm package</a> with:</p>
-<code class="scrollCodeBlock">npm install -g scroll-cli</code>
+<p id="particle59" class="scrollParagraph">Scroll currently requires <a href="https://nodejs.org/">Node.js</a> 24 or newer and Git.</p>
+<p id="particle60" class="scrollParagraph">After Node.js is installed, install Scroll directly from GitHub with:</p>
+<code class="scrollCodeBlock">npm install -g github:breck7/scroll</code>
 </div>
 <div class="scrollSection"><h4 id="particle63" class="scrollQuestion">How do I install the developer version?</h4>
 <code class="scrollCodeBlock">git clone https://github.com/breck7/scroll.git
@@ -169,15 +169,15 @@ recipe
 <p id="particle124" class="scrollParagraph">Scroll is a great solution for blogs and sites of <a href="https://scroll.surf">one page</a>, <a href="https://scroll.surf/blog/">a few pages</a>, <a href="https://breck.lol/code/">tens of pages</a>, <a href="https://breck.lol/">hundreds of pages</a>, or even <a href="https://pldb.io/">thousands of pages</a>.</p>
 </div>
 <div class="scrollSection"><h4 id="particle126" class="scrollQuestion">How do I get Scroll?</h4>
-<p id="particle127" class="scrollParagraph">Scroll is a language and command line app you install on your local machine. Scroll requires basic familiarity with the command line and <a href="https://nodejs.org">NodeJs</a> >=18. If you do not have NodeJs, Mac/Linux users can install NodeJs with <https://github.com/tj/n>n</https://github.com/tj/n> (make sure to install with <code class="scrollInlineCode">--arch arm64</code> flag for M1s+) and Windows users can install NodeJs with <a href="https://scoop.sh/">Scoop</a>.</p>
+<p id="particle127" class="scrollParagraph">Scroll is a language and command line app you install on your local machine. Scroll requires basic familiarity with the command line and <a href="https://nodejs.org">NodeJs</a> >=24. If you do not have NodeJs, Mac/Linux users can install NodeJs with <https://github.com/tj/n>n</https://github.com/tj/n> (make sure to install with <code class="scrollInlineCode">--arch arm64</code> flag for M1s+) and Windows users can install NodeJs with <a href="https://scoop.sh/">Scoop</a>.</p>
 <p id="particle128" class="scrollParagraph">If you would like to use Scroll but aren't familiar with the command line, please open an issue and we may be able to help.</p>
-<p id="particle129" class="scrollParagraph">Once you have NodeJs installed you can install from GitHub or npm. Scroll is <a href="https://www.npmjs.com/package/scroll-cli">scroll-cli</a> on npm.</p>
+<p id="particle129" class="scrollParagraph">Once you have NodeJs and Git installed you can install from GitHub.</p>
 <p id="particle130" class="scrollParagraph">You can install from GitHub:</p>
 <code class="scrollCodeBlock">git clone https://github.com/breck7/scroll
 cd scroll
 npm install -g .</code>
-<p id="particle132" class="scrollParagraph">Or you can install Scroll with npm by typing:</p>
-<code class="scrollCodeBlock">npm install -g scroll-cli --production</code>
+<p id="particle132" class="scrollParagraph">Or install directly from GitHub by typing:</p>
+<code class="scrollCodeBlock">npm install -g github:breck7/scroll --omit=dev</code>
 </div>
 <p id="particle135" class="scrollParagraph">One way to try the Scroll command line app without installing is with <a href="https://gitpod.io/#https://github.com/breck7/scroll">GitPod</a>.</p>
 <div class="scrollSection"><h4 id="particle137" class="scrollQuestion">How do I use Scroll?</h4>
@@ -264,7 +264,7 @@ jobs:
         uses: actions/checkout@v2.3.1
       - name: Install and Build
         run: |
-          npm install -g scroll-cli --production
+          npm install -g github:breck7/scroll --omit=dev
           scroll build
           # The line below is needed if you have *.html in your gitignore file
           rm .gitignore

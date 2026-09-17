@@ -7233,7 +7233,7 @@ stamp
      printTable
    javascript
     get filename() {
-       return "https://ohayo.scroll.surf/ohayo/packages/vega/datasets/" + this.content
+       return "https://ohayo.breck.lol/ohayo/packages/vega/datasets/" + this.content
      }
  scrollVersion.parsers
   scrollVersionLinkParser
