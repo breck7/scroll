@@ -1290,9 +1290,9 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 09/17/2026,2026,Header,header.html,,,0,0
 09/17/2026,2026,Scroll LeetSheet,leetsheet.html,,,1186,5.9
 09/17/2026,2026,Parsers LeetSheet,parserLeetsheet.html,,,182,0.9
-09/17/2026,2026,Parser Prompt,parserPrompt.html,,,30204,151
+09/17/2026,2026,Parser Prompt,parserPrompt.html,,,30212,151.1
 09/17/2026,2026,Parser Usage,parserUsage.html,,,280,1.4
-09/17/2026,2026,Parsers,parsers.html,,,29939,149.7
+09/17/2026,2026,Parsers,parsers.html,,,29947,149.7
 09/17/2026,2026,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
 09/17/2026,2026,Scroll is a language for scientists of all ages,index.html,,,172,0.9
 09/17/2026,2026,Readme Prompt,readmePrompt.html,,,22268,111.3
@@ -3942,4 +3942,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v178.3.0
+Built with Scroll v180.0.0

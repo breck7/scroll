@@ -10,7 +10,7 @@ Code
 files,language,blank,comment,code
 114,Parsers,463,0,8178
 152,Scroll,2196,0,7088
-12,JavaScript,173,102,944
+12,JavaScript,174,102,950
 2,SVG,0,0,226
 2,JSON,0,0,113
 3,CSS,8,0,110
@@ -19,6 +19,6 @@ files,language,blank,comment,code
 1,HTML,0,0,5
 1,Markdown,1,0,5
 1,Python,0,0,1
-293,SUM,2847,105,16746
+293,SUM,2848,105,16752
 
-Built with Scroll v178.3.0
+Built with Scroll v180.0.0
