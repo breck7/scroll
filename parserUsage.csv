@@ -20,9 +20,10 @@ quickRelativeLinkParser,26
 scrollCenterParser,26
 editButtonParser,25
 addClassMarkupParser,23
+cssLineParser,22
 aboveAsCodeParser,18
-scrollBrParser,14
 baseUrlParser,14
+scrollBrParser,13
 homeButtonParser,13
 scrollInlineCssParser,13
 metaTagsParser,13
@@ -52,7 +53,6 @@ afterTextCenterParser,7
 endColumnsParser,7
 orderedListAftertextParser,7
 inlineMarkupParser,7
-cssLineParser,6
 codeWithHeaderParser,6
 aftertextCodeParser,6
 captionAftertextParser,6
