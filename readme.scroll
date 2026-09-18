@@ -36,12 +36,25 @@ mediumColumns 1
 
 animation.scroll
 
-ScrollHub &nbsp;&nbsp; Try now
+// ScrollHub
+//  http://hub.scroll.surf/ ScrollHub
+//  addClass scrollButton ScrollHub
+
+Try now
  center
- http://hub.scroll.surf/ ScrollHub
- addClass scrollButton ScrollHub
  https://try.scroll.surf/ Try now
  addClass scrollButton Try now
+
+## Install Scroll
+ center
+
+Requires Node.js 24 or newer and Git.
+ center
+ https://nodejs.org/ Node.js
+
+code
+ npm install -g breck7/scroll
+ scroll help
 
 LeetSheet · Blog · Release Notes · FAQ · Tutorial
  center
@@ -52,11 +65,11 @@ LeetSheet · Blog · Release Notes · FAQ · Tutorial
  tutorial.html Tutorial
  style margin:15px; margin-top: 40px;
 
-Videos · GitHub · Subreddit
+Videos · GitHub · Twitter
  center
  https://www.youtube.com/playlist?list=PLnN2hBdpELHqcBeZIJyxT-WKyJ34lqqt- Videos
  https://github.com/breck7/scroll GitHub
- https://www.reddit.com/r/WorldWideScroll/ Subreddit
+ https://x.com/breckyunits Twitter
  style margin:15px;
 
 GitHub · Tests · Parser Designer
@@ -64,13 +77,6 @@ GitHub · Tests · Parser Designer
  https://github.com/breck7/scroll GitHub
  tests/index.html Tests
  https://sdk.scroll.surf/designer#url%20https%3A%2F%2Fscroll.surf%2Fscroll.parsers Parser Designer
- style margin:15px;
-
-scroll prompt · parsers prompt · scrollset prompt
- center
- link scrollPrompt.txt scroll prompt
- link parserPrompt.txt parsers prompt
- link scrollsetPrompt.txt scrollset prompt
  style margin:15px;
 
 endColumns
