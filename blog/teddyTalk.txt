@@ -87,7 +87,6 @@ LeetSheet
 ==========================
 
 ScrollHub
- http://hub.scroll.surf/ ScrollHub
 
 Subreddit
  https://www.reddit.com/r/WorldWideScroll/ Subreddit

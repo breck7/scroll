@@ -7,16 +7,12 @@ https://scroll.surf/header.html
 https://scroll.surf/leetsheet.html
 https://scroll.surf/pages.html
 https://scroll.surf/parserLeetsheet.html
-https://scroll.surf/parserPrompt.html
 https://scroll.surf/parserUsage.html
 https://scroll.surf/parsers.html
 https://scroll.surf/particlesLeetsheet.html
 https://scroll.surf/index.html
-https://scroll.surf/readmePrompt.html
 https://scroll.surf/releaseNotes.html
 https://scroll.surf/roadmap.html
-https://scroll.surf/scrollPrompt.html
-https://scroll.surf/scrollsetPrompt.html
 https://scroll.surf/settings.html
 https://scroll.surf/topButtons.html
 https://scroll.surf/tutorial.html

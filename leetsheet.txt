@@ -237,8 +237,7 @@ youtube - A YouTube video widget.
 
 Commonly used parsers are *bolded*. CSV version.
  https://scroll.surf/leetsheet.csv CSV version
-Links - ScrollHub · Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Particles LeetSheet
- http://hub.scroll.surf ScrollHub
+Links - Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Particles LeetSheet
  https://try.scroll.surf Try Scroll
  https://reddit.com/r/WorldWideScroll r/WorldWideScroll
  https://scroll.surf/parserLeetsheet.html Parsers LeetSheet
