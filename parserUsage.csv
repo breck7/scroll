@@ -15,8 +15,8 @@ scrollImportedParser,49
 h2Parser,45
 slashCommentParser,43
 belowAsCodeParser,31
+quickRelativeLinkParser,28
 quickCssParser,28
-quickRelativeLinkParser,27
 scrollCenterParser,26
 editButtonParser,25
 addClassMarkupParser,23
