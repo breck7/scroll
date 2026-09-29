@@ -258,4 +258,4 @@ Links - Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Particles LeetSh
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v180.1.0
+Built with Scroll v180.2.0

@@ -23,6 +23,8 @@ svg { max-width:100%; height:auto; }
 @media(max-width:760px) { .metrics{grid-template-columns:repeat(3,1fr)} body{padding:32px 14px 60px} }</style>
 <div id="particle6" class="hero" class="hero"><h1 id="particle1" >ScrollSets Starter Page</h1>
 <p id="particle2" class="scrollParagraph">A text file can be your database.</p></div>
+<div id="particle8" class="toolbar" class="toolbar"><input id="search" type="search" placeholder="Search records…" autocomplete="off"  />
+<span id="status" >0 matching</span></div>
 <details><summary id="particle10" >Analyze</summary>
 <table id="table57" class="scrollTable">
  <thead><tr><th>name</th>
@@ -124,7 +126,7 @@ Lead,A dense metal with a relatively slower speed of sound due to its softness,1
   }
   </script>
 </details>
-<div id="particle14" class="scrollContainerParser" style="width: 100%; box-sizing: border-box; max-width: 1200px; margin: 0 auto;">
+<div class="records">
 <table id="table59" class="scrollTable">
  <thead><tr><th>id</th>
 
@@ -172,6 +174,24 @@ Lead,A dense metal with a relatively slower speed of sound due to its softness,1
 <td>A dense metal with a relatively slower speed of sound due to its softness</td>
 <td>1200</td>
 </tr></tbody>
- </table></div>
+ </table>
+</div>
+<script>const input = document.getElementById("search")
+const status = document.getElementById("status")
+status.setAttribute("aria-live", "polite")
+const applyFilter = () => {
+ const terms = input.value.toLowerCase().split(/\s+/).filter(Boolean)
+ const rows = document.querySelectorAll(".records tbody tr")
+ let matches = 0
+ rows.forEach(row => {
+  const text = row.textContent.toLowerCase()
+  const hit = terms.every(term => text.includes(term))
+  row.hidden = !hit
+  if (hit) matches++
+ })
+ status.textContent = `${matches} matching`
+}
+input.addEventListener("input", applyFilter)
+applyFilter()</script>
 </body>
 </html>
