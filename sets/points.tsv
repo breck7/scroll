@@ -1,0 +1,11 @@
+id	description	speed
+Air	The most common medium for sound, with speed influenced by temperature, humidity, and pressure	343
+Water	A denser medium than air, allowing sound to travel faster	1482
+Steel	A dense and elastic solid, sound travels much faster compared to air and water	5960
+Glass	A brittle solid with a high speed of sound due to its rigidity	5200
+Wood (Oak)	A natural solid with varying speed depending on density and elasticity	3850
+Aluminum	A lightweight and strong metal, widely used in engineering	6320
+Rubber	A flexible solid with much slower speed of sound compared to metals	1500
+Concrete	A composite material used in construction, with speed influenced by its density and composition	3200
+Copper	A highly conductive metal, also known for its high speed of sound	3900
+Lead	A dense metal with a relatively slower speed of sound due to its softness	1200

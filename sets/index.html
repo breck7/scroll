@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<style>:root { --ink:#17211b; --muted:#69756e; --line:#dfe5e1; --paper:#fbfcfa; --accent:#2c6749; }
+* { box-sizing:border-box; }
+body { max-width:1080px; margin:auto; padding:56px 24px 80px; background:var(--paper); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,sans-serif; }
+.hero { margin-bottom:28px; }
+h1 { margin:0; font-size:clamp(2.3rem,6vw,4.8rem); line-height:.95; letter-spacing:-.055em; }
+.hero p { max-width:650px; color:var(--muted); font-size:1.05rem; }
+.toolbar { display:flex; align-items:center; gap:14px; margin:24px 0 18px; }
+input { width:100%; padding:13px 16px; border:1px solid var(--line); border-radius:12px; background:white; color:var(--ink); font:inherit; outline:none; }
+input:focus { border-color:var(--accent); box-shadow:0 0 0 3px #2c674918; }
+#status { white-space:nowrap; color:var(--muted); font-size:.9rem; }
+details { margin:0 0 24px; border:1px solid var(--line); border-radius:14px; background:white; }
+summary { cursor:pointer; padding:14px 16px; font-weight:650; }
+table { width:100%; border-collapse:collapse; background:white; border:1px solid var(--line); }
+th,td { padding:13px 14px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+th { color:var(--muted); font-size:.72rem; text-transform:uppercase; letter-spacing:.07em; }
+tr:last-child td { border-bottom:0; }
+tbody tr:hover { background:#f4f7f5; }
+tr[hidden] { display:none; }
+svg { max-width:100%; height:auto; }
+@media(max-width:760px) { .metrics{grid-template-columns:repeat(3,1fr)} body{padding:32px 14px 60px} }</style>
+<div id="particle6" class="hero" class="hero"><h1 id="particle1" >ScrollSets Starter Page</h1>
+<p id="particle2" class="scrollParagraph">A text file can be your database.</p></div>
+<details><summary id="particle10" >Analyze</summary>
+<table id="table57" class="scrollTable">
+ <thead><tr><th>name</th>
+
+<th>type</th>
+
+<th>incompleteCount</th>
+
+<th>uniqueCount</th>
+
+<th>count</th>
+
+<th>sum</th>
+
+<th>median</th>
+
+<th>mean</th>
+
+<th>min</th>
+
+<th>max</th>
+
+<th>mode</th>
+</tr></thead>
+ <tbody><tr><td>id</td>
+<td>string</td>
+<td>0</td>
+<td>10</td>
+<td>10</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Air</td>
+</tr>
+<tr><td>description</td>
+<td>string</td>
+<td>0</td>
+<td>10</td>
+<td>10</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>The most common medium for sound, with speed influenced by temperature, humidity, and pressure</td>
+</tr>
+<tr><td>speed</td>
+<td>number</td>
+<td>0</td>
+<td>10</td>
+<td>10</td>
+<td>32955</td>
+<td>3525</td>
+<td>3295.5</td>
+<td>343</td>
+<td>6320</td>
+<td>343</td>
+</tr></tbody>
+ </table>
+<script src=".d3.js"></script>
+<script src=".plot.js"></script>
+
+<div id="plot58"></div><script>
+ {
+  let loadChart = async () => {
+  const data = d3.csvParse(`id,description,speed
+Air,"The most common medium for sound, with speed influenced by temperature, humidity, and pressure",343
+Water,"A denser medium than air, allowing sound to travel faster",1482
+Steel,"A dense and elastic solid, sound travels much faster compared to air and water",5960
+Glass,A brittle solid with a high speed of sound due to its rigidity,5200
+Wood (Oak),A natural solid with varying speed depending on density and elasticity,3850
+Aluminum,"A lightweight and strong metal, widely used in engineering",6320
+Rubber,A flexible solid with much slower speed of sound compared to metals,1500
+Concrete,"A composite material used in construction, with speed influenced by its density and composition",3200
+Copper,"A highly conductive metal, also known for its high speed of sound",3900
+Lead,A dense metal with a relatively slower speed of sound due to its softness,1200`, d3.autoType)
+  const get = (col, index ) => col !== "undefined" ? col : (index === undefined ? undefined : Object.keys(data[0])[index])
+  document.querySelector("#plot58").append(Plot.plot({
+    title: "",
+    subtitle: "",
+    caption: "",
+    symbol: {legend: false},
+    color: {legend: false},
+    grid: true,
+    marks: [Plot.dot(data, {
+    x: get("undefined", 0),
+    y: get("undefined", 1),
+    r: get("undefined"),
+    fill: get("undefined"),
+    tip: true,
+    symbol: get("undefined")} ), Plot.text(data, {x: get("undefined",0), y: get("undefined", 1), text: "undefined", dy: -6, lineAnchor: "bottom"})],
+    width: 640,
+    height: 400,
+  }))
+  }
+  loadChart()
+  }
+  </script>
+</details>
+<div id="particle14" class="scrollContainerParser" style="width: 100%; box-sizing: border-box; max-width: 1200px; margin: 0 auto;">
+<table id="table59" class="scrollTable">
+ <thead><tr><th>id</th>
+
+<th>description</th>
+
+<th>speed</th>
+</tr></thead>
+ <tbody><tr><td>Air</td>
+<td>The most common medium for sound, with speed influenced by temperature, humidity, and pressure</td>
+<td>343</td>
+</tr>
+<tr><td>Water</td>
+<td>A denser medium than air, allowing sound to travel faster</td>
+<td>1482</td>
+</tr>
+<tr><td>Steel</td>
+<td>A dense and elastic solid, sound travels much faster compared to air and water</td>
+<td>5960</td>
+</tr>
+<tr><td>Glass</td>
+<td>A brittle solid with a high speed of sound due to its rigidity</td>
+<td>5200</td>
+</tr>
+<tr><td>Wood (Oak)</td>
+<td>A natural solid with varying speed depending on density and elasticity</td>
+<td>3850</td>
+</tr>
+<tr><td>Aluminum</td>
+<td>A lightweight and strong metal, widely used in engineering</td>
+<td>6320</td>
+</tr>
+<tr><td>Rubber</td>
+<td>A flexible solid with much slower speed of sound compared to metals</td>
+<td>1500</td>
+</tr>
+<tr><td>Concrete</td>
+<td>A composite material used in construction, with speed influenced by its density and composition</td>
+<td>3200</td>
+</tr>
+<tr><td>Copper</td>
+<td>A highly conductive metal, also known for its high speed of sound</td>
+<td>3900</td>
+</tr>
+<tr><td>Lead</td>
+<td>A dense metal with a relatively slower speed of sound due to its softness</td>
+<td>1200</td>
+</tr></tbody>
+ </table></div>
+</body>
+</html>
