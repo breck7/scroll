@@ -630,3 +630,46 @@ aftertextAcceptParser
  description Set accepted file types for file inputs.
  extends abstractAftertextAttributeParser
  catchAllAtomType mimeTypeAtom
+
+aftertextAriaParser
+ description Set an ARIA attribute, including labelledby, describedby, hidden, modal, expanded, and controls.
+ extends abstractAftertextAttributeParser
+ pattern ^aria\-
+ atoms cueAtom
+ catchAllAtomType htmlAnyAtom
+ example
+  aside
+   role dialog
+   aria-modal true
+   aria-labelledby cart-title
+
+aftertextHtmlHiddenParser
+ description Emit the HTML hidden attribute while keeping the element in the document. Unlike hidden, this does not omit the element from the build.
+ extends abstractAftertextAttributeParser
+ cue htmlHidden
+ atoms cueAtom
+ single
+ string htmlAttributes hidden
+ example
+  div Cart contents
+   htmlHidden
+
+aftertextInertParser
+ description Keep a region noninteractive until a script removes the inert attribute.
+ extends abstractAftertextAttributeParser
+ cue inert
+ atoms cueAtom
+ single
+ string htmlAttributes inert
+
+aftertextAutocapitalizeParser
+ description Set input capitalization behavior.
+ extends abstractAftertextAttributeParser
+ cue autocapitalize
+ atoms cueAtom htmlAnyAtom
+
+aftertextSpellcheckParser
+ description Set browser spellchecking behavior.
+ extends abstractAftertextAttributeParser
+ cue spellcheck
+ atoms cueAtom htmlAnyAtom

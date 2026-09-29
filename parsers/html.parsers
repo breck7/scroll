@@ -398,3 +398,79 @@ htmlTbodyParser
   tbody
    tr
     td Cell 1
+
+htmlSmallParser
+ extends abstractHtmlElementParser
+ cue small
+ example
+  small Includes shipping and tax.
+
+htmlDetailsParser
+ extends abstractHtmlElementParser
+ cue details
+ example
+  details
+
+htmlSummaryParser
+ extends abstractHtmlElementParser
+ cue summary
+ example
+  summary Payment options
+
+htmlOutputParser
+ extends abstractHtmlElementParser
+ cue output
+ example
+  output
+
+htmlBParser
+ extends abstractHtmlElementParser
+ cue b
+ example
+  b Total
+
+htmlIParser
+ extends abstractHtmlElementParser
+ cue i
+ example
+  i Base
+
+htmlDlParser
+ extends abstractHtmlElementParser
+ cue dl
+ example
+  dl
+
+htmlDtParser
+ extends abstractHtmlElementParser
+ cue dt
+ example
+  dt Shipping
+
+htmlDdParser
+ extends abstractHtmlElementParser
+ cue dd
+ example
+  dd Included
+
+htmlDialogParser
+ extends abstractHtmlElementParser
+ cue dialog
+ example
+  dialog
+
+htmlNoscriptParser
+ extends abstractHtmlElementParser
+ cue noscript
+ example
+  noscript Please enable JavaScript.
+
+htmlInlineCodeParser
+ description A literal code element; use code for aftertext markup.
+ extends abstractHtmlElementParser
+ cue inlineCode
+ javascript
+  get tag() { return "code" }
+ example
+  inlineCode account.near
+   linkify false
