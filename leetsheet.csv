@@ -64,6 +64,7 @@ assertHtmlExcludes,,Test above particle's output.,0,,
 assertHtmlIncludes,,Test above particle's output.,0,,
 assertHtmlMatches,,Test above particle's output.,0,,
 assertSilenceBelowErrors,,Silence errors in the below particle in automated tests.,0,,
+b,,HTML tag.,0,b Total,
 background,,Quickly set CSS background.,722,background red,
 barchart,,Bar chart widget.,0,"iris
 barchart",
@@ -133,6 +134,7 @@ data
  1900,10
  2000,122
  2020,23",
+dd,,HTML tag.,0,dd Included,
 debugAbove,,Inspect particle above.,66,"belowAsCode
 iris
 printTable",
@@ -158,6 +160,8 @@ data
  2000,122
  2020,23",
 description,,Description for SEO meta tag.,169,,
+details,,HTML tag.,0,details,
+dialog,,HTML tag.,0,dialog,
 dinkus,,A custom dinkus.,0,,
 disk,,Output file into as datatable.,214,"datatable
 printTable
@@ -170,7 +174,9 @@ div,,HTML tag.,0,"div
 # Hello world
 div
  # Deeper",
+dl,,HTML tag.,0,dl,
 downloadButton,,Link to download/WWS page.,630,,
+dt,,HTML tag.,0,dt Shipping,
 dumpConcept,,A code block.,17,dumpConcept,
 editBaseUrl,,Override edit link baseUrl.,784,,
 editButton,,Print badge top right.,1397,,
@@ -223,11 +229,14 @@ helpfulNotFound,,Helpful not found widget.,5,,
 homeButton,,Home button.,640,,
 html,,HTML one liners or blocks.,5,,
 htmlLang,,Override HTML lang attribute.,0,,
+i,,HTML tag.,0,i Base,
 iframe,,HTML tag.,0,iframe,
 iframes,,An iframe(s).,13,iframes frame.html,
 img,,HTML tag.,0,img foo.png,
 import,,Import a file.,753,import header.scroll,
 importOnly,,Don't build this file.,3357,,
+inlineCode,,A literal code element; use code for aftertext markup.,0,"inlineCode account.near
+linkify false",
 inlineCss,,Inline CSS from files.,722,,
 inlineJs,,Inline JS from files.,722,,
 inlineMarkups,,Set global inline markups.,3,"inlineMarkups
@@ -280,6 +289,7 @@ a Home
  href /",
 nickelbackIpsum,,Generate dummy text.,0,,
 noFormat,,Don't format below this line.,0,,
+noscript,,HTML tag.,0,noscript Please enable JavaScript.,
 notices,,Display messages in URL query parameters.,0,,
 ol,,HTML tag.,0,"ol
 li A list",
@@ -287,6 +297,7 @@ openGraphImage,,Override Open Graph Image.,80,,
 option,,HTML tag.,0,"select
 option Choose an option
 option First Option",
+output,,HTML tag.,0,output,
 p,,A paragraph.,189,p I had a _new_ idea.,
 permalink,,Override output filename.,27,,
 plainText,,Plain text oneliner or block.,0,,
@@ -357,6 +368,7 @@ Because it wanted to go to the MOOOO-vies.
 ***
 THE END
 ****",
+small,,HTML tag.,0,small Includes shipping and tax.,
 span,,HTML tag.,0,span Hello,
 sparkline,,Sparkline widget.,3,sparkline 1 2 3 4 5,
 stamp,,Expand project template to disk.,0,"stamp
@@ -378,6 +390,7 @@ styles,,Write CSS with Particle Syntax.,0,"styles
 div
 class styleTest
 h1 Hello world",
+summary,,HTML tag.,0,summary Payment options,
 table,,HTML tag.,0,"table
 tr
  th Header 1

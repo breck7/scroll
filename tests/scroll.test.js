@@ -27,6 +27,51 @@ testParticles.scrollVersion = async areEqual => {
   areEqual(html.includes(`<meta name="generator" content="Scroll v${version}">`), true, "generator version matches package.json")
 }
 
+testParticles.nativeCheckoutElements = async areEqual => {
+  for (const tag of ["small", "summary", "output", "b", "i", "dt", "dd", "noscript"]) {
+    const html = await cli.scrollToHtml(`${tag} Example
+ id example`)
+    areEqual(html, `<${tag} id="example" >Example</${tag}>`, `${tag} compiles as an element`)
+  }
+  const html = await cli.scrollToHtml(`dialog
+ id cart
+ aria-label Shopping cart
+ aria-labelledby heading
+ aria-describedby help
+ aria-modal true
+ aria-hidden false
+ inert
+ htmlHidden
+ h2 Your cart
+  id heading
+ details
+  id methods
+  summary Payment options
+   id summary
+  small Includes shipping and tax.
+   id help
+  output $249
+   id amount
+   data-currency USD
+ input
+  id referral
+  autocapitalize none
+  spellcheck false
+ dl
+  id shipping
+  dt Shipping
+   id label
+  dd Included
+   id value`)
+  areEqual(html.includes('<dialog id="cart" aria-label="Shopping cart" aria-labelledby="heading" aria-describedby="help" aria-modal="true" aria-hidden="false" inert hidden >'), true, "accessible dialog stays in the DOM")
+  areEqual(html.includes('<details id="methods" ><summary id="summary" >Payment options</summary>'), true, "native disclosure nesting")
+  areEqual(html.includes('<output id="amount" data-currency="USD" >$249</output>'), true, "output retains data attributes")
+  areEqual(html.includes('<input id="referral" autocapitalize="none" spellcheck="false"  />'), true, "input attributes do not become visible paragraphs")
+  areEqual(html.includes('<dl id="shipping" ><dt id="label" >Shipping</dt>\n<dd id="value" >Included</dd></dl>'), true, "definition list nesting")
+  areEqual(await cli.scrollToHtml("div Omitted\n hidden"), "", "existing hidden behavior is preserved")
+  areEqual(await cli.scrollToHtml("inlineCode account.near\n id address\n linkify false"), '<code id="address" >account.near</code>', "literal code element")
+}
+
 testParticles.compileAftertext = async areEqual => {
   const tests = [
     {

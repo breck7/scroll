@@ -158,4 +158,4 @@ This tutorial covered the basics of data science with Scroll. Some key takeaways
 
 ⁂
 
-Built with Scroll v180.0.1
+Built with Scroll v180.1.0

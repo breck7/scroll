@@ -2,17 +2,17 @@ Scroll Release Notes
 ====================
 Scroll Tutorial
 ===============
-09/18/2026
+09/29/2026
 https://scroll.surf/tutorial.html
 
 Scroll Roadmap
 ==============
-09/18/2026
+09/29/2026
 https://scroll.surf/roadmap.html
 
 Scroll FAQ
 ==========
-09/18/2026
+09/29/2026
 https://scroll.surf/faq.html
 
 A list of what has changed in Scroll releases.
@@ -24,6 +24,11 @@ Download as CSV | TSV | JSON
  https://scroll.surf/releaseNotes.json JSON
 [Image Omitted]
  https://github.com/breck7/scroll/actions/workflows/didTheTestsPass.yml undefined
+
+180.1.0 9/20/2026
+=================
+🎉 Added native small, details, summary, output, b, i, dl, dt, dd, dialog, noscript, and inlineCode elements for interactive pages.
+🎉 Added arbitrary aria- attributes, inert, autocapitalize, spellcheck, and htmlHidden. htmlHidden keeps an initially hidden element in the HTML; existing hidden still omits it from the build.
 
 180.0.1 9/17/2026
 =================
@@ -1287,26 +1292,26 @@ Demos
 =====
 
 date,year,title,permalink,authors,tags,wordCount,minutes
-09/18/2026,2026,Animation,animation.html,,,12,0.1
-09/18/2026,2026,Ci Badges,ciBadges.html,,,12,0.1
-09/18/2026,2026,Scroll Cloc Stats,cloc.html,,,66,0.3
-09/18/2026,2026,Download scroll.surf,download.html,,,49,0.2
-09/18/2026,2026,Scroll FAQ,faq.html,,main,3334,16.7
-09/18/2026,2026,Header,header.html,,,0,0
-09/18/2026,2026,Scroll LeetSheet,leetsheet.html,,,1180,5.9
-09/18/2026,2026,Parsers LeetSheet,parserLeetsheet.html,,,182,0.9
-09/18/2026,2026,Parser Usage,parserUsage.html,,,276,1.4
-09/18/2026,2026,Parsers,parsers.html,,,29947,149.7
-09/18/2026,2026,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
-09/18/2026,2026,Scroll is a language for scientists of all ages,index.html,,,157,0.8
-09/18/2026,2026,Scroll Release Notes,releaseNotes.html,,main,17386,86.9
-09/18/2026,2026,Scroll Roadmap,roadmap.html,,main,137,0.7
-09/18/2026,2026,Settings,settings.html,,,0,0
-09/18/2026,2026,Sitemap,sitemap.html,,,100,0.5
-09/18/2026,2026,Top Buttons,topButtons.html,,,0,0
-09/18/2026,2026,Scroll Tutorial,tutorial.html,,main,953,4.8
-09/18/2026,2026,Wws,wws.html,,,35,0.2
-09/18/2026,2026,Wws Redirect,wws.html,,,0,0
+09/29/2026,2026,Animation,animation.html,,,12,0.1
+09/29/2026,2026,Ci Badges,ciBadges.html,,,12,0.1
+09/29/2026,2026,Scroll Cloc Stats,cloc.html,,,66,0.3
+09/29/2026,2026,Download scroll.surf,download.html,,,49,0.2
+09/29/2026,2026,Scroll FAQ,faq.html,,main,3334,16.7
+09/29/2026,2026,Header,header.html,,,0,0
+09/29/2026,2026,Scroll LeetSheet,leetsheet.html,,,1223,6.1
+09/29/2026,2026,Parsers LeetSheet,parserLeetsheet.html,,,182,0.9
+09/29/2026,2026,Parser Usage,parserUsage.html,,,276,1.4
+09/29/2026,2026,Parsers,parsers.html,,,30185,150.9
+09/29/2026,2026,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
+09/29/2026,2026,Scroll is a language for scientists of all ages,index.html,,,157,0.8
+09/29/2026,2026,Scroll Release Notes,releaseNotes.html,,main,17437,87.2
+09/29/2026,2026,Scroll Roadmap,roadmap.html,,main,137,0.7
+09/29/2026,2026,Settings,settings.html,,,0,0
+09/29/2026,2026,Sitemap,sitemap.html,,,100,0.5
+09/29/2026,2026,Top Buttons,topButtons.html,,,0,0
+09/29/2026,2026,Scroll Tutorial,tutorial.html,,main,953,4.8
+09/29/2026,2026,Wws,wws.html,,,35,0.2
+09/29/2026,2026,Wws Redirect,wws.html,,,0,0
 
 127.0.0 9/4/2024
 ================
@@ -3943,4 +3948,4 @@ Cool!
 ================
 🎉 "git" scrollSetting for article source links.
 
-Built with Scroll v180.0.1
+Built with Scroll v180.1.0

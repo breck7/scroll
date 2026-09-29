@@ -33,6 +33,7 @@ assertHtmlIncludes - Test above particle's output.
 assertHtmlMatches - Test above particle's output.
 assertSilenceBelowErrors - Silence errors in the below particle in automated tests.
 authors - Set author(s) name(s).
+b - HTML tag.
 background - Quickly set CSS background.
 barchart - Bar chart widget.
 baseUrl - Required for RSS and OpenGraph.
@@ -79,6 +80,7 @@ css - A style tag.
 dashboard - Key stats in large font.
 datatable - A datatable.
 date - Set published date.
+dd - HTML tag.
 debugAbove - Inspect particle above.
 debugAll - Inspect entire document.
 debugBelow - Inspect particle below.
@@ -88,10 +90,14 @@ debugSourceStack - Print compilation steps.
 debugTest - Inspect entire document during test.
 dependencies - Get files this file depends on.
 description - Description for SEO meta tag.
+details - HTML tag.
+dialog - HTML tag.
 dinkus - A custom dinkus.
 disk - Output file into as datatable.
 div - HTML tag.
+dl - HTML tag.
 downloadButton - Link to download/WWS page.
+dt - HTML tag.
 dumpConcept - A code block.
 editBaseUrl - Override edit link baseUrl.
 editButton - Print badge top right.
@@ -123,12 +129,14 @@ homeButton - Home button.
 html - HTML one liners or blocks.
 htmlInlineParser - Inline HTML.
 htmlLang - Override HTML lang attribute.
+i - HTML tag.
 iframe - HTML tag.
 iframes - An iframe(s).
 image - An img tag.
 img - HTML tag.
 import - Import a file.
 importOnly - Don't build this file.
+inlineCode - A literal code element; use code for aftertext markup.
 inlineCss - Inline CSS from files.
 inlineJs - Inline JS from files.
 inlineMarkups - Set global inline markups.
@@ -158,10 +166,12 @@ music - Play sound files.
 nav - HTML tag.
 nickelbackIpsum - Generate dummy text.
 noFormat - Don't format below this line.
+noscript - HTML tag.
 notices - Display messages in URL query parameters.
 ol - HTML tag.
 openGraphImage - Override Open Graph Image.
 option - HTML tag.
+output - HTML tag.
 p - A paragraph.
 permalink - Override output filename.
 plainText - Plain text oneliner or block.
@@ -204,12 +214,14 @@ scrollVersionLink - Print Scroll version.
 section - HTML tag.
 select - HTML tag.
 slideshow - Slideshow widget. *** delimits slides.
+small - HTML tag.
 span - HTML tag.
 sparkline - Sparkline widget.
 stamp - Expand project template to disk.
 stopwatch - A stopwatch.
 strong - HTML tag.
 styles - Write CSS with Particle Syntax.
+summary - HTML tag.
 table - HTML tag.
 tableSearch - Table search and sort widget.
 tags - Set tags.
@@ -246,4 +258,4 @@ Links - Try Scroll · r/WorldWideScroll · Parsers LeetSheet · Particles LeetSh
 Parser usage rankings
 A rough _estimate_ of the parser usage in Scroll. Not all parsers have stats available yet.
 
-Built with Scroll v180.0.1
+Built with Scroll v180.1.0

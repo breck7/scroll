@@ -509,6 +509,25 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 assertionKindAtom
  enum includes excludes equals
  paint constant
@@ -1297,6 +1316,70 @@ htmlTbodyParser
   tbody
    tr
     td Cell 1
+htmlSmallParser
+ extends abstractHtmlElementParser
+ cue small
+ example
+  small Includes shipping and tax.
+htmlDetailsParser
+ extends abstractHtmlElementParser
+ cue details
+ example
+  details
+htmlSummaryParser
+ extends abstractHtmlElementParser
+ cue summary
+ example
+  summary Payment options
+htmlOutputParser
+ extends abstractHtmlElementParser
+ cue output
+ example
+  output
+htmlBParser
+ extends abstractHtmlElementParser
+ cue b
+ example
+  b Total
+htmlIParser
+ extends abstractHtmlElementParser
+ cue i
+ example
+  i Base
+htmlDlParser
+ extends abstractHtmlElementParser
+ cue dl
+ example
+  dl
+htmlDtParser
+ extends abstractHtmlElementParser
+ cue dt
+ example
+  dt Shipping
+htmlDdParser
+ extends abstractHtmlElementParser
+ cue dd
+ example
+  dd Included
+htmlDialogParser
+ extends abstractHtmlElementParser
+ cue dialog
+ example
+  dialog
+htmlNoscriptParser
+ extends abstractHtmlElementParser
+ cue noscript
+ example
+  noscript Please enable JavaScript.
+htmlInlineCodeParser
+ description A literal code element; use code for aftertext markup.
+ extends abstractHtmlElementParser
+ cue inlineCode
+ javascript
+  get tag() { return "code" }
+ example
+  inlineCode account.near
+   linkify false
 listAftertextParser
  popularity 0.014325
  extends abstractIndentableParagraphParser
@@ -6088,6 +6171,44 @@ aftertextAcceptParser
  description Set accepted file types for file inputs.
  extends abstractAftertextAttributeParser
  catchAllAtomType mimeTypeAtom
+aftertextAriaParser
+ description Set an ARIA attribute, including labelledby, describedby, hidden, modal, expanded, and controls.
+ extends abstractAftertextAttributeParser
+ pattern ^aria\-
+ atoms cueAtom
+ catchAllAtomType htmlAnyAtom
+ example
+  aside
+   role dialog
+   aria-modal true
+   aria-labelledby cart-title
+aftertextHtmlHiddenParser
+ description Emit the HTML hidden attribute while keeping the element in the document. Unlike hidden, this does not omit the element from the build.
+ extends abstractAftertextAttributeParser
+ cue htmlHidden
+ atoms cueAtom
+ single
+ string htmlAttributes hidden
+ example
+  div Cart contents
+   htmlHidden
+aftertextInertParser
+ description Keep a region noninteractive until a script removes the inert attribute.
+ extends abstractAftertextAttributeParser
+ cue inert
+ atoms cueAtom
+ single
+ string htmlAttributes inert
+aftertextAutocapitalizeParser
+ description Set input capitalization behavior.
+ extends abstractAftertextAttributeParser
+ cue autocapitalize
+ atoms cueAtom htmlAnyAtom
+aftertextSpellcheckParser
+ description Set browser spellchecking behavior.
+ extends abstractAftertextAttributeParser
+ cue spellcheck
+ atoms cueAtom htmlAnyAtom
 aftertextTagParser
  atoms cueAtom htmlTagAtom
  description Override the HTML tag that the compiled particle will use.
@@ -7957,7 +8078,7 @@ scrollParser
   }
   get scrollVersion() {
     // Keep in sync with package.json; checked by the scrollVersion test.
-    return "180.0.1"
+    return "180.1.0"
   }
   // Use the first paragraph for the description
   // todo: add a particle method version of get that gets you the first particle. (actulaly make get return array?)

@@ -275,6 +275,12 @@
     "popularity": 0
   },
   {
+    "id": "b",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "b Total"
+  },
+  {
     "id": "background",
     "description": "Quickly set CSS background.",
     "popularity": 722,
@@ -495,6 +501,12 @@
     "example": "datatable\n printTable\n data\n  year,count\n  1900,10\n  2000,122\n  2020,23"
   },
   {
+    "id": "dd",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "dd Included"
+  },
+  {
     "id": "debugAbove",
     "description": "Inspect particle above.",
     "popularity": 66,
@@ -548,6 +560,18 @@
     "popularity": 169
   },
   {
+    "id": "details",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "details"
+  },
+  {
+    "id": "dialog",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "dialog"
+  },
+  {
     "id": "dinkus",
     "description": "A custom dinkus.",
     "popularity": 0
@@ -565,9 +589,21 @@
     "example": "div\n # Hello world\n div\n  # Deeper"
   },
   {
+    "id": "dl",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "dl"
+  },
+  {
     "id": "downloadButton",
     "description": "Link to download/WWS page.",
     "popularity": 630
+  },
+  {
+    "id": "dt",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "dt Shipping"
   },
   {
     "id": "dumpConcept",
@@ -738,6 +774,12 @@
     "popularity": 0
   },
   {
+    "id": "i",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "i Base"
+  },
+  {
     "id": "iframe",
     "description": "HTML tag.",
     "popularity": 0,
@@ -765,6 +807,12 @@
     "id": "importOnly",
     "description": "Don't build this file.",
     "popularity": 3357
+  },
+  {
+    "id": "inlineCode",
+    "description": "A literal code element; use code for aftertext markup.",
+    "popularity": 0,
+    "example": "inlineCode account.near\n linkify false"
   },
   {
     "id": "inlineCss",
@@ -925,6 +973,12 @@
     "popularity": 0
   },
   {
+    "id": "noscript",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "noscript Please enable JavaScript."
+  },
+  {
     "id": "notices",
     "description": "Display messages in URL query parameters.",
     "popularity": 0
@@ -945,6 +999,12 @@
     "description": "HTML tag.",
     "popularity": 0,
     "example": "select\n option Choose an option\n option First Option"
+  },
+  {
+    "id": "output",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "output"
   },
   {
     "id": "p",
@@ -1168,6 +1228,12 @@
     "example": "slideshow\nWhy did the cow cross the road?\n***\nBecause it wanted to go to the MOOOO-vies.\n***\nTHE END\n****"
   },
   {
+    "id": "small",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "small Includes shipping and tax."
+  },
+  {
     "id": "span",
     "description": "HTML tag.",
     "popularity": 0,
@@ -1202,6 +1268,12 @@
     "description": "Write CSS with Particle Syntax.",
     "popularity": 0,
     "example": "styles\n .styleTest\n  h1\n   color blue\ndiv\n class styleTest\n h1 Hello world"
+  },
+  {
+    "id": "summary",
+    "description": "HTML tag.",
+    "popularity": 0,
+    "example": "summary Payment options"
   },
   {
     "id": "table",
