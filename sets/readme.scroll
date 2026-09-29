@@ -29,7 +29,7 @@ div
  h1 ScrollSets Starter Page
  p A text file can be your database.
 
-// div
+div
  class toolbar
  input
   id search
@@ -43,12 +43,28 @@ expander Analyze
 datatable points.json
  summarize
   printTable
-datatable points.json
  scatterplot
 
-container
- datatable points.json
+datatable points.json
+ <div class="records">
  printTable
+ </div>
 
-points.json
- printTable
+script
+ const input = document.getElementById("search")
+ const status = document.getElementById("status")
+ status.setAttribute("aria-live", "polite")
+ const applyFilter = () => {
+  const terms = input.value.toLowerCase().split(/\s+/).filter(Boolean)
+  const rows = document.querySelectorAll(".records tbody tr")
+  let matches = 0
+  rows.forEach(row => {
+   const text = row.textContent.toLowerCase()
+   const hit = terms.every(term => text.includes(term))
+   row.hidden = !hit
+   if (hit) matches++
+  })
+  status.textContent = `${matches} matching`
+ }
+ input.addEventListener("input", applyFilter)
+ applyFilter()
