@@ -23,10 +23,11 @@ br
 thinColumns
 
 📦 180.2.0 9/29/2026
-🎉 Thanks to Noemi (@NoemiTitarenco) for mentioning OpenChamber which improved ScrollSets starter.
+🎉 Thanks to Noemi (@NoemiTitarenco) for mentioning OpenChamber which improved ScrollSets Starter page.
  https://x.com/NoemiTitarenco @NoemiTitarenco
  https://noemititarenco.com/ Noemi
  https://openchamber.dev/ OpenChamber
+ sets/index.html ScrollSets Starter page
 
 📦 180.1.0 9/29/2026
 🎉 Added native small, details, summary, output, b, i, dl, dt, dd, dialog, noscript, and inlineCode elements for interactive pages.

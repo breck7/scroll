@@ -2,6 +2,8 @@ permalink index.html
 buildHtml
 title ScrollSets Starter Page
 
+editButton https://github.com/breck7/scroll/tree/main/sets
+
 css
  :root { --ink:#17211b; --muted:#69756e; --line:#dfe5e1; --paper:#fbfcfa; --accent:#2c6749; }
  * { box-sizing:border-box; }
