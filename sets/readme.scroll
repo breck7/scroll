@@ -1,0 +1,54 @@
+permalink index.html
+buildHtml
+title ScrollSets Starter Page
+
+css
+ :root { --ink:#17211b; --muted:#69756e; --line:#dfe5e1; --paper:#fbfcfa; --accent:#2c6749; }
+ * { box-sizing:border-box; }
+ body { max-width:1080px; margin:auto; padding:56px 24px 80px; background:var(--paper); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,sans-serif; }
+ .hero { margin-bottom:28px; }
+ h1 { margin:0; font-size:clamp(2.3rem,6vw,4.8rem); line-height:.95; letter-spacing:-.055em; }
+ .hero p { max-width:650px; color:var(--muted); font-size:1.05rem; }
+ .toolbar { display:flex; align-items:center; gap:14px; margin:24px 0 18px; }
+ input { width:100%; padding:13px 16px; border:1px solid var(--line); border-radius:12px; background:white; color:var(--ink); font:inherit; outline:none; }
+ input:focus { border-color:var(--accent); box-shadow:0 0 0 3px #2c674918; }
+ #status { white-space:nowrap; color:var(--muted); font-size:.9rem; }
+ details { margin:0 0 24px; border:1px solid var(--line); border-radius:14px; background:white; }
+ summary { cursor:pointer; padding:14px 16px; font-weight:650; }
+ table { width:100%; border-collapse:collapse; background:white; border:1px solid var(--line); }
+ th,td { padding:13px 14px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+ th { color:var(--muted); font-size:.72rem; text-transform:uppercase; letter-spacing:.07em; }
+ tr:last-child td { border-bottom:0; }
+ tbody tr:hover { background:#f4f7f5; }
+ tr[hidden] { display:none; }
+ svg { max-width:100%; height:auto; }
+ @media(max-width:760px) { .metrics{grid-template-columns:repeat(3,1fr)} body{padding:32px 14px 60px} }
+
+div
+ class hero
+ h1 ScrollSets Starter Page
+ p A text file can be your database.
+
+// div
+ class toolbar
+ input
+  id search
+  type search
+  placeholder Search records…
+  autocomplete off
+ span 0 matching
+  id status
+
+expander Analyze
+datatable points.json
+ summarize
+  printTable
+datatable points.json
+ scatterplot
+
+container
+ datatable points.json
+ printTable
+
+points.json
+ printTable
