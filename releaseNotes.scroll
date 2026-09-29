@@ -22,7 +22,13 @@ ciBadges.scroll
 br
 thinColumns
 
-📦 180.1.0 9/20/2026
+📦 180.2.0 9/29/2026
+🎉 Thanks to Noemi (@NoemiTitarenco) for mentioning OpenChamber which improved ScrollSets starter.
+ https://x.com/NoemiTitarenco @NoemiTitarenco
+ https://noemititarenco.com/ Noemi
+ https://openchamber.dev/ OpenChamber
+
+📦 180.1.0 9/29/2026
 🎉 Added native small, details, summary, output, b, i, dl, dt, dd, dialog, noscript, and inlineCode elements for interactive pages.
 🎉 Added arbitrary aria- attributes, inert, autocapitalize, spellcheck, and htmlHidden. htmlHidden keeps an initially hidden element in the HTML; existing hidden still omits it from the build.
 
