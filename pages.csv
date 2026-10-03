@@ -1,5 +1,4 @@
 date,year,title,permalink,authors,tags,wordCount,minutes
-10/03/2026,2026,Animation,animation.html,,,12,0.1
 10/03/2026,2026,Ci Badges,ciBadges.html,,,12,0.1
 10/03/2026,2026,Scroll Cloc Stats,cloc.html,,,66,0.3
 10/03/2026,2026,Download scroll.surf,download.html,,,49,0.2
@@ -7,7 +6,7 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 10/03/2026,2026,Header,header.html,,,0,0
 10/03/2026,2026,Scroll LeetSheet,leetsheet.html,,,1223,6.1
 10/03/2026,2026,Parsers LeetSheet,parserLeetsheet.html,,,182,0.9
-10/03/2026,2026,Parser Usage,parserUsage.html,,,276,1.4
+10/03/2026,2026,Parser Usage,parserUsage.html,,,274,1.4
 10/03/2026,2026,Parsers,parsers.html,,,30185,150.9
 10/03/2026,2026,Particles LeetSheet,particlesLeetsheet.html,,,124,0.6
 10/03/2026,2026,Scroll is a language for scientists of all ages,index.html,,,158,0.8
@@ -15,7 +14,7 @@ date,year,title,permalink,authors,tags,wordCount,minutes
 10/03/2026,2026,Scroll Roadmap,roadmap.html,,main,137,0.7
 10/03/2026,2026,Scroll Infographic Spec,scrollInfographicSpec.html,,,1136,5.7
 10/03/2026,2026,Settings,settings.html,,,0,0
-10/03/2026,2026,Sitemap,sitemap.html,,,105,0.5
+10/03/2026,2026,Sitemap,sitemap.html,,,100,0.5
 10/03/2026,2026,Top Buttons,topButtons.html,,,0,0
 10/03/2026,2026,Scroll Tutorial,tutorial.html,,main,953,4.8
 10/03/2026,2026,Wws,wws.html,,,35,0.2

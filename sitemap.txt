@@ -1,4 +1,3 @@
-https://scroll.surf/animation.html
 https://scroll.surf/ciBadges.html
 https://scroll.surf/cloc.html
 https://scroll.surf/download.html
