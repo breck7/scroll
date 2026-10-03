@@ -46,10 +46,11 @@ css
  .scrollCodeBlock { box-sizing: border-box; width: 100%; max-width: 32rem; margin: 0.75rem auto 1rem; padding: 0.75rem 1.25rem; border: 1px solid #dedfe2; border-radius: 8px; background: #f0f1f3; font-size: 0.85rem; line-height: 1.7; }
  .scrollColumns > br { display: none; }
  #theAnimation { --animationMarginBottom: 12px; --animationTranslateY: -12px; margin-top: 1rem; }
+ .scrollCaptionedFigure img { border: 1px solid #dedfe2; border-radius: 8px; box-shadow: 0 4px 16px #29313d1f; transition: transform .15s ease, box-shadow .15s ease; }
+ .scrollCaptionedFigure:hover img { transform: translateY(-3px); box-shadow: 0 6px 22px #29313d2e; }
+ .scrollCaptionedFigure figcaption { font-size: 0.85rem; color: #626975; margin-top: 0.4rem; }
 
 mediumColumns 1
-
-animation.scroll
 
 // ScrollHub
 //  http://hub.scroll.surf/ ScrollHub
@@ -70,6 +71,11 @@ Requires Node.js 24 or newer and Git.
 code
  npm install -g breck7/scroll
  scroll help
+
+## Learn
+
+scrollInfographic.png
+ width 256
 
 LeetSheet · Blog · Release Notes · FAQ · Tutorial
  center

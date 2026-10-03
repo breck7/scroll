@@ -371,7 +371,7 @@ scrollCode
  html <meta http-equiv="refresh" content="1;">
 
 ? How can I track web traffic?
-Scroll emits HTML with zero Javascript and does not have any tracking or cookies. You can easily add your own tracking tag if you want.
+Scroll emits HTML with no third-party Javascript and does not have any tracking or cookies. You can easily add your own tracking tag if you want.
 
 If you are self hosting using a web server like Nginx you might have some access logs on your server. The one liner below uses GoAccess to summarize recent Nginx access logs.
  https://goaccess.io GoAccess
@@ -432,11 +432,7 @@ Yes.
  https://www.reddit.com/r/WorldWideScroll/
 
 ? How many compiler passes are there in the language?
-Each Scroll file is currently passed over 4 times during compilation to HTML and/or text.
-1. The full file is read.
-2. All `import` statements are replaced with the contents of the imported file.
-3. All variable `replace` statements are executed and applied to the current file.
-4. Finally, an extended Scroll parser is constructed if needed (if any new parser definitions appear in the document), and then is used to parse the resulting file for compilation.
+One. Scroll became a single-pass language in v177 (April 2025). The whole file is streamed through a single pass: imports, macros, and parser definitions resolve as they are encountered, top to bottom. A macro therefore only affects lines after it.
 
 ? Is there a chart showing all the layers of Scroll?
 evolutionOfScroll.png
