@@ -4,11 +4,6 @@ Scroll is a language for scientists of all ages
 Publish and evolve your most intelligent ideas
 ==============================================
 
-With Scroll
-Words become Particles
-Connected by Parsers
-To guide the world
-
 Try now
  https://try.scroll.surf/ Try now
 
@@ -22,6 +17,12 @@ Requires Node.js 24 or newer and Git.
 npm install -g breck7/scroll
 scroll help
 ```
+
+Learn
+=====
+
+[Image Omitted]
+ width 256
 
 LeetSheet · Blog · Release Notes · FAQ · Tutorial
  https://scroll.surf/leetsheet.html LeetSheet

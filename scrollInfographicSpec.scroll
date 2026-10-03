@@ -1,0 +1,161 @@
+# Scroll — One-Page Infographic Spec
+
+**Deliverable:** a single portrait page (Letter/A4, 1× bleed, 300 dpi) that a stranger can read top-to-bottom in ~90 seconds and walk away able to say what Scroll is, why it is different, and what makes it tick.
+**Voice:** plain, confident, a little dry-humored. No buzzwords. "Scientists of all ages."
+**Anchor line:** *Publish and evolve your most intelligent ideas.*
+**Version stamp:** Scroll v180.2.0 · scroll.surf
+
+---
+
+## Canvas & Grid
+
+| Zone | Height | Purpose |
+|---|---|---|
+| 1. Hero | 18% | Name, tagline, three-word definition |
+| 2. The Stack | 14% | Particles → Parsers → Scroll |
+| 3. Why it matters | 24% | The 6 game-changing benefits |
+| 4. Tiny details | 26% | The dense "it hums" grid |
+| 5. Numbers band | 8% | Proof strip |
+| 6. Footer | 10% | Install, links, license, motto |
+
+Palette: warm paper `#faf9f6`, ink `#29313d`, muted `#626975`, scroll blue `#315b8f`. One accent per zone, no gradients. Type: humanist sans for body, mono for all code. Every code sample must be real and copy-pasteable.
+
+---
+
+## Zone 1 — Hero (top 18%)
+
+- **Eyebrow (mono, muted):** `scroll`
+- **Headline (huge):** **Scroll is a language for scientists of all ages.**
+- **Subhead:** Publish and evolve your most intelligent ideas.
+- **Three-word definition, set as three stacked chips:**
+  1. `Words become Particles`
+  2. `Connected by Parsers`
+  3. `To guide the world`
+- **One-sentence explainer:** A text format, a static-site generator, and an extendible language in one — as readable by hand as by a machine.
+- **Smallest real example beside the headline:**
+  ```
+  A link to Wikipedia
+   https://wikipedia.org Wikipedia
+  ```
+  Caption: *That is the whole syntax. A line, then a more-indented line.*
+
+---
+
+## Zone 2 — The Stack (14%)
+
+Three stacked boxes, bottom-to-top, with a one-line role each:
+
+| Layer | What it is | Role |
+|---|---|---|
+| **Scroll** | a language made of parsers | publish docs, sites, data |
+| **Parsers** | a language for making languages | define and inherit new parsers |
+| **Particles** | the syntax (atoms on lines + indent) | split a document into pieces |
+
+- Callout: **"Each line is almost its own file."** The off-side rule (a single extra space) scopes every line.
+- Tiny footnote: *Master the indent trick and you master Scroll.*
+
+---
+
+## Zone 3 — Why it matters (24%)
+
+Six benefit cards, 2×3. Each card = icon + 4-word title + one sentence + one proof.
+
+1. **One file, many languages.**
+   Add a Markdown, Textile, or BBCode block — or your own — with no escaping, because indentation scopes each block. *Proof: `indented-heredocs.scroll` composes three markup languages in one document.*
+2. **A language, not a generator.**
+   Define new parsers right inside your file; your symbolic tools grow with your thinking. *Proof: a working `recipeParser` in ~6 lines.*
+3. **Timeless plain text.**
+   Designed to be useful in 1800 and still useful in 2200 — it works on pen and paper and in git. *Proof: one article = one file, publicly tracked.*
+4. **One source, every output.**
+   Write once; emit HTML, TXT, CSV, TSV, JSON, and RSS. *Proof: a ScrollSet is a text file that is also a CSV and a schema.*
+5. **Structured data without a database.**
+   ScrollSets mix schema, docs, citations, and data in one file, then export clean tables. *Proof: PLDB — 100,000+ atoms, 1,000s of pages.*
+6. **Quiet by default.**
+   Output HTML ships no third-party JavaScript, no cookies, no trackers — only tiny inline enhancements. *Proof: view-source of scroll.surf.*
+
+---
+
+## Zone 4 — Tiny details that make it hum (26%)
+
+A dense, scannable grid (mono labels). These are the details that separate Scroll from "another Markdown."
+
+**How it compiles — one pass**
+Scroll is a **single-pass language** (since v177, April 2025). The whole file is streamed through one pass: imports, macros, and parser definitions resolve as they are encountered, top to bottom. A macro therefore only affects lines *after* it.
+
+**Syntax details**
+- Atoms split on a single space; particles split on newline; **one extra space = subparticle**
+- The **catch-all is the paragraph** — plain text just works
+- **Aftertext:** markup comes *after* the text it affects, so prose stays clean
+  ```
+  The theory of relativity
+   https://en.wikipedia.org/wiki/Relativity theory of relativity
+  ```
+- `//` comments print nothing; `***` dinkus breaks a section; `****` ends a post
+- `?` question, `!` counterpoint, `[]` / `[x]` checklists, `>` quote, `#`/`##` headers
+- `blink` exists as a joke (with a "please don't use this" note)
+
+**Project details**
+- `importOnly` — import a file but don't build it (perfect for `header.scroll` / `footer.scroll`)
+- `moveToFooter` — pull an import to the bottom
+- Circular imports are detected and reported
+- Macros: `replace YEAR 2022`, plus `replaceJs SUM 1+1`
+- Themes are just CSS: `roboto · gazette · dark · tufte · prestige`
+- `buildTxt` / `buildHtml` / `buildCsv` / `buildTsv` / `buildJson` / `buildRss`
+- RSS via a `feed.scroll`; sitemap via `sitemap.scroll`; custom 404 via `404.scroll`
+- Open Graph auto-fills from the article's first image and first paragraph
+- `tags` parser auto-builds category pages
+- Git-over-RSS: `<link rel="source" type="application/git" …>` in every page head
+- `assert` parsers make documents self-testing
+- Hot reload is one alias: `nodemon -e scroll -x "scroll build"`
+
+**ScrollSets (data in text)**
+- Four atoms: **concepts** (rows), **measures** (columns/schema), **values**, **measurements**
+- Rows start `id mars`; measures are `moonsParser` extending an abstract type
+- Nested comments are stripped from the CSV/TSV export but kept in source
+- `buildConcepts` + `buildMeasures` generate tables *about* your data
+
+**Microlanguages already shipped**
+`based64` (64×64 image as ASCII), `stamp` (60-line project templates), `counter`, `heatrix`, `sparkline`, `plot`, `dashboard`, `columns`, `forms`, `slideshow`, `qrcode`, `katex`, `maps`
+
+**Parsers as a system**
+- Inheritance + atom types + regex matching
+- The **cue** (first atom) is usually the most important information and drives matching
+- Like Lisp's best ideas, minus the parentheses
+
+---
+
+## Zone 5 — Numbers band (8%)
+
+A single horizontal strip, oversized numerals:
+
+| 110 | 1 | 700+ | 0 | ~650 | 200 |
+|---|---|---|---|---|---|
+| parser modules | compiler pass | releases | JS trackers | lines of CLI JS | test files |
+
+Side note: **Requires Node.js 24+ and Git.**
+
+---
+
+## Zone 6 — Footer (10%)
+
+- **Install (mono):**
+  ```
+  npm install -g breck7/scroll
+  scroll help
+  ```
+- **CLI commands:** `init · list · build · format · test · delete`
+- **Links:** scroll.surf · LeetSheet · Blog · FAQ · Tutorial · Release Notes · try.scroll.surf
+- **License:** Public domain (Breck's Lab).
+- **Closing motto (small, centered):**
+  > *"Scroll is a language for those who believe that what they cannot build with as few pieces as possible they do not understand."*
+- Honest footnote: *Biggest downside: a young ecosystem and still-rough parser docs. That is also the invitation.*
+
+---
+
+## Design Notes for the Illustrator
+
+- Show, don't tell: every benefit card carries one **real** code snippet rendered in mono on paper, not a screenshot.
+- Use one visual metaphor for the off-side rule — nested boxes indented one space each — repeated in Zones 1, 2, and 4 so the page teaches one idea three ways.
+- Keep the "each line is its own file" line visually separate and large; it is the thesis.
+- No stock photos, no gradients, no shadows. The aesthetic is a well-set scientific pamphlet that happens to be a website.
+- Text must survive grayscale printing: encode meaning in weight and indent, not color alone.
