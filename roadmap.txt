@@ -2,17 +2,17 @@ Scroll Roadmap
 ==============
 Scroll Tutorial
 ===============
-10/03/2026
+11/18/2026
 https://scroll.surf/tutorial.html
 
 Scroll Release Notes
 ====================
-10/03/2026
+11/18/2026
 https://scroll.surf/releaseNotes.html
 
 Scroll FAQ
 ==========
-10/03/2026
+11/18/2026
 https://scroll.surf/faq.html
 
 What major improvements are coming next?

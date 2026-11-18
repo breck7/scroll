@@ -4,13 +4,13 @@ const schemeRegex = /^[\w+.-]+:\/\//;
  * Matches the parts of a URL:
  * 1. Scheme, including ":", guaranteed.
  * 2. User/password, including "@", optional.
- * 3. Host, guaranteed.
+ * 3. Host, including brackets around IP literals, guaranteed.
  * 4. Port, including ":", optional.
  * 5. Path, including "/", optional.
  * 6. Query, including "?", optional.
  * 7. Hash, including "#", optional.
  */
-const urlRegex = /^([\w+.-]+:)\/\/([^@/#?]*@)?([^:/#?]*)(:\d+)?(\/[^#?]*)?(\?[^#]*)?(#.*)?/;
+const urlRegex = /^([\w+.-]+:)\/\/([^@/#?]*@)?(\[[^\]]+\]|[^:/#?]*)(:\d+)?(\/[^#?]*)?(\?[^#]*)?(#.*)?/;
 /**
  * File URLs are weird. They dont' need the regular `//` in the scheme, they may or may not start
  * with a leading `/`, they can have a domain (but only if they don't start with a Windows drive).

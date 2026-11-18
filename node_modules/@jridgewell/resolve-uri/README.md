@@ -2,7 +2,7 @@
 
 > Resolve a URI relative to an optional base URI
 
-Resolve any combination of absolute URIs, protocol-realtive URIs, absolute paths, or relative paths.
+Resolve any combination of absolute URIs, protocol-relative URIs, absolute paths, or relative paths.
 
 ## Installation
 
