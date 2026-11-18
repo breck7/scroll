@@ -1,0 +1,121 @@
+// Jeopardy: A Microlang for Jeopardy boards.
+
+jeopardyParser
+ description A Jeopardy board.
+ extends abstractScrollParser
+ cueFromId
+ inScope h1Parser jeopardyAnswerParser jeopardyQuestionParser blankLineParser slashCommentParser
+ example
+  jeopardy
+  # Science
+  A: This element makes up about 78% of Earth's atmosphere
+  Q: What is nitrogen?
+ javascript
+  buildHtml() {
+      const categories = []
+      let currentCategory = null
+      let currentQuestions = []
+      const content = this.root && this.root.toString ? this.root.toString() : this.toString()
+      content.split('\n').forEach(line => {
+        line = line.trim()
+        if (line.startsWith('# ')) {
+          if (currentCategory) {
+            categories.push({ name: currentCategory, questions: currentQuestions })
+          }
+          currentCategory = line.slice(2).trim()
+          currentQuestions = []
+        } else if (line.startsWith('A:')) {
+          currentQuestions.push({ question: line.slice(3).trim(), answer: '' })
+        } else if (line.startsWith('Q:')) {
+          if (currentQuestions.length)
+            currentQuestions[currentQuestions.length - 1].answer = line.slice(3).trim()
+        }
+      })
+      if (currentCategory) {
+        categories.push({ name: currentCategory, questions: currentQuestions })
+      }
+      const escapeHtml = str => String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+      const boardId = 'jeopardy-' + (this.lineIndex || 1)
+      const modalId = boardId + '-modal'
+      const columnCount = Math.max(categories.length, 1)
+      const css = 'body {background: #000033;}'
+        + '.scrollSection {display:none;}'
+        + '.jeopardy-board {display:grid;grid-template-columns:repeat(' + columnCount + ',1fr);gap:4px;padding:10px;background:#000033;font-family:"Swiss 911", Helvetica, sans-serif;width:98vw;height:95vh;max-width:1200px;margin:0 auto;}'
+        + '.jeopardy-category {background:#000099;color:white;padding:4px;text-align:center;font-size:16px;display:flex;align-items:center;justify-content:center;text-transform:uppercase;}'
+        + '.jeopardy-tile {background:#000099;color:#ffcc00;font-size:24px;padding:4px;text-align:center;cursor:pointer;min-height:0;display:flex;align-items:center;justify-content:center;transition:transform 0.2s;}'
+        + '.jeopardy-tile:hover {transform:scale(1.02);}'
+        + '.jeopardy-tile.answered {background:#000066;color:transparent;cursor:default;}'
+        + '.jeopardy-modal {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,51,0.95);display:none;align-items:center;justify-content:center;z-index:1000;cursor:pointer;}'
+        + '.jeopardy-modal.active {display:flex;}'
+        + '.jeopardy-modal-content {color:white;font-size:48px;text-align:center;max-width:80%;padding:40px;}'
+        + '@keyframes slideIn {from {transform:translateY(-100%);opacity:0;} to {transform:translateY(0);opacity:1;}}'
+        + '.jeopardy-modal.active .jeopardy-modal-content {animation:slideIn 0.5s ease-out;}'
+      let html = '<style>' + css + '</style>'
+      html += '<div id="' + boardId + '" class="jeopardy-board">'
+      categories.forEach(category => {
+        html += '<div class="jeopardy-category">' + escapeHtml(category.name) + '</div>'
+      })
+      for (let value = 200; value <= 1000; value += 200) {
+        const questionIndex = value / 200 - 1
+        categories.forEach(category => {
+          const item = category.questions[questionIndex]
+          if (item) {
+            html += '<div class="jeopardy-tile" data-question="' + escapeHtml(item.question) + '" data-answer="' + escapeHtml(item.answer) + '" data-value="' + value + '">$' + value + '</div>'
+          } else {
+            html += '<div class="jeopardy-tile answered"></div>'
+          }
+        })
+      }
+      html += '</div>'
+      html += '<div id="' + modalId + '" class="jeopardy-modal"><div class="jeopardy-modal-content"></div></div>'
+      html += '<script>'
+      html += '(function() {'
+      html += 'const board = document.getElementById("' + boardId + '");'
+      html += 'const modal = document.getElementById("' + modalId + '");'
+      html += 'const modalContent = modal.querySelector(".jeopardy-modal-content");'
+      html += 'let showingAnswer = false;'
+      html += 'let currentTile = null;'
+      html += 'board.querySelectorAll(".jeopardy-tile").forEach(function(tile) {'
+      html += 'tile.addEventListener("click", function() {'
+      html += 'if (tile.classList.contains("answered")) return;'
+      html += 'currentTile = tile;'
+      html += 'modalContent.textContent = tile.dataset.question;'
+      html += 'modal.classList.add("active");'
+      html += 'showingAnswer = false;'
+      html += '});'
+      html += '});'
+      html += 'modal.addEventListener("click", function() {'
+      html += 'if (!showingAnswer) {'
+      html += 'modalContent.textContent = currentTile.dataset.answer;'
+      html += 'showingAnswer = true;'
+      html += '} else {'
+      html += 'modal.classList.remove("active");'
+      html += 'currentTile.classList.add("answered");'
+      html += 'currentTile = null;'
+      html += 'showingAnswer = false;'
+      html += '}'
+      html += '});'
+      html += '})();'
+      html += '</' + 'script>'
+      return html
+    }
+
+jeopardyAnswerParser
+ description Jeopardy clue (the answer, shown first).
+ extends abstractScrollParser
+ cue A:
+ catchAllAtomType stringAtom
+ javascript
+  buildHtml() { return "" }
+
+jeopardyQuestionParser
+ description Jeopardy response (the question, shown second).
+ extends abstractScrollParser
+ cue Q:
+ catchAllAtomType stringAtom
+ javascript
+  buildHtml() { return "" }
