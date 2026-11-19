@@ -1,0 +1,92 @@
+// Demonstrates a Jeopardy Microlang
+
+permalink index.html
+buildHtml
+
+jeopardy.parsers
+
+jeopardy
+
+# Science
+A: This gas makes up about 78% of Earth’s atmosphere.
+Q: What is nitrogen?
+A: The SI unit of force is named after this English scientist.
+Q: Who is Isaac Newton?
+A: This organ produces insulin.
+Q: What is the pancreas?
+A: The chemical symbol for gold.
+Q: What is Au?
+A: This process converts light energy into chemical energy in plants.
+Q: What is photosynthesis?
+A: The number of planets in our solar system (as of 2006 definition).
+Q: What is 8?
+
+# History
+A: This empire built the Colosseum.
+Q: What is the Roman Empire?
+A: The year the Berlin Wall fell.
+Q: What is 1989?
+A: He was the first Holy Roman Emperor.
+Q: Who is Charlemagne?
+A: This French queen was executed during the Revolution.
+Q: Who is Marie Antoinette?
+A: The ancient wonder of the world located in Egypt.
+Q: What is the Great Pyramid of Giza?
+A: This war began in 1914.
+Q: What is World War I?
+
+# American History
+A: He was the first President of the United States.
+Q: Who is George Washington?
+A: This document was signed in 1776.
+Q: What is the Declaration of Independence?
+A: She was the first woman to fly solo across the Atlantic.
+Q: Who is Amelia Earhart?
+A: This war was fought between the North and South from 1861–1865.
+Q: What is the Civil War?
+A: The year the stock market crashed, starting the Great Depression.
+Q: What is 1929?
+A: He delivered the Gettysburg Address.
+Q: Who is Abraham Lincoln?
+
+# Literature
+A: Author of *Pride and Prejudice*.
+Q: Who is Jane Austen?
+A: This Shakespeare play features the characters Romeo and Juliet.
+Q: What is *Romeo and Juliet*?
+A: The author of *1984* and *Animal Farm*.
+Q: Who is George Orwell?
+A: This novel begins “It was the best of times, it was the worst of times.”
+Q: What is *A Tale of Two Cities*?
+A: The Russian author of *War and Peace*.
+Q: Who is Leo Tolstoy?
+A: This poet wrote “The Raven.”
+Q: Who is Edgar Allan Poe?
+
+# Potpourri
+A: This is the world’s largest ocean.
+Q: What is the Pacific Ocean?
+A: The capital of Canada.
+Q: What is Ottawa?
+A: This fruit is also known as a “Chinese gooseberry.”
+Q: What is a kiwi?
+A: The primary language spoken in Brazil.
+Q: What is Portuguese?
+A: This planet is known as the Red Planet.
+Q: What is Mars?
+A: The number of keys on a standard piano.
+Q: What is 88?
+
+# Sports
+A: This country has won the most FIFA World Cups.
+Q: What is Brazil?
+A: He is widely regarded as the greatest basketball player of all time.
+Q: Who is Michael Jordan?
+A: This event is held every four years and features summer and winter editions.
+Q: What are the Olympic Games?
+A: The only sport played on a diamond.
+Q: What is baseball?
+A: This American football team has won the most Super Bowls.
+Q: Who are the New England Patriots? (or Pittsburgh Steelers — tied at 6)
+A: The sport in which a shuttlecock is used.
+Q: What is badminton?
